@@ -1,6 +1,6 @@
 # Arabic WordNet 4.0 Statistics
 
-Generated: 2024
+Generated: 2026-01-22
 
 ## Summary
 
@@ -55,3 +55,9 @@ This version includes **SynsetRelations** (semantic, language-independent):
 - No empty lemmas
 - All synset relations point to valid targets
 - 15,632 relations skipped (target synset not in translated set)
+
+## Source Attribution
+
+- Derived from Open English WordNet 2024
+- Based on Princeton WordNet 3.0 structure
+- Translations generated with AI assistance (Google Gemini 3 Pro Preview)

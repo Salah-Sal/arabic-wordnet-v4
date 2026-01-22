@@ -1,99 +1,90 @@
-# Arabic WordNet 4.0 (AWN4)
+# Arabic WordNet 4.0
 
-A comprehensive Arabic WordNet with 109,823 synsets, derived from the Open English WordNet (OEWN) 2024.
+A comprehensive Arabic WordNet containing 109,823 synsets, derived from
+the Open English WordNet.
 
 ## Overview
 
 | Metric | Value |
 |--------|-------|
 | Total Synsets | 109,823 |
-| Nouns | ~84,000 |
-| Verbs | ~14,000 |
-| Adjectives | ~8,000 |
-| Adverbs | ~4,000 |
-| Coverage | 100% of OEWN 2024 |
+| Coverage | 100% of OEWN |
+| Language | Modern Standard Arabic (arb) |
+| Format | WN-LMF 1.4 XML |
+| License | CC BY 4.0 |
 
-## Quick Start
+## Download
+
+- **Primary file**: `awn4.xml.gz`
+- **Format**: WN-LMF 1.4 (Global WordNet Association standard)
+
+## Installation
+
+### Using the `wn` Python library
+
+```bash
+pip install wn
+```
 
 ```python
 import wn
+wn.download('file:awn4.xml.gz')
 
-# Add Arabic WordNet 4.0 from local file
-wn.add('awn4.xml')
-
-# Use it
-ar = wn.Wordnet('awn4')
-synsets = list(ar.synsets())
-print(f'Total synsets: {len(synsets)}')
-
-# Look up a word
-words = ar.words(form='كتاب')
-for word in words:
-    for sense in word.senses():
-        ss = sense.synset()
-        print(f'{ss.id}: {ss.definition()}')
+# Query Arabic synsets
+synsets = wn.synsets(lang='arb')
+print(f"Total synsets: {len(synsets)}")
 ```
-
-Output:
-```
-Total synsets: 109823
-awn4-02873453-n: أشياء مادية تتكون من عدد من الصفحات مجلدة معاً
-awn4-06422547-n: عمل مكتوب أو مؤلف تم نشره (مطبوع على صفحات مجلدة معاً)
-awn4-06406508-n: قسم رئيسي من عمل مكتوب طويل
-```
-
-## Format
-
-AWN4 is distributed in WN-LMF 1.4 XML format, compatible with:
-- Global WordNet Association standards
-- Open Multilingual Wordnet (OMW)
-- Python `wn` library
-
-## Attribution
-
-This Arabic WordNet is derived from the [Open English WordNet](https://en-word.net/),
-developed by the Global WordNet Association and licensed under
-[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
-
-## License
-
-CC BY 4.0 - Creative Commons Attribution 4.0 International
-
-## Version History
-
-- **v4.0** (2024): Initial release with 109,823 synsets
-  - Based on OEWN 2024
-  - Includes SynsetRelations (hypernym, hyponym, meronymy, etc.)
-  - Excludes SenseRelations (antonym, derivation) for accuracy
 
 ## Citation
 
+If you use this resource, please cite:
+
+```
+Abdo, S. (2026). Arabic WordNet 4.0. https://github.com/Salah-Sal/arabic-wordnet-v4
+```
+
+BibTeX:
+
 ```bibtex
-@inproceedings{awn4,
-  title = {Arabic WordNet 4.0: A Comprehensive Arabic Lexical Database},
-  author = {[Authors]},
-  booktitle = {Proceedings of the Global WordNet Conference 2024},
-  year = {2024}
+@misc{abdo2026arabicwordnet,
+  author       = {Abdo, Salah},
+  title        = {{Arabic WordNet 4.0}},
+  year         = {2026},
+  month        = jan,
+  publisher    = {GitHub},
+  url          = {https://github.com/Salah-Sal/arabic-wordnet-v4},
+  note         = {Derived from Open English WordNet}
 }
 ```
 
+## Methodology
+
+Arabic WordNet 4.0 was created by translating the Open English WordNet
+into Arabic using AI-assisted translation (Google Gemini 3 Pro Preview).
+
+## Attribution
+
+This resource is derived from:
+
+- **Open English WordNet** - https://en-word.net/
+  Copyright (c) 2019-present, The Open English WordNet Team
+  Licensed under CC BY 4.0
+
+- **Princeton WordNet 3.0** - https://wordnet.princeton.edu/
+  Copyright 2006 by Princeton University
+
+## License
+
+This work is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+
+See [LICENSE](LICENSE) and [NOTICE](NOTICE) for full details.
+
 ## Contact
 
-[Contact Information]
+- **Author**: Salah Abdo
+- **Email**: Salah.Abdo.Tech@gmail.com
+- **Issues**: https://github.com/Salah-Sal/arabic-wordnet-v4/issues
 
-## Project Structure
+## Version History
 
-```
-arabic-wordnet-v4/
-├── README.md               # This file
-├── LICENSE                 # CC BY 4.0 license
-├── CHANGELOG.md           # Version history
-├── CITATION.bib           # BibTeX citation
-├── output/
-│   ├── awn4.xml           # Main WordNet file (WN-LMF 1.4)
-│   └── awn4.xml.gz        # Compressed version (10 MB)
-├── scripts/
-│   └── convert_to_lmf.py  # Conversion script
-└── docs/
-    └── statistics.md      # Detailed statistics
-```
+See [CHANGELOG.md](CHANGELOG.md) for version history.

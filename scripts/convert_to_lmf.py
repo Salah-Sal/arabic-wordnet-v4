@@ -42,9 +42,12 @@ LEXICON_LABEL = "Arabic WordNet 4.0"
 LANGUAGE = "arb"  # BCP-47 for Modern Standard Arabic
 VERSION = "4.0"
 LICENSE_URL = "https://creativecommons.org/licenses/by/4.0/"
-EMAIL = "contact@example.com"  # Update with actual email
+EMAIL = "Salah.Abdo.Tech@gmail.com"
 PROJECT_URL = "https://github.com/Salah-Sal/arabic-wordnet-v4"
-CITATION = "Arabic WordNet 4.0 (2024). A Comprehensive Arabic Lexical Database."
+CITATION = "Abdo, S. (2026). Arabic WordNet 4.0. https://github.com/Salah-Sal/arabic-wordnet-v4"
+PUBLISHER = "Salah Abdo"
+CONTRIBUTOR = "Salah Abdo"
+DATE = "2026-01-22"
 
 # Path to Arabic translations (relative to this script)
 SCRIPT_DIR = Path(__file__).parent
@@ -266,8 +269,12 @@ def generate_lmf_xml(ar_translations: dict, oewn_data: dict) -> Element:
     lexicon.set('version', VERSION)
     lexicon.set('url', PROJECT_URL)
     lexicon.set('citation', CITATION)
-    lexicon.set('dc:description', f'Arabic WordNet with {len(ar_translations)} synsets derived from Open English WordNet')
-    lexicon.set('dc:source', 'Derived from Open English WordNet 2024 (https://en-word.net/)')
+    lexicon.set('dc:description', f'Arabic translation of Open English WordNet containing {len(ar_translations)} synsets. Translations generated with AI assistance (Google Gemini 3 Pro Preview).')
+    lexicon.set('dc:source', 'Derived from Open English WordNet 2024 (https://en-word.net/), which is based on Princeton WordNet 3.0')
+    lexicon.set('dc:rights', 'CC BY 4.0. Attribution required to Open English WordNet and Princeton WordNet.')
+    lexicon.set('dc:publisher', PUBLISHER)
+    lexicon.set('dc:contributor', CONTRIBUTOR)
+    lexicon.set('dc:date', DATE)
 
     # Add dependency declaration (required by WN-LMF standard for derived wordnets)
     requires = SubElement(lexicon, 'Requires')
