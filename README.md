@@ -1,5 +1,8 @@
 # Arabic WordNet 4.0
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18335226.svg)](https://doi.org/10.5281/zenodo.18335226)
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+
 A comprehensive Arabic WordNet containing 109,823 synsets, derived from
 the Open English WordNet.
 
@@ -40,20 +43,22 @@ print(f"Total synsets: {len(synsets)}")
 If you use this resource, please cite:
 
 ```
-Abdo, S. (2026). Arabic WordNet 4.0. https://github.com/Salah-Sal/arabic-wordnet-v4
+Abdo, S. (2026). Arabic WordNet 4.0 (v4.0.0) [Data set]. Zenodo.
+https://doi.org/10.5281/zenodo.18335226
 ```
 
 BibTeX:
 
 ```bibtex
-@misc{abdo2026arabicwordnet,
+@dataset{abdo2026arabicwordnet,
   author       = {Abdo, Salah},
   title        = {{Arabic WordNet 4.0}},
   year         = {2026},
   month        = jan,
-  publisher    = {GitHub},
-  url          = {https://github.com/Salah-Sal/arabic-wordnet-v4},
-  note         = {Derived from Open English WordNet}
+  publisher    = {Zenodo},
+  version      = {4.0.0},
+  doi          = {10.5281/zenodo.18335226},
+  url          = {https://doi.org/10.5281/zenodo.18335226}
 }
 ```
 
