@@ -269,6 +269,12 @@ def generate_lmf_xml(ar_translations: dict, oewn_data: dict) -> Element:
     lexicon.set('dc:description', f'Arabic WordNet with {len(ar_translations)} synsets derived from Open English WordNet')
     lexicon.set('dc:source', 'Derived from Open English WordNet 2024 (https://en-word.net/)')
 
+    # Add dependency declaration (required by WN-LMF standard for derived wordnets)
+    requires = SubElement(lexicon, 'Requires')
+    requires.set('id', 'oewn')
+    requires.set('version', '2024')
+    requires.set('url', 'https://en-word.net/')
+
     # Track entries: {(lemma, pos): [senses]}
     entries = defaultdict(list)
 
