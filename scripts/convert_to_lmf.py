@@ -55,6 +55,9 @@ PROJECT_ROOT = SCRIPT_DIR.parent
 AR_BATCHES_DIR = PROJECT_ROOT.parent / "arabic-wordnet-awn3" / "data" / "output" / "batches_750_ar"
 OUTPUT_DIR = PROJECT_ROOT / "output"
 
+# Supplementary translations for upper-ontology synsets missing from batch files
+UPPER_ONTOLOGY_FILE = PROJECT_ROOT / "data" / "upper_ontology_translations.json"
+
 # SynsetRelations to include (semantic, language-independent)
 INCLUDED_SYNSET_RELATIONS = {
     'hypernym', 'hyponym',
@@ -191,6 +194,48 @@ def load_arabic_translations(batches_dir: Path) -> dict:
             logger.error(f"Error loading {file_path}: {e}")
 
     logger.info(f"Loaded {len(translations)} translations from {file_count} files")
+    return translations
+
+
+def load_upper_ontology_translations(filepath: Path) -> dict:
+    """Load supplementary translations for upper-ontology synsets.
+
+    These are the ~78 top-level OEWN noun synsets (entity, physical entity,
+    abstraction, object, organism, etc.) that were not included in the
+    original batch translation process.
+
+    Returns:
+        dict: {oewn_id: {lem_ar: [...], def_ar: str, ex_ar: [...]}}
+    """
+    if not filepath.exists():
+        logger.warning(f"Upper ontology file not found: {filepath}")
+        return {}
+
+    logger.info(f"Loading upper-ontology translations from {filepath}")
+
+    with open(filepath, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+
+    translations = {}
+    for entry in data.get('translations', []):
+        synset_id = entry['id']
+
+        lem_ar = [normalize_arabic(lem) for lem in entry.get('lem_ar', [])]
+        lem_ar = [lem for lem in lem_ar if lem]
+        seen = set()
+        lem_ar = [x for x in lem_ar if not (x in seen or seen.add(x))]
+
+        def_ar = normalize_arabic(entry.get('def_ar', ''))
+        ex_ar = [normalize_arabic(ex) for ex in entry.get('ex_ar', [])]
+        ex_ar = [ex for ex in ex_ar if ex]
+
+        translations[synset_id] = {
+            'lem_ar': lem_ar,
+            'def_ar': def_ar,
+            'ex_ar': ex_ar
+        }
+
+    logger.info(f"Loaded {len(translations)} upper-ontology translations")
     return translations
 
 
@@ -480,6 +525,8 @@ def main():
     try:
         # Load data
         ar_translations = load_arabic_translations(args.ar_batches)
+        upper_translations = load_upper_ontology_translations(UPPER_ONTOLOGY_FILE)
+        ar_translations.update(upper_translations)
         oewn_data = load_oewn_data()
 
         # Generate XML
