@@ -7,12 +7,14 @@ import csv
 import re
 import xml.etree.ElementTree as ET
 from collections import defaultdict
+from pathlib import Path
 import random
 
-BASE = "/Users/salahmac/Desktop/MLProjects/wn-project/arabic-wordnet-v4"
-ONTOLOGY_DIR = f"{BASE}/experiments/arabic-ontology"
-AWN4_XML = f"{BASE}/output/awn4.xml"
-OUTPUT_FILE = f"{BASE}/experiments/ontology_vs_awn4_comparison.txt"
+SCRIPT_DIR = Path(__file__).resolve().parent
+AWN4_BASE = SCRIPT_DIR.parent.parent
+ONTOLOGY_DIR = str(SCRIPT_DIR / "data")
+AWN4_XML = str(AWN4_BASE / "output" / "awn4.xml")
+OUTPUT_FILE = str(SCRIPT_DIR / "ontology_vs_awn4_comparison.txt")
 
 # Arabic diacritic removal for fuzzy matching
 DIACRITICS = re.compile(r'[\u064B-\u065F\u0670\u06D6-\u06ED]')

@@ -2,10 +2,13 @@ import xml.etree.ElementTree as ET
 import csv
 import random
 import os
+from pathlib import Path
 
 # Paths
-source_xml = "../output/awn4.xml"
-output_csv = "sample_for_review.csv"
+SCRIPT_DIR = Path(__file__).resolve().parent
+AWN4_BASE = SCRIPT_DIR.parent.parent
+source_xml = str(AWN4_BASE / "output" / "awn4.xml")
+output_csv = str(SCRIPT_DIR / "sample_for_review.csv")
 sample_size = 100
 
 def get_synset_data(xml_file):

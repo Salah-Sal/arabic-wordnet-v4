@@ -15,15 +15,17 @@ import csv
 import re
 import xml.etree.ElementTree as ET
 from collections import defaultdict, deque
+from pathlib import Path
 import time
 
 # ============================================================
 # Configuration
 # ============================================================
-BASE = "/Users/salahmac/Desktop/MLProjects/wn-project/arabic-wordnet-v4"
-ONTOLOGY_DIR = f"{BASE}/experiments/arabic-ontology"
-AWN4_XML = f"{BASE}/output/awn4.xml"
-OUTPUT_REPORT = f"{BASE}/experiments/hierarchy_comparison_report.txt"
+SCRIPT_DIR = Path(__file__).resolve().parent
+AWN4_BASE = SCRIPT_DIR.parent.parent
+ONTOLOGY_DIR = str(SCRIPT_DIR / "data")
+AWN4_XML = str(AWN4_BASE / "output" / "awn4.xml")
+OUTPUT_REPORT = str(SCRIPT_DIR / "hierarchy_comparison_report.txt")
 
 MAX_HOPS = 8   # Maximum hypernym chain depth to search
 SAMPLE_PER_CATEGORY = 15  # Number of detailed examples per category in report

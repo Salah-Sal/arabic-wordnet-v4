@@ -8,12 +8,14 @@ import csv
 import re
 import xml.etree.ElementTree as ET
 from collections import defaultdict, deque
+from pathlib import Path
 import time
 import json
 
-BASE = "/Users/salahmac/Desktop/MLProjects/wn-project/arabic-wordnet-v4"
-ONTOLOGY_DIR = f"{BASE}/experiments/arabic-ontology"
-AWN4_XML = f"{BASE}/output/awn4.xml"
+SCRIPT_DIR = Path(__file__).resolve().parent
+AWN4_BASE = SCRIPT_DIR.parent.parent
+ONTOLOGY_DIR = str(SCRIPT_DIR / "data")
+AWN4_XML = str(AWN4_BASE / "output" / "awn4.xml")
 
 MAX_HOPS = 8
 
@@ -180,7 +182,7 @@ def concept_info(cid):
     gloss = c.get("gloss", "")[:100]
     return f"[{cid}] {ar}" + (f" ({en})" if en and en != "NULL" else "") + (f" // {gloss}" if gloss else "")
 
-out_path = f"{BASE}/experiments/validation_all_agree.txt"
+out_path = str(SCRIPT_DIR / "validation_all_agree.txt")
 with open(out_path, "w", encoding="utf-8") as out:
     out.write(f"ALL {len(results_agree)} AGREE CASES — Full Detail for Linguistic Review\n")
     out.write("=" * 120 + "\n\n")
@@ -216,7 +218,7 @@ with open(out_path, "w", encoding="utf-8") as out:
 print(f"Wrote: {out_path}")
 
 # Phase 6: Dump first 100 DISAGREE with full detail
-out_path2 = f"{BASE}/experiments/validation_disagree_sample.txt"
+out_path2 = str(SCRIPT_DIR / "validation_disagree_sample.txt")
 with open(out_path2, "w", encoding="utf-8") as out:
     n = min(100, len(results_disagree))
     out.write(f"DISAGREE CASES — {n} of {len(results_disagree)} — Full Detail\n")
