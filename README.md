@@ -1,6 +1,6 @@
 # Arabic WordNet 4.0
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18335226.svg)](https://doi.org/10.5281/zenodo.18335226)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18759165.svg)](https://doi.org/10.5281/zenodo.18759165)
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
 A comprehensive Arabic WordNet containing 109,823 synsets, derived from
@@ -18,24 +18,57 @@ the Open English WordNet.
 
 ## Download
 
-- **Primary file**: `awn4.xml.gz`
+- **Primary file**: [`output/awn4.xml.gz`](output/awn4.xml.gz)
 - **Format**: WN-LMF 1.4 (Global WordNet Association standard)
+- **Also available on**: [Zenodo](https://doi.org/10.5281/zenodo.18759165)
 
 ## Installation
 
-### Using the `wn` Python library
+Arabic WordNet 4.0 is a data file, not a Python package. To use it in Python,
+you need the [`wn`](https://pypi.org/project/wn/) library (v1.0.0+, requires
+Python 3.10+).
+
+### Setup
 
 ```bash
-pip install wn
+# Clone the repository
+git clone https://github.com/Salah-Sal/arabic-wordnet-v4.git
+cd arabic-wordnet-v4
+
+# Create a virtual environment (Python 3.10+ required)
+python3 -m venv venv
+source venv/bin/activate   # On Windows: venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
 ```
+
+### Usage
 
 ```python
 import wn
-wn.download('file:awn4.xml.gz')
+
+# Load the data (one-time — persists to a local SQLite database)
+wn.add('output/awn4.xml.gz')  # path relative to repo root
+
+# Verify
+print(wn.lexicons())  # [<Lexicon awn4:4.0 [arb]>]
 
 # Query Arabic synsets
 synsets = wn.synsets(lang='arb')
 print(f"Total synsets: {len(synsets)}")
+
+# Look up a word
+for ss in wn.synsets('كتاب', lang='arb'):
+    print(ss.id, ss.lemmas(), ss.definition())
+```
+
+After the initial `wn.add()` call, the data is cached locally and you can query
+it in future sessions without reloading:
+
+```python
+import wn
+synsets = wn.synsets(lang='arb')  # works immediately, no wn.add() needed
 ```
 
 ## Citation
@@ -44,7 +77,7 @@ If you use this resource, please cite:
 
 ```
 Abdo, S. (2026). Arabic WordNet 4.0 (v4.0.0) [Data set]. Zenodo.
-https://doi.org/10.5281/zenodo.18335226
+https://doi.org/10.5281/zenodo.18759165
 ```
 
 BibTeX:
@@ -57,8 +90,8 @@ BibTeX:
   month        = jan,
   publisher    = {Zenodo},
   version      = {4.0.0},
-  doi          = {10.5281/zenodo.18335226},
-  url          = {https://doi.org/10.5281/zenodo.18335226}
+  doi          = {10.5281/zenodo.18759165},
+  url          = {https://doi.org/10.5281/zenodo.18759165}
 }
 ```
 
