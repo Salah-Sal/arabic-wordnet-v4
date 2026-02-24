@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | **Date** | 2026-02-24 |
-| **Status** | Design phase — review framework defined, implementation pending |
+| **Status** | Level 1 (Lemma Quality) complete; Levels 2–7 pending |
 
 ---
 
@@ -698,6 +698,33 @@ Based on prior experiments and the exploration in this design phase:
 
 ---
 
+## Directory Structure
+
+```
+synset_linguistic_audit/
+├── EXPERIMENT_LOG.md                  # This file — design doc (35 questions, 7 levels)
+├── research/                          # Background research & references
+│   ├── README.md
+│   ├── CAMeL Tools — Capability Inventory for AWN4 Audit.md
+│   └── Open-source toolkit for auditing Arabic WordNet 4.0.md
+├── level1_lemma_quality/              # Level 1: Lemma Quality (CALIMA validation)
+│   ├── calima_lemma_audit.py          #   Script — 6 checks per lemma
+│   ├── CALIMA_AUDIT_EVALUATION.md     #   100-sample linguist evaluation
+│   └── output/
+│       ├── calima_lemma_audit.json    #   Full results (375 MB, 124,768 lemmas)
+│       └── calima_audit_100_samples.json  # Evaluation sample data
+├── level2_definition_quality/         # (future)
+├── level3_example_quality/            # (future)
+├── level4_pos_validation/             # (future)
+├── level5_semantic_relations/         # (future)
+├── level6_arabic_properties/          # (future)
+└── level7_cross_synset_consistency/   # (future)
+```
+
+Each level directory follows the same pattern: scripts at the top, evaluation reports alongside, output data in `output/`.
+
+---
+
 ## Relationship to Other Experiments
 
 ```
@@ -705,5 +732,5 @@ prefilter/                  ──→ Tier 1 checks extend its automated flags
 polysemy_reviews/           ──→ Tier 3 group-level patterns reused
 linguist_review/            ──→ Review axes informed this framework; mega-prompt approach NOT reused
 arabic_ontology_comparison/ ──→ Hypernym validation data reusable for Q5.1
-This experiment             ──→ active frontier (design complete, implementation pending)
+This experiment             ──→ active frontier (Level 1 complete, Levels 2–7 pending)
 ```
