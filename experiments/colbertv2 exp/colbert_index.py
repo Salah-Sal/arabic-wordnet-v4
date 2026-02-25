@@ -415,6 +415,7 @@ def load_index(backend="voyager"):
             index_name="synset_colbert",
             override=False,
             embedding_size=128,
+            ef_search=500,  # high enough for cross-lingual k_token queries
         )
     elif backend == "plaid":
         index = indexes.PLAID(
@@ -441,11 +442,25 @@ def search(query, model, index, metadata, ili_map, k=10, lang="all", pos=None):
         batch_size=1,
     )
 
-    # Over-retrieve for post-filtering
-    over_k = k * 5 if (lang != "all" or pos) else k
+    # Over-retrieve for post-filtering.
+    # For Voyager, retrieval is two-stage: (1) token-level ANN via k_token, then
+    # (2) document-level reranking via k. Cross-lingual filtering needs a much
+    # larger k_token because in-language token embeddings dominate ANN results —
+    # the HNSW graph clusters tokens by language, so Arabic query tokens' nearest
+    # neighbors are overwhelmingly Arabic document tokens.
+    if lang != "all":
+        over_k = k * 50
+        k_token = 500  # cast a wide net at the token level for cross-lingual
+    elif pos:
+        over_k = k * 5
+        k_token = 200
+    else:
+        over_k = k
+        k_token = 100
     results_raw = retriever.retrieve(
         queries_embeddings=query_emb,
         k=over_k,
+        k_token=k_token,
     )
 
     # Post-filter and enrich
