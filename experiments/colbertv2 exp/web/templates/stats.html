@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %}إحصائيات — بحث دلالي{% endblock %}
+
+{% block content %}
+<div class="container-wide">
+    <h2 style="text-align:center; margin:1.5rem 0 0.5rem;">إحصائيات الفهرس</h2>
+    <p style="text-align:center; font-size:0.9rem; color:var(--text-muted); font-family:system-ui,sans-serif; margin-bottom:1.5rem;">Index Statistics</p>
+
+    <!-- Big number cards -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="number">{{ "{:,}".format(stats.total_documents) }}</div>
+            <div class="label">وثيقة / Documents</div>
+        </div>
+        <div class="stat-card">
+            <div class="number">{{ "{:,}".format(stats.total_ili) }}</div>
+            <div class="label">رابط ILI / ILI Links</div>
+        </div>
+        <div class="stat-card">
+            <div class="number">{{ stats.source_count }}</div>
+            <div class="label">مصادر / Sources</div>
+        </div>
+    </div>
+
+    <!-- Documents by source type -->
+    <div class="card">
+        <div class="card-label">Documents by Source Type</div>
+        <div class="bar-chart">
+            {% for source, count in stats.source_counts %}
+            <div class="bar-row">
+                <span class="bar-label">{{ source|source_name }}</span>
+                <div class="bar-track">
+                    <div class="bar-fill bar-fill-{{ source }}"
+                         style="width:{{ (count / stats.max_source_count * 100)|round(1) }}%"></div>
+                </div>
+                <span class="bar-count">{{ "{:,}".format(count) }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Documents by language -->
+    <div class="card">
+        <div class="card-label">Documents by Language</div>
+        <div class="bar-chart">
+            {% for lang, count in stats.lang_counts %}
+            <div class="bar-row">
+                <span class="bar-label">{{ lang|upper }}</span>
+                <div class="bar-track">
+                    <div class="bar-fill bar-fill-{{ lang }}"
+                         style="width:{{ (count / stats.max_lang_count * 100)|round(1) }}%"></div>
+                </div>
+                <span class="bar-count">{{ "{:,}".format(count) }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Documents by POS -->
+    <div class="card">
+        <div class="card-label">Documents by POS</div>
+        <div class="bar-chart">
+            {% for pos, count in stats.pos_counts %}
+            <div class="bar-row">
+                <span class="bar-label">{{ pos|pos_label }}</span>
+                <div class="bar-track">
+                    <div class="bar-fill"
+                         style="width:{{ (count / stats.max_pos_count * 100)|round(1) }}%"></div>
+                </div>
+                <span class="bar-count">{{ "{:,}".format(count) }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- System info -->
+    <div class="card">
+        <div class="card-label">System Info</div>
+        <dl class="info-grid">
+            <dt>Model</dt>
+            <dd>{{ stats.model_name }}</dd>
+            <dt>Index Backend</dt>
+            <dd>{{ stats.index_backend }}</dd>
+            {% if stats.index_size_mb %}
+            <dt>Index Size</dt>
+            <dd>{{ "%.1f"|format(stats.index_size_mb) }} MB</dd>
+            {% endif %}
+            {% if stats.metadata_size_mb %}
+            <dt>Metadata Size</dt>
+            <dd>{{ "%.1f"|format(stats.metadata_size_mb) }} MB</dd>
+            {% endif %}
+        </dl>
+    </div>
+</div>
+{% endblock %}

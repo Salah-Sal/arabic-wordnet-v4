@@ -1,0 +1,47 @@
+<div class="detail-content">
+    <dl class="detail-grid">
+        <dt>Synset ID</dt>
+        <dd style="direction:ltr; unicode-bidi:isolate;">{{ meta.synset_id }}</dd>
+
+        {% if meta.ili %}
+        <dt>ILI</dt>
+        <dd style="direction:ltr; unicode-bidi:isolate;">{{ meta.ili }}</dd>
+        {% endif %}
+
+        <dt>Language</dt>
+        <dd>{{ meta.lang|upper }}</dd>
+
+        <dt>POS</dt>
+        <dd>{{ meta.pos|pos_label }}</dd>
+
+        <dt>Source</dt>
+        <dd>{{ meta.source_type|source_name }}</dd>
+
+        <dt>Lemmas</dt>
+        <dd>
+            {% for lemma in meta.lemmas %}
+            <span class="lemma-tag">{{ lemma }}</span>
+            {% endfor %}
+        </dd>
+
+        <dt>Definition</dt>
+        <dd dir="auto">{{ meta.definition or '—' }}</dd>
+    </dl>
+
+    {% if cross_ref %}
+    <div class="detail-xrefs">
+        <h4>Cross-lingual References (ILI: {{ meta.ili }})</h4>
+        {% for xr in cross_ref %}
+        <div class="xref-card">
+            <span class="badge badge-lang-{{ xr.lang }}">{{ xr.lang|upper }}</span>
+            <span class="badge badge-{{ xr.source_type }}">{{ xr.source_type|source_name }}</span>
+            <strong dir="auto">{{ xr.lemmas|join("; ") }}</strong>
+            {% if xr.definition %}
+            <div class="xref-def" dir="auto">{{ xr.definition[:200] }}</div>
+            {% endif %}
+            <div class="xref-id">{{ xr.synset_id }}</div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>

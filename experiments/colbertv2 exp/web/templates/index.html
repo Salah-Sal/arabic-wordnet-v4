@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %}بحث دلالي — ColBERT{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Search box -->
+    <form id="search-form" class="search-box"
+          hx-get="{{ url_for('search_route') }}"
+          hx-target="#results"
+          hx-trigger="submit"
+          hx-push-url="true"
+          hx-indicator="#loading">
+        <div style="display:flex; gap:0.5rem; justify-content:center; max-width:650px; margin:0 auto;">
+            <input type="text"
+                   name="q"
+                   class="search-input"
+                   placeholder="ابحث... Search..."
+                   value="{{ q|default('') }}"
+                   autocomplete="off"
+                   dir="auto"
+                   style="flex:1;">
+            <button type="submit" class="search-btn">بحث</button>
+        </div>
+
+        <!-- Filters -->
+        <div class="filter-row">
+            <label>اللغة</label>
+            <select name="lang">
+                <option value="all" {% if lang|default('all') == 'all' %}selected{% endif %}>الكل / All</option>
+                <option value="ar" {% if lang|default('all') == 'ar' %}selected{% endif %}>عربي</option>
+                <option value="en" {% if lang|default('all') == 'en' %}selected{% endif %}>English</option>
+            </select>
+
+            <label>النوع</label>
+            <select name="pos">
+                <option value="" {% if not pos|default('') %}selected{% endif %}>أي نوع</option>
+                <option value="n" {% if pos|default('') == 'n' %}selected{% endif %}>اسم (n)</option>
+                <option value="v" {% if pos|default('') == 'v' %}selected{% endif %}>فعل (v)</option>
+                <option value="a" {% if pos|default('') == 'a' %}selected{% endif %}>صفة (a)</option>
+                <option value="r" {% if pos|default('') == 'r' %}selected{% endif %}>ظرف (r)</option>
+            </select>
+
+            <label>المصدر</label>
+            <select name="source">
+                <option value="all" {% if source|default('all') == 'all' %}selected{% endif %}>كل المصادر</option>
+                <option value="synset" {% if source|default('all') == 'synset' %}selected{% endif %}>Synsets</option>
+                <option value="dict" {% if source|default('all') == 'dict' %}selected{% endif %}>المعاجم</option>
+                <option value="arabterm" {% if source|default('all') == 'arabterm' %}selected{% endif %}>ARABTERM</option>
+            </select>
+
+            <label>النتائج</label>
+            <select name="k">
+                <option value="10" {% if k|default(10)|int == 10 %}selected{% endif %}>10</option>
+                <option value="20" {% if k|default(10)|int == 20 %}selected{% endif %}>20</option>
+                <option value="50" {% if k|default(10)|int == 50 %}selected{% endif %}>50</option>
+            </select>
+        </div>
+    </form>
+
+    <!-- Loading indicator -->
+    <div id="loading" class="htmx-indicator">
+        <div class="loading-spinner"></div>
+        <span>جارٍ البحث... Searching...</span>
+    </div>
+
+    <!-- Results area -->
+    <div id="results">
+        {% if results is defined %}
+            {% include '_results.html' %}
+        {% else %}
+            <!-- Hero stats (empty state) -->
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="number">{{ "{:,}".format(stats.total_documents|default(0)) }}</div>
+                    <div class="label">وثيقة</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="number">{{ stats.source_count|default(4) }}</div>
+                    <div class="label">مصدر</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="number">{{ "{:,}".format(stats.total_ili|default(0)) }}</div>
+                    <div class="label">رابط ILI</div>
+                </div>
+            </div>
+            <div class="empty-state">
+                <p>بحث دلالي عبر الشبكات المعنوية والمعاجم والمصطلحات التقنية</p>
+                <p style="font-family: system-ui, sans-serif; font-size: 0.9rem; margin-top: 0.5rem;">
+                    Semantic search across WordNet synsets, Arabic dictionaries & ARABTERM terminology
+                </p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
