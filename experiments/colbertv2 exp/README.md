@@ -9,7 +9,7 @@ Indexes Arabic WordNet 4 (AWN4) and Open English WordNet (OEWN) synsets into a s
 | **Model** | Jina-ColBERT-v2 (560M params, XLM-RoBERTa backbone) |
 | **Index backend** | Voyager (HNSW, CPU) or PLAID (GPU) |
 | **Corpus** | ~109,901 Arabic + ~120,630 English = ~230,531 synsets |
-| **Status** | Pipeline complete, tested on 200-synset pilot |
+| **Status** | Production index built — 230,531 synsets indexed |
 
 ---
 
@@ -24,7 +24,7 @@ Indexes Arabic WordNet 4 (AWN4) and Open English WordNet (OEWN) synsets into a s
 - [Index Backends](#index-backends)
 - [Output Files](#output-files)
 - [Performance](#performance)
-- [Pilot Results](#pilot-results)
+- [Results](#results)
 - [Troubleshooting](#troubleshooting)
 - [Reference Repos](#reference-repos)
 
@@ -344,9 +344,10 @@ The `ili_map.json` maps each ILI to its synset IDs in both languages.
 - **Algorithm**: HNSW (Hierarchical Navigable Small World)
 - **Library**: Spotify's Voyager (`voyager` package)
 - **CPU-friendly**: Full functionality on CPU, no GPU required
-- **Parameters**: `M=64`, `ef_construction=200`, `ef_search=200`
+- **Parameters**: `M=64`, `ef_construction=200`, `ef_search=500`
 - **Storage**: SQLite-backed document ID mapping + Voyager binary index
 - **Search flow**: Voyager retrieves token-level candidates → PyLate reranks with full MaxSim
+- **Cross-lingual note**: Token-level HNSW clusters embeddings by language, so cross-lingual filtering (e.g., Arabic query → English results) uses aggressive over-retrieval (`k_token=500`, `k×50`) to compensate. English→Arabic works better than Arabic→English due to script-level token proximity. PLAID's centroid-based IVF would handle this more naturally.
 
 ### PLAID (optional, GPU)
 
@@ -367,6 +368,7 @@ colbertv2 exp/
 ├── colbert_index.py              # Main script
 ├── README.md                     # This file
 ├── embeddings/                   # Cached embeddings (regenerable)
+│   ├── embeddings.pkl            # Full build cache (3.0 GB for 230K docs)
 │   └── embeddings_limit100.pkl   # Test build cache (2.8 MB for 200 docs)
 ├── indexes/                      # Index files (regenerable)
 │   └── synset_colbert/           # Voyager or PLAID index
@@ -385,81 +387,121 @@ colbertv2 exp/
     └── ColBERT-X/                # Cross-lingual retrieval
 ```
 
-### Estimated sizes (full build)
+### Sizes (production build)
 
-| File | Size (estimated) |
-|------|------------------|
-| `embeddings/embeddings.pkl` | ~3–4 GB |
-| `indexes/synset_colbert/` | ~5–8 GB |
-| `metadata/synset_metadata.json` | ~80 MB |
-| `metadata/ili_map.json` | ~5 MB |
+| File | Size |
+|------|------|
+| `embeddings/embeddings.pkl` | 3.0 GB |
+| `indexes/synset_colbert/index.voyager` | 6.1 GB |
+| `indexes/synset_colbert/*.sqlite` | 433 MB |
+| `metadata/synset_metadata.json` | 48 KB |
+| `metadata/ili_map.json` | 7 KB |
 
 ---
 
 ## Performance
 
-### Encoding speed (CPU, Apple Silicon)
+### Build timing (CPU, Apple Silicon M1, batch_size=8)
+
+| Phase | Duration | Notes |
+|-------|----------|-------|
+| Parse AWN4 XML | 2.1s | 109,901 synsets, 166,785 lemma entries |
+| Load OEWN | 18.9s | 120,630 synsets via `wn` package |
+| Build corpus | <1s | 230,531 documents |
+| **Encode documents** | **91 min** | 24ms/doc steady-state, 5,478s total |
+| **Build Voyager index** | **48 min** | 116 batches of 2,000, slows as graph grows |
+| **Total** | **~2.3 hours** | |
+
+Embeddings are cached to disk after the first run (`embeddings/embeddings.pkl`, 3.0 GB). Subsequent builds only rebuild the index (~48 min).
+
+### Search latency (full index, 230K docs)
 
 | Metric | Value |
 |--------|-------|
-| Model load time | ~3 seconds (cached) |
-| Per-document encoding | ~42 ms |
-| 200 documents (test) | 8.4 seconds |
-| 230K documents (full, estimated) | ~2.7 hours |
-
-Embeddings are cached to disk after the first run. Subsequent builds only rebuild the index (~minutes).
-
-### Search latency
-
-| Metric | Value |
-|--------|-------|
+| Model load time | ~3.5 seconds (cached) |
 | Query encoding | ~50 ms |
-| Voyager retrieval + reranking | ~90 ms |
-| Total per query | ~140 ms |
+| Voyager retrieval + reranking (in-language) | ~1.1 s |
+| Voyager retrieval + reranking (cross-lingual, k_token=500) | ~2.0 s |
+| Total per query | ~1.2–2.1 s |
 
 ### Scaling notes
 
 - **Batch size**: Increase `--batch-size` for faster encoding if you have more RAM (8 is conservative for 560M model on CPU)
 - **MPS device**: `--device mps` may work on Apple Silicon for faster encoding (not yet tested)
 - **CUDA**: `--device cuda --backend plaid` for GPU systems
+- **Voyager index build slows**: HNSW insertion becomes O(log N) as the graph grows — the last 20% of documents took 10× longer per batch than the first 20%. This is expected behavior.
 
 ---
 
-## Pilot Results
+## Results
 
-Tested with 200 synsets (100 Arabic + 100 English):
+### Production index (230,531 synsets)
 
-### English query → bilingual results
+#### Arabic search: "عقد" (polysemous — contract, knot, necklace, decade)
 
 ```
-Query: "able to do something"
-
-  1. [en] oewn-00001740-a  score=20.49
-     Lemmas: able
-     Def: (usually followed by 'to') having the necessary means or skill...
-     ↔ AR: قَادِر; مُسْتَطِيع (i1)
-
-  2. [ar] awn4-00001740-a  score=18.92
-     Lemmas: قَادِر; مُسْتَطِيع
-     Def: يمتلك الوسائل أو المهارة أو المعرفة...
-     ↔ EN: able (i1)
+  1. [ar] awn4-01737358-v  score=18.98   عَقَدَ — "نظم أو كان مسؤولاً عن"  ↔ EN: hold; throw; have
+  2. [ar] awn4-00149904-n  score=18.96   ربط; عقد — "عملية ربط أو توثيق"  ↔ EN: tying; ligature
+  3. [ar] awn4-04345456-n  score=18.87   خيط; عقد — "مجموعة أشياء منظومة"  ↔ EN: string
+  4. [ar] awn4-03820446-n  score=18.78   عقد; قلادة — "مجوهرات تلبس حول العنق"  ↔ EN: necklace
+  5. [ar] awn4-06534110-n  score=18.55   عقد احتمالي — "عقد يعتمد على حدث غير مؤكد"  ↔ EN: aleatory contract
 ```
 
-### Arabic query → bilingual results
+All major senses of "عقد" found: verbal (hold/organize), tying, string, necklace, contract types.
+
+#### English search: "contract"
+
+```
+  1. [en] oewn-06532935-n  score=20.54   contract — "a binding agreement..."  ↔ AR: عقد
+  2. [en] oewn-00890307-v  score=19.23   contract; undertake  ↔ AR: تَعَاقَدَ
+  3. [en] oewn-06750143-n  score=18.85   contract; declaration (bridge)  ↔ AR: عقد
+  4. [en] oewn-06539311-n  score=18.79   employment contract  ↔ AR: عقد توظيف
+  5. [en] oewn-06171758-n  score=18.68   contract law  ↔ AR: قانون العقود
+```
+
+#### Cross-lingual: English → Arabic
+
+```
+Query: "contract" --lang ar
+
+  1. [ar] awn4-09980370-n  score=18.00   متعاقد — "(قانون) طرف في عقد"  ↔ EN: contractor
+  2. [ar] awn4-06532935-n  score=17.97   عقد — "اتفاق ملزم"  ↔ EN: contract
+  3. [ar] awn4-00890307-v  score=17.95   تَعَاقَدَ — "الدخول في ترتيب تعاقدي"  ↔ EN: contract; undertake
+  4. [ar] awn4-02713392-a  score=17.85   تعاقدي  ↔ EN: contractual
+  5. [ar] awn4-06492394-n  score=17.80   عقد مستقبلي; عقود آجلة  ↔ EN: futures contract
+```
+
+#### Cross-lingual: Arabic → English
+
+```
+Query: "عقد" --lang en
+
+  1. [en] oewn-06532935-n  score=18.15   contract — "a binding agreement..."  ↔ AR: عقد
+```
+
+Arabic→English cross-lingual returns fewer results due to Voyager's token-level ANN clustering by language (see [Index Backends](#index-backends)). English→Arabic works better because many Arabic documents contain transliterated Latin tokens.
+
+#### POS filter: "رفع" verbs only
+
+```
+Query: "رفع" --pos v
+
+  1. [ar] awn4-00943197-v  score=20.46   أَثَارَ; رَفَعَ  ↔ EN: raise
+  2. [ar] awn4-01877777-v  score=20.24   رَفَعَ; سَانَدَ  ↔ EN: boost up; push up
+  3. [ar] awn4-01518703-v  score=20.20   دَفَعَ للأَعْلَى; رَفَعَ  ↔ EN: boost
+  4. [ar] awn4-00153083-v  score=20.20   رَفَعَ; زَادَ  ↔ EN: increase
+  5. [ar] awn4-00880549-v  score=20.15   أَعَادَ; رَفَعَ  ↔ EN: return
+```
+
+### Pilot Results (200 synsets)
+
+The initial pilot (100 Arabic + 100 English) confirmed cross-lingual alignment:
 
 ```
 Query: "قادر على القيام"
-
-  1. [ar] awn4-00001740-a  score=20.21
-     Lemmas: قَادِر; مُسْتَطِيع
-     ↔ EN: able (i1)
-
-  2. [en] oewn-00001740-a  score=19.51
-     Lemmas: able
-     ↔ AR: قَادِر; مُسْتَطِيع (i1)
+  1. [ar] awn4-00001740-a  score=20.21  قَادِر; مُسْتَطِيع  ↔ EN: able (i1)
+  2. [en] oewn-00001740-a  score=19.51  able  ↔ AR: قَادِر; مُسْتَطِيع (i1)
 ```
-
-Cross-lingual alignment is confirmed: Arabic queries find English synsets and vice versa, with the correct ILI-linked counterparts ranked in the top results.
 
 ---
 
