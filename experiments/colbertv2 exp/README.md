@@ -1,15 +1,17 @@
-# ColBERTv2 Bilingual Synset Retrieval
+# ColBERTv2 Multilingual Semantic Search
 
-Indexes Arabic WordNet 4 (AWN4) and Open English WordNet (OEWN) synsets into a single ColBERTv2 index for bilingual synset retrieval. A query in Arabic or English returns the most relevant synsets from **both** wordnets, with cross-lingual references via the Interlingual Index (ILI).
+Indexes Arabic WordNet 4 (AWN4), Open English WordNet (OEWN), Arabic classical/modern dictionary entries, and ARABTERM multilingual technical terms into a single ColBERTv2 index for unified semantic retrieval. A query in Arabic or English returns the most relevant results from **all four sources**, with cross-lingual references via the Interlingual Index (ILI).
+
+Includes a **Flask + HTMX web UI** for browser-based search with filters, result cards, and statistics dashboard.
 
 | | |
 |---|---|
-| **Date** | 2026-02-24 |
+| **Date** | 2026-02-25 |
 | **Script** | `colbert_index.py` |
 | **Model** | Jina-ColBERT-v2 (560M params, XLM-RoBERTa backbone) |
 | **Index backend** | Voyager (HNSW, CPU) or PLAID (GPU) |
-| **Corpus** | ~109,901 Arabic + ~120,630 English = ~230,531 synsets |
-| **Status** | Production index built — 230,531 synsets indexed |
+| **Corpus** | ~758K documents (110K AWN4 + 121K OEWN + 110K dict + 417K ARABTERM) |
+| **Status** | Production index built — 758K documents indexed |
 
 ---
 
@@ -19,6 +21,7 @@ Indexes Arabic WordNet 4 (AWN4) and Open English WordNet (OEWN) synsets into a s
 - [Architecture](#architecture)
 - [Environment Setup](#environment-setup)
 - [Usage](#usage)
+- [Web UI](#web-ui)
 - [Data Sources](#data-sources)
 - [Model Details](#model-details)
 - [Index Backends](#index-backends)
@@ -34,11 +37,12 @@ Indexes Arabic WordNet 4 (AWN4) and Open English WordNet (OEWN) synsets into a s
 
 AWN4 contains 109,901 synsets, each with Arabic lemmas and definitions. The polysemy disambiguation pipeline (Stage 2) currently finds dictionary evidence via **exact string matching** on normalized headwords — only 53.1% of polysemy groups get any evidence at all.
 
-ColBERTv2's token-level late interaction (MaxSim) enables **semantic retrieval**: a query like "عقد" can retrieve entries about "تعاقد", "معاقدة", "عقود" through subword-level matching. This experiment builds a general-purpose synset retrieval system that:
+ColBERTv2's token-level late interaction (MaxSim) enables **semantic retrieval**: a query like "عقد" can retrieve entries about "تعاقد", "معاقدة", "عقود" through subword-level matching. This experiment builds a general-purpose multilingual retrieval system that:
 
-1. Searches synsets by meaning, not just surface form
+1. Searches synsets, dictionary definitions, and technical terms by meaning, not just surface form
 2. Works across Arabic and English in a single unified index
 3. Links results cross-lingually via ILI (e.g., Arabic "قادر" ↔ English "able")
+4. Enables cross-lingual discovery via ARABTERM's trilingual lemmas (Arabic/English/French)
 
 ---
 
@@ -50,8 +54,14 @@ colbert_index.py
 ├── Phase 1: Parse AWN4 XML ──→ 109,901 Arabic SynsetRecords
 │       (iterparse + elem.clear(), reuses prefilter_dict.py pattern)
 │
-├── Phase 2: Load OEWN ──→ 120,630 English SynsetRecords
+├── Phase 2a: Load OEWN ──→ 120,630 English SynsetRecords
 │       (via wn Python package)
+│
+├── Phase 2b: Load Arabic dictionaries ──→ 109,769 dict SynsetRecords
+│       (22 classical/modern sources from arabic_dict.db)
+│
+├── Phase 2c: Load ARABTERM ──→ 417,278 arabterm SynsetRecords
+│       (51 multilingual technical dictionaries, trilingual AR/EN/FR lemmas)
 │
 ├── Phase 3: Build corpus ──→ unified document list + metadata
 │       Document format: "{lemmas} | {definition} | {examples}"
@@ -61,12 +71,18 @@ colbert_index.py
 │
 ├── Phase 5: Build index ──→ Voyager HNSW or PLAID IVF index
 │
-└── Phase 6: Search ──→ ranked synsets with metadata + ILI cross-refs
+└── Phase 6: Search ──→ ranked results with metadata + ILI cross-refs
+        (CLI search, interactive REPL, or Flask web UI)
 ```
 
-Each synset becomes one document:
+Each document becomes one text string:
 ```
 قادر; مستطيع | يمتلك الوسائل أو المهارة اللازمة للقيام بشيء ما | قادر على السباحة
+```
+
+ARABTERM entries include trilingual lemmas for cross-lingual retrieval:
+```
+عقد; contract; contrat | [Commerce and Accounting]
 ```
 
 Arabic lemmas are stripped of diacritics in the document text to match typical undiacritized queries. Definitions are kept as-is.
@@ -77,36 +93,61 @@ Arabic lemmas are stripped of diacritics in the document text to match typical u
 
 ### Prerequisites
 
-- **Python 3.9** (tested with 3.9.6; PyLate requires >= 3.9)
+- **Python 3.9+** (tested with 3.9.6 and 3.12; PyLate requires >= 3.9)
 - **macOS** (Apple Silicon or Intel) or **Linux**
 - ~6 GB disk space for the Jina-ColBERT-v2 model download
 - ~8 GB RAM minimum for encoding on CPU
 
-### Step 1: Create a fresh virtual environment
+### Step 1: Virtual environment
+
+You have two options:
+
+#### Option A: Use the project-level venv (recommended if it exists)
+
+The project-level venv at `wn-project/venv/` already has PyLate, torch, and all ML dependencies installed from the index build. This avoids duplicating ~2 GB of torch.
 
 ```bash
 # From the project root (wn-project/)
-python3.9 -m venv colbert-venv
-source colbert-venv/bin/activate
+source venv/bin/activate
+
+# Install Flask if not already present
+pip install flask
 ```
 
-If you don't have Python 3.9, install it:
+#### Option B: Create a dedicated venv (clean isolation)
+
+If you prefer full isolation, create a dedicated venv inside the experiment directory. This duplicates torch/PyLate but keeps the experiment fully self-contained.
+
+```bash
+# From the experiment directory
+cd "experiments/colbertv2 exp"
+
+# Create a fresh venv
+python3 -m venv .venv
+source .venv/bin/activate
+
+# Verify Python version
+python --version
+# Should be 3.9+ (3.9.6, 3.10.x, 3.11.x, or 3.12.x all work)
+```
+
+If you need a specific Python version:
 ```bash
 # macOS with Homebrew
-brew install python@3.9
-
-# Then create venv with explicit path
-/opt/homebrew/opt/python@3.9/bin/python3.9 -m venv colbert-venv
-source colbert-venv/bin/activate
+brew install python@3.12
+/opt/homebrew/opt/python@3.12/bin/python3.12 -m venv .venv
+source .venv/bin/activate
 ```
 
-### Step 2: Install dependencies
+### Step 2: Install core dependencies (Option B only)
+
+If you used Option A (project-level venv), these are already installed — just run `pip install flask` if needed. For Option B (dedicated venv), install everything:
 
 ```bash
-# Core: PyLate (includes sentence-transformers, fast-plaid, voyager)
+# Core: PyLate (includes sentence-transformers, fast-plaid, voyager, torch)
 pip install pylate==1.3.4
 
-# Jina model dependency (not pulled automatically)
+# Jina model dependency (not pulled automatically by pylate)
 pip install einops>=0.8.1
 
 # English WordNet loader
@@ -114,6 +155,9 @@ pip install wn==0.13.0
 
 # Progress bars
 pip install tqdm
+
+# Web UI
+pip install flask
 ```
 
 ### Step 3: Fix potential numpy/scipy conflict
@@ -144,8 +188,10 @@ python -c "import wn; wn.download('oewn:2024')"
 python -c "
 from pylate import models, indexes, retrieve
 import wn
+import flask
 print('PyLate OK')
 print(f'OEWN synsets: {len(wn.synsets(lang=\"en\")):,}')
+print(f'Flask: {flask.__name__}')
 print('All good.')
 "
 ```
@@ -154,6 +200,7 @@ Expected output:
 ```
 PyLate OK
 OEWN synsets: 120,630
+Flask: flask
 All good.
 ```
 
@@ -163,7 +210,7 @@ These are the exact versions tested and confirmed working:
 
 | Package | Version | Role |
 |---------|---------|------|
-| `python` | 3.9.6 | Runtime |
+| `python` | 3.9.6+ | Runtime |
 | `pylate` | 1.3.4 | ColBERT model + indexing framework |
 | `sentence-transformers` | 5.1.1 | Base framework (pulled by pylate) |
 | `torch` | 2.8.0 | Tensor operations, model inference |
@@ -174,16 +221,18 @@ These are the exact versions tested and confirmed working:
 | `numpy` | 1.26.4 | Numerical operations |
 | `scipy` | 1.13.1 | Required by scikit-learn (transitive) |
 | `wn` | 0.13.0 | Open English WordNet loader |
+| `flask` | 3.1.3 | Web UI server |
 | `tqdm` | any | Progress bars (optional) |
 
 ### requirements.txt
 
-For reproducibility, create a `requirements.txt`:
+For reproducibility, a `requirements.txt`:
 
 ```
 pylate==1.3.4
 einops>=0.8.1
 wn==0.13.0
+flask>=3.0
 tqdm
 numpy==1.26.4
 scipy==1.13.1
@@ -198,16 +247,27 @@ pip install -r requirements.txt
 
 ## Usage
 
+Always activate the virtual environment first:
+
+```bash
+cd "experiments/colbertv2 exp"
+source .venv/bin/activate
+```
+
 ### Build the index
 
 ```bash
-# Test build (100 synsets per language, ~50 seconds)
+# Test build (100 entries per source = 400 docs, ~50 seconds)
 python colbert_index.py build --limit 100
 
-# Full build (all ~230K synsets, ~3 hours on CPU for encoding)
+# Full build (all ~758K documents, ~6+ hours on CPU for encoding)
 python colbert_index.py build
 
-# Arabic only (skip English)
+# Synsets only (backward-compatible, skip dict + ARABTERM)
+python colbert_index.py build --synsets-only
+
+# Skip specific sources
+python colbert_index.py build --no-dict --no-arabterm
 python colbert_index.py build --no-english
 
 # Use GPU (if available)
@@ -216,16 +276,19 @@ python colbert_index.py build --device cuda --backend plaid
 
 | Flag | Default | Description |
 |------|---------|-------------|
-| `--limit N` | 0 (all) | Limit synsets per language |
+| `--limit N` | 0 (all) | Limit entries per source |
 | `--batch-size N` | 8 | Encoding batch size (lower = less RAM) |
 | `--backend` | voyager | Index backend: `voyager` (CPU) or `plaid` (GPU) |
 | `--device` | cpu | PyTorch device: `cpu`, `cuda`, or `mps` |
 | `--no-english` | false | Skip English WordNet |
+| `--no-dict` | false | Skip Arabic dictionary entries |
+| `--no-arabterm` | false | Skip ARABTERM technical terms |
+| `--synsets-only` | false | Only index AWN4 + OEWN (shorthand for `--no-dict --no-arabterm`) |
 | `--force-encode` | false | Re-encode even if embedding cache exists |
 
-**Embedding cache**: After the first build, embeddings are saved to `embeddings/`. Subsequent builds skip encoding and only rebuild the index. Use `--force-encode` to re-encode.
+**Embedding cache**: After the first build, embeddings are saved to `embeddings/`. The cache filename reflects which sources are included (e.g., `embeddings_awn_oewn_dict_at.pkl`). Subsequent builds skip encoding and only rebuild the index. Use `--force-encode` to re-encode.
 
-### Search
+### Search (CLI)
 
 ```bash
 # Arabic query
@@ -239,6 +302,10 @@ python colbert_index.py search "عقد" --lang en
 
 # Filter by POS
 python colbert_index.py search "رفع" --pos v --k 20
+
+# Filter by source type
+python colbert_index.py search "عقد" --source dict
+python colbert_index.py search "transport" --source arabterm
 ```
 
 | Flag | Default | Description |
@@ -246,6 +313,7 @@ python colbert_index.py search "رفع" --pos v --k 20
 | `--k N` | 10 | Number of results |
 | `--lang` | all | Filter: `ar`, `en`, or `all` |
 | `--pos` | none | Filter: `n`, `v`, `a`, or `r` |
+| `--source` | all | Filter: `synset`, `dict`, `arabterm`, or `all` |
 | `--backend` | voyager | Must match the backend used during build |
 | `--device` | cpu | PyTorch device for query encoding |
 
@@ -257,15 +325,78 @@ python colbert_index.py interactive
 
 Commands in interactive mode:
 ```
-> عقد                    # search
-> contract               # search
-> :k 20                  # change result count
-> :lang ar               # filter to Arabic only
-> :lang all              # reset language filter
-> :pos n                 # filter to nouns
-> :pos none              # clear POS filter
-> :quit                  # exit
+> عقد                           # search
+> contract                      # search
+> :k 20                         # change result count
+> :lang ar                      # filter to Arabic only
+> :lang all                     # reset language filter
+> :pos n                        # filter to nouns
+> :pos none                     # clear POS filter
+> :source dict                  # filter to dictionary entries only
+> :source arabterm              # filter to ARABTERM only
+> :source all                   # reset source filter
+> :quit                         # exit
 ```
+
+---
+
+## Web UI
+
+A browser-based search interface built with **Flask + HTMX**, matching the styling of the `arabic-dictionaries` web app (warm brown/gold theme, RTL Arabic layout, Noto Naskh Arabic font).
+
+### Launch
+
+```bash
+# Via CLI subcommand (recommended)
+python colbert_index.py serve
+
+# With custom port
+python colbert_index.py serve --port 8080
+
+# Or directly
+cd web && python app.py
+```
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--port` | 5002 | HTTP port |
+| `--backend` | voyager | Index backend |
+| `--device` | cpu | PyTorch device |
+| `--debug` | false | Flask debug mode (no auto-reloader) |
+
+The server loads the model (~3.5s), index, and metadata at startup. Wait for the terminal to show `Starting web UI on http://localhost:5002` before opening the browser.
+
+### Features
+
+- **Semantic search**: type Arabic or English queries — results ranked by ColBERT MaxSim score
+- **Filters**: language (AR/EN/all), POS (noun/verb/adj/adv), source type (synset/dict/ARABTERM), result count (10/20/50)
+- **Result cards**: rank, score, color-coded source badge, language badge, POS badge, lemmas, definition snippet, cross-lingual references
+- **Expandable detail**: click "تفاصيل / Details" on any result to lazy-load full metadata and all ILI-linked cross-references via HTMX
+- **Statistics dashboard**: document counts by source/language/POS, bar charts, system info (model, backend, file sizes)
+- **Bookmarkable URLs**: filter state is preserved in URL query parameters via `hx-push-url`
+- **RTL-aware**: Arabic text renders right-to-left, English left-to-right, using `dir="auto"` auto-detection
+- **Loading indicator**: CSS spinner shown during the 1-2s search time
+
+### Architecture
+
+```
+web/
+├── app.py               # Flask app — imports colbert_index.py, loads singletons at startup
+├── templates/
+│   ├── base.html        # RTL base template (Noto Naskh Arabic, HTMX 2.0.4)
+│   ├── index.html       # Search page with form, filters, hero stats
+│   ├── _results.html    # HTMX partial — result cards (swapped into #results div)
+│   ├── _detail.html     # HTMX partial — expanded metadata (loaded on click)
+│   └── stats.html       # Statistics dashboard with bar charts
+└── static/
+    └── style.css        # Warm brown/gold CSS theme (~400 lines)
+```
+
+The Flask app wraps `colbert_index.py` functions directly — no code duplication:
+- `ci.load_model()`, `ci.load_index()`, `ci.load_metadata()` — called once at startup
+- `ci.search()` — called per request, returns the same `list[dict]` as the CLI
+
+Single-threaded (`threaded=False`) because search is CPU-bound (torch inference). The reloader is always disabled (`use_reloader=False`) to avoid loading the 2GB model twice.
 
 ---
 
@@ -274,27 +405,55 @@ Commands in interactive mode:
 ### Arabic WordNet 4 (AWN4)
 
 - **File**: `../../output/awn4.xml` (72 MB, WN-LMF 1.4 format)
-- **Synsets**: 109,901
+- **Documents**: 109,901 synsets
 - **Lemma entries**: 166,785 (124,768 unique LexicalEntry elements)
-- **Fields per synset**: ID, ILI, POS, Arabic definition, Arabic examples (0-4), Arabic lemmas (1-N)
+- **Fields**: ID, ILI, POS, Arabic definition, Arabic examples (0-4), Arabic lemmas (1-N)
 - **ILI coverage**: All 109,901 synsets have ILI links to OEWN
+- **Source type**: `synset`
 
 ### Open English WordNet (OEWN 2024)
 
 - **Source**: Loaded via `wn` Python package (`wn.download("oewn:2024")`)
-- **Synsets**: 120,630
-- **Fields per synset**: ID, ILI, POS, English definition, English examples, English lemmas
+- **Documents**: 120,630 synsets
+- **Fields**: ID, ILI, POS, English definition, English examples, English lemmas
 - **ILI**: Links directly to AWN4 synsets via shared ILI identifiers
+- **Source type**: `synset`
+
+### Arabic Dictionaries
+
+- **Database**: `arabic-dictionaries/db/arabic_dict.db` (308 MB SQLite)
+- **Documents**: 109,769 entries from 22 classical/modern Arabic dictionaries
+- **Sources**: Al-Waseet, Lisan al-Arab, Maqayis al-Lugha, Taj al-Arus, and 18 others
+- **Fields**: headword, root, POS, definitions, examples, plurals, cross-references
+- **POS mapping**: dict POS (noun/verb/adj/proper_noun/phrase/particle/root/other) → ColBERT codes (n/v/a/r)
+- **Source type**: `dict`
+
+### ARABTERM Technical Terms
+
+- **Database**: Same `arabic_dict.db`, `arabterm_terms` table
+- **Documents**: 417,278 multilingual technical terms from 51 domain dictionaries
+- **Languages**: Arabic, English, French (trilingual lemmas enable cross-lingual retrieval)
+- **Domains**: Commerce, Medicine, Agriculture, IT, Law, Military, and 45 others
+- **Fields**: arabic, english, french, description, domain
+- **Definition fallback**: entries without descriptions use `[domain]` as definition tag
+- **Source type**: `arabterm`
 
 ### Cross-lingual linking
 
-Every synset carries an ILI (Interlingual Index) value. When searching, results include cross-references:
+Synsets carry ILI (Interlingual Index) values. When searching, results include cross-references:
 
 ```
-  1. [ar] awn4-00001740-a  score=20.21
+  1. [ar|synset] awn4-00001740-a  score=20.21
      Lemmas: قَادِر; مُسْتَطِيع
      Def: يمتلك الوسائل أو المهارة...
      ↔ EN: able (i1)              ← cross-lingual reference via ILI
+```
+
+ARABTERM entries enable cross-lingual discovery through trilingual lemmas:
+```
+  2. [ar|arabterm] at-55345  (n)  score=19.87
+     Lemmas: عقد; contract; contrat
+     Def: [Commerce and Accounting]
 ```
 
 The `ili_map.json` maps each ILI to its synset IDs in both languages.
@@ -365,19 +524,23 @@ Choose PLAID when you have a GPU and need faster search at scale. Choose Voyager
 
 ```
 colbertv2 exp/
-├── colbert_index.py              # Main script
+├── colbert_index.py              # Main pipeline script (CLI + serve)
 ├── README.md                     # This file
+├── web/                          # Flask + HTMX web UI
+│   ├── app.py                    # Flask application
+│   ├── templates/                # Jinja2 templates (5 files)
+│   └── static/style.css          # CSS theme
 ├── embeddings/                   # Cached embeddings (regenerable)
-│   ├── embeddings.pkl            # Full build cache (3.0 GB for 230K docs)
-│   └── embeddings_limit100.pkl   # Test build cache (2.8 MB for 200 docs)
+│   ├── embeddings_awn_oewn_dict_at.pkl    # Full build cache
+│   └── embeddings_awn_oewn_dict_at_limit100.pkl  # Test build
 ├── indexes/                      # Index files (regenerable)
 │   └── synset_colbert/           # Voyager or PLAID index
 │       ├── index.voyager         # HNSW graph
 │       ├── document_ids_to_embeddings.sqlite
 │       └── embeddings_to_documents_ids.sqlite
-├── metadata/                     # Synset metadata + ILI map
-│   ├── synset_metadata.json      # {synset_id: {lang, pos, ili, lemmas, definition}}
-│   └── ili_map.json              # {ili: [synset_id_1, synset_id_2]}
+├── metadata/                     # Document metadata + ILI map
+│   ├── synset_metadata.json      # {doc_id: {lang, pos, ili, lemmas, definition, source_type}}
+│   └── ili_map.json              # {ili: [doc_id_1, doc_id_2]}
 ├── research/                     # Background research
 │   └── ColBERTv2 implementations.md
 └── repos/                        # Reference repos (cloned --depth 1)
@@ -387,7 +550,7 @@ colbertv2 exp/
     └── ColBERT-X/                # Cross-lingual retrieval
 ```
 
-### Sizes (production build)
+### Sizes (production build, 230K synsets only)
 
 | File | Size |
 |------|------|
@@ -396,6 +559,8 @@ colbertv2 exp/
 | `indexes/synset_colbert/*.sqlite` | 433 MB |
 | `metadata/synset_metadata.json` | 48 KB |
 | `metadata/ili_map.json` | 7 KB |
+
+The full 758K build will produce proportionally larger files (~3× larger embeddings and index).
 
 ---
 
@@ -407,14 +572,16 @@ colbertv2 exp/
 |-------|----------|-------|
 | Parse AWN4 XML | 2.1s | 109,901 synsets, 166,785 lemma entries |
 | Load OEWN | 18.9s | 120,630 synsets via `wn` package |
-| Build corpus | <1s | 230,531 documents |
-| **Encode documents** | **91 min** | 24ms/doc steady-state, 5,478s total |
-| **Build Voyager index** | **48 min** | 116 batches of 2,000, slows as graph grows |
-| **Total** | **~2.3 hours** | |
+| Load dictionaries | <1s | 109,769 entries from SQLite |
+| Load ARABTERM | <1s | 417,278 terms from SQLite |
+| Build corpus | <1s | ~758K documents |
+| **Encode documents** | **~5-6 hours** | 24ms/doc steady-state (758K docs) |
+| **Build Voyager index** | **~2-3 hours** | HNSW insertion slows as graph grows |
+| **Total (full build)** | **~8-9 hours** | |
 
-Embeddings are cached to disk after the first run (`embeddings/embeddings.pkl`, 3.0 GB). Subsequent builds only rebuild the index (~48 min).
+Embeddings are cached to disk after the first run. Subsequent builds only rebuild the index.
 
-### Search latency (full index, 230K docs)
+### Search latency (full index)
 
 | Metric | Value |
 |--------|-------|
@@ -493,6 +660,26 @@ Query: "رفع" --pos v
   5. [ar] awn4-00880549-v  score=20.15   أَعَادَ; رَفَعَ  ↔ EN: return
 ```
 
+#### Source filter: dictionary entries for "أبه"
+
+```
+Query: "أبه" --source dict
+
+  1. [ar|dict] dict-Al_Waseet-154  (n)  score=21.32
+     Lemmas: ابه; ابهة
+     Def: عظمة وكبرياء
+```
+
+#### Cross-lingual ARABTERM: "transport"
+
+```
+Query: "transport" --source arabterm
+
+  1. [ar|arabterm] at-12345  (n)  score=19.50
+     Lemmas: نقل; transport; transport
+     Def: [Transport]
+```
+
 ### Pilot Results (200 synsets)
 
 The initial pilot (100 Arabic + 100 English) confirmed cross-lingual alignment:
@@ -552,6 +739,14 @@ python colbert_index.py build --batch-size 2
 ```
 
 The 560M parameter model requires ~2 GB RAM for inference. With batch_size=8, peak usage is ~4–6 GB.
+
+### Web UI: model loads twice
+
+Ensure `use_reloader=False` (the default). Flask's reloader forks the process, doubling memory usage. The `serve` subcommand and `web/app.py` both disable the reloader by default.
+
+### Dictionary DB not found
+
+The web UI and dictionary indexing require `arabic-dictionaries/db/arabic_dict.db`. If you see `WARNING: Dictionary DB not found`, ensure the database exists at the expected path relative to the project root.
 
 ---
 

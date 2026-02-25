@@ -1,0 +1,58 @@
+{% if result_count is defined and result_count > 0 %}
+<div class="results-header">
+    <span>{{ result_count }} نتيجة{% if q %} لـ «{{ q }}»{% endif %}</span>
+    <span class="search-time">{{ search_time }}s</span>
+</div>
+
+<div id="results-content">
+{% for r in results %}
+    <div class="result-card">
+        <div class="result-head">
+            <span class="result-rank">{{ r.rank }}</span>
+            <span class="result-score">{{ "%.2f"|format(r.score) }}</span>
+            <span class="badge badge-{{ r.source_type }}">{{ r.source_type|source_name }}</span>
+            <span class="badge badge-lang-{{ r.lang }}">{{ r.lang|upper }}</span>
+            <span class="badge badge-pos">{{ r.pos|pos_label }}</span>
+            <span class="result-id">{{ r.synset_id }}</span>
+        </div>
+
+        <div class="result-lemmas" dir="auto">{{ r.lemmas[:5]|join("; ") }}</div>
+
+        {% if r.definition %}
+        <div class="result-def" dir="auto">
+            {{ r.definition[:150] }}{% if r.definition|length > 150 %}...{% endif %}
+        </div>
+        {% endif %}
+
+        {% if r.cross_ref %}
+        <div class="cross-refs">
+            {% for xr in r.cross_ref %}
+            <div class="cross-ref-item">
+                <span class="cross-ref-arrow">&#8596;</span>
+                <span class="badge badge-lang-{{ xr.lang }}">{{ xr.lang|upper }}</span>
+                <span class="cross-ref-lemmas" dir="auto">{{ xr.lemmas[:3]|join("; ") }}</span>
+                <span class="cross-ref-id">({{ r.ili }})</span>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <button class="detail-toggle"
+                hx-get="{{ url_for('detail', doc_id=r.synset_id) }}"
+                hx-target="#detail-{{ loop.index }}"
+                hx-swap="innerHTML"
+                hx-trigger="click once">
+            تفاصيل / Details ▾
+        </button>
+        <div id="detail-{{ loop.index }}" class="detail-panel"></div>
+    </div>
+{% endfor %}
+</div>
+{% endif %}
+
+{% if result_count is defined and result_count == 0 and q %}
+<div class="empty-state">
+    <p>لم يُعثر على نتائج لـ «{{ q }}»</p>
+    <p style="font-family: system-ui, sans-serif; font-size: 0.9rem;">No results found for "{{ q }}"</p>
+</div>
+{% endif %}

@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""Bilingual ColBERTv2 synset retrieval pipeline for AWN4 + OEWN.
+"""Multilingual ColBERTv2 retrieval pipeline for synsets + Arabic dictionaries.
 
-Indexes ~110K Arabic synsets and ~121K English synsets into a single
-ColBERT index using Jina-ColBERT-v2 (multilingual, cross-lingual aligned).
-Supports Arabic, English, and cross-lingual queries.
+Indexes AWN4 Arabic synsets, OEWN English synsets, Arabic dictionary entries,
+and ARABTERM multilingual technical terms into a single ColBERT index using
+Jina-ColBERT-v2 (multilingual, cross-lingual aligned).
 
 Usage:
     python colbert_index.py build [--limit N] [--backend voyager|plaid]
-    python colbert_index.py search "عقد" [--k 10] [--lang ar|en|all]
+    python colbert_index.py search "عقد" [--k 10] [--lang ar|en|all] [--source synset|dict|arabterm|all]
     python colbert_index.py interactive
 """
 
@@ -15,6 +15,7 @@ import argparse
 import json
 import pickle
 import re
+import sqlite3
 import sys
 import time
 import xml.etree.ElementTree as ET
@@ -36,6 +37,7 @@ except ImportError:
 SCRIPT_DIR = Path(__file__).resolve().parent
 AWN4_BASE = SCRIPT_DIR.parent.parent
 AWN4_XML = AWN4_BASE / "output" / "awn4.xml"
+DICT_DB = SCRIPT_DIR.parents[2] / "arabic-dictionaries" / "db" / "arabic_dict.db"
 INDEX_DIR = SCRIPT_DIR / "indexes"
 META_DIR = SCRIPT_DIR / "metadata"
 EMB_DIR = SCRIPT_DIR / "embeddings"
@@ -67,6 +69,7 @@ class SynsetRecord:
     lemmas: list
     definition: str
     examples: list = field(default_factory=list)
+    source_type: str = "synset"  # "synset" | "dict" | "arabterm"
 
 
 # ─── Phase 1: Parse AWN4 XML ─────────────────────────────────────────────────
@@ -221,6 +224,142 @@ def load_oewn(limit=0):
     return records
 
 
+# ─── Phase 2b: Load Arabic dictionary entries ────────────────────────────────
+
+# Map dict POS values → ColBERT single-char filter codes
+DICT_POS_MAP = {
+    "noun": "n",
+    "verb": "v",
+    "adj": "a",
+    "proper_noun": "n",
+    "phrase": "n",
+    "particle": "r",
+    "other": "n",
+    "root": "n",
+}
+
+
+def load_dict_entries(db_path, limit=0):
+    """Load Arabic dictionary entries from the arabic_dict.db SQLite database.
+
+    Each entry becomes a SynsetRecord with source_type="dict".
+    """
+    if not Path(db_path).exists():
+        print(f"WARNING: Dictionary DB not found: {db_path}")
+        return []
+
+    print(f"Loading dictionary entries from {db_path}")
+    t0 = time.time()
+
+    conn = sqlite3.connect(f"file:{db_path}?mode=ro", uri=True)
+    conn.row_factory = sqlite3.Row
+    cur = conn.cursor()
+
+    query = "SELECT id, source, headword_bare, pos, definitions_text, examples, plurals FROM entries"
+    if limit > 0:
+        query += f" LIMIT {limit}"
+    cur.execute(query)
+
+    records = []
+    for row in cur:
+        pos_code = DICT_POS_MAP.get(row["pos"], "n")
+
+        # Build lemmas: headword + plurals
+        lemmas = [row["headword_bare"]]
+        try:
+            plurals = json.loads(row["plurals"])
+            if isinstance(plurals, list):
+                lemmas.extend(p for p in plurals if isinstance(p, str) and p)
+        except (json.JSONDecodeError, TypeError):
+            pass
+
+        # Extract example text from JSON array of {type, text, attribution}
+        examples = []
+        try:
+            ex_list = json.loads(row["examples"])
+            if isinstance(ex_list, list):
+                for ex in ex_list:
+                    if isinstance(ex, dict) and ex.get("text"):
+                        examples.append(ex["text"])
+        except (json.JSONDecodeError, TypeError):
+            pass
+
+        records.append(
+            SynsetRecord(
+                synset_id=f"dict-{row['source']}-{row['id']}",
+                ili="",
+                pos=pos_code,
+                lang="ar",
+                lemmas=lemmas,
+                definition=row["definitions_text"] or "",
+                examples=examples,
+                source_type="dict",
+            )
+        )
+
+    conn.close()
+
+    elapsed = time.time() - t0
+    print(f"  Loaded {len(records):,} dictionary entries in {elapsed:.1f}s")
+
+    return records
+
+
+def load_arabterm(db_path, limit=0):
+    """Load ARABTERM multilingual technical terms from arabic_dict.db.
+
+    Each term becomes a SynsetRecord with source_type="arabterm".
+    Trilingual lemmas (AR/EN/FR) enable cross-lingual retrieval.
+    """
+    if not Path(db_path).exists():
+        print(f"WARNING: Dictionary DB not found: {db_path}")
+        return []
+
+    print(f"Loading ARABTERM terms from {db_path}")
+    t0 = time.time()
+
+    conn = sqlite3.connect(f"file:{db_path}?mode=ro", uri=True)
+    conn.row_factory = sqlite3.Row
+    cur = conn.cursor()
+
+    query = "SELECT id, arabic_bare, english, french, description, domain FROM arabterm_terms WHERE arabic_bare IS NOT NULL"
+    if limit > 0:
+        query += f" LIMIT {limit}"
+    cur.execute(query)
+
+    records = []
+    for row in cur:
+        # Trilingual lemmas — filter out empty/null values
+        lemmas = [v for v in [row["arabic_bare"], row["english"], row["french"]] if v]
+        if not lemmas:
+            continue
+
+        # Use description if available, otherwise domain tag as fallback
+        description = row["description"] or ""
+        domain = row["domain"] or ""
+        definition = description if description else f"[{domain}]" if domain else ""
+
+        records.append(
+            SynsetRecord(
+                synset_id=f"at-{row['id']}",
+                ili="",
+                pos="n",
+                lang="ar",
+                lemmas=lemmas,
+                definition=definition,
+                examples=[],
+                source_type="arabterm",
+            )
+        )
+
+    conn.close()
+
+    elapsed = time.time() - t0
+    print(f"  Loaded {len(records):,} ARABTERM terms in {elapsed:.1f}s")
+
+    return records
+
+
 # ─── Phase 3: Build unified document corpus ──────────────────────────────────
 
 
@@ -244,16 +383,21 @@ def build_document(record):
     return " | ".join(p for p in parts if p)
 
 
-def build_corpus(ar_records, en_records):
+def build_corpus(*record_lists):
     """Build parallel document/ID/metadata structures for indexing.
+
+    Accepts any number of record lists (AWN4, OEWN, dict, ARABTERM).
 
     Returns:
         documents: list[str] — text to encode
-        doc_ids: list[str] — synset IDs
-        metadata: dict[str, dict] — synset_id → metadata
-        ili_map: dict[str, list[str]] — ILI → [synset_ids]
+        doc_ids: list[str] — document IDs
+        metadata: dict[str, dict] — doc_id → metadata
+        ili_map: dict[str, list[str]] — ILI → [doc_ids]
     """
-    all_records = ar_records + en_records
+    all_records = []
+    for rl in record_lists:
+        all_records.extend(rl)
+
     documents = []
     doc_ids = []
     metadata = {}
@@ -271,12 +415,18 @@ def build_corpus(ar_records, en_records):
             "ili": rec.ili,
             "lemmas": rec.lemmas,
             "definition": rec.definition[:200],  # truncate for metadata
+            "source_type": rec.source_type,
         }
 
         if rec.ili:
             ili_map[rec.ili].append(rec.synset_id)
 
-    print(f"  Corpus: {len(documents):,} documents ({len(ar_records):,} AR + {len(en_records):,} EN)")
+    # Count by source_type for summary
+    counts = defaultdict(int)
+    for rec in all_records:
+        counts[rec.source_type] += 1
+    summary = ", ".join(f"{v:,} {k}" for k, v in counts.items())
+    print(f"  Corpus: {len(documents):,} documents ({summary})")
 
     return documents, doc_ids, metadata, dict(ili_map)
 
@@ -426,8 +576,11 @@ def load_index(backend="voyager"):
     return index
 
 
-def search(query, model, index, metadata, ili_map, k=10, lang="all", pos=None):
-    """Search the index for synsets matching the query.
+def search(query, model, index, metadata, ili_map, k=10, lang="all", pos=None, source="all"):
+    """Search the index for documents matching the query.
+
+    Args:
+        source: Filter by source_type — "synset", "dict", "arabterm", or "all".
 
     Returns a list of result dicts with metadata and cross-lingual references.
     """
@@ -448,10 +601,11 @@ def search(query, model, index, metadata, ili_map, k=10, lang="all", pos=None):
     # larger k_token because in-language token embeddings dominate ANN results —
     # the HNSW graph clusters tokens by language, so Arabic query tokens' nearest
     # neighbors are overwhelmingly Arabic document tokens.
+    has_filter = (lang != "all") or pos or (source != "all")
     if lang != "all":
         over_k = k * 50
         k_token = 500  # cast a wide net at the token level for cross-lingual
-    elif pos:
+    elif has_filter:
         over_k = k * 5
         k_token = 200
     else:
@@ -477,8 +631,10 @@ def search(query, model, index, metadata, ili_map, k=10, lang="all", pos=None):
             continue
         if pos and meta["pos"] != pos:
             continue
+        if source != "all" and meta.get("source_type", "synset") != source:
+            continue
 
-        # Cross-lingual reference
+        # Cross-lingual reference (only for synsets with ILI)
         cross_ref = None
         ili = meta.get("ili", "")
         if ili and ili in ili_map:
@@ -503,6 +659,7 @@ def search(query, model, index, metadata, ili_map, k=10, lang="all", pos=None):
             "ili": ili,
             "lemmas": meta["lemmas"],
             "definition": meta["definition"],
+            "source_type": meta.get("source_type", "synset"),
             "cross_ref": cross_ref,
         })
 
@@ -518,12 +675,14 @@ def display_results(results, query):
     print("─" * 60)
 
     for r in results:
-        lang_tag = f"[{r['lang']}]"
+        src = r.get("source_type", "synset")
+        tag = f"[{r['lang']}|{src}]" if src != "synset" else f"[{r['lang']}]"
         lemmas = "; ".join(r["lemmas"][:5])
-        print(f"  {r['rank']:2d}. {lang_tag} {r['synset_id']}  ({r['pos']})  score={r['score']:.2f}")
+        print(f"  {r['rank']:2d}. {tag} {r['synset_id']}  ({r['pos']})  score={r['score']:.2f}")
         print(f"      Lemmas: {lemmas}")
         defn = r["definition"][:100]
-        print(f"      Def: {defn}{'...' if len(r['definition']) > 100 else ''}")
+        if defn:
+            print(f"      Def: {defn}{'...' if len(r['definition']) > 100 else ''}")
 
         if r.get("cross_ref"):
             for xr in r["cross_ref"]:
@@ -542,9 +701,10 @@ def interactive_mode(model, index, metadata, ili_map):
     k = 10
     lang = "all"
     pos = None
+    source = "all"
 
-    print("\nInteractive ColBERT Synset Search")
-    print("Commands: :k N, :lang ar|en|all, :pos n|v|a|r|none, :quit")
+    print("\nInteractive ColBERT Search")
+    print("Commands: :k N, :lang ar|en|all, :pos n|v|a|r|none, :source synset|dict|arabterm|all, :quit")
     print("─" * 60)
 
     while True:
@@ -586,8 +746,16 @@ def interactive_mode(model, index, metadata, ili_map):
             else:
                 print("  Invalid pos. Use: n, v, a, r, none")
             continue
+        elif query.startswith(":source "):
+            val = query.split()[1]
+            if val in ("synset", "dict", "arabterm", "all"):
+                source = val
+                print(f"  source filter set to {source}")
+            else:
+                print("  Invalid source. Use: synset, dict, arabterm, all")
+            continue
 
-        results = search(query, model, index, metadata, ili_map, k=k, lang=lang, pos=pos)
+        results = search(query, model, index, metadata, ili_map, k=k, lang=lang, pos=pos, source=source)
         display_results(results, query)
 
 
@@ -596,6 +764,8 @@ def interactive_mode(model, index, metadata, ili_map):
 
 def cmd_build(args):
     """Build the index: parse → encode → index."""
+    synsets_only = getattr(args, "synsets_only", False)
+
     # Phase 1: Parse AWN4
     ar_records = parse_awn4(AWN4_XML, limit=args.limit)
 
@@ -605,8 +775,22 @@ def cmd_build(args):
     else:
         en_records = load_oewn(limit=args.limit)
 
+    # Phase 2b: Load dictionary entries
+    if synsets_only or args.no_dict:
+        dict_records = []
+    else:
+        dict_records = load_dict_entries(DICT_DB, limit=args.limit)
+
+    # Phase 2c: Load ARABTERM terms
+    if synsets_only or args.no_arabterm:
+        arabterm_records = []
+    else:
+        arabterm_records = load_arabterm(DICT_DB, limit=args.limit)
+
     # Phase 3: Build corpus
-    documents, doc_ids, metadata, ili_map = build_corpus(ar_records, en_records)
+    documents, doc_ids, metadata, ili_map = build_corpus(
+        ar_records, en_records, dict_records, arabterm_records,
+    )
 
     # Save metadata
     META_DIR.mkdir(parents=True, exist_ok=True)
@@ -620,8 +804,15 @@ def cmd_build(args):
     model = load_model(device=args.device)
 
     EMB_DIR.mkdir(parents=True, exist_ok=True)
-    cache_suffix = f"_limit{args.limit}" if args.limit > 0 else ""
-    cache_path = EMB_DIR / f"embeddings{cache_suffix}.pkl"
+    # Cache name reflects what sources are included
+    parts = []
+    if ar_records: parts.append("awn")
+    if en_records: parts.append("oewn")
+    if dict_records: parts.append("dict")
+    if arabterm_records: parts.append("at")
+    if args.limit > 0: parts.append(f"limit{args.limit}")
+    cache_name = "embeddings_" + "_".join(parts) + ".pkl" if parts else "embeddings.pkl"
+    cache_path = EMB_DIR / cache_name
 
     embeddings = encode_documents(
         model,
@@ -637,8 +828,10 @@ def cmd_build(args):
     # Summary
     print("\n" + "=" * 60)
     print("BUILD COMPLETE")
-    print(f"  Arabic synsets:  {len(ar_records):>8,}")
-    print(f"  English synsets: {len(en_records):>8,}")
+    print(f"  AWN4 synsets:    {len(ar_records):>8,}")
+    print(f"  OEWN synsets:    {len(en_records):>8,}")
+    print(f"  Dict entries:    {len(dict_records):>8,}")
+    print(f"  ARABTERM terms:  {len(arabterm_records):>8,}")
     print(f"  Total indexed:   {len(doc_ids):>8,}")
     print(f"  Backend:         {args.backend}")
     print(f"  Index dir:       {INDEX_DIR}/synset_colbert/")
@@ -655,6 +848,7 @@ def cmd_search(args):
     results = search(
         args.query, model, index, metadata, ili_map,
         k=args.k, lang=args.lang, pos=args.pos,
+        source=getattr(args, "source", "all"),
     )
     display_results(results, args.query)
 
@@ -668,6 +862,27 @@ def cmd_interactive(args):
     interactive_mode(model, index, metadata, ili_map)
 
 
+def cmd_serve(args):
+    """Launch the web UI."""
+    import importlib.util
+
+    web_app_path = SCRIPT_DIR / "web" / "app.py"
+    if not web_app_path.exists():
+        print(f"ERROR: Web app not found at {web_app_path}")
+        sys.exit(1)
+
+    spec = importlib.util.spec_from_file_location("web_app", str(web_app_path))
+    web_mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(web_mod)
+
+    web_mod.startup_load(device=args.device, backend=args.backend)
+
+    print(f"\n  Starting web UI on http://localhost:{args.port}")
+    print(f"  Press Ctrl+C to stop.\n")
+    web_mod.app.run(debug=args.debug, port=args.port, threaded=False,
+                    use_reloader=False)
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Bilingual ColBERTv2 synset retrieval pipeline",
@@ -676,29 +891,37 @@ def main():
     subparsers = parser.add_subparsers(dest="command", help="Available commands")
 
     # --- build ---
-    build_p = subparsers.add_parser("build", help="Build the index from AWN4 + OEWN")
+    build_p = subparsers.add_parser("build", help="Build the index from all sources")
     build_p.add_argument("--backend", choices=["voyager", "plaid"], default="voyager",
                          help="Index backend (default: voyager)")
     build_p.add_argument("--limit", type=int, default=0,
-                         help="Limit synsets per language, 0=all (default: 0)")
+                         help="Limit entries per source, 0=all (default: 0)")
     build_p.add_argument("--batch-size", type=int, default=8,
                          help="Encoding batch size (default: 8)")
     build_p.add_argument("--device", default="cpu",
                          help="PyTorch device (default: cpu)")
     build_p.add_argument("--no-english", action="store_true",
                          help="Skip English synsets")
+    build_p.add_argument("--no-dict", action="store_true",
+                         help="Skip Arabic dictionary entries")
+    build_p.add_argument("--no-arabterm", action="store_true",
+                         help="Skip ARABTERM technical terms")
+    build_p.add_argument("--synsets-only", action="store_true",
+                         help="Only index AWN4 + OEWN synsets (skip dict + ARABTERM)")
     build_p.add_argument("--force-encode", action="store_true",
                          help="Re-encode even if cache exists")
     build_p.set_defaults(func=cmd_build)
 
     # --- search ---
-    search_p = subparsers.add_parser("search", help="Search for synsets")
+    search_p = subparsers.add_parser("search", help="Search the index")
     search_p.add_argument("query", help="Search query (Arabic or English)")
     search_p.add_argument("--k", type=int, default=10, help="Number of results (default: 10)")
     search_p.add_argument("--lang", choices=["ar", "en", "all"], default="all",
                           help="Filter by language (default: all)")
     search_p.add_argument("--pos", choices=["n", "v", "a", "r"], default=None,
                           help="Filter by POS")
+    search_p.add_argument("--source", choices=["synset", "dict", "arabterm", "all"], default="all",
+                          help="Filter by source type (default: all)")
     search_p.add_argument("--backend", choices=["voyager", "plaid"], default="voyager")
     search_p.add_argument("--device", default="cpu")
     search_p.set_defaults(func=cmd_search)
@@ -708,6 +931,16 @@ def main():
     inter_p.add_argument("--backend", choices=["voyager", "plaid"], default="voyager")
     inter_p.add_argument("--device", default="cpu")
     inter_p.set_defaults(func=cmd_interactive)
+
+    # --- serve ---
+    serve_p = subparsers.add_parser("serve", help="Launch web UI")
+    serve_p.add_argument("--port", type=int, default=5002,
+                         help="Port (default: 5002)")
+    serve_p.add_argument("--backend", choices=["voyager", "plaid"], default="voyager")
+    serve_p.add_argument("--device", default="cpu")
+    serve_p.add_argument("--debug", action="store_true",
+                         help="Flask debug mode (no reloader)")
+    serve_p.set_defaults(func=cmd_serve)
 
     args = parser.parse_args()
     if not args.command:
