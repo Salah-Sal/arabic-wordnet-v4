@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
-"""Multilingual ColBERTv2 retrieval pipeline for synsets + Arabic dictionaries.
+"""ColBERT semantic retrieval index for the Arabic dictionary database.
 
-Indexes AWN4 Arabic synsets, OEWN English synsets, Arabic dictionary entries,
-and ARABTERM multilingual technical terms into a single ColBERT index using
-Jina-ColBERT-v2 (multilingual, cross-lingual aligned).
+Indexes 342K dictionary entries (OCR + Hawramani) from arabic-dictionaries/db/arabic_dict.db
+into a PLAID-compressed ColBERT index using Jina-ColBERT-v2 (multilingual, 128-dim per-token
+embeddings). Provides headword, definition-based, and semantic search across 107 dictionaries.
+
+See COLBERT_INDEX.md for full architecture documentation.
 
 Usage:
-    python colbert_index.py build [--limit N] [--backend voyager|plaid]
-    python colbert_index.py search "عقد" [--k 10] [--lang ar|en|all] [--source synset|dict|arabterm|all]
-    python colbert_index.py interactive
+    python colbert_index.py build --backend plaid --no-arabterm --batch-size 16
+    python colbert_index.py search "كتب" --backend plaid [--k 10] [--source dict|arabterm|all]
+    python colbert_index.py interactive --backend plaid
 """
 
 import argparse
@@ -224,140 +226,149 @@ def load_oewn(limit=0):
     return records
 
 
-# ─── Phase 2b: Load Arabic dictionary entries ────────────────────────────────
+# ─── Phase 2b: Load Arabic dictionary entries (v2 unified schema) ────────────
 
 # Map dict POS values → ColBERT single-char filter codes
 DICT_POS_MAP = {
     "noun": "n",
     "verb": "v",
     "adj": "a",
+    "adjective": "a",
     "proper_noun": "n",
     "phrase": "n",
     "particle": "r",
+    "adverb": "r",
+    "active_participle": "n",
+    "passive_participle": "n",
+    "verbal_noun": "n",
     "other": "n",
     "root": "n",
 }
 
 
-def load_dict_entries(db_path, limit=0):
-    """Load Arabic dictionary entries from the arabic_dict.db SQLite database.
+def load_unified_entries(db_path, limit=0, source_type=None):
+    """Load dictionary entries from the canonical arabic_dict.db (v2 schema).
 
-    Each entry becomes a SynsetRecord with source_type="dict".
+    The v2 schema has all entries (OCR, Hawramani, ARABTERM) in a single
+    `entries` table, with source metadata in the `dictionaries` catalog.
+    Plurals and examples are in normalized child tables.
+
+    Args:
+        db_path: Path to arabic_dict.db (the 2.1 GB canonical DB)
+        limit: Max entries to load (0 = all)
+        source_type: Filter by dictionaries.source_type ('ocr', 'hawramani',
+                     'arabterm', or None for all)
+
+    Returns dict and arabterm records in a single list.
     """
     if not Path(db_path).exists():
         print(f"WARNING: Dictionary DB not found: {db_path}")
-        return []
+        return [], []
 
-    print(f"Loading dictionary entries from {db_path}")
+    print(f"Loading entries from {db_path}" +
+          (f" (source_type={source_type})" if source_type else " (all sources)"))
     t0 = time.time()
 
     conn = sqlite3.connect(f"file:{db_path}?mode=ro", uri=True)
     conn.row_factory = sqlite3.Row
-    cur = conn.cursor()
 
-    query = "SELECT id, source, headword_bare, pos, definitions_text, examples, plurals FROM entries"
+    # ── Load entries with dictionary metadata ──
+    # Include entries with definitions OR translations (ARABTERM terms often
+    # have no Arabic definition but have translation_en/fr + domain).
+    query = """
+        SELECT e.id, e.headword_bare, e.headword_norm, e.root, e.pos, e.form,
+               e.definitions_text, e.translation_en, e.translation_fr, e.domain,
+               d.key AS dict_key, d.source_type, d.name_en AS dict_name
+        FROM entries e
+        JOIN dictionaries d ON e.dictionary_id = d.id
+        WHERE (
+            (e.definitions_text IS NOT NULL AND LENGTH(e.definitions_text) > 0)
+            OR (e.translation_en IS NOT NULL AND LENGTH(e.translation_en) > 0)
+        )
+    """
+    if source_type:
+        query += f" AND d.source_type = '{source_type}'"
     if limit > 0:
         query += f" LIMIT {limit}"
-    cur.execute(query)
 
-    records = []
-    for row in cur:
-        pos_code = DICT_POS_MAP.get(row["pos"], "n")
+    entries = conn.execute(query).fetchall()
+    entry_ids = [e["id"] for e in entries]
 
-        # Build lemmas: headword + plurals
+    # ── Batch-load plurals from child table ──
+    plurals_map = defaultdict(list)
+    if entry_ids:
+        # Load in chunks to avoid SQLite variable limit
+        for i in range(0, len(entry_ids), 500):
+            chunk = entry_ids[i:i + 500]
+            placeholders = ",".join("?" * len(chunk))
+            rows = conn.execute(
+                f"SELECT entry_id, text FROM plurals WHERE entry_id IN ({placeholders})",
+                chunk,
+            ).fetchall()
+            for r in rows:
+                plurals_map[r["entry_id"]].append(r["text"])
+
+    # ── Batch-load examples from child table ──
+    examples_map = defaultdict(list)
+    if entry_ids:
+        for i in range(0, len(entry_ids), 500):
+            chunk = entry_ids[i:i + 500]
+            placeholders = ",".join("?" * len(chunk))
+            rows = conn.execute(
+                f"SELECT entry_id, text FROM examples WHERE entry_id IN ({placeholders}) ORDER BY entry_id, idx",
+                chunk,
+            ).fetchall()
+            for r in rows:
+                examples_map[r["entry_id"]].append(r["text"])
+
+    conn.close()
+
+    # ── Build SynsetRecords ──
+    dict_records = []
+    arabterm_records = []
+
+    for row in entries:
+        entry_id = row["id"]
+        src = row["source_type"]
+        pos_code = DICT_POS_MAP.get(row["pos"], "n") if row["pos"] else "n"
+
+        # Build lemmas
         lemmas = [row["headword_bare"]]
-        try:
-            plurals = json.loads(row["plurals"])
-            if isinstance(plurals, list):
-                lemmas.extend(p for p in plurals if isinstance(p, str) and p)
-        except (json.JSONDecodeError, TypeError):
-            pass
+        lemmas.extend(plurals_map.get(entry_id, []))
 
-        # Extract example text from JSON array of {type, text, attribution}
-        examples = []
-        try:
-            ex_list = json.loads(row["examples"])
-            if isinstance(ex_list, list):
-                for ex in ex_list:
-                    if isinstance(ex, dict) and ex.get("text"):
-                        examples.append(ex["text"])
-        except (json.JSONDecodeError, TypeError):
-            pass
+        # For ARABTERM: include translations as additional lemmas
+        if src == "arabterm":
+            for trans in [row["translation_en"], row["translation_fr"]]:
+                if trans:
+                    lemmas.append(trans)
 
-        records.append(
-            SynsetRecord(
-                synset_id=f"dict-{row['source']}-{row['id']}",
-                ili="",
-                pos=pos_code,
-                lang="ar",
-                lemmas=lemmas,
-                definition=row["definitions_text"] or "",
-                examples=examples,
-                source_type="dict",
-            )
+        # Definition: use definitions_text, fallback to domain tag for ARABTERM
+        definition = row["definitions_text"] or ""
+        if not definition and src == "arabterm" and row["domain"]:
+            definition = f"[{row['domain']}]"
+
+        examples = examples_map.get(entry_id, [])
+
+        record = SynsetRecord(
+            synset_id=f"dict-{row['dict_key']}-{entry_id}",
+            ili="",
+            pos=pos_code,
+            lang="ar",
+            lemmas=lemmas,
+            definition=definition,
+            examples=examples,
+            source_type=src,  # preserves 'ocr', 'hawramani', 'arabterm'
         )
 
-    conn.close()
+        if src == "arabterm":
+            arabterm_records.append(record)
+        else:
+            dict_records.append(record)
 
     elapsed = time.time() - t0
-    print(f"  Loaded {len(records):,} dictionary entries in {elapsed:.1f}s")
+    print(f"  Loaded {len(dict_records):,} dict entries + {len(arabterm_records):,} ARABTERM terms in {elapsed:.1f}s")
 
-    return records
-
-
-def load_arabterm(db_path, limit=0):
-    """Load ARABTERM multilingual technical terms from arabic_dict.db.
-
-    Each term becomes a SynsetRecord with source_type="arabterm".
-    Trilingual lemmas (AR/EN/FR) enable cross-lingual retrieval.
-    """
-    if not Path(db_path).exists():
-        print(f"WARNING: Dictionary DB not found: {db_path}")
-        return []
-
-    print(f"Loading ARABTERM terms from {db_path}")
-    t0 = time.time()
-
-    conn = sqlite3.connect(f"file:{db_path}?mode=ro", uri=True)
-    conn.row_factory = sqlite3.Row
-    cur = conn.cursor()
-
-    query = "SELECT id, arabic_bare, english, french, description, domain FROM arabterm_terms WHERE arabic_bare IS NOT NULL"
-    if limit > 0:
-        query += f" LIMIT {limit}"
-    cur.execute(query)
-
-    records = []
-    for row in cur:
-        # Trilingual lemmas — filter out empty/null values
-        lemmas = [v for v in [row["arabic_bare"], row["english"], row["french"]] if v]
-        if not lemmas:
-            continue
-
-        # Use description if available, otherwise domain tag as fallback
-        description = row["description"] or ""
-        domain = row["domain"] or ""
-        definition = description if description else f"[{domain}]" if domain else ""
-
-        records.append(
-            SynsetRecord(
-                synset_id=f"at-{row['id']}",
-                ili="",
-                pos="n",
-                lang="ar",
-                lemmas=lemmas,
-                definition=definition,
-                examples=[],
-                source_type="arabterm",
-            )
-        )
-
-    conn.close()
-
-    elapsed = time.time() - t0
-    print(f"  Loaded {len(records):,} ARABTERM terms in {elapsed:.1f}s")
-
-    return records
+    return dict_records, arabterm_records
 
 
 # ─── Phase 3: Build unified document corpus ──────────────────────────────────
@@ -488,12 +499,16 @@ def encode_documents(model, documents, batch_size=8, cache_path=None, force=Fals
     elapsed = time.time() - t0
     print(f"  Encoded {len(all_embeddings):,} documents in {elapsed:.1f}s ({elapsed / len(documents):.3f}s/doc)")
 
-    # Cache to disk
+    # Cache to disk (skip for large corpora to avoid multi-GB pickles)
     if cache_path:
-        Path(cache_path).parent.mkdir(parents=True, exist_ok=True)
-        print(f"  Saving embeddings to {cache_path}")
-        with open(cache_path, "wb") as f:
-            pickle.dump(all_embeddings, f, protocol=pickle.HIGHEST_PROTOCOL)
+        est_gb = len(all_embeddings) * 40 * 128 * 4 / (1024**3)  # rough estimate
+        if est_gb > 12:
+            print(f"  Skipping cache — estimated {est_gb:.1f} GB exceeds memory-safe limit")
+        else:
+            Path(cache_path).parent.mkdir(parents=True, exist_ok=True)
+            print(f"  Saving embeddings to {cache_path}")
+            with open(cache_path, "wb") as f:
+                pickle.dump(all_embeddings, f, protocol=pickle.HIGHEST_PROTOCOL)
 
     return all_embeddings
 
@@ -763,33 +778,40 @@ def interactive_mode(model, index, metadata, ili_map):
 
 
 def cmd_build(args):
-    """Build the index: parse → encode → index."""
-    synsets_only = getattr(args, "synsets_only", False)
+    """Build the index from the canonical Arabic dictionary database.
 
-    # Phase 1: Parse AWN4
-    ar_records = parse_awn4(AWN4_XML, limit=args.limit)
+    Indexes only dictionary content (OCR + Hawramani + ARABTERM) — no wordnet
+    synsets. The database is at arabic-dictionaries/db/arabic_dict.db.
+    """
+    global INDEX_DIR, META_DIR, EMB_DIR
+    if args.output_dir:
+        out = Path(args.output_dir)
+        INDEX_DIR = out / "indexes"
+        META_DIR = out / "metadata"
+        EMB_DIR = out / "embeddings"
 
-    # Phase 2: Load OEWN
-    if args.no_english:
-        en_records = []
+    # Determine source_type filter
+    if args.no_dict and args.no_arabterm:
+        print("ERROR: --no-dict and --no-arabterm both set — nothing to index.")
+        return
+    if args.no_dict:
+        source_filter = "arabterm"
+    elif args.no_arabterm:
+        source_filter = None  # load all, filter below
     else:
-        en_records = load_oewn(limit=args.limit)
+        source_filter = None  # load all
 
-    # Phase 2b: Load dictionary entries
-    if synsets_only or args.no_dict:
+    dict_records, arabterm_records = load_unified_entries(
+        DICT_DB, limit=args.limit, source_type=source_filter,
+    )
+    if args.no_dict:
         dict_records = []
-    else:
-        dict_records = load_dict_entries(DICT_DB, limit=args.limit)
-
-    # Phase 2c: Load ARABTERM terms
-    if synsets_only or args.no_arabterm:
+    if args.no_arabterm:
         arabterm_records = []
-    else:
-        arabterm_records = load_arabterm(DICT_DB, limit=args.limit)
 
-    # Phase 3: Build corpus
+    # Build corpus
     documents, doc_ids, metadata, ili_map = build_corpus(
-        ar_records, en_records, dict_records, arabterm_records,
+        dict_records, arabterm_records,
     )
 
     # Save metadata
@@ -800,14 +822,11 @@ def cmd_build(args):
         json.dump(ili_map, f, ensure_ascii=False, indent=1)
     print(f"  Metadata saved to {META_DIR}/")
 
-    # Phase 4: Encode
+    # Encode
     model = load_model(device=args.device)
 
     EMB_DIR.mkdir(parents=True, exist_ok=True)
-    # Cache name reflects what sources are included
     parts = []
-    if ar_records: parts.append("awn")
-    if en_records: parts.append("oewn")
     if dict_records: parts.append("dict")
     if arabterm_records: parts.append("at")
     if args.limit > 0: parts.append(f"limit{args.limit}")
@@ -822,14 +841,12 @@ def cmd_build(args):
         force=args.force_encode,
     )
 
-    # Phase 5: Build index
+    # Build index
     index = build_index(doc_ids, embeddings, backend=args.backend)
 
     # Summary
     print("\n" + "=" * 60)
     print("BUILD COMPLETE")
-    print(f"  AWN4 synsets:    {len(ar_records):>8,}")
-    print(f"  OEWN synsets:    {len(en_records):>8,}")
     print(f"  Dict entries:    {len(dict_records):>8,}")
     print(f"  ARABTERM terms:  {len(arabterm_records):>8,}")
     print(f"  Total indexed:   {len(doc_ids):>8,}")
@@ -841,6 +858,12 @@ def cmd_build(args):
 
 def cmd_search(args):
     """Search the index for a single query."""
+    global INDEX_DIR, META_DIR
+    if getattr(args, "output_dir", None):
+        out = Path(args.output_dir)
+        INDEX_DIR = out / "indexes"
+        META_DIR = out / "metadata"
+
     metadata, ili_map = load_metadata()
     model = load_model(device=args.device)
     index = load_index(backend=args.backend)
@@ -900,16 +923,14 @@ def main():
                          help="Encoding batch size (default: 8)")
     build_p.add_argument("--device", default="cpu",
                          help="PyTorch device (default: cpu)")
-    build_p.add_argument("--no-english", action="store_true",
-                         help="Skip English synsets")
     build_p.add_argument("--no-dict", action="store_true",
-                         help="Skip Arabic dictionary entries")
+                         help="Skip OCR + Hawramani dictionary entries")
     build_p.add_argument("--no-arabterm", action="store_true",
                          help="Skip ARABTERM technical terms")
-    build_p.add_argument("--synsets-only", action="store_true",
-                         help="Only index AWN4 + OEWN synsets (skip dict + ARABTERM)")
     build_p.add_argument("--force-encode", action="store_true",
                          help="Re-encode even if cache exists")
+    build_p.add_argument("--output-dir", default=None,
+                         help="Output directory for indexes/metadata/embeddings (isolates from default dirs)")
     build_p.set_defaults(func=cmd_build)
 
     # --- search ---
@@ -920,10 +941,12 @@ def main():
                           help="Filter by language (default: all)")
     search_p.add_argument("--pos", choices=["n", "v", "a", "r"], default=None,
                           help="Filter by POS")
-    search_p.add_argument("--source", choices=["synset", "dict", "arabterm", "all"], default="all",
+    search_p.add_argument("--source", choices=["dict", "arabterm", "all"], default="all",
                           help="Filter by source type (default: all)")
     search_p.add_argument("--backend", choices=["voyager", "plaid"], default="voyager")
     search_p.add_argument("--device", default="cpu")
+    search_p.add_argument("--output-dir", default=None,
+                          help="Directory containing the index to search")
     search_p.set_defaults(func=cmd_search)
 
     # --- interactive ---
