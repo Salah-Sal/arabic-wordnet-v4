@@ -320,6 +320,86 @@ In `merge_evidence_by_lemma()`, prefix-stripped entries are routed back to their
 
 ---
 
+## 2026-03-03 — Review Methodology Enhancement (Round 3)
+
+### Context
+
+The YAML sidecar and Section 5 review instructions were too simple for a full linguistic audit. The existing `llm_linguist_prompt.md` (301 lines) had a sophisticated methodology — anti-synonymy principles, flag taxonomy, enrichment tables, vocalization requirements — but it was designed for LLM use, not human linguists working with the dict_evidence_retrieval pipeline. Two research documents synthesizing 30 years of multilingual WordNet evaluation methodology were analyzed to extract additional enhancements.
+
+### Deliverable 1: `REVIEW_GUIDE.md` (New File)
+
+Created a standalone bilingual (Arabic/English) review guide adapted from `llm_linguist_prompt.md` plus research insights. 11 sections:
+
+1. **Overview** — AWN4 context, evidence sources, workflow orientation
+2. **Review Workflow** — 8-step procedure from "understand the English source" through "flag issues"
+3. **Review Criteria** — Lemma accuracy (anti-synonymy, substitution test, diglossic enforcement), definition quality (genus-differentia, circularity, calques), examples, semantic relations, enrichment labels
+4. **POS-Specific Guidance** — Nouns (broken plurals, masdar vs concrete), verbs (transitivity, preposition binding), adjectives (pattern consistency), adverbs (no grammaticalized class in Arabic)
+5. **MT Error Patterns** — 9 common patterns with before/after examples + 5-code error typology (omission, substitution, dialectal_intrusion, orthographic_error, faux_ami)
+6. **Flag Taxonomy** — 10 codes from the LLM prompt (LEMMA_NOT_FOUND through LITERAL_FIGURATIVE_MIX)
+7. **Morphological Validation Checklist** — Broken plurals, orthographic noise (ى/ي, ة/ه), cliticization, root verification, dialectal contamination
+8. **Scoring Rubric** — 5 ordinal/categorical dimensions designed for Krippendorff's α IAA analysis
+9. **Lexical Gap Typology** — True Lexical Gap / Phraset / Omission with CILI alignment types
+10. **Evidence Interpretation Guide** — How to read each evidence section in the .md reference
+11. **Reference Sources** — Dictionaries, morphological analyzers, external resources
+
+### Deliverable 2: Enhanced `render_yaml()`
+
+Rewrote `render_yaml()` in `generate_review_doc.py`. Key additions:
+
+**Scoring rubric block** (5 dimensions for IAA analysis):
+- `semantic_accuracy`: 0-3 ordinal (wrong → fully correct)
+- `gloss_quality`: 0-3 ordinal (missing → excellent)
+- `synonym_coherence`: 0-2 ordinal (not synonymous → fully synonymous)
+- `completeness`: 0-2 ordinal (critically incomplete → complete)
+- `cultural_adequacy`: categorical (direct / near_synonym / phraset / lexical_gap / omission)
+
+**Definition review** — expanded from single verdict to 3 sub-dimensions (accuracy, fluency, structure) plus verdict and flags.
+
+**Per-lemma enrichment** — 10+ fields per lemma:
+- Auto-populated evidence metadata: `_attestation_count`, `_dictionary_count`, `_roots`, `_root_sources`, `_is_loanword`
+- Linguist-filled: `root`, `usage`, `eloquence`, `connotation`, `literal_figurative`, `figurative_relation`, `nuance_note`, `typical_collocate`, `syntactic_frame` (verbs only)
+- Morphological validation: `morpho_check` (broken_plural_linked, orthography_normalized, clitics_stripped)
+- MT error classification: `error_type` (5-code typology for algorithmic feedback loop)
+- Source citation and flags per lemma
+
+**Cultural fit expansion** — added `lexical_gap_type`, `gap_strategy`, `cili_alignment`.
+
+**Relations section** — added `hypernym_correct` boolean check.
+
+### Deliverable 3: POS-Aware Section 5
+
+Rewrote Section 5 in `render_md()` with a structured checklist that varies by POS:
+
+- References `REVIEW_GUIDE.md` at the top
+- Definition checklist (accuracy, fluency, structure)
+- Morphological validation checklist (broken plurals, orthography, clitics, diglossic check)
+- Per-lemma checklist (substitution test, diacritics, usage, eloquence, nuance, collocate, error_type)
+- **POS-specific items** conditionally rendered:
+  - Nouns: broken plural linkage, masdar vs concrete, root family verification
+  - Verbs: transitivity frame, preposition binding, masdar
+  - Adjectives: morphological pattern, comparative form
+  - Adverbs: base noun verification, alternative forms
+- Quality scores checklist (5 dimensions)
+- Missing lemmas and flags sections
+
+### Research Sources Analyzed
+
+| Document | Key Contributions |
+|----------|-------------------|
+| Compass Artifact (multi-WN evaluation synthesis) | Ordinal scoring rubric, stratified sampling design, IAA targets (α ≥ 0.80), graduated cultural response taxonomy |
+| Comprehensive Methodology (Arabic WN-specific) | Morphological validation protocol, MT error typology, lexical gap typology with CILI alignment, substitution test, diglossic divide enforcement, algorithmic feedback loop concept |
+
+### Verification
+
+Regenerated 10 sample documents (seed 42, SQL-only). Confirmed:
+- YAML has 11 top-level keys (synset_id, reviewer, review_date, status, scores, definition, lemmas, missing_lemmas, examples, relations, cultural_fit, overall)
+- Scores block initializes with null/empty defaults
+- Per-lemma evidence metadata auto-populated (e.g., بناء: 17 attestations, 12 dictionaries)
+- `syntactic_frame` present for verbs, absent for other POS types
+- POS-specific Section 5 items render correctly (noun: broken plural check; verb: transitivity frame; etc.)
+
+---
+
 ## Open Issues / Future Work
 
 1. **Root quality for نقود:** CAMeL returns "قد" instead of "نقد". Consider adding Lane's Lexicon or manual root overrides as a fallback root source.
@@ -339,3 +419,79 @@ In `merge_evidence_by_lemma()`, prefix-stripped entries are routed back to their
 8. **POS inference for ARABTERM:** Al-Mawrid entries lack POS tags, so the conservative POS filter can't catch mismatches. Future: infer POS from headword morphology (e.g., يُـ prefix → verb) or definition patterns.
 
 9. **Multi-character proclitic stripping:** The current prefix-stripping only handles single-character proclitics (ب, ك, ل, ف, و). Multi-character prefixes like بال, وال, كال are not yet handled.
+
+10. **Definition clustering threshold tuning:** The `definition_containment()` threshold (0.65) may need adjustment based on real review feedback. Too low → over-groups distinct senses; too high → under-groups obvious copies.
+
+---
+
+## 2026-03-03 — Expert Feedback Integration (Round 4)
+
+### Context
+
+An Arabic NLP/lexicography expert reviewed the pipeline output (especially `awn4-00203457-r.yaml` for بذكاء) and provided 6 improvement suggestions. Their assessment: the pipeline is "state-of-the-art" for WordNet construction, but can be enhanced for maximum precision and reduced reviewer effort.
+
+### Change 1: Root Extraction Fix for Prefix-Stripped Lemmas (P0)
+
+**Bug:** `merge_evidence_by_lemma()` skipped root extraction for `_prefix_stripped` entries due to an early `continue`. Adverbs like بذكاء showed `_roots: []` despite the DB entries for ذكاء carrying valid roots.
+
+**Fix:** Insert root extraction before the `continue` in the prefix-stripped branch (4 lines).
+
+**Verification:** بذكاء now shows `_roots: ['ذكو', 'ذك']` with sources `['lane', 'camel']`. This also enables Strategy B root-family expansion for adverb lemmas.
+
+### Change 2: Dictionary Examples in Review Documents (P1a)
+
+**Problem:** The DB has 86K examples (poetry, Quran, hadith, proverbs, usage) in the `examples` child table, but they were not surfaced in the review pipeline. The expert wanted 3-5 real usage sentences per word.
+
+**Solution:** Added `fetch_examples_for_entries()` — batch queries the `examples` table by entry_id, chunked in groups of 500. Called after `merge_evidence_by_lemma()` in `generate_for_synset()`, attaches examples to each `LemmaEvidence` (deduplicated by text).
+
+**Rendering:** New "شواهد وأمثلة — Usage Examples" sub-section per lemma in the .md, grouped by type (Quran → Hadith → Poetry → Proverb → Usage), max 3 per type, with attribution. YAML gets `_example_count` per lemma.
+
+**Verification:** شكّل shows 17 examples (Quranic verse + classical poetry); صاغ shows 10 examples. Examples are properly grouped and attributed.
+
+### Change 3: MWE Flag in YAML (P1b)
+
+**Problem:** Multi-word expressions like "غير معتدل" had word-level morphological checks (broken_plural_linked, orthography_normalized, clitics_stripped) that don't apply.
+
+**Solution:** Added `_is_mwe` flag per lemma in YAML (from existing `LemmaEvidence.is_multiword`). When true, `morpho_check` values are set to `"skip"` instead of `null`. Section 5 checklist shows an MWE note when any lemma is multi-word.
+
+**Verification:** "غير معتدل" → `_is_mwe: true`, `morpho_check: {broken_plural_linked: skip, ...}`. Single-word "جامح" → `_is_mwe: false`, checks remain `null`.
+
+### Change 4: Scoring Rubric Anchor Enrichment (P1c)
+
+**Problem:** Scoring anchors were single-phrase labels (e.g., "2 = mostly correct"). No concrete examples, no decision rules for adjacent scores.
+
+**Solution:** Expanded REVIEW_GUIDE.md §8 from a compact table to 5 sub-sections with:
+- Arabic examples per score level (from actual synset patterns)
+- Decision rules for distinguishing adjacent scores (e.g., "1 vs 2: if you need a qualifier → 1; if it works in most contexts → 2")
+- Substitution test procedure for synonym coherence scoring
+
+### Change 5: Definition Clustering (P2a)
+
+**Problem:** Classical dictionaries frequently copy from each other (Taj al-Arus → Lisan al-Arab → Sihah). 15+ near-identical definitions listed separately create noise.
+
+**Solution:** Added `cluster_definitions()` using the existing `definition_containment()` function from `rag/similarity.py` (threshold 0.65). Single-linkage clustering with longest definition as primary. Core Dictionary Definitions now render as numbered blocks with near-duplicates collapsed into "نفس المعنى في — Same definition in: X, Y, Z".
+
+**Verification:** شكّل synset shows 7 "Same definition in" groupings — classical dictionaries that copied each other are now collapsed.
+
+### Change 6: Analysis Section in YAML — Chain of Thought (P2b)
+
+**Problem:** The expert recommended a free-form "thinking space" for reasoning before filling structured fields, improving decision traceability and enabling future model training.
+
+**Solution:** Added `analysis` section to YAML between `status` and `scores` with 5 fields: `initial_impression`, `key_evidence`, `concerns`, `comparison_with_english`, `reasoning`. Added guidance in REVIEW_GUIDE.md (new §2.5) and a checklist item in Section 5.
+
+### Regeneration Test (10 synsets, SQL-only, seed 42)
+
+All 10 synsets regenerated successfully in 5.8s. Key metrics:
+
+| Synset | POS | Size | Examples | Clusters |
+|--------|-----|------|----------|----------|
+| `awn4-13271441-n` | noun | 18 KB | مال: 0 | Yes |
+| `awn4-00534261-n` | noun | 10 KB | غافوت: 0 | — |
+| `awn4-11537927-n` | noun | 18 KB | شفط: 0 | Yes |
+| `awn4-00912746-n` | noun | 19 KB | بناء: 0 | Yes |
+| `awn4-00493346-v` | verb | 37 KB | دنس: varies | Yes |
+| `awn4-01663142-v` | verb | 48 KB | شكّل: 17 | Yes (7 groups) |
+| `awn4-00865514-a` | adj | 8 KB | نظري: varies | — |
+| `awn4-02410992-a` | adj | 9 KB | MWE: غير معتدل | — |
+| `awn4-00203457-r` | adv | 53 KB | بذكاء: 3 (root fixed) | Yes |
+| `awn4-00038407-r` | adv | 99 KB | بصدق: varies | Yes |

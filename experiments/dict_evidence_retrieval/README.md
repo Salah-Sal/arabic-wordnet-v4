@@ -152,7 +152,8 @@ python generate_review_doc.py --synset-ids awn4-13271441-n --output-dir output/b
 **Section 2: Per-Lemma Dictionary Evidence** — For each Arabic lemma in the synset:
 - **Attestation summary**: number of dictionary entries and dictionaries found
 - **Root information**: Arabic root(s) with source attribution (CAMeL morphological analyzer or OCR-extracted)
-- **Core dictionary definitions** (all entries): sorted by match quality (exact headword first) then dictionary authority (classical → modern OCR → modern Hawramani → ARABTERM). Full definitions shown without truncation.
+- **Core dictionary definitions** (clustered): near-duplicate definitions from dictionaries that copy each other are grouped using `definition_containment()` (threshold 0.65). The primary (longest) definition is shown in full; near-duplicates are collapsed into "Same definition in: Dict1, Dict2". Sorted by match quality then dictionary authority.
+- **Usage examples**: dictionary examples (Quran, hadith, poetry, proverbs, usage) from the `examples` table, grouped by type with attribution, max 3 per type per lemma
 - **Root family** (non-ARABTERM with definitions): morphologically related words sharing the same root
 - **Synonym candidates**: entries with different headwords but similar definitions (similarity > 0.30)
 - **ARABTERM translations**: English/French glosses from the bilingual terminology database
@@ -161,49 +162,105 @@ python generate_review_doc.py --synset-ids awn4-13271441-n --output-dir output/b
 
 **Section 4: Connected Synsets** — Hypernyms, hyponyms, and other semantic relations, each with bilingual tables showing Arabic (AWN4) and English (OEWN) equivalents.
 
-**Section 5: Review Instructions** — Bilingual checklist of what to review and pointer to the YAML sidecar.
+**Section 5: Review Instructions** — POS-aware bilingual checklist referencing `REVIEW_GUIDE.md`. Includes sub-checklists for definition (accuracy, fluency, structure), morphological validation (broken plurals, orthography, clitics), per-lemma enrichment (substitution test, diacritics, usage, nuance), and quality scoring. POS-specific items are conditionally rendered: nouns get broken plural checks, verbs get transitivity frames, etc.
 
-### `.yaml` — Decision Sidecar
+### `REVIEW_GUIDE.md` — Standalone Review Guide
 
-Pre-populated structure the linguist fills in:
+Comprehensive bilingual (Arabic/English) reference document the linguist reads before starting review. 11 sections covering workflow (8 steps), review criteria (anti-synonymy, substitution test, diglossic enforcement), POS-specific guidance, MT error patterns + typology, flag taxonomy (10 codes), morphological validation, scoring rubric (5 dimensions for IAA analysis), lexical gap typology, and evidence interpretation.
+
+### `.yaml` — Enriched Decision Sidecar
+
+Pre-populated structure the linguist fills in. Auto-populated evidence metadata (prefixed with `_`) provides context; all other fields are for the linguist:
 
 ```yaml
 synset_id: awn4-XXXXX-n
 reviewer: ""
 review_date: ""
-status: pending          # pending | in_progress | completed
+status: pending              # pending | in_progress | completed
 
+# Analysis (Chain of Thought — fill before structured fields)
+analysis:
+  initial_impression: ""       # Does this synset "feel right"?
+  key_evidence: ""             # Which dictionary evidence was most decisive?
+  concerns: ""                 # Any doubts or issues noticed
+  comparison_with_english: ""  # How does Arabic concept map to English source?
+  reasoning: ""                # Free-form reasoning leading to decisions below
+
+# Scoring rubric (ordinal scales for IAA analysis)
+scores:
+  semantic_accuracy: null    # 0=wrong | 1=partial | 2=mostly correct | 3=fully correct
+  gloss_quality: null        # 0=missing | 1=poor | 2=adequate | 3=excellent
+  synonym_coherence: null    # 0=not synonymous | 1=partial | 2=fully synonymous
+  completeness: null         # 0=critically incomplete | 1=partial | 2=complete
+  cultural_adequacy: ""      # direct | near_synonym | phraset | lexical_gap | omission
+
+# Definition review (3 sub-dimensions + verdict)
 definition:
-  verdict: ""            # accept | revise | reject
+  accuracy: ""               # faithful | narrowed | broadened | mistranslated
+  fluency: ""                # natural | calque | awkward | ungrammatical
+  structure: ""              # genus_differentia | acceptable | circular | vague
+  verdict: ""                # accept | revise | reject
   revised_text: ""
   notes: ""
+  flags: []                  # e.g., [CALQUE_WARNING, WEAK_STYLE]
 
+# Per-lemma enrichment with auto-populated evidence
 lemmas:
   - lemma: "كتاب"
-    verdict: ""          # accept | remove | modify
-    modified_form: ""
+    _attestation_count: 12   # auto-populated: entries found
+    _dictionary_count: 8     # auto-populated: distinct dictionaries
+    _roots: ["كتب"]          # auto-populated: extracted roots
+    _root_sources: ["camel"] # auto-populated: root source (camel/lane/ocr)
+    _is_loanword: false      # auto-populated: loanword detection
+    _is_mwe: false           # auto-populated: multi-word expression flag
+    _example_count: 5        # auto-populated: dictionary examples found
+    verdict: ""              # accept | remove | modify | add_diacritics
+    modified_form: ""        # vocalized correction
+    root: ""                 # confirmed root
+    usage: ""                # archaic | modern | common
+    eloquence: ""            # eloquent | neologism | colloquial
+    connotation: ""          # positive | negative | reverential | pejorative | neutral
+    literal_figurative: ""   # literal | figurative
+    figurative_relation: ""  # mapping relation (if figurative)
+    nuance_note: ""          # what distinguishes this lemma from co-lemmas
+    typical_collocate: ""    # e.g., "كتاب + مقدّس / نافع"
+    syntactic_frame: ""      # verbs only: transitivity frame
+    morpho_check:                  # values are "skip" when _is_mwe is true
+      broken_plural_linked: null   # true | false | null | "skip"
+      orthography_normalized: null # true | false | null | "skip"
+      clitics_stripped: null       # true | false | null | "skip"
+    error_type: ""           # omission | substitution | dialectal_intrusion | orthographic_error | faux_ami
+    source: ""               # dictionary confirming this usage
     notes: ""
+    flags: []                # e.g., [MEANING_MISMATCH]
 
-missing_lemmas: []       # linguist adds after reviewing synonym candidates in .md
-# - lemma: "سِفْر"
-#   source: "dictionary name"
-#   notes: ""
-
+missing_lemmas: []           # linguist adds after reviewing synonym candidates
 examples:
-  verdict: ""            # accept | revise | remove | add
+  verdict: ""                # accept | revise | remove | add
+  quality: ""                # authentic_evidence | natural | calque | fabricated
   revised_examples: []
   notes: ""
 
+relations:
+  hypernym_correct: null     # true | false | null
+  notes: ""
+  flags: []
+
 cultural_fit:
   needs_adaptation: false
+  lexical_gap_type: ""       # none | true_gap | phraset | omission
+  gap_strategy: ""           # descriptive_gloss | mwe_phraset | empty_cili_node | near_synonym
+  cili_alignment: ""         # eq_synonym | eq_near_synonym | eq_has_hypernym | eq_has_hyponym
   notes: ""
 
 overall:
-  confidence: ""         # high | medium | low
+  quality: ""                # excellent | good | acceptable | poor | rejected
+  confidence: ""             # high | medium | low
   general_notes: ""
+  flags: []                  # synset-level flags
 ```
 
-The `missing_lemmas` section starts empty. The linguist adds entries after reviewing the "Synonym Candidates" table in the `.md` reference document.
+The YAML uses controlled vocabularies specified in comments. Evidence metadata fields (prefixed `_`) are auto-populated by the pipeline and provide context for the linguist's decisions. The `missing_lemmas` section starts empty — the linguist adds entries after reviewing "Synonym Candidates" in the `.md` reference.
 
 ---
 
