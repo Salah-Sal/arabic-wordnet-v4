@@ -142,7 +142,7 @@ python generate_review_doc.py --count 5 --seed 42 --no-colbert
 | `awn4-00493346-v` | verb | دنس, لوث | 14 KB | To pollute — 23 entries across 20 dictionaries |
 
 **Edge case observations:**
-- **Loanword (غافوت/gavotte):** No direct dictionary entries found (correctly flagged with ⚠). But FTS5 found synonym candidates: ARABTERM has "كافوت" (alternative transliteration) with 0.36 similarity, and Al-Mawrid has البوريه/الكوتليون (other French dances) at 0.46/0.42 similarity. YAML pre-populates these as `missing_lemmas`.
+- **Loanword (غافوت/gavotte):** No direct dictionary entries found (correctly flagged with ⚠). But FTS5 found synonym candidates: ARABTERM has "كافوت" (alternative transliteration) with 0.36 similarity, and Al-Mawrid has البوريه/الكوتليون (other French dances) at 0.46/0.42 similarity. These are shown in the .md for the linguist to review.
 - **Root issues (نقود):** CAMeL morphological analyzer returns root "قد" for نقود, which is incorrect (should be "نقد"). This is a data quality issue in the root source, not a pipeline bug. Only 1 ARABTERM entry found, with empty definition.
 - **Verbs (دنس):** 23 entries across 20 dictionaries, with excellent classical coverage. The definition "الدَّنَسُ: لَطْخُ الوَسَخِ" (defilement: a stain of filth) from Ibn Sida nicely attests the meaning.
 
@@ -156,16 +156,186 @@ python -c "import yaml; yaml.safe_load(open('output/reviews/awn4-13271441-n.yaml
 
 ---
 
+## 2026-03-03 — Review Feedback Improvements
+
+### External Review
+
+An external reviewer evaluated the 10 sample `.md` review documents. Their feedback was verified against the actual code — some claims were accurate, others were not.
+
+**Reviewer claims verified:**
+
+| # | Claim | Accurate? | Action taken |
+|---|-------|-----------|--------------|
+| 1 | Section 1 layout stacked vertically | True | Replaced with side-by-side 3-column table |
+| 2 | MWE search polluted by stop words like «في» | **False** — `strategy_a` already filters `len(word) > 2` | Fixed misleading display note only |
+| 3 | ColBERT returns phonetic noise for Named Entities | True | Added `instance_hypernym` detection + warning badge |
+| 4 | Hard truncation cuts definitions mid-word | True | Removed all truncation |
+
+### Change 1: No Definition Truncation
+
+Removed the `_trunc()` function and all its call sites. The monkey-patch no longer caps at 500 chars — full `definitions_text` from the DB is passed through. All 6 render sites (core definitions, root family, synonym candidates, ColBERT-only, connected synsets) now show complete text.
+
+**Impact on file sizes:** Common Arabic words with deep lexicographic coverage produce much larger files. Example: `awn4-01663142-v.md` (شكّل/صاغ/قولب) grew from ~14 KB to 156 KB because «شكّل» has 60 entries across 45 dictionaries, all with full definitions.
+
+### Change 2: No Result Count Limits
+
+Removed all `[:N]` caps on displayed entries:
+- Core dictionary definitions: was `[:8]`, now shows all
+- Root family: was `[:5]`, now shows all (non-ARABTERM with definitions)
+- Synonym candidates: was `[:5]` render + `[:10]` merge, now shows all
+- ARABTERM translations: was `[:5]`, now shows all
+- ColBERT-only: was `[:10]`, now shows all
+- Removed all "+N more entries not shown" messages
+
+### Change 3: Side-by-Side Section 1
+
+Replaced the two stacked `###` subsections (English Source / Arabic Translation) with a single 3-column comparison table:
+
+```
+| الحقل — Field | الإنجليزية (OEWN) | العربية (AWN4) |
+|---|---|---|
+| **التعريف — Def** | wealth reckoned in terms of money | الثروة المحسوبة من حيث المال |
+| **الوحدات — Lemmas** | money | مال ، نقود |
+| **أمثلة — Examples** | all his money is in real estate | كل ماله في العقارات |
+```
+
+This reduces vertical eye movement when comparing translation against source.
+
+### Change 4: MWE Note Fix
+
+The MWE note previously listed all split words naively (e.g., "في, الحقيقة"), but `strategy_a` silently filters words with `len ≤ 2`. The reviewer incorrectly concluded that «في» polluted the results — it was never actually searched. Fixed the display note to apply the same `len > 2` filter, so it now correctly shows only "الحقيقة".
+
+### Change 5: Named Entity Badge
+
+Added detection of instance synsets (Named Entities) via the `instance_hypernym` relation, which is already parsed by `parse_awn4_relations()`. Two badges added:
+
+1. **Section 1 badge:** After the comparison table, instance synsets show:
+   > **كيان مُسمّى — Named Entity (instance synset).** نتائج البحث الدلالي قد تعكس تشابهاً صوتياً/صرفياً وليس دلالياً.
+
+2. **Section 3 warning:** Before ColBERT results, instance synsets show a phonetic-similarity warning.
+
+This addresses the Khabarovsk (خاباروفسك) issue where ColBERT returned entries for the Khabur (خابور) river — phonetic overlap, not semantic relevance.
+
+### Regeneration Test (10 synsets, SQL-only)
+
+| Synset | POS | Lemmas | Size | Notes |
+|--------|-----|--------|------|-------|
+| `awn4-13271441-n` | noun | مال, نقود | 20 KB | Was 8 KB — full definitions for 16 entries |
+| `awn4-00534261-n` | noun | غافوت | 8 KB | Was 5 KB — all 14 synonym candidates shown |
+| `awn4-11537927-n` | noun | شفط, مص | 24 KB | Was 11 KB |
+| `awn4-00912746-n` | noun | بناء, تشييد, عمارة | 18 KB | Was 15 KB |
+| `awn4-00493346-v` | verb | دنس, لوث | 103 KB | Was 14 KB — many full classical definitions |
+| `awn4-01663142-v` | verb | شكّل, صاغ, قولب | 156 KB | Was ~14 KB — 60 entries for شكّل alone |
+| `awn4-00865514-a` | adj | نظري | 6 KB | Minimal change |
+| `awn4-02410992-a` | adj | جامح, غير معتدل | 122 KB | Large root family |
+| `awn4-00203457-r` | adv | بذكاء | 3 KB | Minimal — sparse evidence |
+| `awn4-00038407-r` | adv | بصدق, حقاً, في الحقيقة | 49 KB | MWE note fixed |
+
+Named Entity badge verified on `awn4-09027827-n` (Khabarovsk) — renders correctly in both Section 1 and Section 3.
+
+---
+
+## 2026-03-03 — Pipeline Improvements Round 2 (Post-Consultant Feedback)
+
+### External Review
+
+Two external reviewers evaluated the 11 sample `.md` review documents. Their feedback was verified claim-by-claim against the code and output. Verified issues fell into three categories: noise reduction, readability, and coverage.
+
+**Reviewer claims verified:**
+
+| # | Claim | Verdict | Action |
+|---|-------|---------|--------|
+| 1 | Empty definitions create blank rows in tables | TRUE | Change 1: filter empty defs |
+| 2 | MWE splitting passes stop words like غير (3 chars > 2) | TRUE | Change 2: ARABIC_STOPWORDS filter |
+| 3 | Long definitions create walls of text | TRUE | Change 3: 500-char word-boundary truncation |
+| 4 | Noun synonym candidates appear for verb synsets | TRUE | Change 4: POS compatibility filter |
+| 5 | Adverbs like بذكاء return zero entries (proclitic prefix) | TRUE | Change 5: prefix-stripping fallback |
+| 6 | Dictionary sorting by author death date | FALSE | Already sorted by match quality → period → name |
+| 7 | Root conflation (ميل in مال family) | TRUE | Deferred — requires root-sense disambiguation |
+
+### Change 1: Filter Empty Definitions from Core Dictionary Tables
+
+Split `headword_entries` into entries with definitions, entries without definitions, and prefix-stripped entries. Only entries with definitions appear in the main table. Empty-definition entries are summarized in a compact line:
+
+> أيضاً موثّق (بدون تعريف) في — Also attested (no definitions) in: [dict names]
+
+Attestation count still reflects the total across both groups.
+
+**Verification:** نظري: was 6/7 empty rows → now 1 Core row + 5 attested-without-def summary. بناء: was 11/17 empty → now 6 Core rows + 9 attested summary.
+
+### Change 2: Arabic Stop-Word Filter for MWE Splitting
+
+Imported `ARABIC_STOPWORDS` (37-entry frozenset from `rag.similarity`) and added it to the MWE word filter in Strategy A. The guard `len(word) > 2` was insufficient — words like غير (3 chars) are grammatical particles, not content words.
+
+Updated both the retrieval filter and the MWE display note in `generate_review_doc.py` to use the same logic: `len(word) > 2 and word not in ARABIC_STOPWORDS`.
+
+**Verification:** غير معتدل: MWE note now shows only "معتدل", no غير entries in results.
+
+### Change 3: Smart Truncation for Long Definitions
+
+Added `_trunc_word(text, limit=500)` — truncates at the last word boundary before the limit and appends " …". Applied at all 4 definition render sites: Core Dictionary, Root Family, Synonym Candidates, and ColBERT-only tables. ARABTERM translations excluded (already short).
+
+This reverses the previous "no truncation" decision after consultants confirmed that walls of text in table cells harm readability.
+
+**Verification:** شكّل: 20 definitions truncated at ~500 chars. File size dropped from 156 KB to 117 KB.
+
+### Change 4: POS Filtering for Synonym Candidates
+
+Added `_pos_compatible(synset_pos, entry_pos)` using a compatibility map:
+- Noun synsets: accept `noun`, `proper_noun`
+- Verb synsets: accept `verb`
+- Adjective synsets: accept `adj`
+
+Conservative filter: entries with NULL/empty POS or non-standard POS values (phrase, other, particle, root) are kept. Only entries with explicit, clear POS that conflicts are excluded.
+
+**Verification:** The filter works for entries with POS data (noun: 55K, verb: 37K, adj: 8K in DB). ARABTERM entries from Al-Mawrid lack POS data, so "شيء مقدس" still appears for verb synset دنس — this is an accepted trade-off of the conservative approach.
+
+### Change 5: Adverb Prefix Stripping Fallback
+
+After Strategy A runs, any lemma with zero results that starts with a single-character proclitic (ب, ك, ل, ف, و) triggers a fallback: strip the prefix and re-run `tier1_lookup` on the base form. Results are tagged with `_prefix_stripped=True` and rendered in a separate sub-section:
+
+```
+#### مطابقة بعد حذف البادئة — Prefix-stripped matches
+> البحث عن «ذكاء» بعد حذف البادئة «ب» — Searched for "ذكاء" after stripping prefix "ب"
+```
+
+In `merge_evidence_by_lemma()`, prefix-stripped entries are routed back to their `_original_lemma` instead of using headword matching (since the headword is the stripped form, not the original lemma).
+
+**Verification:** بذكاء: was 0 entries → now 16 entries across 15 dictionaries after stripping "ب" → "ذكاء".
+
+### Regeneration Test (10 synsets, SQL-only, seed 42)
+
+| Synset | POS | Lemmas | Size | Notes |
+|--------|-----|--------|------|-------|
+| `awn4-13271441-n` | noun | مال, نقود | 15 KB | Empty-def filter reduced noise |
+| `awn4-00534261-n` | noun | غافوت | 8 KB | Unchanged |
+| `awn4-11537927-n` | noun | شفط, مص | 16 KB | Truncation shrank long entries |
+| `awn4-00912746-n` | noun | بناء, تشييد, عمارة | 18 KB | 6 with-def + 9 attested summary |
+| `awn4-00493346-v` | verb | دنس, لوث | 71 KB | Was 103 KB — truncation helped |
+| `awn4-01663142-v` | verb | شكّل, صاغ, قولب | 117 KB | Was 156 KB — 20 defs truncated |
+| `awn4-00865514-a` | adj | نظري | 6 KB | 1 Core row + 5 attested summary |
+| `awn4-02410992-a` | adj | جامح, غير معتدل | 7 KB | Was 122 KB — stop-word filter + truncation |
+| `awn4-00203457-r` | adv | بذكاء | 50 KB | Was 3 KB — 16 prefix-stripped entries |
+| `awn4-00038407-r` | adv | بصدق, حقاً, في الحقيقة | 44 KB | Unchanged |
+
+---
+
 ## Open Issues / Future Work
 
 1. **Root quality for نقود:** CAMeL returns "قد" instead of "نقد". Consider adding Lane's Lexicon or manual root overrides as a fallback root source.
 
 2. **Hawramani headword conflation:** The Hawramani database stores entries under normalized headwords, so مأل entries appear under مال queries. The sort fix mitigates this in the UI, but a deeper fix would add a `headword_original` field to the DB.
 
-3. **Multi-word lemma handling:** Currently splits multi-word lemmas and searches individual words. Could be improved with phrase-level FTS5 queries.
+3. **Multi-word lemma handling:** Currently splits multi-word lemmas and searches individual words (with ARABIC_STOPWORDS filter). Could be improved with phrase-level FTS5 queries.
 
 4. **ARABTERM noise in root family:** Strategy B returns up to 200 entries, often dominated by ARABTERM. The render filter (non-ARABTERM + non-empty definition) works but could be replaced with a relevance score.
 
 5. **Batch processing at scale:** Current approach parses AWN4 XML + relations on every run (~3.2s overhead). For processing all 109K synsets, consider a pre-parsed cache or database.
 
 6. **Linguist workflow integration:** The YAML sidecar format is designed for git-based review workflows. A future web UI could read/write the same YAML files.
+
+7. **Root conflation in Strategy B:** Roots like م-و-ل match both مال (money) and ميل (inclination). A root-sense disambiguation layer would improve root family quality, but this is complex and deferred.
+
+8. **POS inference for ARABTERM:** Al-Mawrid entries lack POS tags, so the conservative POS filter can't catch mismatches. Future: infer POS from headword morphology (e.g., يُـ prefix → verb) or definition patterns.
+
+9. **Multi-character proclitic stripping:** The current prefix-stripping only handles single-character proclitics (ب, ك, ل, ف, و). Multi-character prefixes like بال, وال, كال are not yet handled.

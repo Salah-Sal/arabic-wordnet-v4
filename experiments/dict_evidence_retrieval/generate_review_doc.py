@@ -45,7 +45,7 @@ from retrieve_dict_evidence import (                        # noqa: E402
 
 # RAG imports (available after retrieve_dict_evidence's sys.path setup)
 from rag.db import get_connection, build_authority_map       # noqa: E402
-from rag.similarity import definition_similarity             # noqa: E402
+from rag.similarity import definition_similarity, ARABIC_STOPWORDS  # noqa: E402
 from common import normalize_arabic, strip_diacritics        # noqa: E402
 
 # ── Monkey-patch _row_to_dict for longer definitions + extra fields ──────────
@@ -54,7 +54,7 @@ _orig_row_to_dict = rde._row_to_dict
 
 def _row_to_dict_review(row):
     d = _orig_row_to_dict(row)
-    d["definitions_text"] = (row["definitions_text"] or "")[:500]
+    d["definitions_text"] = row["definitions_text"] or ""
     d["dict_name_ar"] = row["dict_name_ar"] or ""
     d["root_source"] = row["root_source"] or ""
     return d
@@ -235,6 +235,14 @@ def merge_evidence_by_lemma(synset: SynsetInfo,
         if eid in seen_a:
             continue
         seen_a.add(eid)
+
+        # Prefix-stripped entries: route back to their original lemma
+        if entry.get("_prefix_stripped"):
+            orig = entry.get("_original_lemma")
+            target = orig if orig and orig in evidence else synset.lemmas[0]
+            evidence[target].headword_entries.append(entry)
+            continue
+
         hw = entry.get("headword_bare") or entry.get("headword", "")
         matched = _match_lemma(hw)
         if matched:
@@ -288,7 +296,7 @@ def merge_evidence_by_lemma(synset: SynsetInfo,
     deduped = sorted(syn_cand_by_id.values(), key=lambda x: x.get("_similarity", 0), reverse=True)
     # Assign to first lemma (synonym candidates are synset-level)
     if synset.lemmas:
-        evidence[synset.lemmas[0]].synonym_candidates = deduped[:10]
+        evidence[synset.lemmas[0]].synonym_candidates = deduped
 
     # ── Strategy E: assign ARABTERM entries by headword match ──
     for entry in strategies.get("E", {}).get("entries", []):
@@ -324,7 +332,7 @@ def identify_colbert_only(strategies: dict[str, dict]) -> list[dict]:
         if eid > 0 and eid not in other_ids:
             colbert_only.append(entry)
 
-    return colbert_only[:10]
+    return colbert_only
 
 
 # ── Markdown rendering ──────────────────────────────────────────────────────
@@ -336,10 +344,14 @@ def _esc(text: str) -> str:
     return text.replace("|", "\\|").replace("\n", " ")
 
 
-def _trunc(text: str, maxlen: int = 200) -> str:
-    if not text:
-        return ""
-    return text[:maxlen] + ("…" if len(text) > maxlen else "")
+def _trunc_word(text: str, limit: int = 500) -> str:
+    """Truncate at word boundary with ellipsis if over limit."""
+    if not text or len(text) <= limit:
+        return text
+    cut = text.rfind(" ", 0, limit)
+    if cut == -1:
+        cut = limit
+    return text[:cut] + " …"
 
 
 def _dict_display(entry: dict, authority_map: dict) -> str:
@@ -363,7 +375,8 @@ def render_md(synset: SynsetInfo,
               relations: list[dict],
               all_synsets: dict[str, SynsetInfo],
               authority_map: dict,
-              colbert_enabled: bool) -> str:
+              colbert_enabled: bool,
+              is_instance: bool = False) -> str:
     """Render the complete linguist review .md document."""
     md: list[str] = []
 
@@ -385,24 +398,38 @@ def render_md(synset: SynsetInfo,
     md.append(f"| **الوحدات المعجمية — Lemmas ({len(synset.lemmas)})** | {' ، '.join(synset.lemmas)} |")
     md.append("")
 
-    # English source
+    # Side-by-side English/Arabic comparison
     if oewn_data:
-        md.append("### المصدر الإنجليزي — English Source (OEWN)\n")
-        md.append(f"- **التعريف — Definition:** {oewn_data['definition']}")
-        md.append(f"- **الوحدات — Lemmas:** {', '.join(oewn_data['lemmas'])}")
-        if oewn_data["examples"]:
-            md.append(f"- **أمثلة — Examples:** {' | '.join(oewn_data['examples'][:3])}")
+        md.append("### المقارنة — Source vs. Translation\n")
+        md.append("| الحقل — Field | الإنجليزية (OEWN) | العربية (AWN4) |")
+        md.append("|---|---|---|")
+        md.append(f"| **التعريف — Def** | {_esc(oewn_data['definition'])} | {_esc(synset.definition)} |")
+        en_lemmas = ", ".join(oewn_data["lemmas"])
+        ar_lemmas = " ، ".join(synset.lemmas)
+        md.append(f"| **الوحدات — Lemmas** | {_esc(en_lemmas)} | {_esc(ar_lemmas)} |")
+        en_ex = " \\| ".join(oewn_data["examples"][:3]) if oewn_data["examples"] else "—"
+        ar_ex = " \\| ".join(synset.examples[:3]) if synset.examples else "—"
+        md.append(f"| **أمثلة — Examples** | {_esc(en_ex)} | {_esc(ar_ex)} |")
         md.append("")
     elif not synset.ili:
         md.append("> ⚠ **لا يوجد رابط ILI** — هذه المجموعة ليس لها ربط بشبكة الكلمات الإنجليزية. المعلومات الإنجليزية غير متوفرة.\n")
+        md.append("### الترجمة العربية — Arabic Translation (AWN4)\n")
+        md.append(f"- **التعريف — Definition:** {synset.definition}")
+        md.append(f"- **الوحدات — Lemmas:** {' ، '.join(synset.lemmas)}")
+        if synset.examples:
+            md.append(f"- **أمثلة — Examples:** {' | '.join(synset.examples[:3])}")
+        md.append("")
+    else:
+        md.append("### الترجمة العربية — Arabic Translation (AWN4)\n")
+        md.append(f"- **التعريف — Definition:** {synset.definition}")
+        md.append(f"- **الوحدات — Lemmas:** {' ، '.join(synset.lemmas)}")
+        if synset.examples:
+            md.append(f"- **أمثلة — Examples:** {' | '.join(synset.examples[:3])}")
+        md.append("")
 
-    # Arabic translation
-    md.append("### الترجمة العربية — Arabic Translation (AWN4)\n")
-    md.append(f"- **التعريف — Definition:** {synset.definition}")
-    md.append(f"- **الوحدات — Lemmas:** {' ، '.join(synset.lemmas)}")
-    if synset.examples:
-        md.append(f"- **أمثلة — Examples:** {' | '.join(synset.examples[:3])}")
-    md.append("")
+    if is_instance:
+        md.append("> **كيان مُسمّى — Named Entity (instance synset).** نتائج البحث الدلالي قد تعكس تشابهاً صوتياً/صرفياً وليس دلالياً.\n")
+
     md.append("---\n")
 
     # ── Section 2: Per-Lemma Dictionary Evidence ──
@@ -438,38 +465,64 @@ def render_md(synset: SynsetInfo,
 
         # Multi-word note
         if ev.is_multiword:
-            words = ", ".join(lemma.split())
+            words = ", ".join(w for w in lemma.split()
+                              if len(w.strip()) > 2 and w.strip() not in ARABIC_STOPWORDS)
             md.append(f"\n> **تعبير متعدد الكلمات — Multi-word expression.** البحث شمل الكلمات المفردة: {words}")
 
         md.append("")
 
-        # Core dictionary definitions (top 8)
-        top_entries = ev.headword_entries[:8]
-        if top_entries:
+        # Core dictionary definitions — split into entries with/without definitions
+        with_def = [e for e in ev.headword_entries
+                    if not e.get("_prefix_stripped") and (e.get("definitions_text") or "").strip()]
+        without_def = [e for e in ev.headword_entries
+                       if not e.get("_prefix_stripped") and not (e.get("definitions_text") or "").strip()]
+        prefix_stripped = [e for e in ev.headword_entries if e.get("_prefix_stripped")]
+
+        if with_def:
             md.append("#### القواميس الأساسية — Core Dictionary Definitions\n")
             md.append("| # | القاموس — Dictionary | الحقبة — Period | التعريف — Definition |")
             md.append("|---|-----------|--------|---------------------|")
-            for j, e in enumerate(top_entries, 1):
+            for j, e in enumerate(with_def, 1):
                 dname = _esc(_dict_display(e, authority_map))
                 period = e.get("period", "—") or "—"
-                defn = _esc(_trunc(e.get("definitions_text", ""), 200))
+                defn = _esc(_trunc_word(e.get("definitions_text", "")))
                 md.append(f"| {j} | {dname} | {period} | {defn} |")
-            if len(ev.headword_entries) > 8:
-                md.append(f"\n*+{len(ev.headword_entries) - 8} more entries not shown.*\n")
             md.append("")
 
-        # Root family (show top 5 interesting ones, skip ARABTERM noise)
+        if without_def:
+            names = " ، ".join(dict.fromkeys(
+                _dict_display(e, authority_map) for e in without_def
+            ))
+            md.append(f"> أيضاً موثّق (بدون تعريف) في — Also attested (no definitions) in: {names}\n")
+
+        # Prefix-stripped fallback results
+        if prefix_stripped:
+            ps = prefix_stripped[0]
+            stripped_form = ps.get("_stripped_form", "")
+            prefix_char = ps.get("_stripped_prefix", "")
+            md.append(f"#### مطابقة بعد حذف البادئة — Prefix-stripped matches\n")
+            md.append(f"> البحث عن «{stripped_form}» بعد حذف البادئة «{prefix_char}» — Searched for \"{stripped_form}\" after stripping prefix \"{prefix_char}\"\n")
+            md.append("| # | القاموس — Dictionary | الحقبة — Period | التعريف — Definition |")
+            md.append("|---|-----------|--------|---------------------|")
+            for j, e in enumerate(prefix_stripped, 1):
+                dname = _esc(_dict_display(e, authority_map))
+                period = e.get("period", "—") or "—"
+                defn = _esc(_trunc_word(e.get("definitions_text", "")))
+                md.append(f"| {j} | {dname} | {period} | {defn} |")
+            md.append("")
+
+        # Root family (skip ARABTERM noise and empty definitions)
         interesting_rf = [e for e in ev.root_family
                           if e.get("source_type") != "arabterm"
-                          and e.get("definitions_text", "").strip()][:5]
+                          and e.get("definitions_text", "").strip()]
         if interesting_rf:
-            md.append("#### أقارب الجذر — Root Family (selected)\n")
+            md.append("#### أقارب الجذر — Root Family\n")
             md.append("| الكلمة — Headword | القاموس — Dictionary | التعريف — Definition |")
             md.append("|----------|-----------|---------------------|")
             for e in interesting_rf:
                 hw = _esc(e.get("headword", ""))
                 dname = _esc(_dict_display(e, authority_map))
-                defn = _esc(_trunc(e.get("definitions_text", ""), 150))
+                defn = _esc(_trunc_word(e.get("definitions_text", "")))
                 md.append(f"| {hw} | {dname} | {defn} |")
             md.append("")
 
@@ -479,11 +532,11 @@ def render_md(synset: SynsetInfo,
             md.append("*إدخالات بكلمات مختلفة لكن تعريفات متشابهة — Entries with different headwords but similar definitions*\n")
             md.append("| الكلمة — Headword | القاموس — Dictionary | التشابه — Sim. | التعريف — Definition |")
             md.append("|----------|-----------|-----------|------------|")
-            for e in ev.synonym_candidates[:5]:
+            for e in ev.synonym_candidates:
                 hw = _esc(e.get("headword_bare") or e.get("headword", ""))
                 dname = _esc(_dict_display(e, authority_map))
                 sim = e.get("_similarity", "—")
-                defn = _esc(_trunc(e.get("definitions_text", ""), 120))
+                defn = _esc(_trunc_word(e.get("definitions_text", "")))
                 md.append(f"| {hw} | {dname} | {sim} | {defn} |")
             md.append("")
 
@@ -492,14 +545,12 @@ def render_md(synset: SynsetInfo,
             md.append("#### مسرد أرابتيرم — ARABTERM Translations\n")
             md.append("| المجال — Domain | العربية | English | Français |")
             md.append("|--------|--------|---------|--------|")
-            for e in ev.arabterm_entries[:5]:
+            for e in ev.arabterm_entries:
                 domain = _esc(e.get("domain", "") or "—")
                 hw = _esc(e.get("headword", ""))
                 en = _esc(e.get("translation_en", "") or "—")
                 fr = _esc(e.get("translation_fr", "") or "—")
                 md.append(f"| {domain} | {hw} | {en} | {fr} |")
-            if len(ev.arabterm_entries) > 5:
-                md.append(f"\n*+{len(ev.arabterm_entries) - 5} more ARABTERM entries.*\n")
             md.append("")
 
         # Separator between lemmas
@@ -512,6 +563,9 @@ def render_md(synset: SynsetInfo,
     md.append("## 3. شواهد دلالية (ColBERT فقط) — Semantic Evidence (ColBERT-only)\n")
     md.append("*إدخالات وجدها البحث الدلالي فقط، قد تكشف عن بدائل عربية أفضل.*\n")
 
+    if is_instance and colbert_enabled:
+        md.append("*⚠ كيان مُسمّى — Named Entity: ColBERT results below may reflect phonetic similarity rather than semantic relevance.*\n")
+
     if not colbert_enabled:
         md.append("*تم تخطي البحث الدلالي (--no-colbert). أعد التشغيل بدون هذا الخيار لعرض النتائج.*\n")
     elif colbert_only:
@@ -521,7 +575,7 @@ def render_md(synset: SynsetInfo,
             hw = _esc(e.get("headword", ""))
             dname = _esc(_dict_display(e, authority_map))
             score = e.get("colbert_score", "—")
-            defn = _esc(_trunc(e.get("definitions_text", ""), 150))
+            defn = _esc(_trunc_word(e.get("definitions_text", "")))
             md.append(f"| {j} | {hw} | {dname} | {score} | {defn} |")
         md.append("")
     else:
@@ -556,8 +610,8 @@ def render_md(synset: SynsetInfo,
             en_lemmas = ", ".join(t_oewn["lemmas"][:5]) if t_oewn else "—"
             md.append(f"| **الوحدات** | {ar_lemmas} | {en_lemmas} |")
 
-            ar_def = _esc(_trunc(target.definition, 150))
-            en_def = _esc(_trunc(t_oewn["definition"], 150)) if t_oewn else "—"
+            ar_def = _esc(target.definition)
+            en_def = _esc(t_oewn["definition"]) if t_oewn else "—"
             md.append(f"| **التعريف** | {ar_def} | {en_def} |")
             md.append("")
 
@@ -691,12 +745,14 @@ def generate_for_synset(synset: SynsetInfo,
     # English source
     oewn_data = get_oewn_data(synset.ili)
 
-    # Relations
+    # Relations + instance detection
     relations = relations_map.get(synset.id, [])
+    is_instance = any(r["relType"] == "instance_hypernym" for r in relations)
 
     # Render
     md_content = render_md(synset, oewn_data, lemma_ev, colbert_only,
-                           relations, all_synsets, authority_map, colbert_enabled)
+                           relations, all_synsets, authority_map, colbert_enabled,
+                           is_instance=is_instance)
     yaml_content = render_yaml(synset, lemma_ev, authority_map)
 
     return md_content, yaml_content

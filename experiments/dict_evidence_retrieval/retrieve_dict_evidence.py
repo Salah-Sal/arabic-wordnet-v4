@@ -56,7 +56,7 @@ from rag.retrieval import (                              # noqa: E402
     TIER3_TRANSLATION_SQL,
     _ENTRY_COLUMNS,
 )
-from rag.similarity import definition_similarity         # noqa: E402
+from rag.similarity import definition_similarity, ARABIC_STOPWORDS  # noqa: E402
 from common import normalize_arabic, strip_diacritics    # noqa: E402
 
 
@@ -220,11 +220,14 @@ def strategy_a(conn: sqlite3.Connection, synset: SynsetInfo) -> dict:
     all_terms = list(synset.lemmas)
 
     # Fallback: for multi-word lemmas, also try individual words
+    # (skip Arabic stop words like غير, كل, بعض to avoid noise)
     for lemma in synset.lemmas:
         if " " in lemma:
             for word in lemma.split():
                 word = word.strip()
-                if len(word) > 2 and word not in all_terms:
+                if (len(word) > 2
+                        and word not in ARABIC_STOPWORDS
+                        and word not in all_terms):
                     all_terms.append(word)
 
     results_by_lemma = tier1_lookup(conn, all_terms)
@@ -237,6 +240,31 @@ def strategy_a(conn: sqlite3.Connection, synset: SynsetInfo) -> dict:
             if eid not in seen_ids:
                 seen_ids.add(eid)
                 entries.append(_row_to_dict(row))
+
+    # Prefix-stripping fallback: for lemmas with zero results that start
+    # with a single-char proclitic (بـ كـ لـ فـ وـ), try the base form
+    _SIMPLE_PROCLITICS = {"ب", "ك", "ل", "ف", "و"}
+    prefix_stripped = []
+    for lemma in synset.lemmas:
+        norm = normalize_arabic(lemma)
+        if not results_by_lemma.get(norm) and len(lemma) > 3 and lemma[0] in _SIMPLE_PROCLITICS:
+            prefix_stripped.append((lemma, lemma[0], lemma[1:]))
+
+    if prefix_stripped:
+        fallback_terms = [t[2] for t in prefix_stripped]
+        fallback_results = tier1_lookup(conn, fallback_terms)
+        for orig_lemma, prefix, stripped in prefix_stripped:
+            norm_stripped = normalize_arabic(stripped)
+            for row in fallback_results.get(norm_stripped, []):
+                eid = row["entry_id"]
+                if eid not in seen_ids:
+                    seen_ids.add(eid)
+                    d = _row_to_dict(row)
+                    d["_prefix_stripped"] = True
+                    d["_stripped_prefix"] = prefix
+                    d["_original_lemma"] = orig_lemma
+                    d["_stripped_form"] = stripped
+                    entries.append(d)
 
     return {
         "strategy": "A",
@@ -499,6 +527,29 @@ def _row_to_dict(row: sqlite3.Row) -> dict:
 
 # ── Evidence classification ──────────────────────────────────────────────────
 
+# POS compatibility for synonym candidate filtering
+_POS_COMPAT = {
+    "n": {"noun", "proper_noun"},
+    "v": {"verb"},
+    "a": {"adj"},
+}
+
+def _pos_compatible(synset_pos: str, entry_pos: str) -> bool:
+    """Check if an entry's POS is compatible with the synset's POS.
+
+    Returns True if compatible or uncertain (no POS data, ambiguous POS).
+    Only filters when both sides have clear, conflicting POS.
+    """
+    if not entry_pos or not synset_pos:
+        return True
+    allowed = _POS_COMPAT.get(synset_pos)
+    if not allowed:
+        return True  # no map for this synset POS (e.g., adverb)
+    if entry_pos not in {"noun", "verb", "adj", "proper_noun"}:
+        return True  # ambiguous entry POS (phrase/other/particle)
+    return entry_pos in allowed
+
+
 def classify_evidence(entry: dict, synset: SynsetInfo) -> list[str]:
     """Classify the evidence type of a dictionary entry for a synset."""
     types = []
@@ -515,7 +566,10 @@ def classify_evidence(entry: dict, synset: SynsetInfo) -> list[str]:
         sim = definition_similarity(entry_def, synset.definition)
         if sim > 0.30:
             if hw_norm not in lemma_norms:
-                types.append("synonym_candidate")
+                # POS filter: skip synonym candidates with clearly mismatching POS
+                entry_pos = (entry.get("pos") or "").strip().lower()
+                if _pos_compatible(synset.pos, entry_pos):
+                    types.append("synonym_candidate")
             else:
                 types.append("definition_support")
         elif sim > 0.15:

@@ -79,7 +79,7 @@ Each retrieved entry is classified into evidence types:
 |------|-----------|---------|
 | `lemma_match` | Headword normalizes to a synset lemma | Direct attestation of the word |
 | `definition_support` | Definition similarity > 0.15 and headword matches | Dictionary confirms this meaning |
-| `synonym_candidate` | Definition similarity > 0.30 and headword differs | Potential missing synonym |
+| `synonym_candidate` | Definition similarity > 0.30, headword differs, POS compatible | Potential missing synonym |
 | `morphological_kin` | Shares root but different headword | Related word from same root |
 | `translation_bridge` | Has English translation field | Cross-lingual evidence via ARABTERM |
 | `contextual` | None of the above | Tangentially related |
@@ -147,17 +147,17 @@ python generate_review_doc.py --synset-ids awn4-13271441-n --output-dir output/b
 
 ### `.md` — Reference Document (5 sections)
 
-**Section 1: Synset Overview** — Bilingual side-by-side comparison: English source (OEWN definition, lemmas, examples) alongside the Arabic translation (AWN4). Gives the linguist the original and translation in one view.
+**Section 1: Synset Overview** — Side-by-side 3-column comparison table (Field | English OEWN | Arabic AWN4) showing definition, lemmas, and examples. Named Entity synsets (detected via `instance_hypernym` relation) display a warning badge noting that semantic search results may reflect phonetic rather than semantic similarity.
 
 **Section 2: Per-Lemma Dictionary Evidence** — For each Arabic lemma in the synset:
 - **Attestation summary**: number of dictionary entries and dictionaries found
 - **Root information**: Arabic root(s) with source attribution (CAMeL morphological analyzer or OCR-extracted)
-- **Core dictionary definitions** (top 8): sorted by match quality (exact headword first) then dictionary authority (classical → modern OCR → modern Hawramani → ARABTERM)
-- **Root family** (top 5 non-ARABTERM): morphologically related words sharing the same root
+- **Core dictionary definitions** (all entries): sorted by match quality (exact headword first) then dictionary authority (classical → modern OCR → modern Hawramani → ARABTERM). Full definitions shown without truncation.
+- **Root family** (non-ARABTERM with definitions): morphologically related words sharing the same root
 - **Synonym candidates**: entries with different headwords but similar definitions (similarity > 0.30)
 - **ARABTERM translations**: English/French glosses from the bilingual terminology database
 
-**Section 3: Semantic Evidence (ColBERT-only)** — Entries found *only* by neural semantic search, not by any keyword strategy. These can reveal better Arabic alternatives that keyword methods miss.
+**Section 3: Semantic Evidence (ColBERT-only)** — Entries found *only* by neural semantic search, not by any keyword strategy. These can reveal better Arabic alternatives that keyword methods miss. Named Entity synsets display a phonetic-similarity warning.
 
 **Section 4: Connected Synsets** — Hypernyms, hyponyms, and other semantic relations, each with bilingual tables showing Arabic (AWN4) and English (OEWN) equivalents.
 
@@ -211,17 +211,27 @@ The `missing_lemmas` section starts empty. The linguist adds entries after revie
 
 ### Key Design Decisions
 
-**Monkey-patching `_row_to_dict`**: `generate_review_doc.py` imports `retrieve_dict_evidence.py` and monkey-patches its `_row_to_dict` function to extend definition truncation from 300 to 500 characters and add `dict_name_ar` and `root_source` fields. This avoids modifying the original retrieval script.
+**Monkey-patching `_row_to_dict`**: `generate_review_doc.py` imports `retrieve_dict_evidence.py` and monkey-patches its `_row_to_dict` function to pass full definition text (no truncation) and add `dict_name_ar` and `root_source` fields. This avoids modifying the original retrieval script.
 
 **Two-pass AWN4 parsing**: `parse_awn4()` (from `retrieve_dict_evidence.py`) collects synsets and lemmas. `parse_awn4_relations()` (in `generate_review_doc.py`) does a second iterparse pass for `<SynsetRelation>` elements. This avoids modifying the shared parser.
 
 **Headword match quality sorting**: Arabic hamza normalization (أ→ا) can conflate unrelated words (e.g., مأل "fatness" → مال "money"). The sort uses a 2-level key: `(match_quality, authority_level)` where exact `headword_bare` matches rank above normalized-only matches.
 
 **Per-lemma evidence merging**: Strategy results are flat lists. `merge_evidence_by_lemma()` reorganizes them:
-- Strategy A entries → matched by normalized headword
+- Strategy A entries → matched by normalized headword; prefix-stripped entries routed via `_original_lemma`
 - Strategy B entries → matched by shared root (via `root_to_lemma` mapping from A)
-- Strategy C/D entries → classified for synonym candidates
+- Strategy C/D entries → classified for synonym candidates (with POS compatibility check)
 - Strategy E entries → matched by headword to appropriate lemma
+
+**Empty definition filtering**: Core Dictionary tables only show entries with non-empty `definitions_text`. Entries attested by headword but with no definition text are summarized in a compact "Also attested in" line, preserving the attestation count while eliminating blank table rows.
+
+**MWE stop-word filter**: Multi-word lemmas are split into content words for individual lookup. Words are filtered by both length (`> 2` chars) and membership in `ARABIC_STOPWORDS` (37-entry frozenset from `rag.similarity` covering function words like غير, كل, بعض, بين).
+
+**Definition truncation**: Long definitions are truncated at word boundaries (500-char limit) with " …" appended. Applied at render time in Core Dictionary, Root Family, Synonym Candidates, and ColBERT-only tables. Full text is preserved in the data layer (monkey-patch passes complete definitions).
+
+**POS compatibility filter**: Synonym candidates are checked against the synset's POS. Conservative: only entries with explicit, mismatching POS are excluded (e.g., noun entries for verb synsets). Entries with NULL/empty POS are kept. The DB has clean POS values for ~108K entries (noun, verb, adj, proper_noun).
+
+**Proclitic prefix stripping**: Adverb lemmas with zero Strategy A results that start with a single-character Arabic proclitic (ب, ك, ل, ف, و) trigger a fallback lookup on the stripped base form. Results are rendered in a separate "Prefix-stripped matches" sub-section with an explanatory note.
 
 ### Dependencies
 
