@@ -45,7 +45,7 @@ from retrieve_dict_evidence import (                        # noqa: E402
 
 # RAG imports (available after retrieve_dict_evidence's sys.path setup)
 from rag.db import get_connection, build_authority_map       # noqa: E402
-from rag.similarity import definition_similarity, ARABIC_STOPWORDS  # noqa: E402
+from rag.similarity import definition_similarity, definition_containment, ARABIC_STOPWORDS  # noqa: E402
 from common import normalize_arabic, strip_diacritics        # noqa: E402
 
 # ── Monkey-patch _row_to_dict for longer definitions + extra fields ──────────
@@ -161,6 +161,7 @@ class LemmaEvidence:
     root_family: list[dict] = field(default_factory=list)
     synonym_candidates: list[dict] = field(default_factory=list)
     arabterm_entries: list[dict] = field(default_factory=list)
+    examples: list[dict] = field(default_factory=list)  # [{type, text, attribution}]
     is_loanword: bool = False
     is_multiword: bool = False
 
@@ -191,6 +192,50 @@ def _entry_sort_key(entry: dict, lemma_bare: str = "") -> tuple:
         authority = (5, entry.get("dict_name_en", ""))
 
     return (is_exact,) + authority
+
+
+def fetch_examples_for_entries(conn, entry_ids: set[int],
+                               max_per_entry: int = 5) -> dict[int, list[dict]]:
+    """Fetch dictionary examples (poetry, quran, hadith, etc.) for entry_ids.
+
+    Returns {entry_id: [{type, text, attribution}, ...]}.
+    Queries the ``examples`` child table in chunks to respect SQLite limits.
+    """
+    if not entry_ids:
+        return {}
+
+    results: dict[int, list[dict]] = {}
+    id_list = list(entry_ids)
+
+    for i in range(0, len(id_list), 500):
+        chunk = id_list[i:i + 500]
+        placeholders = ",".join("?" * len(chunk))
+        sql = f"""
+            SELECT entry_id, type, text, attribution
+            FROM examples
+            WHERE entry_id IN ({placeholders})
+            ORDER BY entry_id, idx
+        """
+        rows = conn.execute(sql, chunk).fetchall()
+        for row in rows:
+            eid = row[0] if isinstance(row, (tuple, list)) else row["entry_id"]
+            if eid not in results:
+                results[eid] = []
+            if len(results[eid]) < max_per_entry:
+                if isinstance(row, (tuple, list)):
+                    results[eid].append({
+                        "type": row[1] or "",
+                        "text": row[2] or "",
+                        "attribution": row[3] or "",
+                    })
+                else:
+                    results[eid].append({
+                        "type": row["type"] or "",
+                        "text": row["text"] or "",
+                        "attribution": row["attribution"] or "",
+                    })
+
+    return results
 
 
 def merge_evidence_by_lemma(synset: SynsetInfo,
@@ -241,6 +286,11 @@ def merge_evidence_by_lemma(synset: SynsetInfo,
             orig = entry.get("_original_lemma")
             target = orig if orig and orig in evidence else synset.lemmas[0]
             evidence[target].headword_entries.append(entry)
+            # Extract root from the stripped form's DB entry (e.g., ذكاء → root ذكو)
+            root = entry.get("root")
+            if root and root not in evidence[target].roots:
+                evidence[target].roots.append(root)
+                evidence[target].root_sources.append(entry.get("root_source", ""))
             continue
 
         hw = entry.get("headword_bare") or entry.get("headword", "")
@@ -368,6 +418,43 @@ def _dict_display(entry: dict, authority_map: dict) -> str:
     return ar or en or dk
 
 
+def cluster_definitions(entries: list[dict], threshold: float = 0.65) -> list[list[dict]]:
+    """Cluster dictionary entries with near-duplicate definitions.
+
+    Uses definition_containment() for asymmetric "A copied B" detection.
+    Returns list of clusters; first entry in each is the primary (longest definition).
+    """
+    if len(entries) <= 1:
+        return [entries] if entries else []
+
+    n = len(entries)
+    assigned = [False] * n
+    clusters: list[list[dict]] = []
+
+    for i in range(n):
+        if assigned[i]:
+            continue
+        cluster = [entries[i]]
+        assigned[i] = True
+        def_i = entries[i].get("definitions_text", "")
+
+        for j in range(i + 1, n):
+            if assigned[j]:
+                continue
+            def_j = entries[j].get("definitions_text", "")
+            if def_i and def_j:
+                sim = definition_containment(def_i, def_j)
+                if sim >= threshold:
+                    cluster.append(entries[j])
+                    assigned[j] = True
+
+        # Longest definition first (most complete version)
+        cluster.sort(key=lambda e: len(e.get("definitions_text", "")), reverse=True)
+        clusters.append(cluster)
+
+    return clusters
+
+
 def render_md(synset: SynsetInfo,
               oewn_data: dict | None,
               lemma_evidence: dict[str, LemmaEvidence],
@@ -480,13 +567,18 @@ def render_md(synset: SynsetInfo,
 
         if with_def:
             md.append("#### القواميس الأساسية — Core Dictionary Definitions\n")
-            md.append("| # | القاموس — Dictionary | الحقبة — Period | التعريف — Definition |")
-            md.append("|---|-----------|--------|---------------------|")
-            for j, e in enumerate(with_def, 1):
-                dname = _esc(_dict_display(e, authority_map))
-                period = e.get("period", "—") or "—"
-                defn = _esc(_trunc_word(e.get("definitions_text", "")))
-                md.append(f"| {j} | {dname} | {period} | {defn} |")
+            clusters = cluster_definitions(with_def)
+            for c_idx, cluster in enumerate(clusters, 1):
+                primary = cluster[0]
+                dname = _esc(_dict_display(primary, authority_map))
+                period = primary.get("period", "—") or "—"
+                defn = _esc(_trunc_word(primary.get("definitions_text", "")))
+                md.append(f"**{c_idx}.** {dname} ({period})")
+                md.append(f"> {defn}\n")
+                if len(cluster) > 1:
+                    also_names = [_dict_display(e, authority_map) for e in cluster[1:]]
+                    also_str = " ، ".join(dict.fromkeys(also_names))
+                    md.append(f"> *نفس المعنى في — Same definition in:* {also_str}\n")
             md.append("")
 
         if without_def:
@@ -509,6 +601,30 @@ def render_md(synset: SynsetInfo,
                 period = e.get("period", "—") or "—"
                 defn = _esc(_trunc_word(e.get("definitions_text", "")))
                 md.append(f"| {j} | {dname} | {period} | {defn} |")
+            md.append("")
+
+        # Dictionary usage examples (from the examples child table)
+        if ev.examples:
+            md.append("#### شواهد وأمثلة — Usage Examples\n")
+            by_type: dict[str, list[dict]] = defaultdict(list)
+            for ex in ev.examples:
+                by_type[ex.get("type") or "usage"].append(ex)
+
+            type_labels = {
+                "quran": "قرآن — Quran",
+                "hadith": "حديث — Hadith",
+                "poetry": "شعر — Poetry",
+                "proverb": "مثل — Proverb",
+                "usage": "استعمال — Usage",
+            }
+            for ex_type in ["quran", "hadith", "poetry", "proverb", "usage"]:
+                examples_of_type = by_type.get(ex_type, [])
+                if examples_of_type:
+                    label = type_labels.get(ex_type, ex_type)
+                    md.append(f"**{label}:**\n")
+                    for ex in examples_of_type[:3]:
+                        attr = f" — *{_esc(ex['attribution'])}*" if ex.get("attribution") else ""
+                        md.append(f"> {_esc(ex['text'])}{attr}\n")
             md.append("")
 
         # Root family (skip ARABTERM noise and empty definitions)
@@ -617,18 +733,6 @@ def render_md(synset: SynsetInfo,
 
     md.append("---\n")
 
-    # ── Section 5: Review Instructions ──
-    md.append("## 5. تعليمات المراجعة — Review Instructions\n")
-    md.append("### ما الذي يجب مراجعته — What to Review\n")
-    md.append("1. **التعريف — Definition:** هل التعريف العربي أمين دلالياً للتعريف الإنجليزي؟ هل هو عربية طبيعية (وليس ترجمة حرفية)؟ هل السجل اللغوي مناسب؟")
-    md.append("2. **لكل وحدة معجمية — Per-lemma:** هل تُستخدم هذه الكلمة العربية بهذا المعنى؟ هل هي الكلمة الأساسية/المفضلة؟ هل صنف الكلمة صحيح؟ هل التشكيل مقبول؟")
-    md.append("3. **وحدات ناقصة — Missing lemmas:** هل ينبغي إضافة مرادفات عربية؟ (راجع قسم «مرشحات مرادف» أعلاه)")
-    md.append("4. **أمثلة — Examples:** هل الأمثلة عربية طبيعية؟ هل توضح المعنى المقصود؟")
-    md.append("5. **الملاءمة الثقافية — Cultural fit:** هل هذا المفهوم موجود في الثقافة العربية؟ هل يحتاج إلى تكييف ثقافي؟\n")
-    md.append("### كيفية التسجيل — How to Record Decisions\n")
-    md.append(f"سجّل قراراتك في الملف المصاحب: **`{synset.id}.yaml`**\n")
-    md.append("---\n")
-
     # ── Footer ──
     ts = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     md.append(f"*Generated by `generate_review_doc.py` — AWN4 Linguist Review — {ts}*\n")
@@ -641,52 +745,168 @@ def render_md(synset: SynsetInfo,
 def render_yaml(synset: SynsetInfo,
                 lemma_evidence: dict[str, LemmaEvidence],
                 authority_map: dict) -> str:
-    """Generate the YAML sidecar file with pre-populated structure."""
+    """Generate the enriched YAML sidecar with full review methodology.
+
+    Structure follows the plan in REVIEW_GUIDE.md:
+    - Scoring rubric (ordinal scales for IAA analysis)
+    - Definition review (3 sub-dimensions + verdict)
+    - Per-lemma enrichment (10+ fields + morpho checks + error type)
+    - Missing lemmas, examples, relations, cultural fit, overall
+    """
 
     doc = {
         "synset_id": synset.id,
         "reviewer": "",
         "review_date": "",
-        "status": "pending",
-
-        "definition": {
-            "verdict": "",
-            "revised_text": "",
-            "notes": "",
-        },
-
-        "lemmas": [],
-
-        "missing_lemmas": [],
-
-        "examples": {
-            "verdict": "",
-            "revised_examples": [],
-            "notes": "",
-        },
-
-        "cultural_fit": {
-            "needs_adaptation": False,
-            "notes": "",
-        },
-
-        "overall": {
-            "confidence": "",
-            "general_notes": "",
-        },
+        "status": "pending",  # pending | in_progress | completed
     }
 
-    # Pre-populate lemma entries
-    for lemma in synset.lemmas:
-        doc["lemmas"].append({
-            "lemma": lemma,
-            "verdict": "",
-            "modified_form": "",
-            "notes": "",
-        })
+    # ── Analysis (Chain of Thought — fill before structured fields) ──
+    doc["analysis"] = {
+        "initial_impression": "",        # First reaction: does this synset "feel right"?
+        "key_evidence": "",              # Which dictionary evidence was most decisive?
+        "concerns": "",                  # Any doubts or issues noticed
+        "comparison_with_english": "",   # How does the Arabic concept map to the English source?
+        "reasoning": "",                 # Free-form reasoning leading to decisions below
+    }
 
-    # missing_lemmas left empty — linguist fills in after reviewing
-    # synonym candidates in the .md reference document (Section 2)
+    # ── Scoring rubric (ordinal scales for IAA analysis) ──
+    doc["scores"] = {
+        "semantic_accuracy": None,   # 0=wrong | 1=partial | 2=mostly correct | 3=fully correct
+        "gloss_quality": None,       # 0=missing | 1=poor | 2=adequate | 3=excellent
+        "synonym_coherence": None,   # 0=not synonymous | 1=partial | 2=fully synonymous
+        "completeness": None,        # 0=critically incomplete | 1=partial | 2=complete
+        "cultural_adequacy": "",     # direct | near_synonym | phraset | lexical_gap | omission
+    }
+
+    # ── Definition review ──
+    doc["definition"] = {
+        "accuracy": "",       # faithful | narrowed | broadened | mistranslated
+        "fluency": "",        # natural | calque | awkward | ungrammatical
+        "structure": "",      # genus_differentia | acceptable | circular | vague
+        "verdict": "",        # accept | revise | reject
+        "revised_text": "",
+        "notes": "",
+        "flags": [],          # e.g., [CALQUE_WARNING, WEAK_STYLE]
+    }
+
+    # ── Per-lemma enrichment ──
+    lemma_list = []
+    for lemma in synset.lemmas:
+        ev = lemma_evidence.get(lemma)
+
+        # Auto-populated evidence summary (read-only context for reviewer)
+        attestation_count = 0
+        dictionary_count = 0
+        auto_roots = []
+        auto_root_sources = []
+        is_loanword = False
+
+        if ev:
+            attestation_count = len(ev.headword_entries)
+            dict_names = set()
+            for e in ev.headword_entries:
+                dn = e.get("dict_name_ar", "")
+                if dn:
+                    dict_names.add(dn)
+            dictionary_count = len(dict_names)
+            auto_roots = list(ev.roots) if ev.roots else []
+            auto_root_sources = list(ev.root_sources) if ev.root_sources else []
+            is_loanword = ev.is_loanword
+
+        entry = {
+            "lemma": lemma,
+            # Auto-populated evidence summary
+            "_attestation_count": attestation_count,
+            "_dictionary_count": dictionary_count,
+            "_roots": auto_roots,
+            "_root_sources": auto_root_sources,
+            "_is_loanword": is_loanword,
+            "_is_mwe": ev.is_multiword if ev else False,
+            "_example_count": len(ev.examples) if ev else 0,
+            # Linguist fills in:
+            "verdict": "",              # accept | remove | modify | add_diacritics
+            "modified_form": "",        # vocalized correction (min disambiguating diacritics)
+            "root": "",                 # confirmed root, e.g., "ك ت ب"
+            "usage": "",               # archaic | modern | common
+            "eloquence": "",           # eloquent | neologism | colloquial
+            "connotation": "",         # positive | negative | reverential | pejorative | neutral
+            "literal_figurative": "",  # literal | figurative
+            "figurative_relation": "", # e.g., "العلوّ والتدبير" (only if figurative)
+            "nuance_note": "",         # what distinguishes this lemma from co-lemmas
+            "typical_collocate": "",   # e.g., "كتاب + مقدّس / نافع"
+        }
+
+        # Verb-specific field
+        if synset.pos == "v":
+            entry["syntactic_frame"] = ""  # [لازم] | [متعدٍ بنفسه] | [متعدٍ بـ حرف]
+
+        # Morphological validation (skip for MWEs — word-level checks don't apply)
+        is_mwe = ev.is_multiword if ev else False
+        if is_mwe:
+            entry["morpho_check"] = {
+                "broken_plural_linked": "skip",    # N/A for multi-word expression
+                "orthography_normalized": "skip",
+                "clitics_stripped": "skip",
+            }
+        else:
+            entry["morpho_check"] = {
+                "broken_plural_linked": None,    # true | false | null (N/A)
+                "orthography_normalized": None,  # true | false | null
+                "clitics_stripped": None,         # true | false | null
+            }
+
+        # MT error classification (for algorithmic feedback loop)
+        entry["error_type"] = ""  # omission | substitution | dialectal_intrusion | orthographic_error | faux_ami
+        entry["source"] = ""      # dictionary that confirms this usage
+        entry["notes"] = ""
+        entry["flags"] = []       # e.g., [MEANING_MISMATCH]
+
+        lemma_list.append(entry)
+
+    doc["lemmas"] = lemma_list
+
+    # ── Missing lemmas ──
+    doc["missing_lemmas"] = []
+    # Example (commented in YAML output):
+    # - lemma: "سِفْر"
+    #   root: "س ف ر"
+    #   usage: archaic
+    #   eloquence: eloquent
+    #   nuance_note: "يختص بالكتاب الكبير أو الديني"
+    #   source: "لسان العرب"
+
+    # ── Examples ──
+    doc["examples"] = {
+        "verdict": "",           # accept | revise | remove | add
+        "quality": "",           # authentic_evidence | natural | calque | fabricated
+        "revised_examples": [],
+        "notes": "",
+    }
+
+    # ── Semantic relations ──
+    doc["relations"] = {
+        "hypernym_correct": None,  # true | false | null (not checked)
+        "notes": "",
+        "flags": [],
+    }
+
+    # ── Cultural fit ──
+    doc["cultural_fit"] = {
+        "needs_adaptation": False,
+        "lexical_gap_type": "",   # none | true_gap | phraset | omission
+        "gap_strategy": "",       # descriptive_gloss | mwe_phraset | empty_cili_node | near_synonym
+        "cili_alignment": "",     # eq_synonym | eq_near_synonym | eq_has_hypernym | eq_has_hyponym
+        "notes": "",
+    }
+
+    # ── Overall assessment ──
+    doc["overall"] = {
+        "quality": "",           # excellent | good | acceptable | poor | rejected
+        "confidence": "",        # high | medium | low
+        "general_notes": "",
+        "flags": [],             # synset-level flags
+    }
 
     return yaml.dump(doc, allow_unicode=True, default_flow_style=False, sort_keys=False)
 
@@ -738,6 +958,27 @@ def generate_for_synset(synset: SynsetInfo,
 
     # Merge by lemma
     lemma_ev = merge_evidence_by_lemma(synset, strategies)
+
+    # Fetch dictionary examples for all headword entries
+    all_entry_ids: set[int] = set()
+    for ev in lemma_ev.values():
+        for e in ev.headword_entries:
+            eid = e.get("entry_id")
+            if eid:
+                all_entry_ids.add(eid)
+    entry_examples = fetch_examples_for_entries(conn, all_entry_ids)
+
+    # Attach examples to each LemmaEvidence (dedup by text)
+    for ev in lemma_ev.values():
+        seen_texts: set[str] = set()
+        for e in ev.headword_entries:
+            eid = e.get("entry_id")
+            if eid and eid in entry_examples:
+                for ex in entry_examples[eid]:
+                    txt = ex["text"].strip()
+                    if txt and txt not in seen_texts:
+                        seen_texts.add(txt)
+                        ev.examples.append(ex)
 
     # ColBERT-only entries
     colbert_only = identify_colbert_only(strategies)

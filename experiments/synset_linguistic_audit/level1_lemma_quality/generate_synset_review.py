@@ -6,6 +6,8 @@ For each synset, aggregates information from:
   - OEWN English equivalents (via ILI cross-lingual index from ColBERT metadata)
   - Arabic dictionaries DB (classical/modern dictionary entries per lemma)
   - ARABTERM (multilingual technical terminology per lemma)
+  - Hawramani Arabic Lexicon (53 classical/modern dictionaries, scraped cache)
+  - Almaany (المعاني الجامع + قاموس الكل, scraped cache)
   - Connected synsets (1-hop relations with their own dictionary evidence)
 
 Usage:
@@ -29,6 +31,8 @@ AWN4_BASE = AUDIT_DIR.parent.parent  # arabic-wordnet-v4/
 AWN4_XML = AWN4_BASE / "output" / "awn4.xml"
 DICT_DB = AWN4_BASE.parent / "arabic-dictionaries" / "db" / "arabic_dict.db"
 COLBERT_META_DIR = AWN4_BASE / "experiments" / "colbertv2 exp" / "metadata"
+HAWRAMANI_CACHE = SCRIPT_DIR / "output" / "hawramani_cache.json"
+ALMAANY_CACHE = SCRIPT_DIR / "output" / "almaany_cache.json"
 
 # ─── Arabic normalization ─────────────────────────────────────────────────────
 
@@ -39,6 +43,10 @@ HAMZA_NORM = str.maketrans({
     "\u0622": "\u0627",  # آ → ا
     "\u0624": "\u0648",  # ؤ → و
     "\u0626": "\u064A",  # ئ → ي
+})
+HAMZA_REVERSE = str.maketrans({
+    "\u064A": "\u0626",  # ي → ئ  (reverse: catches DB entries with hamza-on-ya)
+    "\u0648": "\u0624",  # و → ؤ  (reverse: catches DB entries with hamza-on-waw)
 })
 
 POS_LABELS = {"n": "اسم — noun", "v": "فعل — verb", "a": "صفة — adjective", "r": "ظرف — adverb"}
@@ -162,46 +170,310 @@ class OEWNLookup:
 # ─── Dictionary DB queries ─────────────────────────────────────────────────────
 
 
-def query_dict_entries(db_path, bare_form):
+def _generate_headword_variants(bare_form):
+    """Generate candidate headword_bare values in priority order.
+
+    Produces (variant_string, match_type) tuples for a 3-tier cascade:
+      Tier 1 — exact bare form
+      Tier 2 — ال definite article added/stripped
+      Tier 3 — hamza normalization, reverse hamza, taa marbuta, geminates,
+               prepositional prefix stripping — each also tried with/without ال
+    """
+    variants = []
+
+    # Tier 1: exact
+    variants.append((bare_form, "exact"))
+
+    # Tier 2: ال prefix
+    if not bare_form.startswith("ال"):
+        variants.append(("ال" + bare_form, "al_prefix"))
+    else:
+        variants.append((bare_form[2:], "al_prefix"))
+
+    # Tier 3a: hamza forward normalization (أ→ا, ئ→ي, ؤ→و)
+    normalized = bare_form.translate(HAMZA_NORM)
+    if normalized != bare_form:
+        variants.append((normalized, "hamza_normalized"))
+        if not normalized.startswith("ال"):
+            variants.append(("ال" + normalized, "hamza_normalized"))
+
+    # Tier 3b: hamza reverse (ي→ئ, و→ؤ) — catches DB entries with hamza carriers
+    reversed_hz = bare_form.translate(HAMZA_REVERSE)
+    if reversed_hz != bare_form:
+        variants.append((reversed_hz, "hamza_normalized"))
+        if not reversed_hz.startswith("ال"):
+            variants.append(("ال" + reversed_hz, "hamza_normalized"))
+
+    # Tier 3c: taa marbuta (ة ↔ ه)
+    if bare_form.endswith("ة"):
+        base = bare_form[:-1]
+        variants.append((base + "ه", "taa_marbuta"))
+        variants.append(("ال" + base + "ه", "taa_marbuta"))
+        if len(base) >= 2:
+            variants.append((base, "taa_marbuta"))
+            variants.append(("ال" + base, "taa_marbuta"))
+    elif bare_form.endswith("ه") and len(bare_form) >= 3:
+        base = bare_form[:-1]
+        variants.append((base + "ة", "taa_marbuta"))
+        variants.append(("ال" + base + "ة", "taa_marbuta"))
+
+    # Tier 3d: geminate root collapse/expansion (مدد→مد or مد→مدد)
+    if len(bare_form) >= 3 and bare_form[-1] == bare_form[-2]:
+        collapsed = bare_form[:-1]
+        variants.append((collapsed, "geminate"))
+        variants.append(("ال" + collapsed, "geminate"))
+    if len(bare_form) == 2:
+        expanded = bare_form + bare_form[-1]
+        variants.append((expanded, "geminate"))
+        variants.append(("ال" + expanded, "geminate"))
+
+    # Tier 3e: prepositional prefix (بال/وال/كال → strip prefix, try with/without ال)
+    for prefix in ("بال", "وال", "كال"):
+        if bare_form.startswith(prefix) and len(bare_form) > len(prefix) + 1:
+            stem = bare_form[len(prefix):]
+            variants.append(("ال" + stem, "prep_stripped"))
+            variants.append((stem, "prep_stripped"))
+
+    # Deduplicate while preserving priority order
+    seen = set()
+    result = []
+    for v, mt in variants:
+        if v and v not in seen:
+            seen.add(v)
+            result.append((v, mt))
+    return result
+
+
+def _is_subsequence(letters, text):
+    """Check if `letters` appear as an ordered subsequence in `text`."""
+    j = 0
+    for ch in text:
+        if j < len(letters) and ch == letters[j]:
+            j += 1
+    return j == len(letters)
+
+
+def _resolve_hamza_via_lex(root_dotted, lex_bare_set):
+    """Resolve '#' in a CAMeL root by subsequence-matching against lex forms.
+
+    For roots with a single '#', tries each hamza variant and checks whether
+    the resulting root letters appear as an ordered subsequence in the lex_bare.
+    This disambiguates e.g. #.ج.ر → أجر (from lex مأجور) vs وجر.
+
+    Returns a list of resolved root_joined strings, or None if unresolvable.
+    """
+    root_letters = root_dotted.split(".")
+    hamza_positions = [i for i, l in enumerate(root_letters) if l == "#"]
+    if not hamza_positions:
+        return ["".join(root_letters)]
+    if len(hamza_positions) > 1:
+        return None  # multi-# roots: fall back to brute-force expansion
+
+    REPLACEMENTS = ("أ", "و", "ي", "ء", "ا")
+    resolved = []
+    for r in REPLACEMENTS:
+        candidate = [r if l == "#" else l for l in root_letters]
+        for lex_bare in lex_bare_set:
+            if _is_subsequence(candidate, lex_bare):
+                resolved.append("".join(candidate))
+                break
+    return resolved or None
+
+
+def _camel_root_to_db_variants(camel_root):
+    """Convert a CAMeL Tools root (e.g. '#.ص.ل') to DB root_joined candidates.
+
+    CAMeL uses '#' for the hamza radical, which can correspond to أ, و, ي, or ء
+    in the actual root.  For single-# roots, tries each replacement.  For
+    multi-# roots (e.g. ر.#.#), generates the cross-product of replacements
+    capped at 25 variants to avoid combinatorial explosion.
+    """
+    letters = camel_root.split(".")
+    hamza_positions = [i for i, l in enumerate(letters) if l == "#"]
+    if not hamza_positions:
+        return ["".join(letters)]
+
+    REPLACEMENTS = ("أ", "و", "ي", "ء", "ا")
+    if len(hamza_positions) == 1:
+        return ["".join(r if l == "#" else l for l in letters)
+                for r in REPLACEMENTS]
+
+    # Multi-#: cross-product, capped
+    from itertools import product
+    variants = []
+    for combo in product(REPLACEMENTS, repeat=len(hamza_positions)):
+        result = list(letters)
+        for pos, repl in zip(hamza_positions, combo):
+            result[pos] = repl
+        variants.append("".join(result))
+        if len(variants) >= 25:
+            break
+    return variants
+
+
+def _derive_root_candidates(bare_form, morph_analyzer=None):
+    """Derive candidate roots for a bare Arabic word.
+
+    If morph_analyzer (CAMeL Tools Analyzer) is provided, uses it for
+    linguistically accurate morphological decomposition (handles all Forms I-X,
+    broken plurals, quadriliterals, prepositional prefixes, etc.).
+
+    Uses a two-phase approach:
+      Phase 1 — Surface-matched analyses: only analyses whose diacritized form
+                matches the input (after stripping diacritics).  For roots with
+                '#', resolves the hamza letter via subsequence matching against
+                the lexeme citation form.
+      Phase 2 — All analyses (fallback): if Phase 1 yields nothing, uses all
+                analyses ranked by frequency with brute-force hamza expansion.
+
+    Falls back to regex-based heuristics if no analyzer is available.
+    Returns a list of root strings to query against root_joined.
+    """
+    candidates = []
+
+    # ── CAMeL Tools morphological analysis (preferred) ──
+    if morph_analyzer is not None:
+        analyses = morph_analyzer.analyze(bare_form)
+
+        # Phase 1: surface-matched analyses (diac_bare == input)
+        surface_root_counts = {}
+        surface_root_lexes = {}
+        for a in analyses:
+            root = a.get("root", "")
+            if root and root not in ("NTWS", "FOREIGN", "ntws"):
+                diac_bare = DIACRITICS_RE.sub("", a.get("diac", ""))
+                if diac_bare == bare_form:
+                    surface_root_counts[root] = surface_root_counts.get(root, 0) + 1
+                    lex_bare = DIACRITICS_RE.sub("", a.get("lex", ""))
+                    surface_root_lexes.setdefault(root, set()).add(lex_bare)
+
+        if surface_root_counts:
+            sorted_roots = sorted(surface_root_counts,
+                                  key=lambda r: -surface_root_counts[r])
+            for root in sorted_roots:
+                joined = root.replace(".", "")
+                if "#" not in joined:
+                    candidates.append(joined)
+                else:
+                    resolved = _resolve_hamza_via_lex(
+                        root, surface_root_lexes.get(root, set()))
+                    if resolved:
+                        candidates.extend(resolved)
+                    else:
+                        candidates.extend(_camel_root_to_db_variants(root))
+
+        # Phase 2: all analyses fallback (if Phase 1 yielded nothing)
+        if not candidates:
+            all_root_counts = {}
+            for a in analyses:
+                root = a.get("root", "")
+                if root and root not in ("NTWS", "FOREIGN", "ntws"):
+                    all_root_counts[root] = all_root_counts.get(root, 0) + 1
+            all_sorted = sorted(all_root_counts,
+                                key=lambda r: -all_root_counts[r])
+            for root in all_sorted:
+                candidates.extend(_camel_root_to_db_variants(root))
+
+        # Apply hamza normalization to expand matching
+        expanded = []
+        for c in candidates:
+            expanded.append(c)
+            normed = c.translate(HAMZA_NORM)
+            if normed != c:
+                expanded.append(normed)
+        candidates = expanded
+
+    # ── Regex fallback (no CAMeL Tools) ──
+    if not candidates:
+        stem = bare_form[2:] if bare_form.startswith("ال") else bare_form
+        for prefix in ("بال", "وال", "كال"):
+            if bare_form.startswith(prefix) and len(bare_form) > len(prefix) + 1:
+                stem = bare_form[len(prefix):]
+                break
+        n = len(stem)
+
+        if n == 5:
+            if stem[0] == "م" and stem[3] == "و":  # مفعول
+                candidates.append(stem[1] + stem[2] + stem[4])
+            if stem[0] == "م" and stem[2] == "ا":  # مُفاعِل
+                candidates.append(stem[1] + stem[3] + stem[4])
+            if stem[0] == "ت":  # تَفَعُّل
+                candidates.append(stem[1] + stem[2] + stem[3])
+                candidates.append(stem[1] + stem[2] + stem[4])
+            if stem[0] in ("إ", "أ", "ا") and stem[3] == "ا":  # إفعال
+                candidates.append(stem[1] + stem[2] + stem[4])
+        if n == 4:
+            if stem[2] == "ا":  # فِعال
+                candidates.append(stem[0] + stem[1] + stem[3])
+            if stem[1] == "ا":  # فاعِل
+                candidates.append(stem[0] + stem[2] + stem[3])
+            if stem[-1] in ("ة", "ه"):  # فَعْلة
+                candidates.append(stem[0] + stem[1] + stem[2])
+            if stem[2] == "و":  # فعول
+                candidates.append(stem[0] + stem[1] + stem[3])
+            if stem[0] in ("أ", "إ", "ا"):  # أَفْعَل
+                candidates.append(stem[1] + stem[2] + stem[3])
+        if n == 3:
+            candidates.append(stem)
+        if n == 2:
+            candidates.append(stem + stem[-1])
+
+        # Apply hamza normalization to regex-derived candidates
+        expanded = []
+        for c in candidates:
+            expanded.append(c)
+            normed = c.translate(HAMZA_NORM)
+            if normed != c:
+                expanded.append(normed)
+        candidates = expanded
+
+    # Deduplicate while preserving priority order
+    seen = set()
+    return [c for c in candidates if c and not (c in seen or seen.add(c))]
+
+
+def query_dict_entries(db_path, bare_form, morph_analyzer=None):
     """Query arabic_dict.db for entries matching a bare (undiacritized) form.
 
-    Returns (entries, match_type) where match_type is:
-      "exact" — headword_bare exact match
-      "normalized" — hamza-normalized match
-      "definition_mention" — term appears in definitions text (FTS)
+    Uses a 5-tier Arabic-aware lookup cascade:
+      Tier 1 — exact headword_bare match
+      Tier 2 — ال-prefixed / stripped match
+      Tier 3 — hamza / taa-marbuta / geminate / preposition variants
+      Tier 4 — root-based lookup (CAMeL morphological analyzer, or regex fallback)
+      Tier 5 — FTS definition mention (low confidence, last resort)
+
+    Returns (entries, match_type) describing how the match was found.
     """
     cols = "source, headword, pos, form, definitions, plurals, examples"
     conn = sqlite3.connect(str(db_path))
     conn.row_factory = sqlite3.Row
 
-    # Strategy 1: exact match
-    rows = conn.execute(
-        f"SELECT {cols} FROM entries WHERE headword_bare = ?",
-        (bare_form,),
-    ).fetchall()
-    if rows:
-        conn.close()
-        return [dict(r) for r in rows], "exact"
+    # ── Tiers 1–3: headword variant matching ──
+    for variant, match_type in _generate_headword_variants(bare_form):
+        rows = conn.execute(
+            f"SELECT {cols} FROM entries WHERE headword_bare = ?",
+            (variant,),
+        ).fetchall()
+        if rows:
+            conn.close()
+            return [dict(r) for r in rows], match_type
 
-    # Strategy 2: hamza normalization + trailing hamza removal
-    if len(bare_form) >= 2:
-        normalized = bare_form.translate(HAMZA_NORM)
-        variants = {normalized, bare_form.rstrip("\u0621"), normalized.rstrip("\u0621")}
-        variants.discard(bare_form)
-        for variant in variants:
-            if variant:
-                rows = conn.execute(
-                    f"SELECT {cols} FROM entries WHERE headword_bare = ?",
-                    (variant,),
-                ).fetchall()
-                if rows:
-                    conn.close()
-                    return [dict(r) for r in rows], "normalized"
+    # ── Tier 4: root-based lookup ──
+    for candidate in _derive_root_candidates(bare_form, morph_analyzer):
+        rows = conn.execute(
+            f"SELECT {cols} FROM entries WHERE root_joined = ? "
+            "ORDER BY CASE WHEN pos = 'verb' THEN 0 WHEN pos = 'noun' THEN 1 ELSE 2 END "
+            "LIMIT 12",
+            (candidate,),
+        ).fetchall()
+        if rows:
+            conn.close()
+            return [dict(r) for r in rows], f"root ({candidate})"
 
-    # Strategy 3: FTS on definitions (entries that mention this term)
+    # ── Tier 5: FTS definition mention (last resort) ──
     if len(bare_form) >= 3:
         rows = conn.execute(
-            f"SELECT e.source, e.headword, e.pos, e.form, e.definitions, e.plurals, e.examples "
+            "SELECT e.source, e.headword, e.pos, e.form, e.definitions, e.plurals, e.examples "
             "FROM entries_fts fts "
             "JOIN entries e ON e.id = fts.rowid "
             "WHERE entries_fts MATCH ? "
@@ -237,6 +509,41 @@ def query_arabterm(db_path, bare_form):
             seen.add(key)
             deduped.append(r)
     return deduped
+
+
+# ─── External scraped caches ──────────────────────────────────────────────────
+
+
+class ScrapedCaches:
+    """Loads Hawramani and Almaany scraped caches (JSON files)."""
+
+    def __init__(self, hawramani_path=None, almaany_path=None):
+        self.hawramani = {}
+        self.almaany = {}
+
+        if hawramani_path and Path(hawramani_path).exists():
+            with open(hawramani_path) as f:
+                self.hawramani = json.load(f)
+            print(f"    Hawramani cache: {len(self.hawramani)} entries")
+
+        if almaany_path and Path(almaany_path).exists():
+            with open(almaany_path) as f:
+                self.almaany = json.load(f)
+            print(f"    Almaany cache: {len(self.almaany)} entries")
+
+    def get_hawramani(self, bare_form):
+        """Get Hawramani definitions for a bare form. Returns list of dicts."""
+        entry = self.hawramani.get(bare_form)
+        if not entry or not entry.get("found"):
+            return []
+        return entry.get("definitions", [])
+
+    def get_almaany(self, bare_form):
+        """Get Almaany sections for a bare form. Returns list of section dicts."""
+        entry = self.almaany.get(bare_form)
+        if not entry or not entry.get("found"):
+            return []
+        return entry.get("sections", [])
 
 
 # ─── Markdown rendering ───────────────────────────────────────────────────────
@@ -311,10 +618,20 @@ def render_dict_entries(entries, match_type="exact"):
         return "*No dictionary entries found.*\n\n"
 
     lines = []
-    if match_type == "normalized":
-        lines.append("*Match type: hamza-normalized (أ/إ/آ→ا, ء removed)*\n")
+    if match_type == "al_prefix":
+        lines.append("*تطابق مع إضافة «ال» التعريف — Match with definite article ال added*\n")
+    elif match_type == "hamza_normalized":
+        lines.append("*تطابق بعد توحيد الهمزة — Match after hamza normalization (أ/إ/آ↔ا, ئ↔ي, ؤ↔و)*\n")
+    elif match_type == "taa_marbuta":
+        lines.append("*تطابق بعد توحيد التاء المربوطة — Match after taa marbuta normalization (ة↔ه)*\n")
+    elif match_type == "geminate":
+        lines.append("*تطابق جذر مضعّف — Match after geminate root handling (e.g. مدد↔مد)*\n")
+    elif match_type == "prep_stripped":
+        lines.append("*تطابق بعد حذف حرف الجر — Match after stripping prepositional prefix (بال→ال)*\n")
+    elif match_type.startswith("root"):
+        lines.append(f"*إدخالات من نفس الجذر — Root-based lookup: {match_type}*\n")
     elif match_type == "definition_mention":
-        lines.append("*Match type: term mentioned in definitions (not a headword match)*\n")
+        lines.append("*⚠ ذُكر في تعريفات كلمات أخرى — Term mentioned in other words' definitions (low confidence)*\n")
 
     lines.extend([
         "| Source | Headword | POS | Form | Definitions | Plurals |",
@@ -365,7 +682,58 @@ def render_arabterm_entries(entries):
     return "\n".join(lines)
 
 
-def generate_review(synset_id, synsets, oewn, db_path):
+def render_hawramani_entries(definitions):
+    """Render Hawramani dictionary entries as markdown."""
+    if not definitions:
+        return "*No Hawramani entries found.*\n\n"
+
+    lines = []
+    for d in definitions:
+        dict_name = d.get("dict_name_ar") or d.get("dict_name_en") or f"Dictionary #{d.get('html_dict_id', '?')}"
+        defn_text = d.get("definition_text", "")
+        # Truncate long definitions
+        if len(defn_text) > 500:
+            defn_text = defn_text[:500] + "…"
+        lines.append(f"**{dict_name}:**")
+        lines.append(f"> {_escape_md(defn_text)}")
+        lines.append("")
+
+    return "\n".join(lines)
+
+
+def render_almaany_entries(sections):
+    """Render Almaany dictionary sections as markdown."""
+    if not sections:
+        return "*No Almaany entries found.*\n\n"
+
+    lines = []
+    for sec in sections:
+        # Section header (e.g. "معجم المعاني الجامع" or "قاموس الكل")
+        sec_name = sec.get("section_name", "")
+        # Clean up the section name (remove repeated word)
+        sec_name = re.sub(r"تعريف و معنى\s*\S+\s*في\s*", "", sec_name).strip()
+        if sec_name:
+            lines.append(f"**{sec_name}** ({sec['num_entries']} entries):\n")
+
+        # Show entries as a compact table
+        entries = sec.get("entries", [])
+        if entries:
+            lines.append("| Headword | POS | Source | Definition |")
+            lines.append("|----------|-----|--------|------------|")
+            for e in entries[:15]:  # cap at 15 per section
+                hw = _escape_md(e.get("headword", ""))
+                pos = _escape_md(e.get("pos", "—"))
+                src = _escape_md(e.get("source_dict", "—")) or "—"
+                defn = _escape_md(_truncate(e.get("definition_text", ""), 150))
+                lines.append(f"| {hw} | {pos} | {src} | {defn} |")
+            if len(entries) > 15:
+                lines.append(f"| … | | | *+{len(entries)-15} more* |")
+            lines.append("")
+
+    return "\n".join(lines)
+
+
+def generate_review(synset_id, synsets, oewn, db_path, caches=None, morph_analyzer=None):
     """Generate the full markdown review for a single synset."""
     synset = synsets.get(synset_id)
     if not synset:
@@ -426,13 +794,24 @@ def generate_review(synset_id, synsets, oewn, db_path):
 
         # Dictionary evidence
         md.append("##### Dictionary Evidence\n")
-        dict_entries, match_type = query_dict_entries(db_path, bare)
+        dict_entries, match_type = query_dict_entries(db_path, bare, morph_analyzer)
         md.append(render_dict_entries(dict_entries, match_type))
 
         # ARABTERM
         md.append("##### ARABTERM Technical Terminology\n")
         at_entries = query_arabterm(db_path, bare)
         md.append(render_arabterm_entries(at_entries))
+
+        # Hawramani
+        if caches:
+            hw_defs = caches.get_hawramani(bare)
+            md.append("##### Hawramani Arabic Lexicon\n")
+            md.append(render_hawramani_entries(hw_defs))
+
+            # Almaany
+            al_sections = caches.get_almaany(bare)
+            md.append("##### Almaany (المعاني)\n")
+            md.append(render_almaany_entries(al_sections))
 
         if i < len(synset["lemmas"]):
             md.append("---\n")
@@ -490,7 +869,7 @@ def generate_review(synset_id, synsets, oewn, db_path):
             # Dictionary evidence for connected synset's lemmas
             for tl in target_syn["lemmas"]:
                 bare = strip_diacritics(tl["writtenForm"])
-                d_entries, d_match = query_dict_entries(db_path, bare)
+                d_entries, d_match = query_dict_entries(db_path, bare, morph_analyzer)
                 if d_entries:
                     md.append(f"**Dictionary entries for «{tl['writtenForm']}»:**\n")
                     md.append(render_dict_entries(d_entries, d_match))
@@ -528,12 +907,33 @@ def run(args):
         sys.exit(1)
 
     # Parse AWN4
-    print("\n[1/2] Loading AWN4 XML...")
+    print("\n[1/4] Loading AWN4 XML...")
     synsets, _ = parse_awn4(args.awn4_xml)
 
     # Load OEWN ILI metadata
-    print("\n[2/2] Loading OEWN metadata...")
+    print("\n[2/4] Loading OEWN metadata...")
     oewn = OEWNLookup(Path(args.meta_dir))
+
+    # Load scraped caches
+    print("\n[3/4] Loading scraped dictionary caches...")
+    caches = ScrapedCaches(
+        hawramani_path=args.hawramani_cache,
+        almaany_path=args.almaany_cache,
+    )
+
+    # Load CAMeL Tools morphological analyzer
+    morph_analyzer = None
+    print("\n[4/4] Loading CAMeL Tools morphological analyzer...")
+    try:
+        from camel_tools.morphology.database import MorphologyDB
+        from camel_tools.morphology.analyzer import Analyzer
+        db = MorphologyDB.builtin_db()
+        morph_analyzer = Analyzer(db)
+        print("    CAMeL morphology ready (all Arabic Forms I-X, broken plurals, etc.)")
+    except ImportError:
+        print("    CAMeL Tools not installed — using regex fallback for root derivation")
+    except Exception as e:
+        print(f"    CAMeL Tools error: {e} — using regex fallback")
 
     # Generate reviews
     print(f"\nGenerating {len(synset_ids)} review documents...")
@@ -542,7 +942,7 @@ def run(args):
 
     for sid in synset_ids:
         print(f"  {sid}...")
-        md_content = generate_review(sid, synsets, oewn, args.db)
+        md_content = generate_review(sid, synsets, oewn, args.db, caches, morph_analyzer)
         safe_name = sid.replace("/", "_")
         out_path = output_dir / f"{safe_name}.md"
         with open(out_path, "w", encoding="utf-8") as f:
@@ -561,6 +961,8 @@ def main():
     parser.add_argument("--awn4-xml", default=str(AWN4_XML), help="Path to awn4.xml")
     parser.add_argument("--db", default=str(DICT_DB), help="Path to arabic_dict.db")
     parser.add_argument("--meta-dir", default=str(COLBERT_META_DIR), help="Path to ColBERT metadata dir (for ILI lookups)")
+    parser.add_argument("--hawramani-cache", default=str(HAWRAMANI_CACHE), help="Path to hawramani_cache.json")
+    parser.add_argument("--almaany-cache", default=str(ALMAANY_CACHE), help="Path to almaany_cache.json")
     args = parser.parse_args()
     run(args)
 
