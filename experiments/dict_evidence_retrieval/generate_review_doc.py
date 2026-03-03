@@ -748,6 +748,8 @@ def render_yaml(synset: SynsetInfo,
     """Generate the enriched YAML sidecar with full review methodology.
 
     Structure follows the plan in REVIEW_GUIDE.md:
+    - Analysis (chain of thought)
+    - Actions (structured reviewer decisions — see §12 of REVIEW_GUIDE.md)
     - Scoring rubric (ordinal scales for IAA analysis)
     - Definition review (3 sub-dimensions + verdict)
     - Per-lemma enrichment (10+ fields + morpho checks + error type)
@@ -769,6 +771,12 @@ def render_yaml(synset: SynsetInfo,
         "comparison_with_english": "",   # How does the Arabic concept map to the English source?
         "reasoning": "",                 # Free-form reasoning leading to decisions below
     }
+
+    # ── Actions (structured reviewer decisions — see §12 of REVIEW_GUIDE.md) ──
+    doc["actions"] = []
+    # Each entry: {action: "<code>", target: "<lemma or field>",
+    #              reasoning: "<linguistic/logical chain of thought>",
+    #              requirements: "<what's needed to complete>"}
 
     # ── Scoring rubric (ordinal scales for IAA analysis) ──
     doc["scores"] = {
