@@ -47,16 +47,19 @@ PROJECT_URL = "https://github.com/Salah-Sal/arabic-wordnet-v4"
 CITATION = "Abdo, S. (2026). Arabic WordNet 4.0. https://github.com/Salah-Sal/arabic-wordnet-v4"
 PUBLISHER = "Salah Abdo"
 CONTRIBUTOR = "Salah Abdo"
-DATE = "2026-01-22"
+DATE = "2026-03-04"
 
 # Path to Arabic translations (relative to this script)
 SCRIPT_DIR = Path(__file__).parent
 PROJECT_ROOT = SCRIPT_DIR.parent
-AR_BATCHES_DIR = PROJECT_ROOT.parent / "arabic-wordnet-awn3" / "data" / "output" / "batches_750_ar"
+AR_BATCHES_DIR = PROJECT_ROOT / "data" / "extracted_batches"
 OUTPUT_DIR = PROJECT_ROOT / "output"
 
 # Supplementary translations for upper-ontology synsets missing from batch files
 UPPER_ONTOLOGY_FILE = PROJECT_ROOT / "data" / "upper_ontology_translations.json"
+
+# Satellite adjective translations (10,720 entries in 54 batch files)
+SATELLITE_TRANSLATIONS_DIR = PROJECT_ROOT / "data" / "satellite_translations"
 
 # SynsetRelations to include (semantic, language-independent)
 INCLUDED_SYNSET_RELATIONS = {
@@ -266,7 +269,7 @@ def load_oewn_data() -> dict:
         synset_id = ss.id
 
         # Get ILI
-        ili = ss.ili.id if ss.ili else None
+        ili = ss.ili if ss.ili else None
 
         # Get POS from synset ID (e.g., oewn-00001740-n -> n)
         pos = synset_id.split('-')[-1]
@@ -314,7 +317,7 @@ def generate_lmf_xml(ar_translations: dict, oewn_data: dict) -> Element:
     lexicon.set('version', VERSION)
     lexicon.set('url', PROJECT_URL)
     lexicon.set('citation', CITATION)
-    lexicon.set('dc:description', f'Arabic translation of Open English WordNet containing {len(ar_translations)} synsets. Translations generated with AI assistance (Google Gemini 3 Pro Preview).')
+    lexicon.set('dc:description', f'Arabic translation of Open English WordNet containing {len(ar_translations)} synsets. Translations generated with AI assistance (Google Gemini 3 Pro Preview for core synsets, Anthropic Claude for satellite adjectives).')
     lexicon.set('dc:source', 'Derived from Open English WordNet 2024 (https://en-word.net/), which is based on Princeton WordNet 3.0')
     lexicon.set('dc:rights', 'CC BY 4.0. Attribution required to Open English WordNet and Princeton WordNet.')
     lexicon.set('dc:publisher', PUBLISHER)
@@ -527,6 +530,9 @@ def main():
         ar_translations = load_arabic_translations(args.ar_batches)
         upper_translations = load_upper_ontology_translations(UPPER_ONTOLOGY_FILE)
         ar_translations.update(upper_translations)
+        satellite_translations = load_arabic_translations(SATELLITE_TRANSLATIONS_DIR)
+        logger.info(f"Merging {len(satellite_translations)} satellite adjective translations")
+        ar_translations.update(satellite_translations)
         oewn_data = load_oewn_data()
 
         # Generate XML
