@@ -1,21 +1,29 @@
 # AWN4 vs OEWN 2024 — Validation Report
 
-**Generated:** 2026-03-04
+**Generated:** 2026-03-04 (initial, AWN4 109,901 synsets)
+**Updated:** 2026-03-04 (post-satellite update, AWN4 120,630 synsets — full OEWN parity)
 **Validator:** `scripts/validate_awn4.py`
 **AWN4 version:** 4.0
 **OEWN version:** 2024
 
+> **⚠️ Note:** This report was written when AWN4 had 109,901 synsets. It has since been updated
+> to 120,630 synsets (commit `efeccc8`), achieving full OEWN 2024 parity. The numbers in this
+> document reflect the pre-update state. For current verification results see:
+> `experiments/dict_evidence_retrieval/AWN4_OEWN_DISCREPANCIES.md` and
+> `experiments/dict_evidence_retrieval/verify_discrepancies.py`.
+>
+> **Summary of changes:** All 10,720 satellite adjectives (`'s'` POS) and all 9 missing hub verbs
+> have been added. AWN4 now has 120,630 synsets and 297,150 relation triples — exact parity with OEWN.
+
 ---
 
-## Executive Summary
+## Executive Summary (original — pre-satellite-update)
 
 Arabic WordNet 4 (AWN4) was systematically validated against Open English WordNet 2024 (OEWN 2024) across 8 checks covering synset coverage, ILI integrity, relation completeness, definition quality, Arabic text hygiene, ID format validity, and noun hierarchy connectivity.
 
 **All 8 checks passed.**
 
-The headline finding is a **10,729-synset gap** between OEWN (120,630 synsets) and AWN4 (109,901 synsets). This is not a data-quality failure — it is structurally explained: 10,720 of the missing synsets are satellite adjectives (`'s'` POS), a sub-category that OEWN uses internally but AWN4 does not translate by design, and 9 are verbs that were not present in the source translation batch files. Every translated synset is structurally complete: full definitions, correct ILI links, intact relation graph, valid IDs, and a fully connected noun hierarchy.
-
-The README claim of "100% coverage of OEWN 2024" is **factually incorrect** and should be amended to "100% coverage of translated synsets (nouns, verbs, adjectives, adverbs); satellite adjectives not translated."
+~~The headline finding is a **10,729-synset gap** between OEWN (120,630 synsets) and AWN4 (109,901 synsets).~~ *(Resolved — AWN4 now has 120,630 synsets, full parity.)*
 
 ---
 
@@ -234,15 +242,11 @@ This result validates that the hypernym/hyponym chain was faithfully reproduced 
 
 ---
 
-## Recommended README Correction
+## ~~Recommended README Correction~~ *(Resolved)*
 
-The current README states:
+~~The current README states "100% coverage of OEWN 2024" — this was misleading when written (satellite adj + 9 verbs were missing).~~
 
-> "100% coverage of OEWN 2024"
-
-This is misleading. The accurate statement is:
-
-> "100% coverage of primary OEWN 2024 synsets (nouns, verbs, adjectives, adverbs). Satellite adjectives (`'s'` POS, 10,720 synsets) are excluded by design — consistent with standard practice for non-English wordnets. 9 verbs are absent due to gaps in source translation files."
+**Current state:** AWN4 now has 120,630 synsets = full OEWN 2024 parity. The README claim of 100% coverage is now accurate.
 
 ---
 
@@ -266,6 +270,11 @@ python scripts/validate_awn4.py --save
 ---
 
 ## Addendum: Extended Analysis (2026-03-04)
+
+> **Note:** This addendum documents issues found in the original 109,901-synset AWN4.
+> All issues described here have been resolved in the updated AWN4 (120,630 synsets).
+> The `similar` relation loss (92.5%) no longer applies — AWN4 now has 23,188 similar triples (100% parity).
+> The 9 missing hub verbs have all been translated. See `experiments/dict_evidence_retrieval/AWN4_OEWN_DISCREPANCIES.md` for the full resolution record.
 
 Additional analysis performed using `wn` 1.0.0 with `expand=''` against the live SQLite cache.
 
