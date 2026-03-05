@@ -20,7 +20,7 @@ The version string lives in two places that must stay in sync:
 - `output/awn4.xml` — the `<Lexicon id="awn4" version="4.0" ...>` attribute
 - `WN-LMF-1.4.dtd` — not versioned, but referenced
 
-Current version: **4.0** (awaiting bump to **4.1** for the satellite adjective addition)
+Current version: **4.1**
 
 ---
 
@@ -163,19 +163,11 @@ directly to `main`.
 
 ---
 
-## Known State After Last Release (v4.0.0)
+## Known State After Last Release (v4.1.0)
 
-The following significant changes have been committed to `main` since the
-`v4.0.0` release tag but **have not been re-released**:
+`v4.1.0` released 2026-03-05. All data commits are released. `main` is clean.
 
-| Commit | Change | Impact |
-|--------|--------|--------|
-| `1857565` | +78 upper-ontology noun synsets | Data |
-| `efeccc8` | +10,720 satellite adjectives + 9 hub verbs | **Major data** |
-| `584ecd1` | Verification scripts + discrepancy report | Docs |
-
-**Action required:** Create `v4.1.0` tag and GitHub Release with the current
-`output/awn4.xml.gz` (120,630 synsets).
+No unreleased data changes.
 
 ---
 
