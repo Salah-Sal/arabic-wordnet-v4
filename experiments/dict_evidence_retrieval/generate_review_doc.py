@@ -744,7 +744,9 @@ def render_md(synset: SynsetInfo,
 
 def render_yaml(synset: SynsetInfo,
                 lemma_evidence: dict[str, LemmaEvidence],
-                authority_map: dict) -> str:
+                authority_map: dict,
+                relations_map: dict[str, list[dict]] | None = None,
+                all_synsets: dict[str, "SynsetInfo"] | None = None) -> str:
     """Generate the enriched YAML sidecar with full review methodology.
 
     Structure follows the plan in REVIEW_GUIDE.md:
@@ -752,6 +754,7 @@ def render_yaml(synset: SynsetInfo,
     - Actions (structured reviewer decisions — see §12 of REVIEW_GUIDE.md)
     - Scoring rubric (ordinal scales for IAA analysis)
     - Definition review (3 sub-dimensions + verdict)
+    - Authored definitions (Step 2.5 — multiple definitions per synset)
     - Per-lemma enrichment (10+ fields + morpho checks + error type)
     - Missing lemmas, examples, relations, cultural fit, overall
     """
@@ -796,6 +799,53 @@ def render_yaml(synset: SynsetInfo,
         "revised_text": "",
         "notes": "",
         "flags": [],          # e.g., [CALQUE_WARNING, WEAK_STYLE]
+    }
+
+    # ── Authored definitions (Step 2.5 — multiple definitions per synset) ──
+    # Auto-populate genus_source from hypernym relation
+    hypernym_id = ""
+    if relations_map and synset.id in relations_map:
+        for rel in relations_map[synset.id]:
+            if rel.get("relType") in ("hypernym", "instance_hypernym"):
+                hypernym_id = rel.get("target", "")
+                break
+
+    _quality_check = {
+        "clarity": None,        # true | false (الوضوح)
+        "conciseness": None,    # true | false (الإيجاز)
+        "equivalence": None,    # true | false (التساوي)
+        "positive": None,       # true | false (الإيجاب)
+        "no_tautology": None,   # true | false (الخلو من اللغو)
+    }
+    doc["authored_definitions"] = {
+        "terminological": {
+            "text": "",
+            "method": "",           # genus_differentia | iso704 | adapted_from_dict
+            "genus_source": hypernym_id,  # auto-populated from hypernym relation
+            "differentiae": "",
+            "source": "",
+            "quality_check": dict(_quality_check),
+            "notes": "",
+        },
+        "linguistic": {
+            "text": "",
+            "method": "",           # synonym | antonym | example | derivation | context
+            "source": "",
+            "quality_check": dict(_quality_check),
+            "notes": "",
+        },
+        "encyclopedic": {
+            "text": "",
+            "method": "",           # essential_properties | descriptive | classification
+            "essential_characteristics": "",
+            "accidental_characteristics": "",
+            "source": "",
+            "quality_check": dict(_quality_check),
+            "notes": "",
+        },
+        "relationship_note": "",
+        "definition_count": None,   # 1 | 2 | 3
+        "skip_reason": "",
     }
 
     # ── Per-lemma enrichment ──
@@ -1002,7 +1052,9 @@ def generate_for_synset(synset: SynsetInfo,
     md_content = render_md(synset, oewn_data, lemma_ev, colbert_only,
                            relations, all_synsets, authority_map, colbert_enabled,
                            is_instance=is_instance)
-    yaml_content = render_yaml(synset, lemma_ev, authority_map)
+    yaml_content = render_yaml(synset, lemma_ev, authority_map,
+                               relations_map=relations_map,
+                               all_synsets=all_synsets)
 
     return md_content, yaml_content
 
