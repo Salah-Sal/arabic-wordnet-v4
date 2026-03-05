@@ -193,7 +193,7 @@ If you use this resource, please cite:
 
 ```
 Abdo, S. (2026). Arabic WordNet 4.0 (v4.1.0) [Data set]. Zenodo.
-https://doi.org/10.5281/zenodo.18759165
+https://doi.org/10.5281/zenodo.18872077
 ```
 
 BibTeX:
@@ -206,8 +206,8 @@ BibTeX:
   month        = jan,
   publisher    = {Zenodo},
   version      = {4.1.0},
-  doi          = {10.5281/zenodo.18759165},
-  url          = {https://doi.org/10.5281/zenodo.18759165}
+  doi          = {10.5281/zenodo.18872077},
+  url          = {https://doi.org/10.5281/zenodo.18872077}
 }
 ```
 
