@@ -1,0 +1,48 @@
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "أهل الحرفة"
+      decision: "removed"
+      decision_reason: "عبارة وصفية وليست مدخلاً معجمياً (Lemma)"
+      evidence_assessment:
+        case: "no_material"
+        notes:
+          - "لا سند معجمي — عبارة وصفية"
+      reasoning:
+        evidence_weight: "لا توجد في المعاجم كمدخل مستقل"
+        removal_justification: "اللمّة عبارة عن توصيف للفاعل (أهل الحرفة) وليست مصطلحاً معجمياً"
+      actions:
+        - command: "احذف ارتباط اللمّة بالمجموعة"
+          params:
+            lemma: "أهل الحرفة"
+            reason: "عبارة وصفية وليست مدخلاً معجمياً"
+
+    - lemma: "نقابة"
+      decision: "escalated"
+      decision_reason: "تعارض دلالي بين التعريف (أشخاص) واللمّة (تنظيم/مؤسسة)"
+      evidence_assessment:
+        case: "mixed"
+        notes:
+          - "confirm: أدلة قوية على معنى 'تنظيم'"
+          - "contradicts: المعنى المعجمي 'تنظيم' لا يطابق تعريف 'أشخاص'"
+      substitution_test:
+        result: "fail"
+        failure_sentences:
+          - original: "اجتمع أهل الحرفة لمناقشة حقوقهم"
+            substituted: "اجتمعت النقابة لمناقشة حقوقهم"
+            preserved_meaning: false
+            why_failed: "النقابة (المؤسسة) تختلف عن أهل الحرفة (الأشخاص) — لا يمكن الإبدال"
+      reasoning:
+        evidence_weight: "أدلة قوية على معنى 'تنظيم' (نقابة)"
+        conflict_analysis: "التعريف (أشخاص) لا يطابق اللمّة (مؤسسة). التعريف يحتاج مراجعة أو اللمّة تحتاج نقلاً لمجموعة تخص 'المنظمات'"
+        escalation_justification: "لا يمكن حسم التعارض آلياً — يحتاج مراجعاً بشرياً لتصحيح التعريف أو إعادة تصنيف اللمّة"
+      actions:
+        - command: "سجّل ملاحظة دلالية"
+          params:
+            lemma: "نقابة"
+            note: "تعارض دلالي: اللمّة تشير إلى تنظيم، والتعريف يشير إلى أشخاص"
+        - command: "صعّد للمراجع البشري"
+          params:
+            reason: "تعارض دلالي بين التعريف واللمّة"
+
+  synset_flags:
+    definition_review_needed: true
