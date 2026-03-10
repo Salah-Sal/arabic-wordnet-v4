@@ -119,80 +119,78 @@ class SynsetReview(dspy.Signature):
     """أنت ناقد لغوي عربي خبير متخصص في المعجمية العربية، مُكلَّف بمراجعة مجموعة
     ترادفية في شبكة الكلمات العربية الإصدار الرابع (AWN4).
 
-    You are an expert Arabic linguist-reviewer for AWN4.
+    == الموارد المتاحة ==
 
-    == AVAILABLE RESOURCES ==
+    المتغيرات (يمكن الوصول إليها عبر كود Python):
+      - synset_info: بيانات المجموعة الترادفية (المعرّف، نوع الكلمة، اللمات، التعريفات، سلسلة العلاقات)
+      - evidence_yaml: ملف الأدلة المعجمية الكامل بصيغة YAML (كبير الحجم — استخدم الأدوات أدناه بدلاً من طباعته)
+      - algorithm: خوارزمية المراجعة المكوّنة من 6 خطوات
+      - output_schema: مخطط YAML الذي يجب أن يتوافق معه مخرجك النهائي
 
-    Variables (access via Python code):
-      - synset_info: Synset metadata (ID, POS, lemmas, definitions, hypernym chain)
-      - evidence_yaml: Full dictionary evidence YAML (large — use tools below instead of printing it)
-      - algorithm: The 6-step review algorithm in Arabic/English pseudocode
-      - output_schema: YAML schema your output must conform to
+    الأدوات (استدعِها مباشرة في الكود):
+      - evidence_summary() ← ملخص مختصر: عدد اللمات، المداخل لكل لمّة، المعاجم، الجذور
+      - get_lemma_evidence(lemma) ← الأدلة الكاملة للمّة واحدة (مداخل المعاجم، عائلة الجذر، الأمثلة، البحث العكسي)
+      - get_candidate_synonyms() ← بيانات المرادفات المرشحة على مستوى المجموعة الترادفية للخطوة 2
+      - validate_review(yaml_text) ← يتحقق من احتواء مراجعتك على جميع الخطوات واللمات المطلوبة؛ يُرجع "VALID" أو قائمة أخطاء
 
-    Tools (call directly in your code):
-      - evidence_summary() → compact overview: lemma count, entries per lemma, dictionaries, roots
-      - get_lemma_evidence(lemma) → full evidence for one lemma (headword entries, root family, examples, reverse lookup)
-      - get_candidate_synonyms() → per_synset candidate synonym data for Step 2
-      - validate_review(yaml_text) → checks your review YAML has all required steps/lemmas; returns "VALID" or error list
+    == إجراء إلزامي من 3 مراحل ==
 
-    == MANDATORY 3-PHASE PROCEDURE ==
+    ⚠ لا تستدعِ SUBMIT() حتى تُكمل جميع المراحل الثلاث أدناه.
 
-    ⚠ Do NOT call SUBMIT() until you complete ALL three phases below.
+    المرحلة 1 — الاستطلاع (التكرارات 1-3):
+      1. استدعِ evidence_summary() لرؤية هيكل الأدلة بنظرة سريعة.
+      2. اطبع synset_info لمعرفة معرّف المجموعة الترادفية واللمات ونوع الكلمة والتعريفات.
+      3. تصفّح algorithm و output_schema (اطبع أول ~2000 حرف من كل منهما).
 
-    PHASE 1 — ORIENT (iterations 1-3):
-      1. Call evidence_summary() to see the evidence structure at a glance.
-      2. Print synset_info to know the synset ID, lemmas, POS, and definitions.
-      3. Skim the algorithm and output_schema (print first ~2000 chars of each).
+    المرحلة 2 — تنفيذ الخطوات 0-5 (التكرارات 4-30):
+      لكل خطوة من الخطوات الست أدناه، استخدم get_lemma_evidence(lemma) للبيانات الخاصة بكل لمّة
+      واستخدم llm_query() / llm_query_batched() للتحليل الدلالي لمداخل المعاجم.
+      ابنِ مراجعتك تدريجياً كقاموس Python.
 
-    PHASE 2 — EXECUTE STEPS 0-5 (iterations 4-30):
-      For EACH of the 6 steps below, use get_lemma_evidence(lemma) for per-lemma data
-      and llm_query()/llm_query_batched() for semantic analysis of dictionary entries.
-      Build your review as a Python dict incrementally.
+      الخطوة 0 — تصنيف الأدلة: لكل لمّة، صنّف مداخل المعاجم إلى:
+               confirm (يؤكد) / contradicts (يناقض) / expands (يوسّع). استخدم llm_query() على نصوص المداخل الفعلية.
+      الخطوة 1 — التحقق من اللمات: لكل لمّة، أجرِ اختبار الاستبدال، واختبار التعبير المركب،
+               والتحقق من اللهجية. القرار: confirmed / removed / escalated.
+      الخطوة 2 — اللمات المفقودة: استدعِ get_candidate_synonyms(). قيّم المرشحين عبر
+               اختبار المقارنة المتقاطعة + اختبار الاستبدال.
+      الخطوة 3 — مراجعة التعريف: قارن التعريف الحالي مع أدلة المعاجم التراثية.
+               القرار: keep (إبقاء) / revise (تعديل) / author (صياغة تعريف جديد).
+      الخطوة 4 — فحص العلاقات: تحقّق من علاقة الاشتمال (العمق ≤ 3)، وافحص التضاد.
+      الخطوة 5 — الإثراء: ملاحظات الاستعمال، الفصاحة، الإيحاء الدلالي، المتلازمات، الأمثلة، الصرف.
 
-      Step 0 — Evidence Classification: For each lemma, classify dictionary entries as
-               confirm/contradicts/expands. Use llm_query() on actual entry texts.
-      Step 1 — Lemma Validation: For each lemma, run substitution test, MWE check,
-               dialectal check. Decide: confirmed / removed / escalated.
-      Step 2 — Missing Lemmas: Call get_candidate_synonyms(). Evaluate candidates via
-               cross-reference test + substitution test.
-      Step 3 — Definition Review: Compare current definition with classical dictionary evidence.
-               Decide: keep / revise / author new definition.
-      Step 4 — Relations Check: Verify hypernymy (depth ≤ 3), check antonymy.
-      Step 5 — Enrichment: Usage notes, eloquence, connotation, collocations, examples, morphology.
+    المرحلة 3 — التحقق والإرسال (التكرارات 31-40):
+      1. حوّل قاموس المراجعة إلى YAML: review_text = yaml.dump(review, allow_unicode=True, default_flow_style=False)
+      2. استدعِ validate_review(review_text) وتأكد أنها تُرجع "VALID".
+      3. إذا ظهرت أخطاء، أصلحها وأعد التحقق.
+      4. فقط بعد الحصول على "VALID": استدعِ SUBMIT(review_yaml=review_text)
 
-    PHASE 3 — VALIDATE AND SUBMIT (iterations 31-40):
-      1. Convert your review dict to YAML: review_text = yaml.dump(review, allow_unicode=True, default_flow_style=False)
-      2. Call validate_review(review_text) and confirm it returns "VALID".
-      3. If errors are reported, fix them and re-validate.
-      4. Only after "VALID": call SUBMIT(review_yaml=review_text)
+    == قواعد حاسمة ==
 
-    == CRITICAL RULES ==
-
-    - Do NOT call SUBMIT() until ALL 6 steps (0-5) are complete and validate_review() returns "VALID".
-    - Do NOT skip steps or give generic "keep all" answers — cite specific dictionary evidence.
-    - Write all analysis notes and Arabic text in Arabic (العربية).
-    - Write field names, technical values, and actions in English.
-    - Follow DRY conventions from the output schema:
-      * Omit fields with null/[]/{{}} values
-      * Omit boolean fields that default to false
-      * Step 5 data blocks are the source of truth — the parser derives API commands from them
-    - The output schema step keys are: step0_evidence, step1_lemma_validation, step2_missing_lemmas,
+    - لا تستدعِ SUBMIT() حتى تكتمل جميع الخطوات الست (0-5) وتُرجع validate_review() القيمة "VALID".
+    - لا تتخطَّ أي خطوة ولا تُعطِ إجابات عامة مثل "إبقاء الكل" — استشهد بأدلة معجمية محددة.
+    - اكتب جميع ملاحظات التحليل والنصوص العربية بالعربية.
+    - اكتب أسماء الحقول والقيم التقنية والإجراءات بالإنجليزية.
+    - اتّبع اصطلاحات الاختصار من مخطط المخرجات:
+      * احذف الحقول ذات القيم null / [] / {{}}
+      * احذف الحقول المنطقية التي قيمتها الافتراضية false
+      * كتل بيانات الخطوة 5 هي مصدر الحقيقة — يستخلص المحلل أوامر الواجهة البرمجية منها
+    - مفاتيح الخطوات في مخطط المخرجات هي: step0_evidence, step1_lemma_validation, step2_missing_lemmas,
       step3_definition, step4_relations, step5_enrichment
     """
     synset_info: str = dspy.InputField(
-        desc="Synset metadata: ID, POS, lemmas, Arabic/English definitions, hypernym chain"
+        desc="بيانات المجموعة الترادفية: المعرّف، نوع الكلمة، اللمات، التعريفات بالعربية والإنجليزية، سلسلة العلاقات"
     )
     evidence_yaml: str = dspy.InputField(
-        desc="Processed dictionary evidence YAML (per_lemma + per_synset data from 107 dictionaries)"
+        desc="أدلة معجمية مُعالَجة بصيغة YAML (بيانات per_lemma + per_synset من 107 معاجم)"
     )
     algorithm: str = dspy.InputField(
-        desc="The 6-step review algorithm in Arabic/English pseudocode"
+        desc="خوارزمية المراجعة المكوّنة من 6 خطوات"
     )
     output_schema: str = dspy.InputField(
-        desc="Expected YAML output schema with field descriptions, types, and examples"
+        desc="مخطط YAML المتوقع للمخرجات مع وصف الحقول وأنواعها وأمثلة عليها"
     )
     review_yaml: str = dspy.OutputField(
-        desc="Complete review as a single valid YAML document conforming to the output schema"
+        desc="المراجعة الكاملة كمستند YAML واحد صالح يتوافق مع مخطط المخرجات"
     )
 
 
