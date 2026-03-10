@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 """DSPy Signature classes for the Level 4 step-decomposed pipeline.
 
-Each class defines the input/output schema for one step of the 6-step review
+Each class defines the input/output schema for one step of the review
 algorithm. Docstrings are written in Arabic (with English code identifiers)
 to prime the LLM for Arabic-language reasoning — matching the Level 1 pattern.
 
 Module type per step:
-    Step 0 — dspy.RLM (large evidence, programmatic exploration)
-    Step 1 — dspy.ChainOfThought (compact input, reasoning-heavy)
-    Step 2 — dspy.RLM (large candidate evidence, programmatic exploration)
-    Step 3 — dspy.ChainOfThought (compact input, definition authoring)
-    Step 4 — dspy.ChainOfThought (compact input, relation checking)
-    Step 5 — dspy.ChainOfThought (compact input, enrichment)
+    Step 0   — dspy.RLM (large evidence, programmatic exploration)
+    Step 0.5 — dspy.RLM (definition-driven lemma generation)
+    Step 1   — dspy.ChainOfThought (compact input, reasoning-heavy)
+    Step 3   — dspy.ChainOfThought (compact input, definition authoring)
+    Step 4   — dspy.ChainOfThought (compact input, relation checking)
+    Step 5   — dspy.ChainOfThought (compact input, enrichment)
 """
 from __future__ import annotations
 
@@ -93,6 +93,91 @@ class Step0EvidenceClassification(dspy.Signature):
 
 
 # ═══════════════════════════════════════════════════════════════
+# Step 0.5: Definition-Driven Lemma Generation (RLM)
+# ═══════════════════════════════════════════════════════════════
+
+class Step05LemmaGeneration(dspy.Signature):
+    """أنت ناقد لغوي عربي خبير. مهمتك: توليد لمّات عربية تمثّل دلالة المجموعة الترادفية
+    انطلاقاً من التعريف فقط — بدون الاطلاع على اللمّات الموجودة.
+
+    == الموارد المتاحة ==
+
+    المتغيرات:
+      - synset_info_masked: بيانات المجموعة (التعريف العربي والإنجليزي + نوع الكلمة + المُشتمِل) — بدون اللمّات
+      - synset_evidence_yaml: أدلة البحث على مستوى المجموعة (step4/step5/step9)
+      - algorithm: الخوارزمية المقتطعة للخطوة ٠٫٥
+      - output_schema: مخطط YAML المتوقع
+
+    الأدوات:
+      - evidence_overview() ← ملخص مختصر: عدد المدخلات ومصادرها في كل قسم
+      - browse_evidence(section) ← تصفّح قسم محدد (step4_fts_keyword / step5_english_bridge / step9_specialized)
+
+    == إجراء إلزامي ==
+
+    ⚠ لا تستدعِ SUBMIT() حتى تُكمل جميع المراحل أدناه.
+
+    المرحلة ١ — الفهم (التكرارات 1-2):
+      1. اقرأ synset_info_masked: افهم التعريف ونوع الكلمة والمُشتمِل.
+      2. استدعِ evidence_overview() لمعرفة حجم البيانات المتاحة.
+
+    المرحلة ٢ — التنقيب في الأدلة (التكرارات 3-8):
+      1. استدعِ browse_evidence("step5_english_bridge") — ابحث عن مقابلات عربية للمصطلح الإنجليزي.
+      2. استدعِ browse_evidence("step4_fts_keyword") — ابحث عن كلمات عربية تتضمن مفردات التعريف.
+      3. استدعِ browse_evidence("step9_specialized") — ابحث عن مشتقات من نفس الجذر ونوع الكلمة.
+      4. من هذه البيانات، اختر 1-2 لمّات مرشحة مع اقتباس الدليل المعجمي.
+
+    المرحلة ٣ — التوليد من المعرفة (التكرارات 9-12):
+      1. بناءً على فهمك للتعريف، ولّد 1-2 لمّات إضافية من معرفتك اللغوية.
+      2. لكل لمّة: اكتب تبريراً يوضح لماذا تمثّل دلالة التعريف.
+
+    المرحلة ٤ — التحقق والإرسال (التكرارات 13-15):
+      1. تأكد: ≥1 لمّة من الأدلة + ≥1 لمّة من المعرفة.
+      2. ابنِ YAML النهائي.
+      3. استدعِ SUBMIT(step05_yaml=yaml_text).
+
+    == تنسيق المخرجات — إلزامي ==
+    أخرج YAML صالحاً يبدأ بالمفتاح step05_lemma_generation. الهيكل الدقيق:
+
+    step05_lemma_generation:
+      evidence_candidates:
+      - lemma: "الكلمة"
+        source_section: "step4_fts_keyword"
+        evidence_citation: "«نص الاقتباس» — اسم المعجم"
+        reasoning: "التبرير"
+      knowledge_candidates:
+      - lemma: "الكلمة"
+        reasoning: "التبرير"
+      generation_notes: "ملاحظات (اختياري)"
+
+    ⚠ المفتاح الرئيسي يجب أن يكون step05_lemma_generation بالضبط.
+    ⚠ evidence_candidates: 1-2 لمّة من الأدلة. knowledge_candidates: 1-2 لمّة من المعرفة.
+
+    == قواعد حاسمة ==
+    - لا تكرر كلمات من التعريف نفسه كلمّات مرشحة (تجنّب الدوران).
+    - اللمّات المرشحة يجب أن تكون كلمات أو تعابير مستقلة يمكن استخدامها في جملة.
+    - اللمّات المرشحة يجب أن تكون مصطلحات مسكوكة أو تعابير اصطلاحية ثابتة — ليست عبارات وصفية حرة.
+      المعيار: إذا أمكن إبدال أحد مكوّنات التعبير بمرادف قريب وبقي التعبير صالحاً كوصف للمفهوم
+      فهو تركيب وصفي حر وليس مصطلحاً (مثال: "استغلال معلومات داخلية" → "استخدام بيانات داخلية" = وصف حر ✗).
+    - اكتب التحليل بالعربية. اكتب أسماء الحقول بالإنجليزية.
+    """
+    synset_info_masked: str = dspy.InputField(
+        desc="بيانات المجموعة الترادفية بدون اللمّات: التعريف + نوع الكلمة + المُشتمِل"
+    )
+    synset_evidence_yaml: str = dspy.InputField(
+        desc="أدلة البحث على مستوى المجموعة: step4_fts_keyword + step5_english_bridge + step9_specialized"
+    )
+    algorithm: str = dspy.InputField(
+        desc="خوارزمية الخطوة ٠٫٥: توليد لمّات من التعريف"
+    )
+    output_schema: str = dspy.InputField(
+        desc="مخطط YAML المتوقع للخطوة ٠٫٥"
+    )
+    step05_yaml: str = dspy.OutputField(
+        desc="step05_lemma_generation بصيغة YAML: المرشحات من الأدلة ومن المعرفة مع التبريرات"
+    )
+
+
+# ═══════════════════════════════════════════════════════════════
 # Step 1: Lemma Validation (ChainOfThought)
 # ═══════════════════════════════════════════════════════════════
 
@@ -109,6 +194,20 @@ class Step1LemmaValidation(dspy.Signature):
     6. فحص الاقتراض والترجمة الحرفية (calques)
     7. القرار النهائي: confirmed / removed / escalated
 
+    == معالجة مرشحات الخطوة ٠٫٥ ==
+    بعد الانتهاء من فحص اللمّات الموجودة، افحص مرشحات الخطوة ٠٫٥:
+    لكل مرشح:
+      1. اختبار الإبدال مع اللمّات الموجودة المؤكدة
+      2. فحص MWE إذا كان تعبيراً مركباً
+      3. فحص اللهجة — رفض الأشكال العامية
+      4. اختبار السَّكّ المصطلحي — ارفض العبارات الوصفية الحرة التي تشرح المفهوم دون تسميته:
+         إذا أمكن إبدال مكوّن بمرادف قريب وبقي الوصف صالحاً → ارفض ("تركيب وصفي حر")
+         مثال مقبول: "تداول داخلي" (مصطلح ثابت — "تداول باطني" لا يحمل نفس القوة)
+         مثال مرفوض: "استغلال معلومات داخلية" (وصف حر — "استخدام بيانات داخلية" مكافئ)
+      5. إذا نجح → أضفه إلى added_lemmas مع ملاحظة "مصدر: الخطوة ٠٫٥"
+      6. إذا فشل → سجّل سبب الرفض
+    ملاحظة: المرشحات من الخطوة ٠٫٥ لا تملك أدلة الخطوة ٠ — استخدم تبريرات الخطوة ٠٫٥ بدلاً منها.
+
     إذا وجدت أي سبب لمراجعة التعريف (دليل يناقض أو يوسّع بشكل جوهري):
     عيّن synset_flags.definition_review_needed: true
 
@@ -122,6 +221,9 @@ class Step1LemmaValidation(dspy.Signature):
     step0_yaml: str = dspy.InputField(
         desc="مخرجات الخطوة ٠: تصنيف الأدلة (confirm/contradicts/expands) لكل لمّة"
     )
+    step05_candidates: str = dspy.InputField(
+        desc="مرشحات الخطوة ٠٫٥: لمّات مولّدة من التعريف (2-4 لمّات مع المصادر والتبريرات) — تُعامَل كلمّات إضافية للتحقق"
+    )
     algorithm: str = dspy.InputField(
         desc="خوارزمية الخطوة ١: التحقق من اللمات + إجراء اختبار الاستبدال"
     )
@@ -130,73 +232,6 @@ class Step1LemmaValidation(dspy.Signature):
     )
     step1_yaml: str = dspy.OutputField(
         desc="step1_lemma_validation بصيغة YAML: قرار لكل لمّة + synset_flags + added_lemmas"
-    )
-
-
-# ═══════════════════════════════════════════════════════════════
-# Step 2: Missing Lemmas (RLM)
-# ═══════════════════════════════════════════════════════════════
-
-class Step2MissingLemmas(dspy.Signature):
-    """أنت ناقد لغوي عربي خبير. مهمتك: اكتشاف لمّات مرادفة مفقودة من بيانات البحث العكسي
-    وعمليات البحث على مستوى المجموعة الترادفية.
-
-    == الموارد المتاحة ==
-
-    المتغيرات:
-      - synset_info: بيانات المجموعة الترادفية
-      - confirmed_lemmas: قائمة اللمات المؤكدة من الخطوة ١ (لاستخدامها في اختبار الاستبدال)
-      - candidate_evidence_yaml: أدلة المرشحين (per_synset + step8_reverse_lookup) بصيغة YAML
-      - algorithm: الخوارزمية المقتطعة للخطوة ٢
-      - output_schema: مخطط YAML المتوقع للخطوة ٢
-
-    الأدوات:
-      - candidate_summary() ← ملخص مختصر: عدد المرشحين ومصادرهم
-      - get_section_evidence(section) ← أدلة قسم محدد (step4_fts_keyword / step5_english_bridge / step8_reverse_lookup)
-
-    == إجراء إلزامي ==
-
-    ⚠ لا تستدعِ SUBMIT() حتى تُكمل جميع المراحل أدناه.
-
-    المرحلة 1 — الاستطلاع (التكرارات 1-2):
-      1. استدعِ candidate_summary() لمعرفة عدد المرشحين.
-      2. اطبع synset_info و confirmed_lemmas.
-
-    المرحلة 2 — فحص المرشحين (التكرارات 3-20):
-      لكل مرشح:
-        a. استخلص الأدلة (نفس منطق الخطوة ٠: confirm/contradicts/expands)
-        b. بوابة الأدلة: ارفض إذا لا دليل ولا رابط دلالي
-        c. اختبار الإحالة المتقاطعة: هل يُشير تعريف المرشح إلى لمات المجموعة أو العكس؟
-        d. اختبار الاستبدال مع اللمات المؤكدة (إذا وُجد دليل أو إحالة)
-        e. القرار: added / rejected / proposed_new_synset / alternate_spelling
-
-    المرحلة 3 — التحقق والإرسال (التكرارات 21-25):
-      1. ابنِ YAML النهائي: step2_missing_lemmas مع per_candidate.
-      2. إذا لم يُضَف أي مرشح: عيّن status: "none_added".
-      3. استدعِ SUBMIT(step2_yaml=yaml_text).
-
-    == قواعد حاسمة ==
-    - افحص جميع المرشحين — لا تتخطَّ أي مرشح بدون تبرير.
-    - استشهد بأدلة معجمية محددة لكل قرار.
-    - اكتب التحليل بالعربية. اكتب أسماء الحقول والقرارات بالإنجليزية.
-    """
-    synset_info: str = dspy.InputField(
-        desc="بيانات المجموعة الترادفية: المعرّف، نوع الكلمة، اللمات، التعريفات"
-    )
-    confirmed_lemmas: str = dspy.InputField(
-        desc="قائمة اللمات المؤكدة من الخطوة ١ (لاختبار الاستبدال)"
-    )
-    candidate_evidence_yaml: str = dspy.InputField(
-        desc="أدلة المرشحين بصيغة YAML: per_synset + step8_reverse_lookup"
-    )
-    algorithm: str = dspy.InputField(
-        desc="خوارزمية الخطوة ٢: اكتشاف لمات مفقودة + اختبار الاستبدال"
-    )
-    output_schema: str = dspy.InputField(
-        desc="مخطط YAML المتوقع للخطوة ٢ مع 6 أمثلة لمسارات القرار"
-    )
-    step2_yaml: str = dspy.OutputField(
-        desc="step2_missing_lemmas بصيغة YAML: قرار لكل مرشح مع الأدلة والإحالة المتقاطعة"
     )
 
 
@@ -217,6 +252,11 @@ class Step3Definition(dspy.Signature):
        ب. ألّف تعريفاً لغوياً (للمفاهيم المجردة أو البسيطة أو الأفعال)
        ج. ألّف تعريفاً موسوعياً (للحيوانات/النباتات/الأدوات/المفاهيم الثقافية المعقدة)
     5. أجرِ فحص الجودة لكل تعريف مؤلَّف.
+
+    ⚠ قاعدة اللمات: ألّف التعريف بناءً على اللمات الموجودة في synset_info فقط.
+    لا تُوسّع التعريف لاستيعاب مفاهيم غير مُمثّلة في قائمة اللمات.
+    إذا كانت لمّة قد أُزيلت أو رُفعت للمراجعة في الخطوة ١، فهي غير موجودة في synset_info
+    ولا يجب أن يستوعبها التعريف.
 
     اكتب التعريفات بأسلوب المعجم الوسيط — لا تترجم التعريف الإنجليزي حرفياً.
     أنشئ تعريفات أصيلة مستندة إلى المعاجم العربية.
@@ -266,7 +306,7 @@ class Step4Relations(dspy.Signature):
         desc="بيانات المجموعة الترادفية مع العلاقات وسلسلة الاشتمال"
     )
     confirmed_lemmas: str = dspy.InputField(
-        desc="اللمات المؤكدة والمضافة من الخطوتين ١ و٢"
+        desc="اللمات المؤكدة والمضافة من الخطوة ١"
     )
     algorithm: str = dspy.InputField(
         desc="خوارزمية الخطوة ٤: فحص العلاقات"
@@ -284,34 +324,44 @@ class Step4Relations(dspy.Signature):
 # ═══════════════════════════════════════════════════════════════
 
 class Step5Enrichment(dspy.Signature):
-    """أنت ناقد لغوي عربي خبير. مهمتك: إثراء حقول اللمّات وتقييم الملاءمة الثقافية.
+    """أنت ناقد لغوي عربي خبير. مهمتك: استخلاص البيانات القابلة للتخزين في WordNet وتقييم الملاءمة الثقافية.
+
+    ⚠ قاعدة حاسمة: عالج فقط اللمات المدرجة في confirmed_lemmas.
+    لا تُثرِ لمّات غير مذكورة فيها. إذا ظهرت لمّة في الأدلة لكنها ليست في confirmed_lemmas،
+    تجاهلها — فقد أُزيلت أو رُفعت للمراجعة البشرية في الخطوة ١.
 
     لكل لمّة مؤكدة/مضافة:
-    1. استهلك بيانات التوسيع من الخطوة ٠ ← حوّلها إلى حقول إثراء.
-    2. عيّن حقول الإثراء: root، usage، eloquence، connotation، literal_figurative.
-    3. حلّ التعارضات عند اختلاف المصادر (اسمح بقيم متعددة).
-    4. استخلص المتلازمات (collocations) من أدلة المعاجم.
-    5. اختر أو ألّف أمثلة (الأولوية: قرآن، حديث، شعر، ثم استعمال).
-    6. فحوصات صرفية: روابط جمع التكسير، تصحيحات الصيغة.
-    7. فحوصات خاصة بنوع الكلمة: تعدي الفعل، قبول الحال، تمييز الاسم/المصدر.
+    1. استخلص الجذر وأكّده أو صحّحه.
+    2. حدّد العلاقة المجازية (metaphor/metonymy) إن وُجدت — من بيانات التوسيع والنصوص المعجمية.
+       إذا اللمّة مقترضة: عيّن etymology = "loanword".
+    3. لكل لمّة: مثال واحد على الأقل — إلزامي. لا يجوز ترك لمّة بدون مثال.
+       المصادر بالأولوية: أ) شواهد step6_examples، ب) اقتباسات المعاجم من أدلة الخطوة ٠ (confirm/expands)، ج) تأليف مثال فصيح (source = "مؤلَّف").
+    4. فحوصات صرفية: روابط جمع التكسير، تصحيحات الصيغة.
+    5. فحوصات خاصة بنوع الكلمة: تعدي الفعل، قبول الحال، تمييز الاسم/المصدر.
 
     على مستوى المجموعة الترادفية:
-    8. الملاءمة الثقافية: native / phraset / lexical_gap / omission.
+    6. الملاءمة الثقافية: native / phraset / lexical_gap / omission.
 
-    مهم: البيانات في كتل enrichment / collocations / examples / morphology / pos_check
+    مهم: البيانات في كتل enrichment / examples / morphology / pos_check
     هي مصدر الحقيقة. المحلل يشتق الأوامر منها تلقائياً. اكتب فقط الأوامر غير المشتقة
     في actions[] (مثل: "سجّل ملاحظة دلالية").
+
+    لا تُنتج حقول: usage، eloquence، connotation، literal_figurative، collocations.
+    هذه الحقول ليس لها مكان في بنية WN-LMF ولا تُخزّن في WordNet.
 
     أخرج YAML صالحاً يبدأ بالمفتاح step5_enrichment.
     """
     synset_info: str = dspy.InputField(
-        desc="بيانات المجموعة الترادفية"
+        desc="بيانات المجموعة الترادفية (مصفّاة — تحتوي فقط على اللمات المؤكدة والمضافة)"
+    )
+    confirmed_lemmas: str = dspy.InputField(
+        desc="اللمات المؤكدة والمضافة من الخطوة ١ — عالج هذه اللمات فقط"
     )
     confirmed_lemmas_with_evidence: str = dspy.InputField(
-        desc="اللمات المؤكدة/المضافة مع أدلة الخطوة ٠ (خاصة بيانات التوسيع expands)"
+        desc="أدلة الخطوة ٠ للمات المؤكدة/المضافة — خاصة بيانات التوسيع (expands) واقتباسات المعاجم لاستخلاص الشواهد والأمثلة"
     )
     examples_evidence: str = dspy.InputField(
-        desc="بيانات step6_examples لكل لمّة لاستخلاص الاقتباسات والأمثلة"
+        desc="بيانات step6_examples للمات المؤكدة/المضافة فقط لاستخلاص الاقتباسات والأمثلة"
     )
     algorithm: str = dspy.InputField(
         desc="خوارزمية الخطوة ٥: الإثراء والملاءمة الثقافية"
@@ -320,5 +370,5 @@ class Step5Enrichment(dspy.Signature):
         desc="مخطط YAML المتوقع للخطوة ٥ مع أمثلة"
     )
     step5_yaml: str = dspy.OutputField(
-        desc="step5_enrichment بصيغة YAML: حقول الإثراء والمتلازمات والأمثلة والصرف والملاءمة الثقافية"
+        desc="step5_enrichment بصيغة YAML: الجذر، العلاقة المجازية، الأمثلة، الصرف، نوع الكلمة، والملاءمة الثقافية"
     )
