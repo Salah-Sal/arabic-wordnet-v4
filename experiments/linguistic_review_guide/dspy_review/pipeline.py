@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Level 4: Step-Decomposed Pipeline — 6 specialized modules.
+"""Step-Decomposed Pipeline — 6 specialized DSPy modules.
 
 Decomposes the 6-step review algorithm into a DSPy pipeline:
     Step 0 — RLM: Evidence classification (scans full evidence YAML)
@@ -14,16 +14,16 @@ Steps 2, 3, 4 are independent of each other and run sequentially
 
 Usage:
     # Review a single synset (auto-detects model from available API keys)
-    python -m dspy_review.level4_pipeline awn4-13927849-n.evidence.yaml
+    python -m dspy_review.pipeline awn4-13927849-n.evidence.yaml
 
     # Specify model explicitly
-    python -m dspy_review.level4_pipeline --model gemini-3.1-pro awn4-13927849-n.evidence.yaml
+    python -m dspy_review.pipeline --model gemini-3.1-pro awn4-13927849-n.evidence.yaml
 
     # Review all synsets with MLflow tracing
-    python -m dspy_review.level4_pipeline --all --mlflow
+    python -m dspy_review.pipeline --all --mlflow
 
     # Dry run — show what would be processed
-    python -m dspy_review.level4_pipeline --all --dry-run
+    python -m dspy_review.pipeline --all --dry-run
 """
 from __future__ import annotations
 
@@ -70,8 +70,7 @@ from dspy_review.extractors import (
     extract_examples_evidence,
 )
 
-# Reuse the progress callback from Level 1
-from dspy_review.level1_single_rlm import RLMProgressCallback
+from dspy_review.tracing import RLMProgressCallback
 
 
 # ═══════════════════════════════════════════════════════════════
