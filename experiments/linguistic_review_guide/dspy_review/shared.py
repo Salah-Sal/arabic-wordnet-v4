@@ -15,10 +15,10 @@ from pathlib import Path
 
 import yaml
 
-# Add parent dir so we can import assemble_prompts_v2's processing logic
+# Add legacy dir so we can import assemble_prompts_v2's processing logic
 SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_DIR = SCRIPT_DIR.parent
-sys.path.insert(0, str(PROJECT_DIR))
+sys.path.insert(0, str(PROJECT_DIR / "legacy"))
 
 from assemble_prompts_v2 import (
     ArabicDumper,
@@ -31,9 +31,9 @@ from dspy_review.config import configure_lm, resolve_model, make_sub_lm, add_mod
 
 # ── Paths ──
 
-EVIDENCE_DIR = PROJECT_DIR / "sample synsets with  dictionary evidenc"
-ALGORITHM_PATH = PROJECT_DIR / "draft_api.md"
-OUTPUT_SCHEMA_PATH = PROJECT_DIR / "output_step0.yaml"
+EVIDENCE_DIR = PROJECT_DIR / "evidence"
+ALGORITHM_PATH = PROJECT_DIR / "spec" / "draft_api.md"
+OUTPUT_SCHEMA_PATH = PROJECT_DIR / "spec" / "output_step0.yaml"
 
 # ── YAML loader (prefer C extension) ──
 
