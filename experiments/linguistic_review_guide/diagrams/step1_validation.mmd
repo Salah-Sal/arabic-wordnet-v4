@@ -1,0 +1,104 @@
+flowchart TD
+    START(["For each lemma"])
+
+    %% ══════ Evidence Cases ══════
+    START --> EV{"Evidence\nstatus?"}
+
+    %% Case 1: No material
+    EV -->|"no_material_found"| C1{"Linguist sees\nsemantic link?"}
+    C1 -->|Yes| C1A["nuance_note:\nno evidence — accepted\nby linguist"]
+    C1 -->|No| C1R["reject_lemma\n+ nuance_note"]
+    C1R --> EXIT_R([Next lemma])
+
+    %% Case 2: Contradicts
+    EV -->|"contradicts\nnon-empty"| C2{"Source of\ncontradiction?"}
+    C2 -->|"Lemma has\ndifferent meaning"| C2A["nuance_note:\nmeaning differs"]
+    C2 -->|"Definition\ntoo narrow"| C2B["flag_definition_review\n→ Step 3"]
+    C2 -->|"Polysemy"| C2C["flag_split_needed\n+ nuance_note"]
+
+    %% Case 3: Expands
+    EV -->|"expands\nnon-empty"| C3{"Independent\nmeaning?"}
+    C3 -->|Yes| C3A["flag_split_needed\n+ nuance_note"]
+    C3 -->|No| C3B["nuance_note:\nadditional dimension"]
+
+    %% Case 4: Confirm only
+    EV -->|"confirm only"| C4["Fast path\n(evidence supports)"]
+
+    %% ══════ Merge to checks ══════
+    C1A --> CHK_MWE
+    C2A --> CHK_MWE
+    C2B --> CHK_MWE
+    C2C --> CHK_MWE
+    C3A --> CHK_MWE
+    C3B --> CHK_MWE
+    C4 --> CHK_MWE
+
+    %% ══════ Sequential Checks ══════
+
+    %% أ٠ MWE
+    CHK_MWE{"أ٠: Multi-Word\nExpression?"}
+    CHK_MWE -->|No| CHK_DIAL
+    CHK_MWE -->|Yes| MWE_ID{"Idiomatic &\nstable?"}
+    MWE_ID -->|Yes| MWE_OK["accept_mwe\n(test as unit)"]
+    MWE_ID -->|No| MWE_REJ["reject_lemma\nnot a lexical unit"]
+    MWE_REJ --> EXIT_R2([Next lemma])
+    MWE_OK --> CHK_DIAL
+
+    %% أ٫١ Dialectal
+    CHK_DIAL{"أ٫١: Dialectal\nform?"}
+    CHK_DIAL -->|No| CHK_SUB
+    CHK_DIAL -->|Yes| DIAL_R["remove_dialectal"]
+    DIAL_R --> EXIT_R3([Next lemma])
+
+    %% أ Substitution test
+    CHK_SUB{"أ: Substitution\nTest\nاختبار_الإبدال()"}
+    CHK_SUB -->|Pass| CHK_NU
+    CHK_SUB -->|Fail| SUB_REJ["reject_lemma"]
+    SUB_REJ --> EXIT_R4([Next lemma])
+
+    %% ب Nuance note
+    CHK_NU["ب: add_nuance_note\n(mandatory for every lemma)"]
+    CHK_NU --> CHK_SPEC
+
+    %% ج Specificity
+    CHK_SPEC{"ج: More specific\nterm exists?"}
+    CHK_SPEC -->|No| CHK_CAL
+    CHK_SPEC -->|Yes| SPEC_SWAP["remove_lemma\n+ add_lemma(specific)"]
+    SPEC_SWAP --> CHK_CAL
+
+    %% د Calque / Loanword
+    CHK_CAL{"د: Calque or\nLoanword?"}
+    CHK_CAL -->|"Calque"| CAL_R["remove_calque\n+ add Arabic equiv\n(if not exists)"]
+    CAL_R --> EXIT_R5([Next lemma])
+    CHK_CAL -->|"Loanword\n(accepted)"| LOAN_OK["accept_loanword\n+ enrichment"]
+    CHK_CAL -->|"Neither"| FINAL
+    LOAN_OK --> FINAL
+
+    %% ══════ Final Decision (ز) ══════
+    FINAL{"ز: Final\nDecision"}
+
+    FINAL -->|"Semantic shift\ndetected"| F_SHIFT["confirm\n+ period restriction\n+ usage note"]
+    FINAL -->|"Modern word\nno classical root"| F_MOD["confirm\n+ usage=modern"]
+    FINAL -->|"confirm ≠∅\ncontradicts =∅"| F_CONF["confirm"]
+    FINAL -->|"confirm ≠∅\ncontradicts ≠∅"| F_MIXED{"Confirmation\nstronger?"}
+    F_MIXED -->|Yes| F_CONF_CAV["confirm\nwith caveat"]
+    F_MIXED -->|No| F_ESC1["escalate"]
+    FINAL -->|"expands only"| F_EXP["confirm\n+ scope note"]
+    FINAL -->|"no_material\n(linguist OK)"| F_NOM["confirm\nby linguist"]
+    FINAL -->|"contradicts only\n(passed subst.)"| F_ESC2["escalate"]
+    FINAL -->|"none match"| F_REJ["reject_lemma"]
+
+    %% ══════ Styles ══════
+    classDef accept fill:#c8e6c9,stroke:#2E7D32,color:#000
+    classDef reject fill:#ffcdd2,stroke:#C62828,color:#000
+    classDef escalate fill:#fff9c4,stroke:#F9A825,color:#000
+    classDef check fill:#e3f2fd,stroke:#1565C0,color:#000
+    classDef mandatory fill:#e8eaf6,stroke:#283593,color:#000
+    classDef exitNode fill:#ffcdd2,stroke:#C62828,color:#000
+
+    class C1A,MWE_OK,LOAN_OK,SPEC_SWAP,F_SHIFT,F_MOD,F_CONF,F_CONF_CAV,F_EXP,F_NOM accept
+    class C1R,MWE_REJ,SUB_REJ,DIAL_R,CAL_R,F_REJ reject
+    class F_ESC1,F_ESC2 escalate
+    class CHK_MWE,CHK_DIAL,CHK_SUB,CHK_SPEC,CHK_CAL,FINAL check
+    class CHK_NU mandatory
+    class EXIT_R,EXIT_R2,EXIT_R3,EXIT_R4,EXIT_R5 exitNode

@@ -1,0 +1,409 @@
+// Decision Flow Diagram for أ.9 Investigative Methodology
+// Actions as destination nodes — decisions route TO concrete outcomes
+// Render: dot -Tsvg methodology_flow.dot -o methodology_flow.svg
+// Theme: DARK MODE (Catppuccin Mocha)
+
+digraph methodology {
+    // Global settings
+    rankdir=TB;
+    fontname="Arial";
+    fontsize=14;
+    bgcolor="#1E1E2E";
+    pad=0.6;
+    nodesep=0.5;
+    ranksep=0.7;
+    splines=true;
+
+    // Default node style
+    node [
+        fontname="Arial",
+        fontsize=11,
+        fontcolor="#CDD6F4",
+        style="filled,rounded",
+        shape=box,
+        penwidth=1.5
+    ];
+
+    // Default edge style
+    edge [
+        fontname="Arial",
+        fontsize=9,
+        fontcolor="#BAC2DE",
+        color="#585B70",
+        penwidth=1.2
+    ];
+
+    // ═══════════════════════════════════════════
+    //  START
+    // ═══════════════════════════════════════════
+    start [
+        label=<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="2">
+            <TR><TD><B><FONT POINT-SIZE="13" COLOR="#CDD6F4">اختر المجموعة الترادفية</FONT></B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="9" COLOR="#7F849C">Select synset for review</FONT></TD></TR>
+        </TABLE>>,
+        shape=oval,
+        fillcolor="#2D2D44",
+        color="#7C8FE8",
+        penwidth=2.5
+    ];
+
+    // ═══════════════════════════════════════════
+    //  DECISION 1: Lemma Verification
+    // ═══════════════════════════════════════════
+    q1 [
+        label=<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="2">
+            <TR><TD><B><FONT POINT-SIZE="12" COLOR="#CDD6F4">١ — التحقق من اللمّات</FONT></B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="10" COLOR="#BAC2DE">هل المعنى المستهدف</FONT></TD></TR>
+            <TR><TD><FONT POINT-SIZE="10" COLOR="#BAC2DE">مثبت في المعاجم؟</FONT></TD></TR>
+            <TR><TD><FONT POINT-SIZE="8" COLOR="#585B70">Is the target sense attested?</FONT></TD></TR>
+        </TABLE>>,
+        shape=diamond,
+        fillcolor="#1E3450",
+        color="#5C9CE6",
+        penwidth=2,
+        width=3.2,
+        height=2.0
+    ];
+
+    // Decision 1 action nodes
+    a_confirm [
+        label=<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="1">
+            <TR><TD><B><FONT POINT-SIZE="12" COLOR="#A6E3A1">✓ تأكيد اللمّة</FONT></B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="8" COLOR="#7F849C">confirm</FONT></TD></TR>
+        </TABLE>>,
+        fillcolor="#1B3A2A",
+        color="#66D96A",
+        penwidth=2
+    ];
+
+    a_nuance_period [
+        label=<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="1">
+            <TR><TD><B><FONT POINT-SIZE="12" COLOR="#FAB387">⚠ ملاحظة: انزياح دلالي</FONT></B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="8" COLOR="#7F849C">nuance_note: period restriction</FONT></TD></TR>
+        </TABLE>>,
+        fillcolor="#3D2E1A",
+        color="#FFB74D",
+        penwidth=2
+    ];
+
+    a_tag_modern [
+        label=<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="1">
+            <TR><TD><B><FONT POINT-SIZE="12" COLOR="#CBA6F7">◆ وسم: مصطلح مولّد</FONT></B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="8" COLOR="#7F849C">tag: usage=modern</FONT></TD></TR>
+        </TABLE>>,
+        fillcolor="#2D1F3D",
+        color="#CE93D8",
+        penwidth=2
+    ];
+
+    a_reject_lemma [
+        label=<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="1">
+            <TR><TD><B><FONT POINT-SIZE="12" COLOR="#F38BA8">✗ رفض اللمّة</FONT></B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="8" COLOR="#7F849C">reject_lemma</FONT></TD></TR>
+        </TABLE>>,
+        fillcolor="#3D1A1A",
+        color="#EF5350",
+        penwidth=2
+    ];
+
+    // ═══════════════════════════════════════════
+    //  DECISION 2: Missing Lemma Discovery
+    // ═══════════════════════════════════════════
+    q2 [
+        label=<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="2">
+            <TR><TD><B><FONT POINT-SIZE="12" COLOR="#CDD6F4">٢ — اكتشاف لمّات مفقودة</FONT></B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="10" COLOR="#BAC2DE">هل يكشف البحث بالجذر</FONT></TD></TR>
+            <TR><TD><FONT POINT-SIZE="10" COLOR="#BAC2DE">أو FTS5 عن مرادفات مفقودة؟</FONT></TD></TR>
+            <TR><TD><FONT POINT-SIZE="8" COLOR="#585B70">Does root/FTS5/bridge search reveal missing synonyms?</FONT></TD></TR>
+        </TABLE>>,
+        shape=diamond,
+        fillcolor="#1E3450",
+        color="#5C9CE6",
+        penwidth=2,
+        width=3.2,
+        height=2.0
+    ];
+
+    // Decision 2 action nodes
+    a_add_lemma [
+        label=<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="1">
+            <TR><TD><B><FONT POINT-SIZE="12" COLOR="#89B4FA">+ إضافة لمّة</FONT></B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="8" COLOR="#7F849C">add_lemma</FONT></TD></TR>
+        </TABLE>>,
+        fillcolor="#1A3A5C",
+        color="#64B5F6",
+        penwidth=2
+    ];
+
+    a_add_variant [
+        label=<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="1">
+            <TR><TD><B><FONT POINT-SIZE="12" COLOR="#89B4FA">+ إضافة تهجئة بديلة</FONT></B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="8" COLOR="#7F849C">add_lemma (variant)</FONT></TD></TR>
+        </TABLE>>,
+        fillcolor="#1A3A5C",
+        color="#64B5F6",
+        penwidth=2
+    ];
+
+    a_new_synset [
+        label=<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="1">
+            <TR><TD><B><FONT POINT-SIZE="12" COLOR="#94E2D5">→ اقتراح مجموعة مستقلة</FONT></B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="8" COLOR="#7F849C">propose_new_synset</FONT></TD></TR>
+        </TABLE>>,
+        fillcolor="#1A3D3A",
+        color="#5CC8BC",
+        penwidth=2
+    ];
+
+    a_reject_candidate [
+        label=<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="1">
+            <TR><TD><B><FONT POINT-SIZE="12" COLOR="#F38BA8">✗ رفض المرشح (تشابه زائف)</FONT></B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="8" COLOR="#7F849C">reject_candidate</FONT></TD></TR>
+        </TABLE>>,
+        fillcolor="#3D1A1A",
+        color="#EF5350",
+        penwidth=2
+    ];
+
+    a_synset_complete [
+        label=<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="1">
+            <TR><TD><B><FONT POINT-SIZE="12" COLOR="#7F849C">— المجموعة مكتملة</FONT></B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="8" COLOR="#585B70">synset complete, no additions</FONT></TD></TR>
+        </TABLE>>,
+        fillcolor="#313244",
+        color="#585B70",
+        penwidth=1.5
+    ];
+
+    // ═══════════════════════════════════════════
+    //  DECISION 3: Definition Audit
+    // ═══════════════════════════════════════════
+    q3 [
+        label=<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="2">
+            <TR><TD><B><FONT POINT-SIZE="12" COLOR="#CDD6F4">٣ — تدقيق التعريف</FONT></B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="10" COLOR="#BAC2DE">هل تعريف AWN يطابق</FONT></TD></TR>
+            <TR><TD><FONT POINT-SIZE="10" COLOR="#BAC2DE">تعريفات المعاجم؟</FONT></TD></TR>
+            <TR><TD><FONT POINT-SIZE="8" COLOR="#585B70">Does AWN definition match dictionaries?</FONT></TD></TR>
+        </TABLE>>,
+        shape=diamond,
+        fillcolor="#1E3450",
+        color="#5C9CE6",
+        penwidth=2,
+        width=3.2,
+        height=2.0
+    ];
+
+    // Decision 3 action nodes
+    a_retain_def [
+        label=<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="1">
+            <TR><TD><B><FONT POINT-SIZE="12" COLOR="#A6E3A1">✓ إبقاء التعريف</FONT></B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="8" COLOR="#7F849C">retain_definition</FONT></TD></TR>
+        </TABLE>>,
+        fillcolor="#1B3A2A",
+        color="#66D96A",
+        penwidth=2
+    ];
+
+    a_nuance_scope [
+        label=<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="1">
+            <TR><TD><B><FONT POINT-SIZE="12" COLOR="#FAB387">⚠ ملاحظة: فرق النطاق</FONT></B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="8" COLOR="#7F849C">nuance_note: scope mismatch</FONT></TD></TR>
+        </TABLE>>,
+        fillcolor="#3D2E1A",
+        color="#FFB74D",
+        penwidth=2
+    ];
+
+    a_retain_awn [
+        label=<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="1">
+            <TR><TD><B><FONT POINT-SIZE="12" COLOR="#A6E3A1">✓ إبقاء (AWN أدقّ)</FONT></B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="8" COLOR="#7F849C">retain (AWN wins)</FONT></TD></TR>
+        </TABLE>>,
+        fillcolor="#1B3A2A",
+        color="#66D96A",
+        penwidth=2
+    ];
+
+    // ═══════════════════════════════════════════
+    //  DECISION 4: Relations Check
+    // ═══════════════════════════════════════════
+    q4 [
+        label=<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="2">
+            <TR><TD><B><FONT POINT-SIZE="12" COLOR="#CDD6F4">٤ — فحص العلاقات</FONT></B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="10" COLOR="#BAC2DE">هل علاقات الأعلى والأدنى</FONT></TD></TR>
+            <TR><TD><FONT POINT-SIZE="10" COLOR="#BAC2DE">صحيحة؟</FONT></TD></TR>
+            <TR><TD><FONT POINT-SIZE="8" COLOR="#585B70">Are hypernym/hyponym relations correct?</FONT></TD></TR>
+        </TABLE>>,
+        shape=diamond,
+        fillcolor="#1E3450",
+        color="#5C9CE6",
+        penwidth=2,
+        width=3.2,
+        height=2.0
+    ];
+
+    // Decision 4 action nodes
+    a_relations_ok [
+        label=<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="1">
+            <TR><TD><B><FONT POINT-SIZE="12" COLOR="#A6E3A1">✓ العلاقات سليمة</FONT></B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="8" COLOR="#7F849C">relations_ok</FONT></TD></TR>
+        </TABLE>>,
+        fillcolor="#1B3A2A",
+        color="#66D96A",
+        penwidth=2
+    ];
+
+    a_flag_relation [
+        label=<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="1">
+            <TR><TD><B><FONT POINT-SIZE="12" COLOR="#FAB387">⚠ تعليم العلاقة للمراجعة</FONT></B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="8" COLOR="#7F849C">flag_relation</FONT></TD></TR>
+        </TABLE>>,
+        fillcolor="#3D2E1A",
+        color="#FFB74D",
+        penwidth=2
+    ];
+
+    // ═══════════════════════════════════════════
+    //  AGGREGATION & END
+    // ═══════════════════════════════════════════
+    summary [
+        label=<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="2">
+            <TR><TD><B><FONT POINT-SIZE="14" COLOR="#CDD6F4">الحصيلة — جدول الإجراءات</FONT></B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="9" COLOR="#9399B2">Aggregate all actions into review table</FONT></TD></TR>
+            <TR><TD><FONT POINT-SIZE="6" COLOR="#45475A">───────────────────────────────</FONT></TD></TR>
+            <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9" COLOR="#A6E3A1">✓ confirm / retain  </FONT></TD></TR>
+            <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9" COLOR="#FAB387">⚠ nuance_note       </FONT></TD></TR>
+            <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9" COLOR="#89B4FA">+ add_lemma         </FONT></TD></TR>
+            <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9" COLOR="#F38BA8">✗ reject            </FONT></TD></TR>
+            <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9" COLOR="#CBA6F7">◆ usage:modern      </FONT></TD></TR>
+            <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9" COLOR="#94E2D5">→ propose_new_synset</FONT></TD></TR>
+        </TABLE>>,
+        fillcolor="#2A2D4A",
+        color="#7C8FE8",
+        penwidth=2.5
+    ];
+
+    done [
+        label=<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="2">
+            <TR><TD><B><FONT POINT-SIZE="13" COLOR="#CDD6F4">انتهت المراجعة</FONT></B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="9" COLOR="#7F849C">Review complete</FONT></TD></TR>
+        </TABLE>>,
+        shape=oval,
+        fillcolor="#2D2D44",
+        color="#7C8FE8",
+        penwidth=2.5
+    ];
+
+    // ═══════════════════════════════════════════
+    //  EDGES — Main spine (thick, indigo)
+    // ═══════════════════════════════════════════
+    start -> q1 [penwidth=2.5, color="#7C8FE8"];
+    q1 -> q2 [penwidth=2.5, color="#7C8FE8"];
+    q2 -> q3 [penwidth=2.5, color="#7C8FE8"];
+    q3 -> q4 [penwidth=2.5, color="#7C8FE8"];
+    q4 -> summary [penwidth=2.5, color="#7C8FE8"];
+    summary -> done [penwidth=2.5, color="#7C8FE8"];
+
+    // ═══════════════════════════════════════════
+    //  EDGES — Decision 1 branches to actions
+    // ═══════════════════════════════════════════
+    q1 -> a_confirm [
+        label=<<FONT POINT-SIZE="9" COLOR="#A6E3A1">المعنى الأساسي مثبت</FONT>>,
+        color="#66D96A", penwidth=1.5
+    ];
+    q1 -> a_nuance_period [
+        label=<<FONT POINT-SIZE="9" COLOR="#FAB387">انزياح دلالي</FONT>>,
+        color="#FFB74D", penwidth=1.5
+    ];
+    q1 -> a_tag_modern [
+        label=<<FONT POINT-SIZE="9" COLOR="#CBA6F7">مصطلح مولّد</FONT>>,
+        color="#CE93D8", penwidth=1.5
+    ];
+    q1 -> a_reject_lemma [
+        label=<<FONT POINT-SIZE="9" COLOR="#F38BA8">معنى خاطئ فقط</FONT>>,
+        color="#EF5350", penwidth=1.5
+    ];
+
+    // ═══════════════════════════════════════════
+    //  EDGES — Decision 2 branches to actions
+    // ═══════════════════════════════════════════
+    q2 -> a_add_lemma [
+        label=<<FONT POINT-SIZE="9" COLOR="#89B4FA">مرادف حقيقي</FONT>>,
+        color="#64B5F6", penwidth=1.5
+    ];
+    q2 -> a_add_variant [
+        label=<<FONT POINT-SIZE="9" COLOR="#89B4FA">تهجئة بديلة</FONT>>,
+        color="#64B5F6", penwidth=1.5
+    ];
+    q2 -> a_new_synset [
+        label=<<FONT POINT-SIZE="9" COLOR="#94E2D5">ناقص (أخصّ)</FONT>>,
+        color="#5CC8BC", penwidth=1.5
+    ];
+    q2 -> a_reject_candidate [
+        label=<<FONT POINT-SIZE="9" COLOR="#F38BA8">تشابه زائف</FONT>>,
+        color="#EF5350", penwidth=1.5
+    ];
+    q2 -> a_synset_complete [
+        label=<<FONT POINT-SIZE="9" COLOR="#7F849C">لا مرشحين</FONT>>,
+        color="#585B70", penwidth=1.5
+    ];
+
+    // ═══════════════════════════════════════════
+    //  EDGES — Decision 3 branches to actions
+    // ═══════════════════════════════════════════
+    q3 -> a_retain_def [
+        label=<<FONT POINT-SIZE="9" COLOR="#A6E3A1">مطابق</FONT>>,
+        color="#66D96A", penwidth=1.5
+    ];
+    q3 -> a_nuance_scope [
+        label=<<FONT POINT-SIZE="9" COLOR="#FAB387">الكلاسيكي أوسع</FONT>>,
+        color="#FFB74D", penwidth=1.5
+    ];
+    q3 -> a_retain_awn [
+        label=<<FONT POINT-SIZE="9" COLOR="#A6E3A1">AWN أدقّ</FONT>>,
+        color="#66D96A", penwidth=1.5
+    ];
+
+    // ═══════════════════════════════════════════
+    //  EDGES — Decision 4 branches to actions
+    // ═══════════════════════════════════════════
+    q4 -> a_relations_ok [
+        label=<<FONT POINT-SIZE="9" COLOR="#A6E3A1">سليمة</FONT>>,
+        color="#66D96A", penwidth=1.5
+    ];
+    q4 -> a_flag_relation [
+        label=<<FONT POINT-SIZE="9" COLOR="#FAB387">ملاحظة</FONT>>,
+        color="#FFB74D", penwidth=1.5
+    ];
+
+    // ═══════════════════════════════════════════
+    //  LAYOUT — Action nodes fan out to sides
+    // ═══════════════════════════════════════════
+
+    // Q1 actions: fan left and right
+    { rank=same; a_confirm; a_nuance_period; q1; a_tag_modern; a_reject_lemma; }
+
+    // Q2 actions: fan left and right
+    { rank=same; a_add_lemma; a_add_variant; q2; a_new_synset; a_reject_candidate; }
+
+    // Q3 actions: fan left and right
+    { rank=same; a_retain_def; q3; a_nuance_scope; a_retain_awn; }
+
+    // Q4 actions: fan left and right
+    { rank=same; a_relations_ok; q4; a_flag_relation; }
+
+    // a_synset_complete between q2 and q3
+    // (no rank constraint — let it float)
+
+    // ═══════════════════════════════════════════
+    //  TITLE
+    // ═══════════════════════════════════════════
+    labelloc=t;
+    label=<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="4">
+        <TR><TD><B><FONT POINT-SIZE="18" COLOR="#B4BEFE">المنهجية التحليلية — مخطط القرارات والإجراءات</FONT></B></TD></TR>
+        <TR><TD><FONT POINT-SIZE="12" COLOR="#8C9BE0">Analytical Methodology: Decision &amp; Action Flow — Section أ.٩</FONT></TD></TR>
+        <TR><TD><FONT POINT-SIZE="6" COLOR="#45475A">──────────────────────────────────────────────────────</FONT></TD></TR>
+        <TR><TD><FONT POINT-SIZE="10" COLOR="#9399B2">◇ = سؤال تحليلي    ▭ = إجراء ناتج    ║ = المسار الرئيسي</FONT></TD></TR>
+        <TR><TD><FONT POINT-SIZE="9" COLOR="#7F849C">◇ = analytical question    ▭ = resulting action    ║ = main spine</FONT></TD></TR>
+    </TABLE>>;
+}

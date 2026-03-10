@@ -1,0 +1,190 @@
+# ════════════════════════════════════════════════════════════════════════════════
+# قالب القطعة الشاهدية — Evidence Artifact Template
+# ════════════════════════════════════════════════════════════════════════════════
+#
+# استخدام — Usage:
+#   1. انسخ هذا الملف إلى output/evidence/{synset_id}.evidence.yaml
+#      Copy this file to output/evidence/{synset_id}.evidence.yaml
+#   2. أو استخدم scaffold_synset.py لتوليد هيكل مملوء جزئياً
+#      Or use scaffold_synset.py to generate a partially-filled scaffold
+#   3. املأ الحقول الفارغة بنتائج استعلامات sqlite3
+#      Fill empty fields with sqlite3 query results
+#
+# انظر — See:
+#   docs/EVIDENCE_SCHEMA.yaml    ← مواصفات الحقول — field specifications
+#   docs/EXAMPLE_ARTIFACT.yaml   ← مثال عملي كامل — fully worked example
+#   docs/MANUAL_GUIDE.md         ← دليل خطوة بخطوة — step-by-step guide
+# ════════════════════════════════════════════════════════════════════════════════
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# § _meta — بيانات وصفية — Generation Metadata
+# ──────────────────────────────────────────────────────────────────────────────
+
+_meta:
+  schema_version: "1.0.0"
+  generated_at: ""              # التاريخ — ISO 8601: "2026-03-07T14:30:00Z"
+  generator: "manual"
+  db_path: "data/arabic_dict.db"
+  db_stats:                     # اختياري — optional for manual collection
+    total_entries: 760660
+    total_dictionaries: 107
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# § synset — المجموعة الترادفية — Synset Under Review
+# ──────────────────────────────────────────────────────────────────────────────
+# استخدم extract_synset_wn.py أو scaffold_synset.py لملء هذا القسم تلقائياً
+# Use extract_synset_wn.py or scaffold_synset.py to auto-fill this section
+
+synset:
+  id: ""                        # "awn4-XXXXXXXX-X"
+  ili: null                     # "iNNNNNN" or null
+  pos: ""                       # n | v | a | r | s
+  lemmas: []                    # ["لمّة١", "لمّة٢"]
+  definition_ar: ""
+  examples_ar: []
+  oewn: null                    # null if no ILI link; otherwise fill sub-fields:
+  #  definition_en: ""
+  #  lemmas_en: []
+  #  examples_en: []
+  #  pos_en: ""
+  hypernym_chain:
+    depth: 0
+    path: []
+  #  - id: ""
+  #    lemmas: []
+  #    definition_ar: ""
+  #    oewn_definition_en: null
+  #    oewn_lemmas_en: null
+  relations: []
+  #  - rel_type: ""             # "hypernym" | "hyponym" | "similar" | ...
+  #    target_id: ""
+  #    target_lemmas: []
+  #    target_definition_ar: ""
+  #    target_oewn_definition_en: null
+  #    target_oewn_lemmas_en: null
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# § per_lemma — شواهد لكل لمّة — Per-Lemma Evidence (Steps 1, 2, 3, 6, 7, 8)
+# ──────────────────────────────────────────────────────────────────────────────
+# كرّر هذا القسم لكل لمّة في synset.lemmas
+# Repeat this section for each lemma in synset.lemmas
+
+per_lemma:
+
+  "LEMMA_HERE":                 # ← استبدل باسم اللمّة — replace with actual lemma
+
+    # ── هوية اللمّة — Lemma Identity ──
+    identity:
+      lemma: ""                 # اللمّة بالتشكيل — with diacritics from AWN4
+      lemma_bare: ""            # بلا تشكيل — diacritics stripped
+      lemma_norm: ""            # مطبّع — normalized (أإآ→ا, ى→ي, tatweel removed)
+      is_multiword: false
+      components: []            # إذا كانت متعددة الكلمات — if multiword: ["word1", "word2"]
+
+    # ── الخطوة ١: المطابقة الدقيقة — Step 1: Exact Headword Lookup (ال-aware) ──
+    # sqlite3> SELECT ... FROM entries e JOIN dictionaries d ...
+    #          WHERE e.headword_norm IN ('LEMMA_NORM', 'الLEMMA_NORM');
+    step1_headword:
+      al_variants_searched: []  # ["lemma_norm", "الlemma_norm"]
+      sql_template: ""          # الاستعلام المستخدم — paste the SQL you ran
+      query_params: []          # المعاملات — ["lemma_norm", "الlemma_norm"]
+      result_count: 0
+      entries: []               # الصق نتائج الاستعلام هنا — paste query results here
+      # كل إدخال يتبع شكل _entry_object — each entry follows _entry_object shape
+      # انظر docs/EVIDENCE_SCHEMA.yaml للحقول الكاملة
+      by_component: null        # null if not multiword; otherwise {"word": {entries: [...]}}
+
+    # ── الخطوة ٢: التعريفات المهيكلة — Step 2: Structured Definitions ──
+    step2_definitions:
+      sql_template: ""
+      query_params: []
+      result_count: 0           # عدد صفوف التعريفات — count of definition rows
+      entries_with_senses: []
+      # - entry_id: 0
+      #   headword: ""
+      #   dict_key: ""
+      #   dict_name_en: ""
+      #   dict_source_type: ""
+      #   dict_death_year: null
+      #   senses:
+      #     - sense_index: 0
+      #       text: ""
+      #       is_raw: 0
+
+    # ── الخطوة ٣: عائلة الجذر — Step 3: Root Family ──
+    step3_root_family:
+      roots_found: []
+      # - root: ""
+      #   root_source: ""       # "ocr" | "lane" | "camel"
+      #   from_entry_id: 0
+      by_root: {}
+      # "ROOT_HERE":
+      #   sql_template: ""
+      #   query_params: []
+      #   result_count: 0
+      #   entries: []
+
+    # ── الخطوة ٦: الشواهد — Step 6: Examples ──
+    step6_examples:
+      sql_template: ""
+      query_params: []
+      result_count: 0
+      examples: []
+      # - entry_id: 0
+      #   headword: ""
+      #   dict_key: ""
+      #   type: ""              # "quran" | "hadith" | "poetry" | "prose" | "usage"
+      #   text: ""
+      #   attribution: null
+
+    # ── الخطوة ٧: الترتيب الزمني — Step 7: Chronological Ordering ──
+    step7_chronological:
+      sql_template: ""
+      query_params: []
+      result_count: 0
+      entries: []               # نفس إدخالات الخطوة ١ مرتبة زمنياً — same as step1, sorted by death_year
+
+    # ── الخطوة ٨: البحث العكسي — Step 8: Reverse Lookup (FTS) ──
+    step8_reverse_lookup:
+      sql_template: ""
+      query_params: []
+      result_count: 0
+      entries: []
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# § per_synset — شواهد على مستوى المجموعة — Per-Synset Evidence (Steps 4, 5, 9)
+# ──────────────────────────────────────────────────────────────────────────────
+
+per_synset:
+
+  # ── الخطوة ٤: البحث النصي الكامل — Step 4: FTS Keyword Search ──
+  step4_fts_keyword:
+    keywords_extracted: []      # كلمات مفتاحية من التعريف — Arabic keywords from definition_ar
+    sql_template: ""
+    query_params: []
+    excluded_entry_ids: []      # معرّفات المداخل المستبعدة من الخطوات السابقة
+    result_count: 0
+    entries: []
+
+  # ── الخطوة ٥: الجسر الإنجليزي — Step 5: English Bridge (ARABTERM) ──
+  step5_english_bridge:
+    english_terms_used: []      # مصطلحات إنجليزية من OEWN — English lemmas from oewn.lemmas_en
+    sql_template: ""
+    query_params: []
+    excluded_entry_ids: []
+    result_count: 0
+    entries: []
+
+  # ── الخطوة ٩: التصفية التخصصية — Step 9: Specialized Filtering ──
+  step9_specialized:
+    filters_applied: []
+    # - filter_type: "pos"      # or "domain"
+    #   description: ""
+    #   sql_template: ""
+    #   query_params: []
+    #   result_count: 0
+    #   entries: []
