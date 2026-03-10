@@ -1,0 +1,1272 @@
+# ════════════════════════════════════════════════════════════════════════════════
+# مثال عملي — Worked Example Artifact
+# Synset: awn4-05162506-n (recourse / refuge)
+# ════════════════════════════════════════════════════════════════════════════════
+#
+# This file demonstrates the EVIDENCE_SCHEMA.yaml format with REAL database data.
+# It showcases the ENHANCED extraction (v3) with ال-aware headword matching,
+# multi-strategy root inference, and headword+definitions FTS.
+#
+# Entries are representative samples — a production artifact would include ALL results.
+# Entries marked "# ... (full entry object)" have their child tables abbreviated.
+#
+# Key improvements over the previous example:
+#   - Step 1 for ملاذ: 4 entries (was 1) — Al-Waseet OCR now found via الملاذ
+#   - Step 3a root: لوذ from OCR (was ملذ from Lane — incorrect)
+#   - Step 3b root family: 29 entries (was 0) — rich OCR + Hawramani data
+#   - Step 6 examples: Quranic verse from Maqayis (was 0)
+#   - Step 8 FTS: 39 entries (was 5) — Al-Mawrid headword matches
+# ════════════════════════════════════════════════════════════════════════════════
+
+_meta:
+  schema_version: "1.0.0"
+  generated_at: "2026-03-07T22:00:00Z"
+  db_path: "data/arabic_dict.db"
+  db_stats:
+    total_entries: 760660
+    total_dictionaries: 107
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+synset:
+  id: "awn4-05162506-n"
+  ili: "i49541"
+  pos: "n"
+  lemmas:
+    - "ملاذ"
+    - "ملجأ"
+    - "معتصم"
+  definition_ar: "شيء أو شخص يتم اللجوء إليه للحصول على المساعدة أو الأمان"
+  examples_ar:
+    - "كان ملاذه الوحيد هو الشرطة"
+    - "اتخذ من الكذب ملجأً"
+
+  oewn:
+    definition_en: "something or someone turned to for assistance or security"
+    lemmas_en:
+      - "recourse"
+      - "refuge"
+      - "resort"
+    examples_en:
+      - "his survey of recourse to the courts"
+      - "took survey as his resort"
+    pos_en: "n"
+
+  hypernym_chain:
+    depth: 6
+    path:
+      - id: "awn4-05161923-n"
+        lemmas: ["مَصْدَر دَعْم", "مَوْرِد"]
+        definition_ar: "مصدر للعون أو الدعم يمكن الاستعانة به عند الحاجة"
+        oewn_definition_en: "a source of aid or support that may be drawn upon when needed"
+        oewn_lemmas_en: ["resource"]
+      - id: "awn4-05161764-n"
+        lemmas: ["رَصِيد", "مَكْسَب", "مِيزَة"]
+        definition_ar: "صفة مفيدة أو ذات قيمة"
+        oewn_definition_en: "a useful or valuable quality"
+        oewn_lemmas_en: ["asset", "plus"]
+      - id: "awn4-04731092-n"
+        lemmas: ["جَوْدَة", "نَوْعِيَّة"]
+        definition_ar: "صفة جوهريّة ومميِّزة لشيء أو شخص"
+        oewn_definition_en: "an essential and distinguishing attribute of something or someone"
+        oewn_lemmas_en: ["quality"]
+      - id: "awn4-00024444-n"
+        lemmas: ["خَاصِّيَّة", "سِمَة", "صِفَة"]
+        definition_ar: "تجريد ينتمي إلى كيان أو يميّزه"
+        oewn_definition_en: "an abstraction belonging to or characteristic of an entity"
+        oewn_lemmas_en: ["attribute"]
+      - id: "awn4-00002137-n"
+        lemmas: ["تَجْرِيد", "كِيَان مُجَرَّد"]
+        definition_ar: "مفهوم عامّ يُستخلَص بانتزاع السمات المشتركة من أمثلة محدّدة"
+        oewn_definition_en: "a general concept formed by extracting common features from specific examples"
+        oewn_lemmas_en: ["abstraction", "abstract entity"]
+      - id: "awn4-00001740-n"
+        lemmas: ["كَيْنُونَة", "كِيَان"]
+        definition_ar: "ما يُدرَك أو يُعرَف أو يُستدَلّ على وجوده المستقل، سواء أكان حيًّا أم غير حيّ"
+        oewn_definition_en: "that which is perceived or known or inferred to have its own distinct existence (living or nonliving)"
+        oewn_lemmas_en: ["entity"]
+
+  relations:
+    - rel_type: "hypernym"
+      target_id: "awn4-05161923-n"
+      target_lemmas: ["مَصْدَر دَعْم", "مَوْرِد"]
+      target_definition_ar: "مصدر مساعدة أو دعم"
+      target_oewn_definition_en: "a source of aid or support that may be drawn upon when needed"
+      target_oewn_lemmas_en: ["resource"]
+    - rel_type: "hyponym"
+      target_id: "awn4-05162732-n"
+      target_lemmas: ["ظِلّ", "كَنَف"]
+      target_definition_ar: "حماية أو ملاذ يوفره شيء أو شخص"
+      target_oewn_definition_en: "a position of advantage or superiority"
+      target_oewn_lemmas_en: ["shadow"]
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+per_lemma:
+
+  # ═══════════════════════════════════════════════
+  # لمّة: ملاذ
+  # ═══════════════════════════════════════════════
+  "ملاذ":
+    identity:
+      lemma: "ملاذ"
+      lemma_bare: "ملاذ"
+      lemma_norm: "ملاذ"
+      is_multiword: false
+      components: []
+
+    # ────────────────────────────────────
+    # الخطوة ١: المطابقة الدقيقة (ال-aware)
+    # v2: 1 entry (ARABTERM only)
+    # v3: 4 entries — OCR Al-Waseet, Hawramani Wasit, Firuzabadi, ARABTERM
+    # ────────────────────────────────────
+    step1_headword:
+      al_variants_searched: ["ملاذ", "الملاذ"]
+      sql_template: |
+        SELECT e.*, d.key AS dict_key, d.name_ar AS dict_name_ar, d.name_en AS dict_name_en,
+               d.source_type AS dict_source_type, d.period AS dict_period,
+               d.author AS dict_author, d.death_year AS dict_death_year
+        FROM entries e
+        JOIN dictionaries d ON e.dictionary_id = d.id
+        WHERE e.headword_norm IN (?1, ?2)
+        ORDER BY d.death_year ASC NULLS LAST, d.source_type, d.name_en
+      query_params: ["ملاذ", "الملاذ"]
+      result_count: 4
+      entries:
+        # ── Entry 1: Firuzabadi (d. 1414 CE) — DIFFERENT meaning (المُطَرْمِذُ = deceiver) ──
+        - entry_id: 801570
+          dictionary_id: 113
+          headword: "المَلاَّذُ"
+          headword_bare: "الملاذ"
+          headword_norm: "الملاذ"
+          root: "لذ"
+          root_source: "camel"
+          pos: null
+          form: null
+          is_partial: 0
+          definitions_text: "المَلاَّذُ: المُطَرْمِذُ المُتَصَنِّعُ الذي لا تَصِحُّ مَوَدَّتُهُ،كالمِلْوَذِ، كمِنْبَرٍ،والمَلَذانِ والمَلَذانِيِّ، محركتينِ، والمَلاذانِيِّ.والمَلْذُ: الكَذِبُ، والطَّعْنُ بالرُّمْحِ، والمَسْحُ على اليَدِ، ومَدُّ الفرسِ ضَبْعَيْهِ حتى لا يَجِدَ مَزيداً لِلحاقِ، والسُّرعَةُ في عَدْوِهِ، وبالتحريكِ: اخْتِلاطُ الظلامِ.وذِئْبٌ مَلاَّذٌ: خفيفٌ.وامْتَلَذْتُ منه كذا: أخَذْتُ منه عطِيَّةً."
+          translation_en: null
+          translation_fr: null
+          domain: null
+          external_id: "haw:19:5699"
+          dict_key: "hawramani_19"
+          dict_name_ar: "القاموس المحيط للفيروزآبادي"
+          dict_name_en: "Firuzabadi, al-Qāmūs al-Muḥīṭ (d. 1414 CE)"
+          dict_source_type: "hawramani"
+          dict_period: "classical"
+          dict_author: null
+          dict_death_year: 1414
+          definitions:
+            - sense_index: 0
+              text: "المَلاَّذُ: المُطَرْمِذُ المُتَصَنِّعُ الذي لا تَصِحُّ مَوَدَّتُهُ،كالمِلْوَذِ، كمِنْبَرٍ،والمَلَذانِ والمَلَذانِيِّ، محركتينِ، والمَلاذانِيِّ.والمَلْذُ: الكَذِبُ، والطَّعْنُ بالرُّمْحِ، والمَسْحُ على اليَدِ، ومَدُّ الفرسِ ضَبْعَيْهِ حتى لا يَجِدَ مَزيداً لِلحاقِ، والسُّرعَةُ في عَدْوِهِ، وبالتحريكِ: اخْتِلاطُ الظلامِ.وذِئْبٌ مَلاَّذٌ: خفيفٌ.وامْتَلَذْتُ منه كذا: أخَذْتُ منه عطِيَّةً."
+              is_raw: 1
+          examples: []
+          plurals: []
+          derived_forms: []
+          cross_refs: []
+          provenance:
+            page_number: null
+            page_file: null
+            entry_index: null
+            volume: null
+            hawramani_post_id: null
+            hawramani_slug: null
+            source_uri: "https://arabiclexicon.hawramani.com/"
+
+        # ── Entry 2: Hawramani Wasit (1998) — الملجأ والحصن ──
+        - entry_id: 884335
+          dictionary_id: 131
+          headword: "الملاذ"
+          headword_bare: "الملاذ"
+          headword_norm: "الملاذ"
+          root: "لذ"
+          root_source: "camel"
+          pos: null
+          form: null
+          is_partial: 0
+          definitions_text: "(الملاذ) الملجأ والحصن"
+          translation_en: null
+          translation_fr: null
+          domain: null
+          external_id: "haw:35:22216"
+          dict_key: "hawramani_35"
+          dict_name_ar: "المعجم الوسيط لمجموعة من المؤلفين"
+          dict_name_en: "Academy of the Arabic Language in Cairo, al-Muʿjam al-Wasīṭ (1998)"
+          dict_source_type: "hawramani"
+          dict_period: "modern"
+          dict_author: null
+          dict_death_year: 1998
+          definitions:
+            - sense_index: 0
+              text: "(الملاذ) الملجأ والحصن"
+              is_raw: 1
+          examples: []
+          plurals: []
+          derived_forms: []
+          cross_refs: []
+          provenance:
+            page_number: null
+            page_file: null
+            entry_index: null
+            volume: null
+            hawramani_post_id: null
+            hawramani_slug: null
+            source_uri: "https://arabiclexicon.hawramani.com/"
+
+        # ── Entry 3: ARABTERM Climate (modern) ──
+        - entry_id: 357003
+          dictionary_id: 60
+          headword: "ملاَذ"
+          headword_bare: "ملاذ"
+          headword_norm: "ملاذ"
+          root: "ملذ"
+          root_source: "lane"
+          pos: null
+          form: null
+          is_partial: 0
+          definitions_text: "عموما بناية صغيرة وبسيطة من حجر أو من خشب في منطقة غالبا جبلية وغير مأهولة، تستخدم كملجأ للوقاية من سوء الأحوال الجوية وكمكان للاستراحة. للمتجولين والمتسلقين ولكن يمكن أن تستخدم أيضا من قبل العاملين بالمجال.مأوى (المرادف العربي)"
+          translation_en: "refuge"
+          translation_fr: "refuge"
+          domain: "Climate, Environment and Solid Waste management"
+          external_id: "arabterm:67994"
+          dict_key: "arabterm_arabterm_climate_environment"
+          dict_name_ar: "مسرد المناخ والبيئة وإدارة النفايات الصلبة، المنظمة العربية للتربية والثقافة والعلوم (موقع ArabTerm)"
+          dict_name_en: "Climate, Environment and Solid Waste management"
+          dict_source_type: "arabterm"
+          dict_period: "modern"
+          dict_author: null
+          dict_death_year: null
+          definitions:
+            - sense_index: 0
+              text: "عموما بناية صغيرة وبسيطة من حجر أو من خشب في منطقة غالبا جبلية وغير مأهولة، تستخدم كملجأ للوقاية من سوء الأحوال الجوية وكمكان للاستراحة. للمتجولين والمتسلقين ولكن يمكن أن تستخدم أيضا من قبل العاملين بالمجال.مأوى (المرادف العربي)"
+              is_raw: 1
+          examples: []
+          plurals: []
+          derived_forms: []
+          cross_refs: []
+          provenance:
+            page_number: null
+            page_file: null
+            entry_index: null
+            volume: null
+            hawramani_post_id: null
+            hawramani_slug: null
+            source_uri: "http://arabterm.org/index.php?tx_3m5techdict_pi1[id]=67994"
+
+        # ── Entry 4: Al-Waseet OCR — RICHEST entry, correct root لوذ ──
+        # This entry was INVISIBLE in v2 because headword_norm = "الملاذ" (with ال)
+        - entry_id: 26693
+          dictionary_id: 1
+          headword: "المَلَاذُ"
+          headword_bare: "الملاذ"
+          headword_norm: "الملاذ"
+          root: "لوذ"
+          root_source: "ocr"
+          pos: "noun"
+          form: null
+          is_partial: 0
+          definitions_text: "الملجأُ والحصن"
+          translation_en: null
+          translation_fr: null
+          domain: null
+          external_id: "Al_Waseet:page_0877:27"
+          dict_key: "Al_Waseet"
+          dict_name_ar: "المعجم الوسيط"
+          dict_name_en: "Al-Mu'jam Al-Wasit"
+          dict_source_type: "ocr"
+          dict_period: "modern"
+          dict_author: "مجمع اللغة العربية"
+          dict_death_year: null
+          definitions:
+            - sense_index: 0
+              text: "الملجأُ والحصن"
+              is_raw: 0
+          examples: []
+          plurals: []
+          derived_forms: []
+          cross_refs: []
+          provenance:
+            page_number: "٨٤٥"
+            page_file: "page_0877"
+            entry_index: 27
+            volume: null
+            hawramani_post_id: null
+            hawramani_slug: null
+            source_uri: null
+
+      by_component: null  # not multiword
+
+    step2_definitions:
+      sql_template: |
+        SELECT e.id AS entry_id, e.headword, d.key AS dict_key, d.name_en AS dict_name_en,
+               d.name_ar AS dict_name_ar, d.source_type AS dict_source_type,
+               d.period AS dict_period, d.author AS dict_author, d.death_year AS dict_death_year,
+               def.sense_index, def.text AS definition_text, def.is_raw
+        FROM entries e
+        JOIN dictionaries d ON e.dictionary_id = d.id
+        JOIN definitions def ON def.entry_id = e.id
+        WHERE e.headword_norm IN (?1, ?2)
+        ORDER BY d.death_year ASC NULLS LAST, d.name_en, def.sense_index
+      query_params: ["ملاذ", "الملاذ"]
+      result_count: 4   # 4 definition rows across 4 entries
+      entries_with_senses:
+        - entry_id: 801570
+          headword: "المَلاَّذُ"
+          dict_key: "hawramani_19"
+          dict_name_en: "Firuzabadi, al-Qāmūs al-Muḥīṭ (d. 1414 CE)"
+          dict_name_ar: "القاموس المحيط للفيروزآبادي"
+          dict_source_type: "hawramani"
+          dict_period: "classical"
+          dict_death_year: 1414
+          dict_author: null
+          senses:
+            - sense_index: 0
+              text: "المَلاَّذُ: المُطَرْمِذُ المُتَصَنِّعُ الذي لا تَصِحُّ مَوَدَّتُهُ،كالمِلْوَذِ، كمِنْبَرٍ،والمَلَذانِ والمَلَذانِيِّ، محركتينِ، والمَلاذانِيِّ.والمَلْذُ: الكَذِبُ، والطَّعْنُ بالرُّمْحِ، والمَسْحُ على اليَدِ، ومَدُّ الفرسِ ضَبْعَيْهِ حتى لا يَجِدَ مَزيداً لِلحاقِ، والسُّرعَةُ في عَدْوِهِ، وبالتحريكِ: اخْتِلاطُ الظلامِ.وذِئْبٌ مَلاَّذٌ: خفيفٌ.وامْتَلَذْتُ منه كذا: أخَذْتُ منه عطِيَّةً."
+              is_raw: 1
+        - entry_id: 884335
+          headword: "الملاذ"
+          dict_key: "hawramani_35"
+          dict_name_en: "Academy of the Arabic Language in Cairo, al-Muʿjam al-Wasīṭ (1998)"
+          dict_name_ar: "المعجم الوسيط لمجموعة من المؤلفين"
+          dict_source_type: "hawramani"
+          dict_period: "modern"
+          dict_death_year: 1998
+          dict_author: null
+          senses:
+            - sense_index: 0
+              text: "(الملاذ) الملجأ والحصن"
+              is_raw: 1
+        - entry_id: 357003
+          headword: "ملاَذ"
+          dict_key: "arabterm_arabterm_climate_environment"
+          dict_name_en: "Climate, Environment and Solid Waste management"
+          dict_name_ar: "مسرد المناخ والبيئة وإدارة النفايات الصلبة"
+          dict_source_type: "arabterm"
+          dict_period: "modern"
+          dict_death_year: null
+          dict_author: null
+          senses:
+            - sense_index: 0
+              text: "عموما بناية صغيرة وبسيطة من حجر أو من خشب في منطقة غالبا جبلية وغير مأهولة، تستخدم كملجأ للوقاية من سوء الأحوال الجوية وكمكان للاستراحة. للمتجولين والمتسلقين ولكن يمكن أن تستخدم أيضا من قبل العاملين بالمجال.مأوى (المرادف العربي)"
+              is_raw: 1
+        - entry_id: 26693
+          headword: "المَلَاذُ"
+          dict_key: "Al_Waseet"
+          dict_name_en: "Al-Mu'jam Al-Wasit"
+          dict_name_ar: "المعجم الوسيط"
+          dict_source_type: "ocr"
+          dict_period: "modern"
+          dict_death_year: null
+          dict_author: "مجمع اللغة العربية"
+          senses:
+            - sense_index: 0
+              text: "الملجأُ والحصن"
+              is_raw: 0
+
+    # ────────────────────────────────────
+    # الخطوة ٣: عائلة الجذر (مُعزَّزة)
+    # v2: root "ملذ" (incorrect) with 0 family entries
+    # v3: root "لوذ" (correct, from OCR Al-Waseet) with 29 family entries
+    # ────────────────────────────────────
+    step3_root_family:
+      roots_found:
+        # ال-aware search finds the CORRECT root from Al-Waseet OCR (entry 26693)
+        - root: "لوذ"
+          root_source: "ocr"
+          from_entry_id: 26693
+        # Also found from Firuzabadi & Hawramani Wasit (different root assignment)
+        - root: "لذ"
+          root_source: "camel"
+          from_entry_id: 801570
+        # ARABTERM Lane assignment (likely incorrect)
+        - root: "ملذ"
+          root_source: "lane"
+          from_entry_id: 357003
+      by_root:
+        "لوذ":
+          sql_template: |
+            SELECT e.*, d.key AS dict_key, d.name_ar, d.name_en, d.source_type,
+                   d.period, d.author, d.death_year
+            FROM entries e
+            JOIN dictionaries d ON e.dictionary_id = d.id
+            WHERE (e.root = ?1 OR e.headword_norm = ?1)
+              AND e.id NOT IN (26693, 357003, 801570, 884335)
+            ORDER BY d.death_year ASC NULLS LAST, d.source_type, d.name_en
+            LIMIT 200
+          query_params: ["لوذ"]
+          result_count: 29
+          entries:
+            # ── Kitab Al-Ayn (786 CE) — OLDEST entry, 3 definitions, 1 plural, 1 derived form ──
+            - entry_id: 99746
+              dictionary_id: 3
+              headword: "لَوْذ"
+              headword_bare: "لوذ"
+              headword_norm: "لوذ"
+              root: "لوذ"
+              root_source: "ocr"
+              pos: "noun"
+              form: null
+              is_partial: 0
+              definitions_text: "الملاذ: الملجأ اللياذ: الملاوذة وهو الاستتار بشيء اللاذ: ثياب من حرير ينسج بالصين"
+              translation_en: null
+              translation_fr: null
+              domain: null
+              external_id: null
+              dict_key: "Kitab_Al_Ayn"
+              dict_name_ar: null
+              dict_name_en: "Kitab Al-Ayn"
+              dict_source_type: "ocr"
+              dict_period: "classical"
+              dict_author: null
+              dict_death_year: 786
+              definitions:
+                - sense_index: 0
+                  text: "الملاذ: الملجأ"
+                  is_raw: 0
+                - sense_index: 1
+                  text: "اللياذ: الملاوذة وهو الاستتار بشيء"
+                  is_raw: 0
+                - sense_index: 2
+                  text: "اللاذ: ثياب من حرير ينسج بالصين"
+                  is_raw: 0
+              examples: []
+              plurals:
+                - idx: 0
+                  text: "ملاوذ"
+              derived_forms:
+                - idx: 0
+                  text: "ألوذ المكان: نواحيه"
+              cross_refs: []
+              provenance:
+                page_number: null
+                page_file: "page_0524"
+                entry_index: 22
+                volume: null
+                hawramani_post_id: null
+                hawramani_slug: null
+                source_uri: null
+
+            # ── Jawhari (d. 1003 CE) — Hawramani, headword = root form ──
+            - entry_id: 983836
+              dictionary_id: 100
+              headword: "لوذ"
+              headword_bare: "لوذ"
+              headword_norm: "لوذ"
+              root: null             # root column NULL — found via headword matching
+              root_source: null
+              pos: null
+              form: null
+              is_partial: 0
+              definitions_text: "[لوذ] لاذَ به لِواذاً ولِياذاً، أي لجأ إليه وعاذَ به. واللَوْذُ أيضاً: جانب الجبل وما يُطيف به، والجمع ألواذٌ. ولاوَذَ القوم..."
+              translation_en: null
+              translation_fr: null
+              domain: null
+              external_id: null
+              dict_key: "hawramani_6"
+              dict_name_ar: null
+              dict_name_en: "Ismāʿīl bin Ḥammād al-Jawharī, Tāj al-Lugha wa Ṣiḥāḥ al-ʿArabīya (d. 1003 CE)"
+              dict_source_type: "hawramani"
+              dict_period: "classical"
+              dict_author: null
+              dict_death_year: 1003
+              definitions:
+                - sense_index: 0
+                  text: "[لوذ] لاذَ به لِواذاً ولِياذاً، أي لجأ إليه وعاذَ به. واللَوْذُ أيضاً: جانب الجبل وما يُطيف به، والجمع ألواذٌ. ولاوَذَ القوم..."
+                  is_raw: 1
+              examples: []
+              plurals: []
+              derived_forms: []
+              cross_refs: []
+              provenance:
+                page_number: null
+                page_file: null
+                entry_index: null
+                volume: null
+                hawramani_post_id: null
+                hawramani_slug: null
+                source_uri: "https://arabiclexicon.hawramani.com/"
+
+            # ── Maqayis Al-Lugha OCR (d. 1004 CE) — Quranic example! ──
+            - entry_id: 102753
+              dictionary_id: 4
+              headword: "لَوْذ"
+              headword_bare: "لوذ"
+              headword_norm: "لوذ"
+              root: "لوذ"
+              root_source: "ocr"
+              pos: "verb"
+              form: "I"
+              is_partial: 0
+              definitions_text: "إطافة الإنسان بالشيء مستعيذا به ومتسترا ما يطيف بالجبل"
+              translation_en: null
+              translation_fr: null
+              domain: null
+              external_id: null
+              dict_key: "Maqayis_Lugha"
+              dict_name_ar: null
+              dict_name_en: "Maqayis Al-Lugha"
+              dict_source_type: "ocr"
+              dict_period: "classical"
+              dict_author: null
+              dict_death_year: 1004
+              definitions:
+                - sense_index: 0
+                  text: "إطافة الإنسان بالشيء مستعيذا به ومتسترا"
+                  is_raw: 0
+                - sense_index: 1
+                  text: "ما يطيف بالجبل"
+                  is_raw: 0
+              examples:
+                - idx: 0
+                  type: "quran"
+                  text: "قد يعلم الله الذين يتسللون منكم لواذا"
+                  attribution: "سورة النور"
+              plurals: []
+              derived_forms:
+                - idx: 0
+                  text: "لاذ به يلوذ لوذا: عاذ به من خوف أو طمع"
+                - idx: 1
+                  text: "لاوذ لواذا: استتر بغيره"
+                - idx: 2
+                  text: "أولواذ: جمع لوذ (ما يطيف بالجبل)"
+              cross_refs: []
+              provenance:
+                page_number: null
+                page_file: "page_0092"
+                entry_index: 5
+                volume: null
+                hawramani_post_id: null
+                hawramani_slug: null
+                source_uri: null
+
+            # ── Al-Waseet OCR — 10 entries for root لوذ (verbs + nouns) ──
+            # Showing 3 representative entries from the 10-entry Al-Waseet family
+            - entry_id: 26685
+              dictionary_id: 1
+              headword: "لَاذَ"
+              headword_bare: "لاذ"
+              headword_norm: "لاذ"
+              root: "لوذ"
+              root_source: "ocr"
+              pos: "verb"
+              form: "I"
+              is_partial: 0
+              definitions_text: "بالشيء ـُ لَوْذاً , ولِيَاذاً : لجأ إليه واستتر به وتحصَّن لجأ إليه, واستغاث به وامتنع الطريقُ بالدار : أحاط بها واتَّصل"
+              # ... (full entry object — abbreviated)
+            - entry_id: 26691
+              headword: "اللَّوْذُ"
+              headword_norm: "اللوذ"
+              root: "لوذ"
+              root_source: "ocr"
+              pos: "noun"
+              definitions_text: "جانب الجبَل . يقال : اعتصم بِلَوْذ الجبل وبأَلْوَاذه منعطف الوادى الناحية . يقال : هو بلَوْذِ كذا : بناحية كذا هو يطوف ف"
+              # ... (full entry object — abbreviated)
+            - entry_id: 26695
+              headword: "المِلْوَذُ"
+              headword_norm: "الملوذ"
+              root: "لوذ"
+              root_source: "ocr"
+              pos: "noun"
+              definitions_text: "المَلَاذ"
+              # ... (full entry object — abbreviated)
+
+            # ── Lane's Lexicon (d. 1876) — English translation ──
+            - entry_id: 954876
+              dictionary_id: 141
+              headword: "لوذ"
+              headword_norm: "لوذ"
+              root: null
+              root_source: null
+              dict_key: "hawramani_49"
+              dict_name_en: "Arabic-English Lexicon by Edward William Lane (d. 1876)"
+              dict_source_type: "hawramani"
+              dict_death_year: 1876
+              definitions_text: "لوذ\n1 لَاذَ بِهِ, aor. ـُ (S, A, L, Msb,) inf. n. لَوْذٌ (S, L, K) and لِيَاذٌ (S, A, L, K) and لِوَاذٌ (L, Msb, K)..."
+              # ... (full entry object — abbreviated)
+
+            # ── Muʿāṣira (d. 2003) — Modern dictionary ──
+            - entry_id: 860988
+              dictionary_id: 128
+              headword: "لوذ"
+              headword_norm: "لوذ"
+              dict_key: "hawramani_34"
+              dict_name_en: "Ahmad Mukhtar Umar, Muʿjam al-Lugha al-ʿArabīya al-Muʿāṣira (d. 2003 CE)"
+              dict_source_type: "hawramani"
+              dict_death_year: 2003
+              definitions_text: "لوذلاذَ/ لاذَ إلى/ لاذَ بـ يلوذ، لُذْ، لَوْذًا ولَواذًا ولِواذًا ولِياذًا ولُواذًا، فهو لائذ، والمفعول مَلوذ إليه• لاذ ا..."
+              # ... (full entry object — abbreviated)
+
+            # ... (19 more entries: Ibn Sīda 1066, Zamakhshari 1143, Ibn al-Athīr 1210,
+            #      Mukhtār al-Ṣiḥāḥ 1266, Tuḥfat al-Arīb 1344, Miṣbāḥ al-Munīr 1368,
+            #      Majmaʿ Biḥār 1578, Tāj al-ʿArūs 1790, Dozy 1883, Salmone 1889,
+            #      Mufradāt al-Qurʾān, Muḥīṭ fī l-Lugha, + Al-Waseet verbs/nouns)
+
+        "لذ":
+          sql_template: "..."
+          query_params: ["لذ"]
+          result_count: 0   # root "لذ" family — not explored further in this example
+          entries: []
+
+        "ملذ":
+          sql_template: "..."
+          query_params: ["ملذ"]
+          result_count: 0   # root "ملذ" has 0 family entries — confirms incorrect assignment
+          entries: []
+
+    # ────────────────────────────────────
+    # الخطوة ٦: الشواهد (ال-aware)
+    # v2: 0 examples
+    # v3: Still 0 for headword ملاذ/الملاذ directly, BUT root family
+    #     entries have examples (Maqayis Quranic verse in step3)
+    # ────────────────────────────────────
+    step6_examples:
+      sql_template: |
+        SELECT ex.entry_id, e.headword, d.key AS dict_key, d.name_en AS dict_name_en,
+               d.name_ar AS dict_name_ar, ex.idx, ex.type, ex.text AS example_text, ex.attribution
+        FROM examples ex
+        JOIN entries e ON ex.entry_id = e.id
+        JOIN dictionaries d ON e.dictionary_id = d.id
+        WHERE e.headword_norm IN (?1, ?2)
+        ORDER BY ex.type, ex.idx
+      query_params: ["ملاذ", "الملاذ"]
+      result_count: 0
+      examples: []
+
+    step7_chronological:
+      sql_template: |
+        SELECT e.*, d.key AS dict_key, d.name_ar, d.name_en, d.source_type,
+               d.period, d.author, d.death_year
+        FROM entries e
+        JOIN dictionaries d ON e.dictionary_id = d.id
+        WHERE e.headword_norm IN (?1, ?2)
+        ORDER BY d.death_year ASC NULLS LAST
+      query_params: ["ملاذ", "الملاذ"]
+      result_count: 4
+      entries:
+        # Sorted: Firuzabadi (1414) → Hawramani Wasit (1998) → ARABTERM (null) → OCR Al-Waseet (null)
+        - entry_id: 801570
+          headword: "المَلاَّذُ"
+          dict_key: "hawramani_19"
+          dict_name_en: "Firuzabadi, al-Qāmūs al-Muḥīṭ (d. 1414 CE)"
+          dict_death_year: 1414
+          dict_period: "classical"
+          # ... (full entry object)
+        - entry_id: 884335
+          headword: "الملاذ"
+          dict_key: "hawramani_35"
+          dict_name_en: "Academy of the Arabic Language in Cairo, al-Muʿjam al-Wasīṭ (1998)"
+          dict_death_year: 1998
+          dict_period: "modern"
+          # ... (full entry object)
+        - entry_id: 357003
+          headword: "ملاَذ"
+          dict_key: "arabterm_arabterm_climate_environment"
+          dict_death_year: null
+          dict_period: "modern"
+          # ... (full entry object)
+        - entry_id: 26693
+          headword: "المَلَاذُ"
+          dict_key: "Al_Waseet"
+          dict_name_en: "Al-Mu'jam Al-Wasit"
+          dict_death_year: null
+          dict_period: "modern"
+          # ... (full entry object)
+
+    # ────────────────────────────────────
+    # الخطوة ٨: البحث العكسي (مُعزَّز)
+    # v2: 5 entries (definitions_text FTS only)
+    # v3: 39 entries (headword + definitions FTS)
+    # The big gain: Al-Mawrid Al-Hadeeth synonym entries
+    # ────────────────────────────────────
+    step8_reverse_lookup:
+      sql_template: |
+        SELECT e.*, d.key AS dict_key, d.name_ar, d.name_en, d.source_type,
+               d.period, d.author, d.death_year
+        FROM entries e
+        JOIN dictionaries d ON e.dictionary_id = d.id
+        WHERE e.id IN (
+            SELECT rowid FROM entries_fts
+            WHERE entries_fts MATCH '{headword headword_bare definitions_text}:' || ?1
+            ORDER BY bm25(entries_fts, 10.0, 5.0, 5.0, 3.0, 1.0)
+            LIMIT 100
+        )
+        AND e.headword_norm NOT IN (?2, ?3)
+      query_params: ["ملاذ", "ملاذ", "الملاذ"]
+      result_count: 39
+      entries:
+        # ── Al-Mawrid Al-Hadeeth synonym chains (headword FTS matches) ──
+        - entry_id: 692055
+          headword: "(1) ملاذ؛ مَلْجأ؛ مَفْزَع\n(2) ميناء؛ مرفأ\n(3) يُؤوي\n(4) يُخْفي to harbor smuggled goods\n(5) يضمر؛ يكن harbor ed evil thoughts\n(6) يلجأ؛ يأوي الى\n(7) يقيم؛ يعيش."
+          headword_norm: "(1) ملاذ؛ ملجا؛ مفزع"
+          root: null
+          dict_key: "arabterm_al_mawrid_al_hadeeth"
+          dict_name_en: "Al-Mawrid Al-Hadeeth"
+          dict_source_type: "arabterm"
+          translation_en: "harbor"
+          definitions:
+            - sense_index: 0
+              text: "(1) ملاذ؛ مَلْجأ؛ مَفْزَع\n(2) ميناء؛ مرفأ\n(3) يُؤوي\n(4) يُخْفي to harbor smuggled goods\n(5) يضمر؛ يكن harbor ed evil thoughts\n(6) يلجأ؛ يأوي الى\n(7) يقيم؛ يعيش."
+              is_raw: 1
+          # ... (abbreviated)
+        - entry_id: 692249
+          headword: "(1) مرفأ؛ ميناء\n(2) مَلاذ؛ مأوًى؛ حِمًى\n(3) مُنْتَجَع\n(4) يحمي؛ يُؤوي."
+          headword_norm: "(1) مرفا؛ ميناء"
+          translation_en: "haven"
+          dict_key: "arabterm_al_mawrid_al_hadeeth"
+          # ... (abbreviated)
+        - entry_id: 712308
+          headword: "(1) التجاء؛ استعانة\n(2) ملجأ؛ مَلاذ؛ سبيل\n(3) حقّ الرجوع..."
+          headword_norm: "(1) التجاء؛ استعانة"
+          translation_en: "recourse"
+          dict_key: "arabterm_al_mawrid_al_hadeeth"
+          # ... (abbreviated)
+        - entry_id: 712582
+          headword: "(1) ملجأ؛ ملاذ؛ مأمَن؛ مأوًى\n(2) يُؤوي: يُلْجِئُهُ أو يقدِّم إليه ملجأ\n(3) يلجأ؛ يلوذ بِـ (ا.ق)."
+          headword_norm: "(1) ملجا؛ ملاذ؛ مامن؛ ماوي"
+          translation_en: "refuge"
+          dict_key: "arabterm_al_mawrid_al_hadeeth"
+          # ... (abbreviated)
+        - entry_id: 713122
+          headword: "(1) ملاذ؛ مَفْزَع؛ مُلْتَجأ\n(2) «أ» تردّدٌ على؛ اختلافٌ إلى..."
+          headword_norm: "(1) ملاذ؛ مفزع؛ ملتجا"
+          translation_en: "resort"
+          dict_key: "arabterm_al_mawrid_al_hadeeth"
+          # ... (abbreviated)
+        - entry_id: 713126
+          headword: "(1) «أ» مَوْرد. «ب» pl.: موارد...\n(2) «أ» ملاذ؛ موئل؛ ملجأ. «ب» وسيلة؛ ذريعة؛ حيلة..."
+          headword_norm: "(1) «ا» مورد. «ب» pl.: موارد."
+          translation_en: "resource"
+          dict_key: "arabterm_al_mawrid_al_hadeeth"
+          # ... (abbreviated)
+        - entry_id: 671645
+          headword: "(1) الحَرَم؛ المَقْدِس...\n(2) ملاذ؛ ملتجأ آمن..."
+          translation_en: "asylum"
+          dict_key: "arabterm_al_mawrid_al_hadeeth"
+          # ... (abbreviated)
+        - entry_id: 676781
+          headword: "(1) «أ» قَلْعة. «ب» مَعْقِل\n(2) قَصْر\n(3) ملاذ..."
+          translation_en: "castle"
+          dict_key: "arabterm_al_mawrid_al_hadeeth"
+          # ... (abbreviated)
+
+        # ── Hawramani الملذ entry (definitions mention ملاذ as plural) ──
+        - entry_id: 884403
+          headword: "الملذ"
+          headword_norm: "الملذ"
+          dict_key: "hawramani_35"
+          dict_name_en: "Academy of the Arabic Language in Cairo, al-Muʿjam al-Wasīṭ (1998)"
+          definitions_text: "(الملذ) مَوضِع اللَّذَّة (ج) ملاذ"
+          # ... (abbreviated)
+
+        # ... (30 more entries — Dozy, Muʿāṣira, various Hawramani dicts)
+
+
+  # ═══════════════════════════════════════════════
+  # لمّة: ملجأ
+  # ═══════════════════════════════════════════════
+  "ملجأ":
+    identity:
+      lemma: "ملجأ"
+      lemma_bare: "ملجا"
+      lemma_norm: "ملجا"    # ة→ه, ى→ي, أ→ا normalization
+      is_multiword: false
+      components: []
+
+    step1_headword:
+      al_variants_searched: ["ملجا", "الملجا"]
+      sql_template: |
+        SELECT e.*, d.key AS dict_key, d.name_ar, d.name_en, d.source_type,
+               d.period, d.author, d.death_year
+        FROM entries e
+        JOIN dictionaries d ON e.dictionary_id = d.id
+        WHERE e.headword_norm IN (?1, ?2)
+        ORDER BY d.death_year ASC NULLS LAST, d.source_type, d.name_en
+      query_params: ["ملجا", "الملجا"]
+      result_count: 3   # was 2 in v2 — new: Hawramani Wasit "الملجأ"
+      entries:
+        # ── Ibn Mālik (d. 1274) — Classical synonym list! ──
+        - entry_id: 790204
+          dictionary_id: 109
+          headword: "ملجأ"
+          headword_bare: "ملجأ"
+          headword_norm: "ملجا"
+          root: "لج"
+          root_source: "camel"
+          pos: null
+          form: null
+          is_partial: 0
+          definitions_text: "بَاب الملجأة\nحصني وملجئي وملاذي وموئلي ومعقلي ومعادي ووزري وكهفي ومقصدي ومعتمدي ومعتصري وحرزي ومعتصمي وصيصي وملتحدي ومنجاي ومحيصي ومآلي وكنفي"
+          translation_en: null
+          translation_fr: null
+          domain: null
+          external_id: "haw:15:190"
+          dict_key: "hawramani_15"
+          dict_name_ar: "الألفاظ المختلفة في المعاني المؤتلفة لابن مالك"
+          dict_name_en: "Ibn Mālik, al-Alfāẓ al-Mukhtalifa fī l-Maʿānī al-Muʾtalifa (d. 1274 CE)"
+          dict_source_type: "hawramani"
+          dict_period: "classical"
+          dict_author: null
+          dict_death_year: 1274
+          definitions:
+            - sense_index: 0
+              text: "بَاب الملجأة\nحصني وملجئي وملاذي وموئلي ومعقلي ومعادي ووزري وكهفي ومقصدي ومعتمدي ومعتصري وحرزي ومعتصمي وصيصي وملتحدي ومنجاي ومحيصي ومآلي وكنفي"
+              is_raw: 1
+          examples: []
+          plurals: []
+          derived_forms: []
+          cross_refs: []
+          provenance:
+            page_number: null
+            page_file: null
+            entry_index: null
+            volume: null
+            hawramani_post_id: null
+            hawramani_slug: null
+            source_uri: "https://arabiclexicon.hawramani.com/"
+
+        # ── NEW: Hawramani Wasit "الملجأ" — found via ال-aware search ──
+        - entry_id: 884373
+          dictionary_id: 131
+          headword: "الملجأ"
+          headword_bare: "الملجا"
+          headword_norm: "الملجا"
+          root: "لج"
+          root_source: "camel"
+          pos: null
+          form: null
+          is_partial: 0
+          definitions_text: "(الملجأ) المعقل والملاذ (ج) ملاجئ"
+          translation_en: null
+          translation_fr: null
+          domain: null
+          external_id: "haw:35:22254"
+          dict_key: "hawramani_35"
+          dict_name_ar: "المعجم الوسيط لمجموعة من المؤلفين"
+          dict_name_en: "Academy of the Arabic Language in Cairo, al-Muʿjam al-Wasīṭ (1998)"
+          dict_source_type: "hawramani"
+          dict_period: "modern"
+          dict_author: null
+          dict_death_year: 1998
+          definitions:
+            - sense_index: 0
+              text: "(الملجأ) المعقل والملاذ (ج) ملاجئ"
+              is_raw: 1
+          examples: []
+          plurals: []
+          derived_forms: []
+          cross_refs: []
+          provenance:
+            page_number: null
+            page_file: null
+            entry_index: null
+            volume: null
+            hawramani_post_id: null
+            hawramani_slug: null
+            source_uri: "https://arabiclexicon.hawramani.com/"
+
+        # ── ARABTERM Petroleum ──
+        - entry_id: 449604
+          dictionary_id: 74
+          headword: "ملجأ"
+          headword_bare: "ملجأ"
+          headword_norm: "ملجا"
+          root: "لجأ"
+          root_source: "lane"
+          pos: null
+          form: null
+          is_partial: 0
+          definitions_text: ""
+          translation_en: "refuge"
+          translation_fr: "refuge"
+          domain: "Petroleum"
+          external_id: "arabterm:165298"
+          dict_key: "arabterm_arabterm_petroleum"
+          dict_name_ar: "المعجم الموحد لمصطلحات النفط (1999)"
+          dict_name_en: "Petroleum"
+          dict_source_type: "arabterm"
+          dict_period: "modern"
+          dict_author: null
+          dict_death_year: null
+          definitions: []
+          examples: []
+          plurals: []
+          derived_forms: []
+          cross_refs: []
+          provenance:
+            page_number: null
+            page_file: null
+            entry_index: null
+            volume: null
+            hawramani_post_id: null
+            hawramani_slug: null
+            source_uri: "http://arabterm.org/index.php?tx_3m5techdict_pi1[id]=165298"
+
+      by_component: null
+
+    step2_definitions:
+      sql_template: "..."  # same ال-aware template
+      query_params: ["ملجا", "الملجا"]
+      result_count: 3
+      entries_with_senses:
+        - entry_id: 790204
+          headword: "ملجأ"
+          dict_key: "hawramani_15"
+          dict_name_en: "Ibn Mālik, al-Alfāẓ al-Mukhtalifa (d. 1274 CE)"
+          dict_name_ar: "الألفاظ المختلفة في المعاني المؤتلفة لابن مالك"
+          dict_source_type: "hawramani"
+          dict_period: "classical"
+          dict_death_year: 1274
+          dict_author: null
+          senses:
+            - sense_index: 0
+              text: "بَاب الملجأة\nحصني وملجئي وملاذي وموئلي ومعقلي ومعادي ووزري وكهفي ومقصدي ومعتمدي ومعتصري وحرزي ومعتصمي وصيصي وملتحدي ومنجاي ومحيصي ومآلي وكنفي"
+              is_raw: 1
+        - entry_id: 884373
+          headword: "الملجأ"
+          dict_key: "hawramani_35"
+          dict_name_en: "Academy of the Arabic Language in Cairo, al-Muʿjam al-Wasīṭ (1998)"
+          dict_name_ar: "المعجم الوسيط لمجموعة من المؤلفين"
+          dict_source_type: "hawramani"
+          dict_period: "modern"
+          dict_death_year: 1998
+          dict_author: null
+          senses:
+            - sense_index: 0
+              text: "(الملجأ) المعقل والملاذ (ج) ملاجئ"
+              is_raw: 1
+        - entry_id: 449604
+          headword: "ملجأ"
+          dict_key: "arabterm_arabterm_petroleum"
+          dict_name_en: "Petroleum"
+          dict_name_ar: "المعجم الموحد لمصطلحات النفط (1999)"
+          dict_source_type: "arabterm"
+          dict_period: "modern"
+          dict_death_year: null
+          dict_author: null
+          senses: []  # no structured definitions
+
+    step3_root_family:
+      roots_found:
+        - root: "لجأ"
+          root_source: "lane"
+          from_entry_id: 449604
+        - root: "لج"
+          root_source: "camel"
+          from_entry_id: 884373
+      by_root:
+        "لجأ":
+          sql_template: "..."
+          query_params: ["لجأ"]
+          result_count: 24   # was 0 in v2 (headword matching now catches Hawramani entries)
+          entries:
+            # ── Kitab Al-Ayn (786 CE) ──
+            - entry_id: 98389
+              headword: "لجأ"
+              headword_norm: "لجا"
+              root: "لجأ"
+              pos: "verb"
+              dict_key: "Kitab_Al_Ayn"
+              dict_death_year: 786
+              definitions_text: "لجأ فلان إلى كذا أي احتمى به اسم رجل"
+              # ... (full entry object)
+            # ── Jawhari (d. 1003 CE) ──
+            - entry_id: 983688
+              headword: "لجأ"
+              headword_norm: "لجا"
+              dict_key: "hawramani_6"
+              dict_death_year: 1003
+              definitions_text: "[لجأ] لَجَأْتُ إليه لَجَأً بالتحريك وملجأً، والْتَجَأْتُ إليه، بمعنًى. والموضع أيضاً لَجَأٌ ومَلْجَأ"
+              # ... (full entry object)
+            # ── Lisān al-ʿArab (d. 1311 CE) ──
+            - entry_id: 774198
+              headword: "لجأ"
+              headword_norm: "لجا"
+              dict_key: "hawramani_1"
+              dict_death_year: 1311
+              definitions_text: "لجأ: لَجَأَ إِلى الشيء والـمَكان يَلْجَأُ لَجْأً ولُجُوءاً ومَلْجَأً..."
+              # ... (full entry object)
+            # ... (21 more entries spanning 786-2003 CE)
+        "لج":
+          sql_template: "..."
+          query_params: ["لج"]
+          result_count: 0
+          entries: []
+
+    step6_examples:
+      sql_template: "..."
+      query_params: ["ملجا", "الملجا"]
+      result_count: 0
+      examples: []
+
+    step7_chronological:
+      sql_template: "..."
+      query_params: ["ملجا", "الملجا"]
+      result_count: 3
+      entries:
+        - entry_id: 790204
+          headword: "ملجأ"
+          dict_key: "hawramani_15"
+          dict_death_year: 1274
+          dict_period: "classical"
+          # ... (full entry)
+        - entry_id: 884373
+          headword: "الملجأ"
+          dict_key: "hawramani_35"
+          dict_death_year: 1998
+          dict_period: "modern"
+          # ... (full entry)
+        - entry_id: 449604
+          headword: "ملجأ"
+          dict_key: "arabterm_arabterm_petroleum"
+          dict_death_year: null
+          dict_period: "modern"
+          # ... (full entry)
+
+    step8_reverse_lookup:
+      sql_template: "..."
+      query_params: ["ملجا", "ملجا", "الملجا"]
+      result_count: 3   # truncated for brevity
+      entries: []   # see ملاذ step8 for format
+
+
+  # ═══════════════════════════════════════════════
+  # لمّة: معتصم
+  # ═══════════════════════════════════════════════
+  "معتصم":
+    identity:
+      lemma: "معتصم"
+      lemma_bare: "معتصم"
+      lemma_norm: "معتصم"
+      is_multiword: false
+      components: []
+
+    step1_headword:
+      al_variants_searched: ["معتصم", "المعتصم"]
+      sql_template: "..."
+      query_params: ["معتصم", "المعتصم"]
+      result_count: 2   # same as v2 — no الـ variant entries exist for this lemma
+      entries:
+        - entry_id: 945136
+          dictionary_id: 144
+          headword: "مُعْتَصَم"
+          headword_bare: "معتصم"
+          headword_norm: "معتصم"
+          root: "عصم"
+          root_source: "camel"
+          pos: null
+          form: null
+          is_partial: 0
+          definitions_text: "مُعْتَصَم\nمن (ع ص م) مكان اللجوء وزمانه."
+          translation_en: null
+          translation_fr: null
+          domain: null
+          external_id: "haw:48:31609"
+          dict_key: "hawramani_48"
+          dict_name_ar: "موسوعة السلطان قابوس لأسماء العرب"
+          dict_name_en: "Sultan Qaboos Encyclopedia of Arab Names (Sultan Qaboos University, 1985)"
+          dict_source_type: "hawramani"
+          dict_period: "classical"
+          dict_author: null
+          dict_death_year: null
+          definitions:
+            - sense_index: 0
+              text: "مُعْتَصَم\nمن (ع ص م) مكان اللجوء وزمانه."
+              is_raw: 1
+          examples: []
+          plurals: []
+          derived_forms: []
+          cross_refs: []
+          provenance:
+            page_number: null
+            page_file: null
+            entry_index: null
+            volume: null
+            hawramani_post_id: null
+            hawramani_slug: null
+            source_uri: "https://arabiclexicon.hawramani.com/"
+        - entry_id: 945135
+          dictionary_id: 144
+          headword: "مُعْتَصِم"
+          headword_bare: "معتصم"
+          headword_norm: "معتصم"
+          root: "عصم"
+          root_source: "camel"
+          pos: null
+          form: null
+          is_partial: 0
+          definitions_text: "مُعْتَصِم\nمن (ع ص م) الممتنع بالشيء واللاجئ إليه والمتقوى به."
+          translation_en: null
+          translation_fr: null
+          domain: null
+          external_id: "haw:48:31608"
+          dict_key: "hawramani_48"
+          dict_name_ar: "موسوعة السلطان قابوس لأسماء العرب"
+          dict_name_en: "Sultan Qaboos Encyclopedia of Arab Names (Sultan Qaboos University, 1985)"
+          dict_source_type: "hawramani"
+          dict_period: "classical"
+          dict_author: null
+          dict_death_year: null
+          definitions:
+            - sense_index: 0
+              text: "مُعْتَصِم\nمن (ع ص م) الممتنع بالشيء واللاجئ إليه والمتقوى به."
+              is_raw: 1
+          examples: []
+          plurals: []
+          derived_forms: []
+          cross_refs: []
+          provenance:
+            page_number: null
+            page_file: null
+            entry_index: null
+            volume: null
+            hawramani_post_id: null
+            hawramani_slug: null
+            source_uri: "https://arabiclexicon.hawramani.com/"
+
+      by_component: null
+
+    step2_definitions:
+      sql_template: "..."
+      query_params: ["معتصم", "المعتصم"]
+      result_count: 2
+      entries_with_senses:
+        - entry_id: 945136
+          headword: "مُعْتَصَم"
+          dict_key: "hawramani_48"
+          dict_name_en: "Sultan Qaboos Encyclopedia of Arab Names"
+          dict_name_ar: "موسوعة السلطان قابوس لأسماء العرب"
+          dict_source_type: "hawramani"
+          dict_period: "classical"
+          dict_death_year: null
+          dict_author: null
+          senses:
+            - sense_index: 0
+              text: "مُعْتَصَم\nمن (ع ص م) مكان اللجوء وزمانه."
+              is_raw: 1
+        - entry_id: 945135
+          headword: "مُعْتَصِم"
+          dict_key: "hawramani_48"
+          dict_name_en: "Sultan Qaboos Encyclopedia of Arab Names"
+          dict_name_ar: "موسوعة السلطان قابوس لأسماء العرب"
+          dict_source_type: "hawramani"
+          dict_period: "classical"
+          dict_death_year: null
+          dict_author: null
+          senses:
+            - sense_index: 0
+              text: "مُعْتَصِم\nمن (ع ص م) الممتنع بالشيء واللاجئ إليه والمتقوى به."
+              is_raw: 1
+
+    step3_root_family:
+      roots_found:
+        - root: "عصم"
+          root_source: "camel"
+          from_entry_id: 945136
+      by_root:
+        "عصم":
+          sql_template: "..."
+          query_params: ["عصم"]
+          result_count: 25   # root عصم has a rich family across centuries
+          entries:
+            # Representative entries abbreviated — root عصم spans:
+            # Kitab Al-Ayn (786 CE), Jawhari (1003 CE), Maqayis (1004 CE),
+            # Lisan al-Arab (1311 CE), Lane's Lexicon (1876), and more.
+            # Contains Quranic references (e.g., سورة هود: "لا عاصم اليوم من أمر الله")
+            []  # truncated for brevity — see ملاذ step3 for format
+
+    step6_examples:
+      sql_template: "..."
+      query_params: ["معتصم", "المعتصم"]
+      result_count: 0
+      examples: []
+
+    step7_chronological:
+      sql_template: "..."
+      query_params: ["معتصم", "المعتصم"]
+      result_count: 2
+      entries:
+        - entry_id: 945136
+          headword: "مُعْتَصَم"
+          dict_death_year: null
+          # ... (full entry)
+        - entry_id: 945135
+          headword: "مُعْتَصِم"
+          dict_death_year: null
+          # ... (full entry)
+
+    step8_reverse_lookup:
+      sql_template: "..."
+      query_params: ["معتصم", "معتصم", "المعتصم"]
+      result_count: 0
+      entries: []
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+per_synset:
+
+  step4_fts_keyword:
+    keywords_extracted: ["اللجوء", "المساعدة", "الأمان"]
+    sql_template: |
+      SELECT e.*, d.key AS dict_key, d.name_ar, d.name_en, d.source_type,
+             d.period, d.author, d.death_year
+      FROM entries e
+      JOIN dictionaries d ON e.dictionary_id = d.id
+      WHERE e.id IN (
+          SELECT rowid FROM entries_fts
+          WHERE entries_fts MATCH ?
+          ORDER BY bm25(entries_fts, 10.0, 5.0, 5.0, 3.0, 1.0)
+          LIMIT 50
+      )
+      AND e.id NOT IN ({excluded_ids})
+    query_params: ["اللجوء OR المساعدة OR الأمان"]
+    excluded_entry_ids: [26693, 26685, 26686, 26687, 26688, 26689, 26690, 26691, 26692, 26694, 26695, 99746, 102753, 108514, 357003, 449604, 790204, 801570, 884335, 884373, 945135, 945136]
+    result_count: 0   # truncated for brevity
+    entries: []
+
+  step5_english_bridge:
+    english_terms_used: ["recourse", "refuge", "resort"]
+    sql_template: |
+      SELECT e.*, d.key AS dict_key, d.name_ar, d.name_en, d.source_type,
+             d.period, d.author, d.death_year
+      FROM entries e
+      JOIN dictionaries d ON e.dictionary_id = d.id
+      WHERE e.id IN (
+          SELECT rowid FROM entries_translations_fts
+          WHERE entries_translations_fts MATCH 'translation_en:' || ?
+          ORDER BY bm25(entries_translations_fts, 5.0, 3.0, 1.0)
+          LIMIT 30
+      )
+      AND e.id NOT IN ({excluded_ids})
+    query_params: ["recourse OR refuge OR resort"]
+    excluded_entry_ids: [26693, 357003, 449604, 790204, 801570, 884335, 884373, 945135, 945136]
+    result_count: 8
+    entries:
+      - entry_id: 404137
+        headword: "شرط عدم الرجوع"
+        translation_en: "clause of no recourse"
+        translation_fr: "clause à forfait"
+        domain: "Commerce and Accounting"
+        dict_key: "arabterm_arabterm_commerce_accounting"
+        dict_source_type: "arabterm"
+        # ... (full entry object)
+      - entry_id: 414103
+        headword: "طَعْن"
+        translation_en: "recourse"
+        translation_fr: "recours"
+        domain: "Law"
+        dict_key: "arabterm_arabterm_law"
+        dict_source_type: "arabterm"
+        # ... (full entry object)
+      - entry_id: 442981
+        headword: "مرفأ التجاء"
+        translation_en: "haven of refuge"
+        translation_fr: "havre de refuge"
+        domain: "Oceanology"
+        dict_key: "arabterm_arabterm_oceanology"
+        dict_source_type: "arabterm"
+        # ... (full entry object)
+      # ... (5 more entries truncated)
+
+  step9_specialized:
+    filters_applied: []
+    # No specialized filtering needed for this synset

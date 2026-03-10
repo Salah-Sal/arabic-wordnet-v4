@@ -1,0 +1,61 @@
+flowchart TD
+    %% ── Inputs ──
+    IN_SYN[/"Synset\n(synset_id, lemmas, definition, relations)"/]
+    IN_RES[/"Research File\n(definitions, attestations, candidates, root family)"/]
+
+    %% ── Steps ──
+    S0["<b>Step 0: Evidence Extraction</b>\nClassify each dictionary text as\nconfirm / contradicts / expands\n<i>(non-exclusive categories)</i>"]
+
+    S1["<b>Step 1: Lemma Validation</b>\n4 evidence cases → 6 checks:\nMWE · Dialectal · Substitution\nSpecificity · Calque · Final decision"]
+
+    S2["<b>Step 2: Missing Lemmas</b>\nExtract evidence for candidates\nEvidence gate → Cross-ref → Substitution\n→ add / variant / propose_new_synset / reject"]
+
+    S3["<b>Step 3: Definition Processing</b>\nCompare AWN def ↔ classical defs\nConditional authoring:\nterminological · linguistic · encyclopedic\n+ quality checks"]
+
+    S4["<b>Step 4: Relations Check</b>\nHypernymy (bounded 3 levels)\nAntonymy (detect internal conflicts)\nVerb frames · Selectional restrictions"]
+
+    S5["<b>Step 5: Enrichment & Culture</b>\nConsume expand data · Set metadata fields\nConflict resolution (multi-value)\nMorphology · POS guidelines · Cultural fit"]
+
+    S6A["<b>Step 6a: YAML + Evaluation</b>\nCompile YAML output\nScore: semantic_accuracy · gloss_quality\nsynonym_coherence · completeness\ncultural_adequacy · overall"]
+
+    S6B["<b>Step 6b: API Execution</b>\n6 phases in order:\n① Removals → ② Modifications\n③ Creations → ④ Relations\n⑤ Metadata → ⑥ Evaluation"]
+
+    %% ── Action Queue (side) ──
+    AQ[("action_queue\n(▸ actions)")]
+
+    %% ── Output ──
+    OUT[/"Output\nYAML review file\n+ executed API calls (⊕)"/]
+
+    %% ── Flow ──
+    IN_SYN --> S0
+    IN_RES --> S0
+    S0 --> S1
+    S1 --> S2
+    S2 --> S3
+    S3 --> S4
+    S4 --> S5
+    S5 --> S6A
+    S6A --> S6B
+    S6B --> OUT
+
+    %% ── Action Queue connections ──
+    S0 -. "▸ record evidence" .-> AQ
+    S1 -. "▸ reject / confirm / flag" .-> AQ
+    S2 -. "▸ add / propose / reject" .-> AQ
+    S3 -. "▸ revise / author def" .-> AQ
+    S4 -. "▸ flag_relation / add_relation" .-> AQ
+    S5 -. "▸ enrichment / cultural" .-> AQ
+    AQ -. "consumed by" .-> S6B
+
+    %% ── Styles ──
+    classDef input fill:#e8f4fd,stroke:#2196F3,color:#000
+    classDef step fill:#fff3e0,stroke:#FF9800,color:#000
+    classDef exec fill:#e8f5e9,stroke:#4CAF50,color:#000
+    classDef queue fill:#f3e5f5,stroke:#9C27B0,color:#000
+    classDef output fill:#e8f4fd,stroke:#2196F3,color:#000
+
+    class IN_SYN,IN_RES input
+    class S0,S1,S2,S3,S4,S5 step
+    class S6A,S6B exec
+    class AQ queue
+    class OUT output

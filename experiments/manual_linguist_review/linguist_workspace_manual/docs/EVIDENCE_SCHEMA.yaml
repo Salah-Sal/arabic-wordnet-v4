@@ -1,0 +1,352 @@
+# ════════════════════════════════════════════════════════════════════════════════
+# مواصفات القطعة الشاهدية — Evidence Artifact Schema
+# Evidence Collection Output Contract (v1.0.0)
+# ════════════════════════════════════════════════════════════════════════════════
+#
+# هذا الملف يحدد بنية المخرج الوحيد لوحدة جمع الشواهد: {synset_id}.evidence.yaml
+# This file defines the structure of the evidence collection module's sole output artifact.
+#
+# القواعد — Rules:
+#   ١. كل حقل قيمة قاعدة بيانات خام أو حساب ميكانيكي
+#   ٢. ممنوع: أحكام، تقييمات، تصنيفات، ملاحظات تفسيرية
+#   ٣. النص الكامل دائماً — لا اقتطاع
+#   ٤. كل خطوة تتضمن قالب SQL والمعاملات
+#
+#   1. Every field is a raw DB value or mechanical computation
+#   2. Forbidden: verdicts, ratings, classifications, interpretive notes
+#   3. Full text always — never truncated
+#   4. Every step includes its SQL template and parameters
+# ════════════════════════════════════════════════════════════════════════════════
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# § _meta — بيانات وصفية للتتبع — Generation Metadata
+# ──────────────────────────────────────────────────────────────────────────────
+
+_meta:
+  schema_version: string    # "1.0.0" — semantic versioning
+  generated_at: string      # ISO 8601 timestamp: "2026-03-07T14:30:00Z"
+  db_path: string           # relative path to database file
+  db_stats:
+    total_entries: integer   # total rows in entries table at generation time
+    total_dictionaries: integer
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# § synset — المجموعة الترادفية قيد المراجعة — Synset Under Review
+# ──────────────────────────────────────────────────────────────────────────────
+
+synset:
+  id: string                 # "awn4-XXXXXXXX-X"
+  ili: string | null         # Inter-Lingual Index: "iNNNNNN" or null
+  pos: string                # "n" | "v" | "a" | "r"
+  lemmas: [string]           # Arabic lemmas from AWN4 XML
+  definition_ar: string      # Arabic gloss from AWN4
+  examples_ar: [string]      # Arabic examples from AWN4 (may be empty)
+
+  # English source data (from OEWN via ILI mapping)
+  oewn:                      # null if no ILI link
+    definition_en: string
+    lemmas_en: [string]
+    examples_en: [string]
+    pos_en: string
+
+  # سلسلة الأعمّ إلى الجذر — Hypernym Chain to Root
+  # Shortest path from this synset up to the taxonomy root.
+  # Traverses both "hypernym" and "instance_hypernym" relations.
+  # Obtained via wn library: synset.hypernym_paths()
+  # Does NOT include the synset itself — starts from its immediate hypernym.
+  hypernym_chain:
+    depth: integer              # number of hops to root (len of path)
+    path:
+      - id: string              # "awn4-XXXXXXXX-X"
+        lemmas: [string]        # Arabic lemmas from AWN4
+        definition_ar: string   # Arabic gloss from AWN4
+        oewn_definition_en: string | null  # English gloss via ILI
+        oewn_lemmas_en: [string] | null    # English lemmas via ILI
+
+  # AWN4 synset relations (hypernym, hyponym, etc.)
+  relations:
+    - rel_type: string       # "hypernym" | "hyponym" | "instance_hypernym" | ...
+      target_id: string      # "awn4-XXXXXXXX-X"
+      target_lemmas: [string]
+      target_definition_ar: string
+      target_oewn_definition_en: string | null
+      target_oewn_lemmas_en: [string] | null
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# § entry — الكيان الذري — Atomic Entry Object
+# ──────────────────────────────────────────────────────────────────────────────
+#
+# كل إدخال معجمي يُمثَّل بهذا الكيان الكامل.
+# يتكرر في كل خطوة تسترجعه — لا إحالات مرجعية.
+#
+# Every dictionary entry is represented by this complete object.
+# Repeated in each step that retrieves it — no cross-references.
+
+_entry_object:               # (TEMPLATE — not a real field; defines the shape)
+  # ── entries table ──
+  entry_id: integer          # entries.id (primary key)
+  dictionary_id: integer     # entries.dictionary_id (FK)
+  headword: string           # with diacritics as stored
+  headword_bare: string      # diacritics stripped
+  headword_norm: string      # normalized (ة→ه, ى→ي, hamza simplified)
+  root: string | null        # trilateral/quadrilateral root
+  root_source: string | null # "ocr" | "lane" | "camel" | null
+  pos: string | null         # "noun" | "verb" | "adj" | "proper_noun" | ...
+  form: string | null        # morphological form: "I"-"X", "Q", null
+  is_partial: integer        # 0 or 1
+  definitions_text: string   # FULL denormalized text — NEVER truncated
+  translation_en: string | null  # ARABTERM English translation
+  translation_fr: string | null  # ARABTERM French translation
+  domain: string | null      # ARABTERM domain label
+  external_id: string | null # dedup key: "ocr:DictKey:page:idx" | "haw:slug" | ...
+
+  # ── dictionaries table (denormalized) ──
+  dict_key: string           # dictionaries.key (unique identifier)
+  dict_name_ar: string | null
+  dict_name_en: string | null
+  dict_source_type: string   # "ocr" | "hawramani" | "arabterm"
+  dict_period: string | null # "classical" | "modern"
+  dict_author: string | null # author name
+  dict_death_year: integer | null  # author death year (CE)
+
+  # ── definitions table (per-sense structured) ──
+  definitions:               # [] if no structured definitions exist
+    - sense_index: integer   # 0-based sense number
+      text: string           # full definition text for this sense
+      is_raw: integer        # 0 = parsed, 1 = raw/unparsed dump
+
+  # ── examples table ──
+  examples:                  # [] if no examples
+    - idx: integer           # 0-based index
+      type: string | null    # "quran" | "hadith" | "poetry" | "prose" | "usage" | null
+      text: string
+      attribution: string | null
+
+  # ── plurals table ──
+  plurals:                   # [] if no plurals
+    - idx: integer
+      text: string           # plural form
+
+  # ── derived_forms table ──
+  derived_forms:             # [] if no derived forms
+    - idx: integer
+      text: string           # derived form
+
+  # ── cross_refs table ──
+  cross_refs:                # [] if no cross references
+    - idx: integer
+      text: string           # cross-reference text
+
+  # ── provenance table ──
+  provenance:                # null if no provenance record
+    page_number: string | null
+    page_file: string | null
+    entry_index: integer | null
+    volume: string | null
+    hawramani_post_id: integer | null
+    hawramani_slug: string | null
+    source_uri: string | null
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# § per_lemma — شواهد لكل لمّة — Per-Lemma Evidence
+# ──────────────────────────────────────────────────────────────────────────────
+#
+# الخطوات ١، ٢، ٣، ٦، ٧، ٨ من الخوارزمية
+# Steps 1, 2, 3, 6, 7, 8 of the algorithm
+#
+# المفتاح: نص اللمّة كما ورد في AWN4 (بالتشكيل إن وُجد)
+
+per_lemma:
+  "<lemma>":                 # key = lemma string from synset.lemmas
+
+    # ── هوية اللمّة — Lemma Identity ──
+    identity:
+      lemma: string          # original form from AWN4
+      lemma_bare: string     # strip_diacritics(lemma)
+      lemma_norm: string     # normalize_arabic(lemma) — used in DB queries
+      is_multiword: boolean  # true if contains space
+      components: [string]   # if multiword: individual words; else: []
+
+    # ── الخطوة ١: المطابقة الدقيقة — Step 1: Exact Headword Lookup ──
+    #
+    # WHERE headword_norm IN (lemma_norm, 'ال' || lemma_norm)
+    # Returns all entries whose normalized headword matches the lemma
+    # OR its definite-article variant.
+    #
+    # السبب — Rationale:
+    #   ~20% of entries (154K) have ال in headword_norm. Classical OCR
+    #   dictionaries systematically list nouns with the definite article
+    #   (e.g., "المَلَاذُ" not "ملاذ"). Without ال-awareness, these
+    #   entries — often the richest in the DB — are invisible.
+    step1_headword:
+      al_variants_searched: [string]  # e.g., ["ملاذ", "الملاذ"]
+      sql_template: string   # the SQL used
+      query_params: [string] # parameter values
+      result_count: integer
+      entries: [_entry_object]
+
+      # ── Multi-word decomposition (only if is_multiword = true) ──
+      # Mechanical decomposition: query each word individually.
+      by_component:          # null if is_multiword = false
+        "<word>":            # key = individual word
+          sql_template: string
+          query_params: [string]
+          result_count: integer
+          entries: [_entry_object]
+
+    # ── الخطوة ٢: التعريفات المُهيكلة — Step 2: Structured Definitions ──
+    #
+    # Fetches from the `definitions` child table, ordered by dictionary
+    # chronology (death_year ASC). Uses same ال-aware matching as Step 1.
+    # This section highlights the per-sense structure that definitions_text
+    # (a flattened field) obscures.
+    #
+    # NOTE: Entries here are the same as step1 entries but presented
+    # with definitions expanded and ordered chronologically.
+    # If step1 found 0 entries, this section is also empty.
+    step2_definitions:
+      sql_template: string
+      query_params: [string]
+      result_count: integer  # number of definition rows (not entries)
+      entries_with_senses:
+        - entry_id: integer
+          headword: string
+          dict_key: string
+          dict_name_en: string | null
+          dict_name_ar: string | null
+          dict_source_type: string
+          dict_period: string | null
+          dict_death_year: integer | null
+          dict_author: string | null
+          senses:
+            - sense_index: integer
+              text: string   # FULL definition text — never truncated
+              is_raw: integer
+
+    # ── الخطوة ٣: عائلة الجذر — Step 3: Root Family ──
+    #
+    # (a) Root inference: all (root, root_source) pairs found for this lemma.
+    #     Uses ال-aware headword matching (same as Step 1).
+    #     Priority: ocr > lane > camel (OCR dictionaries have the most
+    #     reliable root assignments; Lane roots on ARABTERM entries can
+    #     be incorrect, e.g., "ملذ" instead of correct "لوذ" for ملاذ).
+    #
+    # (b) Root family: all entries sharing the same root(s).
+    #     Searches BOTH the root column AND headword_norm matching:
+    #       WHERE (e.root = ?  OR  e.headword_norm = ?)
+    #     This catches Hawramani entries where the headword IS the root
+    #     form (e.g., headword "لوذ") but root column is NULL.
+    step3_root_family:
+
+      # (a) Roots found for this lemma
+      roots_found:
+        - root: string
+          root_source: string | null  # "ocr" | "lane" | "camel" | null
+          from_entry_id: integer      # which entry provided this root
+
+      # (b) Family entries per root
+      by_root:
+        "<root>":            # key = root string
+          sql_template: string
+          query_params: [string]
+          result_count: integer
+          entries: [_entry_object]  # includes root-column AND headword matches
+
+    # ── الخطوة ٦: الشواهد — Step 6: Examples ──
+    #
+    # Examples from the `examples` table for entries matching this lemma.
+    # Uses ال-aware headword matching (same as Step 1).
+    # No filtering by relevance — ALL examples returned.
+    step6_examples:
+      sql_template: string
+      query_params: [string]
+      result_count: integer
+      examples:
+        - entry_id: integer
+          headword: string
+          dict_key: string
+          dict_name_en: string | null
+          type: string | null  # "quran" | "hadith" | "poetry" | "prose" | ...
+          text: string
+          attribution: string | null
+
+    # ── الخطوة ٧: الترتيب الزمني — Step 7: Chronological Ordering ──
+    #
+    # Same entries as step1 (ال-aware) but sorted by dict_death_year ASC.
+    # Entries with null death_year are placed last.
+    # NO semantic classification — just the chronological FACT.
+    step7_chronological:
+      sql_template: string
+      query_params: [string]
+      result_count: integer
+      entries: [_entry_object]  # sorted by dict_death_year ASC NULLS LAST
+
+    # ── الخطوة ٨: البحث العكسي — Step 8: Reverse Lookup ──
+    #
+    # FTS5 search across headword, headword_bare, AND definitions_text
+    # for entries that mention this lemma but whose headword is DIFFERENT.
+    # Returns raw entries — NO "synonym candidate" labels, NO similarity scores.
+    #
+    # البحث في العناوين — Headword FTS:
+    #   Captures compound-headword dictionaries (e.g., Al-Mawrid Al-Hadeeth)
+    #   where Arabic translation equivalents appear as headwords:
+    #   "(1) ملاذ؛ ملجأ؛ مفزع" — these contain synonym chains.
+    # Headword exclusion is ال-aware: excludes both "ملاذ" and "الملاذ".
+    step8_reverse_lookup:
+      sql_template: string
+      query_params: [string]
+      result_count: integer
+      entries: [_entry_object]
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# § per_synset — شواهد على مستوى المجموعة — Per-Synset Evidence
+# ──────────────────────────────────────────────────────────────────────────────
+#
+# الخطوات ٤، ٥، ٩ من الخوارزمية
+# Steps 4, 5, 9 of the algorithm
+
+per_synset:
+
+  # ── الخطوة ٤: البحث النصي الكامل — Step 4: FTS Keyword Search ──
+  #
+  # FTS5 search on Arabic keywords extracted from synset definition.
+  # Excludes entries already found in per-lemma steps (by entry_id).
+  step4_fts_keyword:
+    keywords_extracted: [string]  # Arabic tokens from definition_ar
+    sql_template: string
+    query_params: [string]
+    excluded_entry_ids: [integer]  # entry_ids from steps 1-3 (dedup)
+    result_count: integer
+    entries: [_entry_object]
+
+  # ── الخطوة ٥: الجسر الإنجليزي — Step 5: English Bridge (ARABTERM) ──
+  #
+  # Search entries_translations_fts for English lemmas from OEWN.
+  # Returns ARABTERM entries with Arabic/English/French translations.
+  step5_english_bridge:
+    english_terms_used: [string]  # English lemmas from oewn.lemmas_en
+    sql_template: string
+    query_params: [string]
+    excluded_entry_ids: [integer]
+    result_count: integer
+    entries: [_entry_object]
+
+  # ── الخطوة ٩: التصفية التخصصية — Step 9: Specialized Filtering ──
+  #
+  # Additional queries when applicable:
+  #   (a) POS filtering: root family restricted by POS
+  #   (b) Domain filtering: ARABTERM restricted by domain
+  # May be empty if no specialized filtering is needed.
+  step9_specialized:
+    filters_applied:         # [] if no filtering needed
+      - filter_type: string  # "pos" | "domain"
+        description: string  # human-readable description of the filter
+        sql_template: string
+        query_params: [string]
+        result_count: integer
+        entries: [_entry_object]
