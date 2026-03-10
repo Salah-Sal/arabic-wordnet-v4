@@ -1,0 +1,47 @@
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "كثرة هائلة"
+      decision: "removed"
+      decision_reason: "تركيب وصفي تأليفي وليس وحدة معجمية"
+      evidence_assessment:
+        case: "no_material"
+        notes:
+          - "لا سند معجمي — عبارة وصفية وليست مدخلاً معجمياً"
+      reasoning:
+        evidence_weight: "لا توجد أدلة معجمية كمدخل مستقل"
+        removal_justification: "اللمّة عبارة عن تركيب حر (Noun Phrase) وليست مصطلحاً أو وحدة معجمية ثابتة"
+      actions:
+        - command: "احذف ارتباط اللمّة بالمجموعة"
+          params:
+            lemma: "كثرة هائلة"
+            reason: "تركيب وصفي وليس وحدة معجمية"
+
+    - lemma: "متاهة"
+      decision: "escalated"
+      decision_reason: "تناقض دلالي بين معنى اللمّة وتعريف المجموعة"
+      evidence_assessment:
+        case: "mixed"
+        notes:
+          - "تناقض: المعنى المعجمي (تيه/حيرة/مكان) يختلف عن تعريف المجموعة (وفرة)"
+      substitution_test:
+        result: "fail"
+        failure_sentences:
+          - original: "أدهشتني كثرة هائلة من الزهور"
+            substituted: "أدهشتني متاهة من الزهور"
+            preserved_meaning: false
+            why_failed: "تغيّر المعنى من الوفرة إلى الحيرة أو التداخل"
+      reasoning:
+        evidence_weight: "الأدلة المعجمية تؤكد معنى الحيرة والمكان، ولا تدعم معنى الوفرة"
+        conflict_analysis: "التعريف الحالي للمجموعة يخلط بين مفهومين: الوفرة (Abundance) والحيرة/التيه (Confusion/Labyrinth)"
+        escalation_justification: "اللمّة لا تنتمي دلالياً للمجموعة (الوفرة). يجب مراجعة التعريف أو فصل المجموعة"
+      actions:
+        - command: "سجّل ملاحظة دلالية"
+          params:
+            lemma: "متاهة"
+            note: "تناقض: المعنى المعجمي يختلف عن تعريف المجموعة"
+        - command: "صعّد للمراجع البشري"
+          params:
+            reason: "تناقض دلالي بين معنى اللمّة وتعريف المجموعة"
+
+  synset_flags:
+    definition_review_needed: true

@@ -1,0 +1,207 @@
+step0_raw: "\nstep0_evidence:\n  per_lemma:\n    ترامواي:\n      contradicts:\n        - \"«ترام؛ ترامواي.» — المورد الحديث (2008)\"\n        - \"«tramway» — المعجم الموحد لمصطلحات النقل (2010)\"\n    \
+  \  peripheral_observations: \"التعريف المستهدف في الطلب يصف بدقة 'التلفريك' (Cable car/Aerial tramway)، بينما تشير الأدلة المعجمية المتاحة لـ 'ترامواي' إلى 'الترام' (Streetcar/Tram) الذي يسير على قضبان\
+  \ حديدية في الشوارع.\"\n    تلفريك:\n      confirm:\n        - \"«تلفريكتِلِفْريك [مفرد]: وسيلة مواصلات معلّقة تعمل بالكهرباء وتسير على أسلاك معلقة في الهواء \"طالب الصحفيّ بإقامة تلفريك لنقل السائحين\
+  \ بين ضفتي النهر\".» — معجم اللغة العربية المعاصرة لأحمد مختار عمر\"\n        - \"«(Téléfereque): وَسِيلة لِنَقْل الناس فى مركَبَاتٍ هَوائِيَّة كَهْربيَّة معلَّقة, ويُطلَق عليه أيضاً مِعْبَر هوائى.» —\
+  \ المعجم الكبير\"\n      expands:\n        - \"«تلفريكتِلِفْريك [مفرد]: وسيلة مواصلات معلّقة تعمل بالكهرباء وتسير على أسلاك معلقة في الهواء...» — معجم اللغة العربية المعاصرة لأحمد مختار عمر\"\n      \
+  \  - \"«(Téléfereque): وَسِيلة لِنَقْل الناس فى مركَبَاتٍ هَوائِيَّة كَهْربيَّة معلَّقة, ويُطلَق عليه أيضاً مِعْبَر هوائى.» — المعجم الكبير\"\n      peripheral_observations: \"المعجم الكبير أشار إلى الأصل\
+  \ الأجنبي للكلمة (Téléfereque). التعريفات ركزت على نقل 'الناس'، بينما التعريف المستهدف أضاف 'البضائع'.\"\n    قطار هوائي:\n      confirm:\n        - \"«القطار المعلَّق: نظام لنقل الكهرباء بواسطة عربات\
+  \ معلّقة.» — المورد الحديث (2008)\"\n        - \"«elevated railway» -> «قطار معلق» — مسرد الفن، التسلية والرياضة، المنظمة العربية للتربية والثقافة والعلوم (موقع ArabTerm)\"\n      contradicts:\n     \
+  \   - \"«مجموعة من مَرْكبات السكة الحديدية تجرها قاطرة» — المعجم الوسيط\"\n        - \"«قاطرات منفصلة أو متصلة ببعضهما بهما عربات أو بدون عربات تم نقلها للمسار» — المعجم الموحد لمصطلحات النقل (2010)\"\
+  \n        - \"«مجموعة من مركبات السكة الحديدية تجرها قاطرة (محدثة)» — المعجم الوسيط لمجموعة من المؤلفين\"\n      peripheral_observations: \"المصطلح «قطار معلق» هو الأقرب دلالياً للمصطلح المطلوب، رغم وجود\
+  \ تداخل مع أنظمة القطارات المعلقة (Monorail) التي قد لا تكون معلقة بكابلات.\"\n"
+step1_lemma_validation:
+  per_lemma:
+  - lemma: ترامواي
+    decision: removed
+    decision_reason: تناقض مع المعنى المعجمي؛ المصطلح يشير إلى 'ترام' (على قضبان) وليس وسيلة معلقة بكابلات
+    evidence_assessment:
+      case: contradicts
+      notes:
+      - المعنى المعجمي يختلف عن تعريف المجموعة
+    substitution_test:
+      result: fail
+      failure_sentences:
+      - original: ركب السياح التلفريك للصعود للجبل
+        substituted: ركب السياح الترامواي للصعود للجبل
+        preserved_meaning: false
+        why_failed: الترامواي لا يصعد الجبال عبر الكابلات
+    reasoning:
+      evidence_weight: أدلة معجمية قوية تناقض انتماء اللمّة للمفهوم
+      removal_justification: اللمّة تشير لوسيلة نقل قضبانية (ترام)، مما يسبب خلطاً دلالياً مع وسيلة النقل بالكابلات
+    actions:
+    - &id001
+      command: احذف ارتباط اللمّة بالمجموعة
+      params:
+        lemma: ترامواي
+        reason: تناقض مع المعنى المعجمي
+  - lemma: تلفريك
+    decision: confirmed
+    decision_reason: مصطلح دقيق ومعتمد معجمياً
+    evidence_assessment:
+      case: confirm_only
+    substitution_test:
+      result: pass
+    reasoning:
+      evidence_weight: أدلة قوية من المعجم الكبير ومعجم اللغة العربية المعاصرة
+      nuance_differentiation: المصطلح المعياري الشائع لوسائل النقل المعلقة بالكابلات
+    actions:
+    - &id002
+      command: أكّد صلاحية اللمّة
+      params:
+        lemma: تلفريك
+  - lemma: قطار هوائي
+    decision: removed
+    decision_reason: غموض دلالي وتداخل مع أنظمة قطارات أخرى (مثل المونوريل)
+    evidence_assessment:
+      case: mixed
+      notes:
+      - 'تناقض: المصطلح غالباً ما يشير إلى قطار معلق (Monorail) وليس نظام كابلات'
+    substitution_test:
+      result: fail
+      failure_sentences:
+      - original: تستخدم المحطة كابلات لجر العربات
+        substituted: تستخدم المحطة القطار الهوائي لجر العربات
+        preserved_meaning: false
+        why_failed: القطار الهوائي نظام مستقل بذاته غالباً
+    reasoning:
+      evidence_weight: أدلة متضاربة؛ يميل الاستخدام المعجمي لوصف القطارات المعلقة
+      removal_justification: احتمالية عالية للخلط بين الأنظمة التقنية (كابلات مقابل قضبان معلقة)
+    actions:
+    - &id003
+      command: احذف ارتباط اللمّة بالمجموعة
+      params:
+        lemma: قطار هوائي
+        reason: غموض دلالي وتداخل مع أنظمة أخرى
+    - &id004
+      command: أضف لمّة جديدة إلى المجموعة
+      params:
+        new_lemma: مِعْبَر هوائي
+  synset_flags:
+    definition_review_needed: true
+    split_needed: false
+  added_lemmas:
+  - lemma: مِعْبَر هوائي
+    reason: مرادف فصيح دقيق ورد في المعجم الكبير
+    via_command: أضف لمّة جديدة إلى المجموعة
+step2_missing_lemmas:
+  per_candidate:
+  - headword: الطريق الحَبْليّ
+    status: added
+    justification: مصطلح دقيق يصف وسيلة النقل المعلقة بكابلات (Ropeway) وهو مرادف وظيفي ممتاز.
+  - headword: خطُّ الترام
+    status: rejected
+    justification: يشير المصطلح إلى الترام الأرضي الذي يسير على قضبان حديدية، وليس وسيلة نقل معلقة بكابلات.
+  - headword: خط ترام كهربائي
+    status: rejected
+    justification: مصطلح تقني خاص بالترام الأرضي الكهربائي، ولا ينطبق على التلفريك.
+  - headword: ترام
+    status: rejected
+    justification: استخدامها في العربية يشير عرفاً إلى الترام الأرضي، لذا إضافتها هنا ستسبب لبساً دلالياً.
+  - headword: عَرَبة ترام
+    status: rejected
+    justification: تشير إلى عربة الترام الأرضي.
+step3_definition:
+  definition_review_flag: true
+  current_definition: وسيلة نقل تنقل الركاب أو البضائع في عربات معلقة بكابلات ومحمولة بواسطة سلسلة من الأبراج
+  assessment:
+    decision: revise
+    reason: التعريف الحالي دقيق ولكنه يفتقر إلى الإشارة لطبيعة التشغيل (الكهربائية) كما في المعاجم الحديثة، ولإضافة سياق الاستخدام.
+  authored_definitions:
+  - type: terminological
+    text: وسيلة نقل تعتمد على عربات معلّقة بأسلاك أو كابلات معدنية، تنتقل في الهواء بين أبراج مخصصة.
+    quality_check:
+      genus_present: true
+      differentia_present: true
+      circular: false
+      too_broad: false
+      too_narrow: false
+      passed: true
+  - type: encyclopedic
+    text: نظام نقل هوائي كهربائي يُستخدم لنقل الركاب أو البضائع في عربات معلّقة بكابلات فولاذية، ويشيع استخدامه في المناطق الجبلية والوعرة.
+    quality_check:
+      genus_present: true
+      differentia_present: true
+      circular: false
+      too_broad: false
+      too_narrow: false
+      passed: true
+  reasoning:
+    revision_justification: التعريف الحالي يفتقر إلى الإشارة لطبيعة التشغيل (الكهربائية) التي أوردتها المعاجم، ويحتاج إلى صياغة أكثر دقة وموسوعية.
+    dictionary_comparison: المعجم الكبير والمعجم الوسيط ركزا على الطبيعة الكهربائية والتعليق الهوائي، وهو ما تم دمجه في التعريف الموسوعي.
+    terminological_strategy: الجنس القريب = «وسيلة نقل» + الفصل المميّز = «تعتمد على عربات معلّقة بأسلاك أو كابلات معدنية».
+    linguistic_strategy: تم تقديم تعريف موسوعي يوضح آلية العمل والبيئة التشغيلية (مناطق جبلية).
+  actions:
+  - &id005
+    command: عدّل نص التعريف
+    params:
+      definition_index: 0
+      new_text: نظام نقل هوائي كهربائي يُستخدم لنقل الركاب أو البضائع في عربات معلّقة بكابلات فولاذية، ويشيع استخدامه في المناطق الجبلية والوعرة.
+  - &id006
+    command: ألّف تعريفاً جديداً
+    params:
+      type: terminological
+      text: وسيلة نقل تعتمد على عربات معلّقة بأسلاك أو كابلات معدنية، تنتقل في الهواء بين أبراج مخصصة.
+  - &id007
+    command: ألّف تعريفاً جديداً
+    params:
+      type: encyclopedic
+      text: نظام نقل هوائي كهربائي يُستخدم لنقل الركاب أو البضائع في عربات معلّقة بكابلات فولاذية، ويشيع استخدامه في المناطق الجبلية والوعرة.
+step4_relations:
+  hypernymy:
+    current_hypernym: وسيلة نقل
+    test_result: correct
+  antonymy:
+    per_lemma:
+    - lemma: تلفريك
+      antonym_found: false
+  verb_checks:
+    applicable: false
+  selectional_restrictions:
+  - lemma: تلفريك
+    constraint: جماد/وسيلة نقل تقنية
+  reasoning:
+    hypernymy_justification: «تلفريك» هو نوع من «وسيلة نقل»، والعلاقة الحالية دقيقة ومباشرة.
+    antonymy_justification: لا يوجد تضاد دلالي لاسم ذات مثل «تلفريك».
+    selectional_reasoning: التلفريك كيان مادي (جماد) يُستخدم للنقل، ولا يخضع لقيود الفاعل العاقل.
+  actions:
+  - &id008
+    command: أقرّ صحة العلاقات
+    params: {}
+  - &id009
+    command: سجّل ملاحظة دلالية
+    params:
+      lemma: تلفريك
+      note: جماد/وسيلة نقل
+step5_enrichment:
+  per_lemma:
+  - lemma: تلفريك
+    enrichment:
+      etymology: loanword
+    examples:
+    - text: يستقلّ السياح التلفريك للوصول إلى قمة الجبل.
+      type: usage
+      source: مؤلَّف
+    pos_check:
+      pos: noun
+  cultural_fit:
+    assessment: native
+  reasoning:
+    cultural_fit_reasoning: مصطلح معرّب ومستقر في الاستعمال العربي الحديث لوصف وسيلة النقل المعلقة، وأصبح جزءاً من المكنز اللغوي المعاصر.
+  actions: []
+actions:
+- *id001
+- *id002
+- *id003
+- *id004
+- *id005
+- *id006
+- *id007
+- *id008
+- *id009
+evaluation:
+  semantic_accuracy: null
+  gloss_quality: null
+  synonym_coherence: null
+  completeness: null
+  cultural_adequacy: null
+  overall: null

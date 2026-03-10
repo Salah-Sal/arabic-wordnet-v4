@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 """Step-Decomposed Pipeline — 6 specialized DSPy modules.
 
-Decomposes the 6-step review algorithm into a DSPy pipeline:
-    Step 0 — RLM: Evidence classification (scans full evidence YAML)
-    Step 1 — CoT: Lemma validation (works on Step 0 compact output)
-    Step 2 — RLM: Missing lemmas (scans per_synset + reverse lookups)
-    Step 3 — CoT: Definition processing (compact, reasoning-heavy)
-    Step 4 — CoT: Relations check (compact, reasoning-heavy)
-    Step 5 — CoT: Enrichment & cultural fit (compact)
+Decomposes the review algorithm into a DSPy pipeline:
+    Step 0   — RLM: Evidence classification (scans full evidence YAML)
+    Step 0.5 — RLM: Definition-driven lemma generation (masked synset info)
+    Step 1   — CoT: Lemma validation (existing + Step 0.5 candidates)
+    Step 3   — CoT: Definition processing (compact, reasoning-heavy)
+    Step 4   — CoT: Relations check (compact, reasoning-heavy)
+    Step 5   — CoT: Enrichment & cultural fit (compact)
 
-Steps 2, 3, 4 are independent of each other and run sequentially
+Steps 3, 4, 5 are independent of each other and run sequentially
 (parallel execution is a future enhancement).
 
 Usage:
@@ -52,8 +52,8 @@ from dspy_review.shared import (
 )
 from dspy_review.signatures import (
     Step0EvidenceClassification,
+    Step05LemmaGeneration,
     Step1LemmaValidation,
-    Step2MissingLemmas,
     Step3Definition,
     Step4Relations,
     Step5Enrichment,
@@ -62,12 +62,15 @@ from dspy_review.extractors import (
     extract_algorithm_section,
     extract_schema_section,
     extract_confirmed_lemmas,
-    extract_added_lemmas,
-    merge_lemma_lists,
+    extract_step1_added_lemmas,
     extract_definition_review_flag,
     extract_step0_evidence_summary,
-    extract_candidate_evidence,
     extract_examples_evidence,
+    filter_synset_info,
+    mask_synset_info,
+    extract_synset_level_evidence,
+    extract_step05_candidates,
+    extract_removed_escalated_lemmas,
 )
 
 from dspy_review.tracing import RLMProgressCallback
@@ -150,65 +153,41 @@ def make_step0_tools(evidence_yaml: str, synset_info: str) -> list:
 
 
 # ═══════════════════════════════════════════════════════════════
-# Step 2 tools — candidate evidence navigation
+# Step 0.5 tools — synset-level evidence browsing (no lemma names)
 # ═══════════════════════════════════════════════════════════════
 
-def make_step2_tools(candidate_evidence_yaml: str, synset_info: str) -> list:
-    """Create evidence tools for Step 2 (missing lemma discovery).
+def make_step05_tools(synset_evidence_yaml: str) -> list:
+    """Create evidence tools for Step 0.5 (definition-driven lemma generation).
 
-    Step 2 needs to scan per_synset evidence and reverse lookups to find
-    synonym candidates. It needs:
-    - candidate_summary() — overview of available candidate sources
-    - get_section_evidence(section) — drill into specific evidence sections
+    Step 0.5 only sees synset-level evidence (per_synset block) — no per-lemma
+    data that would reveal existing lemma names.
     """
-    parsed = yaml.safe_load(candidate_evidence_yaml)
+    parsed = yaml.safe_load(synset_evidence_yaml) or {}
     per_synset = parsed.get("per_synset", {})
-    per_lemma_reverse = parsed.get("per_lemma_reverse", {})
 
-    def candidate_summary() -> str:
-        """Overview of candidate evidence: sections, entry counts, reverse lookup counts."""
-        lines = []
-        lines.append("Per-synset evidence sections:")
-        for key, section in per_synset.items():
-            if isinstance(section, dict):
-                entries = section.get("entries", section.get("filters_applied", []))
-                count = len(entries) if isinstance(entries, list) else "?"
-                lines.append(f"  {key}: {count} entries")
-            else:
-                lines.append(f"  {key}: {type(section).__name__}")
-
-        if per_lemma_reverse:
-            lines.append("")
-            lines.append("Reverse lookup data per lemma:")
-            for lemma, data in per_lemma_reverse.items():
-                s8 = data.get("step8_reverse_lookup", {})
-                rev_entries = s8.get("entries", [])
-                lines.append(f"  {lemma}: {len(rev_entries)} reverse lookup entries")
-
-        lines.append("")
-        lines.append(f"Total candidate evidence: {len(candidate_evidence_yaml):,} chars")
+    def evidence_overview() -> str:
+        """Overview of synset-level evidence: section names and entry counts."""
+        lines = ["Synset-level evidence sections:"]
+        for section_name, section_data in per_synset.items():
+            if isinstance(section_data, dict):
+                entries = section_data.get("entries", [])
+                count = section_data.get("result_count", len(entries))
+                lines.append(f"  {section_name}: {count} entries")
+        lines.append(f"\nTotal evidence YAML: {len(synset_evidence_yaml):,} chars")
         return "\n".join(lines)
 
-    def get_section_evidence(section: str) -> str:
-        """Get evidence for a specific section: step4_fts_keyword, step5_english_bridge, step9_specialized, or a lemma name for reverse lookup."""
-        # Check per_synset sections
-        if section in per_synset:
-            return yaml.dump(
-                {section: per_synset[section]},
-                allow_unicode=True, default_flow_style=False,
-                sort_keys=False, width=200,
-            )
-        # Check reverse lookup by lemma name
-        if section in per_lemma_reverse:
-            return yaml.dump(
-                {section: per_lemma_reverse[section]},
-                allow_unicode=True, default_flow_style=False,
-                sort_keys=False, width=200,
-            )
-        available = list(per_synset.keys()) + list(per_lemma_reverse.keys())
-        return f"[ERROR] Section '{section}' not found. Available: {', '.join(available)}"
+    def browse_evidence(section: str) -> str:
+        """Browse a specific evidence section (step4_fts_keyword / step5_english_bridge / step9_specialized)."""
+        sd = per_synset.get(section)
+        if sd is None:
+            available = ", ".join(per_synset.keys())
+            return f"[ERROR] Section '{section}' not found. Available: {available}"
+        return yaml.dump(
+            {section: sd}, allow_unicode=True, default_flow_style=False,
+            sort_keys=False, width=200,
+        )
 
-    return [candidate_summary, get_section_evidence]
+    return [evidence_overview, browse_evidence]
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -261,21 +240,20 @@ def compile_review_yaml(
     synset_info: str,
     step0_yaml: str,
     step1_yaml: str,
-    step2_yaml: str,
     step3_yaml: str,
     step4_yaml: str,
     step5_yaml: str,
+    step05_yaml: str = "",
 ) -> str:
     """Merge per-step YAML outputs into the final review document.
 
-    Corresponds to Step 6 of the algorithm (lines 592-851 of draft_api.md),
-    but only the compilation part. The API execution part is handled
-    downstream by the AWN4 API client.
+    Corresponds to Step 6 of the algorithm — compilation only.
+    The API execution part is handled downstream by the AWN4 API client.
     """
     step_yamls = {
         "step0": step0_yaml,
+        "step05": step05_yaml,
         "step1": step1_yaml,
-        "step2": step2_yaml,
         "step3": step3_yaml,
         "step4": step4_yaml,
         "step5": step5_yaml,
@@ -298,6 +276,31 @@ def compile_review_yaml(
     all_actions = []
     for data in parsed_steps.values():
         all_actions.extend(collect_actions(data))
+
+    # Consistency check: prune actions that target removed/escalated lemmas (Bug 5 fix)
+    try:
+        excluded = extract_removed_escalated_lemmas(step1_yaml)
+        excluded_names = set(excluded.get("removed", []) + excluded.get("escalated", []))
+    except (ValueError, TypeError):
+        excluded_names = set()
+
+    if excluded_names and all_actions:
+        clean_actions = []
+        warnings = []
+        for action in all_actions:
+            target = ""
+            if isinstance(action, dict):
+                target = action.get("lemma", "") or action.get("target", "")
+            if target in excluded_names and isinstance(action, dict) and \
+               action.get("type") not in ("remove_lemma", "escalate_lemma"):
+                warnings.append(
+                    f"Suppressed '{action.get('type', '?')}' for excluded lemma '{target}'"
+                )
+            else:
+                clean_actions.append(action)
+        all_actions = clean_actions
+        if warnings:
+            review["propagation_warnings"] = warnings
 
     if all_actions:
         review["actions"] = all_actions
@@ -325,8 +328,8 @@ def compile_review_yaml(
 class StepDecomposedReviewer:
     """Level 4: Step-Decomposed Pipeline.
 
-    Decomposes the 6-step review algorithm into specialized DSPy modules.
-    Steps 0 & 2 use RLM (large evidence), Steps 1, 3, 4, 5 use ChainOfThought.
+    Decomposes the review algorithm into specialized DSPy modules.
+    Steps 0 & 0.5 use RLM (large evidence), Steps 1, 3, 4, 5 use ChainOfThought.
 
     Creates RLM instances per-call (they need per-synset tools as closures).
     CoT modules are created once in __init__ (they don't need tools).
@@ -405,13 +408,49 @@ class StepDecomposedReviewer:
         results["step0_yaml"] = step0_yaml
         print(f"  [Pipeline] Step 0 done ({timings['step0']:.1f}s)")
 
+        # ── Step 0.5: Definition-Driven Lemma Generation (RLM) ──
+        print("  [Pipeline] Step 0.5: Lemma Generation (RLM)")
+        t0 = time.time()
+
+        masked_info = mask_synset_info(synset_info)
+        synset_evidence = extract_synset_level_evidence(evidence_yaml)
+        step05_tools = make_step05_tools(synset_evidence)
+        step05_rlm = dspy.RLM(
+            Step05LemmaGeneration,
+            max_iterations=self.max_iterations,
+            max_llm_calls=self.max_llm_calls,
+            max_output_chars=self.max_output_chars,
+            sub_lm=self.sub_lm,
+            tools=step05_tools,
+            verbose=self.verbose,
+        )
+        step05_result = step05_rlm(
+            synset_info_masked=masked_info,
+            synset_evidence_yaml=synset_evidence,
+            algorithm=extract_algorithm_section(algorithm, "0.5"),
+            output_schema=extract_schema_section(output_schema, "0.5"),
+        )
+        step05_yaml = step05_result.step05_yaml
+        timings["step05"] = time.time() - t0
+        results["step05_yaml"] = step05_yaml
+
+        step05_candidates = extract_step05_candidates(step05_yaml)
+        candidate_names = [c["lemma"] for c in step05_candidates]
+        print(f"  [Pipeline] Step 0.5 done ({timings['step05']:.1f}s) — "
+              f"generated {len(candidate_names)} candidates: {', '.join(candidate_names)}")
+
         # ── Step 1: Lemma Validation (CoT) ──────────────────────
         print("  [Pipeline] Step 1: Lemma Validation (CoT)")
         t0 = time.time()
 
+        step05_candidates_str = yaml.dump(
+            step05_candidates, allow_unicode=True, default_flow_style=False
+        ) if step05_candidates else "لا مرشحات"
+
         step1_result = self.step1_cot(
             synset_info=synset_info,
             step0_yaml=step0_yaml,
+            step05_candidates=step05_candidates_str,
             algorithm=extract_algorithm_section(algorithm, 1),
             output_schema=extract_schema_section(output_schema, 1),
         )
@@ -420,62 +459,53 @@ class StepDecomposedReviewer:
         results["step1_yaml"] = step1_yaml
         print(f"  [Pipeline] Step 1 done ({timings['step1']:.1f}s)")
 
-        # ── Extract inter-step data ─────────────────────────────
+        # ── Extract inter-step data (Step 1 → Steps 3-5) ─────────
         try:
             confirmed = extract_confirmed_lemmas(step1_yaml)
         except ValueError as e:
             print(f"  [Pipeline] Warning: could not extract confirmed lemmas: {e}")
-            # Fallback: use all original lemmas
             parsed_ev = yaml.safe_load(evidence_yaml)
             confirmed = list(parsed_ev.get("per_lemma", {}).keys())
 
         definition_flag = extract_definition_review_flag(step1_yaml)
 
+        # Build active lemma set: confirmed + Step 0.5 candidates added by Step 1
         try:
-            evidence_summary = extract_step0_evidence_summary(step0_yaml)
+            step1_added = extract_step1_added_lemmas(step1_yaml)
+        except ValueError:
+            step1_added = []
+        all_lemmas = list(dict.fromkeys(confirmed + step1_added))
+        all_lemmas_str = ", ".join(all_lemmas)
+
+        print(f"  [Pipeline] Confirmed lemmas: {', '.join(confirmed)}")
+        if step1_added:
+            print(f"  [Pipeline] Step 1 added lemmas: {', '.join(step1_added)}")
+        print(f"  [Pipeline] Definition review flag: {definition_flag}")
+
+        # Filter synset_info to only include active lemmas (Bug 1 fix)
+        filtered_synset_info = filter_synset_info(synset_info, all_lemmas)
+
+        # Filter evidence summaries to only include active lemmas (Bug 2+3 fix)
+        try:
+            evidence_summary = extract_step0_evidence_summary(
+                step0_yaml, active_lemmas=all_lemmas,
+            )
         except ValueError as e:
             print(f"  [Pipeline] Warning: could not extract Step 0 summary: {e}")
             evidence_summary = step0_yaml  # Fallback: pass raw Step 0 output
 
-        candidate_evidence = extract_candidate_evidence(evidence_yaml)
-        examples_evidence = extract_examples_evidence(evidence_yaml)
-
-        confirmed_str = ", ".join(confirmed)
-        print(f"  [Pipeline] Confirmed lemmas: {confirmed_str}")
-        print(f"  [Pipeline] Definition review flag: {definition_flag}")
-
-        # ── Step 2: Missing Lemmas (RLM) ────────────────────────
-        print("  [Pipeline] Step 2: Missing Lemmas (RLM)")
-        t0 = time.time()
-
-        step2_tools = make_step2_tools(candidate_evidence, synset_info)
-        step2_rlm = dspy.RLM(
-            Step2MissingLemmas,
-            max_iterations=self.max_iterations,
-            max_llm_calls=self.max_llm_calls,
-            max_output_chars=self.max_output_chars,
-            sub_lm=self.sub_lm,
-            tools=step2_tools,
-            verbose=self.verbose,
+        examples_evidence = extract_examples_evidence(
+            evidence_yaml, active_lemmas=all_lemmas,
         )
-        step2_result = step2_rlm(
-            synset_info=synset_info,
-            confirmed_lemmas=confirmed_str,
-            candidate_evidence_yaml=candidate_evidence,
-            algorithm=extract_algorithm_section(algorithm, 2),
-            output_schema=extract_schema_section(output_schema, 2),
-        )
-        step2_yaml = step2_result.step2_yaml
-        timings["step2"] = time.time() - t0
-        results["step2_yaml"] = step2_yaml
-        print(f"  [Pipeline] Step 2 done ({timings['step2']:.1f}s)")
+
+        print(f"  [Pipeline] Active lemmas for Steps 3-5: {all_lemmas_str}")
 
         # ── Step 3: Definition Processing (CoT) ────────────────
         print("  [Pipeline] Step 3: Definition Processing (CoT)")
         t0 = time.time()
 
         step3_result = self.step3_cot(
-            synset_info=synset_info,
+            synset_info=filtered_synset_info,
             definition_review_flag=str(definition_flag).lower(),
             step0_evidence_summary=evidence_summary,
             algorithm=extract_algorithm_section(algorithm, 3),
@@ -490,16 +520,8 @@ class StepDecomposedReviewer:
         print("  [Pipeline] Step 4: Relations Check (CoT)")
         t0 = time.time()
 
-        # Merge confirmed + added lemmas for Steps 4 and 5
-        try:
-            added = extract_added_lemmas(step2_yaml)
-        except ValueError:
-            added = []
-        all_lemmas = merge_lemma_lists(confirmed, added)
-        all_lemmas_str = ", ".join(all_lemmas)
-
         step4_result = self.step4_cot(
-            synset_info=synset_info,
+            synset_info=filtered_synset_info,
             confirmed_lemmas=all_lemmas_str,
             algorithm=extract_algorithm_section(algorithm, 4),
             output_schema=extract_schema_section(output_schema, 4),
@@ -514,7 +536,8 @@ class StepDecomposedReviewer:
         t0 = time.time()
 
         step5_result = self.step5_cot(
-            synset_info=synset_info,
+            synset_info=filtered_synset_info,
+            confirmed_lemmas=all_lemmas_str,
             confirmed_lemmas_with_evidence=evidence_summary,
             examples_evidence=examples_evidence,
             algorithm=extract_algorithm_section(algorithm, 5),
@@ -529,8 +552,8 @@ class StepDecomposedReviewer:
         review_yaml = compile_review_yaml(
             synset_info=synset_info,
             step0_yaml=step0_yaml,
+            step05_yaml=step05_yaml,
             step1_yaml=step1_yaml,
-            step2_yaml=step2_yaml,
             step3_yaml=step3_yaml,
             step4_yaml=step4_yaml,
             step5_yaml=step5_yaml,

@@ -87,7 +87,7 @@ class RLMProgressCallback(BaseCallback):
 # ═══════════════════════════════════════════════════════════════
 
 def setup_mlflow(
-    tracking_uri: str = "http://127.0.0.1:5000",
+    tracking_uri: str = "http://127.0.0.1:8080",
     experiment_name: str = "AWN-LinguisticReview",
 ) -> bool:
     """Enable MLflow tracing for all DSPy calls. Returns False if mlflow is missing."""
@@ -106,8 +106,8 @@ def add_mlflow_args(parser):
     """Add --mlflow, --mlflow-uri, --experiment to argparse."""
     parser.add_argument("--mlflow", action="store_true",
                         help="Enable MLflow tracing (requires mlflow>=2.18.0)")
-    parser.add_argument("--mlflow-uri", type=str, default="http://127.0.0.1:5000",
-                        help="MLflow tracking URI (default: http://127.0.0.1:5000)")
+    parser.add_argument("--mlflow-uri", type=str, default="http://127.0.0.1:8080",
+                        help="MLflow tracking URI (default: http://127.0.0.1:8080)")
     parser.add_argument("--experiment", type=str, default="AWN-LinguisticReview",
                         help="MLflow experiment name (default: AWN-LinguisticReview)")
     return parser

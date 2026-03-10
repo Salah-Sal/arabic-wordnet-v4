@@ -113,6 +113,13 @@ def auto_select_sub_model(main_model: str) -> str:
 
 
 # ═══════════════════════════════════════════════════════════════
+# Default model — change this to switch the default
+# ═══════════════════════════════════════════════════════════════
+
+DEFAULT_MODEL = "gemini-3.1-flash-lite"
+
+
+# ═══════════════════════════════════════════════════════════════
 # Core configuration
 # ═══════════════════════════════════════════════════════════════
 
@@ -123,25 +130,10 @@ def configure_lm(
 ) -> dspy.LM:
     """Configure and return the main dspy.LM.
 
-    If model is None, auto-detects by checking which API keys are available.
-    Priority: anthropic > gemini > openai > moonshot.
+    Uses DEFAULT_MODEL when no --model is passed via CLI.
     """
     if model is None:
-        for provider in ["anthropic", "gemini", "openai", "moonshot"]:
-            env_var = PROVIDER_ENV_VARS.get(provider)
-            if env_var and os.environ.get(env_var):
-                defaults = {
-                    "anthropic": "claude-sonnet",
-                    "gemini": "gemini-2.0-flash",
-                    "openai": "gpt-4o-mini",
-                    "moonshot": "kimi-k2",
-                }
-                model = defaults[provider]
-                break
-        if model is None:
-            raise ValueError(
-                f"No API keys found. Set one of: {', '.join(PROVIDER_ENV_VARS.values())}"
-            )
+        model = DEFAULT_MODEL
 
     full_model = resolve_model(model)
     provider = get_provider(full_model)
@@ -181,7 +173,7 @@ def add_model_args(parser):
     """Add --model, --temperature, --max-tokens to an argparse parser."""
     parser.add_argument(
         "--model", "-m", type=str, default=None,
-        help="Main LLM model (alias or full litellm ID, e.g. 'claude-sonnet', 'gemini-2.5-flash')"
+        help=f"Main LLM model (default: {DEFAULT_MODEL}). Alias or full litellm ID."
     )
     parser.add_argument(
         "--sub-model", type=str, default=None,

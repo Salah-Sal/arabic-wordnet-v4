@@ -521,338 +521,6 @@ step1_lemma_validation:                  # حاوية مخرجات الخطوة 
 #   .via_command             (str)              — الأمر المُستخدم
 
 
-# ══════════════════════════════════════════════════════════════
-# الخطوة ٢: اكتشاف لمّات مفقودة — Expected YAML Output
-# ══════════════════════════════════════════════════════════════
-#
-# نوع الخطوة: مختلطة — تحليلي (أدلة + ترادف متقاطع) + أوامر API
-# المُدخل:    الملف_البحثي.مرشحات_المرادف + مجموعة_ترادفية + اللمّات المؤكَّدة من الخطوة ١
-# المُخرج:    قرار لكل مرشح (إضافة / رفض / اقتراح مجموعة جديدة / تهجئة بديلة)
-#
-# المراحل الفرعية بالترتيب:
-#   ١. استخلاص أدلة المرشح (نفس منطق الخطوة ٠)
-#   ٢. بوابة الأدلة — فلترة مبكرة
-#   ٣. اختبار الترادف المتقاطع (Cross-referencing)
-#   ٤. اختبار الإبدال (مشروط)
-#   ٥. القرار النهائي
-# ══════════════════════════════════════════════════════════════
-
-step2_missing_lemmas:                    # حاوية مخرجات الخطوة ٢
-
-  # ────────────────────────────────────
-  # تكرار لكل مرشح في الملف_البحثي.مرشحات_المرادف
-  # ────────────────────────────────────
-  per_candidate:
-
-    # ──────────────────────────────────
-    # مثال ١: مرشح مقبول — أدلة تأكيد + إبدال ناجح
-    # (مسار: confirm → ترادف متقاطع → إبدال نجح → إضافة)
-    # ──────────────────────────────────
-    - candidate: "حَرَّرَ"
-      source: "المعجم الوسيط — مرادف في مدخل «كتب»"
-      generation_source: "research_file"     # research_file | reverse_antonymy | definition_derivation
-      #        ↑ مصدر الترشيح من الملف البحثي
-
-      # ── أدلة المرشح (نفس بنية الخطوة ٠) ──
-      evidence:
-        confirm:
-          - text: "حرّر الكتاب: كتبه وأنشأه"
-            source: "المعجم الوسيط"
-
-      evidence_gate:
-        passed: true
-
-      cross_reference:
-        definition_a_mentions_b: true
-        definition_b_mentions_a: false
-        result: true
-
-      substitution_test:
-        result: "pass"
-
-      decision: "added"
-      decision_reason: "أدلة تأكيد + ترادف متقاطع + إبدال ناجح"
-
-      # ── التعليل اللغوي ──
-
-      reasoning:
-        evidence_weight: "دليل تأكيد واحد من المعجم الوسيط — كافٍ مع الترادف المتقاطع"
-        cross_reference_analysis: "تعريف «حرّر» يذكر «كتب» صراحةً — ربط دلالي مباشر"
-        substitution_sentences:
-          - original: "كَتَبَ المقال"
-            substituted: "حَرَّرَ المقال"
-            preserved_meaning: true
-        nuance_differentiation: "يتميّز عن «كتب» بدلالة الإنشاء والصياغة المتقنة"
-
-      # ── الأوامر المُصدَرة ──
-
-      actions:
-        - command: "أضف لمّة جديدة إلى المجموعة"
-          params:
-            new_lemma: "حَرَّرَ"
-
-        - command: "سجّل ملاحظة دلالية"
-          params:
-            lemma: "حَرَّرَ"
-            note: "يتميّز عن «كتب» بدلالة الإنشاء والصياغة المتقنة"
-
-
-    # ──────────────────────────────────
-    # مثال ٢: مرشح مرفوض — لا أدلة ولا ارتباط دلالي
-    # (مسار: no_material → اللغوي لا يرى ارتباطاً → رفض)
-    # ──────────────────────────────────
-    - candidate: "نَقَشَ"
-      source: "عائلة الجذر — مشتقات ن-ق-ش"
-      generation_source: "research_file"
-
-      evidence: {}                       # لا أدلة — القوائم الثلاث فارغة
-
-      evidence_gate:
-        passed: false
-        reason: "لا سند معجمي ولا ارتباط دلالي بتعريف المجموعة"
-
-      # ← cross_reference و substitution_test محذوفان — لم يُجريا (null)
-
-      decision: "rejected"
-      decision_reason: "لا سند معجمي ولا ارتباط دلالي بتعريف المجموعة"
-
-      reasoning:
-        evidence_weight: "لا أدلة على الإطلاق — القوائم الثلاث فارغة"
-        rejection_justification: "النقش فنّ زخرفي لا علاقة له بالكتابة — التشابه في الجذر لا يعني ترادفاً"
-
-      actions:
-        - command: "ارفض المرشح"
-          params:
-            candidate: "نَقَشَ"
-
-
-    # ──────────────────────────────────
-    # مثال ٣: مرشح أخصّ دلالياً → اقتراح مجموعة جديدة
-    # (مسار: contradicts فقط → أضيق دلالياً → مجموعة جديدة كـ hyponym)
-    # ──────────────────────────────────
-    - candidate: "طَبَعَ"
-      source: "المعجم الوسيط — مرادف في مدخل «كتب»"
-      generation_source: "research_file"
-
-      evidence:
-        contradicts:
-          - text: "طبع الكتاب: نسخه بالمطبعة"
-            source: "المعجم الوسيط"
-            conflict: "الطباعة أخصّ من الكتابة — تتطلب آلة"
-
-      evidence_gate:
-        passed: true                     # مرّ لأن التناقض مصدره أخصية دلالية
-
-      decision: "proposed_new_synset"
-      decision_reason: "أخصّ دلالياً — اكتُشف عبر أدلة التناقض"
-
-      # ── التعليل اللغوي ──
-      reasoning:
-        evidence_weight: "دليل تناقض واحد كافٍ — التناقض مصدره أخصية دلالية واضحة"
-        specificity_analysis: "الطباعة تتطلب آلة (المطبعة) — أخصّ من الكتابة العامة"
-        proposed_relation: "hyponym — «طبع» نوع من «كتب» (النسخ بالمطبعة نوع من التسجيل)"
-        why_not_synonym: "لا يمكن إبدال «كتب» بـ«طبع» في كل سياق — الطباعة أضيق نطاقاً"
-
-      actions:
-        - command: "اقترح مجموعة ترادفية جديدة"
-          params:
-            new_lemma: "طَبَعَ"
-            # ← definition محذوف — يُحدَّد في الخطوة ٣ من دورة المراجعة اللاحقة
-
-        - command: "أضف علاقة دلالية"
-          params:
-            source: "المجموعة الجديدة"
-            relation: "hyponym"
-            target: "المجموعة الحالية"
-
-        - command: "سجّل ملاحظة دلالية"
-          params:
-            lemma: "طَبَعَ"
-            note: "أخصّ دلالياً — اكتُشف عبر أدلة التناقض"
-
-
-    # ──────────────────────────────────
-    # مثال ٤: مرشح = تهجئة بديلة للمّة موجودة
-    # (مسار: confirm → إبدال فشل → تهجئة بديلة)
-    # ──────────────────────────────────
-    - candidate: "كَتَّبَ"
-      source: "المعجم الوسيط — تهجئة بديلة"
-      generation_source: "research_file"
-
-      evidence:
-        confirm:
-          - text: "كتّب فلاناً: علّمه الكتابة"
-            source: "المعجم الوسيط"
-
-      evidence_gate:
-        passed: true
-
-      cross_reference:
-        definition_a_mentions_b: true
-        definition_b_mentions_a: false
-        result: true
-
-      substitution_test:
-        result: "fail"                   # الإبدال فشل — لكنه تهجئة بديلة
-
-      decision: "alternate_spelling"
-      decision_reason: "تهجئة بديلة للمّة «كَتَبَ» — يظهر في نفس المداخل المعجمية"
-
-      # ── التعليل اللغوي ──
-      reasoning:
-        evidence_weight: "دليل تأكيد — لكن المعنى مختلف قليلاً (التعليم لا الكتابة ذاتها)"
-        alternate_spelling_justification: "يظهر في نفس المدخل المعجمي — تشديد الحرف الأوسط يشير لوزن فعّل (التكثير/التعدية)"
-        why_not_independent: "فشل اختبار الإبدال — الدلالة تختلف (تعليم الكتابة ≠ الكتابة)"
-
-      actions:
-        - command: "أضف تهجئة بديلة للمّة"
-          params:
-            target_lemma: "كَتَبَ"       # اللمّة الموجودة
-            alternate_form: "كَتَّبَ"    # التهجئة البديلة
-
-
-    # ──────────────────────────────────
-    # مثال ٥: مرشح بأدلة توسّعية — مقبول مع ملاحظة
-    # (مسار: confirm + expands → ترادف متقاطع → إبدال نجح → إضافة + ملاحظة توسيع)
-    # ──────────────────────────────────
-    - candidate: "أَمْلَى"
-      source: "لسان العرب — مرادف في مدخل «كتب»"
-      generation_source: "research_file"
-
-      evidence:
-        confirm:
-          - text: "أملى عليه: ألقى عليه ما يكتبه"
-            source: "لسان العرب"
-        expands:
-          - text: "أملى له: أمهله وأطال له المدة"
-            source: "المعجم الوسيط"
-            addition: "دلالة الإمهال — بُعد غير موجود في تعريف المجموعة"
-
-      evidence_gate:
-        passed: true
-
-      cross_reference:
-        definition_a_mentions_b: true
-        definition_b_mentions_a: true    # ترادف متبادل
-        result: true
-
-      substitution_test:
-        result: "pass"
-
-      decision: "added"
-      decision_reason: "أدلة تأكيد + ترادف متبادل + إبدال ناجح"
-
-      # ── التعليل اللغوي ──
-      reasoning:
-        evidence_weight: "دليل تأكيد + دليل توسيع — الترادف المتبادل يعزز الثقة"
-        cross_reference_analysis: "ترادف متبادل — تعريف «أملى» يذكر «كتب» والعكس صحيح"
-        expands_note: "بُعد دلالي إضافي (الإمهال) — لا يؤثر على القبول لكن يُسجَّل كملاحظة"
-        substitution_sentences:
-          - original: "كَتَبَ ما قاله المعلم"
-            substituted: "أَمْلَى ما قاله المعلم"
-            preserved_meaning: true
-        nuance_differentiation: "يتميّز عن «كتب» بدلالة الإلقاء الشفهي لمن يكتب"
-
-      actions:
-        - command: "أضف لمّة جديدة إلى المجموعة"
-          params:
-            new_lemma: "أَمْلَى"
-
-        - command: "سجّل ملاحظة دلالية"
-          params:
-            lemma: "أَمْلَى"
-            note: "يتميّز عن «كتب» بدلالة الإلقاء الشفهي لمن يكتب"
-
-        - command: "سجّل ملاحظة دلالية"
-          params:
-            lemma: "أَمْلَى"
-            note: "بُعد دلالي إضافي — دلالة الإمهال"
-
-
-    # ──────────────────────────────────
-    # مثال ٦: مرشح مرفوض — لا ترادف متقاطع ولا أدلة تأكيد
-    # (مسار: لا ترادف متقاطع + لا confirm → رفض بدون إبدال)
-    # ──────────────────────────────────
-    - candidate: "مَحَا"
-      source: "عائلة الجذر — مشتقات م-ح-و"
-
-      evidence:
-        contradicts:
-          - text: "محا الشيء: أزاله"
-            source: "المعجم الوسيط"
-            conflict: "المحو نقيض الكتابة — ليس مرادفاً"
-
-      evidence_gate:
-        passed: true                     # مرّ البوابة (contradicts ليس بسبب أخصية)
-
-      cross_reference:
-        definition_a_mentions_b: false
-        definition_b_mentions_a: false
-        result: false                    # لا ترادف متقاطع
-
-      # ← substitution_test محذوف — لم يُجرَ
-
-      decision: "rejected"
-      decision_reason: "لا ترادف متقاطع ولا أدلة تأكيد — لا يستحق اختبار الإبدال"
-
-      # ── التعليل اللغوي ──
-      reasoning:
-        evidence_weight: "دليل تناقض فقط — المحو نقيض الكتابة"
-        rejection_justification: "لا ترادف متقاطع (تعريفا الكلمتين لا يذكر أحدهما الآخر) + التناقض يؤكّد التضاد لا الترادف"
-        why_no_substitution: "لا يستحق اختبار الإبدال — انعدام الأدلة والترادف المتقاطع معاً"
-
-      actions:
-        - command: "ارفض المرشح"
-          params:
-            candidate: "مَحَا"
-
-
-# ══════════════════════════════════════════════════════════════
-# ملخص الحقول — الخطوة ٢
-# ══════════════════════════════════════════════════════════════
-#
-# step2_missing_lemmas.per_candidate[]
-#   .candidate               (str)              — المرشح المُفحوص
-#   .source                  (str)              — مصدر الترشيح من الملف البحثي
-#   .generation_source       (enum)             — "research_file" | "reverse_antonymy" | "definition_derivation"
-#   .evidence                                   — أدلة المرشح (نفس بنية الخطوة ٠)
-#     .confirm[]                                — أدلة تأكيد
-#       .text                (str)              — نص التعريف
-#       .source              (str)              — اسم المعجم
-#     .contradicts[]                            — أدلة تناقض
-#       .text                (str)
-#       .source              (str)
-#       .conflict            (str)              — وجه التناقض
-#     .expands[]                                — أدلة توسيع
-#       .text                (str)
-#       .source              (str)
-#       .addition            (str)              — الإضافة الدلالية
-#   .evidence_gate                              — بوابة الأدلة
-#     .passed                (bool)             — هل مرّ البوابة؟
-#     .reason                (str|null)         — سبب الرفض المبكر
-#   .cross_reference                            — اختبار الترادف المتقاطع
-#     .definition_a_mentions_b (bool|null)      — تعريف المرشح يذكر لمّات المجموعة
-#     .definition_b_mentions_a (bool|null)      — تعريف لمّة المجموعة يذكر المرشح
-#     .result                (bool|null)        — ترادف محتمل؟
-#   .substitution_test                          — اختبار الإبدال
-#     .result                (enum|null)        — "pass" | "fail" | null
-#     .syntactic_adaptation  (bool)             — هل احتاج تكييفاً نحوياً؟
-#     .adapted_frame         (str|null)         — الإطار التركيبي المعدّل
-#   .decision                (enum)             — "added" | "rejected" | "proposed_new_synset" | "alternate_spelling"
-#   .decision_reason         (str)              — تفسير مختصر
-#   .lexicalization_preference (str|null)       — اللمّة المركبة التي يغني عنها هذا المرشح
-#   .reasoning                                  — التعليل اللغوي
-#     .evidence_weight       (str)              — تقييم ثقل الأدلة
-#     .cross_reference_analysis (str|null)      — تحليل الترادف المتقاطع
-#     .nuance_differentiation (str|null)        — الفارق الدلالي (فقط إذا added)
-#     .rejection_justification (str|null)       — مبرر الرفض (فقط إذا rejected)
-#     .specificity_analysis  (str|null)         — تحليل الأخصية (فقط إذا proposed_new_synset)
-#     .alternate_spelling_justification (str|null) — مبرر التهجئة البديلة
-#     .substitution_sentences[] (list|null)     — جمل اختبار الإبدال
-#   .actions[]                                  — الأوامر المُصدَرة
-#     .command               (str)              — اسم الأمر بالعربية
-#     .params                (map)              — معاملات الأمر
-
 
 # ══════════════════════════════════════════════════════════════
 # الخطوة ٣: تدقيق وتأليف التعريف — Expected YAML Output
@@ -1062,95 +730,59 @@ step4_relations:                         # حاوية مخرجات الخطوة 
 
 
 # ══════════════════════════════════════════════════════════════
-# الخطوة ٥: الإثراء والملاءمة الثقافية — Expected YAML Output
+# الخطوة ٥: البيانات القابلة للتخزين في WordNet والملاءمة الثقافية
 # ══════════════════════════════════════════════════════════════
 #
-# نوع الخطوة: أوامر API (بيانات وصفية + متلازمات + تحقق صرفي + ملاءمة ثقافية)
+# نوع الخطوة: استخلاص بيانات WN-LMF + تحقق صرفي + ملاءمة ثقافية
 # المُدخل:    اللمّات المؤكَّدة والمضافة + أدلة الخطوة ٠ (expands) + الملف البحثي
-# المُخرج:    حقول إثراء مملوءة + متلازمات + تصحيحات صرفية + تصنيف ثقافي
+# المُخرج:    جذر + علاقة مجازية + أمثلة + تصحيحات صرفية + فحص POS + تصنيف ثقافي
 #
-# المراحل الفرعية:
-#   ١. استهلاك بيانات التوسيع من الخطوة ٠
-#   ٢. الإثراء (usage, eloquence, connotation, literal_figurative)
-#   ٣. المتلازمات اللفظية (Collocations)
-#   ٤. التحقق الصرفي
-#   ٥. إرشادات حسب نوع الكلمة (POS)
-#   ٦. الملاءمة الثقافية (Cultural Fit)
+# الحقول المُنتَجة (لها مكان في بنية WN-LMF):
+#   enrichment: root، figurative_relation، etymology
+#   examples: → <Example> elements
+#   morphology: → <SenseRelation derivation>، update_lemma
+#   pos_check: → partOfSpeech، <SyntacticBehaviour>
+#   cultural_fit: → synset metadata
+#
+# الحقول المحذوفة (لا مكان لها في WN-LMF):
+#   usage، eloquence، connotation، literal_figurative، collocations،
+#   enrichment_conflicts، expands_consumed، source (per-enrichment)
 # ══════════════════════════════════════════════════════════════
 
 step5_enrichment:                        # حاوية مخرجات الخطوة ٥
+  # ⚠ قاعدة: examples[] إلزامي لكل لمّة — لا يجوز ترك لمّة بدون مثال واحد على الأقل.
+  #   المصادر بالأولوية: ١) step6_examples ٢) اقتباسات المعاجم (confirm/expands) ٣) تأليف (مؤلَّف)
 
   per_lemma:
 
     # ──────────────────────────────────
-    # مثال ١: لمّة بإثراء كامل + متلازمة
+    # مثال ١: فعل — جذر + أمثلة + إطار تركيبي
     # ──────────────────────────────────
     - lemma: "كَتَبَ"
 
       enrichment:
         root: "ك-ت-ب"
-        usage: "common"                  # archaic | modern | common
-        eloquence: "eloquent"            # eloquent | neologism | colloquial | loanword
-        connotation: "neutral"           # positive | negative | reverential | pejorative | neutral
-        literal_figurative: "literal"    # literal | figurative
-        source: "المعجم الوسيط"
-        # ← root_corrected, figurative_relation محذوفان — false/null (افتراضي)
+        # ← root_corrected, figurative_relation, etymology محذوفة — false/null (افتراضي DRY)
 
-      # ← enrichment_conflicts محذوف — فارغ (لا تعارض)
-      # ← expands_consumed محذوف — فارغ
+      examples:                          # → <Example> elements في WN-LMF — إلزامي ≥1
+        - text: "كُتِبَ عَلَيْكُمُ الصِّيَامُ كَمَا كُتِبَ عَلَى الَّذِينَ مِنْ قَبْلِكُمْ"
+          type: "quran"                  # quran | hadith | poetry | usage
+          source: "البقرة/ ١٨٣"          # اسم المعجم أو سورة/آية أو "مؤلَّف"
 
-      collocations:
-        - text: "كتب رسالة"
-          type: "verb_object"
-          source: "المعجم الوسيط"
-        - text: "كتب كتاباً"
-          type: "verb_object"
-          source: "لسان العرب"
-
-      examples:                          # الشواهد والأمثلة التوضيحية
-        - text: "كَتَبَ الطالبُ الدرسَ في دفتره."
-          type: "usage"                  # quran | hadith | poetry | usage
-          source: "مؤلَّف"               # اسم المعجم أو "مؤلَّف" إذا كان من تأليف اللغوي
-
-      # ← morphology محذوف — لا تصحيح ولا جمع تكسير
+      # ← morphology محذوف — لا تصحيح ولا جمع تكسير (DRY)
 
       pos_check:
         pos: "verb"
-        syntactic_frame: "متعدٍ بنفسه"
+        syntactic_frame: "متعدٍ بنفسه"  # → <SyntacticBehaviour>
 
     # ──────────────────────────────────
-    # مثال ٢: لمّة بتعارض إثراء + توسيع مُستهلَك
+    # مثال ٢: فعل — علاقة مجازية (كناية)
     # ──────────────────────────────────
     - lemma: "سَطَّرَ"
 
       enrichment:
         root: "س-ط-ر"
-        usage: ["archaic", "common"]     # قيم متعددة — تعارض محسوم
-        eloquence: "eloquent"
-        connotation: "neutral"
-        literal_figurative: "figurative"
-        figurative_relation: "metonymy"  # كناية — السطر عن الكتابة
-        source: "لسان العرب"
-
-      enrichment_conflicts:              # تعارض محسوم (مثال غير فارغ)
-        - field: "usage"
-          values:
-            - value: "archaic"
-              source: "لسان العرب"
-            - value: "common"
-              source: "المعجم الوسيط"
-          resolution: ["archaic", "common"]
-
-      expands_consumed:
-        - original_addition: "دلالة الترتيب والتنسيق"
-          mapped_to:
-            field: "literal_figurative"
-            value: "figurative"
-
-      collocations:
-        - text: "سطّر الأساطير"
-          type: "verb_object"
-          source: "لسان العرب"
+        figurative_relation: "metonymy"  # → <SenseRelation relType="metonym">
 
       examples:
         - text: "سَطَّرَ الأوّلون أساطيرَهم في الصُّحُف."
@@ -1168,13 +800,13 @@ step5_enrichment:                        # حاوية مخرجات الخطوة 
 
       enrichment:
         root: "ك-ت-ب"
-        usage: "common"
-        eloquence: "eloquent"
-        connotation: "neutral"
-        literal_figurative: "literal"
-        source: "المعجم الوسيط"
 
-      morphology:
+      examples:                          # إلزامي حتى لجمع التكسير
+        - text: "وَلَوْ أَنَّمَا فِي الْأَرْضِ مِنْ شَجَرَةٍ أَقْلَامٌ... مَا نَفِدَتْ كَلِمَاتُ اللَّهِ"
+          type: "quran"
+          source: "لقمان/ ٢٧"
+
+      morphology:                        # → <SenseRelation relType="derivation"> + update_lemma()
         broken_plural_link: "كِتَاب"    # اربط جمع التكسير بمفرده
         form_corrected: true
         form_correction:
@@ -1191,45 +823,55 @@ step5_enrichment:                        # حاوية مخرجات الخطوة 
 
       enrichment:
         root: "ك-ت-ب"
-        usage: "common"
-        eloquence: "eloquent"
-        connotation: "neutral"
-        literal_figurative: "literal"
-        source: "المعجم الوسيط"
+
+      examples:                          # إلزامي حتى للظروف
+        - text: "أوصى المعلمُ تلاميذَه بالمراجعة كِتَابَةً لا شفاهاً."
+          type: "usage"
+          source: "مؤلَّف"
 
       pos_check:
         pos: "adverb"                    # مصنّف كظرف في WordNet
-        adverb_accepted: true            # اقبل كظرف
+        adverb_accepted: true            # اقبل كظرف → partOfSpeech
+
+    # ──────────────────────────────────
+    # مثال ٥: اسم مقترض — etymology loanword
+    # ──────────────────────────────────
+    - lemma: "تلفريك"
+
+      enrichment:
+        root: null                       # لا جذر عربي — كلمة مقترضة
+        etymology: "loanword"            # → set_metadata("entry", ..., "etymology", "loanword")
+
+      examples:
+        - text: "يستقلّ السياح التلفريك للوصول إلى قمة الجبل."
+          type: "usage"
+          source: "مؤلَّف"
+
+      pos_check:
+        pos: "noun"
 
 
-  # ── الملاءمة الثقافية (على مستوى المجموعة) ──
+  # ── الملاءمة الثقافية (على مستوى المجموعة) → synset metadata ──
 
   cultural_fit:
     assessment: "native"                 # native | phraset | lexical_gap | omission
-    # ← lexical_gap_type, phraset_added, reclassified محذوفة — null/false
+    # ← lexical_gap_type, phraset_added, reclassified محذوفة — null/false (DRY)
 
   # ── التعليل اللغوي ──
 
   reasoning:
-    enrichment_approach: "القيم مُستمدة من المعاجم المصدرية — عند التعارض يُسمح بقيم متعددة"
-    conflict_resolution: "«سطّر»: لسان العرب يصنّفها قديمة والوسيط يعتبرها شائعة — الحلّ: السماح بكلتا القيمتين"
-    figurative_analysis: "«سطّر الأساطير» — كناية عن الكتابة عبر السطر (metonymy)"
-    morphology_notes: "«كُتُب» تحتاج تنويناً — صُحّحت إلى «كُتُبٌ»"
-    broken_plural_reasoning: "«كُتُب» جمع تكسير لـ«كِتَاب» — على وزن فُعُل"
-    adverb_reasoning: "«كتابةً» حال منصوبة تؤدي معنى الظرف — مقبولة للتوافق مع بنية WordNet العالمي"
     cultural_fit_reasoning: "الكتابة مفهوم أصيل في الحضارة العربية — له مقابلات مفردة طبيعية"
 
   # ── الأوامر المُصدَرة (غير المشتقّة فقط) ──
-  # ← جميع أوامر «عيّن حقل إثراء» و«أضف متلازمة» و«صحّح صيغة»
-  #   و«حدّد الإطار التركيبي» و«اقبل كظرف» و«اربط جمع التكسير»
-  #   مُشتقّة تلقائياً من كتل enrichment/collocations/morphology/pos_check.
+  # ← أوامر «صحّح صيغة» و«حدّد الإطار التركيبي» و«اقبل كظرف» و«اربط جمع التكسير»
+  #   مُشتقّة تلقائياً من كتل enrichment/examples/morphology/pos_check.
   #   اكتب هنا فقط الأوامر غير المشتقّة:
 
   actions:
     - command: "سجّل ملاحظة دلالية"
       params:
         lemma: "سَطَّرَ"
-        note: "تعارض في usage: لسان العرب=archaic، المعجم الوسيط=common"
+        note: "كناية — السطر عن الكتابة (metonymy)"
 
 
 # ══════════════════════════════════════════════════════════════
@@ -1296,66 +938,120 @@ step5_enrichment:                        # حاوية مخرجات الخطوة 
 #   .actions[]
 #
 # ══════════════════════════════════════════════════════════════
-# ملخص الحقول — الخطوة ٥
+# ملخص الحقول — الخطوة ٥ (بيانات WN-LMF فقط)
 # ══════════════════════════════════════════════════════════════
 #
 # step5_enrichment.per_lemma[]
 #   .lemma                   (str)
-#   .enrichment                                 — حقول الإثراء
-#     .root                  (str)
-#     .root_corrected        (bool)
-#     .usage                 (str|list)         — archaic | modern | common (أو قائمة إذا تعارض)
-#     .eloquence             (str)              — eloquent | neologism | colloquial | loanword
-#     .connotation           (str)              — positive | negative | reverential | pejorative | neutral
-#     .literal_figurative    (str)              — literal | figurative
-#     .figurative_relation   (str|null)         — فقط إذا figurative
-#     .source                (str)              — المعجم الداعم
-#   .enrichment_conflicts[]                     — تعارضات القيم
-#     .field                 (str)
-#     .values[]              (list)
-#       .value               (str)
-#       .source              (str)
-#     .resolution            (list[str])        — القيم المحسومة
-#   .expands_consumed[]                         — بيانات التوسيع المُستهلَكة من الخطوة ٠
-#     .original_addition     (str)
-#     .mapped_to.field       (str)
-#     .mapped_to.value       (str)
-#   .collocations[]                              — المتلازمات اللفظية
-#     .text                  (str)              — نص المتلازمة
-#     .type                  (enum)             — verb_object | adj_noun | noun_noun | verb_prep | adv_verb
-#     .source                (str)              — المعجم أو الشاهد المصدر
-#   .examples[]                                  — الشواهد والأمثلة التوضيحية
+#   .enrichment                                 — بيانات قابلة للتخزين في WN-LMF
+#     .root                  (str)              — الجذر الثلاثي → <Tag category="root">
+#     .root_corrected        (bool)             — هل صُحّح الجذر؟
+#     .figurative_relation   (str|null)         — metaphor | metonymy → <SenseRelation>
+#     .etymology             (str|null)         — "loanword" فقط إذا مقترضة → metadata
+#   .examples[]                                 — → <Example> elements في WN-LMF (إلزامي — ≥1 لكل لمّة)
 #     .text                  (str)              — نص الشاهد أو المثال
 #     .type                  (enum)             — quran | hadith | poetry | usage
 #     .source                (str)              — اسم المعجم أو "مؤلَّف"
-#   .morphology                                 — التحقق الصرفي
+#   .morphology                                 — → <SenseRelation derivation> + update_lemma()
 #     .broken_plural_link    (str|null)         — المفرد المرتبط
 #     .form_corrected        (bool)
 #     .form_correction       (map|null)         — old→new
-#   .pos_check                                  — إرشادات نوع الكلمة
+#   .pos_check                                  — → partOfSpeech + <SyntacticBehaviour>
 #     .pos                   (str)
 #     .syntactic_frame       (str|null)
 #     .preposition_note      (str|null)
 #     .pos_mismatch          (bool)
 #     .adverb_accepted       (bool|null)        — فقط للظروف
 #
-# step5_enrichment.cultural_fit
+# step5_enrichment.cultural_fit                 — → synset metadata
 #   .assessment              (enum)             — "native" | "phraset" | "lexical_gap" | "omission"
 #   .lexical_gap_type        (str|null)
 #   .phraset_added           (str|null)
 #   .reclassified            (bool)
 #
 # step5_enrichment.reasoning
-#   .enrichment_approach     (str)              — منهج تعيين قيم الإثراء
-#   .conflict_resolution     (str|null)         — كيف حُسمت التعارضات
-#   .figurative_analysis     (str|null)         — تحليل المجاز
-#   .morphology_notes        (str|null)         — ملاحظات صرفية
-#   .broken_plural_reasoning (str|null)         — تعليل ربط جمع التكسير
-#   .adverb_reasoning        (str|null)         — تعليل قبول الظرف
 #   .cultural_fit_reasoning  (str)              — تعليل التصنيف الثقافي
 #
 # step5_enrichment.actions[]
 #   ← فقط الأوامر غير المشتقّة (مثل «سجّل ملاحظة دلالية»)
-#   ← أوامر الإثراء والمتلازمات والأمثلة والصرف والإطار تُشتق تلقائياً من الكتل أعلاه
+#   ← أوامر الأمثلة والصرف والإطار تُشتق تلقائياً من الكتل أعلاه
 #
 # ملاحظة DRY: احذف أي حقل قيمته null أو [] أو {} أو false (الافتراضي)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# الخطوة ٠٫٥: توليد لمّات من التعريف (Definition-Driven Lemma Generation)
+# ══════════════════════════════════════════════════════════════════════════════
+#
+# الهدف: توليد 2-4 لمّات عربية تمثّل دلالة التعريف — بدون الاطلاع على اللمّات الموجودة
+# المصدر ١: الأدلة المعجمية (per_synset) — 1-2 لمّات
+# المصدر ٢: المعرفة اللغوية الداخلية — 1-2 لمّات
+#
+# المخرج: step05_lemma_generation
+#   .evidence_candidates[]         — لمّات مستخرجة من الأدلة المعجمية (1-2)
+#     .lemma                       — اللمّة المرشحة
+#     .source_section              — القسم المصدري (step4_fts_keyword / step5_english_bridge / step9_specialized)
+#     .evidence_citation           — اقتباس الدليل المعجمي بصيغة «نص» — اسم المعجم
+#     .reasoning                   — تبرير الاختيار: لماذا تمثّل هذه الكلمة دلالة التعريف
+#   .knowledge_candidates[]        — لمّات من المعرفة اللغوية الداخلية (1-2)
+#     .lemma                       — اللمّة المرشحة
+#     .reasoning                   — تبرير الاختيار: لماذا تمثّل هذه الكلمة دلالة التعريف
+#   .generation_notes              — ملاحظات عامة على عملية التوليد (اختياري)
+#
+# ── مثال ١: مفهوم مجرد (surety / اليقين) ──
+step05_lemma_generation:
+  evidence_candidates:
+  - lemma: ثُبُوت
+    source_section: step9_specialized
+    evidence_citation: "«الثُّبُوتُ: ضِدُّ الزَّوالِ» — لسان العرب"
+    reasoning: مصدر من الجذر ث-ب-ت يدل على الاستقرار والرسوخ، وهو مرادف قريب لمفهوم الشيء المُثبَت
+  - lemma: رُسُوخ
+    source_section: step4_fts_keyword
+    evidence_citation: "«الرُّسُوخُ: الثَّبَاتُ في الشيء» — المعجم الوسيط"
+    reasoning: مرادف دلالي يتضمن معنى الثبات والاستقرار بوضوح
+  knowledge_candidates:
+  - lemma: يَقِين
+    reasoning: مصطلح أساسي في الحقل الدلالي للثبات والتأكد، يُستخدم في الفصحى المعاصرة والتراثية
+  generation_notes: التعريف يشير إلى مفهوم الإثبات الواضح؛ الجذور الدلالية المركزية هي ث-ب-ت ور-س-خ وي-ق-ن
+
+# ── مثال ٢: مصطلح طبي (celiac trunk) ──
+#step05_lemma_generation:
+#  evidence_candidates:
+#  - lemma: الشريان البطني
+#    source_section: step5_english_bridge
+#    evidence_citation: "«الشِّرْيانُ البَطْنِيّ (الجِذْعُ البَطْنِيّ)» — المعجم الطبي الموحد (2009)"
+#    reasoning: مقابل عربي مباشر للمصطلح الإنجليزي celiac artery من معجم طبي معتمد
+#  knowledge_candidates:
+#  - lemma: الجذع الزلاقي
+#    reasoning: مصطلح تشريحي تقني يُستخدم في المراجع الطبية العربية كمرادف لـ Celiac trunk
+#  generation_notes: المصطلح تشريحي متخصص؛ الأدلة المعجمية متوفرة عبر الجسر الإنجليزي (المعجم الطبي الموحد)
+
+# ── مثال ٣: لا أدلة معجمية (كيان مسمى) ──
+#step05_lemma_generation:
+#  evidence_candidates:
+#  - lemma: جيش توباك كاتاري
+#    source_section: step5_english_bridge
+#    evidence_citation: "لا مدخلات معجمية مباشرة — الاسم مأخوذ من الترجمة الإنجليزية"
+#    reasoning: ترجمة حرفية للاسم الرسمي للتنظيم العسكري
+#  knowledge_candidates:
+#  - lemma: حركة توباك كاتاري
+#    reasoning: تسمية بديلة شائعة في الأدبيات العربية لهذا التنظيم البوليفي
+#  generation_notes: كيان مسمى — الترجمة الحرفية هي المصدر الأساسي
+
+# ══════════════════════════════════════════════════════════════════════════════
+# ملخص حقول الخطوة ٠٫٥
+# ══════════════════════════════════════════════════════════════════════════════
+#
+# step05_lemma_generation
+#   .evidence_candidates[]         — لمّات من الأدلة (≥1)
+#     .lemma                       (str)              — اللمّة المرشحة
+#     .source_section              (str)              — القسم المصدري
+#     .evidence_citation           (str)              — اقتباس «نص» — معجم
+#     .reasoning                   (str)              — تبرير الاختيار
+#   .knowledge_candidates[]        — لمّات من المعرفة (≥1)
+#     .lemma                       (str)              — اللمّة المرشحة
+#     .reasoning                   (str)              — تبرير الاختيار
+#   .generation_notes              (str|null)          — ملاحظات عامة
+#
+# المجموع الكلي: 2-4 مرشحات (≥1 من الأدلة + ≥1 من المعرفة)
+# المرشحات تُمرَّر إلى الخطوة ١ للتحقق الكامل
