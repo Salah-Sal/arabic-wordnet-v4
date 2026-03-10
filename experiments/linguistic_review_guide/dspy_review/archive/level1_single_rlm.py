@@ -376,7 +376,7 @@ Examples:
                         help="Process all evidence files in the evidence directory")
     parser.add_argument("--evidence-dir", type=str, default=str(EVIDENCE_DIR),
                         help="Directory with .evidence.yaml files")
-    parser.add_argument("--output-dir", type=str, default=str(PROJECT_DIR / "reviews_level1"),
+    parser.add_argument("--output-dir", type=str, default=str(PROJECT_DIR / "output" / "reviews_level1"),
                         help="Output directory for review YAML files")
     parser.add_argument("--max-iterations", type=int, default=40,
                         help="Max REPL loop iterations (default: 40)")

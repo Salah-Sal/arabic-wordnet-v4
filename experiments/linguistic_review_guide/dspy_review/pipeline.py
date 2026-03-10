@@ -567,7 +567,7 @@ Examples:
     parser.add_argument("--evidence-dir", type=str, default=str(EVIDENCE_DIR),
                         help="Directory with .evidence.yaml files")
     parser.add_argument("--output-dir", type=str,
-                        default=str(PROJECT_DIR / "reviews_level4"),
+                        default=str(PROJECT_DIR / "output" / "reviews_level4"),
                         help="Output directory for review YAML files")
     parser.add_argument("--max-iterations", type=int, default=25,
                         help="Max REPL loop iterations per RLM step (default: 25)")
