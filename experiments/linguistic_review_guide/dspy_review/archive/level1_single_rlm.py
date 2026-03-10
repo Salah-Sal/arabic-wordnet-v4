@@ -33,10 +33,9 @@ from pathlib import Path
 
 import yaml
 import dspy
-from dspy.utils.callback import BaseCallback
 
 from dspy_review.config import configure_lm, make_sub_lm, add_model_args
-from dspy_review.tracing import setup_mlflow, add_mlflow_args
+from dspy_review.tracing import RLMProgressCallback, setup_mlflow, add_mlflow_args
 from dspy_review.shared import (
     PROJECT_DIR,
     EVIDENCE_DIR,
@@ -48,67 +47,6 @@ from dspy_review.shared import (
     extract_synset_id,
     dump_yaml,
 )
-
-
-# ═══════════════════════════════════════════════════════════════
-# Progress callback — real-time visibility into RLM execution
-# ═══════════════════════════════════════════════════════════════
-
-class RLMProgressCallback(BaseCallback):
-    """Prints real-time progress for every RLM iteration and sub-LM call."""
-
-    def __init__(self):
-        self.rlm_start_time = None
-        self.iteration = 0
-        self.sub_lm_calls = 0
-        self._lm_timers: dict[str, float] = {}
-        self._rlm_call_id: str | None = None
-
-    def on_module_start(self, call_id, instance, inputs):
-        if isinstance(instance, dspy.RLM):
-            self._rlm_call_id = call_id
-            self.rlm_start_time = time.time()
-            self.iteration = 0
-            self.sub_lm_calls = 0
-            print("  [RLM] Starting REPL execution loop")
-
-    def on_module_end(self, call_id, outputs, exception):
-        if call_id == self._rlm_call_id:
-            elapsed = time.time() - (self.rlm_start_time or time.time())
-            status = "ERROR" if exception else "OK"
-            print(f"  [RLM] Done ({status}): {self.iteration} iterations, "
-                  f"{self.sub_lm_calls} sub-LM calls, {elapsed:.1f}s total")
-            self._rlm_call_id = None
-
-    def on_lm_start(self, call_id, instance, inputs):
-        self._lm_timers[call_id] = time.time()
-        messages = inputs.get("messages", [])
-        # Main LM calls include the REPL history in messages; sub-LM calls are short prompts
-        is_main = any("repl" in str(m).lower() or "SUBMIT" in str(m) for m in messages)
-        if is_main:
-            self.iteration += 1
-            elapsed = time.time() - (self.rlm_start_time or time.time())
-            print(f"  [RLM] Iteration {self.iteration} — generating action ({elapsed:.0f}s elapsed)")
-        else:
-            self.sub_lm_calls += 1
-            model = getattr(instance, 'model', '?')
-            prompt_preview = str(messages[-1] if messages else inputs.get("prompt", ""))[:120]
-            print(f"  [sub-LM #{self.sub_lm_calls}] {model} — {prompt_preview}...")
-
-    def on_lm_end(self, call_id, outputs, exception):
-        t0 = self._lm_timers.pop(call_id, None)
-        dur = f"{time.time() - t0:.1f}s" if t0 else "?"
-        if exception:
-            print(f"  [LM] ERROR after {dur}: {exception}")
-        elif outputs:
-            # Show token usage if available
-            usage = outputs.get("usage", {}) if isinstance(outputs, dict) else {}
-            tokens = ""
-            if usage:
-                inp = usage.get("prompt_tokens", 0)
-                out = usage.get("completion_tokens", 0)
-                tokens = f" ({inp}+{out} tokens)"
-            print(f"  [LM] Done in {dur}{tokens}")
 
 
 # ═══════════════════════════════════════════════════════════════
