@@ -36,6 +36,7 @@ from pathlib import Path
 
 import yaml
 import dspy
+from dspy.utils.usage_tracker import track_usage
 
 from dspy_review.config import configure_lm, make_sub_lm, add_model_args
 from dspy_review.tracing import setup_mlflow, add_mlflow_args
@@ -383,6 +384,10 @@ class StepDecomposedReviewer:
         timings = {}
         results = {}
 
+        # Start token usage tracking (captures all LM calls — main + sub, RLM + CoT)
+        _usage_cm = track_usage()
+        usage_tracker = _usage_cm.__enter__()
+
         # ── Step 0: Evidence Classification (RLM) ───────────────
         print("  [Pipeline] Step 0: Evidence Classification (RLM)")
         t0 = time.time()
@@ -561,6 +566,10 @@ class StepDecomposedReviewer:
         results["review_yaml"] = review_yaml
         results["step_timings"] = timings
 
+        # End token tracking and collect totals
+        _usage_cm.__exit__(None, None, None)
+        results["token_usage"] = usage_tracker.get_total_tokens()
+
         total = sum(timings.values())
         print(f"  [Pipeline] All steps complete ({total:.1f}s total)")
 
@@ -700,10 +709,12 @@ Examples:
                     with open(step_path, "w", encoding="utf-8") as f:
                         f.write(results[step_key])
 
-            # Save timings
+            # Save timings + token usage
             timings_path = output_dir / f"{synset_id}.timings.json"
+            timings_data = dict(results.get("step_timings", {}))
+            timings_data["token_usage"] = results.get("token_usage", {})
             with open(timings_path, "w", encoding="utf-8") as f:
-                json.dump(results.get("step_timings", {}), f, indent=2)
+                json.dump(timings_data, f, indent=2, default=str)
 
             review_lines = results["review_yaml"].count("\n")
             timings = results.get("step_timings", {})
