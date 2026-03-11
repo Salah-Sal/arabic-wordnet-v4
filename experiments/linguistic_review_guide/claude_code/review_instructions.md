@@ -252,6 +252,26 @@
 - كل خطوة قد تنتج قائمة `actions:` بأوامر مقترحة.
 - استخدم YAML anchors (&idNNN) عند تعريف الأوامر داخل كل خطوة.
 - سيتم جمع جميع الأوامر في قائمة موحدة في نهاية الملف.
+- **حقل `command` يجب أن يكون اسم method من الجدول أدناه بالضبط — لا تستخدم أسماء عربية حرة.**
+
+| command | الخطوة | params |
+|---|---|---|
+| `create_entry` | ١ | `lemma`, `pos` |
+| `add_sense` | ١ | `entry_id`, `synset_id` |
+| `remove_sense` | ١ | `sense_id` |
+| `move_sense` | ١ | `sense_id`, `target_synset_id` |
+| `update_definition` | ٣ | `synset_id`, `definition_index`, `text` |
+| `add_definition` | ٣ | `synset_id`, `text` |
+| `add_synset_relation` | ٤ | `source_id`, `relation_type`, `target_id` |
+| `remove_synset_relation` | ٤ | `source_id`, `relation_type`, `target_id` |
+| `add_synset_example` | ٥ | `synset_id`, `text` |
+| `add_sense_example` | ٥ | `sense_id`, `text` |
+| `set_metadata` | ٥ | `entity_type`, `entity_id`, `key`, `value` |
+| `set_confidence` | تقييم | `entity_type`, `entity_id`, `score` |
+| `split_synset` | ١/٤ | `synset_id`, `sense_groups` |
+| `merge_synsets` | ٤ | `source_id`, `target_id` |
+
+> ملاحظة: إضافة لمّة جديدة = `create_entry` ثم `add_sense`. حذف لمّة = `remove_sense`. قيم `entry_id`/`sense_id` غير المعروفة اكتبها `"{auto}"`.
 
 ---
 
@@ -304,10 +324,7 @@ step1_lemma_validation:
         result: "pass"                       # pass | fail
       nuance_differentiation: "..."          # إلزامي — مبدأ منع الترادف التام
       example: "جملة عربية فصيحة تُظهر اللمّة في سياق استعمالي"  # إلزامي للمؤكَّدة
-      actions:
-        - &id001
-          command: "..."
-          params: ...
+      actions: []                              # لمّة موجودة مؤكدة — لا أمر مطلوب
 
     # ── مرشح من الخطوة ٠٫٥ — مقبول ──
     - lemma: "..."
@@ -320,10 +337,16 @@ step1_lemma_validation:
       nuance_differentiation: "..."          # إلزامي — كيف يتميز عن اللمّات الأصلية
       example: "جملة عربية فصيحة تُظهر اللمّة في سياق استعمالي"  # إلزامي للمؤكَّدة
       actions:
-        - &id002
-          command: "أضف لمّة جديدة إلى المجموعة"
+        - &id001
+          command: create_entry
           params:
-            new_lemma: "..."
+            lemma: "..."
+            pos: n
+        - &id002
+          command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-XXXXXXXX-n"
 
     # ── مرشح من الخطوة ٠٫٥ — مرفوض ──
     - lemma: "..."
@@ -338,7 +361,7 @@ step1_lemma_validation:
   added_lemmas:                              # لمّات أُضيفت من الخطوة ٠٫٥ — احذف إذا لم تُضف لمّات (DRY)
     - lemma: "..."
       reason: "مصدر: الخطوة ٠٫٥"
-      via_command: "أضف لمّة جديدة إلى المجموعة"
+      via_command: create_entry + add_sense
 
 step3_definition:
   definition_review_flag: true/false
