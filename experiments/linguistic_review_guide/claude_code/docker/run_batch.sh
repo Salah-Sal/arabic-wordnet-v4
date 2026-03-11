@@ -4,8 +4,10 @@
 # Architecture: Claude Code is the full autonomous agent.
 # The container runs run_review.sh which calls `claude -p` once per synset.
 #
-# Security: --cap-drop=ALL, --security-opt=no-new-privileges,
-#           read-only input, disposable container.
+# Security: egress firewall (default-deny whitelist inside container),
+#           read-only input mounts, disposable container.
+#           NET_ADMIN/NET_RAW caps required for iptables firewall setup.
+#           Note: no-new-privileges is incompatible with sudo (needed for firewall).
 #
 # Prerequisites:
 #   1. Run prepare.py on the host to generate prepared/ directory
@@ -52,8 +54,8 @@ echo "Args:     ${*:-'--all'}"
 echo
 
 docker run --rm \
-    --cap-drop=ALL \
-    --security-opt=no-new-privileges \
+    --cap-add=NET_ADMIN \
+    --cap-add=NET_RAW \
     -v "$PREPARED_DIR":/workspace/prepared:ro \
     -v "$GUIDE_DIR/spec":/workspace/spec:ro \
     -v "$CLAUDE_CODE_DIR/review_instructions.md":/workspace/review_instructions.md:ro \

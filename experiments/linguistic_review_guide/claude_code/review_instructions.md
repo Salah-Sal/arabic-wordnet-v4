@@ -80,17 +80,32 @@
 أنت ناقد لغوي عربي خبير. مهمتك: توليد لمّات عربية تمثّل دلالة المجموعة الترادفية
 انطلاقاً من التعريف فقط — بدون الاطلاع على اللمّات الموجودة.
 
+**منهجية التوليد:**
+عند توليد لمّات مرشحة، اتّبع ترتيبية التوليد المصطلحي بالأفضلية:
+
+1. **المجاز (الإزاحة الدلالية):** ابحث عن لفظ عربي قديم تربطه بالمفهوم مشابهة وظيفية أو شكلية أو تأثيرية، وأطلقه على المسمّى الجديد. فضّل **إحياء الألفاظ الميتة (الممات)** على الألفاظ الحيّة لتجنّب الاشتراك اللفظي.
+   - مثال: "الهاتف" ← الصوت الذي يُسمع ولا يُرى صاحبه (مشابهة وظيفية).
+2. **الاشتقاق:** اشتق من جذر عربي على وزن يناسب الوظيفة الدلالية:
+   - مِفْعَال لأجهزة القياس/الكشف، مِفْعَل للأدوات اليدوية، فَعَّالة للآلات ذات الحدث المتكرر
+   - فُعَال للأمراض، فَعُول للقابلية (-able)، تَفَاعُل للاشتراك والتماثل
+   - المصدر الصناعي (-يَّة) لتحويل أي أساس إلى مفهوم مجرد (-ism/-ity)
+3. **التركيب:** ضمّ كلمتَيْن أو أكثر في وحدة معجمية واحدة. الأنواع المنتجة: **الإضافي** (التهاب المفاصل) و**الوصفي** (آلة حاسبة) و**الإضافي الوصفي** (إدارة المصادر الطبيعية). التركيب هو الأداة الأكثر إنتاجية فعلياً في المعاجم العلمية العربية.
+4. **التعريب (الملاذ الأخير):** فقط للمصطلحات ذات الصيغة العالمية (أصول يونانية/لاتينية، أسماء علماء، عناصر كيميائية). يجب أن يقبل لام التعريف والنسبة والجمع السالم.
+
+> **قاعدة:** لا تتجاوز مرتبة إلى التي تليها إلا بعد استنفاد إمكانيات المرتبة الأعلى.
+
 الإجراء:
 1. اقرأ synset_info_masked.yaml: افهم التعريف ونوع الكلمة والمُشتمِل.
 2. اقرأ أقسام per_synset من ملف الأدلة (step4_fts_keyword, step5_english_bridge, step9_specialized) — هذه أقسام على مستوى المجموعة ولا تكشف أسماء اللمّات الموجودة.
 3. من الأدلة: اختر 1-2 لمّات مرشحة (evidence_candidates) مع اقتباس الدليل المعجمي.
-4. من معرفتك اللغوية: ولّد 1-2 لمّات إضافية (knowledge_candidates) مع تبرير.
+4. من معرفتك اللغوية: ولّد 1-2 لمّات إضافية (knowledge_candidates) مع تبرير — **حدّد آلية التوليد المستخدمة** (مجاز / اشتقاق / تركيب / تعريب) في حقل reasoning.
 
 قواعد حاسمة:
 - لا تكرر كلمات من التعريف نفسه كلمّات مرشحة (تجنّب الدوران).
 - اللمّات المرشحة يجب أن تكون مصطلحات مسكوكة أو تعابير اصطلاحية ثابتة — ليست عبارات وصفية حرة.
-  المعيار: إذا أمكن إبدال أحد مكوّنات التعبير بمرادف قريب وبقي التعبير صالحاً كوصف للمفهوم
+  **اختبار السكّ:** إذا أمكن إبدال أحد مكوّنات التعبير بمرادف قريب وبقي التعبير صالحاً كوصف للمفهوم
   فهو تركيب وصفي حر وليس مصطلحاً.
+  **اختبار التثبيت المعجمي:** المركبات الإضافية والوصفية مقبولة فقط إذا كانت وحدة معجمية ثابتة مسجّلة في المعاجم أو الاستعمال التخصصي — لا تقبل مركبات وصفية ابتكرتها أنت لم ترد في أي مصدر.
 - المفتاح الرئيسي يجب أن يكون `step05_lemma_generation` بالضبط.
 
 ---
@@ -104,20 +119,38 @@
 
 لكل لمّة موجودة:
 1. تقييم الأدلة (4 حالات: no_material_found / contradicts_only / expands_only / confirm)
-2. اختبار التعبير المركب (MWE) — اقبل فقط التعابير الاصطلاحية
+2. اختبار التعبير المركب (MWE) — اقبل فقط التعابير الاصطلاحية. صنّف نوع المركب: **إضافي** / **وصفي** / **مزجي** — الأنواع الثلاثة الأولى منتجة؛ ارفض المركبات الإسنادية والإتباعية.
 3. فحص اللهجية — احذف الأشكال غير الفصيحة
 4. اختبار الاستبدال — هل يمكن إبدال هذه اللمّة بأخواتها في السياق؟
-5. مبدأ عدم الترادف المطلق — وثّق ما يميّز كل لمّة (nuance_differentiation — **إلزامي دائماً**)
-6. فحص الاقتراض والترجمة الحرفية (calques)
-7. القرار النهائي: **confirmed** / **removed** / **escalated**
+5. مبدأ عدم الترادف المطلق — وثّق ما يميّز كل لمّة (nuance_differentiation — **إلزامي دائماً**).
+   اتّبع منهج **كتب الفروق**: حدّد الظلّ الدلالي الدقيق الذي يفصل هذه اللمّة عن أخواتها — لا تكتفِ بالقول "مختلفة".
+   إذا كانت اللمّات "مترادفة جزئياً" يمكن توزيعها على مفاهيم فرعية مختلفة — وثّق الاقتراح.
+6. فحص الاقتراض — ثلاثة فحوصات فرعية:
+   أ. **الاقتراض اللفظي:** هل اللمّة مقترضة؟ إذا نعم: هل هي **معرَّبة** (أُخضعت للصرف العربي — مقبولة) أم **دخيلة** (بقيت على لفظها الأجنبي — تحتاج مراجعة)؟
+   ب. **الترجمة الحرفية العمياء (Blind Literal):** هل يتّفق المصطلح العربي مع **المدلول العلمي** للمفهوم، أم أنه مجرد نقل حرفي للدلالة اللفظية الأجنبية؟ (مثال: Dead Room ≠ "غرفة ميتة" بل "غرفة كاتمة").
+   ج. **الاقتراض المفهومي (Calque):** هل تم استعارة الهيكل الاستعاري الأجنبي وملؤه بقوالب عربية؟ هذا مقبول إذا كان الهيكل واضحاً (مثل: شبكة عصبونية ← Neural Network).
+7. **بوابة جودة المصطلح** — طبّق المعايير الستة بإيجاز:
+   - **الاطّراد وشيوع الفصيح:** هل اللمّة مستعملة فعلياً عند المتخصصين بالفصحى؟
+   - **يُسر التداول:** هل هي يسيرة النطق خفيفة على اللسان؟
+   - **الملاءمة:** هل تتناظر بدقة مع المفهوم المقصود؟
+   - **إيثار التراثي:** هل يوجد لفظ تراثي يؤدي المعنى؟ إن وُجد فهو أَوْلى.
+   - **إيثار العربي:** فضّل اللفظ العربي الفصيح على العامّي والأجنبي.
+   - **الاشتقاقية:** هل يسمح اللفظ بتوليد أسرة أفعال وصفات منه؟ (مثلاً: "شيفرة" → يشفّر، مشفَّر ✓ مقابل "رموز برمجية" → جامد ✗).
+   وثّق أي إشكالية في حقل `reasoning`.
+8. **فحص الملاءمة الصرفية:** هل الوزن الصرفي للمّة يناسب وظيفتها الدلالية؟
+   - مثلاً: مِفْعَال لأجهزة القياس، فَعَّالة للآلات، فُعَال للأمراض، فَعُول للقابلية.
+   - إذا كان الوزن يوحي بوظيفة مختلفة عن المقصود — وثّق الملاحظة.
+9. القرار النهائي: **confirmed** / **removed** / **escalated**
 
-بعد الانتهاء من اللمّات الموجودة، افحص مرشحات الخطوة ٠٫٥:
+بعد الانتهاء من اللمّات الموجودة، افحص **كل** مرشح من مرشحات الخطوة ٠٫٥ — **أضفه إلى `per_lemma` ببنية تحليل كاملة:**
+- عيّن `source: step05` لتمييزه عن اللمّات الأصلية.
 - اختبار الإبدال مع اللمّات الموجودة المؤكدة
-- فحص MWE إذا كان تعبيراً مركباً
+- فحص MWE إذا كان تعبيراً مركباً (صنّف النوع كما في البند 2 أعلاه)
 - فحص اللهجة — رفض الأشكال العامية
-- اختبار السَّكّ المصطلحي — ارفض العبارات الوصفية الحرة
-- إذا نجح → أضفه إلى `added_lemmas` مع ملاحظة "مصدر: الخطوة ٠٫٥"
-- المرشحات من الخطوة ٠٫٥ لا تملك أدلة الخطوة ٠ — استخدم تبريرات الخطوة ٠٫٥ بدلاً منها.
+- اختبار السَّكّ المصطلحي — ارفض العبارات الوصفية الحرة (اختبار السكّ + اختبار التثبيت المعجمي من الخطوة ٠٫٥)
+- فحص الاقتراض (البند 6 أعلاه) + بوابة الجودة (البند 7) + الملاءمة الصرفية (البند 8)
+- القرار النهائي: **confirmed** (→ أضفه أيضاً إلى `added_lemmas`) / **removed** (مع توثيق سبب الرفض)
+- المرشحات لا تملك أدلة الخطوة ٠ — بدلاً من `evidence_assessment`، استخدم `step05_citation` لتوثيق دليل الخطوة ٠٫٥.
 
 إذا وجدت سبباً لمراجعة التعريف: عيّن `synset_flags.definition_review_needed: true`
 
@@ -229,81 +262,156 @@
 ```yaml
 step0_evidence:
   per_lemma:
-    اسم_اللمّة:
-      confirm: [...]
-      contradicts: [...]
-      expands: [...]
+    - lemma: "اسم_اللمّة"
+      confirm:
+        - text: "«نص المدخل المعجمي كما ورد»"
+          source: "اسم_المعجم"
+      contradicts:
+        - text: "«نص معجمي»"
+          source: "اسم_المعجم"
+          conflict: "وجه التناقض مع تعريف المجموعة"
+      expands:
+        - text: "«نص معجمي»"
+          source: "اسم_المعجم"
+          addition: "البُعد الدلالي المُضاف"
       # evidence_status: "no_material_found"  # فقط إذا كانت كل القوائم فارغة
+      # peripheral_observations: [...]         # ملاحظات هامشية — معانٍ مستقلة تماماً
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "..."
+      source_section: "step4_fts_keyword"    # أو step5_english_bridge أو step9_specialized
+      evidence_citation: "«نص الاقتباس» — اسم المعجم"
+      reasoning: "..."
+  knowledge_candidates:
+    - lemma: "..."
+      reasoning: "..."
+  generation_notes: "..."                    # اختياري
 
 step1_lemma_validation:
   per_lemma:
-  - lemma: "..."
-    decision: confirmed  # confirmed | removed | escalated
-    decision_reason: "..."
-    evidence_assessment: ...
-    mwe_check: ...
-    substitution_test: ...
-    reasoning: ...
-    actions:
-    - &id001
-      command: "..."
-      params: ...
-  synset_flags:
-    definition_review_needed: true  # إذا كان هناك سبب لمراجعة التعريف
+    - lemma: "..."
+      decision: confirmed                    # confirmed | removed | escalated
+      decision_reason: "..."
+      evidence_assessment:
+        case: "confirm_only"                 # confirm_only | contradicts | expands | mixed | no_material
+      mwe_check:                             # فقط إذا تعبير مركب
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"                       # pass | fail
+      reasoning:
+        evidence_weight: "..."
+        nuance_differentiation: "..."        # إلزامي — مبدأ منع الترادف التام
+      actions:
+        - &id001
+          command: "..."
+          params: ...
 
-# نتائج الخطوة ٠٫٥ (Step 0.5 results)
-# إذا لم تُضف لمّات:
-status: none_added
-reasoning: "تفسير عدم وجود لمّات إضافية"
-# أو إذا أُضيفت لمّات:
-step2_missing_lemmas:
-  per_candidate:
-    اسم_اللمّة:
-      status: added
-      evidence: [...]
+    # ── مرشح من الخطوة ٠٫٥ — مقبول ──
+    - lemma: "..."
+      source: step05                         # علامة مرشح من الخطوة ٠٫٥
+      decision: confirmed                    # confirmed → يُضاف أيضاً إلى added_lemmas
+      decision_reason: "..."
+      step05_citation: "«نص الدليل» — المصدر"  # بدلاً من evidence_assessment
+      substitution_test:
+        result: "pass"
+      reasoning:
+        evidence_weight: "..."
+        nuance_differentiation: "..."        # إلزامي — كيف يتميز عن اللمّات الأصلية
+      actions:
+        - &id002
+          command: "أضف لمّة جديدة إلى المجموعة"
+          params:
+            new_lemma: "..."
+
+    # ── مرشح من الخطوة ٠٫٥ — مرفوض ──
+    - lemma: "..."
+      source: step05
+      decision: removed
+      decision_reason: "..."                 # سبب الرفض: تركيب وصفي حر / عامية / فشل الإبدال
+      step05_citation: "..."
+      reasoning:
+        rejection_justification: "..."       # تفصيل سبب الرفض
+
+  synset_flags:
+    definition_review_needed: true           # إذا كان هناك سبب لمراجعة التعريف
+    split_needed: true                       # إذا كان هناك سبب لفصل المجموعة
+  added_lemmas:                              # لمّات أُضيفت من الخطوة ٠٫٥ — احذف إذا لم تُضف لمّات (DRY)
+    - lemma: "..."
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "أضف لمّة جديدة إلى المجموعة"
 
 step3_definition:
   definition_review_flag: true/false
   current_definition: "..."
   assessment:
-    decision: retain  # retain | revise
+    decision: retain                         # retain | revise
     reason: "..."
-  authored_definitions:  # فقط إذا كان القرار revise
-  - type: encyclopedic  # terminological | linguistic | encyclopedic
-    text: "..."
-    quality_check: ...
-  reasoning: ...
+  scope_note: "..."                          # فقط إذا التعريف الكلاسيكي أوسع
+  authored_definitions:                      # فقط إذا كان القرار revise
+    - type: terminological                   # terminological | linguistic | encyclopedic
+      text: "..."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  reasoning:
+    dictionary_comparison: "..."
+    revision_justification: "..."            # فقط إذا revise
+    terminological_strategy: "..."
+    linguistic_strategy: "..."
   actions: [...]
 
 step4_relations:
-  hypernymy: ...
-  antonymy: ...
-  verb_checks: ...
-  selectional_restrictions: [...]
-  reasoning: ...
+  hypernymy:
+    current_hypernym: "..."
+    test_result: "correct"                   # correct | needs_closer | wrong
+  antonymy:
+    per_lemma:
+      - lemma: "..."
+        antonym_found: true
+        antonym: "..."
+  verb_checks:
+    applicable: true/false
+  selectional_restrictions:
+    - lemma: "..."
+      constraint: "..."
+  reasoning:
+    hypernymy_justification: "..."
+    antonymy_justification: "..."
+    frame_analysis: "..."
+    selectional_reasoning: "..."
   actions: [...]
 
 step5_enrichment:
   per_lemma:
-  - lemma: "..."
-    enrichment:
-      root: "ج-ذ-ر"
-    examples:
-    - text: "..."
-      type: usage  # hadith | quran | usage | poetry
-      source: "..."
-    pos_check:
-      pos: noun
+    - lemma: "..."
+      enrichment:
+        root: "ج-ذ-ر"
+        # figurative_relation: "metonymy"    # metaphor | metonymy — إن وُجدت
+        # etymology: "loanword"              # فقط إذا مقترضة
+      examples:                              # إلزامي — ≥1 لكل لمّة
+        - text: "..."
+          type: usage                        # quran | hadith | poetry | usage
+          source: "..."
+      morphology:                            # فقط إذا وُجد تصحيح أو رابط صرفي
+        broken_plural_link: "..."
+      pos_check:
+        pos: noun
+        # syntactic_frame: "..."             # للأفعال
   cultural_fit:
-    assessment: native  # native | phraset | lexical_gap | omission
-  reasoning: ...
+    assessment: native                       # native | phraset | lexical_gap | omission
+  reasoning:
+    cultural_fit_reasoning: "..."
   actions: [...]
 
 # قائمة الأوامر الموحدة — جمع من جميع الخطوات
 actions:
-- *id001
-- *id002
-# ...
+  - *id001
+  - *id002
+  # ...
 
 # تقييم (placeholder — يُملأ لاحقاً)
 evaluation:

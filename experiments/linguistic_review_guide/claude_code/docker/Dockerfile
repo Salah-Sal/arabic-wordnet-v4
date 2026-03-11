@@ -1,27 +1,39 @@
-FROM ubuntu:22.04
-ENV DEBIAN_FRONTEND=noninteractive
+FROM node:20
 
-# System deps (no Python needed — Claude Code is the only runtime)
-RUN apt-get update && apt-get install -y \
-    curl git jq bc ca-certificates \
-    && rm -rf /var/lib/apt/lists/*
+ARG CLAUDE_CODE_VERSION=latest
 
-# Node.js 20 (Claude Code runtime)
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y nodejs && rm -rf /var/lib/apt/lists/*
+# System deps for firewall + batch processing (no dev tools — headless runner)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    jq bc procps sudo \
+    iptables ipset iproute2 dnsutils \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Claude Code
-RUN npm install -g @anthropic-ai/claude-code
+# Claude Code (pinnable version for reproducible batch runs)
+ENV NPM_CONFIG_PREFIX=/usr/local/share/npm-global
+ENV PATH=$PATH:/usr/local/share/npm-global/bin
+RUN mkdir -p /usr/local/share/npm-global && chown -R node:node /usr/local/share/npm-global
+USER node
+RUN npm install -g @anthropic-ai/claude-code@${CLAUDE_CODE_VERSION}
 
-# Non-root user
-RUN useradd -m -s /bin/bash reviewer
-RUN mkdir -p /workspace/prepared /workspace/spec /output /home/reviewer/.claude \
-    && chown -R reviewer:reviewer /workspace /output /home/reviewer/.claude
+# OOM protection — default Node.js heap (~1.5 GB) can crash on large evidence files
+ENV NODE_OPTIONS=--max-old-space-size=4096
+
+# Workspace layout
+USER root
+RUN mkdir -p /workspace/prepared /workspace/spec /output /home/node/.claude \
+    && chown -R node:node /workspace /output /home/node/.claude
+
+# Firewall script (runs as root via sudo in entrypoint)
+COPY init-firewall.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/init-firewall.sh \
+    && echo "node ALL=(root) NOPASSWD: /usr/local/bin/init-firewall.sh" \
+       > /etc/sudoers.d/node-firewall \
+    && chmod 0440 /etc/sudoers.d/node-firewall
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
-USER reviewer
+USER node
 WORKDIR /workspace
 
 ENTRYPOINT ["entrypoint.sh"]
