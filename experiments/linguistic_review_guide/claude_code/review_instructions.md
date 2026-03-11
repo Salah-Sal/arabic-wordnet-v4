@@ -98,7 +98,7 @@
 1. اقرأ synset_info_masked.yaml: افهم التعريف ونوع الكلمة والمُشتمِل.
 2. اقرأ أقسام per_synset من ملف الأدلة (step4_fts_keyword, step5_english_bridge, step9_specialized) — هذه أقسام على مستوى المجموعة ولا تكشف أسماء اللمّات الموجودة.
 3. من الأدلة: اختر 1-2 لمّات مرشحة (evidence_candidates) مع اقتباس الدليل المعجمي.
-4. من معرفتك اللغوية: ولّد 1-2 لمّات إضافية (knowledge_candidates) مع تبرير — **حدّد آلية التوليد المستخدمة** (مجاز / اشتقاق / تركيب / تعريب) في حقل reasoning.
+4. من معرفتك اللغوية: ولّد 1-2 لمّات إضافية (knowledge_candidates) مع تبرير — **حدّد آلية التوليد المستخدمة** (مجاز / اشتقاق / تركيب / تعريب) ضمن نص التبرير.
 
 قواعد حاسمة:
 - لا تكرر كلمات من التعريف نفسه كلمّات مرشحة (تجنّب الدوران).
@@ -136,11 +136,12 @@
    - **إيثار التراثي:** هل يوجد لفظ تراثي يؤدي المعنى؟ إن وُجد فهو أَوْلى.
    - **إيثار العربي:** فضّل اللفظ العربي الفصيح على العامّي والأجنبي.
    - **الاشتقاقية:** هل يسمح اللفظ بتوليد أسرة أفعال وصفات منه؟ (مثلاً: "شيفرة" → يشفّر، مشفَّر ✓ مقابل "رموز برمجية" → جامد ✗).
-   وثّق أي إشكالية في حقل `reasoning`.
+   وثّق أي إشكالية في حقل `decision_reason`.
 8. **فحص الملاءمة الصرفية:** هل الوزن الصرفي للمّة يناسب وظيفتها الدلالية؟
    - مثلاً: مِفْعَال لأجهزة القياس، فَعَّالة للآلات، فُعَال للأمراض، فَعُول للقابلية.
    - إذا كان الوزن يوحي بوظيفة مختلفة عن المقصود — وثّق الملاحظة.
 9. القرار النهائي: **confirmed** / **removed** / **escalated**
+10. **مثال استعمالي** (للمؤكَّدة فقط): لكل لمّة مؤكدة، ولّد جملة عربية فصيحة طبيعية تُظهر اللمّة في سياق استعمالي حقيقي يوضّح المفهوم المقصود — ليست جملة تعريفية بل جملة يمكن أن ترد في نص متخصص أو خبر أو تقرير.
 
 بعد الانتهاء من اللمّات الموجودة، افحص **كل** مرشح من مرشحات الخطوة ٠٫٥ — **أضفه إلى `per_lemma` ببنية تحليل كاملة:**
 - عيّن `source: step05` لتمييزه عن اللمّات الأصلية.
@@ -239,6 +240,7 @@
 
 ### اصطلاحات الاختصار (DRY Convention)
 - احذف أي حقل قيمته null أو [] أو {} أو false — المحلل يفترض هذه القيم تلقائياً.
+- **لا تُنشئ حقول `reasoning` في أي خطوة.** جميع التبريرات تُكتب في الحقول المخصصة لها (`decision_reason`, `nuance_differentiation`, `conflict`, `addition`, إلخ). إذا لم يوجد حقل مخصص — لا تكتب التبرير.
 - هذا يحافظ على حجم YAML الصغير.
 
 ### لغة التحليل
@@ -282,10 +284,10 @@ step05_lemma_generation:
     - lemma: "..."
       source_section: "step4_fts_keyword"    # أو step5_english_bridge أو step9_specialized
       evidence_citation: "«نص الاقتباس» — اسم المعجم"
-      reasoning: "..."
+      justification: "..."
   knowledge_candidates:
     - lemma: "..."
-      reasoning: "..."
+      justification: "..."
   generation_notes: "..."                    # اختياري
 
 step1_lemma_validation:
@@ -300,9 +302,8 @@ step1_lemma_validation:
         accepted: true
       substitution_test:
         result: "pass"                       # pass | fail
-      reasoning:
-        evidence_weight: "..."
-        nuance_differentiation: "..."        # إلزامي — مبدأ منع الترادف التام
+      nuance_differentiation: "..."          # إلزامي — مبدأ منع الترادف التام
+      example: "جملة عربية فصيحة تُظهر اللمّة في سياق استعمالي"  # إلزامي للمؤكَّدة
       actions:
         - &id001
           command: "..."
@@ -316,9 +317,8 @@ step1_lemma_validation:
       step05_citation: "«نص الدليل» — المصدر"  # بدلاً من evidence_assessment
       substitution_test:
         result: "pass"
-      reasoning:
-        evidence_weight: "..."
-        nuance_differentiation: "..."        # إلزامي — كيف يتميز عن اللمّات الأصلية
+      nuance_differentiation: "..."          # إلزامي — كيف يتميز عن اللمّات الأصلية
+      example: "جملة عربية فصيحة تُظهر اللمّة في سياق استعمالي"  # إلزامي للمؤكَّدة
       actions:
         - &id002
           command: "أضف لمّة جديدة إلى المجموعة"
@@ -331,8 +331,6 @@ step1_lemma_validation:
       decision: removed
       decision_reason: "..."                 # سبب الرفض: تركيب وصفي حر / عامية / فشل الإبدال
       step05_citation: "..."
-      reasoning:
-        rejection_justification: "..."       # تفصيل سبب الرفض
 
   synset_flags:
     definition_review_needed: true           # إذا كان هناك سبب لمراجعة التعريف
@@ -357,11 +355,6 @@ step3_definition:
         differentia_present: true
         circular: false
         passed: true
-  reasoning:
-    dictionary_comparison: "..."
-    revision_justification: "..."            # فقط إذا revise
-    terminological_strategy: "..."
-    linguistic_strategy: "..."
   actions: [...]
 
 step4_relations:
@@ -378,11 +371,6 @@ step4_relations:
   selectional_restrictions:
     - lemma: "..."
       constraint: "..."
-  reasoning:
-    hypernymy_justification: "..."
-    antonymy_justification: "..."
-    frame_analysis: "..."
-    selectional_reasoning: "..."
   actions: [...]
 
 step5_enrichment:
@@ -403,8 +391,6 @@ step5_enrichment:
         # syntactic_frame: "..."             # للأفعال
   cultural_fit:
     assessment: native                       # native | phraset | lexical_gap | omission
-  reasoning:
-    cultural_fit_reasoning: "..."
   actions: [...]
 
 # قائمة الأوامر الموحدة — جمع من جميع الخطوات
