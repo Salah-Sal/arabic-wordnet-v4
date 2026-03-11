@@ -250,8 +250,7 @@
 
 ### الأوامر (Actions)
 - كل خطوة قد تنتج قائمة `actions:` بأوامر مقترحة.
-- استخدم YAML anchors (&idNNN) عند تعريف الأوامر داخل كل خطوة.
-- سيتم جمع جميع الأوامر في قائمة موحدة في نهاية الملف.
+- سجّل الأوامر مباشرةً في كل خطوة بصيغة `command` + `params` — **لا تستخدم YAML anchors أو aliases.**
 - **حقل `command` يجب أن يكون اسم method من الجدول أدناه بالضبط — لا تستخدم أسماء عربية حرة.**
 
 | command | الخطوة | params |
@@ -326,6 +325,31 @@ step1_lemma_validation:
       example: "جملة عربية فصيحة تُظهر اللمّة في سياق استعمالي"  # إلزامي للمؤكَّدة
       actions: []                              # لمّة موجودة مؤكدة — لا أمر مطلوب
 
+    # ── لمّة أصلية — محذوفة ──
+    - lemma: "..."
+      decision: removed
+      decision_reason: "..."
+      evidence_assessment:
+        case: "..."
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "..."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    # ── لمّة أصلية — مُصعَّدة ──
+    - lemma: "..."
+      decision: escalated
+      decision_reason: "..."
+      evidence_assessment:
+        case: "..."
+      nuance_differentiation: "..."
+
     # ── مرشح من الخطوة ٠٫٥ — مقبول ──
     - lemma: "..."
       source: step05                         # علامة مرشح من الخطوة ٠٫٥
@@ -337,13 +361,11 @@ step1_lemma_validation:
       nuance_differentiation: "..."          # إلزامي — كيف يتميز عن اللمّات الأصلية
       example: "جملة عربية فصيحة تُظهر اللمّة في سياق استعمالي"  # إلزامي للمؤكَّدة
       actions:
-        - &id001
-          command: create_entry
+        - command: create_entry
           params:
             lemma: "..."
             pos: n
-        - &id002
-          command: add_sense
+        - command: add_sense
           params:
             entry_id: "{auto}"
             synset_id: "awn4-XXXXXXXX-n"
@@ -378,7 +400,12 @@ step3_definition:
         differentia_present: true
         circular: false
         passed: true
-  actions: [...]
+  actions:                                     # احذف إذا لم يتغيّر التعريف (DRY)
+    - command: update_definition
+      params:
+        synset_id: "awn4-XXXXXXXX-n"
+        definition_index: 0
+        text: "..."
 
 step4_relations:
   hypernymy:
@@ -394,7 +421,12 @@ step4_relations:
   selectional_restrictions:
     - lemma: "..."
       constraint: "..."
-  actions: [...]
+  actions:                                     # احذف إذا لم تتغيّر العلاقات (DRY)
+    - command: add_synset_relation
+      params:
+        source_id: "awn4-XXXXXXXX-n"
+        relation_type: "..."
+        target_id: "awn4-YYYYYYYY-n"
 
 step5_enrichment:
   per_lemma:
@@ -414,28 +446,15 @@ step5_enrichment:
         # syntactic_frame: "..."             # للأفعال
   cultural_fit:
     assessment: native                       # native | phraset | lexical_gap | omission
-  actions: [...]
-
-# قائمة الأوامر الموحدة — جمع من جميع الخطوات
-actions:
-  - *id001
-  - *id002
-  # ...
-
-# تقييم (placeholder — يُملأ لاحقاً)
-evaluation:
-  semantic_accuracy: null
-  gloss_quality: null
-  synonym_coherence: null
-  completeness: null
-  cultural_adequacy: null
-  overall: null
+  actions:                                     # احذف إذا لم تُضف أمثلة أو بيانات وصفية (DRY)
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-XXXXXXXX-n"
+        text: "..."
 ```
 
 ### قواعد التجميع:
-1. **الأوامر الموحدة:** اجمع كل الأوامر (actions) من جميع الخطوات في قائمة `actions:` واحدة في نهاية الملف باستخدام YAML aliases (*idNNN).
-2. **حذف أوامر اللمّات المحذوفة:** إذا كانت لمّة قد حُذفت (removed) أو رُفعت (escalated) في الخطوة ١، فاحذف أي أوامر تستهدفها من القائمة الموحدة — باستثناء أوامر الحذف/الرفع نفسها.
-3. **كتلة التقييم:** أضف كتلة `evaluation:` مع جميع القيم null.
+1. **الأوامر:** الأوامر مسجّلة مباشرةً في كل خطوة — لا حاجة لقائمة موحّدة منفصلة ولا لـ YAML anchors/aliases.
 
 ### تعليمات الكتابة:
 استخدم أداة Write لكتابة ملف YAML النهائي إلى المسار المحدد في رسالة المستخدم.
