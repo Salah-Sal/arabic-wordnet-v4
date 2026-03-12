@@ -204,6 +204,13 @@ Write the complete review YAML to: ${REVIEW_PATH}"
     fi
 done
 
+# ── Single-synset mode: return meaningful exit code for batch_runner.py ──
+if [ "$TOTAL" = "1" ]; then
+    if [ "$DONE" = "1" ]; then exit 0; fi
+    if [ "$SKIP" = "1" ]; then exit 0; fi
+    exit 1  # failure — no review produced
+fi
+
 echo ""
 echo "=== Summary ==="
 echo "Total: $TOTAL | Done: $DONE | Skipped: $SKIP | Failed: $FAIL"

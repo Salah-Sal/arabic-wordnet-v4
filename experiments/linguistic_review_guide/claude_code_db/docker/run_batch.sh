@@ -1,9 +1,9 @@
 #!/bin/bash
-# Launch the full batch review inside a Docker container (DB-direct pipeline).
+# Launch the concurrent batch review inside a Docker container (DB-direct pipeline).
 #
-# Architecture: Claude Code is the full autonomous agent.
-# The container runs run_review.sh which calls `claude -p` once per synset.
-# Claude queries the Arabic dictionary SQLite DB directly via sqlite3 CLI.
+# Architecture: batch_runner.py orchestrates parallel run_review.sh workers.
+# Each worker calls `claude -p` once per synset, querying the Arabic dictionary
+# SQLite DB directly via sqlite3 CLI.
 #
 # Security: egress firewall (default-deny whitelist inside container),
 #           read-only input mounts, disposable container.
@@ -16,9 +16,11 @@
 #   3. Arabic dictionary DB accessible
 #
 # Usage:
-#   ./run_batch.sh                     # Full corpus, Sonnet
-#   MODEL=haiku ./run_batch.sh         # Full corpus, Haiku
-#   ./run_batch.sh awn4-02592253-n     # Single synset
+#   ./run_batch.sh                              # All synsets, 4 workers
+#   ./run_batch.sh --workers 8                  # All synsets, 8 workers
+#   ./run_batch.sh --workers 2 awn4-02592253-n  # Single synset
+#   ./run_batch.sh --resume --workers 4         # Resume interrupted run
+#   MODEL=haiku ./run_batch.sh --workers 10     # Custom model
 
 set -euo pipefail
 
@@ -30,8 +32,23 @@ OUTPUT_DIR="${OUTPUT_DIR:-$GUIDE_DIR/output/reviews_claude_db}"
 ARABIC_DICT_DB="${ARABIC_DICT_DB:-$HOME/Desktop/MLProjects/wn-project/arabic-dictionaries/db/arabic_dict.db}"
 
 MODEL="${MODEL:-sonnet}"
+WORKERS="${WORKERS:-4}"
 
 mkdir -p "$OUTPUT_DIR"
+
+# ── Parse --workers from args (pass everything else through to batch_runner.py) ──
+BATCH_ARGS=()
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --workers) WORKERS="$2"; shift 2 ;;
+        --workers=*) WORKERS="${1#*=}"; shift ;;
+        *) BATCH_ARGS+=("$1"); shift ;;
+    esac
+done
+# Default to --all if no synset args given
+if [ ${#BATCH_ARGS[@]} -eq 0 ]; then
+    BATCH_ARGS=("--all")
+fi
 
 # ── Validate DB exists ──
 if [ ! -f "$ARABIC_DICT_DB" ]; then
@@ -61,7 +78,8 @@ echo "Prepared: $PREPARED_DIR"
 echo "Output:   $OUTPUT_DIR"
 echo "Database: $ARABIC_DICT_DB"
 echo "Model:    $MODEL"
-echo "Args:     ${*:-'--all'}"
+echo "Workers:  $WORKERS"
+echo "Args:     ${BATCH_ARGS[*]}"
 echo
 
 docker run --rm \
@@ -72,6 +90,8 @@ docker run --rm \
     -v "$CLAUDE_CODE_DB_DIR/review_instructions.md":/workspace/review_instructions.md:ro \
     -v "$CLAUDE_CODE_DB_DIR/db_reference.md":/workspace/db_reference.md:ro \
     -v "$CLAUDE_CODE_DB_DIR/run_review.sh":/workspace/run_review.sh:ro \
+    -v "$CLAUDE_CODE_DB_DIR/batch_runner.py":/workspace/batch_runner.py:ro \
+    -v "$CLAUDE_CODE_DB_DIR/batch_status.py":/workspace/batch_status.py:ro \
     -v "$ARABIC_DICT_DB":/data/arabic_dict.db:ro \
     -v "$OUTPUT_DIR":/output \
     -e CLAUDE_CREDS_JSON="$CREDS_JSON" \
@@ -82,4 +102,4 @@ docker run --rm \
     -e SPEC_DIR=/workspace/spec \
     -e ARABIC_DICT_DB=/data/arabic_dict.db \
     "$IMAGE_NAME" \
-    bash /workspace/run_review.sh "${@:---all}"
+    python3 /workspace/batch_runner.py --workers "$WORKERS" "${BATCH_ARGS[@]}"

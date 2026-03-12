@@ -1,0 +1,403 @@
+#!/usr/bin/env python3
+"""Concurrent batch runner for AWN4 linguistic review pipeline.
+
+Orchestrates parallel run_review.sh invocations with:
+- asyncio.Semaphore for concurrency limiting (up to 50 workers)
+- SQLite WAL-mode status DB for resumption
+- Exponential backoff retries
+- SIGINT/SIGTERM graceful shutdown
+- Periodic progress reporting
+
+Usage:
+    python3 batch_runner.py awn4-02592253-n awn4-06731387-n --workers 4
+    python3 batch_runner.py --all --workers 8
+    python3 batch_runner.py --batch synset_list.txt --workers 10
+    python3 batch_runner.py --resume --workers 4
+"""
+
+import argparse
+import asyncio
+import json
+import logging
+import os
+import signal
+import sys
+import time
+import uuid
+from pathlib import Path
+
+# batch_status.py lives alongside this file
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from batch_status import BatchStatusDB
+
+LOG_FMT = "%(asctime)s [%(levelname)s] %(message)s"
+LOG_DATEFMT = "%H:%M:%S"
+logger = logging.getLogger("batch_runner")
+
+MAX_WORKERS = 50
+BACKOFF_DELAYS = [10, 30, 90]  # seconds between retries
+
+
+class BatchRunner:
+    """Orchestrates concurrent synset reviews via run_review.sh subprocesses."""
+
+    def __init__(
+        self,
+        synset_ids: list[str],
+        workers: int = 4,
+        max_retries: int = 2,
+        timeout_minutes: int = 30,
+        run_id: str | None = None,
+        model: str | None = None,
+        resume_items: list[tuple[str, int]] | None = None,
+    ):
+        self.synset_ids = synset_ids
+        self.workers = min(workers, MAX_WORKERS)
+        self.max_retries = max_retries
+        self.timeout_s = timeout_minutes * 60
+        self.run_id = run_id or uuid.uuid4().hex[:8]
+        self.model = model or os.environ.get("MODEL", "sonnet")
+        self.resume_items = resume_items  # [(synset_id, last_attempt)] from --resume
+
+        # Paths (same env vars as run_review.sh)
+        self.script_dir = Path(__file__).resolve().parent
+        self.run_review_sh = self.script_dir / "run_review.sh"
+        guide_dir = self.script_dir.parent
+        self.output_dir = Path(
+            os.environ.get("OUTPUT_DIR", str(guide_dir / "output" / "reviews_claude_db"))
+        )
+        self.prepared_dir = Path(
+            os.environ.get("PREPARED_DIR", str(self.script_dir / "prepared"))
+        )
+
+        # Status DB
+        self.output_dir.mkdir(parents=True, exist_ok=True)
+        self.db = BatchStatusDB(self.output_dir / ".batch_status.db")
+
+        # Concurrency control
+        self.semaphore = asyncio.Semaphore(self.workers)
+        self.shutdown_event = asyncio.Event()
+        self.active_procs: dict[str, asyncio.subprocess.Process] = {}
+
+    async def run(self) -> int:
+        """Main entry point. Returns 0 if all succeeded, 1 if any failed."""
+        self._setup_signals()
+
+        # Initialize run in status DB
+        self.db.create_run(self.run_id, len(self.synset_ids), self.workers, self.model)
+        self.db.init_synsets(self.run_id, self.synset_ids)
+
+        # Build work queue: (synset_id, start_attempt)
+        work_queue = self._build_work_queue()
+
+        total = len(self.synset_ids)
+        skipped = total - len(work_queue)
+        logger.info(
+            f"Run {self.run_id}: {len(work_queue)} to process, {skipped} skipped, "
+            f"{self.workers} workers, model={self.model}"
+        )
+
+        if not work_queue:
+            logger.info("Nothing to do — all synsets already reviewed.")
+            self.db.finish_run(self.run_id, "completed")
+            return 0
+
+        # Progress reporter (background task)
+        progress_task = asyncio.create_task(self._progress_reporter())
+
+        # Launch all reviews — semaphore limits actual concurrency
+        tasks = [
+            asyncio.create_task(self._process_synset(sid, start_attempt))
+            for sid, start_attempt in work_queue
+        ]
+        await asyncio.gather(*tasks, return_exceptions=True)
+
+        progress_task.cancel()
+        try:
+            await progress_task
+        except asyncio.CancelledError:
+            pass
+
+        # Finalize
+        status = "interrupted" if self.shutdown_event.is_set() else "completed"
+        self.db.finish_run(self.run_id, status)
+        self._print_summary()
+
+        stats = self.db.get_stats(self.run_id)
+        return 0 if stats["failed"] == 0 else 1
+
+    def _build_work_queue(self) -> list[tuple[str, int]]:
+        """Determine which synsets need processing and at what attempt number."""
+        # Resume mode: use the resume_items directly
+        if self.resume_items is not None:
+            for sid, _ in self.resume_items:
+                # Reset status to pending for re-processing
+                self.db.conn.execute(
+                    "UPDATE synset_status SET status = 'pending' "
+                    "WHERE synset_id = ? AND run_id = ? AND status IN ('failed', 'running')",
+                    (sid, self.run_id),
+                )
+            self.db.conn.commit()
+            return self.resume_items
+
+        queue = []
+        for sid in self.synset_ids:
+            review_path = self.output_dir / f"{sid}.review.yaml"
+            if review_path.exists():
+                self.db.mark_skipped(sid, self.run_id)
+                continue
+            queue.append((sid, 0))
+        return queue
+
+    async def _process_synset(self, synset_id: str, start_attempt: int) -> None:
+        """Process one synset with retry logic."""
+        for attempt in range(start_attempt, self.max_retries + 1):
+            if self.shutdown_event.is_set():
+                return
+
+            # Backoff on retries
+            if attempt > start_attempt:
+                delay = BACKOFF_DELAYS[min(attempt - 1, len(BACKOFF_DELAYS) - 1)]
+                logger.info(f"[{synset_id}] Retry {attempt}/{self.max_retries} in {delay}s")
+                await asyncio.sleep(delay)
+                if self.shutdown_event.is_set():
+                    return
+
+            async with self.semaphore:
+                if self.shutdown_event.is_set():
+                    return
+                ok = await self._run_single(synset_id, attempt)
+                if ok:
+                    return
+
+        logger.error(f"[{synset_id}] Exhausted {self.max_retries + 1} attempts")
+
+    async def _run_single(self, synset_id: str, attempt: int) -> bool:
+        """Execute run_review.sh for one synset. Returns True on success."""
+        self.db.mark_running(synset_id, self.run_id, attempt)
+        t0 = time.monotonic()
+
+        env = {**os.environ, "MODEL": self.model}
+        # Let run_review.sh inherit OUTPUT_DIR, PREPARED_DIR, etc. from our env
+
+        try:
+            proc = await asyncio.create_subprocess_exec(
+                "bash", str(self.run_review_sh), synset_id,
+                stdout=asyncio.subprocess.PIPE,
+                stderr=asyncio.subprocess.PIPE,
+                env=env,
+            )
+            self.active_procs[synset_id] = proc
+
+            try:
+                stdout, stderr = await asyncio.wait_for(
+                    proc.communicate(), timeout=self.timeout_s
+                )
+            except asyncio.TimeoutError:
+                logger.warning(f"[{synset_id}] Timeout ({self.timeout_s}s), killing")
+                proc.kill()
+                await proc.wait()
+                dur = time.monotonic() - t0
+                self.db.mark_failed(synset_id, self.run_id, -9, f"Timeout after {self.timeout_s}s", dur)
+                return False
+            finally:
+                self.active_procs.pop(synset_id, None)
+
+            dur = time.monotonic() - t0
+            rc = proc.returncode
+
+            review_path = self.output_dir / f"{synset_id}.review.yaml"
+            if rc == 0 and review_path.exists():
+                cost = self._extract_cost(synset_id)
+                self.db.mark_success(synset_id, self.run_id, cost, dur)
+                logger.info(f"[{synset_id}] OK {dur:.0f}s ${cost:.2f}")
+                return True
+
+            # Capture error from both stdout and stderr (run_review.sh prints
+            # errors to stdout via echo, not stderr)
+            out_text = stdout.decode("utf-8", errors="replace")[-1000:] if stdout else ""
+            err_text = stderr.decode("utf-8", errors="replace")[-500:] if stderr else ""
+            if rc == 0 and not review_path.exists():
+                err_msg = "Claude completed but no review file written"
+            else:
+                # Prefer stdout (where run_review.sh echo errors go), fall back to stderr
+                err_msg = out_text.strip() or err_text.strip() or f"exit code {rc}"
+            self.db.mark_failed(synset_id, self.run_id, rc or 2, err_msg, dur)
+            logger.warning(f"[{synset_id}] FAIL exit={rc} {dur:.0f}s | {err_msg[:200]}")
+            return False
+
+        except Exception as e:
+            dur = time.monotonic() - t0
+            self.db.mark_failed(synset_id, self.run_id, -1, str(e), dur)
+            logger.error(f"[{synset_id}] Exception: {e}")
+            return False
+
+    def _extract_cost(self, synset_id: str) -> float:
+        """Parse total_cost_usd from the trajectory JSONL's result event."""
+        traj = self.output_dir / f"{synset_id}.trajectory.jsonl"
+        if not traj.exists():
+            return 0.0
+        try:
+            last_result = None
+            with open(traj) as f:
+                for line in f:
+                    if '"type":"result"' in line or '"type": "result"' in line:
+                        last_result = line
+            if last_result:
+                return float(json.loads(last_result).get("total_cost_usd", 0))
+        except (json.JSONDecodeError, ValueError, OSError):
+            pass
+        return 0.0
+
+    # ── Signal handling ──
+
+    def _setup_signals(self):
+        loop = asyncio.get_running_loop()
+        for sig in (signal.SIGINT, signal.SIGTERM):
+            loop.add_signal_handler(sig, self._on_signal, sig)
+
+    def _on_signal(self, sig):
+        name = signal.Signals(sig).name
+        n = len(self.active_procs)
+        logger.warning(f"{name} received — stopping new launches, {n} reviews still active")
+        self.shutdown_event.set()
+        # Restore default handler so second signal force-exits
+        asyncio.get_running_loop().remove_signal_handler(sig)
+
+    # ── Progress ──
+
+    async def _progress_reporter(self):
+        try:
+            while True:
+                await asyncio.sleep(30)
+                stats = self.db.get_stats(self.run_id)
+                active = sorted(self.active_procs.keys())
+                names = ", ".join(active[:3])
+                if len(active) > 3:
+                    names += f" +{len(active) - 3}"
+                logger.info(
+                    f"Progress: ok={stats['success']} run={len(active)} "
+                    f"pend={stats['pending']} fail={stats['failed']} "
+                    f"skip={stats['skipped']} | ${stats['total_cost']:.2f} | [{names}]"
+                )
+        except asyncio.CancelledError:
+            pass
+
+    def _print_summary(self):
+        stats = self.db.get_stats(self.run_id)
+        logger.info("=" * 60)
+        logger.info(f"Run {self.run_id} — {'INTERRUPTED' if self.shutdown_event.is_set() else 'COMPLETE'}")
+        logger.info(f"  Success:  {stats['success']}")
+        logger.info(f"  Failed:   {stats['failed']}")
+        logger.info(f"  Skipped:  {stats['skipped']}")
+        logger.info(f"  Pending:  {stats['pending']}")
+        logger.info(f"  Cost:     ${stats['total_cost']:.2f}")
+        logger.info(f"  Status DB: {self.db.db_path}")
+        if stats["failed"] > 0:
+            logger.info(f"  Resume:   python3 {__file__} --resume --workers {self.workers}")
+        logger.info("=" * 60)
+
+
+# ── CLI ──
+
+def collect_synsets(args, prepared_dir: Path) -> list[str]:
+    """Resolve synset IDs from CLI arguments."""
+    if args.batch:
+        return [
+            line.strip()
+            for line in args.batch.read_text().splitlines()
+            if line.strip() and not line.startswith("#")
+        ]
+    if args.all:
+        if not prepared_dir.is_dir():
+            logger.error(f"Prepared dir not found: {prepared_dir}")
+            sys.exit(1)
+        return sorted(d.name for d in prepared_dir.iterdir() if d.is_dir())
+    if args.synset_ids:
+        return args.synset_ids
+    return []
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Concurrent batch runner for AWN4 linguistic review.",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""\
+examples:
+  %(prog)s awn4-02592253-n --workers 1           Single synset
+  %(prog)s --all --workers 8                      All prepared synsets
+  %(prog)s --batch synset_list.txt --workers 10   From file
+  %(prog)s --resume --workers 4                   Resume interrupted run
+  %(prog)s --all --dry-run                        Preview without processing
+""",
+    )
+    parser.add_argument("synset_ids", nargs="*", help="Synset ID(s) to process")
+    parser.add_argument("--all", action="store_true", help="Process all prepared synsets")
+    parser.add_argument("--batch", type=Path, help="File with synset IDs (one per line)")
+    parser.add_argument("--workers", type=int, default=4, help="Max concurrent workers (default: 4, max: 50)")
+    parser.add_argument("--max-retries", type=int, default=2, help="Max retries per synset (default: 2)")
+    parser.add_argument("--timeout", type=int, default=30, help="Per-synset timeout in minutes (default: 30)")
+    parser.add_argument("--resume", action="store_true", help="Resume most recent interrupted run")
+    parser.add_argument("--run-id", type=str, help="Resume a specific run by ID")
+    parser.add_argument("--dry-run", action="store_true", help="List synsets that would be processed")
+    parser.add_argument("--model", type=str, default=None, help="Claude model override")
+
+    args = parser.parse_args()
+
+    logging.basicConfig(level=logging.INFO, format=LOG_FMT, datefmt=LOG_DATEFMT)
+
+    script_dir = Path(__file__).resolve().parent
+    guide_dir = script_dir.parent
+    prepared_dir = Path(os.environ.get("PREPARED_DIR", str(script_dir / "prepared")))
+    output_dir = Path(os.environ.get("OUTPUT_DIR", str(guide_dir / "output" / "reviews_claude_db")))
+
+    # Handle --resume
+    run_id = args.run_id
+    resume_items = None
+    if args.resume or args.run_id:
+        output_dir.mkdir(parents=True, exist_ok=True)
+        db = BatchStatusDB(output_dir / ".batch_status.db")
+        rid = args.run_id or db.get_latest_run_id()
+        if not rid:
+            logger.error("No previous run found. Start a new run without --resume.")
+            sys.exit(1)
+        items = db.get_resumable_synsets(rid)
+        if not items:
+            logger.info(f"Run {rid}: nothing to resume — all synsets completed or skipped.")
+            sys.exit(0)
+        run_id = rid
+        resume_items = items
+        synset_ids = [sid for sid, _ in items]
+        logger.info(f"Resuming run {rid}: {len(items)} synsets to retry")
+        db.close()
+    else:
+        synset_ids = collect_synsets(args, prepared_dir)
+        if not synset_ids:
+            parser.print_help()
+            sys.exit(1)
+
+    # Dry run
+    if args.dry_run:
+        print(f"Would process {len(synset_ids)} synsets with {args.workers} workers:")
+        for sid in synset_ids:
+            review = output_dir / f"{sid}.review.yaml"
+            status = "SKIP (exists)" if review.exists() else "PROCESS"
+            print(f"  {status}: {sid}")
+        already = sum(1 for s in synset_ids if (output_dir / f"{s}.review.yaml").exists())
+        print(f"\nTotal: {len(synset_ids)} | To process: {len(synset_ids) - already} | Already done: {already}")
+        sys.exit(0)
+
+    runner = BatchRunner(
+        synset_ids=synset_ids,
+        workers=args.workers,
+        max_retries=args.max_retries,
+        timeout_minutes=args.timeout,
+        run_id=run_id,
+        model=args.model,
+        resume_items=resume_items,
+    )
+    sys.exit(asyncio.run(runner.run()))
+
+
+if __name__ == "__main__":
+    main()
