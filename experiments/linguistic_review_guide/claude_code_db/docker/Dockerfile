@@ -6,7 +6,7 @@ ARG CLAUDE_CODE_VERSION=latest
 RUN apt-get update && apt-get install -y --no-install-recommends \
     jq bc procps sudo \
     iptables ipset iproute2 dnsutils \
-    sqlite3 \
+    sqlite3 python3 \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Claude Code (pinnable version for reproducible batch runs)
@@ -38,4 +38,4 @@ USER node
 WORKDIR /workspace
 
 ENTRYPOINT ["entrypoint.sh"]
-CMD ["bash", "/workspace/run_review.sh", "--all"]
+CMD ["python3", "/workspace/batch_runner.py", "--all"]
