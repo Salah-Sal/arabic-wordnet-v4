@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """Compute retrieval metrics from evaluation results.
 
-Reads retrieval_results.json (from evaluate_retrieval.py) and computes
-Recall@K, MRR, Precision@K, broken down by query type.
+Reads retrieval_results.json and computes Recall@K, MRR, Precision@K,
+broken down by query type.
 
 Usage:
-    python analysis.py
-    python analysis.py --results results/retrieval_results.json
+    python analysis.py --backend mixedbread_store
+    python analysis.py --results runs/mixedbread_store/retrieval_results.json
 """
 from __future__ import annotations
 
@@ -88,10 +88,11 @@ def avg(lst: list[float]) -> float:
     return sum(lst) / len(lst) if lst else 0
 
 
-def format_report(metrics: dict, results: list[dict]) -> str:
+def format_report(metrics: dict, results: list[dict],
+                  backend_name: str = "Retrieval") -> str:
     """Generate a markdown report."""
     lines = [
-        "# Mixedbread Retrieval Evaluation Report",
+        f"# {backend_name} Retrieval Evaluation Report",
         "",
         "## Overview",
         "",
@@ -176,24 +177,37 @@ def format_report(metrics: dict, results: list[dict]) -> str:
 def main():
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--results", type=Path,
-                        default=Path("results/retrieval_results.json"))
+    parser.add_argument("--backend", type=str, default=None,
+                        help="Backend name (sets default --results and output paths)")
+    parser.add_argument("--results", type=Path, default=None)
     parser.add_argument("--manifest", type=Path,
                         default=Path("export/manifest.json"))
     args = parser.parse_args()
 
+    # Resolve results path from --backend or --results
+    if args.results is None:
+        if args.backend:
+            args.results = Path("runs") / args.backend / "retrieval_results.json"
+        else:
+            args.results = Path("runs/mixedbread_store/retrieval_results.json")
+
     if not args.results.exists():
-        print(f"Error: {args.results} not found. Run evaluate_retrieval.py first.",
+        print(f"Error: {args.results} not found. Run run_eval.py first.",
               file=sys.stderr)
         sys.exit(1)
 
     results = json.loads(args.results.read_text(encoding="utf-8"))
     manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
 
+    backend_label = args.backend.replace("_", " ").title() if args.backend else "Retrieval"
     metrics = compute_metrics(results, manifest)
-    report = format_report(metrics, results)
+    report = format_report(metrics, results, backend_name=backend_label)
 
-    report_path = Path("report.md")
+    # Write report alongside results
+    if args.backend:
+        report_path = Path("runs") / args.backend / "report.md"
+    else:
+        report_path = args.results.parent / "report.md"
     report_path.write_text(report, encoding="utf-8")
 
     # Print summary to stderr
