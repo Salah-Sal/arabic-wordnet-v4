@@ -1,0 +1,178 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "كَمِّيَّة"
+      confirm:
+        - text: "«الكمية: الكم (مو)» — المعجم الوسيط"
+          source: "المعجم الوسيط"
+        - text: "«رقم يدل على حجم أو وزن معين من مادة مصحوب بوحدة القياس المستعملة» — ArabTerm"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+      expands:
+        - text: "«عددٌ، موجبٌ أو سالب، صحيحٌ أو كسري، يُستعمَلُ للدلالة على قيمةٍ ما» — ArabTerm"
+          source: "معجم مصطلحات المعلوماتية (ArabTerm)"
+          addition: "تشمل الأعداد المجردة والقيم المنطقية"
+
+    - lemma: "مِقْدَار"
+      confirm:
+        - text: "«مقدار الشيء مثله في العدد أو الكيل أو الوزن أو المساحة» — المعجم الوسيط"
+          source: "المعجم الوسيط"
+        - text: "«لغة: هو الكمية، واصطلاحًا: هو الكمية المتصلة المتناولة للجسم والخط والسطح والثخن» — التعريفات للجرجاني"
+          source: "كتاب التعريفات للشريف الجرجاني"
+      expands:
+        - text: "«السمة المُميِّزة لشيءٍ ما (= جسم ، حالة، عملية). يُستخدم مُصطلح مقدار لوصف هذه السمة المُميِّزة (مثل: الطول، الوزن، الزمن)» — ArabTerm"
+          source: "مسرد الهندسة الكهربائية (ArabTerm)"
+          addition: "دلالة اصطلاحية تقنية تشمل السمات الفيزيائية القابلة للقياس"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "كَمّ"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«الكم: مقدار الشيء. (مو)» — المعجم الوسيط"
+      justification: "اللفظ الأصيل الذي تشتق منه الكمية، ويُستخدم في الاصطلاح المنطقي والرياضي للدلالة على ذات المفهوم."
+  knowledge_candidates:
+    - lemma: "قَدْر"
+      justification: "لفظ عربي أصيل يُعبر عن المقدار أو المبلغ من الشيء، ويُستخدم بكثرة في السياقات العامة (بقدر كذا، قدر كافٍ)."
+      generation_mechanism: "مجاز (توسع دلالي من التقدير)"
+  generation_notes: "المفهوم مركزي في الرياضيات والفيزياء؛ الألفاظ المختارة تغطي الجانبين التقني (كم) والعام (قدر)."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "كَمِّيَّة"
+      decision: "confirmed"
+      decision_reason: "أدلة معجمية قوية وشيوع تام في الاستعمال المعاصر والتقني."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تدل على مجموع الوحدات أو الكتلة القابلة للعد أو الوزن، وتُستخدم بكثرة في السياقات المادية (كمية من المادة)."
+      example: "تستهلك المصانع الحديثة كمية ضخمة من الطاقة الكهربائية يومياً."
+
+    - lemma: "مِقْدَار"
+      decision: "confirmed"
+      decision_reason: "أدلة معجمية كلاسيكية وحديثة تؤكد دلالتها على التساوي في العدد أو الكيل."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "غالباً ما ترتبط بحد معين أو وحدة قياس محددة، وتوحي بالدقة في التقدير (هذا المقدار من الدواء)."
+      example: "يجب تحديد مقدار الشحنة الكهربائية بدقة لضمان استقرار الدائرة."
+
+    - lemma: "كَمّ"
+      source: "step05"
+      decision: "confirmed"
+      decision_reason: "مصطلح أساسي في المنطق والرياضيات مرادف للمقدار، ومدعوم بأدلة المعجم الوسيط."
+      step05_citation: "«الكم: مقدار الشيء. (مو)» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يُستخدم كلفظ مجرد أو اصطلاحي في العلوم (الكم والكيف) للتعبير عن جوهر المقدار."
+      example: "يُعنى علم الحساب بدراسة الكم المنفصل، بينما تُعنى الهندسة بالكم المتصل."
+      actions:
+        - command: "create_entry"
+          params:
+            lemma: "كَمّ"
+            pos: "n"
+        - command: "add_sense"
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-00033914-n"
+
+    - lemma: "قَدْر"
+      source: "step05"
+      decision: "confirmed"
+      decision_reason: "لفظ أصيل واسع الاستعمال يدل على مبلغ الشيء أو ميزانه."
+      step05_citation: "«ما يعرف به قدر الشيء كالذراع والكيل والوزن» — دستور العلماء"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تميل للاستعمال في التعبير عن 'المدى' أو 'المبلغ' (amount/extent) وتصلح للسياقات المادية والمعنوية."
+      example: "اتفق الشركاء على تخصيص قدر كافٍ من الأرباح لتطوير البنية التحتية."
+      actions:
+        - command: "create_entry"
+          params:
+            lemma: "قَدْر"
+            pos: "n"
+        - command: "add_sense"
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-00033914-n"
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "مقدار ما يوجد من شيء يمكن تحديده كمّيًّا"
+  assessment:
+    decision: "revise"
+    reason: "التعريف الحالي دوري (يستخدم اللمّة في تعريف نفسها) ويفتقر للجنس القريب الواضح."
+  authored_definitions:
+    - type: "terminological"
+      text: "خاصية في الأشياء تُمثّل حجمها أو عديدها أو ما تنطوي عليه من مادة، مما يقبل القياس والتقدير."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: "update_definition"
+      params:
+        synset_id: "awn4-00033914-n"
+        definition_index: 0
+        text: "خاصية في الأشياء تُمثّل حجمها أو عديدها أو ما تنطوي عليه من مادة، مما يقبل القياس والتقدير."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "تَجْرِيد / كِيَان مُجَرَّد"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "كَمِّيَّة"
+        antonym_found: true
+        antonym: "كَيْفِيَّة"
+      - lemma: "مِقْدَار"
+        antonym_found: true
+        antonym: "نَوْعِيَّة"
+  actions:
+    - command: "add_synset_relation"
+      params:
+        source_id: "awn4-00033914-n"
+        relation_type: "antonym"
+        target_id: "{auto}" # synset of كيفية
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "كَمِّيَّة"
+      enrichment:
+        root: "ك-م-م"
+      examples:
+        - text: "تستهلك المصانع الحديثة كمية ضخمة من الطاقة الكهربائية يومياً."
+          type: "usage"
+          source: "مؤلَّف"
+      pos_check:
+        pos: "noun"
+    - lemma: "مِقْدَار"
+      enrichment:
+        root: "ق-د-ر"
+      examples:
+        - text: "يجب تحديد مقدار الشحنة الكهربائية بدقة لضمان استقرار الدائرة."
+          type: "usage"
+          source: "مؤلَّف"
+      pos_check:
+        pos: "noun"
+    - lemma: "كَمّ"
+      enrichment:
+        root: "ك-م-م"
+      examples:
+        - text: "يُعنى علم الحساب بدراسة الكم المنفصل، بينما تُعنى الهندسة بالكم المتصل."
+          type: "usage"
+          source: "مؤلَّف"
+      pos_check:
+        pos: "noun"
+    - lemma: "قَدْر"
+      enrichment:
+        root: "ق-د-ر"
+      examples:
+        - text: "اتفق الشركاء على تخصيص قدر كافٍ من الأرباح لتطوير البنية التحتية."
+          type: "usage"
+          source: "مؤلَّف"
+      pos_check:
+        pos: "noun"
+  cultural_fit:
+    assessment: "native"
+  reasoning:
+    cultural_fit_reasoning: "مفهوم الكم والمقدار مفهوم فلسفي ورياضي متأصل في التراث العلمي العربي."

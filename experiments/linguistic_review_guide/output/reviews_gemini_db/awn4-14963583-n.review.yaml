@@ -1,0 +1,97 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "مائع"
+      confirm:
+        - text: "«أي مادة تتدفق أو تتحرك سواء كانت في حالة شبه صلبة أو سائلة أو حمأة أو غاز»"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية (2012)"
+        - text: "«يشمل هذا المصطلح السوائل والغازات، أي المواد التي تأخذ شكل الوعاء الموضوعة فيه.»"
+          source: "مسرد المناخ والبيئة، المنظمة العربية للتربية والثقافة والعلوم"
+        - text: "«مصطلح يطلق على ما هو سائل أو غاز.»"
+          source: "معجم المصطلحات الطبية (ج.2، 2003)"
+      expands:
+        - text: "«السائل، والرجل الأحمق الفاتر.»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+          addition: "استعمال وصفي بشري (الأحمق) لا يدخل في السياق المادي."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "مادة مائعة"
+      source_section: "evidence.json"
+      evidence_citation: "«مادة مائعة (fluid matter)» — المعجم الموحد لمصطلحات علم الأحياء (1993)"
+      justification: "تركيب وصفي مستعمل في السياقات العلمية كبديل لاسم الفاعل المفرد."
+  knowledge_candidates:
+    - lemma: "سائل"
+      justification: "ترجمة حرفية شائعة لـ fluid لكنها تفتقر للدقة العلمية التي تميز بين السائل (Liquid) والمائع (Fluid)."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "مائع"
+      decision: confirmed
+      decision_reason: "مصطلح علمي دقيق ومستقر في الفيزياء والهندسة للدلالة على السوائل والغازات معاً."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "اللفظ الأدق الذي يشمل الغازات والسوائل بخلاف 'سائل' الذي يقتصر غالباً على الحالة السائلة فقط."
+      example: "تتميز الموائع بقدرتها على الجريان وعدم احتفاظها بشكل ثابت."
+
+    - lemma: "سائل"
+      source: step05
+      decision: removed
+      decision_reason: "عدم دقة المصطلح في السياق التقني؛ إذ يخصّص عادة للحالة السائلة (liquid) حصراً في الفيزياء المعاصرة."
+      step05_citation: "«السائل: حالة من حالات المادة الثلاث، وسط بين الصلابة والغازية» — المعجم الوسيط"
+
+    - lemma: "مادة مائعة"
+      source: step05
+      decision: confirmed
+      decision_reason: "تركيب وصفي اصطلاحي موثق في المعاجم العلمية (مثل معجم علم الأحياء)."
+      step05_citation: "«مادة مائعة (fluid matter)» — المعجم الموحد لمصطلحات علم الأحياء"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+        type: "وصفي"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تأكيد على الطبيعة المادية للمائع، ويُستخدم غالباً في سياقات الوصف العام للمواد."
+      example: "تُعتبر المياه والهواء من المواد المائعة الضرورية للحياة."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مادة مائعة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-14963583-n"
+
+step3_definition:
+  current_definition: "مادة غير متبلورة مستمرة تميل للجريان وتأخذ شكل الوعاء الذي يحويها: سائل أو غاز"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق علمياً ويحدد الجنس (مادة) والفصل (الجريان وتشكل الوعاء) ويذكر الأمثلة التوضيحية."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "مَادَّة"
+    test_result: "correct"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "مائع"
+      enrichment:
+        root: "م-ي-ع"
+      examples:
+        - text: "يشمل مصطلح المائع السوائل والغازات، أي المواد التي تأخذ شكل الوعاء الموضوعة فيه."
+          type: usage
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+      pos_check:
+        pos: noun
+    - lemma: "مادة مائعة"
+      enrichment:
+        root: "م-ي-ع"
+      examples:
+        - text: "تُصنف المواد المائعة حسب لزوجتها وقابليتها للانضغاط."
+          type: usage
+          source: "مؤلف"
+  cultural_fit:
+    assessment: native

@@ -1,0 +1,89 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "تنفيذ"
+      confirm:
+        - text: "«إجرائيةُ إنجازِ تعليمةٍ (أو تعليمات) لبرنامجٍ حاسوبي بواسطة الحاسوب.»"
+          source: "معجم مصطلحات المعلوماتية (2000)"
+      expands:
+        - text: "«آمرة تطلب من الحاسوب تنفيذ برنامج»"
+          source: "المعجم الموحد لمصطلحات تقانة المعلومات (2011)"
+    - lemma: "إجراء"
+      contradicts:
+        - text: "«في برنامجٍ ما: متتاليةٌ من العبارات تَحمِلُ اسماً محدَّداً... وتُنفِّذُ عادةً مهمةً واحدة.»"
+          source: "معجم مصطلحات المعلوماتية (2000)"
+          conflict: "المصطلح يشير إلى 'Procedure' (الكيان البرمجي) وليس 'Execution' (الحدث)"
+      peripheral_observations:
+        - "يستخدم بالمعنى العام (measure/action) كما في معجم الصواب اللغوي."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "إنجاز"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«الزمنُ الذي تتطلّبُه وحدةُ المعالجة المركزية لإنجاز أبسط تعليمة» — معجم مصطلحات المعلوماتية (2000)"
+      justification: "ورد كمرادف وظيفي في تعريفات 'تنفيذ' و'دورة المعالجة'."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "تنفيذ"
+      decision: confirmed
+      decision_reason: "مطابقة تامة للمفهوم التقني في المعاجم المتخصصة."
+      evidence_assessment:
+        case: "confirm_only"
+      nuance_differentiation: "اللفظ المعياري الأساسي في علوم الحاسوب للتعبير عن إخراج التعليمة إلى حيز الفعل."
+      example: "تستغرق وحدة المعالجة المركزية عدة دورات لتنفيذ تعليمة واحدة."
+    - lemma: "إجراء"
+      decision: removed
+      decision_reason: "لفظ 'إجراء' محجوز دلالياً في البرمجة لمفهوم Procedure؛ استخدامه هنا يسبب خلطاً اصطلاحياً."
+      evidence_assessment:
+        case: "contradicts"
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "إنجاز"
+      source: step05
+      decision: confirmed
+      decision_reason: "مرادف مستقر في السياق التقني يركز على إتمام الحدث."
+      step05_citation: "«الزمنُ الذي تتطلّبُه وحدةُ المعالجة المركزية لإنجاز أبسط تعليمة» — معجم مصطلحات المعلوماتية"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يوحي باكتمال التنفيذ ووصوله إلى غايته (completion)."
+      example: "يتم إنجاز التعليمات بتتابع سريع داخل المعالج."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "إنجاز"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-13498665-n"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "(في علم الحاسوب) عملية تنفيذ تعليمة بواسطة الكمبيوتر"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق ومطابق للمصادر التقنية."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عَمَلِيَّة"
+    test_result: "correct"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "تنفيذ"
+      enrichment:
+        root: "ن-ف-ذ"
+      examples:
+        - text: "إجرائيةُ إنجازِ تعليمةٍ لبرنامجٍ حاسوبي بواسطة الحاسوب."
+          source: "معجم مصطلحات المعلوماتية"
+    - lemma: "إنجاز"
+      enrichment:
+        root: "ن-ج-ز"
+      examples:
+        - text: "الزمن الذي تتطلبه وحدة المعالجة المركزية لإنجاز أبسط تعليمة."
+          source: "معجم مصطلحات المعلوماتية"
+  cultural_fit:
+    assessment: native

@@ -1,0 +1,183 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "شَيْء مُسْتَقِلّ"
+      expands:
+        - text: "«حقيقة الشيء أو وجوده المستقل» — معجم المصطلحات الطبية"
+          addition: "يؤكد الربط بين لفظ الشيء والاستقلال في سياق تعريف الكيان."
+      peripheral_observations:
+        - "اللمّة مركبة وصفية؛ ولم يرد ذكر 'شيء مستقل' كمصطلح واحد في المعاجم القديمة، بل وردت أجزاؤه."
+    - lemma: "شيء"
+      confirm:
+        - text: "«كلُّ موجود, حِسّيٌّ أو معنويٌّ» — المعجم الكبير"
+        - text: "«الْمَوْجُود وَمَا يتَصَوَّر ويخبر عَنهُ» — المعجم الوسيط"
+        - text: "«كيان مادي أو مفاهيمي قد يكون له سمة واحدة أو أكثر» — معجم البيانات والذكاء الاصطناعي (2024)"
+    - lemma: "مستقل"
+      confirm:
+        - text: "«ما يتعلّق أو يتميّز باستقلاليّة» — المعجم الموحد لمصطلحات علم التشريح العياني"
+        - text: "«المرتفع والسيد على نفسه» — موسوعة السلطان قابوس لأسماء العرب"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "كِيَان"
+      source_section: "step0_evidence"
+      evidence_citation: "«حقيقة الشيء أو وجوده المستقل» — معجم المصطلحات الطبية"
+      justification: "المصطلح المعاصر الأكثر دقة لتمثيل المفهوم 'entity' وقد ورد في المعاجم التقنية والطبية بمعنى الوحدة المستقلة."
+    - lemma: "شَيْء"
+      source_section: "step0_evidence"
+      evidence_citation: "«كل موجود حسي أو معنوي» — المعجم الكبير"
+      justification: "اللفظ العربي الأصيل المقابل لـ 'thing' في أوسع معانيه."
+  knowledge_candidates:
+    - lemma: "كِيَان مُسْتَقِلّ"
+      justification: "تركيب اصطلاحي شائع في النصوص القانونية والتقنية للتعبير عن 'independent entity'؛ آلية التوليد: تركيب وصفي."
+    - lemma: "كِيَان قَائِم بِذَاتِه"
+      justification: "تعبير مصطلح عليه لوصف الوحدة المستقلة تماماً؛ آلية التوليد: تركيب وصفي."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "شَيْء مُسْتَقِلّ"
+      decision: removed
+      decision_reason: "تركيب وصفي حر (Free phrase) وليس مصطلحاً معجمياً مسكوكاً؛ المعاجم تعرّف 'الشيء' أو 'الكيان' استقلالاً وتصفه بالاستقلال عند الحاجة."
+      evidence_assessment:
+        case: "expands"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يدل على الشيء بصفة الاستقلال، وهو وصف تقييدي وليس اسماً مفرداً."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "كِيَان"
+      source: step05
+      decision: confirmed
+      decision_reason: "المصطلح الفني المعاصر لـ 'entity'؛ يتميز بدلالته على الوحدة المستقلة والوجود المتميز."
+      step05_citation: "«حقيقة الشيء أو وجوده المستقل» — معجم المصطلحات الطبية"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على الجانب الهيكلي والوجودي للوحدة (Entity) سواء كانت مادية أو معنوية."
+      example: "تُعد هذه المؤسسة كياناً مستقلاً له شخصيته الاعتبارية."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "كِيَان"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-00002452-n"
+
+    - lemma: "شَيْء"
+      source: step05
+      decision: confirmed
+      decision_reason: "الترجمة المباشرة والأصلية لـ 'thing'؛ عُرّف في المعاجم بأنه الموجود."
+      step05_citation: "«الْمَوْجُود وَمَا يتَصَوَّر ويخبر عَنهُ» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "أعم الألفاظ الدالة على الموجودات؛ يمثل الدلالة الأصلية للفظ English 'thing'."
+      example: "وَإِن مِّن شَيْءٍ إِلَّا يُسَبِّحُ بِحَمْدِهِ."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "شَيْء"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-00002452-n"
+
+    - lemma: "كِيَان مُسْتَقِلّ"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح تقني ثابت في السياقات القانونية والإدارية لوصف الوحدة المنفصلة."
+      step05_citation: "«بواسطة كيان مستقل معتمد» — مسرد المناخ والبيئة (ArabTerm)"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تعبير صريح يجمع بين الوجود (كيان) وصفة الانفصال (مستقل) لضمان الدقة المصطلحِيّة."
+      example: "يجب مراجعة كل مشروع من قبل كيان مستقل معتمد."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "كِيَان مُسْتَقِلّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-00002452-n"
+
+  synset_flags:
+    definition_review_needed: true
+  added_lemmas:
+    - lemma: "كِيَان"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+    - lemma: "شَيْء"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+    - lemma: "كِيَان مُسْتَقِلّ"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "كيان مستقلّ قائم بذاته ومنفصل عن غيره"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي دقيق لغوياً لكنه يتضمن تفصيلاً يمكن اختصاره بأسلوب المعاجم المصطلحية، وللإشارة إلى التناقض المحتمل بين دلالته العامة وتبعيته لـ 'كيان مادي'."
+  authored_definitions:
+    - type: terminological
+      text: "كيان منفصل قائم بذاته، مادياً كان أو معنوياً."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-00002452-n"
+        definition_index: 0
+        text: "كيان منفصل قائم بذاته، مادياً كان أو معنوياً."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-00001930-n (كيان مادي)"
+    test_result: "needs_closer"
+    justification: "التعريف الحالي للـ synset (separate and self-contained entity) يشمل المجردات أيضاً، بينما المشتمِل (Physical entity) يقصره على الماديات. يجب التأكد مما إذا كان المطلوب هو Object (مادي) أم Entity (عام)."
+  actions: []
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "كِيَان"
+      enrichment:
+        root: "ك-و-ن"
+      examples:
+        - text: "تُعد هذه المؤسسة كياناً مستقلاً له شخصيته الاعتبارية."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "شَيْء"
+      enrichment:
+        root: "ش-ي-ء"
+      examples:
+        - text: "وَإِن مِّن شَيْءٍ إِلَّا يُسَبِّحُ بِحَمْدِهِ."
+          type: quran
+          source: "القرآن الكريم"
+    - lemma: "كِيَان مُسْتَقِلّ"
+      enrichment:
+        root: "ك-و-ن | ق-ل-ل"
+      examples:
+        - text: "يجب مراجعة كل مشروع من قبل كيان مستقل معتمد."
+          type: usage
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+  cultural_fit:
+    assessment: native
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-00002452-n"
+        text: "يجب مراجعة كل مشروع من قبل كيان مستقل معتمد."

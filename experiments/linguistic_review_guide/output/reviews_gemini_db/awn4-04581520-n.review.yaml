@@ -1,0 +1,145 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "شيء ضخم"
+      confirm:
+        - text: "«شيء ضخم (1) كذبة كبيرة» — المورد الحديث (2008)"
+          source: "المورد الحديث"
+    - lemma: "شيء هائل"
+      confirm:
+        - text: "«منظر هائل: منظر جميل معجب» — معجم الصواب اللغوي"
+          source: "معجم الصواب اللغوي"
+        - text: "«هال المرأة بحسنها ... وزينت بالتهاويل ... وهي النقوش والألوان تهوِّل من نظر إليها ... كما يقال شيء رائع، ولو أبصرته لراعك وهو يروع بجماله» — أساس البلاغة"
+          source: "أساس البلاغة"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "عملاق"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«عملاق: giant» — المعجم الموحد للمصطلحات الجيولوجية"
+      justification: "كلمة 'عملاق' هي المصطلح العربي المعياري للتعبير عن كل ما هو ضخم بشكل استثنائي في نوعه، وتُستخدم في شتى المجالات (نجم عملاق، مشروع عملاق)."
+    - lemma: "ضخام"
+      source_section: "step3_root_family"
+      evidence_citation: "«الضُّخامُ، بالضم: العظيمُ من كل شيء» — لسان العرب"
+      justification: "اسم يدل على العظمة والضخامة المطلقة في كل شيء."
+  knowledge_candidates:
+    - lemma: "عظيمة"
+      justification: "تُستخدم 'عظيمة' (بمعنى الشيء العظيم) للتعبير عن الشيء البالغ الكبر أو الإثارة للإعجاب، كقولهم 'هذه عظيمة من العظائم' (آلية: مجاز)."
+  generation_notes: "التركيز على المفردات التي تعبر عن الكبر الفائق أو الإعجاب مع الحفاظ على صنف الاسم."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "شيء ضخم"
+      decision: removed
+      decision_reason: "تعبير وصفي حر (تركيب وصفي) يتكون من اسم ومنعوت، وليس وحدة معجمية أو مصطلحاً مسكوكاً. لا يوجد ما يمنع استبدال 'شيء' بـ 'جسم' أو 'ضخم' بـ 'كبير' مع بقاء المعنى، مما يجعله تركيباً حراً."
+      evidence_assessment:
+        case: "confirm"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تعبير عام يصف الحجم بشكل مباشر."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "شيء هائل"
+      decision: removed
+      decision_reason: "تعبير وصفي حر ليس له صفة المصطلح. يعتمد على صفة 'هائل' لوصف 'شيء' نكرة، وهو تركيب تركيبي لا معجمي."
+      evidence_assessment:
+        case: "confirm"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على البعد المثير للإعجاب أو الرهبة بجانب الضخامة."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "عملاق"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح معجمي مستقر يعبر عن الضخامة الفائقة في الشيء من نوعه، وهو يقابل تماماً مفهوم (Giant/Whopper)."
+      step05_citation: "«الضَّخْمُ من كلِّ شيءٍ، أو العظيمُ الجِرْمِ... والعملاق أبو العمالقة» — القاموس المحيط / المحيط في اللغة"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يشير إلى الضخامة التي تتجاوز المعتاد بشكل كبير، وغالباً ما يُستخدم للمقارنة بأفراد النوع الآخرين."
+      example: "يُعتبر سد هوفر عملاقاً في عالم الهندسة المعمارية."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "عملاق"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-04581520-n"
+
+    - lemma: "ضخام"
+      source: step05
+      decision: confirmed
+      decision_reason: "لفظ تراثي فصيح (بضم الضاد) يدل على العظيم من كل شيء، وهو اسم جنس يطابق تعريف المجموعة."
+      step05_citation: "«الضُّخامُ، بالضم: العظيمُ من كل شيء» — لسان العرب"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "لفظ يركز على عظم الجرم وكثرة المادة."
+      example: "رأيت من صخور الجبل ضخاماً لا تكاد تحركها الآلات."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "ضخام"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-04581520-n"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شيء كبير أو مثير للإعجاب بشكل خاص من نوعه"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق ويغطي جانبي الضخامة (كبير) والإثارة للإعجاب (مثير للإعجاب) كما في المصدر الإنجليزي."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "شيء (awn4-04431553-n)"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "عملاق"
+        antonym_found: true
+        antonym: "قزم"
+  actions:
+    - command: add_synset_relation
+      params:
+        source_id: "awn4-04581520-n"
+        relation_type: "antonym"
+        target_id: "{auto}"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "عملاق"
+      enrichment:
+        root: "ع-م-ل-ق"
+      examples:
+        - text: "الكمبيوتر العملاق هو جهاز ذو قدرات معالجة فائقة."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "ضخام"
+      enrichment:
+        root: "ض-خ-م"
+      examples:
+        - text: "الضُّخامُ: العظيمُ من كل شيء."
+          type: usage
+          source: "لسان العرب"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

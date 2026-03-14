@@ -1,7 +1,7 @@
 """
 config.py — LLM configuration for the DSPy linguistic review agents.
 
-Supports Anthropic, Google Gemini, OpenAI, and Moonshot models via litellm.
+Supports Anthropic, Google Gemini, OpenAI, Moonshot, OpenRouter, and Cerebras models via litellm.
 API keys loaded from environment or .env file.
 
 Reuses the same multi-provider pattern as linguist_workspace_agent/config.py.
@@ -21,7 +21,8 @@ def _load_env():
     """Load .env from this directory or ancestor directories."""
     for env_path in [
         Path(__file__).parent / ".env",
-        Path(__file__).resolve().parent.parent.parent.parent.parent / ".env",
+        Path(__file__).resolve().parent.parent.parent.parent / ".env",  # arabic-wordnet-v4/.env
+        Path(__file__).resolve().parent.parent.parent.parent.parent / ".env",  # wn-project/.env
     ]:
         if env_path.exists():
             with open(env_path) as f:
@@ -62,6 +63,13 @@ MODEL_ALIASES = {
     "gpt-4o-mini": "openai/gpt-4o-mini",
     # Moonshot
     "kimi-k2": "moonshot/kimi-k2-0905-preview",
+    # OpenRouter (free stealth models)
+    "hunter-alpha": "openrouter/openrouter/hunter-alpha",
+    "healer-alpha": "openrouter/openrouter/healer-alpha",
+    # Cerebras (free tier)
+    "cerebras-qwen": "cerebras/qwen-3-235b-a22b-instruct-2507",
+    "cerebras-gpt": "cerebras/gpt-oss-120b",
+    "cerebras-llama": "cerebras/llama3.1-8b",
 }
 
 PROVIDER_ENV_VARS = {
@@ -69,6 +77,8 @@ PROVIDER_ENV_VARS = {
     "gemini": "GEMINI_API_KEY",
     "openai": "OPENAI_API_KEY",
     "moonshot": "MOONSHOT_API_KEY",
+    "openrouter": "OPENROUTER_API_KEY",
+    "cerebras": "CEREBRAS_API_KEY",
 }
 
 # When the user picks a main model but not a sub-model, auto-select a cheaper one
@@ -77,6 +87,8 @@ SUB_MODEL_DEFAULTS = {
     "gemini": "gemini/gemini-3.1-flash-lite-preview",
     "openai": "openai/gpt-4o-mini",
     "moonshot": "moonshot/kimi-k2-0905-preview",
+    "openrouter": "openrouter/openrouter/hunter-alpha",
+    "cerebras": "cerebras/llama3.1-8b",
 }
 
 
@@ -103,6 +115,10 @@ def get_provider(model_name: str) -> str:
         return "openai"
     if "moonshot" in lower or "kimi" in lower:
         return "moonshot"
+    if "hunter" in lower or "healer" in lower:
+        return "openrouter"
+    if "cerebras" in lower:
+        return "cerebras"
     return "unknown"
 
 
@@ -120,6 +136,30 @@ DEFAULT_MODEL = "gemini-3.1-flash-lite"
 
 
 # ═══════════════════════════════════════════════════════════════
+# OpenRouter reasoning control
+# ═══════════════════════════════════════════════════════════════
+
+# Valid effort levels: "xhigh", "high", "medium", "low", "minimal", "none"
+REASONING_EFFORT_LEVELS = {"xhigh", "high", "medium", "low", "minimal", "none"}
+
+
+def _openrouter_extra_body(reasoning_effort: Optional[str] = None) -> dict:
+    """Build extra_body kwargs for OpenRouter models.
+
+    Controls reasoning tokens via the OpenRouter `reasoning` API parameter.
+    Passing effort="none" disables reasoning entirely (fastest).
+    """
+    if reasoning_effort is None:
+        return {}
+    if reasoning_effort not in REASONING_EFFORT_LEVELS:
+        raise ValueError(
+            f"Invalid reasoning effort '{reasoning_effort}'. "
+            f"Must be one of: {', '.join(sorted(REASONING_EFFORT_LEVELS))}"
+        )
+    return {"extra_body": {"reasoning": {"effort": reasoning_effort, "exclude": True}}}
+
+
+# ═══════════════════════════════════════════════════════════════
 # Core configuration
 # ═══════════════════════════════════════════════════════════════
 
@@ -127,10 +167,18 @@ def configure_lm(
     model: Optional[str] = None,
     temperature: float = 0.7,
     max_tokens: int = 20000,
+    reasoning_effort: Optional[str] = None,
 ) -> dspy.LM:
     """Configure and return the main dspy.LM.
 
     Uses DEFAULT_MODEL when no --model is passed via CLI.
+
+    Args:
+        reasoning_effort: OpenRouter reasoning control. One of:
+            "none" — disable reasoning (fastest)
+            "minimal" — ~10% of max_tokens for reasoning
+            "low"/"medium"/"high"/"xhigh" — increasing reasoning budgets
+            None — use model default
     """
     if model is None:
         model = DEFAULT_MODEL
@@ -141,7 +189,20 @@ def configure_lm(
     if env_var and not os.environ.get(env_var):
         raise ValueError(f"API key not found for {provider}. Set {env_var}.")
 
-    lm = dspy.LM(full_model, temperature=temperature, max_tokens=max_tokens)
+    extra_kwargs = {}
+    if provider == "openrouter":
+        extra_kwargs = _openrouter_extra_body(reasoning_effort)
+        if reasoning_effort:
+            print(f"OpenRouter reasoning effort: {reasoning_effort}")
+
+    # Cerebras free tier has 8K context — cap max_tokens to avoid rejection
+    if provider == "cerebras":
+        cerebras_max = 4096  # leave room for input within 8K context
+        if max_tokens > cerebras_max:
+            print(f"Cerebras: capping max_tokens from {max_tokens} to {cerebras_max} (8K context limit)")
+            max_tokens = cerebras_max
+
+    lm = dspy.LM(full_model, temperature=temperature, max_tokens=max_tokens, **extra_kwargs)
     dspy.configure(lm=lm)
     print(f"Configured LLM: {full_model}")
     return lm
@@ -152,6 +213,7 @@ def make_sub_lm(
     main_model: Optional[str] = None,
     temperature: float = 0.3,
     max_tokens: int = 8000,
+    reasoning_effort: Optional[str] = None,
 ) -> dspy.LM:
     """Create a sub-LM for llm_query() calls (NOT set as global default).
 
@@ -162,7 +224,16 @@ def make_sub_lm(
     else:
         resolved = resolve_model(sub_model)
 
-    return dspy.LM(resolved, temperature=temperature, max_tokens=max_tokens)
+    extra_kwargs = {}
+    provider = get_provider(resolved)
+    if provider == "openrouter":
+        extra_kwargs = _openrouter_extra_body(reasoning_effort)
+
+    # Cerebras free tier has 8K context — cap max_tokens
+    if provider == "cerebras" and max_tokens > 4096:
+        max_tokens = 4096
+
+    return dspy.LM(resolved, temperature=temperature, max_tokens=max_tokens, **extra_kwargs)
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -170,7 +241,7 @@ def make_sub_lm(
 # ═══════════════════════════════════════════════════════════════
 
 def add_model_args(parser):
-    """Add --model, --temperature, --max-tokens to an argparse parser."""
+    """Add --model, --temperature, --max-tokens, --reasoning-effort to an argparse parser."""
     parser.add_argument(
         "--model", "-m", type=str, default=None,
         help=f"Main LLM model (default: {DEFAULT_MODEL}). Alias or full litellm ID."
@@ -186,5 +257,10 @@ def add_model_args(parser):
     parser.add_argument(
         "--max-tokens", type=int, default=20000,
         help="Max tokens in response (default: 20000)"
+    )
+    parser.add_argument(
+        "--reasoning-effort", type=str, default=None,
+        choices=["none", "minimal", "low", "medium", "high", "xhigh"],
+        help="OpenRouter reasoning effort (default: model default). 'none' disables reasoning for max speed."
     )
     return parser

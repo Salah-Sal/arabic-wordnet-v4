@@ -1,0 +1,119 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "سبب الوفاة"
+      confirm:
+        - text: "«من أجل التأكد من سبب الوفاة وظروفها» — المعجم الموحد لمصطلحات القانون"
+          source: "المعجم الموحد لمصطلحات القانون"
+        - text: "«أو لمعرفة سبب الوفاة \"شرّح الطبيبُ الشرعيّ جثةَ القتيل\"» — المعجم الوسيط"
+          source: "المعجم الوسيط"
+    - lemma: "قاتل"
+      confirm:
+        - text: "«(1) القاتل؛ السَّفّاك (2) killer whale» — المورد الحديث"
+          source: "المورد الحديث"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "سبب الوفاة"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«من أجل التأكد من سبب الوفاة وظروفها» — المعجم الموحد لمصطلحات القانون"
+      justification: "مصطلح قانوني وطبي دقيق يعبر تماماً عن مفهوم 'العامل المسبب للموت'."
+    - lemma: "القاتل"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«(1) القاتل؛ السَّفّاك (2) killer whale» — المورد الحديث"
+      justification: "يقابل المصطلح الإنجليزي 'killer' ويستخدم للدلالة على العامل المسبب للموت (مثل الأمراض أو المواد السامة)."
+  knowledge_candidates:
+    - lemma: "مسبب الوفاة"
+      justification: "اشتقاق تركيبي دقيق يصف 'العامل المسبب' (causal agent) المرتبط بالوفاة، ويشيع في النصوص الطبية والعلمية."
+    - lemma: "علة الوفاة"
+      justification: "استخدام 'العلة' كمرادف للسبب في السياقات القانونية القديمة والحديثة لوصف ما أدى إلى الموت."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "سبب الوفاة"
+      decision: confirmed
+      decision_reason: "مصطلح فني مستقر في اللغة القانونية والطبية ومدعوم بشواهد قوية من المعاجم الحديثة."
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "المصطلح الرسمي والفني المستخدم في التقارير الطبية والقانونية لتحديد العامل المسؤول عن الموت."
+      example: "ذكر تقرير الطب الشرعي أن سبب الوفاة كان نوبة قلبية حادة."
+    - lemma: "قاتل"
+      decision: confirmed
+      decision_reason: "لفظ عام يطلق على الفرد أو العامل (مرض، مادة) الذي يؤدي إلى الموت، وهو مقابل مباشر للمصطلح الإنجليزي 'killer'."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "لفظ أكثر عمومية ومجازية من 'سبب الوفاة'، يستخدم لوصف العامل المهلك سواء كان كائناً حياً أو سبباً مجرداً."
+      example: "كان الجهل هو القاتل الحقيقي في تلك المناطق النائية التي يفتقر أهلها للرعاية الصحية."
+    - lemma: "مسبب الوفاة"
+      source: step05
+      decision: confirmed
+      decision_reason: "ترجمة دقيقة لمفهوم 'causal agent' وشائعة في السياقات العلمية."
+      step05_citation: "اشتقاق منطقي من التعريف (عامل مسبب + وفاة)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على الجانب العلمي والمخبري للسبب (كالفيروسات أو السموم) كعامل مسبب للموت."
+      example: "حذر الباحثون من أن هذا النوع من الفطريات يعد مسبباً رئيساً للوفاة في الحيوانات البرية."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مسبب الوفاة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-14564166-n"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "العامل المسبب الذي يؤدي إلى الموت"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق علمياً ولغوياً ومطابق للمفهوم المقابل في WordNet."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "سبب / عامل مسبب"
+    test_result: "correct"
+  actions:
+    - command: add_synset_relation
+      params:
+        source_id: "awn4-14564166-n"
+        relation_type: "hypernym"
+        target_id: "awn4-00007347-n"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "سبب الوفاة"
+      enrichment:
+        root: "س-ب-ب"
+      examples:
+        - text: "أظهر التحقيق أن سبب الوفاة كان حادثاً عرضياً وليس جريمة."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "قاتل"
+      enrichment:
+        root: "ق-ت-ل"
+      examples:
+        - text: "تعتبر أمراض القلب القاتل الأول في العالم المعاصر."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "مسبب الوفاة"
+      enrichment:
+        root: "س-ب-ب"
+      examples:
+        - text: "تحديد مسبب الوفاة هو الخطوة الأولى في مكافحة الأوبئة."
+          type: usage
+          source: "مؤلَّف"
+  cultural_fit:
+    assessment: native
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-14564166-n"
+        text: "كان التدخين هو القاتل الخفي الذي أدى إلى تدهور حالته الصحية."

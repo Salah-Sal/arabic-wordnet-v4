@@ -1,0 +1,124 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "عملية صناعية"
+      confirm:
+        - text: "«العملية التقنية هي مجموع العمليات في وحدة تقنية، وتنقسم إلى: عمليات التصنيع، وعمليات الإنتاج...» — مسرد الهندسة الكهربائية (ArabTerm)"
+          source: "ArabTerm"
+      expands:
+        - text: "«مجموع العمليات التي تخضع لها مادة أو مواد أولية إلى أن تصبح سلعة صالحة للاستعمال» — مسرد المناخ والبيئة (ArabTerm)"
+          source: "ArabTerm"
+          addition: "تعريف صريح لمفهوم التصنيع كعملية تحويلية"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "عملية إنتاج"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«عملية إنتاج — production process» — المعجم الموحد لمصطلحات الطاقة المتجددة"
+      justification: "مقابل مباشر للمفهوم في المعاجم التقنية العربية"
+    - lemma: "تصنيع"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«مجموع العمليات التي تخضع لها مادة أو مواد أولية إلى أن تصبح سلعة صالحة للاستعمال» — ArabTerm"
+      justification: "كلمة مفردة تدل على مجموع العمليات التحويلية للمواد"
+  knowledge_candidates:
+    - lemma: "عملية تحويلية"
+      justification: "مجاز/اشتقاق: وصف للعمليات التي تحول المادة الخام إلى منتج، وهو مصطلح مستقر في الأدبيات الاقتصادية والصناعية"
+    - lemma: "مسار إنتاج"
+      justification: "تركيب وصفي: يُستخدم للدلالة على تسلسل الخطوات (سلسلة العمليات) داخل المصنع"
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "عملية صناعية"
+      decision: confirmed
+      decision_reason: "مصطلح تقني مستقر مدعوم بالاستعمال في المعاجم المتخصصة"
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "اللفظ الأعم الذي يغطي العمليات الكيميائية والميكانيكية في السياق الصناعي"
+      example: "تخضع المواد الخام لعملية صناعية معقدة قبل تحويلها إلى منتجات نهائية."
+
+    - lemma: "عملية إنتاج"
+      source: step05
+      decision: confirmed
+      decision_reason: "مرادف دقيق مدعوم بمعاجم المصطلحات الموحدة"
+      step05_citation: "«عملية إنتاج — production process» — المعجم الموحد لمصطلحات الطاقة المتجددة"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على مخرجات العملية (الإنتاج) أكثر من طبيعة الحيز (الصناعة)"
+      example: "تتطلب عملية إنتاج الطاقة الشمسية تقنيات دقيقة لضبط الجودة."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "عملية إنتاج"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-13519131-n"
+
+    - lemma: "تصنيع"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصدر يدل على العملية نفسها في السياق التقني"
+      step05_citation: "«مجموع العمليات التي تخضع لها مادة أو مواد أولية إلى أن تصبح سلعة صالحة للاستعمال» — ArabTerm"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "كلمة مفردة تدل على الحدث الإجمالي والعملية التحويلية للمواد"
+      example: "يستخدم الحاسوب في مراقبة مراحل التصنيع لضمان الدقة."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "تصنيع"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-13519131-n"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "سلسلة منهجية من العمليات الميكانيكية أو الكيميائية لإنتاج أو تصنيع شيء ما"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق علمياً ومطابق للمواصفات المعجمية الحديثة"
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عملية"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "عملية صناعية"
+        antonym_found: false
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "عملية صناعية"
+      enrichment:
+        root: "ع-م-ل"
+      examples:
+        - text: "تطورت العمليات الصناعية مع ظهور الثورة الرقمية."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "عملية إنتاج"
+      enrichment:
+        root: "ع-م-ل"
+      examples:
+        - text: "تعتمد عملية إنتاج الورق على معالجة ألياف الخشب كيميائياً."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "تصنيع"
+      enrichment:
+        root: "ص-ن-ع"
+      examples:
+        - text: "تتم عملية تصنيع قطع الغيار وفق مواصفات هندسية دقيقة."
+          type: usage
+          source: "مؤلَّف"
+  cultural_fit:
+    assessment: native

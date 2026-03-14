@@ -1,0 +1,132 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "إصدار"
+      confirm:
+        - text: "«مطبوعٌ ورقيٌّ أو إلكترونيٌّ, له رقمٌ أو ترتيبٌ» — المعجم الكبير"
+        - text: "«يتعلق الأمر عادة بإصدار جديد لبرمجية يحسن أداءها ويصحح الأخطاء» — المعجم الموحد لتقانة المعلومات"
+      expands:
+        - text: "«إصدارٌ أو سحبٌ خاصّ لمنتَجٍ عتادي أو اسم برمجية» — معجم مصطلحات المعلوماتية"
+      contradicts:
+        - text: "«إصدار النقود» — المعجم الموحد لمصطلحات الاقتصاد"
+          conflict: "يتعلق بالجانب المالي (العملة) وليس بنسخ متطابقة من عمل فكري أو فني."
+
+    - lemma: "طبعة"
+      confirm:
+        - text: "«مجموعُ النُّسَخِ الْمَطْبوَعَة في مرَّة واحدة من كِتابٍ , أو جريدة» — المعجم الكبير"
+        - text: "«طبعة [من كتاب].. مجموع النسخ المطبوعة دفعة واحدة» — المورد الحديث"
+        - text: "«الكتب والأفلام والجرائد والصور التي تصدر بكيفية رقمية (طبعة رقمية)» — مسرد الإعلام والتواصل"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "نشر"
+      source_section: "step7_english_bridge"
+      evidence_citation: "«كلّ مخطوط يخرج إلى الوجود في شكل كتاب بفضل صناعة الطباعة» — المعجم الموحد لمصطلحات اللسانيات"
+      justification: "وردت في المعاجم المتخصصة (اللسانيات وتقانة المعلومات) كترادف لـ Edition، وتطلق على المادة المنشورة."
+  knowledge_candidates:
+    - lemma: "عدد"
+      justification: "يستخدم في سياق الدوريات (الصحف والمجلات) للإشارة إلى النسخ الصادرة في وقت واحد، وهو آلية (مجاز مرسل) بإطلاق اسم العدد على المادة الصادرة."
+      mechanism: "metaphor"
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "إصدار"
+      decision: confirmed
+      decision_reason: "مصطلح معاصر شامل يغطي المطبوعات والبرمجيات."
+      evidence_assessment:
+        case: "confirm"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "أكثر شمولاً من 'طبعة'؛ حيث يستخدم للكتب والبرمجيات والتقارير والعملات."
+      example: "صدر إصدار جديد من نظام التشغيل يعالج الثغرات الأمنية."
+
+    - lemma: "طبعة"
+      decision: confirmed
+      decision_reason: "المصطلح العربي التقليدي والأدق لوصف المفهوم في عالم النشر والكتب."
+      evidence_assessment:
+        case: "confirm"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يرتبط تحديداً بعملية الطباعة الورقية أو الرقمية للكتب والجرائد."
+      example: "نفدت الطبعة الأولى من الرواية في غضون أسبوع واحد."
+
+    - lemma: "نشر"
+      source: step05
+      decision: confirmed
+      decision_reason: "مقبول في السياقات اللسانية والتقنية للإشارة إلى الإصدار."
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على النتيجة النهائية لعملية النشر (Publication)."
+      example: "هذا النشر الأكاديمي موجه للمتخصصين في علم الاجتماع."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "نشر"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-07976007-n"
+
+    - lemma: "عدد"
+      source: step05
+      decision: confirmed
+      decision_reason: "مقبول وشائع الاستخدام في الدوريات."
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "خاص بالدوريات (المجلات والجرائد) التي تصدر بانتظام."
+      example: "تضمن العدد الأخير من المجلة مقالاً عن الذكاء الاصطناعي."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "عدد"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-07976007-n"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "جميع النسخ المتطابقة لشيء ما يُعرض للجمهور في نفس الوقت"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وجامع للمصطلحات المدرجة (كتب، دوريات، برمجيات)."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "تجمع، مجموعة"
+    test_result: "correct"
+  actions: []
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "إصدار"
+      enrichment:
+        root: "ص-د-ر"
+      examples:
+        - text: "الإصدارُ الأوَّلُ, والإصدارُ الثانى"
+          type: usage
+          source: "المعجم الكبير"
+    - lemma: "طبعة"
+      enrichment:
+        root: "ط-ب-ع"
+      examples:
+        - text: "يُقال: الطَّبْعَة الأولَى, أو الأخيرة"
+          type: usage
+          source: "المعجم الكبير"
+    - lemma: "نشر"
+      enrichment:
+        root: "ن-ش-ر"
+      examples:
+        - text: "كلّ مخطوط يخرج إلى الوجود في شكل كتاب بفضل صناعة الطباعة."
+          type: usage
+          source: "المعجم الموحد لمصطلحات اللسانيات"
+    - lemma: "عدد"
+      enrichment:
+        root: "ع-د-د"
+      examples:
+        - text: "صدر العدد المئة من المجلة العلمية."
+          type: usage
+          source: "مؤلف"
+  cultural_fit:
+    assessment: native

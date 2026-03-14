@@ -85,7 +85,7 @@ class BatchStatusDB:
 
     def create_run(self, run_id: str, total_synsets: int, workers: int, model: str) -> None:
         self.conn.execute(
-            "INSERT INTO batch_runs (run_id, started_at, total_synsets, workers, model) "
+            "INSERT OR REPLACE INTO batch_runs (run_id, started_at, total_synsets, workers, model) "
             "VALUES (?, ?, ?, ?, ?)",
             (run_id, _now(), total_synsets, workers, model),
         )

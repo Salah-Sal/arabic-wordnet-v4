@@ -1,0 +1,229 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "فِعْل"
+      confirm:
+        - text: "«الفِعْلُ: حَرَكَةُ الإِنْسانِ، أو كِنايةٌ عن كُلِّ عَمَلٍ مُتَعَدٍّ»"
+          source: "القاموس المحيط"
+        - text: "«الفِعْل: العَمَل»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«الفعل التأثير من جهة مؤثر، وهو عام لما كان في الإنسان والحيوان والجماد»"
+          source: "التوقيف على مهمات التعاريف"
+          addition: "تعميم الفعل ليشمل الجمادات والحيوانات"
+
+    - lemma: "عَمَل بَشَرِيّ"
+      confirm:
+        - text: "«عمل تجاريّ: عمل يقوم به التاجر» — «عمل إنسانيّ: Humanitarian act»"
+          source: "المعجم الموحد لمصطلحات القانون"
+        - text: "«تعرُّف على الأفعال البشرية: Human Action Recognition»"
+          source: "معجم البيانات والذكاء الاصطناعي"
+
+    - lemma: "نَشَاط إِنْسَانِيّ"
+      confirm:
+        - text: "«نشاط بشري: human activity»"
+          source: "مسرد الجغرافيا والتاريخ"
+        - text: "«تعرُّف على النشاط البشري: Human Activity Recognition»"
+          source: "معجم البيانات والذكاء الاصطناعي"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "صَنِيع"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«(1) عَمَلٌ؛ فِعْل؛ صنيع» — المورد الحديث (ترجمة act)"
+      justification: "كلمة تراثية حية تدل على الفعل وما يُصنع، وتناسب المفهوم تماماً."
+    - lemma: "تَصَرُّف"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«تصرُّف قانونيّ: legal act» — المعجم الموحد للقانون"
+      justification: "يدل على السلوك أو الفعل الصادر عن إرادة، وهو مستعمل بكثرة."
+  knowledge_candidates:
+    - lemma: "عَمَل"
+      justification: "اللفظ الأكثر شيوعاً وبساطة للدلالة على الفعل البشري (human action/act)."
+  generation_notes: "تم التركيز على الألفاظ التي تجمع بين الدقة المعجمية والشيوع الاستعمالي."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "فِعْل"
+      decision: "confirmed"
+      decision_reason: "أدلة معجمية قوية ومطابقة تامة للتعريف"
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "اللفظ المجرد والأكثر عمومية للدلالة على الحدث الصادر عن فاعل."
+      example: "كان فعله مفاجئاً للجميع في ذلك الموقف."
+
+    - lemma: "عَمَل بَشَرِيّ"
+      decision: "confirmed"
+      decision_reason: "مصطلح مستقر في المعاجم المتخصصة"
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يؤكد على الهوية البشرية للفاعل وغالباً ما يرتبط بالجهد المبذول."
+      example: "تعد الزراعة أقدم عمل بشري غيّر وجه الأرض."
+
+    - lemma: "نَشَاط إِنْسَانِيّ"
+      decision: "confirmed"
+      decision_reason: "مرادف مستعمل بكثرة في السياقات العلمية والاجتماعية"
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يوحي بالاستمرارية أو بكون الفعل جزءاً من منظومة حيوية أو اجتماعية."
+      example: "يعد البحث العلمي أرقى نشاط إنساني تسعى إليه المجتمعات."
+
+    - lemma: "عَمَل"
+      source: "step05"
+      decision: "confirmed"
+      decision_reason: "اللفظ الأساسي والمباشر للمفهوم"
+      step05_citation: "«العَمَلُ: المِهْنَةُ والفِعْلُ» — القاموس المحيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يتميز بالبساطة والشمول، وهو أصل الاشتقاق للعديد من المفاهيم المرتبطة."
+      example: "كل عمل يقوم به المرء يحاسب عليه."
+      actions:
+        - command: "create_entry"
+          params:
+            lemma: "عَمَل"
+            pos: "n"
+        - command: "add_sense"
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-00030657-n"
+
+    - lemma: "صَنِيع"
+      source: "step05"
+      decision: "confirmed"
+      decision_reason: "لفظ تراثي فصيح مرادف للفعل"
+      step05_citation: "«الصَّنِيعُ: الفِعْلُ الحَسَنُ وقيل: الإحسانُ» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "غالباً ما يشير إلى الفعل الذي له أثر ملموس أو قيمة معينة (إيجابية عادة)."
+      example: "أثنى المعلم على صنيع الطالب المتفوق."
+      actions:
+        - command: "create_entry"
+          params:
+            lemma: "صَنِيع"
+            pos: "n"
+        - command: "add_sense"
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-00030657-n"
+
+    - lemma: "تَصَرُّف"
+      source: "step05"
+      decision: "confirmed"
+      decision_reason: "شائع الاستعمال ويدل على كيفية الفعل"
+      step05_citation: "«تصرُّف قانونيّ: legal act» — المعجم الموحد للقانون"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على الجانب السلوكي أو الطريقة التي يُنفذ بها الفعل."
+      example: "كان تصرفه في الأزمة حكيماً ومتزناً."
+      actions:
+        - command: "create_entry"
+          params:
+            lemma: "تَصَرُّف"
+            pos: "n"
+        - command: "add_sense"
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-00030657-n"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شيء يفعله الناس أو يتسبّبون في حدوثه"
+  assessment:
+    decision: "retain"
+    reason: "التعريف دقيق وواضح ويطابق جوهر المفهوم في المعاجم."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "حَدَث"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "فِعْل"
+        antonym_found: true
+        antonym: "سُكُون"
+      - lemma: "عَمَل"
+        antonym_found: true
+        antonym: "عَطَالَة"
+  actions:
+    - command: "add_synset_relation"
+      params:
+        source_id: "awn4-00030657-n"
+        relation_type: "antonym"
+        target_id: "{auto}"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "فِعْل"
+      enrichment:
+        root: "ف-ع-ل"
+      examples:
+        - text: "«وَفَعَلْتَ فَعْلَتَكَ الَّتِي فَعَلْتَ وَأَنتَ مِنَ الْكَافِرِينَ»"
+          type: "quran"
+          source: "الشعراء/ ١٩"
+      pos_check:
+        pos: "noun"
+
+    - lemma: "عَمَل بَشَرِيّ"
+      enrichment:
+        root: "ع-م-ل"
+      examples:
+        - text: "يؤكد العلماء أن التغير المناخي الحالي ناتج عن عمل بشري مكثف."
+          type: "usage"
+          source: "مؤلَّف"
+      pos_check:
+        pos: "noun"
+
+    - lemma: "نَشَاط إِنْسَانِيّ"
+      enrichment:
+        root: "ن-ش-ط"
+      examples:
+        - text: "تعتبر الفنون أرقى أشكال النشاط الإنساني الذي يعكس حضارة الشعوب."
+          type: "usage"
+          source: "مؤلَّف"
+      pos_check:
+        pos: "noun"
+
+    - lemma: "عَمَل"
+      enrichment:
+        root: "ع-م-ل"
+      examples:
+        - text: "«وَقُلِ اعْمَلُوا فَسَيَرَى اللَّهُ عَمَلَكُمْ وَرَسُولُهُ وَالْمُؤْمِنُونَ»"
+          type: "quran"
+          source: "التوبة/ ١٠٥"
+      pos_check:
+        pos: "noun"
+
+    - lemma: "صَنِيع"
+      enrichment:
+        root: "ص-ن-ع"
+      examples:
+        - text: "«هذا صنيعُ اللهِ الَّذي أتقَنَ كلَّ شيء»"
+          type: "usage"
+          source: "المعجم الوسيط (بتصرف)"
+      pos_check:
+        pos: "noun"
+
+    - lemma: "تَصَرُّف"
+      enrichment:
+        root: "ص-ر-ف"
+      examples:
+        - text: "يجب على المرء أن يتحمل مسؤولية كل تصرف يقوم به."
+          type: "usage"
+          source: "مؤلَّف"
+      pos_check:
+        pos: "noun"
+
+  cultural_fit:
+    assessment: "native"
+  reasoning:
+    cultural_fit_reasoning: "المفهوم أساسي وعام، وتوجد له تسميات عربية أصيلة متنوعة تغطي ظلاله الدلالية."

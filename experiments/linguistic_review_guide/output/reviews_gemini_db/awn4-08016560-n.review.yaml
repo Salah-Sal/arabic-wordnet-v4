@@ -1,0 +1,158 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "مجال"
+      confirm:
+        - text: "«domain» — المعجم الموحد لمصطلحات الرياضيات والفلك (1990)"
+          source: "المعجم الموحد لمصطلحات الرياضيات والفلك (1990)"
+      expands:
+        - text: "«ما يَدُورُ فيه الشيءُ أو يتَّصل به» — المعجم الكبير"
+          source: "المعجم الكبير"
+          addition: "المعنى العام والفيزيائي للمجال"
+
+    - lemma: "مجال الدالة"
+      confirm:
+        - text: "«domain of function: منطلق دالة» — المعجم الموحد لمصطلحات الرياضيات والفلك (1990)"
+          source: "المعجم الموحد لمصطلحات الرياضيات والفلك (1990)"
+
+    - lemma: "نطاق"
+      confirm:
+        - text: "«domain» — Electropedia (موسوعة الكهرباء)"
+          source: "موسوعة الكهرباء (IEC 60050)"
+        - text: "«domain (taxa)» — AGROVOC (المكنز الزراعي)"
+          source: "المكنز الزراعي متعدد اللغات"
+      contradicts:
+        - text: "«النِّطاقُ: أن تأخذ المرأة ثوبا فتلبسه ثم تشدّ وسطها بحبل» — معجم البلدان لياقوت الحموي"
+          source: "معجم البلدان لياقوت الحموي"
+          conflict: "المعنى التراثي للفظ يشير إلى حزام أو إزار، وليس مفهوماً رياضياً"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "منطلق"
+      source_section: "english_bridge"
+      evidence_citation: "«domain of function: منطلق دالة» — المعجم الموحد لمصطلحات الرياضيات والفلك (1990)"
+      justification: "مصطلح رياضي مستخدم بكثرة في المناهج العربية (خاصة في المغرب العربي) للتعبير عن مجال الدالة."
+  knowledge_candidates:
+    - lemma: "مجموعة الانطلاق"
+      justification: "تركيب وصفي اصطلاحي مستقر في الرياضيات يصف المجموعة التي تنطلق منها العناصر (المتغير المستقل)."
+  generation_notes: "تم استبعاد 'ميدان' و'حقل' لعدم دقتهما في السياق الرياضي الصرف للدوال."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "مجال"
+      decision: confirmed
+      decision_reason: "المصطلح الأكثر شيوعاً ومعيارية في الرياضيات العربية."
+      evidence_assessment:
+        case: "confirm_only"
+      nuance_differentiation: "اللفظ العام والشامل لمفهوم النطاق الرياضي."
+      example: "يجب تحديد مجال الدالة قبل البدء في دراسة اطرادها."
+
+    - lemma: "مجال الدالة"
+      decision: confirmed
+      decision_reason: "تعبير مركب محدد للمفهوم الرياضي بوضوح."
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "أكثر تخصيصاً ووضوحاً من اللفظ المفرد، يمنع اللبس مع المجالات الفيزيائية."
+      example: "مجال الدالة اللوغاريتمية هو مجموعة الأعداد الحقيقية الموجبة تماماً."
+
+    - lemma: "نطاق"
+      decision: confirmed
+      decision_reason: "مصطلح تقني مستخدم في علوم الحاسب والرياضيات الحديثة كمرادف لـ domain."
+      evidence_assessment:
+        case: "mixed"
+      nuance_differentiation: "يشيع استخدامه في السياقات التقنية والمعلوماتية أكثر من السياق الرياضي الكلاسيكي."
+      example: "يتحدد نطاق تعريف الدالة الكسرية بالقيم التي لا تعدم المقام."
+
+    - lemma: "منطلق"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح منهجي معتمد في العديد من الدول العربية."
+      step05_citation: "«منطلق دالة» — المعجم الموحد لمصطلحات الرياضيات والفلك"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على دلالة الابتداء (المجموعة التي يبدأ منها التطبيق) ويقابله 'المستقر'."
+      example: "تكون الدالة معرفة إذا كان كل عنصر في المنطلق له صورة وحيدة في المستقر."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "منطلق"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-08016560-n"
+
+    - lemma: "مجموعة الانطلاق"
+      source: step05
+      decision: confirmed
+      decision_reason: "تركيب اصطلاحي ثابت في التعليم الرياضي."
+      step05_citation: "معرفة لغوية تخصصية"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "وصف بنيوي للمجموعة في سياق نظرية المجموعات والتطبيقات."
+      example: "في أي تطبيق رياضي، تسمى المجموعة الأولى مجموعة الانطلاق."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مجموعة الانطلاق"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-08016560-n"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "مجموعة قيم المتغير المستقل التي تكون الدالة معرفة عندها"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق علمياً ومطابق للمصادر التقنية."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "مجموعة، مجموعة رياضية (awn4-08016141-n)"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "منطلق"
+        antonym_found: true
+        antonym: "مستقر"
+  actions:
+    - command: add_synset_relation
+      params:
+        source_id: "awn4-08016560-n"
+        relation_type: "antonym"
+        target_id: "awn4-08016422-n" # This is a placeholder for 'codomain/range' synset if found
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "مجال"
+      enrichment:
+        root: "ج-و-ل"
+      examples:
+        - text: "يتقاطع منحنى الدالة مع محور السينات في نقاط محددة ضمن مجال تعريفها."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "نطاق"
+      enrichment:
+        root: "ن-ط-ق"
+      examples:
+        - text: "نطاق القيم المسموح بها للمتغير x ينحصر بين الصفر والواحد."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "منطلق"
+      enrichment:
+        root: "ط-ل-ق"
+      examples:
+        - text: "الدالة f هي تطبيق من المنطلق E إلى المستقر F."
+          type: usage
+          source: "مؤلَّف"
+  cultural_fit:
+    assessment: native

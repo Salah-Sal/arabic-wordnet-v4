@@ -1,0 +1,233 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "تحفة"
+      confirm:
+        - text: "«التحفة: الشيء الطريف النفيس يكرم به الإنسان.»"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+        - text: "«(التُّحْفَة) الطرفة وَيُقَال لما لَهُ قيمَة فنية أَو أثرية تحفة»"
+          source: "المعجم الوسيط"
+        - text: "«عمل فنِّي نادر»"
+          source: "ArabTerm (مسرد الإعلام والتواصل)"
+      expands:
+        - text: "«ما أُتْحفت به الرجلَ من البِرِّ والألْطاف»"
+          source: "المعجم الكبير"
+          addition: "المعنى التراثي الأصلي (الهدية والبر) أوسع من مفهوم التحفة الفنية."
+
+    - lemma: "شيء نادر"
+      confirm:
+        - text: "«نُدْرة... شيء نادر.»"
+          source: "المورد الحديث"
+      evidence_status: "confirm"
+
+    - lemma: "طُرفة"
+      confirm:
+        - text: "«كلُّ شيء مستحدثٍ عجيب»"
+          source: "المعجم الوسيط"
+        - text: "«ما يكون خارقا للعادة أو الأخلاق المعتادة على نحو يتضمن الحسن واللّطافة»"
+          source: "كشاف اصطلاحات الفنون للتهانوي"
+      contradicts:
+        - text: "«نقطة حمراء من الدم تحدثُ في العين من ضربة أو غيرها»"
+          source: "المعجم الوسيط"
+          conflict: "معنى طبي متخصص لا علاقة له بمفهوم المجموعة."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "أُطْرُوفَة"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«من كُلِّ شيءٍ: الأُطْرُوفَةُ.»"
+      justification: "كلمة تدل على الشيء الطريف والمستحدث الذي يثير العجب، وهي مرادف مباشر لـ 'curio'."
+    - lemma: "نَادِرَة"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«النادرة... شيء عجيب أو استثنائيّ.» — المورد الحديث"
+      justification: "تطلق على الشيء الذي يندر وجوده ويثير الاهتمام لغرابته."
+  knowledge_candidates:
+    - lemma: "مُقْتَنَيَات"
+      justification: "اشتقاق (اسم مفعول من الفعل اقتنى)؛ شاع استعمالها للدلالة على التحف والأشياء الثمينة التي تُجمع لقيمتها الفنية أو التاريخية (collectibles)."
+    - lemma: "عَجِيبَة"
+      justification: "اشتقاق (صيغة مبالغة/صفة مشبهة)؛ تدل على الشيء الذي يخرج عن المألوف ويثير التعجب (wonder/oddity)."
+  generation_notes: "التعريف يركز على صفتي الغرابة والقابلية للاقتناء، وهو ما تغطيه اللمات المقترحة."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "تحفة"
+      decision: confirmed
+      decision_reason: "أدلة معجمية قوية تربط اللفظ بالقيمة الفنية والأثرية والاقتناء."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تختص بالجانب الجمالي والفني والقيمة المادية أو المعنوية التي تجعلها موضع إكرام واقتناء."
+      example: "تزخر المتاحف الوطنية بالتحف الأثرية التي تعكس حضارة البلاد."
+
+    - lemma: "شيء نادر"
+      decision: confirmed
+      decision_reason: "مطابقة تامة لتعريف المجموعة ولدلالة 'rarity'."
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تعبير عام يركز على قلة الوجود والندرة الإحصائية."
+      example: "الماس الأزرق شيء نادر جداً ولا يوجد إلا في مناجم محدودة."
+
+    - lemma: "طُرفة"
+      decision: confirmed
+      decision_reason: "تؤكد المعاجم دلالتها على كل مستحدث عجيب يثير الاستلطاف."
+      evidence_assessment:
+        case: "mixed"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تركز على عنصر الجدة (الحداثة) والغرابة التي تسر الناظر."
+      example: "أهداني صديقي طرفة من الهند لم أرَ مثلها من قبل."
+
+    - lemma: "أُطْرُوفَة"
+      source: step05
+      decision: confirmed
+      decision_reason: "مرادف فصيح قوي ورد في المعاجم للدلالة على الشيء المستحدث العجيب."
+      step05_citation: "«من كُلِّ شيءٍ: الأُطْرُوفَةُ.» — المعجم الكبير"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "صيغة مبالغة من الطرفة، توحي بكون الشيء غاية في الغرابة والجمال."
+      example: "هذه الساعة الرملية القديمة أطروفة تستحق العرض في المتحف."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "أُطْرُوفَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-03154617-n"
+
+    - lemma: "مُقْتَنَيَات"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح مستقر ومعتمد مجمعياً للدلالة على التحف والمقتنيات الثمينة."
+      step05_citation: "«للدلالة على ما يتم الحصول عليه من تحف أو أعمال فنية أو أشياء ثمينة.» — معجم الصواب اللغوي"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تركز دلالياً على فعل 'الاقتناء' والحيازة للقيمة الذاتية لا للتجارة."
+      example: "يضم القصر مقتنيات ملكية تعود للقرن التاسع عشر."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُقْتَنَيَات"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-03154617-n"
+
+    - lemma: "نَادِرَة"
+      source: step05
+      decision: confirmed
+      decision_reason: "تستخدم للدلالة على الشيء الاستثنائي والفريد."
+      step05_citation: "«النادرة... شيء عجيب أو استثنائيّ.» — المورد الحديث"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تتميز بدلالة الفرادة والوحدانية (واحد عصره)."
+      example: "تعد هذه المخطوطة نادرة من نوادر التراث العربي."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "نَادِرَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-03154617-n"
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "شيء غير عادي - ربما يستحق الجمع"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي غير رسمي (استخدام 'ربما') ويحتاج صياغة معجمية أدق."
+  authored_definitions:
+    - type: terminological
+      text: "كلُّ شيءٍ نادِرٍ أو مُسْتحدثٍ يُثيرُ العَجَبَ أو الفُضول، وعادةً ما تكونُ له قيمةٌ فنيَّةٌ أو تاريخيَّةٌ تُحفِّزُ على اقْتِنائِه."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-03154617-n"
+        definition_index: 0
+        text: "كلُّ شيءٍ نادِرٍ أو مُسْتحدثٍ يُثيرُ العَجَبَ أو الفُضول، وعادةً ما تكونُ له قيمةٌ فنيَّةٌ أو تاريخيَّةٌ تُحفِّزُ على اقْتِنائِه."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "جِسْم، شَيْء مَادِّيّ، غَرَض"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "تحفة"
+        antonym_found: true
+        antonym: "شيء عادي"
+      - lemma: "طُرفة"
+        antonym_found: true
+        antonym: "مألوف"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "تحفة"
+      enrichment:
+        root: "ت-ح-ف"
+      examples:
+        - text: "تزخر المتاحف الوطنية بالتحف الأثرية التي تعكس حضارة البلاد."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "طُرفة"
+      enrichment:
+        root: "ط-ر-ف"
+      examples:
+        - text: "كان عنده صِحافٌ تِسْعٌ, فلا تكونُ فاكهةٌ, ولا طُرَيْفَةٌ إلا جَعَلَ منها في تلك الصِّحافِ"
+          type: usage
+          source: "المعجم الكبير"
+      pos_check:
+        pos: noun
+    - lemma: "شيء نادر"
+      enrichment:
+        root: "ن-د-ر"
+      examples:
+        - text: "الماس الأزرق شيء نادر جداً ولا يوجد إلا في مناجم محدودة."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "أُطْرُوفَة"
+      enrichment:
+        root: "ط-ر-ف"
+      examples:
+        - text: "هذه الساعة الرملية القديمة أطروفة تستحق العرض في المتحف."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "مُقْتَنَيَات"
+      enrichment:
+        root: "ق-ن-ي"
+      examples:
+        - text: "أُقِيم مزاد لبيع المقتنيات الفنية"
+          type: usage
+          source: "معجم الصواب اللغوي"
+      pos_check:
+        pos: noun
+    - lemma: "نَادِرَة"
+      enrichment:
+        root: "ن-د-ر"
+      examples:
+        - text: "تعد هذه المخطوطة نادرة من نوادر التراث العربي."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

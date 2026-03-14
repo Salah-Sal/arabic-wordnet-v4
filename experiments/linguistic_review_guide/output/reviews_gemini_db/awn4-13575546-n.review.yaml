@@ -1,0 +1,98 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "تحسيس"
+      confirm:
+        - text: "«تحسيس: sensitization» — المعجم الطبي الموحد (2009)"
+        - text: "«تحسيس: sensitization» — المعجم الموحد لمصطلحات علم التشريح العياني (2015)"
+      expands:
+        - text: "«تحسيس: جعل الشيء يتأثر بالضوء» — المعجم الموحد للمصطلحات المهنية والتقنية (1996)"
+          addition: "استخدام المصطلح في سياق تقني فيزيائي يوازي المعنى النفسي في إكساب الحساسية."
+    - lemma: "توعية"
+      confirm:
+        - text: "«توعية: outreach» — المكنز الزراعي متعدد اللغات (AGROVOC)"
+      contradicts:
+        - text: "«ويمكن تصحيح الفعل وعّى والمصدر توعية بمعنى نصح وحمل على إدراك موضوع من المواضيع» — معجم الصواب اللغوي"
+          conflict: "التوعية فعل خارجي (نصح وإرشاد) بينما التعريف يركز على عملية داخلية (أن يصبح الشخص حساساً)."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "تحسس"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«تحسس: يصبح ذا حساسية» — المورد الحديث (2008)"
+      justification: "الفعل 'تحسس' يعبر عن المطاوع (becoming sensitive) وهو ما يطابق صياغة التعريف 'أن يصبح الشخص حساساً'."
+  knowledge_candidates:
+    - lemma: "استحساس"
+      justification: "مصطلح بديل مستخدم في بعض المعاجم الطبية والنفسية لترجمة sensitization (آلية الاشتقاق: استفعال للتحول أو الصيرورة)."
+  generation_notes: "المصطلحات المولدة تركز على الجانب الانعكاسي (المطاوعة) للعملية النفسية."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "تحسيس"
+      decision: confirmed
+      decision_reason: "المصطلح التقني المستقر في علم النفس والطب لترجمة Sensitization."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يستخدم 'تحسيس' كاسم للعملية النفسية الكلية، سواء كانت ناتجة عن مثير خارجي أو تطور داخلي."
+      example: "يؤدي التحسيس المتكرر لمثير مؤلم إلى زيادة حدة الاستجابة الانفعالية تجاهه."
+
+    - lemma: "توعية"
+      decision: removed
+      decision_reason: "المصطلح يشير إلى الإجراء الإعلامي أو الاجتماعي (Outreach/Awareness raising) وليس للعملية النفسية الفردية."
+      evidence_assessment:
+        case: "contradicts"
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "التوعية عملية واعية وهادفة لنشر المعرفة، بينما التحسيس في علم النفس قد يكون عملية لا واعية لزيادة الحساسية للمثيرات."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "تحسس"
+      source: step05
+      decision: removed
+      decision_reason: "رغم دقتها الصرفية في التعبير عن 'الصيرورة'، إلا أن 'تحسيس' هي الأكثر شيوعاً واستقراراً في المعاجم المتخصصة، و'تحسس' قد تلتبس بالمعنى الطبي (Allergy) أو البحث عن الأخبار."
+      step05_citation: "«تحسس: يصبح ذا حساسية» — المورد الحديث (2008)"
+
+step3_definition:
+  current_definition: "(في علم النفس) عملية أن يصبح الشخص حساساً للغاية تجاه أحداث أو مواقف معينة (خاصة الأحداث أو المواقف العاطفية)"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق علمياً ومطابق للمفهوم في علم النفس التجريبي."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عملية (awn4-00029976-n)"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "تحسيس"
+        antonym_found: false
+        # antonym: "تعود"
+  actions:
+    - command: add_synset_relation
+      params:
+        source_id: "awn4-13575546-n"
+        relation_type: "antonym"
+        target_id: "{habituation_synset_id}"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "تحسيس"
+      enrichment:
+        root: "ح-س-س"
+      examples:
+        - text: "تعد عملية التحسيس الانفعالي جزءاً من استجابة الشخص للصدمات النفسية المتراكمة."
+          type: usage
+          source: "مؤلف (سياق علم النفس)"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-13575546-n"
+        text: "تعد عملية التحسيس الانفعالي جزءاً من استجابة الشخص للصدمات النفسية المتراكمة."

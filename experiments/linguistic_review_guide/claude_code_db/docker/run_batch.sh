@@ -20,6 +20,7 @@
 #   ./run_batch.sh --workers 8                  # All synsets, 8 workers
 #   ./run_batch.sh --workers 2 awn4-02592253-n  # Single synset
 #   ./run_batch.sh --resume --workers 4         # Resume interrupted run
+#   ./run_batch.sh --batch /path/to/batch.txt --workers 10 --adaptive
 #   MODEL=haiku ./run_batch.sh --workers 10     # Custom model
 
 set -euo pipefail
@@ -36,15 +37,29 @@ WORKERS="${WORKERS:-4}"
 
 mkdir -p "$OUTPUT_DIR"
 
-# ── Parse --workers from args (pass everything else through to batch_runner.py) ──
+# ── Parse args: extract --workers and --batch (need special handling for Docker mounts) ──
 BATCH_ARGS=()
+BATCH_FILE=""
+EXTRA_MOUNTS=()
 while [[ $# -gt 0 ]]; do
     case "$1" in
         --workers) WORKERS="$2"; shift 2 ;;
         --workers=*) WORKERS="${1#*=}"; shift ;;
+        --batch) BATCH_FILE="$2"; BATCH_ARGS+=("--batch" "/workspace/batch.txt"); shift 2 ;;
+        --batch=*) BATCH_FILE="${1#*=}"; BATCH_ARGS+=("--batch" "/workspace/batch.txt"); shift ;;
         *) BATCH_ARGS+=("$1"); shift ;;
     esac
 done
+
+# Mount batch file into container if provided
+if [ -n "$BATCH_FILE" ]; then
+    if [ ! -f "$BATCH_FILE" ]; then
+        echo "Error: batch file not found: $BATCH_FILE"
+        exit 1
+    fi
+    BATCH_FILE="$(cd "$(dirname "$BATCH_FILE")" && pwd)/$(basename "$BATCH_FILE")"
+    EXTRA_MOUNTS+=(-v "$BATCH_FILE":/workspace/batch.txt:ro)
+fi
 # Default to --all if no synset args given
 if [ ${#BATCH_ARGS[@]} -eq 0 ]; then
     BATCH_ARGS=("--all")
@@ -85,6 +100,7 @@ echo
 docker run --rm \
     --cap-add=NET_ADMIN \
     --cap-add=NET_RAW \
+    ${EXTRA_MOUNTS[@]+"${EXTRA_MOUNTS[@]}"} \
     -v "$PREPARED_DIR":/workspace/prepared:ro \
     -v "$GUIDE_DIR/spec":/workspace/spec:ro \
     -v "$CLAUDE_CODE_DB_DIR/review_instructions.md":/workspace/review_instructions.md:ro \

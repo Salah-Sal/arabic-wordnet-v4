@@ -1,0 +1,186 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "تجمع"
+      confirm:
+        - text: "«انضمَّ بعضه إلى بعض» — المعجم الوسيط"
+        - text: "«الشيءُ المُتَفَرِّقُ، أو الأشياءُ: اجْتَمَعَت» — المعجم الكبير"
+      expands:
+        - text: "«تجمع سكاني يشمل مدينة مركزية وضواحيها» — مسرد المناخ والبيئة (ArabTerm)"
+          addition: "تخصيص المعنى للتجمعات المكانية/السكانية"
+
+    - lemma: "مجموعة"
+      confirm:
+        - text: "«لفظ عام يطلق على مجموع عناصر منسجمة تكون وحدة» — المعجم الموحد لمصطلحات تقانة المعلومات"
+        - text: "«عدد من الذرات تدخل في التفاعلات الكيميائية دون انفصام بينها فكأنما هي ذرة واحدة» — المعجم الموحد لمصطلحات الكيمياء"
+      expands:
+        - text: "«مفهوم رياضي استعمل بكثرة في اللسانيات وهو يدل على عدد من المكونات لها خاصيات متشابهة أو خاصية واحدة» — المعجم الموحد لمصطلحات اللسانيات"
+          addition: "تأكيد المعنى الرياضي/المنطقي للمصطلح"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "زمرة"
+      source_section: "step0_fts_keyword"
+      evidence_citation: "«الفوجُ والجماعة» — المعجم الوسيط"
+      justification: "تُستخدم في العلم (الرياضيات والفيزياء) لتمثيل مفهوم المجموعة ذات الخصائص الموحدة (group)."
+    - lemma: "فئة"
+      source_section: "step0_fts_keyword"
+      evidence_citation: "«الفرقة» — المعجم الوسيط"
+      justification: "تُستخدم للتعبير عن مجموعة من الكيانات التي تشترك في صفات معينة (class/category)."
+  knowledge_candidates:
+    - lemma: "جماعة"
+      justification: "اللفظ العربي العام والأكثر شيوعاً للتعبير عن تكتل أو تجمع من الأفراد أو الأشياء (آلية التوليد: إحياء تراثي/استعمالي)."
+    - lemma: "طائفة"
+      justification: "تُستخدم للتعبير عن جزء أو مجموعة متميزة من الكيانات (آلية التوليد: إزاحة دلالية)."
+  generation_notes: "التركيز على المفاهيم التجريدية والمصطلحات العلمية المقابلة لـ group/set."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "تجمع"
+      decision: confirmed
+      decision_reason: "مصطلح أصيل يعبر عن عملية التجمع ونتيجتها المادية أو الوصفية."
+      evidence_assessment:
+        case: "confirm_only"
+      nuance_differentiation: "يركز على الجانب الديناميكي أو المادي للالتقاء والتحشد (aggregation)."
+      example: "شهد الميدان تجمعاً كبيراً من المتظاهرين للمطالبة بحقوقهم."
+    
+    - lemma: "مجموعة"
+      decision: confirmed
+      decision_reason: "المصطلح المعياري في اللغة العربية الحديثة والعلوم للتعبير عن مفهوم الـ group أو الـ set."
+      evidence_assessment:
+        case: "confirm_only"
+      nuance_differentiation: "يركز على الجانب التجريدي والوظيفي للوحدة التي تجمع العناصر (set/group)."
+      example: "درس الطلاب في حصة الرياضيات خصائص المجموعة الخالية."
+
+    - lemma: "زمرة"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح علمي دقيق (خاصة في الرياضيات) وعريق في اللغة."
+      step05_citation: "«الفوج والجماعة» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "غالباً ما توحي بمجموعة صغيرة أو منظمة أو ذات بنية رياضية محددة."
+      example: "تنتمي هذه العناصر إلى زمرة كيميائية واحدة في الجدول الدوري."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "زمرة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-00031563-n"
+
+    - lemma: "فئة"
+      source: step05
+      decision: confirmed
+      decision_reason: "شائع الاستخدام للتعبير عن المجموعات المصنفة بناءً على معايير."
+      step05_citation: "«الجماعة» — مجمل اللغة"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تفيد التصنيف والتقسيم بناءً على صفات مشتركة (category/class)."
+      example: "تستهدف هذه المبادرة فئة الشباب المبدعين في مجالات التكنولوجيا."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "فئة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-00031563-n"
+
+    - lemma: "جماعة"
+      source: step05
+      decision: confirmed
+      decision_reason: "لفظ أساسي وشامل لمعنى المجموعة."
+      step05_citation: "«الجماعة: عدد كل شيء وكثرته» — لسان العرب"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "لفظ عام يطلق غالباً على البشر، ولكن يصح إطلاقه على الكيانات المجردة أيضاً."
+      example: "اجتمعت جماعة من العلماء لمناقشة التحديات البيئية."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "جماعة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-00031563-n"
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "أيّ عدد من الكيانات (الأعضاء) يُعتبَر وحدة واحدة"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي دقيق منطقياً لكنه يفتقر للجزالة اللغوية المعجمية."
+  authored_definitions:
+    - type: terminological
+      text: "مجموعة من العناصر أو الأفراد أو الكيانات التي تُعامل بوصفها وحدة مستقلة أو كياناً واحداً."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-00031563-n"
+        definition_index: 0
+        text: "مجموعة من العناصر أو الأفراد أو الكيانات التي تُعامل بوصفها وحدة مستقلة أو كياناً واحداً."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "تجريد / كيان مجرد"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "مجموعة"
+        antonym_found: true
+        antonym: "فرد / عنصر"
+  actions:
+    - command: add_synset_relation
+      params:
+        source_id: "awn4-00031563-n"
+        relation_type: "antonym"
+        target_id: "awn4-00001740-n"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "تجمع"
+      enrichment:
+        root: "ج-م-ع"
+      examples:
+        - text: "تَمَّ فَضُّ التَّجَمُّعِ بِسَلامٍ."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "مجموعة"
+      enrichment:
+        root: "ج-م-ع"
+      examples:
+        - text: "تتألف المجموعة الشمسية من الشمس وثمانية كواكب."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "زمرة"
+      enrichment:
+        root: "ز-م-ر"
+      examples:
+        - text: "يُعَدُّ هذا التَّحْوِيلُ تَشَاكُلًا بَيْنَ زُمْرَتَيْنِ رِيَاضِيَّتَيْنِ."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "فئة"
+      enrichment:
+        root: "ف-أ-ي"
+      examples:
+        - text: "قُسِّمَتِ الفِئَاتُ العُمُرِيَّةُ إِلَى ثَلَاثَةِ أَقْسَامٍ."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "جماعة"
+      enrichment:
+        root: "ج-م-ع"
+      examples:
+        - text: "يَدُ اللهِ مَعَ الجَمَاعَةِ."
+          type: hadith
+          source: "سنن الترمذي"
+  cultural_fit:
+    assessment: native

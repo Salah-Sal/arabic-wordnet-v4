@@ -6,7 +6,7 @@ ARG CLAUDE_CODE_VERSION=latest
 RUN apt-get update && apt-get install -y --no-install-recommends \
     jq bc procps sudo \
     iptables ipset iproute2 dnsutils \
-    sqlite3 python3 \
+    sqlite3 python3 python3-yaml \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Claude Code (pinnable version for reproducible batch runs)

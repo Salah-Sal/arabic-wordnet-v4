@@ -1,0 +1,174 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "سَبَب"
+      confirm:
+        - text: "«ما يُؤدّي إلى حدوث أمر أو نتيجة، ما يتوصّل به إلى غيره»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«كل ما يتوصل به إلى شيء»"
+          source: "المفردات في غريب القرآن للراغب الأصفهاني"
+        - text: "«وعند الحكماء... هو ما يحتاج إليه الشيء إمّا في ماهيته أو في وجوده... وترادفه العلّة»"
+          source: "كشّاف اصطلاحات الفنون والعلوم للتهانوي"
+      contradicts:
+        - text: "«الحبل»"
+          source: "لسان العرب"
+          conflict: "المعنى الحسي (الحبل) هو الأصل اللغوي، لكنه يبتعد عن المفهوم المجرد للكيان المحدث للأثر."
+      expands:
+        - text: "«النسب بالولادة والسبب بالزواج»"
+          source: "مجمع بحار الأنوار"
+          addition: "استعمال في فقه القرابة (المصاهرة)."
+
+    - lemma: "عَامِل مُسَبِّب"
+      confirm:
+        - text: "«العامل الذي يعزى إليه المرض أو الإصابة أو الحالة.»"
+          source: "معجم المصطلحات الطبية (ArabTerm)"
+      contradicts:
+        - text: "«antenna feed»"
+          source: "المعجم الموحد لمصطلحات المياه (ArabTerm)"
+          conflict: "استعمال تقني متخصص في هندسة الهوائيات بعيد عن المفهوم العام للسببية."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "عِلَّة"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«العلة عند الحكماء: ما يتوقف عليه وجود الشيء ويكون خارجًا مؤثرًا فيه.» — كتاب التعريفات للجرجاني"
+      justification: "مصطلح مركزي في الفلسفة والعلوم العربية للدلالة على الكيان المحدث للأثر (العلة الفاعلة)."
+    - lemma: "مُسَبِّب"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«Causer; cause» — قاموس حبيب سالمون"
+      justification: "اسم فاعل من «سبّب»، يدل مباشرة على الكيان الذي يقوم بفعل التسبيب."
+  knowledge_candidates:
+    - lemma: "مُؤَثِّر"
+      justification: "اشتقاق: اسم فاعل من «أثر»، وهو ما يحدث الأثر المذكور في التعريف، مستعمل بكثرة في السياقات العلمية والفلسفية."
+  generation_notes: "التركيز على اللمّات التي تعزز مفهوم 'الكيان' (Agent) تماشياً مع موقع المجموعة تحت 'كيان مادي'."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "سَبَب"
+      decision: confirmed
+      decision_reason: "أدلة معجمية قوية وتطابق تام مع التعريف."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "اللفظ الأعم والأكثر شيوعاً للدلالة على الواسطة أو الكيان المفضي للنتيجة."
+      example: "كان الإهمال هو السبب الرئيس في وقوع الحادث الأخير."
+
+    - lemma: "عَامِل مُسَبِّب"
+      decision: confirmed
+      decision_reason: "مصطلح تقني مستقر في السياقات العلمية والطبية."
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يُستخدم غالباً في السياقات العلمية والطبية لوصف الكيانات (مثل البكتيريا أو العوامل البيئية) التي تُحدث أثراً محدداً."
+      example: "يُعد التدخين العامل المسبب الأول للعديد من أمراض الجهاز التنفسي."
+
+    - lemma: "عِلَّة"
+      source: step05
+      decision: confirmed
+      decision_reason: "مرادف أصيل ومستقر في التراث العلمي والفلسفي."
+      step05_citation: "«مَا يحْتَاج إِلَيْه وجود الشَّيْء.» — معجم مقاليد العلوم"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يميل للاستعمال في السياقات المنطقية والفلسفية والطبية (المرض)، ويوحي بوجود رابطة ضرورية بين العلة والمعلول."
+      example: "بحث الفلاسفة في العلة الأولى للكون."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "عِلَّة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-00007347-n"
+
+    - lemma: "مُسَبِّب"
+      source: step05
+      decision: confirmed
+      decision_reason: "اسم فاعل مباشر يدل على الفاعلية في إحداث الأثر."
+      step05_citation: "«مُسَبِّبُ الأَسْبَاب» — تاج العروس"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على الذات أو الكيان الذي يصدر عنه فعل التسبيب."
+      example: "تم تحديد المسبب الرئيس للتسمم الغذائي في المطعم."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُسَبِّب"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-00007347-n"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "أيّ كيان يُحدِث أثرًا أو يكون مسؤولًا عن أحداث أو نتائج"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق ومطابق للمفهوم العالمي لـ 'Causal Agent' ككيان مادي أو معنوي يحدث أثراً."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "كِيَان مَادِّيّ"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "سَبَب"
+        antonym_found: true
+        antonym: "نَتِيجَة"
+      - lemma: "عِلَّة"
+        antonym_found: true
+        antonym: "مَعْلُول"
+  verb_checks:
+    applicable: false
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "سَبَب"
+      enrichment:
+        root: "س-ب-ب"
+      examples:
+        - text: "«فَأَتْبَعَ سَبَبًا»"
+          type: "quran"
+          source: "الكهف/ ٨٥"
+      pos_check:
+        pos: noun
+
+    - lemma: "عَامِل مُسَبِّب"
+      enrichment:
+        root: "ع-م-ل"
+      examples:
+        - text: "يُعتبر تلوث المياه عاملاً مسبباً لانتشار الأوبئة في المناطق المنكوبة."
+          type: "usage"
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+
+    - lemma: "عِلَّة"
+      enrichment:
+        root: "ع-ل-ل"
+      examples:
+        - text: "«العلة: ما يتوقف عليه وجود الشيء ويكون خارجًا مؤثرًا فيه.»"
+          type: "usage"
+          source: "كتاب التعريفات للجرجاني"
+      pos_check:
+        pos: noun
+
+    - lemma: "مُسَبِّب"
+      enrichment:
+        root: "س-ب-ب"
+      examples:
+        - text: "يجب القضاء على المسببات البيئية للأمراض المتوطنة."
+          type: "usage"
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+
+  cultural_fit:
+    assessment: native
+  reasoning:
+    cultural_fit_reasoning: "مفهوم السببية مركزي في الفكر العربي والإسلامي (علم الكلام والفلسفة الطب)، والألفاظ المستخدمة أصيلة ومستقرة."

@@ -1,0 +1,149 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "أرض"
+      confirm:
+        - text: "«وكل ما سفل فهو أرض. وأرض أَريضَةٌ، أي زكيةٌ، بيّنة الأَراضَة.»"
+          source: "تاج اللغة وصِحاح العربية"
+        - text: "«والأرض: الّتي نحن عليها... ومنه قولهُم أرضٌ أريضَةٌ، وذلك إذا كانت لينةً طيبةً.»"
+          source: "مقاييس اللغة"
+        - text: "«أرض، تربة — ground»"
+          source: "المعجم الموحد لمصطلحات الجيولوجيا (2000)"
+      expands:
+        - text: "«سطح الأرض الصلب، قد يكون مغطى بماء (قاع البحر) أو نبات.»"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+          addition: "توسيع الدلالة لتشمل القاع المغمور بالماء"
+
+    - lemma: "تربة"
+      confirm:
+        - text: "«الطبقة العليا من سطح الأرض. طبقة مناسبة لنمو الحياة النباتية (منفصلة عن القاعدة الحجرية التي تدعمها).»"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+        - text: "«مواد رقيقة مفككة فوق الطبقات أو الصخور الصلبة وتصلح للزراعة»"
+          source: "المعجم الموحد لمصطلحات الجيولوجيا (2000)"
+        - text: "«تُربة — ground / soil»"
+          source: "المعجم الموحد لمصطلحات المياه (2000)"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "تُراب"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«الأرض وما نعم منها» — مقاييس اللغة"
+      justification: "اللفظ العام للمادة الدقيقة المكونة لسطح الأرض"
+  knowledge_candidates:
+    - lemma: "ثَرى"
+      justification: "لفظ عربي فصيح يدل على التراب الندي أو الأرض الرطبة، وهو من أوزان الاشتقاق (فَعَل) الدالة على الجوهر المادي."
+  generation_notes: "التركيز على المادة المكونة للسطح (material) لا على الحيز الجغرافي."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "أرض"
+      decision: confirmed
+      decision_reason: "أدلة معجمية قوية تربط اللفظ بخصائص المادة (الزكاة والطيبة) بالإضافة للاستعمال المصطلحى"
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "اللفظ العام الشامل للسطح والمادة والمكان"
+      example: "يُفضّل الفلاحون حراثة الأرض بعد هطول المطر لسهولة تفتيت التربة."
+
+    - lemma: "تربة"
+      decision: confirmed
+      decision_reason: "مطابقة تامة لتعريف المجموعة في المعاجم المتخصصة واللغوية"
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "أخص من «أرض»، يركز على المادة الحاضنة للنبات وخصائصها الكيميائية والفيزيائية"
+      example: "تتميز التربة البركانية بخصوبة عالية تجعلها مثالية للزراعة."
+
+    - lemma: "تُراب"
+      source: step05
+      decision: confirmed
+      decision_reason: "مرادف جوهري للمادة المكونة للسطح"
+      step05_citation: "«ما نعم من ظاهر الأرض» — لسان العرب"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على الحالة الفيزيائية للمادة (النعومة والتفكك) دون قيد الصلاحية للزراعة بالضرورة"
+      example: "تطاير التراب في الجو بسبب الرياح الشديدة."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "تراب"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09358146-n"
+
+    - lemma: "ثَرى"
+      source: step05
+      decision: confirmed
+      decision_reason: "لفظ تراثي فصيح يغني المجموعة بدلالة الرطوبة والخصوبة"
+      step05_citation: "«الأرض إذا نديت ولانت» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يختص بالأرض الندية أو المادة الترابية الرطبة"
+      example: "سقى المطر الثرى ففاحت منه رائحة زكية."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "ثرى"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09358146-n"
+
+step3_definition:
+  current_definition: "المادة الموجودة في الطبقة العليا من سطح الأرض والتي تنمو فيها النباتات (خاصة فيما يتعلق بجودتها أو استخدامها)"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق علمياً ومطابق للمعاجم المتخصصة المعاصرة"
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "جِسْم؛ شَيْء مَادِّيّ"
+    test_result: "correct"
+  actions:
+    - command: add_synset_relation
+      params:
+        source_id: "awn4-09358146-n"
+        relation_type: "hypernym"
+        target_id: "awn4-14580597-n" # مادة؛ جوهر (OEWN material/substance)
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "أرض"
+      enrichment:
+        root: "أ-ر-ض"
+      examples:
+        - text: "«وَالأَرْضَ بَعْدَ ذَلِكَ دَحَاهَا»"
+          type: usage
+          source: "النازعات/ ٣٠"
+    - lemma: "تربة"
+      enrichment:
+        root: "ت-ر-ب"
+      examples:
+        - text: "«تُربة: مواد رقيقة مفككة فوق الطبقات أو الصخور الصلبة وتصلح للزراعة»"
+          type: usage
+          source: "المعجم الموحد لمصطلحات الجيولوجيا"
+    - lemma: "تُراب"
+      enrichment:
+        root: "ت-ر-ب"
+      examples:
+        - text: "«فَلَمْ تَجِدُوا مَاءً فَتَيَمَّمُوا صَعِيدًا طَيِّبًا فَامْسَحُوا بِوُجُوهِكُمْ وَأَيْدِيكُمْ مِنْهُ»"
+          type: quran
+          source: "المائدة/ ٦"
+    - lemma: "ثَرى"
+      enrichment:
+        root: "ث-ر-ي"
+      examples:
+        - text: "«لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ وَمَا بَيْنَهُمَا وَمَا تَحْتَ الثَّرَى»"
+          type: quran
+          source: "طه/ ٦"
+  cultural_fit:
+    assessment: native
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-09358146-n"
+        text: "تتنوع أنواع التربة بين الرملية والطينية والكلسية."

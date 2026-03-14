@@ -1,0 +1,156 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "راسب"
+      confirm:
+        - text: "«(فى الجيولوجيا): ما تجمع من المواد الطبيعية واستقر فى موضعه» — المعجم الكبير"
+        - text: "«مادة صلبة تنفصل عن المحلول» — المعجم الموحد لمصطلحات الهندسة المدنية (2012)"
+        - text: "«رسب الشيء في الماء إذا سفل فيه، فهو راسب» — معجم البلدان لياقوت الحموي"
+      expands:
+        - text: "«(فى الكيمياء): المادَّة التى تَنْفَصِلُ من المحلول نتيجة لتغَيُّرٍ كيميائىٍّ أو فيزيقىٍّ» — المعجم الكبير"
+          addition: "يشمل الترسيب الكيميائي المخبري بالإضافة للعمليات الطبيعية"
+      peripheral_observations:
+        - text: "«الحليم جَبَلٌ رَاسِبٌ: ثابت راسخ» — المعجم الوسيط"
+
+    - lemma: "رواسب"
+      confirm:
+        - text: "«مرادف لودائع (ترابية).» — المعجم الموحد لمصطلحات الطاقة المتجددة (1996)"
+        - text: "«(رواسب): جسيمات أو أجسام صلبة... حملتها الرياح أو المياه... ثم ترسبت على شكل طبقات» — مسرد المناخ والبيئة (ArabTerm)"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "رسابة"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«الرَّسابة: ما يَرْسُب أسفل الإناء والنهر والمسيل» — المعجم الوسيط"
+      justification: "مصطلح معجمي دقيق يصف المادة المستقرة في القاع، وهو مرادف مباشر لـ sediment."
+    - lemma: "رسوب"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«الرّسوب: كلّ ما يرسب في قعر الإناء من الثفل» — كشّاف اصطلاحات الفنون والعلوم للتهانوي"
+      justification: "لفظ تراثي وعلمي يُطلق على المادة المترسبة نفسها."
+  knowledge_candidates:
+    - lemma: "مادة مترسبة"
+      justification: "تركيب وصفي اصطلاحي شائع جداً في العلوم الطبيعية والكيمياء لوصف المادة موضوع البحث."
+      generation_notes: "استخدمت آلية التركيب الوصفي لإنتاج مصطلح علمي مباشر."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "راسب"
+      decision: "confirmed"
+      decision_reason: "أدلة معجمية قوية في تخصصات الجيولوجيا والكيمياء"
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يُستخدم غالباً للإشارة إلى المادة الناتجة عن عملية ترسيب محددة أو في سياق مخبري (الكيمياء)."
+      example: "يتم فحص الراسب المتكون في أنبوب الاختبار لتحديد نوع التفاعل الكيميائي."
+
+    - lemma: "رواسب"
+      decision: "confirmed"
+      decision_reason: "شائعة الاستعمال في الجيولوجيا كجمع يدل على تراكمات مادية"
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تُستعمل بصيغة الجمع للدلالة على التراكمات الطبيعية الكبيرة الممتدة عبر مساحات أو أزمنة جيولوجية (مثل رواسب النيل)."
+      example: "تنتشر الرواسب الطينية على ضفاف الأنهار بعد انحسار الفيضان."
+
+    - lemma: "رسابة"
+      source: "step05"
+      decision: "confirmed"
+      decision_reason: "مصطلح معجمي متخصص وأصيل"
+      step05_citation: "«الرَّسابة: ما يَرْسُب أسفل الإناء والنهر والمسيل» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "لفظ تراثي أصيل يركز على المادة المتبقية في القاع (residue/sediment) في الأوعية أو المجاري المائية."
+      example: "تراكمت الرسابة في قاع الخزان مما استدعى تنظيفه بشكل دوري."
+      actions:
+        - command: "create_entry"
+          params:
+            lemma: "رسابة"
+            pos: "n"
+        - command: "add_sense"
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09451871-n"
+
+    - lemma: "رسوب"
+      source: "step05"
+      decision: "confirmed"
+      decision_reason: "لفظ علمي تراثي وشائع في الاستعمال القديم"
+      step05_citation: "«الرّسوب: كلّ ما يرسب في قعر الإناء» — كشّاف اصطلاحات الفنون والعلوم"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "قد يحصل لبس في الاستعمال المعاصر مع معنى الفشل (academic failure)، لكنه في السياق العلمي (الطب القديم والكيمياء) يمثل المادة المستقرة."
+      example: "ظهر الرسوب في عينة السائل بعد تركه ساكناً لفترة من الزمن."
+      actions:
+        - command: "create_entry"
+          params:
+            lemma: "رسوب"
+            pos: "n"
+        - command: "add_sense"
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09451871-n"
+
+step3_definition:
+  current_definition: "مادة ترسبت بفعل عملية طبيعية"
+  assessment:
+    decision: "revise"
+    reason: "التعريف الحالي جيد ولكنه يفتقر للصياغة المصطلحية التي تشمل المكونات والعمليات التفصيلية المذكورة في المعاجم المتخصصة."
+  authored_definitions:
+    - type: "terminological"
+      text: "جسيمات مادية صلبة (عضوية أو غير عضوية) تجمع واستقرت في موضع ما بفعل الجاذبية بعد انتقالها بواسطة الرياح أو المياه أو الجليد."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: "update_definition"
+      params:
+        synset_id: "awn4-09451871-n"
+        definition_index: 0
+        text: "جسيمات مادية صلبة (عضوية أو غير عضوية) تجمع واستقرت في موضع ما بفعل الجاذبية بعد انتقالها بواسطة الرياح أو المياه أو الجليد."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "مَادَّة"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "راسب"
+        antonym_found: false
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "راسب"
+      enrichment:
+        root: "ر-س-ب"
+      examples:
+        - text: "ما تجمع من المواد الطبيعية واستقر فى موضعه"
+          type: "usage"
+          source: "المعجم الكبير"
+    - lemma: "رواسب"
+      enrichment:
+        root: "ر-س-ب"
+      examples:
+        - text: "تحمل مياه النيل الرواسب الغنية التي تخصب الأراضي الزراعية."
+          type: "usage"
+          source: "مؤلَّف"
+    - lemma: "رسابة"
+      enrichment:
+        root: "ر-س-ب"
+      examples:
+        - text: "ما يَرْسُب أسفل الإناء والنهر والمسيل"
+          type: "usage"
+          source: "المعجم الوسيط"
+    - lemma: "رسوب"
+      enrichment:
+        root: "ر-س-ب"
+      examples:
+        - text: "استقرار الأجزاء الغليظة من المائعات في أسفلها"
+          type: "usage"
+          source: "كشاف اصطلاحات الفنون"
+  cultural_fit:
+    assessment: "native"
+  reasoning:
+    cultural_fit_reasoning: "المصطلحات المتعلقة بالترسيب والجيولوجيا أصيلة في اللغة العربية ولها جذور اشتقاقية واضحة."

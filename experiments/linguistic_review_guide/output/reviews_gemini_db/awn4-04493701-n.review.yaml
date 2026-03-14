@@ -1,0 +1,170 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "تفاهة"
+      confirm:
+        - text: "«تفاهة: (في الإنكليزية) triviality»"
+          source: "المورد الحديث (2008)"
+      expands:
+        - text: "«تطلق على معنيين: أحدهما عدم الطعم... وثانيهما كون الجسم بحيث لا يحس طعمه لكثافة أجزائه»"
+          source: "كشاف اصطلاحات الفنون للتهانوي"
+          addition: "المعنى الأصلي يتعلق بالمذاق (المسخ)"
+
+    - lemma: "شيء تافه"
+      confirm:
+        - text: "«(1) شيء تافه. وبخاصة: مقدار ضئيل [من المال إلخ]» — ترجمة trifle"
+          source: "المورد الحديث (2008)"
+        - text: "«(2) شيء تافه» — ترجمة small beer"
+          source: "المورد الحديث (2008)"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "سَفْساف"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«الأمر التَّافِهُ الحقيرُ، وهو ضِدُّ المعالى والمكارم» — المعجم الكبير"
+      justification: "مصطلح تراثي فصيح يدل بدقة على المفهوم قليل الأهمية أو الحقير."
+    - lemma: "تَوافِه"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«توافه؛ أُمور تافهة» — ترجمة trivia"
+      justification: "جمع تافهة، ويُستخدم كاسم جنس للمسائل قليلة الأهمية."
+  knowledge_candidates:
+    - lemma: "حَقارة"
+      justification: "تستخدم للدلالة على صغر الشأن وقلة الأهمية (مجاز/اشتقاق)."
+    - lemma: "شَيْء لا يُذْكَر"
+      justification: "تعبير اصطلاحي (تركيب وصفي) شائع جداً للتعبير عن قلة الأهمية القصوى."
+  generation_notes: "المفهوم يجمع بين صغر الحجم وقلة القيمة المعنوية."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "تفاهة"
+      decision: confirmed
+      decision_reason: "أدلة معجمية حديثة تؤكد المعنى، وهو المصدر التجريدي للمفهوم."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تدل على الجانب المجرد أو الصفة الكلية للشيء."
+      example: "ابتعد عن تفاهة القول وركز على جوهر الموضوع."
+
+    - lemma: "شيء تافه"
+      decision: confirmed
+      decision_reason: "مصطلح مستقر في المعاجم الحديثة لتمثيل المفهوم المحسوس (trifle)."
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تدل على فرد أو حالة عينية من التوافه."
+      example: "لا تضيع وقتك في كل شيء تافه يصادفك."
+
+    - lemma: "سَفْساف"
+      source: step05
+      decision: confirmed
+      decision_reason: "لفظ تراثي أصيل يطابق التعريف بدقة ويدعمه المعجم الكبير والوسيط."
+      step05_citation: "«الأمر التَّافِهُ الحقيرُ» — المعجم الكبير"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يمتاز بمسحة ذمّ أخلاقية؛ فهو ما نزل عن معالي الأمور."
+      example: "ترفع عن سفساف الأمور واطلب معاليها."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "سفساف"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-04493701-n"
+
+    - lemma: "توافه"
+      source: step05
+      decision: confirmed
+      decision_reason: "شائع في الاستعمال لتمثيل مجموعة الأشياء قليلة الأهمية (trivia)."
+      step05_citation: "«توافه؛ أُمور تافهة» — المورد الحديث"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يُستخدم بصيغة الجمع للدلالة على التعدد والتشعب في صغار الأمور."
+      example: "انشغل بتوافه العيش عن عظيم المقاصد."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "توافه"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-04493701-n"
+
+    - lemma: "حقارة"
+      source: step05
+      decision: removed
+      decision_reason: "الحقارة ترتبط بالذلة والوضاعة أكثر من مجرد قلة الأهمية."
+      step05_citation: "«الحقارة: الذلة» — المعجم الكبير"
+
+    - lemma: "شيء لا يذكر"
+      source: step05
+      decision: removed
+      decision_reason: "تركيب وصفي حر وليس مصطلحاً مسكوكاً ثابتاً (اختبار السك)."
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شيء قليل الأهمية"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق ومباشر ويطابق الأدلة المعجمية."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "جسم / شيء مادي / غرض"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "تفاهة"
+        antonym_found: true
+        antonym: "أهمية"
+      - lemma: "سفساف"
+        antonym_found: true
+        antonym: "معالي"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "تفاهة"
+      enrichment:
+        root: "ت-ف-ه"
+      examples:
+        - text: "يُعاب على بعض الصحف تركيزها على تفاهة المحتوى."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "شيء تافه"
+      enrichment:
+        root: "ت-ف-ه"
+      examples:
+        - text: "لا تغضب من أجل شيء تافه."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "سفساف"
+      enrichment:
+        root: "س-ف-س-ف"
+      examples:
+        - text: "«إنَّ اللهَ تَعَالَى يُحِبُّ مَعَالِيَ الأُمُورِ وأَشرافَهَا، ويَكْرَهُ سَفْسَافَهَا»"
+          type: hadith
+          source: "الطبراني في الكبير"
+      pos_check:
+        pos: noun
+    - lemma: "توافه"
+      enrichment:
+        root: "ت-ف-ه"
+      examples:
+        - text: "الحكيم لا تشغله التوافه عن جليل الأعمال."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-04493701-n"
+        text: "إنَّ اللهَ تَعَالَى يُحِبُّ مَعَالِيَ الأُمُورِ وأَشرافَهَا، ويَكْرَهُ سَفْسَافَهَا"

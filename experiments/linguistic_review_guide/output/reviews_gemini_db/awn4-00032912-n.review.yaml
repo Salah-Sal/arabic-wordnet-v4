@@ -1,0 +1,194 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "حِيَازَة"
+      confirm:
+        - text: "حيازة الرجل: ما في حَوْزَتِه من مال أو عقار"
+          source: "المعجم الوسيط"
+        - text: "حيازةُ الشيء: ما ضمَّه الإنسانُ إلى نَفْسِه من مالٍ أو غيره"
+          source: "المعجم الكبير"
+        - text: "(الْحِيَازَة) حِيَازَة الرجل مَا فِي حوزته من مَال أَو عقار وَالْأَرْض الزراعية"
+          source: "المعجم الوسيط لمجموعة من المؤلفين"
+    - lemma: "مِلْكِيَّة"
+      confirm:
+        - text: "الملكية الخاصة: ما يملكه الفرد"
+          source: "المعجم الوسيط"
+        - text: "(الملكية الْخَاصَّة) مَا يملكهُ الْفَرد و (الملكية الْعَامَّة) مَا تملكه الدولة"
+          source: "المعجم الوسيط لمجموعة من المؤلفين"
+      expands:
+        - text: "المِلْكُ أو التمليك. يقال: بيدى عَقْد مِلكيّة هذه الأرض"
+          source: "المعجم الوسيط"
+          addition: "يدل على حالة التملك والعقد أكثر من دلالته على الشيء المادي المملوك نفسه، وإن كان ينسحب عليه مجازاً"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "مُمْتَلَك"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«المُمْتَلَك: شيء في حَوْزة المرء فعلًا (ق).» — المورد الحديث"
+      justification: "مصطلح دقيق وشائع للتعبير عن الأشياء والأعيان التي يملكها الإنسان، ويطابق تماماً معنى الشيء المملوك."
+    - lemma: "مِلْك"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«(2) مِلْك؛ ممتلكات» — المورد الحديث"
+      justification: "لفظ عربي أصيل وجامع يدل على ما يملكه الإنسان ويستبد به."
+  knowledge_candidates:
+    - lemma: "مُقْتَنَيَات"
+      justification: "اشتقاق: من الفعل اقتنى، مصطلح شائع للدلالة على مجمل الأشياء التي يحوزها المرء ويملكها."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "حِيَازَة"
+      decision: confirmed
+      decision_reason: "المعاجم تؤكد أن الحيازة تُطلق على الشيء المحاز (ما في حوزة الرجل)."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تدل على وضع اليد والسيطرة الفعلية على الشيء (سواء أكان مصحوباً بحق ملكية قانوني أم لا)."
+      example: "انتقلت الأرض إلى حِيَازَتِهِ بعد وفاة والده."
+      actions: []
+
+    - lemma: "مِلْكِيَّة"
+      decision: confirmed
+      decision_reason: "المعاجم تؤكد إطلاقها على الأشياء المملوكة (الملكية الخاصة/العامة) إلى جانب دلالتها على الحق القانوني."
+      evidence_assessment:
+        case: "expands"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تدل على الحق القانوني والشرعي في الاستئثار بالشيء، وتطلق مجازاً على الأعيان المملوكة نفسها."
+      example: "تجاوزت مِلْكِيَّاتُهُ عدة عقارات في العاصمة."
+      actions: []
+
+    - lemma: "مُمْتَلَك"
+      source: step05
+      decision: confirmed
+      decision_reason: "كلمة فصيحة وشائعة جداً للدلالة المباشرة على الأشياء المملوكة، وهي الترجمة الأدق للمفهوم المادي."
+      step05_citation: "«المُمْتَلَك: شيء في حَوْزة المرء فعلًا (ق).» — المورد الحديث"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تدل مباشرة وحصرياً على الأعيان والأشياء المادية التي يملكها الفرد (كثيراً ما تستعمل جمعاً: ممتلكات)."
+      example: "فقدت الأسرة كل مُمْتَلَكَاتِهَا في الحريق الذي التهم المنزل."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُمْتَلَك"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-00032912-n"
+
+    - lemma: "مِلْك"
+      source: step05
+      decision: confirmed
+      decision_reason: "لفظ عربي أصيل ומباشر في الدلالة على ما يملكه الإنسان ويحوزه."
+      step05_citation: "«(2) مِلْك؛ ممتلكات» — المورد الحديث"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "لفظ تراثي أصيل يدل على الشيء المملوك دون الارتباط بالضرورة بالمصطلحات القانونية المعاصرة."
+      example: "هذه الأرض مِلْكٌ خالص له توارثه عن آبائه."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مِلْك"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-00032912-n"
+
+    - lemma: "مُقْتَنَيَات"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح شائع ومناسب للدلالة على الأشياء التي يقتنيها الشخص ويضمها إلى حوزته."
+      step05_citation: "مرشح من المعرفة اللغوية (اشتقاق)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تختص غالباً بالأشياء المنقولة أو الثمينة التي يحرص المرء على جمعها وحيازتها."
+      example: "عرض المتحف مُقْتَنَيَاتِ الشاعر الراحل في صالة خاصة."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُقْتَنَيَات"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-00032912-n"
+
+  added_lemmas:
+    - lemma: "مُمْتَلَك"
+      reason: "مصدر: الخطوة ٠٫٥ (ترجمة دقيقة وشائعة للمفهوم)"
+      via_command: create_entry + add_sense
+    - lemma: "مِلْك"
+      reason: "مصدر: الخطوة ٠٫٥ (لفظ تراثي أصيل)"
+      via_command: create_entry + add_sense
+    - lemma: "مُقْتَنَيَات"
+      reason: "مصدر: الخطوة ٠٫٥ (مصطلح شائع للأشياء المحازة)"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "أيّ شيء مملوك أو في حوزة شخص"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وواضح ويطابق المعنى الإنجليزي ولا يحتاج إلى تعديل."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عَلَاقَة"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "حِيَازَة"
+        antonym_found: false
+      - lemma: "مِلْكِيَّة"
+        antonym_found: false
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "حِيَازَة"
+      enrichment:
+        root: "ح-و-ز"
+      examples:
+        - text: "عَلَيْكَ بِحِيَازَةِ المَالِ."
+          type: "usage"
+          source: "المعجم الكبير"
+      pos_check:
+        pos: noun
+    - lemma: "مِلْكِيَّة"
+      enrichment:
+        root: "م-ل-ك"
+      examples:
+        - text: "قانون تحديد المِلْكِيَّة الزراعية يحدِّد مقدار ما يجوز للفرد أن يمتلكه."
+          type: "usage"
+          source: "المعجم الوسيط"
+      pos_check:
+        pos: noun
+    - lemma: "مُمْتَلَك"
+      enrichment:
+        root: "م-ل-ك"
+      examples:
+        - text: "فقدت الأسرة كل مُمْتَلَكَاتِهَا في الحريق الذي التهم المنزل."
+          type: "usage"
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "مِلْك"
+      enrichment:
+        root: "م-ل-ك"
+      examples:
+        - text: "هذه الأرض مِلْكٌ خالص له توارثه عن آبائه."
+          type: "usage"
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "مُقْتَنَيَات"
+      enrichment:
+        root: "ق-ن-ي"
+      examples:
+        - text: "عرض المتحف مُقْتَنَيَاتِ الشاعر الراحل في صالة خاصة."
+          type: "usage"
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

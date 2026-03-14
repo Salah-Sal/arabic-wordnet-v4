@@ -1,0 +1,150 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "أرض"
+      confirm:
+        - text: "«الأرض: التي نحن عليها، وتجمع أرضين»"
+          source: "مقاييس اللغة لابن فارس"
+        - text: "«سطح الأرض الصلب، قد يكون مغطى بماء (قاع البحر) أو نبات»"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+      expands:
+        - text: "«كل ما سفل فهو أرض»"
+          source: "تاج اللغة وصحاح العربية للجوهري"
+          addition: "تعميم المفهوم ليشمل كل ما هو تحت (كقوائم الدابة)"
+
+    - lemma: "بر"
+      confirm:
+        - text: "«البَرُّ: خِلاَفُ البَحْرِ»"
+          source: "المحيط في اللغة للصاحب بن عباد"
+        - text: "«البَرُّ خلاف البحر، وتصوّر منه التوسع فاشتق منه البِرُّ»"
+          source: "مفردات الراغب الأصفهاني"
+
+    - lemma: "يابسة"
+      confirm:
+        - text: "«اليابسة: البر»"
+          source: "مقاييس اللغة (ضمن سياق يبس)"
+        - text: "«مكانٌ يَبَسٌ: كان فيه ماءٌ فذهب»"
+          source: "المعجم الوسيط"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "غلاف صخري"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«الغلاف الصخري: الجزء الصلب من الأرض» — مسرد المناخ والبيئة (ArabTerm)"
+      justification: "مصطلح علمي دقيق يصف الجزء الصلب من كوكب الأرض"
+  knowledge_candidates:
+    - lemma: "صعيد"
+      justification: "اشتقاق: وجه الأرض والمرتفع منها، ويُستخدم للدلالة على السطح الصلب المتاح للاستعمال (كالتيمم)"
+  generation_notes: "التعريف يركز على الحالة الفيزيائية (الصلابة) والموقع (السطح)؛ اللمات المقترحة تغطي الجانب العلمي والجانب الوصفي التراثي"
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "أرض"
+      decision: confirmed
+      decision_reason: "اللفظ الأساسي والأشمل للمفهوم، مدعوم بقوة في المعاجم القديمة والحديثة"
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "اللفظ العام الذي يطلق على الكوكب ككل وعلى اليابسة وعلى التربة"
+      example: "يعيش الإنسان على كوكب الأرض ويمشي على سطحها"
+
+    - lemma: "بر"
+      decision: confirmed
+      decision_reason: "مصطلح مستقر تقابلاً مع البحر، شائع الاستعمال في النصوص التراثية والحديثة"
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "غالباً ما يُستخدم في سياق التنقل والترحال (البر والبحر)، ويوحي بالاتساع"
+      example: "سافر القوم في البر لعدة أيام قبل الوصول إلى الشاطئ"
+
+    - lemma: "يابسة"
+      decision: confirmed
+      decision_reason: "تدل على الجزء الجاف من الأرض، وهي مقابلة للماء، ومستخدمة كمصطلح جغرافي"
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تركز على خاصية الجفاف (الصلابة وعدم الرطوبة) وغالباً ما تُستخدم في سياق التقسيم الجغرافي لسطح الأرض (يابسة وماء)"
+      example: "تغطي اليابسة حوالي ثلاثين بالمئة من مساحة سطح الأرض"
+
+    - lemma: "صعيد"
+      source: step05
+      decision: confirmed
+      decision_reason: "مرادف فصيح يصف وجه الأرض وسطحها الصلب"
+      step05_citation: "«الصعيد: وجه الأرض تراباً كان أو غيره» — التعريفات الفقهية للبركتي"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يخص وجه الأرض الظاهر المرتفع، وله دلالة شرعية مرتبطة بالسطح الطاهر"
+      example: "ضرب بيده على صعيد الأرض ليؤدي تيممه"
+      actions:
+        - command: create_entry
+          params:
+            lemma: "صعيد"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09357302-n"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "الجزء الصلب من سطح الأرض"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق ومباشر ويتوافق مع المفهوم المعجمي لليابسة في مقابل البحر"
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "جِسْم / شَيْء مَادِّيّ / غَرَض"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "بر"
+        antonym_found: true
+        antonym: "بحر"
+      - lemma: "يابسة"
+        antonym_found: true
+        antonym: "ماء / بحر"
+  verb_checks:
+    applicable: false
+  selectional_restrictions:
+    - lemma: "أرض"
+      constraint: "كيان مكاني صلب"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "أرض"
+      enrichment:
+        root: "أ-ر-ض"
+      examples:
+        - text: "أَلَمْ نَجْعَلِ الْأَرْضَ مِهَادًا"
+          type: usage
+          source: "القرآن الكريم، النبأ: 6"
+
+    - lemma: "بر"
+      enrichment:
+        root: "ب-ر-ر"
+      examples:
+        - text: "ظَهَرَ الْفَسَادُ فِي الْبَرِّ وَالْبَحْرِ بِمَا كَسَبَتْ أَيْدِي النَّاسِ"
+          type: usage
+          source: "القرآن الكريم، الروم: 41"
+
+    - lemma: "يابسة"
+      enrichment:
+        root: "ي-ب-س"
+      examples:
+        - text: "نجا البحارة بعد أن وصلوا إلى اليابسة بسلام"
+          type: usage
+          source: "مؤلَّف"
+
+    - lemma: "صعيد"
+      enrichment:
+        root: "ص-ع-د"
+      examples:
+        - text: "فَتَيَمَّمُوا صَعِيدًا طَيِّبًا"
+          type: usage
+          source: "القرآن الكريم، النساء: 43"
+
+  cultural_fit:
+    assessment: native

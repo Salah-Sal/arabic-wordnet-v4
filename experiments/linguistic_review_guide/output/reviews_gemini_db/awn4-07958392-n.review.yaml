@@ -1,0 +1,168 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "أشخاص"
+      confirm:
+        - text: "«ثلاثة أشخاص: امرأتان وفتاة»"
+          source: "معجم الصواب اللغوي"
+        - text: "«أَشْخَاص: جمع شخص»"
+          source: "القاموس المحيط"
+    - lemma: "بشر"
+      confirm:
+        - text: "«البَشَرُ: الإِنْسَانُ ذَكَراً أو أُنْثَى، واحداً أو جَمْعاً»"
+          source: "القاموس المحيط"
+        - text: "«البَشَرُ: الإِنْسَان (الْوَاحِد وَالْجمع والمذكر والمؤنث فِيهِ سَوَاء)»"
+          source: "المعجم الوسيط"
+        - text: "«الْبَشَرُ الإِنسانُ والواحدُ والجميعُ والمذكَّرُ والمؤَنَّثُ في ذلك سواء»"
+          source: "لسان العرب"
+    - lemma: "ناس"
+      confirm:
+        - text: "«الناس: (اسم) اسم جمع لبني آدم، لا مفرد له من لفظه»"
+          source: "المعجم الوسيط"
+        - text: "«الناس: البشر، الخلق»"
+          source: "المورد الحديث"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "خلق"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«الخَلْقُ: الناس» — لسان العرب"
+      justification: "كلمة واسعة الانتشار في التراث واللغة المعاصرة تدل على مجموع الناس"
+    - lemma: "أنام"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«الأَنَامُ: جَمِيع مَا على الأَرْض من الْخلق» — المعجم الوسيط"
+      justification: "لفظ تراثي فصيح يشير إلى البشر كجماعة مخلوقة"
+  knowledge_candidates:
+    - lemma: "ورى"
+      justification: "مجاز — لفظ كلاسيكي يُطلق على البشر عامة (الخلق)، يُستخدم في السياقات الأدبية والفصيحة"
+    - lemma: "أناسي"
+      justification: "اشتقاق — جمع إنسان، ويُستخدم للدلالة على جماعات البشر (أناسي كثيرًا)"
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "أشخاص"
+      decision: confirmed
+      decision_reason: "أدلة معجمية صريحة مع شيوع الاستعمال"
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تركز على الأفراد بوصفهم كيانات متميزة داخل المجموعة"
+      example: "كان هناك ثلاثة أشخاص ينتظرون في الخارج."
+    - lemma: "بشر"
+      decision: confirmed
+      decision_reason: "أدلة معجمية قطعية تؤكد دلالتها على الجنس البشري واحداً وجمعاً"
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تؤكد على الطبيعة البيولوجية والجوهرية للإنسان مقابل الكائنات الأخرى"
+      example: "﴿وَهُوَ الَّذِي خَلَقَ مِنَ الْمَاءِ بَشَرًا فَجَعَلَهُ نَسَبًا وَصِهْرًا﴾"
+    - lemma: "ناس"
+      decision: confirmed
+      decision_reason: "أدلة معجمية قوية، وهو اللفظ الأشيع للمجموع البشري"
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "اللفظ العام والأشمل للمجموع البشري في السياقات الاجتماعية واليومية"
+      example: "﴿قُلْ أَعُوذُ بِرَبِّ النَّاسِ﴾"
+    - lemma: "خلق"
+      source: step05
+      decision: confirmed
+      decision_reason: "لفظ فصيح مستقر يدل على المجموع البشري بكثرة"
+      step05_citation: "«خَلْق: الكثير من الناس والدواب» — تكملة المعاجم"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تستحضر جانب كونهم مخلوقات، وغالباً ما تشير إلى الكثرة والزحام"
+      example: "رأيت خلقاً كثيراً يزدحمون في الميدان."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "خلق"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-07958392-n"
+    - lemma: "أنام"
+      source: step05
+      decision: confirmed
+      decision_reason: "لفظ تراثي فصيح مخصص للبشر (والجن أحياناً) كجماعة"
+      step05_citation: "«الأنام: الخلق، وهم كل ما على ظهر الأرض من دابة» — لسان العرب"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "لفظ أدبي كلاسيكي يستحضر شمولية الوجود البشري على الأرض"
+      example: "﴿وَالْأَرْضَ وَضَعَهَا لِلْأَنَامِ﴾"
+      actions:
+        - command: create_entry
+          params:
+            lemma: "أنام"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-07958392-n"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "مجموعة من البشر (رجال أو نساء أو أطفال) بشكل جماعي"
+  assessment:
+    decision: retain
+    reason: "التعريف واضح ودقيق ويغطي الأبعاد الأساسية للمفهوم"
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "تجمع، مجموعة"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "بشر"
+        antonym_found: false
+  actions:
+    - command: add_synset_relation
+      params:
+        source_id: "awn4-07958392-n"
+        relation_type: "hypernym"
+        target_id: "awn4-00031563-n"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "أشخاص"
+      enrichment:
+        root: "ش-خ-ص"
+      examples:
+        - text: "«ثلاثة أشخاص: امرأتان وفتاة»"
+          type: usage
+          source: "معجم الصواب اللغوي"
+    - lemma: "بشر"
+      enrichment:
+        root: "ب-ش-ر"
+      examples:
+        - text: "﴿وَهُوَ الَّذِي خَلَقَ مِنَ الْمَاءِ بَشَرًا فَجَعَلَهُ نَسَبًا وَصِهْرًا﴾"
+          type: quran
+          source: "الفرقان/ 54"
+    - lemma: "ناس"
+      enrichment:
+        root: "ن-و-س"
+      examples:
+        - text: "﴿قُلْ أَعُوذُ بِرَبِّ النَّاسِ﴾"
+          type: quran
+          source: "الناس/ 1"
+    - lemma: "خلق"
+      enrichment:
+        root: "خ-ل-ق"
+      examples:
+        - text: "رأيت خلقاً كثيراً يزدحمون في الميدان."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "أنام"
+      enrichment:
+        root: "أ-ن-م"
+      examples:
+        - text: "﴿وَالْأَرْضَ وَضَعَهَا لِلْأَنَامِ﴾"
+          type: quran
+          source: "الرحمن/ 10"
+  cultural_fit:
+    assessment: native
+  reasoning:
+    cultural_fit_reasoning: "مفهوم الجماعة البشرية أصيل وعام في جميع الثقافات، وتزخر العربية بألفاظ دقيقة للتعبير عنه."

@@ -1,0 +1,171 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "موضوع"
+      confirm:
+        - text: "«موضوع» — مسرد الفن، التسلية والرياضة (ArabTerm)"
+          source: "ArabTerm"
+      expands:
+        - text: "«الْمَوْضُوع: الْمَادَّة الَّتِي يبْنى عَلَيْهَا الْمُتَكَلّم أَو الْكَاتِب كَلَامه... (فِي الفلسفة) الْمدْرك ويقابل الذَّات» — المعجم الوسيط"
+          source: "المعجم الوسيط"
+        - text: "«الموضوع... الشيء المشار إليه إشارة حسّية» — كشاف اصطلاحات الفنون"
+          source: "كشاف اصطلاحات الفنون"
+
+    - lemma: "محتوى"
+      confirm:
+        - text: "«محتوًى: مضمون؛ موضوع؛ مادة» — المورد الحديث"
+          source: "المورد الحديث"
+      contradicts:
+        - text: "«(المحتوى) بيُوت النَّاس من الْوَبر مجتمعة على مَاء» — المعجم الوسيط"
+          source: "المعجم الوسيط"
+          conflict: "المعنى التراثي يشير إلى بيوت الوبر، بينما المقصود في المجموعة هو المضمون الفني."
+      expands:
+        - text: "«المضمون هو الجانب المجد في الخطاب وهو موضوعه ومظهره التصوري» — المعجم الموحد لمصطلحات اللسانيات"
+          source: "المعجم الموحد لمصطلحات اللسانيات"
+
+    - lemma: "غرض مصور"
+      evidence_status: "no_material_found"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "مادة"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«موضوع؛ مادة» — المورد الحديث"
+      justification: "وردت كمرادف لـ subject matter و content في المعاجم الحديثة."
+  knowledge_candidates:
+    - lemma: "مضمون"
+      justification: "ترادف 'محتوى' و'موضوع' في سياق المادة العلمية أو الفنية (آلية التوليد: مجاز/إزاحة دلالية من الحاوي إلى المحوى)."
+  generation_notes: "تم استبعاد 'غرض مصور' لكونها ترجمة حرفية غير مستقرة معجمياً."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "موضوع"
+      decision: confirmed
+      decision_reason: "المصطلح الأساسي في الفنون والجماليات للتعبير عن الشيء أو الشخص الذي يتم تصويره."
+      evidence_assessment:
+        case: "confirm"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يشير تحديداً إلى 'الموضوع' الفني أو الشخص الجالس للتصوير (the what of the art)."
+      example: "اختارت الرسامة الطبيعة الصامتة موضوعاً للوحتها الزيتية الجديدة."
+
+    - lemma: "محتوى"
+      decision: confirmed
+      decision_reason: "مستعمل بكثرة في السياقات الحديثة (المحتوى البصري/الفني) كمرادف لمضمون العمل."
+      evidence_assessment:
+        case: "mixed"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يشير إلى العناصر والمعلومات المتضمنة داخل العمل الفني (interiority)."
+      example: "يتميز المحتوى البصري لهذه الصورة الفوتوغرافية بتناغم الألوان الطبيعية."
+
+    - lemma: "غرض مصور"
+      decision: removed
+      decision_reason: "ترجمة حرفية (Calque) غير فصيحة ولا مستعملة في المعاجم أو الاستعمال الفني المتخصص."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "fail"
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "مادة"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح معجمي معتمد لـ subject matter."
+      step05_citation: "«موضوع؛ مادة» — المورد الحديث"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تشير إلى 'المادة الخام' أو الفكرة الخام التي يعالجها الفنان."
+      example: "استخدم المصور حياة الشارع مادةً دسمة لمجموعته الفنية الأخيرة."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مادة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-04354303-n"
+
+    - lemma: "مضمون"
+      source: step05
+      decision: confirmed
+      decision_reason: "مرادف قوي لـ 'محتوى' في السياقات النقدية والفنية."
+      step05_citation: "«المضمون هو الجانب المجد في الخطاب وهو موضوعه» — معجم اللسانيات"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على المعنى الجوهري والقيمة الدلالية للتمثيل الرسومي."
+      example: "تجاوز مضمون اللوحة مجرد الشكل الجمالي ليطرح تساؤلات فلسفية عميقة."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مضمون"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-04354303-n"
+
+  added_lemmas:
+    - lemma: "مادة"
+      reason: "مصدر: الخطوة ٠٫٥ (المورد الحديث)"
+      via_command: create_entry + add_sense
+    - lemma: "مضمون"
+      reason: "مصدر: الخطوة ٠٫٥ (الترادف المعجمي)"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شيء (شخص أو كائن أو مشهد) يختاره فنان أو مصور للتمثيل الرسومي"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وشامل للعناصر الثلاثة (شخص، كائن، مشهد) والهدف الفني."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "شَيْء مُسْتَقِلّ"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "موضوع"
+        antonym_found: true
+        antonym: "ذات"
+  actions: []
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "موضوع"
+      enrichment:
+        root: "و-ض-ع"
+      examples:
+        - text: "اختارت الرسامة الطبيعة الصامتة موضوعاً للوحتها الجديدة."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "محتوى"
+      enrichment:
+        root: "ح-و-ي"
+      examples:
+        - text: "يتميز المحتوى البصري للصورة بتفاصيل دقيقة."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "مادة"
+      enrichment:
+        root: "م-د-د"
+      examples:
+        - text: "تُعد البيئة المحلية المادة الغنية التي يستمد منها المصور لقطاته."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "مضمون"
+      enrichment:
+        root: "ض-م-ن"
+      examples:
+        - text: "يختلف مضمون اللوحة الفنية باختلاف زاوية الرؤية."
+          type: usage
+          source: "مؤلَّف"
+  cultural_fit:
+    assessment: native

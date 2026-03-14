@@ -1,0 +1,173 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "مصدر أمان"
+      evidence_status: "no_material_found"
+    - lemma: "ملاذ نفسي"
+      evidence_status: "no_material_found"
+    - lemma: "بطانية الأمن"
+      confirm:
+        - text: "«بَطَّانِيَّةُ الأَمْن» — المعجم الطبي الموحد (2009)"
+          source: "المعجم الطبي الموحد (2009)"
+    - lemma: "سكن"
+      confirm:
+        - text: "«السَّكَن: كلُّ ما سكنت إليه واستأنست به» — المعجم الوسيط"
+          source: "المعجم الوسيط"
+        - text: "«السَّكَنُ: كلُّ ما استَأْنَسَ به الإنسانُ, واطْمَأَنَّ إليه, مِنْ أَهْل ومَسْكَنٍ ووَقْتٍ وغيره» — المعجم الكبير"
+          source: "المعجم الكبير"
+    - lemma: "ملاذ"
+      confirm:
+        - text: "«المَلَاذُ: الملجأُ والحصن» — المعجم الوسيط"
+          source: "المعجم الوسيط"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "سكن"
+      source_section: "step0_evidence"
+      evidence_citation: "«السَّكَن: كلُّ ما سكنت إليه واستأنست به» — المعجم الوسيط"
+      justification: "مصطلح تراثي أصيل يطابق تعريف المجموعة تماماً (أي شيء يبعث على الطمأنينة)."
+    - lemma: "بطانية الأمن"
+      source_section: "step7_english_bridge"
+      evidence_citation: "«بَطَّانِيَّةُ الأَمْن» — المعجم الطبي الموحد (2009)"
+      justification: "ترجمة مصطلحية معتمدة للمصطلح الإنجليزي (security blanket) في السياق الطبي النفسي."
+    - lemma: "ملاذ"
+      source_section: "step0_evidence"
+      evidence_citation: "«المَلَاذُ: الملجأُ والحصن» — المعجم الوسيط"
+      justification: "لفظ عربي يعبر عن معنى الملجأ النفسي أو الهروب من التوتر."
+  knowledge_candidates:
+    - lemma: "ملاذ آمن"
+      justification: "آلية التوليد: تركيب وصفي. مصطلح شائع للتعبير عن الاستقرار والهروب من المخاطر أو القلق."
+    - lemma: "متنفس"
+      justification: "آلية التوليد: مجاز. يشير إلى الشيء الذي يحرر الإنسان من ضغوط القلق."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "مصدر أمان"
+      decision: removed
+      decision_reason: "عبارة وصفية حرة وليست مصطلحاً مسكوكاً؛ تُستعمل للشرح أكثر من التسمية."
+      evidence_assessment:
+        case: "no_material"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تسمية عامة تصف الوظيفة دون تخصيص معجمي."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "ملاذ نفسي"
+      decision: removed
+      decision_reason: "تركيب وصفي حر؛ كلمة 'ملاذ' وحدها كافية للتعبير عن المعنى المعجمي، وإضافة 'نفسي' هي للتوضيح السياقي فقط."
+      evidence_assessment:
+        case: "no_material"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تخصيص للملاذ بالجانب النفسي، وهو مفهوم ضمناً من سياق المجموعة."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "سكن"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح تراثي فصيح ومستقر في المعاجم الكبرى (الوسيط، الكبير) بنفس المعنى المقصود بدقة."
+      step05_citation: "«السَّكَن: كلُّ ما سكنت إليه واستأنست به» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على الجانب العاطفي والطمأنينة النفسية (الاستئناس)."
+      example: "كانت الهواية التي يمارسها بمثابة سكنٍ له يبدد مخاوفه وتوتره."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "سكن"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-04172872-n"
+
+    - lemma: "بطانية الأمن"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح تقني معتمد في المعاجم الطبية (المعجم الطبي الموحد) كترجمة مباشرة لـ (security blanket)."
+      step05_citation: "«بَطَّانِيَّةُ الأَمْن» — المعجم الطبي الموحد (2009)"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+        type: "إضافي"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "مصطلح حديث يُستخدم غالباً في السياق النفسي والترجمة من الإنجليزية."
+      example: "يلجأ بعض البالغين إلى طقوس معينة كبطانية أمن لمواجهة نوبات القلق."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "بطانية الأمن"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-04172872-n"
+
+    - lemma: "ملاذ"
+      source: step05
+      decision: confirmed
+      decision_reason: "لفظ أصيل يعبر عن معنى الملجأ والحماية النفسية."
+      step05_citation: "«المَلَاذُ: الملجأُ والحصن» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يشير إلى الجانب الحمائي والهروب من الضغوط الخارجية."
+      example: "وجد في الكتابة ملاذًا من القلق الذي يحيط به في العمل."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "ملاذ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-04172872-n"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "أي شيء يستخدمه الشخص البالغ للحد من القلق والتوتر"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق ومحدد ويطابق المفهوم النفسي المقصود."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "شيء"
+    test_result: "correct"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "سكن"
+      enrichment:
+        root: "س-ك-ن"
+      examples:
+        - text: "كانت الهواية التي يمارسها بمثابة سكنٍ له يبدد مخاوفه وتوتره."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "بطانية الأمن"
+      enrichment:
+        root: "ب-ط-ن"
+      examples:
+        - text: "تعتبر العادات اليومية الثابتة بطانية أمن للبالغين الذين يعانون من القلق."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "ملاذ"
+      enrichment:
+        root: "ل-و-ذ"
+      examples:
+        - text: "يجد في القراءة ملاذًا من صخب الحياة وقلقها."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

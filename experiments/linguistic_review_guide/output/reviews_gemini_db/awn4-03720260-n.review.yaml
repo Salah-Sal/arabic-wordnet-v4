@@ -1,0 +1,167 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "تكملة"
+      confirm:
+        - text: "«(التكملة) مَا يتم بِهِ الشَّيْء» — المعجم الوسيط"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«سلعة ينخفض الطلب عليها عندما يرتفع سعر سلعة مرتبطة بها ارتباطا وثيقا» — ArabTerm"
+          source: "ArabTerm"
+          addition: "دلالة اقتصادية تخصصية (السلعة المكملة)"
+
+    - lemma: "حشو"
+      confirm:
+        - text: "«(الحشو) مَا يحشى بِهِ الشَّيْء» — المعجم الوسيط"
+          source: "المعجم الوسيط"
+        - text: "«ما يُجْعَلُ في الوسادة ونَحْوها من قُطْنٍ ونَحْوه مِلْءُ الشيء» — المعجم الكبير"
+          source: "المعجم الكبير"
+      expands:
+        - text: "«من الكلام: فَضْلُه الذى لا يُعْتَمَدُ عليه» — المعجم الكبير"
+          source: "المعجم الكبير"
+          addition: "الدلالة المجازية للزيادة غير المفيدة في الكلام"
+        - text: "«من النَّاسِ: صِغارُهم لا كبار فيهم رُذَالُهُمْ» — المعجم الكبير"
+          source: "المعجم الكبير"
+          addition: "دلالة اجتماعية للرذالة أو الصغار"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "تتمة"
+      source_section: "step1_headword_lookup"
+      evidence_citation: "«(التَّتِمَّة) مَا يكون بِهِ تَمام الشَّيْء» — المعجم الوسيط"
+      justification: "مرادف دقيق لـ «تكملة» ومعبر عن جوهر التعريف (إكمال الكل)."
+    - lemma: "حشوة"
+      source_section: "step1_headword_lookup"
+      evidence_citation: "« wood pannel: زخرفة في الخشب أو القطع، اسْتُخْدِمَتْ على نطاق واسع في العصور الإسلامية لملء الفراغات المِعْمارية» — المعجم الكبير"
+      justification: "الاسم العيني لما يُستخدم للملء (filler)، وهو أكثر دقة في التعبير عن المادة أو الشيء الفيزيائي المضاف."
+  knowledge_candidates:
+    - lemma: "مالئ"
+      justification: "آلية التوليد: اشتقاق (اسم فاعل من ملأ). يُستخدم في السياقات التقنية (مثل مالئ الأسفلت) للتعبير عن المادة المضافة لملء الفراغات."
+  generation_notes: "التعريف يركز على الوظيفة (الإكمال/الملء)، مما يجعل المشتقات من جذور 'ك-م-ل' و'ح-ش-و' و'ت-م-م' هي الأقوى دلالياً."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "تكملة"
+      decision: confirmed
+      decision_reason: "أدلة معجمية صريحة ومطابقة تامة للتعريف."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تدل على الجانب الوظيفي للإكمال ليكون الكل تاماً (makeweight)."
+      example: "أضاف الباحث فصلاً جديداً كتكملةٍ للدراسة لتشمل جميع الجوانب."
+
+    - lemma: "حشو"
+      decision: confirmed
+      decision_reason: "أدلة معجمية تؤكد دلالة الملء، وهي المرادف العربي المباشر لـ filler."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تركز على فعل الملء المادي أو الفراغ، وقد تحمل إيحاءً بالزيادة غير الضرورية في السياقات المجردة."
+      example: "استخدم النجارُ نشارة الخشب كحشوٍ للفراغات في الأثاث."
+
+    - lemma: "تتمة"
+      source: step05
+      decision: confirmed
+      decision_reason: "مرادف معجمي قوي جداً يطابق دلالة 'تكملة'."
+      step05_citation: "«(التَّتِمَّة) مَا يكون بِهِ تَمام الشَّيْء» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تُوحي بالوصول إلى نقطة النهاية أو 'التمام' النهائي للعمل."
+      example: "نشرت المجلة تتمةَ القصة في عددها الأخير."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "تتمة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-03720260-n"
+
+    - lemma: "حشوة"
+      source: step05
+      decision: confirmed
+      decision_reason: "الاسم العيني الأكثر شيوعاً للمادة المضافة لملء فراغ مادي."
+      step05_citation: "«wood pannel... لملء الفراغات المِعْمارية» — المعجم الكبير"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تشير إلى وحدة مادية محددة (object) تُستخدم للحشو، بينما 'حشو' قد يشير للمادة ككل."
+      example: "قام طبيب الأسنان بوضع حشوةٍ دائمة في الضرس المسوس."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "حشوة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-03720260-n"
+
+  added_lemmas:
+    - lemma: "تتمة"
+      reason: "مصدر: الخطوة 0.5"
+      via_command: create_entry + add_sense
+    - lemma: "حشوة"
+      reason: "مصدر: الخطوة 0.5"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "أي شيء يضاف لإكمال الكل"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق ومطابق للمفهوم الإنجليزي وللأدلة المعجمية العربية."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "جِسْم، شَيْء مَادِّيّ، غَرَض"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "حشو"
+        antonym_found: false
+  actions: []
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "تكملة"
+      enrichment:
+        root: "ك-م-ل"
+      examples:
+        - text: "هذه القطعة ليست سوى تكملةٍ للناقص من طقم الأواني."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "حشو"
+      enrichment:
+        root: "ح-ش-و"
+      examples:
+        - text: "حشوُ الوسادة من القطن الطبيعي يوفر راحة أفضل."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "تتمة"
+      enrichment:
+        root: "ت-م-م"
+      examples:
+        - text: "انتظر القراءُ تتمةَ الرواية بفارغ الصبر."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "حشوة"
+      enrichment:
+        root: "ح-ش-و"
+      examples:
+        - text: "استخدم المعماريُّ حشواتٍ رخامية لملء الفراغات بين الأعمدة."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native
+  reasoning:
+    cultural_fit_reasoning: "المفاهيم في هذه المجموعة هي مفاهيم لغوية عامة وتقنية بسيطة متأصلة في اللغة العربية."
