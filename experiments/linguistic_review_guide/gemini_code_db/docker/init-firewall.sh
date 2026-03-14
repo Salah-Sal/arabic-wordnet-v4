@@ -43,11 +43,15 @@ ipset create allowed-domains hash:net
 # Minimal set for headless batch processing:
 #   - generativelanguage.googleapis.com : Gemini API (required)
 #   - aiplatform.googleapis.com         : Vertex AI (alternative API endpoint)
+#   - oauth2.googleapis.com             : OAuth token refresh (for OAuth auth mode)
+#   - accounts.google.com              : Google account auth (for OAuth auth mode)
 #   - sentry.io                         : Gemini CLI error telemetry
 #   - statsig.com                       : feature flags
 for domain in \
     "generativelanguage.googleapis.com" \
     "aiplatform.googleapis.com" \
+    "oauth2.googleapis.com" \
+    "accounts.google.com" \
     "sentry.io" \
     "statsig.com"; do
     echo "Resolving $domain..."

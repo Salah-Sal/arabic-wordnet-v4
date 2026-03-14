@@ -18,6 +18,7 @@ Usage:
 import argparse
 import asyncio
 import collections
+import dataclasses
 import json
 import logging
 import os
@@ -44,6 +45,146 @@ RATE_LIMIT_PATTERNS = [
     "too many requests", "overloaded", "capacity",
     "quota exceeded", "RESOURCE_EXHAUSTED", "quotaExceeded",
 ]
+
+# Max cooldown cap to avoid blocking on stale/incorrect timestamps
+MAX_COOLDOWN_SECONDS = 3600  # 1 hour
+
+# Gemini model fallback chain: flash → pro → stop
+MODEL_FALLBACK_CHAIN = [
+    "gemini-3-flash-preview",
+    "gemini-3.1-pro-preview",
+]
+
+# Aliases for CLI convenience
+MODEL_ALIASES = {
+    "flash": "gemini-3-flash-preview",
+    "pro": "gemini-3.1-pro-preview",
+}
+
+
+@dataclasses.dataclass
+class TrajectoryInfo:
+    """Structured info extracted from a trajectory JSONL file."""
+    rate_limited: bool = False
+    resets_at: float | None = None        # Unix epoch (if available)
+    rate_limit_type: str | None = None
+    utilization: float | None = None
+    error_message: str | None = None
+    cost: float = 0.0
+
+
+class ModelFallbackChain:
+    """Manages per-model cooldowns and automatic fallback across Gemini models.
+
+    When the current model is rate-limited, workers automatically switch to
+    the next model in the chain. When all models are exhausted, signals
+    a shutdown event so the batch stops cleanly.
+
+    Also acts as a global cooldown — workers wait for the current model's
+    cooldown before acquiring semaphore slots.
+    """
+
+    def __init__(self, primary_model: str, chain: list[str],
+                 shutdown_event: asyncio.Event):
+        # Reorder chain so primary_model is tried first
+        if primary_model in chain:
+            reordered = [primary_model] + [m for m in chain if m != primary_model]
+            self._chain = reordered
+        else:
+            self._chain = [primary_model] + chain
+        self._cooldowns: dict[str, float] = {}  # model → resets_at epoch
+        self._lock = asyncio.Lock()
+        self._shutdown_event = shutdown_event
+
+    @property
+    def active_model(self) -> str | None:
+        """Return the first model whose cooldown has expired, or None if all exhausted."""
+        now = time.time()
+        for model in self._chain:
+            if self._cooldowns.get(model, 0) <= now:
+                return model
+        return None
+
+    @property
+    def all_rate_limited(self) -> bool:
+        now = time.time()
+        return all(self._cooldowns.get(m, 0) > now for m in self._chain)
+
+    def cooldown_remaining(self, model: str | None = None) -> float:
+        """Remaining cooldown seconds for a model (default: active or first)."""
+        target = model or self.active_model or self._chain[0]
+        return max(0.0, self._cooldowns.get(target, 0) - time.time())
+
+    def status_str(self) -> str:
+        """Short status string for progress reporter."""
+        now = time.time()
+        parts = []
+        for m in self._chain:
+            short = m.replace("gemini-", "").replace("-preview", "")
+            cd = self._cooldowns.get(m, 0) - now
+            if cd > 0:
+                parts.append(f"{short}:limited({cd:.0f}s)")
+            elif m == self.active_model:
+                parts.append(f"{short}:active")
+            else:
+                parts.append(f"{short}:ready")
+        return " ".join(parts)
+
+    async def mark_rate_limited(self, model: str,
+                                resets_at: float | None,
+                                fallback_seconds: float = 60.0):
+        """Mark a model as rate-limited and potentially fall back to the next."""
+        async with self._lock:
+            if resets_at is not None:
+                new_reset = min(resets_at, time.time() + MAX_COOLDOWN_SECONDS)
+            else:
+                new_reset = time.time() + fallback_seconds
+
+            old_reset = self._cooldowns.get(model, 0)
+            if new_reset > old_reset:
+                self._cooldowns[model] = new_reset
+                remaining = new_reset - time.time()
+                short = model.replace("gemini-", "").replace("-preview", "")
+                logger.warning(
+                    f"[fallback] {short} rate-limited for {remaining:.0f}s "
+                    f"until {time.strftime('%H:%M:%S', time.localtime(new_reset))}"
+                )
+
+            # Check if there's a fallback model available
+            fallback = self.active_model
+            if fallback and fallback != model:
+                short_fb = fallback.replace("gemini-", "").replace("-preview", "")
+                logger.warning(f"[fallback] Switching to {short_fb}")
+            elif self.all_rate_limited:
+                # Find the earliest cooldown expiry across all models
+                earliest = min(self._cooldowns.get(m, 0) for m in self._chain)
+                wait_s = earliest - time.time()
+                if wait_s > 300:  # > 5 minutes: stop the batch
+                    logger.error(
+                        f"[fallback] All models rate-limited, earliest reset in "
+                        f"{wait_s:.0f}s — stopping batch"
+                    )
+                    self._shutdown_event.set()
+                else:
+                    logger.warning(
+                        f"[fallback] All models rate-limited, waiting {wait_s:.0f}s "
+                        f"for earliest reset"
+                    )
+
+    async def wait_if_limited(self):
+        """Block until the active model is available. No-op if one is ready."""
+        while True:
+            model = self.active_model
+            if model is not None:
+                return
+            if self._shutdown_event.is_set():
+                return
+            # Wait for the earliest cooldown to expire
+            now = time.time()
+            earliest = min(self._cooldowns.get(m, 0) for m in self._chain)
+            wait_s = max(0.1, earliest - now)
+            logger.info(f"[fallback] All models limited, waiting {wait_s:.0f}s...")
+            await asyncio.sleep(min(wait_s, 30))  # re-check every 30s max
 
 
 class AdaptiveSemaphore:
@@ -216,6 +357,11 @@ class BatchRunner:
             self.semaphore = asyncio.Semaphore(self.workers)
             self.controller = None
         self.shutdown_event = asyncio.Event()
+        self.fallback = ModelFallbackChain(
+            primary_model=self.model,
+            chain=MODEL_FALLBACK_CHAIN,
+            shutdown_event=self.shutdown_event,
+        )
         self.active_procs: dict[str, asyncio.subprocess.Process] = {}
         self._start_time = None  # set in run()
 
@@ -233,9 +379,13 @@ class BatchRunner:
 
         total = len(self.synset_ids)
         skipped = total - len(work_queue)
+        chain_str = " → ".join(
+            m.replace("gemini-", "").replace("-preview", "")
+            for m in self.fallback._chain
+        )
         logger.info(
             f"Run {self.run_id}: {len(work_queue)} to process, {skipped} skipped, "
-            f"{self.workers} workers, model={self.model}"
+            f"{self.workers} workers, model chain: {chain_str}"
         )
 
         if not work_queue:
@@ -304,9 +454,13 @@ class BatchRunner:
                 if self.shutdown_event.is_set():
                     return
 
+            # Wait for a model to be available BEFORE acquiring semaphore slot
+            await self.fallback.wait_if_limited()
             async with self.semaphore:
                 if self.shutdown_event.is_set():
                     return
+                # Re-check after acquiring (another worker may have triggered fallback)
+                await self.fallback.wait_if_limited()
                 ok = await self._run_single(synset_id, attempt)
                 if ok:
                     return
@@ -318,7 +472,9 @@ class BatchRunner:
         self.db.mark_running(synset_id, self.run_id, attempt)
         t0 = time.monotonic()
 
-        env = {**os.environ, "MODEL": self.model}
+        # Pick the active model from the fallback chain
+        active_model = self.fallback.active_model or self.model
+        env = {**os.environ, "MODEL": active_model}
         # Let run_review.sh inherit OUTPUT_DIR, PREPARED_DIR, etc. from our env
 
         try:
@@ -348,10 +504,11 @@ class BatchRunner:
             rc = proc.returncode
 
             review_path = self.output_dir / f"{synset_id}.review.yaml"
+            model_short = active_model.replace("gemini-", "").replace("-preview", "")
             if rc == 0 and review_path.exists():
-                cost = self._extract_cost(synset_id)
-                self.db.mark_success(synset_id, self.run_id, cost, dur)
-                logger.info(f"[{synset_id}] OK {dur:.0f}s ~${cost:.4f}")
+                traj_info = self._parse_trajectory(synset_id)
+                self.db.mark_success(synset_id, self.run_id, traj_info.cost, dur)
+                logger.info(f"[{synset_id}] OK {dur:.0f}s ~${traj_info.cost:.4f} ({model_short})")
                 if self.controller:
                     self.controller.on_success()
                 return True
@@ -368,13 +525,27 @@ class BatchRunner:
                 # Prefer stdout (where run_review.sh echo errors go), fall back to stderr
                 err_msg = out_text.strip() or err_text.strip() or f"exit code {rc}"
             self.db.mark_failed(synset_id, self.run_id, rc or 2, err_msg, dur)
-            logger.warning(f"[{synset_id}] FAIL exit={rc} {dur:.0f}s | {err_msg[:200]}")
+            logger.warning(f"[{synset_id}] FAIL exit={rc} {dur:.0f}s ({model_short}) | {err_msg[:200]}")
 
-            if self.controller:
-                if ConcurrencyController.is_rate_limited(combined):
+            # Rate limit detection: prefer trajectory, fall back to text matching
+            traj_info = self._parse_trajectory(synset_id)
+            is_rl = traj_info.rate_limited or ConcurrencyController.is_rate_limited(combined)
+
+            if is_rl:
+                if traj_info.rate_limited:
+                    logger.warning(
+                        f"[{synset_id}] Rate limit on {model_short}: {traj_info.error_message}"
+                    )
+                # Mark THIS model as rate-limited; chain handles fallback/stop
+                await self.fallback.mark_rate_limited(
+                    model=active_model,
+                    resets_at=traj_info.resets_at,
+                    fallback_seconds=60.0,
+                )
+                if self.controller:
                     self.controller.on_rate_limit()
-                else:
-                    self.controller.on_failure()
+            elif self.controller:
+                self.controller.on_failure()
             return False
 
         except Exception as e:
@@ -385,34 +556,49 @@ class BatchRunner:
                 self.controller.on_failure()
             return False
 
-    def _extract_cost(self, synset_id: str) -> float:
-        """Estimate cost from Gemini trajectory token counts.
+    def _parse_trajectory(self, synset_id: str) -> TrajectoryInfo:
+        """Parse trajectory JSONL for cost and rate-limit errors.
 
-        Gemini CLI stream-json emits a result event with .stats containing
-        input_tokens and output_tokens. We use per-million-token pricing
-        (defaulting to Gemini 2.5 Pro rates as a conservative baseline).
+        Gemini CLI stream-json emits result events with:
+        - status: "success" | "error"
+        - stats: {input_tokens, output_tokens}
+        Rate limit errors appear as status="error" with RESOURCE_EXHAUSTED
+        or quota-related messages in the result or error fields.
         """
+        info = TrajectoryInfo()
         traj = self.output_dir / f"{synset_id}.trajectory.jsonl"
         if not traj.exists():
-            return 0.0
+            return info
         try:
-            last_result = None
             with open(traj) as f:
                 for line in f:
-                    if '"type":"result"' in line or '"type": "result"' in line:
-                        last_result = line
-            if last_result:
-                data = json.loads(last_result)
-                stats = data.get("stats", {})
-                input_t = stats.get("input_tokens", 0)
-                output_t = stats.get("output_tokens", 0)
-                # Pricing per million tokens (configurable via env vars)
-                input_price = float(os.environ.get("INPUT_PRICE_PER_M", "1.25"))
-                output_price = float(os.environ.get("OUTPUT_PRICE_PER_M", "10.00"))
-                return (input_t * input_price + output_t * output_price) / 1_000_000
-        except (json.JSONDecodeError, ValueError, OSError):
+                    try:
+                        if '"type":"result"' not in line and '"type": "result"' not in line:
+                            continue
+                        obj = json.loads(line)
+                        # Cost extraction from token counts
+                        stats = obj.get("stats", {})
+                        input_t = stats.get("input_tokens", 0)
+                        output_t = stats.get("output_tokens", 0)
+                        input_price = float(os.environ.get("INPUT_PRICE_PER_M", "1.25"))
+                        output_price = float(os.environ.get("OUTPUT_PRICE_PER_M", "10.00"))
+                        info.cost = (input_t * input_price + output_t * output_price) / 1_000_000
+                        # Error / rate-limit detection
+                        status = obj.get("status", "")
+                        if status == "error":
+                            error_text = str(obj.get("error", obj.get("result", "")))
+                            info.error_message = error_text[:500]
+                            if ConcurrencyController.is_rate_limited(error_text):
+                                info.rate_limited = True
+                    except (json.JSONDecodeError, ValueError):
+                        continue
+        except OSError:
             pass
-        return 0.0
+        return info
+
+    def _extract_cost(self, synset_id: str) -> float:
+        """Estimate cost from Gemini trajectory token counts."""
+        return self._parse_trajectory(synset_id).cost
 
     # ── Signal handling ──
 
@@ -465,10 +651,13 @@ class BatchRunner:
                 else:
                     workers_str = f"workers={len(active)}/{self.workers}"
 
+                # Model fallback status
+                model_str = f" | {self.fallback.status_str()}"
+
                 logger.info(
                     f"Progress: {done}/{total} ({batch_pct:.1f}%) |{tree_str} "
                     f"ok={stats['success']} fail={stats['failed']} pend={stats['pending']} | "
-                    f"{workers_str} | {rate_hr:.0f}/hr | "
+                    f"{workers_str}{model_str} | {rate_hr:.0f}/hr | "
                     f"ETA: {eta_h:.1f}h | [{names}]"
                 )
         except asyncio.CancelledError:
@@ -597,13 +786,18 @@ examples:
     if tree_size is None and args.batch:
         tree_size = _parse_tree_size(args.batch)
 
+    # Resolve model aliases (flash → gemini-3-flash-preview, etc.)
+    model = args.model
+    if model and model in MODEL_ALIASES:
+        model = MODEL_ALIASES[model]
+
     runner = BatchRunner(
         synset_ids=synset_ids,
         workers=args.workers,
         max_retries=args.max_retries,
         timeout_minutes=args.timeout,
         run_id=run_id,
-        model=args.model,
+        model=model,
         resume_items=resume_items,
         adaptive=args.adaptive,
         tree_size=tree_size,

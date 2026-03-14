@@ -38,10 +38,23 @@ WORKERS="${WORKERS:-4}"
 
 mkdir -p "$OUTPUT_DIR"
 
-# ── Validate GEMINI_API_KEY ──
-if [ -z "${GEMINI_API_KEY:-}" ]; then
-    echo "Error: GEMINI_API_KEY environment variable is not set."
-    echo "Export it before running: export GEMINI_API_KEY='your-api-key'"
+# ── Validate auth: API key OR OAuth credentials ──
+GEMINI_AUTH_DIR="${HOME}/.gemini"
+AUTH_MOUNTS=()
+API_KEY_ENV=()
+
+if [ -n "${GEMINI_API_KEY:-}" ]; then
+    echo "Auth: API key"
+    API_KEY_ENV=(-e GEMINI_API_KEY="$GEMINI_API_KEY")
+elif [ -f "$GEMINI_AUTH_DIR/oauth_creds.json" ]; then
+    echo "Auth: OAuth (mounting credentials from ~/.gemini/)"
+    AUTH_MOUNTS=(-v "$GEMINI_AUTH_DIR/oauth_creds.json":/home/node/.gemini/oauth_creds.json:ro)
+    for f in google_accounts.json installation_id state.json; do
+        [ -f "$GEMINI_AUTH_DIR/$f" ] && AUTH_MOUNTS+=(-v "$GEMINI_AUTH_DIR/$f":/home/node/.gemini/$f:ro)
+    done
+else
+    echo "Error: No authentication configured."
+    echo "Either set GEMINI_API_KEY or authenticate via 'gemini' CLI first (OAuth)."
     exit 1
 fi
 
@@ -102,6 +115,7 @@ docker run --rm \
     --cap-add=NET_ADMIN \
     --cap-add=NET_RAW \
     ${EXTRA_MOUNTS[@]+"${EXTRA_MOUNTS[@]}"} \
+    ${AUTH_MOUNTS[@]+"${AUTH_MOUNTS[@]}"} \
     -v "$PREPARED_DIR":/workspace/prepared:ro \
     -v "$GUIDE_DIR/spec":/workspace/spec:ro \
     -v "$GEMINI_CODE_DB_DIR/review_instructions.md":/workspace/review_instructions.md:ro \
@@ -111,8 +125,9 @@ docker run --rm \
     -v "$GEMINI_CODE_DB_DIR/batch_status.py":/workspace/batch_status.py:ro \
     -v "$ARABIC_DICT_DB":/data/arabic_dict.db:ro \
     -v "$OUTPUT_DIR":/output \
-    -e GEMINI_API_KEY="$GEMINI_API_KEY" \
+    ${API_KEY_ENV[@]+"${API_KEY_ENV[@]}"} \
     -e MODEL="$MODEL" \
+    -e MAX_TURNS="${MAX_TURNS:-80}" \
     -e OUTPUT_DIR=/output \
     -e PREPARED_DIR=/workspace/prepared \
     -e SPEC_DIR=/workspace/spec \
