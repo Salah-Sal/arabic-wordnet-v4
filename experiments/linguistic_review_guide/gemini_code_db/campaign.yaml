@@ -1,0 +1,73 @@
+# AWN4 Full-Scale Noun Review — Wave Definitions
+#
+# This file defines the BFS-depth partitioning of the AWN4 noun hierarchy
+# into waves for the Gemini CLI autonomous review pipeline.
+#
+# Used by: wave_controller.py (init, execute)
+# See also: README.md for full documentation
+#
+# ── Schema ──
+#
+# campaign:
+#   name:         Campaign identifier (used in logs)
+#   tree_size:    Total noun synsets (for progress %)
+#   output_dir:   Review output directory (relative to gemini_code_db/)
+#   prepared_dir: Prepared synset metadata (relative to gemini_code_db/)
+#
+# waves[]:
+#   id:             Wave identifier (W0, W1, ...) — used as batch filename
+#   depth:          [min, max] BFS depth range (inclusive)
+#   status:         Initial status override (done, partial, pending)
+#   workers:        Concurrent workers for batch_runner.py (default: 2)
+#   sub_wave_size:  If set and synset_count > this value, auto-split into chunks
+#
+# ── Tuning Notes ──
+#
+# - workers: OAuth free tier supports ~2 concurrent; Ultra plan can handle 4-6
+# - sub_wave_size: Keeps sub-waves manageable for quota (~3000 ≈ 2 days at 150/day)
+# - depth 99 in W6 acts as "catch-all" for any remaining leaf nodes
+#
+# ── Actual synset counts (from BFS traversal) ──
+#
+#   W0:    31 (L0-L2)    W3: 20,745 (L5-L6)    W6:   660 (L14-L16)
+#   W1:   249 (L3)       W4: 48,494 (L7-L9)
+#   W2: 2,212 (L4)       W5: 12,565 (L10-L13)
+
+campaign:
+  name: "awn4-nouns-full"
+  tree_size: 84956
+  output_dir: "../output/reviews_gemini_db"
+  prepared_dir: "prepared"
+
+waves:
+  - id: W0
+    depth: [0, 2]
+    status: done
+    workers: 2
+
+  - id: W1
+    depth: [3, 3]
+    status: partial
+    workers: 2
+
+  - id: W2
+    depth: [4, 4]
+    workers: 2
+
+  - id: W3
+    depth: [5, 6]
+    workers: 2
+
+  - id: W4
+    depth: [7, 9]
+    sub_wave_size: 3000
+    workers: 2
+
+  - id: W5
+    depth: [10, 13]
+    sub_wave_size: 3000
+    workers: 2
+
+  - id: W6
+    depth: [14, 99]
+    workers: 2

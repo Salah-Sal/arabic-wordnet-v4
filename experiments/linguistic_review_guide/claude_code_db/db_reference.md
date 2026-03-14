@@ -525,3 +525,45 @@ SELECT
     (SELECT COUNT(*) FROM definitions) AS total_definitions,
     (SELECT COUNT(*) FROM examples) AS total_examples;
 ```
+
+---
+
+## ح. الأدلة المُسبقة الجلب — Pre-fetched Evidence
+
+If `evidence.json` exists in the synset's prepared directory, it contains pre-computed
+results for the three deterministic queries: headword lookup (Pattern ١), combined
+enrichment (section و), and English bridge (Pattern ٧).
+
+**Read `evidence.json` first — it replaces your first 3 queries.**
+
+### الهيكل — Structure
+
+```json
+{
+  "headword_entries": [...],    // Pattern ١ results (all lemmas + ال-forms)
+  "enrichment": [...],          // Combined definitions + examples + plurals by entry_id
+  "english_bridge": [...],      // Pattern ٧ results (all OEWN English lemmas)
+  "query_meta": {
+    "lemma_terms": ["كيان", "الكيان", ...],
+    "english_terms": ["entity", "being", ...],
+    "entry_ids": [766454, 534694, ...],
+    "timestamp": "2026-03-12T10:00:00Z"
+  }
+}
+```
+
+### الاستعلامات المتبقية — Remaining Queries
+
+When `evidence.json` is available, you still need to run yourself:
+
+| # | Query | Purpose |
+|---|-------|---------|
+| 1 | Pattern ٦ (Arabic FTS keyword) | You choose the keywords from the definition |
+| 2 | Pattern ١ (candidate validation) | Validate Step 0.5 candidates by headword |
+
+**Target: ~2-3 queries per synset** when evidence.json is available (down from 6-8).
+
+### الرجوع — Fallback
+
+If `evidence.json` does NOT exist, run the standard query sequence as documented above:
+Pattern ١ → enrichment → Pattern ٧ → Pattern ٦ → candidate validation.

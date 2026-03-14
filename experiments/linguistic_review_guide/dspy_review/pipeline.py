@@ -346,9 +346,16 @@ class StepDecomposedReviewer:
         max_llm_calls: int = 60,
         max_output_chars: int = 100_000,
         verbose: bool = True,
+        reasoning_effort: str | None = None,
     ):
-        self.lm = configure_lm(model=model, temperature=temperature, max_tokens=max_tokens)
-        self.sub_lm = make_sub_lm(sub_model=sub_model, main_model=model or self.lm.model)
+        self.lm = configure_lm(
+            model=model, temperature=temperature, max_tokens=max_tokens,
+            reasoning_effort=reasoning_effort,
+        )
+        self.sub_lm = make_sub_lm(
+            sub_model=sub_model, main_model=model or self.lm.model,
+            reasoning_effort=reasoning_effort,
+        )
         print(f"Sub-LLM: {self.sub_lm.model}")
 
         self.max_iterations = max_iterations
@@ -672,6 +679,7 @@ Examples:
         max_llm_calls=args.max_llm_calls,
         max_output_chars=args.max_output_chars,
         verbose=not args.quiet,
+        reasoning_effort=args.reasoning_effort,
     )
 
     # ── Process files ─────────────────────────────────────────

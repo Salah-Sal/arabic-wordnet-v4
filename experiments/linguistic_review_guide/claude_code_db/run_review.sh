@@ -169,7 +169,8 @@ for SYNSET_ID in $SYNSETS; do
 ${SYNSET_INFO}
 
 ## مسارات الملفات — File Paths
-- DB reference (READ FIRST): ${DB_REFERENCE}
+- Pre-fetched evidence (READ FIRST if exists): ${SYNSET_DIR}/evidence.json
+- DB reference: ${DB_REFERENCE}
 - Database path (for sqlite3 queries): ${ARABIC_DICT_DB}
 - Masked synset info (for Step 0.5 ONLY): ${MASKED_PATH}
 - Algorithm: ${SPEC_DIR}/draft_api.md

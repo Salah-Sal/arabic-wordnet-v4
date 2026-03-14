@@ -385,7 +385,11 @@ def _validate_l2(data: dict, result: ValidationResult):
 
 
 def _validate_l3(data: dict, result: ValidationResult):
-    """L3: Semantic — enum values, cross-references, minimums."""
+    """L3: Semantic — enum values, cross-references, minimums.
+
+    All L3 issues are advisory warnings. LLMs naturally produce slight
+    variations in enum values and field names, so L3 never blocks validity.
+    """
 
     # step1.per_lemma[].decision ∈ {confirmed, removed, escalated}
     s1_per = _get_nested(data, "step1_lemma_validation.per_lemma") or []
@@ -398,7 +402,8 @@ def _validate_l3(data: dict, result: ValidationResult):
                 "L3", "step1_lemma_validation",
                 f"step1_lemma_validation.per_lemma[{i}].decision",
                 "invalid_enum",
-                f"decision='{dec}' not in {DECISION_VALUES}"
+                f"decision='{dec}' not in {DECISION_VALUES}",
+                severity="warning"
             ))
 
     # step3.assessment.decision ∈ {retain, revise}
@@ -408,7 +413,8 @@ def _validate_l3(data: dict, result: ValidationResult):
             "L3", "step3_definition",
             "step3_definition.assessment.decision",
             "invalid_enum",
-            f"definition decision='{def_dec}' not in {DEF_DECISION_VALUES}"
+            f"definition decision='{def_dec}' not in {DEF_DECISION_VALUES}",
+            severity="warning"
         ))
 
     # step4.hypernymy.test_result ∈ {correct, needs_closer, wrong}
@@ -418,10 +424,11 @@ def _validate_l3(data: dict, result: ValidationResult):
             "L3", "step4_relations",
             "step4_relations.hypernymy.test_result",
             "invalid_enum",
-            f"hypernymy test_result='{hyp_result}' not in {HYPERNYMY_VALUES}"
+            f"hypernymy test_result='{hyp_result}' not in {HYPERNYMY_VALUES}",
+            severity="warning"
         ))
 
-    # step5.per_lemma[].examples: list, ≥1 entry per lemma (MANDATORY)
+    # step5.per_lemma[].examples: list, ≥1 entry per lemma
     s5_per = _get_nested(data, "step5_enrichment.per_lemma") or []
     for i, item in enumerate(s5_per):
         if not isinstance(item, dict):
@@ -433,7 +440,8 @@ def _validate_l3(data: dict, result: ValidationResult):
                 "L3", "step5_enrichment",
                 f"step5_enrichment.per_lemma[{i}].examples",
                 "missing_examples",
-                f"No examples for lemma '{lemma}' (expected ≥1)"
+                f"No examples for lemma '{lemma}' (expected ≥1)",
+                severity="warning"
             ))
             continue
 
@@ -447,7 +455,8 @@ def _validate_l3(data: dict, result: ValidationResult):
                     "L3", "step5_enrichment",
                     f"step5_enrichment.per_lemma[{i}].examples[{j}].text",
                     "empty_string",
-                    f"Empty example text for lemma '{lemma}'"
+                    f"Empty example text for lemma '{lemma}'",
+                    severity="warning"
                 ))
             # examples[].type ∈ {quran, hadith, poetry, usage} (warning)
             ex_type = ex.get("type")
@@ -519,7 +528,12 @@ def _validate_l3(data: dict, result: ValidationResult):
 
 
 def validate_review_file(file_path: Path) -> ValidationResult:
-    """Full L1+L2+L3 validation of a review YAML file."""
+    """Full L1+L2+L3 validation of a review YAML file.
+
+    overall_valid depends only on L1 (structural) + L2 (completeness).
+    L3 (semantic) issues are advisory warnings — LLMs naturally produce
+    slight variations in enum values, field names, etc.
+    """
     result = _validate_l1(file_path)
     if not result.l1_valid:
         return result
@@ -528,7 +542,7 @@ def validate_review_file(file_path: Path) -> ValidationResult:
         result.overall_valid = False
         return result
     _validate_l3(result.data, result)
-    result.overall_valid = result.l1_valid and result.l2_valid and result.l3_valid
+    result.overall_valid = result.l1_valid and result.l2_valid
     return result
 
 

@@ -38,6 +38,13 @@ PRICING = {
     "gemini/gemini-3.1-pro-preview":        {"input": 1.25, "output": 10.00},
     "gemini/gemini-2.5-flash-preview-05-20": {"input": 0.15, "output": 0.60},
     "gemini/gemini-2.5-pro-preview-05-06":  {"input": 1.25, "output": 10.00},
+    # OpenRouter (free stealth models)
+    "openrouter/openrouter/hunter-alpha":   {"input": 0.00, "output": 0.00},
+    "openrouter/openrouter/healer-alpha":   {"input": 0.00, "output": 0.00},
+    # Cerebras (free tier)
+    "cerebras/qwen-3-235b-a22b-instruct-2507": {"input": 0.00, "output": 0.00},
+    "cerebras/gpt-oss-120b":                   {"input": 0.00, "output": 0.00},
+    "cerebras/llama3.1-8b":                    {"input": 0.00, "output": 0.00},
 }
 
 # Fallback pricing if model not in table

@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
-"""Extract synset_info + masked variant for Claude Code DB-direct review.
+"""Extract synset_info + masked variant + pre-fetched evidence for Claude Code DB-direct review.
 
-Produces lightweight prepared/{synset_id}/ directories containing only:
+Produces lightweight prepared/{synset_id}/ directories containing:
   - synset_info.yaml       (full synset metadata with lemmas)
   - synset_info_masked.yaml (lemmas removed — for Step 0.5)
+  - evidence.json           (pre-fetched DB evidence: headword, enrichment, English bridge)
 
-No dictionary DB dependency — only needs the `wn` Python library with AWN4 + OEWN loaded.
+The evidence.json pre-fetch replaces 3 of the 5 DB queries the reviewer agent would
+otherwise run at review time, saving ~3 tool-call round-trips per synset.
 
 Usage:
     python3 extract_synset_info.py awn4-02592253-n               # single synset
@@ -13,16 +15,23 @@ Usage:
     python3 extract_synset_info.py --batch synset_list.txt        # from file
     python3 extract_synset_info.py --all                          # all AWN4 synsets
     python3 extract_synset_info.py --all --pos n                  # all nouns
+    python3 extract_synset_info.py --batch list.txt --db /path/to/arabic_dict.db
 
 Requirements:
     pip install wn pyyaml
     wn database must contain awn4 and oewn:2024.
+    Arabic dictionary DB required for --db (evidence pre-fetching).
 """
 from __future__ import annotations
 
 import argparse
+import json
+import re
+import sqlite3
 import sys
 import time
+import unicodedata
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
 
@@ -55,6 +64,152 @@ def dump_yaml(data: dict) -> str:
         data, Dumper=ArabicDumper, allow_unicode=True,
         default_flow_style=False, sort_keys=False, width=200,
     )
+
+
+# ── Arabic Text Normalization (matches headword_norm in DB) ──
+
+_DIACRITIC_RE = re.compile(r"[\u064B-\u065F\u0670\u06D6-\u06DC\u06DF-\u06E4\u06E7\u06E8\u06EA-\u06ED]")
+_TATWEEL = "\u0640"
+_ALEF_FORMS = {"\u0622", "\u0623", "\u0625"}  # آ أ إ → ا
+_ALEF_PLAIN = "\u0627"  # ا
+_YA_DOTLESS = "\u0649"  # ى → ي
+_YA_DOTTED = "\u064A"  # ي
+
+
+def normalize_arabic(text: str) -> str:
+    """Normalize Arabic text to match headword_norm in the DB."""
+    text = _DIACRITIC_RE.sub("", text)
+    text = text.replace(_TATWEEL, "")
+    for af in _ALEF_FORMS:
+        text = text.replace(af, _ALEF_PLAIN)
+    text = text.replace(_YA_DOTLESS, _YA_DOTTED)
+    return text.strip()
+
+
+# ── Evidence Pre-fetcher ──
+
+class EvidencePrefetcher:
+    """Pre-fetches deterministic DB evidence (headword + enrichment + English bridge)."""
+
+    def __init__(self, db_path: str):
+        self.db_path = db_path
+        self._conn = sqlite3.connect(db_path)
+        self._conn.row_factory = sqlite3.Row
+
+    def close(self):
+        self._conn.close()
+
+    def prefetch(self, synset_data: dict) -> Optional[dict]:
+        """Run Q1 (headword) + Q2 (enrichment) + Q3 (English bridge).
+
+        Returns dict with pre-fetched evidence, or None if no queries possible.
+        """
+        lemmas_ar = synset_data.get("lemmas", [])
+        oewn = synset_data.get("oewn") or {}
+        lemmas_en = oewn.get("lemmas_en", [])
+
+        if not lemmas_ar:
+            return None
+
+        # Build headword lookup terms: each lemma + ال-prefixed form
+        lemma_terms = set()
+        for lemma in lemmas_ar:
+            norm = normalize_arabic(lemma)
+            if not norm:
+                continue
+            lemma_terms.add(norm)
+            # Add definite article form if not already present
+            if not norm.startswith("ال"):
+                lemma_terms.add("ال" + norm)
+
+        if not lemma_terms:
+            return None
+
+        # Q1: Batch headword lookup
+        placeholders = ",".join("?" for _ in lemma_terms)
+        q1_sql = f"""
+            SELECT e.id AS entry_id, e.headword, e.headword_norm,
+                   e.root, e.root_source, e.pos,
+                   e.definitions_text, e.translation_en, e.domain,
+                   d.name_ar, d.name_en, d.source_type, d.period, d.death_year
+            FROM entries e
+            JOIN dictionaries d ON e.dictionary_id = d.id
+            WHERE e.headword_norm IN ({placeholders})
+            ORDER BY e.headword_norm, d.source_type,
+                     d.death_year ASC NULLS LAST, d.name_ar
+        """
+        cursor = self._conn.execute(q1_sql, list(lemma_terms))
+        headword_entries = [dict(row) for row in cursor.fetchall()]
+
+        # Q2: Enrichment by entry_id (definitions + examples + plurals)
+        entry_ids = [e["entry_id"] for e in headword_entries]
+        enrichment = []
+        if entry_ids:
+            id_placeholders = ",".join("?" for _ in entry_ids)
+            q2_sql = f"""
+                SELECT 'def' AS _table, entry_id, sense_index AS idx,
+                       text, NULL AS type, NULL AS attribution
+                FROM definitions WHERE entry_id IN ({id_placeholders})
+                UNION ALL
+                SELECT 'ex' AS _table, entry_id, idx,
+                       text, type, attribution
+                FROM examples WHERE entry_id IN ({id_placeholders})
+                UNION ALL
+                SELECT 'pl' AS _table, entry_id, idx,
+                       text, NULL, NULL
+                FROM plurals WHERE entry_id IN ({id_placeholders})
+                ORDER BY entry_id, _table, idx
+            """
+            cursor = self._conn.execute(q2_sql, entry_ids * 3)
+            enrichment = [dict(row) for row in cursor.fetchall()]
+
+        # Q3: English bridge FTS
+        english_bridge = []
+        if lemmas_en:
+            # Build FTS MATCH expression: translation_en:"word1" OR translation_en:"word2"
+            match_terms = []
+            for en_lemma in lemmas_en:
+                # Escape double quotes in lemma
+                safe = en_lemma.replace('"', '""')
+                match_terms.append(f'translation_en:"{safe}"')
+            match_expr = " OR ".join(match_terms)
+
+            q3_sql = """
+                SELECT e.id AS entry_id, e.headword, e.headword_norm,
+                       e.root, e.root_source, e.pos,
+                       e.definitions_text, e.translation_en, e.domain,
+                       d.name_ar, d.name_en, d.source_type, d.period
+                FROM entries e
+                JOIN dictionaries d ON e.dictionary_id = d.id
+                WHERE e.id IN (
+                    SELECT rowid FROM entries_translations_fts
+                    WHERE entries_translations_fts MATCH ?
+                    ORDER BY bm25(entries_translations_fts, 5.0, 3.0, 1.0)
+                    LIMIT 50
+                )
+                ORDER BY d.source_type, d.name_ar
+            """
+            try:
+                cursor = self._conn.execute(q3_sql, [match_expr])
+                english_bridge = [dict(row) for row in cursor.fetchall()]
+            except sqlite3.OperationalError:
+                # FTS query may fail on unusual terms; degrade gracefully
+                english_bridge = []
+
+        return {
+            "headword_entries": headword_entries,
+            "enrichment": enrichment,
+            "english_bridge": english_bridge,
+            "query_meta": {
+                "lemma_terms": sorted(lemma_terms),
+                "english_terms": lemmas_en,
+                "entry_ids": entry_ids,
+                "headword_count": len(headword_entries),
+                "enrichment_count": len(enrichment),
+                "bridge_count": len(english_bridge),
+                "timestamp": datetime.now(timezone.utc).isoformat(),
+            },
+        }
 
 
 # ── WordNet Bridge ──
@@ -203,10 +358,15 @@ def mask_synset_info(synset_info_yaml: str) -> str:
 # ── Processing ──
 
 def process_one(synset_id: str, wn_bridge: WNBridge, output_dir: Path,
+                prefetcher: Optional[EvidencePrefetcher] = None,
                 force: bool = False) -> dict:
     """Process a single synset. Returns stats dict."""
     out_dir = output_dir / synset_id
-    if not force and (out_dir / "synset_info.yaml").exists():
+    yaml_exists = (out_dir / "synset_info.yaml").exists()
+    evidence_exists = (out_dir / "evidence.json").exists()
+
+    # Skip if all outputs exist (unless forced)
+    if not force and yaml_exists and (evidence_exists or prefetcher is None):
         return {"synset_id": synset_id, "status": "skip"}
 
     try:
@@ -214,17 +374,35 @@ def process_one(synset_id: str, wn_bridge: WNBridge, output_dir: Path,
     except Exception as e:
         return {"synset_id": synset_id, "status": "fail", "error": str(e)}
 
-    synset_info = extract_synset_info(synset_data)
-    synset_info_masked = mask_synset_info(synset_info)
-
     out_dir.mkdir(parents=True, exist_ok=True)
-    (out_dir / "synset_info.yaml").write_text(synset_info, encoding="utf-8")
-    (out_dir / "synset_info_masked.yaml").write_text(synset_info_masked, encoding="utf-8")
+
+    # Write YAML files (skip if already exist and not forced)
+    if force or not yaml_exists:
+        synset_info = extract_synset_info(synset_data)
+        synset_info_masked = mask_synset_info(synset_info)
+        (out_dir / "synset_info.yaml").write_text(synset_info, encoding="utf-8")
+        (out_dir / "synset_info_masked.yaml").write_text(synset_info_masked, encoding="utf-8")
+
+    # Pre-fetch evidence (skip if already exists and not forced)
+    evidence_count = 0
+    if prefetcher and (force or not evidence_exists):
+        try:
+            evidence = prefetcher.prefetch(synset_data)
+            if evidence:
+                (out_dir / "evidence.json").write_text(
+                    json.dumps(evidence, ensure_ascii=False, indent=1),
+                    encoding="utf-8",
+                )
+                evidence_count = evidence["query_meta"]["headword_count"]
+        except Exception as e:
+            # Evidence prefetch failure is non-fatal; agent can still query DB
+            print(f"  WARN: evidence prefetch failed for {synset_id}: {e}", file=sys.stderr)
 
     return {
         "synset_id": synset_id,
         "status": "ok",
         "lemma_count": len(synset_data.get("lemmas", [])),
+        "evidence_entries": evidence_count,
     }
 
 
@@ -257,11 +435,34 @@ def main():
         "--force", action="store_true",
         help="Overwrite existing files",
     )
+    parser.add_argument(
+        "--db", type=Path, default=None,
+        help="Path to arabic_dict.db for evidence pre-fetching",
+    )
+    parser.add_argument(
+        "--no-prefetch", action="store_true",
+        help="Disable evidence pre-fetching (YAML only)",
+    )
     args = parser.parse_args()
+
+    # Auto-detect DB path if not specified
+    if args.db is None and not args.no_prefetch:
+        default_db = Path(__file__).resolve().parent.parent.parent.parent / "arabic-dictionaries" / "db" / "arabic_dict.db"
+        if default_db.exists():
+            args.db = default_db
 
     # Initialize WN bridge
     print("Initializing WordNet bridge...")
     wn_bridge = WNBridge()
+
+    # Initialize evidence prefetcher
+    prefetcher = None
+    if args.db and not args.no_prefetch:
+        if args.db.exists():
+            prefetcher = EvidencePrefetcher(str(args.db))
+            print(f"Evidence DB: {args.db}")
+        else:
+            print(f"Warning: DB not found at {args.db}, skipping evidence prefetch", file=sys.stderr)
 
     # Collect synset IDs
     synset_ids = []
@@ -284,16 +485,21 @@ def main():
     print()
 
     ok = skip = fail = 0
+    total_evidence = 0
     t0 = time.time()
 
     for i, sid in enumerate(synset_ids, 1):
-        result = process_one(sid, wn_bridge, output_dir, force=args.force)
+        result = process_one(sid, wn_bridge, output_dir,
+                             prefetcher=prefetcher, force=args.force)
         if result["status"] == "skip":
             skip += 1
         elif result["status"] == "ok":
             ok += 1
+            ev = result.get("evidence_entries", 0)
+            total_evidence += ev
             if i <= 5 or i % 1000 == 0:
-                print(f"[{i}/{len(synset_ids)}] OK: {sid} ({result['lemma_count']} lemmas)")
+                ev_str = f", {ev} evidence" if prefetcher else ""
+                print(f"[{i}/{len(synset_ids)}] OK: {sid} ({result['lemma_count']} lemmas{ev_str})")
         else:
             fail += 1
             print(f"[{i}/{len(synset_ids)}] FAIL: {sid}: {result.get('error', '?')}")
@@ -303,8 +509,12 @@ def main():
             rate = i / elapsed
             print(f"  Progress: {i}/{len(synset_ids)} ({rate:.0f}/s)")
 
+    if prefetcher:
+        prefetcher.close()
+
     elapsed = time.time() - t0
-    print(f"\nDone in {elapsed:.1f}s: {ok} ok, {skip} skipped, {fail} failed")
+    ev_str = f", {total_evidence} evidence entries" if prefetcher else ""
+    print(f"\nDone in {elapsed:.1f}s: {ok} ok, {skip} skipped, {fail} failed{ev_str}")
 
 
 if __name__ == "__main__":
