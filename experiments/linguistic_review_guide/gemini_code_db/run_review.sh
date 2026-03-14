@@ -135,12 +135,20 @@ for SYNSET_ID in $SYNSETS; do
     # ── Create per-run isolated GEMINI_CLI_HOME ──
     # This provides: session isolation (no persistence), per-run settings.json,
     # and prevents disk bloat from accumulated session files.
+    # We copy auth files from the real ~/.gemini/ so OAuth credentials are available.
     GEMINI_HOME=$(mktemp -d)
+    REAL_GEMINI_DIR="${HOME}/.gemini"
+    # GEMINI_CLI_HOME replaces $HOME; Gemini looks for files under $GEMINI_CLI_HOME/.gemini/
     mkdir -p "$GEMINI_HOME/.gemini"
+    # Copy auth/identity files so Gemini CLI can authenticate via OAuth
+    for f in oauth_creds.json google_accounts.json installation_id state.json; do
+        [ -f "$REAL_GEMINI_DIR/$f" ] && cp "$REAL_GEMINI_DIR/$f" "$GEMINI_HOME/.gemini/$f"
+    done
+    # Build settings: auth from real config + our turn limit, no tool discovery
     cat > "$GEMINI_HOME/.gemini/settings.json" <<SETTINGS
 {
-  "model": { "maxSessionTurns": $MAX_TURNS },
-  "general": { "defaultApprovalMode": "yolo" }
+  "security": { "auth": { "selectedType": "oauth-personal" } },
+  "model": { "maxSessionTurns": $MAX_TURNS }
 }
 SETTINGS
     export GEMINI_CLI_HOME="$GEMINI_HOME"
@@ -165,15 +173,17 @@ Write the complete review YAML to: ${REVIEW_PATH}"
     TRAJECTORY_PATH="$OUTPUT_DIR/${SYNSET_ID}.trajectory.jsonl"
 
     # ── Build Gemini CLI args ──
+    # Note: Gemini's -p/--prompt takes the prompt as its string value (not stdin).
+    #       --yolo is the CLI shorthand for --approval-mode yolo.
     GEMINI_ARGS=(
-        gemini -p
+        gemini
         --output-format stream-json
         -m "$MODEL"
-        --approval-mode yolo
+        --yolo
     )
 
     # Run Gemini CLI — stream-json to trajectory file
-    if "${GEMINI_ARGS[@]}" <<< "$USER_PROMPT" > "$TRAJECTORY_PATH" 2>"$OUTPUT_DIR/${SYNSET_ID}.stderr.log"; then
+    if "${GEMINI_ARGS[@]}" -p "$USER_PROMPT" > "$TRAJECTORY_PATH" 2>"$OUTPUT_DIR/${SYNSET_ID}.stderr.log"; then
         # Check if the review file was created by Gemini
         if [ -f "$REVIEW_PATH" ]; then
             REVIEW_LINES=$(wc -l < "$REVIEW_PATH" | tr -d ' ')

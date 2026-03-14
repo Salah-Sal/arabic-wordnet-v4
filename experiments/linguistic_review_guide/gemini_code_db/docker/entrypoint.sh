@@ -21,7 +21,6 @@ MAX_TURNS="${MAX_TURNS:-80}"
 cat > "$GEMINI_DIR/settings.json" <<SETTINGS
 {
   "model": { "maxSessionTurns": $MAX_TURNS },
-  "general": { "defaultApprovalMode": "yolo" },
   "auth": { "type": "api-key" }
 }
 SETTINGS
