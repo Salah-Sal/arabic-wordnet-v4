@@ -135,22 +135,31 @@ for SYNSET_ID in $SYNSETS; do
     # ── Create per-run isolated GEMINI_CLI_HOME ──
     # This provides: session isolation (no persistence), per-run settings.json,
     # and prevents disk bloat from accumulated session files.
-    # We copy auth files from the real ~/.gemini/ so OAuth credentials are available.
     GEMINI_HOME=$(mktemp -d)
-    REAL_GEMINI_DIR="${HOME}/.gemini"
-    # GEMINI_CLI_HOME replaces $HOME; Gemini looks for files under $GEMINI_CLI_HOME/.gemini/
     mkdir -p "$GEMINI_HOME/.gemini"
-    # Copy auth/identity files so Gemini CLI can authenticate via OAuth
-    for f in oauth_creds.json google_accounts.json installation_id state.json; do
-        [ -f "$REAL_GEMINI_DIR/$f" ] && cp "$REAL_GEMINI_DIR/$f" "$GEMINI_HOME/.gemini/$f"
-    done
-    # Build settings: auth from real config + our turn limit, no tool discovery
-    cat > "$GEMINI_HOME/.gemini/settings.json" <<SETTINGS
+
+    if [ -n "${GEMINI_API_KEY:-}" ]; then
+        # ── Docker mode (API key auth) ──
+        cat > "$GEMINI_HOME/.gemini/settings.json" <<SETTINGS
+{
+  "auth": { "type": "api-key" },
+  "model": { "maxSessionTurns": $MAX_TURNS }
+}
+SETTINGS
+    else
+        # ── Host mode (OAuth auth) ──
+        REAL_GEMINI_DIR="${HOME}/.gemini"
+        for f in oauth_creds.json google_accounts.json installation_id state.json; do
+            [ -f "$REAL_GEMINI_DIR/$f" ] && cp "$REAL_GEMINI_DIR/$f" "$GEMINI_HOME/.gemini/$f"
+        done
+        cat > "$GEMINI_HOME/.gemini/settings.json" <<SETTINGS
 {
   "security": { "auth": { "selectedType": "oauth-personal" } },
   "model": { "maxSessionTurns": $MAX_TURNS }
 }
 SETTINGS
+    fi
+
     export GEMINI_CLI_HOME="$GEMINI_HOME"
 
     # Build user prompt

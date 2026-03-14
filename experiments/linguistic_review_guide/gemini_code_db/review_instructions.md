@@ -509,5 +509,18 @@ step5_enrichment:
 1. **الأوامر:** الأوامر مسجّلة مباشرةً في كل خطوة — لا حاجة لقائمة موحّدة منفصلة ولا لـ YAML anchors/aliases.
 
 ### تعليمات الكتابة:
-استخدم أداة write_file لكتابة ملف YAML النهائي إلى المسار المحدد في رسالة المستخدم.
+
+⚠ **قيد أداة write_file:** أداة write_file محصورة في مجلد `/workspace/` فقط.
+مسار المخرجات (`/output/`) خارج نطاقها — **لا تستخدم write_file للكتابة إلى /output/ مباشرةً.**
+
+**الطريقة الصحيحة:**
+1. اكتب الملف أولاً إلى `/workspace/` باستخدام write_file:
+   ```
+   write_file → /workspace/{synset_id}.review.yaml
+   ```
+2. ثم انسخه إلى مسار المخرجات النهائي باستخدام run_shell_command:
+   ```bash
+   cp /workspace/{synset_id}.review.yaml /output/{synset_id}.review.yaml
+   ```
+
 تأكد أن الملف YAML صالح ويمكن تحليله بـ yaml.safe_load().
