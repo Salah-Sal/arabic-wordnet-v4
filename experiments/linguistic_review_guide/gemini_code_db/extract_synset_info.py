@@ -1,0 +1,1 @@
+../claude_code_db/extract_synset_info.py
