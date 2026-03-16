@@ -1,0 +1,136 @@
+#!/bin/bash
+# Launch the concurrent batch review inside a Docker container (pipeline v2, Gemini CLI).
+#
+# Architecture: batch_runner.py orchestrates parallel run_review.sh workers.
+# Each worker calls `gemini -p` once per synset, querying the Arabic dictionary
+# SQLite DB directly via sqlite3 CLI.
+#
+# Security: egress firewall (default-deny whitelist inside container),
+#           read-only input mounts, disposable container.
+#           NET_ADMIN/NET_RAW caps required for iptables firewall setup.
+#           Note: no-new-privileges is incompatible with sudo (needed for firewall).
+#
+# Prerequisites:
+#   1. Run extract_synset_info.py on the host to generate prepared/ directory
+#   2. Docker installed
+#   3. GEMINI_API_KEY environment variable set
+#   4. Arabic dictionary DB accessible
+#
+# Usage:
+#   ./run_batch.sh                              # All synsets, 4 workers
+#   ./run_batch.sh --workers 8                  # All synsets, 8 workers
+#   ./run_batch.sh --workers 2 awn4-02592253-n  # Single synset
+#   ./run_batch.sh --resume --workers 4         # Resume interrupted run
+#   ./run_batch.sh --batch /path/to/batch.txt --workers 10 --adaptive
+#   MODEL=gemini-3.1-pro-preview ./run_batch.sh --workers 10  # Custom model
+
+set -euo pipefail
+
+# ── Paths ──
+GUIDE_DIR="${GUIDE_DIR:-$HOME/Desktop/MLProjects/wn-project/arabic-wordnet-v4/experiments/linguistic_review_guide}"
+PIPELINE_DIR="${PIPELINE_DIR:-$GUIDE_DIR/gemini_review_pipeline}"
+PREPARED_DIR="${PREPARED_DIR:-$PIPELINE_DIR/prepared}"
+OUTPUT_DIR="${OUTPUT_DIR:-$GUIDE_DIR/output/reviews_gemini_pipeline_v2}"
+ARABIC_DICT_DB="${ARABIC_DICT_DB:-$HOME/Desktop/MLProjects/wn-project/arabic-dictionaries/db/arabic_dict.db}"
+
+MODEL="${MODEL:-gemini-3-flash-preview}"
+WORKERS="${WORKERS:-4}"
+
+mkdir -p "$OUTPUT_DIR"
+
+# ── Validate auth: API key OR OAuth credentials ──
+GEMINI_AUTH_DIR="${HOME}/.gemini"
+AUTH_MOUNTS=()
+API_KEY_ENV=()
+
+if [ -n "${GEMINI_API_KEY:-}" ]; then
+    echo "Auth: API key"
+    API_KEY_ENV=(-e GEMINI_API_KEY="$GEMINI_API_KEY")
+elif [ -f "$GEMINI_AUTH_DIR/oauth_creds.json" ]; then
+    echo "Auth: OAuth (mounting credentials from ~/.gemini/)"
+    AUTH_MOUNTS=(-v "$GEMINI_AUTH_DIR/oauth_creds.json":/home/node/.gemini/oauth_creds.json:ro)
+    for f in google_accounts.json installation_id state.json; do
+        [ -f "$GEMINI_AUTH_DIR/$f" ] && AUTH_MOUNTS+=(-v "$GEMINI_AUTH_DIR/$f":/home/node/.gemini/$f:ro)
+    done
+else
+    echo "Error: No authentication configured."
+    echo "Either set GEMINI_API_KEY or authenticate via 'gemini' CLI first (OAuth)."
+    exit 1
+fi
+
+# ── Parse args: extract --workers and --batch (need special handling for Docker mounts) ──
+BATCH_ARGS=()
+BATCH_FILE=""
+EXTRA_MOUNTS=()
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --workers) WORKERS="$2"; shift 2 ;;
+        --workers=*) WORKERS="${1#*=}"; shift ;;
+        --batch) BATCH_FILE="$2"; BATCH_ARGS+=("--batch" "/workspace/batch.txt"); shift 2 ;;
+        --batch=*) BATCH_FILE="${1#*=}"; BATCH_ARGS+=("--batch" "/workspace/batch.txt"); shift ;;
+        *) BATCH_ARGS+=("$1"); shift ;;
+    esac
+done
+
+# Mount batch file into container if provided
+if [ -n "$BATCH_FILE" ]; then
+    if [ ! -f "$BATCH_FILE" ]; then
+        echo "Error: batch file not found: $BATCH_FILE"
+        exit 1
+    fi
+    BATCH_FILE="$(cd "$(dirname "$BATCH_FILE")" && pwd)/$(basename "$BATCH_FILE")"
+    EXTRA_MOUNTS+=(-v "$BATCH_FILE":/workspace/batch.txt:ro)
+fi
+# Default to --all if no synset args given
+if [ ${#BATCH_ARGS[@]} -eq 0 ]; then
+    BATCH_ARGS=("--all")
+fi
+
+# ── Validate DB exists ──
+if [ ! -f "$ARABIC_DICT_DB" ]; then
+    echo "Error: Arabic dictionary DB not found at $ARABIC_DICT_DB"
+    echo "Set ARABIC_DICT_DB environment variable to the correct path."
+    exit 1
+fi
+
+# ── Build image if needed ──
+IMAGE_NAME="gemini-reviewer-v2"
+DOCKER_DIR="$(dirname "$0")"
+
+if ! docker image inspect "$IMAGE_NAME" >/dev/null 2>&1; then
+    echo "Building Docker image: $IMAGE_NAME"
+    docker build -t "$IMAGE_NAME" "$DOCKER_DIR"
+fi
+
+# ── Run ──
+echo "Prepared: $PREPARED_DIR"
+echo "Output:   $OUTPUT_DIR"
+echo "Database: $ARABIC_DICT_DB"
+echo "Model:    $MODEL"
+echo "Workers:  $WORKERS"
+echo "Args:     ${BATCH_ARGS[*]}"
+echo
+
+docker run --rm \
+    --cap-add=NET_ADMIN \
+    --cap-add=NET_RAW \
+    ${EXTRA_MOUNTS[@]+"${EXTRA_MOUNTS[@]}"} \
+    ${AUTH_MOUNTS[@]+"${AUTH_MOUNTS[@]}"} \
+    -v "$PREPARED_DIR":/workspace/prepared:ro \
+    -v "$PIPELINE_DIR/spec":/workspace/spec:ro \
+    -v "$PIPELINE_DIR/review_instructions.md":/workspace/review_instructions.md:ro \
+    -v "$PIPELINE_DIR/db_reference.md":/workspace/db_reference.md:ro \
+    -v "$PIPELINE_DIR/run_review.sh":/workspace/run_review.sh:ro \
+    -v "$PIPELINE_DIR/batch_runner.py":/workspace/batch_runner.py:ro \
+    -v "$PIPELINE_DIR/batch_status.py":/workspace/batch_status.py:ro \
+    -v "$ARABIC_DICT_DB":/data/arabic_dict.db:ro \
+    -v "$OUTPUT_DIR":/output \
+    ${API_KEY_ENV[@]+"${API_KEY_ENV[@]}"} \
+    -e MODEL="$MODEL" \
+    -e MAX_TURNS="${MAX_TURNS:-80}" \
+    -e OUTPUT_DIR=/output \
+    -e PREPARED_DIR=/workspace/prepared \
+    -e SPEC_DIR=/workspace/spec \
+    -e ARABIC_DICT_DB=/data/arabic_dict.db \
+    "$IMAGE_NAME" \
+    python3 /workspace/batch_runner.py --workers "$WORKERS" "${BATCH_ARGS[@]}"
