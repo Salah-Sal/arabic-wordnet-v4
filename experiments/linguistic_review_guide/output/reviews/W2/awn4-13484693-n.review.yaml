@@ -1,0 +1,224 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "مصطلح 'فصل الامتزاز' عبارة وصفية غير دقيقة ولا تعد مصطلحا مسكوكا في المعاجم الفنية."
+      - "التعريف الحالي جيد ولكنه يفتقر للصياغة المعجمية الدقيقة."
+    observations: "المفهوم علمي تقني يخص الكيمياء والفيزياء، ويقابل (Desorption) وهو العملية العكسية للامتزاز (Adsorption). استقرت المعاجم العلمية على 'انتزاز' أو 'مج'."
+  blind_candidates:
+    - lemma: "اِنْتِزَاز"
+      generation_method: ishtiqaq
+      justification: "مصطلح مشتق على وزن افتعال ليدل على العملية العكسية للامتزاز (adsorption)."
+    - lemma: "إِزَالَةُ الاِمْتِزَاز"
+      generation_method: tarkib
+      justification: "مركب إضافي يصف بدقة عملية التخلص من حالة الامتزاز."
+    - lemma: "مَجّ"
+      generation_method: majaz
+      justification: "إزاحة دلالية لفعل مج (لفظ السائل)، واستُخدم حديثا كمقابل عكسي للامتصاص والامتزاز."
+    - lemma: "نُضُوح"
+      generation_method: majaz
+      justification: "إزاحة دلالية لخروج السائل من المسام."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "انتزاز"
+      confirm:
+        - text: "عملية تحرّر ذرات أو جزيئات من السطح الخارجي لجسم صلب. يُمثِّل الانتزاز العملية المعكوسة للامتزاز. وحتى تتحقق عملية الانتزاز، لابُدَّ أن تكون للجزيء طاقة كافية للتغلّب على قوة شد المادة له بحيثً يتحرّر منها. (انظر: امتصاص) (انظر: امتزاز) — مقابل: desorption"
+          source: "مسرد الهندسة الكهربائية، المنظمة العربية للتربية والثقافة والعلوم (موقع ArabTerm)"
+    - lemma: "فصل الامتزاز"
+      evidence_status: "no_material_found"
+    - lemma: "إِزَالَةُ الاِمْتِزَاز"
+      confirm:
+        - text: "استخلاص مادة من حالة الامتزاز أو الامتصاص . — مقابل: desorption"
+          source: "معجم المصطلحات الطبية (ج.2، 2003)"
+    - lemma: "مَجّ"
+      confirm:
+        - text: "إزالة المادة الممتصة أو الممتزة بعملية عكسية كالامتزاز أو الامتصاص — مقابل: desorption"
+          source: "المعجم الموحد لمصطلحات الكيمياء (1992)"
+        - text: "ازالة المُدْمَص، وهي عكس الادمصاص. — مقابل: desorption"
+          source: "المعجم الموحد لمصطلحات تقانات الأغذية (2004)"
+    - lemma: "نُضُوح"
+      contradicts:
+        - text: "مزادة نَضُوحٌ: تنضِح بالماء"
+          source: "المعجم الوسيط"
+          conflict: "يعني التسرب أو الرشح (leakage) ولا يختص بالعملية العكسية للامتزاز الصلب."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "انتزاز"
+      decision: confirmed
+      decision_reason: "مصطلح معتمد في المعاجم العلمية الحديثة كمقابل مباشر لـ Desorption، وهو قياسي دقيق دلاليا وصرفيا."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "اِنْتِزَاز"
+
+    - lemma: "فصل الامتزاز"
+      decision: removed
+      decision_reason: "تعبير وصفي غير مسكوك كمصطلح، ولا أثر له في المعاجم العلمية المعتمدة."
+      evidence_assessment:
+        case: no_material
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "إِزَالَةُ الاِمْتِزَاز"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح مركب مدعوم في المعاجم الطبية وبعض المعاجم الهندسية كمقابل صريح لعملية الـ Desorption."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "إِزَالَة الاِمْتِزَاز", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "مَجّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح قياسي أقره مجمع اللغة العربية واستُخدم في المعاجم الكيميائية والتقنية للدلالة على العملية العكسية للامتصاص أو الامتزاز."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَجّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "نُضُوح"
+      source: stage1
+      decision: removed
+      decision_reason: "يدل على التسرب أو الرشح ولا يعبر عن عملية تحرر الجزيئات الممتزة بشكل دقيق."
+      evidence_assessment:
+        case: contradicts_only
+
+stage4_content:
+  definition:
+    current: "التحول من حالة الامتزاز على سطح ما إلى حالة غازية أو سائلة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقبول لكنه يفتقر للسبك المعجمي العلمي الذي يوضح طبيعة المادة (صلبة) وتحرر الجزيئات."
+    authored:
+      - type: terminological
+        text: "تَحَرُّرُ الذَّرَّاتِ أَوِ الْجُزَيْئَاتِ مِنْ سَطْحٍ كَانَتْ مُمْتَزَّةً عَلَيْهِ، وَتَحَوُّلُهَا إِلَى حَالَةٍ غَازِيَّةٍ أَوْ سَائِلَةٍ؛ وَهِيَ الْعَمَلِيَّةُ الْعَكْسِيَّةُ لِلِامْتِزَازِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "تَحَرُّرُ الذَّرَّاتِ أَوِ الْجُزَيْئَاتِ مِنْ سَطْحٍ كَانَتْ مُمْتَزَّةً عَلَيْهِ، وَتَحَوُّلُهَا إِلَى حَالَةٍ غَازِيَّةٍ أَوْ سَائِلَةٍ؛ وَهِيَ الْعَمَلِيَّةُ الْعَكْسِيَّةُ لِلِامْتِزَازِ."}
+
+  examples:
+    per_lemma:
+      - lemma: "انتزاز"
+        examples:
+          - text: "يُعَدُّ الِانْتِزَازُ عَمَلِيَّةً حَاسِمَةً فِي تَجْدِيدِ الْمَوَادِّ الْمَازَّةِ فِي الصِّنَاعَةِ."
+            type: usage
+      - lemma: "إِزَالَةُ الاِمْتِزَاز"
+        examples:
+          - text: "تَتَطَلَّبُ إِزَالَةُ الِامْتِزَازِ رَفْعَ دَرَجَةِ الْحَرَارَةِ أَوْ خَفْضَ الضَّغْطِ لِتَحْرِيرِ الْغَازَاتِ."
+            type: usage
+      - lemma: "مَجّ"
+        examples:
+          - text: "تُقَاسُ سُرْعَةُ الْمَجِّ لِتَحْدِيدِ كَفَاءَةِ الْمَادَّةِ فِي إِطْلَاقِ الْمُلَوِّثَاتِ الَّتِي اِمْتَصَّتْهَا."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يُعَدُّ الِانْتِزَازُ عَمَلِيَّةً حَاسِمَةً فِي تَجْدِيدِ الْمَوَادِّ الْمَازَّةِ فِي الصِّنَاعَةِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تَتَطَلَّبُ إِزَالَةُ الِامْتِزَازِ رَفْعَ دَرَجَةِ الْحَرَارَةِ أَوْ خَفْضَ الضَّغْطِ لِتَحْرِيرِ الْغَازَاتِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تُقَاسُ سُرْعَةُ الْمَجِّ لِتَحْدِيدِ كَفَاءَةِ الْمَادَّةِ فِي إِطْلَاقِ الْمُلَوِّثَاتِ الَّتِي اِمْتَصَّتْهَا."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "اِنْتِزَاز"
+      entry_id: "{auto}"
+      root: "نزز"
+      maqayis_quote: "«الخفيف الذكي الذي لا يستقر في مكان ما تحلب من الأرض من ماء لقلته»"
+    - lemma: "مَجّ"
+      entry_id: "{auto}"
+      root: "مجج"
+      maqayis_quote: "«تخليط في شيء رمي الشيء من الفم بسرعة»"
+    - lemma: "إِزَالَة الاِمْتِزَاز"
+      entry_id: "{auto}"
+      roots:
+        - word: "إزالة"
+          root: "زول"
+          maqayis_quote: "«الزَّاءُ وَالْوَاوُ وَاللَّامُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَنَحِّي الشَّيْءِ عَنْ مَكَانِهِ»"
+        - word: "امتزاز"
+          root: "مزز"
+          maqayis_quote: "«الْمِيمُ وَالزَّاءُ أَصْلَانِ: أَحَدُهُمَا طَعْمٌ مِنَ الطَّعُومِ، وَالْآخُرُ يَدُلُّ عَلَى مَزِيَّةٍ وَفَضْلٍ»"
+
+  per_sense:
+    - lemma: "اِنْتِزَاز"
+      sense_id: "{auto}"
+      nuance: "مصطلح فني دقيق يعبر مباشرة عن العملية العكسية للامتزاز (Adsorption)، وهو الأكثر شيوعاً في الهندسة الكهربائية والفيزياء."
+      mwe: false
+    - lemma: "إِزَالَة الاِمْتِزَاز"
+      sense_id: "{auto}"
+      nuance: "مركب إضافي يُستعمل عادة لشرح العملية، ويكثر في السياقات الطبية والميكانيكية لتوضيح المعنى للقارئ."
+      mwe: true
+    - lemma: "مَجّ"
+      sense_id: "{auto}"
+      nuance: "مصطلح كيميائي عام يشمل التخلص من الامتزاز والامتصاص معا، ويحمل إيحاءً ملموساً (لفظ السائل)."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نزز","maqayis":"«الخفيف الذكي الذي لا يستقر في مكان ما تحلب من الأرض من ماء لقلته»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"إزالة","root":"زول","maqayis":"«الزَّاءُ وَالْوَاوُ وَاللَّامُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَنَحِّي الشَّيْءِ عَنْ مَكَانِهِ»"},{"word":"امتزاز","root":"مزز","maqayis":"«الْمِيمُ وَالزَّاءُ أَصْلَانِ: أَحَدُهُمَا طَعْمٌ مِنَ الطَّعُومِ، وَالْآخُرُ يَدُلُّ عَلَى مَزِيَّةٍ وَفَضْلٍ»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"مجج","maqayis":"«تخليط في شيء رمي الشيء من الفم بسرعة»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح فني دقيق يعبر مباشرة عن العملية العكسية للامتزاز (Adsorption)، وهو الأكثر شيوعاً في الهندسة الكهربائية والفيزياء.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مركب إضافي يُستعمل عادة لشرح العملية، ويكثر في السياقات الطبية والميكانيكية لتوضيح المعنى للقارئ.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح كيميائي عام يشمل التخلص من الامتزاز والامتصاص معا، ويحمل إيحاءً ملموساً (لفظ السائل).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'

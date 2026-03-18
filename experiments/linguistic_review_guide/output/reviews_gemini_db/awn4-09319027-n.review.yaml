@@ -1,0 +1,136 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "خليج"
+      confirm:
+        - text: "«فى الجغرافيا gulf: امتدادٌ من مياه البِحارِ أو الأَنْهارِ مُتَوغِّلٌ فى اليابسِ»"
+          source: "المعجم الكبير"
+        - text: "«امتدادٌ من الماء متوغِّلٌ في اليابس»"
+          source: "المعجم الوسيط"
+    - lemma: "خليج كبير"
+      evidence_status: "no_material_found"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "ذراع بحر"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«ذراع بحر، خليج» — المعجم الموحد لمصطلحات علوم البحار (2000)"
+      justification: "ورد في معجم مصطلحات علوم البحار، وهو يعكس الوصف الجغرافي لامتداد الماء كتركيب إضافي."
+  knowledge_candidates:
+    - lemma: "جون"
+      justification: "إحياء للألفاظ (مجاز): الجون هو الخليج من البحر، ويستعمل كثيراً للإشارة إلى الخلجان المائية المتوغلة في اليابسة."
+  generation_notes: "المصطلح المعياري المتفق عليه هو (خليج)، وقد تستخدم كلمات تراثية أخرى كجون وشرم للإشارة إلى المفهوم ذاته باختلاف في الحجم."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "خليج"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح ومستقر في المعاجم اللغوية والعلمية الحديثة للتعبير عن (gulf)، وهو يطابق تماماً مدلول المجموعة الترادفية."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "المصطلح الجغرافي الأساسي والأكثر شيوعاً واطراداً لتمثيل هذا المفهوم بغض النظر عن الحجم."
+      example: "تتميز منطقة الخليج بأهمية استراتيجية واقتصادية كبيرة على مستوى العالم."
+      
+    - lemma: "خليج كبير"
+      decision: removed
+      decision_reason: "تعبير وصفي حر غير مسكوك (مركب وصفي)، أُدرج كمحاولة لتمييز (Gulf) عن (Bay) استناداً إلى الحجم، لكنه ليس مصطلحاً معجمياً مستقراً."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "مركب وصفي حر لا يعد وحدة معجمية مستقلة، بخلاف (خليج)."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+            
+    - lemma: "ذراع بحر"
+      source: step05
+      decision: removed
+      decision_reason: "على الرغم من وروده في بعض المسارد، إلا أنه أقرب للعبارة الوصفية الحرة المترجمة حرفياً (arm of the sea) منه إلى المصطلح المسكوك، وكلمة (خليج) تُغني عنه."
+      step05_citation: "«ذراع بحر، خليج» — المعجم الموحد لمصطلحات علوم البحار (2000)"
+      
+    - lemma: "جون"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح تراثي فصيح متداول جغرافياً للتعبير عن الخلجان البحرية المتوغلة في اليابسة، وهو بديل معجمي مناسب."
+      step05_citation: "اقتراح من المعرفة اللغوية (مجاز/إحياء التراث)."
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "مرادف لـ(خليج) لكنه قد يُستخدم في بعض السياقات للإشارة إلى الخلجان الأقل اتساعاً أو ذات الفتحة الأضيق."
+      example: "بُنيت المدينة على ضفاف جون واسع آمن من الأمواج العاتية."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "جون"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09319027-n"
+
+  synset_flags:
+    definition_review_needed: true
+
+  added_lemmas:
+    - lemma: "جون"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "ذراع من بحر أو محيط محاط جزئياً باليابسة؛ أكبر من الخليج الصغير (Bay)"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي يحتوي على كلمة إنجليزية (Bay) بين قوسين، ويعتمد على مقارنة بمفهوم آخر بدلاً من تعريف المفهوم بحد ذاته بوضوح."
+  authored_definitions:
+    - type: terminological
+      text: "امتداد واسع من مياه البحر أو المحيط يتوغل في اليابسة وتحيط به من جهات متعددة."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-09319027-n"
+        definition_index: 0
+        text: "امتداد واسع من مياه البحر أو المحيط يتوغل في اليابسة وتحيط به من جهات متعددة."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "مسطح مائي"
+    test_result: "correct"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "خليج"
+      enrichment:
+        root: "خ-ل-ج"
+      examples:
+        - text: "عبرت السفينة التجارية مياه الخليج محملة بالبضائع."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "جون"
+      enrichment:
+        root: "ج-و-ن"
+      examples:
+        - text: "ألقى الصيادون شباكهم في الجون الهادئ وقت الغروب."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-09319027-n"
+        text: "عبرت السفينة التجارية مياه الخليج محملة بالبضائع."

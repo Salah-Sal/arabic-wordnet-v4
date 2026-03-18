@@ -1,0 +1,151 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "أرض زراعية"
+      confirm:
+        - text: "«أراضي مستعملة في الإنتاج الفلاحي أو صالحة لهذا الاستخدام.» — مسرد المناخ والبيئة وإدارة النفايات الصلبة"
+        - text: "«agricultural land» — المعجم الموحد لمصطلحات علم الأحياء"
+      expands:
+        - text: "«تُرْبة، طبقة التراب السطحيَّة التي تتناولها آلات الحراثة (أرض صحراويَّة/ زراعيَّة)» — معجم اللغة العربية المعاصرة"
+    - lemma: "أرض محروثة"
+      confirm:
+        - text: "«التربة التي تم حرثها بشكل جيد تكون مسامية، مما يسمح للمياه بالتسرب بسهولة، ويسمح للجذور بالنمو دون إعاقة.» — مسرد المناخ والبيئة وإدارة النفايات الصلبة"
+        - text: "«أرض محروثة أو صالحة للحراثة. (plowland)» — المورد الحديث"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "أرض مزروعة"
+      source_section: "step7_english_bridge"
+      evidence_citation: "«cultivated land — أرض مزروعة» — المعجم الموحد لمصطلحات التجارة والمحاسبة"
+      justification: "مطابقة دقيقة للمصطلح الإنجليزي cultivated land."
+    - lemma: "حقل"
+      source_section: "step6_fts_keyword"
+      evidence_citation: "«الحَقْل: قَرَاح طَيّب يُزْرَع فيه... والمَحاقِل: المَزارِع.» — لسان العرب"
+      justification: "المصطلح العربي التراثي والأصيل للمساحة المزروعة."
+  knowledge_candidates:
+    - lemma: "أرض أريضة"
+      justification: "وصف تراثي للأرض الزكية الطيبة للزراعة (Fertile/Thriving land) كما ورد في القاموس المحيط وتاج العروس."
+      mechanism: "إحياء التراث"
+  generation_notes: "تم التركيز على المصطلحات التي تميز بين الحالة القانونية (زراعية) والحالة الميكانيكية (محروثة) والحالة النباتية (مزروعة)."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "أرض زراعية"
+      decision: confirmed
+      decision_reason: "مصطلح حديث مستقر وشائع الاستخدام."
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+        type: "وصفي"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تدل على التصنيف النوعي للأرض واستخدامها القانوني والوظيفي."
+      example: "توسعت الدولة في استصلاح الأراضي الزراعية لزيادة الإنتاج الغذائي."
+    
+    - lemma: "أرض محروثة"
+      decision: confirmed
+      decision_reason: "تدل بدقة على الأرض التي أُعدت بالحرث (plowland)."
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+        type: "وصفي"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تركز على الحالة الفيزيائية للتربة بعد معالجتها بالمحراث."
+      example: "تفوح رائحة التربة الطيبة من الأرض المحروثة بعد سقوط المطر."
+
+    - lemma: "أرض مزروعة"
+      source: step05
+      decision: confirmed
+      decision_reason: "مطابقة للمصطلح الإنجليزي (cultivated land) وتكمل الجانب الفعلي للعملية."
+      step05_citation: "«أراضي مزروعة — cultivated land» — المكنز الزراعي"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تصف الأرض التي تحتوي على محاصيل نامية بالفعل، بخلاف المحروثة التي قد تكون خالية."
+      example: "تبدو الأراضي المزروعة كبساط أخضر يمتد على مد البصر."
+
+    - lemma: "حقل"
+      source: step05
+      decision: confirmed
+      decision_reason: "اللفظ العربي الأخص والأكثر شيوعاً للمساحة المحدودة المزروعة."
+      step05_citation: "«الحقل: المزرعة التي يزرع فيها البر» — لسان العرب"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "لفظ بسيط (غير مركب) يجمع بين المكان والنشاط الزراعي، وغالباً ما يكون أصغر من المزرعة."
+      example: "خرج الفلاح إلى حقله عند بزوغ الفجر."
+
+    - lemma: "أرض أريضة"
+      source: step05
+      decision: confirmed
+      decision_reason: "لفظ فصيح يصف جودة الأرض وخصوبتها."
+      step05_citation: "«أرض أريضة: زكية معجبة للعين خليقة للخير» — القاموس المحيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تركز على الجودة النوعية والخصوبة (fertile/prime farmland) وليس مجرد الاستخدام."
+      example: "نزلنا أرضاً أريضةً تسر الناظرين بجودة نباتها."
+
+  added_lemmas:
+    - lemma: "أرض مزروعة"
+      reason: "تغطية لمفهوم cultivated land بدقة."
+      via_command: "create_entry + add_sense"
+    - lemma: "حقل"
+      reason: "اللفظ العربي الأصيل والأكثر شيوعاً."
+      via_command: "add_sense"
+    - lemma: "أرض أريضة"
+      reason: "إثراء بالمصطلح التراثي الواصف للجودة والخصوبة."
+      via_command: "create_entry + add_sense"
+
+step3_definition:
+  current_definition: "أرض صالحة للزراعة يتم حرثها وزرعها وإنتاج المحاصيل منها"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وجامع لخصائص المفهوم (الصلاحية، العمل، الإنتاج)."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "أرض، تربة (awn4-09358146-n)"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "أرض زراعية"
+        antonym_found: true
+        antonym: "أرض بائرة"
+      - lemma: "أرض محروثة"
+        antonym_found: true
+        antonym: "أرض جمد"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "أرض زراعية"
+      enrichment:
+        root: "أ-ر-ض / ز-ر-ع"
+      examples:
+        - text: "حظر القانون البناء على الأراضي الزراعية."
+          type: usage
+          source: "مؤلف"
+    - lemma: "أرض محروثة"
+      enrichment:
+        root: "أ-ر-ض / ح-ر-ث"
+      examples:
+        - text: "تمتد الأرض المحروثة استعداداً لموسم القمح."
+          type: usage
+          source: "مؤلف"
+    - lemma: "حقل"
+      enrichment:
+        root: "ح-ق-ل"
+      examples:
+        - text: "«يَخْطُر بالمِنْجَل وَسْطَ الحَقْلِ» — الأخطل"
+          type: poetry
+          source: "لسان العرب"
+    - lemma: "أرض أريضة"
+      enrichment:
+        root: "أ-ر-ض"
+      examples:
+        - text: "«نزلنا أَرْضاً أَريضَةً، أي معجبة للعين.» — أبو عمرو (نقلاً عن لسان العرب)"
+          type: usage
+          source: "لسان العرب"
+  cultural_fit:
+    assessment: native

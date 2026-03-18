@@ -1,0 +1,295 @@
+YOLO mode is enabled. All tool calls will be automatically approved.
+Loaded cached credentials.
+YOLO mode is enabled. All tool calls will be automatically approved.
+Error executing tool read_file: File not found.
+Bash command parsing error detected for command: << 'EOF' > /workspace/awn4-09211126-n.review.yaml
+step0_evidence:
+  per_lemma:
+    - lemma: "تابع"
+      confirm:
+        - text: "«(التَّابِع) التَّالِي وَالْخَادِم وَمَا يتبع غَيره»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«أيُّ تجهيزةٍ (ومنها الحاسوب) يُسيطَر عليها من حاسوب آخر»"
+          source: "معجم مصطلحات المعلوماتية (2000)"
+          addition: "استعمال تقني للتابع في أنظمة الحواسيب والاتصالات كمرادف لـ (slave)"
+    - lemma: "ملحق"
+      confirm:
+        - text: "«ما يضاف إلى موضوع رئيس كجزء مُكمّل وإضافي، كملحقات ملف وكتاب»"
+          source: "المعجم الموحد لمصطلحات اللسانيات (2002)"
+      expands:
+        - text: "«موظف يعين فِي سفارة الدولة للْقِيَام بِعَمَل خَاص كالملحق العسكري»"
+          source: "المعجم الوسيط"
+          addition: "يُطلق اصطلاحاً على الموظف الدبلوماسي المُضاف إلى هيئة السفارة"
+        - text: "«وثيقة تلحق مع رسالة إلكترونية»"
+          source: "المعجم الموحد لمصطلحات تقانة (تكنولوجيا) المعلومات (2011)"
+          addition: "مرفق الرسالة الإلكترونية"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "إِضَافَة"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«الإضافة: شيء مُضاف.» — المورد الحديث (2008)"
+      justification: "الإضافة قد تُطلق على الشيء المُضاف نفسه وليس عملية الضم فقط، وهو يتطابق مع التعريف."
+    - lemma: "زَائِدَة"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«زائدة» ترجمة لـ appendage — المعجم الموحد لمصطلحات الجيولوجيا (2000)"
+      justification: "الزائدة هي الجزء المضاف إلى الأصل والذي يمكن الاستغناء عنه، وهو يطابق معنى الشيء الثانوي المُضاف."
+  knowledge_candidates:
+    - lemma: "تَكْمِلَة"
+      justification: "ما يُكمّل به الشيء ويكون مضافاً إليه، كمال للشيء وليس من أجزائه الأساسية. (اشتقاق)"
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "تابع"
+      decision: "confirmed"
+      decision_reason: "أدلة مؤكدة وتستعمل في السياقات العامة والتقنية."
+      evidence_assessment:
+        case: "expands"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يتميّز عن بقية اللمات بدلالة التبعية والارتباط الوثيق بالأصل المتبوع."
+      example: "تُعد هذه اللجان توابعَ للمجلس الرئيسي لتسهيل أعماله."
+    - lemma: "ملحق"
+      decision: "confirmed"
+      decision_reason: "أدلة مؤكدة؛ وهو اللفظ الأشيع للمفهوم في المعاجم والاستعمال."
+      evidence_assessment:
+        case: "expands"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يتميّز بدلالة الإضافة المتأخرة أو المستقلة جزئياً بعد تمام الأصل (كملاحق الكتب)."
+      example: "أُدرجت الجداول البيانية في مُلحَقٍ خاص بنهاية التقرير."
+    - lemma: "إِضَافَة"
+      source: "step05"
+      decision: "confirmed"
+      decision_reason: "الكلمة فصيحة وشائعة بمعنى الشيء المُضاف."
+      step05_citation: "«الإضافة: شيء مُضاف.» — المورد الحديث (2008)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "مصدر يُطلق على المفعول (المُضاف)، ويغلب عليها الدلالة المجردة للتعبير عن الزيادة."
+      example: "كان هذا الفصل إِضَافَةً قيّمةً للكتاب رغم عدم أساسيته."
+      actions:
+        - command: "create_entry"
+          params:
+            lemma: "إِضَافَة"
+            pos: "n"
+        - command: "add_sense"
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09211126-n"
+    - lemma: "زَائِدَة"
+      source: "step05"
+      decision: "confirmed"
+      decision_reason: "تدل على ما زاد على الأصل ويمكن الاستغناء عنه."
+      step05_citation: "«زائدة» ترجمة لـ appendage — المعجم الموحد لمصطلحات الجيولوجيا (2000)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تتميّز بالدلالة على أن الشيء يتجاوز الحاجة الأساسية وقد يُستغنى عنه."
+      example: "يحتوي هذا الجهاز على زوائدَ لا حاجة للمستخدم العادي بها."
+      actions:
+        - command: "create_entry"
+          params:
+            lemma: "زَائِدَة"
+            pos: "n"
+        - command: "add_sense"
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09211126-n"
+    - lemma: "تَكْمِلَة"
+      source: "step05"
+      decision: "removed"
+      decision_reason: "التكملة توحي بنقص في الأصل يحتاج إلى إتمام، بينما مفهوم المجموعة الترادفية ينص على أن المُضاف ليس جزءاً أساسياً والأصل تام بدونه."
+      step05_citation: "توليد من المعرفة (اشتقاق)"
+  synset_flags:
+    definition_review_needed: true
+  added_lemmas:
+    - lemma: "إِضَافَة"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "create_entry + add_sense"
+    - lemma: "زَائِدَة"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "create_entry + add_sense"
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "شيء مضاف إلى شيء آخر ولكنه ليس جزءاً أساسياً منه"
+  assessment:
+    decision: "revise"
+    reason: "التعريف الحالي ترجمة حرفية (شيء مضاف إلى شيء آخر). يمكن تحسين سبكه بأسلوب معجمي عربي فصيح."
+  authored_definitions:
+    - type: "terminological"
+      text: "ما يُلْحَقُ بِالشَّيءِ أَوْ يُضَافُ إِلَيْهِ وَلَيْسَ مِنْ أَجْزَائِهِ الأَسَاسِيَّةِ"
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: "update_definition"
+      params:
+        synset_id: "awn4-09211126-n"
+        definition_index: 0
+        text: "ما يُلْحَقُ بِالشَّيءِ أَوْ يُضَافُ إِلَيْهِ وَلَيْسَ مِنْ أَجْزَائِهِ الأَسَاسِيَّةِ"
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "شيء ثانوي"
+    test_result: "correct"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "تابع"
+      enrichment:
+        root: "ت-ب-ع"
+      examples:
+        - text: "تُعد هذه اللجان توابعَ للمجلس الرئيسي لتسهيل أعماله."
+          type: "usage"
+          source: "مؤلَّف"
+      pos_check:
+        pos: "noun"
+    - lemma: "ملحق"
+      enrichment:
+        root: "ل-ح-ق"
+      examples:
+        - text: "أُدرجت الجداول البيانية في مُلحَقٍ خاص بنهاية التقرير."
+          type: "usage"
+          source: "مؤلَّف"
+      pos_check:
+        pos: "noun"
+    - lemma: "إِضَافَة"
+      enrichment:
+        root: "ض-ي-ف"
+      examples:
+        - text: "كان هذا الفصل إِضَافَةً قيّمةً للكتاب رغم عدم أساسيته."
+          type: "usage"
+          source: "مؤلَّف"
+      pos_check:
+        pos: "noun"
+    - lemma: "زَائِدَة"
+      enrichment:
+        root: "ز-ي-د"
+      examples:
+        - text: "يحتوي هذا الجهاز على زوائدَ لا حاجة للمستخدم العادي بها."
+          type: "usage"
+          source: "مؤلَّف"
+      pos_check:
+        pos: "noun"
+  cultural_fit:
+    assessment: "native"
+EOF Syntax Errors: [ 'Error node: "<" at 0:0' ]
+missing pgrep output
+Attempt 1 failed with status 429. Retrying with backoff... GaxiosError: [{
+  "error": {
+    "code": 429,
+    "message": "No capacity available for model gemini-3.1-pro-preview on the server",
+    "errors": [
+      {
+        "message": "No capacity available for model gemini-3.1-pro-preview on the server",
+        "domain": "global",
+        "reason": "rateLimitExceeded"
+      }
+    ],
+    "status": "RESOURCE_EXHAUSTED",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "MODEL_CAPACITY_EXHAUSTED",
+        "domain": "cloudcode-pa.googleapis.com",
+        "metadata": {
+          "model": "gemini-3.1-pro-preview"
+        }
+      }
+    ]
+  }
+}
+]
+    at Gaxios._request (/usr/local/share/npm-global/lib/node_modules/@google/gemini-cli/node_modules/gaxios/build/src/gaxios.js:142:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async OAuth2Client.requestAsync (/usr/local/share/npm-global/lib/node_modules/@google/gemini-cli/node_modules/google-auth-library/build/src/auth/oauth2client.js:429:18)
+    at async CodeAssistServer.requestStreamingPost (file:///usr/local/share/npm-global/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/code_assist/server.js:261:21)
+    at async CodeAssistServer.generateContentStream (file:///usr/local/share/npm-global/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/code_assist/server.js:53:27)
+    at async file:///usr/local/share/npm-global/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/loggingContentGenerator.js:285:26
+    at async file:///usr/local/share/npm-global/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/telemetry/trace.js:81:20
+    at async retryWithBackoff (file:///usr/local/share/npm-global/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/utils/retry.js:130:28)
+    at async GeminiChat.makeApiCallAndProcessStream (file:///usr/local/share/npm-global/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/geminiChat.js:445:32)
+    at async GeminiChat.streamWithRetries (file:///usr/local/share/npm-global/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/geminiChat.js:265:40) {
+  config: {
+    url: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse',
+    method: 'POST',
+    params: { alt: 'sse' },
+    headers: {
+      'Content-Type': 'application/json',
+      'User-Agent': 'GeminiCLI/0.33.1/gemini-3.1-pro-preview (linux; arm64) google-api-nodejs-client/9.15.1',
+      Authorization: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+      'x-goog-api-client': 'gl-node/20.20.1'
+    },
+    responseType: 'stream',
+    body: `{"model":"gemini-3.1-pro-preview","project":"elevated-tooling-sll0l","user_prompt_id":"8fec8058d9436","request":{"contents":[{"role":"user","parts":[{"text":"<session_context>\\nThis is the Gemini CLI. We are setting up the context for our chat.\\nToday's date is Sunday, March 15, 2026 (formatted according to the user's locale).\\nMy operating system is: linux\\nThe project's temporary directory is: /tmp/tmp.V8Y8v96Btf/.gemini/tmp/workspace\\n- **Workspace Directories:**\\n  - /workspace\\n  - /workspace/prepared\\n- **Directory Structure:**\\n\\nShowing up to 200 items (files + folders). Folders or files indicated with ... contain more items not shown, were ignored, or the display limit (200 items) was reached.\\n\\n/workspace/\\n├───arabic_fts.json\\n├───awn4-09235267-n.review.yaml\\n├───awn4-09238571-n.review.yaml\\n├───awn4-09264153-n.review.yaml\\n├───awn4-09293414-n.review.yaml\\n├───awn4-09297406-n.review.yaml\\n├───awn4-09305440-n.review.yaml\\n├───awn4-09306529-n.review.yaml\\n├───awn4-09319027-n.review.yaml\\n├───awn4-09325710-n.review.yaml\\n├───awn4-09336622-n.review.yaml\\n├───awn4-09351810-n.review.yaml\\n├───awn4-09368829-n.review.yaml\\n├───awn4-09377505-n.review.yaml\\n├───awn4-09399110-n.review.yaml\\n├───awn4-09400037-n.review.yaml\\n├───awn4-09420143-n.review.yaml\\n├───awn4-09420482-n.review.yaml\\n├───awn4-09449666-n.review.yaml\\n├───awn4-09453519-n.review.yaml\\n├───awn4-09456038-n.review.yaml\\n├───awn4-09463090-n.review.yaml\\n├───awn4-09471510-n.review.yaml\\n├───awn4-09479744-n.review.yaml\\n├───awn4-09498422-n.review.yaml\\n├───awn4-09499461-n.review.yaml\\n├───batch_runner.py\\n├───batch_status.py\\n├───batch.txt\\n├───db_reference.md\\n├───english_bridge.json\\n├───headword_results.json\\n├───q1_headword.json\\n├───q2_english_bridge.json\\n├───q3_fts.json\\n├───q4_enrichment.json\\n├───q5_candidates.json\\n├───query1_results.json\\n├───review_instructions.md\\n├───run_review.sh\\n├───__pycache__/...\\n├───prepared/\\n│   ├───synsets.db\\n│   ├───awn4-00001740-n/\\n│   ├───awn4-00001930-n/\\n│   ├───awn4-00002137-n/\\n│   ├───awn4-00002452-n/\\n│   ├───awn4-00002684-n/\\n│   ├───awn4-00003553-n/\\n│   ├───awn4-00003993-n/\\n│   ├───awn4-00004258-n/\\n│   ├───awn4-00004475-n/\\n│   ├───awn4-00005787-n/\\n│   ├───awn4-00005930-n/\\n│   ├───awn4-00006024-n/\\n│   ├───awn4-00006150-n/\\n│   ├───awn4-00007347-n/\\n│   ├───awn4-00007846-n/\\n│   ├───awn4-00015568-n/\\n│   ├───awn4-00017402-n/\\n│   ├───awn4-00019226-n/\\n│   ├───awn4-00019308-n/\\n│   ├───awn4-00019793-n/\\n│   ├───awn4-00020270-n/\\n│   ├───awn4-00021007-n/\\n│   ├───awn4-00021445-n/\\n│   ├───awn4-00021914-n/\\n│   ├───awn4-00022119-n/\\n│   ├───awn4-00023280-n/\\n│   ├───awn4-00023451-n/\\n│   ├───awn4-00023953-n/\\n│   ├───awn4-00024444-n/\\n│   ├───awn4-00024900-n/\\n│   ├───awn4-00026390-n/\\n│   ├───awn4-00027365-n/\\n│   ├───awn4-00028005-n/\\n│   ├───awn4-00028468-n/\\n│   ├───awn4-00028950-n/\\n│   ├───awn4-00029306-n/\\n│   ├───awn4-00029413-n/\\n│   ├───awn4-00029677-n/\\n│   ├───awn4-00029976-n/\\n│   ├───awn4-00030657-n/\\n│   ├───awn4-00031563-n/\\n│   ├───awn4-00032220-n/\\n│   ├───awn4-00032912-n/\\n│   ├───awn4-00033122-n/\\n│   ├───awn4-00033319-n/\\n│   ├───awn4-00033914-n/\\n│   ├───awn4-00034512-n/\\n│   ├───awn4-00038116-n/\\n│   ├───awn4-00042637-n/\\n│   ├───awn4-00043049-n/\\n│   ├───awn4-00043279-n/\\n│   ├───awn4-00043495-n/\\n│   ├───awn4-00043933-n/\\n│   ├───awn4-00044347-n/\\n│   ├───awn4-00044888-n/\\n│   ├───awn4-00045193-n/\\n│   ├───awn4-00045411-n/\\n│   ├───awn4-00045638-n/\\n│   ├───awn4-00045855-n/\\n│   ├───awn4-00045991-n/\\n│   ├───awn4-00046648-n/\\n│   ├───awn4-00046918-n/\\n│   ├───awn4-00047263-n/\\n│   ├───awn4-00067036-n/\\n│   ├───awn4-00071183-n/\\n│   ├───awn4-00071461-n/\\n│   ├───awn4-00084080-n/\\n│   ├───awn4-00204191-n/\\n│   ├───awn4-00206740-n/\\n│   ├───awn4-00297411-n/\\n│   ├───awn4-00393143-n/\\n│   ├───awn4-00408356-n/\\n│   ├───awn4-00810735-n/\\n│   ├───awn4-00831918-n/\\n│   ├───awn4-00875745-n/\\n│   ├───awn4-00914791-n/\\n│   ├───awn4-01055541-n/\\n│   ├───awn4-01055844-n/\\n│   ├───awn4-01064507-n/\\n│   ├───awn4-01075919-n/\\n│   ├───awn4-01077970-n/\\n│   ├───awn4-01085001-n/\\n│   ├───awn4-01104341-n/\\n│   ├───awn4-01198074-n/\\n│   ├───awn4-01230869-n/\\n│   ├───awn4-01254711-n/\\n│   ├───awn4-01268984-n/\\n│   ├───awn4-01316379-n/\\n│   ├───awn4-01316517-n/\\n│   ├───awn4-01316636-n/\\n│   ├───awn4-01317553-n/\\n│   ├───awn4-01322423-n/\\n│   ├───awn4-01322584-n/\\n│   ├───awn4-01322805-n/\\n│   ├───awn4-01322970-n/\\n│   ├───awn4-01323183-n/\\n│   ├───awn4-01326660-n/\\n│   ├───awn4-01328932-n/\\n│   ├───awn4-01329538-n/\\n│   ├───awn4-01329669-n/\\n│   ├───awn4-01329963-n/\\n│   ├───awn4-01330762-n/\\n│   ├───awn4-01330943-n/\\n│   ├───awn4-01386279-n/\\n│   ├───awn4-01386954-n/\\n│   ├───awn4-01387328-n/\\n│   ├───awn4-01388168-n/\\n│   ├───awn4-01388823-n/\\n│   ├───awn4-01388995-n/\\n│   ├───awn4-01418267-n/\\n│   ├───awn4-01418561-n/\\n│   ├───awn4-01418854-n/\\n│   ├───awn4-02475618-n/\\n│   ├───awn4-02709445-n/\\n│   ├───awn4-02722862-n/\\n│   ├───awn4-02723112-n/\\n│   ├───awn4-02731707-n/\\n│   ├───awn4-02752958-n/\\n│   ├───awn4-02777507-n/\\n│   ├───awn4-02848240-n/\\n│   ├───awn4-02881107-n/\\n│   ├───awn4-02900975-n/\\n│   ├───awn4-02918826-n/\\n│   ├───awn4-02930783-n/\\n│   ├───awn4-03009524-n/\\n│   ├───awn4-03013287-n/\\n│   ├───awn4-03053590-n/\\n│   ├───awn4-03073217-n/\\n│   ├───awn4-03073571-n/\\n│   ├───awn4-03085025-n/\\n│   ├───awn4-03154617-n/\\n│   ├───awn4-03156810-n/\\n│   ├───awn4-03158347-n/\\n│   ├───awn4-03212950-n/\\n│   ├───awn4-03223248-n/\\n│   ├───awn4-03238126-n/\\n│   ├───awn4-03252323-n/\\n│   ├───awn4-03304208-n/\\n│   ├───awn4-03343593-n/\\n│   ├───awn4-03372987-n/\\n│   ├───awn4-03380289-n/\\n│   ├───awn4-03387379-n/\\n│   ├───awn4-03390266-n/\\n│   ├───awn4-03395053-n/\\n│   ├───awn4-03400581-n/\\n│   ├───awn4-03516930-n/\\n│   ├───awn4-03531985-n/\\n│   ├───awn4-03537260-n/\\n│   ├───awn4-03543047-n/\\n│   ├───awn4-03552838-n/\\n│   ├───awn4-03593583-n/\\n│   ├───awn4-03600372-n/\\n│   ├───awn4-03601832-n/\\n│   ├───awn4-03604405-n/\\n│   ├───awn4-03609171-n/\\n│   ├───awn4-03615483-n/\\n│   └───...\\n└───spec/\\nShowing up to 200 items (files + folders). Folders or files indicated with ... contain more items not shown, were ignored, or the display limit (200 items) was reached.\\n\\n/workspace/prepared/\\n├───synsets.db\\n├───awn4-00001740-n/\\n├───awn4-00001930-n/\\n├───awn4-00002137-n/\\n├───awn4-00002452-n/\\n├───awn4-00002684-n/\\n├───awn4-00003553-n/\\n├───awn4-00003993-n/\\n├───awn4-00004258-n/\\n├───awn4-00004475-n/\\n├───awn4-00005787-n/\\n├───awn4-00005930-n/\\n├───awn4-00006024-n/\\n├───awn4-00006150-n/\\n├───awn4-00007347-n/\\n├───awn4-00007846-n/\\n├───awn4-00015568-n/\\n├───awn4-00017402-n/\\n├───awn4-00019226-n/\\n├───awn4-00019308-n/\\n├───awn4-00019793-n/\\n├───awn4-00020270-n/\\n├───awn4-00021007-n/\\n├───awn4-00021445-n/\\n├───awn4-00021914-n/\\n├───awn4-00022119-n/\\n├───awn4-00023280-n/\\n├───awn4-00023451-n/\\n├───awn4-00023953-n/\\n├───awn4-00024444-n/\\n├───awn4-00024900-n/\\n├───awn4-00026390-n/\\n├───awn4-00027365-n/\\n├───awn4-00028005-n/\\n├───awn4-00028468-n/\\n├───awn4-00028950-n/\\n├───awn4-00029306-n/\\n├───awn4-00029413-n/\\n├───awn4-00029677-n/\\n├───awn4-00029976-n/\\n├───awn4-00030657-n/\\n├───awn4-00031563-n/\\n├───awn4-00032220-n/\\n├───awn4-00032912-n/\\n├───awn4-00033122-n/\\n├───awn4-00033319-n/\\n├───awn4-00033914-n/\\n├───awn4-00034512-n/\\n├───awn4-00038116-n/\\n├───awn4-00042637-n/\\n├───awn4-00043049-n/\\n├───awn4-00043279-n/\\n├───awn4-00043495-n/\\n├───awn4-00043933-n/\\n├───awn4-00044347-n/\\n├───awn4-00044888-n/\\n├───awn4-00045193-n/\\n├───awn4-00045411-n/\\n├───awn4-00045638-n/\\n├───awn4-00045855-n/\\n├───awn4-00045991-n/\\n├───awn4-00046648-n/\\n├───awn4-00046918-n/\\n├───awn4-00047263-n/\\n├───awn4-00067036-n/\\n├───awn4-00071183-n/\\n├───awn4-00071461-n/\\n├───awn4-00084080-n/\\n├───awn4-00204191-n/\\n├───awn4-00206740-n/\\n├───awn4-00297411-n/\\n├───awn4-00393143-n/\\n├───awn4-00408356-n/\\n├───awn4-00810735-n/\\n├───awn4-00831918-n/\\n├───awn4-00875745-n/\\n├───awn4-00914791-n/\\n├───awn4-01055541-n/\\n├───awn4-01055844-n/\\n├───awn4-01064507-n/\\n├───awn4-01075919-n/\\n├───awn4-01077970-n/\\n├───awn4-01085001-n/\\n├───awn4-01104341-n/\\n├───awn4-01198074-n/\\n├───awn4-01230869-n/\\n├───awn4-01254711-n/\\n├───awn4-01268984-n/\\n├───awn4-01316379-n/\\n├───awn4-01316517-n/\\n├───awn4-01316636-n/\\n├───awn4-01317553-n/\\n├───awn4-01322423-n/\\n├───awn4-01322584-n/\\n├───awn4-01322805-n/\\n├───awn4-01322970-n/\\n├───awn4-01323183-n/\\n├───awn4-01326660-n/\\n├───awn4-01328932-n/\\n├───awn4-01329538-n/\\n├───awn4-01329669-n/\\n├───awn4-01329963-n/\\n├───awn4-01330762-n/\\n├───awn4-01330943-n/\\n├───awn4-01386279-n/\\n├───awn4-01386954-n/\\n├───awn4-01387328-n/\\n├───awn4-01388168-n/\\n├───awn4-01388823-n/\\n├───awn4-01388995-n/\\n├───awn4-01418267-n/\\n├───awn4-01418561-n/\\n├───awn4-01418854-n/\\n├───awn4-02475618-n/\\n├───awn4-02709445-n/\\n├───awn4-02722862-n/\\n├───awn4-02723112-n/\\n├───awn4-02731707-n/\\n├───awn4-02752958-n/\\n├───awn4-02777507-n/\\n├───awn4-02848240-n/\\n├───awn4-02881107-n/\\n├───awn4-02900975-n/\\n├───awn4-02918826-n/\\n├───awn4-02930783-n/\\n├───awn4-03009524-n/\\n├───awn4-03013287-n/\\n├───awn4-03053590-n/\\n├───awn4-03073217-n/\\n├───awn4-03073571-n/\\n├───awn4-03085025-n/\\n├───awn4-03154617-n/\\n├───awn4-03156810-n/\\n├───awn4-03158347-n/\\n├───awn4-03212950-n/\\n├───awn4-03223248-n/\\n├───awn4-03238126-n/\\n├───awn4-03252323-n/\\n├───awn4-03304208-n/\\n├───awn4-03343593-n/\\n├───awn4-03372987-n/\\n├───awn4-03380289-n/\\n├───awn4-03387379-n/\\n├───awn4-03390266-n/\\n├───awn4-03395053-n/\\n├───awn4-03400581-n/\\n├───awn4-03516930-n/\\n├───awn4-03531985-n/\\n├───awn4-03537260-n/\\n├───awn4-03543047-n/\\n├───awn4-03552838-n/\\n├───awn4-03593583-n/\\n├───awn4-03600372-n/\\n├───awn4-03601832-n/\\n├───awn4-03604405-n/\\n├───awn4-03609171-n/\\n├───awn4-03615483-n/\\n├───awn4-03649562-n/\\n├───awn4-03674420-n/\\n├───awn4-03698943-n/\\n├───awn4-03720260-n/\\n├───awn4-03819888-n/\\n├───awn4-03876139-n/\\n├───awn4-03898588-n/\\n├───awn4-03900459-n/\\n├───awn4-03911172-n/\\n├───awn4-03927331-n/\\n├───awn4-03938441-n/\\n├───awn4-03975218-n/\\n├───awn4-04007225-n/\\n├───awn4-04018636-n/\\n├───awn4-04070773-n/\\n├`... 349156 more characters,
+    signal: AbortSignal { aborted: false },
+    retry: false,
+    paramsSerializer: [Function: paramsSerializer],
+    validateStatus: [Function: validateStatus],
+    errorRedactor: [Function: defaultErrorRedactor]
+  },
+  response: {
+    config: {
+      url: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse',
+      method: 'POST',
+      params: [Object],
+      headers: [Object],
+      responseType: 'stream',
+      body: `{"model":"gemini-3.1-pro-preview","project":"elevated-tooling-sll0l","user_prompt_id":"8fec8058d9436","request":{"contents":[{"role":"user","parts":[{"text":"<session_context>\\nThis is the Gemini CLI. We are setting up the context for our chat.\\nToday's date is Sunday, March 15, 2026 (formatted according to the user's locale).\\nMy operating system is: linux\\nThe project's temporary directory is: /tmp/tmp.V8Y8v96Btf/.gemini/tmp/workspace\\n- **Workspace Directories:**\\n  - /workspace\\n  - /workspace/prepared\\n- **Directory Structure:**\\n\\nShowing up to 200 items (files + folders). Folders or files indicated with ... contain more items not shown, were ignored, or the display limit (200 items) was reached.\\n\\n/workspace/\\n├───arabic_fts.json\\n├───awn4-09235267-n.review.yaml\\n├───awn4-09238571-n.review.yaml\\n├───awn4-09264153-n.review.yaml\\n├───awn4-09293414-n.review.yaml\\n├───awn4-09297406-n.review.yaml\\n├───awn4-09305440-n.review.yaml\\n├───awn4-09306529-n.review.yaml\\n├───awn4-09319027-n.review.yaml\\n├───awn4-09325710-n.review.yaml\\n├───awn4-09336622-n.review.yaml\\n├───awn4-09351810-n.review.yaml\\n├───awn4-09368829-n.review.yaml\\n├───awn4-09377505-n.review.yaml\\n├───awn4-09399110-n.review.yaml\\n├───awn4-09400037-n.review.yaml\\n├───awn4-09420143-n.review.yaml\\n├───awn4-09420482-n.review.yaml\\n├───awn4-09449666-n.review.yaml\\n├───awn4-09453519-n.review.yaml\\n├───awn4-09456038-n.review.yaml\\n├───awn4-09463090-n.review.yaml\\n├───awn4-09471510-n.review.yaml\\n├───awn4-09479744-n.review.yaml\\n├───awn4-09498422-n.review.yaml\\n├───awn4-09499461-n.review.yaml\\n├───batch_runner.py\\n├───batch_status.py\\n├───batch.txt\\n├───db_reference.md\\n├───english_bridge.json\\n├───headword_results.json\\n├───q1_headword.json\\n├───q2_english_bridge.json\\n├───q3_fts.json\\n├───q4_enrichment.json\\n├───q5_candidates.json\\n├───query1_results.json\\n├───review_instructions.md\\n├───run_review.sh\\n├───__pycache__/...\\n├───prepared/\\n│   ├───synsets.db\\n│   ├───awn4-00001740-n/\\n│   ├───awn4-00001930-n/\\n│   ├───awn4-00002137-n/\\n│   ├───awn4-00002452-n/\\n│   ├───awn4-00002684-n/\\n│   ├───awn4-00003553-n/\\n│   ├───awn4-00003993-n/\\n│   ├───awn4-00004258-n/\\n│   ├───awn4-00004475-n/\\n│   ├───awn4-00005787-n/\\n│   ├───awn4-00005930-n/\\n│   ├───awn4-00006024-n/\\n│   ├───awn4-00006150-n/\\n│   ├───awn4-00007347-n/\\n│   ├───awn4-00007846-n/\\n│   ├───awn4-00015568-n/\\n│   ├───awn4-00017402-n/\\n│   ├───awn4-00019226-n/\\n│   ├───awn4-00019308-n/\\n│   ├───awn4-00019793-n/\\n│   ├───awn4-00020270-n/\\n│   ├───awn4-00021007-n/\\n│   ├───awn4-00021445-n/\\n│   ├───awn4-00021914-n/\\n│   ├───awn4-00022119-n/\\n│   ├───awn4-00023280-n/\\n│   ├───awn4-00023451-n/\\n│   ├───awn4-00023953-n/\\n│   ├───awn4-00024444-n/\\n│   ├───awn4-00024900-n/\\n│   ├───awn4-00026390-n/\\n│   ├───awn4-00027365-n/\\n│   ├───awn4-00028005-n/\\n│   ├───awn4-00028468-n/\\n│   ├───awn4-00028950-n/\\n│   ├───awn4-00029306-n/\\n│   ├───awn4-00029413-n/\\n│   ├───awn4-00029677-n/\\n│   ├───awn4-00029976-n/\\n│   ├───awn4-00030657-n/\\n│   ├───awn4-00031563-n/\\n│   ├───awn4-00032220-n/\\n│   ├───awn4-00032912-n/\\n│   ├───awn4-00033122-n/\\n│   ├───awn4-00033319-n/\\n│   ├───awn4-00033914-n/\\n│   ├───awn4-00034512-n/\\n│   ├───awn4-00038116-n/\\n│   ├───awn4-00042637-n/\\n│   ├───awn4-00043049-n/\\n│   ├───awn4-00043279-n/\\n│   ├───awn4-00043495-n/\\n│   ├───awn4-00043933-n/\\n│   ├───awn4-00044347-n/\\n│   ├───awn4-00044888-n/\\n│   ├───awn4-00045193-n/\\n│   ├───awn4-00045411-n/\\n│   ├───awn4-00045638-n/\\n│   ├───awn4-00045855-n/\\n│   ├───awn4-00045991-n/\\n│   ├───awn4-00046648-n/\\n│   ├───awn4-00046918-n/\\n│   ├───awn4-00047263-n/\\n│   ├───awn4-00067036-n/\\n│   ├───awn4-00071183-n/\\n│   ├───awn4-00071461-n/\\n│   ├───awn4-00084080-n/\\n│   ├───awn4-00204191-n/\\n│   ├───awn4-00206740-n/\\n│   ├───awn4-00297411-n/\\n│   ├───awn4-00393143-n/\\n│   ├───awn4-00408356-n/\\n│   ├───awn4-00810735-n/\\n│   ├───awn4-00831918-n/\\n│   ├───awn4-00875745-n/\\n│   ├───awn4-00914791-n/\\n│   ├───awn4-01055541-n/\\n│   ├───awn4-01055844-n/\\n│   ├───awn4-01064507-n/\\n│   ├───awn4-01075919-n/\\n│   ├───awn4-01077970-n/\\n│   ├───awn4-01085001-n/\\n│   ├───awn4-01104341-n/\\n│   ├───awn4-01198074-n/\\n│   ├───awn4-01230869-n/\\n│   ├───awn4-01254711-n/\\n│   ├───awn4-01268984-n/\\n│   ├───awn4-01316379-n/\\n│   ├───awn4-01316517-n/\\n│   ├───awn4-01316636-n/\\n│   ├───awn4-01317553-n/\\n│   ├───awn4-01322423-n/\\n│   ├───awn4-01322584-n/\\n│   ├───awn4-01322805-n/\\n│   ├───awn4-01322970-n/\\n│   ├───awn4-01323183-n/\\n│   ├───awn4-01326660-n/\\n│   ├───awn4-01328932-n/\\n│   ├───awn4-01329538-n/\\n│   ├───awn4-01329669-n/\\n│   ├───awn4-01329963-n/\\n│   ├───awn4-01330762-n/\\n│   ├───awn4-01330943-n/\\n│   ├───awn4-01386279-n/\\n│   ├───awn4-01386954-n/\\n│   ├───awn4-01387328-n/\\n│   ├───awn4-01388168-n/\\n│   ├───awn4-01388823-n/\\n│   ├───awn4-01388995-n/\\n│   ├───awn4-01418267-n/\\n│   ├───awn4-01418561-n/\\n│   ├───awn4-01418854-n/\\n│   ├───awn4-02475618-n/\\n│   ├───awn4-02709445-n/\\n│   ├───awn4-02722862-n/\\n│   ├───awn4-02723112-n/\\n│   ├───awn4-02731707-n/\\n│   ├───awn4-02752958-n/\\n│   ├───awn4-02777507-n/\\n│   ├───awn4-02848240-n/\\n│   ├───awn4-02881107-n/\\n│   ├───awn4-02900975-n/\\n│   ├───awn4-02918826-n/\\n│   ├───awn4-02930783-n/\\n│   ├───awn4-03009524-n/\\n│   ├───awn4-03013287-n/\\n│   ├───awn4-03053590-n/\\n│   ├───awn4-03073217-n/\\n│   ├───awn4-03073571-n/\\n│   ├───awn4-03085025-n/\\n│   ├───awn4-03154617-n/\\n│   ├───awn4-03156810-n/\\n│   ├───awn4-03158347-n/\\n│   ├───awn4-03212950-n/\\n│   ├───awn4-03223248-n/\\n│   ├───awn4-03238126-n/\\n│   ├───awn4-03252323-n/\\n│   ├───awn4-03304208-n/\\n│   ├───awn4-03343593-n/\\n│   ├───awn4-03372987-n/\\n│   ├───awn4-03380289-n/\\n│   ├───awn4-03387379-n/\\n│   ├───awn4-03390266-n/\\n│   ├───awn4-03395053-n/\\n│   ├───awn4-03400581-n/\\n│   ├───awn4-03516930-n/\\n│   ├───awn4-03531985-n/\\n│   ├───awn4-03537260-n/\\n│   ├───awn4-03543047-n/\\n│   ├───awn4-03552838-n/\\n│   ├───awn4-03593583-n/\\n│   ├───awn4-03600372-n/\\n│   ├───awn4-03601832-n/\\n│   ├───awn4-03604405-n/\\n│   ├───awn4-03609171-n/\\n│   ├───awn4-03615483-n/\\n│   └───...\\n└───spec/\\nShowing up to 200 items (files + folders). Folders or files indicated with ... contain more items not shown, were ignored, or the display limit (200 items) was reached.\\n\\n/workspace/prepared/\\n├───synsets.db\\n├───awn4-00001740-n/\\n├───awn4-00001930-n/\\n├───awn4-00002137-n/\\n├───awn4-00002452-n/\\n├───awn4-00002684-n/\\n├───awn4-00003553-n/\\n├───awn4-00003993-n/\\n├───awn4-00004258-n/\\n├───awn4-00004475-n/\\n├───awn4-00005787-n/\\n├───awn4-00005930-n/\\n├───awn4-00006024-n/\\n├───awn4-00006150-n/\\n├───awn4-00007347-n/\\n├───awn4-00007846-n/\\n├───awn4-00015568-n/\\n├───awn4-00017402-n/\\n├───awn4-00019226-n/\\n├───awn4-00019308-n/\\n├───awn4-00019793-n/\\n├───awn4-00020270-n/\\n├───awn4-00021007-n/\\n├───awn4-00021445-n/\\n├───awn4-00021914-n/\\n├───awn4-00022119-n/\\n├───awn4-00023280-n/\\n├───awn4-00023451-n/\\n├───awn4-00023953-n/\\n├───awn4-00024444-n/\\n├───awn4-00024900-n/\\n├───awn4-00026390-n/\\n├───awn4-00027365-n/\\n├───awn4-00028005-n/\\n├───awn4-00028468-n/\\n├───awn4-00028950-n/\\n├───awn4-00029306-n/\\n├───awn4-00029413-n/\\n├───awn4-00029677-n/\\n├───awn4-00029976-n/\\n├───awn4-00030657-n/\\n├───awn4-00031563-n/\\n├───awn4-00032220-n/\\n├───awn4-00032912-n/\\n├───awn4-00033122-n/\\n├───awn4-00033319-n/\\n├───awn4-00033914-n/\\n├───awn4-00034512-n/\\n├───awn4-00038116-n/\\n├───awn4-00042637-n/\\n├───awn4-00043049-n/\\n├───awn4-00043279-n/\\n├───awn4-00043495-n/\\n├───awn4-00043933-n/\\n├───awn4-00044347-n/\\n├───awn4-00044888-n/\\n├───awn4-00045193-n/\\n├───awn4-00045411-n/\\n├───awn4-00045638-n/\\n├───awn4-00045855-n/\\n├───awn4-00045991-n/\\n├───awn4-00046648-n/\\n├───awn4-00046918-n/\\n├───awn4-00047263-n/\\n├───awn4-00067036-n/\\n├───awn4-00071183-n/\\n├───awn4-00071461-n/\\n├───awn4-00084080-n/\\n├───awn4-00204191-n/\\n├───awn4-00206740-n/\\n├───awn4-00297411-n/\\n├───awn4-00393143-n/\\n├───awn4-00408356-n/\\n├───awn4-00810735-n/\\n├───awn4-00831918-n/\\n├───awn4-00875745-n/\\n├───awn4-00914791-n/\\n├───awn4-01055541-n/\\n├───awn4-01055844-n/\\n├───awn4-01064507-n/\\n├───awn4-01075919-n/\\n├───awn4-01077970-n/\\n├───awn4-01085001-n/\\n├───awn4-01104341-n/\\n├───awn4-01198074-n/\\n├───awn4-01230869-n/\\n├───awn4-01254711-n/\\n├───awn4-01268984-n/\\n├───awn4-01316379-n/\\n├───awn4-01316517-n/\\n├───awn4-01316636-n/\\n├───awn4-01317553-n/\\n├───awn4-01322423-n/\\n├───awn4-01322584-n/\\n├───awn4-01322805-n/\\n├───awn4-01322970-n/\\n├───awn4-01323183-n/\\n├───awn4-01326660-n/\\n├───awn4-01328932-n/\\n├───awn4-01329538-n/\\n├───awn4-01329669-n/\\n├───awn4-01329963-n/\\n├───awn4-01330762-n/\\n├───awn4-01330943-n/\\n├───awn4-01386279-n/\\n├───awn4-01386954-n/\\n├───awn4-01387328-n/\\n├───awn4-01388168-n/\\n├───awn4-01388823-n/\\n├───awn4-01388995-n/\\n├───awn4-01418267-n/\\n├───awn4-01418561-n/\\n├───awn4-01418854-n/\\n├───awn4-02475618-n/\\n├───awn4-02709445-n/\\n├───awn4-02722862-n/\\n├───awn4-02723112-n/\\n├───awn4-02731707-n/\\n├───awn4-02752958-n/\\n├───awn4-02777507-n/\\n├───awn4-02848240-n/\\n├───awn4-02881107-n/\\n├───awn4-02900975-n/\\n├───awn4-02918826-n/\\n├───awn4-02930783-n/\\n├───awn4-03009524-n/\\n├───awn4-03013287-n/\\n├───awn4-03053590-n/\\n├───awn4-03073217-n/\\n├───awn4-03073571-n/\\n├───awn4-03085025-n/\\n├───awn4-03154617-n/\\n├───awn4-03156810-n/\\n├───awn4-03158347-n/\\n├───awn4-03212950-n/\\n├───awn4-03223248-n/\\n├───awn4-03238126-n/\\n├───awn4-03252323-n/\\n├───awn4-03304208-n/\\n├───awn4-03343593-n/\\n├───awn4-03372987-n/\\n├───awn4-03380289-n/\\n├───awn4-03387379-n/\\n├───awn4-03390266-n/\\n├───awn4-03395053-n/\\n├───awn4-03400581-n/\\n├───awn4-03516930-n/\\n├───awn4-03531985-n/\\n├───awn4-03537260-n/\\n├───awn4-03543047-n/\\n├───awn4-03552838-n/\\n├───awn4-03593583-n/\\n├───awn4-03600372-n/\\n├───awn4-03601832-n/\\n├───awn4-03604405-n/\\n├───awn4-03609171-n/\\n├───awn4-03615483-n/\\n├───awn4-03649562-n/\\n├───awn4-03674420-n/\\n├───awn4-03698943-n/\\n├───awn4-03720260-n/\\n├───awn4-03819888-n/\\n├───awn4-03876139-n/\\n├───awn4-03898588-n/\\n├───awn4-03900459-n/\\n├───awn4-03911172-n/\\n├───awn4-03927331-n/\\n├───awn4-03938441-n/\\n├───awn4-03975218-n/\\n├───awn4-04007225-n/\\n├───awn4-04018636-n/\\n├───awn4-04070773-n/\\n├`... 349156 more characters,
+      signal: [AbortSignal],
+      retry: false,
+      paramsSerializer: [Function: paramsSerializer],
+      validateStatus: [Function: validateStatus],
+      errorRedactor: [Function: defaultErrorRedactor]
+    },
+    data: '[{\n' +
+      '  "error": {\n' +
+      '    "code": 429,\n' +
+      '    "message": "No capacity available for model gemini-3.1-pro-preview on the server",\n' +
+      '    "errors": [\n' +
+      '      {\n' +
+      '        "message": "No capacity available for model gemini-3.1-pro-preview on the server",\n' +
+      '        "domain": "global",\n' +
+      '        "reason": "rateLimitExceeded"\n' +
+      '      }\n' +
+      '    ],\n' +
+      '    "status": "RESOURCE_EXHAUSTED",\n' +
+      '    "details": [\n' +
+      '      {\n' +
+      '        "@type": "type.googleapis.com/google.rpc.ErrorInfo",\n' +
+      '        "reason": "MODEL_CAPACITY_EXHAUSTED",\n' +
+      '        "domain": "cloudcode-pa.googleapis.com",\n' +
+      '        "metadata": {\n' +
+      '          "model": "gemini-3.1-pro-preview"\n' +
+      '        }\n' +
+      '      }\n' +
+      '    ]\n' +
+      '  }\n' +
+      '}\n' +
+      ']',
+    headers: {
+      'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000',
+      'content-length': '630',
+      'content-type': 'application/json; charset=UTF-8',
+      date: 'Sun, 15 Mar 2026 05:03:20 GMT',
+      server: 'ESF',
+      'server-timing': 'gfet4t7; dur=467',
+      vary: 'Origin, X-Origin, Referer',
+      'x-cloudaicompanion-trace-id': '14f3565e08b7ac95',
+      'x-content-type-options': 'nosniff',
+      'x-frame-options': 'SAMEORIGIN',
+      'x-xss-protection': '0'
+    },
+    status: 429,
+    statusText: 'Too Many Requests',
+    request: {
+      responseURL: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse'
+    }
+  },
+  error: undefined,
+  status: 429,
+  [Symbol(gaxios-gaxios-error)]: '6.7.1'
+}

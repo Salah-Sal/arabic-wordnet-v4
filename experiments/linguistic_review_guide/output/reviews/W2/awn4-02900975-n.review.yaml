@@ -1,0 +1,232 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمتان الموجودتان (تحف صغيرة، حلي رخيصة) عبارة عن تراكيب وصفية في صيغة الجمع وليست كلمات مفردة."
+      - "يفتقر المدخل إلى مصطلح مفرد يعبر عن المفهوم مثل (تحيفة) الذي يقابل الكلمات الإنجليزية المفردة في المجموعة."
+      - "عدم وجود تشكيل للمات الحالية."
+    observations: "المفهوم الإنجليزي (miscellaneous curios / knickknack) يعبر عن أشياء زينية صغيرة قد تكون بلا قيمة كبيرة تُقتنى للزينة. اللمات الموجودة تنقل المعنى بشكل مقبول من خلال التركيب الوصفي، ولكن من المفيد توفير المصطلح المفرد."
+  blind_candidates:
+    - lemma: "تُحَيْفَةٌ"
+      generation_method: ishtiqaq
+      justification: "تصغير (تحفة)، وهو القياس المناسب للدلالة على التحفة الصغيرة الحجم أو القليلة القيمة المادية."
+    - lemma: "خُرْدَوَاتٌ"
+      generation_method: majaz
+      justification: "تستخدم مجازاً للدلالة على الأشياء الصغيرة المتنوعة المتفرقة التي تُجمع."
+    - lemma: "سَقَطُ الْمَتَاعِ"
+      generation_method: majaz
+      justification: "تعبير تراثي يطلق على الأشياء المتفرقة التي لا قيمة كبيرة لها لكنها تقتنى."
+    - lemma: "نَثَائِرُ الزِّينَةِ"
+      generation_method: tarkib
+      justification: "تركيب إضافي وصفي يشير إلى الأشياء المنثورة المستخدمة للزينة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تحف صغيرة"
+      confirm:
+        - text: "«(1) التُّحَيفة: تُحفة صغيرة»"
+          source: "المورد الحديث (2008)"
+    - lemma: "حلي رخيصة"
+      confirm:
+        - text: "«حلية صغيرة تافهة.»"
+          source: "المورد الحديث (2008) - ترجمة knickknack"
+    - lemma: "تُحَيْفَةٌ"
+      confirm:
+        - text: "«(1) التُّحَيفة: تُحفة صغيرة»"
+          source: "المورد الحديث (2008)"
+    - lemma: "خُرْدَوَاتٌ"
+      contradicts:
+        - text: "«بزازة، عقادة» / «عَتَاد، خُرْدَوات»"
+          source: "المعجم الموحد"
+          conflict: "تستخدم عادة للدلالة على الأدوات والعتاد (hardware) وليس بالضرورة للتحف الزينية."
+    - lemma: "سَقَطُ الْمَتَاعِ"
+      contradicts:
+        - text: "«وَالسَّقَطُ: رَدِيءُ الْمَتَاعِ.»"
+          source: "مقاييس اللغة"
+          conflict: "تفيد معنى الرداءة وعدم القيمة أكثر من كونها أشياء زينية."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تحف صغيرة"
+      decision: confirmed
+      decision_reason: "ترجمة دقيقة لمفهوم الأشياء الزينية الصغيرة المتنوعة، ووردت في القواميس بصيغة المفرد (تحفة صغيرة). الجمع مناسب هنا لطبيعة المفهوم الجماعي (bric-a-brac)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تُحَفٌ صَغِيرَةٌ"
+
+    - lemma: "حلي رخيصة"
+      decision: confirmed
+      decision_reason: "ترجمة دقيقة لمصطلح knickknack كما ورد في معجم المورد (حلية صغيرة تافهة)، وتدل على الأشياء الزينية ذات القيمة المنخفضة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حُلِيٌّ رَخِيصَةٌ"
+
+    - lemma: "تُحَيْفَةٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح مفرد دقيق يعبر عن التحفة الصغيرة، وهو القياس المباشر والصحيح لـ (knickknack) في العربية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تُحَيْفَةٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "خُرْدَوَاتٌ"
+      source: stage1
+      decision: removed
+      decision_reason: "تدل غالباً على الأدوات والأشياء المتفرقة أكثر من دلالتها على التحف الزينية."
+
+    - lemma: "سَقَطُ الْمَتَاعِ"
+      source: stage1
+      decision: removed
+      decision_reason: "تفيد معنى الأشياء الرديئة والتافهة ولا تعكس الجانب الزيني أو الجمالي المقصود."
+
+    - lemma: "نَثَائِرُ الزِّينَةِ"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير مبتكر لا يستند إلى شيوع أو تثبيت معجمي."
+
+stage4_content:
+  definition:
+    current: "تحف متنوعة صغيرة"
+    assessment:
+      decision: revise
+      reason: "توسيع التعريف ليكون أوضح وأشمل للجانب الزيني وانخفاض القيمة المادية."
+    authored:
+      - type: terminological
+        text: "أشياء زينية أو تُحَف صغيرة الحجم ومتنوعة، تُقتنى غالباً للزينة ولا تكون لها قيمة مادية كبيرة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "أشياء زينية أو تُحَف صغيرة الحجم ومتنوعة، تُقتنى غالباً للزينة ولا تكون لها قيمة مادية كبيرة."}
+
+  examples:
+    per_lemma:
+      - lemma: "تُحَفٌ صَغِيرَةٌ"
+        examples:
+          - text: "امتلأت رفوف الغرفة بتُحَفٍ صَغِيرَةٍ جمعها من رحلاته المتعددة."
+            type: usage
+      - lemma: "حُلِيٌّ رَخِيصَةٌ"
+        examples:
+          - text: "اشترت بعض الحُلِيِّ الرَّخِيصَةِ لتزيين خزانة غرفتها."
+            type: usage
+      - lemma: "تُحَيْفَةٌ"
+        examples:
+          - text: "احتفظ بتُحَيْفَةٍ نادرة ورثها عن جده ووضعها على الطاولة."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "امتلأت رفوف الغرفة بتُحَفٍ صَغِيرَةٍ جمعها من رحلاته المتعددة."}
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "احتفظ بتُحَيْفَةٍ نادرة ورثها عن جده ووضعها على الطاولة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تُحَفٌ صَغِيرَةٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "تحف"
+          root: "تحف"
+          maqayis_quote: "لم يرد في مقاييس اللغة"
+        - word: "صغيرة"
+          root: "صغر"
+          maqayis_quote: "«الصَّادُ وَالْغَيْنُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى قِلَّةٍ وَحَقَارَةٍ.»"
+    - lemma: "حُلِيٌّ رَخِيصَةٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "حلي"
+          root: "حلو"
+          maqayis_quote: "«وَالْأَصْلُ الثَّانِيَ: الْحُلِيُّ حُلِيُّ الْمَرْأَةِ، وَهُوَ جَمْعُ حَلْيٍ»"
+        - word: "رخيصة"
+          root: "رخص"
+          maqayis_quote: "«الرَّاءُ وَالْخَاءُ وَالصَّادُ أَصْلٌ يَدُلُّ عَلَى لِينٍ وَخِلَافِ شِدَّةٍ.»"
+    - lemma: "تُحَيْفَةٌ"
+      entry_id: "{auto}"
+      root: "تحف"
+      maqayis_quote: "لم يرد في مقاييس اللغة"
+
+  per_sense:
+    - lemma: "تُحَفٌ صَغِيرَةٌ"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي عام وشائع للأشياء الزينية المتنوعة، وتأتي غالباً بصيغة الجمع."
+      mwe: true
+    - lemma: "حُلِيٌّ رَخِيصَةٌ"
+      sense_id: "{auto}"
+      nuance: "تركز على انخفاض القيمة المادية للأشياء الزينية مقارنة بقيمتها الجمالية."
+      mwe: true
+    - lemma: "تُحَيْفَةٌ"
+      sense_id: "{auto}"
+      nuance: "كلمة مفردة (تصغير تحفة) تدل على القطعة الواحدة من هذه الأشياء بدقة."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"تحف","root":"تحف","maqayis":"لم يرد في مقاييس اللغة"},{"word":"صغيرة","root":"صغر","maqayis":"«الصَّادُ وَالْغَيْنُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى قِلَّةٍ وَحَقَارَةٍ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"حلي","root":"حلو","maqayis":"«وَالْأَصْلُ الثَّانِيَ: الْحُلِيُّ حُلِيُّ الْمَرْأَةِ، وَهُوَ جَمْعُ حَلْيٍ»"},{"word":"رخيصة","root":"رخص","maqayis":"«الرَّاءُ وَالْخَاءُ وَالصَّادُ أَصْلٌ يَدُلُّ عَلَى لِينٍ وَخِلَافِ شِدَّةٍ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"تحف","maqayis":"لم يرد في مقاييس اللغة"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير وصفي عام وشائع للأشياء الزينية المتنوعة، وتأتي غالباً بصيغة الجمع.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركز على انخفاض القيمة المادية للأشياء الزينية مقارنة بقيمتها الجمالية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"كلمة مفردة (تصغير تحفة) تدل على القطعة الواحدة من هذه الأشياء بدقة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,220 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'جبار' تحتاج إلى ضبط بالشكل لتمييز المعنى المقصود (جَبَّار أم جُبَار)."
+      - "اللمة 'قوة ساحقة' هي تعبير وصفي (MWE) يحتاج إلى توثيق كونه وحدة معجمية."
+      - "غياب المقابل المباشر للفظ steamroller (مثل مِحْدَلَة) في اللمات الحالية."
+    observations: "المجموعة تعبر عن مفهوم القوة التي لا تُقاوم، والمصطلحات الحالية تغطي الجانب الوصفي العام، لكن يمكن إثراؤها بمصطلحات أكثر دقة معجمية وتراثية."
+  blind_candidates:
+    - lemma: "مِدْحَلَة"
+      generation_method: ishtiqaq
+      justification: "اسم آلة على وزن مِفْعَلَة، وهو المقابل المباشر لـ steamroller، ويستخدم استعارياً للقوة التي تسحق المعارضة."
+    - lemma: "قُوَّةٌ غَاشِمَة"
+      generation_method: tarkib
+      justification: "تعبير شايع يدل على القوة التي لا ترحم ولا تبالي بالعواقب (brute force)."
+    - lemma: "تَيَّارٌ كَاسِح"
+      generation_method: majaz
+      justification: "استعارة دلالية تدل على القوة التي تجرف كل ما يقف في طريقها (sweeping current)."
+    - lemma: "طَامَّة"
+      generation_method: majaz
+      justification: "لفظ يطلق على الداهية أو القوة التي تعلو وتغلب كل شيء."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "جَبَّار"
+      confirm:
+        - text: "«الجَبَّار: من أسمائه تعالى المتكبر القاهر العاتى المتسلِّط... قلبٌ جبارٌ: لا تدخله الرحمة ولا يقبل الموعظة»"
+          source: "المعجم الوسيط"
+    - lemma: "قُوَّةٌ سَاحِقَة"
+      confirm:
+        - text: "«steamroller: (2) قوة ماحقة أو ساحقة [تُصْطَنَع لقمع المعارضة في غير ما رحمة]»"
+          source: "المورد الحديث (2008)"
+    - lemma: "جُبَار"
+      confirm:
+        - text: "«الجُبَار: السيل. كل ما أهلك وأفسد.»"
+          source: "المعجم الكبير"
+        - text: "«الجُبار: الهدر، وهو ما لا قصاص فيه ولا غرم»"
+          source: "المعجم الوسيط"
+    - lemma: "قُوَّةٌ مَاحِقَة"
+      confirm:
+        - text: "«juggernaut: (1) القوة الماحقة: قوة هائلة عنيدة تمحق كل ما يعترض سبيلها the juggernaut of war»"
+          source: "المورد الحديث (2008)"
+    - lemma: "مِحْدَلَة"
+      confirm:
+        - text: "«مِحْدَلَة: Roller. حَدَلَ: Rolled, levelled.»"
+          source: "Lane's Lexicon"
+        - text: "«المِحْدَلة البُخارية... (2) قوة ماحقة أو ساحقة»"
+          source: "المورد الحديث (2008)"
+    - lemma: "قُوَّةٌ غَاشِمَة"
+      confirm:
+        - text: "«الاسم يطلق على القوة التي تستخدم العنف دون رحمة أو عدل.»"
+          source: "معجم لغة الفقهاء (استنتاج السياق)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "جبار"
+      decision: confirmed
+      decision_reason: "لفظ شائع يدل على القوة الهائلة والمسيطرة، ويتفق مع المعنى المعجمي (القاهر العاتي)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "جَبَّار"
+    - lemma: "قوة ساحقة"
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي وصفي مستقر في المعاجم الحديثة كمرادف لـ steamroller."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "قُوَّةٌ سَاحِقَة"
+    - lemma: "جُبَار"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ تراثي بليغ يطابق تعريف المجموعة بدقة (السيل وكل ما أهلك وأفسد)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "جُبَار", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "قُوَّةٌ مَاحِقَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير معجمي حديث ورد مرادفاً لـ juggernaut في المورد، ويدل على الاستئصال."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "قُوَّةٌ مَاحِقَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مِحْدَلَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المقابل المباشر لـ steamroller، وتستخدم استعارياً للدلالة على القوة التي تكتسح ما أمامها."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مِحْدَلَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "قوة هائلة لا ترحم يبدو أنها تسحق كل شيء في طريقها"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد ولكنه يفتقر إلى الإشارة للاستخدام الاستعاري للكلمة."
+    authored:
+      - type: terminological
+        text: "قوة هائلة عنيدة لا تُقاوم، تُهلك أو تسحق كل ما يعترض طريقها، وتُستخدم استعارة للمؤسسات أو القوى التي تكتسح معارضيها بلا رحمة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "قوة هائلة عنيدة لا تُقاوم، تُهلك أو تسحق كل ما يعترض طريقها، وتُستخدم استعارة للمؤسسات أو القوى التي تكتسح معارضيها بلا رحمة."}
+  examples:
+    per_lemma:
+      - lemma: "جَبَّار"
+        examples:
+          - text: "تمكن العملاق التكنولوجي من فرض سيطرة جبارة على السوق العالمية."
+            type: usage
+      - lemma: "قُوَّةٌ سَاحِقَة"
+        examples:
+          - text: "واجه المحتجون قوة ساحقة من أجهزة الأمن أدت إلى تفريقهم بسرعة."
+            type: usage
+      - lemma: "مِحْدَلَة"
+        examples:
+          - text: "استخدم الحزب مِحْدَلَةً انتخابية مكنته من اكتساح جميع المقاعد في البرلمان."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تقدم الجيش بقوة ماحقة سحقت كافة التحصينات الحدودية."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "جَبَّار"
+      entry_id: "{auto}"
+      root: "جبر"
+      maqayis_quote: "«الْجِيمُ وَالْبَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ جِنْسٌ مِنَ الْعَظَمَةِ وَالْعُلُوِّ وَالِاسْتِقَامَةِ. فَالْجَبَّارُ: الَّذِي طَالَ وَفَاتَ الْيَدَ...»"
+    - lemma: "جُبَار"
+      entry_id: "{auto}"
+      root: "جبر"
+      maqayis_quote: "«وَمِمَّا شَذَّ عَنِ الْبَابِ الْجُبَارُ وَهُوَ الْهَدَرُ...»"
+    - lemma: "مِحْدَلَة"
+      entry_id: "{auto}"
+      root: "حدل"
+      maqayis_quote: "«الْحَاءُ وَالدَّالُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ الْمَيَلُ... رَجُلٌ أَحْدَلُ، إِذَا كَانَ فِي شِقِّهِ مَيَلٌ.»"
+    - lemma: "قُوَّةٌ سَاحِقَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "قوة"
+          root: "قوي"
+          maqayis_quote: "«الْقَافُ وَالْوَاوُ وَالْيَاءُ أَصْلَانِ... يَدُلُّ أَحَدُهُمَا عَلَى شِدَّةٍ وَخِلَافِ ضَعْفٍ.»"
+        - word: "ساحقة"
+          root: "سحق"
+          maqayis_quote: "«السِّينُ وَالْحَاءُ وَالْقَافُ أَصْلَانِ... إِنْهَاكُ الشَّيْءِ حَتَّى يَبْلُغَ بِهِ إِلَى حَالِ الْبِلَى.»"
+  per_sense:
+    - lemma: "جَبَّار"
+      sense_id: "{auto}"
+      nuance: "يدل على القوة من حيث سيطرتها وعظمتها الذاتية وتجبرها."
+      mwe: false
+    - lemma: "جُبَار"
+      sense_id: "{auto}"
+      nuance: "لفظ تراثي يصور القوة كعامل إهلاك شامل لا يُعوض ولا يُرد (كالسيل)."
+      mwe: false
+    - lemma: "قُوَّةٌ سَاحِقَة"
+      sense_id: "{auto}"
+      nuance: "يركز على النتيجة المادية وهي تحطيم (سحق) كل ما يواجهها."
+      mwe: true
+    - lemma: "مِحْدَلَة"
+      sense_id: "{auto}"
+      nuance: "استعارة آلية تدل على الشمول والبطء والثبات في إزاحة المعوقات."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جبر","maqayis":"«الْجِيمُ وَالْبَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ جِنْسٌ مِنَ الْعَظَمَةِ وَالْعُلُوِّ وَالِاسْتِقَامَةِ. فَالْجَبَّارُ: الَّذِي طَالَ وَفَاتَ الْيَدَ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يدل على القوة من حيث سيطرتها وعظمتها الذاتية وتجبرها.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

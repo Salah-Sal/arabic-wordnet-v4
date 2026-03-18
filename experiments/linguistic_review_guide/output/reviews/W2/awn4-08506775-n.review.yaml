@@ -1,0 +1,191 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "المفهوم الإنجليزي 'somewhere' يدل على موقع غير محدد كلياً، وهو ما يستدعي في العربية استخدام تعبير مركب من اسم مكان متبوع بـ 'ما' الإبهامية لتأدية المعنى بدقة، ولا توجد كلمة مفردة تعبر عن هذا الإبهام المطلق للمكان في السياقات الاسمية."
+    observations: "تعبير 'مكان ما' هو الأقرب والأكثر استخداماً وتوثيقاً في المعاجم ثنائية اللغة لترجمة هذا المفهوم، ويعتبر وحدة معجمية متعارفاً عليها."
+  blind_candidates:
+    - lemma: "مَكَانٌ مَا"
+      generation_method: tarkib
+      justification: "تركيب وصفي يتكون من 'مكان' و'ما' الإبهامية، وهو التعبير القياسي للدلالة على بقعة مجهولة."
+    - lemma: "مَوْضِعٌ مَا"
+      generation_method: tarkib
+      justification: "تركيب وصفي مشابه يؤدي نفس الغرض الإبهامي مع تخصيص الموضع."
+    - lemma: "جِهَةٌ مَا"
+      generation_method: tarkib
+      justification: "تركيب وصفي يُستخدم للإشارة إلى ناحية غير محددة."
+    - lemma: "بُقْعَةٌ مَجْهُولَةٌ"
+      generation_method: tarkib
+      justification: "عبارة وصفية تدل على مكان غير معروف."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مَكَانٌ مَا"
+      confirm:
+        - text: "«(1) في مكانٍ ما (2) إلى مكانٍ ما ... (4) مكانٌ ما to somewhere in Italy.»"
+          source: "المورد الحديث (2008)"
+    - lemma: "مَوْضِعٌ مَا"
+      evidence_status: "no_material_found"
+    - lemma: "جِهَةٌ مَا"
+      evidence_status: "no_material_found"
+    - lemma: "بُقْعَةٌ مَجْهُولَةٌ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مَكَانٌ مَا"
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي مستقر لغوياً وعملياً، يعتمد على 'ما الإبهامية' التي توصف النكرة قبلها لتفيد شدة الإبهام والشيوع، وهو المقابل الدقيق والأشيع للمفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَكَانٌ مَا"
+    - lemma: "مَوْضِعٌ مَا"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف قوي ومستخدم، يدل على نقطة جغرافية أو مساحة محددة غير معروفة، وهو تركيب صحيح يفيد الإبهام."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "مَوْضِعٌ مَا", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "جِهَةٌ مَا"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف صحيح يُستخدم لبيان عدم تحديد الاتجاه أو الناحية الجغرافية المجهولة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "جِهَةٌ مَا", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "بُقْعَةٌ مَجْهُولَةٌ"
+      source: stage1
+      decision: removed
+      decision_reason: "عبارة وصفية حرة تتألف من منعوت ونعت وليست مصطلحاً مسكوكاً أو وحدة معجمية ثابتة مثل التراكيب التي تستخدم 'ما الإبهامية'."
+
+stage4_content:
+  definition:
+    current: "موقع غير محدد أو غير معروف"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق وواضح ويعبر عن المفهوم المتمثل في الإبهام المكاني بشكل سليم وموجز."
+  examples:
+    per_lemma:
+      - lemma: "مَكَانٌ مَا"
+        examples:
+          - text: "يَبْدُو أَنَّهُ أَخْفَى الرِّسَالَةَ فِي مَكَانٍ مَا دَاخِلَ الغُرْفَةِ."
+            type: usage
+      - lemma: "مَوْضِعٌ مَا"
+        examples:
+          - text: "لابُدَّ أَنَّ المِفْتَاحَ قَدْ سَقَطَ فِي مَوْضِعٍ مَا."
+            type: usage
+      - lemma: "جِهَةٌ مَا"
+        examples:
+          - text: "تَحَرَّكَ القِطَارُ نَحْوَ جِهَةٍ مَا غَيْرَ مَعْلُومَةٍ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يَبْدُو أَنَّهُ أَخْفَى الرِّسَالَةَ فِي مَكَانٍ مَا دَاخِلَ الغُرْفَةِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "لابُدَّ أَنَّ المِفْتَاحَ قَدْ سَقَطَ فِي مَوْضِعٍ مَا."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تَحَرَّكَ القِطَارُ نَحْوَ جِهَةٍ مَا غَيْرَ مَعْلُومَةٍ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَكَانٌ مَا"
+      entry_id: "{auto}"
+      roots:
+        - word: "مَكَان"
+          root: "كون"
+          maqayis_quote: "«الْكَافُ وَالْوَاوُ وَالنُّونُ أَصْلٌ يَدُلُّ عَلَى الْإِخْبَارِ عَنْ حُدُوثِ شَيْءٍ... وَقَالَ قَوْمٌ: الْمَكَانُ اشْتِقَاقُهُ مِنْ كَانَ يَكُونُ»"
+    - lemma: "مَوْضِعٌ مَا"
+      entry_id: "{auto}"
+      roots:
+        - word: "مَوْضِع"
+          root: "وضع"
+          maqayis_quote: "«الْوَاوُ وَالضَّادُ وَالْعَيْنُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الْخَفْضِ [لِلشَّيْءِ] وَحَطِّهِ»"
+    - lemma: "جِهَةٌ مَا"
+      entry_id: "{auto}"
+      roots:
+        - word: "جِهَة"
+          root: "وجه"
+          maqayis_quote: "«الْوَاوُ وَالْجِيمُ وَالْهَاءُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُقَابَلَةٍ لِشَيْءٍ... وَالْوِجْهَةُ: كُلُّ مَوْضِعٍ اسْتَقْبَلْتَهُ»"
+  per_sense:
+    - lemma: "مَكَانٌ مَا"
+      sense_id: "{auto}"
+      nuance: "المقابل الأشيع والأعم للدلالة على أي بقعة غير محددة المكان عموماً."
+      mwe: true
+    - lemma: "مَوْضِعٌ مَا"
+      sense_id: "{auto}"
+      nuance: "يفيد أن المكان الذي نقصده هو موضع (نقطة محددة أو حيّز ضيق) ولكنه مجهول."
+      mwe: true
+    - lemma: "جِهَةٌ مَا"
+      sense_id: "{auto}"
+      nuance: "يغلب استخدامه عندما يكون القصد الإشارة إلى ناحية أو اتجاه جغرافي مجهول."
+      mwe: true
+  synset:
+    cultural_fit: phraset
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مكان","root":"كون","maqayis":"«الْكَافُ وَالْوَاوُ وَالنُّونُ أَصْلٌ يَدُلُّ عَلَى الْإِخْبَارِ عَنْ حُدُوثِ شَيْءٍ... وَقَالَ قَوْمٌ: الْمَكَانُ اشْتِقَاقُهُ مِنْ كَانَ يَكُونُ»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"موضع","root":"وضع","maqayis":"«الْوَاوُ وَالضَّادُ وَالْعَيْنُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الْخَفْضِ [لِلشَّيْءِ] وَحَطِّهِ»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"جهة","root":"وجه","maqayis":"«الْوَاوُ وَالْجِيمُ وَالْهَاءُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُقَابَلَةٍ لِشَيْءٍ... وَالْوِجْهَةُ: كُلُّ مَوْضِعٍ اسْتَقْبَلْتَهُ»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المقابل الأشيع والأعم للدلالة على أي بقعة غير محددة المكان عموماً.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يفيد أن المكان الذي نقصده هو موضع (نقطة محددة أو حيّز ضيق) ولكنه مجهول.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يغلب استخدامه عندما يكون القصد الإشارة إلى ناحية أو اتجاه جغرافي مجهول.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"phraset"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,278 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الحالية (إطلاق، تحرير) مجردة وقد تُفهم في سياقات بشرية/إرادية، بينما المجموعة تركز على العمليات الطبيعية."
+      - "تحرير غالباً ما ترتبط بالمعنى السياسي أو المالي، ولكن لها استخدام علمي في كيمياء المواد."
+    observations: "المفهوم يشمل تحرير الطاقة والمواد في العمليات الفيزيائية والحيوية. اللمات المقترحة تغطي الجوانب البيولوجية (إفراز) والفيزيائية (انبعاث) والمائية (تصريف)."
+  blind_candidates:
+    - lemma: "انْبِعَاث"
+      generation_method: ishtiqaq
+      justification: "مصدر للفعل انبعث (انفعال)، يُستخدم لوصف خروج الغازات أو الإشعاع أو الحرارة في العمليات الطبيعية."
+    - lemma: "إِفْرَاز"
+      generation_method: ishtiqaq
+      justification: "مصدر للفعل أفرز (إفعال)، يُستخدم لوصف التخلص من المواد الحيوية أو عزلها في الكائنات الحية."
+    - lemma: "تَصْرِيف"
+      generation_method: ishtiqaq
+      justification: "مصدر للفعل صرّف (تفعيل)، يُستخدم لوصف التخلص من السوائل أو توجيه جريانها طبيعياً."
+    - lemma: "إِطْلَاق"
+      generation_method: ishtiqaq
+      justification: "المقابل الأكثر شيوعاً للمصطلح الإنجليزي release، ويعبر عن التخلية والإرسال."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "إطلاق"
+      confirm:
+        - text: "إطلاق أو تحرير أي عنصر ملوث إلى الهواء أو الماء أو التربة"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية (2012)"
+        - text: "إطلاق المواد (الغازات والغبار) أو الطاقة (الإشعاع والحرارة والضوضاء) في البيئة"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+    - lemma: "تحرير"
+      confirm:
+        - text: "إطلاق أو تحرير أي عنصر ملوث إلى الهواء أو الماء أو التربة"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية (2012)"
+        - text: "تحرير المادة الدوائية من الشكل الصيدلانيّ"
+          source: "المعجم الموحد لمصطلحات علم الصيدلة (2009)"
+    - lemma: "انْبِعَاث"
+      confirm:
+        - text: "يُقصد به طرد المواد الضارة مع العادم"
+          source: "مسرد هندسة وتكنولوجيا السيارات (ArabTerm)"
+        - text: "إطلاق الحرارة والأشعة والضجيج والروائح يُعتبر من أنواع الانبعاثات"
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة (1996)"
+    - lemma: "إِفْرَاز"
+      confirm:
+        - text: "عملية طرد الفضلات من الجسم عن طريق البول أو الغائط أو التعرق"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية (2012)"
+        - text: "كافراز الثدي للبن وافراز النبات لمختلف العصارات"
+          source: "المعجم الموحد لمصطلحات علم الأحياء (1993)"
+    - lemma: "تَصْرِيف"
+      confirm:
+        - text: "التصريف أو الصرف هو إزالة طبيعية أو اصطناعية لفائض المياه السطحية"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+        - text: "كمية المياه التي تمر عبر قطاع معين من المجرى المائي"
+          source: "المعجم الموحد لمصطلحات المياه (2000)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "إطلاق"
+      decision: confirmed
+      decision_reason: "المصطلح الأكثر شمولاً وشيوعاً في التعبير عن تحرير الطاقة والمواد في السياقات العلمية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "إِطْلَاق"
+    - lemma: "تحرير"
+      decision: confirmed
+      decision_reason: "مصطلح دقيق علمياً يعبر عن فك الروابط الكيميائية أو الفيزيائية وتحويل المادة إلى حالة حرة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَحْرِير"
+    - lemma: "انْبِعَاث"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح متخصص للعمليات الطبيعية التي ينتج عنها خروج غازات أو إشعاع، وهو مطرد الاشتقاق وشائع الفصاحة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "انْبِعَاث", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "إِفْرَاز"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يغطي الجانب البيولوجي من 'التحرير' أو 'التفريغ' المذكور في التعريف، وهو مصطلح أصيل وملاءم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "إِفْرَاز", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَصْرِيف"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر عن جانب 'التفريغ' (discharge) خاصة في السوائل والعمليات الهيدرولوجية الطبيعية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَصْرِيف", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "عملية تحرر أو تفرغ شيئاً ما"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب ويحتاج لبيان طبيعة العملية (طبيعية) وتنوع المخرج (مادة أو طاقة)."
+    authored:
+      - type: terminological
+        text: "عمليةٌ طبيعيةٌ يتم فيها إطلاقُ مادةٍ أو طاقةٍ أو تفريغُها وتصريفُها من مكانٍ أو حالةٍ إلى أخرى."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "عمليةٌ طبيعيةٌ يتم فيها إطلاقُ مادةٍ أو طاقةٍ أو تفريغُها وتصريفُها من مكانٍ أو حالةٍ إلى أخرى."}
+  examples:
+    per_lemma:
+      - lemma: "إِطْلَاق"
+        examples:
+          - text: "يؤدي إطلاقُ الحرارة من باطن الأرض إلى ظهور الينابيع الحارة."
+            type: usage
+      - lemma: "تَحْرِير"
+        examples:
+          - text: "يُعد تحريرُ الأكسجين من الماء خطوة حيوية في عملية البناء الضوئي."
+            type: usage
+      - lemma: "انْبِعَاث"
+        examples:
+          - text: "انبعاثُ الإشعاع الكوني من النجوم يمتد عبر مجرات الفضاء."
+            type: usage
+      - lemma: "إِفْرَاز"
+        examples:
+          - text: "إفرازُ النباتات للمواد الصمغية هو رد فعل طبيعي لحمايتها من الآفات."
+            type: usage
+      - lemma: "تَصْرِيف"
+        examples:
+          - text: "يساعد تصريفُ مياه السيول عبر القنوات الطبيعية على منع الفيضانات."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يُعد تحريرُ الأكسجين من قبل النباتات عملية ضرورية لاستمرار الحياة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "إِطْلَاق"
+      entry_id: "{auto}"
+      root: "طلق"
+      maqayis_quote: "«الطَّاءُ وَاللَّامُ وَالْقَافُ أَصْلٌ صَحِيحٌ مُطَّرِدٌ وَاحِدٌ، وَهُوَ يَدُلُّ عَلَى التَّخْلِيَةِ وَالْإِرْسَالِ.»"
+    - lemma: "تَحْرِير"
+      entry_id: "{auto}"
+      root: "حرر"
+      maqayis_quote: "«الْحَاءُ وَالرَّاءُ فِي الْمُضَاعَفِ لَهُ أَصْلَانِ: فَالْأَوَّلُ مَا خَالَفَ الْعُبُودِيَّةَ وَبَرِئَ مِنَ الْعَيْبِ وَالنَّقْصِ.»"
+    - lemma: "انْبِعَاث"
+      entry_id: "{auto}"
+      root: "بعث"
+      maqayis_quote: "«الْبَاءُ وَالْعَيْنُ وَالثَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الْإِثَارَةُ. وَيُقَالُ: بَعَثْتُ النَّاقَةَ: إِذَا أَثَرْتَهَا.»"
+    - lemma: "إِفْرَاز"
+      entry_id: "{auto}"
+      root: "فرز"
+      maqayis_quote: "«الْفَاءُ وَالرَّاءُ وَالزَّاءُ أُصَيْلٌ يَدُلُّ عَلَى عَزْلِ الشَّيْءِ عَنْ غَيْرِهِ.»"
+    - lemma: "تَصْرِيف"
+      entry_id: "{auto}"
+      root: "صرف"
+      maqayis_quote: "«الصَّادُ وَالرَّاءُ وَالْفَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى رَجْعِ الشَّيْءِ.»"
+  per_sense:
+    - lemma: "إِطْلَاق"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام والشامل لعملية الإرسال والتخلية."
+      mwe: false
+    - lemma: "تَحْرِير"
+      sense_id: "{auto}"
+      nuance: "يركز على التحرر من الروابط الفيزيائية أو الكيميائية."
+      mwe: false
+    - lemma: "انْبِعَاث"
+      sense_id: "{auto}"
+      nuance: "يختص بالمواد والحرارة والإشعاع التي تخرج للبيئة المحيطة."
+      mwe: false
+    - lemma: "إِفْرَاز"
+      sense_id: "{auto}"
+      nuance: "يختص بالعمليات الحيوية (البيولوجية)."
+      mwe: false
+    - lemma: "تَصْرِيف"
+      sense_id: "{auto}"
+      nuance: "يختص بجريان السوائل وتوجيه حركتها."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"طلق","maqayis":"«الطَّاءُ وَاللَّامُ وَالْقَافُ أَصْلٌ صَحِيحٌ مُطَّرِدٌ وَاحِدٌ، وَهُوَ يَدُلُّ عَلَى التَّخْلِيَةِ وَالْإِرْسَالِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حرر","maqayis":"«الْحَاءُ وَالرَّاءُ فِي الْمُضَاعَفِ لَهُ أَصْلَانِ: فَالْأَوَّلُ مَا خَالَفَ الْعُبُودِيَّةَ وَبَرِئَ مِنَ الْعَيْبِ وَالنَّقْصِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"بعث","maqayis":"«الْبَاءُ وَالْعَيْنُ وَالثَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الْإِثَارَةُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"فرز","maqayis":"«الْفَاءُ وَالرَّاءُ وَالزَّاءُ أُصَيْلٌ يَدُلُّ عَلَى عَزْلِ الشَّيْءِ عَنْ غَيْرِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صرف","maqayis":"«الصَّادُ وَالرَّاءُ وَالْفَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى رَجْعِ الشَّيْءِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العام والشامل لعملية الإرسال والتخلية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على التحرر من الروابط الفيزيائية أو الكيميائية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يختص بالمواد والحرارة والإشعاع التي تخرج للبيئة المحيطة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يختص بالعمليات الحيوية (البيولوجية).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يختص بجريان السوائل وتوجيه حركتها.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

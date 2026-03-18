@@ -1,0 +1,172 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "رِسَالَة"
+      confirm:
+        - text: "«معلومات مكتوبة أو منطوقة يريد المتكلم أن يتقاسمها مع مخاطب معين.» — مسرد الإعلام والتواصل"
+      expands:
+        - text: "«ما يُرْسَلُ, أَوْ: ما يَحْمِلُه الرَّسُولُ [...] الغَايَةُ والوَظِيفَةُ.» — المعجم الكبير"
+        - text: "«(الرسَالَة) مَا يُرْسل وَالْخطاب [...] ورسالة المصلح مَا يتوخاه من وُجُوه الْإِصْلَاح (محدثة)» — المعجم الوسيط لمجموعة من المؤلفين"
+    - lemma: "مَضْمُون"
+      confirm:
+        - text: "«(الْمَضْمُون) المحتوى وَمِنْه مَضْمُون الْكتاب مَا فِي طيه ومضمون الْكَلَام فحواه وَمَا يفهم مِنْهُ» — المعجم الوسيط لمجموعة من المؤلفين"
+        - text: "«مَضْمُونُ الكتاب مَضْمُونُ الكلام: فَحْواه وما يُفْهَمُ منه» — المعجم الكبير"
+        - text: "«هو الجانب المجدي في الخطاب، وهو موضوعه ومظهره التصوري.» — مسرد الإعلام والتواصل"
+    - lemma: "مُحْتَوَى"
+      confirm:
+        - text: "«(ترجمة content)» — مسرد الإعلام والتواصل"
+      contradicts:
+        - text: "«(المحتوى) بيُوت النَّاس من الْوَبر مجتمعة على مَاء» — المعجم الوسيط لمجموعة من المؤلفين"
+          conflict: "تعريف بدوي قديم لا علاقة له بالمعنى المقصود (محتوى الشيء ومضمونه)"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "فَحْوَى"
+      source_section: "step0_evidence"
+      evidence_citation: "«مضمونُ الكلام: فَحْواهُ وما يُفهم منه» — المعجم الوسيط"
+      justification: "الفحوى هو المعنى المقصود من الكلام أو المضمون، وهو مرادف دقيق لـ 'مضمون' و 'محتوى' في هذا السياق."
+  knowledge_candidates:
+    - lemma: "مَادَّة"
+      justification: "مجاز (توسيع دلالي)؛ استعيرت 'المادة' الملموسة للدلالة على المحتوى المعرفي أو الفكري للشيء (مثل: مادة الكتاب، مادة علمية)، وهذا يطابق أحد المصطلحات الإنجليزية (substance)."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "رِسَالَة"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح ومستقر للتعبير عن الغاية أو المضمون المراد إيصاله."
+      evidence_assessment:
+        case: "mixed"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تُركّز على 'الغاية' أو ما يُراد إيصاله من المحتوى للآخرين، بينما 'المضمون' أعمّ للمحتوى بحد ذاته."
+      example: "كانت رسالة الفيلم واضحة للجمهور."
+    - lemma: "مَضْمُون"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح ودقيق للتعبير عن ما يتضمنه الكلام أو الشيء."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يدل على ما يتضمنه الشيء في طياته (داخل الوعاء)، ويركز على المعنى الداخلي."
+      example: "اختلف النقاد في تحليل مضمون القصيدة."
+    - lemma: "مُحْتَوَى"
+      decision: confirmed
+      decision_reason: "مصطلح معاصر مستقر وشائع الاستخدام كترجمة دقيقة لـ Content."
+      evidence_assessment:
+        case: "mixed"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "مصطلح حديث يركز على المكونات (المادية أو المعنوية) التي يحويها الوعاء أو العمل."
+      example: "يعتبر محتوى الموقع الإلكتروني مفيداً للطلاب."
+    - lemma: "فَحْوَى"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح فصيح ومستقر للدلالة على المضمون أو المعنى المفهوم من الكلام."
+      step05_citation: "«مضمونُ الكلام: فَحْواهُ وما يُفهم منه» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تُستعمل غالباً لما يُفهم من الكلام تلميحاً أو دلالةً سياقية (فحوى القول)."
+      example: "فهمت من فحوى كلامه أنه غير موافق."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "فَحْوَى"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-06611268-n"
+    - lemma: "مَادَّة"
+      source: step05
+      decision: removed
+      decision_reason: "مصطلح 'مادة' أعمّ بكثير وقد يؤدي إلى التباس مع المادة الفيزيائية؛ المترادفات الأخرى أوضح في سياق 'المحتوى'."
+      step05_citation: "مجاز (توسيع دلالي)"
+  synset_flags:
+    definition_review_needed: true
+  added_lemmas:
+    - lemma: "فَحْوَى"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "المحتوى الذي يُبلِّغ رسالة؛ ما يتعلّق به الشيء من معنى"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي يستخدم كلمة 'رسالة' (دوران) وصياغته ركيكة ('ما يتعلق به الشيء من معنى'). يجب صياغة تعريف دقيق يجمع بين المحتوى والمضمون المستفاد."
+  authored_definitions:
+    - type: terminological
+      text: "ما يحويه الكلام أو العمل من معانٍ وأفكارٍ يُراد إيصالها."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-06611268-n"
+        definition_index: 0
+        text: "ما يحويه الكلام أو العمل من معانٍ وأفكارٍ يُراد إيصالها."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "اتِّصَال, تَوَاصُل"
+    test_result: "needs_closer"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "رِسَالَة"
+      enrichment:
+        root: "رسل"
+      examples:
+        - text: "كانت رسالة الفيلم واضحة ومؤثرة."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "مَضْمُون"
+      enrichment:
+        root: "ضمن"
+      examples:
+        - text: "هذا في ضِمْن كلامه ومَضْمُونه"
+          type: usage
+          source: "المعجم الكبير"
+      pos_check:
+        pos: noun
+    - lemma: "مُحْتَوَى"
+      enrichment:
+        root: "حوي"
+      examples:
+        - text: "يعتبر محتوى هذا الكتاب قيماً جداً للمختصين."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "فَحْوَى"
+      enrichment:
+        root: "فحو"
+      examples:
+        - text: "فهمت من فحوى كلامه أنه غير موافق على القرار."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-06611268-n"
+        text: "كانت رسالة الفيلم واضحة ومؤثرة."
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-06611268-n"
+        text: "هذا في ضِمْن كلامه ومَضْمُونه"
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-06611268-n"
+        text: "يعتبر محتوى هذا الكتاب قيماً جداً للمختصين."
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-06611268-n"
+        text: "فهمت من فحوى كلامه أنه غير موافق على القرار."

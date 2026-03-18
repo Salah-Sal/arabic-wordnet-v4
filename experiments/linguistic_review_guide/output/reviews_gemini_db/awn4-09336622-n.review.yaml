@@ -1,0 +1,141 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "لسان بحري"
+      expands:
+        - text: "«نتيجة تأثير التجلد خلال العصر الجليدي تم تراجعه في مناطق مسطحة أو شبه مسطحة، يضاف إلى هذا تأثير نهر، خصوصا إذا كان كبيرا. في النهاية هناك تأثير المد والجزر. كل هذا يساهم في توسيع النهر وخصوصا مصبه.» — مسرد المناخ والبيئة وإدارة النفايات الصلبة، المنظمة العربية للتربية والثقافة والعلوم"
+    - lemma: "مدخل مائي"
+      evidence_status: "no_material_found"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "شرم"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«الخَرْقُ فى البحر, كالمَدْخَل إليه» — المعجم الكبير"
+      justification: "يتطابق مع تعريف المجموعة بأنه امتداد مائي يشبه المدخل أو الخرق في اليابسة، وغالباً ما يرتبط بالشواطئ الصخرية."
+    - lemma: "خور"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«مَصَبُّ المياهِ الجارِيَةِ فى البَحْرِ، إذا اتَّسَعَ وعَرُضَ الخَلِيجُ من البَحْرِ» — المعجم الكبير"
+      justification: "مصطلح جغرافي متداول للخلجان الضيقة ومصبات الأنهار التي تشكل أذرعاً مائية."
+  knowledge_candidates:
+    - lemma: "جون"
+      justification: "كلمة أصيلة (إطلاق دلالي): الخليج الصغير المتفرع من البحر."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "لسان بحري"
+      decision: confirmed
+      decision_reason: "مصطلح مركب صحيح ومستعمل جغرافياً للتعبير عن تداخل الماء في اليابسة بشكل طولي كاللسان."
+      evidence_assessment:
+        case: "expands_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على الشكل الهندسي للامتداد المائي بحيث يشبه اللسان الطويل والضيق."
+      example: "يمتد لسان بحري عميقاً داخل اليابسة ليشكل مرفأً طبيعياً."
+    - lemma: "مدخل مائي"
+      decision: removed
+      decision_reason: "ترجمة حرفية عمياء (Blind Literal) للمصطلح الإنجليزي 'water inlet' وليست مصطلحاً جغرافياً مسكوكاً ومستقراً كـ 'شرم' أو 'خور'."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "وصف عام غير مسكوك وليس وحدة معجمية ثابتة."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "شرم"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح فصيح وشائع جغرافياً يدل على الذراع المائي أو الخليج الضيق الذي يشكل خرقاً في اليابسة."
+      step05_citation: "«الخَرْقُ فى البحر, كالمَدْخَل إليه» — المعجم الكبير"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يشير إلى انقطاع أو خرق في الشاطئ يسمح بدخول ماء البحر، وغالباً ما يرتبط بالشواطئ الصخرية كالشروم في البحر الأحمر."
+      example: "ترسو القوارب الصغيرة في شرم هادئ تحيط به الصخور."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "شرم"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09336622-n"
+    - lemma: "خور"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح عربي مستعمل بكثرة للخلجان الضيقة التي تشكل أذرعاً مائية تمتد في اليابسة."
+      step05_citation: "«مَصَبُّ المياهِ الجارِيَةِ فى البَحْرِ، إذا اتَّسَعَ وعَرُضَ الخَلِيجُ من البَحْرِ» — المعجم الكبير"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يغلب إطلاقه على مصبات الأنهار أو الأودية الجافة التي يغمرها ماء البحر وتكون ضحلة وتتأثر بالمد والجزر."
+      example: "تتجمع الطيور المهاجرة عند خور النهر حيث تلتقي المياه العذبة بالمالحة."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "خور"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09336622-n"
+  synset_flags:
+    definition_review_needed: false
+  added_lemmas:
+    - lemma: "شرم"
+      reason: "مصدر: الخطوة ٠٫٥ - دلالة دقيقة على المفهوم"
+      via_command: "create_entry + add_sense"
+    - lemma: "خور"
+      reason: "مصدر: الخطوة ٠٫٥ - مصطلح جغرافي متداول"
+      via_command: "create_entry + add_sense"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "ذراع متفرع من مسطح مائي أكبر (غالباً بين الرؤوس الصخرية)"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وواضح ويترجم المفهوم بشكل صحيح بأسلوب معجمي سليم، ولا حاجة لتعديله."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "مسطح مائي"
+    test_result: "correct"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "لسان بحري"
+      enrichment:
+        root: "ل-س-ن"
+        figurative_relation: "metaphor"
+      examples:
+        - text: "يمتد لسان بحري عميقاً داخل اليابسة ليشكل مرفأً طبيعياً."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "شرم"
+      enrichment:
+        root: "ش-ر-م"
+      examples:
+        - text: "ترسو القوارب الصغيرة في شرم هادئ تحيط به الصخور."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "خور"
+      enrichment:
+        root: "خ-و-ر"
+      examples:
+        - text: "تتجمع الطيور المهاجرة عند خور النهر حيث تلتقي المياه العذبة بالمالحة."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

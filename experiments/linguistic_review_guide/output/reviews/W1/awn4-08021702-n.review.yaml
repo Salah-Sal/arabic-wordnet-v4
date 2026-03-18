@@ -1,0 +1,141 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "حقل"
+      confirm:
+        - text: "«حقل: (field)» — المعجم الموحد لمصطلحات الرياضيات والفلك (1990)"
+          source: "المعجم الموحد لمصطلحات الرياضيات والفلك"
+        - text: "«حقل ابدالي: (commutative field)» — المعجم الموحد لمصطلحات الرياضيات والفلك (1990)"
+          source: "المعجم الموحد لمصطلحات الرياضيات والفلك"
+      contradicts:
+        - text: "«الأرض الفضاء الطيبة يُزرع فيها» — المعجم الوسيط"
+          source: "المعجم الوسيط"
+          conflict: "هذا المعنى زراعي لا رياضي وهو الأصل اللغوي للكلمة"
+      expands:
+        - text: "«حقل بيانات: منطقة محدَّدَة في وسط تخزين بوصفها مجموعة من مواقع الرّقم الثنائيّ المستعملة لتسجيل نوع المعلومات» — معجم اللغة العربية المعاصرة"
+          source: "معجم اللغة العربية المعاصرة"
+          addition: "دلالة حاسوبية (Data Field)"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "حقل"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«حقل» — المعجم الموحد لمصطلحات الرياضيات والفلك (1990)"
+      justification: "المصطلح القياسي في معاجم المصطلحات الرياضية العربية."
+  knowledge_candidates:
+    - lemma: "جسم"
+      justification: "مجاز/تعريب (عبر الفرنسية Corps) — مصطلح رياضي مستقر في دول المغرب العربي للدلالة على الحقل الجبري."
+    - lemma: "جسد"
+      justification: "مجاز/تعريب (عبر الفرنسية Corps) — يستخدم في بعض الأدبيات الرياضية العربية كمرادف لـ 'حقل' أو 'جسم'."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "حقل"
+      decision: confirmed
+      decision_reason: "أدلة معجمية صريحة في مجال الرياضيات."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "المصطلح الأكثر شيوعاً في دول المشرق العربي (مصر، الشام، العراق، الخليج) للدلالة على البنية الجبرية (Field)."
+      example: "تُشكّل مجموعة الأعداد النسبية حَقْلًا رياضيًا مع عمليتي الجمع والضرب."
+    - lemma: "جسم"
+      source: step05
+      decision: confirmed
+      decision_reason: "مرادف إقليمي مستقر في المناهج التعليمية المغربية والتونسية والجزائرية."
+      step05_citation: "المعرفة اللغوية بخصوص النظم التعليمية العربية والترجمة عن الفرنسية (Corps)."
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يُستخدم في دول المغرب العربي كمرادف مباشر لـ 'field' الجبري، بينما قد يُستخدم في المشرق للدلالة على 'Solid' أو مفهوم فيزيائي."
+      example: "تُعرف الأعداد الحقيقية في بعض المناهج الجامعية بأنها 'جسم' مرتب وكامل."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "جسم"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-08021702-n"
+    - lemma: "جسد"
+      source: step05
+      decision: confirmed
+      decision_reason: "مرادف أكاديمي مستخدم في سياق الترجمة عن المصطلح الفرنسي (Corps)."
+      step05_citation: "المعرفة اللغوية بخصوص التنوع المصطلحي في الجبر المجرد."
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "مرادف أقل شيوعاً من 'حقل' و'جسم' ولكنه يظهر في الدراسات الجبرية المقارنة."
+      example: "يُشار إلى 'حقل الأعداد' في بعض المصادر الأكاديمية بـ 'جسد الأعداد'."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "جسد"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-08021702-n"
+  added_lemmas:
+    - lemma: "جسم"
+      reason: "مرادف إقليمي (المغرب العربي)"
+      via_command: create_entry + add_sense
+    - lemma: "جسد"
+      reason: "مرادف إقليمي (المغرب العربي)"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "مجموعة من العناصر يكون فيها الجمع والضرب تبادليين وتجميعيين، ويكون الضرب توزيعياً على الجمع، ويوجد فيها عنصران 0 و 1"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي ناقص من الناحية الرياضية؛ فالحقل يشترط وجود معكوس ضربي لكل عنصر غير صفري، وهو ما يميزه عن الحلقة (Ring)."
+  authored_definitions:
+    - type: terminological
+      text: "بنية جبرية تتكون من مجموعة مزودة بعمليتي الجمع والضرب، تكون كل منهما تجميعية وتبادلية، والضرب توزيعي على الجمع، وتحوي عنصراً محايداً جمعياً (0) وعنصراً محايداً ضربياً (1)، ولكل عنصر غير صفري فيها معكوس ضربي."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-08021702-n"
+        definition_index: 0
+        text: "بنية جبرية تتكون من مجموعة مزودة بعمليتي الجمع والضرب، تكون كل منهما تجميعية وتبادلية، والضرب توزيعي على الجمع، وتحوي عنصراً محايداً جمعياً (0) وعنصراً محايداً ضربياً (1)، ولكل عنصر غير صفري فيها معكوس ضربي."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "مجموعة رياضية"
+    test_result: "correct"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "حقل"
+      enrichment:
+        root: "ح-ق-ل"
+      examples:
+        - text: "تُشكّل مجموعة الأعداد النسبية حَقْلًا رياضيًا مع عمليتي الجمع والضرب."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "جسم"
+      enrichment:
+        root: "ج-س-م"
+      examples:
+        - text: "يُعتبر جسم الأعداد الحقيقية بنية مكتملة في التحليل الرياضي."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "جسد"
+      enrichment:
+        root: "ج-س-د"
+      examples:
+        - text: "تتم دراسة خواص الجسد الجبري في فصول الجبر المجرد."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

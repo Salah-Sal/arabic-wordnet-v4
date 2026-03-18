@@ -1,0 +1,151 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "عَدَّاد"
+      confirm:
+        - text: "«عَدَّاد: الكثير الحساب والإحصاء»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+      expands:
+        - text: "«آلة تستعمل لقياس الزمن, أو سرعة بعض الآلات, أو الكمية المستهلكة من الماء أو نحو ذلك»"
+          source: "المعجم الوسيط"
+          addition: "استعمالها الغالب كآلة للقياس (meter) وليس فقط كشخص."
+    - lemma: "مُحْصٍ"
+      confirm:
+        - text: "«مُحْصٍ: عارف قدر الشيء وحافظ الكتاب.»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+        - text: "«العادّ؛ المُحْصي»"
+          source: "المورد الحديث"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "عادّ"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«(1) العادّ؛ المُحْصي (2) العدّاد؛ جهاز العَدّ.» — المورد الحديث"
+      justification: "اشتقاق: اسم الفاعل المباشر من الفعل 'عدّ'، وهو الدال بدقة على الشخص الذي يقوم بفعل العدّ (counter)."
+  knowledge_candidates:
+    - lemma: "حاسِب"
+      justification: "اشتقاق: على وزن 'فاعل' من الجذر 'حسب'، ويدل على من يقوم بالعمليات الحسابية، لكنه قد يبتعد قليلاً عن المعنى المجرد للعدّ."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "عَدَّاد"
+      decision: confirmed
+      decision_reason: "صيغة صحيحة فصيحة، على الرغم من غلبة استعمالها الحديث كآلة، إلا أنها تدل أيضاً على المبالغة والاحتراف في العدّ."
+      evidence_assessment:
+        case: "mixed"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "صيغة مبالغة تدل على من يحترف العدّ أو يكثر منه، وتستخدم بكثرة في الآلات التي تعدّ تلقائياً."
+      example: "كُلِّفَ العَدَّادُ بحساب عدد الزوار عند البوابة."
+    
+    - lemma: "مُحْصٍ"
+      decision: confirmed
+      decision_reason: "كلمة فصيحة تدل على العدّ مع الضبط والإحاطة."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يدل على الإحاطة والاستقصاء الدقيق الشامل في العدّ، ويُستخدم في السياقات الرسمية والإحصائية (enumerator)."
+      example: "عمل مُحْصِياً للسكان في التعداد الوطني العام."
+
+    - lemma: "عادّ"
+      source: step05
+      decision: confirmed
+      decision_reason: "اسم الفاعل المباشر الذي يدل بدقة على معنى المجموعة (الشخص الذي يعدّ)."
+      step05_citation: "«العادّ؛ المُحْصي» — المورد الحديث"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "اسم الفاعل الأساسي الدال على مجرد القيام بفعل العدّ دون مبالغة."
+      example: "أخطأ العادُّ في حساب رزم الأوراق النقدية."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "عادّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09989021-n"
+
+    - lemma: "حاسِب"
+      source: step05
+      decision: removed
+      decision_reason: "يدل على العمليات الحسابية المعقدة (رياضيات) أكثر من مجرد العدّ الخطي المستمر، كما غلب استعماله آلةً."
+      step05_citation: "معرفة لغوية"
+
+  added_lemmas:
+    - lemma: "عادّ"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شخص يعد الأشياء"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي حرفي، والأفضل صياغته بأسلوب معجمي عربي سليم."
+  authored_definitions:
+    - type: terminological
+      text: "مَن يقوم بعَدِّ الأشياء وإحصائها."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-09989021-n"
+        definition_index: 0
+        text: "مَن يقوم بعَدِّ الأشياء وإحصائها."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-09786620-n"
+    test_result: "correct"
+  antonymy:
+    per_lemma: []
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "عَدَّاد"
+      enrichment:
+        root: "ع د د"
+      examples:
+        - text: "كُلِّفَ العَدَّادُ بحساب عدد الزوار عند البوابة."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "مُحْصٍ"
+      enrichment:
+        root: "ح ص ي"
+      examples:
+        - text: "عمل مُحْصِياً للسكان في التعداد الوطني العام."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "عادّ"
+      enrichment:
+        root: "ع د د"
+      examples:
+        - text: "أخطأ العادُّ في حساب رزم الأوراق النقدية."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-09989021-n"
+        text: "كُلِّفَ العَدَّادُ بحساب عدد الزوار عند البوابة."
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-09989021-n"
+        text: "عمل مُحْصِياً للسكان في التعداد الوطني العام."
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-09989021-n"
+        text: "أخطأ العادُّ في حساب رزم الأوراق النقدية."

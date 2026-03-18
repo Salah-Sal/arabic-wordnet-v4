@@ -1,0 +1,221 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الحالية 'قطعة مضغوطة' هي عبارة وصفية أكثر منها مصطلحاً معجمياً مسكوكاً."
+      - "عدم وجود تشكيل كامل للمة الحالية."
+    observations: "المفهوم يشير إلى ناتج عملية الكبس الميكانيكي (Pressing/Stamping). العربية تستخدم اسم المفعول من 'كبس' أو 'دمغ' للتعبير عن هذا الجزء المصنع. اللفظ 'مكبوسة' هو الأكثر شيوعاً في سياق الميكانيكا، بينما 'قطعة مضغوطة' مقبول كوصف عام."
+  blind_candidates:
+    - lemma: "مَكْبُوسَة"
+      generation_method: ishtiqaq
+      justification: "اسم مفعول من الكبس، يستخدم في الهندسة الميكانيكية للتعبير عن القطعة الناتجة عن الكبس."
+    - lemma: "مَدْمُوغَة"
+      generation_method: ishtiqaq
+      justification: "تستخدم للتعبير عن القطع المعدنية التي يتم تشكيلها بالدمغ (Stamping)."
+    - lemma: "مَطْرُوقَة"
+      generation_method: majaz
+      justification: "من الطرق، وتستخدم للقطع المعدنية التي تعرضت لضغط كبير أدى لتشكيلها."
+    - lemma: "قِطْعَةٌ مَكْبُوسَةٌ"
+      generation_method: tarkib
+      justification: "مركب وصفي يحدد بدقة ماهية الجزء وطريقة تصنيعه."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "قطعة مضغوطة"
+      expands:
+        - text: "«البتّاتِ، التي تَصِفُ بكسلاً معيناً في صورةٍ بكسليةٍ مضغوطة»"
+          source: "معجم مصطلحات المعلوماتية (2000)"
+          addition: "يؤكد استخدام 'مضغوطة' لوصف الأشياء التي تعرضت للضغط، وإن كان في سياق رقمي."
+    - lemma: "مَكْبُوسَة"
+      confirm:
+        - text: "«مكبوس: ومنه الكبوس في اللحم من المصيَّرات... والكبوس في اللحم من المصيَّرات»"
+          source: "تكملة المعاجم العربية ل دوزي"
+        - text: "«تُرْبة مكبوسة أي تُرْبة مكبوسة بعد الحَفْر»"
+          source: "لسان العرب"
+      expands:
+        - text: "«كتلة مكبوسة من التين»"
+          source: "تكملة المعاجم العربية ل دوزي"
+          addition: "استخدام 'مكبوسة' كاسم نكرة يعبر عن ناتج الكبس."
+    - lemma: "مَدْمُوغَة"
+      confirm:
+        - text: "«دمغ، ختم: stamping»"
+          source: "المعجم الموحد للمصطلحات المهنية والتقنية (1996)"
+      evidence_status: "no_material_found"
+    - lemma: "مَطْرُوقَة"
+      contradicts:
+        - text: "«المطروقة من النَّوي : الْمُذَلَّلَةُ»"
+          source: "المعجم الكبير"
+          conflict: "الدليل يشير لاستخدام ضيق جداً لا علاقة له بالصناعة الميكانيكية."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "قطعة مضغوطة"
+      decision: confirmed
+      decision_reason: "مصطلح وصفى دقيق ومستعمل في الترجمة التقنية، رغم كونه مركباً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      nuance_differentiation: "تعبير عام يشمل الأجزاء المعدنية والبلاستيكية التي شكلت بالضغط."
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "قِطْعَةٌ مَضْغُوطَةٌ"
+    - lemma: "مَكْبُوسَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تقني موجز يعبر عن الجزء الناتج عن الكبس (a pressing)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: "مصطلح أكثر تخصصاً يشير مباشرة إلى ناتج المكبس الميكانيكي."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مَكْبُوسَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "مَدْمُوغَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تخص القطع المعدنية المشكلة بآلات الدمغ (stamping machine)."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: "تستخدم غالباً للأجزاء المعدنية الرقيقة التي شكلت بآلة الدمغ."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مَدْمُوغَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "جزء معدني أو بلاستيكي مصنوع بواسطة مكبس ميكانيكي"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط، ويفضل استخدام صياغة أكثر دقة مع مراعاة عملية التشكيل."
+    authored:
+      - type: terminological
+        text: "قِطْعَةٌ مُشَكَّلَةٌ مِنَ المَعْدِنِ أَوِ البلاستيكِ تُنْتَجُ عَنْ طَرِيقِ الضَّغْطِ فِي مِكْبَسٍ مِيكَانِيكِيٍّ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "قِطْعَةٌ مَضْغُوطَةٌ"
+        examples:
+          - text: "تُجْمَعُ القِطَعُ المَضْغُوطَةُ لِتَكْوِينِ هَيْكَلِ السَّيَّارَةِ الخَارِجِيِّ."
+            type: usage
+      - lemma: "مَكْبُوسَة"
+        examples:
+          - text: "تُفْحَصُ كُلُّ مَكْبُوسَةٍ بَعْدَ خُرُوجِهَا مِنَ الآلَةِ لِضَمَانِ خُلُوِّهَا مِنَ العُيُوبِ."
+            type: usage
+      - lemma: "مَدْمُوغَة"
+        examples:
+          - text: "تُصْنَعُ عُلَبُ المَشْرُوبَاتِ مِنْ مَدْمُوغَاتٍ مَعْدَنِيَّةٍ رَقِيقَةٍ."
+            type: usage
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "قِطْعَةٌ مُشَكَّلَةٌ مِنَ المَعْدِنِ أَوِ البلاستيكِ تُنْتَجُ عَنْ طَرِيقِ الضَّغْطِ فِي مِكْبَسٍ مِيكَانِيكِيٍّ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تُجْمَعُ القِطَعُ المَضْغُوطَةُ لِتَكْوِينِ هَيْكَلِ السَّيَّارَةِ الخَارِجِيِّ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "قِطْعَةٌ مَضْغُوطَةٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "قطعة"
+          root: "قطع"
+          maqayis_quote: "«الْقَافُ وَالطَّاءُ وَالْعَيْنُ أَصْلٌ صَحِيحٌ وَاحِدٌ، يَدُلُّ عَلَى صَرْمٍ وَإِبَانَةِ شَيْءٍ مِنْ شَيْءٍ.»"
+        - word: "مضغوطة"
+          root: "ضغط"
+          maqayis_quote: "«الضَّادُ وَالْغَيْنُ وَالطَّاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى مُزَاحَمَةٍ بِشِدَّةٍ.»"
+    - lemma: "مَكْبُوسَة"
+      entry_id: "{auto}"
+      root: "كبس"
+      maqayis_quote: "«الْكَافُ وَالْبَاءُ وَالسِّينِ أَصْلٌ صَحِيحٌ، وَهُوَ مِنَ الشَّيْءِ يُعْلَى بِالشَّيْءِ الرَّزِينِ.»"
+    - lemma: "مَدْمُوغَة"
+      entry_id: "{auto}"
+      root: "دمغ"
+      maqayis_quote: "«الدَّالُ وَالْمِيمُ وَالْغَيْنُ كَلِمَةٌ وَاحِدَةٌ... دَمَغْتُهُ: ضَرَبْتُهُ عَلَى رَأْسِهِ حَتَّى وَصَلْتُ إِلَى الدِّمَاغِ.»"
+  per_sense:
+    - lemma: "قِطْعَةٌ مَضْغُوطَةٌ"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي عام وشامل."
+      mwe: true
+    - lemma: "مَكْبُوسَة"
+      sense_id: "{auto}"
+      nuance: "مصطلح تقني يشير إلى ناتج المكبس."
+      mwe: false
+    - lemma: "مَدْمُوغَة"
+      sense_id: "{auto}"
+      nuance: "تشير تحديداً للقطع المشكلة بآلات الدمغ والختم."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"قطعة","root":"قطع","maqayis":"«الْقَافُ وَالطَّاءُ وَالْعَيْنُ أَصْلٌ صَحِيحٌ وَاحِدٌ، يَدُلُّ عَلَى صَرْمٍ وَإِبَانَةِ شَيْءٍ مِنْ شَيْءٍ.»"},{"word":"مضغوطة","root":"ضغط","maqayis":"«الضَّادُ وَالْغَيْنُ وَالطَّاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى مُزَاحَمَةٍ بِشِدَّةٍ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"كبس","maqayis":"«الْكَافُ وَالْبَاءُ وَالسِّينِ أَصْلٌ صَحِيحٌ، وَهُوَ مِنَ الشَّيْءِ يُعْلَى بِالشَّيْءِ الرَّزِينِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"دمغ","maqayis":"«الدَّالُ وَالْمِيمُ وَالْغَيْنُ كَلِمَةٌ وَاحِدَةٌ... دَمَغْتُهُ: ضَرَبْتُهُ عَلَى رَأْسِهِ حَتَّى وَصَلْتُ إِلَى الدِّمَاغِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير وصفي عام وشامل.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح تقني يشير إلى ناتج المكبس.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تشير تحديداً للقطع المشكلة بآلات الدمغ والختم.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

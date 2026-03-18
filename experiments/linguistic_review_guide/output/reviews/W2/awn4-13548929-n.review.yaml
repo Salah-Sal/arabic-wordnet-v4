@@ -1,0 +1,235 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الحالية (تكون الأعضاء) تفتقر إلى التشكيل."
+      - "اللمة الحالية عبارة عن تعبير مركب من كلمتين (تكوُّن + الأعضاء) وهو شائع الاستخدام."
+      - "هناك مصطلحات طبية وبيولوجية متخصصة ومستقرة في المعاجم مثل (تخلق الأعضاء) و(نشوء الأعضاء)."
+    observations: "المفهوم يشير إلى عملية حيوية (Organogenesis) يتم فيها تكوين الأعضاء في الكائنات الحية. التعبير عنها يتم عادة عبر مركبات إضافية لغياب كلمة مفردة شاملة، وأكثر المكونات الأولى استخداماً: تكوّن، وتخلّق، ونشوء، وتشكل."
+  blind_candidates:
+    - lemma: "تَخَلُّقُ الْأَعْضَاء"
+      generation_method: tarkib
+      justification: "تركيب إضافي يُستخدم بشكل واسع في علم الأجنة لترجمة (organogenesis)."
+    - lemma: "نُشُوءُ الْأَعْضَاء"
+      generation_method: tarkib
+      justification: "تركيب إضافي يصف بداية تشكل ونمو العضو."
+    - lemma: "تَكَوُّنُ الْأَعْضَاء"
+      generation_method: tarkib
+      justification: "الترجمة المباشرة لعملية تكوين الأعضاء."
+    - lemma: "تَعْضِيَة"
+      generation_method: ishtiqaq
+      justification: "مصدر على وزن تفعيل من الجذر (ع ض و) بمعنى جعل الشيء أعضاء أو تكوينه عضوياً."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تكون الأعضاء"
+      confirm:
+        - text: "نشوء [أو تكوُّن] الأعضاء."
+          source: "Al-Mawrid Al-Hadeeth"
+    - lemma: "تَخَلُّقُ الْأَعْضَاء"
+      confirm:
+        - text: "تَخَلُّقُ الأَعْضاء"
+          source: "The Unified Medical Dictionary"
+    - lemma: "نُشُوءُ الْأَعْضَاء"
+      confirm:
+        - text: "نشوء [أو تكوُّن] الأعضاء."
+          source: "Al-Mawrid Al-Hadeeth"
+        - text: "نشوء الأعضاء"
+          source: "AGROVOC"
+    - lemma: "تَعْضِيَة"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تكون الأعضاء"
+      decision: confirmed
+      decision_reason: "مصطلح معتمد ومستقر في المعاجم لترجمة المفهوم، ولكنه يحتاج إلى تشكيل (تَكَوُّنُ الْأَعْضَاء)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَكَوُّنُ الْأَعْضَاء"
+    - lemma: "تَخَلُّقُ الْأَعْضَاء"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح طبي دقيق ومستقر في المعاجم الطبية المتخصصة، يعبر بوضوح عن مرحلة تشكل ونمو الأعضاء في الأجنة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "تَخَلُّقُ الْأَعْضَاء"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "نُشُوءُ الْأَعْضَاء"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح معتمد في معاجم المصطلحات والمجالات الزراعية والبيولوجية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "نُشُوءُ الْأَعْضَاء"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "تَعْضِيَة"
+      source: stage1
+      decision: removed
+      decision_reason: "لا يوجد دليل معجمي على استخدامه بهذا المعنى البيولوجي، واستخدامه التراثي يدل على تفريق الذبيحة أو تقسيم الشيء (كما في مقاييس اللغة)."
+
+stage4_content:
+  definition:
+    current: "عملية تكوين الأعضاء"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب ويستخدم كلمة (تكوين) التي هي اشتقاق مباشر من اللمة (دوران)، يجب صياغة تعريف مصطلحي دقيق يشمل طبيعة العملية الحيوية."
+    authored:
+      - type: terminological
+        text: "عملية حيوية يتم فيها تشكل أعضاء الكائن الحي ونموها وتمايزها."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "عملية حيوية يتم فيها تشكل أعضاء الكائن الحي ونموها وتمايزها."
+  examples:
+    per_lemma:
+      - lemma: "تَكَوُّنُ الْأَعْضَاء"
+        examples:
+          - text: "يُعَدُّ تَكَوُّنُ الْأَعْضَاءِ مَرْحَلَةً حَاسِمَةً فِي نُمُوِّ الْجَنِينِ."
+            type: usage
+      - lemma: "تَخَلُّقُ الْأَعْضَاء"
+        examples:
+          - text: "يَدْرُسُ عِلْمُ الْأَجِنَّةِ مَرَاحِلَ تَخَلُّقِ الْأَعْضَاءِ."
+            type: usage
+      - lemma: "نُشُوءُ الْأَعْضَاء"
+        examples:
+          - text: "تَتَأَثَّرُ عَمَلِيَّةُ نُشُوءِ الْأَعْضَاءِ بِالْعَوَامِلِ الْوِرَاثِيَّةِ وَالْبِيئِيَّةِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يُعَدُّ تَكَوُّنُ الْأَعْضَاءِ مَرْحَلَةً حَاسِمَةً فِي نُمُوِّ الْجَنِينِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يَدْرُسُ عِلْمُ الْأَجِنَّةِ مَرَاحِلَ تَخَلُّقِ الْأَعْضَاءِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تَتَأَثَّرُ عَمَلِيَّةُ نُشُوءِ الْأَعْضَاءِ بِالْعَوَامِلِ الْوِرَاثِيَّةِ وَالْبِيئِيَّةِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تكون الأعضاء"
+      entry_id: "{auto}"
+      roots:
+        - word: "تكون"
+          root: "كون"
+          maqayis_quote: "«الْكَافُ وَالْوَاوُ وَالنُّونُ أَصْلٌ يَدُلُّ عَلَى الْإِخْبَارِ عَنْ حُدُوثِ شَيْءٍ...»"
+        - word: "الأعضاء"
+          root: "عضو"
+          maqayis_quote: "«الْعَيْنُ وَالضَّادُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَجْزِئَةِ الشَّيْءِ...»"
+    - lemma: "تَخَلُّقُ الْأَعْضَاء"
+      entry_id: "{auto}"
+      roots:
+        - word: "تخلق"
+          root: "خلق"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْقَافُ أَصْلَانِ: أَحَدُهُمَا تَقْدِيرُ الشَّيْءِ، وَالْآخَرُ مَلَاسَةُ الشَّيْءِ...»"
+        - word: "الأعضاء"
+          root: "عضو"
+          maqayis_quote: "«الْعَيْنُ وَالضَّادُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَجْزِئَةِ الشَّيْءِ...»"
+    - lemma: "نُشُوءُ الْأَعْضَاء"
+      entry_id: "{auto}"
+      roots:
+        - word: "نشوء"
+          root: "نشا"
+          maqayis_quote: "«النُّونُ وَالشِّينُ وَالْهَمْزَةُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى ارْتِفَاعٍ فِي شَيْءٍ وَسُمُوٍّ...»"
+        - word: "الأعضاء"
+          root: "عضو"
+          maqayis_quote: "«الْعَيْنُ وَالضَّادُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَجْزِئَةِ الشَّيْءِ...»"
+  per_sense:
+    - lemma: "تكون الأعضاء"
+      sense_id: "{auto}"
+      nuance: "المصطلح الأكثر شيوعاً وعمومية للتعبير عن العملية البيولوجية."
+      mwe: true
+    - lemma: "تَخَلُّقُ الْأَعْضَاء"
+      sense_id: "{auto}"
+      nuance: "مصطلح طبي متخصص يشيع في علم الأجنة للتعبير عن تشكل الأعضاء وتمايزها."
+      mwe: true
+    - lemma: "نُشُوءُ الْأَعْضَاء"
+      sense_id: "{auto}"
+      nuance: "يُستخدم للإشارة إلى بداية ظهور الأعضاء ونموها."
+      mwe: true
+  synset:
+    cultural_fit: phraset
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"تكون","root":"كون","maqayis_quote":"«الْكَافُ وَالْوَاوُ وَالنُّونُ أَصْلٌ يَدُلُّ عَلَى الْإِخْبَارِ عَنْ حُدُوثِ شَيْءٍ...»"},{"word":"الأعضاء","root":"عضو","maqayis_quote":"«الْعَيْنُ وَالضَّادُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَجْزِئَةِ الشَّيْءِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"تخلق","root":"خلق","maqayis_quote":"«الْخَاءُ وَاللَّامُ وَالْقَافُ أَصْلَانِ: أَحَدُهُمَا تَقْدِيرُ الشَّيْءِ، وَالْآخَرُ مَلَاسَةُ الشَّيْءِ...»"},{"word":"الأعضاء","root":"عضو","maqayis_quote":"«الْعَيْنُ وَالضَّادُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَجْزِئَةِ الشَّيْءِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"نشوء","root":"نشا","maqayis_quote":"«النُّونُ وَالشِّينُ وَالْهَمْزَةُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى ارْتِفَاعٍ فِي شَيْءٍ وَسُمُوٍّ...»"},{"word":"الأعضاء","root":"عضو","maqayis_quote":"«الْعَيْنُ وَالضَّادُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَجْزِئَةِ الشَّيْءِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الأكثر شيوعاً وعمومية للتعبير عن العملية البيولوجية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح طبي متخصص يشيع في علم الأجنة للتعبير عن تشكل الأعضاء وتمايزها.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُستخدم للإشارة إلى بداية ظهور الأعضاء ونموها.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"phraset"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

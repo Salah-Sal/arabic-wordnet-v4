@@ -1,0 +1,248 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمتان (صاحب) و(مالك) غير مشكلتين وتحتاجان إلى ضبط بالحركات."
+      - "يمكن إضافة (حائز) و(رب) كمرادفات لتعزيز التغطية المعجمية للمفهوم، خاصة في الاستعمالات السياقية والإضافية."
+    observations: "المجموعة الترادفية الحالية تعبر بشكل دقيق عن المفهوم (الشخص الذي يمتلك شيئاً ما). (مالك) هي الكلمة الأكثر دقة قانونياً، بينما (صاحب) أعم وتكثر في الاستعمال العام والمجازي."
+  blind_candidates:
+    - lemma: "مَالِك"
+      generation_method: ishtiqaq
+      justification: "صيغة فاعل من الفعل (ملك)، وتدل صراحة على من يملك الشيء وله حق التصرف فيه."
+    - lemma: "صَاحِب"
+      generation_method: majaz
+      justification: "تستخدم مجازاً من المصاحبة للدلالة على المالك، كما يقال (صاحب الدار) و(صاحب العمل)."
+    - lemma: "حَائِز"
+      generation_method: ishtiqaq
+      justification: "صيغة فاعل من (حاز)، تدل على من يضع يده على الشيء ويستولي عليه (الحيازة)، وهي ترتبط بالملكية."
+    - lemma: "رَبّ"
+      generation_method: majaz
+      justification: "تستخدم بالإضافة لتعني المالك والسيد، مثل (رب الأسرة) و(رب العمل)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مَالِك"
+      confirm:
+        - text: "المالك في اللغات هو الشخص الذي يوصف بأنه يمتلك شيئا ما، وهو يظهر في سياقات مختلفة حسب اختلاف اللغات."
+          source: "المعجم الموحد لمصطلحات اللسانيات"
+        - text: "مَالِك: من (م ل ك) الحائز للشيء المنفرد بالتصريف فيه، ومتزوج المرأة."
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+        - text: "المالك: هو المتصرف في الأعيان المملوكة كيف شاء."
+          source: "التوقيف على مهمات التعاريف للمناوي"
+    - lemma: "صَاحِب"
+      confirm:
+        - text: "صَاحِب: من (ص ح ب) المرافق ومالك الشيء والقائم على الشيء والمعاشر."
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+        - text: "القائمُ على الشَّيْءِ."
+          source: "المعجم الكبير"
+    - lemma: "حَائِز"
+      confirm:
+        - text: "حَائِز: من (ح و ز) من ينال الشيء ويملكه."
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+    - lemma: "رَبّ"
+      confirm:
+        - text: "مالِكُه ومُستحِقُّه وصاحِبُه."
+          source: "المعجم الكبير"
+        - text: "من ملك شيئا فهو ربه لا يقال بغير الإضافة إلا لله عز وجل."
+          source: "كتاب العين"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "صاحب"
+      decision: confirmed
+      decision_reason: "كلمة فصيحة وشائعة جداً للدلالة على المالك، وتستخدم بكثرة بالإضافة (صاحب الدار، صاحب السيارة)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "صَاحِب"
+
+    - lemma: "مالك"
+      decision: confirmed
+      decision_reason: "الكلمة الأكثر دقة من الناحية الاصطلاحية والقانونية للتعبير عن الملكية وحق التصرف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَالِك"
+
+    - lemma: "حَائِز"
+      source: stage1
+      decision: confirmed
+      decision_reason: "كلمة دقيقة فصيحة تدل على من يضع يده على الشيء ويستولي عليه ويملكه."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "حَائِز", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "رَبّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تستعمل في العربية الفصحى بمعنى المالك والسيد، وتكثر في حالة الإضافة كقولهم (رب الدار) و(رب العمل)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "رَبّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "شخص يمتلك شيئاً ما"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي لغوي بسيط؛ الأفضل جعله تعريفاً مصطلحياً دقيقاً يشمل الجانب القانوني للملكية (حق التصرف)."
+    authored:
+      - type: terminological
+        text: "مَنْ لَهُ مُلْكُ شَيْءٍ وَحَقُّ التَّصَرُّفِ فِيهِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مَنْ لَهُ مُلْكُ شَيْءٍ وَحَقُّ التَّصَرُّفِ فِيهِ."}
+
+  examples:
+    per_lemma:
+      - lemma: "مَالِك"
+        examples:
+          - text: "يَحِقُّ لِمَالِكِ العَقَارِ أَنْ يُؤَجِّرَهُ لِلْغَيْرِ."
+            type: usage
+      - lemma: "صَاحِب"
+        examples:
+          - text: "عَادَ صَاحِبُ الدَّارِ مِنْ سَفَرِهِ الطَّوِيلِ."
+            type: usage
+      - lemma: "حَائِز"
+        examples:
+          - text: "يُعْتَبَرُ حَائِزُ الأَرْضِ مَسْؤُولاً عَنْ زِرَاعَتِهَا."
+            type: usage
+      - lemma: "رَبّ"
+        examples:
+          - text: "يَسْعَى رَبُّ العَمَلِ إِلَى تَحْسِينِ ظُرُوفِ العَامِلِينَ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يَحِقُّ لِمَالِكِ العَقَارِ أَنْ يُؤَجِّرَهُ لِلْغَيْرِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "عَادَ صَاحِبُ الدَّارِ مِنْ سَفَرِهِ الطَّوِيلِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يُعْتَبَرُ حَائِزُ الأَرْضِ مَسْؤُولاً عَنْ زِرَاعَتِهَا."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يَسْعَى رَبُّ العَمَلِ إِلَى تَحْسِينِ ظُرُوفِ العَامِلِينَ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَالِك"
+      entry_id: "{auto}"
+      root: "ملك"
+      maqayis_quote: "«الْمِيمُ وَاللَّامُ وَالْكَافُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى قُوَّةٍ فِي الشَّيْءِ وَصِحَّةٍ.»"
+    - lemma: "صَاحِب"
+      entry_id: "{auto}"
+      root: "صحب"
+      maqayis_quote: "«الصَّادُ وَالْحَاءُ وَالْبَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُقَارَنَةِ شَيْءٍ وَمُقَارَبَتِهِ.»"
+    - lemma: "حَائِز"
+      entry_id: "{auto}"
+      root: "حوز"
+      maqayis_quote: "«الْحَاءُ وَالْوَاوُ وَالزَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الْجَمْعُ وَالتَّجَمُّعُ، يُقَالُ لِكُلِّ مَجْمَعٍ وَنَاحِيَةٍ حَوْزٌ وَحَوْزَةٌ.»"
+    - lemma: "رَبّ"
+      entry_id: "{auto}"
+      root: "ربب"
+      maqayis_quote: "«الرَّاءُ وَالْبَاءُ يَدُلُّ عَلَى أُصُولٍ. فَالْأَوَّلُ إِصْلَاحُ الشَّيْءِ وَالْقِيَامُ عَلَيْهِ. فَالرَّبُّ: الْمَالِكُ، وَالْخَالِقُ، وَالصَّاحِبُ.»"
+
+  per_sense:
+    - lemma: "مَالِك"
+      sense_id: "{auto}"
+      nuance: "تدل على الملكية القانونية أو الشرعية للشيء وحق التصرف فيه."
+      mwe: false
+    - lemma: "صَاحِب"
+      sense_id: "{auto}"
+      nuance: "أعم من المالك، وتدل على الملازمة والقيام على الشيء، وقد تستخدم للملكية المعنوية أو المجازية."
+      mwe: false
+    - lemma: "حَائِز"
+      sense_id: "{auto}"
+      nuance: "تركز على السيطرة الفعلية والاستحواذ العملي أو الجسدي على الشيء، وقد يكون مالكاً أو غير مالك."
+      mwe: false
+    - lemma: "رَبّ"
+      sense_id: "{auto}"
+      nuance: "تدل على السيادة والملك المرتبطين بالرعاية والإصلاح، ولا تستخدم في هذا السياق إلا مضافة إلى ما بعدها (مثل: رب العمل)."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ملك","maqayis":"«الْمِيمُ وَاللَّامُ وَالْكَافُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى قُوَّةٍ فِي الشَّيْءِ وَصِحَّةٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صحب","maqayis":"«الصَّادُ وَالْحَاءُ وَالْبَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُقَارَنَةِ شَيْءٍ وَمُقَارَبَتِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حوز","maqayis":"«الْحَاءُ وَالْوَاوُ وَالزَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الْجَمْعُ وَالتَّجَمُّعُ، يُقَالُ لِكُلِّ مَجْمَعٍ وَنَاحِيَةٍ حَوْزٌ وَحَوْزَةٌ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ربب","maqayis":"«الرَّاءُ وَالْبَاءُ يَدُلُّ عَلَى أُصُولٍ. فَالْأَوَّلُ إِصْلَاحُ الشَّيْءِ وَالْقِيَامُ عَلَيْهِ. فَالرَّبُّ: الْمَالِكُ، وَالْخَالِقُ، وَالصَّاحِبُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تدل على الملكية القانونية أو الشرعية للشيء وحق التصرف فيه.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"أعم من المالك، وتدل على الملازمة والقيام على الشيء، وقد تستخدم للملكية المعنوية أو المجازية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركز على السيطرة الفعلية والاستحواذ العملي أو الجسدي على الشيء، وقد يكون مالكاً أو غير مالك.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تدل على السيادة والملك المرتبطين بالرعاية والإصلاح، ولا تستخدم في هذا السياق إلا مضافة إلى ما بعدها (مثل: رب العمل).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,270 @@
+# ── المرحلة ١: المراجعة والتوليد (بدون أدلة) ──────────────
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة 'تضييق' تشير غالباً إلى الفعل المتعدي (جعل الشيء ضيقاً)، بينما التعريف يشير إلى حالة أو عملية الانخفاض في العرض (Narrowing) والتي يعبر عنها الفعل اللازم أو المطاوع 'تضيق' بشكل أدق."
+    observations: "المفهوم يشير إلى عملية نقص العرض (narrowing) أو الحالة الناتجة عنها. المصطلح التقني الأشيع هو 'تضيق' (بالمعنى الطبي والجيولوجي وغيره)، بينما 'تضييق' يشيع في سياق التقييد أو الإجراء المتعمد. 'ضيق' يعبر عن الصفة أو الحالة الثابتة."
+  blind_candidates:
+    - lemma: "تَضَيُّق"
+      generation_method: ishtiqaq
+      justification: "مصدر الفعل 'تضيّق' (على وزن تفعُّل)، وهو الأدق لوصف صيرورة الشيء ضيقاً أو عملية نقص العرض."
+    - lemma: "تَقَلُّص"
+      generation_method: ishtiqaq
+      justification: "يشير إلى انضمام أجزاء الشيء ونقص حجمه أو عرضه."
+    - lemma: "انْقِبَاض"
+      generation_method: ishtiqaq
+      justification: "يُستخدم في السياق البيولوجي والعضلي لوصف تضيق الممر أو العضو."
+    - lemma: "انْضِمَام"
+      generation_method: ishtiqaq
+      justification: "انضمام الأطراف أو الأجزاء يؤدي إلى تضيق المسافة بينها."
+
+# ── المرحلة ٢: جمع الأدلة ────────────────────────────────
+stage2_evidence:
+  per_lemma:
+    - lemma: "تَضَيُّق"
+      confirm:
+        - text: "«تضيُّق الوادي: [في الانكليزية] narrowing of valley»"
+          source: "المعجم الموحد لمصطلحات الجيولوجيا"
+        - text: "«تضيُّق، ضيق: [في الانكليزية] stenosis; narrowing»"
+          source: "المعجم الموحد لمصطلحات الطب البيطري"
+      expands:
+        - text: "«تضيّق ثوبه: انضمّ بعضه إلى بعض فلم يتَّسع لما فيه وقصر عنه، تقلَّص»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "تَضْيِيق"
+      confirm:
+        - text: "«ضيَّق الطَّريقَ: جعلها تضيق، قلَّلل اتِّساعها»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "ضِيق"
+      confirm:
+        - text: "«الضِّيقُ: ضدّ السَّعة»"
+          source: "المعجم الوسيط"
+        - text: "«ضيق أفق: عدم اتساع في مدارك العقل»"
+          source: "المعجم الكبير"
+    - lemma: "تَقَلُّص"
+      confirm:
+        - text: "«الْقَافُ وَاللَّامُ وَالصَّادُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى انْضِمَامِ شَيْءٍ بَعْضِهِ إِلَي بَعْضٍ. يُقَالُ: تَقَلَّصَ الشَّيْءُ، إِذَا انْضَمَّ»"
+          source: "مقاييس اللغة"
+    - lemma: "انْقِبَاض"
+      confirm:
+        - text: "«انقباض: [في الانكليزية] contraction»"
+          source: "المعجم الموحد لمصطلحات علم الأحياء"
+        - text: "«systole: انقباض»"
+          source: "المعجم الموحد لمصطلحات علم التشريح العياني"
+
+# ── المرحلة ٣: التحليل اللغوي للّمات ────────────────────
+stage3_analysis:
+  per_lemma:
+    - lemma: "تضييق"
+      decision: confirmed
+      decision_reason: "المصطلح مستخدم وشائع للدلالة على فعل الجعل (Active narrowing)، وهو مقبول في السياق العام."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَضْيِيق"
+    - lemma: "تَضَيُّق"
+      source: stage1
+      decision: confirmed
+      decision_reason: "هو المصطلح التقني الأدق لوصف عملية نقص العرض كحدث (Event) أو حالة مطاوعة، وهو واسع الاستخدام في الطب والجيولوجيا."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَضَيُّق", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-13539766-n"}
+    - lemma: "ضِيق"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر عن الحالة الناتجة عن نقص العرض (ضد السعة)، ويُستخدم كمرادف للعملية في سياقات معينة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "ضِيق", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-13539766-n"}
+    - lemma: "تَقَلُّص"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف قوي يتضمن معنى انضمام الأجزاء ونقص الحجم أو العرض، وهو متسق مع دلالة المجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَقَلُّص", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-13539766-n"}
+    - lemma: "انْقِبَاض"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تضييق أو قصر في طول أو عرض العضلات أو الأوعية، مقبول في السياق الحيوي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "انْقِبَاض", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-13539766-n"}
+
+# ── المرحلة ٤: التعريف والأمثلة ──────────────────────────
+stage4_content:
+  definition:
+    current: "انخفاض في العرض"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب جداً ويستخدم 'انخفاض' وهو أقل دقة من 'نقصان' أو 'تراجع' في سياق الأبعاد الفيزيائية."
+    authored:
+      - type: terminological
+        text: "نُقْصَانٌ في العَرْضِ أو الاتِّسَاعِ، ممَّا يَجعلُ الشَّيءَ ضَيِّقًا."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-13539766-n", definition_index: 0, text: "نُقْصَانٌ في العَرْضِ أو الاتِّسَاعِ، ممَّا يَجعلُ الشَّيءَ ضَيِّقًا."}
+  examples:
+    per_lemma:
+      - lemma: "تَضْيِيق"
+        examples:
+          - text: "قامتِ البلديَّةُ بتضييقِ ممرَّاتِ المشاةِ لتوسيعِ الشَّارعِ."
+            type: usage
+      - lemma: "تَضَيُّق"
+        examples:
+          - text: "أدَّى تَضَيُّقُ المَجْرى المائيِّ إلى زيادةِ سرعةِ التَّيَّارِ."
+            type: usage
+      - lemma: "ضِيق"
+        examples:
+          - text: "يُعَانِي المُسَافِرُونَ من ضِيقِ مَسَاحَةِ المَقَاعِدِ في الطَّائِرَةِ."
+            type: usage
+      - lemma: "تَقَلُّص"
+        examples:
+          - text: "لاحَظَ المُهَنْدِسُ تَقَلُّصَ عَرْضِ الجِسْرِ بسببِ تَمَدُّدِ القَوَاعِدِ الجَانِبيَّةِ."
+            type: usage
+      - lemma: "انْقِبَاض"
+        examples:
+          - text: "يؤدِّي انْقِبَاضُ الأوعيةِ الدَّمويَّةِ إلى ارتفاعِ ضغطِ الدَّمِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-13539766-n", text: "تَسبَّبَ تَضَيُّقُ الطَّريقِ الجبليِّ في صُعُوبةِ مرورِ الشَّاحناتِ الكبيرةِ."}
+
+# ── المرحلة ٥: الإثراء (البيانات الوصفية) ─────────────────
+stage5_enrichment:
+  per_entry:
+    - lemma: "تَضْيِيق"
+      entry_id: "{auto}"
+      root: "ضيق"
+      maqayis_quote: "«الضَّادُ وَالْيَاءُ وَالْقَافُ كَلِمَةٌ وَاحِدَةٌ تَدُلُّ عَلَى خِلَافِ السَّعَةِ»"
+    - lemma: "تَضَيُّق"
+      entry_id: "{auto}"
+      root: "ضيق"
+      maqayis_quote: "«الضَّادُ وَالْيَاءُ وَالْقَافُ كَلِمَةٌ وَاحِدَةٌ تَدُلُّ عَلَى خِلَافِ السَّعَةِ»"
+    - lemma: "ضِيق"
+      entry_id: "{auto}"
+      root: "ضيق"
+      maqayis_quote: "«الضَّادُ وَالْيَاءُ وَالْقَافُ كَلِمَةٌ وَاحِدَةٌ تَدُلُّ عَلَى خِلَافِ السَّعَةِ»"
+    - lemma: "تَقَلُّص"
+      entry_id: "{auto}"
+      root: "قلص"
+      maqayis_quote: "«الْقَافُ وَاللَّامُ وَالصَّادُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى انْضِمَامِ شَيْءٍ بَعْضِهِ إِلَي بَعْضٍ»"
+    - lemma: "انْقِبَاض"
+      entry_id: "{auto}"
+      root: "قبض"
+      maqayis_quote: "«الْقَافُ وَالْبَاءُ وَالضَّادُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى جَمْعِ شَيْءٍ»"
+  per_sense:
+    - lemma: "تَضْيِيق"
+      sense_id: "{auto}"
+      nuance: "فعل الجعل أو الإجراء المتعمد لنقص العرض."
+      mwe: false
+    - lemma: "تَضَيُّق"
+      sense_id: "{auto}"
+      nuance: "المصطلح التقني للعملية أو الحدث (narrowing/stenosis) كصيرورة مطاوعة."
+      mwe: false
+    - lemma: "ضِيق"
+      sense_id: "{auto}"
+      nuance: "يصف الحالة المستمرة أو النتيجة (straitness)."
+      mwe: false
+    - lemma: "تَقَلُّص"
+      sense_id: "{auto}"
+      nuance: "تضيق ناتج عن انكماش المادة أو تجمعها (shrinking/contraction)."
+      mwe: false
+    - lemma: "انْقِبَاض"
+      sense_id: "{auto}"
+      nuance: "تضيق ناتج عن جهد عضلي أو حيوي (contraction)."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ضيق","maqayis":"«الضَّادُ وَالْيَاءُ وَالْقَافُ كَلِمَةٌ وَاحِدَةٌ تَدُلُّ عَلَى خِلَافِ السَّعَةِ»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قلص","maqayis":"«الْقَافُ وَاللَّامُ وَالصَّادُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى انْضِمَامِ شَيْءٍ بَعْضِهِ إِلَي بَعْضٍ»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قبض","maqayis":"«الْقَافُ وَالْبَاءُ وَالضَّادُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى جَمْعِ شَيْءٍ»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"فعل الجعل أو الإجراء المتعمد لنقص العرض.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح التقني للعملية أو الحدث (narrowing/stenosis) كصيرورة مطاوعة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يصف الحالة المستمرة أو النتيجة (straitness).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تضيق ناتج عن انكماش المادة أو تجمعها (shrinking/contraction).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تضيق ناتج عن جهد عضلي أو حيوي (contraction).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-13539766-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-13539766-n"
+        score: 0.95

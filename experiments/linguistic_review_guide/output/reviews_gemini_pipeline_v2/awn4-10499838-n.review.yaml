@@ -1,0 +1,207 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي في AWN4 يركز على الجانب العلمي والتخصصي فقط، بينما كلمة professional في الإنجليزية قد تشمل أيضاً الجانب الاحترافي (من يتخذ العمل كمهنة ومورد رزق)."
+    observations: "اللمّات الموجودة (محترف، مهني) دقيقة جداً وتعكس الجانبين الأساسيين للمصطلح: الجانب الاحترافي (من يتخذ الحرفة مهنة) والجانب المهني (من ينتمي إلى مهنة)."
+  blind_candidates:
+    - lemma: "مُحْتَرِف"
+      generation_method: ishtiqaq
+      justification: "من الجذر (ح ر ف) بمعنى كسب، وهو المصطلح الشائع لمن يتخذ العمل مهنة احترافية."
+    - lemma: "مِهْنِيّ"
+      generation_method: ishtiqaq
+      justification: "من الجذر (م هـ ن) نسبة إلى المهنة، ويشير إلى الفرد الذي يمارس عملاً يحتاج إلى خبرة وحذق."
+    - lemma: "مُمْتَهِن"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من امتهن، أي اتخذ العمل مهنة له."
+    - lemma: "مُتَخَصِّص"
+      generation_method: ishtiqaq
+      justification: "يشير إلى من يتخصص في مجال دقيق، وغالباً ما يُستخدم كمرادف للمهني في السياقات العلمية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُحْتَرِف"
+      confirm:
+        - text: "«المُحْتَرِفُ: مَنْ لَهُ حِرْفَةٌ وصَنْعَةٌ»"
+          source: "المعجم الكبير"
+        - text: "«لاعب مُحترف... الصواب: محترف فصيحة... جاء في الوسيط: احترف: اتخذ حرفة»"
+          source: "معجم الصواب اللغوي"
+    - lemma: "مِهْنِيّ"
+      confirm:
+        - text: "«مِهْنِيّ: نسبة إلى مِهْنَة: العمل والعمل يحتاج إلى خبرة ومهارة وحذق بممارستة»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+        - text: "«professional: مِهْنِيّ»"
+          source: "المعجم الطبي الموحد (2009)"
+    - lemma: "مُمْتَهِن"
+      confirm:
+        - text: "«مَمْتَهِنُ التَّبَرُّعِ بالدَّم (professional blood donor)»"
+          source: "المعجم الطبي الموحد (2009)"
+      expands:
+        - text: "«مَهَنَ الرَّجلُ: عمِل في صَنْعَتِه»"
+          source: "المعجم الوسيط"
+    - lemma: "مُتَخَصِّص"
+      confirm:
+        - text: "«متخصص: specialized / specialist»"
+          source: "المعجم الموحد لمصطلحات علم الصحة"
+        - text: "«استخدام صناعي متخصص (industrial and professional use)»"
+          source: "موسوعة الكهرباء (IEC 60050)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مُحْتَرِف"
+      decision: confirmed
+      decision_reason: "مصطلح دقيق وشائع يشير إلى من يتخذ العمل حرفة ومورداً للرزق، وهو المعنى المقابل لـ professional في سياق الاحتراف (مقابل الهواية)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُحْتَرِف"
+    - lemma: "مِهْنِيّ"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي في اللغة المعاصرة للإشارة إلى من يمارس مهنة علمية أو متخصصة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مِهْنِيّ"
+    - lemma: "مُمْتَهِن"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ فصيح من الجذر (مهن) يشير مباشرة إلى ممارسة المهنة، وورد استخدامه في المعاجم الطبية المتخصصة كمرادف لـ professional."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُمْتَهِن", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُتَخَصِّص"
+      source: stage1
+      decision: confirmed
+      decision_reason: "غالباً ما يُستخدم للإشارة إلى المهنيين في المجالات العلمية والدقيقة، وهو يتفق مع التعريف الحالي للمجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُتَخَصِّص", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "شخص يعمل في إحدى المهن العلمية أو المتخصصة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي محدود بالجانب العلمي فقط، بينما كلمة professional تشمل الجانب الاحترافي والمهني العام."
+    authored:
+      - type: terminological
+        text: "شخص يزاول مِهْنَةً تقتضي ثقافة أو علماً متخصصاً، أو من يتخذ من عمله حِرْفَةً ومورداً لرزقه بصفة دائمة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  actions:
+    - command: update_definition
+      params: {synset_id: "{synset_id}", definition_index: 0, text: "شخص يزاول مِهْنَةً تقتضي ثقافة أو علماً متخصصاً، أو من يتخذ من عمله حِرْفَةً ومورداً لرزقه بصفة دائمة."}
+
+  examples:
+    per_lemma:
+      - lemma: "مُحْتَرِف"
+        examples:
+          - text: "أصبح لاعباً مُحْتَرِفاً في صفوف النادي منذ العام الماضي."
+            type: usage
+      - lemma: "مِهْنِيّ"
+        examples:
+          - text: "يجب على المِهْنِيِّينَ الالتزام بأخلاقيات المِهنة في تعاملاتهم."
+            type: usage
+      - lemma: "مُمْتَهِن"
+        examples:
+          - text: "يُعد المُمْتَهِنُ للخِياطَة مَسؤولاً عَن جَوْدَةِ الأَقْمِشَة."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "أصبح لاعباً مُحْتَرِفاً في صفوف النادي منذ العام الماضي."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يجب على المِهْنِيِّينَ الالتزام بأخلاقيات المِهنة في تعاملاتهم."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُحْتَرِف"
+      entry_id: "{auto}"
+      root: "حرف"
+      maqayis_quote: "«الْحَاءُ الرَّاءُ وَالْفَاءُ ثَلَاثَةُ أُصُولٍ: حَدُّ الشَّيْءِ، وَالْعُدُولُ، وَتَقْدِيرُ الشَّيْءِ... وَكُلُّ ذَلِكَ مِنْ حَرَفَ وَاحْتَرَفَ أَيْ كَسَبَ»"
+    - lemma: "مِهْنِيّ"
+      entry_id: "{auto}"
+      root: "مهن"
+      maqayis_quote: "«الْمِيمُ وَالْهَاءُ وَالنُّونُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى... الْمِهْنَةُ: الْعَمَلُ يحتاج إلى خبرة ومهارة وحذق»"
+    - lemma: "مُمْتَهِن"
+      entry_id: "{auto}"
+      root: "مهن"
+      maqayis_quote: "«الْمِيمُ وَالْهَاءُ وَالنُّونُ أَصْلٌ صَحِيحٌ... وَمِنَ الْبَابِ الْمَهْنُ: الْخِدْمَةُ، وَالْمِهْنَةُ»"
+    - lemma: "مُتَخَصِّص"
+      entry_id: "{auto}"
+      root: "خص"
+      maqayis_quote: "«الْخَاءُ وَالصَّادُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى انْفِرادِ الشَّيْءِ... وخَصَّ الشَّيْءَ خُصُوصاً»"
+
+  per_sense:
+    - lemma: "مُحْتَرِف"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب الاحترافي واتخاذ العمل كمورد رزق أساسي (مقابل الهاوي)."
+      mwe: false
+    - lemma: "مِهْنِيّ"
+      sense_id: "{auto}"
+      nuance: "يركز على الانتماء لمهنة منظمة تطلب مؤهلات ثقافية أو علمية."
+      mwe: false
+    - lemma: "مُمْتَهِن"
+      sense_id: "{auto}"
+      nuance: "يؤكد على فعل المزاولة والامتهان الفعلي للحرفة."
+      mwe: false
+    - lemma: "مُتَخَصِّص"
+      sense_id: "{auto}"
+      nuance: "يؤكد على التخصص الدقيق في مجال معين من مجالات العمل المهني."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حرف","maqayis":"«الْحَاءُ الرَّاءُ وَالْفَاءُ ثَلَاثَةُ أُصُولٍ: حَدُّ الشَّيْءِ، وَالْعُدُولُ، وَتَقْدِيرُ الشَّيْءِ... وَكُلُّ ذَلِكَ مِنْ حَرَفَ وَاحْتَرَفَ أَيْ كَسَبَ»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"مهن","maqayis":"«الْمِيمُ وَالْهَاءُ وَالنُّونُ أَصْلٌ صَحِيحٌ... وَمِنَ الْبَابِ الْمَهْنُ: الْخِدْمَةُ، وَالْمِهْنَةُ»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الجانب الاحترافي واتخاذ العمل كمورد رزق أساسي (مقابل الهاوي).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

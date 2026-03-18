@@ -1,0 +1,295 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "وجود خطأ إملائي في اللمة 'واِقٍ'، حيث يجب أن تكون الكسرة تحت القاف 'وَاقٍ'."
+      - "نقص التشكيل الكامل في اللمات الحالية 'حافِظ' و'حامٍ'."
+    observations: "المجموعة الترادفية تعبر عن مفهوم الحماية والوقاية بشكل واضح، والكلمات المدرجة صحيحة دلالياً، ولكن يجب تدقيق تشكيلها وإضافة المزيد من المرادفات التي تحمل نفس الدلالة."
+  blind_candidates:
+    - lemma: "حَامٍ"
+      generation_method: ishtiqaq
+      justification: "مشتقة من الفعل حمى، وتدل على الشخص الذي يدفع الأذى."
+    - lemma: "حَافِظ"
+      generation_method: ishtiqaq
+      justification: "مشتقة من الفعل حفظ، وتعني من يصون ويحرس الآخرين."
+    - lemma: "وَاقٍ"
+      generation_method: ishtiqaq
+      justification: "مشتقة من الفعل وقى، وتفيد المنع والحماية."
+    - lemma: "مُحَافِظ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من حافظ، تفيد معنى الرعاية والحماية المستمرة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "حافِظ"
+      confirm:
+        - text: "حَافِظ: من (ح ف ظ) الموكل بالشيء يصونه ويحرسه، والذي رزق حفظ ما يسمع وقلما ينسي..."
+          source: "المعجم الوسيط"
+    - lemma: "حامٍ"
+      confirm:
+        - text: "حَامِي: من (ح م ي) المانع، والشديد الحرارة."
+          source: "المعجم الوسيط"
+        - text: "حامٍ من الأمراض."
+          source: "معجم الغني"
+    - lemma: "واِقٍ"
+      confirm:
+        - text: "واقٍ: حامٍ من الأمراض."
+          source: "معجم الغني"
+    - lemma: "مُحَافِظ"
+      confirm:
+        - text: "مُحَافِظ: من (ح ف ظ) الحارس الذي يذب عن الشيء ويرعاه ويواظب عليه..."
+          source: "المعجم الوسيط"
+    - lemma: "حَارِس"
+      confirm:
+        - text: "حَارِس: من (ح ر س) الحافظ."
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "حافِظ"
+      decision: confirmed
+      decision_reason: "كلمة فصيحة وصحيحة دلالياً للتعبير عن المعنى، وتحتاج لضبط التشكيل فقط."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حَافِظ"
+    
+    - lemma: "حامٍ"
+      decision: confirmed
+      decision_reason: "صحيحة فصيحة وتعبر عن دلالة الحماية، وتتطلب ضبط التشكيل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حَامٍ"
+            
+    - lemma: "واِقٍ"
+      decision: confirmed
+      decision_reason: "موافقة للمفهوم ولكنها تحتوي على خطأ إملائي في وضع الكسرة تحت الألف بدلاً من القاف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "وَاقٍ"
+            
+    - lemma: "مُحَافِظ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تستخدم للدلالة على الحارس والمواظب على رعاية الشيء، وهي مناسبة جداً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُحَافِظ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+            
+    - lemma: "حَارِس"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اسم فاعل فصيح ويعبر بدقة عن الحافظ والذي يمنع الخطر."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "حَارِس"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "شخص يحفظ الآخرين من الأذى أو الخطر"
+    assessment:
+      decision: retain
+      reason: "التعريف الحالي دقيق وواضح ويعكس المفهوم المعجمي بأسلوب سليم."
+  examples:
+    per_lemma:
+      - lemma: "حَافِظ"
+        examples:
+          - text: "كَانَ حَافِظاً لِأَهْلِهِ مِنَ الأَذَى وَالسُّوءِ."
+            type: usage
+      - lemma: "حَامٍ"
+        examples:
+          - text: "وَقَفَ حَامِياً لِلضُّعَفَاءِ فِي وَجْهِ الظُّلْمِ."
+            type: usage
+      - lemma: "وَاقٍ"
+        examples:
+          - text: "يُعَدُّ الجَيْشُ وَاقِياً لِلْوَطَنِ مِنَ الأَخْطَارِ."
+            type: usage
+      - lemma: "مُحَافِظ"
+        examples:
+          - text: "هُوَ مُحَافِظٌ عَلَى سَلَامَةِ المَكَانِ وَأَمْنِهِ."
+            type: usage
+      - lemma: "حَارِس"
+        examples:
+          - text: "عَمِلَ حَارِساً أَمِيناً عَلَى أَرْوَاحِ النَّاسِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "كَانَ حَارِساً لِأَهْلِهِ مِنَ الأَذَى وَالسُّوءِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "كَانَ حَافِظاً لِأَهْلِهِ مِنَ الأَذَى وَالسُّوءِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "وَقَفَ حَامِياً لِلضُّعَفَاءِ فِي وَجْهِ الظُّلْمِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يُعَدُّ الجَيْشُ وَاقِياً لِلْوَطَنِ مِنَ الأَخْطَارِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "هُوَ مُحَافِظٌ عَلَى سَلَامَةِ المَكَانِ وَأَمْنِهِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "عَمِلَ حَارِساً أَمِيناً عَلَى أَرْوَاحِ النَّاسِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "حَافِظ"
+      entry_id: "{auto}"
+      root: "حفظ"
+      maqayis_quote: "«الْحَاءُ وَالْفَاءُ وَالظَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُرَاعَاةِ الشَّيْءِ...»"
+    - lemma: "حَامٍ"
+      entry_id: "{auto}"
+      root: "حمي"
+    - lemma: "وَاقٍ"
+      entry_id: "{auto}"
+      root: "وقي"
+      maqayis_quote: "«الْوَاوُ وَالْقَافُ وَالْيَاءُ: كَلِمَةٌ وَاحِدَةٌ تَدُلُّ عَلَى دَفْعِ شَيْءٍ عَنْ شَيْءٍ بِغَيْرِهِ...»"
+    - lemma: "مُحَافِظ"
+      entry_id: "{auto}"
+      root: "حفظ"
+      maqayis_quote: "«الْحَاءُ وَالْفَاءُ وَالظَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُرَاعَاةِ الشَّيْءِ...»"
+    - lemma: "حَارِس"
+      entry_id: "{auto}"
+      root: "حرس"
+      maqayis_quote: "«الْحَاءُ وَالرَّاءُ وَالسِّينُ أَصْلَانِ: أَحَدُهُمَا الْحِفْظُ وَالْآخَرُ زَمَانٌ...»"
+  
+  per_sense:
+    - lemma: "حَافِظ"
+      sense_id: "{auto}"
+      nuance: "يغلب عليها الدلالة على الصيانة والرعاية المستمرة للشيء أو الشخص."
+      mwe: false
+    - lemma: "حَامٍ"
+      sense_id: "{auto}"
+      nuance: "تبرز فيها دلالة الدفاع النشط ودفع الخطر عن المعتدى عليه."
+      mwe: false
+    - lemma: "وَاقٍ"
+      sense_id: "{auto}"
+      nuance: "تركز على المنع والوقاية الاستباقية لتجنب وقوع الأذى."
+      mwe: false
+    - lemma: "مُحَافِظ"
+      sense_id: "{auto}"
+      nuance: "تحمل معنى المواظبة والاهتمام الشديد بسلامة الشخص أو الشيء."
+      mwe: false
+    - lemma: "حَارِس"
+      sense_id: "{auto}"
+      nuance: "تركز على اليقظة والانتباه والمراقبة الدائمة لمنع حدوث الضرر."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حفظ","maqayis":"«الْحَاءُ وَالْفَاءُ وَالظَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُرَاعَاةِ الشَّيْءِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حمي"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"وقي","maqayis":"«الْوَاوُ وَالْقَافُ وَالْيَاءُ: كَلِمَةٌ وَاحِدَةٌ تَدُلُّ عَلَى دَفْعِ شَيْءٍ عَنْ شَيْءٍ بِغَيْرِهِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حفظ","maqayis":"«الْحَاءُ وَالْفَاءُ وَالظَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُرَاعَاةِ الشَّيْءِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حرس","maqayis":"«الْحَاءُ وَالرَّاءُ وَالسِّينُ أَصْلَانِ: أَحَدُهُمَا الْحِفْظُ وَالْآخَرُ زَمَانٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يغلب عليها الدلالة على الصيانة والرعاية المستمرة للشيء أو الشخص.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تبرز فيها دلالة الدفاع النشط ودفع الخطر عن المعتدى عليه.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركز على المنع والوقاية الاستباقية لتجنب وقوع الأذى.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تحمل معنى المواظبة والاهتمام الشديد بسلامة الشخص أو الشيء.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركز على اليقظة والانتباه والمراقبة الدائمة لمنع حدوث الضرر.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

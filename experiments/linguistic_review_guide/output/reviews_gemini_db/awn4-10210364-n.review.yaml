@@ -1,0 +1,165 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "مُتَجَمِّع"
+      contradicts:
+        - text: "«متجمع: aggregate» — المعجم الموحد لمصطلحات علم الأحياء (1993)"
+          conflict: "الكلمة تعني المتراكم أو المجتمع مع غيره (aggregate/gregarious)، ولا تدل على الشخص الذي يجلس القرفصاء أو يجثم."
+        - text: "«حطام أو فتات صخري متراكم» — المعجم الموحد لمصطلحات الجيولوجيا (2000)"
+          conflict: "تتعلق بالتراكم للجماد."
+    - lemma: "مُتَكَوِّم"
+      evidence_status: "no_material_found"
+      peripheral_observations:
+        - "الفعل (تكوّم) يعني تجمّع في شيء مع ارتفاع فيه، ويُقال (يتكوم على نفسه) مجازاً، ولكن كصفة مفردة (متكوّم) تعني المكدّس أو المتراكم."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "مُقَرْفِص"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«مُقَرْفِص: جالسٌ القُرْفُصاء» — المورد الحديث (2008)"
+      justification: "اشتقاق من (القرفصاء) وهو الجلوس بانضمام وانكماش، وهو المعنى الدقيق للكلمة الإنجليزية (huddler/croucher)."
+    - lemma: "جاثِم"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«جاثِم: من لزم مكانه فلم يبرح» — معجم اللغة العربية المعاصرة لأحمد مختار عمر"
+      justification: "اسم فاعل من جثم، يعبر عن اللاصق بالأرض والمتكوم في مكانه (اشتقاق)."
+  generation_notes: "تم البحث عن مرادفات الجلوس بانكماش واستخراج أسماء الفاعل الدالة على ذلك."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "مُتَجَمِّع"
+      decision: removed
+      decision_reason: "الكلمة لا تدل على وضعية الجلوس بانكماش أو الجثوم، بل تعني التجمع والتكتل للأشخاص أو الأشياء."
+      evidence_assessment:
+        case: "contradicts_only"
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "مُتجمِّع من التجمع، وهو انضمام الأشياء إلى بعضها، بخلاف الانطواء على الذات."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "مُتَكَوِّم"
+      decision: removed
+      decision_reason: "تدل على التكدس والتراكم. وتستخدم للدلالة على الجثوم فقط مقيدة بشبه الجملة (متكوم على نفسه)، ولا تُستعمل منفردة لهذا المعنى في السياقات المعجمية."
+      evidence_assessment:
+        case: "no_material"
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "المتكوم هو المتجمع المتكدس فوق بعضه، ككومة التراب."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "مُقَرْفِص"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح فصيح مشتق يدل بدقة على وضعية الجلوس المطلوبة، وهو مستعمل وشائع."
+      step05_citation: "«مُقَرْفِص: جالسٌ القُرْفُصاء» — المورد الحديث (2008)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "الجالس بحيث يضم ركبتيه إلى صدره ويلف يديه حولهما."
+      example: "جلس الطفل مُقَرْفِصًا من شدة البرد."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُقَرْفِص"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10210364-n"
+    - lemma: "جاثِم"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح فصيح دقيق يعبر عن من يلزم مكانه ملتصقاً بالأرض."
+      step05_citation: "«جاثِم: من لزم مكانه فلم يبرح أو لصق بالأرض» — معجم اللغة العربية المعاصرة لأحمد مختار عمر"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "اللازم لمكانه واللاصق بالأرض منكمشاً."
+      example: "بقي الخائف جاثِمًا في مكانه لا يقوى على الحركة."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "جاثِم"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10210364-n"
+  synset_flags:
+    definition_review_needed: true
+  added_lemmas:
+    - lemma: "مُقَرْفِص"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+    - lemma: "جاثِم"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "شخص يجثم أو يتكوم على نفسه"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي يستخدم أفعالاً (يجثم، يتكوم) لوصف الاسم، ويمكن تحسينه ليصبح أكثر دقة بأسلوب المعجم الوسيط."
+  authored_definitions:
+    - type: terminological
+      text: "شخص جالس بانكماش وانطواء على ذاته بحيث يقترب من الأرض."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-10210364-n"
+        definition_index: 0
+        text: "شخص جالس بانكماش وانطواء على ذاته بحيث يقترب من الأرض."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-09786620-n"
+    test_result: "wrong"
+  antonymy:
+    per_lemma:
+      - lemma: "مُقَرْفِص"
+        antonym_found: true
+        antonym: "مُنْتَصِب"
+      - lemma: "جاثِم"
+        antonym_found: true
+        antonym: "قَائِم"
+  verb_checks:
+    applicable: false
+  selectional_restrictions:
+    - lemma: "مُقَرْفِص"
+      constraint: "يشترط أن يكون فاعله من ذوي الأطراف (إنسان أو حيوان)."
+    - lemma: "جاثِم"
+      constraint: "يشترط أن يكون فاعله كائناً حياً أو عيناً مجسمة تلصق بالأرض."
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "مُقَرْفِص"
+      enrichment:
+        root: "قرفص"
+      examples:
+        - text: "جلس الطفل مُقَرْفِصًا من شدة البرد."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "جاثِم"
+      enrichment:
+        root: "جثم"
+      examples:
+        - text: "بقي الخائف جاثِمًا في مكانه لا يقوى على الحركة."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-10210364-n"
+        text: "جلس الطفل مُقَرْفِصًا من شدة البرد."

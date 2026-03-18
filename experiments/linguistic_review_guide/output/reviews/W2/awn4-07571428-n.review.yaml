@@ -1,0 +1,244 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة (طعام) واسعة جداً دلالياً في العربية، إذ قد تشمل الأشربة في بعض السياقات اللغوية القديمة."
+      - "المصطلح (غذاء صلب) مركب وصفي تقني حديث، وهو ترجمة دقيقة لـ solid food."
+    observations: "المجموعة تركز على الحالة الفيزيائية للغذاء (صلب مقابل سائل). المصطلحات الموجودة تغطي المعنى العام والتقني، ولكن يمكن إثراؤها بمصطلحات أكثر دقة أو شيوعاً في سياقات معينة مثل الفطام (solid food for infants)."
+  blind_candidates:
+    - lemma: "غِذَاءٌ جَامِدٌ"
+      generation_method: tarkib
+      justification: "استخدام الصفة (جامد) المتسقة مع المجموعة العليا (hypernym) لوصف الغذاء."
+    - lemma: "طَعَامٌ صُلْبٌ"
+      generation_method: tarkib
+      justification: "المرادف الأكثر شيوعاً في السياقات التربوية والطبية لوصف الطعام غير السائل."
+    - lemma: "مَأْكُولٌ"
+      generation_method: ishtiqaq
+      justification: "اسم مفعول يدل على ما يؤكل، ويُستخدم غالباً في المقابلة مع (المشروب)."
+    - lemma: "قُوتٌ"
+      generation_method: ishtiqaq
+      justification: "لفظ تراثي يدل على ما يسد الرمق ويقيم البدن من الطعام الصلب غالباً."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "طَعَام"
+      confirm:
+        - text: "الطَّعَام كل مَا يُؤْكَل وَبِه قوام الْبدن"
+          source: "المعجم الوسيط"
+        - text: "وفي العرف الطعام اسم لما يؤكل والشراب اسم لما يشرب"
+          source: "كشاف اصطلاحات الفنون"
+    - lemma: "غِذَاء صُلْب"
+      confirm:
+        - text: "غذاء (food) + صلب (solid)"
+          source: "تحليل تركيبي"
+    - lemma: "طَعَام صُلْب"
+      confirm:
+        - text: "طعام (food) + صلب (solid)"
+          source: "تحليل تركيبي"
+    - lemma: "قُوت"
+      confirm:
+        - text: "الْقُوت مَا يقوم بِهِ بدن الْإِنْسَان من الطَّعَام"
+          source: "المعجم الوسيط"
+        - text: "القُوتُ: مَا يُمْسِكُ الرَّمَقَ من الرِّزْق"
+          source: "تاج العروس"
+    - lemma: "مَأْكُول"
+      confirm:
+        - text: "لا يأكل طعاما ينصرف إلى كل مأكول مطعوم"
+          source: "كشاف اصطلاحات الفنون"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "طَعَام"
+      decision: confirmed
+      decision_reason: "اللفظ الأساسي والأكثر شيوعاً للدلالة على الغذاء، والتمييز العرفي يخرجه عن الأشربة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "طَعَامٌ"
+    - lemma: "غِذَاء صُلْب"
+      decision: confirmed
+      decision_reason: "مصطلح تقني دقيق يطابق المفهوم العلمي للحالة الفيزيائية للغذاء."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "غِذَاءٌ صُلْبٌ"
+    - lemma: "طَعَام صُلْب"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مركب وصفي فصيح وشائع الاستخدام في السياقات الطبية والتربوية الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "طَعَامٌ صُلْبٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "قُوت"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ أصيل يعبر عن المادة الغذائية التي تقيم البدن، وهو أخص من الطعام في الدلالة على الجوهر المقتات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "قُوتٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "أيّ مادّة صلبة تُستخدَم مصدرًا للتغذية، في مقابل السوائل"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دقيق لكن يمكن صياغته بأسلوب معجمي أكثر رصانة."
+    authored:
+      - type: terminological
+        text: "ما يُؤكل من المواد الجامدة لتغذية البدن وإقامة أوده، تمييزاً له عن الأشربة والسوائل."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "طَعَام"
+        examples:
+          - text: "بَدَأَ الطِّفْلُ يَتَنَاوَلُ الطَّعَامَ بَعْدَ شُهُورٍ مِنَ الرَّضَاعَةِ."
+            type: usage
+      - lemma: "غِذَاء صُلْب"
+        examples:
+          - text: "يَنْصَحُ الأَطِبَّاءُ بِالتَّدَرُّجِ فِي إِدْخَالِ الغِذَاءِ الصُّلْبِ لِلرُّضَّعِ."
+            type: usage
+      - lemma: "طَعَام صُلْب"
+        examples:
+          - text: "يَجِبُ أَنْ يَكُونَ الطَّعَامُ الصُّلْبُ سَهْلَ المَضْغِ وَالهَضْمِ."
+            type: usage
+      - lemma: "قُوت"
+        examples:
+          - text: "كَانَ قُوتُهُمُ التَّمْرَ وَالشَّعِيرَ."
+            type: usage
+  actions:
+    - command: update_definition
+      params: {synset_id: "{synset_id}", definition_index: 0, text: "ما يُؤكل من المواد الجامدة لتغذية البدن وإقامة أوده، تمييزاً له عن الأشربة والسوائل."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "طَعَامٌ"
+      entry_id: "{auto}"
+      root: "طعم"
+      maqayis_quote: "«الطاء والعين والميم أصل مطرد منقاس في تذوق الشيء. يقال: طعمت الشيء طعما. والطعام هو المأكول.»"
+    - lemma: "غِذَاءٌ صُلْبٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "غذاء"
+          root: "غذي"
+          maqayis_quote: "«الغين والذال والحرف المعتل أصل صحيح يدل على شيء من المأكل، وعلى جنس من الحركة. فأما المأكل فالغذاء، وهو الطعام والشراب.»"
+        - word: "صلب"
+          root: "صلب"
+          maqayis_quote: "«الصاد واللام والباء أصلان: أحدهما يدل على الشدة والقوة، والآخر جنس من الودك. فالأول الصلب، وهو الشيء الشديد.»"
+    - lemma: "طَعَامٌ صُلْبٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "طعام"
+          root: "طعم"
+          maqayis_quote: "«الطاء والعين والميم أصل مطرد منقاس في تذوق الشيء. يقال: طعمت الشيء طعما. والطعام هو المأكول.»"
+        - word: "صلب"
+          root: "صلب"
+          maqayis_quote: "«الصاد واللام والباء أصلان: أحدهما يدل على الشدة والقوة، والآخر جنس من الودك. فالأول الصلب، وهو الشيء الشديد.»"
+    - lemma: "قُوتٌ"
+      entry_id: "{auto}"
+      root: "قوت"
+      maqayis_quote: "«القاف والواو والتاء أصل صحيح يدل على إمساك وحفظ وقدرة على الشيء... ومن الباب: القوت ما يمسك الرمق؛ وإنما سمي قوتا لأنه مساك البدن وقوته.»"
+  per_sense:
+    - lemma: "طَعَامٌ"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام والشامل لكل ما يؤكل."
+      mwe: false
+    - lemma: "غِذَاءٌ صُلْبٌ"
+      sense_id: "{auto}"
+      nuance: "مصطلح علمي وتقني يحدد الحالة الفيزيائية للمادة الغذائية."
+      mwe: true
+    - lemma: "طَعَامٌ صُلْبٌ"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي شائع يُستخدم في سياقات التغذية والنمو."
+      mwe: true
+    - lemma: "قُوتٌ"
+      sense_id: "{auto}"
+      nuance: "يركز على وظيفة الغذاء في إبقاء الحياة وسد الرمق."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"طعم","maqayis":"«الطاء والعين والميم أصل مطرد منقاس في تذوق الشيء. يقال: طعمت الشيء طعما. والطعام هو المأكول.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"غذاء","root":"غذي","maqayis":"«الغين والذال والحرف المعتل أصل صحيح يدل على شيء من المأكل... فأما المأكل فالغذاء، وهو الطعام والشراب.»"},{"word":"صلب","root":"صلب","maqayis":"«الصاد واللام والباء أصلان: أحدهما يدل على الشدة والقوة... فالأول الصلب، وهو الشيء الشديد.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"طعام","root":"طعم","maqayis":"«الطاء والعين والميم أصل مطرد منقاس في تذوق الشيء... والطعام هو المأكول.»"},{"word":"صلب","root":"صلب","maqayis":"«الصاد واللام والباء أصلان: أحدهما يدل على الشدة والقوة... فالأول الصلب، وهو الشيء الشديد.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قوت","maqayis":"«القاف والواو والتاء أصل صحيح يدل على إمساك وحفظ وقدرة على الشيء... ومن الباب: القوت ما يمسك الرمق؛ وإنما سمي قوتا لأنه مساك البدن وقوته.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ العام والشامل لكل ما يؤكل.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح علمي وتقني يحدد الحالة الفيزيائية للمادة الغذائية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير وصفي شائع يُستخدم في سياقات التغذية والنمو.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على وظيفة الغذاء في إبقاء الحياة وسد الرمق.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

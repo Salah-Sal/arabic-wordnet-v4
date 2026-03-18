@@ -1,0 +1,182 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الحالية 'وقود' تفتقر إلى التشكيل."
+      - "غياب المصطلحات الفنية الحديثة التي تدل على الطاقة (مثل المحروقات)."
+    observations: "المفهوم واضح ويعبر عن مادة الاحتراق أو توليد الطاقة. كلمة 'وقود' هي المصطلح الأساسي، ولكن هناك حاجة لإغناء المجموعة بمرادفات فنية وتراثية."
+  blind_candidates:
+    - lemma: "وَقُود"
+      generation_method: ishtiqaq
+      justification: "اللفظ العربي القياسي للمادة التي تُوقد بها النار أو تُنتج الطاقة."
+    - lemma: "مَحْرُوقَات"
+      generation_method: ishtiqaq
+      justification: "جمع 'محروق' يُستخدم كمصطلح جمعي للمواد الوقودية (خاصة النفطية) في السياقات الفنية والقانونية."
+    - lemma: "وَقِيد"
+      generation_method: ishtiqaq
+      justification: "مرادف تراثي صحيح للوقود، ورد في المعاجم القديمة."
+    - lemma: "حَرُوق"
+      generation_method: ishtiqaq
+      justification: "ما يُقدح به النار، وهو من الألفاظ التي تدل على مادة الاحتراق."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "وقود"
+      confirm:
+        - text: "«(الْوقُود) الْوَقَّاد وكل مَادَّة تتولد باحتراقها طَاقَة حرارية»"
+          source: "المعجم الوسيط"
+        - text: "«الوقاد كُلُّ مادَّةٍ تتولَّد باحتراقها طاقة حرارية»"
+          source: "المعجم الوسيط (نسخة OCR)"
+        - text: "«مواد يمكن أن تولد طاقة (عموما حرارية قابلة للتحويل إلى طاقة ميكانيكية أو كهربائية أو ...) عند حرقها (وقود أحفوري أو عضوي) أو انشطارها أو انصهارها (وقود نووي).»"
+          source: "مسرد المناخ والبيئة - ArabTerm"
+    - lemma: "مَحْرُوقَات"
+      confirm:
+        - text: "«أنواعُ الوُقُود المُستخْدَم فى توليد الطَّاقَة كالبنزين والسُّولار ونحوهما»"
+          source: "المعجم الكبير"
+    - lemma: "وَقِيد"
+      confirm:
+        - text: "«(الوقيد) الْوقُود»"
+          source: "المعجم الوسيط"
+        - text: "«الوَقِيدُ: الوُقُود»"
+          source: "المعجم الوسيط (نسخة OCR)"
+    - lemma: "حَرُوق"
+      confirm:
+        - text: "«ما يُقْدَحُ به النَّارُ»"
+          source: "المعجم الكبير"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "وقود"
+      decision: confirmed
+      decision_reason: "المصطلح الأساسي والأكثر شيوعاً ودقة للمفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "وَقُود"
+    - lemma: "مَحْرُوقَات"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فني جمعي شائع جداً في السياقات الحديثة للتعبير عن أنواع الوقود السائل والغازي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَحْرُوقَات", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-14899228-n"}
+    - lemma: "وَقِيد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف فصيح وتراثي مؤكد في المعاجم المعاصرة (الوسيط)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "وَقِيد", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-14899228-n"}
+    - lemma: "حَرُوق"
+      source: stage1
+      decision: removed
+      decision_reason: "على الرغم من وروده في المعاجم، إلا أنه أقل شيوعاً وقد يُلتبس بجمع 'حرق' (بمعنى الإصابة بالحرارة)."
+
+stage4_content:
+  definition:
+    current: "مادة يمكن استهلاكها لإنتاج الطاقة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دقيق لكنه يفتقر إلى الجزالة اللغوية والتفصيل العلمي الذي تشير إليه المعاجم الحديثة (مثل الإشارة إلى الاحتراق أو الانشطار)."
+    authored:
+      - type: terminological
+        text: "مادّةٌ طبيعيّةٌ أو مُصَنَّعَةٌ تُسْتَهْلَكُ لِتَوليدِ الطَّاقَةِ بِالاحْتِراقِ أو الانْشِطارِ أو الانْصِهارِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "وَقُود"
+        examples:
+          - text: "تَعْتَمِدُ مُعْظَمُ المَرْكَباتِ الحَديثَةِ عَلى الوَقُودِ الأحْفوريِّ لِتَوْليدِ الحَرَكَةِ."
+            type: usage
+      - lemma: "مَحْرُوقَات"
+        examples:
+          - text: "تُساهِمُ الضَّرائِبُ المَفْروضَةُ عَلى المَحْرُوقاتِ في ميزانيّةِ الدَّوْلَةِ."
+            type: usage
+      - lemma: "وَقِيد"
+        examples:
+          - text: "جَمَعَ الرَّجُلُ الحَطَبَ لِيَكونَ وَقِيداً لِنارِ المَوْقِدِ."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-14899228-n", definition_index: 0, text: "مادّةٌ طبيعيّةٌ أو مُصَنَّعَةٌ تُسْتَهْلَكُ لِتَوليدِ الطَّاقَةِ بِالاحْتِراقِ أو الانْشِطارِ أو الانْصِهارِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تَعْتَمِدُ مُعْظَمُ المَرْكَباتِ الحَديثَةِ عَلى الوَقُودِ الأحْفوريِّ لِتَوْليدِ الحَرَكَةِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "وَقُود"
+      entry_id: "{auto}"
+      root: "وقد"
+      maqayis_quote: "«الْوَاوُ وَالْقَافُ وَالدَّالُ: كَلِمَةٌ تَدُلُّ عَلَى اشْتِعَالِ نَارٍ. وَالْوَقُودُ: الْحَطَبُ. وَالْوُقُودُ: فِعْلُ النَّارِ إِذَا وَقَدَتْ.»"
+    - lemma: "مَحْرُوقَات"
+      entry_id: "{auto}"
+      root: "حرق"
+      maqayis_quote: "«الْحَاءُ وَالرَّاءُ وَالْقَافُ أَصْلَانِ: أَحَدُهُمَا حَكُّ الشَّيْءِ بِالشَّيْءِ مَعَ حَرَارَةٍ وَالْتِهَابٍ. وَالْحَرَقُ: النَّارُ.»"
+    - lemma: "وَقِيد"
+      entry_id: "{auto}"
+      root: "وقد"
+      maqayis_quote: "«الْوَاوُ وَالْقَافُ وَالدَّالُ: كَلِمَةٌ تَدُلُّ عَلَى اشْتِعَالِ نَارٍ.»"
+  per_sense:
+    - lemma: "وَقُود"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام والشامل لكل أنواع الوقود (صلب، سائل، غازي، نووي)."
+      mwe: false
+    - lemma: "مَحْرُوقَات"
+      sense_id: "{auto}"
+      nuance: "تُستخدم غالباً في السياق الاقتصادي والفني للإشارة إلى الوقود المستخلص من النفط."
+      mwe: false
+    - lemma: "وَقِيد"
+      sense_id: "{auto}"
+      nuance: "لفظ تراثي يركز على مادة الإيقاد، ويُستخدم للإضفاء صبغة فصحى أو أدبية."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"وقد","maqayis":"«الْوَاوُ وَالْقَافُ وَالدَّالُ: كَلِمَةٌ تَدُلُّ عَلَى اشْتِعَالِ نَارٍ. وَالْوَقُودُ: الْحَطَبُ. وَالْوُقُودُ: فِعْلُ النَّارِ إِذَا وَقَدَتْ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حرق","maqayis":"«الْحَاءُ وَالرَّاءُ وَالْقَافُ أَصْلَانِ: أَحَدُهُمَا حَكُّ الشَّيْءِ بِالشَّيْءِ مَعَ حَرَارَةٍ وَالْتِهَابٍ. وَالْحَرَقُ: النَّارُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ العام والشامل لكل أنواع الوقود.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-14899228-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-14899228-n"
+        score: 0.95

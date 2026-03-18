@@ -1,0 +1,178 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "تعد البرمجة المتعددة (multiprogramming) مفهوما تقنيا دقيقا، والمصطلح الحالي 'برمجة متعددة' صحيح لغويا ولكنه قد يفتقر للرسمية الاصطلاحية مقارنة بـ 'تعدد البرمجة'."
+      - "المصطلح 'تنفيذ متزامن' (concurrent execution) يرتبط دلاليا بالبرمجة المتعددة، لكنه يركز على زمن التنفيذ أكثر من قدرة النظام على إدارة عدة برامج في الذاكرة."
+    observations: "التعريف الحالي دقيق فنيا ومطابق للتعريف الإنجليزي. المنهجية المتبعة في توليد المرشحات ستحاول تغطية الجانب التقني (تعدد) والجانب الوصفي (تنفيذ)."
+  blind_candidates:
+    - lemma: "تَعَدُّدُ البَرْمَجَةِ"
+      generation_method: tarkib
+      justification: "الترجمة الاصطلاحية القياسية للمصطلح الإنجليزي (multiprogramming) في القواميس التقنية."
+    - lemma: "تَنْفِيذٌ مُتَزَامِنٌ"
+      generation_method: tarkib
+      justification: "ترجمة للمصطلح الرديف (concurrent execution) الذي يصف الحالة الناتجة."
+    - lemma: "تَعَدُّدِيَّةُ البَرَامِجِ"
+      generation_method: ishtiqaq
+      justification: "استخدام المصدر الصناعي (تعددية) للتعبير عن الحالة التي يكون فيها النظام قادرا على استيعاب عدة برامج."
+    - lemma: "تَشْغِيلٌ مُتَعَدِّدٌ"
+      generation_method: tarkib
+      justification: "تعبير وصفي عام يغطي مفهوم التشغيل المتوازي أو المتعدد."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "برمجة متعددة"
+      evidence_status: "no_material_found"
+    - lemma: "تنفيذ متزامن"
+      evidence_status: "no_material_found"
+    - lemma: "تَعَدُّدُ البَرْمَجَةِ"
+      expands:
+        - text: "«نوعٌ من أنواع تَعدّد المهمات، يقوم بواسطته نظامُ التشغيل دورياً بمقاطعة تنفيذ برنامج وتمرير التحكّم في البرنامج إلى برنامجٍ آخر ينتظر»"
+          source: "معجم مصطلحات المعلوماتية (2000)"
+          addition: "يربط بين تعدد المهام وتعدد البرمجة كتقنيات لإدارة التنفيذ."
+    - lemma: "تَنْفِيذٌ مُتَسَايِرٌ"
+      confirm:
+        - text: "«تنفيذٌ متواقتٌ ظاهريٌّ لبرنامجين (أو مَساقَيْن routines) أو أكثر»"
+          source: "معجم مصطلحات المعلوماتية (2000)"
+          translation_en: "concurrent execution"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "برمجة متعددة"
+      decision: confirmed
+      decision_reason: "مصطلح شائع ومباشر، وإن كان يميل للوصف أكثر من التسمية الاصطلاحية المركزة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "بَرْمَجَةٌ مُتَعَدِّدَةٌ"
+    - lemma: "تنفيذ متزامن"
+      decision: confirmed
+      decision_reason: "يقابل (concurrent execution) بدقة ويصف عملية التنفيذ المتداخلة في الوقت."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَنْفِيذٌ مُتَزَامِنٌ"
+    - lemma: "تَعَدُّدُ البَرْمَجَةِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح التقني الأكثر دقة ورسمية في علوم الحاسوب لترجمة (multiprogramming)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "تَعَدُّدُ البَرْمَجَةِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَنْفِيذٌ مُتَسَايِرٌ"
+      source: stage2
+      decision: confirmed
+      decision_reason: "مصطلح متخصص موثق في معاجم المعلوماتية كمرادف دقيق لـ (concurrent execution)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "تَنْفِيذٌ مُتَسَايِرٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "تنفيذ برنامجين أو أكثر بواسطة كمبيوتر واحد"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي صحيح ولكنه يحتاج لإضافة القيد الزمني لتمييزه عن مجرد توفر البرامج في الذاكرة دون تنفيذ فعلي متداخل."
+    authored:
+      - type: terminological
+        text: "تنفيذ برنامجين أو أكثر بواسطة حاسوب واحد في الوقت نفسه، بحيث تتشارك البرامج في موارد النظام بأسلوب التقاسم الزمني."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "تنفيذ برنامجين أو أكثر بواسطة حاسوب واحد في الوقت نفسه، بحيث تتشارك البرامج في موارد النظام بأسلوب التقاسم الزمني."}
+  examples:
+    per_lemma:
+      - lemma: "بَرْمَجَةٌ مُتَعَدِّدَةٌ"
+        examples:
+          - text: "تسمح تقنية البرمجة المتعددة برفع كفاءة استغلال وحدة المعالجة المركزية."
+            type: usage
+      - lemma: "تَنْفِيذٌ مُتَزَامِنٌ"
+        examples:
+          - text: "يتطلب التنفيذ المتزامن للبرامج إدارة دقيقة للذاكرة والوصول إلى الموارد."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "تسمح تقنية البرمجة المتعددة برفع كفاءة استغلال وحدة المعالجة المركزية."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "بَرْمَجَةٌ مُتَعَدِّدَةٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "برمجة"
+          root: "برمج"
+        - word: "متعددة"
+          root: "عدد"
+          maqayis_quote: "«الْعَيْنُ وَالدَّالُّ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى الْإِحْصَاءِ.»"
+    - lemma: "تَعَدُّدُ البَرْمَجَةِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "تعدد"
+          root: "عدد"
+          maqayis_quote: "«الْعَيْنُ وَالدَّالُّ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى الْإِحْصَاءِ.»"
+        - word: "البرمجة"
+          root: "برمج"
+    - lemma: "تَنْفِيذٌ مُتَزَامِنٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "تنفيذ"
+          root: "نفذ"
+          maqayis_quote: "«النُّونُ وَالْفَاءُ وَالذَّالُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مَضَاءٍ فِي أَمْرٍ وَغَيْرِهِ.»"
+        - word: "متزامن"
+          root: "زمن"
+          maqayis_quote: "«الزَّايُ وَالْمِيمُ وَالنُّونُ كَلِمَةٌ وَاحِدَةٌ، وَهِيَ الزَّمَانُ.»"
+  per_sense:
+    - lemma: "بَرْمَجَةٌ مُتَعَدِّدَةٌ"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي عام للمفهوم التقني."
+      mwe: true
+    - lemma: "تَعَدُّدُ البَرْمَجَةِ"
+      sense_id: "{auto}"
+      nuance: "المصطلح الفني الأكثر شيوعا في المناهج الأكاديمية وكتب علوم الحاسوب."
+      mwe: true
+    - lemma: "تَنْفِيذٌ مُتَزَامِنٌ"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب الزمني وعملية المعالجة المتداخلة."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

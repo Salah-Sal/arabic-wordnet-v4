@@ -1,0 +1,162 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "صراف"
+      confirm:
+        - text: "«من يبدِّل نقداً بنقد المستأمن على أموال الخزانة يقبض ويصرف ما يستحق»"
+          source: "المعجم الوسيط"
+        - text: "«من يتولى تنفيذ طلبات العملاء إيداعًا أو سحبًا»"
+          source: "المعجم الكبير"
+      expands:
+        - text: "«(فى البنك): من يتولى تنفيذ طلبات العملاء إيداعًا أو سحبًا»"
+          source: "المعجم الكبير"
+          addition: "يحدد السياق البنكي الحديث"
+    - lemma: "متعامل بالمال"
+      evidence_status: "no_material_found"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "أمين صندوق"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«أمين صندوق» — المعجم الموحد لمصطلحات التجارة والمحاسبة"
+      justification: "مصطلح تقني دقيق للشخص المسؤول عن قبض المال وصرفه في المؤسسات."
+    - lemma: "خازن"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«الذي يتولى خزن الشيء وحفظه... يتولى تسلم الغلات وخزنها وإخراجها» — المعجم الكبير"
+      justification: "مصطلح تراثي وأصيل لمن يتولى عهدة الأموال."
+  knowledge_candidates:
+    - lemma: "ممول"
+      justification: "يشمل جانب الاستثمار والدفع الوارد في التعريف (آلية: اشتقاق من الجذر م-و-ل)."
+  generation_notes: "تم التركيز على المصطلحات المسكوكة التي تغطي جوانب القبض (أمين صندوق) والصرف (صراف) والاستثمار (ممول)."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "صراف"
+      decision: confirmed
+      decision_reason: "مصطلح مركزي ومستقر في اللغة والمعاجم الحديثة والقديمة."
+      evidence_assessment:
+        case: "confirm_only"
+      nuance_differentiation: "يركز على عملية تبديل العملات (الصرف) والعمليات البنكية المباشرة."
+      example: "ذهب التاجر إلى الصراف لتبديل العملة الصعبة."
+    - lemma: "متعامل بالمال"
+      decision: removed
+      decision_reason: "تركيب وصفي حر وليس مصطلحاً مسكوكاً؛ يمكن استبدال مكوناته دون فقدان المعنى الوصفي."
+      substitution_test:
+        result: "pass"
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "أمين صندوق"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح وظيفي قياسي في المحاسبة والإدارة المالية."
+      step05_citation: "«أمين صندوق» — المعجم الموحد لمصطلحات التجارة والمحاسبة"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      nuance_differentiation: "يركز على عهدة النقد المباشرة ومسؤولية الصندوق المالي في منشأة محددة."
+      example: "طلب أمين الصندوق من الموظف فاتورة الشراء لصرف المبلغ."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "أمين صندوق"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09648150-n"
+    - lemma: "خازن"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح تراثي فصيح يشمل حفظ المال وإخراجه."
+      step05_citation: "«الذي يتولى خزن الشيء وحفظه» — المعجم الكبير"
+      nuance_differentiation: "يوحي بالمسؤولية الكبرى عن الخزانة أو بيت المال، وله دلالة تاريخية وإدارية."
+      example: "عُين الخازن مسؤولاً عن حسابات الدولة."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "خازن"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09648150-n"
+    - lemma: "ممول"
+      source: step05
+      decision: confirmed
+      decision_reason: "يغطي جانب الاستثمار الوارد في التعريف."
+      step05_citation: "«من ينفق على عمل ما» — المعجم الوسيط"
+      nuance_differentiation: "يركز على تقديم الدعم المالي والاستثمار في المشروعات."
+      example: "يبحث رواد الأعمال عن ممول يدعم ابتكاراتهم."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "ممول"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09648150-n"
+
+step3_definition:
+  current_definition: "شخص يستلم أو يستثمر أو يدفع المال"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي ترجمة حرفية؛ يفضل صياغته بأسلوب معجمي عربي يجمع الوظائف المالية."
+  authored_definitions:
+    - type: terminological
+      text: "من يتولى إدارة الأموال بالقبض أو الصرف أو الاستثمار."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-09648150-n"
+        definition_index: 0
+        text: "من يتولى إدارة الأموال بالقبض أو الصرف أو الاستثمار."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عامل، فاعل"
+    test_result: "correct"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "صراف"
+      enrichment:
+        root: "ص ر ف"
+      examples:
+        - text: "مُقَابَلَتَيْنِ شَدَّهُمَا طُفَيْلٌ / بَصَرَّافَيْنِ عَقْدُهُمَا جميلُ"
+          type: poetry
+          source: "أبو خِراش الهُذَلىّ (المعجم الكبير)"
+    - lemma: "أمين صندوق"
+      enrichment:
+        root: "أ م ن / ص ن د ق"
+      examples:
+        - text: "أمين الصندوق هو المسؤول عن مطابقة الرصيد النقدي الفعلي بالرصيد الدفتري."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "خازن"
+      enrichment:
+        root: "خ ز ن"
+      examples:
+        - text: "كان الخازن في العصور الإسلامية يتولى الإشراف على مخازن الدولة."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "ممول"
+      enrichment:
+        root: "م و ل"
+      examples:
+        - text: "يعمل الممول على توفير السيولة اللازمة لبدء النشاط التجاري."
+          type: usage
+          source: "مؤلَّف"
+  cultural_fit:
+    assessment: native
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-09648150-n"
+        text: "يقوم الصراف بتحويل العملات الأجنبية للمسافرين."

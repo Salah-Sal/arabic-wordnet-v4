@@ -1,0 +1,210 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمة الحالية "بقايا الشحم" هي عبارة وصفية وليست مصطلحاً معجمياً وحيداً.
+      - غياب المصطلحات التراثية الدقيقة لهذا المفهوم في النسخة الحالية.
+    observations: "المفهوم يشير إلى الثفل الناتج عن صهر الدهون، وهناك ألفاظ عربية قديمة دقيقة لهذا المعنى مثل الخلاص والقشدة والإثر."
+  blind_candidates:
+    - lemma: "خُلَاص"
+      generation_method: ishtiqaq
+      justification: "ما خَلَص من السمن أو الشحم بعد طبخه وتصفيته."
+    - lemma: "قِشْدَة"
+      generation_method: majaz
+      justification: "ثفل السمن أو الزبد المتبقي في أسفل القدر."
+    - lemma: "ثُمَالَة"
+      generation_method: majaz
+      justification: "ما بقي في أسفل الإناء من مادة."
+    - lemma: "قَشْد"
+      generation_method: ishtiqaq
+      justification: "من جذر قشد الذي يدل على كشط المادة أو ثفلها."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "بقايا الشحم"
+      evidence_status: "no_material_found"
+    - lemma: "خُلَاص"
+      confirm:
+        - text: "«ما خَلَص من السمن إذا طُبخ»"
+          source: "المعجم الوسيط"
+        - text: "«الثُّفْلُ الذى يكون أسفل اللَّبَنِ أو السَّمْنِ»"
+          source: "المعجم الكبير"
+        - text: "«خِلَاص: عصارة التمر المطبوخة وما خلص من السمن إذ طبخ.»"
+          source: "موسوعة السلطان قابوس"
+    - lemma: "قِشْدَة"
+      confirm:
+        - text: "«الثفل الذي يبقى في أسفل الزبد إذا طبخ... ليتخذ سمناً»"
+          source: "الصحاح في اللغة"
+        - text: "«تسمى القشدة الإثر والخلاصة والألاقة»"
+          source: "لسان العرب"
+    - lemma: "قُشَادَة"
+      confirm:
+        - text: "«ثُفْلٌ يبقى أسفل الزُّبد إذا طُبِخ ليُتَّخَذَ سَمْنًا»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "إِثْر"
+      confirm:
+        - text: "«إذا تخلص اللبن من الزبد وخلص فهو الأُثْر»"
+          source: "مقاييس اللغة (نقلاً عن أبي عبيد)"
+    - lemma: "ثُمَالَة"
+      expands:
+        - text: "«بقية الشيء في أسفل الإناء»"
+          source: "المعجم الوسيط"
+          addition: "لفظ عام يصدق على بقايا الشحم وغيرها."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "بقايا الشحم"
+      decision: confirmed
+      decision_reason: "تعبير وصفي دقيق ومستعمل في المعاجم الحديثة والترجمات العلمية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "بَقَايَا الشَّحْمِ"
+    - lemma: "خُلَاص"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح الأصيل والأدق دلالة على المادة المتبقية بعد تصفية الشحم أو السمن."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "خُلَاص", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "قِشْدَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تراثي موثق في المعاجم العربية القديمة لثفل السمن، وإن كان معناه الحديث قد انزاح نحو (Cream)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "قِشْدَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "قُشَادَة"
+      decision: confirmed
+      decision_reason: "مرادف فصيح للقشدة ويستخدم في المعاجم الحديثة لوصف ما يتبقى أسفل الزبد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "قُشَادَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "إِثْر"
+      decision: confirmed
+      decision_reason: "لفظ تراثي قديم جداً خصه اللغويون القدامى بوصف المادة المتبقية بعد تخليص الزبد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "إِثْر", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "البقايا التي تتبقى بعد إذابة الدهون الحيوانية"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط؛ يحتاج إلى صياغة معجمية أكثر دقة تبرز طبيعة المادة (الثفل) ومكان تجمعها."
+    authored:
+      - type: terminological
+        text: "ما يَتَبَقَّى من ثُفْلٍ في أَسْفَلِ الإِنَاءِ بَعْدَ طَبْخِ الشَّحْمِ أَوِ السَّمْنِ وَإِذَابَتِهِ وَتَصْفِيَتِهِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "ما يَتَبَقَّى من ثُفْلٍ في أَسْفَلِ الإِنَاءِ بَعْدَ طَبْخِ الشَّحْمِ أَوِ السَّمْنِ وَإِذَابَتِهِ وَتَصْفِيَتِهِ."}
+  examples:
+    per_lemma:
+      - lemma: "بَقَايَا الشَّحْمِ"
+        examples:
+          - text: "تُجمَعُ بَقَايَا الشَّحْمِ بَعْدَ الصَّهْرِ لتُستعمَلَ في بَعْضِ الصِّنَاعَاتِ التقليدية."
+            type: usage
+      - lemma: "خُلَاص"
+        examples:
+          - text: "يُستخدَمُ خُلَاصُ الشَّحْمِ في بَعْضِ الأَطْبَاقِ الشَّعْبِيَّةِ لإِضْفَاءِ نَكْهَةٍ دَسِمَةٍ."
+            type: usage
+      - lemma: "قِشْدَة"
+        examples:
+          - text: "تَجَمَّعَتِ القِشْدَةُ في قَاعِ المِرْجَلِ بَعْدَ غَلْيِ الزُّبْدِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تُجمَعُ بَقَايَا الشَّحْمِ بَعْدَ الصَّهْرِ لتُستعمَلَ في بَعْضِ الصِّنَاعَاتِ التقليدية."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خُلَاص"
+      entry_id: "{auto}"
+      root: "خلص"
+      maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالصَّادُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ، وَهُوَ تَنْقِيَةُ الشَّيْءِ وَتَهْذِيبُهُ... وَخُلَاصَةُ السَّمْنِ: مَا أُلْقِيَ فِيهِ مِنْ تَمْرٍ أَوْ سَوِيقٍ لِيَخْلُصَ بِهِ.»"
+    - lemma: "إِثْر"
+      entry_id: "{auto}"
+      root: "اثر"
+      maqayis_quote: "«أبو عبيد: إذا تخلص اللبن من الزبد وخلص فهو الأُثْر. قال الأصمعي: هو الأُثْر بالضم.»"
+    - lemma: "بَقَايَا الشَّحْمِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "بقايا"
+          root: "بقي"
+          maqayis_quote: "«الباء والقاف والياء كلمة واحدة، وهي دوام الشيء.»"
+        - word: "الشحم"
+          root: "شحم"
+          maqayis_quote: "«الشين والحاء والميم أصل واحد، وهو المادة الدسمة في الحيوان.»"
+  per_sense:
+    - lemma: "خُلَاص"
+      sense_id: "{auto}"
+      nuance: "المصطلح العربي الأدق للجوهر الصافي المتبقي بعد عملية التصفية."
+      mwe: false
+    - lemma: "قِشْدَة"
+      sense_id: "{auto}"
+      nuance: "ترتبط غالباً بما يتبقى من الزبد المطبوع، وقد انزاح معناها حديثاً ليشير إلى القشدة (Cream)."
+      mwe: false
+    - lemma: "بَقَايَا الشَّحْمِ"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي عام وشامل لكل مخلفات عملية الصهر."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خلص","maqayis":"«الْخَاءُ وَاللَّامُ وَالصَّادُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ، وَهُوَ تَنْقِيَةُ الشَّيْءِ وَتَهْذِيبُهُ... وَخُلَاصَةُ السَّمْنِ: مَا أُلْقِيَ فِيهِ مِنْ تَمْرٍ أَوْ سَوِيقٍ لِيَخْلُصَ بِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العربي الأدق للجوهر الصافي المتبقي بعد عملية التصفية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

@@ -1,0 +1,212 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة «أداة» دلالتها عامة جداً (tool) ولا تعبر عن نسيان الاسم أو الجهل به."
+      - "اللمة «أداة مبهمة الاسم» هي تركيب وصفي حر (Free Phrase) وليست وحدة معجمية مسكوكة."
+      - "اللمة «شيء ما» تعني ببساطة (something) ولا تنقل دلالة عدم التحديد لنسيان الاسم (whatchamacallit/thingamajig)."
+    observations: "المفهوم يعبر عن فجوة معجمية (lexical gap) في العربية المعاصرة؛ إذ لا توجد كلمة واحدة شائعة تقابل (gizmo/thingamajig) بدقة. في التراث تستخدم (هَنَة) للكناية عن الأشياء التي لا تُسمى. وفي المعاجم الحديثة المزدوجة (كالمورد) يُلجأ إلى التراكيب الوصفية مثل (شيء مجهول الاسم)."
+  blind_candidates:
+    - lemma: "هَنَةٌ"
+      generation_method: majaz
+      justification: "كلمة كلاسيكية يُكنى بها عن الأشياء والأجناس التي لا تذكر بأسمائها (الشيء الذي يُستقبح ذكره أو يُجهل اسمه)."
+    - lemma: "شَيْءٌ مَجْهُولُ الِاسْمِ"
+      generation_method: tarkib
+      justification: "تعبير وصفي مركب يستخدم عادة في المعاجم ثنائية اللغة لترجمة المفاهيم المماثلة (مثل thingamajig)."
+    - lemma: "بَتَاعٌ"
+      generation_method: majaz
+      justification: "لفظ دارج يُستخدم بكثرة للإشارة إلى شيء نسي اسمه أو لتعويض اسم مفقود في سياق الكلام، ورغم عاميته فهو يعبر بدقة عن المفهوم."
+    - lemma: "أَدَاةٌ غَرِيبَةٌ"
+      generation_method: tarkib
+      justification: "تعبير وصفي للأداة التي لا يُعرف كنهها أو اسمها."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "أداة"
+      contradicts:
+        - text: "«(الأداة) الْآلَة الصَّغِيرَة و (فِي اصْطِلَاح النَّحْوِيين) اللَّفْظَة تسْتَعْمل للربط...»"
+          source: "المعجم الوسيط"
+          conflict: "تعني الآلة عموماً ولا تفيد معنى الجهل بالاسم أو نسيانه كما يقتضي المفهوم."
+    - lemma: "أداة مبهمة الاسم"
+      evidence_status: "no_material_found"
+    - lemma: "شيء ما"
+      contradicts:
+        - text: "«(1) شيء؛ شيء ما (2) حلية؛ زينة [تافهة].»"
+          source: "المورد الحديث"
+          conflict: "لفظ عام يعني (something) ولا يحمل دلالة نسيان الاسم بشكل مخصص، ويفضل تخصيصه بالوصف."
+    - lemma: "هَنَةٌ"
+      confirm:
+        - text: "«(الهن) الشَّيْء وكناية عَن الشَّيْء يستقبح ذكره وكناية عَن الرجل يُقَال ياهن أقبل... (الهنة) مؤنث الهن»"
+          source: "المعجم الوسيط"
+        - text: "«هَنَةٌ may be rendered something, somewhat: it denotes anything.»"
+          source: "المعجم العربي الإنجليزي لإدوارد وليام لين"
+    - lemma: "شَيْءٌ مَجْهُولُ الِاسْمِ"
+      confirm:
+        - text: "«(1) شيء يَصْعُب تصنيفُهُ (2) شيء مجهول [أو منسيّ] الاسم.»"
+          source: "المورد الحديث (ترجمة لـ thingamajig)"
+    - lemma: "بَتَاعٌ"
+      evidence_status: "no_material_found"
+    - lemma: "أَدَاةٌ غَرِيبَةٌ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "أداة"
+      decision: removed
+      decision_reason: "دلالتها عامة تعني الآلة أو الأداة ولا تفيد معنى الجهل بالاسم أو نسيانه المطلوب في المجموعة."
+      evidence_assessment:
+        case: contradicts_only
+      actions:
+        - command: remove_sense
+          params: {sense_id: "{auto}"}
+    - lemma: "أداة مبهمة الاسم"
+      decision: removed
+      decision_reason: "تركيب وصفي حر غير مسكوك معجمياً، والأفضل الاستعاضة عنه بما ورد في المعاجم الثنائية المعتمدة."
+      evidence_assessment:
+        case: no_material
+      actions:
+        - command: remove_sense
+          params: {sense_id: "{auto}"}
+    - lemma: "شيء ما"
+      decision: removed
+      decision_reason: "تعبير عام يعني (something) ويفتقر إلى التخصيص الدلالي المتعلق بنسيان الاسم. وقد خُصصت له مجموعة منفصلة."
+      evidence_assessment:
+        case: contradicts_only
+      actions:
+        - command: remove_sense
+          params: {sense_id: "{auto}"}
+    - lemma: "هَنَةٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فصيح يُكنى به عن الأشياء والأجناس التي لا تذكر بأسمائها، وهو أقرب مقابل عربي فصيح للمفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "هَنَةٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "شَيْءٌ مَجْهُولُ الِاسْمِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير مسكوك مستخدم في المعاجم ثنائية اللغة (المورد) لترجمة المصطلحات الدالة على الأشياء التي نسي اسمها (مثل thingamajig)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "شَيْءٌ مَجْهُولُ الِاسْمِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "بَتَاعٌ"
+      source: stage1
+      decision: removed
+      decision_reason: "لفظة عامية (مصرية) لا تناسب المعجم الفصيح رغم دقتها وشيوعها في التعبير عن المفهوم."
+      evidence_assessment:
+        case: no_material
+    - lemma: "أَدَاةٌ غَرِيبَةٌ"
+      source: stage1
+      decision: removed
+      decision_reason: "تركيب وصفي غير مسكوك معجمياً."
+      evidence_assessment:
+        case: no_material
+
+stage4_content:
+  definition:
+    current: "شيء غير محدد تم نسيان اسمه أو غير معروف"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يبدو كترجمة حرفية مفككة. الصياغة اللغوية المباشرة أبلغ وأدق."
+    authored:
+      - type: linguistic
+        text: "مَا يُشارُ إليهِ مِنْ الأشياءِ عنْدَ الجهلِ باسمِهِ أو نِسْيَانِهِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مَا يُشارُ إليهِ مِنْ الأشياءِ عنْدَ الجهلِ باسمِهِ أو نِسْيَانِهِ."}
+  examples:
+    per_lemma:
+      - lemma: "هَنَةٌ"
+        examples:
+          - text: "أَعْطِنِي تِلْكَ الهَنَةَ لِأُصْلِحَ بِهَا البَابَ."
+            type: usage
+      - lemma: "شَيْءٌ مَجْهُولُ الِاسْمِ"
+        examples:
+          - text: "وَجَدْتُ شَيْئاً مَجْهُولَ الِاسْمِ فِي صُنْدُوقِ الأَدَوَاتِ القَدِيمَةِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "أَعْطِنِي تِلْكَ الهَنَةَ لِأُصْلِحَ بِهَا البَابَ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "وَجَدْتُ شَيْئاً مَجْهُولَ الِاسْمِ فِي صُنْدُوقِ الأَدَوَاتِ القَدِيمَةِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "هَنَةٌ"
+      entry_id: "{auto}"
+      root: "هنن"
+      maqayis_quote: "«(هَنَّ) الْهَاءُ وَالنُّونُ... وَإِنَّمَا نَقِفُ فِي مِثْلِ هَذِهِ الْمُشْكِلَاتِ حَيْثُ وُقِّفْنَا»"
+    - lemma: "شَيْءٌ مَجْهُولُ الِاسْمِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "شيء"
+          root: "شيأ"
+        - word: "مجهول"
+          root: "جهل"
+          maqayis_quote: "«(جَهِلَ) الْجِيمُ وَالْهَاءُ وَاللَّامُ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْعِلْمِ، وَالْآخَرُ الْخِفَّةُ وَخِلَافُ الطُّمَأْنِينَةِ...»"
+        - word: "الاسم"
+          root: "سمو"
+          maqayis_quote: "«(سَمَوَ) السِّينُ وَالْمِيمُ وَالْوَاوُ أَصْلٌ يَدُلُّ عَلَى الْعُلُوِّ... وَيُقَالُ إِنَّ أَصْلَ اسْمٍ سِمْوٌ، وَهُوَ مِنَ الْعُلُوِّ...»"
+  per_sense:
+    - lemma: "هَنَةٌ"
+      sense_id: "{auto}"
+      nuance: "لفظ تراثي كلاسيكي يُستخدم للكناية عن الأشياء التي لا يُذكر اسمها."
+      mwe: false
+    - lemma: "شَيْءٌ مَجْهُولُ الِاسْمِ"
+      sense_id: "{auto}"
+      nuance: "تعبير حديث يُستخدم عادة لترجمة المصطلحات الأجنبية التي تدل على الأشياء المبهمة."
+      mwe: true
+  synset:
+    cultural_fit: lexical_gap
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"هنن","maqayis":"«(هَنَّ) الْهَاءُ وَالنُّونُ... وَإِنَّمَا نَقِفُ فِي مِثْلِ هَذِهِ الْمُشْكِلَاتِ حَيْثُ وُقِّفْنَا»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"شيء","root":"شيأ"},{"word":"مجهول","root":"جهل","maqayis":"«(جَهِلَ) الْجِيمُ وَالْهَاءُ وَاللَّامُ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْعِلْمِ...»"},{"word":"الاسم","root":"سمو","maqayis":"«(سَمَوَ) السِّينُ وَالْمِيمُ وَالْوَاوُ أَصْلٌ يَدُلُّ عَلَى الْعُلُوِّ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"لفظ تراثي كلاسيكي يُستخدم للكناية عن الأشياء التي لا يُذكر اسمها.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير حديث يُستخدم عادة لترجمة المصطلحات الأجنبية التي تدل على الأشياء المبهمة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"lexical_gap"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.85

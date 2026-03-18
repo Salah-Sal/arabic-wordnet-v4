@@ -46,8 +46,73 @@ RATE_LIMIT_PATTERNS = [
     "quota exceeded", "RESOURCE_EXHAUSTED", "quotaExceeded",
 ]
 
+AUTH_ERROR_PATTERNS = [
+    "authentication_error", "authentication_failed",
+    "401", "oauth token", "token expired", "token has expired",
+    "invalid api key", "invalid_api_key", "unauthorized",
+    "api key not valid", "credentials",
+]
+
 # Max cooldown cap to avoid blocking on stale/incorrect timestamps
 MAX_COOLDOWN_SECONDS = 3600  # 1 hour
+
+
+class ErrorClassifier:
+    """Classifies subprocess failures into actionable categories."""
+
+    @staticmethod
+    def classify(combined_text: str, is_rate_limited: bool, exit_code: int) -> str:
+        low = combined_text.lower()
+        if any(p in low for p in AUTH_ERROR_PATTERNS):
+            return "auth"
+        if is_rate_limited:
+            return "rate_limit"
+        if exit_code == -9:
+            return "timeout"
+        return "unknown"
+
+
+class CircuitBreaker:
+    """Stops a batch on repeated same-class failures.
+
+    Auth errors trip immediately. Other error classes trip after
+    `threshold` consecutive failures of the same type.
+    """
+
+    def __init__(self, threshold: int, shutdown_event: asyncio.Event):
+        self._threshold = threshold
+        self._shutdown_event = shutdown_event
+        self._consecutive: dict[str, int] = {}
+        self._trip_reason: str | None = None
+        self._lock = asyncio.Lock()
+
+    @property
+    def tripped(self) -> bool:
+        return self._trip_reason is not None
+
+    @property
+    def trip_reason(self) -> str | None:
+        return self._trip_reason
+
+    async def record_success(self):
+        async with self._lock:
+            self._consecutive.clear()
+
+    async def record_failure(self, error_class: str) -> bool:
+        async with self._lock:
+            if error_class == "auth":
+                self._trip_reason = f"AUTH_ERROR:{error_class}"
+                self._shutdown_event.set()
+                return True
+            for cls in list(self._consecutive):
+                if cls != error_class:
+                    self._consecutive[cls] = 0
+            self._consecutive[error_class] = self._consecutive.get(error_class, 0) + 1
+            if self._consecutive[error_class] >= self._threshold:
+                self._trip_reason = f"CONSECUTIVE:{error_class}:{self._consecutive[error_class]}"
+                self._shutdown_event.set()
+                return True
+            return False
 
 # Gemini model fallback chain: flash → pro → stop
 MODEL_FALLBACK_CHAIN = [
@@ -324,6 +389,7 @@ class BatchRunner:
         resume_items: list[tuple[str, int]] | None = None,
         adaptive: bool = False,
         tree_size: int | None = None,
+        circuit_breaker_threshold: int = 5,
     ):
         self.synset_ids = synset_ids
         self.workers = min(workers, MAX_WORKERS)
@@ -357,6 +423,9 @@ class BatchRunner:
             self.semaphore = asyncio.Semaphore(self.workers)
             self.controller = None
         self.shutdown_event = asyncio.Event()
+        self.circuit_breaker = CircuitBreaker(
+            threshold=circuit_breaker_threshold, shutdown_event=self.shutdown_event
+        )
         self.fallback = ModelFallbackChain(
             primary_model=self.model,
             chain=MODEL_FALLBACK_CHAIN,
@@ -410,11 +479,27 @@ class BatchRunner:
             pass
 
         # Finalize
-        status = "interrupted" if self.shutdown_event.is_set() else "completed"
+        if self.circuit_breaker.tripped:
+            status = "circuit_breaker"
+        elif self.shutdown_event.is_set():
+            status = "interrupted"
+        else:
+            status = "completed"
         self.db.finish_run(self.run_id, status)
         self._print_summary()
 
+        # Structured summary for orchestrator parsing
         stats = self.db.get_stats(self.run_id)
+        total = stats["success"] + stats["failed"]
+        summary = {
+            "success": stats["success"],
+            "failed": stats["failed"],
+            "failure_rate": round(stats["failed"] / total, 4) if total > 0 else 0.0,
+            "circuit_breaker_tripped": self.circuit_breaker.tripped,
+            "circuit_breaker_reason": self.circuit_breaker.trip_reason,
+        }
+        print(f"BATCH_EXIT_SUMMARY:{json.dumps(summary)}")
+
         return 0 if stats["failed"] == 0 else 1
 
     def _build_work_queue(self) -> list[tuple[str, int]]:
@@ -509,6 +594,7 @@ class BatchRunner:
                 traj_info = self._parse_trajectory(synset_id)
                 self.db.mark_success(synset_id, self.run_id, traj_info.cost, dur)
                 logger.info(f"[{synset_id}] OK {dur:.0f}s ~${traj_info.cost:.4f} ({model_short})")
+                await self.circuit_breaker.record_success()
                 if self.controller:
                     self.controller.on_success()
                 return True
@@ -530,6 +616,13 @@ class BatchRunner:
             # Rate limit detection: prefer trajectory, fall back to text matching
             traj_info = self._parse_trajectory(synset_id)
             is_rl = traj_info.rate_limited or ConcurrencyController.is_rate_limited(combined)
+
+            # Circuit breaker: classify and record
+            error_class = ErrorClassifier.classify(combined, is_rl, rc)
+            tripped = await self.circuit_breaker.record_failure(error_class)
+            if tripped:
+                logger.error(f"[{synset_id}] Circuit breaker tripped: {self.circuit_breaker.trip_reason}")
+                return False
 
             if is_rl:
                 if traj_info.rate_limited:

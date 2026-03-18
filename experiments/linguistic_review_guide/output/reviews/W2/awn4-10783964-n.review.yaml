@@ -1,0 +1,198 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "المفهوم الإنجليزي 'walk-in' يُشار إليه عادةً بلفظة مفردة تعمل كاسم أو صفة، بينما تفتقر العربية الفصحى للفظة مفردة شائعة لهذا المعنى الدقيق في سياق الخدمات الحديثة."
+      - "اللمة الحالية 'زائر دون موعد' هي عبارة وصفية وليست وحدة معجمية مسكوكة بالكامل."
+    observations: "المفهوم يشير إلى الشخص الذي يقصد جهة ما (عيادة، صالون، مكتب) طلباً للخدمة دون تنسيق مسبق. في العربية المعاصرة يُعبر عن ذلك بالتركيب الإضافي أو الوصفي."
+  blind_candidates:
+    - lemma: "زَائِرٌ بِلَا مَوْعِدٍ"
+      generation_method: tarkib
+      justification: "تركيب وصفي مباشر وشائع للزيارات الاجتماعية والتجارية."
+    - lemma: "مُرَاجِعٌ بِدُونِ مَوْعِدٍ"
+      generation_method: tarkib
+      justification: "تركيب اصطلاحي شائع في السياق الإداري والطبي (المراجعة للعيادات والمكاتب)."
+    - lemma: "طَارِقٌ"
+      generation_method: majaz
+      justification: "لفظ تراثي لمن يطرق الباب فجأة أو ليلاً، ويمكن توسيعه دلالياً ليشمل الزائر المفاجئ."
+    - lemma: "وَافِدٌ عَفْوِيٌّ"
+      generation_method: tarkib
+      justification: "تعبير يصف طبيعة الحضور غير المخطط له."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "زَائِر دُونَ مَوْعِد"
+      confirm:
+        - text: "«زَارَهُ زَوْراً وزِيَارَةً: قصده.»"
+          source: "المعجم الوسيط"
+        - text: "«مَوْعِد: وقت ومكان ضُرِب للقاء.»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "مُرَاجِعٌ بِدُونِ مَوْعِدٍ"
+      confirm:
+        - text: "«حيث حضرت بدون موعد فلن يقابلك المدير»"
+          source: "معجم اللغة العربية المعاصرة (في مدخل حيث)"
+      expands:
+        - text: "«مُراجَعَةُ الدَّوائِرِ الحُكومِيَّة: الاختلاف إليها لإنجاز معاملة.»"
+          source: "المعجم الوسيط (مستخلص)"
+    - lemma: "طَارِئٌ"
+      confirm:
+        - text: "«طارئ: آتٍ من غير موعد walk-in patients»"
+          source: "المورد الحديث (2008)"
+      expands:
+        - text: "«الطارئ: الغريب الحادث المفاجئ.»"
+          source: "المعجم الكبير"
+    - lemma: "طَارِقٌ"
+      expands:
+        - text: "«الطارق: الآتي ليلاً طلبًا للضيافة، أو الاسْتِغاثَة، ونحوهما.»"
+          source: "المعجم الكبير"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "زَائِر دُونَ مَوْعِد"
+      decision: confirmed
+      decision_reason: "اللفظ الحالي دقيق ووصف مقبول للمفهوم في السياق العام."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "زَائِرٌ دُونَ مَوْعِدٍ"
+    - lemma: "مُرَاجِعٌ بِدُونِ مَوْعِدٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تقني شائع جداً في البيئات المهنية والطبية والخدمية لوصف هذا النوع من الزوار."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "مُرَاجِعٌ بِدُونِ مَوْعِدٍ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "طَارِئٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "كلمة مفردة توثقها المعاجم الحديثة (المورد) للدلالة على القادم بغير موعد، وتدعمها المعاجم التراثية بمعنى 'الغريب'."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "طَارِئٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "طَارِقٌ"
+      source: stage1
+      decision: removed
+      decision_reason: "الصبغة التراثية والارتباط بالليل في المعاجم القديمة يجعلها غير ملائمة للسياق الخدمي الحديث المقصود بالمصطلح."
+
+stage4_content:
+  definition:
+    current: "شخص يدخل دون الحصول على موعد مسبق"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب، ويحتاج إلى تحديد سياق الزيارة (الطلب للخدمة أو المراجعة) لتمييزه عن الدخول العابر."
+    authored:
+      - type: terminological
+        text: "شَخْصٌ يَقْصِدُ مَحَلَّ عَمَلٍ أَوْ عِيَادَةً أَوْ مَكْتَبًا لِطَلَبِ خِدْمَةٍ دُونَ حُصُولٍ عَلَى مَوْعِدٍ مُسْبَقٍ أَوْ تَرْتِيبٍ تِلِيفُونِيٍّ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "شَخْصٌ يَقْصِدُ مَحَلَّ عَمَلٍ أَوْ عِيَادَةً أَوْ مَكْتَبًا لِطَلَبِ خِدْمَةٍ دُونَ حُصُولٍ عَلَى مَوْعِدٍ مُسْبَقٍ."}
+
+  examples:
+    per_lemma:
+      - lemma: "زَائِرٌ دُونَ مَوْعِدٍ"
+        examples:
+          - text: "يَسْتَقْبِلُ المَطْعَمُ كُلَّ زَائِرٍ دُونَ مَوْعِدٍ إِذَا وُجِدَتْ طَاوِلَةٌ شَاغِرَةٌ."
+            type: usage
+      - lemma: "مُرَاجِعٌ بِدُونِ مَوْعِدٍ"
+        examples:
+          - text: "تَمَّ تَخْصِيصُ سَاعَةٍ يَوْمِيًّا لِاسْتِقْبَالِ المُرَاجِعِينَ بِدُونِ مَوْعِدٍ."
+            type: usage
+      - lemma: "طَارِئٌ"
+        examples:
+          - text: "يُعَامَلُ كُلُّ طَارِئٍ لا يَمْلِكُ مَوْعِداً مُسْبَقاً بِنِظَامِ أَوْلَوِيَّةِ الوُصُولِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "خَصَّصَتِ العِيادَةُ طَبيباً لِفَحْصِ كُلِّ طَارِئٍ لا يَمْلِكُ مَوْعِداً مُسْبَقاً."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "زَائِرٌ دُونَ مَوْعِدٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "زائر"
+          root: "زور"
+          maqayis_quote: "«الزاي والواو والراء أصل واحد يدل على الميل والعدول... ومن الباب: الزائر، لأنه إذا زارك فقد عدل عن غيرك.»"
+        - word: "موعد"
+          root: "وعد"
+          maqayis_quote: "«الواو والعين والدال: كلمة صحيحة تدل على ترجية بقول.»"
+    - lemma: "مُرَاجِعٌ بِدُونِ مَوْعِدٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مراجع"
+          root: "رجع"
+          maqayis_quote: "«الراء والجيم والعين أصل واحد، وهو عود الشيء.»"
+        - word: "موعد"
+          root: "وعد"
+          maqayis_quote: "«الواو والعين والدال: كلمة صحيحة تدل على ترجية بقول.»"
+    - lemma: "طَارِئٌ"
+      entry_id: "{auto}"
+      root: "طرا"
+      maqayis_quote: "«فإذا همز قيل: طرأ فلان، إذا طلع.»"
+  per_sense:
+    - lemma: "زَائِرٌ دُونَ مَوْعِدٍ"
+      sense_id: "{auto}"
+      nuance: "التعبير العام والشامل لأي نوع من الزيارات غير المجدولة."
+      mwe: true
+    - lemma: "مُرَاجِعٌ بِدُونِ مَوْعِدٍ"
+      sense_id: "{auto}"
+      nuance: "يختص بالسياقات الإدارية والمهنية والطبية حيث يكون الهدف إنجاز معاملة أو طلب خدمة."
+      mwe: true
+    - lemma: "طَارِئٌ"
+      sense_id: "{auto}"
+      nuance: "كلمة مفردة توصف بها الحالة، وتستخدم غالباً في السياق الطبي (المرضى القادمون دون موعد)."
+      mwe: false
+  synset:
+    cultural_fit: lexical_gap
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"زائر","root":"زور","maqayis":"«الزاي والواو والراء أصل واحد يدل على الميل والعدول... ومن الباب: الزائر، لأنه إذا زارك فقد عدل عن غيرك.»"},{"word":"موعد","root":"وعد","maqayis":"«الواو والعين والدال: كلمة صحيحة تدل على ترجية بقول.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مراجع","root":"رجع","maqayis":"«الراء والجيم والعين أصل واحد، وهو عود الشيء.»"},{"word":"موعد","root":"وعد","maqayis":"«الواو والعين والدال: كلمة صحيحة تدل على ترجية بقول.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"طرا","maqayis":"«فإذا همز قيل: طرأ فلان، إذا طلع.»"}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"lexical_gap"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

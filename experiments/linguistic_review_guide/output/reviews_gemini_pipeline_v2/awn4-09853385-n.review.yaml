@@ -1,0 +1,235 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي مقتضب جداً ولا يعكس تدرج المعاني في اللمّات الإنجليزية (balker vs noncompliant)."
+      - "اللمّات الحالية محدودة في وصف حالة 'الحِران' أو التوقف المفاجئ عن الامتثال (balking)."
+    observations: "المجموعة تدور حول الشخص الذي يمتنع عن الاستجابة أو تنفيذ ما يُطلب منه. اللمّات المقترحة تغطي الجوانب المختلفة: الرفض المبدئي (آبٍ)، والعناد المستمر (عنيد)، والممانعة الفعلية (ممانع)، والتوقف المفاجئ أو التمنع (حرون)."
+  blind_candidates:
+    - lemma: "آبٍ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من 'أبى'، وهو اللفظ الفصيح الصريح لمن يرفض الامتثال أو يمتنع عن الفعل."
+    - lemma: "حَرُون"
+      generation_method: majaz
+      justification: "لفظ مستعار من الدابة التي تتوقف وترفض المضي، ويُطلق على الشخص الذي يعاند ويرفض الامتثال لطلب معين (Balker)."
+    - lemma: "عَاصٍ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من 'عصى'، يعبر عن عدم الامتثال للأوامر أو القوانين (Noncompliant)."
+    - lemma: "شَاكِس"
+      generation_method: ishtiqaq
+      justification: "من 'شكس'، وهو سيئ الخلق الذي يصعب التعامل معه ويميل لرفض الامتثال والمخالفة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "عَنِيد"
+      confirm:
+        - text: "«العَنِيد: هو من التجبر... عَنَدَ عَنْدًا وعُنُودًا... مجاوزة وترك طريق الاستقامة»"
+          source: "مقاييس اللغة"
+        - text: "«كثير التباعد والانصراف، وكثير الاستكبار والتجاوز للحد في العصيان»"
+          source: "موسوعة السلطان قابوس"
+    - lemma: "مُمَانِع"
+      confirm:
+        - text: "«مُمانِع؛ مُعارِض؛ حَرُون (للخيل)»"
+          source: "المورد الحديث (ترجمة Balker)"
+      expands:
+        - text: "«الممانعة: المقاومة والرفض»"
+          source: "المعجم الوسيط"
+    - lemma: "آبٍ"
+      confirm:
+        - text: "«الإباءُ: مصدر قولك أَبى فلان يأْبى... أَي امتنع... فهو آبٍ وأَبيٌّ»"
+          source: "لسان العرب"
+        - text: "«أبى الشَّيءَ: أنفه، كرِهه ولم يرض به»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "حَرُون"
+      confirm:
+        - text: "«(حَرَنَ) الحاء والراء والنون أصل واحد، وهو لزوم الشيء للشيء لا يكاد يفارقه. فالحران في الدابة معروف»"
+          source: "مقاييس اللغة"
+        - text: "«حَرُون: الشخص الذي يعاند في رأيه ويرفض الامتثال»"
+          source: "المعجم الوسيط (بالمعنى المجازي)"
+    - lemma: "عَاصٍ"
+      confirm:
+        - text: "«العصيان: خلاف الطاعة... عَصَى يَعْصِي عَصْيًا وعِصْيانًا... فهو عاصٍ»"
+          source: "لسان العرب"
+    - lemma: "مُعَانِد"
+      confirm:
+        - text: "«المُعَانِد: المخالف والمعارض»"
+          source: "موسوعة السلطان قابوس"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "عَنِيد"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي يعبر عن الشخص الذي يرفض الامتثال بدافع الاستكبار أو العناد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عَنِيدٌ"
+    - lemma: "مُمَانِع"
+      decision: confirmed
+      decision_reason: "يعبر عن الفعل المباشر للامتناع والرفض، وهو مقابل دقيق لـ Noncompliant."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُمَانِعٌ"
+    - lemma: "آبٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اللفظ الأصيل في العربية للامتناع والرفض الطوعي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "آبٍ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "حَرُون"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح مجازي دقيق لوصف حالة 'Balker' (الشخص الذي يتوقف فجأة عن الامتثال)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "حَرُونٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُعَانِد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر عن صفة المخالفة والمعارضة الصريحة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُعَانِدٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "عَاصٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر عن الجانب القانوني أو السلوكي لعدم الامتثال للأوامر."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "عَاصٍ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "شخص يرفض الامتثال"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يحتاج إلى تفصيل ليشمل الامتناع عن التنفيذ أو التوقف عن المضي في العمل."
+    authored:
+      - type: terminological
+        text: "شَخْصٌ يَمْتَنِعُ عَنِ الِانْصِيَاعِ لِلْأَوَامِرِ أَوْ يَرْفُضُ الْمُضِيَّ فِيمَا كُلِّفَ بِهِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "شَخْصٌ يَمْتَنِعُ عَنِ الِانْصِيَاعِ لِلْأَوَامِرِ أَوْ يَرْفُضُ الْمُضِيَّ فِيمَا كُلِّفَ بِهِ."}
+  examples:
+    per_lemma:
+      - lemma: "عَنِيدٌ"
+        examples:
+          - text: "كَانَ الرَّجُلُ عَنِيدًا لَا يَقْبَلُ التَّسْوِيَةَ مَهْمَا عُرِضَ عَلَيْهِ."
+            type: usage
+      - lemma: "مُمَانِعٌ"
+        examples:
+          - text: "ظَلَّ مُمَانِعًا لِأَيِّ تَعَاوُنٍ مَعَ السُّلُطَاتِ."
+            type: usage
+      - lemma: "آبٍ"
+        examples:
+          - text: "إِنَّهُ آبٍ لِكُلِّ مَا يُخَالِفُ مَبَادِئَهُ."
+            type: usage
+      - lemma: "حَرُونٌ"
+        examples:
+          - text: "كَانَ فِي عَمَلِهِ حَرُونًا يَتَوَقَّفُ عِنْدَ كُلِّ طَلَبٍ جَدِيدٍ."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "عَنِيدٌ"
+      entry_id: "{auto}"
+      root: "عند"
+      maqayis_quote: "«العَيْنُ وَالنُّونُ وَالدَّالُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى مُجَاوَزَةٍ وَتَرْكِ طَرِيقِ الِاسْتِقَامَةِ.»"
+    - lemma: "مُمَانِعٌ"
+      entry_id: "{auto}"
+      root: "منع"
+      maqayis_quote: "«الْمِيمُ وَالنُّونُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ هُوَ خِلَافُ الْإِعْطَاءِ.»"
+    - lemma: "آبٍ"
+      entry_id: "{auto}"
+      root: "أبي"
+      maqayis_quote: "«الْهَمْزَةُ وَالْبَاءُ وَالْيَاءُ يَدُلُّ عَلَى الِامْتِنَاعِ.»"
+    - lemma: "حَرُونٌ"
+      entry_id: "{auto}"
+      root: "حرن"
+      maqayis_quote: "«الْحَاءُ وَالرَّاءُ وَالنُّونُ أَصْلٌ وَاحِدٌ، وَهُوَ لُزُومُ الشَّيْءِ لِلشَّيْءِ لَا يَكَادُ يُفَارِقُهُ.»"
+    - lemma: "عَاصٍ"
+      entry_id: "{auto}"
+      root: "عصي"
+      maqayis_quote: "«الْعَيْنُ وَالصَّادُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى التَّجَمُّعِ وَالْقُوَّةِ وَالِامْتِنَاعِ.»"
+  per_sense:
+    - lemma: "عَنِيدٌ"
+      sense_id: "{auto}"
+      nuance: "يدل على الرفض القائم على العناد وتجاوز الحد."
+      mwe: false
+    - lemma: "مُمَانِعٌ"
+      sense_id: "{auto}"
+      nuance: "يدل على فعل الامتناع والمقاومة المباشرة."
+      mwe: false
+    - lemma: "آبٍ"
+      sense_id: "{auto}"
+      nuance: "يدل على الرفض المبدئي أو الترفع عن القبول."
+      mwe: false
+    - lemma: "حَرُونٌ"
+      sense_id: "{auto}"
+      nuance: "يدل على التوقف المفاجئ عن الامتثال (مثل الدابة التي تحرن)."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عند","maqayis":"«العَيْنُ وَالنُّونُ وَالدَّالُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى مُجَاوَزَةٍ وَتَرْكِ طَرِيقِ الِاسْتِقَامَةِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يدل على الرفض القائم على العناد وتجاوز الحد.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

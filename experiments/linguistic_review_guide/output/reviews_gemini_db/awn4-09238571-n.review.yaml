@@ -1,0 +1,143 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "خليج"
+      confirm:
+        - text: "«امتدادٌ من مياه البِحارِ أو الأَنْهارِ مُتَوغِّلٌ فى اليابسِ»"
+          source: "المعجم الكبير"
+        - text: "«امتداد من المَاء متوغل فِي الْيَابِس»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«والنهير يقتطع من النَّهر الْكَبِير إِلَى جِهَة ينْتَفع بِهِ»"
+          source: "المعجم الوسيط"
+          addition: "المعنى يشمل أيضاً النهر المقتطع من نهر كبير، إلى جانب الامتداد البحري."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "شرم"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«كل شق غير نافذ في جبل أو حائط ومن البحر خليج منه» — المعجم الوسيط"
+      justification: "مصطلح جغرافي مستخدم في العربية للدلالة على الخليج الصغير أو المدخل البحري، ويقترب جداً من مفهوم bay المتميز عن gulf."
+    - lemma: "جون"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«خليج صغير» — المعجم الموحد لمصطلحات الجيولوجيا"
+      justification: "الجون مصطلح دقيق يستخدم في الجغرافيا للدلالة على مدخل مائي، وقد يترادف في بعض الاستعمالات مع bay وإن كان تعريفه الأصلي أدق في cove، لكنه وجد كترجمة معتمدة لـ bay."
+  knowledge_candidates:
+    - lemma: "خور"
+      justification: "آلية التركيب: يطلق الخور على مصب الماء في البحر والخليج منه، وهو مصطلح متداول للامتدادات المائية المشابهة لـ bay مثل خور دبي."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "خليج"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي وشائع ومعتمد في المعاجم لوصف الامتداد المائي داخل اليابسة."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "مصطلح عام يشمل الامتدادات المائية المتوغلة في اليابسة باختلاف أحجامها، وهو اللفظ الأشيع."
+      example: "تتميز السواحل المتعرجة بوجود أكثر من خليج صالح لرسو السفن."
+
+    - lemma: "شرم"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح عربي فصيح وشائع جغرافياً بمعنى الخليج، ويناسب التدرج الحجمي."
+      step05_citation: "«كل شق غير نافذ في جبل أو حائط ومن البحر خليج منه» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يميل للدلالة على الخليج الذي يكون مدخله ضيقاً ومياهه أعمق، مثل شرم الشيخ."
+      example: "أرست السفن في الشرم للاحتماء من العاصفة."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "شرم"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09238571-n"
+
+    - lemma: "جون"
+      source: step05
+      decision: removed
+      decision_reason: "التعريف الأصلي للمجموعة ينص صراحة على أن هذا المفهوم 'أكبر من الجون'، لذا إدراجه هنا يناقض التعريف ويخلط بين مفاهيم cove و bay."
+      step05_citation: "«خليج صغير» — المعجم الموحد لمصطلحات الجيولوجيا"
+
+    - lemma: "خور"
+      source: step05
+      decision: removed
+      decision_reason: "الخور أقرب جغرافياً إلى مصب النهر ذي حركة المد والجزر أو الوادي البحري (creek/estuary)، مما يجعله مختلفاً دلالياً عن bay."
+      step05_citation: "استنتاج معرفي"
+
+  synset_flags:
+    definition_review_needed: true
+  added_lemmas:
+    - lemma: "شرم"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "create_entry + add_sense"
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "مسافة غائرة في الخط الساحلي، أكبر من الجون وأصغر من الخليج الكبير (Gulf)"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي ذو صياغة حرفية مفرطة (مسافة غائرة) ويستخدم مركباً وصفياً أجنبياً (الخليج الكبير) كمصطلح. إعادة الصياغة بأسلوب معجمي أكثر سلاسة."
+  authored_definitions:
+    - type: terminological
+      text: "امتدادٌ من مياه البحر أو البحيرة متوغِّلٌ في اليابسة، مساحته وفتحة اتصاله بالبحر أكبر من الجون وأصغر من الخليج الكبير."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-09238571-n"
+        definition_index: 0
+        text: "امتدادٌ من مياه البحر أو البحيرة متوغِّلٌ في اليابسة، مساحته وفتحة اتصاله بالبحر أكبر من الجون وأصغر من الخليج الكبير."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-09248053-n (مسطح مائي)"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "خليج"
+        antonym_found: false
+      - lemma: "شرم"
+        antonym_found: false
+  verb_checks:
+    applicable: false
+  selectional_restrictions:
+    - lemma: "خليج"
+      constraint: "يرتبط جغرافياً بالمسطحات المائية الكبيرة كالبحار واليابسة"
+    - lemma: "شرم"
+      constraint: "يرتبط جغرافياً بالمسطحات المائية الكبيرة كالبحار واليابسة"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "خليج"
+      enrichment:
+        root: "خ-ل-ج"
+      examples:
+        - text: "ما البِحارُ كالخُلْجان ولا اللُّؤْلُؤُ كالمَرْجان."
+          type: usage
+          source: "المعجم الكبير"
+      pos_check:
+        pos: noun
+    - lemma: "شرم"
+      enrichment:
+        root: "ش-ر-م"
+      examples:
+        - text: "أرست السفن في الشرم للاحتماء من العاصفة."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-09238571-n"
+        text: "ما البِحارُ كالخُلْجان ولا اللُّؤْلُؤُ كالمَرْجان."

@@ -1,0 +1,244 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "قيد التعريف الحالي بحصر الفحم في العصر الكربوني فقط، بينما يوجد فحم من عصور أخرى (مثل الليجنيت من العصر الثالث)."
+      - "اللبس المحتمل بين الفحم الحجري (المعدني) والفحم النباتي (الخشب) عند إطلاق لفظ 'فحم' بمفرده."
+    observations: "تتفق المعاجم الحديثة على أن الفحم الحجري صخر رسوبي كربوني المنشأ، وهو وقود أحفوري أساسي."
+  blind_candidates:
+    - lemma: "فَحْم حَجَرِيّ"
+      generation_method: tarkib
+      justification: "المصطلح الأكثر دقة وشيوعاً لتمييز الفحم المستخرج من الأرض عن الفحم النباتي."
+    - lemma: "فَحْم"
+      generation_method: majaz
+      justification: "الاسم العام الشائع في السياق التقني والاقتصادي (مثل: صناعة الفحم)."
+    - lemma: "فَحْم مَعْدِنِيّ"
+      generation_method: tarkib
+      justification: "مصطلح تقني يستخدم في الجيولوجيا لتمييز الفحم الأحفوري."
+    - lemma: "فَحْم أَرْضِيّ"
+      generation_method: tarkib
+      justification: "مصطلح تراثي (بوشر، دوزي) يشير إلى الفحم المستخرج من باطن الأرض."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "فحم"
+      confirm:
+        - text: "«(الفحم الحجري) معدن أسود براق أو ضارب إلى السواد تكون من مواد نباتية في جوف الأرض خلال عصور متطاولة»"
+          source: "المعجم الوسيط"
+        - text: "«صخور رسوبية صلبة، ذات لون بين الأسود والبني، تنشأ من خلال عملية كربنة بقايا النباتات»"
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة"
+    - lemma: "فحم حجري"
+      confirm:
+        - text: "«صخر رسوبي أسود اللون، يتميّز بالخشونة والصلابة، وينشأ نتيجة حدوث عملية التكربن... ناقل طاقة أحفوري»"
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة"
+        - text: "«ما يوجد من الفحم في باطن الأرض»"
+          source: "المعجم الموحد لمصطلحات الكيمياء"
+    - lemma: "فحم معدني"
+      evidence_status: "no_material_found"
+    - lemma: "فحم أرضي"
+      confirm:
+        - text: "«فحم أرضي: فحم حجري (بوشر)»"
+          source: "تكملة المعاجم العربية (دوزي)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "فَحْم"
+      decision: confirmed
+      decision_reason: "اسم الجنس الشائع والمستعمل في جميع السياقات العلمية والاقتصادية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "فَحْم"
+    - lemma: "فَحْم حَجَرِيّ"
+      decision: confirmed
+      decision_reason: "المصطلح العربي الفني الدقيق لـ coal تمييزاً له عن charcoal."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "فَحْم حَجَرِيّ"
+    - lemma: "فَحْم صَلْب"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف تقني معتبر في معاجم الطاقة (Hard coal) ويستخدم كمرادف مباشر للفحم الحجري."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "فَحْم صَلْب", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "فَحْم أَرْضِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تاريخي موثق في المعاجم العربية الوسيطة (دوزي) للإشارة إلى الفحم الحجري."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "فَحْم أَرْضِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "وقود أحفوري يتكون من مواد نباتية مكربنة ترسبت في العصر الكربوني"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يحصر تكوّن الفحم في العصر الكربوني فقط، بينما يمتد تكوينه عبر عصور جيولوجية مختلفة."
+    authored:
+      - type: terminological
+        text: "صخر رسوبي أسود أو بني اللون، غني بالكربون، يتكون من بقايا نباتية تحللت وتفحمت في باطن الأرض بفعل الضغط والحرارة عبر عصور جيولوجية طويلة، ويُستخدم وقوداً أحفورياً."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "فَحْم"
+        examples:
+          - text: "تعتمد العديد من محطات توليد الطاقة على حرق الفحم لتوليد الكهرباء."
+            type: usage
+      - lemma: "فَحْم حَجَرِيّ"
+        examples:
+          - text: "أدى اكتشاف الفحم الحجري واستخدامه في المحركات البخارية إلى انطلاق الثورة الصناعية."
+            type: usage
+      - lemma: "فَحْم صَلْب"
+        examples:
+          - text: "يتميز الفحم الصلب بكثافة طاقية عالية ونسبة كربون مرتفعة مقارنة بالفحم البني."
+            type: usage
+      - lemma: "فَحْم أَرْضِيّ"
+        examples:
+          - text: "ذكرت المصادر التاريخية استخدام الفحم الأرضي في عمليات الصهر والحدادة."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "صخر رسوبي أسود أو بني اللون، غني بالكربون، يتكون من بقايا نباتية تحللت وتفحمت في باطن الأرض بفعل الضغط والحرارة عبر عصور جيولوجية طويلة، ويُستخدم وقوداً أحفورياً."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "فَحْم"
+      entry_id: "{auto}"
+      root: "فحم"
+      maqayis_quote: "«الْفَاءُ وَالْحَاءُ وَالْمِيمُ أَصْلَانِ، يَدُلُّ أَحَدُهُمَا عَلَى سَوَادٍ وَالْآخِرُ عَلَى انْقِطَاعٍ. فَالْأَوَّلُ الْفَحْمُ ... وَهُوَ مَعْرُوفٌ.»"
+    - lemma: "فَحْم حَجَرِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "فحم"
+          root: "فحم"
+          maqayis_quote: "«الْفَاءُ وَالْحَاءُ وَالْمِيمُ أَصْلَانِ، يَدُلُّ أَحَدُهُمَا عَلَى سَوَادٍ ...»"
+        - word: "حجري"
+          root: "حجر"
+          maqayis_quote: "«الْحَاءُ وَالْجِيمُ وَالرَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الِامْتِنَاعُ بِالْقُوَّةِ. وَمِنْهُ الْحَجَرُ.»"
+    - lemma: "فَحْم صَلْب"
+      entry_id: "{auto}"
+      roots:
+        - word: "فحم"
+          root: "فحم"
+          maqayis_quote: "«الْفَاءُ وَالْحَاءُ وَالْمِيمُ أَصْلَانِ ...»"
+        - word: "صلب"
+          root: "صلب"
+          maqayis_quote: "«الصَّادُ وَاللَّامُ وَالْبَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى قُوَّةٍ وَشِدَّةٍ. مِنْ ذَلِكَ الصُّلْبُ مِنَ الشَّيْءِ، وَهُوَ الشَّدِيدُ.»"
+    - lemma: "فَحْم أَرْضِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "فحم"
+          root: "فحم"
+          maqayis_quote: "«الْفَاءُ وَالْحَاءُ وَالْمِيمُ أَصْلَانِ ...»"
+        - word: "أرضي"
+          root: "أرض"
+          maqayis_quote: "«الْأَلِفُ وَالرَّاءُ وَالضَّادُ أَصْلٌ وَاحِدٌ، وَهُوَ الَّذِي يُقَابِلُ السَّمَاءَ.»"
+  per_sense:
+    - lemma: "فَحْم"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام الشامل للفحم الأحفوري، وقد يطلق في السياق العام على الفحم النباتي أيضاً."
+      mwe: false
+    - lemma: "فَحْم حَجَرِيّ"
+      sense_id: "{auto}"
+      nuance: "المصطلح التقني الأكثر شيوعاً لوصف الفحم المستخرج من المناجم لتمييزه عن الفحم النباتي."
+      mwe: true
+    - lemma: "فَحْم صَلْب"
+      sense_id: "{auto}"
+      nuance: "يؤكد على الخصائص الفيزيائية والقيمة الحرارية العالية للفحم (Hard coal)."
+      mwe: true
+    - lemma: "فَحْم أَرْضِيّ"
+      sense_id: "{auto}"
+      nuance: "تسمية وصفية تركز على مصدر الفحم من باطن الأرض، شائعة في المراجع التاريخية."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"فحم","maqayis":"«الْفَاءُ وَالْحَاءُ وَالْمِيمُ أَصْلَانِ، يَدُلُّ أَحَدُهُمَا عَلَى سَوَادٍ وَالْآخِرُ عَلَى انْقِطَاعٍ. فَالْأَوَّلُ الْفَحْمُ ... وَهُوَ مَعْرُوفٌ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"فحم","root":"فحم","maqayis":"«الْفَاءُ وَالْحَاءُ وَالْمِيمُ أَصْلَانِ ...»"},{"word":"حجري","root":"حجر","maqayis":"«الْحَاءُ وَالْجِيمُ وَالرَّاءُ أَصْلٌ وَاحِدٌ ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"فحم","root":"فحم","maqayis":"«الْفَاءُ وَالْحَاءُ وَالْمِيمُ أَصْلَانِ ...»"},{"word":"صلب","root":"صلب","maqayis":"«الصَّادُ وَاللَّامُ وَالْبَاءُ أَصْلٌ وَاحِدٌ ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"فحم","root":"فحم","maqayis":"«الْفَاءُ وَالْحَاءُ وَالْمِيمُ أَصْلَانِ ...»"},{"word":"أرضي","root":"أرض","maqayis":"«الْأَلِفُ وَالرَّاءُ وَالضَّادُ أَصْلٌ وَاحِدٌ ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ العام الشامل للفحم الأحفوري، وقد يطلق في السياق العام على الفحم النباتي أيضاً.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح التقني الأكثر شيوعاً لوصف الفحم المستخرج من المناجم لتمييزه عن الفحم النباتي.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يؤكد على الخصائص الفيزيائية والقيمة الحرارية العالية للفحم (Hard coal).","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تسمية وصفية تركز على مصدر الفحم من باطن الأرض، شائعة في المراجع التاريخية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

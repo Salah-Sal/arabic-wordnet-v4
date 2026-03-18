@@ -1,0 +1,246 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي جيد ولكنه أقرب للترجمة الحرفية، ويحتاج إلى صياغة معجمية أدق وأشمل."
+    observations: "المفهوم يشير إلى الشخص الذي يكنّ إعجاباً أو تقديراً لشيء أو لشخص، والكلمة الأكثر شيوعاً في العربية المعاصرة للتعبير عن (fan/admirer) هي (مُعْجَب)."
+  blind_candidates:
+    - lemma: "مُسْتَحْسِن"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل استحسن، يدل على من يرى الشيء حسناً ويقبله."
+    - lemma: "مُقَدِّر"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل قدّر، بمعنى أعطى الشيء قيمته واحترامه."
+    - lemma: "مُحِبّ"
+      generation_method: majaz
+      justification: "نقل دلالي لاسم الفاعل الدال على المحبة ليعبر عن الميل الشديد والتعلق بالشيء أو الشخص."
+    - lemma: "عَاشِق"
+      generation_method: majaz
+      justification: "توسيع دلالي لكلمة عاشق لتشمل شدة الإعجاب والانبهار بالشيء."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُعْجَب"
+      confirm:
+        - text: "مُعْجَب: من (ع ج ب) المسرور بالشيء والمزهو بما يكون منه حسنا أو قبيحا."
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+    - lemma: "مُسْتَحْسِن"
+      confirm:
+        - text: "مُسْتَحْسِن: من (ح س ن) المستلطف للأشياء المتقبل لها."
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+    - lemma: "مُقَدِّر"
+      confirm:
+        - text: "مقدِّر: معادلة في تعلُّم الآلة تُستخدم لاختيار أفضل نموذج بيانات بناءً على المشاهدات الحقيقية."
+          source: "معجم البيانات والذكاء الاصطناعي (2024)"
+      expands:
+        - text: "الْمُقدر: الْمَفْرُوض. وكل لفظ حذف من التَّلَفُّظ لَا النِّيَّة فَهُوَ مُقَدّر."
+          source: "دستور العلماء للأحمدنكري"
+    - lemma: "مُحِبّ"
+      confirm:
+        - text: "مُحِبّ: من (ح ب ب) العاشق والشغوف بالشيء المولع به."
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+    - lemma: "عَاشِق"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مُعْجَب"
+      decision: confirmed
+      decision_reason: "الكلمة الشائعة والأكثر دقة للتعبير عن المفهوم (admirer/fan)، وتدل على من يبدي إعجاباً وسروراً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُعْجَب"
+    - lemma: "مُسْتَحْسِن"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اسم فاعل فصيح ومناسب للدلالة على من يقبل الشيء ويستلطفه."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُسْتَحْسِن", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُقَدِّر"
+      source: stage1
+      decision: confirmed
+      decision_reason: "من يقدر الشيء ويحترمه، مناسبة جداً للتعبير عن جزء من تعريف المفهوم (appreciator)."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُقَدِّر", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُحِبّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "شائعة الاستخدام بمعنى المتابع الشغوف والمولع بالشيء (مثل: محبو الفن)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُحِبّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "عَاشِق"
+      source: stage1
+      decision: removed
+      decision_reason: "مبالغ فيها وتستخدم أكثر في سياق الحب العاطفي الرومانسي، ولا تناسب المعنى العام للإعجاب."
+
+stage4_content:
+  definition:
+    current: "شخص يبدي إعجاباً؛ شخص يقدر أو يحترم أو يستحسن"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقبول ولكنه أشبه بتعداد للكلمات، يمكن صياغته بشكل معجمي موحد وأشمل."
+    authored:
+      - type: terminological
+        text: "شخص يكنّ الإعجاب أو التقدير أو الاحترام لشخص آخر أو لشيء ما."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "شخص يكنّ الإعجاب أو التقدير أو الاحترام لشخص آخر أو لشيء ما."}
+
+  examples:
+    per_lemma:
+      - lemma: "مُعْجَب"
+        examples:
+          - text: "احتشد المُعْجَبون بالكاتب حوله لطلب توقيعه على إصداره الأخير."
+            type: usage
+      - lemma: "مُسْتَحْسِن"
+        examples:
+          - text: "كان من المُسْتَحْسِنين للفكرة منذ عرضها الأول."
+            type: usage
+      - lemma: "مُقَدِّر"
+        examples:
+          - text: "هو مُقَدِّرٌ لجهود زملائه في العمل وتفانيهم فيه."
+            type: usage
+      - lemma: "مُحِبّ"
+        examples:
+          - text: "اجتمع مُحِبُّو الفن الأصيل في المسرح لسماع المقطوعات الكلاسيكية."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "احتشد المُعْجَبون بالكاتب حوله لطلب توقيعه على إصداره الأخير."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "كان من المُسْتَحْسِنين للفكرة منذ عرضها الأول."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "هو مُقَدِّرٌ لجهود زملائه في العمل وتفانيهم فيه."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "اجتمع مُحِبُّو الفن الأصيل في المسرح لسماع المقطوعات الكلاسيكية."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُعْجَب"
+      entry_id: "{auto}"
+      root: "عجب"
+      maqayis_quote: "«الْعَيْنُ وَالْجِيمُ وَالْبَاءُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى كِبْرٍ وَاسْتِكْبَارٍ لِلشَّيْءِ، وَالْآخَرُ خِلْقَةٌ مِنْ خِلَقِ الْحَيَوَانِ.»"
+    - lemma: "مُسْتَحْسِن"
+      entry_id: "{auto}"
+      root: "حسن"
+      maqayis_quote: "«الْحَاءُ وَالسِّينُ وَالنُّونُ أَصْلٌ وَاحِدٌ. فَالْحُسْنُ ضِدُّ الْقُبْحِ.»"
+    - lemma: "مُقَدِّر"
+      entry_id: "{auto}"
+      root: "قدر"
+      maqayis_quote: "«الْقَافُ وَالدَّالُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مَبْلَغِ الشَّيْءِ وَكُنْهِهِ وَنِهَايَتِهِ.»"
+    - lemma: "مُحِبّ"
+      entry_id: "{auto}"
+      root: "حبب"
+      maqayis_quote: "«الْحَاءُ وَالْبَاءُ أُصُولٌ ثَلَاثَةٌ، أَحَدُهَا اللُّزُومُ وَالثَّبَاتُ، وَالْآخَرُ الْحَبَّةُ مِنَ الشَّيْءِ ذِي الْحَبِّ، وَالثَّالِثُ وَصْفُ الْقِصَرِ.»"
+
+  per_sense:
+    - lemma: "مُعْجَب"
+      sense_id: "{auto}"
+      nuance: "تدل على إبداء الإعجاب والسرور بالشيء أو الشخص، وهي المعنى الشائع لكلمة (fan)."
+      mwe: false
+    - lemma: "مُسْتَحْسِن"
+      sense_id: "{auto}"
+      nuance: "تدل على الاستحسان والقبول العقلي أو الذوقي."
+      mwe: false
+    - lemma: "مُقَدِّر"
+      sense_id: "{auto}"
+      nuance: "تدل على إعطاء الشيء أو الشخص قيمته ومكانته من الاحترام والاعتبار."
+      mwe: false
+    - lemma: "مُحِبّ"
+      sense_id: "{auto}"
+      nuance: "تدل على الميل العاطفي والشغف بالشيء أو الشخص."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عجب","maqayis":"«الْعَيْنُ وَالْجِيمُ وَالْبَاءُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى كِبْرٍ وَاسْتِكْبَارٍ لِلشَّيْءِ، وَالْآخَرُ خِلْقَةٌ مِنْ خِلَقِ الْحَيَوَانِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حسن","maqayis":"«الْحَاءُ وَالسِّينُ وَالنُّونُ أَصْلٌ وَاحِدٌ. فَالْحُسْنُ ضِدُّ الْقُبْحِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قدر","maqayis":"«الْقَافُ وَالدَّالُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مَبْلَغِ الشَّيْءِ وَكُنْهِهِ وَنِهَايَتِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حبب","maqayis":"«الْحَاءُ وَالْبَاءُ أُصُولٌ ثَلَاثَةٌ، أَحَدُهَا اللُّزُومُ وَالثَّبَاتُ، وَالْآخَرُ الْحَبَّةُ مِنَ الشَّيْءِ ذِي الْحَبِّ، وَالثَّالِثُ وَصْفُ الْقِصَرِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تدل على إبداء الإعجاب والسرور بالشيء أو الشخص، وهي المعنى الشائع لكلمة (fan).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تدل على الاستحسان والقبول العقلي أو الذوقي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تدل على إعطاء الشيء أو الشخص قيمته ومكانته من الاحترام والاعتبار.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تدل على الميل العاطفي والشغف بالشيء أو الشخص.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,191 @@
+stage1_review:
+  assessment:
+    concerns:
+      - المصطلحات الموجودة (اختيار عكسي، انتقاء سلبي) مستخدمة في مجالات أخرى (الوراثة، النقل) بتعريفات مختلفة تماماً في بعض المعاجم التقنية.
+      - غياب مصطلح "اختيار سلبي" رغم شيوعه في معاجم التأمين والبيئة للدلالة على ذات المفهوم الاقتصادي.
+    observations: "المفهوم يعبر عن (Adverse Selection) في الاقتصاد، وهو مصطلح مركّب يصف خللاً في كفاءة السوق ناتجاً عن عدم تماثل المعلومات. المصطلحات العربية المعتمدة تتردد بين 'العكسي' و'السلبي' و'الضائر'."
+  blind_candidates:
+    - lemma: "اِخْتِيَارٌ سَلْبِيٌّ"
+      generation_method: tarkib
+      justification: "ترجمة اصطلاحية شائعة في أدبيات التأمين والاقتصاد الكلي، وتعبّر بدقة عن طبيعة الاختيار الذي يؤدي لنتائج غير مرغوبة."
+    - lemma: "انْتِقَاءٌ ضِدِّيٌّ"
+      generation_method: tarkib
+      justification: "تركيب وصفي يعبر عن كون الاختيار يسير في اتجاه مضاد لمصلحة السوق أو الطرف الأقل حظاً في المعلومات."
+    - lemma: "خِيَارٌ مُعَاكِسٌ"
+      generation_method: tarkib
+      justification: "تنويع على 'اختيار عكسي' باستخدام 'خيار' لتقليل اللبس مع عملية الاختيار الإجرائية."
+    - lemma: "اِخْتِيَارٌ ضَائِرٌ"
+      generation_method: tarkib
+      justification: "ترجمة لـ (Adverse) بصفة 'ضائر' المستخدمة في المعاجم الطبية والتقنية للدلالة على التأثير السلبي أو المضر."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "اختيار عكسي"
+      confirm:
+        - text: "انتقاء صفة أثناء التجربة عكس الصفة التي اختيرت سابقا فيها."
+          source: "المعجم الموحد لمصطلحات علم الوراثة (2009)"
+          conflict: "المعنى هنا وراثي بحت، لكن اللفظ هو ذاته المستخدم اقتصادياً."
+    - lemma: "انتقاء سلبي"
+      confirm:
+        - text: "يتم استخدام إجراءالانتقاء السلبي في حالات التفريغ فقط..."
+          source: "المعجم الموحد لمصطلحات النقل (2010)"
+          conflict: "المعنى لوجستي (Negative Picking)، وليس اقتصادياً."
+    - lemma: "اختيار سلبي"
+      confirm:
+        - text: "المبدأ الذي يقول أن معظم أولئك الذين يشترون عقدة التأمين يميلون إلى أن يكونون الأكثر عرضة للخطر... عند مفاوضات بين شخصين مع معلومات غير متماثلة فإن ذلك يحد من جودة المفاوضات. هذا يحدث عادة لأن الشخص مع مستوى جيد من المعلومات يمكن أن يتفاوض على عقدة بشروط أفضل."
+          source: "مسرد المناخ والبيئة وإدارة النفايات الصلبة (ArabTerm)"
+    - lemma: "انتقاء ضائر"
+      confirm:
+        - text: "«انتقاء ضائر»"
+          source: "المعجم الطبي الموحد (2009)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "اختيار عكسي"
+      decision: confirmed
+      decision_reason: "المصطلح الأكثر شيوعاً في كتب الاقتصاد العربي (مثل ترجمات ستغليتز وكروغمان) للتعبير عن Adverse Selection."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "اِخْتِيَارٌ عَكْسِيٌّ"
+    - lemma: "انتقاء سلبي"
+      decision: confirmed
+      decision_reason: "مصطلح رديف شائع يستخدم بكثرة في سياق التأمين وسوق العمل."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "انْتِقَاءٌ سَلْبِيٌّ"
+    - lemma: "اِخْتِيَارٌ سَلْبِيٌّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مدعوم بدليل معجمي صريح في ArabTerm يطابق التعريف الاقتصادي للمجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "اِخْتِيَارٌ سَلْبِيٌّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-92448349-n"}
+
+stage4_content:
+  definition:
+    current: "حالة يمتلك فيها البائعون معلومات لا يمتلكها المشترون (أو العكس) حول جانب من جوانب جودة المنتج."
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي صحيح لكنه يفتقر للجنس القريب (ظاهرة/حالة اقتصادية) ولبيان النتيجة (اختلال توازن السوق)."
+    authored:
+      - type: terminological
+        text: "ظاهرة اقتصادية ناتجة عن عدم تماثل المعلومات، حيث يمتلك أحد طرفي التعاقد (البائع عادة) معلومات أكثر دقة عن جودة السلعة من الطرف الآخر، مما يؤدي إلى غلبة السلع الرديئة في السوق."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-92448349-n"
+          definition_index: 0
+          text: "ظاهرة اقتصادية ناتجة عن عدم تماثل المعلومات، حيث يمتلك أحد طرفي التعاقد (البائع عادة) معلومات أكثر دقة عن جودة السلعة من الطرف الآخر، مما يؤدي إلى غلبة السلع الرديئة في السوق."
+  examples:
+    per_lemma:
+      - lemma: "اِخْتِيَارٌ عَكْسِيٌّ"
+        examples:
+          - text: "يؤدي الاختيار العكسي في سوق التأمين الصحي إلى ارتفاع الأقساط لأن المرضى هم الأكثر إقبالاً على شراء التغطية."
+            type: usage
+      - lemma: "انْتِقَاءٌ سَلْبِيٌّ"
+        examples:
+          - text: "تعاني المصارف من الانتقاء السلبي عندما يتقدم المقترضون الأكثر خطورة لطلب القروض بمعدلات فائدة ثابتة."
+            type: usage
+      - lemma: "اِخْتِيَارٌ سَلْبِيٌّ"
+        examples:
+          - text: "أشار جورج أكرلوف في بحثه 'سوق الليمون' إلى كيف يمكن للاختيار السلبي أن يتسبب في انهيار سوق السيارات المستعملة."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "awn4-92448349-n"
+          text: "يعد الاختيار العكسي من أبرز مشكلات عدم تماثل المعلومات في الأسواق المالية."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "اِخْتِيَارٌ عَكْسِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "اختيار"
+          root: "خير"
+          maqayis_quote: "«الْخَاءُ وَالْيَاءُ وَالرَّاءُ أَصْلُهُ الْعَطْفُ وَالْمَيْلُ... وَالْخِيرَةُ: الْخِيَارُ... وَالِاسْتِخَارَةُ: أَنْ تَسْأَلَ خَيْرَ الْأَمْرَيْنِ لَكَ.»"
+        - word: "عكسي"
+          root: "عكس"
+          maqayis_quote: "«الْعَيْنُ وَالْكَافُ وَالسِّينُ أَصْلٌ صَحِيحٌ وَاحِدٌ... وَمِنَ الْبَابِ: الْعَكْسُ، قَالَ الْخَلِيلُ: هُوَ رَدُّكَ آخِرَ الشَّيْءِ، عَلَى أَوَّلِهِ.»"
+    - lemma: "انْتِقَاءٌ سَلْبِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "انتقاء"
+          root: "نقي"
+          maqayis_quote: "«النُّونُ وَالْقَافُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ يَدُلُّ عَلَى نَظَافَةٍ وَخُلُوصٍ... انْتَقَيْتُ الشَّيْءَ كَأَنَّكَ أَخَذْتَ أَفْضَلَهُ وَأَخْلَصَهُ.»"
+        - word: "سلبي"
+          root: "سلب"
+          maqayis_quote: "«السِّينُ وَاللَّامُ وَالْبَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ أَخْذُ الشَّيْءِ بِخِفَّةٍ وَاخْتِطَافٍ.»"
+    - lemma: "اِخْتِيَارٌ سَلْبِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "اختيار"
+          root: "خير"
+          maqayis_quote: "«الْخَاءُ وَالْيَاءُ وَالرَّاءُ أَصْلُهُ الْعَطْفُ وَالْمَيْلُ...»"
+        - word: "سلبي"
+          root: "سلب"
+          maqayis_quote: "«السِّينُ وَاللَّامُ وَالْبَاءُ أَصْلٌ وَاحِدٌ...»"
+  per_sense:
+    - lemma: "اِخْتِيَارٌ عَكْسِيٌّ"
+      sense_id: "{auto}"
+      nuance: "المصطلح الأكاديمي القياسي في الاقتصاد."
+      mwe: true
+    - lemma: "انْتِقَاءٌ سَلْبِيٌّ"
+      sense_id: "{auto}"
+      nuance: "يشيع استخدامه في سياقات التأمين والتوظيف."
+      mwe: true
+    - lemma: "اِخْتِيَارٌ سَلْبِيٌّ"
+      sense_id: "{auto}"
+      nuance: "يركز على النتيجة غير المواتية لعملية الاختيار."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"اختيار","root":"خير","maqayis":"«...»"},{"word":"عكسي","root":"عكس","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الأكاديمي القياسي في الاقتصاد.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-92448349-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-92448349-n"
+        score: 0.95

@@ -1,0 +1,170 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "المفهوم في الإنجليزية 'termer' غريب نسبياً في المعجم العربي ككلمة واحدة، وعادة ما يُعبر عنه بعبارات."
+      - "اللمة الحالية 'قاضي فترة' هي ترجمة حرفية (Calque) وقد تلتبس بكلمة 'قاضي' بمعنى الحاكم."
+    observations: "المفهوم في الإنجليزية يشمل من يقضي فترة في السجن أو في منصب. اللغة العربية تفتقر إلى مصطلح مفرد يجمع المعنيين بسلاسة، ولكن توجد ترجمات مقترحة."
+  blind_candidates:
+    - lemma: "مُفْتِر"
+      generation_method: ishtiqaq
+      justification: "اشتقاق معاصر من 'فترة' على وزن مُفْعِل للدلالة على من يقضي الفترة."
+    - lemma: "صَاحِبُ مُدَّة"
+      generation_method: tarkib
+      justification: "تركيب إضافي يصف من ارتبط بمدة محددة."
+    - lemma: "مُؤَقَّت"
+      generation_method: ishtiqaq
+      justification: "اسم مفعول يدل على من ارتبط بوقت أو فترة، كالعامل المؤقت."
+    - lemma: "مُقْضِي فَتْرَة"
+      generation_method: tarkib
+      justification: "ترجمة وصفية لمن يقضي فترة زمنية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "قَاضِي فَتْرَة"
+      evidence_status: "no_material_found"
+    - lemma: "مُفْتِر"
+      confirm:
+        - text: "المُفْتِر: من يقضي فترةً في رئاسة أو سجن إلخ."
+          source: "المورد الحديث"
+    - lemma: "صَاحِبُ مُدَّة"
+      evidence_status: "no_material_found"
+    - lemma: "مُؤَقَّت"
+      expands:
+        - text: "عمل مُؤقَّت: مَضْبوط بوقت معيّن"
+          source: "معجم الصواب اللغوي لأحمد مختار عمر"
+    - lemma: "مُقْضِي فَتْرَة"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "قَاضِي فَتْرَة"
+      decision: confirmed
+      decision_reason: "على الرغم من أنها ترجمة حرفية للمصطلح الإنجليزي وتفتقر للشواهد المعجمية التراثية، إلا أنها عبارة وصفية مفهومة تؤدي المعنى المباشر."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "قَاضِي فَتْرَة"
+    - lemma: "مُفْتِر"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح مسكوك في المعاجم ثنائية اللغة الحديثة كمقابل مباشر للمصطلح الإنجليزي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُفْتِر"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10721816-n"
+    - lemma: "صَاحِبُ مُدَّة"
+      source: stage1
+      decision: removed
+      decision_reason: "عبارة غير مسكوكة معجمياً."
+    - lemma: "مُؤَقَّت"
+      source: stage1
+      decision: removed
+      decision_reason: "تشير إلى الوصف بالارتباط بوقت وليس إلى الشخص نفسه كفاعل، وتلتبس بصفة العمل."
+    - lemma: "مُقْضِي فَتْرَة"
+      source: stage1
+      decision: removed
+      decision_reason: "عبارة غير مسكوكة وتفتقر للشيوع."
+
+stage4_content:
+  definition:
+    current: "شخص يقضي فترة محددة"
+    assessment:
+      decision: retain
+      reason: "التعريف الحالي دقيق ويعبر عن المعنى المقصود بوضوح ويناسب اللمات المقترحة."
+  examples:
+    per_lemma:
+      - lemma: "قَاضِي فَتْرَة"
+        examples:
+          - text: "عُرف السجين بأنه قاضي فترة قصيرة فتم وضعه في قسم خاص."
+            type: usage
+      - lemma: "مُفْتِر"
+        examples:
+          - text: "عومل السجين المُفْتِر معاملة حسنة لاقتراب موعد خروجه."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "عُرف السجين بأنه قاضي فترة قصيرة فتم وضعه في قسم خاص."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "عومل السجين المُفْتِر معاملة حسنة لاقتراب موعد خروجه."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "قَاضِي فَتْرَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "قاضي"
+          root: "قضي"
+          maqayis_quote: "«الْقَافُ وَالضَّادُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِحْكَامِ أَمْرٍ وَإِتْقَانِهِ وَإِنْفَاذِهِ لِجِهَتِهِ.»"
+        - word: "فترة"
+          root: "فتر"
+          maqayis_quote: "«الْفَاءُ وَالتَّاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى ضَعْفٍ فِي الشَّيْءِ.»"
+    - lemma: "مُفْتِر"
+      entry_id: "{auto}"
+      root: "فتر"
+      maqayis_quote: "«الْفَاءُ وَالتَّاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى ضَعْفٍ فِي الشَّيْءِ.»"
+  per_sense:
+    - lemma: "قَاضِي فَتْرَة"
+      sense_id: "{auto}"
+      nuance: "عبارة وصفية مباشرة مستخدمة لترجمة المفهوم الإنجليزي وتتسم بالمباشرة في المعنى."
+      mwe: true
+    - lemma: "مُفْتِر"
+      sense_id: "{auto}"
+      nuance: "مصطلح معجمي حديث مسكوك خصيصاً كترجمة مباشرة للمصطلح الإنجليزي."
+      mwe: false
+  synset:
+    cultural_fit: lexical_gap
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"قاضي","root":"قضي","maqayis":"«الْقَافُ وَالضَّادُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِحْكَامِ أَمْرٍ وَإِتْقَانِهِ وَإِنْفَاذِهِ لِجِهَتِهِ.»"},{"word":"فترة","root":"فتر","maqayis":"«الْفَاءُ وَالتَّاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى ضَعْفٍ فِي الشَّيْءِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"فتر","maqayis":"«الْفَاءُ وَالتَّاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى ضَعْفٍ فِي الشَّيْءِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"عبارة وصفية مباشرة مستخدمة لترجمة المفهوم الإنجليزي وتتسم بالمباشرة في المعنى.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح معجمي حديث مسكوك خصيصاً كترجمة مباشرة للمصطلح الإنجليزي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-10721816-n"
+        key: note
+        value: '{"cultural_fit":"lexical_gap"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-10721816-n"
+        score: 0.80

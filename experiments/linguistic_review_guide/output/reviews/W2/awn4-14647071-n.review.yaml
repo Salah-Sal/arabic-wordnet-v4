@@ -1,0 +1,194 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة تفتقر إلى التشكيل الكامل."
+      - "التعريف الحالي طويل نوعاً ما ومترجم حرفياً."
+    observations: "المفهوم علمي دقيق (عنصر كيميائي). اللمّات الحالية صحيحة لكنها تحتاج لضبط وتشكيل. يمكن إثراء المجموعة بمصطلح تراثي (أسطقس) استُخدم في الفلسفة والكيمياء القديمة للتعبير عن نفس المفهوم (الأصل البسيط)."
+  blind_candidates:
+    - lemma: "عُنْصُر"
+      generation_method: ishtiqaq
+      justification: "اللفظ القياسي والأكثر شيوعاً للمفهوم، وأصله من الرجوع إلى الأصل."
+    - lemma: "عُنْصُر كِيمِيَائِيّ"
+      generation_method: tarkib
+      justification: "تعبير مركب مخصص للمجال العلمي لتمييزه عن العناصر المعنوية."
+    - lemma: "أُسْطُقُسّ"
+      generation_method: majaz
+      justification: "لفظ تراثي (يوناني الأصل) استعمله العرب في الفلسفة والعلوم الطبيعية للتعبير عن الأصول البسيطة للمركبات."
+    - lemma: "مَادَّة بَسِيطَة"
+      generation_method: tarkib
+      justification: "وصف دقيق للمادة التي لا تتركب من غيرها، وهو مرادف علمي شائع."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "عُنْصُر"
+      confirm:
+        - text: "(فِي الكيمياء) مَادَّة أولية لَا يُمكن تحليلها كيماويا إِلَى مَا هُوَ أبسط مِنْهَا والمادة الَّتِي تدخل فِي تكون جسم مَا كالهيدروجين والأكسجين فِي تكون المَاء"
+          source: "المعجم الوسيط"
+        - text: "(كم) مادَّة أوّليَّة لا يمكن تحليلها إلى ما هو أبسط منها بالطرق الكيميائيَّة العاديَّة."
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "عُنْصُر كِيمِيَائِيّ"
+      confirm:
+        - text: "عنصر كيميائي"
+          source: "موسوعة الكهرباء (IEC 60050) - ArabTerm"
+    - lemma: "أُسْطُقُسّ"
+      confirm:
+        - text: "الأصل البسيط يتكون منه المركب ويسمى العنصر، والركن."
+          source: "المعجم الكبير"
+        - text: "الأسطقس: الأَصْل الْبَسِيط يتكون مِنْهُ الْمركب والأسطقسات العناصر الْأَرْبَعَة عِنْد القدماء وَهِي المَاء والهواء وَالنَّار وَالتُّرَاب"
+          source: "المعجم الوسيط"
+        - text: "هو لفظ يوناني بمعنى الأصل، وتسمّى العناصر الأربع... أسطقسات لأنها أصول المركبات"
+          source: "كشاف اصطلاحات الفنون"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "عنصر"
+      decision: confirmed
+      decision_reason: "اللفظ الأساسي والمستقر علمياً ومعجمياً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عُنْصُر"
+    - lemma: "عنصر كيميائي"
+      decision: confirmed
+      decision_reason: "مصطلح علمي مركب مخصص ودقيق، ثابت في المعاجم التقنية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عُنْصُر كِيمِيَائِيّ"
+    - lemma: "أُسْطُقُسّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف تراثي فصيح استُعمل في العلوم الطبيعية العربية للتعبير عن العناصر البسيطة، وهو مثبّت في المعاجم الحديثة (الوسيط والكبير) كمرادف للعنصر."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "أُسْطُقُسّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "أي من المواد المعروفة التي تزيد عن 100 (منها 92 موجودة طبيعياً) والتي لا يمكن فصلها إلى مواد أبسط والتي تشكل بمفردها أو مجتمعة كل المواد"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي طويل يغلب عليه الأسلوب الموسوعي، والأفضل صياغته بأسلوب معجمي مركّز."
+    authored:
+      - type: terminological
+        text: "مادَّةٌ أَوَّلِيَّةٌ لَا يُمْكِنُ تَحْلِيلُهَا كِيمِيَاوِيًّا إِلَى مَا هُوَ أَبْسَطُ مِنْهَا، وَهِيَ الَّتِي يَتَأَلَّفُ مِنْهَا كُلُّ جِسْمٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "عُنْصُر"
+        examples:
+          - text: "الحديدُ عُنْصُرٌ فِلِزِيٌّ يَمْتَازُ بِمَتَانَتِهِ وَقَابِلِيَّتِهِ لِلطَّرْقِ."
+            type: usage
+      - lemma: "عُنْصُر كِيمِيَائِيّ"
+        examples:
+          - text: "يُرَتَّبُ كُلُّ عُنْصُرٍ كِيمِيَائِيٍّ فِي الجَدْولِ الدَّوْرِيِّ حَسَبَ عَدَدِهِ الذَّرِيِّ."
+            type: usage
+      - lemma: "أُسْطُقُسّ"
+        examples:
+          - text: "كَانَ العُلَمَاءُ قَدِيماً يَعْتَقِدُونَ أَنَّ النَّارَ أُسْطُقُسٌّ بَسِيطٌ لَا يَنْقَسِمُ."
+            type: usage
+  actions:
+    - command: update_definition
+      params: {synset_id: "{synset_id}", definition_index: 0, text: "مادَّةٌ أَوَّلِيَّةٌ لَا يُمْكِنُ تَحْلِيلُهَا كِيمِيَاوِيًّا إِلَى مَا هُوَ أَبْسَطُ مِنْهَا، وَهِيَ الَّتِي يَتَأَلَّفُ مِنْهَا كُلُّ جِسْمٍ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "عُنْصُر"
+      entry_id: "{auto}"
+      root: "عنصر"
+      maqayis_quote: "«(الْعُنْصُرُ) : أَصْلُ الْحَسَبِ، وَهَذَا مِمَّا زِيدَتْ فِيهِ النُّونُ، وَهُوَ فِي الْأَصْلِ الْعَصَرُ، وَهُوَ الْمَلْجَأُ»"
+    - lemma: "عُنْصُر كِيمِيَائِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "عنصر"
+          root: "عنصر"
+          maqayis_quote: "«(الْعُنْصُرُ) : أَصْلُ الْحَسَبِ...»"
+        - word: "كيميائي"
+          root: "كمي"
+          maqayis_quote: "«الْكَافُ وَالْمِيمُ وَالْيَاءُ لَيْسَ أَصْلًا، وَلَعَلَّهُ أَنْ يَكُونَ مِمَّا دَخَلَ عَلَى كَلَامِ الْعَرَبِ.»"
+    - lemma: "أُسْطُقُسّ"
+      entry_id: "{auto}"
+      root: "أستقس"
+  per_sense:
+    - lemma: "عُنْصُر"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام والشائع للمفهوم."
+      mwe: false
+    - lemma: "عُنْصُر كِيمِيَائِيّ"
+      sense_id: "{auto}"
+      nuance: "أكثر تخصيصاً للمجال العلمي الدقيق."
+      mwe: true
+    - lemma: "أُسْطُقُسّ"
+      sense_id: "{auto}"
+      nuance: "لفظ تراثي يركز على كون الشيء أصلاً بسيطاً تتألف منه المركبات."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عنصر","maqayis":"«(الْعُنْصُرُ) : أَصْلُ الْحَسَبِ، وَهَذَا مِمَّا زِيدَتْ فِيهِ النُّونُ، وَهُوَ فِي الْأَصْلِ الْعَصَرُ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"عنصر","root":"عنصر","maqayis":"«...»"},{"word":"كيميائي","root":"كمي","maqayis":"«الْكَافُ وَالْمِيمُ وَالْيَاءُ لَيْسَ أَصْلًا...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"أستقس"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ العام والشائع للمفهوم.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"أكثر تخصيصاً للمجال العلمي الدقيق.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"لفظ تراثي يركز على كون الشيء أصلاً بسيطاً تتألف منه المركبات.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,154 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "بركة صغيرة"
+      evidence_status: "no_material_found"
+    - lemma: "مستنقع صغير"
+      evidence_status: "no_material_found"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "بِرْكَة"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«البِرْكَة: مستنقع الماء» — المعجم الوسيط"
+      justification: "اللفظ المعجمي المفرد الذي يقابل تجمع الماء صغيرا كان أم كبيرا، ويستعمل للتعبير عن تجمعات السوائل (pool) باللغة الفصحى."
+    - lemma: "غَدِير"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«القطعة من الماء يغادرها السيل» — المعجم الوسيط"
+      justification: "لفظ فصيح دقيق الدلالة على تجمع ماء المطر المتبقي على الأرض، وهو يقابل (puddle) تحديدا."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "بركة صغيرة"
+      decision: removed
+      decision_reason: "مركب وصفي حر غير مسكوك معجميا؛ إذ يمكن وصف البركة بأي صفة أخرى للتدليل على الحجم. اللفظ المفرد 'بركة' يغني عنه."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "تركيب وصفي حر يضم الصفة إلى الموصوف لتقييد الحجم، وليس مصطلحا مستقلا."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "مستنقع صغير"
+      decision: removed
+      decision_reason: "مركب وصفي حر، والمستنقع يدل على أرض تتشبع بالماء لفترة طويلة (swamp)، وهو يختلف دلاليا عن مجرد تجمع مؤقت للماء (puddle)."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "مركب وصفي حر يحمل انزياحا دلاليا خاطئا؛ فالمستنقع هو الأرض الموحلة (swamp) وليس تجمعا مائيا صغيرا مؤقتا على السطح."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "بِرْكَة"
+      source: step05
+      decision: confirmed
+      decision_reason: "لفظ فصيح وشائع يدل على مجمع الماء، ويستعمل للتعبير عن تجمعات السوائل (pool/puddle)."
+      step05_citation: "«البِرْكَة: مستنقع الماء» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "اللفظ العام الشامل لتجمع الماء أو أي سائل آخر."
+      example: "تكونت بركة من الماء في الشارع بعد هطول المطر."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "بِرْكَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09420482-n"
+
+    - lemma: "غَدِير"
+      source: step05
+      decision: confirmed
+      decision_reason: "لفظ فصيح دقيق الدلالة على تجمع ماء المطر المتبقي (puddle)."
+      step05_citation: "«الغدير: القطعة من الماء يغادرها السيل» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يتميز بكونه تجمعا مائيا يخلفه المطر أو السيل، وهو أدق في تمثيل مياه الأمطار الراكدة."
+      example: "تجنب المشاة المشي في غدير الماء الذي خلفته العاصفة."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "غَدِير"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09420482-n"
+
+  added_lemmas:
+    - lemma: "بِرْكَة"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "create_entry + add_sense"
+    - lemma: "غَدِير"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "create_entry + add_sense"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "جسم صغير من المياه الراكدة (مياه الأمطار) أو سائل آخر"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق ومطابق للمفهوم الإنجليزي ويغطي كلا من تجمعات الماء المتبقية (غدير) وتجمعات السوائل الأخرى (بركة)."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "مسطح مائي"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "بِرْكَة"
+        antonym_found: false
+      - lemma: "غَدِير"
+        antonym_found: false
+  verb_checks:
+    applicable: false
+  selectional_restrictions:
+    - lemma: "بِرْكَة"
+      constraint: "تقال للماء والسوائل الأخرى كالدم"
+    - lemma: "غَدِير"
+      constraint: "تختص بالماء الذي يتركه المطر أو السيل"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "بِرْكَة"
+      enrichment:
+        root: "ب-ر-ك"
+      examples:
+        - text: "تكونت بركة من الماء في الشارع بعد هطول المطر."
+          type: "usage"
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "غَدِير"
+      enrichment:
+        root: "غ-د-ر"
+      examples:
+        - text: "تجنب المشاة المشي في غدير الماء الذي خلفته العاصفة."
+          type: "usage"
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: "native"
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-09420482-n"
+        text: "تكونت بركة من الماء في الشارع بعد هطول المطر."
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-09420482-n"
+        text: "تجنب المشاة المشي في غدير الماء الذي خلفته العاصفة."

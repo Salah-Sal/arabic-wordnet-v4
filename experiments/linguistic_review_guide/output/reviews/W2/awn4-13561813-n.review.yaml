@@ -1,0 +1,175 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة (حفظ) عامة جداً (preservation)، بينما التعريف في الشبكة يخصصها بحفظ المواد العضوية من التحلل."
+      - "اللمة غير مشكولة في البيانات المرجعية."
+    observations: "المفهوم يشير إلى عملية الحفظ الحيوي للأشياء العضوية مثل الأغذية والأنسجة لمنعها من الفساد. سنختبر اللمة (حفظ) واللمة المركبة (حفظ حيوي)."
+  blind_candidates:
+    - lemma: "حِفْظ"
+      generation_method: ishtiqaq
+      justification: "مصدر للفعل (حَفِظَ)، وهو اللفظ الشائع والمباشر لمعنى preservation."
+    - lemma: "وِقَايَة"
+      generation_method: ishtiqaq
+      justification: "من (وَقَى)، للدلالة على الحماية والدفع المسبق لعوامل الفساد."
+    - lemma: "صِيَانَة"
+      generation_method: ishtiqaq
+      justification: "من (صَانَ)، تُستخدم للحماية والتعهد، وإن كانت تغلب على الآلات."
+    - lemma: "حِفْظٌ حَيَوِيٌّ"
+      generation_method: tarkib
+      justification: "مركب وصفي يضيق دلالة الحفظ لتشمل المواد ذات الأصل العضوي والبيولوجي."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "حفظ"
+      confirm:
+        - text: "«حفظ الأغذية (أو الأطعمة): منعها من الفساد أو التلوث واستمرار صلاحيتها للاستعمال.»"
+          source: "المعجم الكبير"
+        - text: "«حفظ (preservation)»"
+          source: "المعجم الموحد لمصطلحات علم الصحة وجسم الانسان"
+    - lemma: "وقاية"
+      expands:
+        - text: "«الوقاية: حفظ الشيء عما يؤذيه ويضره»"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+        - text: "«وقاية (prevention)»"
+          source: "مسرد المناخ والبيئة وإدارة النفايات الصلبة"
+    - lemma: "صيانة"
+      contradicts:
+        - text: "«الصِّيانةُ: متابعةُ عمل الآلات والأجهزة وغيرها, للمحافظة عليها وإصلاح أعطالها, وما تلف منها.»"
+          source: "المعجم الكبير"
+          conflict: "الكلمة مخصصة للحفاظ على الآلات والأجهزة وليس للمواد العضوية."
+    - lemma: "حفظ حيوي"
+      confirm:
+        - text: "«حفظ حيوي (biological preservation)»"
+          source: "المَكنَز الزراعي متعدد اللغات"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "حفظ"
+      decision: confirmed
+      decision_reason: "اللمة القياسية والشائعة للتعبير عن الحفظ، ويُستدل بها على حفظ الأغذية والمواد العضوية من الفساد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حِفْظ"
+    - lemma: "حِفْظٌ حَيَوِيٌّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مركب وصفي دقيق وموثق معجمياً، ينقل الدلالة المتخصصة للمجموعة الترادفية المتعلقة بالمواد العضوية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "حِفْظٌ حَيَوِيٌّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "وِقَايَة"
+      source: stage1
+      decision: removed
+      decision_reason: "تستخدم للدلالة على الحماية والدفع الاستباقي للأذى، ولا تُستخدم عادة لوصف عملية حماية المواد العضوية من التحلل."
+    - lemma: "صِيَانَة"
+      source: stage1
+      decision: removed
+      decision_reason: "مصطلح يُستخدم أساساً للأجهزة والآلات (maintenance)."
+
+stage4_content:
+  definition:
+    current: "عملية تحمي المواد العضوية من التحلل"
+    assessment:
+      decision: revise
+      reason: "صياغة التعريف الحالي ركيكة (عملية تحمي)، والأفضل استبدالها بصياغة مصدرية مصطلحية أدق."
+    authored:
+      - type: terminological
+        text: "عَمَلِيَّةٌ حَيَوِيَّةٌ تَهْدِفُ إِلَى حِمَايَةِ الْمَوَادِّ الْعُضْوِيَّةِ مِنَ التَّحَلُّلِ وَالْفَسَادِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "عَمَلِيَّةٌ حَيَوِيَّةٌ تَهْدِفُ إِلَى حِمَايَةِ الْمَوَادِّ الْعُضْوِيَّةِ مِنَ التَّحَلُّلِ وَالْفَسَادِ."}
+  examples:
+    per_lemma:
+      - lemma: "حِفْظ"
+        examples:
+          - text: "يُعَدُّ التَّجْمِيدُ مِنْ أَهَمِّ طُرُقِ حِفْظِ الْأَطْعِمَةِ مِنَ التَّلَفِ."
+            type: usage
+      - lemma: "حِفْظٌ حَيَوِيٌّ"
+        examples:
+          - text: "تَسْتَخْدِمُ الْمُخْتَبَرَاتُ طُرُقَ الْحِفْظِ الْحَيَوِيِّ لِحِمَايَةِ الْعَيِّنَاتِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يُعَدُّ التَّجْمِيدُ مِنْ أَهَمِّ طُرُقِ حِفْظِ الْأَطْعِمَةِ مِنَ التَّلَفِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تَسْتَخْدِمُ الْمُخْتَبَرَاتُ طُرُقَ الْحِفْظِ الْحَيَوِيِّ لِحِمَايَةِ الْعَيِّنَاتِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "حِفْظ"
+      entry_id: "{auto}"
+      root: "حفظ"
+      maqayis_quote: "«الْحَاءُ وَالْفَاءُ وَالظَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُرَاعَاةِ الشَّيْءِ.»"
+    - lemma: "حِفْظٌ حَيَوِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "حفظ"
+          root: "حفظ"
+          maqayis_quote: "«الْحَاءُ وَالْفَاءُ وَالظَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُرَاعَاةِ الشَّيْءِ.»"
+        - word: "حيوي"
+          root: "حيي"
+          maqayis_quote: "«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ، وَالْآخَرُ الِاسْتِحْيَاءُ الَّذِي هُوَ ضِدُّ الْوَقَاحَةِ.»"
+  per_sense:
+    - lemma: "حِفْظ"
+      sense_id: "{auto}"
+      nuance: "مصطلح عام يشمل حماية الأشياء من التلف والفساد، ويقصد به هنا المعنى البيولوجي للحفظ."
+      mwe: false
+    - lemma: "حِفْظٌ حَيَوِيٌّ"
+      sense_id: "{auto}"
+      nuance: "مصطلح متخصص يركز على الحفظ المتعلق بالمواد ذات الأصل الحيوي."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حفظ","maqayis":"«الْحَاءُ وَالْفَاءُ وَالظَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُرَاعَاةِ الشَّيْءِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"حفظ","root":"حفظ","maqayis":"«الْحَاءُ وَالْفَاءُ وَالظَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُرَاعَاةِ الشَّيْءِ.»"},{"word":"حيوي","root":"حيي","maqayis":"«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ، وَالْآخَرُ الِاسْتِحْيَاءُ الَّذِي هُوَ ضِدُّ الْوَقَاحَةِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح عام يشمل حماية الأشياء من التلف والفساد، ويقصد به هنا المعنى البيولوجي للحفظ.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح متخصص يركز على الحفظ المتعلق بالمواد ذات الأصل الحيوي.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

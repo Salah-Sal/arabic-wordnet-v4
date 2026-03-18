@@ -1,0 +1,232 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'طيش' غير مشكولة وتحتاج إلى ضبط (طَيْش)."
+      - "اللمة 'عدم اكتراث' تشير إلى اللامبالاة أو غياب الاهتمام، وهذا لا يتطابق تماماً مع التعريف الذي يركز على 'غياب التروي قبل التصرف' (التسرع والطيش). في حين أن 'thoughtlessness' قد تعني عدم المراعاة أحياناً، إلا أن التعريف الانجليزي والعربي يوضحان أن المقصود هو الطيش والتسرع."
+    observations: "المفهوم يعبر عن غياب التروي والاندفاع في التصرف دون تفكير في العواقب. 'طيش' هي اللفظة الأدق، ويمكن إثراء المجموعة بكلمات مثل 'تهور' و'رعونة'."
+  blind_candidates:
+    - lemma: "طَيْش"
+      generation_method: ishtiqaq
+      justification: "مصدر يدل على خفة العقل والتسرع في الأمور دون تروٍّ."
+    - lemma: "تَهَوُّر"
+      generation_method: ishtiqaq
+      justification: "الاندفاع في الأمور والوقوع فيها دون تفكير في العواقب."
+    - lemma: "رُعُونَة"
+      generation_method: ishtiqaq
+      justification: "التصرف بهوج وعدم استقامة في الرأي والتفكير."
+    - lemma: "خِفَّة"
+      generation_method: ishtiqaq
+      justification: "خفة العقل التي تقابل الرزانة والتروي."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "طيش"
+      confirm:
+        - text: "الطَّيْشُ: خِفَّةُ العَقْلِ الأندفاعُ والتَّسَرُّعُ"
+          source: "المعجم الكبير"
+        - text: "الطَّيْشُ: النَّزَقُ، والخِفَّةُ"
+          source: "القاموس المحيط للفيروزآبادي"
+        - text: "طيش العقل ذهابه حتى يجهل صاحبه ما يحاول"
+          source: "لسان العرب لابن منظور"
+    - lemma: "عدم اكتراث"
+      contradicts:
+        - text: "عدم اكتراث تعني اللامبالاة (apathy or indifference)، وليس بالضرورة التسرع وعدم التفكير قبل التصرف المشروح في التعريف."
+          source: "التحليل المعجمي"
+          conflict: "دلالة المفهوم هي التسرع والطيش، بينما عدم الاكتراث هو غياب الاهتمام والمراعاة."
+    - lemma: "تهور"
+      confirm:
+        - text: "وفلان وقع في الامر بقلة مبالاة"
+          source: "المعجم الوسيط"
+        - text: "تَهَوّر: من (ه و ر) الطيش والرعونة في التصرف."
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+    - lemma: "رعونة"
+      confirm:
+        - text: "الرُّعُونَةُ: الْإِتْيَان بِمَا يخرج عَن الصَّوَاب."
+          source: "معجم مقاليد العلوم للسيوطي"
+        - text: "الرعونة: إفراط الجهالة أو الوقوف مع حظ النفس ومقتضى طباعها."
+          source: "التوقيف على مهمات التعاريف للمناوي"
+    - lemma: "خفة"
+      confirm:
+        - text: "وهو في العقل والعمل مجاز"
+          source: "المعجم الكبير"
+      expands:
+        - text: "الخفّة: هي ضدّ الثّقل وهما من الكيفيات الملموسة"
+          source: "كشّاف اصطلاحات الفنون والعلوم للتهانوي"
+          addition: "تدل في الأصل على الوزن المادي، وتستخدم مجازاً لخفة العقل."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "طيش"
+      decision: confirmed
+      decision_reason: "مصدر دقيق يعبر عن خفة العقل والتسرع في التصرف دون تروٍّ، وهو يطابق تماماً تعريف المجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "طَيْش"
+
+    - lemma: "عدم اكتراث"
+      decision: removed
+      decision_reason: "المصطلح يشير إلى اللامبالاة وعدم الاهتمام (indifference) وليس غياب التفكير قبل التصرف (rashness/recklessness) كما ينص التعريف."
+      evidence_assessment:
+        case: contradicts_only
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "تَهَوُّر"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصدر يدل على الإقدام والاندفاع في الأمور دون تروٍّ أو تفكير في العواقب، متطابق مع مفهوم المجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَهَوُّر", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "رُعُونَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "الرعونة في التصرف هي الإتيان بما يخرج عن الصواب نتيجة لقلة التروي، وتستخدم غالباً للإشارة إلى الطيش."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "رُعُونَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "خِفَّة"
+      source: stage1
+      decision: removed
+      decision_reason: "استخدامها في هذا المعنى مجازي وعام ('خفة العقل')، والكلمات الأخرى كـ'طيش' و'تهور' أخص وأدق لتأدية المعنى المراد."
+      evidence_assessment:
+        case: mixed
+
+stage4_content:
+  definition:
+    current: "سمة عدم التفكير بعناية قبل التصرف"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يبدو ترجمة حرفية. يمكن صياغته بأسلوب معجمي عربي رصين يعبر عن التسرع وخفة العقل."
+    authored:
+      - type: terminological
+        text: "سمة في السلوك تتسم بالتسرع والاندفاع في الأمور دون تروٍّ أو نظر في العواقب."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "سمة في السلوك تتسم بالتسرع والاندفاع في الأمور دون تروٍّ أو نظر في العواقب."}
+
+  examples:
+    per_lemma:
+      - lemma: "طَيْش"
+        examples:
+          - text: "أوقعه طَيْشُ شبابه في كثير من المتاعب."
+            type: usage
+      - lemma: "تَهَوُّر"
+        examples:
+          - text: "أدى تَهَوُّر السائق إلى وقوع حادث مروري خطير."
+            type: usage
+      - lemma: "رُعُونَة"
+        examples:
+          - text: "تصرف برُعُونَةٍ شديدة في موقف كان يتطلب الحكمة."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "أوقعه طَيْشُ شبابه في كثير من المتاعب."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "أدى تَهَوُّر السائق إلى وقوع حادث مروري خطير."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تصرف برُعُونَةٍ شديدة في موقف كان يتطلب الحكمة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "طَيْش"
+      entry_id: "{auto}"
+      root: "طش"
+      maqayis_quote: "«الطَّاءُ وَالْيَاءُ وَالشِّينُ كَلِمَةٌ وَاحِدَةٌ، وَهِيَ الطَّيْشُ وَالْخِفَّةُ.»"
+    - lemma: "تَهَوُّر"
+      entry_id: "{auto}"
+      root: "هور"
+      maqayis_quote: "«الْهَاءُ وَالْوَاوُ وَالرَّاءُ: أَصْلٌ يَدُلُّ عَلَى تَسَاقُطِ شَيْءٍ. مِنْهُ تَهَوَّرَ الْبِنَاءُ: انْهَدَمَ.»"
+    - lemma: "رُعُونَة"
+      entry_id: "{auto}"
+      root: "رعن"
+      maqayis_quote: "«الرَّاءُ وَالْعَيْنُ وَالنُّونُ أَصْلَانِ: أَحَدُهُمَا يَدُلُّ عَلَى تَقَدُّمٍ فِي شَيْءٍ، وَالْآخَرُ يَدُلُّ عَلَى هَوَجٍ وَاضْطِرَابٍ.»"
+  per_sense:
+    - lemma: "طَيْش"
+      sense_id: "{auto}"
+      nuance: "يركز على خفة العقل والتسرع في اتخاذ القرارات."
+      mwe: false
+    - lemma: "تَهَوُّر"
+      sense_id: "{auto}"
+      nuance: "يركز على الاندفاع الجسدي أو السلوكي وعدم المبالاة بالمخاطر."
+      mwe: false
+    - lemma: "رُعُونَة"
+      sense_id: "{auto}"
+      nuance: "يركز على التصرف بهوج وحمق أو صبيانية ناتجة عن غياب النضج."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"طش","maqayis":"«الطَّاءُ وَالْيَاءُ وَالشِّينُ كَلِمَةٌ وَاحِدَةٌ، وَهِيَ الطَّيْشُ وَالْخِفَّةُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"هور","maqayis":"«الْهَاءُ وَالْوَاوُ وَالرَّاءُ: أَصْلٌ يَدُلُّ عَلَى تَسَاقُطِ شَيْءٍ. مِنْهُ تَهَوَّرَ الْبِنَاءُ: انْهَدَمَ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"رعن","maqayis":"«الرَّاءُ وَالْعَيْنُ وَالنُّونُ أَصْلَانِ: أَحَدُهُمَا يَدُلُّ عَلَى تَقَدُّمٍ فِي شَيْءٍ، وَالْآخَرُ يَدُلُّ عَلَى هَوَجٍ وَاضْطِرَابٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على خفة العقل والتسرع في اتخاذ القرارات.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الاندفاع الجسدي أو السلوكي وعدم المبالاة بالمخاطر.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على التصرف بهوج وحمق أو صبيانية ناتجة عن غياب النضج.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

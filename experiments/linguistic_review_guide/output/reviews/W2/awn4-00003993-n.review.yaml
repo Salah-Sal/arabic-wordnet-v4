@@ -1,0 +1,174 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "مَثِيل"
+      confirm:
+        - text: "«المِثْل الفاضل» — المعجم الوسيط"
+          source: "المعجم الوسيط"
+        - text: "«أقرَّ مجمع اللغة المصري قياسيّة صيغة فعيل للدلالة على المشاركة... شبيهه ونظيره» — معجم الصواب اللغوي"
+          source: "معجم الصواب اللغوي"
+      expands:
+        - text: "«عضو أو جزء تشريحي يشبه في بنيته وموضعه ومنشئه عضواً آخر، في حيوان من وحدة تصنيفية أخرى» — معجم المصطلحات الطبية"
+          source: "معجم المصطلحات الطبية"
+          addition: "التخصص البيولوجي والتشريحي (Homologous)"
+
+    - lemma: "مُجَانِس"
+      confirm:
+        - text: "«المجانِس: المشاكل، يقال: هذا يجانس هذا، أي: يشاكله» — تاج العروس (نقلاً عن الصواب اللغوي)"
+          source: "معجم الصواب اللغوي"
+        - text: "«المُجانِس: حيوان أو نبات من جنس genus حيوان أو نباتٍ آخر» — المورد الحديث"
+          source: "المورد الحديث"
+
+    - lemma: "نَظِير"
+      confirm:
+        - text: "«المُناظِر المِثْلُ والمُساوِى» — المعجم الوسيط"
+          source: "المعجم الوسيط"
+        - text: "«Peer، equal، analogue... يطلق على المثال مجازا وحقيقة على أعم منه» — كشاف اصطلاحات الفنون"
+          source: "كشاف اصطلاحات الفنون"
+      expands:
+        - text: "«شكل آخر من أشكال ذرات العنصر نفسه... يختلف عنها بالكتلة الذرية» — معجم الصيدلة"
+          source: "المعجم الموحد لمصطلحات علم الصيدلة"
+          addition: "المعنى العلمي المتخصص (Isotope)"
+        - text: "«النقطة التي تقابل السمت» — المعجم الموحد لمصطلحات الجيولوجيا"
+          source: "المعجم الموحد لمصطلحات الجيولوجيا"
+          addition: "المعنى الفلكي (Nadir)"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "مُشَاكِل"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«المُشاكِل: شخصٌ يُشبه شخصًا آخر من حيث الطبيعةُ أو العمل» — المورد الحديث"
+      justification: "يناسب تماماً جزء 'شخص من نفس النوع' في التعريف"
+  knowledge_candidates:
+    - lemma: "ضَرِيب"
+      justification: "من الكلمات التراثية الفصيحة التي تدل على الشبيه والنظير في النوع والقدر (آلية: مجاز/إحياء)"
+  generation_notes: "التعريف يجمع بين الأشياء (مثيل/مجانس) والأشخاص (نظير/مشاكل/ضريب)"
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "مَثِيل"
+      decision: "confirmed"
+      decision_reason: "أدلة معجمية قوية في المعاجم الحديثة والطبية"
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يدل على التماثل العام في الصفات أو الهيئة، ويستخدم بكثرة في السياقات العلمية والتشريحية"
+      example: "هذا الجهاز مَثِيل لذاك في الأداء والقوة."
+
+    - lemma: "مُجَانِس"
+      decision: "confirmed"
+      decision_reason: "مطابقة تامة للمصطلح الإنجليزي congener في المعاجم الطبية والحديثة"
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على الاشتراك في الجنس (Genus) أو النوع التصنيفي"
+      example: "البصل والثوم نباتان مُجَانِسَان ينتميان للفصيلة نفسها."
+
+    - lemma: "نَظِير"
+      decision: "confirmed"
+      decision_reason: "أدلة معجمية تراثية وحديثة مؤكدة"
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يدل على الندّية أو المقابلة الوظيفية، ويشيع استخدامه للأشخاص في المناصب المتساوية"
+      example: "التقى وزير الصحة بنَظِيره في منظمة الصحة العالمية."
+
+    - lemma: "مُشَاكِل"
+      source: "step05"
+      decision: "confirmed"
+      decision_reason: "مرادف دقيق للشخص المماثل في الطبيعة أو العمل"
+      step05_citation: "«المُشاكِل: شخصٌ يُشبه شخصًا آخر من حيث الطبيعةُ أو العمل» — المورد الحديث"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يختص بالتشابه في الشكل أو الطباع بين الأشخاص"
+      example: "كان له رفيق مُشَاكِل له في جده واجتهاده."
+      actions:
+        - command: "create_entry"
+          params:
+            lemma: "مُشَاكِل"
+            pos: "n"
+        - command: "add_sense"
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-00003993-n"
+
+    - lemma: "ضَرِيب"
+      source: "step05"
+      decision: "confirmed"
+      decision_reason: "لفظ تراثي فصيح يدل على المثيل والنظير في القدر"
+      step05_citation: "«الضَّريب: الشَّبيه والنَّظير. وقيل: المِثْلُ» — لسان العرب/القاموس المحيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يدل على التساوي في الفضل أو المكانة أو القيمة"
+      example: "لا ضَرِيبَ له في جُوده وشجاعته."
+      actions:
+        - command: "create_entry"
+          params:
+            lemma: "ضَرِيب"
+            pos: "n"
+        - command: "add_sense"
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-00003993-n"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "كيان كامل (شيء أو شخص) من نفس النوع أو الفئة التي ينتمي إليها آخر"
+  assessment:
+    decision: "retain"
+    reason: "التعريف دقيق وشامل ويغطي جميع جوانب اللمّات المؤكدة"
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-00003553-n"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "مَثِيل"
+        antonym_found: true
+        antonym: "مُخَالِف"
+      - lemma: "نَظِير"
+        antonym_found: true
+        antonym: "مُضَاد"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "مَثِيل"
+      enrichment:
+        root: "م-ث-ل"
+      examples:
+        - text: "هو مَثِيله في أخلاقه."
+          type: "usage"
+          source: "معجم الصواب اللغوي"
+    - lemma: "مُجَانِس"
+      enrichment:
+        root: "ج-ن-س"
+      examples:
+        - text: "هذا مجانس لهذا."
+          type: "usage"
+          source: "معجم الصواب اللغوي"
+    - lemma: "نَظِير"
+      enrichment:
+        root: "ن-ظ-ر"
+      examples:
+        - text: "فلانٌ منقطع النَّظِير: أي منفرد فى بابه لا شبيه له."
+          type: "usage"
+          source: "موسوعة السلطان قابوس"
+    - lemma: "مُشَاكِل"
+      enrichment:
+        root: "ش-ك-ل"
+      examples:
+        - text: "هذا الشيء مشاكل لهذا الشيء أي: يشاكله ويشابهه."
+          type: "usage"
+          source: "مؤلَّف"
+    - lemma: "ضَرِيب"
+      enrichment:
+        root: "ض-ر-ب"
+      examples:
+        - text: "يقال: فلان ضريب فلان، أي مثله وشبيهه."
+          type: "usage"
+          source: "لسان العرب"
+  cultural_fit:
+    assessment: "native"

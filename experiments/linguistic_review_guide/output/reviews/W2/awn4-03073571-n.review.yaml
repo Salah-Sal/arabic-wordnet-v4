@@ -1,0 +1,252 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الحاليّة (تحفة فنية، قطعة نادرة) تركّز على الجانب الفني والندرة المادية، بينما يغطّي المفهوم الإنجليزي (showpiece, piece de resistance) الجانب 'الاستعراضي' والأهمية النسبية داخل المجموعة."
+      - "افتقار المجموعة لتعابير اصطلاحية عربية ذائعة تعبّر عن 'أفضل ما في المجموعة' مثل (واسطة العقد)."
+    observations: "المجموعة تدور حول 'الجوهرة' أو 'درة التاج' في أي مجموعة مقتنيات. المصطلحات العربية غنية بالاستعارات الجوهرية (الدرة، الفريدة، الواسطة) التي تناسب هذا المعنى تماماً."
+  blind_candidates:
+    - lemma: "دُرَّة"
+      generation_method: majaz
+      justification: "استعارة شائعة للشيء الأثمن والأفضل في فئته."
+    - lemma: "فَرِيدَة"
+      generation_method: majaz
+      justification: "تُطلق على الجوهرة التي لا نظير لها، وتُستخدم اصطلاحاً لكل مقتنىً نادر ومتميز."
+    - lemma: "وَاسِطَةُ العِقْد"
+      generation_method: majaz
+      justification: "أدقّ تعبير اصطلاحي عربي عن 'piece de resistance'، وهي الجوهرة الأكبر في وسط العقد، وتُضرب مثلاً للأهم والأجود في المجموعة."
+    - lemma: "قِطْعَةُ العَرْض"
+      generation_method: tarkib
+      justification: "ترجمة اصطلاحية مباشرة لمصطلح (showpiece) تعبّر عن الغرض من القطعة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "دُرَّة"
+      confirm:
+        - text: "«الدُّرَّة: اللؤلؤة العظيمة الكبيرة»"
+          source: "المعجم الوسيط"
+        - text: "«من (د ر ر) ما عظم من اللؤلؤ»"
+          source: "موسوعة السلطان قابوس"
+    - lemma: "فَرِيدَة"
+      confirm:
+        - text: "«الفَرِيدة: الدرة والجوهرة النفيسة»"
+          source: "موسوعة السلطان قابوس"
+        - text: "«الفَرِيد: الدُّرُّ إِذَا نُظِمَ وَفُصِلَ بَيْنَهُ بِغَيْرِهِ»"
+          source: "مقاييس اللغة"
+    - lemma: "وَاسِطَةُ العِقْد"
+      confirm:
+        - text: "«واسطة القلادة: الجوهر الذي في وسطها، وهو أجودها»"
+          source: "المعجم الوسيط"
+        - text: "«وهو أوسطهم حسباً، إذا كان في واسطة قومه وأرفعهم محلاً»"
+          source: "مقاييس اللغة (جذر وسط)"
+    - lemma: "تُحْفَة فَنِّيَّة"
+      confirm:
+        - text: "«التُّحْفَة: الطرفة ويقال لما له قيمة فنية أو أثرية تحفة»"
+          source: "المعجم الوسيط"
+    - lemma: "قِطْعَة نَادِرَة"
+      confirm:
+        - text: "«يقال لما له قيمة فنية أو أثرية: تُحفة» (دلالة ضمنية على الندرة والقيمة)"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تُحْفَة فَنِّيَّة"
+      decision: confirmed
+      decision_reason: "مصطلح مستقرّ للتعبير عن القطع ذات القيمة الفنية العالية في المجموعات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تُحْفَة فَنِّيَّة"
+    - lemma: "قِطْعَة نَادِرَة"
+      decision: confirmed
+      decision_reason: "وصف معجمي دقيق لـ (collector's item) يركز على جانب الندرة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "قِطْعَة نَادِرَة"
+    - lemma: "وَاسِطَةُ العِقْد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "أقوى مقابل عربي اصطلاحي لـ (piece de resistance) و (showpiece)، حيث تعبر عن المركزية والجودة الفائقة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "وَاسِطَةُ العِقْد", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-03073571-n"}
+    - lemma: "فَرِيدَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "كلمة واحدة تعبر عن التميز والندرة المطلقة (unique masterpiece)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "فَرِيدَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-03073571-n"}
+
+stage4_content:
+  definition:
+    current: "العنصر البارز (القطعة الثمينة أو المعروض الرئيسي) في مجموعة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط؛ يحتاج صياغة معجمية رصينة تشمل شمولية المصطلح لأنواع المجموعات المختلفة."
+    authored:
+      - type: terminological
+        text: "القطعةُ الأثمنُ أو الأهمُّ في مَجموعةٍ من المقتنيات، والتي تُعدُّ مَركزَ العَرْضِ أو مَفخرةَ المَجموعة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "تُحْفَة فَنِّيَّة"
+        examples:
+          - text: "تُعتبر لوحة 'الموناليزا' أهم تُحفة فنية في متحف اللوفر."
+            type: usage
+      - lemma: "قِطْعَة نَادِرَة"
+        examples:
+          - text: "عرض الهاوي قطعة نادرة من الطوابع تعود للقرن التاسع عشر."
+            type: usage
+      - lemma: "وَاسِطَةُ العِقْد"
+        examples:
+          - text: "كان هذا المخطوط الأثري واسطة العقد في معرض الكتاب القديم."
+            type: usage
+      - lemma: "فَرِيدَة"
+        examples:
+          - text: "هذه المزهرية فريدةٌ لا يوجد لها مثيل في المجموعات الخاصة الأخرى."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-03073571-n", definition_index: 0, text: "القطعةُ الأثمنُ أو الأهمُّ في مَجموعةٍ من المقتنيات، والتي تُعدُّ مَركزَ العَرْضِ أو مَفخرةَ المَجموعة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تُحْفَة فَنِّيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "تحفة"
+          root: "تحف"
+          maqayis_quote: "«(لم ترد في معجم المقاييس مادة تحف، ولكن أصلها من الإتحاف وهو البر)»"
+        - word: "فنية"
+          root: "فنن"
+          maqayis_quote: "«الفاء والنون أصلان: أحدهما وجه الشيء، والآخر تزيينه وتجويده.»"
+    - lemma: "قِطْعَة نَادِرَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "قطعة"
+          root: "قطع"
+          maqayis_quote: "«القاف والطاء والعين أصل صحيح واحد، يدل على صرم وإبانة شيء من شيء.»"
+        - word: "نادرة"
+          root: "ندر"
+          maqayis_quote: "«النون والدال والراء أصل صحيح يدل على سقوط شيء أو إسقاطه.»"
+    - lemma: "وَاسِطَةُ العِقْد"
+      entry_id: "{auto}"
+      roots:
+        - word: "واسطة"
+          root: "وسط"
+          maqayis_quote: "«الواو والسين والطاء: بناء صحيح يدل على العدل والنصف. وأعدل الشيء: أوسطه ووسطه.»"
+        - word: "العقد"
+          root: "عقد"
+          maqayis_quote: "«العين والقاف والدال أصل واحد يدل على شد وشدة وثوق.»"
+    - lemma: "فَرِيدَة"
+      entry_id: "{auto}"
+      root: "فرد"
+      maqayis_quote: "«الفاء والراء والدال أصل صحيح يدل على وحدة. والفريد: الدر إذا نظم وفصل بينه بغيره.»"
+  per_sense:
+    - lemma: "تُحْفَة فَنِّيَّة"
+      sense_id: "{auto}"
+      nuance: "تُستخدم للقطع التي لها قيمة جمالية أو إبداعية مرتبطة بالفنون."
+      mwe: true
+    - lemma: "قِطْعَة نَادِرَة"
+      sense_id: "{auto}"
+      nuance: "تؤكد على عنصر الندرة المادية وصعوبة العثور على مثيل لها."
+      mwe: true
+    - lemma: "وَاسِطَةُ العِقْد"
+      sense_id: "{auto}"
+      nuance: "تُبرز المكانة المركزية للقطعة بوصفها درة التاج والأفضل على الإطلاق في المجموعة."
+      mwe: true
+    - lemma: "فَرِيدَة"
+      sense_id: "{auto}"
+      nuance: "تصف القطعة التي تتميز بالتفرد التام الذي لا يشاركه فيه غيرها."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"تحفة","root":"تحف","maqayis":"«...»"},{"word":"فنية","root":"فنن","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"قطعة","root":"قطع","maqayis":"«...»"},{"word":"نادرة","root":"ندر","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"واسطة","root":"وسط","maqayis":"«...»"},{"word":"عقد","root":"عقد","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"فرد","maqayis":"«الْفَاءُ وَالرَّاءُ وَالدَّالُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى وُحْدَةٍ... وَالْفَرِيدُ: الدُّرُّ إِذَا نُظِمَ وَفُصِلَ بَيْنَهُ بِغَيْرِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تُستخدم للقطع التي لها قيمة جمالية أو إبداعية مرتبطة بالفنون.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تؤكد على عنصر الندرة المادية وصعوبة العثور على مثيل لها.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تُبرز المكانة المركزية للقطعة بوصفها درة التاج والأفضل على الإطلاق في المجموعة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تصف القطعة التي تتميز بالتفرد التام الذي لا يشاركه فيه غيرها.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-03073571-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-03073571-n"
+        score: 0.95

@@ -1,0 +1,280 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "المصطلحان 'قاعدة' و'مقر' يحملان دلالة عامة جداً، وقد نحتاج لمصطلحات أكثر تخصيصاً في سياق الميكانيكا الهندسية مثل 'دليل' أو 'مقعد' أو 'مسند'."
+    observations: "المفهوم يشير إلى أجزاء الآلة التي تقوم بوظيفة الدعم (مثل المقعد أو المسند) أو التوجيه (مثل الدليل). استخدام كلمة 'مقر' في الآلات صحيح ومألوف (مثل مقر الصمام)، لكن توجد بدائل أدق."
+  blind_candidates:
+    - lemma: "مَقْعَد"
+      generation_method: ishtiqaq
+      justification: "اسم مكان من قعد، وهو المكان الذي يستقر فيه الجزء الآخر من الآلة (مثل مقعد الصمام)."
+    - lemma: "دَلِيل"
+      generation_method: majaz
+      justification: "يستخدم مجازاً للدلالة على الجزء الذي يرشد ويوجه جزءاً آخر في الآلة ضمن مسار محدد."
+    - lemma: "مِسْنَد"
+      generation_method: ishtiqaq
+      justification: "اسم آلة من سند، لأنه يسند الأجزاء الأخرى في الآلة ويدعمها."
+    - lemma: "مُوَجِّه"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من وجه، لأنه يقوم بتوجيه الأجزاء الأخرى في حركتها."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "قاعدة"
+      confirm:
+        - text: "القاعدة: ما يقعد عليه الشيء، أي يستقر ويثبت."
+          source: "التوقيف على مهمات التعاريف للمناوي"
+        - text: "المكون الرئيسي لأي مركب، أو أساس أي شيء."
+          source: "معجم المصطلحات الطبية"
+    - lemma: "مقر"
+      confirm:
+        - text: "(الْمقر) مَوضِع الِاسْتِقْرَار (ج) مقار."
+          source: "المعجم الوسيط"
+    - lemma: "مَقْعَد"
+      confirm:
+        - text: "مقعد الصمام (valve seat)"
+          source: "عرب تيرم (Automotive Engineering)"
+    - lemma: "دَلِيل"
+      confirm:
+        - text: "دليل الصمام (valve stem guide)"
+          source: "عرب تيرم (Automotive Engineering)"
+    - lemma: "مِسْنَد"
+      confirm:
+        - text: "كل ما يعتمد عليه، أو يستند إليه، مثل: مسند الرأس، ومسند الكرسي."
+          source: "المعجم الكبير"
+        - text: "مسند الجائز أو سطح استناده على المسند."
+          source: "عرب تيرم (Civil Engineering)"
+    - lemma: "مُوَجِّه"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "قاعدة"
+      decision: confirmed
+      decision_reason: "صحيح فصيح، ويستخدم للدلالة على الأساس الذي ترتكز وتستقر عليه الأجزاء الميكانيكية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "قَاعِدَة"
+
+    - lemma: "مقر"
+      decision: confirmed
+      decision_reason: "صحيح، يعبر عن موضع استقرار الأجزاء (مثل مقر الصمام)، وهو مستعمل هندسياً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَقَرّ"
+
+    - lemma: "مَقْعَد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مستعمل بكثرة وبشكل رسمي في الهندسة الميكانيكية لترجمة (seat) كجزء داعم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَقْعَد", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "دَلِيل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مستعمل بانتظام لترجمة (guide) وهو الجزء الذي يوجه حركة جزء آخر."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "دَلِيل", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "مِسْنَد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مستعمل للدلالة على أجزاء الدعم والارتكاز."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مِسْنَد", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "مُوَجِّه"
+      source: stage1
+      decision: removed
+      decision_reason: "استخدام (دليل) أثبت وأكثر شيوعاً في المصطلحات الميكانيكية للدلالة على نفس الجزء."
+
+stage4_content:
+  definition:
+    current: "جزء من آلة يدعم أو يوجه جزءاً آخر"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق وواضح، ويغطي كلا الوظيفتين (الدعم والتوجيه) بأسلوب سليم."
+  examples:
+    per_lemma:
+      - lemma: "قَاعِدَة"
+        examples:
+          - text: "ثُبِّتَ المحرك على قَاعِدَةٍ متينة لتقليل الاهتزازات."
+            type: usage
+      - lemma: "مَقَرّ"
+        examples:
+          - text: "يجب تنظيف مَقَرِّ الصمام جيداً لضمان إحكام الإغلاق."
+            type: usage
+      - lemma: "مَقْعَد"
+        examples:
+          - text: "يؤدي تآكل مَقْعَدِ الصمام إلى تسرب الغازات بمرور الوقت."
+            type: usage
+      - lemma: "دَلِيل"
+        examples:
+          - text: "تنزلق القطعة المعدنية داخل الدَّلِيلِ بسلاسة تامة."
+            type: usage
+      - lemma: "مِسْنَد"
+        examples:
+          - text: "وُضِعَ العمود الدوار على مِسْنَدٍ ثابتٍ يمنعه من الانحراف."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "ثُبِّتَ المحرك على قَاعِدَةٍ متينة لتقليل الاهتزازات."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يجب تنظيف مَقَرِّ الصمام جيداً لضمان إحكام الإغلاق."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يؤدي تآكل مَقْعَدِ الصمام إلى تسرب الغازات بمرور الوقت."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تنزلق القطعة المعدنية داخل الدَّلِيلِ بسلاسة تامة."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "وُضِعَ العمود الدوار على مِسْنَدٍ ثابتٍ يمنعه من الانحراف."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "قَاعِدَة"
+      entry_id: "{auto}"
+      root: "قعد"
+      maqayis_quote: "«الْقَافُ وَالْعَيْنُ وَالدَّالُ أَصْلٌ مُطَّرِدٌ مُنْقَاسٌ لَا يُخْلَفُ، وَهُوَ يُضَاهِي الْجُلُوسَ...»"
+    - lemma: "مَقَرّ"
+      entry_id: "{auto}"
+      root: "قرر"
+      maqayis_quote: "«الْقَافُ وَالرَّاءُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدَهُمَا عَلَى بَرْدٍ، وَالْآخَرُ عَلَى تَمَكُّنٍ.»"
+    - lemma: "مَقْعَد"
+      entry_id: "{auto}"
+      root: "قعد"
+      maqayis_quote: "«الْقَافُ وَالْعَيْنُ وَالدَّالُ أَصْلٌ مُطَّرِدٌ مُنْقَاسٌ لَا يُخْلَفُ، وَهُوَ يُضَاهِي الْجُلُوسَ...»"
+    - lemma: "دَلِيل"
+      entry_id: "{auto}"
+      root: "دلل"
+      maqayis_quote: "«الدَّالُ وَاللَّامُ أَصْلَانِ: أَحَدُهُمَا إِبَانَةُ الشَّيْءِ بِأَمَارَةٍ تَتَعَلَّمُهَا، وَالْآخَرُ اضْطِرَابٌ فِي الشَّيْءِ.»"
+    - lemma: "مِسْنَد"
+      entry_id: "{auto}"
+      root: "سند"
+      maqayis_quote: "«السِّينُ وَالنُّونُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى انْضِمَامِ الشَّيْءِ إِلَى الشَّيْءِ.»"
+  per_sense:
+    - lemma: "قَاعِدَة"
+      sense_id: "{auto}"
+      nuance: "الأساس الذي يرتكز عليه الهيكل أو الجزء بالكامل."
+      mwe: false
+    - lemma: "مَقَرّ"
+      sense_id: "{auto}"
+      nuance: "تجويف أو مكان مخصص لاستقرار جزء آخر ضمن الآلة."
+      mwe: false
+    - lemma: "مَقْعَد"
+      sense_id: "{auto}"
+      nuance: "السطح الذي يجلس أو يستقر عليه الصمام أو نحوه، مصطلح هندسي متخصص."
+      mwe: false
+    - lemma: "دَلِيل"
+      sense_id: "{auto}"
+      nuance: "الجزء الذي يوجه حركة الأجزاء الأخرى في مسار محدد ولا يقتصر دوره على الدعم."
+      mwe: false
+    - lemma: "مِسْنَد"
+      sense_id: "{auto}"
+      nuance: "دعامة لرفع أو تثبيت الأجزاء الدوارة أو المتحركة وتخفيف الحمل عنها."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قعد","maqayis":"«الْقَافُ وَالْعَيْنُ وَالدَّالُ أَصْلٌ مُطَّرِدٌ مُنْقَاسٌ لَا يُخْلَفُ، وَهُوَ يُضَاهِي الْجُلُوسَ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قرر","maqayis":"«الْقَافُ وَالرَّاءُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدَهُمَا عَلَى بَرْدٍ، وَالْآخَرُ عَلَى تَمَكُّنٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قعد","maqayis":"«الْقَافُ وَالْعَيْنُ وَالدَّالُ أَصْلٌ مُطَّرِدٌ مُنْقَاسٌ لَا يُخْلَفُ، وَهُوَ يُضَاهِي الْجُلُوسَ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"دلل","maqayis":"«الدَّالُ وَاللَّامُ أَصْلَانِ: أَحَدُهُمَا إِبَانَةُ الشَّيْءِ بِأَمَارَةٍ تَتَعَلَّمُهَا، وَالْآخَرُ اضْطِرَابٌ فِي الشَّيْءِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سند","maqayis":"«السِّينُ وَالنُّونُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى انْضِمَامِ الشَّيْءِ إِلَى الشَّيْءِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الأساس الذي يرتكز عليه الهيكل أو الجزء بالكامل.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تجويف أو مكان مخصص لاستقرار جزء آخر ضمن الآلة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"السطح الذي يجلس أو يستقر عليه الصمام أو نحوه، مصطلح هندسي متخصص.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الجزء الذي يوجه حركة الأجزاء الأخرى في مسار محدد ولا يقتصر دوره على الدعم.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"دعامة لرفع أو تثبيت الأجزاء الدوارة أو المتحركة وتخفيف الحمل عنها.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

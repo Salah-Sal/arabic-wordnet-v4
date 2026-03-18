@@ -1,0 +1,173 @@
+stage1_review:
+  assessment:
+    concerns: []
+    observations: "المفهوم يشير إلى موقع جغرافي أو منطقة. في العربية، يعبّر عن الجهات الفرعية بتركيبات إضافية (شمال غرب) أو وصفية (الشمال الغربي)، وكلاهما فصيح وشائع."
+  blind_candidates:
+    - lemma: "شَمَال غَرْب"
+      generation_method: tarkib
+      justification: "تركيب إضافي واسع الانتشار للدلالة على الجهة الفرعية"
+    - lemma: "الشَّمَال الغَرْبِيّ"
+      generation_method: tarkib
+      justification: "تركيب وصفي شائع يستخدم كاسم مستقل للجهة أو المنطقة"
+    - lemma: "شَمَالِيّ غَرْبِيّ"
+      generation_method: tarkib
+      justification: "تركيب وصفي، وإن كان يغلب عليه الاستعمال كصفة إلا أنه يدل على الجهة"
+    - lemma: "شَمْأَل غَرْبِيّ"
+      generation_method: tarkib
+      justification: "استعمال لكلمة (شمأل) التراثية القديمة مع التركيب"
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "شمال غرب"
+      evidence_status: "no_material_found"
+    - lemma: "الشمال الغربي"
+      confirm:
+        - text: "«(1) شمالًا بغرب؛ نحوَ [أو في] الشمال الغربي (2) شماليٌّ غربيٌّ (3) الشمالُ الغربيّ.»"
+          source: "المورد الحديث (2008)"
+        - text: "«تقع في أقصى الشمال الغربي من إيران على حدود روسيا وتركيا»"
+          source: "المعجم الكبير"
+    - lemma: "شمالي غربي"
+      confirm:
+        - text: "«الشماليّ الغربيّ: أحد أبناء الشمال الغربي.»"
+          source: "المورد الحديث (2008)"
+    - lemma: "شمأل غربي"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "شمال غرب"
+      decision: confirmed
+      decision_reason: "تركيب إضافي فصيح ومستقر في الاستعمال الجغرافي المعاصر، وهو اللمة الحالية في القاعدة وتأخذ حكم الثبوت لشيوعها."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "شَمَال غَرْب"
+
+    - lemma: "الشَّمَال الغَرْبِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تركيب وصفي فصيح يكثر استعماله كاسم صريح للمنطقة الفرعية أو الجهة الجغرافية، تدعمه شواهد المعاجم المعاصرة والموسوعية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "الشَّمَال الغَرْبِيّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "شَمَالِيّ غَرْبِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "يُستخدم في الأغلب كصفة (adjective)، والمجموعة الترادفية تمثل اسماً (noun)، لذلك يُكتفى بـ 'الشمال الغربي'."
+
+    - lemma: "شَمْأَل غَرْبِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "صيغة 'شمأل' قديمة جداً ولا تستخدم كاسم للجهة في السياق الجغرافي المعاصر مقارنة بـ 'شمال'."
+
+stage4_content:
+  definition:
+    current: "موقع في الجزء الشمالي الغربي من بلد أو منطقة أو مدينة"
+    assessment:
+      decision: retain
+      reason: "التعريف الحالي دقيق ومصاغ بأسلوب سليم ويؤدي المعنى المطلوب بوضوح."
+  examples:
+    per_lemma:
+      - lemma: "شمال غرب"
+        examples:
+          - text: "تَقَعُ المَدِينَةُ فِي شَمَالِ غَرْبِ البِلَادِ."
+            type: usage
+      - lemma: "الشَّمَال الغَرْبِيّ"
+        examples:
+          - text: "يَمْتَدُّ الإِقْلِيمُ مِنَ الشَّمَالِ الغَرْبِيِّ إِلَى الجَنُوبِ الشَّرْقِيِّ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تَقَعُ المَدِينَةُ فِي شَمَالِ غَرْبِ البِلَادِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يَمْتَدُّ الإِقْلِيمُ مِنَ الشَّمَالِ الغَرْبِيِّ إِلَى الجَنُوبِ الشَّرْقِيِّ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "شمال غرب"
+      entry_id: "{auto}"
+      roots:
+        - word: "شمال"
+          root: "شمل"
+          maqayis_quote: "«يَدُلُّ عَلَى الْجَانِبِ الَّذِي يُخَالِفُ الْيَمِينَ.»"
+        - word: "غرب"
+          root: "غرب"
+          maqayis_quote: "«الْغُرْبَةُ: الْبُعْدُ عَنِ الْوَطَنِ، يُقَالُ: غَرَبَتِ الدَّارُ. وَمِنْ هَذَا الْبَابِ: غُرُوبُ الشَّمْسِ، كَأَنَّهُ بُعْدُهَا عَنْ وَجْهِ الْأَرْضِ.»"
+    - lemma: "الشَّمَال الغَرْبِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "الشمال"
+          root: "شمل"
+          maqayis_quote: "«يَدُلُّ عَلَى الْجَانِبِ الَّذِي يُخَالِفُ الْيَمِينَ.»"
+        - word: "الغربي"
+          root: "غرب"
+          maqayis_quote: "«الْغُرْبَةُ: الْبُعْدُ عَنِ الْوَطَنِ، يُقَالُ: غَرَبَتِ الدَّارُ. وَمِنْ هَذَا الْبَابِ: غُرُوبُ الشَّمْسِ، كَأَنَّهُ بُعْدُهَا عَنْ وَجْهِ الْأَرْضِ.»"
+  per_sense:
+    - lemma: "شمال غرب"
+      sense_id: "{auto}"
+      nuance: "تركيب إضافي يُستخدم غالباً مضافاً إلى اسم بعده لتحديد جهة المكان الفرعية."
+      mwe: true
+    - lemma: "الشَّمَال الغَرْبِيّ"
+      sense_id: "{auto}"
+      nuance: "تركيب وصفي مُعرَّف يُطلق غالباً كاسم مستقل على المنطقة الفرعية ذاتها."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"شمال","root":"شمل","maqayis":"«يَدُلُّ عَلَى الْجَانِبِ الَّذِي يُخَالِفُ الْيَمِينَ.»"},{"word":"غرب","root":"غرب","maqayis":"«الْغُرْبَةُ: الْبُعْدُ عَنِ الْوَطَنِ، يُقَالُ: غَرَبَتِ الدَّارُ. وَمِنْ هَذَا الْبَابِ: غُرُوبُ الشَّمْسِ، كَأَنَّهُ بُعْدُهَا عَنْ وَجْهِ الْأَرْضِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"الشمال","root":"شمل","maqayis":"«يَدُلُّ عَلَى الْجَانِبِ الَّذِي يُخَالِفُ الْيَمِينَ.»"},{"word":"الغربي","root":"غرب","maqayis":"«الْغُرْبَةُ: الْبُعْدُ عَنِ الْوَطَنِ، يُقَالُ: غَرَبَتِ الدَّارُ. وَمِنْ هَذَا الْبَابِ: غُرُوبُ الشَّمْسِ، كَأَنَّهُ بُعْدُهَا عَنْ وَجْهِ الْأَرْضِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركيب إضافي يُستخدم غالباً مضافاً إلى اسم بعده لتحديد جهة المكان الفرعية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركيب وصفي مُعرَّف يُطلق غالباً كاسم مستقل على المنطقة الفرعية ذاتها.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

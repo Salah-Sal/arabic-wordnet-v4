@@ -1,0 +1,220 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الحالية (بيتوتي) شائعة جداً في الاستخدام المعاصر، لكنها تعتبر من المولدات ولم تسجلها المعاجم التراثية أو معجم الوسيط كمدخل مستقل."
+      - "التعريف الحالي جيد ولكنه يمثل ترجمة حرفية من الإنجليزية، ويمكن صياغته بأسلوب عربي أكثر طبيعية."
+    observations: "المفهوم يعبر عن الشخص الذي يلزم بيته ولا يكثر الخروج. اللغة العربية تزخر بتعبيرات فصيحة ومجازية لهذا المعنى مثل (قُعَدَة) و(حِلْس بيته)."
+  blind_candidates:
+    - lemma: "قُعَدَة"
+      generation_method: ishtiqaq
+      justification: "صيغة مبالغة على وزن (فُعَلَة) لمن يكثر القعود ولا يبرح مكانه."
+    - lemma: "حِلْسُ بَيْتِهِ"
+      generation_method: majaz
+      justification: "تعبير مجازي عربي فصيح، مأخوذ من حلس البعير، ويقصد به من يلزم البيت ولا يفارقه."
+    - lemma: "مُلَازِمُ البَيْتِ"
+      generation_method: tarkib
+      justification: "مركب إضافي وصفي يعبر بشكل مباشر عن المعنى."
+    - lemma: "بَيْتِيّ"
+      generation_method: ishtiqaq
+      justification: "نسبة إلى البيت، وهو مستخدم في بعض السياقات للحيوانات الأليفة ولكن يمكن استعارته للإنسان."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "بَيْتُوتِيّ"
+      evidence_status: no_material_found
+    - lemma: "قُعَدَة"
+      confirm:
+        - text: "قُعَدة: ملازِمٌ بيتَهُ أو مَحلَّتَه إلخ."
+          source: "المورد الحديث (2008)"
+        - text: "القُعَدَةُ: الكثير القُعُود"
+          source: "المعجم الوسيط"
+    - lemma: "حِلْسُ بَيْتِهِ"
+      confirm:
+        - text: "رجل حِلْسٌ وحَلِسٌ ومُسْتَحْلِس: ملازم لا يبرح القتال، وقيل: لا يبرح مكانه، شُبِّه بِحِلْسِ البعير أَو البيت."
+          source: "لسان العرب لابن منظور"
+        - text: "يُقال: هُوَ حِلْسُ بيتِه، إِذا لم يَبْرَحْ مكانَه... يُقال فلانٌ حِلْسٌ من أَحْلاسِ البيت الذي لا يَبْرَحُ لبيت."
+          source: "لسان العرب لابن منظور"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "بَيْتُوتِيّ"
+      decision: confirmed
+      decision_reason: "مصطلح حديث شائع جداً ومفهوم لدى عموم الناطقين بالعربية المعاصرة للدلالة على الشخص المحب للبقاء في المنزل، ويعد تطوراً دلالياً واشتقاقياً مقبولاً."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "بَيْتُوتِيّ"
+    - lemma: "قُعَدَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ فصيح مدعوم معجمياً، يؤدي معنى لزوم المكان وكثرة القعود."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "قُعَدَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "حِلْسُ بَيْتِهِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير تراثي مجازي بليغ وموثق في أمهات المعاجم لوصف الشخص الذي لا يغادر منزله."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "حِلْسُ بَيْتِهِ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "شخص نادراً ما يذهب إلى أي مكان؛ شخص لا يميل للتجول أو السفر"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مفهوم ولكنه أشبه بالترجمة الحرفية، والأسلوب العربي يحبذ الصياغة المباشرة والسلسة."
+    authored:
+      - type: terminological
+        text: "شَخْصٌ كَثِيرُ البَقَاءِ فِي بَيْتِهِ، لَا يَمِيلُ إِلَى الخُرُوجِ أَوِ التَّجَوُّلِ أَوِ السَّفَرِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "شَخْصٌ كَثِيرُ البَقَاءِ فِي بَيْتِهِ، لَا يَمِيلُ إِلَى الخُرُوجِ أَوِ التَّجَوُّلِ أَوِ السَّفَرِ."
+
+  examples:
+    per_lemma:
+      - lemma: "بَيْتُوتِيّ"
+        examples:
+          - text: "يُفَضِّلُ قَضَاءَ العُطْلَةِ مَعَ عَائِلَتِهِ لِأَنَّهُ شَخْصٌ بَيْتُوتِيٌّ."
+            type: usage
+      - lemma: "قُعَدَة"
+        examples:
+          - text: "كَانَ جَارُنَا قُعَدَةً، قَلَّمَا نَرَاهُ خَارِجَ مَنْزِلِهِ."
+            type: usage
+      - lemma: "حِلْسُ بَيْتِهِ"
+        examples:
+          - text: "صَارَ الشَّيْخُ حِلْسَ بَيْتِهِ بَعْدَ تَقَاعُدِهِ كِبَاراً لِلسِّنِّ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يُفَضِّلُ قَضَاءَ العُطْلَةِ مَعَ عَائِلَتِهِ لِأَنَّهُ شَخْصٌ بَيْتُوتِيٌّ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "كَانَ جَارُنَا قُعَدَةً، قَلَّمَا نَرَاهُ خَارِجَ مَنْزِلِهِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "صَارَ الشَّيْخُ حِلْسَ بَيْتِهِ بَعْدَ تَقَاعُدِهِ كِبَاراً لِلسِّنِّ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "بَيْتُوتِيّ"
+      entry_id: "{auto}"
+      root: "بيت"
+      maqayis_quote: "(بَيْتٌ) الْبَاءُ وَالْيَاءُ وَالتَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الْمَأْوَى وَالْمَآبُ وَمَجْمَعُ الشَّمْلِ."
+    - lemma: "قُعَدَة"
+      entry_id: "{auto}"
+      root: "قعد"
+      maqayis_quote: "(قَعَدَ) الْقَافُ وَالْعَيْنُ وَالدَّالُ أَصْلٌ مُطَّرِدٌ مُنْقَاسٌ لَا يُخْلَفُ، وَهُوَ يُضَاهِي الْجُلُوسَ."
+    - lemma: "حِلْسُ بَيْتِهِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "حلس"
+          root: "حلس"
+          maqayis_quote: "(حَلَسَ) الْحَاءُ وَاللَّامُ وَالسِّينُ أَصْلٌ وَاحِدٌ، وَهُوَ الشَّيْءُ يَلْزَمُ الشَّيْءَ."
+        - word: "بيت"
+          root: "بيت"
+          maqayis_quote: "(بَيْتٌ) الْبَاءُ وَالْيَاءُ وَالتَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الْمَأْوَى وَالْمَآبُ وَمَجْمَعُ الشَّمْلِ."
+
+  per_sense:
+    - lemma: "بَيْتُوتِيّ"
+      sense_id: "{auto}"
+      nuance: "مُصْطَلَحٌ حَدِيثٌ شَائِعٌ فِي الِاسْتِخْدَامِ المُعَاصِرِ لِوَصْفِ المُحِبِّ لِلْبَقَاءِ فِي مَنْزِلِهِ، وَغَالِبًا مَا يَحْمِلُ دَلَالَةً إِيجَابِيَّةً أَو مُحَايِدَةً."
+      mwe: false
+    - lemma: "قُعَدَة"
+      sense_id: "{auto}"
+      nuance: "لَفْظٌ فَصِيحٌ يُفِيدُ كَثْرَةَ القُعُودِ فِي المَكَانِ، وَقَدْ يَحْمِلُ دَلَالَةً عَلَى الرُّكُونِ أَوِ الخُمُولِ."
+      mwe: false
+    - lemma: "حِلْسُ بَيْتِهِ"
+      sense_id: "{auto}"
+      nuance: "تَعْبِيرٌ تُرَاثِيٌّ بَلِيغٌ يُفِيدُ شِدَّةَ اللُّزُومِ لِلْبَيْتِ عَلَى سَبِيلِ المَجَازِ بِتَشْبِيهِهِ بِحِلْسِ البَعِيرِ الَّذِي يُلَازِمُ ظَهْرَهُ."
+      mwe: true
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"بيت","maqayis":"(بَيْتٌ) الْبَاءُ وَالْيَاءُ وَالتَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الْمَأْوَى وَالْمَآبُ وَمَجْمَعُ الشَّمْلِ."}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قعد","maqayis":"(قَعَدَ) الْقَافُ وَالْعَيْنُ وَالدَّالُ أَصْلٌ مُطَّرِدٌ مُنْقَاسٌ لَا يُخْلَفُ، وَهُوَ يُضَاهِي الْجُلُوسَ."}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"حلس","root":"حلس","maqayis":"(حَلَسَ) الْحَاءُ وَاللَّامُ وَالسِّينُ أَصْلٌ وَاحِدٌ، وَهُوَ الشَّيْءُ يَلْزَمُ الشَّيْءَ."},{"word":"بيت","root":"بيت","maqayis":"(بَيْتٌ) الْبَاءُ وَالْيَاءُ وَالتَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الْمَأْوَى وَالْمَآبُ وَمَجْمَعُ الشَّمْلِ."}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مُصْطَلَحٌ حَدِيثٌ شَائِعٌ فِي الِاسْتِخْدَامِ المُعَاصِرِ لِوَصْفِ المُحِبِّ لِلْبَقَاءِ فِي مَنْزِلِهِ، وَغَالِبًا مَا يَحْمِلُ دَلَالَةً إِيجَابِيَّةً أَو مُحَايِدَةً.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"لَفْظٌ فَصِيحٌ يُفِيدُ كَثْرَةَ القُعُودِ فِي المَكَانِ، وَقَدْ يَحْمِلُ دَلَالَةً عَلَى الرُّكُونِ أَوِ الخُمُولِ.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تَعْبِيرٌ تُرَاثِيٌّ بَلِيغٌ يُفِيدُ شِدَّةَ اللُّزُومِ لِلْبَيْتِ عَلَى سَبِيلِ المَجَازِ بِتَشْبِيهِهِ بِحِلْسِ البَعِيرِ الَّذِي يُلَازِمُ ظَهْرَهُ.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

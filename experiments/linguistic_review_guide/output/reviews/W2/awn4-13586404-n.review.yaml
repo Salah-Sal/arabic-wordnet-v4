@@ -1,0 +1,192 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الحالية (تكدس الكروماتين) تعتمد على الاقتراض اللفظي (كروماتين) وهي عبارة وصفية أكثر من كونها مصطلحاً مسكوكاً."
+      - "التعريف الحالي جيد ولكنه عبارة عن ترجمة حرفية للمفهوم الإنجليزي ويفتقر إلى الدقة المصطلحية الموجودة في المعاجم المتخصصة."
+    observations: "مصطلح 'synezesis' (أو syneresis) يشير إلى ظاهرة حيوية محددة في علم الوراثة تحدث في الطور التمهيدي من الانقسام المنصف، حيث تتجمع الصبغيات بشكل متشابك."
+  blind_candidates:
+    - lemma: "انْكِمَاشُ الصِّبْغِين"
+      generation_method: tarkib
+      justification: "تركيب إضافي يصف انكماش المادة الصبغية كما ورد في التعريف العام للظاهرة."
+    - lemma: "تَكَتُّلُ الصِّبْغِين"
+      generation_method: tarkib
+      justification: "تجمع الصبغين في كتلة واحدة في النواة أثناء الانقسام الخلوي."
+    - lemma: "انْكِمَاشٌ صِبْغِينِيّ"
+      generation_method: tarkib
+      justification: "تركيب وصفي يعبر عن عملية الانكماش المتعلقة بالصبغين."
+    - lemma: "تَجَمُّعٌ تَشَابُكِيّ"
+      generation_method: tarkib
+      justification: "تركيب وصفي يعبر عن تجمع الكروماتين بشكل شبكة كثيفة في الانقسام المنصف، وهو مصطلح متخصص."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تكدس الكروماتين"
+      confirm:
+        - text: "تَكَدُّس: 1-رصف مسطح لقواعد نيتروجينية مسطحة في الدنا ثنائيّ اللولب. 2-تجمع جزيئات الملون على الرنا يولد تبدلا لونيا فيه."
+          source: "المعجم الموحد لمصطلحات علم الوراثة (2009)"
+        - text: "كروماتين: جزء النواة الأكثر تقبلاً للأصباغ."
+          source: "معجم المصطلحات الطبية (ج.1، 1985)"
+    - lemma: "تَجَمُّعٌ تَشَابُكِيّ"
+      confirm:
+        - text: "تَجَمُّع تشابكيّ: تجمع الصبغيات على شكل عقدة كثيفة متشابكة تلتصق بإحدى جهات النواة، ويحدث ذلك في الدور الخيطيّ للانقسام في الخلايا البوغية الصغيرة."
+          source: "المعجم الموحد لمصطلحات علم الوراثة (2009)"
+    - lemma: "انْكِمَاشُ الصِّبْغِين"
+      evidence_status: "no_material_found"
+    - lemma: "تَكَتُّلُ الصِّبْغِين"
+      evidence_status: "no_material_found"
+    - lemma: "انْكِمَاشٌ صِبْغِينِيّ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تكدس الكروماتين"
+      decision: confirmed
+      decision_reason: "تعبير وصفي مستخدم مكون من وحدتين (تكدس) و(كروماتين) لهما أصل معجمي علمي ويصف الظاهرة بدقة كمرادف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَكَدُّسُ الكُرُومَاتِين"
+    - lemma: "تَجَمُّعٌ تَشَابُكِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح العربي المتخصص والمقابل الدقيق المعتمد في معاجم علم الوراثة لمفهوم synezesis."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "تَجَمُّعٌ تَشَابُكِيّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "انْكِمَاشُ الصِّبْغِين"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير وصفي حر غير مسكوك اصطلاحياً ويغني عنه المصطلح المعتمد."
+    - lemma: "تَكَتُّلُ الصِّبْغِين"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير وصفي غير مثبت في المعاجم المتخصصة لهذا المفهوم المحدد."
+    - lemma: "انْكِمَاشٌ صِبْغِينِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "لم يرد في المعاجم العلمية كمقابل للمصطلح."
+
+stage4_content:
+  definition:
+    current: "انكماش الكروماتين نحو جانب واحد من النواة أثناء الطور الأول من الانقسام المنصف"
+    assessment:
+      decision: revise
+      reason: "تعديل التعريف ليتوافق مع صياغة المعاجم المتخصصة في علم الوراثة ولزيادة الدقة العلمية باستخدام مصطلحات أدق كـ (الطور التمهيدي) بدل (الأول)."
+    authored:
+      - type: terminological
+        text: "تجمع للصبغيات على شكل عقدة كثيفة متشابكة تلتصق بإحدى جهات النواة أثناء الطور التمهيدي من الانقسام المنصف."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "تجمع للصبغيات على شكل عقدة كثيفة متشابكة تلتصق بإحدى جهات النواة أثناء الطور التمهيدي من الانقسام المنصف."
+
+  examples:
+    per_lemma:
+      - lemma: "تكدس الكروماتين"
+        examples:
+          - text: "يُعَدُّ تكدس الكروماتين في جانب واحد من النواة سمةً مميزة لبعض أطوار الانقسام."
+            type: usage
+      - lemma: "تَجَمُّعٌ تَشَابُكِيّ"
+        examples:
+          - text: "تظهر ظاهرة التجمع التشابكي بوضوح في الخلايا النباتية أثناء الانقسام المنصف."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يُعَدُّ تكدس الكروماتين في جانب واحد من النواة سمةً مميزة لبعض أطوار الانقسام."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تظهر ظاهرة التجمع التشابكي بوضوح في الخلايا النباتية أثناء الانقسام المنصف."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تَكَدُّسُ الكُرُومَاتِين"
+      entry_id: "{auto}"
+      roots:
+        - word: "تكدس"
+          root: "كدس"
+          maqayis_quote: "«(كَدَسَ) الْكَافُ وَالدَّالُ وَالسِّينُ ثَلَاثُ كَلِمَاتٍ لَا يُشْبِهُ بَعْضُهَا بَعْضًا. فَالْأُولَى: كُدْسُ الطَّعَامِ...»"
+        - word: "كروماتين"
+          root: ""
+          maqayis_quote: ""
+    - lemma: "تَجَمُّعٌ تَشَابُكِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "تجمع"
+          root: "جمع"
+          maqayis_quote: "«(جَمَعَ) الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ...»"
+        - word: "تشابكي"
+          root: "شبك"
+          maqayis_quote: "«(شَبَكَ) الشِّينُ وَالْبَاءُ وَالْكَافُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَدَاخُلِ الشَّيْءِ...»"
+  per_sense:
+    - lemma: "تَكَدُّسُ الكُرُومَاتِين"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي يشرح العملية الحيوية."
+      mwe: true
+    - lemma: "تَجَمُّعٌ تَشَابُكِيّ"
+      sense_id: "{auto}"
+      nuance: "المصطلح العلمي المتخصص المعتمد في علم الوراثة لهذه الظاهرة الخلوية."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"تكدس","root":"كدس","maqayis":"«(كَدَسَ) الْكَافُ وَالدَّالُ وَالسِّينُ ثَلَاثُ كَلِمَاتٍ لَا يُشْبِهُ بَعْضُهَا بَعْضًا. فَالْأُولَى: كُدْسُ الطَّعَامِ...»"},{"word":"كروماتين","root":"","maqayis":""}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"تجمع","root":"جمع","maqayis":"«(جَمَعَ) الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ...»"},{"word":"تشابكي","root":"شبك","maqayis":"«(شَبَكَ) الشِّينُ وَالْبَاءُ وَالْكَافُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَدَاخُلِ الشَّيْءِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير وصفي يشرح العملية الحيوية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العلمي المتخصص المعتمد في علم الوراثة لهذه الظاهرة الخلوية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

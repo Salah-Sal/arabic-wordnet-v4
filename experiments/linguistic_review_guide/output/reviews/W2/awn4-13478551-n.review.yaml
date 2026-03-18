@@ -1,0 +1,230 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "تكرار دلالات اللمات في المعنى العام، والحاجة إلى تمييز الفروق الدقيقة (nuances)."
+    observations: "المجموعة تغطي الجانب الكمي (نقصان) والجانب الكيفي (تدهور وانحطاط). اللمات الموجودة قوية، ولكن يمكن إثراؤها بمرادفات معاصرة شائعة."
+  blind_candidates:
+    - lemma: "نُقْصَان"
+      generation_method: ishtiqaq
+      justification: "اللفظ الأصيل للتعبير عن حالة النقص أو عملية التناقص."
+    - lemma: "تَقَلُّص"
+      generation_method: ishtiqaq
+      justification: "يستخدم للتعبير عن التغير نحو حجم أصغر (انكماش)."
+    - lemma: "انْكِمَاش"
+      generation_method: majaz
+      justification: "شائع في السياق الاقتصادي (تراجع المتداول) وفي الأنسجة."
+    - lemma: "تَنَاقُص"
+      generation_method: ishtiqaq
+      justification: "يدل على التغير التدريجي المستمر نحو الأقل."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "انحدار"
+      confirm:
+        - text: "«الحاء والدال والراء أصلان: الهبوط... حدرت الشيء إذا أنزلته»"
+          source: "مقاييس اللغة"
+        - text: "«انحدر من مكان كذا: هبط»"
+          source: "المعجم الوسيط"
+    - lemma: "تدهور"
+      confirm:
+        - text: "«الشىءُ: سَقَط مِن أَعْلَى إلى أَسْفَل... صِحَّةُ فلانٍ: ساءَت»"
+          source: "المعجم الكبير"
+        - text: "«انخفاض تدريجي في فعالية بعض المواد بمضي الزمن»"
+          source: "المعجم الموحد لمصطلحات الكيمياء"
+    - lemma: "تضاؤل"
+      confirm:
+        - text: "«نقص مستمر في مدى تذبذب موجات الطاقة المختلفة مثل الكهرباء والصوت»"
+          source: "معجم المصطلحات الطبية"
+    - lemma: "تراجع"
+      confirm:
+        - text: "«معدل التنمية: نقص عما كان مقدرا له»"
+          source: "المعجم الكبير"
+        - text: "«Decline (CITES): تراجع»"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+    - lemma: "تدن"
+      confirm:
+        - text: "«حدث تدنٍ في الأسعار... الهبوط نوع من القرب التدريجي المستفاد من لفظ التدني»"
+          source: "معجم الصواب اللغوي"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "انحدار"
+      decision: confirmed
+      decision_reason: "فصيح ويدل على الهبوط من أعلى إلى أسفل (الاتجاه نحو الأدنى)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "انْحِدَار"
+    - lemma: "تدهور"
+      decision: confirmed
+      decision_reason: "يدل على السقوط أو الانتقال من حالة حسنة إلى سيئة (تغير نحو الأقل جودة أو منزلة)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَدَهْوُر"
+    - lemma: "تضاؤل"
+      decision: confirmed
+      decision_reason: "يدل على النقص التدريجي في الحجم أو الشدة (تغير نحو الأصغر أو الأقل)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَضَاؤُل"
+    - lemma: "تراجع"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يستخدم في السياقات الاقتصادية والسياسية للتعبير عن التراجع في المستويات أو المكتسبات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَرَاجُع", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تدن"
+      source: stage1
+      decision: confirmed
+      decision_reason: "شائع وصحيح للتعبير عن الهبوط في المستويات أو القيمة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَدَنٍّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "تغير نحو شيء أصغر أو أقل"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ترجمة حرفية؛ يحتاج صياغة معجمية أدق تشمل الجانبين الكمي والكيفي."
+    authored:
+      - type: terminological
+        text: "تَحَوُّلٌ تَدْرِيجِيٌّ نَحْوَ حَالَةٍ أَدْنَى، أَوْ نَقْصٌ فِي المِقْدَارِ أَوِ القِيمَةِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "تَحَوُّلٌ تَدْرِيجِيٌّ نَحْوَ حَالَةٍ أَدْنَى، أَوْ نَقْصٌ فِي المِقْدَارِ أَوِ القِيمَةِ."}
+  examples:
+    per_lemma:
+      - lemma: "انْحِدَار"
+        examples:
+          - text: "يخشى الخبراء من انحدار النمو الاقتصادي في الربع الأخير."
+            type: usage
+      - lemma: "تَدَهْوُر"
+        examples:
+          - text: "أدى تدهور حالته الصحية إلى دخوله المستشفى."
+            type: usage
+      - lemma: "تَضَاؤُل"
+        examples:
+          - text: "لوحظ تضاؤل عدد السكان في القرى النائية."
+            type: usage
+      - lemma: "تَرَاجُع"
+        examples:
+          - text: "سجلت الصادرات تراجعاً ملحوظاً هذا العام."
+            type: usage
+      - lemma: "تَدَنٍّ"
+        examples:
+          - text: "هناك شكاوى من تدني مستوى الخدمات المقدمة."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "شهدت البلاد تدهوراً في الحالة الاقتصادية وانحداراً في مستوى المعيشة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "انْحِدَار"
+      entry_id: "{auto}"
+      root: "حدر"
+      maqayis_quote: "«الْحَاءُ وَالدَّالُ وَالرَّاءُ أَصْلَانِ: الْهُبُوطُ، وَالِامْتِلَاءُ. فَالْأَوَّلُ حَدَرْتُ الشَّيْءَ إِذَا أَنْزَلْتَهُ»"
+    - lemma: "تَدَهْوُر"
+      entry_id: "{auto}"
+      root: "دهر"
+      maqayis_quote: "«الدَّالُ وَالْهَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الْغَلَبَةُ وَالْقَهْرُ... وَالدَّهْوَرَةُ: جَمْعُ الشَّيْءِ وَقَذْفُهُ فِي مَهْوَاةٍ»"
+    - lemma: "تَضَاؤُل"
+      entry_id: "{auto}"
+      root: "ضال"
+      maqayis_quote: "«الضَّادُ وَالْهَمْزَةُ وَاللَّامُ أُصَيْلٌ يَدُلُّ عَلَى ضَعْفٍ وَدِقَّةٍ فِي جِسْمٍ»"
+    - lemma: "تَرَاجُع"
+      entry_id: "{auto}"
+      root: "رجع"
+      maqayis_quote: "«الرَّاءُ وَالْجِيمُ وَالْعَيْنُ أَصْلٌ كَبِيرٌ مُطَّرِدٌ مُنْقَاسٌ، يَدُلُّ عَلَى رَدٍّ وَتَكْرَارٍ»"
+    - lemma: "تَدَنٍّ"
+      entry_id: "{auto}"
+      root: "دني"
+      maqayis_quote: "«الدَّالُ وَالنُّونُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ يُقَاسُ بَعْضُهُ عَلَى بَعْضٍ، وَهُوَ الْمُقَارَبَةُ»"
+  per_sense:
+    - lemma: "انْحِدَار"
+      sense_id: "{auto}"
+      nuance: "يركز على الاتجاه المكاني أو المعنوي نحو الأسفل."
+      mwe: false
+    - lemma: "تَدَهْوُر"
+      sense_id: "{auto}"
+      nuance: "يركز على سوء الحالة والتردي من الحسن إلى السيئ."
+      mwe: false
+    - lemma: "تَضَاؤُل"
+      sense_id: "{auto}"
+      nuance: "يركز على النقص الكمي التدريجي أو صغر الحجم."
+      mwe: false
+    - lemma: "تَرَاجُع"
+      sense_id: "{auto}"
+      nuance: "يركز على الارتداد عن مكتسبات سابقة أو النكوص في المسار."
+      mwe: false
+    - lemma: "تَدَنٍّ"
+      sense_id: "{auto}"
+      nuance: "يركز على انخفاض المستوى أو الرتبة أو القيمة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حدر","maqayis":"«الْحَاءُ وَالدَّالُ وَالرَّاءُ أَصْلَانِ: الْهُبُوطُ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"دهر","maqayis":"«الدَّالُ وَالْهَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ... وَالدَّهْوَرَةُ: جَمْعُ الشَّيْءِ وَقَذْفُهُ فِي مَهْوَاةٍ»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الاتجاه المكاني أو المعنوي نحو الأسفل.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

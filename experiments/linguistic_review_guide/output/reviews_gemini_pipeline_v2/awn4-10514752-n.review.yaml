@@ -1,0 +1,220 @@
+# Stage 1: Review + Generate (no evidence)
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'سَاعٍ' عامة جداً وقد تعني ساعي البريد أو من يمشي، وتحتاج إلى سياق لتدل على معنى 'pursuer of a plan'."
+      - "اللمة 'طَالِب' غلب عليها المعنى التعليمي (student) في العصر الحديث، بينما المعنى المقصود هنا هو المعنى اللغوي العام 'seeker'."
+    observations: "المجموعة تدور حول الشخص الذي لديه قصد أو إرادة لتحقيق هدف معين. اللمات الموجودة صحيحة لغوياً ولكنها واسعة الدلالة، ويحتاج الترادف إلى إغناء بلمات أكثر دقة في سياق الأهداف والخطط."
+  blind_candidates:
+    - lemma: "مُبْتَغٍ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من 'ابتغى' بمعنى طلب الشيء وأراده، وهو دقيق جداً في وصف من يسعى وراء هدف."
+    - lemma: "قَاصِد"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من 'قصد' بمعنى توجه نحو الشيء وعمده، ويناسب تماماً من لديه خطة يتبعها."
+    - lemma: "مُسْتَهْدِف"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من 'استهدف' بمعنى جعل الشيء هدفاً له، وهو مصطلح حديث وفصيح وشائع الاستخدام."
+    - lemma: "مُرِيد"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من 'أراد'، الشخص الذي يمتلك الإرادة والتصميم لتحقيق غرض معين."
+
+# Stage 2: Evidence Gathering
+stage2_evidence:
+  per_lemma:
+    - lemma: "سَاعٍ"
+      confirm:
+        - text: "«عاملُ الصَّدَقات... كُلُّ مَنْ وَلِىَ أَمْرَ قومٍ بالحفظ والسياسة»"
+          source: "المعجم الكبير"
+      expands:
+        - text: "«يسعى؛ يناضل [من أجل تحقيق هدفٍ ما]»"
+          source: "المورد الحديث (ترجمة pursue)"
+    - lemma: "طَالِب"
+      confirm:
+        - text: "«من يهم بتحصيل الشيء أو يلتمسه ويريده»"
+          source: "موسوعة السلطان قابوس"
+        - text: "«الذي يطلب العلم ويطلق عرفاً على التلميذ»"
+          source: "المعجم الوسيط"
+    - lemma: "مُبْتَغٍ"
+      confirm:
+        - text: "«الْبَاءُ وَالْغَيْنُ وَالْيَاءُ أَصْلَانِ: أَحَدُهُمَا طَلَبُ الشَّيْءِ... بَغَيْتُ الشَّيْءَ أَبْغِيهِ: إِذَا طَلَبْتَهُ»"
+          source: "مقاييس اللغة"
+    - lemma: "قَاصِد"
+      confirm:
+        - text: "«المتوجه عامدا»"
+          source: "موسوعة السلطان قابوس"
+        - text: "«الْقَافُ وَالصَّادُ وَالدَّالُ... يَدُلُّ أَحَدُهَا عَلَى إِتْيَانِ شَيْءٍ وَأَمِّهِ»"
+          source: "مقاييس اللغة"
+    - lemma: "مُسْتَهْدِف"
+      confirm:
+        - text: "«استهدف طلبَ العلم: جعله هَدَفًا له، أو غرضًا يرمي إليه»"
+          source: "معجم اللغة العربية المعاصرة"
+
+# Stage 3: Lemma Linguistic Analysis
+stage3_analysis:
+  per_lemma:
+    - lemma: "سَاعٍ"
+      decision: confirmed
+      decision_reason: "مقبولة لدلالة الجذر على السعي والعمل لتحقيق الغايات، وهي أصل المعنى في التعريف."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "سَاعٍ"
+    - lemma: "طَالِب"
+      decision: confirmed
+      decision_reason: "مقبولة بمعناها اللغوي الأصلي (طالب الشيء) وإن غلب عليها المعنى التعليمي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "طَالِب"
+    - lemma: "مُبْتَغٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "كلمة فصيحة تعبر بدقة عن السعي الحثيث لطلب المبتغى (الهدف)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُبْتَغٍ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-10514752-n"}
+    - lemma: "قَاصِد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبر عن التوجه الواعي والعمد نحو غرض محدد (القصد)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "قَاصِد", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-10514752-n"}
+    - lemma: "مُسْتَهْدِف"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح حديث دقيق يربط الشخص بالهدف (target/goal) مباشرة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُسْتَهْدِف", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-10514752-n"}
+
+# Stage 4: Definitions & Examples
+stage4_content:
+  definition:
+    current: "شخص يسعى وراء خطة أو هدف"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي بسيط جداً، ويفضل استخدام صياغة معجمية أكثر رصانة."
+    authored:
+      - type: terminological
+        text: "من يسعى إلى تحقيق غاية أو تنفيذ خطة مرسومة بجد واهتمام."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-10514752-n", definition_index: 0, text: "من يسعى إلى تحقيق غاية أو تنفيذ خطة مرسومة بجد واهتمام."}
+  examples:
+    per_lemma:
+      - lemma: "سَاعٍ"
+        examples:
+          - text: "كان يحيى ساعياً دؤوباً إلى التميز في عمله الإداري."
+            type: usage
+      - lemma: "طَالِب"
+        examples:
+          - text: "ما ضاع حق وراءه طالب."
+            type: proverb
+      - lemma: "مُبْتَغٍ"
+        examples:
+          - text: "هو مبتغٍ للنجاح بكل الوسائل المشروعة والمتاحة."
+            type: usage
+      - lemma: "قَاصِد"
+        examples:
+          - text: "القاصد إلى المعالي لا يثنيه عائق عن بلوغ مراده."
+            type: usage
+      - lemma: "مُسْتَهْدِف"
+        examples:
+          - text: "المستهدف للمجد يتحمل مشاق الطريق وصعوبات التنفيذ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "كان يحيى ساعياً دؤوباً إلى التميز في عمله الإداري."}
+
+# Stage 5: Enrichment (metadata)
+stage5_enrichment:
+  per_entry:
+    - lemma: "سَاعٍ"
+      entry_id: "{auto}"
+      root: "سعي"
+      maqayis_quote: "«السين والعين والياء أصلان: أحدهما في المشي والعمل...»"
+    - lemma: "طَالِب"
+      entry_id: "{auto}"
+      root: "طلب"
+      maqayis_quote: "«الطاء واللام والباء أصل واحد يَدُلُّ عَلَى ابْتِغَاءِ الشَّيْءِ. يُقَالُ: طَلَبْتُ الشَّيْءَ أَطْلُبُهُ طَلَبًا.»"
+    - lemma: "مُبْتَغٍ"
+      entry_id: "{auto}"
+      root: "بغي"
+      maqayis_quote: "«الْبَاءُ وَالْغَيْنُ وَالْيَاءُ أَصْلَانِ: أَحَدُهُمَا طَلَبُ الشَّيْءِ... فَمِنَ الْأَوَّلِ بَغَيْتُ الشَّيْءَ أَبْغِيهِ: إِذَا طَلَبْتَهُ.»"
+    - lemma: "قَاصِد"
+      entry_id: "{auto}"
+      root: "قصد"
+      maqayis_quote: "«الْقَافُ وَالصَّادُ وَالدَّالُ أُصُولٌ ثَلَاثَةٌ، يَدُلُّ أَحَدُهَا عَلَى إِتْيَانِ شَيْءٍ وَأَمِّهِ.»"
+    - lemma: "مُسْتَهْدِف"
+      entry_id: "{auto}"
+      root: "هدف"
+      maqayis_quote: "«الْهَاءُ وَالدَّالُ وَالْفَاءُ: أُصَيْلٌ يَدُلُّ عَلَى انْتِصَابٍ وَارْتِفَاعٍ... وَالْهَدَفُ: الْغَرَضُ.»"
+  per_sense:
+    - lemma: "سَاعٍ"
+      sense_id: "{auto}"
+      nuance: "تركز على الجانب الحركي والعملي في ملاحقة الهدف."
+      mwe: false
+    - lemma: "طَالِب"
+      sense_id: "{auto}"
+      nuance: "تركز على الطلب والالتماس، وتوحي أحياناً بحق للمطالب."
+      mwe: false
+    - lemma: "مُبْتَغٍ"
+      sense_id: "{auto}"
+      nuance: "توحي بالرغبة النفسية العميقة في الحصول على المبتغى."
+      mwe: false
+    - lemma: "قَاصِد"
+      sense_id: "{auto}"
+      nuance: "تركز على النية والقصد والتوجه المباشر نحو الغاية."
+      mwe: false
+    - lemma: "مُسْتَهْدِف"
+      sense_id: "{auto}"
+      nuance: "تعبير حديث يركز على جعل الشيء هدفاً مرصوداً."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-10514752-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-10514752-n"
+        score: 0.9

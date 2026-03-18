@@ -1,0 +1,276 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "عدم وجود تشكيل للمات."
+      - "صيغة 'طارد للغازات' مستخدمة كشبه جملة وصفية، والأفضل أن تُشكل كمركب وصفي 'طَارِدٌ لِلْغَازَاتِ'."
+    observations: "المجموعة تمثل مفهوماً طبياً دقيقاً (Carminative / Antiflatulent). اللمات الحالية تمثل ترجمات معاصرة متداولة. يمكن تحسين المجموعة بإضافة مصطلحات أكثر دقة وتأصيلاً من المعاجم الطبية والصيدلانية مثل 'طارد الأرياح' و'مضاد التطبل'."
+  blind_candidates:
+    - lemma: "طَارِدُ الأَرْيَاحِ"
+      generation_method: ishtiqaq
+      justification: "مصطلح طبي تراثي ومعتمد في المعاجم الحديثة لمضادات الغازات."
+    - lemma: "مُضَادُّ التَّطَبُّلِ"
+      generation_method: tarkib
+      justification: "تعبير دقيق عن الحالة الطبية لانتفاخ البطن بالغازات."
+    - lemma: "طَارِدُ الرِّيحِ"
+      generation_method: tarkib
+      justification: "مصطلح صيدلاني معروف وموثق."
+    - lemma: "مُنَفِّسٌ"
+      generation_method: majaz
+      justification: "اسم فاعل يدل على تخفيف الضغط والغازات من البطن."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "طارد للغازات"
+      evidence_status: "no_material_found"
+    - lemma: "مضاد للانتفاخ"
+      confirm:
+        - text: "مضاد للانتفاخ - antibloat"
+          source: "المعجم الموحد لمصطلحات الطب البيطري (2010)"
+    - lemma: "طارد الأرياح"
+      confirm:
+        - text: "طارِدُ الأَرْياح - carminative"
+          source: "المعجم الطبي الموحد (2009)"
+        - text: "طارد الأرياح: كل دواء يخرج الأرياح من القناة الهضمية."
+          source: "معجم المصطلحات الطبية (ج.1، 1985)"
+    - lemma: "مضاد التطبل"
+      confirm:
+        - text: "مُضادُّ تَطَبُّلِ البَطْن - antiflatulent"
+          source: "المعجم الطبي الموحد (2009)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "طارد للغازات"
+      decision: confirmed
+      decision_reason: "مصطلح شائع جداً في الاستخدام الطبي الحديث لوصف الأدوية المخصصة لطرد الغازات، رغم عدم وروده نصاً في المعاجم المتوفرة، إلا أن بنيته صحيحة وواضحة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "طَارِدٌ لِلْغَازَاتِ"
+    - lemma: "مضاد للانتفاخ"
+      decision: confirmed
+      decision_reason: "مصطلح طبي حديث وموثق في المعاجم المتخصصة، يشير إلى ما يمنع أو يعالج انتفاخ البطن الناجم عن الغازات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُضَادٌّ لِلانْتِفَاخِ"
+    - lemma: "طَارِدُ الأَرْيَاحِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح طبي معتمد وموثق في المعاجم الصيدلانية والطبية المعاصرة ويحمل دلالة دقيقة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "طَارِدُ الأَرْيَاحِ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-02722862-n"
+    - lemma: "مُضَادُّ التَّطَبُّلِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير طبي دقيق يصف الأدوية المعالجة للتطبل الناجم عن غازات البطن، وموثق في المعجم الطبي الموحد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُضَادُّ التَّطَبُّلِ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-02722862-n"
+
+stage4_content:
+  definition:
+    current: "أي عامل يقلل من الغازات المعوية"
+    assessment:
+      decision: revise
+      reason: "صياغة 'أي عامل' حرفية بعض الشيء، وتخصيص 'عامل طبي' أو 'دواء' يجعل التعريف أكثر دقة في السياق الطبي، مع إضافة وظيفة التخفيف."
+    authored:
+      - type: terminological
+        text: "دَوَاءٌ أَو عَامِلٌ طِبِيٌّ يُسْهِمُ فِي طَرْدِ الغَازَاتِ المَعَوِيَّةِ وتَخْفِيفِ الانْتِفَاخِ النَّاجِمِ عَنْهَا."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-02722862-n"
+          definition_index: 0
+          text: "دَوَاءٌ أَو عَامِلٌ طِبِيٌّ يُسْهِمُ فِي طَرْدِ الغَازَاتِ المَعَوِيَّةِ وتَخْفِيفِ الانْتِفَاخِ النَّاجِمِ عَنْهَا."
+  examples:
+    per_lemma:
+      - lemma: "طَارِدٌ لِلْغَازَاتِ"
+        examples:
+          - text: "وَصَفَ الطَّبِيبُ دَوَاءً طَارِداً لِلْغَازَاتِ لِتَخْفِيفِ أَلَمِ البَطْنِ."
+            type: usage
+      - lemma: "مُضَادٌّ لِلانْتِفَاخِ"
+        examples:
+          - text: "تُسْتَخْدَمُ بَعْضُ الأَعْشَابِ الطَّبِيعِيَّةِ كَمُضَادٍّ لِلانْتِفَاخِ بَعْدَ الوَجَبَاتِ الدَّسِمَةِ."
+            type: usage
+      - lemma: "طَارِدُ الأَرْيَاحِ"
+        examples:
+          - text: "يُعَدُّ النَّعْنَاعُ مِنْ أَشْهَرِ الأَعْشَابِ طَارِدَةِ الأَرْيَاحِ."
+            type: usage
+      - lemma: "مُضَادُّ التَّطَبُّلِ"
+        examples:
+          - text: "تَنَاوَلَ المَرِيضُ مُضَادَّ التَّطَبُّلِ لِلتَّخَلُّصِ مِنَ الشُّعُورِ بِالامْتِلَاءِ المَعَوِيِّ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "وَصَفَ الطَّبِيبُ دَوَاءً طَارِداً لِلْغَازَاتِ لِتَخْفِيفِ أَلَمِ البَطْنِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تُسْتَخْدَمُ بَعْضُ الأَعْشَابِ الطَّبِيعِيَّةِ كَمُضَادٍّ لِلانْتِفَاخِ بَعْدَ الوَجَبَاتِ الدَّسِمَةِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يُعَدُّ النَّعْنَاعُ مِنْ أَشْهَرِ الأَعْشَابِ طَارِدَةِ الأَرْيَاحِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تَنَاوَلَ المَرِيضُ مُضَادَّ التَّطَبُّلِ لِلتَّخَلُّصِ مِنَ الشُّعُورِ بِالامْتِلَاءِ المَعَوِيِّ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "طَارِدٌ لِلْغَازَاتِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "طارد"
+          root: "طرد"
+          maqayis_quote: "«الطَّاءُ وَالرَّاءُ وَالدَّالُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى إِبْعَادٍ. يُقَالُ: طَرَدْتُهُ طَرْدًا.»"
+        - word: "الغازات"
+          root: "غزز"
+          maqayis_quote: ""
+    - lemma: "مُضَادٌّ لِلانْتِفَاخِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مضاد"
+          root: "ضدد"
+          maqayis_quote: "«الضَّادُ وَالدَّالُ كَلِمَتَانِ مُتَبَايِنَتَانِ فِي الْقِيَاسِ. فَالْأُولَى: الضِّدُّ ضِدُّ الشَّيْءِ. وَالْمُتَضَادَّانِ: الشَّيْئَانِ لَا يَجُوزُ اجْتِمَاعُهُمَا فِي وَقْتٍ وَاحِدٍ.»"
+        - word: "الانتفاخ"
+          root: "نفخ"
+          maqayis_quote: "«النُّونُ وَالْفَاءُ وَالْخَاءُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى انْتِفَاخٍ وَعُلُوٍّ. مِنْهُ انْتَفَخَ الشَّيْءُ انْتِفَاخًا.»"
+    - lemma: "طَارِدُ الأَرْيَاحِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "طارد"
+          root: "طرد"
+          maqayis_quote: "«الطَّاءُ وَالرَّاءُ وَالدَّالُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى إِبْعَادٍ.»"
+        - word: "الأرياح"
+          root: "روح"
+          maqayis_quote: "«الرَّاءُ وَالْوَاوُ وَالْحَاءُ أَصْلٌ كَبِيرٌ مُطَّرِدٌ، يَدُلُّ عَلَى سَعَةٍ وَفُسْحَةٍ وَاطِّرَادٍ. وَأَصْلُ [ذَلِكَ] كُلِّهِ الرِّيحُ.»"
+    - lemma: "مُضَادُّ التَّطَبُّلِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مضاد"
+          root: "ضدد"
+          maqayis_quote: "«الضَّادُ وَالدَّالُ كَلِمَتَانِ مُتَبَايِنَتَانِ فِي الْقِيَاسِ.»"
+        - word: "التطبل"
+          root: "طبل"
+          maqayis_quote: "«الطَّاءُ وَالْبَاءُ وَاللَّامُ ثَلَاثُ كَلِمَاتٍ لَيْسَتْ لَهَا طِلَاوَةُ كَلَامِ الْعَرَبِ... مِنْ ذَلِكَ الطَّبْلُ الَّذِي يُضْرَبُ.»"
+  per_sense:
+    - lemma: "طَارِدٌ لِلْغَازَاتِ"
+      sense_id: "{auto}"
+      nuance: "تعبير طبي معاصر شائع جداً يصف الدواء بوظيفته المباشرة."
+      mwe: true
+    - lemma: "مُضَادٌّ لِلانْتِفَاخِ"
+      sense_id: "{auto}"
+      nuance: "يصف الدواء من حيث أثره العلاجي في تخفيف العَرَض (الانتفاخ)."
+      mwe: true
+    - lemma: "طَارِدُ الأَرْيَاحِ"
+      sense_id: "{auto}"
+      nuance: "مصطلح طبي أصيل وموثق في المعاجم الصيدلانية، ويشير إلى نفس المفهوم بدقة وتأصيل."
+      mwe: true
+    - lemma: "مُضَادُّ التَّطَبُّلِ"
+      sense_id: "{auto}"
+      nuance: "يصف الأثر العلاجي باستخدام مصطلح طبي دقيق للأعراض (التطبل) بدلاً من الانتفاخ العام."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"طارد","root":"طرد","maqayis":"«الطَّاءُ وَالرَّاءُ وَالدَّالُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى إِبْعَادٍ. يُقَالُ: طَرَدْتُهُ طَرْدًا.»"},{"word":"الغازات","root":"غزز","maqayis":""}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مضاد","root":"ضدد","maqayis":"«الضَّادُ وَالدَّالُ كَلِمَتَانِ مُتَبَايِنَتَانِ فِي الْقِيَاسِ. فَالْأُولَى: الضِّدُّ ضِدُّ الشَّيْءِ. وَالْمُتَضَادَّانِ: الشَّيْئَانِ لَا يَجُوزُ اجْتِمَاعُهُمَا فِي وَقْتٍ وَاحِدٍ.»"},{"word":"الانتفاخ","root":"نفخ","maqayis":"«النُّونُ وَالْفَاءُ وَالْخَاءُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى انْتِفَاخٍ وَعُلُوٍّ. مِنْهُ انْتَفَخَ الشَّيْءُ انْتِفَاخًا.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"طارد","root":"طرد","maqayis":"«الطَّاءُ وَالرَّاءُ وَالدَّالُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى إِبْعَادٍ.»"},{"word":"الأرياح","root":"روح","maqayis":"«الرَّاءُ وَالْوَاوُ وَالْحَاءُ أَصْلٌ كَبِيرٌ مُطَّرِدٌ، يَدُلُّ عَلَى سَعَةٍ وَفُسْحَةٍ وَاطِّرَادٍ. وَأَصْلُ [ذَلِكَ] كُلِّهِ الرِّيحُ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مضاد","root":"ضدد","maqayis":"«الضَّادُ وَالدَّالُ كَلِمَتَانِ مُتَبَايِنَتَانِ فِي الْقِيَاسِ.»"},{"word":"التطبل","root":"طبل","maqayis":"«الطَّاءُ وَالْبَاءُ وَاللَّامُ ثَلَاثُ كَلِمَاتٍ لَيْسَتْ لَهَا طِلَاوَةُ كَلَامِ الْعَرَبِ... مِنْ ذَلِكَ الطَّبْلُ الَّذِي يُضْرَبُ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير طبي معاصر شائع جداً يصف الدواء بوظيفته المباشرة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يصف الدواء من حيث أثره العلاجي في تخفيف العَرَض (الانتفاخ).","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح طبي أصيل وموثق في المعاجم الصيدلانية، ويشير إلى نفس المفهوم بدقة وتأصيل.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يصف الأثر العلاجي باستخدام مصطلح طبي دقيق للأعراض (التطبل) بدلاً من الانتفاخ العام.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-02722862-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-02722862-n"
+        score: 0.95

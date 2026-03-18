@@ -1,0 +1,188 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمتان الموجودتان تفتقران إلى التشكيل الكامل."
+      - "الحاجة إلى تمييز دلالي بين المصلب والمصلد والمقسي، حيث يميل كل منها لاستخدام في مجال صناعي معين (طلاء، خرسانة، معادن)."
+    observations: "المفهوم تقني كيميائي، والألفاظ المستخدمة هي أسماء فاعل من أفعال التفعيل (صَلَّبَ، قَسَّى، صَلَّدَ)، وهو وزن قياسي للتعبير عن جعل الشيء يتصف بصفة معينة (الصلابة، القسوة، الصلادة)."
+  blind_candidates:
+    - lemma: "مُصَلِّب"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل 'صَلَّبَ' (جعل الشيء صلباً)، وهو المصطلح الأشيع في أوساط صناعة الطلاء والدهانات."
+    - lemma: "مُقَسِّي"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل 'قَسَّى' (جعل الشيء قاسياً)، ويستخدم في سياقات كيميائية وإنشائية."
+    - lemma: "مُصَلِّد"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل 'صَلَّدَ' (جعل الشيء صَلْداً)، ويشيع استخدامه في الهندسة الميكانيكية وهندسة السيارات للمواد المضافة."
+    - lemma: "عَامِلُ التَّصْلِيب"
+      generation_method: tarkib
+      justification: "تعبير وصفي إضافي يحدد الوظيفة الكيميائية للمادة كعامل فاعل في عملية التصلب."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُصَلِّب"
+      confirm:
+        - text: "«مسرع (معجل) جفاف الدهان»"
+          source: "المعجم الموحد لمصطلحات النفط (1999)"
+        - text: "«hardener; accelerator»"
+          source: "المعجم الموحد لمصطلحات النفط (1999)"
+    - lemma: "مُقَسِّي"
+      confirm:
+        - text: "«مواد كيميائية تضاف إلى الأرضيات الخرسانية لتزيد قساوتها»"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية (2012) [تحت مادة مقسٍّ]"
+        - text: "«وسيط تقسية- مقسي: hardening agent; hardener»"
+          source: "موسوعة الكهرباء (IEC 60050)"
+    - lemma: "مُصَلِّد"
+      confirm:
+        - text: "«هو مادة إضافية تتفاعل كيميائياً، وتختلط بالمادة الأساسية، لتعمل على تصليدها.»"
+          source: "مسرد هندسة وتكنولوجيا السيارات (ArabTerm)"
+        - text: "«hardener»"
+          source: "مسرد هندسة وتكنولوجيا السيارات (ArabTerm)"
+    - lemma: "عَامِلُ التَّصْلِيب"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مصلب"
+      decision: confirmed
+      decision_reason: "مصطلح مركزي في الصناعات الكيميائية والدهانات، مدعوم بقوة في المعاجم التقنية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُصَلِّب"
+    - lemma: "مقسي"
+      decision: confirmed
+      decision_reason: "يستخدم كمرادف تقني للمصلب، خاصة في مجالات الإنشاءات والمواد الصلبة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُقَسِّي"
+    - lemma: "مُصَلِّد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف دقيق تقنياً، ويشيع استخدامه في هندسة السيارات والمعادن للإشارة إلى مادة 'التقسية' الكيميائية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُصَلِّد", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-92466272-n"}
+
+stage4_content:
+  definition:
+    current: "مادة تزيد الصلابة، خاصة مادة تضاف إلى الورنيش أو الطلاء لمنحه سطحاً أو طبقة أكثر صلابة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكن يمكن صياغته بأسلوب معجمي أكثر إحكاماً وشمولاً للمجالات المذكورة في الأدلة."
+    authored:
+      - type: terminological
+        text: "مادةٌ كيميائيَّةٌ تضافُ إلى الدِّهان أو الوَرنيش أو الموادِّ اللَّدنة لتسريعِ جفافِها وزيادةِ صلابةِ طَبقتِها السَّطحيَّةِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "مُصَلِّب"
+        examples:
+          - text: "يُخلطُ الطلاءُ بمادّةٍ مُصَلِّبَةٍ قبلَ الاستخدامِ لضمانِ تماسكِ الطبقةِ الناتجةِ وقوّتِها."
+            type: usage
+      - lemma: "مُقَسِّي"
+        examples:
+          - text: "يُضافُ المُقَسِّي إلى المزيجِ الخرسانيِّ لزيادةِ مقاومةِ الأرضيَّاتِ للاهتراءِ."
+            type: usage
+      - lemma: "مُصَلِّد"
+        examples:
+          - text: "تتطلَّبُ بعضُ اللَّدائنِ إضافةَ مُصَلِّدٍ كيميائيٍّ لتتحوَّلَ من الحالةِ السائلةِ إلى الحالةِ الصلبةِ الدائمةِ."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُصَلِّب"
+      entry_id: "{auto}"
+      root: "صلب"
+      maqayis_quote: "«الصَّادُ وَاللَّامُ وَالْبَاءُ أَصْلَانِ: أَحَدُهُمَا يَدُلُّ عَلَى الشِّدَّةِ وَالْقُوَّةِ... فَالْأَوَّلُ الصُّلْبُ، وَهُوَ الشَّيْءُ الشَّدِيدُ.»"
+    - lemma: "مُقَسِّي"
+      entry_id: "{auto}"
+      root: "قسو"
+      maqayis_quote: "«الْقَافُ وَالسِّينُ وَالْحَرْفُ الْمُعْتَلُّ يَدُلُّ عَلَى شِدَّةٍ وَصَلَابَةٍ. مِنْ ذَلِكَ الْحَجَرِ الْقَاسِي.»"
+    - lemma: "مُصَلِّد"
+      entry_id: "{auto}"
+      root: "صلد"
+      maqayis_quote: "«الصَّادُ وَاللَّامُ وَالدَّالُ أَصْلٌ وَاحِدٌ صَحِيحٌ، يَدُلُّ عَلَى صَلَابَةٍ وَيُبْسٍ. مِنْ ذَلِكَ الْحَجَرُ الصَّلْدُ، وَهُوَ الصُّلْبُ.»"
+  per_sense:
+    - lemma: "مُصَلِّب"
+      sense_id: "{auto}"
+      nuance: "المصطلح الأكثر شيوعاً في سياق الدهانات والطلاءات السطحية."
+      mwe: false
+    - lemma: "مُقَسِّي"
+      sense_id: "{auto}"
+      nuance: "يُستخدم غالباً في سياق المواد الإنشائية (كالخرسانة) لزيادة القوة الميكانيكية السطحية."
+      mwe: false
+    - lemma: "مُصَلِّد"
+      sense_id: "{auto}"
+      nuance: "يركز على التفاعل الكيميائي الذي يؤدي إلى تحويل المادة إلى حالة صلبة جافة (التصليد)، ويشيع في هندسة المعادن واللدائن."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صلب","maqayis":"«الصَّادُ وَاللَّامُ وَالْبَاءُ أَصْلَانِ: أَحَدُهُمَا يَدُلُّ عَلَى الشِّدَّةِ وَالْقُوَّةِ... فَالْأَوَّلُ الصُّلْبُ، وَهُوَ الشَّيْءُ الشَّدِيدُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قسو","maqayis":"«الْقَافُ وَالسِّينُ وَالْحَرْفُ الْمُعْتَلُّ يَدُلُّ عَلَى شِدَّةٍ وَصَلَابَةٍ. مِنْ ذَلِكَ الْحَجَرِ الْقَاسِي.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صلد","maqayis":"«الصَّادُ وَاللَّامُ وَالدَّالُ أَصْلٌ وَاحِدٌ صَحِيحٌ، يَدُلُّ عَلَى صَلَابَةٍ وَيُبْسٍ. مِنْ ذَلِكَ الْحَجَرُ الصَّلْدُ، وَهُوَ الصُّلْبُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الأكثر شيوعاً في سياق الدهانات والطلاءات السطحية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُستخدم غالباً في سياق المواد الإنشائية (كالخرسانة) لزيادة القوة الميكانيكية السطحية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على التفاعل الكيميائي الذي يؤدي إلى تحويل المادة إلى حالة صلبة جافة (التصليد)، ويشيع في هندسة المعادن واللدائن.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-92466272-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-92466272-n"
+        score: 0.95

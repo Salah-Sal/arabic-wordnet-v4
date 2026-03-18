@@ -1,0 +1,192 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "لا توجد مشكلات واضحة في اللمات الحالية، فهي تغطي المعنى المقصود بوضوح."
+    observations: "التعريف العربي يجمع بين مصارعة الصعوبات وبذل الجهد، وهما دلالتان تتقاطعان مع الجذرين (ك ف ح) و(ن ض ل) و(ج ه د)."
+  blind_candidates:
+    - lemma: "مُكَافِح"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من (كافح) مشتق من الجذر (ك ف ح) الذي يدل على مواجهة الأمور ومباشرتها، وهو يطابق معنى مصارعة الصعوبات."
+    - lemma: "مُنَاضِل"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من (ناضل) من الجذر (ن ض ل) الذي يدل على المدافعة والمباراة، ويُستخدم للمكافح من أجل قضية."
+    - lemma: "مُجَاهِد"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من (جاهد) من الجذر (ج ه د) الذي يدل على بذل المشقة والطاقة، ويطابق الجزء الثاني من التعريف."
+    - lemma: "مُصَارِع"
+      generation_method: majaz
+      justification: "من (صارع)، استعارة من المصارعة الجسدية للدلالة على من يغالب صعوبات الحياة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُكَافِح"
+      confirm:
+        - text: "«كافح القومُ أعداءَهم: استقبلوهم فى الحرب بوجوههم ليس دونها تُرْسٌ وَلا غيره قِرْنَه: قاومه بقوة الأمورَ: باشرَها بنفسِه»"
+          source: "المعجم الوسيط"
+        - text: "«والمُكافِحُ: المباشر بنفسه. وفلان يُكافِحُ الأُمور إِذا باشرها بنفسه.»"
+          source: "لسان العرب"
+    - lemma: "مُنَاضِل"
+      confirm:
+        - text: "«وفلان يُناضِلُ عن فلان إِذا نَصَح عنه ودافع وتكلم عنه بعذره وحاجَجَ»"
+          source: "لسان العرب"
+    - lemma: "مُجَاهِد"
+      confirm:
+        - text: "«مُجَاهِد من (ج ه د) مقاتل العدو والمناضل في سبيل دعوة أو رسالة.»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+    - lemma: "مُصَارِع"
+      contradicts:
+        - text: "«صَرَعْتُ الرَّجُلَ صَرْعًا، وَصَارَعْتُهُ مُصَارَعَةً، وَرَجُلٌ صَرِيعٌ.»"
+          source: "مقاييس اللغة"
+          conflict: "دلالة اللفظ تميل إلى المصارعة الجسدية (طرح الآخر أرضاً) ولا تُستخدم غالباً للدلالة على مكابدة الصعوبات المعنوية بمعزل عن سياق مضاف."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مُكَافِح"
+      decision: confirmed
+      decision_reason: "اللمة دقيقة وتعبّر مباشرة عن الشخص الذي يواجه الصعاب والأمور بنفسه، وهي الأكثر شيوعاً للدلالة على هذا المفهوم في الحياة اليومية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُكَافِح"
+
+    - lemma: "مُنَاضِل"
+      decision: confirmed
+      decision_reason: "اللمة فصيحة وتدل على المدافعة، وتُستخدم بكثرة في السياقات الاجتماعية والسياسية للشخص الذي يكافح من أجل هدف أو مبدأ."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُنَاضِل"
+
+    - lemma: "مُجَاهِد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "دلالة اللفظ تتوافق تماماً مع إحدى شقي التعريف (بذل الجهد والمشقة في المدافعة)، وتعد مرادفاً قوياً في هذا السياق."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُجَاهِد", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "مُصَارِع"
+      source: stage1
+      decision: removed
+      decision_reason: "اللفظ مخصص بالأساس للرياضة أو الصراع الجسدي، واستخدامه المجازي للمكافحة المعنوية غير مستقل ويحتاج إلى إضافة (مثل: مصارع للأمواج، مصارع للحياة)."
+
+stage4_content:
+  definition:
+    current: "شخص يصارع الصعوبات أو يبذل جهداً كبيراً"
+    assessment:
+      decision: retain
+      reason: "التعريف الحالي دقيق وواضح ويعكس المفهوم باللغة العربية بشكل صحيح شامل."
+  examples:
+    per_lemma:
+      - lemma: "مُكَافِح"
+        examples:
+          - text: "عاش طوال حياته مُكَافِحاً في سبيل توفير حياة كريمة لأبنائه."
+            type: usage
+      - lemma: "مُنَاضِل"
+        examples:
+          - text: "كان مُنَاضِلاً صلباً لا يلين في الدفاع عن حقوق المظلومين."
+            type: usage
+      - lemma: "مُجَاهِد"
+        examples:
+          - text: "يُعَدُّ كل من يسعى لكسب رزقه بالحلال مُجَاهِداً في مجتمعه."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "عاش طوال حياته مُكَافِحاً في سبيل توفير حياة كريمة لأبنائه."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "كان مُنَاضِلاً صلباً لا يلين في الدفاع عن حقوق المظلومين."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يُعَدُّ كل من يسعى لكسب رزقه بالحلال مُجَاهِداً في مجتمعه."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُكَافِح"
+      entry_id: "{auto}"
+      root: "كفح"
+    - lemma: "مُنَاضِل"
+      entry_id: "{auto}"
+      root: "نضل"
+      maqayis_quote: "«النُّونُ وَالضَّادُ وَاللَّامُ: أُصَيْلٌ يَدُلُّ عَلَى رَمْيٍ وَمُرَامَاةٍ.»"
+    - lemma: "مُجَاهِد"
+      entry_id: "{auto}"
+      root: "جهد"
+      maqayis_quote: "«الْجِيمُ وَالْهَاءُ وَالدَّالُ أَصْلُهُ الْمَشَقَّةُ، ثُمَّ يُحْمَلُ عَلَيْهِ مَا يُقَارِبُهُ.»"
+  per_sense:
+    - lemma: "مُكَافِح"
+      sense_id: "{auto}"
+      nuance: "يُستخدم غالباً في سياق مواجهة صعوبات الحياة اليومية والمعيشية بصبر ومثابرة."
+      mwe: false
+    - lemma: "مُنَاضِل"
+      sense_id: "{auto}"
+      nuance: "يغلب استخدامه في سياق الدفاع عن المبادئ والحقوق والقضايا العامة."
+      mwe: false
+    - lemma: "مُجَاهِد"
+      sense_id: "{auto}"
+      nuance: "يدل على بذل أقصى درجات المشقة والجهد، ويحمل طابعاً روحياً أو قيمياً عالياً."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"كفح"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نضل","maqayis":"«النُّونُ وَالضَّادُ وَاللَّامُ: أُصَيْلٌ يَدُلُّ عَلَى رَمْيٍ وَمُرَامَاةٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جهد","maqayis":"«الْجِيمُ وَالْهَاءُ وَالدَّالُ أَصْلُهُ الْمَشَقَّةُ، ثُمَّ يُحْمَلُ عَلَيْهِ مَا يُقَارِبُهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُستخدم غالباً في سياق مواجهة صعوبات الحياة اليومية والمعيشية بصبر ومثابرة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يغلب استخدامه في سياق الدفاع عن المبادئ والحقوق والقضايا العامة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يدل على بذل أقصى درجات المشقة والجهد، ويحمل طابعاً روحياً أو قيمياً عالياً.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-10684741-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-10684741-n"
+        score: 0.95

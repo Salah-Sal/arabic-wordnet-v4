@@ -1,0 +1,209 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللفظ 'مادة مفسدة' عام جداً وغير دقيق اصطلاحاً لمفهوم الـ denaturant."
+      - "وجود خطأ طباعي في التعريف العربي: '(الفسخ)' والصواب '(المسخ)' في سياق تغيير طبيعة البروتين أو الكحول."
+    observations: "المصطلح العلمي الدقيق لعملية الـ denaturation هو 'المسخ' أو 'تغيير الطبيعة'. اللفظ 'مادة مفسدة' قد يوحي بالفساد العضوي العام (spoilage) وليس التغيير البنيوي المحدد المقصود هنا."
+  blind_candidates:
+    - lemma: "مُمَسِّخ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل 'مسخ' (denature)، وهو المصطلح القياسي في الكيمياء والأحياء."
+    - lemma: "عَامِلُ مَسْخ"
+      generation_method: tarkib
+      justification: "تركيب إضافي يصف الوظيفة (denaturing agent) بشكل مباشر."
+    - lemma: "مَادَّةٌ مُمَسِّخَة"
+      generation_method: tarkib
+      justification: "وصف للمادة بوظيفتها في تغيير البنية الطبيعية."
+    - lemma: "مُغَيِّرُ الطَّبِيعَة"
+      generation_method: tarkib
+      justification: "ترجمة دقيقة وشائعة للمصطلح الأجنبي (nature changer/denaturant)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "عامل مسخ"
+      confirm:
+        - text: "تغيير طبيعة الكحول / الإيثانول... بخلطه مع مواد إضافية تجعله غير صالح للاستهلاك الآدمي."
+          source: "ArabTerm - مسرد هندسة وتكنولوجيا السيارات"
+    - lemma: "مادة مفسدة"
+      evidence_status: "no_material_found"
+    - lemma: "مُمَسِّخ"
+      confirm:
+        - text: "مُمَسِّخ (denaturant)"
+          source: "المعجم الطبي الموحد (2009)"
+    - lemma: "مُغَيِّرُ الطَّبِيعَة"
+      confirm:
+        - text: "تغيير الطبيعة (denaturing)"
+          source: "المعجم الموحد لمصطلحات الكيمياء (1992)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "عامل مسخ"
+      decision: confirmed
+      decision_reason: "مصطلح مركب صحيح ومستخدم لوصف المادة التي تقوم بعملية المسخ."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عَامِلُ مَسْخ"
+    - lemma: "مادة مفسدة"
+      decision: removed
+      decision_reason: "لفظ عام يفتقر للدقة العلمية؛ 'الإفساد' أعم من 'المسخ' البنيوي المقصود في الكيمياء."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "مُمَسِّخ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح التقني المفرد المعتمد في المعاجم الطبية والعلمية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُمَسِّخ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُغَيِّرُ الطَّبِيعَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح وصفي دقيق يعبر عن جوهر عملية الـ denaturation."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "مُغَيِّرُ الطَّبِيعَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مَادَّةٌ مُمَسِّخَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تركيب وصفي صحيح وشائع الاستخدام في المختبرات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "مَادَّةٌ مُمَسِّخَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "أي مادة تعمل كعامل تغيير للطبيعة (الفسخ)"
+    assessment:
+      decision: revise
+      reason: "تصحيح الخطأ الطباعي (الفسخ -> المسخ) وتوضيح السياق الكيميائي/الحيوي."
+    authored:
+      - type: terminological
+        text: "مادّة كيميائيّة تُضاف إلى مادّة أخرى لتغيير خصائصها الطبيعيّة (كالبنية البروتينيّة) وجعلها غير صالحة لاستعمالات معيّنة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "مادّة كيميائيّة تُضاف إلى مادّة أخرى لتغيير خصائصها الطبيعيّة (المسخ) وجعلها غير صالحة لاستعمالات معيّنة؛ كإضافة مواد لمسخ الكحول ومنع شربه."
+  examples:
+    per_lemma:
+      - lemma: "مُمَسِّخ"
+        examples:
+          - text: "يُضاف المُمَسِّخُ إلى الكحولِ الإيثيليِّ لجعلهِ غيرَ صالحٍ للاستهلاكِ الآدميِّ."
+            type: usage
+      - lemma: "عَامِلُ مَسْخ"
+        examples:
+          - text: "تُستخدم الحرارةُ العاليةُ كعاملِ مَسْخٍ قويٍّ للبروتيناتِ في الخليةِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يُضاف المُمَسِّخُ إلى الكحولِ الإيثيليِّ لجعلهِ غيرَ صالحٍ للاستهلاكِ الآدميِّ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُمَسِّخ"
+      entry_id: "{auto}"
+      root: "مسخ"
+      maqayis_quote: "«الْمِيمُ وَالسِّينُ وَالْخَاءُ كَلِمَتَانِ: إِحْدَاهُمَا الْمَسْخُ، وَهُوَ يَدُلُّ عَلَى تَشْوِيهٍ وَقِلَّةِ طَعْمِ الشَّيْءِ، وَمَسَخَهُ اللَّهُ: شَوَّهَ خَلْقَهُ مِنْ صُورَةٍ حَسَنَةٍ إِلَى قَبِيحَةٍ.»"
+    - lemma: "عَامِلُ مَسْخ"
+      entry_id: "{auto}"
+      roots:
+        - word: "عامل"
+          root: "عمل"
+          maqayis_quote: "«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامُّ فِي كُلِّ فِعْلٍ يُفْعَلُ.»"
+        - word: "مسخ"
+          root: "مسخ"
+          maqayis_quote: "«الْمِيمُ وَالسِّينُ وَالْخَاءُ كَلِمَتَانِ: إِحْدَاهُمَا الْمَسْخُ، وَهُوَ يَدُلُّ عَلَى تَشْوِيهٍ وَقِلَّةِ طَعْمِ الشَّيْءِ...»"
+    - lemma: "مُغَيِّرُ الطَّبِيعَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "مغير"
+          root: "غير"
+          maqayis_quote: "«الْغَيْنُ وَالْيَاءُ وَالرَّاءُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى صَلَاحٍ وَإِصْلَاحٍ وَمَنْفَعَةٍ، وَالْآخَرُ عَلَى اخْتِلاَفِ شَيْئَيْنِ.»"
+        - word: "الطبيعة"
+          root: "طبع"
+          maqayis_quote: "«الطَّاءُ وَالْبَاءُ وَالْعَيْنُ أَصْلٌ صَحِيحٌ، وَهُوَ مَثَلٌ عَلَى نِهَايَةٍ يَنْتَهِي إِلَيْهَا الشَّيْءُ حَتَّى يُخْتَمَ عِنْدَهَا.»"
+  per_sense:
+    - lemma: "مُمَسِّخ"
+      sense_id: "{auto}"
+      nuance: "المصطلح التقني المفرد للأداة أو المادة التي تقوم بالعملية."
+      mwe: false
+    - lemma: "عَامِلُ مَسْخ"
+      sense_id: "{auto}"
+      nuance: "يركز على الدور الوظيفي للمادة كعامل مساعد في العملية."
+      mwe: true
+    - lemma: "مُغَيِّرُ الطَّبِيعَة"
+      sense_id: "{auto}"
+      nuance: "ترجمة معنوية تشرح آلية العمل (تغيير الطبيعة الكيميائية)."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"مسخ","maqayis":"«الْمِيمُ وَالسِّينُ وَالْخَاءُ كَلِمَتَانِ: إِحْدَاهُمَا الْمَسْخُ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"عامل","root":"عمل","maqayis":"«...»"},{"word":"مسخ","root":"مسخ","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مغير","root":"غير","maqayis":"«...»"},{"word":"طبيعة","root":"طبع","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح التقني المفرد للأداة أو المادة التي تقوم بالعملية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

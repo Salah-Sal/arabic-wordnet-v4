@@ -1,0 +1,211 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "الارتباط التشعبي (Hypernym) الحالي 'عامل/فاعل' غير دقيق لمفهوم 'اللاأدري' أو 'المتشكك'، إذ يعبر عن فئة مهنية/عملية بينما المفهوم ذهني/فلسفي."
+      - "اللمة 'لَا أَدْرِيّ' ترد غالباً ككلمة واحدة في المعاجم الحديثة (لاأدري) أو كمركب إضافي وصفياً."
+    observations: "المجموعة تجمع بين المعنى العام (المتشكك/المرتاب) والمعنى الفلسفي الخاص (اللاأدري). اللمات الموجودة صحيحة ولكنها تحتاج إلى إثراء بلمات تراثية وفصحى تعبر عن المبالغة في الشك."
+  blind_candidates:
+    - lemma: "لَاأَدْرِيّ"
+      generation_method: tarkib
+      justification: "المصطلح العربي القياسي المقابل لـ (Agnostic)، وهو مشتق من عبارة 'لا أدري' بتحويلها إلى اسم منسوب."
+    - lemma: "مُتَشَكِّك"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من (تشكك)، وهو اللفظ الأكثر شيوعاً في التعبير عن الشخص الذي يداخله الشك."
+    - lemma: "مُرْتَاب"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من (ارتاب)، يعبر عن الذي يقع في الريبة والشك، وهو لفظ قرآني فصيح."
+    - lemma: "مُتَوَقِّف"
+      generation_method: majaz
+      justification: "من (التوقف عن الحكم)، وهو وصف دقيق لللاأدري الذي لا يقطع برأي إيجاباً أو سلباً."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "لَا أَدْرِيّ"
+      confirm:
+        - text: "«(1) اللّاأدريّ: من يعتقد بأن وجود الله وطبيعتَهُ وأصل الكون أمورٌ لا سبيلَ إلى معرفتها (2) لاأَدْريّ.»"
+          source: "المورد الحديث (2008)"
+      expands:
+        - text: "«الشَّكَّاكُون: فرقة من الفلاسفة يترددون بين إثبات حقائق الأشياء وإنكارها، ويسمَّوْن (في الفلسفة الإسلامية): «باللا أدرية»»"
+          source: "المعجم الوسيط"
+          addition: "يربط بين 'الشكاكين' ومصطلح 'اللاأدرية' في الفلسفة الإسلامية."
+    - lemma: "مُتَشَكِّك"
+      confirm:
+        - text: "«متشكك (Agnostic)»"
+          source: "مسرد علم الاجتماع والأنثروبولوجيا (ArabTerm)"
+    - lemma: "شَكَّاك"
+      confirm:
+        - text: "«الشَّكَّاك: الكثيرُ الشك»"
+          source: "المعجم الوسيط"
+    - lemma: "مُرْتَاب"
+      confirm:
+        - text: "«ارْتَابَ فلانٌ: شَكَّ»"
+          source: "المعجم الكبير"
+      expands:
+        - text: "«مُرِيَّبٌ: مُرْتاب لم يَسْتَيْقِن»"
+          source: "المعجم الكبير"
+          addition: "يؤكد أن المرتاب هو من لم يستيقن، وهو جوهر معنى المتشكك."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "لَا أَدْرِيّ"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي ومباشر لمفهوم Agnostic، موثق في المعاجم الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "لَا أَدْرِيّ"
+    - lemma: "مُتَشَكِّك"
+      decision: confirmed
+      decision_reason: "لفظ صحيح صرفياً وشائع استعمالاً للتعبير عن الشخص الذي يساوره الشك."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُتَشَكِّك"
+    - lemma: "شَكَّاك"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صيغة مبالغة تدل على من طبع على الشك، وهي مطابقة للتعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "شَكَّاك", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُرْتَاب"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ فصيح يعبر عن الشك المختلط بالحيرة أو التهمة، وهو مناسب للسياق."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُرْتَاب", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "شخص متشكك أو غير ملتزم برأي حول شيء ما"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي بسيط جداً، ويفضل استخدام صياغة معجمية تجمع بين التردد الذهني واللاأدرية الفلسفية."
+    authored:
+      - type: terminological
+        text: "مَنْ يَتَرَدَّدُ ذِهْنُهُ بَيْنَ الإِثْبَاتِ وَالنَّفْيِ وَيَتَوَقَّفُ عَنِ الْحُكْمِ فِي قَضِيَّةٍ مَا، أَوْ مَنْ يَعْتَقِدُ أَنَّ بَعْضَ الْحَقَائِقِ (خَاصَّةً مَا يَتَعَلَّقُ بِالْمُطْلَقَاتِ) لَا سَبِيلَ إِلَى مَعْرِفَتِهَا."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مَنْ يَتَرَدَّدُ ذِهْنُهُ بَيْنَ الإِثْبَاتِ وَالنَّفْيِ وَيَتَوَقَّفُ عَنِ الْحُكْمِ فِي قَضِيَّةٍ مَا، أَوْ مَنْ يَعْتَقِدُ أَنَّ بَعْضَ الْحَقَائِقِ لَا سَبِيلَ إِلَى مَعْرِفَتِهَا."}
+  examples:
+    per_lemma:
+      - lemma: "لَا أَدْرِيّ"
+        examples:
+          - text: "يَصِفُ نَفْسَهُ بِأَنَّهُ لَا أَدْرِيٌّ فِيمَا يَتَعَلَّقُ بِمَسَائِلِ مَا وَرَاءَ الطَّبِيعَةِ."
+            type: usage
+      - lemma: "مُتَشَكِّك"
+        examples:
+          - text: "وَاجَهَ النَّظَرِيَّةَ بِعَقْلٍ مُتَشَكِّكٍ يَرْفُضُ التَّسْلِيمَ بِدُونِ دَلِيلٍ عِلْمِيٍّ قَاطِعٍ."
+            type: usage
+      - lemma: "شَكَّاك"
+        examples:
+          - text: "كَانَ الرَّجُلُ شَكَّاكاً بِطَبْعِهِ، فَلَمْ يُصَدِّقْ أَيّاً مِنَ الِادِّعَاءَاتِ الْمَطْرُوحَةِ."
+            type: usage
+      - lemma: "مُرْتَاب"
+        examples:
+          - text: "ظَلَّ مُرْتَاباً فِي نَوَايَا خَصْمِهِ رَغْمَ تَوْقِيعِ اتِّفَاقِيَّةِ السَّلَامِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "الفَيْلَسُوفُ الشَّكَّاكُ لَا يَقْبَلُ الْحَقَائِقَ دُونَ تَمْحِيصٍ دَقِيقٍ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "لَا أَدْرِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "لا"
+          root: "لا"
+          maqayis_quote: "لم ترد في مقاييس اللغة كأصل اشتقاقي."
+        - word: "أدري"
+          root: "دري"
+          maqayis_quote: "«الدَّالُ وَالرَّاءُ وَالْيَاءُ... أَصْلَانِ: أَحَدُهُمَا قَصْدُ الشَّيْءِ وَاعْتِمَادُهُ طَلَبًا... يُقَالُ: دَرَيْتُ الشَّيْءَ، وَفُلَانٌ حَسَنُ الدِّرْيَةِ، كَقَوْلِكَ: حَسَنُ الْفِطْنَةِ.»"
+    - lemma: "مُتَشَكِّك"
+      entry_id: "{auto}"
+      root: "شكك"
+      maqayis_quote: "«الشِّينُ وَالْكَافُ أَصْلٌ وَاحِدٌ... يَدُلُّ عَلَى التَّدَاخُلِ... وَمِنْ هَذَا الْبَابِ الشَّكُّ، الَّذِي هُوَ خِلَافُ الْيَقِينِ، إِنَّمَا سُمِّيَ بِذَلِكَ لِأَنَّ الشَّاكَّ كَأَنَّهُ شُكَّ لَهُ الْأَمْرَانِ فِي مَشَكٍّ وَاحِدٍ.»"
+    - lemma: "شَكَّاك"
+      entry_id: "{auto}"
+      root: "شكك"
+      maqayis_quote: "«الشِّينُ وَالْكَافُ أَصْلٌ وَاحِدٌ... وَمِنْ هَذَا الْبَابِ الشَّكُّ، الَّذِي هُوَ خِلَافُ الْيَقِينِ.»"
+    - lemma: "مُرْتَاب"
+      entry_id: "{auto}"
+      root: "ريب"
+      maqayis_quote: "«الرَّاءُ وَالْيَاءُ وَالْبَاءُ أُصَيْلٌ يَدُلُّ عَلَى شَكٍّ، أَوْ شَكٍّ وَخَوْفٍ، فَالرَّيْبُ: الشَّكُّ.»"
+  per_sense:
+    - lemma: "لَا أَدْرِيّ"
+      sense_id: "{auto}"
+      nuance: "تُسْتَخْدَمُ غَالِبًا فِي السِّياقِ الفَلْسَفِيِّ أَوِ الدِّينيِّ لِوَصْفِ مَنْ يَعْتَقِدُ أَنَّ الحَقِيقَةَ غَيْرُ مَعْرُوفَةٍ."
+      mwe: true
+    - lemma: "مُتَشَكِّك"
+      sense_id: "{auto}"
+      nuance: "اللفظ العامُّ الذي يَصِفُ أَيَّ شَخْصٍ يَمِيلُ إِلى الشَّكِّ فِي صِحَّةِ الأُمُورِ."
+      mwe: false
+    - lemma: "شَكَّاك"
+      sense_id: "{auto}"
+      nuance: "تَدُلُّ عَلَى المُبَالَغَةِ، أَيْ كَثِيرِ الشَّكِّ الَّذِي يَصْعُبُ إِقْنَاعُهُ."
+      mwe: false
+    - lemma: "مُرْتَاب"
+      sense_id: "{auto}"
+      nuance: "تَحْمِلُ ظِلّاً مِنَ الرِّيبَةِ وَعَدَمِ الطُّمَأْنِينَةِ، وَتُسْتَخْدَمُ كَثِيرًا فِي النُّصُوصِ الأَدَبِيَّةِ وَالقُرْآنِيَّةِ."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"لا","root":"لا","maqayis":""},{"word":"أدري","root":"دري","maqayis":"«الدَّالُ وَالرَّاءُ وَالْيَاءُ... أَصْلَانِ: أَحَدُهُمَا قَصْدُ الشَّيْءِ وَاعْتِمَادُهُ طَلَبًا... يُقَالُ: دَرَيْتُ الشَّيْءَ، وَفُلَانٌ حَسَنُ الدِّرْيَةِ، كَقَوْلِكَ: حَسَنُ الْفِطْنَةِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"شكك","maqayis":"«الشِّينُ وَالْكَافُ أَصْلٌ وَاحِدٌ... يَدُلُّ عَلَى التَّدَاخُلِ... وَمِنْ هَذَا الْبَابِ الشَّكُّ، الَّذِي هُوَ خِلَافُ الْيَقِينِ، إِنَّمَا سُمِّيَ بِذَلِكَ لِأَنَّ الشَّاكَّ كَأَنَّهُ شُكَّ لَهُ الْأَمْرَانِ فِي مَشَكٍّ وَاحِدٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تُسْتَخْدَمُ غَالِبًا فِي السِّياقِ الفَلْسَفِيِّ أَوِ الدِّينيِّ لِوَصْفِ مَنْ يَعْتَقِدُ أَنَّ الحَقِيقَةَ غَيْرُ مَعْرُوفَةٍ.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

@@ -1,0 +1,167 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة غير مشكولة."
+      - "بيتموس مصطلح معرب حديثاً، وقد يحتاج لمراجعة في سياق الفصحى، وإن كان شائعاً في التقنية الزراعية."
+    observations: "المفهوم يشير إلى مادة 'Peat' التي تتشكل من تراكم النباتات وتحللها في المستنقعات. المصطلح العربي الأصيل هو 'الخُثّ'، وهو مستخدم قديماً وحديثاً في هذا السياق الدلالي."
+  blind_candidates:
+    - lemma: "خُثّ"
+      generation_method: ishtiqaq
+      justification: "اللفظ العربي الأصيل لمادة غثاء السيل التي تيبس وتسود، وهو المصطلح العلمي المعتمد حالياً للـ Peat."
+    - lemma: "لِبْد نَبَاتِيّ"
+      generation_method: tarkib
+      justification: "استعارة من اللبد (المتلبد) لوصف القوام الليفي المتماسك للمادة النباتية المتحللة."
+    - lemma: "تُرَابَة"
+      generation_method: ishtiqaq
+      justification: "صيغة مفرد من التراب، لتمييز النوع الخاص من التربة العضوية."
+    - lemma: "بِيتمُوس"
+      generation_method: taarib
+      justification: "التعريب الشائع جداً في العلوم الزراعية المعاصرة (Peat moss)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خُثّ"
+      confirm:
+        - text: "«(في الجِيولُوجْيا) peat: مادةٌ ليفِيَّة ذات لَوْنِ بُنَّىّ أو أَسْوَدَ، تَنْتُج من تَحَلُّلِ المادَّة النباتِيَّة في المُسْتَنْقعات، وتَحْتَوى على نِسْبَةٍ مُرْتَفعةٍ من الماء. ويُعدُّ الخَثُّ أوَّلَ مَرْحلةٍ من مراحل التغيُّر من المادَّة العُضْوِيَّة إلى الفَحْم»"
+          source: "المعجم الكبير"
+        - text: "«بقايا نباتية ناقصة التفحم ذات لون أسود أو بني قاتم تتكون في المستنقعات و الأمكنة الرطبة. (peat)»"
+          source: "المعجم الموحد لمصطلحات الجيولوجيا (2000)"
+      expands:
+        - text: "«غثاء السيل إذا خلَّفه ونضب عنه حتى يـجف»"
+          source: "المعجم الوسيط"
+          addition: "المعنى اللغوي القديم الذي اشتق منه المعنى العلمي الحديث."
+    - lemma: "بيتموس"
+      evidence_status: "no_material_found"
+    - lemma: "طُورْب"
+      confirm:
+        - text: "«خث، طورب (ال...) نسيج نباتي نصف مهتم يتكون بتحلل النباتات تحللا جزئيا بالماء (peat)»"
+          source: "المعجم الموحد لمصطلحات الكيمياء (1992)"
+    - lemma: "ترابة"
+      contradicts:
+        - text: "«تُرَابَةُ: بالضم، بلفظ واحدة التراب: بلد باليمن»"
+          source: "معجم البلدان"
+          conflict: "الكلمة علم لمكان وليست مصطلحاً للمادة."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "خث"
+      decision: confirmed
+      decision_reason: "هو المصطلح العربي المعياري والعلمي الدقيق للمفهوم، وله جذور لغوية تدعم دلالته على بقايا النباتات السوداء الجافة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خُثّ"
+    - lemma: "بيتموس"
+      decision: confirmed
+      decision_reason: "مصطلح تقني شائع جداً في الزراعة الحديثة، وبالرغم من كونه تعريباً، إلا أن استبعاده قد يضعف تغطية المعجم للمصطلحات المتداولة فعلياً."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "بِيتمُوس"
+    - lemma: "طُورْب"
+      source: stage2
+      decision: confirmed
+      decision_reason: "مصطلح معرب (عن Turf) موثق في المعاجم العلمية الموحدة كمرادف للخث."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "طُورْب"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-14713654-n"
+
+stage4_content:
+  definition:
+    current: "مادة نباتية متفحمة جزئياً مشبعة بالماء؛ يمكن استخدامها كوقود عند تجفيفها"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكنه يفتقر إلى التفاصيل العلمية واللغوية المتوفرة في المعاجم المتخصصة مثل المعجم الكبير."
+    authored:
+      - type: terminological
+        text: "مادّةٌ لِيفِيَّةٌ لَوْنُهَا بَيْنَ البُنِّيّ وَالأَسْوَدِ، تَنْتُجُ عَنْ تَحَلُّلِ المَوَادِّ النَّبَاتِيَّةِ فِي المُسْتَنْقَعَاتِ، وَتُعَدُّ المَرْحَلَةَ الأُولَى لِتَحَوُّلِ المَادَّةِ العُضْوِيَّةِ إِلَى فَحْمٍ؛ تُسْتَخْدَمُ وَقُودًا بَعْدَ تَجْفِيفِهَا وَتُسْتَعْمَلُ فِي الزِّرَاعَةِ لِتَحْسِينِ التُّرْبَةِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-14713654-n"
+          definition_index: 0
+          text: "مادّةٌ لِيفِيَّةٌ لَوْنُهَا بَيْنَ البُنِّيّ وَالأَسْوَدِ، تَنْتُجُ عَنْ تَحَلُّلِ المَوَادِّ النَّبَاتِيَّةِ فِي المُسْتَنْقَعَاتِ، وَتُعَدُّ المَرْحَلَةَ الأُولَى لِتَحَوُّلِ المَادَّةِ العُضْوِيَّةِ إِلَى فَحْمٍ؛ تُسْتَخْدَمُ وَقُودًا بَعْدَ تَجْفِيفِهَا وَتُسْتَعْمَلُ فِي الزِّرَاعَةِ لِتَحْسِينِ التُّرْبَةِ."
+  examples:
+    per_lemma:
+      - lemma: "خُثّ"
+        examples:
+          - text: "تَشْتَهِرُ بَعْضُ المَنَاطِقِ بِاسْتِخْرَاجِ الخُثِّ مِنَ السِّبَاخِ لِاسْتِخْدَامِهِ مَصْدَرًا لِلطَّاقَةِ."
+            type: usage
+      - lemma: "بِيتمُوس"
+        examples:
+          - text: "يَنْصَحُ الخُبَرَاءُ بِإِضَافَةِ البِيتمُوسِ إِلَى التُّرْبَةِ الرَّمْلِيَّةِ لِزِيَادَةِ قُدْرَتِهَا عَلَى الِاحْتِفَاظِ بِالمَاءِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تَشْتَهِرُ بَعْضُ المَنَاطِقِ بِاسْتِخْرَاجِ الخُثِّ مِنَ السِّبَاخِ لِاسْتِخْدَامِهِ مَصْدَرًا لِلطَّاقَةِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خُثّ"
+      entry_id: "{auto}"
+      root: "خثث"
+      maqayis_quote: "«يَقُولُونَ: الْخُثُّ مَا أُوخِفَ مِنْ أَخْثَاءِ الْبَقْرِ وَطُلِيَ بِهِ شَيْءٌ... وَيُقَالُ الْخُثُّ: غُثَاءُ السَّيْلِ إِذَا تَرَكَهُ السَّيْلُ فَيَبِسَ وَاسْوَدَّ.»"
+    - lemma: "طُورْب"
+      entry_id: "{auto}"
+      note: "معرب عن الإنجليزية Turf."
+  per_sense:
+    - lemma: "خُثّ"
+      sense_id: "{auto}"
+      nuance: "المصطلح الأصيل والأكثر شمولاً ودقة علمية."
+      mwe: false
+    - lemma: "بِيتمُوس"
+      sense_id: "{auto}"
+      nuance: "غالباً ما يشير في الاستخدام العملي إلى الخث المخصص للأغراض الزراعية (Peat moss)."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خثث","maqayis":"«يَقُولُونَ: الْخُثُّ مَا أُوخِفَ مِنْ أَخْثَاءِ الْبَقْرِ وَطُلِيَ بِهِ شَيْءٌ... وَيُقَالُ الْخُثُّ: غُثَاءُ السَّيْلِ إِذَا تَرَكَهُ السَّيْلُ فَيَبِسَ وَاسْوَدَّ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الأصيل والأكثر شمولاً ودقة علمية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-14713654-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-14713654-n"
+        score: 0.95

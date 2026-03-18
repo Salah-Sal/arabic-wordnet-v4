@@ -1,0 +1,208 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة هي أسماء مفعول فقط (منقول، محوّل)، بينما التعريف يشمل الفاعل والمفعول (من ينتقل أو يتم نقله)."
+    observations: "المجموعة تدور حول الشخص الذي يغيّر منصبه الوظيفي. اللمّات الحالية دقيقة من الناحية الإدارية لكنها تفتقر للجانب النشط (اسم الفاعل)."
+  blind_candidates:
+    - lemma: "مُنْتَقِلٌ"
+      generation_method: ishtiqaq
+      justification: "اسم الفاعل من انتقل، يعبّر عن الطرف الذي يقوم بفعل الانتقال."
+    - lemma: "مَنْقُولٌ"
+      generation_method: ishtiqaq
+      justification: "اسم المفعول من نقل، يعبّر عن الطرف الذي وقع عليه فعل النقل (المنقول وظيفياً)."
+    - lemma: "مُحَوَّلٌ"
+      generation_method: ishtiqaq
+      justification: "اسم المفعول من حوّل، يستخدم في السياقات الإدارية للشخص المنقول بين الأقسام."
+    - lemma: "نَقِيلٌ"
+      generation_method: ishtiqaq
+      justification: "صيغة مبالغة أو صفة مشبهة تدل على من ينتقل كثيراً أو من غادر قومه وتوطن في غيرهم (تراثي)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مَنْقُولٌ"
+      confirm:
+        - text: "«المنقول [من مكان إلى آخر]»"
+          source: "المورد الحديث (2008)"
+      expands:
+        - text: "«هو ما ينقل من مكان إلى مكان ويحول من هيئة إلى هيئة»"
+          source: "كشّاف اصطلاحات الفنون والعلوم للتهانوي"
+          addition: "يؤكد المعنى العام للنقل والتحويل وإن كان السياق غالباً للأعيان."
+    - lemma: "مُحَوَّلٌ"
+      confirm:
+        - text: "«اشتقاقه واضح من حوّلت الشيء إذا نقلته من موضع إلى موضع»"
+          source: "معجم البلدان لياقوت الحموي"
+    - lemma: "مُنْتَقِلٌ"
+      confirm:
+        - text: "«النَّقِيلُ: الطَّرِيقُ، لِأَنَّهُ لَا يَسْلُكُهُ إِلَّا مُنْتَقِلٌ.»"
+          source: "مقاييس اللغة"
+          addition: "يؤكد استخدام وصف 'منتقل' للشخص الذي يسلك الطريق أو يتحرك."
+    - lemma: "نَقِيلٌ"
+      confirm:
+        - text: "«النَّقِيلُ: من يغترب من الرِّجَال أو النِّساء»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«النَّقِيل: الغريب في القوم»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مَنْقُول"
+      decision: confirmed
+      decision_reason: "دقيق في وصف الطرف الذي يتم نقله إدارياً (اسم مفعول)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: "يركز على وقوع فعل النقل على الشخص بقرار إداري."
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَنْقُولٌ"
+    - lemma: "مُحَوَّل"
+      decision: confirmed
+      decision_reason: "مصطلح إداري شائع للشخص الذي يتم تغيير قسمه أو مساره الوظيفي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: "يوحي بتغيير المسار أو الوجهة (التحويل) وليس مجرد النقل المكاني."
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُحَوَّلٌ"
+    - lemma: "مُنْتَقِلٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اسم الفاعل الضروري لتغطية شق 'من ينتقل' في التعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: "يركز على المبادرة بالانتقال أو فعل التحرك ذاته (اسم فاعل)."
+      actions:
+        - command: create_entry
+          params: {lemma: "مُنْتَقِلٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "نَقِيلٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ تراثي فصيح للشخص المغترب أو المنتقل من قومه، يثري المعجم اللغوي للمجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: "لفظ كلاسيكي يوحي بالغربة أو الانتقال الدائم والاستقرار في بيئة جديدة."
+      actions:
+        - command: create_entry
+          params: {lemma: "نَقِيلٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "شخص ينتقل أو يتم نقله من منصب إلى آخر"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكن يحتاج لضبط التشكيل وتوضيح طبيعة المنصب (وظيفي)."
+    authored:
+      - type: terminological
+        text: "شَخْصٌ يَنْتَقِلُ أَوْ يُنْقَلُ مِنْ مَنْصِبٍ وَظِيفِيٍّ إِلَى آخَرَ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "شَخْصٌ يَنْتَقِلُ أَوْ يُنْقَلُ مِنْ مَنْصِبٍ وَظِيفِيٍّ إِلَى آخَرَ."}
+  examples:
+    per_lemma:
+      - lemma: "مَنْقُولٌ"
+        examples:
+          - text: "بَاشَرَ المُوَظَّفُ المَنْقُولُ مَهَامَّهُ فِي الفَرْعِ الجَدِيدِ لِلشَّرِكَةِ."
+            type: usage
+      - lemma: "مُحَوَّلٌ"
+        examples:
+          - text: "تَمَّ اسْتِقْبَالُ المُحَوَّلِ مِنْ قِسْمِ المَبِيعَاتِ بِتَرْحَابٍ كَبِيرٍ."
+            type: usage
+      - lemma: "مُنْتَقِلٌ"
+        examples:
+          - text: "يَسْعَى المُنْتَقِلُ بَيْنَ الوَظَائِفِ دَائِمًا لِتَطْوِيرِ مَهَارَاتِهِ."
+            type: usage
+      - lemma: "نَقِيلٌ"
+        examples:
+          - text: "عَاشَ فِي القَرْيَةِ نَقِيلًا بَيْنَ أَهْلِهَا حَتَّى اعْتَادُوا وُجُودَهُ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يَحْتَاجُ المَنْقُولُ إِلَى وَقْتٍ لِلتَّكَيُّفِ مَعَ مَنْصِبِهِ الجَدِيدِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَنْقُولٌ"
+      entry_id: "{auto}"
+      root: "نقل"
+      maqayis_quote: "«النُّونُ وَالْقَافُ وَاللَّامُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَحْوِيلِ شَيْءٍ مِنْ مَكَانٍ إِلَى مَكَانٍ.»"
+    - lemma: "مُحَوَّلٌ"
+      entry_id: "{auto}"
+      root: "حول"
+      maqayis_quote: "«الْحَاءُ وَالْوَاوُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ تَحَرُّكٌ فِي دَوْرٍ... حَالَ الشَّخْصُ يَحُولُ، إِذَا تَحَرَّكَ، وَكَذَلِكَ كُلُّ مُتَحَوِّلٍ عَنْ حَالَةٍ.»"
+    - lemma: "مُنْتَقِلٌ"
+      entry_id: "{auto}"
+      root: "نقل"
+      maqayis_quote: "«النُّونُ وَالْقَافُ وَاللَّامُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَحْوِيلِ شَيْءٍ مِنْ مَكَانٍ إِلَى مَكَانٍ.»"
+    - lemma: "نَقِيلٌ"
+      entry_id: "{auto}"
+      root: "نقل"
+      maqayis_quote: "«النُّونُ وَالْقَافُ وَاللَّامُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَحْوِيلِ شَيْءٍ مِنْ مَكَانٍ إِلَى مَكَانٍ.»"
+  per_sense:
+    - lemma: "مَنْقُولٌ"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب الإداري (اسم مفعول) للشخص الذي تم نقله بقرار."
+      mwe: false
+    - lemma: "مُحَوَّلٌ"
+      sense_id: "{auto}"
+      nuance: "يوحي بتغيير القسم أو التخصص الوظيفي."
+      mwe: false
+    - lemma: "مُنْتَقِلٌ"
+      sense_id: "{auto}"
+      nuance: "يعبّر عن الجانب النشط في الانتقال (اسم فاعل)."
+      mwe: false
+    - lemma: "نَقِيلٌ"
+      sense_id: "{auto}"
+      nuance: "لفظ تراثي يشير إلى الانتقال الجغرافي أو الاجتماعي الدائم."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نقل","maqayis":"«النُّونُ وَالْقَافُ وَاللَّامُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَحْوِيلِ شَيْءٍ مِنْ مَكَانٍ إِلَى مَكَانٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حول","maqayis":"«الْحَاءُ وَالْوَاوُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ تَحَرُّكٌ فِي دَوْرٍ... حَالَ الشَّخْصُ يَحُولُ، إِذَا تَحَرَّكَ، وَكَذَلِكَ كُلُّ مُتَحَوِّلٍ عَنْ حَالَةٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الجانب الإداري (اسم مفعول) للشخص الذي تم نقله بقرار.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

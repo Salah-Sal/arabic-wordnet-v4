@@ -1,0 +1,102 @@
+YOLO mode is enabled. All tool calls will be automatically approved.
+Loaded cached credentials.
+YOLO mode is enabled. All tool calls will be automatically approved.
+Bash command parsing error detected for command: << 'EOF' > /workspace/draft.yaml
+step0_evidence:
+  per_lemma:
+    - lemma: "كمية نسبية"
+      evidence_status: "no_material_found"
+
+step05_lemma_generation:
+  evidence_candidates: []
+  knowledge_candidates:
+    - lemma: "مقدار نسبي"
+      justification: "تركيب وصفي مرادف يعتمد على إبدال 'كمية' بـ 'مقدار' للتعبير عن المفهوم ذاته (الاشتقاق/التركيب)."
+  generation_notes: "المفهوم يعبر عن فئة عليا للكميات المقيسة بالنسبة لمعيار، والتركيب الوصفي هو الأنسب."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "كمية نسبية"
+      decision: confirmed
+      decision_reason: "مركب وصفي يترجم المفهوم العلمي (relative quantity) بدقة، وهو مستعمل في السياقات الرياضية والتقنية كفئة عليا للمقادير المرتبطة بغرض."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يمثل المفهوم العام للمقادير المنسوبة إلى معيار أو غرض."
+      example: "تختلف الكمية النسبية للمكونات الفعالة في الدواء بحسب الغرض العلاجي."
+      actions: []
+    - lemma: "مقدار نسبي"
+      source: step05
+      decision: confirmed
+      decision_reason: "مركب وصفي صحيح ومرادف دقيق، يُستعمل بكثرة كبديل لـ (كمية نسبية)."
+      step05_citation: "مرشح معرفي بناء على الترادف بين كمية ومقدار."
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "مرادف لـ (كمية نسبية)، وقد يفضل في السياقات التي تتطلب دلالة المقدار المجرد."
+      example: "يُحدد المقدار النسبي لكل عنصر في التفاعل الكيميائي لضمان التوازن."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مقدار نسبي"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-13598185-n"
+  synset_flags:
+    definition_review_needed: true
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "كمية نسبية لغرض ما"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي دائري (يستخدم نفس كلمات اللمة) ويحتاج إلى صياغة معجمية أوضح."
+  authored_definitions:
+    - type: terminological
+      text: "مقدار من شيء ما يُحدَّد أو يُقاس بالرجوع إلى معيار أو غرض محدد."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-13598185-n"
+        definition_index: 0
+        text: "مقدار من شيء ما يُحدَّد أو يُقاس بالرجوع إلى معيار أو غرض محدد."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-00033914-n"
+    test_result: "correct"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "كمية نسبية"
+      enrichment:
+        root: "كمم"
+      examples:
+        - text: "تختلف الكمية النسبية للمكونات الفعالة في الدواء بحسب الغرض العلاجي."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "مقدار نسبي"
+      enrichment:
+        root: "قدر"
+      examples:
+        - text: "يُحدد المقدار النسبي لكل عنصر في التفاعل الكيميائي لضمان التوازن."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native
+EOF Syntax Errors: [ 'Error node: "<" at 0:0' ]
+missing pgrep output

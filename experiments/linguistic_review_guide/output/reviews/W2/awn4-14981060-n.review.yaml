@@ -1,0 +1,206 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة تفتقر للتشكيل الكامل."
+      - "تحتاج المجموعة إلى لمّات أكثر دقّة من الناحية الجيولوجية (مثل الرسابة)."
+    observations: "المصطلح يعبر عن نوع خاص من الرواسب العضوية في قاع المسطحات المائية. المصطلح العربي 'حمأة' دقيق تاريخياً ولوغوياً، والتعريب 'سابروبيل' ضروري للسياق العلمي الحديث."
+  blind_candidates:
+    - lemma: "حَمْأَة عُضْوِيَّة"
+      generation_method: tarkib
+      justification: "تركيب وصفي مباشر للمعنى (sludge + organic)."
+    - lemma: "غِرْيَن عُضْوِيّ"
+      generation_method: tarkib
+      justification: "الغِرْين هو الطين الرقيق في قاع الماء، ووصفه بالعضوي يطابق التعريف."
+    - lemma: "رُسَابَة عُضْوِيَّة"
+      generation_method: tarkib
+      justification: "الرسابة (sediment) مصطلح أدق علمياً للمواد التي تتراكم في القاع."
+    - lemma: "سَابْرُوبِيل"
+      generation_method: taarib
+      justification: "تعريب مباشر للمصطلح العالمي (Sapropel) المستعمل في الجيولوجيا وعلم المحيطات."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "حمأة عضوية"
+      confirm:
+        - text: "«الحَمْأَةُ: الطِّينُ الأسْوَدُ المُنْتِنُ»"
+          source: "القاموس المحيط"
+        - text: "«النواتج الصلبة في عملية معالجة الصرف الصحي (sludge)»"
+          source: "المعجم الموحد لمصطلحات المياه"
+      expands:
+        - text: "«مخلفات متبقية بعد تقطير مواد عضوية والتي تكون على شكل مواد صلبة أو شبه صلبة، أو قطران، أو حمأة»"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+    - lemma: "سابروبيل"
+      confirm:
+        - text: "«حمأة (سبروبل): رواسب سوداء من بقايا عضوية مختلطة بالطين»"
+          source: "المعجم الموحد لمصطلحات النفط"
+        - text: "«حمأة تحلل لا هوائي (Sapropel): Sediment aus sich zersetzenden organischen Stoffen»"
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة"
+    - lemma: "رسابة عضوية"
+      confirm:
+        - text: "«الرَّسابة: ما يَرْسُب أسفل الإناء والنهر والمسيل»"
+          source: "المعجم الوسيط"
+        - text: "«sediment: المادة الصلبة المترسبة من سائل»"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية"
+    - lemma: "غرين عضوي"
+      confirm:
+        - text: "«الغرين: الطين يحمله السيل فيبقى على وجه الأرض»"
+          source: "المعجم الوسيط"
+      contradicts:
+        - text: "«الغرين (في الجيولوجيا): صخر طيني حبيباته دقيقة (silt)»"
+          source: "المعجم الوسيط"
+          conflict: "الغرين يشير غالباً إلى حجم الحبيبات (silt) وليس بالضرورة إلى المحتوى العضوي أو التراكم في القاع العميق."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "حمأة عضوية"
+      decision: confirmed
+      decision_reason: "مصطلح وصفي دقيق وشائع الاستخدام في البيئة والهندسة، ويطابق تماماً 'organic sludge'."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حَمْأَة عُضْوِيَّة"
+    - lemma: "سابروبيل"
+      decision: confirmed
+      decision_reason: "المصطلح التقني الدولي المعرّب، مستعمل في الجيولوجيا والنفط."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "سَابْرُوبِيل"
+    - lemma: "رُسَابَة عُضْوِيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "الرسابة (sediment) مصطلح أكثر شمولاً ودقة من الناحية العلمية لوصف التراكم في القيعان."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "رُسَابَة عُضْوِيَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "حَمْأَة السَّبْرُوبِل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صيغة توفيقية وجدت في معاجم النفط تجمع بين المصطلح العربي والتقني."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "حَمْأَة السَّبْرُوبِل", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "حمأة (غنية بالمواد العضوية) تتراكم في قاع البحيرات أو المحيطات"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط؛ يحتاج إلى صياغة معجمية توضح طبيعة المادة وظروف تكونها."
+    authored:
+      - type: terminological
+        text: "رواسبُ طينيّةٌ داكنةٌ غنيّةٌ بالموادّ العُضْويّة، تتكونُ من تحلّلِ بقايا الكائناتِ الحيّة، وتتراكمُ في قاعِ البحيراتِ أو المحيطاتِ في ظروفٍ تفتقرُ إلى الأكسجين."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "رواسبُ طينيّةٌ داكنةٌ غنيّةٌ بالموادّ العُضْويّة، تتكونُ من تحلّلِ بقايا الكائناتِ الحيّة، وتتراكمُ في قاعِ البحيراتِ أو المحيطاتِ في ظروفٍ تفتقرُ إلى الأكسجين."}
+  examples:
+    per_lemma:
+      - lemma: "حَمْأَة عُضْوِيَّة"
+        examples:
+          - text: "تُعدّ الحَمْأَةُ العُضْوِيَّةُ المصدرَ الأساسيَّ لتكوّنِ الصخورِ المصدرِيّةِ للنفطِ."
+            type: usage
+      - lemma: "سَابْرُوبِيل"
+        examples:
+          - text: "أظهرتِ الدراساتُ الجيولوجيةُ وجودَ طبقاتٍ سميكةٍ من السَّابْرُوبِيلِ في قاعِ البحرِ الأسودِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "تتراكمُ الحَمْأَةُ العُضْوِيَّةُ في القيعانِ العميقةِ حيثُ ينعدمُ الأكسجين."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "حَمْأَة عُضْوِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "حَمْأَة"
+          root: "حمأ"
+          maqayis_quote: "«الرِّجَامُ: حَجَرٌ يُشَدُّ فِي طَرَفِ الْحَبْلِ... فَتُخَضْخَضُ الْحَمْأَةُ حَتَّى تَثُورَ ثُمَّ يُسْتَقَى ذَلِكَ الْمَاءُ» (ذكرت ضمن مادة رجم)"
+        - word: "عُضْوِيَّة"
+          root: "عضو"
+          maqayis_quote: "«الْعَيْنُ وَالضَّادُ وَالْوَاوُ كَلِمَةٌ وَاحِدَةٌ، وَهِيَ التَّجْزِئَةُ. يُقَالُ عَضَّيْتُ الشَّيْءَ تَعْضِيَةً، إِذَا جَزَّأْتَهُ. وَالْعُضْوُ: الْجُزْءُ مِنَ اللَّحْمِ.»"
+    - lemma: "رُسَابَة عُضْوِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "رُسَابَة"
+          root: "رسب"
+          maqayis_quote: "«الرَّاءُ وَالسِّينُ وَالْبَاءُ أَصْلٌ وَاحِدٌ، هُوَ ذَهَابُ الشَّيْءِ سُفْلًا مِنْ ثَِقَلٍ. تَقُولُ: رَسَبَ الْحَجَرُ فِي الْمَاءِ.»"
+        - word: "عُضْوِيَّة"
+          root: "عضو"
+          maqayis_quote: "«الْعَيْنُ وَالضَّادُ وَالْوَاوُ كَلِمَةٌ وَاحِدَةٌ، وَهِيَ التَّجْزِئَةُ.»"
+    - lemma: "سَابْرُوبِيل"
+      entry_id: "{auto}"
+      root: null
+  per_sense:
+    - lemma: "حَمْأَة عُضْوِيَّة"
+      sense_id: "{auto}"
+      nuance: "مصطلح وصفي عام يسهل فهمه لغير المتخصصين."
+      mwe: true
+    - lemma: "سَابْرُوبِيل"
+      sense_id: "{auto}"
+      nuance: "مصطلح تقني متخصص (تعريب) يستخدم في الأبحاث الجيولوجية والأوقيانوغرافية."
+      mwe: false
+    - lemma: "رُسَابَة عُضْوِيَّة"
+      sense_id: "{auto}"
+      nuance: "يؤكد على عملية الترسيب الثقيلة في القاع (Sedimentation)."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"حَمْأَة","root":"حمأ","maqayis":"«فَتُخَضْخَضُ الْحَمْأَةُ حَتَّى تَثُورَ»"},{"word":"عُضْوِيَّة","root":"عضو","maqayis":"«الْعَيْنُ وَالضَّادُ وَالْوَاوُ كَلِمَةٌ وَاحِدَةٌ، وَهِيَ التَّجْزِئَةُ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"رُسَابَة","root":"رسب","maqayis":"«الرَّاءُ وَالسِّينُ وَالْبَاءُ أَصْلٌ وَاحِدٌ، هُوَ ذَهَابُ الشَّيْءِ سُفْلًا مِنْ ثَِقَلٍ.»"},{"word":"عُضْوِيَّة","root":"عضو","maqayis":"«الْعَيْنُ وَالضَّادُ وَالْوَاوُ كَلِمَةٌ وَاحِدَةٌ، وَهِيَ التَّجْزِئَةُ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح وصفي عام يسهل فهمه لغير المتخصصين.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

@@ -1,0 +1,156 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "جُزْء"
+      expands:
+        - text: "«القطعةُ من الشىء, وما يتركب الشىء منه ومن غيره»"
+          source: "المعجم الوسيط"
+        - text: "«البَعْضُ. من النَّاس : الفَريق. القِسْمُ. النَّصيبُ. القِطعةُ من الشيء.»"
+          source: "المعجم الكبير"
+    - lemma: "شَظِيَّة"
+      confirm:
+        - text: "«الفِلْقَةُ المُنْشَقَّةُ, أَوِ المَقطُوعَةُ مِنَ الشَّيْءِ»"
+          source: "المعجم الكبير"
+        - text: "«الفلقة تتناثر من جسم صلب قَالُوا شظية من خشب أَو عظم أَو فضَّة أَو نَحْوهَا»"
+          source: "المعجم الوسيط"
+    - lemma: "كِسْرَة"
+      confirm:
+        - text: "«الْقطعَة الْمَكْسُورَة من الشَّيْء وَمِنْه الكسرة من الْخبز (ج) كسر»"
+          source: "المعجم الوسيط"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "شَقْفَة"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«شَقَفَة: شريحة، قطعة مكسورة من شيء» — معجم اللغة العربية المعاصرة لأحمد مختار عمر"
+      justification: "كلمة فصيحة ومستعملة حديثاً وتراثياً للدلالة على شظايا أو قطع الفخار والخزف المكسورة."
+  knowledge_candidates:
+    - lemma: "فِلْقَة"
+      justification: "بالاشتقاق من الجذر (ف-ل-ق)، تدل الفلقة على القطعة المنفصلة من الشيء بالانشقاق، وهو مرادف قوي ودقيق للمفهوم."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "جُزْء"
+      decision: removed
+      decision_reason: "اللفظ (جزء) أعم دلالة من المفهوم المقصود (قطعة مكسورة أو مقطوعة)، فهو يدل على أي مكون من مكونات الشيء. كما أنه موجود بصفته لمة في المجموعة الترادفية الأعم (المُشتمل) awn4-09408804-n مما يشكل تكراراً هرمياً."
+      evidence_assessment:
+        case: "expands_only"
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "الجزء أعم من المفهوم المطلوب، فهو يطلق على القطعة المكونة للشيء سواء كانت مكسورة منه أو أصيلة فيه."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    
+    - lemma: "شَظِيَّة"
+      decision: confirmed
+      decision_reason: "لمة دقيقة ومطابقة تماماً لمفهوم القطعة المكسورة أو المقطوعة من جسم صلب."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تدل على القطعة الصغيرة التي تتطاير أو تنشق من جسم صلب كالعظم والخشب والمعادن، وهي أدق في وصف الجزء المنفصل بانشطار أو انفجار."
+      example: "أصيب الجندي بشظية صغيرة من الزجاج المتناثر."
+      actions: []
+      
+    - lemma: "كِسْرَة"
+      decision: confirmed
+      decision_reason: "لمة فصيحة ومطابقة تدل على القطعة المكسورة من الشيء."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تختص غالباً بما يكسر من الأشياء الهشة أو اليابسة كالخبز والخزف، وتدل على الجزء المنفصل بالكسر لا بالقطع أو الانشطار."
+      example: "أطعم الطيور كسرة من الخبز اليابس."
+      actions: []
+
+    - lemma: "شَقْفَة"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح فصيح ومستعمل يدل بدقة على القطعة المكسورة من الشيء، ويتماشى تماماً مع التعريف."
+      step05_citation: "«شَقَفَة: شريحة، قطعة مكسورة من شيء» — معجم اللغة العربية المعاصرة لأحمد مختار عمر"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تختص غالباً بالقطع المكسورة من الأواني والفخار والخزف، وتكثر في الاستعمالات الأثرية."
+      example: "عثر المنقبون على شقفة من فخار أثري قديم."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "شَقْفَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09308160-n"
+
+    - lemma: "فِلْقَة"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح فصيح يدل على القطعة المنفصلة بالانفلاق أو الشق من شيء آخر."
+      step05_citation: "«القطعة من الجفنة: أحد نصفيها إذا انفلقت» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تختص بالقطعة المنفصلة عن طريق الشق أو الفلق الطولي كفلقة النواة أو الخشب."
+      example: "انشق الجذع إلى فلقتين متساويتين."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "فِلْقَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09308160-n"
+
+  added_lemmas:
+    - lemma: "شَقْفَة"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+    - lemma: "فِلْقَة"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "قطعة مكسورة أو مقطوعة من شيء آخر"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وواضح ويغطي المفهوم بشكل كامل متوافقاً مع الأدلة المعجمية."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-09408804-n"
+    test_result: "correct"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "شَظِيَّة"
+      enrichment:
+        root: "ش-ظ-ي"
+      examples:
+        - text: "تطايرت شظايا الزجاج إثر الانفجار."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "كِسْرَة"
+      enrichment:
+        root: "ك-س-ر"
+      examples:
+        - text: "أكل الفقير كسرة من الخبز الجاف."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "شَقْفَة"
+      enrichment:
+        root: "ش-ق-ف"
+      examples:
+        - text: "عثر المنقبون على شقفة من فخار أثري قديم."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "فِلْقَة"
+      enrichment:
+        root: "ف-ل-ق"
+      examples:
+        - text: "انشق الجذع إلى فلقتين متساويتين."
+          type: usage
+          source: "مؤلَّف"
+  cultural_fit:
+    assessment: native

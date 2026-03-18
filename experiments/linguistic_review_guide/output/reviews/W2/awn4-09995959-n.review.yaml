@@ -1,0 +1,115 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "كائن"
+      confirm:
+        - text: "«كائن: كائن وكاء... وكأين رجل عندي» — تكملة المعاجم العربية لرينهارت دوزي"
+        - text: "«كائن (Being): مسرد الفلسفة وعلم النفس» — ArabTerm"
+      expands:
+        - text: "«كائن: الشيء الحادث» — موسوعة السلطان قابوس"
+    - lemma: "مخلوق"
+      confirm:
+        - text: "«مخلوق: كل كائن حي أوجده الله بعد أن لم يكن» — موسوعة السلطان قابوس"
+        - text: "«مخلوق (Creature): المورد الحديث» — ArabTerm"
+      expands:
+        - text: "«مخلوق: (1) مخلوق (2) كائن حي (3) حيوان... (4) إنسان؛ شخص» — المورد الحديث"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "نسمة"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«النسمة: كل كائن حي فيه روح» — المعجم الوسيط"
+      justification: "مصطلح تراثي دقيق يعبر عن المفهوم (creature/wight) ويربطه بالروح والحياة."
+    - lemma: "كائن حي"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«creature: (2) كائن حي» — المورد الحديث"
+      justification: "المصطلح العلمي الأكثر دقة وشيوعاً لترجمة 'living being'."
+  knowledge_candidates:
+    - lemma: "دابة"
+      justification: "مصطلح قرآني وتراثي شامل لكل ما يدب على الأرض من الأحياء (حيوان وإنسان)."
+  generation_notes: "تم التركيز على المصطلحات التي تجمع بين الدلالة اللغوية التراثية (نسمة، دابة) والمصطلحات الحديثة (كائن حي)."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "كائن"
+      decision: confirmed
+      decision_reason: "مصطلح مستقر في الفلسفة والعلوم للتعبير عن الوجود والكيان الحي."
+      evidence_assessment:
+        case: "confirm_only"
+      nuance_differentiation: "يركز على جانب الوجود والكيان (being) بشكل مجرد."
+      example: "يُعد الحوت أضخم كائن حي على وجه الأرض."
+    - lemma: "مخلوق"
+      decision: confirmed
+      decision_reason: "المقابل الطبيعي والشائع لمصطلح 'creature' في العربية."
+      evidence_assessment:
+        case: "confirm_only"
+      nuance_differentiation: "يركز على صفة الخلق (createdness) والتبعية للخالق."
+      example: "كل مخلوق في الكون يسبح لله."
+    - lemma: "نسمة"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح تراثي فصيح يشير إلى كل ذي روح، وهو مقابل دقيق لـ 'wight' أو 'living soul'."
+      step05_citation: "«النسمة: كل كائن حي فيه روح» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على نفخة الروح (soul) والحياة كفرد."
+      example: "لم يبقَ في المدينة نسمة حيّة بعد الحصار."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "نسمة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09995959-n"
+
+step3_definition:
+  current_definition: "كائن حي"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي مقتضب جداً ويتطابق مع لمة في المجموعة المشملة؛ يفضل توضيحه ليشمل شمولية الكائنات."
+  authored_definitions:
+    - type: terminological
+      text: "كل كائن فيه روح، من إنسان أو حيوان."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-09995959-n"
+        definition_index: 0
+        text: "كل كائن فيه روح، من إنسان أو حيوان."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-00004475-n"
+    test_result: "correct"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "كائن"
+      enrichment:
+        root: "ك-و-ن"
+      examples:
+        - text: "كائن حي: كل ما يتغذى وينمو ويتنفس."
+          type: usage
+          source: "المعجم الوسيط"
+    - lemma: "مخلوق"
+      enrichment:
+        root: "خ-ل-ق"
+      examples:
+        - text: "الإنسان مخلوق مكرم."
+          type: usage
+          source: "مؤلف"
+    - lemma: "نسمة"
+      enrichment:
+        root: "ن-س-م"
+      examples:
+        - text: "أعتق رقبة أو نسمة."
+          type: usage
+          source: "كتب الفقه"
+  cultural_fit:
+    assessment: native

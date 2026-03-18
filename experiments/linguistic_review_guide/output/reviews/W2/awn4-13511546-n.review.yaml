@@ -1,0 +1,204 @@
+# ── المرحلة ١: المراجعة والتوليد (بدون أدلة) ──────────────
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف العربي الحالي هو ترجمة حرفية للتعريف الإنجليزي."
+      - "اللمة الوحيدة الموجودة (نمو) صحيحة ولكنها عامة، وقد تشترك مع معنى 'الزيادة في الحجم'."
+    observations: "المفهوم يشير إلى 'التطور' أو 'النشوء الارتقائي' من البسيط إلى المعقد، وهو ما يعرف في علم الأحياء بالتطور أو التخلق. المصطلح (نمو) مقبول ولكنه يحتاج إلى تدقيق لتمييزه عن مجرد الزيادة الكمية."
+  blind_candidates:
+    - lemma: "نَمَاء"
+      generation_method: ishtiqaq
+      justification: "مصدر من (نمى) يدل على الزيادة والنشوء والارتفاع."
+    - lemma: "ارْتِقَاء"
+      generation_method: ishtiqaq
+      justification: "يدل على الصعود في مدارج التعقيد والكمال، وهو مناسب جداً لمفهوم 'Progression to complex forms'."
+    - lemma: "تَطَوُّر"
+      generation_method: ishtiqaq
+      justification: "المصطلح العلمي الأدق للتعبير عن التحول من طور بسيط إلى طور أكثر تعقيداً (Evolution)."
+    - lemma: "تَدَرُّج"
+      generation_method: ishtiqaq
+      justification: "يعبر عن الانتقال المرحلي (Progression) خطوة بخطوة."
+
+# ── المرحلة ٢: جمع الأدلة ────────────────────────────────
+stage2_evidence:
+  per_lemma:
+    - lemma: "نمو"
+      confirm:
+        - text: "«النمو: ازدياد حجم الجسم بما ينضم إليه ويداخله في جميع الأقطار بنسبة طبيعية»"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+        - text: "«نمو: عملية نمو أو تطور، مع زيادة في الحجم أو في عدد.»"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+      expands:
+        - text: "«(حي) ازدياد حجم الجسم بما ينضمّ إليه نسبة طبيعيّة. (نف) تغيُّر مطّرد في الكائن الحيّ يتّجه به نحو تمام النُّضج.»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "تطور"
+      confirm:
+        - text: "«نظرية تقول بالتغير التدريجي في تركيب الكائنات الحية مع الزمن من البسيط إلى المعقد»"
+          source: "المعجم الموحد لمصطلحات الجيولوجيا"
+        - text: "«نمو عضو ما أو كائن بحيث يمر من مراحل بسيطة إلى مراحل أكثر تعقيداً.»"
+          source: "معجم المصطلحات الطبية"
+    - lemma: "ارتقاء"
+      confirm:
+        - text: "«هو البدء بالوصف ثم الارتقاء إلى أعلى... البدء بالوصف ثم الارتقاء إلى أعلى درجاته»"
+          source: "كشاف اصطلاحات الفنون"
+    - lemma: "نماء"
+      confirm:
+        - text: "«النماء والنمو: الزيادة والكثرة.»"
+          source: "موسوعة السلطان قابوس"
+
+# ── المرحلة ٣: التحليل اللغوي للّمات ────────────────────
+stage3_analysis:
+  per_lemma:
+    - lemma: "نمو"
+      decision: confirmed
+      decision_reason: "اللمة الأساسية والمستعملة بكثرة للتعبير عن النمو البيولوجي والتطوري."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نُمُوّ"
+    - lemma: "تطور"
+      source: stage1
+      decision: confirmed
+      decision_reason: "هو المصطلح الأدق للمفهوم العلمي الوارد في التعريف (من البسيط إلى المعقد)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَطَوُّر", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "ارتقاء"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر عن البعد النوعي في التطور نحو الأفضل والأكثر تعقيداً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "ارْتِقَاء", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "نماء"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف فصيح للنمو يعبر عن الزيادة الطبيعية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "نَمَاء", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+# ── المرحلة ٤: التعريف والأمثلة ──────────────────────────
+stage4_content:
+  definition:
+    current: "تطور من أشكال أبسط إلى أشكال أكثر تعقيداً"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ترجمة حرفية، يفضل صياغته بأسلوب معجمي يجمع بين الجانب البيولوجي والمفاهيمي."
+    authored:
+      - type: terminological
+        text: "تدرج الكائن أو المفهوم من حالات أو أشكال بسيطة إلى أشكال أكثر تعقيداً ونضجاً."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "تدرج الكائن أو المفهوم من حالات أو أشكال بسيطة إلى أشكال أكثر تعقيداً ونضجاً."}
+  examples:
+    per_lemma:
+      - lemma: "نُمُوّ"
+        examples:
+          - text: "يلاحظ العلماء نمواً سريعاً في النباتات الاستوائية خلال فصل المطر."
+            type: usage
+      - lemma: "تَطَوُّر"
+        examples:
+          - text: "تدرس نظرية التطور تحول الكائنات من صور بدائية إلى صور شديدة التعقيد."
+            type: usage
+      - lemma: "ارْتِقَاء"
+        examples:
+          - text: "إن الارتقاء في مدارج الكمال يتطلب جهداً ذهنياً وبدنياً متواصلاً."
+            type: usage
+      - lemma: "نَمَاء"
+        examples:
+          - text: "شهد الاقتصاد الوطني نماءً ملحوظاً في القطاعات غير النفطية."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يعد التحول من الخلية الواحدة إلى الكائن المتعدد الخلايا مثالاً جلياً على هذا النمو."}
+
+# ── المرحلة ٥: الإثراء (البيانات الوصفية) ─────────────────
+stage5_enrichment:
+  per_entry:
+    - lemma: "نُمُوّ"
+      entry_id: "{auto}"
+      root: "نمو"
+      maqayis_quote: "«النُّونُ وَالْمِيمُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى ارْتِفَاعٍ وَزِيَادَةٍ. وَنَمَى الْمَالُ يَنْمِي: زَادَ.»"
+    - lemma: "تَطَوُّر"
+      entry_id: "{auto}"
+      root: "طور"
+      maqayis_quote: "«الطَّاءُ وَالْوَاوُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مَعْنًى وَاحِدٍ، وَهُوَ الِامْتِدَادُ فِي شَيْءٍ مِنْ مَكَانٍ أَوْ زَمَانٍ.»"
+    - lemma: "ارْتِقَاء"
+      entry_id: "{auto}"
+      root: "رقي"
+      maqayis_quote: "«الرَّاءُ وَالْقَافُ وَالْحَرْفُ الْمُعْتَلُّ أُصُولٌ ثَلَاثَةٌ مُتَبَايِنَةٌ: أَحَدُهُمَا الصُّعُودُ... رَقِيتُ فِي السُّلَّمِ أَرْقَى رُقِيًّا.»"
+    - lemma: "نَمَاء"
+      entry_id: "{auto}"
+      root: "نمي"
+      maqayis_quote: "«النُّونُ وَالْمِيمُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى ارْتِفَاعٍ وَزِيَادَةٍ.»"
+  per_sense:
+    - lemma: "نُمُوّ"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام الذي يعبر عن الزيادة في الحجم أو التعقيد."
+      mwe: false
+    - lemma: "تَطَوُّر"
+      sense_id: "{auto}"
+      nuance: "يركز على التغير النوعي والانتقال من طور إلى طور أكثر تقدماً."
+      mwe: false
+    - lemma: "ارْتِقَاء"
+      sense_id: "{auto}"
+      nuance: "يوحي بالصعود والسمو في رتب الوجود أو مستويات التنظيم."
+      mwe: false
+    - lemma: "نَمَاء"
+      sense_id: "{auto}"
+      nuance: "غالباً ما يستخدم للتعبير عن الزيادة الطبيعية المباركة أو التوسع."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نمو","maqayis":"«النُّونُ وَالْمِيمُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى ارْتِفَاعٍ وَزِيَادَةٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العام الذي يعبر عن الزيادة في الحجم أو التعقيد.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

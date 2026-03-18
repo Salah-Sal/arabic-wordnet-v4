@@ -1,0 +1,166 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة (مقتنيات) غالباً ما تُستخدم في سياق عام بمعنى 'ممتلكات'، لكنها في السياق المعجمي المتخصص تشير بدقة إلى الأشياء التي تُقتنى لذاتها لا للتجارة، وهو ما يطابق المفهوم تماماً."
+    observations: "المفهوم يشير إلى 'المقتنيات' التي تُجمع لهواية (كالطوابع أو العملات) وليس بالضرورة أن تكون ذات قيمة تاريخية أو مادية عالية، مما يميزها عن 'التحف'."
+  blind_candidates:
+    - lemma: "مُقْتَنَيَات"
+      generation_method: ishtiqaq
+      justification: "جمع 'مقتنى'، وهو الشيء الذي يُتخذ للاقتناء لا للتجارة، وهو المصطلح الأكثر شيوعاً للمفهوم."
+    - lemma: "طَرَائِف"
+      generation_method: majaz
+      justification: "جمع 'طرفة'، وتُطلق على كل مستحدث عجيب يُستحسن جمعه."
+    - lemma: "مَجْمُوعَات"
+      generation_method: majaz
+      justification: "استخدام اللفظ الدال على 'الكل' (الجمع) للدلالة على أفراده المكونة له في سياق الهوايات."
+    - lemma: "مُدَّخَرَات"
+      generation_method: ishtiqaq
+      justification: "الأشياء التي تُدخر وتُحفظ، وإن كانت تميل للجانب المالي أكثر."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُقْتَنَيَات"
+      confirm:
+        - text: "«ورد الفعل: اقتنى الشيء بمعنى: قناه؛ أي كسبه وجمعه واتخذه لنفسه لا للتجارة... فلا مانع من استخدام اسم المفعول منه، وهو: مُقْتَنًى وجمعه مقتنيات، للدلالة على ما يتم الحصول عليه من تحف أو أعمال فنية أو أشياء ثمينة.»"
+          source: "معجم الصواب اللغوي"
+        - text: "«وَمِنَ الْبَابِ: قَنَى الشَّيْءَ وَاقْتَنَاهُ، إِذَا كَانَ ذَلِكَ مُعَدًّا لَهُ لَا لِلتِّجَارَةِ.»"
+          source: "مقاييس اللغة لابن فارس"
+    - lemma: "طَرَائِف"
+      confirm:
+        - text: "«الطُّرفة من الفَاكهة وغيرِها... كلُّ شيء مستحدثٍ عجيب»"
+          source: "المعجم الوسيط"
+    - lemma: "مَجْمُوعَات"
+      expands:
+        - text: "«مجموعة من الأشياء المتشابهة في خصائصها، والمنظَّمة حسب أوجه التشابه بينها.»"
+          source: "معجم البيانات والذكاء الاصطناعي"
+    - lemma: "مُدَّخَرَات"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مقتنيات"
+      decision: confirmed
+      decision_reason: "مصطلح دقيق وفصيح مدعوم بأدلة معجمية قوية تشير إلى الاقتناء الشخصي لغير التجارة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُقْتَنَيَات"
+    - lemma: "مُقْتَنًى"
+      source: stage1
+      decision: confirmed
+      decision_reason: "الصيغة المفردة للمصطلح، ضرورية لاكتمال الوحدة المعجمية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُقْتَنًى", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "طَرَائِف"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف فصيح يشير إلى الأشياء النادرة أو المستحدثة التي تُجمع لغرابتها، وهي قريبة جداً من المفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "طَرَائِف", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "أشياء تعتبر جديرة بالجمع (ليس بالضرورة أن تكون قيمة أو أثرية)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكن يمكن صياغته بأسلوب معجمي أكثر إحكاماً وشمولاً لطبيعة الاقتناء."
+    authored:
+      - type: terminological
+        text: "كل ما يُقتنى ويُجمع لغرض الهواية أو الشغف، أثرياً كان أو غير ذلك، مما يُتخذ لذاته لا للتجارة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "مُقْتَنَيَات"
+        examples:
+          - text: "يمتلك جدي مجموعة ضخمة من المقتنيات النادرة التي تضم طوابع بريدية من القرن الماضي."
+            type: usage
+      - lemma: "مُقْتَنًى"
+        examples:
+          - text: "تُعد هذه العملة القديمة مقتنىً فريداً يسعى إليه هواة الجمع في كل مكان."
+            type: usage
+      - lemma: "طَرَائِف"
+        examples:
+          - text: "يزخر المعرض بطرائف عديدة من مقتنيات الرحالة القدامى."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُقْتَنَيَات"
+      entry_id: "{auto}"
+      root: "قني"
+      maqayis_quote: "«(قَنَا) الْقَافُ وَالنُّونُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ يَدُلُّ أَحَدُهُمَا عَلَى مُلَازَمَةٍ وَمُخَالَطَةٍ... وَمِنَ الْبَابِ: قَنَى الشَّيْءَ وَاقْتَنَاهُ، إِذَا كَانَ ذَلِكَ مُعَدًّا لَهُ لَا لِلتِّجَارَةِ.»"
+    - lemma: "مُقْتَنًى"
+      entry_id: "{auto}"
+      root: "قني"
+      maqayis_quote: "«(قَنَا) الْقَافُ وَالنُّونُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ يَدُلُّ أَحَدُهُمَا عَلَى مُلَازَمَةٍ وَمُخَالَطَةٍ... وَمِنَ الْبَابِ: قَنَى الشَّيْءَ وَاقْتَنَاهُ، إِذَا كَانَ ذَلِكَ مُعَدًّا لَهُ لَا لِلتِّجَارَةِ.»"
+    - lemma: "طَرَائِف"
+      entry_id: "{auto}"
+      root: "طرف"
+      maqayis_quote: "«(طَرَفَ) الطَّاءُ وَالرَّاءُ وَالْفَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ يَدُلُّ عَلَى انْتِهَاءِ الشَّيْءِ وَالْمُسْتَحْدَثِ مِنْهُ... وَالطَّرِيفُ: مَا اسْتُحْدِثَ مِنْ مَالٍ مِمَّا لَمْ يَكُنْ عِنْدَهُ نِتَاجًا قَبْلَهُ.»"
+  per_sense:
+    - lemma: "مُقْتَنَيَات"
+      sense_id: "{auto}"
+      nuance: "صيغة الجمع الأكثر شيوعاً للدلالة على مجموع المواد التي يقتنيها الهاوي."
+      mwe: false
+    - lemma: "مُقْتَنًى"
+      sense_id: "{auto}"
+      nuance: "تشير إلى الوحدة المفردة من الأشياء المقتناة."
+      mwe: false
+    - lemma: "طَرَائِف"
+      sense_id: "{auto}"
+      nuance: "تركز على جانب الغرابة والاستحداث في الشيء المقتنى، مما يجعله مثيراً للاهتمام."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قني","maqayis":"«(قَنَا) الْقَافُ وَالنُّونُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ... وَمِنَ الْبَابِ: قَنَى الشَّيْءَ وَاقْتَنَاهُ، إِذَا كَانَ ذَلِكَ مُعَدًّا لَهُ لَا لِلتِّجَارَةِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"طرف","maqayis":"«(طَرَفَ) الطَّاءُ وَالرَّاءُ وَالْفَاءُ أَصْلٌ وَاحِدٌ... وَالطَّرِيفُ: مَا اسْتُحْدِثَ مِنْ مَالٍ مِمَّا لَمْ يَكُنْ عِنْدَهُ نِتَاجًا قَبْلَهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"صيغة الجمع الأكثر شيوعاً للدلالة على مجموع المواد التي يقتنيها الهاوي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

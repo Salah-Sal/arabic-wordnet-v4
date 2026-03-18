@@ -1,0 +1,218 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة (عَمَالَة فَائِضَة) تشير إلى مفهوم جمعي أو مجرد (قوة العمل الزائدة) بينما التعريف والمفهوم في المجموعة الترادفية يختصان بالشخص المفرد (a person)."
+      - "اللمة (زَائِد عَنِ الْحَاجَة) تفتقر إلى التشكيل الكامل."
+    observations: "المفهوم يشير إلى الشخص الذي يتجاوز العدد المطلوب للعمل أو لا توجد له مهام فعلية يكلف بها (supernumerary). المرادفات الأقرب في العربية تدور حول الجذور (فضل) و(زيد) و(حشو)."
+  blind_candidates:
+    - lemma: "فَائِض"
+      generation_method: ishtiqaq
+      justification: "من (فاض) يفيض إذا زاد عن حده، وتطلق اصطلاحا على الموظف أو الشخص الذي زاد عن العدد المقرر."
+    - lemma: "مُوَظَّفٌ زَائِد"
+      generation_method: tarkib
+      justification: "مركب وصفي يصف العامل الذي لا حاجة إليه في العمل."
+    - lemma: "حَشْو"
+      generation_method: majaz
+      justification: "من حشو الكلام، ويطلق مجازا على من لا فائدة من وجوده سوى إكمال العدد."
+    - lemma: "عَامِلٌ إِضَافِيّ"
+      generation_method: tarkib
+      justification: "مركب وصفي يشير إلى الشخص الذي تمت إضافته دون حاجة حقيقية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "زَائِد عَنِ الْحَاجَة"
+      confirm:
+        - text: "الفائض: شخص أو شيء زائد عن العدد المقرَّر أو المطلوب"
+          source: "المورد الحديث (2008)"
+    - lemma: "عَمَالَة فَائِضَة"
+      contradicts:
+        - text: "العمالة هي مجموع العمال وليس شخصا واحدا"
+          source: "تحليل لغوي"
+          conflict: "تطابق الصنف: المجموعة تخص فردا (شخص) بينما (عمالة) مصطلح جمعي/مجرد."
+    - lemma: "فَائِض"
+      confirm:
+        - text: "الفائض: شخص أو شيء زائد عن العدد المقرَّر أو المطلوب"
+          source: "المورد الحديث (2008)"
+    - lemma: "عَامِلٌ فَائِض"
+      expands:
+        - text: "مُسَرَّحٌ [بسبب من تكاثر العمال أو زيادتهم عن الحاجة]"
+          source: "المورد الحديث (2008)"
+          addition: "يدل على تسريح العمال الزائدين (redundant)."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "زَائِد عَنِ الْحَاجَة"
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي شائع وموثق في المعاجم للدلالة على الشخص أو الشيء الذي يتجاوز العدد المطلوب."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "زَائِدٌ عَنِ الْحَاجَةِ"
+    - lemma: "عَمَالَة فَائِضَة"
+      decision: removed
+      decision_reason: "كلمة (عمالة) تدل على جموع العمال أو قوة العمل ككل، ولا تدل على شخص مفرد كما يقتضي تعريف المجموعة الترادفية."
+      evidence_assessment:
+        case: contradicts_only
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "فَائِض"
+      source: stage1
+      decision: confirmed
+      decision_reason: "موثقة صراحة في المورد الحديث بمعنى (شخص أو شيء زائد عن العدد المقرر أو المطلوب) وتطابق الدلالة المطلوبة تماما."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "فَائِض", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-10696121-n"}
+    - lemma: "عَامِلٌ فَائِض"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تركيب وصفي شائع ومناسب للتعبير عن المفهوم في سياق العمل والوظائف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "عَامِلٌ فَائِض", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-10696121-n"}
+
+stage4_content:
+  definition:
+    current: "شخص لا يؤدي وظيفة ظاهرة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي حرفي إلى حد ما وقاصر. المفهوم يركز على تجاوز العدد المطلوب أو انعدام الدور الفعلي للشخص في الهيكل."
+    authored:
+      - type: terminological
+        text: "شخصٌ زَائِدٌ عنِ العَدَدِ المُقَرَّرِ أَوْ المَطْلُوبِ، وَلَا يُؤَدِّي وَظِيفَةً فِعْلِيَّةً."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-10696121-n", definition_index: 0, text: "شخصٌ زَائِدٌ عنِ العَدَدِ المُقَرَّرِ أَوْ المَطْلُوبِ، وَلَا يُؤَدِّي وَظِيفَةً فِعْلِيَّةً."}
+  examples:
+    per_lemma:
+      - lemma: "زَائِد عَنِ الْحَاجَة"
+        examples:
+          - text: "تَمَّ الِاسْتِغْنَاءُ عَنِ الْمُوَظَّفِينَ الزَّائِدِينَ عَنِ الْحَاجَةِ لِتَقْلِيصِ النَّفَقَاتِ."
+            type: usage
+      - lemma: "فَائِض"
+        examples:
+          - text: "بَقِيَ مُدَّةً طَوِيلَةً بِلَا مَهَامَّ لِأَنَّهُ يُعَدُّ فَائِضاً فِي الْقِسْمِ."
+            type: usage
+      - lemma: "عَامِلٌ فَائِض"
+        examples:
+          - text: "تُوَاجِهُ الشَّرِكَةُ مُشْكِلَةَ وُجُودِ عُمَّالٍ فَائِضِينَ لَا يُؤَدُّونَ أَدْوَاراً فِعْلِيَّةً."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-10696121-n", text: "تَمَّ الِاسْتِغْنَاءُ عَنِ الْمُوَظَّفِينَ الزَّائِدِينَ عَنِ الْحَاجَةِ لِتَقْلِيصِ النَّفَقَاتِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "بَقِيَ مُدَّةً طَوِيلَةً بِلَا مَهَامَّ لِأَنَّهُ يُعَدُّ فَائِضاً فِي الْقِسْمِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تُوَاجِهُ الشَّرِكَةُ مُشْكِلَةَ وُجُودِ عُمَّالٍ فَائِضِينَ لَا يُؤَدُّونَ أَدْوَاراً فِعْلِيَّةً."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "زَائِد عَنِ الْحَاجَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "زائد"
+          root: "زيد"
+          maqayis_quote: "«الزَّاءُ وَالْيَاءُ وَالدَّالُ أَصْلٌ يَدُلُّ عَلَى الْفَضْلِ. يَقُولُونَ زَادَ الشَّيْءُ يَزِيدُ، فَهُوَ زَائِدٌ.»"
+        - word: "حاجة"
+          root: "حوج"
+          maqayis_quote: "«الْحَاءُ وَالْوَاوُ وَالْجِيمُ أَصْلٌ وَاحِدٌ، وَهُوَ الِاضْطِرَارُ إِلَى الشَّيْءِ، فَالْحَاجَةُ وَاحِدَةُ الْحَاجَاتِ.»"
+    - lemma: "فَائِض"
+      entry_id: "{auto}"
+      root: "فيض"
+      maqayis_quote: "«الْفَاءُ وَالْيَاءُ وَالضَّادُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى جَرَيَانِ الشَّيْءِ بِسُهُولَةٍ، ثُمَّ يُقَاسُ عَلَيْهِ. مِنْ ذَلِكَ فَاضَ الْمَاءُ يَفِيضُ.»"
+    - lemma: "عَامِلٌ فَائِض"
+      entry_id: "{auto}"
+      roots:
+        - word: "عامل"
+          root: "عمل"
+          maqayis_quote: "«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامٌّ فِي كُلِّ فِعْلٍ يُفْعَلُ.»"
+        - word: "فائض"
+          root: "فيض"
+          maqayis_quote: "«الْفَاءُ وَالْيَاءُ وَالضَّادُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى جَرَيَانِ الشَّيْءِ بِسُهُولَةٍ، ثُمَّ يُقَاسُ عَلَيْهِ.»"
+  per_sense:
+    - lemma: "زَائِد عَنِ الْحَاجَة"
+      sense_id: "{auto}"
+      nuance: "تعبير شائع في السياقات الإدارية والرسمية للدلالة على الموظفين الذين يتجاوزون متطلبات العمل الفعلية."
+      mwe: true
+    - lemma: "فَائِض"
+      sense_id: "{auto}"
+      nuance: "كلمة مفردة تدل على من تجاوز العدد المطلوب، وهي أعم وقد تستخدم للأشياء والأشخاص."
+      mwe: false
+    - lemma: "عَامِلٌ فَائِض"
+      sense_id: "{auto}"
+      nuance: "تعبير يجمع بين المهنة (عامل) وحالة الاستغناء (فائض) ليكون أكثر تحديدا وتخصيصا لبيئة العمل."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"زائد","root":"زيد","maqayis":"«الزَّاءُ وَالْيَاءُ وَالدَّالُ أَصْلٌ يَدُلُّ عَلَى الْفَضْلِ. يَقُولُونَ زَادَ الشَّيْءُ يَزِيدُ، فَهُوَ زَائِدٌ.»"},{"word":"حاجة","root":"حوج","maqayis":"«الْحَاءُ وَالْوَاوُ وَالْجِيمُ أَصْلٌ وَاحِدٌ، وَهُوَ الِاضْطِرَارُ إِلَى الشَّيْءِ، فَالْحَاجَةُ وَاحِدَةُ الْحَاجَاتِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"فيض","maqayis":"«الْفَاءُ وَالْيَاءُ وَالضَّادُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى جَرَيَانِ الشَّيْءِ بِسُهُولَةٍ، ثُمَّ يُقَاسُ عَلَيْهِ. مِنْ ذَلِكَ فَاضَ الْمَاءُ يَفِيضُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"عامل","root":"عمل","maqayis":"«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامٌّ فِي كُلِّ فِعْلٍ يُفْعَلُ.»"},{"word":"فائض","root":"فيض","maqayis":"«الْفَاءُ وَالْيَاءُ وَالضَّادُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى جَرَيَانِ الشَّيْءِ بِسُهُولَةٍ، ثُمَّ يُقَاسُ عَلَيْهِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير شائع في السياقات الإدارية والرسمية للدلالة على الموظفين الذين يتجاوزون متطلبات العمل الفعلية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"كلمة مفردة تدل على من تجاوز العدد المطلوب، وهي أعم وقد تستخدم للأشياء والأشخاص.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير يجمع بين المهنة (عامل) وحالة الاستغناء (فائض) ليكون أكثر تحديدا وتخصيصا لبيئة العمل.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-10696121-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-10696121-n"
+        score: 0.95

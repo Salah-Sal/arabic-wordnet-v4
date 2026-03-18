@@ -1,0 +1,180 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة تفتقر إلى التشكيل الكامل."
+      - "اللمّة 'رامي' تُكتب عادةً 'رَامٍ' في حالة التنكير، لكن يُفضل في المعاجم إثبات الياء 'رَامِي' كصيغة معجمية."
+    observations: "التعريف دقيق لغوياً ويحدد الجنس (شخص) والفصل النوعي (يقذف شيئاً بحركة سريعة). المصطلحات العربية المناسبة هي أسماء فاعلين من أفعال الرمي والقذف."
+  blind_candidates:
+    - lemma: "رَامٍ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل (رمى)، وهو المصطلح الأكثر شيوعاً للتعبير عن القائم بفعل الرمي."
+    - lemma: "قَاذِف"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل (قذف)، وهو الوارد في التعريف نفسه."
+    - lemma: "مُلْقٍ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل (ألقى)، ويستخدم للتعبير عن قذف الشيء أو طرحه."
+    - lemma: "نَبَّاذ"
+      generation_method: ishtiqaq
+      justification: "صيغة مبالغة/وزن فعّال من (نبذ)، للدلالة على من يكثر طرح الأشياء أو قذفها."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "رَامِي"
+      confirm:
+        - text: "«الرَّامِي: مَنْ حِرْفَتُه الرِّمايَةُ»"
+          source: "المعجم الكبير"
+        - text: "«رَامي: من حرفته الرماية، والقاذف»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+    - lemma: "قَاذِف"
+      confirm:
+        - text: "«قاذف: وصف للذي يقذف»"
+          source: "معجم المصطلحات الطبية"
+        - text: "«ejector: قاذف»"
+          source: "المعجم الطبي الموحد"
+    - lemma: "مُلْقٍ"
+      expands:
+        - text: "«أَلْقَيْتُهُ: نَبَذْتُهُ إِلْقَاءً»"
+          source: "مقاييس اللغة"
+          addition: "يؤكد أن الإلقاء هو النبذ (الرمي)، مما يجعل اسم الفاعل 'مُلْقٍ' مرادفاً محتملاً."
+    - lemma: "نَبَّاذ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "رامي"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي مدعوم بالأدلة المعجمية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "رَامِي"
+    - lemma: "قاذف"
+      decision: confirmed
+      decision_reason: "مصطلح دقيق مستخدم في المعاجم العامة والطبية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "قَاذِف"
+    - lemma: "مُلْقٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف لغوي صحيح مشتق من أصل (لقي) الذي يفيد النبذ والطرح."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُلْقِي", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-10729178-n"}
+
+stage4_content:
+  definition:
+    current: "شخص يقذف شيئاً (خاصة بحركة سريعة للذراع)"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق وواضح ويطابق المفهوم في اللغتين العربية والإنجليزية."
+  examples:
+    per_lemma:
+      - lemma: "رَامِي"
+        examples:
+          - text: "كَانَ الرَّامِي مَاهِراً فِي إِصَابَةِ الهَدَفِ مِنْ مَسَافَةٍ بَعِيدَةٍ."
+            type: usage
+      - lemma: "قَاذِف"
+        examples:
+          - text: "قَاذِفُ الجُلَّةِ رِيَاضِيٌّ يَتَطَلَّبُ قُوَّةً بَدَنِيَّةً عَالِيَةً."
+            type: usage
+      - lemma: "مُلْقِي"
+        examples:
+          - text: "وَقَفَ المُلْقِي عَلَى جَانِبِ النَّهْرِ يَطْرَحُ شِبَاكَ الصَّيْدِ."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "رَامِي"
+      entry_id: "{auto}"
+      root: "رمي"
+      maqayis_quote: "«الرَّاءُ وَالْمِيمُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ، وَهُوَ نَبْذُ الشَّيْءِ... تَقُولُ رَمَيْتُ الشَّيْءَ أَرْمِيهِ.»"
+    - lemma: "قَاذِف"
+      entry_id: "{auto}"
+      root: "قذف"
+      maqayis_quote: "«الْقَافُ وَالذَّالُ وَالْفَاءُ أَصْلٌ يَدُلُّ عَلَى الرَّمْيِ وَالطَّرْحِ. يُقَالُ: قَذَفَ الشَّيْءَ يَقْذِفُهُ قَذْفًا، إِذَا رَمَى بِهِ.»"
+    - lemma: "مُلْقِي"
+      entry_id: "{auto}"
+      root: "لقي"
+      maqayis_quote: "«اللَّامُ وَالْقَافُ وَالْحَرْفُ الْمُعْتَلُّ... أَصْلٌ يَدُلُّ عَلَى طَرْحِ شَيْءٍ... أَلْقَيْتُهُ: نَبَذْتُهُ إِلْقَاءً.»"
+  per_sense:
+    - lemma: "رَامِي"
+      sense_id: "{auto}"
+      nuance: "يركز على مهارة توجيه المقذوف نحو هدف معين."
+      mwe: false
+    - lemma: "قَاذِف"
+      sense_id: "{auto}"
+      nuance: "يركز على قوة الدفع والطرح، وغالباً ما يستخدم في السياقات الميكانيكية أو الرياضية العنيفة."
+      mwe: false
+    - lemma: "مُلْقِي"
+      sense_id: "{auto}"
+      nuance: "يركز على عملية الطرح أو النبذ التلقائي دون شرط المهارة في التوجيه."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"رمي","maqayis":"«الرَّاءُ وَالْمِيمُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ، وَهُوَ نَبْذُ الشَّيْءِ... تَقُولُ رَمَيْتُ الشَّيْءَ أَرْمِيهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قذف","maqayis":"«الْقَافُ وَالذَّالُ وَالْفَاءُ أَصْلٌ يَدُلُّ عَلَى الرَّمْيِ وَالطَّرْحِ. يُقَالُ: قَذَفَ الشَّيْءَ يَقْذِفُهُ قَذْفًا، إِذَا رَمَى بِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"لقي","maqayis":"«اللَّامُ وَالْقَافُ وَالْحَرْفُ الْمُعْتَلُّ... أَصْلٌ يَدُلُّ عَلَى طَرْحِ شَيْءٍ... أَلْقَيْتُهُ: نَبَذْتُهُ إِلْقَاءً.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على مهارة توجيه المقذوف نحو هدف معين.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على قوة الدفع والطرح، وغالباً ما يستخدم في السياقات الميكانيكية أو الرياضية العنيفة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على عملية الطرح أو النبذ التلقائي دون شرط المهارة في التوجيه.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-10729178-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-10729178-n"
+        score: 1.0

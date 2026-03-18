@@ -1,0 +1,198 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "نقص التشكيل في اللمات الموجودة."
+      - "الحاجة للتفريق الدقيق بين البروتوبلازم والسيتوبلازم (الهيولى) لضمان عدم الخلط."
+    observations: "اللمات الموجودة صحيحة علمياً، حيث يمثل 'بروتوبلازم' المصطلح المعرب السائد، بينما 'جبلة' هو المصطلح العربي الفصيح الذي أقره مجمع اللغة العربية بالقاهرة كمرادف دقيق. التعريف الحالي دقيق لكن يمكن إثراؤه بالتفصيل البنيوي (النواة والسيتوبلازم) كما ورد في المعاجم المتخصصة."
+  blind_candidates:
+    - lemma: "جِبِلَّة"
+      generation_method: majaz
+      justification: "لفظ أصيل يعني الخلقة والطبيعة، استُخدم في المعجمية العربية المعاصرة (المعجم الوسيط والكبير) لتعريب 'protoplasm' للدلالة على المادة الأساسية المكونة للخلية."
+    - lemma: "بْرُوتُوبْلَازْم"
+      generation_method: taarib
+      justification: "التعريب المباشر للمصطلح العالمي (protoplasm)، وهو الأكثر شيوعاً في المناهج التعليمية والمراجع العلمية."
+    - lemma: "مَادَّة حَيَّة"
+      generation_method: tarkib
+      justification: "ترجمة حرفية مصطلحية لـ 'living substance/matter' تعبر عن الماهية الحيوية للمادة الخلوية."
+    - lemma: "هَيُولَى الخَلِيَّة"
+      generation_method: tarkib
+      justification: "استخدام لفظ 'هيولى' (المادة الأولى) مضافاً إلى الخلية، وهو مصطلح كان مستخدماً في بدايات التعريب العلمي الحديث."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "بروتوبلازم"
+      confirm:
+        - text: "«مادّة حيّة معقّدة مكوِّنة لخلايا الكائن الحيّ»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«protoplasm»"
+          source: "المكنز الزراعي (arabterm)"
+    - lemma: "جبلة"
+      confirm:
+        - text: "«(في علم الأحياء): مادة شبه زلالية معقدة التركيب الكيماوي وتعد الأساس الطبيعي للحيوان والنبات (مج)»"
+          source: "المعجم الوسيط"
+        - text: "«البروتوبلازمة protoplasm : المادةُ الحيَّةُ الأوَّلية , وهى جُمْلَةُ المادةِ المُكَوِّنة لِلْبِنْيَة الأساسية في بناء الكائنات الحية , وهي الخَلِيّة»"
+          source: "المعجم الكبير"
+        - text: "«مجموعة المواد البروتينية التي تتكون منها الخلية وفيها تتم التفاعلات الحيوية. (protoplasm)»"
+          source: "المعجم الموحد لمصطلحات علم الصيدلة"
+    - lemma: "مادة حية"
+      confirm:
+        - text: "«living matter»"
+          source: "المعجم الموحد لمصطلحات علم الأحياء (arabterm)"
+    - lemma: "هيولى"
+      expands:
+        - text: "«الهيولى: الأصل، والمادة الأولى»"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "بروتوبلازم"
+      decision: confirmed
+      decision_reason: "المصطلح العلمي العالمي المعرب والأكثر تداولاً في الأوساط الأكاديمية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "بْرُوتُوبْلَازْم"
+    - lemma: "جبلة"
+      decision: confirmed
+      decision_reason: "مصطلح عربي فصيح أحيته المجامع اللغوية ليكون رصيفاً عربياً للمصطلح الأجنبي، وهو دقيق الدلالة على المادة الأصلية الحية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "جِبِلَّة"
+    - lemma: "مادة حية"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح واصف مرادف لـ 'living substance' الوارد في المجموعة الإنجليزية، ومستخدم بكثرة في التعريفات العلمية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مَادَّة حَيَّة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-05440312-n"
+
+stage4_content:
+  definition:
+    current: "مادة الخلية الحية (بما في ذلك السيتوبلازم والنواة)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي صحيح لكنه يفتقر للجزالة المعجمية والدقة العلمية في وصف طبيعة المادة."
+    authored:
+      - type: terminological
+        text: "جملة المادة الحية المعقدة المكونة للبنية الأساسية للخلية، وتتألف من الجبلة الخلوية (السيتوبلازم) والجبلة النووية (النيوكليوبلازم)."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "بْرُوتُوبْلَازْم"
+        examples:
+          - text: "يعتبر البروتوبلازم الحامل المادي لجميع مظاهر الحياة داخل الخلية."
+            type: usage
+      - lemma: "جِبِلَّة"
+        examples:
+          - text: "تعد الجبلة الأساس الطبيعي للكائن الحي وفيها تتم التفاعلات الحيوية."
+            type: usage
+      - lemma: "مَادَّة حَيَّة"
+        examples:
+          - text: "تتكون المادة الحية في الخلية من بروتينات ودهون وعناصر كيميائية منظمة."
+            type: usage
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-05440312-n"
+          definition_index: 0
+          text: "جملة المادة الحية المعقدة المكونة للبنية الأساسية للخلية، وتتألف من الجبلة الخلوية (السيتوبلازم) والجبلة النووية (النيوكليوبلازم)."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "جِبِلَّة"
+      entry_id: "{auto}"
+      root: "جبل"
+      maqayis_quote: "«الْجِيمُ وَالْبَاءُ وَاللَّامُ أَصْلٌ يَطَّرِدُ وَيُقَاسُ، وَهُوَ تَجَمُّعُ الشَّيْءِ فِي ارْتِفَاعٍ... وَالْجِبِلَّةُ: الْخَلِيقَةُ»"
+    - lemma: "بْرُوتُوبْلَازْم"
+      entry_id: "{auto}"
+    - lemma: "مَادَّة حَيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "مادة"
+          root: "مدد"
+          maqayis_quote: "«الْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى طَوْلٍ فِي الشَّيْءِ»"
+        - word: "حية"
+          root: "حيي"
+          maqayis_quote: "«الْحَاءُ وَالْيَاءُ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ، وَالْآخَرُ الِاسْتِحْيَاءُ»"
+  per_sense:
+    - lemma: "بْرُوتُوبْلَازْم"
+      sense_id: "{auto}"
+      nuance: "المصطلح العلمي العالمي المعرب والأكثر تداولاً في العلوم الحديثة."
+      mwe: false
+    - lemma: "جِبِلَّة"
+      sense_id: "{auto}"
+      nuance: "مصطلح فصيح يربط المفهوم البيولوجي بمفهوم الخلقة والأصل في اللغة العربية."
+      mwe: false
+    - lemma: "مَادَّة حَيَّة"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي يركز على الماهية الحيوية والوظيفية."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جبل","maqayis":"«الْجِيمُ وَالْبَاءُ وَاللَّامُ أَصْلٌ يَطَّرِدُ وَيُقَاسُ، وَهُوَ تَجَمُّعُ الشَّيْءِ فِي ارْتِفَاعٍ... وَالْجِبِلَّةُ: الْخَلِيقَةُ»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مادة","root":"مدد","maqayis":"«الْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى طَوْلٍ فِي الشَّيْءِ»"},{"word":"حية","root":"حيي","maqayis":"«الْحَاءُ وَالْيَاءُ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ، وَالْآخَرُ الِاسْتِحْيَاءُ»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العلمي العالمي المعرب والأكثر تداولاً في العلوم الحديثة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح فصيح يربط المفهوم البيولوجي بمفهوم الخلقة والأصل في اللغة العربية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير وصفي يركز على الماهية الحيوية والوظيفية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-05440312-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-05440312-n"
+        score: 0.95

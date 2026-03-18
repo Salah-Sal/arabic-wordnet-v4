@@ -1,0 +1,191 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة جيّدة ولكنها تفتقر إلى بعض المصطلحات التراثية الدقيقة لوصف نشاط الأطفال."
+    observations: "المفهوم يشير إلى النشاط الحركي الزائد أو عدم القدرة على الاستقرار، وهو ما يُعرف في الأدبيات المعجمية بـ 'الخفة' أو 'النشاط' أو 'التململ'."
+  blind_candidates:
+    - lemma: "مُتَمَلْمِل"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من تململ، وهو الذي يتقلب ولا يستقر في مكانه من قلق أو نشاط."
+    - lemma: "كَثِير الْحَرَكَة"
+      generation_method: tarkib
+      justification: "تعبير وصفي شائع جداً لوصف الشخص (خاصة الطفل) الذي لا يسكن."
+    - lemma: "حَرِك"
+      generation_method: ishtiqaq
+      justification: "جاء في المعاجم 'غلام حرك' أي خفيف ذكي نشيط، وهو وصف دقيق للمفهوم."
+    - lemma: "نَزِق"
+      generation_method: ishtiqaq
+      justification: "يشير إلى الخفة وعدم الوقار أو الاستقرار، ويُستخدم لوصف الأطفال."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُتَمَلْمِل"
+      confirm:
+        - text: "«تململ الجالس: أدّى قلقه بأن جثا على ركبتيه أو جنح إلى أحد شقيه تارة وإلى الآخر تارة أخرى»"
+          source: "المعجم الوسيط"
+    - lemma: "كَثِير الْحَرَكَة"
+      confirm:
+        - text: "«حَرِك: كثير الحركة»"
+          source: "تكملة المعاجم العربية (دوزي)"
+        - text: "«خفيف الحركة: نشيط، سريع، رشيق»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "حَرِك"
+      confirm:
+        - text: "«(الحرك) غُلَام حرك خَفِيف ذكي»"
+          source: "المعجم الوسيط"
+        - text: "«الغُلامُ الخَفِيفُ الذَّكِيُّ»"
+          source: "المعجم الكبير"
+    - lemma: "نَزِق"
+      confirm:
+        - text: "«النَّزَقُ: الخِفَّةُ والطيشُ. وقد نَزِقَ بالكسر يَنْزَقُ نَزَقاً»"
+          source: "الصحاح في اللغة"
+    - lemma: "نَغِيش"
+      confirm:
+        - text: "«كثير الحركة في مكانه»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مُتَمَلْمِل"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح يعبر عن عدم الاستقرار والحركة الدائمة في المكان نتيجة القلق أو النشاط."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُتَمَلْمِل"
+    - lemma: "كَثِير الْحَرَكَة"
+      decision: confirmed
+      decision_reason: "تعبير وصفي مستقر وشائع الاستخدام في اللغة العربية المعاصرة والقديمة لوصف هذا المفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "كَثِير الْحَرَكَة"
+    - lemma: "حَرِك"
+      source: stage1
+      decision: confirmed
+      decision_reason: "وصف معجمي دقيق للطفل الخفيف النشيط كثير الحركة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "حَرِك", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-10800912-n"}
+
+stage4_content:
+  definition:
+    current: "شخص لا يستطيع البقاء ساكناً (خاصة الطفل)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط، ويفضل صياغته بأسلوب معجمي يجمع بين الجنس والفصل."
+    authored:
+      - type: linguistic
+        text: "مَنْ لَا يَسْتَقِرُّ فِي مَكَانِهِ لِقَلَقٍ أَوْ نَشَاطٍ بَدَنِيٍّ زَائِدٍ، وَتُطْلَقُ غَالِبًا عَلَى الصِّغَارِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-10800912-n", definition_index: 0, text: "مَنْ لَا يَسْتَقِرُّ فِي مَكَانِهِ لِقَلَقٍ أَوْ نَشَاطٍ بَدَنِيٍّ زَائِدٍ، وَتُطْلَقُ غَالِبًا عَلَى الصِّغَارِ."}
+  examples:
+    per_lemma:
+      - lemma: "مُتَمَلْمِل"
+        examples:
+          - text: "بَقِيَ الطِّفْلُ مُتَمَلْمِلًا فِي مَقْعَدِهِ طَوَالَ الرِّحْلَةِ."
+            type: usage
+      - lemma: "كَثِير الْحَرَكَة"
+        examples:
+          - text: "يَصْعُبُ التَّحَكُّمُ فِي الطِّفْلِ كَثِيرِ الْحَرَكَةِ فِي مِثْلِ هَذِهِ الْمَنَاسَبَاتِ."
+            type: usage
+      - lemma: "حَرِك"
+        examples:
+          - text: "هَذَا غُلَامٌ حَرِكٌ لَا يَكَادُ يَهْدَأُ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "بَقِيَ الطِّفْلُ مُتَمَلْمِلًا فِي مَقْعَدِهِ طَوَالَ الرِّحْلَةِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُتَمَلْمِل"
+      entry_id: "{auto}"
+      root: "ملل"
+      maqayis_quote: "«الْمِيمُ وَاللَّامُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى تَقْلِيبِ شَيْءٍ... وَبَاتَ يَتَمَلْمَلُ عَلَى فِرَاشِهِ، أَيْ يَقْلَقُ وَيَتَضَوَّرُ عَلَيْهِ»"
+    - lemma: "كَثِير الْحَرَكَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "كثير"
+          root: "كثر"
+          maqayis_quote: "«الْكَافُ وَالثَّاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ صَحِيحٌ، يَدُلُّ عَلَى خِلَافِ الْقِلَّةِ.»"
+        - word: "الحركة"
+          root: "حرك"
+          maqayis_quote: "«الْحَاءُ وَالرَّاءُ وَالْكَافُ أَصْلٌ وَاحِدٌ، فَالْحَرَكَةُ ضِدُّ السُّكُونِ.»"
+    - lemma: "حَرِك"
+      entry_id: "{auto}"
+      root: "حرك"
+      maqayis_quote: "«الْحَاءُ وَالرَّاءُ وَالْكَافُ أَصْلٌ وَاحِدٌ، فَالْحَرَكَةُ ضِدُّ السُّكُونِ.»"
+  per_sense:
+    - lemma: "مُتَمَلْمِل"
+      sense_id: "{auto}"
+      nuance: "تُشِيرُ إِلَى الْقَلَقِ وَالِاضْطِرَابِ الَّذِي يَمْنَعُ مِنَ السُّكُونِ."
+      mwe: false
+    - lemma: "كَثِير الْحَرَكَة"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي عام وشامل للنشاط الزائد."
+      mwe: true
+    - lemma: "حَرِك"
+      sense_id: "{auto}"
+      nuance: "تُشِيرُ إِلَى النَّشَاطِ الْمَقْرُونِ بِالْخِفَّةِ وَالذَّكَاءِ، وَهِيَ غَالِبًا صِفَةُ مَدْحٍ لِلصِّغَارِ."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ملل","maqayis":"«الْمِيمُ وَاللَّامُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى تَقْلِيبِ شَيْءٍ... وَبَاتَ يَتَمَلْمَلُ عَلَى فِرَاشِهِ، أَيْ يَقْلَقُ وَيَتَضَوَّرُ عَلَيْهِ»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"كثير","root":"كثر","maqayis":"«الْكَافُ وَالثَّاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ صَحِيحٌ، يَدُلُّ عَلَى خِلَافِ الْقِلَّةِ.»"},{"word":"الحركة","root":"حرك","maqayis":"«الْحَاءُ وَالرَّاءُ وَالْكَافُ أَصْلٌ وَاحِدٌ، فَالْحَرَكَةُ ضِدُّ السُّكُونِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حرك","maqayis":"«الْحَاءُ وَالرَّاءُ وَالْكَافُ أَصْلٌ وَاحِدٌ، فَالْحَرَكَةُ ضِدُّ السُّكُونِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تُشِيرُ إِلَى الْقَلَقِ وَالِاضْطِرَابِ الَّذِي يَمْنَعُ مِنَ السُّكُونِ.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-10800912-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-10800912-n"
+        score: 0.9

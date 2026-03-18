@@ -1,0 +1,202 @@
+# ── المرحلة ١: المراجعة والتوليد (بدون أدلة) ──────────────
+stage1_review:
+  assessment:
+    concerns:
+      - التعريف الحالي يغلب عليه الأسلوب الوصفي الطويل (شخص يجعل جزءاً من جسده يلامس...).
+      - الاكتفاء بلمة واحدة (لامس) قد لا يغطي كل السياقات الدلالية للمصطلح الإنجليزي (toucher).
+    observations: "المفهوم يشير إلى الفاعل الذي يُحدث التماس الجسدي أو يسمح به. في العربية، المصدر هو اللمس والمَسّ، والفاعل منهما (لامس وماسّ) هما الأقرب لتمثيل هذا المعنى."
+  blind_candidates:
+    - lemma: "لَامِس"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل (لمس)، وهو اللفظ المباشر للشخص الذي يلمس."
+    - lemma: "مُلَامِس"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل (لامس) على وزن (مفاعل)، ويوحي بالمداومة أو المفاعلة في التماس."
+    - lemma: "مَاسّ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل (مسّ)، وهو رديف (لامس) في المعنى."
+    - lemma: "لَمَّاس"
+      generation_method: ishtiqaq
+      justification: "صيغة مبالغة لمن يكثر اللمس أو يتخذه عادة."
+
+# ── المرحلة ٢: جمع الأدلة ────────────────────────────────
+stage2_evidence:
+  per_lemma:
+    - lemma: "لَامِس"
+      confirm:
+        - text: "«من مس الشيء بيده وأدرك الحرارة أو البرودة ونحو ذلك. من يلمس غيره بيده»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+        - text: "«يقال: امرأةٌ لا تردُّ يَدَ لامِس: فاجِرةٌ فلانٌ لا يَرُدُّ يدَ لامس: لا مَنَعَةَ له»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«وكُلُّ مَاسٍّ لَامِسٌ»"
+          source: "مقاييس اللغة"
+    - lemma: "مَاسّ"
+      confirm:
+        - text: "«وصف من مَسَّ يقال: بينهم رَحِمٌ مَاسَّةٌ: قرابة قريبة»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«المِيمُ وَالسِّينُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى جَسِّ الشَّيْءِ بِالْيَدِ»"
+          source: "مقاييس اللغة"
+    - lemma: "مُلَامِس"
+      evidence_status: "no_material_found"
+
+# ── المرحلة ٣: التحليل اللغوي للّمات ────────────────────
+stage3_analysis:
+  per_lemma:
+    - lemma: "لَامِس"
+      decision: confirmed
+      decision_reason: "هو المصطلح الأكثر مباشرة ودقة في العربية للدلالة على فاعل اللمس، وقد ورد في المعاجم كصفة للفاعل وكاسم في التعبيرات الاصطلاحية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "لَامِس"
+    - lemma: "مُلَامِس"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صيغة قياسية من الفعل (لامس)، وتفيد الاستمرارية أو صفة الشيء/الشخص في حالة تماس، وهي مقبولة كمرادف معاصر."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُلَامِس", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مَاسّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف دقيق لـ (لامس)، وهو فاعل المسّ. المسّ واللمس متقاربان جداً في المعنى اللغوي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَاسّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "لَمَّاس"
+      source: stage1
+      decision: removed
+      decision_reason: "صيغة مبالغة لا تقتضيها الضرورة المعجمية لتعريف 'toucher' العام، وقد تحمل إيحاءات غير مطلوبة."
+
+# ── المرحلة ٤: التعريف والأمثلة ──────────────────────────
+stage4_content:
+  definition:
+    current: "شخص يجعل جزءاً من جسده يلامس شخصاً أو شيئاً ما أو يسمح بذلك"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي أكثر من اللازم؛ يفضل صياغته بأسلوب المعاجم المركزة (جنس قريب + فصل)."
+    authored:
+      - type: terminological
+        text: "مَنْ يَلْمَسُ شَيْئًا أَوْ كَائِنًا آخَرَ بِجُزْءٍ مِنْ جَسَدِهِ، أَوْ يُمَكِّنُ التَّمَاسَّ بَيْنَهُمَا."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مَنْ يَلْمَسُ شَيْئًا أَوْ كَائِنًا آخَرَ بِجُزْءٍ مِنْ جَسَدِهِ، أَوْ يُمَكِّنُ التَّمَاسَّ بَيْنَهُمَا."}
+  examples:
+    per_lemma:
+      - lemma: "لَامِس"
+        examples:
+          - text: "كَانَ اللَّامِسُ يَتَحَسَّسُ بَرْدَ الرُّخَامِ بِأَطْرَافِ أَصَابِعِهِ."
+            type: usage
+      - lemma: "مُلَامِس"
+        examples:
+          - text: "ظَلَّ الْمُلَامِسُ لِلسَّطْحِ السَّاخِنِ يَشْعُرُ بِحَرَارَتِهِ لِفَتْرَةٍ طَوِيلَةٍ."
+            type: usage
+      - lemma: "مَاسّ"
+        examples:
+          - text: "يُعَدُّ الْمَاسُّ لِلأَسْلَاكِ الْكَهْرُبَائِيَّةِ الْمَكْشُوفَةِ عُرْضَةً لِلْخَطَرِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "كَانَ اللَّامِسُ يَتَحَسَّسُ بَرْدَ الرُّخَامِ بِأَطْرَافِ أَصَابِعِهِ."}
+
+# ── المرحلة ٥: الإثراء (البيانات الوصفية) ─────────────────
+stage5_enrichment:
+  per_entry:
+    - lemma: "لَامِس"
+      entry_id: "{auto}"
+      root: "لمس"
+      maqayis_quote: "«اللَّامُ وَالْمِيمُ وَالسِّينُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَطَلُّبِ شَيْءٍ وَمَسِيسِهِ أَيْضًا»"
+    - lemma: "مُلَامِس"
+      entry_id: "{auto}"
+      root: "لمس"
+      maqayis_quote: "«اللَّامُ وَالْمِيمُ وَالسِّينُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَطَلُّبِ شَيْءٍ وَمَسِيسِهِ أَيْضًا»"
+    - lemma: "مَاسّ"
+      entry_id: "{auto}"
+      root: "مسس"
+      maqayis_quote: "«الْمِيمُ وَالسِّينُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى جَسِّ الشَّيْءِ بِالْيَدِ»"
+  per_sense:
+    - lemma: "لَامِس"
+      sense_id: "{auto}"
+      nuance: "هو اللفظ الأساسي والأعم."
+      mwe: false
+    - lemma: "مُلَامِس"
+      sense_id: "{auto}"
+      nuance: "يوحي بالاتصال المستمر أو المفاعلة."
+      mwe: false
+    - lemma: "مَاسّ"
+      sense_id: "{auto}"
+      nuance: "يركز على فعل المس المباشر."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"لمس","maqayis":"«اللَّامُ وَالْمِيمُ وَالسِّينُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَطَلُّبِ شَيْءٍ وَمَسِيسِهِ أَيْضًا»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"لمس","maqayis":"«اللَّامُ وَالْمِيمُ وَالسِّينُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَطَلُّبِ شَيْءٍ وَمَسِيسِهِ أَيْضًا»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"مسس","maqayis":"«الْمِيمُ وَالسِّينُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى جَسِّ الشَّيْءِ بِالْيَدِ»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"هو اللفظ الأساسي والأعم.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يوحي بالاتصال المستمر أو المفاعلة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على فعل المس المباشر.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

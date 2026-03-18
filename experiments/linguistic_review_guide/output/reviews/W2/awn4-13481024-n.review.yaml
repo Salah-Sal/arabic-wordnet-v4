@@ -1,0 +1,245 @@
+stage1_review:
+  assessment:
+    concerns:
+      - لا توجد مشكلات جوهرية، لكن المصطلحات الحالية تفتقر للتشكيل الكامل.
+      - يمكن إغناء المجموعة بمصطلحات أكثر تخصصاً مثل "انكماش نقدي" و"تقلص اقتصادي".
+    observations: "المجموعة تعبر عن مفهوم الـ Deflation الاقتصادي بشكل صحيح. المصطلح الأساسي 'انكماش' دقيق وشائع، والتعريف الحالي يحتاج صياغة أكثر مهنية لتشمل الجانب النقدي."
+  blind_candidates:
+    - lemma: "اِنْكِمَاشٌ نَقْدِيٌّ"
+      generation_method: tarkib
+      justification: "مصطلح متخصص يشير إلى نقص المعروض النقدي الذي يسبب الانكماش."
+    - lemma: "اِنْكِمَاشُ الْأَسْعَارِ"
+      generation_method: tarkib
+      justification: "وصف مباشر للظاهرة المذكورة في التعريف (انخفاض الأسعار)."
+    - lemma: "تَقَلُّصٌ اِقْتِصَادِيٌّ"
+      generation_method: ishtiqaq
+      justification: "مرادف فصيح لـ 'انكماش اقتصادي' يستخدم بكثرة في التقارير الاقتصادية."
+    - lemma: "اِنْكِمَاشٌ مَالِيٌّ"
+      generation_method: tarkib
+      justification: "يستخدم أحياناً كمرادف للانكماش النقدي أو الاقتصادي العام."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "انكماش"
+      confirm:
+        - text: "الانكماش: نقص المتداول من النقود الورقية (مج)"
+          source: "المعجم الوسيط لمجموعة من المؤلفين"
+        - text: "الانكماش: نقص في حجم النقد المتداول يفضي إلى انخفاض الأسعار."
+          source: "المورد الحديث (2008)"
+      expands:
+        - text: "تقلص فلز ما عند تبريده بسرعة بعد تسخينه."
+          source: "مسرد هندسة وتكنولوجيا السيارات (ArabTerm)"
+          addition: "يستخدم المصطلح في سياقات فيزيائية وهندسية بمعنى التقلص الحجمي (Shrinkage)."
+    - lemma: "انكماش اقتصادي"
+      confirm:
+        - text: "recession"
+          source: "المعجم الموحد لمصطلحات الاقتصاد (2000)"
+          addition: "يرد 'انكماش' كترجمة لـ recession و contraction في السياق الاقتصادي."
+    - lemma: "انكماش نقدي"
+      confirm:
+        - text: "monetary deflation"
+          source: "المعجم الموحد لمصطلحات التجارة والمحاسبة (1995)"
+    - lemma: "انكماش الأسعار"
+      confirm:
+        - text: "deflation of prices"
+          source: "المعجم الموحد لمصطلحات التجارة والمحاسبة (1995)"
+    - lemma: "تقلص اقتصادي"
+      confirm:
+        - text: "deflation"
+          source: "المعجم الموحد لمصطلحات الاقتصاد (2000)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "انكماش"
+      decision: confirmed
+      decision_reason: "المصطلح الأساسي والأكثر شيوعاً للمفهوم في اللغة العربية المعاصرة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "اِنْكِمَاشٌ"
+    - lemma: "انكماش اقتصادي"
+      decision: confirmed
+      decision_reason: "مصطلح مركب يحدد المجال الدقيق للمفهوم (الاقتصاد)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "اِنْكِمَاشٌ اِقْتِصَادِيٌّ"
+    - lemma: "اِنْكِمَاشٌ نَقْدِيٌّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فني دقيق يربط الظاهرة بأسبابها النقدية، وموثق في المعاجم الموحدة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "اِنْكِمَاشٌ نَقْدِيٌّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "اِنْكِمَاشُ الْأَسْعَارِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي يصف النتيجة المباشرة لعملية الانكماش، وموثق معجمياً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "اِنْكِمَاشُ الْأَسْعَارِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَقَلُّصٌ اِقْتِصَادِيٌّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف قوي وشائع الاستخدام في الأدبيات الاقتصادية الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "تَقَلُّصٌ اِقْتِصَادِيٌّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "انكماش النشاط الاقتصادي مما يؤدي إلى انخفاض الأسعار"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي صحيح لكنه مبسط؛ يفضل صياغته بأسلوب معجمي يجمع بين الجانب النقدي والنتائج السعرية."
+    authored:
+      - type: terminological
+        text: "نَقْصٌ فِي النَّشَاطِ الِاقْتِصَادِيِّ أَوْ حَجْمِ النَّقْدِ الْمُتَدَاوَلِ مِمَّا يُفْضِي إِلَى هُبُوطِ الْمُسْتَوَى الْعَامِّ لِلْأَسْعَارِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "نَقْصٌ فِي النَّشَاطِ الِاقْتِصَادِيِّ أَوْ حَجْمِ النَّقْدِ الْمُتَدَاوَلِ مِمَّا يُفْضِي إِلَى هُبُوطِ الْمُسْتَوَى الْعَامِّ لِلْأَسْعَارِ."}
+  examples:
+    per_lemma:
+      - lemma: "اِنْكِمَاشٌ"
+        examples:
+          - text: "عَانَى الِاقْتِصَادُ مِنَ اِنْكِمَاشٍ حَادٍّ أَدَّى إِلَى تَرَاجُعِ الْقُوَّةِ الشِّرَائِيَّةِ."
+            type: usage
+      - lemma: "اِنْكِمَاشٌ اِقْتِصَادِيٌّ"
+        examples:
+          - text: "تَتَخَوَّفُ الدُّوَلُ مِنْ دُخُولِ الِاقْتِصَادِ الْعَالَمِيِّ فِي مَرْحَلَةِ اِنْكِمَاشٍ اِقْتِصَادِيٍّ طَوِيلَةٍ."
+            type: usage
+      - lemma: "اِنْكِمَاشٌ نَقْدِيٌّ"
+        examples:
+          - text: "يَلْجَأُ الْمَصْرِفُ الْمَرْكَزِيُّ لِمُحَارَبَةِ التَّضَخُّمِ عَنْ طَرِيقِ فَرْضِ اِنْكِمَاشٍ نَقْدِيٍّ مُنَظَّمٍ."
+            type: usage
+      - lemma: "اِنْكِمَاشُ الْأَسْعَارِ"
+        examples:
+          - text: "يُعْتَبَرُ اِنْكِمَاشُ الْأَسْعَارِ ظَاهِرَةً اِقْتِصَادِيَّةً تُؤَدِّي إِلَى تَأْجِيلِ الْمُسْتَهْلِكِينَ لِعَمَلِيَّاتِ الشِّرَاءِ."
+            type: usage
+      - lemma: "تَقَلُّصٌ اِقْتِصَادِيٌّ"
+        examples:
+          - text: "أَظْهَرَتِ التَّقَارِيرُ تَقَلُّصاً اِقْتِصَادِيّاً فِي الرُّبْعِ الْأَوَّلِ مِنَ السَّنَةِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يُؤَدِّي الِانْكِمَاشُ إِلَى تَرَاجُعِ الْإِنْتَاجِ وَزِيَادَةِ الْبَطَالَةِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "اِنْكِمَاشٌ"
+      entry_id: "{auto}"
+      root: "كمش"
+      maqayis_quote: "«الْكَافُ وَالْمِيمُ وَالشِّينُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى لَطَافَةٍ وَصِغَرٍ.»"
+    - lemma: "اِنْكِمَاشٌ اِقْتِصَادِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "انكماش"
+          root: "كمش"
+          maqayis_quote: "«الْكَافُ وَالْمِيمُ وَالشِّينُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى لَطَافَةٍ وَصِغَرٍ.»"
+        - word: "اقتصادي"
+          root: "قصد"
+          maqayis_quote: "«الْقَافُ وَالصَّادُ وَالدَّالُ أُصُولٌ ثَلَاثَةٌ، يَدُلُّ أَحَدُهَا عَلَى إِتْيَانِ شَيْءٍ وَأَمِّهِ...»"
+    - lemma: "اِنْكِمَاشٌ نَقْدِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "انكماش"
+          root: "كمش"
+          maqayis_quote: "«الْكَافُ وَالْمِيمُ وَالشِّينُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى لَطَافَةٍ وَصِغَرٍ.»"
+        - word: "نقدي"
+          root: "نقد"
+          maqayis_quote: "«النُّونُ وَالْقَافُ وَالدَّالُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِبْرَازِ شَيْءٍ وَبُرُوزِهِ... نَقْدُ الدِّرْهَمِ، وَذَلِكَ أَنْ يُكْشَفَ عَنْ حَالِهِ فِي جَوْدَتِهِ.»"
+    - lemma: "اِنْكِمَاشُ الْأَسْعَارِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "انكماش"
+          root: "كمش"
+          maqayis_quote: "«الْكَافُ وَالْمِيمُ وَالشِّينُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى لَطَافَةٍ وَصِغَرٍ.»"
+        - word: "الأسعار"
+          root: "سعر"
+          maqayis_quote: "«السِّينُ وَالْعَيْنُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى اشْتِعَالِ [الشَّيْءِ] وَاتِّقَادِهِ وَارْتِفَاعِهِ... فَأَمَّا سِعْرُ الطَّعَامِ فَهُوَ مِنْ هَذَا أَيْضًا؛ لِأَنَّهُ يَرْتَفِعُ وَيَعْلُو.»"
+    - lemma: "تَقَلُّصٌ اِقْتِصَادِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "تقلص"
+          root: "قلص"
+          maqayis_quote: "«الْقَافُ وَاللَّامُ وَالصَّادُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى انْضِمَامِ شَيْءٍ بَعْضِهِ إِلَى بَعْضٍ. يُقَالُ: تَقَلَّصَ الشَّيْءُ، إِذَا انْضَمَّ.»"
+        - word: "اقتصادي"
+          root: "قصد"
+          maqayis_quote: "«الْقَافُ وَالصَّادُ وَالدَّالُ أُصُولٌ ثَلَاثَةٌ، يَدُلُّ أَحَدُهَا عَلَى إِتْيَانِ شَيْءٍ وَأَمِّهِ...»"
+  per_sense:
+    - lemma: "اِنْكِمَاشٌ"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام والشامل للظاهرة."
+      mwe: false
+    - lemma: "اِنْكِمَاشٌ اِقْتِصَادِيٌّ"
+      sense_id: "{auto}"
+      nuance: "يحدد السياق في النشاط الإنتاجي والاستثماري العام."
+      mwe: true
+    - lemma: "اِنْكِمَاشٌ نَقْدِيٌّ"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب المالي (نقص السيولة والمعروض النقدي)."
+      mwe: true
+    - lemma: "اِنْكِمَاشُ الْأَسْعَارِ"
+      sense_id: "{auto}"
+      nuance: "يركز على النتيجة الملموسة للجمهور (انخفاض الأثمان)."
+      mwe: true
+    - lemma: "تَقَلُّصٌ اِقْتِصَادِيٌّ"
+      sense_id: "{auto}"
+      nuance: "يؤكد على جانب الانقباض والتراجع الحجمي في الاقتصاد."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"كمش","maqayis":"«الْكَافُ وَالْمِيمُ وَالشِّينُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى لَطَافَةٍ وَصِغَرٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

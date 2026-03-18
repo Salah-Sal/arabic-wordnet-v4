@@ -1,0 +1,199 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'ركود' ترجمة خاطئة لمصطلح hypostasis في السياق الوراثي، حيث تشير في الطب إلى ركود الدم، بينما المقصود هنا الخضوع الجيني أو الكبت."
+      - "اللمة 'تفوق جيني' صحيحة وشائعة للتعبير عن epistasis، لكنها تفتقر للتشكيل وتوثيق المعاجم المتخصصة."
+    observations: "المفهوم يشير إلى التفاعل الجيني الذي يحجب فيه جين أثر جين آخر غير أليلي. مصطلح 'التفوق' يعبر عن الجين الحاجب، ويمكن استخدام مصطلحات مثل 'كبت' أو 'إبطال'."
+  blind_candidates:
+    - lemma: "تَفَوُّقٌ جِينِيّ"
+      generation_method: tarkib
+      justification: "تعبير مركّب وصفي يصف غلبة جين وتفوقه في التأثير على جين آخر"
+    - lemma: "كَبْتٌ جِينِيّ"
+      generation_method: tarkib
+      justification: "تعبير يجمع بين المصدر 'كبت' الذي يعني التثبيط والإخفاء، والنسبة إلى الجين"
+    - lemma: "تَغْطِيَةٌ مَوْرِثِيَّة"
+      generation_method: tarkib
+      justification: "مركب وصفي يشير إلى تغطية أو إخفاء أثر مورثة بفعل مورثة أخرى"
+    - lemma: "إِبْطَالٌ فَوْقِيّ"
+      generation_method: tarkib
+      justification: "ترجمة معتمدة لـ epistasis حيث يتم إبطال تأثير مورث من قبل مورث آخر"
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تفوق جيني"
+      confirm:
+        - text: "1-سيادة مورث واحد على مورث غير أليليّ وليس المورث المكبوت بالمتفوق عليه - 2-إبطال التأثير الظاهريّ لأحد المورثات بواسطة مورث آخر."
+          source: "المعجم الموحد لمصطلحات علم الوراثة (تحت مدخل: تفوق، إبطال فوقي)"
+    - lemma: "ركود"
+      contradicts:
+        - text: "بطء في الدورة الدموية في جزء أو عضو متدلٍ من الجسم كما في حالة نقص الكفاية الوريدية."
+          source: "معجم المصطلحات الطبية"
+          conflict: "المعنى طبي يتعلق بالدورة الدموية وليس له علاقة بعلم الوراثة وتثبيط الجينات."
+    - lemma: "إبطال فوقي"
+      confirm:
+        - text: "1-سيادة مورث واحد على مورث غير أليليّ وليس المورث المكبوت بالمتفوق عليه - 2-إبطال التأثير الظاهريّ لأحد المورثات بواسطة مورث آخر."
+          source: "المعجم الموحد لمصطلحات علم الوراثة (تحت مدخل: تفوق، إبطال فوقي)"
+    - lemma: "كبت جيني"
+      evidence_status: "no_material_found"
+    - lemma: "تغطية مورثية"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تفوق جيني"
+      decision: confirmed
+      decision_reason: "مصطلح علمي دقيق وشائع وموثق في المعاجم المتخصصة للدلالة على كبح تأثير جين لجين آخر (epistasis)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      nuance: "المصطلح الأكثر شيوعاً للتعبير عن الظاهرة من منظور الجين السائد أو المتفوق."
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَفَوُّقٌ جِينِيّ"
+    - lemma: "ركود"
+      decision: removed
+      decision_reason: "ترجمة حرفية أو طبية لمصطلح hypostasis ولا تستخدم في السياق الجيني أو الوراثي."
+      evidence_assessment:
+        case: contradicts_only
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "إبطال فوقي"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح معتمد وموثق في المعجم الموحد لمصطلحات علم الوراثة كمرادف للتفوق الجيني."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      nuance: "يركز على آلية تعطيل أو إبطال تأثير المورث الآخر."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "إِبْطَالٌ فَوْقِيّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "كبت جيني"
+      source: stage1
+      decision: removed
+      decision_reason: "مصطلح محتمل قياساً، لكن الأدلة المعجمية تؤيد التفوق والإبطال الفوقي للدلالة على المفهوم بشكل رئيسي."
+      evidence_assessment:
+        case: no_material
+    - lemma: "تغطية مورثية"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير وصفي غير مسكوك اصطلاحياً في المعاجم المعتمدة."
+      evidence_assessment:
+        case: no_material
+
+stage4_content:
+  definition:
+    current: "تثبيط جين بفعل تأثير جين غير ذي صلة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد ولكنه يفتقر إلى الدقة العلمية؛ فالتأثير يحدث من جين 'غير أليلي' بدلاً من 'غير ذي صلة'."
+    authored:
+      - type: terminological
+        text: "إبطال أو كبت التأثير الظاهري لجين معين بواسطة جين آخر غير أليلي."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "إبطال أو كبت التأثير الظاهري لجين معين بواسطة جين آخر غير أليلي."
+  examples:
+    per_lemma:
+      - lemma: "تفوق جيني"
+        examples:
+          - text: "يُعَدّ التفوق الجيني من العوامل المعقدة في توارث بعض الصفات الشكلية."
+            type: usage
+      - lemma: "إبطال فوقي"
+        examples:
+          - text: "ينتج عن الإبطال الفوقي اختفاء صفة وراثية معينة لغياب تعبيرها الجيني وظهور صفة الجين المتفوق."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "يُعَدّ التفوق الجيني من العوامل المعقدة في توارث بعض الصفات الشكلية."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تفوق جيني"
+      entry_id: "{auto}"
+      roots:
+        - word: "تفوق"
+          root: "فوق"
+          maqayis_quote: "«الْفَاءُ وَالْوَاوُ وَالْقَافُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى عُلُوٍّ، وَالْآخَرُ عَلَى أَوْبَةٍ وَرُجُوعٍ. فَالْأَوَّلُ الْفَوْقُ، وَهُوَ الْعُلُوُّ.»"
+        - word: "جيني"
+          root: "جين"
+          maqayis_quote: "«(كلمة معربة)»"
+    - lemma: "إبطال فوقي"
+      entry_id: "{auto}"
+      roots:
+        - word: "إبطال"
+          root: "بطل"
+          maqayis_quote: "«الْبَاءُ وَالطَّاءُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ ذَهَابُ الشَّيْءِ وَقِلَّةُ مُكْثِهِ وَلُبْثِهِ. يُقَالُ: بَطَلَ الشَّيْءُ يَبْطُلُ بُطْلًا وَبُطُولًا.»"
+        - word: "فوقي"
+          root: "فوق"
+          maqayis_quote: "«الْفَاءُ وَالْوَاوُ وَالْقَافُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى عُلُوٍّ...»"
+  per_sense:
+    - lemma: "تفوق جيني"
+      sense_id: "{auto}"
+      nuance: "المصطلح الأكثر شيوعاً للتعبير عن الظاهرة من منظور الجين السائد أو المتفوق."
+      mwe: true
+    - lemma: "إبطال فوقي"
+      sense_id: "{auto}"
+      nuance: "يركز على آلية تعطيل أو إبطال تأثير المورث الآخر."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"تفوق","root":"فوق","maqayis":"«الْفَاءُ وَالْوَاوُ وَالْقَافُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى عُلُوٍّ، وَالْآخَرُ عَلَى أَوْبَةٍ وَرُجُوعٍ. فَالْأَوَّلُ الْفَوْقُ، وَهُوَ الْعُلُوُّ.»"},{"word":"جيني","root":"جين","maqayis":"«(كلمة معربة)»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"إبطال","root":"بطل","maqayis":"«الْبَاءُ وَالطَّاءُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ ذَهَابُ الشَّيْءِ وَقِلَّةُ مُكْثِهِ وَلُبْثِهِ.»"},{"word":"فوقي","root":"فوق","maqayis":"«الْفَاءُ وَالْوَاوُ وَالْقَافُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى عُلُوٍّ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الأكثر شيوعاً للتعبير عن الظاهرة من منظور الجين السائد أو المتفوق.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على آلية تعطيل أو إبطال تأثير المورث الآخر.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

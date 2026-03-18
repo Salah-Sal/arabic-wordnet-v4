@@ -1,0 +1,190 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الوحيدة الموجودة صحيحة تماماً لكنها تفتقر إلى التشكيل الكامل."
+      - "التعريف الحالي ترجمة حرفية ومختصرة جداً للمفهوم العلمي المعاصر."
+    observations: "تعد 'الذرة' المصطلح المعياري الحديث، لكن التراث العلمي العربي يزخر بمصطلحات دقيقة لهذا المفهوم مثل 'الجوهر الفرد' و'الجزء الذي لا يتجزأ'، والتي يجدر إضافتها كمترادفات تاريخية أو فلسفية."
+  blind_candidates:
+    - lemma: "ذَرَّة"
+      generation_method: majaz
+      justification: "اللفظ العربي القديم لصغار النمل أو الهباء، نُقل دلالياً ليعبر عن أصغر جزء من المادة."
+    - lemma: "جَوْهَر فَرْد"
+      generation_method: tarkib
+      justification: "مصطلح كلامي وفلسفي عريق عند العرب يعبر عن الجزء الذي لا يقبل القسمة (الذرة)."
+    - lemma: "جُزْء لَا يَتَجَزَّأ"
+      generation_method: tarkib
+      justification: "تعبير اصطلاحي ثابت في الفلسفة وعلم الكلام العربي للإشارة إلى الذرة."
+    - lemma: "أَتُوم"
+      generation_method: taarib
+      justification: "تعريب مباشر للفظ العالمي (Atom)، يستخدم أحياناً في النصوص العلمية وإن كان 'ذرة' هو الغالب."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "ذرة"
+      confirm:
+        - text: "«(الذَّرَّةُ) ... (في الفيزياء) atom: أصْغَرُ جُزْءٍ من عنصر يدخُلُ في التَّفاعُلات الكيميائيَّة»"
+          source: "المعجم الكبير"
+        - text: "«(الذّرة) هِيَ أصغير جُزْء فِي عنصر مَا يَصح أَن يدْخل فِي التفاعلات الكيميائية (مج)»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«الذَّرَّةُ ... (في الفلسفة) Atom: أصْغَرُ جُزْءٍ لا يتجزَّأُ من المادة، وهو ما لا يَنْقَسِمُ.»"
+          source: "المعجم الكبير"
+    - lemma: "جَوْهَر فَرْد"
+      confirm:
+        - text: "«الجوهر الفرد: [في الانكليزية] Atom ... هو الجزء الذي لا يتجزأ.»"
+          source: "كشاف اصطلاحات الفنون للتهانوي"
+        - text: "«الجَوْهَرُ الفَرْدُ: متحيز لَا يقبل الْقِسْمَة.»"
+          source: "مقاليد العلوم للسيوطي"
+    - lemma: "جُزْء لَا يَتَجَزَّأ"
+      confirm:
+        - text: "«وسمَّاها المتكلمونَ: الجُزْءَ الذى لا يتجزأ، أو الجُزْء، أو الجَوْهَر الفَرْد»"
+          source: "المعجم الكبير (مادة ذرر)"
+    - lemma: "أَتُوم"
+      contradicts:
+        - text: "«الأَتُوم: المفضاة من النساء الصغيرة الفرج (ضد)»"
+          source: "المعجم الكبير"
+          conflict: "الكلمة بالمعنى العتيق بعيدة تماماً عن المعنى الفيزيائي، واستخدامها كتعريب لـ Atom غير مسجل في المعاجم العربية الكبرى."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "ذرة"
+      decision: confirmed
+      decision_reason: "المصطلح المعياري المتفق عليه في العلم الحديث."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "ذَرَّة"
+    - lemma: "جَوْهَر فَرْد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تراثي دقيق يعادل تماماً المفهوم الفلسفي والقديم للذرة، وموثق في المعاجم الاصطلاحية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "جَوْهَر فَرْد", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "جُزْء لَا يَتَجَزَّأ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي ثابت في التراث الفلسفي العربي للإشارة إلى الذرة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "جُزْء لَا يَتَجَزَّأ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "أَتُوم"
+      source: stage1
+      decision: removed
+      decision_reason: "التعريب غير شائع في الاستعمال الفصيح، والمعاجم تسجل اللفظ بمعانٍ أخرى مختلفة تماماً."
+
+stage4_content:
+  definition:
+    current: "(فيزياء وكيمياء) أصغر مكون لعنصر يمتلك الخصائص الكيميائية للعنصر"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مبسط جداً؛ يفضل إضافة تفاصيل عن بنيتها (النواة والإلكترونات) ومبدأ عدم القابلية للانقسام بالوسائل الكيميائية."
+    authored:
+      - type: terminological
+        text: "أصغر جزء من مادة عنصرية يمكن أن يدخل في التفاعلات الكيميائية دون أن ينقسم، ويتكون من نواة موجبة الشحنة تحيط بها إلكترونات سالبة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+      - type: encyclopedic
+        text: "وحدة بناء المادة، تتألف من نواة مركزية كثيفة تحتوي على بروتونات ونيوترونات، سحابة من الإلكترونات تدور حولها؛ وهي أصغر وحدة تحتفظ بالخصائص الكيميائية الفريدة للعنصر."
+  examples:
+    per_lemma:
+      - lemma: "ذَرَّة"
+        examples:
+          - text: "تتكون جزيئات الماء من ذرتي هيدروجين وذرة أكسجين واحدة."
+            type: usage
+      - lemma: "جَوْهَر فَرْد"
+        examples:
+          - text: "ذهب بعض المتكلمين إلى أن العالم مؤلف من جواهر فردة لا تقبل القسمة."
+            type: usage
+      - lemma: "جُزْء لَا يَتَجَزَّأ"
+        examples:
+          - text: "ناقش الفلاسفة القدامى نظرية الجزء الذي لا يتجزأ في تفسير طبيعة المادة."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "أصغر جزء من مادة عنصرية يمكن أن يدخل في التفاعلات الكيميائية دون أن ينقسم، ويتكون من نواة موجبة الشحنة تحيط بها إلكترونات سالبة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "ذَرَّة"
+      entry_id: "{auto}"
+      root: "ذرر"
+      maqayis_quote: "«الذَّالُ وَالرَّاءُ الْمُشَدَّدَةُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَطَافَةٍ وَانْتِشَارٍ. وَمِنْ ذَلِكَ الذَّرُّ: صِغَارُ النَّمْلِ، الْوَاحِدَةُ ذَرَّةٌ.»"
+    - lemma: "جَوْهَر فَرْد"
+      entry_id: "{auto}"
+      roots:
+        - word: "جوهر"
+          root: "جوهر"
+          maqayis_quote: "«(جَوْهَرٌ) لَيْسَ مِنَ الْكَلَامِ الْأَصِيلِ، وَإِنَّمَا هُوَ مُعَرَّبٌ.»"
+        - word: "فرد"
+          root: "فرد"
+          maqayis_quote: "«الْفَاءُ وَالرَّاءُ وَالدَّالُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى انْقِطَاعِ الشَّيْءِ عَنْ غَيْرِهِ.»"
+    - lemma: "جُزْء لَا يَتَجَزَّأ"
+      entry_id: "{auto}"
+      roots:
+        - word: "جزء"
+          root: "جزأ"
+          maqayis_quote: "«الْجِيمُ وَالزَّاءُ وَالْهَمْزَةُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى قَطْعِ الشَّيْءِ قِطَعًا.»"
+        - word: "يتجزأ"
+          root: "جزأ"
+          maqayis_quote: "«الْجِيمُ وَالزَّاءُ وَالْهَمْزَةُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى قَطْعِ الشَّيْءِ قِطَعًا.»"
+  per_sense:
+    - lemma: "ذَرَّة"
+      sense_id: "{auto}"
+      nuance: "المصطلح العلمي الحديث الشامل."
+      mwe: false
+    - lemma: "جَوْهَر فَرْد"
+      sense_id: "{auto}"
+      nuance: "يستخدم في السياقات الفلسفية والكلامية القديمة."
+      mwe: true
+    - lemma: "جُزْء لَا يَتَجَزَّأ"
+      sense_id: "{auto}"
+      nuance: "يؤكد على خاصية عدم القابلية للانقسام في الفكر الفلسفي."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ذرر","maqayis":"«الذَّالُ وَالرَّاءُ الْمُشَدَّدَةُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَطَافَةٍ وَانْتِشَارٍ. وَمِنْ ذَلِكَ الذَّرُّ: صِغَارُ النَّمْلِ، الْوَاحِدَةُ ذَرَّةٌ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العلمي الحديث الشامل.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 1.0

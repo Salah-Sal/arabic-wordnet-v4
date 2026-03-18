@@ -1,0 +1,231 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "عدم تشكيل اللمات الحالية (ثري، غني)."
+      - "تعريف المجموعة جيد ولكنه قد يحتاج لصياغة أقرب للمعاجم العربية المعتمدة على الجنس القريب والفصل النوعي."
+    observations: "تدل المفاهيم المرتبطة بهذه المجموعة على حالة من السعة وعدم الحاجة والوفرة المادية. 'غني' هي الكلمة الأشمل وتدل على عدم الحاجة (الكفاية)، بينما 'ثري' تدل تحديداً على الكثرة ووفرة المال."
+  blind_candidates:
+    - lemma: "مُثْرٍ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من أثرى يثري، ويدل على من كثر ماله."
+    - lemma: "مُوسِر"
+      generation_method: ishtiqaq
+      justification: "مشتق من اليسر، ويدل على السعة وسهولة العيش وامتلاك القدرة المالية."
+    - lemma: "مُتَمَوِّل"
+      generation_method: ishtiqaq
+      justification: "مشتق من المال، وهو من اتخذ مالاً وكثرت ممتلكاته."
+    - lemma: "ذُو ثَرْوَة"
+      generation_method: tarkib
+      justification: "تركيب إضافي يدل مباشرة على من يمتلك المال الكثير."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "ثري"
+      confirm:
+        - text: "«الغني»"
+          source: "المعجم الكبير"
+        - text: "«الْمَالُ الثَّرِيُّ الْكَثِيرُ»"
+          source: "مقاييس اللغة لابن فارس"
+        - text: "«وثَرِيَتِ الأَرْضُ ... ثَرىً، فهي ثَرِيَّةٌ، كَغَنِيَّةٍ»"
+          source: "القاموس المحيط للفيروزآبادي"
+    - lemma: "غني"
+      confirm:
+        - text: "«فلانٌ غَنًى, وغَنَاةً: كثر ماله. فهو غانٍ, وغَنِيٌّ»"
+          source: "المعجم الوسيط"
+        - text: "«الغنى مقصور في المال»"
+          source: "كتاب العين"
+    - lemma: "مُثْرٍ"
+      confirm:
+        - text: "«وَأَثْرَى الْقَوْمُ إِذَا كَثُرَتْ أَمْوَالُهُمْ.»"
+          source: "مقاييس اللغة لابن فارس"
+    - lemma: "مُوسِر"
+      confirm:
+        - text: "«المُوسِر: الذي له مائتا درهم، أو عَرْضٌ يساوي مائتي درهم سوَى المسْكن والخادم والثياب»"
+          source: "التعريفات الفقهية للبركتي"
+        - text: "«الغني ذو المال الكثير.»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+    - lemma: "مُتَمَوِّل"
+      evidence_status: "no_material_found"
+    - lemma: "ذُو ثَرْوَة"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "ثري"
+      decision: confirmed
+      decision_reason: "من فصيح اللغة ويدل تحديداً على كثرة المال والممتلكات وهو الأقرب للمعنى الدقيق."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "ثَرِيّ"
+    - lemma: "غني"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي وأشيع في الاستخدام ويدل على الكفاية والوفرة المالية وعدم الحاجة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "غَنِيّ"
+    - lemma: "مُوسِر"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ فصيح ومتداول في السياقات الفقهية والأدبية للدلالة على من له سعة من المال تكفيه."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُوسِر"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "مُثْرٍ"
+      source: stage1
+      decision: removed
+      decision_reason: "يشترك في الجذر والدلالة مع 'ثري'، واللفظ الأخير أثبت وأشهر كصفة مشبهة."
+    - lemma: "مُتَمَوِّل"
+      source: stage1
+      decision: removed
+      decision_reason: "عدم توفر أدلة معجمية كافية لتأصيله كاسم مفرد في هذا المعنى، ويفضل الاكتفاء بالألفاظ الأكثر شيوعاً وثبوتاً."
+    - lemma: "ذُو ثَرْوَة"
+      source: stage1
+      decision: removed
+      decision_reason: "مركب لا يمثل مصطلحاً معجمياً مستقلاً ويمكن الاستغناء عنه بكلمة 'ثري'."
+
+stage4_content:
+  definition:
+    current: "شخص يمتلك ثروة مادية كبيرة"
+    assessment:
+      decision: revise
+      reason: "تحسين الصياغة لتكون أقرب لأسلوب المعاجم العربية بالاعتماد على الجنس القريب والفصل النوعي."
+    authored:
+      - type: terminological
+        text: "مَنْ كَثُرَ مَالُهُ واسْتَغْنَى بِمَا يَمْلِكُهُ مِنْ ثَرْوَةٍ مَادِّيَّةٍ عَنِ الحَاجَةِ إِلَى غَيْرِهِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "مَنْ كَثُرَ مَالُهُ واسْتَغْنَى بِمَا يَمْلِكُهُ مِنْ ثَرْوَةٍ مَادِّيَّةٍ عَنِ الحَاجَةِ إِلَى غَيْرِهِ."
+  examples:
+    per_lemma:
+      - lemma: "ثري"
+        examples:
+          - text: "بَرِعَ التَّاجِرُ فِي أَعْمَالِهِ حَتَّى أَصْبَحَ رَجُلاً ثَرِيّاً يَمْتَلِكُ عِقَارَاتٍ كَثِيرَةً."
+            type: usage
+      - lemma: "غني"
+        examples:
+          - text: "يَجِبُ عَلَى الغَنِيِّ أَنْ يُؤَدِّيَ زَكَاةَ مَالِهِ لِلْفُقَرَاءِ وَالْمَسَاكِينِ."
+            type: usage
+      - lemma: "مُوسِر"
+        examples:
+          - text: "تَبَرَّعَ رَجُلٌ مُوسِرٌ لِبِنَاءِ مَدْرَسَةٍ فِي قَرْيَتِهِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "بَرِعَ التَّاجِرُ فِي أَعْمَالِهِ حَتَّى أَصْبَحَ رَجُلاً ثَرِيّاً يَمْتَلِكُ عِقَارَاتٍ كَثِيرَةً."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يَجِبُ عَلَى الغَنِيِّ أَنْ يُؤَدِّيَ زَكَاةَ مَالِهِ لِلْفُقَرَاءِ وَالْمَسَاكِينِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تَبَرَّعَ رَجُلٌ مُوسِرٌ لِبِنَاءِ مَدْرَسَةٍ فِي قَرْيَتِهِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "ثري"
+      entry_id: "{auto}"
+      root: "ثرو"
+      maqayis_quote: "«الثَّاءُ وَالرَّاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ، وَهُوَ الْكَثْرَةُ، وَخِلَافُ الْيُبْسِ.»"
+    - lemma: "غني"
+      entry_id: "{auto}"
+      root: "غني"
+      maqayis_quote: "«الْغَيْنُ وَالنُّونُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ صَحِيحَانِ، أَحَدُهُمَا يَدُلُّ عَلَى الْكِفَايَةِ... وَالْأَوَّلُ الْغِنَى فِي الْمَالِ.»"
+    - lemma: "مُوسِر"
+      entry_id: "{auto}"
+      root: "يسر"
+      maqayis_quote: "«الْيَاءُ وَالسِّينُ وَالرَّاءُ: أَصْلَانِ يَدُلُّ أَحَدُهُمَا عَلَى انْفِتَاحِ شَيْءٍ وَخِفَّتِهِ... وَالْيَسَارُ: الْغِنَى.»"
+  per_sense:
+    - lemma: "ثري"
+      sense_id: "{auto}"
+      nuance: "يركز على كثرة المال ووفرة الممتلكات المادية بصورة ملحوظة."
+      mwe: false
+    - lemma: "غني"
+      sense_id: "{auto}"
+      nuance: "أشمل ويدل على الاكتفاء الذاتي وعدم الحاجة للآخرين، سواء بالمال أو بغيره."
+      mwe: false
+    - lemma: "مُوسِر"
+      sense_id: "{auto}"
+      nuance: "يركز على حالة السعة واليسر وسهولة العيش والخروج من ضيق الحال."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ثرو","maqayis":"«الثَّاءُ وَالرَّاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ، وَهُوَ الْكَثْرَةُ، وَخِلَافُ الْيُبْسِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"غني","maqayis":"«الْغَيْنُ وَالنُّونُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ صَحِيحَانِ، أَحَدُهُمَا يَدُلُّ عَلَى الْكِفَايَةِ... وَالْأَوَّلُ الْغِنَى فِي الْمَالِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"يسر","maqayis":"«الْيَاءُ وَالسِّينُ وَالرَّاءُ: أَصْلَانِ يَدُلُّ أَحَدُهُمَا عَلَى انْفِتَاحِ شَيْءٍ وَخِفَّتِهِ... وَالْيَسَارُ: الْغِنَى.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على كثرة المال ووفرة الممتلكات المادية بصورة ملحوظة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"أشمل ويدل على الاكتفاء الذاتي وعدم الحاجة للآخرين، سواء بالمال أو بغيره.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على حالة السعة واليسر وسهولة العيش والخروج من ضيق الحال.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.98

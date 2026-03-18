@@ -1,0 +1,32 @@
+YOLO mode is enabled. All tool calls will be automatically approved.
+Loaded cached credentials.
+YOLO mode is enabled. All tool calls will be automatically approved.
+Error executing tool read_file: File not found.
+Bash command parsing error detected for command: << 'EOF' > /workspace/queries.sh
+#!/bin/bash
+DB_PATH="/workspace/prepared/synsets.db"
+
+echo "=== QUERY 1: HEADWORDS ==="
+sqlite3 -json "$DB_PATH" "SELECT e.id AS entry_id, e.headword_norm, e.root, e.definitions_text, e.translation_en, e.domain, d.name_ar, d.source_type FROM entries e JOIN dictionaries d ON e.dictionary_id = d.id WHERE e.headword_norm IN ('توريق', 'التوريق', 'طبقة رقيقة', 'الطبقة الرقيقة', 'طبقة', 'الطبقة', 'رقيقة', 'الرقيقة') ORDER BY e.headword_norm, d.source_type LIMIT 200;" > /workspace/q1.json
+
+echo "=== QUERY 2: ENGLISH BRIDGE ==="
+sqlite3 -json "$DB_PATH" "SELECT e.id AS entry_id, e.headword_norm, e.definitions_text, e.translation_en, e.domain, d.name_ar, d.source_type FROM entries e JOIN dictionaries d ON e.dictionary_id = d.id WHERE e.id IN (SELECT rowid FROM entries_translations_fts WHERE entries_translations_fts MATCH 'translation_en:\"folium\" OR translation_en:\"lamina\"' ORDER BY bm25(entries_translations_fts, 5.0, 3.0, 1.0) LIMIT 50) ORDER BY d.source_type;" > /workspace/q2.json
+
+echo "=== QUERY 3: ARABIC FTS ==="
+sqlite3 -json "$DB_PATH" "SELECT e.id AS entry_id, e.headword_norm, e.definitions_text, e.translation_en, e.domain, d.name_ar, d.source_type FROM entries e JOIN dictionaries d ON e.dictionary_id = d.id WHERE e.id IN (SELECT rowid FROM entries_fts WHERE entries_fts MATCH '\"صخور متحولة\" OR \"صفائح\" OR \"صفيحة\" OR \"توريق\" OR \"وريقة\"' ORDER BY bm25(entries_fts, 10.0, 5.0, 5.0, 3.0, 1.0) LIMIT 50) ORDER BY d.source_type;" > /workspace/q3.json
+
+EOF Syntax Errors: [ 'Error node: "<" at 0:0' ]
+Bash command parsing error detected for command: << 'EOF' > /workspace/queries.sh
+#!/bin/bash
+DB_PATH="/data/arabic_dict.db"
+
+echo "=== QUERY 1: HEADWORDS ==="
+sqlite3 -json "$DB_PATH" "SELECT e.id AS entry_id, e.headword_norm, e.root, e.definitions_text, e.translation_en, e.domain, d.name_ar, d.source_type FROM entries e JOIN dictionaries d ON e.dictionary_id = d.id WHERE e.headword_norm IN ('توريق', 'التوريق', 'طبقة رقيقة', 'الطبقة الرقيقة', 'طبقة', 'الطبقة', 'رقيقة', 'الرقيقة') ORDER BY e.headword_norm, d.source_type LIMIT 200;" > /workspace/q1.json
+
+echo "=== QUERY 2: ENGLISH BRIDGE ==="
+sqlite3 -json "$DB_PATH" "SELECT e.id AS entry_id, e.headword_norm, e.definitions_text, e.translation_en, e.domain, d.name_ar, d.source_type FROM entries e JOIN dictionaries d ON e.dictionary_id = d.id WHERE e.id IN (SELECT rowid FROM entries_translations_fts WHERE entries_translations_fts MATCH 'translation_en:\"folium\" OR translation_en:\"lamina\"' ORDER BY bm25(entries_translations_fts, 5.0, 3.0, 1.0) LIMIT 50) ORDER BY d.source_type;" > /workspace/q2.json
+
+echo "=== QUERY 3: ARABIC FTS ==="
+sqlite3 -json "$DB_PATH" "SELECT e.id AS entry_id, e.headword_norm, e.definitions_text, e.translation_en, e.domain, d.name_ar, d.source_type FROM entries e JOIN dictionaries d ON e.dictionary_id = d.id WHERE e.id IN (SELECT rowid FROM entries_fts WHERE entries_fts MATCH '\"صخور متحولة\" OR \"صفائح\" OR \"صفيحة\" OR \"توريق\" OR \"وريقة\" OR \"طبقة رقيقة\"' ORDER BY bm25(entries_fts, 10.0, 5.0, 5.0, 3.0, 1.0) LIMIT 50) ORDER BY d.source_type;" > /workspace/q3.json
+
+EOF Syntax Errors: [ 'Error node: "<" at 0:0' ]

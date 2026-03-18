@@ -1,0 +1,181 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة وحيدة وغير مشكلة."
+      - "التعريف العربي بسيط ويفتقر للدقة المعجمية الاصطلاحية."
+    observations: "اللمة الموجودة 'عملية اجتماعية' هي المصطلح الأدق والمستقر لوصف (social process) في علم الاجتماع، ولكن نحتاج لإضافة مرادفات قريبة مثل 'تفاعل اجتماعي' الذي يمثل المحرك الأساسي لهذه العمليات."
+  blind_candidates:
+    - lemma: "عَمَلِيَّة اجْتِمَاعِيَّة"
+      generation_method: tarkib
+      justification: "الترجمة الاصطلاحية المباشرة لـ social process في المعاجم الاجتماعية."
+    - lemma: "تَفَاعُل اجْتِمَاعِيّ"
+      generation_method: tarkib
+      justification: "العملية التي تسبق وتؤدي لتكوين المجموعات البشرية."
+    - lemma: "تَشَكُّل بَشَرِيّ"
+      generation_method: tarkib
+      justification: "تعبير وصفي يشير لعملية تكوين المجموعات."
+    - lemma: "تَجَمُّع"
+      generation_method: ishtiqaq
+      justification: "مصدر يدل على عملية الاجتماع وتكوين الكتل البشرية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "عَمَلِيَّة اجْتِمَاعِيَّة"
+      confirm:
+        - text: "عَمَلِيَّة اجْتِمَاعِيَّة (social process) - Sociology and Anthropology"
+          source: "مسرد علم الاجتماع والأنثروبولوجيا (ArabTerm)"
+    - lemma: "تَفَاعُل اجْتِمَاعِيّ"
+      confirm:
+        - text: "تفاعل اجتماعي (social interaction) - تبادل التأثير بين الأفراد على أساس اجتماعي."
+          source: "مسرد الإعلام والتواصل (ArabTerm)"
+      expands:
+        - text: "تفاعل اجتماعي (social interaction) - Sociology and Anthropology"
+          source: "مسرد علم الاجتماع والأنثروبولوجيا (ArabTerm)"
+          addition: "يؤكد وجود المصطلح في نفس النطاق المعرفي للمجموعة."
+    - lemma: "تَجَمُّع"
+      confirm:
+        - text: "تجمُّع (aggregate) - Sociology and Anthropology"
+          source: "مسرد علم الاجتماع والأنثروبولوجيا (ArabTerm)"
+          conflict: "يشير للهيئة أو الكيان وليس للعملية في سياق علم الاجتماع."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "عملية اجتماعية"
+      decision: confirmed
+      decision_reason: "المصطلح العربي الرسمي والمستقر للمفهوم في العلوم الاجتماعية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عَمَلِيَّة اجْتِمَاعِيَّة"
+    - lemma: "تَفَاعُل اجْتِمَاعِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يرتبط ارتباطاً وثيقاً بعملية تكوين الجماعات وغالباً ما يُستخدم بالتبادل مع 'عملية اجتماعية' في سياقات غير متخصصة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "تَفَاعُل اجْتِمَاعِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَشَكُّل بَشَرِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير وصفي حر يفتقر للتثبيت المعجمي كمصطلح مسكوك."
+    - lemma: "تَجَمُّع"
+      source: stage1
+      decision: removed
+      decision_reason: "يشير للناتج (الجمهرة أو الجماعة) أكثر من إشارته للعملية الحركية (Process)."
+
+stage4_content:
+  definition:
+    current: "عملية تشارك في تكوين مجموعات من الأشخاص"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط؛ يحتاج لمصطلحات أكثر دقة مثل 'التفاعل' و'الاستقرار الاجتماعي'."
+    authored:
+      - type: terminological
+        text: "سلسلة من التفاعلات والعلاقات المتبادلة بين الأفراد التي تؤدي إلى تكوين الجماعات واستقرارها في المجتمع."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "سلسلة من التفاعلات والعلاقات المتبادلة بين الأفراد التي تؤدي إلى تكوين الجماعات واستقرارها في المجتمع."}
+
+  examples:
+    per_lemma:
+      - lemma: "عَمَلِيَّة اجْتِمَاعِيَّة"
+        examples:
+          - text: "يُعد التنافس عَمَلِيَّةً اجْتِمَاعِيَّةً تهدف إلى تحقيق أهداف مشتركة أو فردية داخل المجتمع."
+            type: usage
+      - lemma: "تَفَاعُل اجْتِمَاعِيّ"
+        examples:
+          - text: "يؤدي التَفَاعُلُ الاجْتِمَاعِيُّ اليومي إلى نشوء روابط متينة بين سكان الحي."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يُعد التنافس عَمَلِيَّةً اجْتِمَاعِيَّةً تهدف إلى تحقيق أهداف مشتركة أو فردية داخل المجتمع."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يؤدي التَفَاعُلُ الاجْتِمَاعِيُّ اليومي إلى نشوء روابط متينة بين سكان الحي."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "عَمَلِيَّة اجْتِمَاعِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "عملية"
+          root: "عمل"
+          maqayis_quote: "«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامٌّ فِي كُلِّ فِعْلٍ يُفْعَلُ.»"
+        - word: "اجتماعية"
+          root: "جمع"
+          maqayis_quote: "«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ.»"
+    - lemma: "تَفَاعُل اجْتِمَاعِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "تفاعل"
+          root: "فعل"
+          maqayis_quote: "«الْفَاءُ الْعَيْنُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِحْدَاثِ شَيْءٍ مِنْ عَمَلٍ وَغَيْرِهِ.»"
+        - word: "اجتماعي"
+          root: "جمع"
+          maqayis_quote: "«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ.»"
+
+  per_sense:
+    - lemma: "عَمَلِيَّة اجْتِمَاعِيَّة"
+      sense_id: "{auto}"
+      nuance: "المصطلح الشامل الذي يصف النمط المتكرر للسلوك الاجتماعي."
+      mwe: true
+    - lemma: "تَفَاعُل اجْتِمَاعِيّ"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب الديناميكي واللحظي من العلاقات البشرية."
+      mwe: true
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"عملية","root":"عمل","maqayis":"«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامٌّ فِي كُلِّ فِعْلٍ يُفْعَلُ.»"},{"word":"اجتماعية","root":"جمع","maqayis":"«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"تفاعل","root":"فعل","maqayis":"«الْفَاءُ الْعَيْنُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِحْدَاثِ شَيْءٍ مِنْ عَمَلٍ وَغَيْرِهِ.»"},{"word":"اجتماعي","root":"جمع","maqayis":"«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الشامل الذي يصف النمط المتكرر للسلوك الاجتماعي.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الجانب الديناميكي واللحظي من العلاقات البشرية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

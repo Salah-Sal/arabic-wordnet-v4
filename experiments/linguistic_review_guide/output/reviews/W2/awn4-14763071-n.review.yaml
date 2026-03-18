@@ -1,0 +1,207 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "نقص التشكيل في اللمات الحالية."
+      - "غموض لفظ (ركيزة) وتعدده الدلالي يحتاج إلى سياق يثبته."
+    observations: "المفهوم علمي دقيق (كيمياء حيوية)، واللمات الموجودة تعبر عنه ولكن تحتاج لتجويد في الصياغة والتشكيل. البحث أظهر وجود مرادفات تقنية متخصصة أخرى مثل (منخمرة) و(ركازة)."
+  blind_candidates:
+    - lemma: "رَكِيزَةٌ"
+      generation_method: majaz
+      justification: "ترجمة معجمية شائعة لمصطلح substrate في السياقات العلمية."
+    - lemma: "مَادَّةُ التَّفَاعُلِ"
+      generation_method: tarkib
+      justification: "تعبير وصفي دقيق للمادة التي يدخل عليها الإنزيم لإتمام التفاعل."
+    - lemma: "مُتَفَاعِلٌ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الجذر (فعل) يعبر عن المادة المشاركة في التفاعل."
+    - lemma: "مَادَّةُ الأَسَاسِ"
+      generation_method: tarkib
+      justification: "ترجمة حرفية للمصطلح الإنجليزي تستخدم في بعض السياقات العلمية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "ركيزة"
+      confirm:
+        - text: "«الرَّكِيزَةُ: المركب الخاص الذي يعمل عليه الإنزيم.»"
+          source: "المعجم الموحد لمصطلحات علم الوراثة (2009)"
+        - text: "«رَكِيزَة: المادة التي يقع عليها تأثير الإنزيم.»"
+          source: "المعجم الموحد لمصطلحات علم الصيدلة (2009)"
+        - text: "«ركازة، ركيزة: مادة التفاعل (substrate).»"
+          source: "المعجم الموحد لمصطلحات الكيمياء (1992)"
+    - lemma: "مادة تفاعل"
+      confirm:
+        - text: "«ركيزة، مادة التفاعل: المادة التي تخضع لتفاعل أنزيمي معين.»"
+          source: "المعجم الموحد لمصطلحات تقانات الأغذية (2004)"
+    - lemma: "رِكَازَة"
+      confirm:
+        - text: "«ركازة، ركيزة: مادة التفاعل (substrate).»"
+          source: "المعجم الموحد لمصطلحات الكيمياء (1992)"
+    - lemma: "مُنْخَمِرة"
+      confirm:
+        - text: "«المُنْخَمِرة: المادة الخاضعة لفعل خميرةٍ ما.»"
+          source: "المورد الحديث (2008)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "ركيزة"
+      decision: confirmed
+      decision_reason: "المصطلح التقني الأكثر شيوعاً في العلوم الحيوية والكيميائية للتعبير عن مادة التفاعل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "رَكِيزَةٌ"
+    - lemma: "مادة تفاعل"
+      decision: confirmed
+      decision_reason: "مرادف وصفي دقيق ومثبت في المعاجم التقنية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَادَّةُ التَّفَاعُلِ"
+    - lemma: "رِكَازَةٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تنويع معجمي مثبت في معجم مصطلحات الكيمياء الموحد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "رِكَازَةٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُنْخَمِرةٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح مخصص في بعض المعاجم للمادة التي تعمل عليها الخميرة تحديداً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُنْخَمِرةٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "المادة التي يعمل عليها إنزيم أو خميرة"
+    assessment:
+      decision: revise
+      reason: "لتحسين الصياغة وجعلها أكثر دقة ومطابقة للأسلوب المعجمي."
+    authored:
+      - type: terminological
+        text: "المَادَّةُ التي يَقَعُ عَلَيْهَا تَأْثِيرُ الإِنْزِيمِ أَوْ الخَمِيرةِ لِتَحْوِيلِهَا إلى نَواتِجَ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "المَادَّةُ التي يَقَعُ عَلَيْهَا تَأْثِيرُ الإِنْزِيمِ أَوْ الخَمِيرةِ لِتَحْوِيلِهَا إلى نَواتِجَ."}
+  examples:
+    per_lemma:
+      - lemma: "رَكِيزَةٌ"
+        examples:
+          - text: "يَتِمُّ الارْتِباطُ بَيْنَ الرَّكِيزَةِ والإنْزِيمِ فِي المَوْقِعِ النَّشِطِ."
+            type: usage
+      - lemma: "مَادَّةُ التَّفَاعُلِ"
+        examples:
+          - text: "تَتَحَوَّلُ مَادَّةُ التَّفاعُلِ إلى نَواتِجَ بفِعْلِ الوَسِيطِ الحَيَوِيِّ."
+            type: usage
+      - lemma: "رِكَازَةٌ"
+        examples:
+          - text: "تُؤثر ملوحة التربة على امتصاص الركازة من قبل جذور النبات."
+            type: usage
+      - lemma: "مُنْخَمِرةٌ"
+        examples:
+          - text: "تَخْتَلِفُ سُرْعَةُ التَّخَمُّرِ بِاخْتِلافِ تَرْكِيزِ المُنْخَمِرةِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يَتِمُّ الارْتِباطُ بَيْنَ الرَّكِيزَةِ والإنْزِيمِ فِي المَوْقِعِ النَّشِطِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "رَكِيزَةٌ"
+      entry_id: "{auto}"
+      root: "ركز"
+      maqayis_quote: "«الرَّاءُ وَالْكَافُ وَالزَّاءُ أَصْلَانِ: أَحَدُهُمَا إِثْبَاتُ شَيْءٍ فِي شَيْءٍ يَذْهَبُ سُفْلًا، وَالْآخَرُ صَوْتٌ. فَالْأَوَّلُ: رَكِزْتُ الرُّمْحَ رَكْزًا.»"
+    - lemma: "مَادَّةُ التَّفَاعُلِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مادة"
+          root: "مدد"
+          maqayis_quote: "«الْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى جَرِّ شَيْءٍ فِي طُولٍ، وَاتِّصَالِ شَيْءٍ بِشَيْءٍ فِي اسْتِطَالَةٍ.»"
+        - word: "تفاعل"
+          root: "فعل"
+          maqayis_quote: "«الْفَاءُ الْعَيْنُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِحْدَاثِ شَيْءٍ مِنْ عَمَلٍ وَغَيْرِهِ.»"
+    - lemma: "رِكَازَةٌ"
+      entry_id: "{auto}"
+      root: "ركز"
+      maqayis_quote: "«الرَّاءُ وَالْكَافُ وَالزَّاءُ أَصْلَانِ: أَحَدُهُمَا إِثْبَاتُ شَيْءٍ فِي شَيْءٍ يَذْهَبُ سُفْلًا...»"
+    - lemma: "مُنْخَمِرةٌ"
+      entry_id: "{auto}"
+      root: "خمر"
+      maqayis_quote: "«الْخَاءُ وَالْمِيمُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى التَّغْطِيَةِ، وَالْمُخَالَطَةِ فِي سَتْرٍ.»"
+  per_sense:
+    - lemma: "رَكِيزَةٌ"
+      sense_id: "{auto}"
+      nuance: "المصطلح العلمي القياسي والأكثر شيوعاً للمادة التي يؤثر عليها المحفز."
+      mwe: false
+    - lemma: "مَادَّةُ التَّفَاعُلِ"
+      sense_id: "{auto}"
+      nuance: "يركز على طبيعة المادة كطرف في التفاعل الكيميائي."
+      mwe: true
+    - lemma: "رِكَازَةٌ"
+      sense_id: "{auto}"
+      nuance: "تنويع معجمي لمصطلح ركيزة، يشيع في المراجع الكيميائية الموحدة."
+      mwe: false
+    - lemma: "مُنْخَمِرةٌ"
+      sense_id: "{auto}"
+      nuance: "يربط المادة بالخميرة (ferment) تحديداً كما في الترجمات العربية القديمة والمتخصصة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ركز","maqayis":"«الرَّاءُ وَالْكَافُ وَالزَّاءُ أَصْلَانِ: أَحَدُهُمَا إِثْبَاتُ شَيْءٍ فِي شَيْءٍ يَذْهَبُ سُفْلًا...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مادة","root":"مدد","maqayis":"«الْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى جَرِّ شَيْءٍ فِي طُولٍ...»"},{"word":"تفاعل","root":"فعل","maqayis":"«الْفَاءُ الْعَيْنُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِحْدَاثِ شَيْءٍ مِنْ عَمَلٍ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العلمي القياسي والأكثر شيوعاً للمادة التي يؤثر عليها المحفز.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

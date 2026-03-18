@@ -1,0 +1,126 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "جسم رمادي"
+      confirm:
+        - text: "«يمتص الطاقة الإشعاعية الواردة، ويصدرها بشدّة تقل عنها في الجسم الأسود» — المعجم الموحد لمصطلحات الاستشعار عن بعد (2000)"
+          source: "المعجم الموحد لمصطلحات الاستشعار عن بعد"
+        - text: "«جسم تقني أو سطح تقني له معامل امتصاص a = 1 ودرجة الانبعاث e < 1.» — مسرد الهندسة الكهربائية (ArabTerm)"
+          source: "مسرد الهندسة الكهربائية"
+        - text: "«gray body» — المعجم الموحد لمصطلحات الفيزياء العامة والنووية (1989)"
+          source: "المعجم الموحد لمصطلحات الفيزياء العامة والنووية"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "جسم رمادي"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«يمتص الطاقة الإشعاعية الواردة، ويصدرها بشدّة تقل عنها في الجسم الأسود» — المعجم الموحد لمصطلحات الاستشعار عن بعد"
+      justification: "المصطلح العربي الموحد المذكور في المعاجم العلمية المتخصصة (استشعار عن بعد، فيزياء) كمقابل لـ gray body."
+    - lemma: "سطح رمادي"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«جسم تقني أو سطح تقني له معامل امتصاص a = 1 ودرجة الانبعاث e < 1.» — مسرد الهندسة الكهربائية"
+      justification: "يُستخدم 'سطح رمادي' بالتبادل مع 'جسم رمادي' في سياق انتقال الحرارة بالإشعاع، وهو تركيب وصفي اصطلاحي."
+  knowledge_candidates:
+    - lemma: "مشع رمادي"
+      justification: "آلية التوليد: تركيب وصفي. يُستخدم في الفيزياء للتعبير عن الجسم الذي تنبعث منه طاقة إشعاعية بنسبة ثابتة من إشعاع الجسم الأسود."
+  generation_notes: "المفهوم علمي تقني بحت؛ المصطلح 'جسم رمادي' هو الأكثر شيوعاً واستقراراً."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "جسم رمادي"
+      decision: confirmed
+      decision_reason: "مصطلح علمي مستقر في عدة معاجم متخصصة ومطابق للتعريف."
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يتميز بكون انبعاثيته ثابتة لجميع أطوال الموجات، بخلاف المشع الانتقائي (selective radiator) الذي تختلف انبعاثيته باختلاف طول الموجة."
+      example: "يُعد مفهوم الجسم الرمادي نموذجاً تقريبياً مفيداً في هندسة انتقال الحرارة لتبسيط حسابات التبادل الإشعاعي بين الأسطح."
+
+    - lemma: "سطح رمادي"
+      source: step05
+      decision: confirmed
+      decision_reason: "مرادف اصطلاحي مستعمل في الأدبيات الهندسية وموثق كجزء من تعريف المفهوم في مسرد الهندسة الكهربائية."
+      step05_citation: "«جسم تقني أو سطح تقني له معامل امتصاص a = 1 ودرجة الانبعاث e < 1.» — مسرد الهندسة الكهربائية"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يستخدم غالباً عند التركيز على الخصائص السطحية للانبعاث والامتصاص بدلاً من الجسم ككتلة واحدة."
+      example: "عند اعتبار السطح سطحاً رمادياً، يمكن افتراض أن امتصاصيته تساوي انبعاثيته لجميع الأطوال الموجية."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "سطح رمادي"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-92462504-n"
+
+  added_lemmas:
+    - lemma: "سطح رمادي"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "جسم يبعث إشعاعاً بنسبة ثابتة مقارنة بإشعاع الجسم الأسود المقابل"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي دقيق ولكنه يحتاج صياغة أكثر اصطلاحية توضح مفهوم الانبعاثية لجميع أطوال الموجات."
+  authored_definitions:
+    - type: terminological
+      text: "جسم (أو سطح) تكون انبعاثيته ثابتة لجميع أطوال الموجات وأقل من انبعاثية الجسم الأسود عند نفس درجة الحرارة."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-92462504-n"
+        definition_index: 0
+        text: "جسم (أو سطح) تكون انبعاثيته ثابتة لجميع أطوال الموجات وأقل من انبعاثية الجسم الأسود عند نفس درجة الحرارة."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "مادة"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "جسم رمادي"
+        antonym_found: true
+        antonym: "جسم أسود"
+  actions:
+    - command: add_synset_relation
+      params:
+        source_id: "awn4-92462504-n"
+        relation_type: "antonym"
+        target_id: "{auto}"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "جسم رمادي"
+      enrichment:
+        root: "ج-س-م"
+      examples:
+        - text: "في دراسات الاستشعار عن بعد، يُفترض غالباً أن الأجسام الطبيعية تسلك سلوك الجسم الرمادي لتسهيل تحليل البيانات الإشعاعية."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "سطح رمادي"
+      enrichment:
+        root: "س-ط-ح"
+      examples:
+        - text: "تُعد انبعاثية السطح الرمادي أقل من الواحد الصحيح دائماً."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native
+  reasoning:
+    cultural_fit_reasoning: "مصطلح علمي عالمي معرب بتركيب وصفي عربي أصيل ومستقر في المجامع اللغوية والعلمية."

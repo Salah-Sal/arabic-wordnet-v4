@@ -1,0 +1,203 @@
+stage1_review:
+  assessment:
+    concerns:
+      - المجموعة تحتوي على لمة واحدة فقط بالرغم من غنى الحقل الدلالي العربي.
+      - التعريف الحالي "عملية التأرجح بين الحالات" بسيط جداً ويحتاج لصياغة معجمية أدق تربطه بالمفاهيم الفيزيائية والمنطقية.
+    observations: "المفهوم يعبر عن حركة دورية أو تقلب مستمر، وهناك ألفاظ تراثية وعلمية دقيقة لهذا المعنى مثل الذبذبة والنوسان."
+  blind_candidates:
+    - lemma: "تَذَبْذُب"
+      generation_method: ishtiqaq
+      justification: "المصدر القياسي للفعل تذبذب، وهو اللفظ الأشيع في الفيزياء واللغة المعاصرة."
+    - lemma: "ذَبْذَبَة"
+      generation_method: ishtiqaq
+      justification: "مصدر آخر للفعل الرباعي ذبذب، ويستخدم غالباً للإشارة إلى الاهتزاز أو الحركة الواحدة من التذبذب."
+    - lemma: "تَرَدُّد"
+      generation_method: ishtiqaq
+      justification: "من الرد والرجوع، ويعبر عن تكرار الحركة ذهاباً وإياباً، وإن صار يشير في الغالب إلى معدل التكرار (Frequency)."
+    - lemma: "تَمَوُّج"
+      generation_method: majaz
+      justification: "استعارة من موج البحر للتعبير عن التذبذب المنتظم (Wave-like oscillation)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تَذَبْذُب"
+      confirm:
+        - text: "التَّذَبْذُبُ (فى الفيزياء) oscillation: تَغَيُّرٌ دَوْرِيٌّ فى طاقةِ نظامٍ ميكانيكِيٍّ أو كهربائيٍّ أو ذَرِّيٍّ"
+          source: "المعجم الكبير"
+        - text: "(تذبذب) تحرّك واضطرب وَيُقَال تذبذب فلَان ذبذب"
+          source: "المعجم الوسيط"
+    - lemma: "ذَبْذَبَة"
+      confirm:
+        - text: "(فى عِلْم الأصْواتِ) vibration: اهْتِزازُ الوَتَرَيْن الصَّوْتِيَّين... (فى الجيولوجيا) vibration: عَمَلِيَّةُ التَّأَرْجُح أو الاهْتِزاز"
+          source: "المعجم الكبير"
+        - text: "هِيَ الْمسَافَة الَّتِي يقطعهَا جسم يَتَحَرَّك حَرَكَة تذبذبية من أقْصَى نقطة... حَتَّى يعود إِلَى هَذِه النقطة ثَانِيَة"
+          source: "المعجم الوسيط"
+    - lemma: "تَأَرْجُح"
+      confirm:
+        - text: "تأرجح الشبكة grid oscillation: اجراءاتٌ تُتخذ للاستفادة المثلى... تدفّقات الأحمال المُتغيّرة"
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة"
+        - text: "التذبذب الجنوبي (SO) هو تأرجح على نطاق جغرافي واسع جدا في الضغط الجوي"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+    - lemma: "نَوَسَان"
+      confirm:
+        - text: "(نَوَسَ) النُّونُ وَالْوَاوُ وَالسِّينُ أَصْلٌ يَدُلُّ عَلَى اضْطِرَابٍ وَتَذَبْذُبٍ. وَنَاسَ الشَّيْءُ: تَذَبْذَبَ، يَنُوسُ."
+          source: "مقاييس اللغة"
+        - text: "نَوَسان؛ ترجُّح"
+          source: "المورد الحديث"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تذبذب"
+      decision: confirmed
+      decision_reason: "اللمة الأساسية للمجموعة، مدعومة بقوة في المعاجم العلمية واللغوية المعاصرة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَذَبْذُب"
+    - lemma: "ذَبْذَبَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تقني دقيق يستخدم في الفيزياء والجيولوجيا كمرادف للأوسلة أو التذبذب."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "ذَبْذَبَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَأَرْجُح"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير عربي أصيل يعبر عن الحركة بين نقطتين (كما في الميزان أو الأرجوحة)، وهو مستخدم في التعريف الأصلي وفي المصطلحات التقنية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَأَرْجُح", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "نَوَسَان"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ تراثي دقيق جداً (نوس) أثبته ابن فارس بمعنى التذبذب والاضطراب، وهو يحيي المعنى الفيزيائي للنواس (Pendulum)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "نَوَسَان", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "عملية التأرجح بين الحالات"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يحتاج لمزيد من الدقة العلمية واللغوية ليشمل الجانبين الميكانيكي والمجازي."
+    authored:
+      - type: terminological
+        text: "تحرُّكُ جِسْمٍ أو كَمِّيَّةٍ بشكلٍ دَوْرِيٍّ ومُستمرٍّ ذهاباً وإياباً حولَ وضعِ التَّوازُن، أو التَّقلُّبُ المُنْتَظَمُ بينَ حَالَتَيْنِ أو قِيمَتَيْنِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "تَذَبْذُب"
+        examples:
+          - text: "يؤدي تذبذب التيار الكهربائي إلى تلف الأجهزة الحساسة."
+            type: usage
+      - lemma: "ذَبْذَبَة"
+        examples:
+          - text: "تحدث الذبذبة عندما ينتقل البندول من أقصى اليمين إلى أقصى اليسار."
+            type: usage
+      - lemma: "تَأَرْجُح"
+        examples:
+          - text: "يعاني الاقتصاد من تأرجح مستمر في أسعار الصرف."
+            type: usage
+      - lemma: "نَوَسَان"
+        examples:
+          - text: "تعتمد دقة الساعة القديمة على نوسان البندول المنتظم."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "تحرُّكُ جِسْمٍ أو كَمِّيَّةٍ بشكلٍ دَوْرِيٍّ ومُستمرٍّ ذهاباً وإياباً حولَ وضعِ التَّوازُن، أو التَّقلُّبُ المُنْتَظَمُ بينَ حَالَتَيْنِ أو قِيمَتَيْنِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تَذَبْذُب"
+      entry_id: "{auto}"
+      root: "ذب"
+      maqayis_quote: "«الذَّالُ وَالْبَاءُ... وَالْأَصْلُ الثَّالِثُ: الذَّبْذَبَةُ: نَوْسُ الشَّيْءِ الْمُعَلَّقِ فِي الْهَوَاءِ. وَالرَّجُلُ الْمُذَبْذَبُ: الْمُتَرَدِّدُ بَيْنَ أَمْرَيْنِ.»"
+    - lemma: "ذَبْذَبَة"
+      entry_id: "{auto}"
+      root: "ذب"
+      maqayis_quote: "«الذَّالُ وَالْبَاءُ... وَالْأَصْلُ الثَّالِثُ: الذَّبْذَبَةُ: نَوْسُ الشَّيْءِ الْمُعَلَّقِ فِي الْهَوَاءِ.»"
+    - lemma: "تَأَرْجُح"
+      entry_id: "{auto}"
+      root: "رجح"
+      maqayis_quote: "«الرَّاءُ وَالْجِيمُ وَالْحَاءُ أَصْلٌ وَاحِدٌ... وَيُقَالُ: إِنَّ الْأَرَاجِيحَ الْإِبِلُ; لِاهْتِزَازِهَا فِي رَتَكَانِهَا إِذَا مَشَتْ. وَهُوَ مِنَ الْبَابِ; لِأَنَّهَا تَتَرَجَّحُ.»"
+    - lemma: "نَوَسَان"
+      entry_id: "{auto}"
+      root: "نوس"
+      maqayis_quote: "«النُّونُ وَالْوَاوُ وَالسِّينُ أَصْلٌ يَدُلُّ عَلَى اضْطِرَابٍ وَتَذَبْذُبٍ. وَنَاسَ الشَّيْءُ: تَذَبْذَبَ، يَنُوسُ.»"
+  per_sense:
+    - lemma: "تَذَبْذُب"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام للأوسلة في سياقات الفيزياء والأنظمة العامة."
+      mwe: false
+    - lemma: "ذَبْذَبَة"
+      sense_id: "{auto}"
+      nuance: "يركز على الفعل الميكانيكي أو الدورة الواحدة من التذبذب، ويشيع في علم الأصوات والجيولوجيا."
+      mwe: false
+    - lemma: "تَأَرْجُح"
+      sense_id: "{auto}"
+      nuance: "يوحي بالحركة بين طرفين كالميزان، وغالباً ما يستخدم في السياقات المجازية (تأرجح الآراء/الأسعار)."
+      mwe: false
+    - lemma: "نَوَسَان"
+      sense_id: "{auto}"
+      nuance: "لفظ تراثي دقيق يحيي الارتباط بحركة البندول (النواس) والحركة الإيقاعية المتدلية."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ذب","maqayis":"«الذَّالُ وَالْبَاءُ... وَالْأَصْلُ الثَّالِثُ: الذَّبْذَبَةُ: نَوْسُ الشَّيْءِ الْمُعَلَّقِ فِي الْهَوَاءِ. وَالرَّجُلُ الْمُذَبْذَبُ: الْمُتَرَدِّدُ بَيْنَ أَمْرَيْنِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نوس","maqayis":"«النُّونُ وَالْوَاوُ وَالسِّينُ أَصْلٌ يَدُلُّ عَلَى اضْطِرَابٍ وَتَذَبْذُبٍ. وَنَاسَ الشَّيْءُ: تَذَبْذَبَ، يَنُوسُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ العام للأوسلة في سياقات الفيزياء والأنظمة العامة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

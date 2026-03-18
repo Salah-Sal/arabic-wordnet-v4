@@ -1,0 +1,152 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "أَسَاس"
+      confirm:
+        - text: "«قاعدة البناء التي يُقام عليها»"
+          source: "المعجم الوسيط"
+        - text: "«أصْلُ البناء»"
+          source: "المعجم الكبير"
+      expands:
+        - text: "«أصل كل شيء , ومبتدؤه. ومنه: أساس الفكرة, وأساس البحث»"
+          source: "المعجم الوسيط"
+          addition: "استعارة المفهوم للأمور المعنوية والمجردة"
+    - lemma: "قَاعِدَة"
+      confirm:
+        - text: "«ما يقعد عليه الشيء، أي يستقر ويثبت»"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+        - text: "«مِنَ البناء: أساسه»"
+          source: "المعجم الوسيط"
+        - text: "«الأساس أو الجزء الذي يرتكز عليه شيء. أسفل الشيء»"
+          source: "المورد الحديث"
+      expands:
+        - text: "«الضابط أو الأمر الكليُّ ينطبق على جزئيات»"
+          source: "المعجم الوسيط"
+          addition: "استعمال الكلمة بمعنى القانون أو المعيار (معنى مستقل)"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "أَسْفَل"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«أسفلُ الشيء؛ ضدُّ: أعلاه» — المعجم الوسيط"
+      justification: "يتطابق حرفياً مع تعريف المجموعة «الجزء السفلي أو الأدنى»"
+    - lemma: "قَاع"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«قاع (bottom)» — المعجم الموحد لمصطلحات علوم البحار"
+      justification: "مقابل للمصطلح الإنجليزي bottom ويدل على الجزء السفلي، ويستخدم غالباً للأشياء المجوفة كالبحار والأودية"
+  knowledge_candidates:
+    - lemma: "قَعْر"
+      justification: "كلمة فصيحة تدل على أقصى قاع الشيء وأسفله (التركيب الدلالي للمكان المنخفض)"
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "أَسَاس"
+      decision: confirmed
+      decision_reason: "أدلة مؤكّدة، والكلمة شائعة وفصيحة وتؤدي المعنى"
+      evidence_assessment:
+        case: "expands"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يتميز بدلالته على ما يُبنى عليه الشيء ويحمله، سواء كان مادياً أو معنوياً"
+      example: "بَنَى بَيْتَهُ عَلَى أَسَاسٍ مَتِينٍ."
+    
+    - lemma: "قَاعِدَة"
+      decision: confirmed
+      decision_reason: "أدلة مؤكّدة، وهي مرادف شائع لأساس الشيء"
+      evidence_assessment:
+        case: "expands"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تتميز بدلالتها على الاستقرار والقعود، وتطلق على أسفل الشيء الذي يرتكز عليه"
+      example: "ارْتَكَزَ التِّمْثَالُ عَلَى قَاعِدَةٍ رُخَامِيَّةٍ."
+
+    - lemma: "أَسْفَل"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح فصيح ومطابق تماماً للتعريف، ويشيع في الاستعمال للأجزاء الدنيا"
+      step05_citation: "«أسفلُ الشيء؛ ضدُّ: أعلاه» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يتميز بكونه مصطلحاً مكانياً عاماً يشير إلى الجزء الأدنى من أي شيء دون اشتراط أن يكون حاملاً له (كالأساس)"
+      example: "وَقَّعَ الرَّجُلُ فِي أَسْفَلِ الصَّفْحَةِ."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "أَسْفَل"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09238222-n"
+
+    - lemma: "قَاع"
+      source: step05
+      decision: removed
+      decision_reason: "استعمال مقيد: يُستعمل عادة للأماكن المجوفة أو الواسعة (كقاع البحر أو الوادي)، ولا ينطبق على «الجزء السفلي من الشيء» بإطلاق"
+      step05_citation: "«قاع (bottom)» — المعجم الموحد لمصطلحات علوم البحار"
+
+    - lemma: "قَعْر"
+      source: step05
+      decision: removed
+      decision_reason: "مخصص للأشياء العميقة والمجوفة (كقعر البئر والكأس)، وهو أضيق دلالياً من تعريف المجموعة"
+
+  added_lemmas:
+    - lemma: "أَسْفَل"
+      reason: "مرادف دقيق لمعنى الجزء الأدنى من الشيء"
+      via_command: "create_entry + add_sense"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "الجزء السفلي أو الأدنى من الشيء"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وواضح ويطابق المعاجم في دلالة الكلمات كـ«أسفل» و«قاعدة»"
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "جُزْء / قِطْعَة"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "أَسْفَل"
+        antonym_found: true
+        antonym: "أَعْلَى"
+      - lemma: "قَاعِدَة"
+        antonym_found: true
+        antonym: "قِمَّة"
+  verb_checks:
+    applicable: false
+  selectional_restrictions:
+    - lemma: "أَسَاس"
+      constraint: "يوصف به الجزء الحامل لما فوقه"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "أَسَاس"
+      enrichment:
+        root: "أ-س-س"
+      examples:
+        - text: "لولا حَدَاثَةُ قومك بالكفر لنقضتُ البيت ثم لَبنيتُه على أساس إبراهيم عليه السلام."
+          type: hadith
+          source: "عن عائشة"
+      pos_check:
+        pos: noun
+    - lemma: "قَاعِدَة"
+      enrichment:
+        root: "ق-ع-د"
+      examples:
+        - text: "ارْتَكَزَ التِّمْثَالُ عَلَى قَاعِدَةٍ رُخَامِيَّةٍ."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "أَسْفَل"
+      enrichment:
+        root: "س-ف-ل"
+      examples:
+        - text: "وَقَّعَ الرَّجُلُ فِي أَسْفَلِ الصَّفْحَةِ."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

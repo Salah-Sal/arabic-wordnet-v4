@@ -1,0 +1,216 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي يبدو مترجماً ترجمة حرفية (سمة كون المرء نشطاً) وفي صياغته بعض الركاكة."
+      - "غياب التشكيل عن اللمات الحالية."
+    observations: "المجموعة الترادفية تعبر عن المفهوم المجرد للنشاط والطاقة (activeness). الكلمات العربية التي تعبر عن هذا المعنى تتراوح بين ما يصف الحركة البحتة وما يصف القدرة على الفعل والطاقة الداخلية."
+  blind_candidates:
+    - lemma: "نَشَاط"
+      generation_method: ishtiqaq
+      justification: "مصدر يدل على الحركة والحيوية والعمل المستمر، وهو المقابل المباشر لمعنى الكلمة الإنجليزية."
+    - lemma: "حَيَوِيَّة"
+      generation_method: ishtiqaq
+      justification: "مصدر صناعي يعبر عن امتلاك طاقة حية وحركة مستمرة، يناسب وصف الحركة السريعة المفعمة بالطاقة."
+    - lemma: "فَعَّالِيَّة"
+      generation_method: ishtiqaq
+      justification: "مصدر صناعي مشتق من (فَعَّال)، يدل على القدرة القوية على الفعل، ويستخدم لوصف النشاط والأثر."
+    - lemma: "خِفَّة"
+      generation_method: majaz
+      justification: "مجاز عن سرعة الحركة وسهولتها ونقيض الكسل، فالشخص الخفيف هو السريع والنشط."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "فاعلية"
+      confirm:
+        - text: "«وصف فى كل ما هو فاعل»"
+          source: "المعجم الوسيط"
+        - text: "«activity»"
+          source: "المعجم الموحد لمصطلحات الفيزياء العامة والنووية (1989)"
+    - lemma: "نشاط"
+      confirm:
+        - text: "«ممارسة صادقة لعمل من الأعمال. يقال: لفلان نشاط زراعىّ أو تجارىّ مثلاً»"
+          source: "المعجم الوسيط"
+        - text: "«مجموع الأفعال والأعمال التي يُنجزها شخص في مجال معين.»"
+          source: "مسرد الإعلام والتواصل، المنظمة العربية للتربية والثقافة والعلوم"
+    - lemma: "حيوية"
+      confirm:
+        - text: "«مظاهر الحياة.»"
+          source: "معجم المصطلحات الطبية (ج.1، 1985)"
+    - lemma: "فعالية"
+      contradicts:
+        - text: "«القدرة على الوصول إلى نتائج محددة أو إحداث تأثير معين قابل للقياس.»"
+          source: "معجم المصطلحات الطبية (ج.2، 2003)"
+          conflict: "تدل على مدى التأثير والنجاح (Effectiveness) أكثر من مجرد النشاط الحركي."
+    - lemma: "خفة"
+      contradicts:
+        - text: "«ضِدُّ الثِّقَلِ الرُّجُوحُ, يكونُ في الجِسْم ومَا لَـهُ ثِقَلٌ ووَزْنٌ. وهو في العَقْل والعمل مجازٌ»"
+          source: "المعجم الكبير"
+          conflict: "تدل على الرجحان ونقيض الثقل، ولا ترادف مفهوم النشاط العام."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "فاعلية"
+      decision: confirmed
+      decision_reason: "مصدر صناعي صحيح يعبر عن صفة كون الشيء أو الشخص فاعلاً، وتستخدم في المعاجم المتخصصة للدلالة على النشاط."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "فَاعِلِيَّة"
+    - lemma: "نشاط"
+      decision: confirmed
+      decision_reason: "الكلمة الأساسية والأكثر شيوعاً للتعبير عن الحركة الدائبة والعمل، ومثبتة في مختلف المعاجم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نَشَاط"
+    - lemma: "حَيَوِيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تدل على التدفق الطاقي ومظاهر الحياة وتستخدم كمرادف للنشاط والطاقة الكامنة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "حَيَوِيَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "فَعَّالِيَّة"
+      source: stage1
+      decision: removed
+      decision_reason: "الكلمة تعبر أكثر عن مدى النجاح في التأثير أو الأثر المحقق (Effectiveness) وليس مجرد النشاط."
+      evidence_assessment:
+        case: contradicts_only
+    - lemma: "خِفَّة"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبر عن السرعة وانعدام الثقل ولكنها لا ترادف (نشاط) من الناحية الدلالية الدقيقة."
+      evidence_assessment:
+        case: contradicts_only
+
+stage4_content:
+  definition:
+    current: "سمة كون المرء نشطاً؛ التحرك أو التصرف بسرعة وحيوية"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يحتوي على ركاكة وترجمة حرفية لـ (trait of being active) بـ (سمة كون المرء نشطاً)، ويجب صياغته بأسلوب معجمي عربي سليم."
+    authored:
+      - type: terminological
+        text: "حالة من التمتع بالطاقة والحركة، والقدرة على إنجاز الأعمال أو التصرف بسرعة وجد."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "حالة من التمتع بالطاقة والحركة، والقدرة على إنجاز الأعمال أو التصرف بسرعة وجد."}
+  examples:
+    per_lemma:
+      - lemma: "فَاعِلِيَّة"
+        examples:
+          - text: "أظهر الموظف فَاعِلِيَّة كبيرة في إنجاز المهام الموكلة إليه."
+            type: usage
+      - lemma: "نَشَاط"
+        examples:
+          - text: "عُرف الشاب بنَشَاطِه الوافر ومبادرته الدائمة."
+            type: usage
+      - lemma: "حَيَوِيَّة"
+        examples:
+          - text: "تتميز مرحلة الشباب بالحَيَوِيَّة وتدفق الطاقة."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "أظهر الموظف فَاعِلِيَّة كبيرة في إنجاز المهام الموكلة إليه."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "عُرف الشاب بنَشَاطِه الوافر ومبادرته الدائمة."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تتميز مرحلة الشباب بالحَيَوِيَّة وتدفق الطاقة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "فَاعِلِيَّة"
+      entry_id: "{auto}"
+      root: "فعل"
+      maqayis_quote: "«الْفَاءُ الْعَيْنُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِحْدَاثِ شَيْءٍ مِنْ عَمَلٍ وَغَيْرِهِ.»"
+    - lemma: "نَشَاط"
+      entry_id: "{auto}"
+      root: "نشط"
+      maqayis_quote: "«النُّونُ وَالشِّينُ وَالطَّاءُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى اهْتِزَازٍ وَحَرَكَةٍ.»"
+    - lemma: "حَيَوِيَّة"
+      entry_id: "{auto}"
+      root: "حيي"
+      maqayis_quote: "«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ، وَالْآخَرُ الِاسْتِحْيَاءُ...»"
+  per_sense:
+    - lemma: "فَاعِلِيَّة"
+      sense_id: "{auto}"
+      nuance: "تركز على القدرة على الفعل وإحداث الأثر، وتدل على حالة كون المرء فاعلاً."
+      mwe: false
+    - lemma: "نَشَاط"
+      sense_id: "{auto}"
+      nuance: "يعبر عن الحركة المستمرة والعمل الدؤوب، وهو اللفظ الأكثر شيوعاً وعمومية للدلالة على هذا المفهوم."
+      mwe: false
+    - lemma: "حَيَوِيَّة"
+      sense_id: "{auto}"
+      nuance: "تشير إلى تدفق الطاقة الكامنة ومظاهر الحياة القوية، وترتبط أكثر بالدافع الداخلي."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"فعل","maqayis":"«الْفَاءُ الْعَيْنُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِحْدَاثِ شَيْءٍ مِنْ عَمَلٍ وَغَيْرِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نشط","maqayis":"«النُّونُ وَالشِّينُ وَالطَّاءُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى اهْتِزَازٍ وَحَرَكَةٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حيي","maqayis":"«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ، وَالْآخَرُ الِاسْتِحْيَاءُ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركز على القدرة على الفعل وإحداث الأثر، وتدل على حالة كون المرء فاعلاً.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يعبر عن الحركة المستمرة والعمل الدؤوب، وهو اللفظ الأكثر شيوعاً وعمومية للدلالة على هذا المفهوم.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تشير إلى تدفق الطاقة الكامنة ومظاهر الحياة القوية، وترتبط أكثر بالدافع الداخلي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,105 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "مقامر"
+      confirm:
+        - text: "«قامَرَ/ قامَرَ بـ يقامِر، قِمارًا ومُقامَرَةً، فهو مُقامِر، والمفعول مُقامَر (للمتعدِّي) • قامر الشَّخصُ:1 - راهن \"قامر على الحصان رقم3\".2 - لعب القمارَ»"
+          source: "معجم اللغة العربية المعاصرة لأحمد مختار عمر"
+        - text: "«(20) المحتال؛ النصاب. وبخاصة: مقامرٌ مخادعٌ»"
+          source: "المورد الحديث (2008)"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "لاعب قمار"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«قمراتي: مقامر، لاعب القمار» — تكملة المعاجم العربية لرينهارت دوزي"
+      justification: "تركيب إضافي ورد في القواميس لتفسير معنى من يلعب القمار."
+  knowledge_candidates:
+    - lemma: "مراهن"
+      justification: "اشتقاق: اسم فاعل على وزن (مُفاعِل) من الفعل (راهن)، يتناسب بدقة مع التعريف الذي يركز على (من يراهن بالمال)، وهو المصطلح الأكثر شيوعاً في السياقات الرياضية."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "مقامر"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح ومستقر وهو الشائع الاستعمال للمفهوم."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يغلب إطلاقه على من يخاطر بماله في ألعاب الحظ والميسر بشكل عام."
+      example: "أنفق المقامر كل ثروته على طاولات اللعب."
+    - lemma: "مراهن"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح قياسي فصيح ومستعمل بكثرة في السياق الرياضي، ويطابق التعريف تماماً."
+      step05_citation: "اسم فاعل من الفعل راهن (راهن فلانٌ فلانًا على كذا: اتَّفقا على أن يكون للسَّابِق أو للفائز منهما مالٌ — معجم اللغة العربية المعاصرة)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يختص عادة بمن يتوقع نتائج السباقات والأحداث الرياضية ويخاطر بماله عليها."
+      example: "دفع المراهن مبلغاً كبيراً توقعاً لفوز فريقه المفضل في السباق."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مراهن"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10138501-n"
+    - lemma: "لاعب قمار"
+      source: step05
+      decision: removed
+      decision_reason: "تركيب إضافي حر غير مسكوك، ويمكن أداء المعنى بكلمة مفردة (مقامر)."
+      step05_citation: "«قمراتي: مقامر، لاعب القمار» — تكملة المعاجم العربية لرينهارت دوزي"
+  added_lemmas:
+    - lemma: "مراهن"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شخص يراهن بالمال على نتائج الألعاب أو الأحداث الرياضية"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق ويغطي دلالات اللمات بدقة (المقامر في ألعاب الحظ، والمراهن في الأحداث الرياضية)."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "شخص يعمل ويُنجِز الأمور"
+    test_result: "needs_closer"
+  antonymy:
+    per_lemma:
+      - lemma: "مقامر"
+        antonym_found: false
+      - lemma: "مراهن"
+        antonym_found: false
+  verb_checks:
+    applicable: false
+  selectional_restrictions:
+    - lemma: "مقامر"
+      constraint: "عاقل"
+    - lemma: "مراهن"
+      constraint: "عاقل"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "مقامر"
+      enrichment:
+        root: "ق-م-ر"
+      examples:
+        - text: "خسر المقامر كل ماله في ليلة واحدة."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "مراهن"
+      enrichment:
+        root: "ر-ه-ن"
+      examples:
+        - text: "يتابع المراهن نتائج السباق بترقب شديد."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

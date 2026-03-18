@@ -1,0 +1,217 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي مترجم حرفياً (سمة كون المرء ملاحظاً ومنتبهاً) ويبدو ركيكاً بعض الشيء."
+    observations: "اللمتان (انتباه) و (يقظة) تعبران بامتياز عن مفهوم (attentiveness) أو (alertness). المفهوم يركز على صفة وحالة الانتباه الدائم والملاحظة الدقيقة."
+  blind_candidates:
+    - lemma: "اِنْتِبَاه"
+      generation_method: ishtiqaq
+      justification: "مصدر يدل على حالة التركيز والملاحظة."
+    - lemma: "يَقَظَة"
+      generation_method: ishtiqaq
+      justification: "صفة ومصدر تدل على الانتباه والوعي المستمر."
+    - lemma: "تَيَقُّظ"
+      generation_method: ishtiqaq
+      justification: "مصدر يدل على التكلف وتكثيف الانتباه، ويناسب مفهوم (vigilance) الذي يتقاطع مع (attentiveness)."
+    - lemma: "نَبَاهَة"
+      generation_method: ishtiqaq
+      justification: "ترتبط بالفطنة والانتباه للأمور الدقيقة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "اِنْتِبَاه"
+      confirm:
+        - text: "تركيز، انتباه"
+          source: "مسرد الإعلام والتواصل، المنظمة العربية للتربية والثقافة والعلوم"
+        - text: "يَقظة؛ انتباه (attentiveness)"
+          source: "المورد الحديث"
+    - lemma: "يَقَظَة"
+      confirm:
+        - text: "اليَقَظَةُ: الانتباهُ من النَّوْم خلافُ النوم"
+          source: "المعجم الوسيط"
+        - text: "يَقَظة؛ انتباه (attentiveness)"
+          source: "المورد الحديث"
+    - lemma: "تَيَقُّظ"
+      confirm:
+        - text: "يَقِظَ لكذا: تنبَّه"
+          source: "المعجم الوسيط"
+        - text: "تَيَقُّظ (vigilance)"
+          source: "المعجم الطبي الموحد"
+    - lemma: "نَبَاهَة"
+      contradicts:
+        - text: "النَّبَاهَةُ: الشَّرَف الشُّهْرَة الفِطنة"
+          source: "المعجم الوسيط"
+          conflict: "تركز النباهة على الفطنة والذكاء والشرف أكثر من دلالتها على الانتباه المستمر والملاحظة."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "انتباه"
+      decision: confirmed
+      decision_reason: "اللمة دقيقة وتعبر عن المفهوم (attentiveness) بشكل مباشر وموثق في المعاجم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "اِنْتِبَاه"
+    - lemma: "يقظة"
+      decision: confirmed
+      decision_reason: "تستخدم كمرادف للانتباه في المعاجم ثنائية اللغة وهي من الفصيح الشائع في هذا السياق."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "يَقَظَة"
+    - lemma: "تَيَقُّظ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "التيقظ يدل على الانتباه الدائم والملاحظة المستمرة، ويضيف فروقاً دقيقة متعلقة بالحذر والانتباه المكثف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "تَيَقُّظ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "نَبَاهَة"
+      source: stage1
+      decision: removed
+      decision_reason: "دلالتها الأساسية الفطنة والذكاء، وليست مجرد الانتباه والملاحظة."
+      evidence_assessment:
+        case: contradicts_only
+
+stage4_content:
+  definition:
+    current: "سمة كون المرء ملاحظاً ومنتبهاً"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يبدو مترجماً حرفياً. يستحسن صياغته كحالة أو صفة للتركيز والملاحظة الدقيقة بأسلوب المعاجم."
+    authored:
+      - type: linguistic
+        text: "حالة من التركيز والملاحظة الدقيقة للأشياء المحيطة، وتجنب الغفلة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "حالة من التركيز والملاحظة الدقيقة للأشياء المحيطة، وتجنب الغفلة."
+  examples:
+    per_lemma:
+      - lemma: "اِنْتِبَاه"
+        examples:
+          - text: "استمع الطالب إلى شرح المعلم باهتمام وانتباه شديدين."
+            type: usage
+      - lemma: "يَقَظَة"
+        examples:
+          - text: "تتطلب القيادة في الليل يقظة مستمرة لتجنب الحوادث."
+            type: usage
+      - lemma: "تَيَقُّظ"
+        examples:
+          - text: "يجب على الحارس أن يكون في حالة تيقظ دائم تحسباً لأي طارئ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "استمع الطالب إلى شرح المعلم باهتمام وانتباه شديدين."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تتطلب القيادة في الليل يقظة مستمرة لتجنب الحوادث."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يجب على الحارس أن يكون في حالة تيقظ دائم تحسباً لأي طارئ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "اِنْتِبَاه"
+      entry_id: "{auto}"
+      root: "نبه"
+      maqayis_quote: "«النُّونُ وَالْبَاءُ وَالْهَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى ارْتِفَاعٍ وَسُمُوٍّ. وَمِنْهُ النُّبْهُ وَالِانْتِبَاهُ، وَهُوَ الْيَقَظَةُ وَالِارْتِفَاعُ مِنَ النَّوْمِ.»"
+    - lemma: "يَقَظَة"
+      entry_id: "{auto}"
+      root: "يقظ"
+    - lemma: "تَيَقُّظ"
+      entry_id: "{auto}"
+      root: "يقظ"
+  per_sense:
+    - lemma: "اِنْتِبَاه"
+      sense_id: "{auto}"
+      nuance: "اللفظ الأعم والأكثر شيوعاً للدلالة على التركيز والملاحظة."
+      mwe: false
+    - lemma: "يَقَظَة"
+      sense_id: "{auto}"
+      nuance: "يركز على حالة الوعي المستمر وعدم الغفلة، وغالباً ما يقترن بالوعي الذهني."
+      mwe: false
+    - lemma: "تَيَقُّظ"
+      sense_id: "{auto}"
+      nuance: "يدل على تكلف اليقظة والمبالغة في الاستعداد الدائم والحذر."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نبه","maqayis":"«النُّونُ وَالْبَاءُ وَالْهَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى ارْتِفَاعٍ وَسُمُوٍّ. وَمِنْهُ النُّبْهُ وَالِانْتِبَاهُ، وَهُوَ الْيَقَظَةُ وَالِارْتِفَاعُ مِنَ النَّوْمِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"يقظ"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"يقظ"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ الأعم والأكثر شيوعاً للدلالة على التركيز والملاحظة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على حالة الوعي المستمر وعدم الغفلة، وغالباً ما يقترن بالوعي الذهني.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يدل على تكلف اليقظة والمبالغة في الاستعداد الدائم والحذر.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

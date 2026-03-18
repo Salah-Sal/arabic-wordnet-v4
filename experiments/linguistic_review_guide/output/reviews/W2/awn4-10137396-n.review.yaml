@@ -1,0 +1,133 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "مُكْتَسِب لِلْوَزْن"
+      evidence_status: "no_material_found"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "مُكْتَسِب وَزْن"
+      source_section: "step5_english_bridge"
+      evidence_citation: "قياساً على مصطلح «زيادة الوزن» (weight gain) في المكنز الزراعي، وصياغة اسم الفاعل بالإضافة."
+      justification: "التركيب: مركب إضافي مبني على اسم الفاعل «مكتسب» والمفعول «وزن»، وهو شائع في الاستعمال الرياضي الحديث كترجمة لـ weight gainer بدلاً من شبه الجملة."
+  knowledge_candidates:
+    - lemma: "مُتَسَمِّن"
+      justification: "الاشتقاق: اسم فاعل على وزن مُتَفَعِّل من الجذر (س م ن) ليدل على من يأخذ في السمن ويزداد وزنه تدريجياً، كما في المعاجم «تَسَمَّنَ: توسَّع فى أسباب السمن»."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "مُكْتَسِب لِلْوَزْن"
+      decision: removed
+      decision_reason: "تركيب إسنادي/وصفي حر (اسم فاعل + شبه جملة) وليس مصطلحاً مسكوكاً. إضافة إلى أنه ترجمة حرفية عمياء للمصطلح الأجنبي ولا يعد وحدة معجمية ثابتة في العربية."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "نقل حرفي لـ weight gainer عبارة عن وصف حر."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "مُتَسَمِّن"
+      source: step05
+      decision: confirmed
+      decision_reason: "لفظ عربي فصيح دقيق الدلالة على من يأخذ في السمن ويزداد وزنه تدريجياً."
+      step05_citation: "«تَسَمَّنَ فلانٌ: توسَّع فى أسباب السمن من المآكل والمشارب» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تدل على التدرج في زيادة الوزن (السمنة) وقد تحمل معنى القصد أو القابلية الجسدية لذلك."
+      example: "نصح الطبيبُ الشابَّ المُتَسَمِّنَ بالاعتدال في تناول السكريات للحفاظ على صحته."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُتَسَمِّن"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10137396-n"
+
+    - lemma: "مُكْتَسِب وَزْن"
+      source: step05
+      decision: confirmed
+      decision_reason: "مركب إضافي أخف على اللسان من شبه الجملة، ويستعمل في السياقات الحديثة للتعبير المباشر عن قابلية أو حالة زيادة الوزن."
+      step05_citation: "قياساً على «زيادة الوزن» (weight gain) في المكنز الزراعي."
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "مصطلح حديث مركب إضافياً للتعبير المباشر عن من يكتسب وزناً بشكل مستمر، ويشيع في السياق الرياضي."
+      example: "يُعدُّ الرياضي المبتدئ مُكْتَسِبَ وَزْنٍ سريعاً إذا اتبع نظاماً غذائياً غنياً بالسعرات."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُكْتَسِب وَزْن"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10137396-n"
+
+  added_lemmas:
+    - lemma: "مُتَسَمِّن"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+    - lemma: "مُكْتَسِب وَزْن"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شخص يزداد وزنه"
+  assessment:
+    decision: retain
+    reason: "التعريف لغوي دقيق ومباشر ومناسب للمفهوم وللمرشحات المضافة."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عَامِل / فَاعِل"
+    test_result: "wrong"
+  verb_checks:
+    applicable: false
+  actions:
+    - command: remove_synset_relation
+      params:
+        source_id: "awn4-10137396-n"
+        relation_type: "hypernym"
+        target_id: "awn4-09786620-n"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "مُتَسَمِّن"
+      enrichment:
+        root: "س-م-ن"
+      examples:
+        - text: "نصح الطبيبُ الشابَّ المُتَسَمِّنَ بالاعتدال في تناول السكريات للحفاظ على صحته."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "مُكْتَسِب وَزْن"
+      enrichment:
+        root: "ك-س-ب"
+      examples:
+        - text: "يُعدُّ الرياضي المبتدئ مُكْتَسِبَ وَزْنٍ سريعاً إذا اتبع نظاماً غذائياً غنياً بالسعرات."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: lexical_gap
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-10137396-n"
+        text: "نصح الطبيبُ الشابَّ المُتَسَمِّنَ بالاعتدال في تناول السكريات للحفاظ على صحته."
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-10137396-n"
+        text: "يُعدُّ الرياضي المبتدئ مُكْتَسِبَ وَزْنٍ سريعاً إذا اتبع نظاماً غذائياً غنياً بالسعرات."

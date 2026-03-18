@@ -1,0 +1,157 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "شَخْص مُعَاصِر"
+      evidence_status: "no_material_found"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "عَصْرِيّ"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«العصريّ: شخص من أهل العصر الحديث» — المورد الحديث"
+      justification: "ترجمة دقيقة لكلمة modern كاسم، وتعني الشخص المنتمي للعصر الحديث."
+    - lemma: "مُعَاصِر"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«كل ما ينتمي إلى عصره ويؤسس لحداثة الانتماء إلى عقلانية وتقنية تراهنان على إنسان التطورات والمستجدات.» — المعجم الموحد لمصطلحات اللسانيات"
+      justification: "لفظ شائع للدلالة على من يعيش في العصر الحالي أو يعاصر غيره."
+  knowledge_candidates:
+    - lemma: "مُحْدَث"
+      justification: "اشتقاق: يطلق على من ينتمي للعصر المتأخر (الحديث) في مقابل القديم والمتقدم."
+  generation_notes: "تم توليد المرشحات بناء على الترجمات المعجمية المعتمدة لكلمة modern كاسم."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "شَخْص مُعَاصِر"
+      decision: removed
+      decision_reason: "تركيب وصفي حر (شخص + معاصر) وليس مصطلحاً مسكوكاً."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "مستبعد لكونه وصفاً حراً وليس لمة معجمية."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "عَصْرِيّ"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح مفرد دقيق يعبر عن الشخص المنتمي للعصر الحديث، موثق في المعاجم."
+      step05_citation: "«العصريّ: شخص من أهل العصر الحديث» — المورد الحديث"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يدل على الانتماء إلى العصر الحديث زماناً أو فكراً وأسلوباً."
+      example: "يتميز العصري بانفتاحه على تقنيات التواصل المستحدثة."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "عَصْرِيّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10346217-n"
+    - lemma: "مُعَاصِر"
+      source: step05
+      decision: confirmed
+      decision_reason: "لفظ مستعمل بكثرة للدلالة على الشخص الذي يعيش في العصر الحالي."
+      step05_citation: "«مُعاصِر: كل ما ينتمي إلى عصره ويؤسس لحداثة...» — المعجم الموحد لمصطلحات اللسانيات"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يدل على التواجد في الزمن الحالي أو التزامن مع أشخاص أو أحداث."
+      example: "يواجه المعاصر تحديات بيئية لم تكن معهودة في السابق."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُعَاصِر"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10346217-n"
+  synset_flags:
+    definition_review_needed: true
+  added_lemmas:
+    - lemma: "عَصْرِيّ"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "create_entry + add_sense"
+    - lemma: "مُعَاصِر"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "create_entry + add_sense"
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "شخص معاصر"
+  assessment:
+    decision: revise
+    reason: "التعريف القديم كان مجرد تكرار للمة المحذوفة (شخص معاصر)، ويفتقر إلى التوضيح."
+  authored_definitions:
+    - type: terminological
+      text: "شخص ينتمي إلى العصر الحديث ويعيش فيه، أو يتسم بآراء وأساليب حديثة."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-10346217-n"
+        definition_index: 0
+        text: "شخص ينتمي إلى العصر الحديث ويعيش فيه، أو يتسم بآراء وأساليب حديثة."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-09786620-n"
+    test_result: "wrong"
+  antonymy:
+    per_lemma:
+      - lemma: "عَصْرِيّ"
+        antonym_found: true
+        antonym: "قَدِيم"
+      - lemma: "مُعَاصِر"
+        antonym_found: true
+        antonym: "سَلَف"
+  verb_checks:
+    applicable: false
+  actions:
+    - command: remove_synset_relation
+      params:
+        source_id: "awn4-10346217-n"
+        relation_type: "hypernym"
+        target_id: "awn4-09786620-n"
+    - command: add_synset_relation
+      params:
+        source_id: "awn4-10346217-n"
+        relation_type: "hypernym"
+        target_id: "awn4-00007846-n"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "عَصْرِيّ"
+      enrichment:
+        root: "ع-ص-ر"
+      examples:
+        - text: "يتميز العصري بانفتاحه على تقنيات التواصل المستحدثة."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "مُعَاصِر"
+      enrichment:
+        root: "ع-ص-ر"
+      examples:
+        - text: "يواجه المعاصر تحديات بيئية لم تكن معهودة في السابق."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-10346217-n"
+        text: "يتميز العصري بانفتاحه على تقنيات التواصل المستحدثة."

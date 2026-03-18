@@ -1,0 +1,184 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمة الموجودة تفتقر إلى التشكيل الكامل.
+      - التعريف الحالي وظيفي لكنه يفتقر إلى الصياغة المعجمية الرصينة التي تربط المفهوم بالاتجاهات الجغرافية الأصلية.
+    observations: "المفهوم يشير إلى نقطة بينية في الاتجاهات الجغرافية. المصطلح الأكثر شيوعاً في العربية لوصف هذا الموقع هو 'الجنوب الشرقي' (بالتعريف والوصف) أو 'جنوب شرق' (على الإضافة). الاستخدامات المعجمية تؤكد رسوخ المصطلحين في السياقات الجغرافية والإدارية."
+  blind_candidates:
+    - lemma: "جَنُوب شَرْق"
+      generation_method: tarkib
+      justification: "تركيب إضافي شائع الاستخدام في تسمية الأقاليم (مثل جنوب شرق آسيا) ويعبر عن الموقع البيني."
+    - lemma: "الْجَنُوب الشَّرْقِيّ"
+      generation_method: tarkib
+      justification: "تركيب وصفي هو الأكثر دقة لغوياً للتعبير عن الجهة أو الموقع كنظام إحداثي."
+    - lemma: "جَنُوبِيّ شَرْقِيّ"
+      generation_method: ishtiqaq
+      justification: "نسبة مركبة تستخدم اسماً للدلالة على الموقع أو وصفاً له."
+    - lemma: "نَاحِيَة جَنُوبِيَّة شَرْقِيَّة"
+      generation_method: tarkib
+      justification: "تعبير وصفي يحدد الجهة الجغرافية بدقة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "جنوب شرق"
+      confirm:
+        - text: "«منظمة مصائد الأسماك في جنوب شرق الأطلسي»"
+          source: "مسرد المناخ والبيئة - ArabTerm"
+        - text: "«إندونيسيا: جمهورية مستقلة في جنوب شرق آسيا»"
+          source: "المعجم الكبير"
+    - lemma: "الْجَنُوب الشَّرْقِيّ"
+      confirm:
+        - text: "«الجنوب الشرقي: أحد أبناء الجنوب الشرقي.»"
+          source: "المورد الحديث"
+        - text: "«أستراليا: في الجنوب الشرقي من آسيا»"
+          source: "المعجم الوسيط"
+        - text: "«تافيلالت: إقليم مغربي يقع في الجنوب الشرقي من بلاد المغرب»"
+          source: "المعجم الكبير"
+    - lemma: "جَنُوبِيّ شَرْقِيّ"
+      confirm:
+        - text: "«(2) جَنوبيّ شرقيّ a southeast wind (3) الجَنوب الشّرقيّ»"
+          source: "المورد الحديث"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "جنوب شرق"
+      decision: confirmed
+      decision_reason: "مصطلح شائع ومستقر في الاستخدام الجغرافي، خاصة عند الإضافة إلى الأقاليم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "جَنُوب شَرْق"
+    - lemma: "الْجَنُوب الشَّرْقِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "هو المصطلح المعياري في اللغة العربية الفصحى للتعبير عن هذه الجهة كاسم علم على الموقع."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "الْجَنُوب الشَّرْقِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "جَنُوبِيّ شَرْقِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يستخدم كاسم وصفة للدلالة على الموقع والمنسوب إليه."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "جَنُوبِيّ شَرْقِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "موقع في الجزء الجنوبي الشرقي من بلد أو منطقة أو مدينة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بحت، والأفضل صياغته بأسلوب المعاجم التي تحدد الجهة بالنسبة للجهات الأصلية."
+    authored:
+      - type: encyclopedic
+        text: "مَوْقِعٌ أَوْ جِهَةٌ تَقَعُ وَسَطًا بَيْنَ الْجَنُوبِ وَالشَّرْقِ، سَوَاءٌ كَانَتْ فِي بَلَدٍ أَوْ إِقْلِيمٍ أَوْ مَدِينَةٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "جَنُوب شَرْق"
+        examples:
+          - text: "تعتبر إندونيسيا أكبر دولة في منطقة جنوب شرق آسيا من حيث المساحة والسكان."
+            type: usage
+      - lemma: "الْجَنُوب الشَّرْقِيّ"
+        examples:
+          - text: "تقع مدينة لندن في الجنوب الشرقي من إنجلترا."
+            type: usage
+      - lemma: "جَنُوبِيّ شَرْقِيّ"
+        examples:
+          - text: "هبت رياح جنوبية شرقية محملة بالأتربة على المناطق الساحلية."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مَوْقِعٌ أَوْ جِهَةٌ تَقَعُ وَسَطًا بَيْنَ الْجَنُوبِ وَالشَّرْقِ، سَوَاءٌ كَانَتْ فِي بَلَدٍ أَوْ إِقْلِيمٍ أَوْ مَدِينَةٍ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "جَنُوب شَرْق"
+      entry_id: "{auto}"
+      roots:
+        - word: "جنوب"
+          root: "جنب"
+          maqayis_quote: "«الْجِيمُ وَالنُّونُ وَالْبَاءُ أَصْلَانِ مُتَقَارِبَانِ أَحَدُهُمَا: النَّاحِيَةُ، وَالَآخَرُ الْبُعْدُ.»"
+        - word: "شرق"
+          root: "شرق"
+          maqayis_quote: "«الشِّينُ وَالرَّاءُ وَالْقَافُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى إِضَاءَةٍ وَفَتْحٍ.»"
+    - lemma: "الْجَنُوب الشَّرْقِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "الجنوب"
+          root: "جنب"
+          maqayis_quote: "«الْجِيمُ وَالنُّونُ وَالْبَاءُ أَصْلَانِ مُتَقَارِبَانِ أَحَدُهُمَا: النَّاحِيَةُ، وَالَآخَرُ الْبُعْدُ.»"
+        - word: "الشرقي"
+          root: "شرق"
+          maqayis_quote: "«الشِّينُ وَالرَّاءُ وَالْقَافُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى إِضَاءَةٍ وَفَتْحٍ.»"
+    - lemma: "جَنُوبِيّ شَرْقِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "جنوبي"
+          root: "جنب"
+          maqayis_quote: "«الْجِيمُ وَالنُّونُ وَالْبَاءُ أَصْلَانِ مُتَقَارِبَانِ أَحَدُهُمَا: النَّاحِيَةُ، وَالَآخَرُ الْبُعْدُ.»"
+        - word: "شرقي"
+          root: "شرق"
+          maqayis_quote: "«الشِّينُ وَالرَّاءُ وَالْقَافُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى إِضَاءَةٍ وَفَتْحٍ.»"
+  per_sense:
+    - lemma: "جَنُوب شَرْق"
+      sense_id: "{auto}"
+      nuance: "غالباً ما يُستخدم كمركب إضافي في أسماء الأقاليم الجغرافية الكبرى."
+      mwe: true
+    - lemma: "الْجَنُوب الشَّرْقِيّ"
+      sense_id: "{auto}"
+      nuance: "الاسم المعياري للجهة، ويُستخدم لوصف الموقع الدقيق داخل كيان جغرافي أصغر."
+      mwe: true
+    - lemma: "جَنُوبِيّ شَرْقِيّ"
+      sense_id: "{auto}"
+      nuance: "صيغة نسبية تُستخدم اسماً للموقع أو صفة لما ينسب إليه."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"جنوب","root":"جنب","maqayis":"«الْجِيمُ وَالنُّونُ وَالْبَاءُ أَصْلَانِ مُتَقَارِبَانِ أَحَدُهُمَا: النَّاحِيَةُ، وَالَآخَرُ الْبُعْدُ.»"},{"word":"شرق","root":"شرق","maqayis":"«الشِّينُ وَالرَّاءُ وَالْقَافُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى إِضَاءَةٍ وَفَتْحٍ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"غالباً ما يُستخدم كمركب إضافي في أسماء الأقاليم الجغرافية الكبرى.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 1.0

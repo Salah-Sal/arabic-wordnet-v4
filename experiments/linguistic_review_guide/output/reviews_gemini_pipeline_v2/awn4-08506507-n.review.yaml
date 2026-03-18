@@ -1,0 +1,168 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة (هنا) مسجلة بدون تشكيل."
+      - "التعريف الحالي عبارة عن ترجمة للمرادفات الإنجليزية ولا يصيغ المفهوم بأسلوب معجمي عربي دقيق."
+    observations: "المجموعة الترادفية تعبر عن ظرف المكان الدال على القرب (here)، والكلمة الأساسية والأصيلة في العربية هي (هُنَا)، ويمكن إلحاق هاء التنبيه بها لتصبح (هَاهُنَا) كمرادف متداول وقوي."
+  blind_candidates:
+    - lemma: "هُنَا"
+      generation_method: ishtiqaq
+      justification: "اللفظ العربي الأصيل للإشارة إلى المكان القريب."
+    - lemma: "هَاهُنَا"
+      generation_method: tarkib
+      justification: "لفظ مركب من هاء التنبيه واسم الإشارة للمكان القريب لتوكيد القرب."
+    - lemma: "هَذَا المَكَان"
+      generation_method: tarkib
+      justification: "تركيب وصفي يطابق المعنى الإنجليزي (this place)."
+    - lemma: "المَوْقِع الحَالِيّ"
+      generation_method: tarkib
+      justification: "تركيب وصفي يطابق المعنى الإنجليزي (present location)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "هُنَا"
+      confirm:
+        - text: "«(هُنَا) اسم إشارة للقريب وتتصل به ها التنبيه فيقال ها هنا أو هنا تقرب وادن»"
+          source: "المعجم الوسيط"
+    - lemma: "هَاهُنَا"
+      confirm:
+        - text: "«اسم إشارة للمكان القريب، تقدمته (ها) التنبيه فيقال: ههنا»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "هَذَا المَكَان"
+      evidence_status: "no_material_found"
+    - lemma: "المَوْقِع الحَالِيّ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "هُنَا"
+      decision: confirmed
+      decision_reason: "الكلمة الأساسية الدالة على المكان القريب، مدعومة بالشواهد المعجمية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "هُنَا"
+
+    - lemma: "هَاهُنَا"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف فصيح وشائع الاستخدام، يؤكد القرب بفضل هاء التنبيه."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "هَاهُنَا", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "هَذَا المَكَان"
+      source: stage1
+      decision: removed
+      decision_reason: "تركيب حر غير مسكوك معجمياً، وهو مجرد وصف."
+
+    - lemma: "المَوْقِع الحَالِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "تركيب وصفي حر غير مسكوك معجمياً."
+
+stage4_content:
+  definition:
+    current: "الموقع الحالي؛ هذا المكان"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي عبارة عن كلمات وصفية مترجمة، والأفضل صياغة تعريف لغوي يوضح وظيفة الكلمة ودلالتها المكانية."
+    authored:
+      - type: linguistic
+        text: "اسم إشارة للمكان القريب الذي يتواجد فيه المتكلم."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "اسم إشارة للمكان القريب الذي يتواجد فيه المتكلم."}
+
+  examples:
+    per_lemma:
+      - lemma: "هُنَا"
+        examples:
+          - text: "تَوَقَّفْنَا هُنَا لِنَسْتَرِيحَ قَلِيلاً قَبْلَ مُوَاصَلَةِ السَّفَرِ."
+            type: usage
+      - lemma: "هَاهُنَا"
+        examples:
+          - text: "قَالُوا يَا مُوسَى إِنَّا لَنْ نَدْخُلَهَا أَبَدًا مَا دَامُوا فِيهَا فَاذْهَبْ أَنْتَ وَرَبُّكَ فَقَاتِلَا إِنَّا هَاهُنَا قَاعِدُونَ"
+            type: quran
+            source: "سورة المائدة"
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تَوَقَّفْنَا هُنَا لِنَسْتَرِيحَ قَلِيلاً قَبْلَ مُوَاصَلَةِ السَّفَرِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "قَالُوا يَا مُوسَى إِنَّا لَنْ نَدْخُلَهَا أَبَدًا مَا دَامُوا فِيهَا فَاذْهَبْ أَنْتَ وَرَبُّكَ فَقَاتِلَا إِنَّا هَاهُنَا قَاعِدُونَ"}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "هُنَا"
+      entry_id: "{auto}"
+      root: "هنا"
+      maqayis_quote: "«الْهَاءُ وَالنُّونُ وَالْحَرْفُ الْمُعْتَلُّ، فِيهِ كَلِمَاتٌ مُشْكِلَةٌ، وَأَشْيَاءُ لَيْسَ لَهَا قِيَاسٌ. يَقُولُونَ: هُنَا كَلِمَةُ تَقْرِيبٍ...»"
+    - lemma: "هَاهُنَا"
+      entry_id: "{auto}"
+      root: "هنا"
+      maqayis_quote: "«الْهَاءُ وَالنُّونُ وَالْحَرْفُ الْمُعْتَلُّ، فِيهِ كَلِمَاتٌ مُشْكِلَةٌ... يَقُولُونَ: هُنَا كَلِمَةُ تَقْرِيبٍ»"
+
+  per_sense:
+    - lemma: "هُنَا"
+      sense_id: "{auto}"
+      nuance: "الأصل في الإشارة إلى المكان القريب."
+      mwe: false
+    - lemma: "هَاهُنَا"
+      sense_id: "{auto}"
+      nuance: "أبلغ في الدلالة على القرب لتصديرها بهاء التنبيه."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"هنا","maqayis":"«الْهَاءُ وَالنُّونُ وَالْحَرْفُ الْمُعْتَلُّ، فِيهِ كَلِمَاتٌ مُشْكِلَةٌ، وَأَشْيَاءُ لَيْسَ لَهَا قِيَاسٌ. يَقُولُونَ: هُنَا كَلِمَةُ تَقْرِيبٍ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"هنا","maqayis":"«الْهَاءُ وَالنُّونُ وَالْحَرْفُ الْمُعْتَلُّ، فِيهِ كَلِمَاتٌ مُشْكِلَةٌ... يَقُولُونَ: هُنَا كَلِمَةُ تَقْرِيبٍ»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الأصل في الإشارة إلى المكان القريب.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"أبلغ في الدلالة على القرب لتصديرها بهاء التنبيه.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

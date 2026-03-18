@@ -1,0 +1,192 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "جزء"
+      confirm:
+        - text: "«الجُزْءُ: البَعْضُ» — القاموس المحيط"
+        - text: "«الجزء: ما يتركب الشيء عنه وعن غيره» — التوقيف على مهمات التعاريف"
+        - text: "«جزء الشيء من يتقوم به جملته كأجزاء السفينة والبيت» — المفردات في غريب القرآن"
+    - lemma: "شق"
+      confirm:
+        - text: "«شِقُّ الشيء: جزؤه ونصفه وجانبه» — المعجم الوسيط"
+        - text: "«يُقال لِنِصْفِ الشَّيْءِ الشِّقُّ» — مقاييس اللغة"
+      contradicts:
+        - text: "«أي شيء ينقص من جودة مادة أو صلاحية استعمال جهاز. عيب (المرادف العربي)» — مسرد المناخ والبيئة (ArabTerm)"
+          conflict: "المعنى هنا يدل على العيب أو الصدع (flaw/crack) وليس المكون البنيوي للمصنوع."
+    - lemma: "قسم"
+      confirm:
+        - text: "«القِسْمُ: جزء من شيء مقسوم» — المعجم الوسيط"
+        - text: "«القِسْم: جُزْء من شيء مقْسوم... قِسْم من كتاب» — معجم اللغة العربية المعاصرة"
+      expands:
+        - text: "«قسم: مقصورة، حجرة، خانة» — تكملة المعاجم العربية (دوزي)"
+          addition: "تخصيص المعنى ليشمل الوحدات المكانية في المصنوعات الكبيرة (كالمباني)."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "مكوّن"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«مُكَوِّن: قطعة أو جزء من جهاز معلومياتي مثل اللوحة الأم أو الذاكرة» — المعجم الموحد لمصطلحات تقانة المعلومات"
+      justification: "المصطلح يعبر بدقة عن الجزء البنيوي أو الوظيفي في المصنوعات التقنية والبشرية."
+    - lemma: "عنصر"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«عنصر: (انظر: عنصر تحويل)» — مسرد الهندسة الكهربائية (ArabTerm)"
+      justification: "يُستخدم 'عنصر' بكثرة في المعاجم التقنية للدلالة على الأجزاء الفردية المكونة لنظام أو جهاز."
+  knowledge_candidates:
+    - lemma: "قطعة"
+      justification: "لفظ عربي فصيح وشائع الاستخدام للدلالة على الأجزاء المادية المنفصلة أو المكونة للمصنوعات (آلية التوليد: مجاز/توسيع دلالي من 'القطع')."
+    - lemma: "وحدة"
+      justification: "تُستخدم للدلالة على الجزء الوظيفي المستقل ضمن مصنوع بشري معقد (آلية التوليد: اصطلاح)."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "جزء"
+      decision: "confirmed"
+      decision_reason: "أدلة معجمية قوية وشاملة للمفهوم (الكل والبعض)."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "اللفظ الأعم والأكثر شمولاً لكل ما ليس كلاً، سواء كان مادياً أو معنوياً."
+      example: "تتكون هذه الآلة من عدة أجزاء دقيقة تعمل معاً بانتظام."
+    - lemma: "شق"
+      decision: "removed"
+      decision_reason: "المعنى الغالب هو النصف أو الصدع، ولا يُستخدم عادةً لوصف مكونات المصنوعات البشرية بشكل عام."
+      evidence_assessment:
+        case: "mixed"
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "يختص بالجانب أو النصف أو ما نتج عن صدع، ولا يشمل المكونات الوظيفية كالمحرك أو البراغي."
+      actions:
+        - command: "remove_sense"
+          params:
+            sense_id: "{auto}"
+    - lemma: "قسم"
+      decision: "confirmed"
+      decision_reason: "مدعوم معجمياً خاصة في سياق الكتب والمباني والتقسيمات الوظيفية."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يوحي بالتقسيم المنظم أو المساحة المفرزة (كقسم في مصنع أو قسم في كتاب)."
+      example: "يحتوي هذا الطراز من الطائرات على قسم خاص لدرجة رجال الأعمال."
+    - lemma: "مكوّن"
+      source: "step05"
+      decision: "confirmed"
+      decision_reason: "مصطلح تقني مستقر للدلالة على أجزاء المصنوعات."
+      step05_citation: "«مُكَوِّن: قطعة أو جزء من جهاز معلومياتي» — المعجم الموحد لتقانة المعلومات"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على الدور الوظيفي والبنائي للجزء داخل النظام الكلي."
+      example: "تلف أحد المكونات الإلكترونية أدى إلى توقف الجهاز عن العمل."
+      actions:
+        - command: "create_entry"
+          params:
+            lemma: "مكوّن"
+            pos: "n"
+        - command: "add_sense"
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-03898588-n"
+    - lemma: "عنصر"
+      source: "step05"
+      decision: "confirmed"
+      decision_reason: "شائع جداً في السياقات التقنية والهندسية."
+      step05_citation: "«عنصر: (عنصر تحويل)» — مسرد الهندسة الكهربائية"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "غالباً ما يُستخدم للدلالة على أصغر وحدة بنائية أو قطعة منفردة في المصنوع."
+      example: "يعتبر الصمام عنصراً أساسياً في نظام التحكم الهيدروليكي."
+      actions:
+        - command: "create_entry"
+          params:
+            lemma: "عنصر"
+            pos: "n"
+        - command: "add_sense"
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-03898588-n"
+    - lemma: "قطعة"
+      source: "step05"
+      decision: "confirmed"
+      decision_reason: "اللفظ الأكثر شيوعاً للأجزاء المادية للمصنوعات."
+      step05_citation: "«قطعة أو جزء من جهاز معلومياتي» — المعجم الموحد لتقانة المعلومات (ذكرها كمرادف)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تؤكد على الكيان المادي المنفصل (القطعة) الذي يمكن فكه أو تركيبه."
+      example: "تحتاج الغسالة إلى استبدال قطعة تالفة في المحرك."
+      actions:
+        - command: "create_entry"
+          params:
+            lemma: "قطعة"
+            pos: "n"
+        - command: "add_sense"
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-03898588-n"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شيء أقل من الكل في مصنوع بشري"
+  assessment:
+    decision: "retain"
+    reason: "التعريف دقيق ومباشر ويغطي المفهوم اللغوي والاصطلاحي."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "جِسْم، شَيْء مَادِّيّ، غَرَض"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "جزء"
+        antonym_found: true
+        antonym: "كل"
+  actions:
+    - command: "add_synset_relation"
+      params:
+        source_id: "awn4-03898588-n"
+        relation_type: "antonym"
+        target_id: "{auto}"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "جزء"
+      enrichment:
+        root: "ج-ز-ء"
+      examples:
+        - text: "«لِكُلِّ بابٍ مِنْهُمْ جُزْءٌ مَقْسُومٌ»"
+          type: "quran"
+          source: "الحجر/ 44"
+    - lemma: "قسم"
+      enrichment:
+        root: "ق-س-م"
+      examples:
+        - text: "«نَحْنُ قَسَمْنَا بَيْنَهُمْ مَعِيشَتَهُمْ فِي الْحَيَاةِ الدُّنْيَا»"
+          type: "quran"
+          source: "الزخرف/ 32"
+    - lemma: "مكوّن"
+      enrichment:
+        root: "ك-و-ن"
+      examples:
+        - text: "يتألف الحاسوب من مكونات صلبة وبرمجيات."
+          type: "usage"
+          source: "مؤلَّف"
+    - lemma: "عنصر"
+      enrichment:
+        root: "ع-ن-ص-ر"
+      examples:
+        - text: "يجب فحص كل عنصر من عناصر الدائرة الكهربائية."
+          type: "usage"
+          source: "مؤلَّف"
+    - lemma: "قطعة"
+      enrichment:
+        root: "ق-ط-ع"
+      examples:
+        - text: "اشترى قطعة غيار أصلية لسيارته."
+          type: "usage"
+          source: "مؤلَّف"
+  cultural_fit:
+    assessment: "native"
+  actions:
+    - command: "add_synset_example"
+      params:
+        synset_id: "awn4-03898588-n"
+        text: "تتألف الساعة من أجزاء ميكانيكية دقيقة."

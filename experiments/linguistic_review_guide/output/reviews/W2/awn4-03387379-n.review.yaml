@@ -1,0 +1,143 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّة الموجودة 'الحافة الأمامية' هي مصطلح تقني حديث (ترجمة لـ fore-edge)، وقد يفتقر المفهوم لمصطلح تراثي موحد في المعاجم القديمة، لكنه مستقر في فن التجليد الحديث."
+    observations: "المفهوم يشير إلى الحافة الخارجية للكتاب المقابلة للكعب (spine). في صناعة الكتب التقليدية العربية، كان الاهتمام منصباً على الورق والتجليد، وتسمى الحواف أحياناً 'المقاطع' لأنها تُقص لتتساوى. اللفظ الحالي دقيق اصطلاحاً."
+  blind_candidates:
+    - lemma: "حَافَة أَمَامِيَّة"
+      generation_method: tarkib
+      justification: "وصف مباشر للحافة المقابلة للكعب، وهو المصطلح التقني الشائع."
+    - lemma: "مَقْطَع أَمَامِيّ"
+      generation_method: tarkib
+      justification: "كلمة 'مقطع' تستخدم في فن التجليد للدلالة على حواف الكتاب التي يتم قصها."
+    - lemma: "وَجْه الكِتَاب"
+      generation_method: majaz
+      justification: "استعارة دلالية للجزء المقابل للظهر (الكعب)، وإن كان أقل شيوعاً تقنياً."
+    - lemma: "حَاشِيَة فيزيائية"
+      generation_method: tarkib
+      justification: "استخدام 'حاشية' بمعنى طرف الشيء، لكنه قد يلتبس مع الحواشي النصية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "الحافة الأمامية"
+      confirm:
+        - text: "«الحافة: الناحية أو الجانب من الشيء: طرفه»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«حافة مستوية من الصخر... توجد عند حافة القارات»"
+          source: "المعجم الكبير"
+          addition: "يؤكد استخدام 'حافة' لكل طرف بارز أو مستوٍ."
+    - lemma: "مَقْطَع أَمَامِيّ"
+      confirm:
+        - text: "«محطّ: مقطع البيت في الشعر»"
+          source: "تكملة المعاجم (دوزي)"
+        - text: "«مقطع: خلاصة مأخوذة بطريقة إرادية من كتاب»"
+          source: "المعجم الموحد لمصطلحات اللسانيات"
+          addition: "استخدام مقطع في سياق الكتب، وإن كان دلالياً هنا."
+    - lemma: "كعب الكتاب"
+      confirm:
+        - text: "«كعب الشيء: ركنه أو ناتئه»"
+          source: "المعجم الوسيط (بالقياس)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "الحافة الأمامية"
+      decision: confirmed
+      decision_reason: "مصطلح تقني مستقر في علم المكتبات وفن التجليد الحديث، وهو المقابل الدقيق للمصطلح الإنجليزي fore-edge."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "الحَافَة الأَمَامِيَّة"
+    - lemma: "مَقْطَع أَمَامِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يستخدم مصطلح 'المقطع' في صناعة الكتب للإشارة إلى الحواف الثلاثة المقطوعة (العلوية، السفلية، والأمامية)."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "المَقْطَع الأَمَامِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-03387379-n"}
+
+stage4_content:
+  definition:
+    current: "جزء الكتاب الذي يواجه الداخل عند وضع الكتاب على الرف؛ الجزء المقابل للكعب"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق وشامل، ويوضح الوظيفة المكانية للحافة بالنسبة للرف وبالنسبة للكعب."
+  examples:
+    per_lemma:
+      - lemma: "الحَافَة الأَمَامِيَّة"
+        examples:
+          - text: "تتميز بعض المخطوطات القديمة بزخارف فنية على الحافة الأمامية لا تظهر إلا عند ثني الصفحات."
+            type: usage
+      - lemma: "المَقْطَع الأَمَامِيّ"
+        examples:
+          - text: "قام المجلد بتسوية المقطع الأمامي للكتاب باستخدام مقصلة ورق حادة."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "الحَافَة الأَمَامِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "حافة"
+          root: "حفف"
+          maqayis_quote: "«الْحَاءُ وَالْفَاءُ ثَلَاثَةُ أُصُولٍ: ... وَالثَّانِي أَنْ يُطِيفَ الشَّيْءُ بِالشَّيْءِ... حِفَافَا كُلِّ شَيْءٍ: جَانِبَاهُ.»"
+        - word: "أمامية"
+          root: "أمم"
+          maqayis_quote: "«الْهَمْزَةُ وَالْمِيمُ فَأَصْلٌ وَاحِدٌ... الْأَمَامُ: الْقُدَّامُ.»"
+    - lemma: "المَقْطَع الأَمَامِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مقطع"
+          root: "قطع"
+          maqayis_quote: "«الْقَافُ وَالْطَّاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، وَهُوَ إِبَانَةُ شَيْءٍ مِنْ شَيْءٍ.»"
+        - word: "أمامي"
+          root: "أمم"
+          maqayis_quote: "«الْهَمْزَةُ وَالْمِيمُ فَأَصْلٌ وَاحِدٌ... الْأَمَامُ: الْقُدَّامُ.»"
+  per_sense:
+    - lemma: "الحَافَة الأَمَامِيَّة"
+      sense_id: "{auto}"
+      nuance: "المصطلح التقني الأكثر شيوعاً في سياق المكتبات والتوصيف الببليوجرافي."
+      mwe: true
+    - lemma: "المَقْطَع الأَمَامِيّ"
+      sense_id: "{auto}"
+      nuance: "يستخدم غالباً في سياق صناعة وتجليد الكتب (القص الفيزيائي للحواف)."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"حافة","root":"حفف","maqayis":"«...»"},{"word":"أمامية","root":"أمم","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح التقني الأكثر شيوعاً في سياق المكتبات والتوصيف الببليوجرافي.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-03387379-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-03387379-n"
+        score: 0.9

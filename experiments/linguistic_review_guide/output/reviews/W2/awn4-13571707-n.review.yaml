@@ -1,0 +1,185 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "المصطلح (امتصاص) عام ومطاط، ويشير إلى (absorption)، في حين أن المعنى يستلزم عملية يسبقها تحلل (lysis) لنسيج تم إنتاجه مسبقاً، وهو ما يقابله في الإنجليزية (resorption) أو (reabsorption)."
+      - "عدم وجود مصطلح (إعادة امتصاص) الذي يعد ترجمة طبية دقيقة لـ(reabsorption)."
+    observations: "مصطلح (ارتشاف) دقيق طبياً ويستعمل بشكل قياسي في سياقات مثل (ارتشاف العظم/bone resorption)، ويعبر بدقة عن عملية التحلل والاستيعاب للنسيج. مصطلح (امتصاص) وحده قاصر ولا يفي بدلالة المفهوم."
+  blind_candidates:
+    - lemma: "ارْتِشَاف"
+      generation_method: ishtiqaq
+      justification: "مشتق من الجذر (رشف) للدلالة على التشرب والاستيعاب، ويُستخدم طبياً لمصطلح (resorption)."
+    - lemma: "إِعَادَةُ امْتِصَاص"
+      generation_method: tarkib
+      justification: "مركب إضافي يترجم (reabsorption) ويدل على امتصاص المواد مرة أخرى."
+    - lemma: "تَحَلُّلٌ ذَاتِيّ"
+      generation_method: tarkib
+      justification: "مركب وصفي يشير إلى تحلل الخلايا والأنسجة (autolysis)."
+    - lemma: "اِسْتِيعَابٌ عُضْوِيّ"
+      generation_method: tarkib
+      justification: "مركب وصفي يعبر عن استيعاب الجسم للمواد وتحليلها عضوياً."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "ارتشاف"
+      confirm:
+        - text: "«resorption»"
+          source: "المعجم الطبي الموحد (2009)"
+        - text: "«(فى علم الأحياء) imbibition: امتصاص الأجسام الماء دون بذل جهد إيجابي...»"
+          source: "المعجم الكبير"
+    - lemma: "امتصاص"
+      contradicts:
+        - text: "«انتقال الماء والمواد المعدنية من الوسط إلى الكائن الحي أو انتقال المواد الغذائية المهضومة من الأمعاء إلى مجرى الدم أو اللمف»"
+          source: "المعجم الموحد لمصطلحات علم الأحياء (1993)"
+          conflict: "التعريف يخص الامتصاص الأولي (absorption) الخارجي وليس إعادة الامتصاص الداخلي المصحوب بالتحلل أو الـ (resorption)."
+    - lemma: "إعادة امتصاص"
+      confirm:
+        - text: "«reabsorption»"
+          source: "المعجم الطبي الموحد (2009)"
+    - lemma: "تحلل ذاتي"
+      contradicts:
+        - text: "«تفتت ذاتي للأنسجة أو الخلايا تحت تأثير إنزيمات ناتجة من نفس الأنسجة كما يحدث بعد الموت.»"
+          source: "معجم المصطلحات الطبية (ج.3، 1997)"
+          conflict: "يصف (autolysis) وهو تحلل من دون الاستيعاب المذكور في المفهوم."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "ارتشاف"
+      decision: confirmed
+      decision_reason: "مصطلح طبي وبيولوجي دقيق يقابل (resorption) ويعبر عن عملية تحلل الأنسجة واستيعابها كما في ارتشاف العظم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "ارْتِشَاف"
+
+    - lemma: "امتصاص"
+      decision: removed
+      decision_reason: "المصطلح يشير إلى الامتصاص العام (absorption) ولا يعكس دلالة التحلل وإعادة الاستيعاب (resorption/reabsorption) المذكورة في التعريف بشكل دقيق."
+      evidence_assessment:
+        case: contradicts_only
+
+    - lemma: "إعادة امتصاص"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير طبي معتمد يقابل (reabsorption) ويصف بدقة عملية الامتصاص المتكرر أو استيعاب المواد التي سبق للجسم إنتاجها (مثل وظائف الكلى)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "إِعَادَةُ امْتِصَاص"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "تحلل ذاتي"
+      source: stage1
+      decision: removed
+      decision_reason: "يدل على التحلل فقط دون الاستيعاب، ويترجم إلى autolysis وهو مفهوم مختلف."
+      evidence_assessment:
+        case: contradicts_only
+
+    - lemma: "استيعاب عضوي"
+      source: stage1
+      decision: removed
+      decision_reason: "مركب غير مسكوك معجمياً في هذا السياق، وتم الاكتفاء بالبدائل القياسية."
+      evidence_assessment:
+        case: no_material
+
+stage4_content:
+  definition:
+    current: "العملية العضوية التي تخضع فيها مادة بنية متمايزة تم إنتاجها بواسطة الجسم للتحلل والاستيعاب"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق وواضح ويعكس المفهوم الطبي لعمليتي الارتشاف وإعادة الامتصاص بانضباط وتكامل."
+  examples:
+    per_lemma:
+      - lemma: "ارْتِشَاف"
+        examples:
+          - text: "تحدث عملية ارْتِشَاف العظم طبيعياً للحفاظ على توازن الكالسيوم في الدم."
+            type: usage
+      - lemma: "إِعَادَةُ امْتِصَاص"
+        examples:
+          - text: "تتم إِعَادَةُ امْتِصَاص الماء في الأنابيب الكلوية للحد من فقدانه مع البول."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تحدث عملية ارْتِشَاف العظم طبيعياً للحفاظ على توازن الكالسيوم في الدم."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تتم إِعَادَةُ امْتِصَاص الماء في الأنابيب الكلوية للحد من فقدانه مع البول."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "ارْتِشَاف"
+      entry_id: "{auto}"
+      root: "رشف"
+      maqayis_quote: "«(رَشَفَ) الرَّاءُ وَالشِّينُ وَالْفَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ تَقَصِّي شُرْبِ الشَّيْءِ...»"
+    - lemma: "إِعَادَةُ امْتِصَاص"
+      entry_id: "{auto}"
+      roots:
+        - word: "إعادة"
+          root: "عود"
+          maqayis_quote: "«(عَوَدَ) الْعَيْنُ وَالْوَاوُ وَالدَّالُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى تَثْنِيَةٍ فِي الْأَمْرِ...»"
+        - word: "امتصاص"
+          root: "مص"
+          maqayis_quote: "«(مَصَّ) الْمِيمُ وَالصَّادُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى شِبْهِ التَّذَوُّقِ لِلشَّيْءِ، وَأَخْذِ خَالِصِهِ.»"
+  per_sense:
+    - lemma: "ارْتِشَاف"
+      sense_id: "{auto}"
+      nuance: "مصطلح مفرد يشيع استخدامه في سياق تحلل الأنسجة العظمية واستيعابها (resorption)."
+      mwe: false
+    - lemma: "إِعَادَةُ امْتِصَاص"
+      sense_id: "{auto}"
+      nuance: "تعبير مركب يركز على تكرار دورة الامتصاص في فسيولوجيا الأعضاء كالكلى (reabsorption)."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"رشف","maqayis":"«(رَشَفَ) الرَّاءُ وَالشِّينُ وَالْفَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ تَقَصِّي شُرْبِ الشَّيْءِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"إعادة","root":"عود","maqayis":"«(عَوَدَ) الْعَيْنُ وَالْوَاوُ وَالدَّالُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى تَثْنِيَةٍ فِي الْأَمْرِ...»"},{"word":"امتصاص","root":"مص","maqayis":"«(مَصَّ) الْمِيمُ وَالصَّادُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى شِبْهِ التَّذَوُّقِ لِلشَّيْءِ، وَأَخْذِ خَالِصِهِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح مفرد يشيع استخدامه في سياق تحلل الأنسجة العظمية واستيعابها (resorption).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير مركب يركز على تكرار دورة الامتصاص في فسيولوجيا الأعضاء كالكلى (reabsorption).","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-13571707-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-13571707-n"
+        score: 0.95

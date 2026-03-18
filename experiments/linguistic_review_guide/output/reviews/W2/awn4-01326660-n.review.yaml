@@ -1,0 +1,247 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة (حييوان) وردت بدون تشكيل، ويبدو أنها خطأ إملائي أو صيغة غير شائعة لتصغير (حيوان)، والصواب الموثق معجمياً هو (حُيَيْوِين) أو (حُوَيْن)."
+      - "التعريف ينقصه الدقة، فالمصطلح الإنجليزي (animalcule) هو تسمية قديمة تشير للحيوانات المجهرية والأوليات، في حين أن (كائن مجهري) أعم."
+    observations: "المفهوم يشير إلى الكائنات الحية الدقيقة، وخاصة الحيوانية منها أو الأوليات كالأميبا، التي لا ترى إلا بالمجهر."
+  blind_candidates:
+    - lemma: "حُوَيْن"
+      generation_method: ishtiqaq
+      justification: "تصغير (حَيّ) أو (حيوان)، وهو مصطلح مستخدم للإشارة إلى الكائنات الحية الدقيقة جداً."
+    - lemma: "حُيَيْوِين"
+      generation_method: ishtiqaq
+      justification: "تصغير صريح لكلمة (حيوان)، مستخدم معجمياً للإشارة إلى الحيوانات المجهرية."
+    - lemma: "كَائِنٌ دَقِيقٌ"
+      generation_method: tarkib
+      justification: "مركب وصفي يشير إلى الكائنات الحية التي لا ترى بالعين المجردة."
+    - lemma: "مُتَعَضٍّ مِجْهَرِيّ"
+      generation_method: tarkib
+      justification: "مركب وصفي دقيق علمياً يقابل (microscopic organism)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "حيوان دقيق"
+      confirm:
+        - text: "حيوان دقيق، ترجمة: animalcule"
+          source: "المعجم الموحد لمصطلحات علم الأحياء (1993)"
+    - lemma: "حييوان"
+      contradicts:
+        - text: "لا يوجد إثبات لصيغة (حييوان) بفتح الواو وألف، والصواب (حُيَيْوين)."
+          source: "البحث المعجمي"
+          conflict: "صيغة غير موثقة معجمياً، البديل الموثق هو (حُيَيْوِين) أو (حُوَيْن)."
+    - lemma: "حُوَيْن"
+      confirm:
+        - text: "حُوَين [ج:حُوَينات]، ترجمة: animalcule"
+          source: "المعجم الطبي الموحد (2009)"
+    - lemma: "حُيَيْوِين"
+      confirm:
+        - text: "الحُيَيْوين: حيوان مجهريّ لا يُرى بالعين المجرَّدة (أح)، ترجمة: animalcule"
+          source: "المورد الحديث (2008)"
+    - lemma: "كَائِنٌ دَقِيقٌ"
+      confirm:
+        - text: "كائن دقيق، ترجمة: microorganism"
+          source: "المعجم الموحد لمصطلحات علم الصحة وجسم الانسان (1992)"
+    - lemma: "مُتَعَضٍّ مِجْهَرِيّ"
+      confirm:
+        - text: "المتعضِّي المجهريّ. ترجمة: microorganism"
+          source: "المورد الحديث (2008)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "حيوان دقيق"
+      decision: confirmed
+      decision_reason: "مصطلح موثق في المعاجم العلمية (معجم البيولوجيا) ومطابق تماماً للمفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حَيَوَانٌ دَقِيقٌ"
+    - lemma: "حييوان"
+      decision: removed
+      decision_reason: "صيغة إملائية وتصغيرية غير دقيقة ولا شواهد لها، سيتم استبدالها بالصيغة الموثقة (حُيَيْوِين)."
+      evidence_assessment:
+        case: contradicts_only
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "حُيَيْوِين"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تصغير فصيح لكلمة (حيوان) وموثق في معجم المورد الحديث لترجمة (animalcule)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "حُيَيْوِين"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "حُوَيْن"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح موثق في المعجم الطبي الموحد للتعبير عن الكائنات المجهرية (animalcule)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "حُوَيْن"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "كَائِنٌ دَقِيقٌ"
+      source: stage1
+      decision: removed
+      decision_reason: "مصطلح عام يشمل البكتيريا والفطريات، بينما (animalcule) يختص تاريخياً بالأوليات والحيوانات الدقيقة، والمترادفات الأخرى أدق للمفهوم الحيواني."
+    - lemma: "مُتَعَضٍّ مِجْهَرِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "مصطلح عام (microorganism)، في حين أن المجموعة تستهدف التسمية القديمة الخاصة بالأوليات والحيوانات المجهرية (animalcule)."
+
+stage4_content:
+  definition:
+    current: "كائن مجهري مثل الأميبا أو البراميسيوم"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكنه صيغ بأسلوب عام، يمكن تحسين صياغته ليكون تعريفاً مصطلحياً أدق."
+    authored:
+      - type: terminological
+        text: "كائن حيّ دقيق وحيد الخليّة لا يُرى بالعين المجرّدة، كالأميبا والبراميسيوم."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "كَائِنٌ حَيٌّ دَقِيقٌ وَحِيدُ الخَلِيَّةِ لَا يُرَى بِالعَيْنِ المُجَرَّدَةِ، كَالأَمِيبَا وَالبَرَامِيسْيُوم."
+
+  examples:
+    per_lemma:
+      - lemma: "حَيَوَانٌ دَقِيقٌ"
+        examples:
+          - text: "اكتشف العالِم ليفينهوك أشكالاً عديدة من أي حيوان دقيق في قطرة الماء."
+            type: usage
+      - lemma: "حُيَيْوِين"
+        examples:
+          - text: "تُعدّ الأميبا حُيَيْوِيناً وحيد الخليّة دائم التغيّر في شكله."
+            type: usage
+      - lemma: "حُوَيْن"
+        examples:
+          - text: "فحص الباحث عينة المياه بالمجهر بحثاً عن أي حُوَين يعيش فيها."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "اكتشف العالِم ليفينهوك أشكالاً عديدة من أي حيوان دقيق في قطرة الماء."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تُعدّ الأميبا حُيَيْوِيناً وحيد الخليّة دائم التغيّر في شكله."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "فحص الباحث عينة المياه بالمجهر بحثاً عن أي حُوَين يعيش فيها."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "حَيَوَانٌ دَقِيقٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "حيوان"
+          root: "حيي"
+          maqayis_quote: "«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ، وَالْآخَرُ الِاسْتِحْيَاءُ الَّذِي [هُوَ] ضِدُّ الْوَقَاحَةِ.»"
+        - word: "دقيق"
+          root: "دقق"
+          maqayis_quote: "«الدَّالُ وَالْقَافُ أَصْلٌ وَاحِدٌ يعَلَى صِغَرٍ وَحَقَارَةٍ. فَالدَّقِيقُ: خِلَافُ الْجَلِيلِ.»"
+    - lemma: "حُيَيْوِين"
+      entry_id: "{auto}"
+      root: "حيي"
+      maqayis_quote: "«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ، وَالْآخَرُ الِاسْتِحْيَاءُ الَّذِي [هُوَ] ضِدُّ الْوَقَاحَةِ.»"
+    - lemma: "حُوَيْن"
+      entry_id: "{auto}"
+      root: "حيي"
+      maqayis_quote: "«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ، وَالْآخَرُ الِاسْتِحْيَاءُ الَّذِي [هُوَ] ضِدُّ الْوَقَاحَةِ.»"
+
+  per_sense:
+    - lemma: "حَيَوَانٌ دَقِيقٌ"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي مباشر وواضح للكائن المجهري."
+      mwe: true
+    - lemma: "حُيَيْوِين"
+      sense_id: "{auto}"
+      nuance: "صيغة تصغير صريحة تدل على التناهي في الصغر، وتعد المقابل الدقيق للمصطلح الإنجليزي (animalcule)."
+      mwe: false
+    - lemma: "حُوَيْن"
+      sense_id: "{auto}"
+      nuance: "صيغة تصغير تستخدم في السياقات الطبية والعلمية القديمة للكائنات الدقيقة."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"حيوان","root":"حيي","maqayis_quote":"«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ، وَالْآخَرُ الِاسْتِحْيَاءُ الَّذِي [هُوَ] ضِدُّ الْوَقَاحَةِ.»"},{"word":"دقيق","root":"دقق","maqayis_quote":"«الدَّالُ وَالْقَافُ أَصْلٌ وَاحِدٌ يعَلَى صِغَرٍ وَحَقَارَةٍ. فَالدَّقِيقُ: خِلَافُ الْجَلِيلِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حيي","maqayis_quote":"«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ، وَالْآخَرُ الِاسْتِحْيَاءُ الَّذِي [هُوَ] ضِدُّ الْوَقَاحَةِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حيي","maqayis_quote":"«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ، وَالْآخَرُ الِاسْتِحْيَاءُ الَّذِي [هُوَ] ضِدُّ الْوَقَاحَةِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير وصفي مباشر وواضح للكائن المجهري.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"صيغة تصغير صريحة تدل على التناهي في الصغر، وتعد المقابل الدقيق للمصطلح الإنجليزي (animalcule).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"صيغة تصغير تستخدم في السياقات الطبية والعلمية القديمة للكائنات الدقيقة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

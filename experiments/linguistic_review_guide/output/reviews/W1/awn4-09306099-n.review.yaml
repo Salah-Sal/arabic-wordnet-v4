@@ -1,0 +1,158 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "أداة ناقلة للعدوى"
+      confirm:
+        - text: "«أَدَاةُ العَدْوَى (fomite)»"
+          source: "المعجم الطبي الموحد (UMD)"
+        - text: "«أداة عدوى (fomites)»"
+          source: "المكنز الزراعي (AGROVOC)"
+      expands:
+        - text: "«أَدَوَاتٌ مُعْدِيَة (fomites)»"
+          source: "المعجم الطبي الموحد (UMD)"
+    - lemma: "ناقل للمرض"
+      confirm:
+        - text: "«الحمل (vehicle): سائلٌ تُذوَّب فيه الأدوية (صي).»"
+          source: "المورد الحديث"
+        - text: "«سِوَاغٌ، حامِل، ناقِل (vehicle): بلازميدة ذاتية التكرر... تستعمل في نقل المورثات الأجنبية»"
+          source: "المعجم الموحد لمصطلحات علم الوراثة"
+      contradicts:
+        - text: "«النّاقل (vector): حشرة إلخ ناقلة للجراثيم (أح)»"
+          source: "المورد الحديث"
+          conflict: "المصطلح يشير إلى كائنات حية (ناقل حيوي) بينما المجموعة مخصصة للأجسام غير الحية."
+        - text: "«ناقل العدوى: حشرة أو حيوان ينقل العامل الممرض من مضيف لآخر.»"
+          source: "المعجم الموحد لمصطلحات علم الصيدلة"
+          conflict: "تقييد اللفظ بالحيوانات والحشرات."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "أداة العدوى"
+      source_section: "step7_english_bridge"
+      evidence_citation: "«أَدَاةُ العَدْوَى (fomite)» — المعجم الطبي الموحد"
+      justification: "المصطلح التقني الدقيق المقابل لـ fomite في المعجم الطبي الموحد."
+    - lemma: "مكمن عدوى"
+      source_section: "step7_english_bridge"
+      evidence_citation: "«مكامن العدوى (fomes = fomite): أشياء غير ضارة بذاتها ولكنها تأوي المكروبات المرضية مثل قطع الملابس وغيرها.» — معجم المصطلحات الطبية (2003)"
+      justification: "مصطلح معجمي يصف الوظيفة (مكان إيواء الميكروبات) للأجسام غير الحية."
+  knowledge_candidates:
+    - lemma: "أداة ملوثة"
+      justification: "وصف شائع للأجسام غير الحية الحاملة للعوامل المعدية في السياقات الطبية."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "أداة ناقلة للعدوى"
+      decision: confirmed
+      decision_reason: "تعبير وصفي دقيق ومستعمل، يتفق مع بنية المصطلحات المعتمدة في المعاجم الطبية (أداة العدوى)."
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تركز على الفاعلية في عملية النقل (ناقلة)."
+      example: "يجب الحذر من استخدام المناشف المشتركة لكونها أداة ناقلة للعدوى بالأمراض الجلدية."
+
+    - lemma: "ناقل للمرض"
+      decision: confirmed
+      decision_reason: "على الرغم من أن 'ناقل' تشير غالباً للكائنات الحية (vector)، إلا أنها تستخدم ترجمة لـ 'vehicle' التي تشمل الأجسام غير الحية في سياق الأوبئة."
+      evidence_assessment:
+        case: "mixed"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "مصطلح عام يشمل الوظيفة الجوهرية (النقل) دون تحديد طبيعة الجسم (حي أو غير حي)، ويتناظر مع المصطلح الإنجليزي vehicle."
+      example: "يعتبر الغلاف الملوث للمقالات والكتب ناقلاً للمرض في ظروف الأوبئة."
+
+    - lemma: "أداة العدوى"
+      source: step05
+      decision: confirmed
+      decision_reason: "المصطلح التقني المعياري في المعجم الطبي الموحد المقابل لـ fomite."
+      step05_citation: "«أَدَاةُ العَدْوَى (fomite)» — المعجم الطبي الموحد"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "المصطلح الأكثر دقة وتحديداً للأجسام غير الحية في السياق الطبي المتخصص."
+      example: "تتحول أسطح الهواتف الذكية إلى أداة عدوى إذا لم تُعقم بانتظام."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "أداة العدوى"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09306099-n"
+
+    - lemma: "مكمن عدوى"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح معجمي موثق يصف الحالة الكامنة للعوامل المعدية في الأجسام."
+      step05_citation: "«مكامن العدوى (fomes = fomite)» — معجم المصطلحات الطبية"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تؤكد على جانب الإيواء أو الاختباء (مكمن) للعوامل المعدية داخل الجسم."
+      example: "تمثل الملابس الملوثة مكمن عدوى رئيسياً في غرف العناية المركزة."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مكمن عدوى"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09306099-n"
+
+  added_lemmas:
+    - lemma: "أداة العدوى"
+      reason: "مصدر: المعجم الطبي الموحد (UMD)"
+      via_command: create_entry + add_sense
+    - lemma: "مكمن عدوى"
+      reason: "مصدر: معجم المصطلحات الطبية"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "أي جسم غير حي (مثل منشفة أو نقود أو ملابس أو أطباق أو كتب أو ألعاب وما إلى ذلك) يمكن أن ينقل العوامل المعدية من شخص لآخر"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وشامل ويقدم أمثلة توضيحية كافية للتمييز بين الأجسام غير الحية والناقلات الحية."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "جِسْم / شَيْء مَادِّيّ / غَرَض"
+    test_result: "correct"
+  actions: []
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "أداة ناقلة للعدوى"
+      enrichment:
+        root: "أ-د-و / ن-ق-ل / ع-د-و"
+      examples:
+        - text: "يجب الحذر من استخدام المناشف المشتركة لكونها أداة ناقلة للعدوى بالأمراض الجلدية."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "ناقل للمرض"
+      enrichment:
+        root: "ن-ق-ل / م-ر-ض"
+      examples:
+        - text: "يعتبر الغلاف الملوث للمقالات والكتب ناقلاً للمرض في ظروف الأوبئة."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "أداة العدوى"
+      enrichment:
+        root: "أ-د-و / ع-د-و"
+      examples:
+        - text: "تتحول أسطح الهواتف الذكية إلى أداة عدوى إذا لم تُعقم بانتظام."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "مكمن عدوى"
+      enrichment:
+        root: "ك-م-ن / ع-د-و"
+      examples:
+        - text: "تمثل الملابس الملوثة مكمن عدوى رئيسياً في غرف العناية المركزة."
+          type: usage
+          source: "مؤلَّف"
+  cultural_fit:
+    assessment: native

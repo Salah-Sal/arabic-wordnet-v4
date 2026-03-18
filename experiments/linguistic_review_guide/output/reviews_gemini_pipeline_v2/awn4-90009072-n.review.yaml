@@ -1,0 +1,209 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'مُتَقَلِّب الْوُدّ' غير دقيقة في وصف المفهوم؛ فالتقلب يوحي بالتذبذب العشوائي، بينما مفهوم 'التسونديري' يعبر عن تدرج من البرود إلى الود."
+      - "المفهوم مرتبط بثقافة معينة (اليابانية) ويحتاج لمصطلحات عربية تراثية تصف السلوك المشابه."
+    observations: "المجموعة تمثل نمطاً شخصياً (Tsundere) يجمع بين القسوة الظاهرة والود الخفي. المصطلح الياباني هو الأكثر دقة تقنياً في السياق المعاصر، لكن العربية تمتلك مفردات تصف جانبي هذه الشخصية بشكل مجازي."
+  blind_candidates:
+    - lemma: "مُسْتَبْطِنُ الْوُدِّ"
+      generation_method: tarkib
+      justification: "وصف دقيق لمن يخفي مودة داخلية تحت قناع خارجي مختلف."
+    - lemma: "مُتَمَنِّعٌ"
+      generation_method: majaz
+      justification: "لفظ تراثي يصف الشخص الذي يبدي صدوداً وتمنعاً رغم ميله القلبي، وهو أقرب ما يكون للجانب (Tsun) في المصطلح."
+    - lemma: "تُسُونْدِيرِي"
+      generation_method: taarib
+      justification: "التعريب المباشر للمصطلح العالمي لضمان الدقة في سياق تحليل الشخصيات."
+    - lemma: "مُتَظَاهِرٌ بِالْجَفَاءِ"
+      generation_method: tarkib
+      justification: "تعبير وصفي يوضح أن الجفاء (البرود/العداء) ليس حقيقياً بل هو مجرد تظاهر."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تُسُونْدِيرِي"
+      evidence_status: "no_material_found"
+    - lemma: "مُتَقَلِّب الْوُدّ"
+      evidence_status: "no_material_found"
+    - lemma: "مُتَمَنِّعٌ"
+      confirm:
+        - text: "«امرأة منيعة متمنعة لا تؤاتى على فاحشة»"
+          source: "كتاب العين"
+        - text: "«تمنع: لم يرضخ لتضرعات الحبيب»"
+          source: "تكملة المعاجم العربية"
+        - text: "«الأبية المتمنعة»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+    - lemma: "مُسْتَبْطِنُ الْوُدِّ"
+      confirm:
+        - text: "«وَبَاطِنُ الْأَمْرِ دُخْلَتُهُ، خِلَافُ ظَاهِرِهِ. تَقُولُ: بَطَنْتُ هَذَا الْأَمْرَ: إِذَا عَرَفْتَ بَاطِنَهُ.»"
+          source: "مقاييس اللغة (للإشارة إلى أن الود هو الباطن المستتر)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تُسُونْدِيرِي"
+      decision: confirmed
+      decision_reason: "المصطلح التقني الوحيد الذي يحدد هذا النمط من الشخصيات في سياق النقد الثقافي المعاصر، خاصة في مجال الرواية والأنمي."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تُسُونْدِيرِي"
+    - lemma: "مُتَقَلِّب الْوُدّ"
+      decision: removed
+      decision_reason: "التقلب يعني التذبذب المستمر بين حالتين، بينما التسونديري يعبر عن حالة مركبة (قشرة قاسية ولب ودود) أو تحول تدريجي أحادي الاتجاه."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "مُتَمَنِّعٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ عربي فصيح له جذور في التراث لوصف الصدود المتعمد الذي يخفي رغبة أو وداً، وهو تطبيق مجازي دقيق."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُتَمَنِّعٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُسْتَبْطِنُ الْوُدِّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير تركيبي دقيق يصف الجانب الدلالي الأهم في الشخصية وهو إضمار المودة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "مُسْتَبْطِنُ الْوُدِّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُتَظَاهِرٌ بِالْجَفَاءِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يوضح السلوك الخارجي (الجفاء) كفعل إرادي أو قناع."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "مُتَظَاهِرٌ بِالْجَفَاءِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "شخص يكون بارداً أو حتى عدائياً تجاه شخص آخر في البداية قبل أن يظهر جانباً أكثر دفئاً تدريجياً بمرور الوقت"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكن يمكن صياغته بأسلوب معجمي أكثر إحكاماً وشمولاً لطبيعة الشخصية."
+    authored:
+      - type: terminological
+        text: "شَخْصِيَّةٌ أَوْ نَمَطٌ سُلُوكِيٌّ يَتَّسِمُ بِالْجَفَاءِ أَوِ الْعَدَائِيَّةِ الظَّاهِرِيَّةِ فِي الْبِدَايَةِ، لِيُخْفِيَ مَشَاعِرَ مَوَدَّةٍ عَمِيقَةٍ تَظْهَرُ تَدْرِيجِيًّا مَعَ تَطَوُّرِ الْعَلَاقَةِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "تُسُونْدِيرِي"
+        examples:
+          - text: "تُعد شخصية 'كاغويا' مثالاً كلاسيكياً للتسونديري التي ترفض الاعتراف بمشاعرها."
+            type: usage
+      - lemma: "مُتَمَنِّعٌ"
+        examples:
+          - text: "ظهر بمظهر المتمنع القاسي، لكن قلبه كان يفيض حباً."
+            type: usage
+      - lemma: "مُسْتَبْطِنُ الْوُدِّ"
+        examples:
+          - text: "هو رجل مستبطن للود، لا يغرك جفاؤه الظاهر."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "شَخْصِيَّةٌ أَوْ نَمَطٌ سُلُوكِيٌّ يَتَّسِمُ بِالْجَفَاءِ أَوِ الْعَدَائِيَّةِ الظَّاهِرِيَّةِ فِي الْبِدَايَةِ، لِيُخْفِيَ مَشَاعِرَ مَوَدَّةٍ عَمِيقَةٍ تَظْهَرُ تَدْرِيجِيًّا مَعَ تَطَوُّرِ الْعَلَاقَةِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تُسُونْدِيرِي"
+      entry_id: "{auto}"
+      note: "مصطلح معرب من اليابانية (Tsundere)."
+    - lemma: "مُتَمَنِّعٌ"
+      entry_id: "{auto}"
+      root: "منع"
+      maqayis_quote: "«الْمِيمُ وَالنُّونُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ هُوَ خِلَافُ الْإِعْطَاءِ. وَمَنَعْتُهُ الشَّيْءَ مَنْعًا، وَهُوَ مَانِعٌ وَمَنَّاعٌ. وَمَكَانٌ مَنِيعٌ. وَهُوَ فِي عِزٍّ وَمَنْعَةٍ.»"
+    - lemma: "مُسْتَبْطِنُ الْوُدِّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مستبطن"
+          root: "بطن"
+          maqayis_quote: "«الْبَاءُ وَالطَّاءُ وَالنُّونُ أَصْلٌ وَاحِدٌ لَا يَكَادُ يُخْلِفُ، وَهُوَ إِنْسِيُّ الشَّيْءِ وَالْمُقْبِلُ مِنْهُ. وَبَاطِنُ الْأَمْرِ دُخْلَتُهُ، خِلَافُ ظَاهِرِهِ.»"
+        - word: "الود"
+          root: "ودد"
+          maqayis_quote: "«الْوَاوُ وَالدَّالُ: كَلِمَةٌ تَدُلُّ عَلَى مَحَبَّةٍ. وَدِدْتُهُ: أَحْبَبْتُهُ.»"
+    - lemma: "مُتَظَاهِرٌ بِالْجَفَاءِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "متظاهر"
+          root: "ظهر"
+          maqayis_quote: "«الظَّاءُ وَالْهَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى قُوَّةٍ وَبُرُوزٍ. فَالظَّهْرُ خِلَافُ الْبَطْنِ، وَهُوَ أَقْوَى مَا فِي الْإِنْسَانِ وَأَبْرَزُهُ.»"
+        - word: "الجفاء"
+          root: "جفو"
+          maqayis_quote: "«الْجِيمُ وَالْفَاءُ وَالْحَرْفُ الْمُعْتَلُّ يَدُلُّ عَلَى أَصْلٍ وَاحِدٍ: نُبُوُّ الشَّيْءِ عَنِ الشَّيْءِ. وَالْجَفَاءُ: خِلَافُ الْبِرِّ.»"
+  per_sense:
+    - lemma: "تُسُونْدِيرِي"
+      sense_id: "{auto}"
+      nuance: "المصطلح الفني المحدد للنمط الياباني الأصلي."
+      mwe: false
+    - lemma: "مُتَمَنِّعٌ"
+      sense_id: "{auto}"
+      nuance: "يركز على فعل 'التمنع' والصدود المتعمد."
+      mwe: false
+    - lemma: "مُسْتَبْطِنُ الْوُدِّ"
+      sense_id: "{auto}"
+      nuance: "يركز على حقيقة المشاعر الداخلية (الباطنة)."
+      mwe: true
+    - lemma: "مُتَظَاهِرٌ بِالْجَفَاءِ"
+      sense_id: "{auto}"
+      nuance: "يركز على أن البرود الخارجي هو مجرد مظهر (تظاهر)."
+      mwe: true
+  synset:
+    cultural_fit: omission
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"منع","maqayis":"«الْمِيمُ وَالنُّونُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ هُوَ خِلَافُ الْإِعْطَاءِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مستبطن","root":"بطن","maqayis":"«الْبَاءُ وَالطَّاءُ وَالنُّونُ أَصْلٌ وَاحِدٌ...»"},{"word":"الود","root":"ودد","maqayis":"«الْوَاوُ وَالدَّالُ: كَلِمَةٌ تَدُلُّ عَلَى مَحَبَّةٍ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الفني المحدد للنمط الياباني الأصلي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"omission"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

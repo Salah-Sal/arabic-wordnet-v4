@@ -1,0 +1,176 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمات الحالية صحيحة علمياً لكنها تفتقر للتشكيل الكامل.
+      - غياب مصطلح "لجين" الذي يعد تعريباً تقنياً معتمداً في المعجم الطبي الموحد.
+    observations: "المجموعة تتعلق بمصطلح كيميائي تخصصي (Ligand). المصطلح العربي الأكثر شيوعاً هو 'ربيطة' (جمع ربائط)، ويستخدم أيضاً 'لاقط' في سياقات معينة مثل نظرية الحقل اللاقط. المعجم الطبي الموحد يقدم 'لَجين' كتعريب صوتي واشتقاقي للمصطلح."
+  blind_candidates:
+    - lemma: "رَبِيطَة"
+      generation_method: ishtiqaq
+      justification: "اشتقاق على وزن فعيلة من الجذر (ربط) للدلالة على الأداة أو المادة التي تقوم بالربط، وهو المصطلح المعياري في الكيمياء."
+    - lemma: "لاَقِط"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من (لقط)، يستخدم في الفيزياء والكيمياء للدلالة على المادة التي تلتقط أو ترتبط بمركز."
+    - lemma: "لَجِين"
+      generation_method: taarib
+      justification: "تعريب صوتي لمصطلح Ligand مع مواءمته مع الأوزان العربية، وهو معتمد في المعجم الطبي الموحد."
+    - lemma: "ضَمِيمَة"
+      generation_method: ishtiqaq
+      justification: "من الضم، للدلالة على ما يُضم إلى الذرة المركزية لتشكيل المعقد."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "رَبِيطَة"
+      confirm:
+        - text: "«(الربيطة) الدواب المربوطة (ج) ربائط»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "تستخدم في الكيمياء الحديثة للدلالة على الذرة أو الجزيء الذي يرتبط بذرة مركزية (ملاحظة من الاستخدام العلمي المعاصر)."
+          source: "المصطلحات الكيميائية المعاصرة"
+    - lemma: "لاَقِط"
+      confirm:
+        - text: "«لاقط: (Physics) pick-up»"
+          source: "المعجم الموحد لمصطلحات الفيزياء"
+        - text: "«نظرية الحقل اللاقط: ligand-field theory»"
+          source: "المعجم الموحد لمصطلحات الكيمياء"
+    - lemma: "لَجِين"
+      confirm:
+        - text: "«لَجين [ج:لَجائِن] (جزيء يلتحم بجزيء آخر): ligand»"
+          source: "المعجم الطبي الموحد"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "ربيطة"
+      decision: confirmed
+      decision_reason: "المصطلح العربي الأساسي والمعياري في الكيمياء للتعبير عن الـ Ligand."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "رَبِيطَة"
+    - lemma: "لاقط"
+      decision: confirmed
+      decision_reason: "مصطلح معتمد في المعاجم الموحدة للكيمياء والفيزياء، خاصة في سياق 'الحقل اللاقط'."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "لاَقِط"
+    - lemma: "لَجِين"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعريب تقني دقيق معتمد في المعاجم الطبية المتخصصة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "لَجِين", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-15134874-n"}
+
+stage4_content:
+  definition:
+    current: "مادة (ذرة أو جزيء أو أيون) تشكل معقداً حول ذرة مركزية"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دقيق ولكنه يفتقر إلى الصياغة المصطلحية الأكثر تداولاً في كتب الكيمياء."
+    authored:
+      - type: terminological
+        text: "ذرة أو أيون أو جزيء يرتبط بذرة فلز مركزية عن طريق منح زوج من الإلكترونات لتكوين مركب تناسقي (معقد)."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-15134874-n", definition_index: 0, text: "ذرة أو أيون أو جزيء يرتبط بذرة فلز مركزية لتكوين مركب تناسقي (معقد)."}
+  examples:
+    per_lemma:
+      - lemma: "رَبِيطَة"
+        examples:
+          - text: "تعمل جزيئات الماء كربائط عند ذوبان أملاح النحاس في المحاليل المائية."
+            type: usage
+      - lemma: "لاَقِط"
+        examples:
+          - text: "تفسر نظرية الحقل اللاقط التغيرات اللونية في مركبات العناصر الانتقالية."
+            type: usage
+      - lemma: "لَجِين"
+        examples:
+          - text: "يرتبط اللجين بمستقبل بروتيني على سطح الخلية لتحفيز استجابة معينة."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "رَبِيطَة"
+      entry_id: "{auto}"
+      root: "ربط"
+      maqayis_quote: "«الرَّاءُ وَالْبَاءُ وَالطَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى شَدٍّ وَثَبَاتٍ.»"
+    - lemma: "لاَقِط"
+      entry_id: "{auto}"
+      root: "لقط"
+      maqayis_quote: "«اللَّامُ وَالْقَافُ وَالطَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى أَخْذِ شَيْءٍ مِنَ الْأَرْضِ قَدْ رَأَيْتَهُ بَغْتَةً.»"
+    - lemma: "لَجِين"
+      entry_id: "{auto}"
+      root: "لجن"
+      maqayis_quote: "«اللَّامُ وَالْجِيمُ وَالنُّونُ كَلِمَتَانِ: اللُّجَيْنُ: الْفِضَّةُ. وَاللَّجِينُ: حَشِيشٌ يُضْرَبُ بِالْحِجَارَةِ حَتَّى يَتَلَجَّنَ.»"
+  per_sense:
+    - lemma: "رَبِيطَة"
+      sense_id: "{auto}"
+      nuance: "المصطلح الأكثر شيوعاً في الكيمياء غير العضوية والتناسقية."
+      mwe: false
+    - lemma: "لاَقِط"
+      sense_id: "{auto}"
+      nuance: "يستخدم غالباً في سياق الفيزياء الكيميائية ونظرية الحقول."
+      mwe: false
+    - lemma: "لَجِين"
+      sense_id: "{auto}"
+      nuance: "تعريب تخصصي يستخدم بكثرة في الكيمياء الحيوية والطب."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ربط","maqayis":"«الرَّاءُ وَالْبَاءُ وَالطَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى شَدٍّ وَثَبَاتٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"لقط","maqayis":"«اللَّامُ وَالْقَافُ وَالطَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى أَخْذِ شَيْءٍ مِنَ الْأَرْضِ قَدْ رَأَيْتَهُ بَغْتَةً.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"لجن","maqayis":"«اللَّامُ وَالْجِيمُ وَالنُّونُ كَلِمَتَانِ: اللُّجَيْنُ: الْفِضَّةُ. وَاللَّجِينُ: حَشِيشٌ يُضْرَبُ بِالْحِجَارَةِ حَتَّى يَتَلَجَّنَ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الأكثر شيوعاً في الكيمياء غير العضوية والتناسقية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-15134874-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-15134874-n"
+        score: 0.95

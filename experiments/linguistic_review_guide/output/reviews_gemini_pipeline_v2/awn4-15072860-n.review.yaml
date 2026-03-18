@@ -1,0 +1,180 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الحالية 'مبيد للفيروسات' تتضمن حرف الجر، ومن الأفضل إضافة التركيب الإضافي المباشر 'مبيد الفيروسات'."
+      - "التعريف الحالي يستخدم التردد (أو) ويبدأ بصيغة غير معجمية دقيقة."
+    observations: "المفهوم علمي حديث وله مقابلات مستقرة في المعاجم الطبية تعتمد على التركيب المزجي أو الإضافي للفظة 'فيروس' المعربة."
+  blind_candidates:
+    - lemma: "مُبِيدُ الْفَيْرُوسَاتِ"
+      generation_method: tarkib
+      justification: "تركيب إضافي من اسم الفاعل 'مبيد' والاسم المعرب 'فيروسات'، وهو الأنسب وظيفياً."
+    - lemma: "قَاتِلُ الْفَيْرُوسَاتِ"
+      generation_method: tarkib
+      justification: "تركيب إضافي يصف وظيفة القضاء على الفيروسات."
+    - lemma: "مُبِيدٌ حُمَوِيٌّ"
+      generation_method: ishtiqaq
+      justification: "استخدام الصفة المنسوبة إلى 'حُمَة' (اللفظ العربي للفيروس) مع كلمة مبيد."
+    - lemma: "مُبِيدُ الْحُمَاتِ"
+      generation_method: tarkib
+      justification: "تركيب إضافي يستخدم الجمع الفصيح 'حُمَات' بدلاً من اللفظ المعرب."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُبِيدٌ لِلْفَيْرُوسَاتِ"
+      confirm:
+        - text: "مُبيدٌ للفَيْروس"
+          source: "المعجم الطبي الموحد (2009)"
+    - lemma: "مُبِيدُ الْفَيْرُوسَاتِ"
+      confirm:
+        - text: "مُبيد ال?يروسات: عاملٌ مبيدٌ لل?يروسات."
+          source: "المورد الحديث (2008)"
+        - text: "مُبيدُ الفَيْروس"
+          source: "المعجم الطبي الموحد (2009)"
+    - lemma: "قَاتِلُ الْفَيْرُوسَاتِ"
+      evidence_status: no_material_found
+    - lemma: "مُبِيدٌ حُمَوِيٌّ"
+      evidence_status: no_material_found
+    - lemma: "مُبِيدُ الْحُمَاتِ"
+      evidence_status: no_material_found
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مُبِيدٌ لِلْفَيْرُوسَاتِ"
+      decision: confirmed
+      decision_reason: "مصطلح معتمد في المعاجم الطبية الحديثة، ويعبر بدقة عن العامل الذي يقضي على الفيروسات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+      nuance_differentiation: "صيغة تتضمن حرف الجر (اللام)، وهي شائعة في الاستعمال الطبي كشبه جملة وصفية."
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُبِيدٌ لِلْفَيْرُوسَاتِ"
+
+    - lemma: "مُبِيدُ الْفَيْرُوسَاتِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مركب إضافي فصيح وموثق معجمياً، وهو أخف على اللسان من التركيب بحرف الجر ويعتبر التعبير القياسي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      nuance_differentiation: "تركيب إضافي مباشر، وهو الأكثر ملاءمة وسلاسة في التعبير المصطلحي الثابت."
+      actions:
+        - command: create_entry
+          params: {lemma: "مُبِيدُ الْفَيْرُوسَاتِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "قَاتِلُ الْفَيْرُوسَاتِ"
+      source: stage1
+      decision: removed
+      decision_reason: "لم يرد في المعاجم المتخصصة، واستخدام 'مبيد' أدق علمياً واصطلاحياً من 'قاتل'."
+    - lemma: "مُبِيدٌ حُمَوِيٌّ"
+      source: stage1
+      decision: removed
+      decision_reason: "اجتهاد توليدي لم تؤيده المعاجم، واستخدام 'فيروسات' أكثر شيوعاً ودقة."
+    - lemma: "مُبِيدُ الْحُمَاتِ"
+      source: stage1
+      decision: removed
+      decision_reason: "مصطلح فصيح مقترح ولكن يندر استخدامه مقارنة باللفظ المعرب 'فيروسات' في هذا السياق الدقيق."
+
+stage4_content:
+  definition:
+    current: "عامل (فيزيائي أو كيميائي) يعطل الفيروسات أو يدمرها"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يبدأ بكلمة نكرة بأسلوب غير معجمي محض ويستخدم التردد (أو). يمكن صياغته بأسلوب المعجم الوسيط ليكون أدق."
+    authored:
+      - type: terminological
+        text: "عَامِلٌ كِيمْيَائِيٌّ أَوْ فِيزْيَائِيٌّ يَقْضِي عَلَى الْفَيْرُوسَاتِ وَيُبْطِلُ مَفْعُولَهَا."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "عَامِلٌ كِيمْيَائِيٌّ أَوْ فِيزْيَائِيٌّ يَقْضِي عَلَى الْفَيْرُوسَاتِ وَيُبْطِلُ مَفْعُولَهَا."}
+
+  examples:
+    per_lemma:
+      - lemma: "مُبِيدٌ لِلْفَيْرُوسَاتِ"
+        examples:
+          - text: "تُسْتَخْدَمُ مَوَادُّ التَّعْقِيمِ كَمُبِيدٍ لِلْفَيْرُوسَاتِ فِي الْمُسْتَشْفَيَاتِ."
+            type: usage
+      - lemma: "مُبِيدُ الْفَيْرُوسَاتِ"
+        examples:
+          - text: "يُنْصَحُ بِاسْتِخْدَامِ مُبِيدِ الْفَيْرُوسَاتِ لِتَطْهِيرِ الْأَسْطُحِ الْمُلَوَّثَةِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تُسْتَخْدَمُ مَوَادُّ التَّعْقِيمِ كَمُبِيدٍ لِلْفَيْرُوسَاتِ فِي الْمُسْتَشْفَيَاتِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يُنْصَحُ بِاسْتِخْدَامِ مُبِيدِ الْفَيْرُوسَاتِ لِتَطْهِيرِ الْأَسْطُحِ الْمُلَوَّثَةِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُبِيدٌ لِلْفَيْرُوسَاتِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مبيد"
+          root: "بيد"
+          maqayis_quote: "«(بَيَدَ) الْبَاءُ وَالْيَاءُ وَالدَّالُ أَصْلٌ [وَاحِدٌ] ، وَهُوَ أَنْ يُودِيَ الشَّيْءُ.»"
+        - word: "للفيروسات"
+    - lemma: "مُبِيدُ الْفَيْرُوسَاتِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مبيد"
+          root: "بيد"
+          maqayis_quote: "«(بَيَدَ) الْبَاءُ وَالْيَاءُ وَالدَّالُ أَصْلٌ [وَاحِدٌ] ، وَهُوَ أَنْ يُودِيَ الشَّيْءُ.»"
+        - word: "الفيروسات"
+  per_sense:
+    - lemma: "مُبِيدٌ لِلْفَيْرُوسَاتِ"
+      sense_id: "{auto}"
+      nuance: "صيغة تتضمن حرف الجر (اللام)، وهي شائعة في الاستعمال الطبي كشبه جملة وصفية."
+      mwe: true
+    - lemma: "مُبِيدُ الْفَيْرُوسَاتِ"
+      sense_id: "{auto}"
+      nuance: "تركيب إضافي مباشر، وهو الأكثر ملاءمة وسلاسة في التعبير المصطلحي الثابت."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مبيد","root":"بيد","maqayis":"«(بَيَدَ) الْبَاءُ وَالْيَاءُ وَالدَّالُ أَصْلٌ [وَاحِدٌ] ، وَهُوَ أَنْ يُودِيَ الشَّيْءُ.»"},{"word":"للفيروسات"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مبيد","root":"بيد","maqayis":"«(بَيَدَ) الْبَاءُ وَالْيَاءُ وَالدَّالُ أَصْلٌ [وَاحِدٌ] ، وَهُوَ أَنْ يُودِيَ الشَّيْءُ.»"},{"word":"الفيروسات"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"صيغة تتضمن حرف الجر (اللام)، وهي شائعة في الاستعمال الطبي كشبه جملة وصفية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركيب إضافي مباشر، وهو الأكثر ملاءمة وسلاسة في التعبير المصطلحي الثابت.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

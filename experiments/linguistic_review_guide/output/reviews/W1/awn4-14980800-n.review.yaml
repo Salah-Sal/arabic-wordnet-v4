@@ -1,0 +1,133 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "حمأة"
+      confirm:
+        - text: "«الحَمْأَةُ: الطِّينُ الأسْوَدُ المُنْتِنُ» — القاموس المحيط"
+        - text: "«الحمأة: الطين الأسود المنتن» — التوقيف على مهمات التعاريف"
+      expands:
+        - text: "«مُخَلَّفاتُ الصَّرْفِ الصِّحِّيِّ الغَلِيظَةُ غيرُ القابِلَةِ للذَّوَبان» — المعجم الكبير"
+          addition: "استعمال تقني حديث يطابق مفهوم sludge"
+    - lemma: "وحل"
+      confirm:
+        - text: "«الوَحَلُ، ويُحَرَّكُ: الطينُ (الرَّقيقُ) تَرْتَطِمُ فيه الدوابُّ» — القاموس المحيط"
+        - text: "«الوَحَلُ بالتحريك: الطينُ الرقيقُ» — صحاح الجوهري"
+    - lemma: "طين لزج"
+      confirm:
+        - text: "«اللَّزِجُ: كلُّ شيءٍ يَتَمَدَّدُ ولا يَنْقَطِعُ كالدِّبْسِ والخِطْمِيِّ» — لسان العرب"
+          addition: "وصف الطين باللزوجة يجعله مطابقاً لتعريف المادة السميكة اللزجة"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "ردغة"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«الرَّدْغَةُ: الوَحَلُ الْكثير» — المعجم الوسيط"
+      justification: "كلمة تراثية وفصيحة تدل على الوحل الكثيف أو المزيج شبه السائل، وهي مرادف دقيق لـ slime/ooze"
+  knowledge_candidates:
+    - lemma: "لُطَاخَة"
+      justification: "تُستخدم في المعجمية الحديثة للدلالة على البقعة أو المادة اللزجة الملطخة (smear/blob/goo)"
+  generation_notes: "المفهوم يدور حول المواد الطينية أو الغروية ذات القوام السميك. 'ردغة' هي الخيار التراثي الأقوى"
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "حمأة"
+      decision: confirmed
+      decision_reason: "أدلة معجمية تراثية وحديثة تؤكد انطباقها على المادة الطينية السوداء اللزجة (sludge)"
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تختص بالطين الأسود المتغير الرائحة أو مخلفات الصرف الصحي (sludge)"
+      example: "﴿فَجَعَلَهُ غُثَاءً أَحْوَى﴾... أي طيناً أسود يشبه الحمأة بعد جفافه"
+    - lemma: "وحل"
+      decision: confirmed
+      decision_reason: "كلمة عربية أصيلة وشائعة للمادة الطينية الرقيقة (mud/mire)"
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تستخدم للدلالة على الطين الرقيق الذي تزل فيه الأقدام (mud)"
+      example: "تَعَطَّلَتِ السَّيَّارَةُ بَعْدَ أَنْ غَاصَتْ عَجَلَاتُهَا فِي الوَحْلِ"
+    - lemma: "طين لزج"
+      decision: confirmed
+      decision_reason: "تعبير مركب وصفي مستقر وشائع في السياقات العلمية واللغوية"
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "وصف صريح يركز على خاصية اللزوجة في الطين"
+      example: "تَتَمَيَّزُ بَعْضُ الأَرَاضِي بِوُجُودِ طِينٍ لَزِجٍ يَصْعُبُ حَرْثُهُ"
+    - lemma: "ردغة"
+      source: step05
+      decision: confirmed
+      decision_reason: "مرادف فصيح وقوي يدل على الوحل الكثير، ويطابق تماماً مفهوم ooze/slurry"
+      step05_citation: "«الرَّدْغَةُ: الوَحَلُ الْكثير» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تدل على كثرة الوحل وشدته وتجمعه في مكان واحد"
+      example: "تَحَوَّلَتِ الطَّرِيقُ إِلَى رَدْغَةٍ كَبِيرَةٍ بَعْدَ هُطُولِ الأَمْطَارِ الغَزِيرَةِ"
+      actions:
+        - command: create_entry
+          params:
+            lemma: "ردغة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-14980800-n"
+    - lemma: "لُطَاخَة"
+      source: step05
+      decision: removed
+      decision_reason: "على الرغم من فصاحتها، إلا أنها تدل أكثر على الأثر (smear) أو العينة المخبرية، وليست مرادفاً عاماً للمادة الطينية المقصودة"
+      step05_citation: "معرفية لغوية"
+  added_lemmas:
+    - lemma: "ردغة"
+      reason: "مرادف فصيح للوحل الكثيف والمادة اللزجة (ooze)"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "أي مادة سميكة ولزجة"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وشامل للمفهوم الفيزيائي للمادة (matter) المقصودة"
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "مَادَّة"
+    test_result: "correct"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "حمأة"
+      enrichment:
+        root: "ح-م-أ"
+      examples:
+        - text: "﴿مِنْ حَمَإٍ مَسْنُونٍ﴾"
+          type: "quran"
+          source: "الحجر/ ٢٦"
+    - lemma: "وحل"
+      enrichment:
+        root: "و-ح-ل"
+      examples:
+        - text: "ارْتَطَمَتِ الدَّوَابُّ فِي الوَحْلِ بَعْدَ السَّيْلِ"
+          type: "usage"
+          source: "مؤلَّف"
+    - lemma: "طين لزج"
+      enrichment:
+        root: "ط-ي-ن"
+      examples:
+        - text: "تَحَوَّلَ التُّرَابُ إِلَى طِينٍ لَزِجٍ بَعْدَ خَلْطِهِ بِالْمَاءِ"
+          type: "usage"
+          source: "مؤلَّف"
+    - lemma: "ردغة"
+      enrichment:
+        root: "ر-د-غ"
+      examples:
+        - text: "يُعْرِقُهُمْ فِي رَدْغَةِ الْخَبَالِ"
+          type: "hadith"
+          source: "مسند أحمد"
+  cultural_fit:
+    assessment: native

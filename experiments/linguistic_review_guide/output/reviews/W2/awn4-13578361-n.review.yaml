@@ -1,0 +1,202 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "كلمة (غمر) تدل على الفعل المسبب (التغطية والإحاطة بالماء)، وليس على العملية الناتجة (التشبع والتلين)."
+      - "يجب إضافة صيغة المطاوعة (انتقاع) لأن التعريف الإنجليزي (becoming softened) يركز على العملية الذاتية والمطاوعة."
+    observations: "تتطلب المجموعة الترادفية التركيز على عملية التلين والتشبع بالسوائل. لفظ (النقع) هو المعادل الأدق لهذه العملية، في حين يعبر (الانتقاع) عن حالة المطاوعة والتشبع الذاتي للمادة."
+  blind_candidates:
+    - lemma: "انْتِقَاع"
+      generation_method: ishtiqaq
+      justification: "مصدر الفعل انتقع، ويدل على المطاوعة، أي عملية التأثر بالماء والتشبع به حتى التلين."
+    - lemma: "تَشَبُّع بِالْمَاء"
+      generation_method: tarkib
+      justification: "تركيب إضافي يعبر عن الحالة النهائية للعملية المذكورة في التعريف."
+    - lemma: "تَشَرُّب"
+      generation_method: ishtiqaq
+      justification: "مصدر تشرب، ويدل على امتصاص الجسم للماء وتشبعه به."
+    - lemma: "إِشْبَاع"
+      generation_method: ishtiqaq
+      justification: "مصدر الفعل أشبع، أي ملأ الفراغات بالماء أو السائل."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "نقع"
+      confirm:
+        - text: "نقَع الشَّيءَ في الماء: تركه حتَّى انتقع وانحلّ."
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "نَقْع: soaking"
+          source: "المعجم الموحد لمصطلحات تقانات الأغذية"
+    - lemma: "غمر"
+      contradicts:
+        - text: "الغَمْرُ: الماءُ الكثيرُ، ... وغَمَرَهُ الماءُ غَمْراً واغْتَمَرَهُ: غَطَّاهُ."
+          source: "القاموس المحيط"
+          conflict: "الغمر يدل على مجرد التغطية والإحاطة بالماء (Immersion) وهو السبب المؤدي للعملية المذكورة، وليس العملية ذاتها (التشبع والتلين)."
+    - lemma: "انْتِقَاع"
+      confirm:
+        - text: "انتقع التَّمرُ ونحوُه: مُطاوع نقَعَ/ نقَعَ بـ: مكث في الماء حتى انحلّ."
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "تَشَبُّع بِالْمَاء"
+      evidence_status: no_material_found
+    - lemma: "تَشَرُّب"
+      evidence_status: no_material_found
+    - lemma: "إِشْبَاع"
+      expands:
+        - text: "ملء جميع الفراغات بين جزيئات التربة بسائل."
+          source: "مسرد المناخ والبيئة وإدارة النفايات الصلبة"
+          addition: "يدل على وصول المادة إلى حد لا تقبل بعده الزيادة (Saturation)."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "نقع"
+      decision: confirmed
+      decision_reason: "مصدر دقيق يصف عملية ترك المادة في السائل حتى تتشبع وتتلين، وهو يقابل مصطلح (Soaking) بدقة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نَقْع"
+    - lemma: "غمر"
+      decision: removed
+      decision_reason: "الغمر هو التغطية والإغراق في الماء (Immersion)، وهو السبب الذي يؤدي إلى (النقع)، ولا يمثل بذاته التلين والتشبع."
+      evidence_assessment:
+        case: contradicts_only
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "انْتِقَاع"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصدر يمثل حالة المطاوعة (اللازم) من النقع، ويعبر بدقة عن حالة المادة التي تتشبع وتتلين بالماء، وهو ما يعكس الجانب المطاوع في التعريف (becoming softened)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "انْتِقَاع"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "تَشَبُّع بِالْمَاء"
+      source: stage1
+      decision: removed
+      decision_reason: "تركيب وصفي غير مسكوك كمصطلح لمعنى النقع، ويكتفى باللمّات المفردة."
+      evidence_assessment:
+        case: no_material
+    - lemma: "تَشَرُّب"
+      source: stage1
+      decision: removed
+      decision_reason: "مصطلح عام يشير إلى الامتصاص، ولا يحمل دلالة التلين الملازمة للنقع."
+      evidence_assessment:
+        case: no_material
+    - lemma: "إِشْبَاع"
+      source: stage1
+      decision: removed
+      decision_reason: "مصطلح كيميائي وفيزيائي يعبر عن الوصول للحد الأقصى من الامتصاص أو الإذابة، ولا يقتصر على عملية النقع بالماء."
+      evidence_assessment:
+        case: expands
+
+stage4_content:
+  definition:
+    current: "عملية التلين والتشبع نتيجة الغمر في الماء (أو سائل آخر)"
+    assessment:
+      decision: revise
+      reason: "تحسين السبك اللغوي وصياغته بأسلوب معجمي أكثر دقة وإيجازاً."
+    authored:
+      - type: terminological
+        text: "عملية تلين المادة وتشبعها نتيجة غمرها وتركها في الماء أو في سائل آخر."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "عملية تلين المادة وتشبعها نتيجة غمرها وتركها في الماء أو في سائل آخر."
+  examples:
+    per_lemma:
+      - lemma: "نَقْع"
+        examples:
+          - text: "يحتاج هذا النوع من البقوليات إلى النَّقْع في الماء ليلة كاملة قبل الطهي."
+            type: usage
+      - lemma: "انْتِقَاع"
+        examples:
+          - text: "بعد انْتِقَاع الأوراق في الماء الساخن، تتسرب منها الزيوت العطرية المفيدة."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يحتاج هذا النوع من البقوليات إلى النَّقْع في الماء ليلة كاملة قبل الطهي."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "بعد انْتِقَاع الأوراق في الماء الساخن، تتسرب منها الزيوت العطرية المفيدة."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "نَقْع"
+      entry_id: "{auto}"
+      root: "نقع"
+      maqayis_quote: "«النُّونُ وَالْقَافُ وَالْعَيْنُ أَصْلَانِ صَحِيحَانِ: أَحَدُهُمَا يَدُلُّ عَلَى اسْتِقْرَارِ شَيْءٍ»"
+    - lemma: "انْتِقَاع"
+      entry_id: "{auto}"
+      root: "نقع"
+      maqayis_quote: "«النُّونُ وَالْقَافُ وَالْعَيْنُ أَصْلَانِ صَحِيحَانِ: أَحَدُهُمَا يَدُلُّ عَلَى اسْتِقْرَارِ شَيْءٍ»"
+  per_sense:
+    - lemma: "نَقْع"
+      sense_id: "{auto}"
+      nuance: "يركز على الفعل المتعدي المتمثل في وضع المادة في السائل وتركها فيه."
+      mwe: false
+    - lemma: "انْتِقَاع"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب المطاوع والذاتي للعملية، أي حالة المادة التي تتشبع وتتلين بمرور الوقت."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نقع","maqayis":"«النُّونُ وَالْقَافُ وَالْعَيْنُ أَصْلَانِ صَحِيحَانِ: أَحَدُهُمَا يَدُلُّ عَلَى اسْتِقْرَارِ شَيْءٍ»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نقع","maqayis":"«النُّونُ وَالْقَافُ وَالْعَيْنُ أَصْلَانِ صَحِيحَانِ: أَحَدُهُمَا يَدُلُّ عَلَى اسْتِقْرَارِ شَيْءٍ»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الفعل المتعدي المتمثل في وضع المادة في السائل وتركها فيه.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الجانب المطاوع والذاتي للعملية، أي حالة المادة التي تتشبع وتتلين بمرور الوقت.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

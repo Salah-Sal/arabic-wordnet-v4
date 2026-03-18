@@ -1,0 +1,229 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمة "صاحب خيال" قد تعتبر عبارة وصفية أكثر منها لمة معجمية مسكوكة، لكنها شائعة الاستخدام.
+      - غياب مصطلح "رؤيوي" و"طوباوي" وهما من أدق المرادفات لـ visionary في السياق الفكري.
+    observations: "المجموعة تعبر عن مفهوم الشخص الحالم أو المثالي الذي يبتعد عن الواقع. اللمات الموجودة صحيحة ولكنها تحتاج إلى إغراء بمرادفات أكثر دقة وتشكيل كامل."
+  blind_candidates:
+    - lemma: "حَالِم"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الحلم، وهو المصطلح الأكثر شيوعاً للتعبير عن الشخص الذي يعيش في أوهامه أو أحلامه."
+    - lemma: "خَيَالِيّ"
+      generation_method: ishtiqaq
+      justification: "نسبة إلى الخيال، ويطلق على الشخص الذي يغلب عليه التصور الذهني بعيداً عن الواقع."
+    - lemma: "طُوبَاوِيّ"
+      generation_method: taarib
+      justification: "نسبة إلى (طوبيا/يوتوبيا)، ويستخدم للمثالي الذي ينشد كمالاً غير ممكن."
+    - lemma: "رُؤْيَوِيّ"
+      generation_method: ishtiqaq
+      justification: "مشتق من الرؤية (vision)، ويستخدم للشخص صاحب النظرة البعيدة أو الحالم بمستقبل مختلف."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "حَالِم"
+      confirm:
+        - text: "الحالم: شخص تغلب الصفة غير العملية على فكراته ومشاريعه."
+          source: "المورد الحديث (2008)"
+    - lemma: "خَيَالِيّ"
+      confirm:
+        - text: "رجلٌ خَيالِيٌّ: لا يَعيش فى عالم الواقِع"
+          source: "المعجم الكبير"
+        - text: "خياليّ؛ مثاليّ؛ غير عمليّ"
+          source: "المورد الحديث (2008)"
+    - lemma: "طُوبَاوِيّ"
+      expands:
+        - text: "طوباوية: فضاء يحصل فيه البطل على الانتصار... لاختراق أجواء المستحيل... كما في المدن الفاضلة للفلاسفة."
+          source: "المعجم الموحد لمصطلحات اللسانيات (2002)"
+          addition: "يدعم استخدام 'طوباوي' لوصف الشخص الذي ينشد هذه الحالة."
+    - lemma: "رُؤْيَوِيّ"
+      confirm:
+        - text: "visionary: (1) «أ» كثير الرّؤى. «ب» حالم (3) شخصٌ كثير الرؤى"
+          source: "المورد الحديث (2008)"
+    - lemma: "صَاحِب خَيَال"
+      confirm:
+        - text: "خيال: ظن، وهم، ما تشبه لك من صورة في اليقظة أو في الحلم"
+          source: "تكملة المعاجم العربية لوزي"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "حَالِم"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي ودقيق يطابق التعريف تماماً ومدعوم بالمعاجم الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حَالِم"
+    - lemma: "صَاحِب خَيَال"
+      decision: confirmed
+      decision_reason: "تعبير مركب شائع الاستخدام لوصف الشخص واسع الخيال أو الغارق فيه."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "صَاحِب خَيَال"
+    - lemma: "خَيَالِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مدعوم بنص صريح في المعجم الكبير لوصف من لا يعيش في الواقع."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "خَيَالِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-10776309-n"}
+    - lemma: "طُوبَاوِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فكري دقيق للشخص الذي يسعى لمثل عليا غير واقعية."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "طُوبَاوِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-10776309-n"}
+    - lemma: "رُؤْيَوِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "ترجمة دقيقة لمصطلح visionary في السياق القيادي والفكري."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "رُؤْيَوِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-10776309-n"}
+
+stage4_content:
+  definition:
+    current: "شخص يميل إلى التخيلات الحالمة والحماس مع قلة اكتراث بما هو ممكن فعلياً"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي طويل، يفضل صياغته بأسلوب معجمي أكثر إيجازاً ودقة."
+    authored:
+      - type: terminological
+        text: "مَنْ يَغْلِبُ عَلَيْهِ التَّخَيُّلُ وَالأَحْلَامُ وَيَسْعَى لِتَحْقِيقِ أَهْدَافٍ مِثَالِيَّةٍ دُونَ اعْتِبَارٍ لِلْوَاقِعِ أَوِ الإِمْكَانِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-10776309-n", definition_index: 0, text: "مَنْ يَغْلِبُ عَلَيْهِ التَّخَيُّلُ وَالأَحْلَامُ وَيَسْعَى لِتَحْقِيقِ أَهْدَافٍ مِثَالِيَّةٍ دُونَ اعْتِبَارٍ لِلْوَاقِعِ أَوِ الإِمْكَانِ."}
+  examples:
+    per_lemma:
+      - lemma: "حَالِم"
+        examples:
+          - text: "عاشَ حَيَاتَهُ حَالِمًا بِمُجْتَمَعٍ يَخْلُو مِنَ الفَقْرِ وَالظُّلْمِ."
+            type: usage
+      - lemma: "صَاحِب خَيَال"
+        examples:
+          - text: "إِنَّهُ صَاحِبُ خَيَالٍ وَاسِعٍ يَجْعَلُهُ يَبْتَكِرُ حُلُولًا غَيْرَ مَلُوفةٍ."
+            type: usage
+      - lemma: "خَيَالِيّ"
+        examples:
+          - text: "هُوَ رَجُلٌ خَيَالِيٌّ لَا يَرَى العَقَبَاتِ الصَّعْبَةَ فِي طَرِيقِهِ."
+            type: usage
+      - lemma: "طُوبَاوِيّ"
+        examples:
+          - text: "كَانَ طُوبَاوِيًّا فِي طَرْحِهِ لِحُلُولِ المَشَاكِلِ الاِقْتِصَادِيَّةِ."
+            type: usage
+      - lemma: "رُؤْيَوِيّ"
+        examples:
+          - text: "يُعْتَبَرُ القَائِدُ الرُّؤْيَوِيُّ مَنْ يَسْبِقُ زَمَانَهُ بِتَصَوُّرَاتِهِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-10776309-n", text: "كَثِيرٌ مِنَ المُخْتَرِعِينَ كَانُوا يُوصَفُونَ بِأَنَّهُمْ حَالِمُونَ قَبْلَ نَجَاحِ ابْتِكَارَاتِهِمْ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "حَالِم"
+      entry_id: "{auto}"
+      root: "حلم"
+      maqayis_quote: "«الْحَاءُ وَاللَّامُ وَالْمِيمُ، أُصُولٌ ثَلَاثَةٌ... وَالثَّالِثُ رُؤْيَةُ الشَّيْءِ فِي الْمَنَامِ.»"
+    - lemma: "خَيَالِيّ"
+      entry_id: "{auto}"
+      root: "خيل"
+      maqayis_quote: "«الْخَاءُ وَالْيَاءُ وَاللَّامُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى حَرَكَةٍ فِي تَلَوُّنٍ. فَمِنْ ذَلِكَ الْخَيَالُ، وَهُوَ الشَّخْصُ. وَأَصْلُهُ مَا يَتَخَيَّلُهُ الْإِنْسَانُ فِي مَنَامِهِ.»"
+    - lemma: "رُؤْيَوِيّ"
+      entry_id: "{auto}"
+      root: "رأي"
+      maqayis_quote: "«الرَّاءُ وَالْهَمْزَةُ وَالْيَاءُ أَصْلٌ يَدُلُّ عَلَى نَظَرٍ وَإِبْصَارٍ بِعَيْنٍ أَوْ بَصِيرَةٍ.»"
+    - lemma: "طُوبَاوِيّ"
+      entry_id: "{auto}"
+      root: "طوب"
+      maqayis_quote: "«الآجُرُّ , أى اللبن المحروق [طوب]... (كلمة معرّبة حديثاً للدلالة على اليوتوبيا).»"
+    - lemma: "صَاحِب خَيَال"
+      entry_id: "{auto}"
+      roots:
+        - word: "صاحب"
+          root: "صحب"
+          maqayis_quote: "«الصَّادُ وَالْحَاءُ وَالْبَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُقَارَنَةِ شَيْءٍ وَمُقَارَبَتِهِ.»"
+        - word: "خيال"
+          root: "خيل"
+          maqayis_quote: "«الْخَاءُ وَالْيَاءُ وَاللَّامُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى حَرَكَةٍ فِي تَلَوُّنٍ.»"
+  per_sense:
+    - lemma: "حَالِم"
+      sense_id: "{auto}"
+      nuance: "اللمة العامة التي تصف الشخص المستغرق في أحلام اليقظة أو التوقعات غير الواقعية."
+      mwe: false
+    - lemma: "صَاحِب خَيَال"
+      sense_id: "{auto}"
+      nuance: "تصف الشخص الذي يمتلك قدرة ذهنية على التصور، وغالباً ما تستخدم في سياق إيجابي (إبداعي) أو وصفي."
+      mwe: true
+    - lemma: "خَيَالِيّ"
+      sense_id: "{auto}"
+      nuance: "تؤكد على البعد عن الواقع والعيش في عالم الأوهام."
+      mwe: false
+    - lemma: "طُوبَاوِيّ"
+      sense_id: "{auto}"
+      nuance: "تستخدم في السياق الفلسفي والسياسي لوصف من ينشد مثاليات مستحيلة التطبيق."
+      mwe: false
+    - lemma: "رُؤْيَوِيّ"
+      sense_id: "{auto}"
+      nuance: "تركز على امتلاك 'رؤية' مستقبلية، وقد تحمل دلالة إيجابية على العبقرية أو سلبية على عدم الواقعية."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حلم","maqayis":"«الْحَاءُ وَاللَّامُ وَالْمِيمُ... وَالثَّالِثُ رُؤْيَةُ الشَّيْءِ فِي الْمَنَامِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللمة العامة التي تصف الشخص المستغرق في أحلام اليقظة...","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-10776309-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-10776309-n"
+        score: 0.95

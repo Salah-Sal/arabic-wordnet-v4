@@ -1,0 +1,119 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "شَخْص مُنْفَلِت"
+      evidence_status: "no_material_found"
+    - lemma: "مَصْدَر خَطَر غَيْر مَضْبُوط"
+      evidence_status: "no_material_found"
+
+step05_lemma_generation:
+  knowledge_candidates:
+    - lemma: "شَخْص مُتَهَوِّر"
+      justification: "اشتقاق: من الجذر (هور) بصيغة اسم الفاعل للدلالة على الشخص الذي يندفع بلا روية ولا سيطرة على أفعاله مما يجعله خطراً."
+    - lemma: "مِدْفَع مُنْفَلِت"
+      justification: "اقتراض مفهومي (Calque): ترجمة للمصطلح الإنجليزي (loose cannon) والذي يستخدم مجازاً في الصحافة المعاصرة لوصف من يخرج عن السيطرة."
+  generation_notes: "تم الاعتماد على الاشتقاق والاقتراض المفهومي لغياب لفظ تراثي مخصص لهذا المفهوم المركب بدقة."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "شَخْص مُنْفَلِت"
+      decision: confirmed
+      decision_reason: "مصطلح وصفي مقبول يعبر بدقة عن دلالة الخروج عن السيطرة المذكورة في التعريف."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على فقدان السيطرة والخروج عن القواعد أو الأوامر."
+      example: "أصبح الموظف شخصاً منفلتاً يهدد استقرار الشركة بقراراته الفردية."
+
+    - lemma: "مَصْدَر خَطَر غَيْر مَضْبُوط"
+      decision: removed
+      decision_reason: "تركيب وصفي حر أشبه بالشرح وليس مصطلحاً مسكوكاً."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "مستبعد لكونه عبارة وصفية حرة تفصيلية."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "شَخْص مُتَهَوِّر"
+      source: step05
+      decision: confirmed
+      decision_reason: "تعبير متداول بكثرة ومناسب للتعبير عن الشخص الذي يتصرف باندفاع ويصبح مصدر خطر."
+      step05_citation: "اقتراح مبني على المعرفة اللغوية"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يبرز جانب الاندفاع وعدم التفكير في العواقب الذي يولد الخطر."
+      example: "لا تسند قيادة هذا المشروع الحيوي إلى شخص متهور."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "شَخْص مُتَهَوِّر"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10291222-n"
+
+    - lemma: "مِدْفَع مُنْفَلِت"
+      source: step05
+      decision: removed
+      decision_reason: "ترجمة حرفية عمياء واقتراض مفهومي لم يستقر تماماً في المعاجم العربية الفصيحة ليحل محل التعبيرات الأصيلة."
+      step05_citation: "اقتراح مبني على الترجمة الحرفية"
+
+  synset_flags:
+    definition_review_needed: false
+
+  added_lemmas:
+    - lemma: "شَخْص مُتَهَوِّر"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شخص يُتوقع منه أداء مهمة معينة لكنه يخرج عن السيطرة ويصبح خطيراً"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وواضح ويشرح المفهوم بأسلوب معجمي سليم يتوافق مع الدلالة المقصودة."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-09786620-n"
+    test_result: "correct"
+  verb_checks:
+    applicable: false
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "شَخْص مُنْفَلِت"
+      enrichment:
+        root: "ف-ل-ت"
+      examples:
+        - text: "أصبح الموظف شخصاً منفلتاً يهدد استقرار الشركة بقراراته الفردية."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+
+    - lemma: "شَخْص مُتَهَوِّر"
+      enrichment:
+        root: "ه-و-ر"
+      examples:
+        - text: "لا تسند قيادة هذا المشروع الحيوي إلى شخص متهور."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

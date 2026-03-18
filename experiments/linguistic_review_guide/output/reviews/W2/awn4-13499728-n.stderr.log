@@ -1,0 +1,198 @@
+YOLO mode is enabled. All tool calls will be automatically approved.
+Loaded cached credentials.
+YOLO mode is enabled. All tool calls will be automatically approved.
+Bash command parsing error detected for command: << 'EOF' > /output/awn4-13499728-n.review.yaml
+stage1_review:
+  assessment:
+    concerns:
+      - "استخدام كلمة 'شيء' في التعريف الحالي عام جداً، والمقصود غالباً 'مادة' أو 'عنصر'."
+    observations: "اللمتان الموجودتان 'استخراج' و'استخلاص' دقيقتان وتعبران عن المفهوم العلمي والعملي بشكل ممتاز."
+  blind_candidates:
+    - lemma: "اِسْتِخْرَاج"
+      generation_method: ishtiqaq
+      justification: "مصدر مشتق من الجذر (خرج) على وزن (استفعال)، يدل على طلب خروج الشيء، وهو المصطلح الشائع للعملية."
+    - lemma: "اِسْتِخْلَاص"
+      generation_method: ishtiqaq
+      justification: "مصدر من الجذر (خلص)، يدل على تنقية المادة والحصول على خلاصتها، ويستخدم بكثرة في الكيمياء والصيدلة."
+    - lemma: "اِنْتِزَاع"
+      generation_method: ishtiqaq
+      justification: "مصدر من الجذر (نزع)، ويعني الاقتلاع والانتزاع، قد يتقاطع مع المفهوم ميكانيكياً."
+    - lemma: "فَصْل"
+      generation_method: ishtiqaq
+      justification: "عملية فصل مكونات الخليط عن بعضها البعض."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "استخراج"
+      confirm:
+        - text: "بحث يشمل جدول/ جداول (ملف/ ملفات) قاعدة معطيات ويكون مصاغا بلغة المساءلة"
+          source: "المعجم الموحد لمصطلحات تقانة (تكنولوجيا) المعلومات (2011)"
+        - text: "استِصْفاءُ أموالِ مَنْ اتُّهِمَ باخْتِلاس مالِ الدَّولَةِ من الوزراء والكُتَّابِ والولاةِ وجُبَاةِ الخَراج"
+          source: "المعجم الكبير"
+      expands:
+        - text: "مقابل ترجمة (extraction)"
+          source: "المَكنَز الزراعي متعدد اللغات"
+          addition: "يستخدم كمصطلح في عدة مجالات علمية."
+    - lemma: "استخلاص"
+      confirm:
+        - text: "(فى الكيمياء) extraction : مُعالجةُ الشىءِ بِمذيبٍ لِفَصْلِ ما به من موادّ قابلةٍ للذوبان فيه"
+          source: "المعجم الكبير"
+        - text: "العملية التي يحصل بها على الخلاصة، وهي من طرائق الفصل."
+          source: "المعجم الموحد لمصطلحات علم الصيدلة (2009)"
+        - text: "عملية الحصول على المستخلص"
+          source: "المعجم الموحد لمصطلحات الكيمياء (1992)"
+    - lemma: "انتزاع"
+      evidence_status: "no_material_found"
+    - lemma: "فصل"
+      confirm:
+        - text: "تمييز الشيء من الشيء وإبانته عنه"
+          source: "مقاييس اللغة"
+      contradicts:
+        - text: "الفَصْلُ: الحاجِزُ بين الشَّيْئَيْنِ"
+          source: "المعجم العربي الإنجليزي لإدوارد وليام لين"
+          conflict: "الفصل هو التمييز والعزل العام ولا يتضمن بالضرورة الحصول على مادة مستخلصة خالصة كمنتج نهائي."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "استخراج"
+      decision: confirmed
+      decision_reason: "مصطلح دقيق ومستقر علمياً وعملياً للتعبير عن عملية استخراج المواد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "اِسْتِخْرَاج"
+
+    - lemma: "استخلاص"
+      decision: confirmed
+      decision_reason: "مصطلح معتمد وموثق في المعاجم العلمية (الكيمياء والصيدلة) ويعبر بدقة عن الحصول على الخلاصة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "اِسْتِخْلَاص"
+
+    - lemma: "اِنْتِزَاع"
+      source: stage1
+      decision: removed
+      decision_reason: "يدل على النزع بقوة وشِدة، ولا يعبر بدقة عن العمليات الفيزيائية أو الكيميائية المنهجية."
+      evidence_assessment:
+        case: no_material
+
+    - lemma: "فَصْل"
+      source: stage1
+      decision: removed
+      decision_reason: "مصطلح أعم من الاستخراج؛ فهو عملية عزل فقط، بينما الاستخراج يتضمن الحصول على مادة محددة."
+      evidence_assessment:
+        case: contradicts_only
+
+stage4_content:
+  definition:
+    current: "عملية الحصول على شيء من خليط أو مركب بوسائل كيميائية أو فيزيائية أو ميكانيكية"
+    assessment:
+      decision: revise
+      reason: "استبدال كلمة 'شيء' بـ 'مادة' ليكون التعريف أدق وأقرب للأسلوب المعجمي العلمي."
+    authored:
+      - type: terminological
+        text: "عَمَلِيَّةُ فَصْلِ مَادَّةٍ عَنْ خَلِيطٍ أَوْ مُرَكَّبٍ وَالْحُصُولِ عَلَيْهَا بِوَسَائِلَ كِيمْيَائِيَّةٍ أَوْ فِيزْيَائِيَّةٍ أَوْ مِيكَانِيكِيَّةٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "عَمَلِيَّةُ فَصْلِ مَادَّةٍ عَنْ خَلِيطٍ أَوْ مُرَكَّبٍ وَالْحُصُولِ عَلَيْهَا بِوَسَائِلَ كِيمْيَائِيَّةٍ أَوْ فِيزْيَائِيَّةٍ أَوْ مِيكَانِيكِيَّةٍ."
+
+  examples:
+    per_lemma:
+      - lemma: "استخراج"
+        examples:
+          - text: "يَتِمُّ اسْتِخْرَاجُ الزَّيْتِ مِنَ الْبُذُورِ بِوَاسِطَةِ آلاَتٍ خَاصَّةٍ."
+            type: usage
+      - lemma: "استخلاص"
+        examples:
+          - text: "عَمِلَ الْبَاحِثُونَ عَلَى اسْتِخْلَاصِ الْمَوَادِّ الْفَعَّالَةِ مِنَ النَّبَاتَاتِ الطِّبِّيَّةِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يَتِمُّ اسْتِخْرَاجُ الزَّيْتِ مِنَ الْبُذُورِ بِوَاسِطَةِ آلاَتٍ خَاصَّةٍ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "عَمِلَ الْبَاحِثُونَ عَلَى اسْتِخْلَاصِ الْمَوَادِّ الْفَعَّالَةِ مِنَ النَّبَاتَاتِ الطِّبِّيَّةِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "اِسْتِخْرَاج"
+      entry_id: "{auto}"
+      root: "خرج"
+      maqayis_quote: "«الْخَاءُ وَالرَّاءُ وَالْجِيمُ أَصْلَانِ... الْأَوَّلُ: النَّفَاذُ عَنِ الشَّيْءِ.»"
+    - lemma: "اِسْتِخْلَاص"
+      entry_id: "{auto}"
+      root: "خلص"
+      maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالصَّادُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ، وَهُوَ تَنْقِيَةُ الشَّيْءِ وَتَهْذِيبُهُ.»"
+
+  per_sense:
+    - lemma: "استخراج"
+      sense_id: "{auto}"
+      nuance: "مصطلح عام يدل على استخراج مادة من أخرى بمختلف الوسائل، ويشيع استخدامه في المجال الميكانيكي والفيزيائي (مثل استخراج المعادن أو الزيوت)."
+      mwe: false
+    - lemma: "استخلاص"
+      sense_id: "{auto}"
+      nuance: "يغلب استخدامه في السياقات الكيميائية والصيدلانية للدلالة على فصل المادة الفعالة أو الخلاصة النقية."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خرج","maqayis":"«الْخَاءُ وَالرَّاءُ وَالْجِيمُ أَصْلَانِ... الْأَوَّلُ: النَّفَاذُ عَنِ الشَّيْءِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خلص","maqayis":"«الْخَاءُ وَاللَّامُ وَالصَّادُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ، وَهُوَ تَنْقِيَةُ الشَّيْءِ وَتَهْذِيبُهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح عام يدل على استخراج مادة من أخرى بمختلف الوسائل، ويشيع استخدامه في المجال الميكانيكي والفيزيائي (مثل استخراج المعادن أو الزيوت).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يغلب استخدامه في السياقات الكيميائية والصيدلانية للدلالة على فصل المادة الفعالة أو الخلاصة النقية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95
+EOF Syntax Errors: [ 'Error node: "<" at 0:0' ]
+missing pgrep output

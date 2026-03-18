@@ -1,0 +1,185 @@
+# Stage 1: Review + Generate
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الحالية تفتقر للتشكيل الكامل."
+      - "هناك حاجة لإضافة مصطلحات تقنية مسرحية مثل 'عمق المسرح'."
+    observations: "المفهوم يشير إلى الجزء الخلفي من خشبة المسرح (upstage). اللفظ المستخدم حالياً صحيح لغوياً ومباشر، لكن يمكن إثراؤه بمصطلحات أكثر تخصصاً."
+  blind_candidates:
+    - lemma: "عُمْقُ المَسْرَحِ"
+      generation_method: tarkib
+      justification: "مصطلح مسرحي تقني يشير إلى الجزء الخلفي من خشبة المسرح، وهو الأبعد عن الجمهور."
+    - lemma: "مُؤَخَّرَةُ المَسْرَحِ"
+      generation_method: tarkib
+      justification: "تعبير إضافي مباشر وواضح لوصف الجزء الخلفي."
+    - lemma: "خَلْفِيَّةُ المَسْرَحِ"
+      generation_method: tarkib
+      justification: "تعبير شائع الاستخدام في السياقات الوصفية للمسرح."
+    - lemma: "مُؤَخَّرَةُ الخَشَبَةِ"
+      generation_method: tarkib
+      justification: "الخشبة هنا مجاز مرسل عن المسرح، وهو تعبير فني شائع."
+
+# Stage 2: Evidence Gathering
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُؤَخَّرَةُ المَسْرَحِ"
+      confirm:
+        - text: "«نهاية الشيء من الخلف»"
+          source: "المعجم الوسيط (تعريف المؤخرة)"
+    - lemma: "مُؤَخَّرَةُ الخَشَبَةِ"
+      confirm:
+        - text: "upstage: مؤخرة الخشبة"
+          source: "مسرد الإعلام والتواصل - ArabTerm"
+    - lemma: "عُمْقُ المَسْرَحِ"
+      confirm:
+        - text: "«العمق: البعد إلى أسفل... وما بعد من أطراف المفاوز»"
+          source: "المعجم الوسيط (دلالة البعد والعمق)"
+      expands:
+        - text: "يستخدم في النقد المسرحي للإشارة إلى الجزء الخلفي من المسرح."
+          source: "الاستعمال الفني المعاصر"
+
+# Stage 3: Lemma Analysis
+stage3_analysis:
+  per_lemma:
+    - lemma: "مؤخرة المسرح"
+      decision: confirmed
+      decision_reason: "اللمة الأساسية في المجموعة، صحيحة ومباشرة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُؤَخَّرَةُ المَسْرَحِ"
+    - lemma: "مُؤَخَّرَةُ الخَشَبَةِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تقني موثق في المعاجم المتخصصة (ArabTerm) لترجمة upstage."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "مُؤَخَّرَةُ الخَشَبَةِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "عُمْقُ المَسْرَحِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فني دقيق يستخدمه المخرجون والممثلون للإشارة إلى هذا الجزء."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "عُمْقُ المَسْرَحِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+# Stage 4: Definitions & Examples
+stage4_content:
+  definition:
+    current: "الجزء الخلفي من المسرح"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي بسيط جداً، يفضل إضفاء صبغة مصطلحية تبرز البعد عن الجمهور."
+    authored:
+      - type: terminological
+        text: "القسم الخلفي من خشبة المسرح، وهو الأبعد عن الجمهور."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "القسم الخلفي من خشبة المسرح، وهو الأبعد عن الجمهور."}
+  examples:
+    per_lemma:
+      - lemma: "مُؤَخَّرَةُ المَسْرَحِ"
+        examples:
+          - text: "يتراجع الممثلون نحو مؤخرة المسرح لإفساح المجال لدخول الجوقة."
+            type: usage
+      - lemma: "عُمْقُ المَسْرَحِ"
+        examples:
+          - text: "وضعت قطع الديكور الكبيرة في عمق المسرح لإعطاء إيحاء بالمنظور."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "تُستخدم مؤخرة المسرح عادةً للمناظر الخلفية البعيدة."}
+
+# Stage 5: Enrichment
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُؤَخَّرَةُ المَسْرَحِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مؤخرة"
+          root: "أخر"
+          maqayis_quote: "«الْهَمْزَةُ وَالْخَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ إِلَيْهِ تَرْجِعُ فُرُوعُهُ، وَهُوَ خِلَافُ التَّقَدُّمِ.»"
+        - word: "المسرح"
+          root: "سرح"
+          maqayis_quote: "«السِّينُ وَالرَّاءُ وَالْحَاءُ أَصْلٌ مُطَّرِدٌ وَاحِدٌ، وَهُوَ يَدُلُّ عَلَى الِانْطِلَاقِ.»"
+    - lemma: "مُؤَخَّرَةُ الخَشَبَةِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مؤخرة"
+          root: "أخر"
+          maqayis_quote: "«الْهَمْزَةُ وَالْخَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ...»"
+        - word: "الخشبة"
+          root: "خشب"
+          maqayis_quote: "«الْخَاءُ وَالشِّينُ وَالْبَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خُشُونَةٍ وَغِلَظٍ.»"
+    - lemma: "عُمْقُ المَسْرَحِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "عمق"
+          root: "عمق"
+          maqayis_quote: "«الْعَيْنُ وَالْمِيمُ وَالْقَافُ أَصْلٌ ذَكَرَهُ ابْنُ الْأَعْرَابِيِّ، قَالَ: الْعُمْقُ إِذَا كَانَ صِفَةً لِلطَّرِيقِ فَهُوَ الْبُعْدُ.»"
+        - word: "المسرح"
+          root: "سرح"
+          maqayis_quote: "«السِّينُ وَالرَّاءُ وَالْحَاءُ أَصْلٌ مُطَّرِدٌ وَاحِدٌ، وَهُوَ يَدُلُّ عَلَى الِانْطِلَاقِ.»"
+  per_sense:
+    - lemma: "مُؤَخَّرَةُ المَسْرَحِ"
+      sense_id: "{auto}"
+      nuance: "تعبير عام يصف الموقع الخلفي للمسرح."
+      mwe: true
+    - lemma: "مُؤَخَّرَةُ الخَشَبَةِ"
+      sense_id: "{auto}"
+      nuance: "تعبير فني مسرحي يستخدم خشبة المسرح كمجاز، وهو أكثر تداولاً في النصوص التقنية."
+      mwe: true
+    - lemma: "عُمْقُ المَسْرَحِ"
+      sense_id: "{auto}"
+      nuance: "مصطلح تقني يركز على البعد الفراغي والمنظور المسرحي."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مؤخرة","root":"أخر","maqayis":"«الْهَمْزَةُ وَالْخَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ...»"},{"word":"المسرح","root":"سرح","maqayis":"«السِّينُ وَالرَّاءُ وَالْحَاءُ أَصْلٌ مُطَّرِدٌ وَاحِدٌ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير عام يصف الموقع الخلفي للمسرح.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

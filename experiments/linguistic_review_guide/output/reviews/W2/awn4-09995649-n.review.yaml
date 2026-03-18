@@ -1,0 +1,183 @@
+# Stage 1: Review + Generate (no evidence)
+stage1_review:
+  assessment:
+    concerns:
+      - "اللفظ 'زاحف' يُستخدم بكثرة في العصر الحديث للإشارة إلى الزواحف (الحيوانات)، مما قد يسبب التباساً مع المعنى البشري (crawler)."
+    observations: "المجموعة تركز على الشخص الذي يزحف (بشري)، والتعريف الإنجليزي 'crawler/creeper' يشمل الأطفال ومن يتحركون ببطء أو صعوبة. اللفظ العربي 'زاحف' فصيح وشامل لهذا المعنى، لكن هناك حاجة لتخصيص المرادفات لتشمل الأطفال (حابٍ) ومن يكثر الزحف (زحاف)."
+  blind_candidates:
+    - lemma: "زَحَّاف"
+      generation_method: ishtiqaq
+      justification: "صيغة مبالغة على وزن 'فَعَّال' لمن يكثر الزحف أو يزحف ببطء، وتُطلق تاريخياً على المقعدين الذين يزحفون لعدم قدرتهم على المشي."
+    - lemma: "حَابٍ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من 'حبا يحبو'، وهو الزحف على اليدين والركبتين، وهو المعنى الأكثر شيوعاً للـ (crawler) عند الأطفال."
+    - lemma: "دَبَّاب"
+      generation_method: ishtiqaq
+      justification: "صيغة مبالغة من 'دبّ'، وهو المشي بتؤدة أو الزحف، وإن كانت غلبت عليها التسمية العسكرية (الدبابة) في العصر الحديث."
+    - lemma: "مَاشٍ عَلَى أَرْبَع"
+      generation_method: tarkib
+      justification: "تعبير وصفي يطلق على الشخص الذي يزحف كالأطفال أو من فقد القدرة على المشي السوي."
+
+# Stage 2: Evidence Gathering
+stage2_evidence:
+  per_lemma:
+    - lemma: "زَاحِف"
+      confirm:
+        - text: "«زحَف الشَّخصُ: دبَّ وتحرَّك ببطء على يديه وركبتيه كما يدبّ الرَّضيع.»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«الزاحف: الشخص الذي يتحرك ببطء جارا جسمه على الأرض.»"
+          source: "المنجد في اللغة العربية المعاصرة"
+    - lemma: "زَحَّاف"
+      confirm:
+        - text: "«زحاف (جمع): مقعدون، كسحان جمع كسيح.»"
+          source: "تكملة المعاجم العربية (دوزي)"
+        - text: "«الزَحَّاف: صيغة مبالغة من زحف، ويطلق على كل ما يمشي على بطنه.»"
+          source: "المعجم الوسيط"
+    - lemma: "حَابٍ"
+      confirm:
+        - text: "«حَبَا الصبيُّ حَبْواً: زحف على يديه وركبتيه، أو على مقعدته.»"
+          source: "المعجم الوسيط"
+        - text: "«والحابي من السهام: الذي يقع دون الغرض ثم يزحف إليه.»"
+          source: "مقاييس اللغة (ابن فارس)"
+    - lemma: "دَبَّاب"
+      confirm:
+        - text: "«الدَّبَّابُ: من يَمْشِى بِتُؤَدَةٍ.»"
+          source: "المعجم الكبير"
+
+# Stage 3: Lemma Linguistic Analysis
+stage3_analysis:
+  per_lemma:
+    - lemma: "زَاحِف"
+      decision: confirmed
+      decision_reason: "المصطلح الأساسي والشامل للشخص الذي يزحف، سواء كان طفلاً أو جندياً أو غير ذلك."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "زَاحِف"
+    - lemma: "حَابٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح مخصص للزحف على اليدين والركبتين، وهو الأكثر دقة لوصف 'crawler' في سياق الأطفال."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "حَابٍ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09995649-n"}
+    - lemma: "زَحَّاف"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صيغة مبالغة تفيد كثرة الفعل، وتستخدم تاريخياً لوصف من يزحف لعلة في قدميه."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "زَحَّاف", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09995649-n"}
+
+# Stage 4: Content
+stage4_content:
+  definition:
+    current: "شخص يزحف أو يدب على الأرض"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي بسيط جداً، ويفضل صياغته بأسلوب المعاجم ليشمل كيفية الحركة."
+    authored:
+      - type: terminological
+        text: "شَخْصٌ يَمْشِي عَلَى بَطْنِهِ أَوْ يَتَحَرَّكُ بِبُطْءٍ جَارّاً جِسْمَهُ عَلَى الأَرْضِ، أَوْ صَبِيٌّ يَتَنَقَّلُ عَلَى أَرْبَعٍ قَبْلَ أَنْ يَمْشِيَ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-09995649-n", definition_index: 0, text: "شَخْصٌ يَمْشِي عَلَى بَطْنِهِ أَوْ يَتَحَرَّكُ بِبُطْءٍ جَارّاً جِسْمَهُ عَلَى الأَرْضِ، أَوْ صَبِيٌّ يَتَنَقَّلُ عَلَى أَرْبَعٍ قَبْلَ أَنْ يَمْشِيَ."}
+  examples:
+    per_lemma:
+      - lemma: "زَاحِف"
+        examples:
+          - text: "رأيتُ طفلاً زاحفاً في الحديقة يستكشف الزهور."
+            type: usage
+      - lemma: "حَابٍ"
+        examples:
+          - text: "يُعَدُّ الصبيُّ الحابي أكثر حيويةً في استكشاف محيطه."
+            type: usage
+      - lemma: "زَحَّاف"
+        examples:
+          - text: "وصف الجاحظُ بعض المقعدين بأنهم من الزحافين الذين لا تمنعهم علتهم من السعي."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-09995649-n", text: "تقدّم الجنديُّ زاحفاً تحت الأسلاك الشائكة بحذر."}
+
+# Stage 5: Enrichment
+stage5_enrichment:
+  per_entry:
+    - lemma: "زَاحِف"
+      entry_id: "{auto}"
+      root: "زحف"
+      maqayis_quote: "«الزَّاءُ وَالْحَاءُ وَالْفَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الِانْدِفَاعِ وَالْمُضِيِّ قُدُمًا. فَالزَّحْفُ: الْجَمَاعَةُ يَزْحَفُونَ إِلَى الْعَدُوِّ. وَالصَّبِيُّ يَزْحَفُ عَلَى الْأَرْضِ قَبْلَ الْمَشْيِ.»"
+    - lemma: "زَحَّاف"
+      entry_id: "{auto}"
+      root: "زحف"
+      maqayis_quote: "«الزَّاءُ وَالْحَاءُ وَالْفَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الِانْدِفَاعِ وَالْمُضِيِّ قُدُمًا...»"
+    - lemma: "حَابٍ"
+      entry_id: "{auto}"
+      root: "حبو"
+      maqayis_quote: "«الْحَاءُ وَالْبَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ، وَهُوَ الْقُرْبُ وَالدُّنُوُّ ; وَكُلُّ دَانٍ حَابٍ.»"
+  per_sense:
+    - lemma: "زَاحِف"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام الذي يصف أي شخص يتحرك بالزحف، سواء كان اختيارياً أو اضطرارياً."
+      mwe: false
+    - lemma: "حَابٍ"
+      sense_id: "{auto}"
+      nuance: "يختص بالزحف على اليدين والركبتين، وغالباً ما يُطلق على الأطفال الصغار."
+      mwe: false
+    - lemma: "زَحَّاف"
+      sense_id: "{auto}"
+      nuance: "صيغة مبالغة تدل على من يلازمه الزحف كالمقعدين، أو من يكثر منه."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"زحف","maqayis":"«الزَّاءُ وَالْحَاءُ وَالْفَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الِانْدِفَاعِ وَالْمُضِيِّ قُدُمًا...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حبو","maqayis":"«الْحَاءُ وَالْبَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ، وَهُوَ الْقُرْبُ وَالدُّنُوُّ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يختص بالزحف على اليدين والركبتين، وغالباً ما يُطلق على الأطفال الصغار.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-09995649-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-09995649-n"
+        score: 0.95

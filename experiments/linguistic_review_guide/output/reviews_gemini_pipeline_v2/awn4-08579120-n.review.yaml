@@ -1,0 +1,100 @@
+stage1_review:
+  assessment:
+    observations: "اللمة الموجودة «جنوب» دقيقة تماماً، فهي في العربية تعبر عن الجهة الجغرافية، وتستخدم مجازاً وتوسعاً للإشارة إلى المنطقة أو الإقليم الواقع في تلك الجهة (مثل: أهل الجنوب، دول الجنوب، جنوب البلاد)، وهو ما يطابق المفهوم المطلوب في المجموعة الترادفية."
+  blind_candidates:
+    - lemma: "جَنُوب"
+      generation_method: ishtiqaq
+      justification: "اللفظ الأساسي للجهة، ويطلق على المكان الواقع فيها."
+    - lemma: "شَطْرٌ جَنُوبِيّ"
+      generation_method: tarkib
+      justification: "تركيب وصفي يحدد الجزء الواقع في جهة الجنوب من منطقة ما."
+    - lemma: "قِسْمٌ جَنُوبِيّ"
+      generation_method: tarkib
+      justification: "مرادف لـ«شطر جنوبي»، للتعبير عن تقسيم جغرافي."
+    - lemma: "نَاحِيَةٌ جَنُوبِيَّة"
+      generation_method: tarkib
+      justification: "تعبير عن الجهة أو المنطقة التي تقع جنوباً."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "جنوب"
+      confirm:
+        - text: "«(4) الجَنوب (5) منطقة جنوبية.»"
+          source: "المورد الحديث (2008)"
+        - text: "«الجهة المقابلة للشمال ريح تهب منها»"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "جنوب"
+      decision: confirmed
+      decision_reason: "الكلمة فصيحة وأساسية في المعجم العربي، وتُطلق على كلٍ من الجهة الجغرافية والمنطقة الواقعة فيها، وهو ما يتطابق مع دلالة المفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "جَنُوب"
+
+stage4_content:
+  definition:
+    current: "موقع في الجزء الجنوبي من بلد أو منطقة أو مدينة"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق وواضح ويصف المفهوم بشكل جيد بأسلوب معجمي سليم."
+  examples:
+    per_lemma:
+      - lemma: "جنوب"
+        examples:
+          - text: "انتقل الكثير من السكان إلى جَنُوبِ البلاد هرباً من برد الشتاء القارس."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "انتقل الكثير من السكان إلى جَنُوبِ البلاد هرباً من برد الشتاء القارس."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "انتقل الكثير من السكان إلى جَنُوبِ البلاد هرباً من برد الشتاء القارس."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "جنوب"
+      entry_id: "{auto}"
+      root: "جنب"
+      maqayis_quote: "«الْجِيمُ وَالنُّونُ وَالْبَاءُ أَصْلَانِ مُتَقَارِبَانِ أَحَدُهُمَا: النَّاحِيَةُ، وَالَآخَرُ الْبُعْدُ... وَمِمَّا شَذَّ عَنِ الْبَابِ رِيحُ الْجَنُوبِ. يُقَالُ جُنِبَ الْقَوْمُ: أَصَابَتْهُمْ رِيحُ الْجَنُوبِ ; وَأَجْنَبُوا، إِذَا دَخَلُوا فِي الْجَنُوبِ.»"
+  per_sense:
+    - lemma: "جنوب"
+      sense_id: "{auto}"
+      nuance: "اللفظ الأساسي للدلالة على المنطقة الواقعة في الجهة الجنوبية."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جنب","maqayis":"«الْجِيمُ وَالنُّونُ وَالْبَاءُ أَصْلَانِ مُتَقَارِبَانِ أَحَدُهُمَا: النَّاحِيَةُ، وَالَآخَرُ الْبُعْدُ... وَمِمَّا شَذَّ عَنِ الْبَابِ رِيحُ الْجَنُوبِ. يُقَالُ جُنِبَ الْقَوْمُ: أَصَابَتْهُمْ رِيحُ الْجَنُوبِ ; وَأَجْنَبُوا، إِذَا دَخَلُوا فِي الْجَنُوبِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ الأساسي للدلالة على المنطقة الواقعة في الجهة الجنوبية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

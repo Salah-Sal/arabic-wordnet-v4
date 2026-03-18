@@ -1,0 +1,246 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي يستخدم مصطلح 'يستقلبها' وهو ترجمة حرفية لـ metabolize، ورغم شيوعه العلمي إلا أنه قد يفتقر للأصالة المعجمية."
+    observations: "المجموعة الترادفية تغطي مفهوم الغذاء بمستوييه: العام (food) والتقني (nutrient). اللمات الموجودة (غذاء، مغذٍ) صحيحة ودقيقة، لكن يمكن إغناؤها بمصطلحات عربية أصيلة مثل 'قوت' و'طعام'."
+  blind_candidates:
+    - lemma: "غِذَاء"
+      generation_method: ishtiqaq
+      justification: "المصطلح العربي الأساسي والجامع لكل ما ينمو به الجسم."
+    - lemma: "قُوت"
+      generation_method: majaz
+      justification: "لفظ تراثي يشير إلى ما يمسك الرمق ويحفظ الحياة، وهو مناسب جداً لدلالة الاستدامة البيولوجية."
+    - lemma: "طَعَام"
+      generation_method: ishtiqaq
+      justification: "اللفظ الأكثر شيوعاً وتداولاً لكل ما يؤكل."
+    - lemma: "مُغَذٍّ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من غَذَّى، يُستخدم تقنياً للإشارة إلى المكونات الغذائية (nutrients)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "غِذَاء"
+      confirm:
+        - text: "«ما يكون به نماء الجسم وقوامه من الطعام والشراب»"
+          source: "المعجم الوسيط"
+        - text: "«عرفا ما من شأنه يصير بدل ما يتحلّل كالحنطة والخبز واللحم»"
+          source: "كشاف اصطلاحات الفنون"
+    - lemma: "مُغَذٍّ"
+      confirm:
+        - text: "«nutrient; nutritive»"
+          source: "المعجم الموحد لمصطلحات علم الأحياء"
+        - text: "«مغّذٍ، مادة مغذية: nutrient»"
+          source: "المعجم الموحد لمصطلحات الكيمياء"
+    - lemma: "قُوت"
+      confirm:
+        - text: "«ما يمسك الرمق من الرزق»"
+          source: "كتاب العين"
+        - text: "«ما يقوم به بدن الإنسان من الطعام»"
+          source: "لسان العرب"
+    - lemma: "طَعَام"
+      confirm:
+        - text: "«الطعام هو المأكول»"
+          source: "مقاييس اللغة"
+        - text: "«مركبات عضوية مستخدمة في تركيب الجزيئات الحيوية الجديدة وكوقود في إنتاج الطاقة الخلوية»"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "غِذَاء"
+      decision: confirmed
+      decision_reason: "اللفظ الأساسي والمطابق دلالياً للمفهوم العام (food) والتقني."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      nuance: "المصطلح العام والشامل لكل ما يمد الجسم بالطاقة والنماء، سواء كان سائلاً أو صلباً."
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "غِذَاء"
+    - lemma: "مُغَذٍّ"
+      decision: confirmed
+      decision_reason: "مصطلح تقني دقيق يقابل (nutrient) في السياقات البيولوجية والكيميائية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      nuance: "يركز على الخاصية الوظيفية للمادة وقدرتها على الإمداد بالعناصر اللازمة للنمو."
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُغَذٍّ"
+    - lemma: "قُوت"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ أصيل يعبر عن الحد الأدنى الضروري لحفظ الحياة، وهو ما يتفق مع تعريف الاستقلاب للطاقة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      nuance: "يشير غالباً إلى الكفاية من الرزق وما يمسك الرمق، وله دلالة استمرارية الحياة."
+      actions:
+        - command: create_entry
+          params: {lemma: "قُوت", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "طَعَام"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اللفظ الأكثر شيوعاً في اللغة العربية للمأكول، واستخدمته المعاجم التقنية الحديثة لتعريف (food)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      nuance: "يركز على عملية التذوق والأكل، وغالباً ما ينصرف إلى المواد الصلبة أو الوجبات المجهزة."
+      actions:
+        - command: create_entry
+          params: {lemma: "طَعَام", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "أيّ مادّة يمكن أن يستقلبها الحيوان للحصول على الطاقة وبناء الأنسجة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي تقني بحت ويميل للترجمة الحرفية؛ يفضل دمج الصياغة اللغوية الأصيلة مع المفهوم العلمي."
+    authored:
+      - type: terminological
+        text: "كل مادة يمتصها الكائن الحي أو يتناولها، فتتحول بالاستقلاب إلى طاقة تمد الجسم بالقوة أو تدخل في بناء خلاياه وأنسجته."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+      - type: linguistic
+        text: "ما يكون به نماء الجسم وقوامه من الطعام والشراب."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "كل مادة يمتصها الكائن الحي أو يتناولها، فتتحول بالاستقلاب إلى طاقة تمد الجسم بالقوة أو تدخل في بناء خلاياه وأنسجته."}
+      - command: add_definition
+        params: {synset_id: "{synset_id}", text: "ما يكون به نماء الجسم وقوامه من الطعام والشراب."}
+  examples:
+    per_lemma:
+      - lemma: "غِذَاء"
+        examples:
+          - text: "يؤمن الحليب الغذاء المتكامل للرضيع في أشهره الأولى."
+            type: usage
+      - lemma: "مُغَذٍّ"
+        examples:
+          - text: "تحتوي الخضراوات الورقية على مغذيات ضرورية للجهاز المناعي."
+            type: usage
+      - lemma: "قُوت"
+        examples:
+          - text: "كان العمال يكدحون طوال النهار لتأمين قوت عيالهم."
+            type: usage
+      - lemma: "طَعَام"
+        examples:
+          - text: "قدم المتطوعون الطعام والشراب للمتضررين من الزلزال."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يحتاج الجسم إلى غذاء متوازن ليقوم بوظائفه الحيوية على أكمل وجه."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "غِذَاء"
+      entry_id: "{auto}"
+      root: "غذو"
+      maqayis_quote: "«الْغَيْنُ وَالذَّالُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى شَيْءٍ مِنَ الْمَأْكَلِ... فَأَمَّا الْمَأْكَلُ فَالْغِذَاءُ، وَهُوَ الطَّعَامُ وَالشَّرَابُ.»"
+    - lemma: "مُغَذٍّ"
+      entry_id: "{auto}"
+      root: "غذو"
+      maqayis_quote: "«الْغَيْنُ وَالذَّالُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى شَيْءٍ مِنَ الْمَأْكَلِ... وَسُمِّيَ غَذَوِيَّا لِأَنَّهُ يُغْذَى.»"
+    - lemma: "قُوت"
+      entry_id: "{auto}"
+      root: "قوت"
+      maqayis_quote: "«الْقَافُ وَالْوَاوُ وَالتَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِمْسَاكٍ وَحِفْظٍ وَقُدْرَةٍ عَلَى الشَّيْءِ... وَمِنَ الْبَابِ: الْقُوتُ مَا يُمْسِكُ الرَّمَقَ.»"
+    - lemma: "طَعَام"
+      entry_id: "{auto}"
+      root: "طعم"
+      maqayis_quote: "«الطَّاءُ وَالْعَيْنُ وَالْمِيمُ أَصْلٌ مُطَّرِدٌ مُنْقَاسٌ فِي تَذَوُّقِ الشَّيْءِ... وَالطَّعَامُ هُوَ الْمَأْكولُ.»"
+  per_sense:
+    - lemma: "غِذَاء"
+      sense_id: "{auto}"
+      nuance: "اللفظ الأشمل الذي يغطي الجانب البيولوجي العام والوظيفة الحيوية."
+      mwe: false
+    - lemma: "مُغَذٍّ"
+      sense_id: "{auto}"
+      nuance: "يركز على العناصر المكونة للغذاء وتأثيرها النوعي في النمو."
+      mwe: false
+    - lemma: "قُوت"
+      sense_id: "{auto}"
+      nuance: "يؤكد على جانب الكفاية والاستدامة وحفظ الرمق."
+      mwe: false
+    - lemma: "طَعَام"
+      sense_id: "{auto}"
+      nuance: "اللفظ اليومي الشائع الذي ينصرف إلى المأكول الملموس."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"غذو","maqayis":"«الْغَيْنُ وَالذَّالُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى شَيْءٍ مِنَ الْمَأْكَلِ... فَأَمَّا الْمَأْكَلُ فَالْغِذَاءُ، وَهُوَ الطَّعَامُ وَالشَّرَابُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"غذو","maqayis":"«الْغَيْنُ وَالذَّالُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى شَيْءٍ مِنَ الْمَأْكَلِ... وَسُمِّيَ غَذَوِيَّا لِأَنَّهُ يُغْذَى.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قوت","maqayis":"«الْقَافُ وَالْوَاوُ وَالتَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِمْسَاكٍ وَحِفْظٍ وَقُدْرَةٍ عَلَى الشَّيْءِ... وَمِنَ الْبَابِ: الْقُوتُ مَا يُمْسِكُ الرَّمَقَ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"طعم","maqayis":"«الطَّاءُ وَالْعَيْنُ وَالْمِيمُ أَصْلٌ مُطَّرِدٌ مُنْقَاسٌ فِي تَذَوُّقِ الشَّيْءِ... وَالطَّعَامُ هُوَ الْمَأْكولُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ الأشمل الذي يغطي الجانب البيولوجي العام والوظيفة الحيوية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على العناصر المكونة للغذاء وتأثيرها النوعي في النمو.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يؤكد على جانب الكفاية والاستدامة وحفظ الرمق.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ اليومي الشائع الذي ينصرف إلى المأكول الملموس.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 1.0

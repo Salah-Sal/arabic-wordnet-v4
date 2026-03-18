@@ -1,0 +1,134 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "عامل كيميائي"
+      confirm:
+        - text: "«عَامِلٌ كيمْيائِيّ» — المعجم الطبي الموحد (2009)"
+          translation_en: "chemical agent"
+    - lemma: "مادة كيميائية فاعلة"
+      expands:
+        - text: "«مادَّةٌ فاعِلةٌ في السُطوحِ» — المعجم الطبي الموحد (2009)"
+          addition: "يستخدم تعبير 'مادة فاعلة' كمقابل لـ agent في السياقات الكيميائية والطبية."
+        - text: "«مادة كيميائية» — المعجم الموحد لمصطلحات علم الأحياء (1993)"
+          addition: "توصيف المكون الأساسي للتعريف."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "عامل كيماوي"
+      source_section: "step9_specialized"
+      evidence_citation: "«عامل كيماوي» — AGROVOC (المكنز الزراعي)"
+      justification: "مرادف شائع للـ 'عامل كيميائي' في السياقات التقنية والعسكرية والزراعية."
+  knowledge_candidates:
+    - lemma: "مادة فاعلة"
+      justification: "تعبير مصطلحي مستخدم في الكيمياء والصيدلة للدلالة على المادة المسؤولة عن التأثير أو التفاعل (active substance/agent)."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "عامل كيميائي"
+      decision: confirmed
+      decision_reason: "المصطلح العلمي القياسي المقابل لـ chemical agent في المعاجم المتخصصة."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "المصطلح الأكثر دقة وشيوعاً في الكيمياء الأكاديمية."
+      example: "يُضاف الحمض كعامل كيميائي لبدء عملية التحلل المائي للمحلول."
+    - lemma: "مادة كيميائية فاعلة"
+      decision: confirmed
+      decision_reason: "تعبير وصفي دقيق ومستخدم في النصوص العلمية لتحديد طبيعة العامل الكيميائي."
+      evidence_assessment:
+        case: "expands_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على الصفة الوظيفية (الفاعلية) للمادة الكيميائية في التفاعل."
+      example: "تحتوي هذه العينات على مادة كيميائية فاعلة قادرة على أكسدة المعادن."
+    - lemma: "عامل كيماوي"
+      source: step05
+      decision: confirmed
+      decision_reason: "مرادف معتمد في معاجم متخصصة مثل AGROVOC."
+      step05_citation: "«عامل كيماوي» — AGROVOC"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يُستخدم غالباً في السياقات الصناعية والزراعية والميدانية (مثل الغازات الكيماوية)."
+      example: "تم الكشف عن وجود عامل كيماوي غير معروف في منطقة التجارب."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "عامل كيماوي"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-14803709-n"
+    - lemma: "مادة فاعلة"
+      source: step05
+      decision: confirmed
+      decision_reason: "اختصار مصطلحي شائع في السياقات الطبية والكيميائية التحليلية."
+      step05_citation: "«مادة فاعلة في السطوح» — المعجم الطبي الموحد"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على الدور الوظيفي للمادة كعنصر نشط في مزيج أو تفاعل."
+      example: "يتم تحديد تركيز المادة الفاعلة في المحلول قبل استخدامه في التفاعل."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مادة فاعلة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-14803709-n"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "عامل ينتج تفاعلات كيميائية"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق ومباشر ويتفق مع الدلالة العلمية للمفهوم."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-14802595-n"
+    test_result: "correct"
+  actions:
+    - command: remove_sense
+      params:
+        sense_id: "{auto}"
+        synset_id: "awn4-14802595-n"
+        lemma: "عامل كيميائي"
+      note: "اللمّة 'عامل كيميائي' تكررت خطأً في المشتمِل (agent) بينما هي أخصّ بالـ (chemical agent)."
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "عامل كيميائي"
+      enrichment:
+        root: "ع-م-ل"
+      examples:
+        - text: "يُعد الكلور عاملاً كيميائياً قوياً في عمليات التطهير."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "عامل كيماوي"
+      enrichment:
+        root: "ع-م-ل"
+      examples:
+        - text: "استخدم الفلاحون عاملاً كيماوياً لمكافحة الآفات."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "مادة كيميائية فاعلة"
+      enrichment:
+        root: "م-د-د"
+      examples:
+        - text: "تعتبر هذه المادة الكيميائية الفاعلة حجر الزاوية في التفاعل."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "مادة فاعلة"
+      enrichment:
+        root: "م-د-د"
+      examples:
+        - text: "تُضاف المادة الفاعلة إلى الخليط لتحفيز عملية التبلور."
+          type: usage
+          source: "مؤلَّف"
+  cultural_fit:
+    assessment: native

@@ -1,0 +1,163 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة تفتقر للتشكيل التام."
+      - "التعريف الحالي بسيط مقارنة بالمصطلح الجيولوجي التخصصي."
+    observations: "المفهوم جيولوجي بحت يصف صخوراً ورواسب كيميائية. المصطلح 'متبخرات' هو الشائع والأدق."
+  blind_candidates:
+    - lemma: "مُتَبَخِّرَات"
+      generation_method: ishtiqaq
+      justification: "جمع مؤنث سالم لاسم الفاعل من بخر، وهو المصطلح القياسي في الجيولوجيا."
+    - lemma: "رَوَاسِبُ تَبَخُّرِيَّة"
+      generation_method: tarkib
+      justification: "تركيب وصفي يصف طبيعة المادة وكيفية تشكلها."
+    - lemma: "أَمْلَاحُ التَّبَخُّر"
+      generation_method: tarkib
+      justification: "تركيب إضافي يشير إلى المكون الرئيسي لهذه الرواسب."
+    - lemma: "تَبَخُّرِيَّات"
+      generation_method: ishtiqaq
+      justification: "اسم منسوب مجموع يطلق على هذا النوع من الرواسب في بعض التراجم العلمية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "متبخرات"
+      confirm:
+        - text: "مترسبات من الأملاح (على سبيل المثال، الهاليت والجبس والأنهيدريت) التي خلفها تبخر مياه البحر، وتشكلت عادة في مجال أحواض مغلقة جزئيا أو كليا."
+          source: "مسرد المناخ والبيئة وإدارة النفايات الصلبة، المنظمة العربية للتربية والثقافة والعلوم (موقع ArabTerm)"
+        - text: "رواسب محلية تترسب من تبخر المحاليل"
+          source: "المعجم الموحد لمصطلحات الجيولوجيا (2000)"
+    - lemma: "مُتَبَخِّرَات"
+      confirm:
+        - text: "رواسب محلية تترسب من تبخر المحاليل"
+          source: "المعجم الموحد لمصطلحات علوم الزلازل (1999)"
+    - lemma: "رَوَاسِبُ تَبَخُّرِيَّة"
+      evidence_status: no_material_found
+    - lemma: "أَمْلَاحُ التَّبَخُّر"
+      evidence_status: no_material_found
+    - lemma: "تَبَخُّرِيَّات"
+      evidence_status: no_material_found
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "متبخرات"
+      decision: confirmed
+      decision_reason: "مصطلح علمي دقيق ومثبت في المعاجم الجيولوجية والبيئية المتخصصة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُتَبَخِّرَات"
+    - lemma: "رَوَاسِبُ تَبَخُّرِيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير وصفي دقيق ومستخدم في الأدبيات الجيولوجية كمرادف للمتبخرات."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "رَوَاسِبُ تَبَخُّرِيَّة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-15033759-n"
+
+stage4_content:
+  definition:
+    current: "الراسب المتبقي بعد تبخر مياه البحر"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يغفل الجانب المعدني (الأملاح) ولا يشمل المحاليل المالحة الأخرى غير مياه البحر."
+    authored:
+      - type: terminological
+        text: "رواسب صخرية أو معدنية (كالملح والجبس) تخلفت نتيجة تبخّر مياه البحر أو المحاليل المالحة في أحواض مغلقة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-15033759-n"
+          definition_index: 0
+          text: "رواسب صخرية أو معدنية (كالملح والجبس) تخلفت نتيجة تبخّر مياه البحر أو المحاليل المالحة في أحواض مغلقة."
+  examples:
+    per_lemma:
+      - lemma: "مُتَبَخِّرَات"
+        examples:
+          - text: "تعد المتبخرات مصدراً رئيسياً للأملاح الصناعية مثل الهاليت والأنهيدريت."
+            type: usage
+      - lemma: "رَوَاسِبُ تَبَخُّرِيَّة"
+        examples:
+          - text: "تتشكل الرواسب التبخرية في البحيرات الصحراوية التي تتعرض لتبخر شديد."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "awn4-15033759-n"
+          text: "تحتوي أحواض المتبخرات على مخزونات كبيرة من الجبس والملح الصخري."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُتَبَخِّرَات"
+      entry_id: "{auto}"
+      root: "بخر"
+      maqayis_quote: "«الْبَاءُ وَالْخَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ، وَهِيَ رَائِحَةٌ أَوْ رِيحٌ تَثُورُ. مِنْ ذَلِكَ الْبُخَارِ، وَمِنْهُ الْبَخُورُ»"
+    - lemma: "رَوَاسِبُ تَبَخُّرِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "رواسب"
+          root: "رسب"
+          maqayis_quote: "«الرَّاءُ وَالسِّينُ وَالْبَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى ثَبَاتِ الشَّيْءِ فِي سُفْلٍ.»"
+        - word: "تبخرية"
+          root: "بخر"
+          maqayis_quote: "«الْبَاءُ وَالْخَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ، وَهِيَ رَائِحَةٌ أَوْ رِيحٌ تَثُورُ. مِنْ ذَلِكَ الْبُخَارِ»"
+  per_sense:
+    - lemma: "مُتَبَخِّرَات"
+      sense_id: "{auto}"
+      nuance: "المصطلح الاصطلاحي القياسي في الجيولوجيا."
+      mwe: false
+    - lemma: "رَوَاسِبُ تَبَخُّرِيَّة"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي يركز على العملية والنتيجة الفيزيائية."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"بخر","maqayis":"«الْبَاءُ وَالْخَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ، وَهِيَ رَائِحَةٌ أَوْ رِيحٌ تَثُورُ. مِنْ ذَلِكَ الْبُخَارِ، وَمِنْهُ الْبَخُورُ»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"رواسب","root":"رسب","maqayis":"«الراء والسين والباء أصل واحد يدل على ثبات الشيء في سفل.»"},{"word":"تبخرية","root":"بخر","maqayis":"«الباء والخاء والراء أصل واحد...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الاصطلاحي القياسي في الجيولوجيا.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-15033759-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-15033759-n"
+        score: 0.95

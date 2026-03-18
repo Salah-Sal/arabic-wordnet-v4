@@ -1,0 +1,198 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة غير مشكولة."
+      - "التعريف العربي ترجمة حرفية للتعريف الإنجليزي."
+    observations: "المفهوم يشير إلى وظيفة تقنية في السكك الحديدية. اللفظ 'عامل التحويلة' شائع، ولكن توجد مصطلحات فنية أدق في المعاجم المتخصصة مثل 'محول' و'محول اتجاه'."
+  blind_candidates:
+    - lemma: "عَامِلُ التَّحْوِيلِ"
+      generation_method: tarkib
+      justification: "تركيب إضافي يصف الشخص المسؤول عن عملية التحويل (Switching)."
+    - lemma: "مُحَوِّلُ السِّكَكِ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل 'حوّل' مضافاً إليه السكك لتخصيص المجال."
+    - lemma: "مُبَدِّلُ المَسَارِ"
+      generation_method: tarkib
+      justification: "استخدام 'تبديل المسار' كوصف لوظيفة عامل التحويلة."
+    - lemma: "عَوْنُ السِّكَكِ الحَدِيدِيَّةِ"
+      generation_method: tarkib
+      justification: "استخدام لفظ 'عون' (Aide/Agent) الشائع في الإدارة والوظائف التقنية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "عامل التحويلة"
+      confirm:
+        - text: "«(في الخَطِّ الحَديدِيّ): خَطٌّ جانِبيٌّ تُحوَّلُ إليه العَرَبَاتُ مؤقَّتًا...»"
+          source: "المعجم الكبير"
+          addition: "يؤكد أن 'التحويلة' هي الجهاز أو الخط الجانبي، مما يجعل 'عامل التحويلة' هو الشخص المشغل له."
+    - lemma: "مُحَوِّل"
+      confirm:
+        - text: "«المُحَوِّل: عامل تحويل القُطُر الحديدية.»"
+          source: "المورد الحديث (2008)"
+    - lemma: "مُحَوِّل اتِّجَاه"
+      confirm:
+        - text: "«عون بالسكك الحديدية مكلف بتحويل اتجاه القطارات»"
+          source: "المعجم الموحد لمصطلحات النقل (2010)"
+    - lemma: "عامل التحويل"
+      contradicts:
+        - text: "«conversion factors»"
+          source: "المكنز الزراعي (AGROVOC)"
+          conflict: "المصطلح مستخدم في الرياضيات والعلوم بمعنى 'عوامل التحويل' وليس كوظيفة."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "عامل التحويلة"
+      decision: confirmed
+      decision_reason: "مصطلح شائع ومفهوم، والتحويلة هي الأداة التي يعمل عليها."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عَامِلُ التَّحْوِيلَةِ"
+    - lemma: "مُحَوِّل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فني معتمد في المعاجم الحديثة مثل المورد الحديث."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُحَوِّل", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-10704021-n"}
+    - lemma: "مُحَوِّل اتِّجَاه"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فني دقيق ورد في معجم مصطلحات النقل الموحد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "مُحَوِّلُ اتِّجَاهٍ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-10704021-n"}
+
+stage4_content:
+  definition:
+    current: "رجل يقوم بتشغيل محولات (تحويلات) السكك الحديدية"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط، ويفضل استخدام صياغة معجمية أكثر دقة وتضمين الغرض من الوظيفة."
+    authored:
+      - type: terminological
+        text: "مُوَظَّفٌ أَوْ عَامِلٌ فِي السِّكَكِ الحَدِيدِيَّةِ، مُكَلَّفٌ بتَشْغِيلِ التَّحْوِيلَاتِ وتَوْجِيهِ القِطَارَاتِ مِنْ خَطٍّ إِلَى آخَرَ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "عَامِلُ التَّحْوِيلَةِ"
+        examples:
+          - text: "يَقِفُ عَامِلُ التَّحْوِيلَةِ بجَانِبِ رَافِعَةِ التَّحْوِيلِ لتَوْجِيهِ القِطَارِ القَادِمِ."
+            type: usage
+      - lemma: "مُحَوِّل"
+        examples:
+          - text: "أَعْطَى مُنَظِّمُ الحَرَكَةِ إِشَارَةً لِلْمُحَوِّلِ بتبْدِيلِ المَسَارِ."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-10704021-n", definition_index: 0, text: "مُوَظَّفٌ أَوْ عَامِلٌ فِي السِّكَكِ الحَدِيدِيَّةِ، مُكَلَّفٌ بتَشْغِيلِ التَّحْوِيلَاتِ وتَوْجِيهِ القِطَارَاتِ مِنْ خَطٍّ إِلَى آخَرَ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "عَامِلُ التَّحْوِيلَةِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "عامل"
+          root: "عمل"
+          maqayis_quote: "«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ كُلُّ فِعْلٍ يُفْعَلُ.»"
+        - word: "التحويلة"
+          root: "حول"
+          maqayis_quote: "«الْحَاءُ وَالْوَاوُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ تَحَرُّكٌ فِي دَوْرٍ... وَكَذَلِكَ كُلُّ مُتَحَوِّلٍ عَنْ حَالَةٍ.»"
+    - lemma: "مُحَوِّل"
+      entry_id: "{auto}"
+      root: "حول"
+      maqayis_quote: "«الْحَاءُ وَالْوَاوُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ تَحَرُّكٌ فِي دَوْرٍ... وَكَذَلِكَ كُلُّ مُتَحَوِّلٍ عَنْ حَالَةٍ.»"
+    - lemma: "مُحَوِّلُ اتِّجَاهٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "محول"
+          root: "حول"
+          maqayis_quote: "«الْحَاءُ وَالْوَاوُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ تَحَرُّكٌ فِي دَوْرٍ... وَكَذَلِكَ كُلُّ مُتَحَوِّلٍ عَنْ حَالَةٍ.»"
+        - word: "اتجاه"
+          root: "وجه"
+          maqayis_quote: "«الْوَاوُ وَالْجِيمُ وَالْهَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ مُقَابَلَةُ الشَّيْءِ.»"
+  per_sense:
+    - lemma: "عَامِلُ التَّحْوِيلَةِ"
+      sense_id: "{auto}"
+      nuance: "اللفظ الشائع والأعم لوصف الشخص الذي يدير التحويلات يدوياً أو آلياً."
+      mwe: true
+    - lemma: "مُحَوِّل"
+      sense_id: "{auto}"
+      nuance: "صيغة اسم الفاعل المباشرة، تستخدم كمصطلح فني في المعاجم المعاصرة."
+      mwe: false
+    - lemma: "مُحَوِّلُ اتِّجَاهٍ"
+      sense_id: "{auto}"
+      nuance: "مصطلح تقني متخصص يركز على وظيفة تغيير اتجاه القطارات."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"عامل","root":"عمل","maqayis":"«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ كُلُّ فِعْلٍ يُفْعَلُ.»"},{"word":"التحويلة","root":"حول","maqayis":"«الْحَاءُ وَالْوَاوُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ تَحَرُّكٌ فِي دَوْرٍ... وَكَذَلِكَ كُلُّ مُتَحَوِّلٍ عَنْ حَالَةٍ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حول","maqayis":"«الْحَاءُ وَالْوَاوُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ تَحَرُّكٌ فِي دَوْرٍ... وَكَذَلِكَ كُلُّ مُتَحَوِّلٍ عَنْ حَالَةٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"محول","root":"حول","maqayis":"«الْحَاءُ وَالْوَاوُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ تَحَرُّكٌ فِي دَوْرٍ... وَكَذَلِكَ كُلُّ مُتَحَوِّلٍ عَنْ حَالَةٍ.»"},{"word":"اتجاه","root":"وجه","maqayis":"«الْوَاوُ وَالْجِيمُ وَالْهَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ مُقَابَلَةُ الشَّيْءِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ الشائع والأعم لوصف الشخص الذي يدير التحويلات يدوياً أو آلياً.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"صيغة اسم الفاعل المباشرة، تستخدم كمصطلح فني في المعاجم المعاصرة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح تقني متخصص يركز على وظيفة تغيير اتجاه القطارات.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-10704021-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-10704021-n"
+        score: 0.9

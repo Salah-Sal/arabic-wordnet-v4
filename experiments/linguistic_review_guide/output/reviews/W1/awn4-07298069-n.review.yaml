@@ -1,0 +1,100 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "احتمال لم يتحقق"
+      evidence_status: "no_material_found"
+    - lemma: "فرصة ضائعة"
+      evidence_status: "no_material_found"
+
+step05_lemma_generation:
+  knowledge_candidates:
+    - lemma: "فُرْصَة مُهْدَرَة"
+      justification: "تركيب وصفي؛ لتأدية معنى الفرصة التي أمكنت ولم تتحقق، وهو مناسب للغة المعاصرة."
+    - lemma: "حُلْم ضَائِع"
+      justification: "تركيب وصفي ومجاز، يعبر عن الأمنيات التي كان يمكن تحققها ولم تقع."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "احتمال لم يتحقق"
+      decision: removed
+      decision_reason: "عبارة وصفية حرة (Free phrase) تشرح المفهوم ولا تعد مصطلحاً مسكوكاً أو وحدة معجمية ثابتة، وتخالف شرط السك."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "جملة تفسيرية وليست اسماً لكيان محدد."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "فرصة ضائعة"
+      decision: confirmed
+      decision_reason: "على الرغم من كونه تركيباً وصفياً، إلا أنه مستقر ومستعمل بكثرة في السياقات المعاصرة للتعبير عن (missed opportunity/might-have-been) ويؤدي المعنى بدقة."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تعبر عن الحدث الممكن الذي لم يقع من زاوية خسارته، وهي التعبير العربي الشائع للمفهوم."
+      example: "كان عرض العمل في الخارج فرصة ضائعة ندم عليها لاحقاً."
+      actions: []
+
+    - lemma: "فُرْصَة مُهْدَرَة"
+      source: step05
+      decision: removed
+      decision_reason: "مرادف لـ (فرصة ضائعة) ولا يضيف فارقاً دلالياً يستحق إدراجه كلمّة مستقلة."
+      step05_citation: "توليد ذاتي (تركيب وصفي)"
+
+    - lemma: "حُلْم ضَائِع"
+      source: step05
+      decision: removed
+      decision_reason: "تعبير مجازي واسع لا يقتصر على الأحداث التي كان يمكن أن تقع بل يشمل الرغبات والآمال."
+      step05_citation: "توليد ذاتي (مجاز وتركيب وصفي)"
+
+  synset_flags:
+    definition_review_needed: true
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "حدث كان من الممكن أن يقع لكنه لم يحدث قط"
+  assessment:
+    decision: revise
+    reason: "تحسين الصياغة لتكون أسبك عربياً."
+  authored_definitions:
+    - type: terminological
+      text: "حَدَثٌ كَانَ مُحْتَمَلَ الوُقُوعِ ولَمْ يَحْدُثْ قَطُّ."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-07298069-n"
+        definition_index: 0
+        text: "حَدَثٌ كَانَ مُحْتَمَلَ الوُقُوعِ ولَمْ يَحْدُثْ قَطُّ."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "حَدَث"
+    test_result: "correct"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "فرصة ضائعة"
+      enrichment:
+        root: "ف-ر-ص"
+      examples:
+        - text: "أصبح حلم السفر مجرد فرصة ضائعة في حياته."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: phraset

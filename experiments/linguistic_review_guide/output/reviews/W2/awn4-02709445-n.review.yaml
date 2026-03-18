@@ -1,0 +1,202 @@
+stage1_review:
+  assessment:
+    concerns:
+      - نقص التشكيل في اللمات الحالية.
+      - الحاجة لتدقيق الفرق الدلالي بين التميمة والتعويذة.
+    observations: "اللمتان الموجودتان دقيقتان جداً وتغطيان المفهوم بشكل جيد، ولكن يمكن إغناء المجموعة بلفظ 'حرز' الشائع في هذا السياق."
+  blind_candidates:
+    - lemma: "تَمِيمَةٌ"
+      generation_method: ishtiqaq
+      justification: "اللفظ العربي الأصيل لما يعلق في العنق للحماية، من الجذر (ت م م)."
+    - lemma: "تَعْوِيذَةٌ"
+      generation_method: ishtiqaq
+      justification: "ما يعوذ به الشخص للحماية، وتطلق على الرقية والتميمة، من الجذر (ع و ذ)."
+    - lemma: "حِرْزٌ"
+      generation_method: ishtiqaq
+      justification: "المكان الحصين، ويطلق مجازاً على التعويذة التي تحفظ صاحبها، من الجذر (ح ر ز)."
+    - lemma: "عُوذَةٌ"
+      generation_method: ishtiqaq
+      justification: "مرادف أصيل للتعويذة والتميمة، من الجذر (ع و ذ)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تَمِيمَة"
+      confirm:
+        - text: "«(التميمة) مَا يعلق فِي الْعُنُق لدفع الْعين»"
+          source: "المعجم الوسيط"
+        - text: "«خَرَزَةٌ رَقْطاء تُنظَم في سَيَر, ثم يُعقد في العُنُق, كانوا يَعتقِدون أنها تَمام الدَّواء والشِّفاء»"
+          source: "المعجم الكبير"
+    - lemma: "تَعْوِيذَة"
+      confirm:
+        - text: "«ويسمى التعويذ حِرْزًا»"
+          source: "مجمع بحار الأنوار"
+        - text: "«تَمِيمة؛ تَعْويذة؛ حِجاب. [English: amulet]»"
+          source: "المورد الحديث"
+    - lemma: "حِرْز"
+      confirm:
+        - text: "«الحِرْزُ: العُوذَةُ»"
+          source: "القاموس المحيط"
+        - text: "«يسمى التعويذ حِرْزًا»"
+          source: "مختار الصحاح"
+        - text: "«تميمة أو تعويذة يُكتب عليها وتُحمل لتحمِيَ حاملَها من المرض والخطر كما يزعم المعوِّذون»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "عُوذَة"
+      confirm:
+        - text: "«الحِرْز، بِالْكَسْرِ: العُوذَة»"
+          source: "تاج العروس"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تعويذة"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي وشائع الاستعمال ومطابق للتعريف تماماً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَعْوِيذَةٌ"
+    - lemma: "تميمة"
+      decision: confirmed
+      decision_reason: "المصطلح الأدق لما يعلق في العنق تحديداً لدفع العين أو المرض."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَمِيمَةٌ"
+    - lemma: "حِرْز"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ فصيح وشائع الاستخدام كمرادف للتميمة والتعويذة، وقد أثبتت المعاجم استخدامه بهذا المعنى."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "حِرْزٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-02709445-n"}
+
+stage4_content:
+  definition:
+    current: "حلية أو قطعة مجوهرات تعلق عادة حول الرقبة ويعتقد أنها حماية سحرية ضد الشر أو المرض"
+    assessment:
+      decision: revise
+      reason: "لجعله أكثر تركيزاً وصياغة معجمية بأسلوب المعجم الوسيط."
+    authored:
+      - type: terminological
+        text: "مَا يُعَلَّقُ فِي الْعُنُقِ مِنْ خَرَزٍ أَوْ قِلادَةٍ أَوْ تَعْوِيذَةٍ، يُعْتَقَدُ أَنَّهَا تَدْفَعُ الْعَيْنَ أَوْ تَحْمِي مِنَ الشَّرِّ وَالْمَرَضِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-02709445-n", definition_index: 0, text: "مَا يُعَلَّقُ فِي الْعُنُقِ مِنْ خَرَزٍ أَوْ قِلادَةٍ أَوْ تَعْوِيذَةٍ، يُعْتَقَدُ أَنَّهَا تَدْفَعُ الْعَيْنَ أَوْ تَحْمِي مِنَ الشَّرِّ وَالْمَرَضِ."}
+  examples:
+    per_lemma:
+      - lemma: "تَعْوِيذَةٌ"
+        examples:
+          - text: "حَمَلَ الْمُسَافِرُ تَعْوِيذَةً نُقِشَتْ عَلَيْهَا طَلاسِمُ لِتَحْمِيَهُ فِي طَرِيقِهِ."
+            type: usage
+      - lemma: "تَمِيمَةٌ"
+        examples:
+          - text: "تَعَلَّقَتِ الْجَارِيَةُ بِتَمِيمَةٍ مِنَ الْخَرَزِ الأَزْرَقِ ظَنّاً مِنْهَا أَنَّهَا تَدْفَعُ الْحَسَدَ."
+            type: usage
+      - lemma: "حِرْزٌ"
+        examples:
+          - text: "وَضَعَتِ الأُمُّ حِرْزاً صَغِيراً تَحْتَ وِسَادَةِ طِفْلِهَا لِيَنَامَ فِي أَمَانٍ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "حَمَلَ الْمُسَافِرُ تَعْوِيذَةً نُقِشَتْ عَلَيْهَا طَلاسِمُ لِتَحْمِيَهُ فِي طَرِيقِهِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تَعَلَّقَتِ الْجَارِيَةُ بِتَمِيمَةٍ مِنَ الْخَرَزِ الأَزْرَقِ ظَنّاً مِنْهَا أَنَّهَا تَدْفَعُ الْحَسَدَ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "وَضَعَتِ الأُمُّ حِرْزاً صَغِيراً تَحْتَ وِسَادَةِ طِفْلِهَا لِيَنَامَ فِي أَمَانٍ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تَعْوِيذَةٌ"
+      entry_id: "{auto}"
+      root: "عوذ"
+      maqayis_quote: "«الْعَيْنُ وَالْوَاوُ وَالذَّالُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مَعْنًى وَاحِدٍ، وَهُوَ الِالْتِجَاءُ إِلَى الشَّيْءِ... وَالْعُوذَةُ وَالْمَعَاذَةُ: الَّتِي يُعَوَّذُ بِهَا الْإِنْسَانُ مِنْ فَزَعٍ أَوْ جُنُونٌ.»"
+    - lemma: "تَمِيمَةٌ"
+      entry_id: "{auto}"
+      root: "تمم"
+      maqayis_quote: "«التَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ مُنْقَاسٌ، وَهُوَ دَلِيلُ الْكَمَالِ... وَمِنْ هَذَا الْبَابِ التَّمِيمَةُ: كَأَنَّهُمْ يُرِيدُونَ أَنَّهَا تَمَامُ الدَّوَاءِ وَالشِّفَاءِ الْمَطْلُوبِ.»"
+    - lemma: "حِرْزٌ"
+      entry_id: "{auto}"
+      root: "حرز"
+      maqayis_quote: "«الْحَاءُ وَالرَّاءُ وَالزَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ مِنَ الْحِفْظِ وَالتَّحَفُّظِ يُقَالُ حَرَزْتُهُ وَاحْتَرَزَ هُوَ، أَيْ تَحَفَّظَ.»"
+  per_sense:
+    - lemma: "تَعْوِيذَةٌ"
+      sense_id: "{auto}"
+      nuance: "تُركّز على الوظيفة الحمائية والجانب الروحاني أو السحري (الالتجاء)."
+      mwe: false
+    - lemma: "تَمِيمَةٌ"
+      sense_id: "{auto}"
+      nuance: "تُركّز على الكيان المادي (خرزة أو قلادة) الذي يُعلّق في العنق."
+      mwe: false
+    - lemma: "حِرْزٌ"
+      sense_id: "{auto}"
+      nuance: "تُركّز على جانب الصون والحفظ والتحريز."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عوذ","maqayis":"«الْعَيْنُ وَالْوَاوُ وَالذَّالُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مَعْنًى وَاحِدٍ، وَهُوَ الِالْتِجَاءُ إِلَى الشَّيْءِ... وَالْعُوذَةُ وَالْمَعَاذَةُ: الَّتِي يُعَوَّذُ بِهَا الْإِنْسَانُ مِنْ فَزَعٍ أَوْ جُنُونٌ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"تمم","maqayis":"«التَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ مُنْقَاسٌ، وَهُوَ دَلِيلُ الْكَمَالِ... وَمِنْ هَذَا الْبَابِ التَّمِيمَةُ: كَأَنَّهُمْ يُرِيدُونَ أَنَّهَا تَمَامُ الدَّوَاءِ وَالشِّفَاءِ الْمَطْلُوبِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حرز","maqayis":"«الْحَاءُ وَالرَّاءُ وَالزَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ مِنَ الْحِفْظِ وَالتَّحَفُّظِ يُقَالُ حَرَزْتُهُ وَاحْتَرَزَ هُوَ، أَيْ تَحَفَّظَ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تُركّز على الوظيفة الحمائية والجانب الروحاني أو السحري (الالتجاء).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تُركّز على الكيان المادي (خرزة أو قلادة) الذي يُعلّق في العنق.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تُركّز على جانب الصون والحفظ والتحريز.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-02709445-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-02709445-n"
+        score: 0.95

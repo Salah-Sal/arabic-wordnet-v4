@@ -1,0 +1,158 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "أمر لا بد منه"
+      evidence_status: "no_material_found"
+    - lemma: "ضرورة قصوى"
+      evidence_status: "no_material_found"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "حتمية"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«حتمية الأمر: كونه واجبا لا مفر منه» — المعجم الوسيط"
+      justification: "مصدر صناعي يعبر بدقة عن حالة الوجوب أو الشيء الذي لا مفر منه."
+  knowledge_candidates:
+    - lemma: "لزام"
+      justification: "إحياء لفظ (مجاز/توسيع دلالي): بمعنى الملازم جداً أو الشيء الواجب الذي لا يفارق، يؤدي معنى الإلزام بقوة."
+  generation_notes: "المفهوم الإنجليزي (must) يستخدم كاسم ليعبر عن شيء لا بد منه. تم توليد لمّات من المصادر العربية التي تعبر عن الوجوب القطعي كحالة مستقرة."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "أمر لا بد منه"
+      decision: removed
+      decision_reason: "تركيب إسنادي/وصفي حر (يتضمن جملة نفي 'لا بد منه') وليس وحدة معجمية مسكوكة."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تعبير حر لنقل التركيب الإنجليزي."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "ضرورة قصوى"
+      decision: confirmed
+      decision_reason: "مركب وصفي شائع ومستقر في الاستعمال المتخصص والعام للتعبير عن الدرجة القصوى من الإلزام، ويقابل 'absolute necessity'."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تتميز عن (الضرورة) المطلقة بأنها مقيدة بكونها تبلغ الغاية في الإلزام ولا تحتمل أي تأجيل."
+      example: "أصبح تأمين مصادر الطاقة النظيفة ضرورة قصوى."
+      actions: []
+
+    - lemma: "حتمية"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصدر صناعي يعبر بدقة عن حالة الوجوب، وهو مصطلح مستقر ومستخدم كاسم."
+      step05_citation: "«حتمية الأمر: كونه واجبا لا مفر منه» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تتميز بالتركيز على الوجوب القطعي الذي تفرضه الظروف بحيث لا يقبل الاستثناء أو التخلف."
+      example: "التعليم المستمر حتمية يفرضها التطور التكنولوجي."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "حتمية"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09386867-n"
+
+    - lemma: "لزام"
+      source: step05
+      decision: confirmed
+      decision_reason: "لفظ فصيح وتراثي استُعمل كاسم بمعنى الواجب المحتوم أو الملازم."
+      step05_citation: "«اللزام: الملازم جدا» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تتميز بالطابع التراثي للتعبير عن الضرورة الملازمة بقوة بحيث لا تنفك عن الشيء."
+      example: "كان لزاماً على المؤسسة أن تحدّث أنظمتها."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "لزام"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09386867-n"
+
+  synset_flags:
+    definition_review_needed: true
+
+  added_lemmas:
+    - lemma: "حتمية"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+    - lemma: "لزام"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "شيء ضروري أو أساسي"
+  assessment:
+    decision: revise
+    reason: "توضيح التعريف ليعكس درجة الإلزام والوجوب التي تميزه عن مجرد (الضرورة) العامة، وذلك لتغطية معنى (must) الدال على ما لا مفر منه."
+  authored_definitions:
+    - type: terminological
+      text: "أمرٌ بالغ الإلزام لا مفرَّ منه ولا غنى عنه."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-09386867-n"
+        definition_index: 0
+        text: "أمرٌ بالغ الإلزام لا مفرَّ منه ولا غنى عنه."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-09390100-n"
+    test_result: "correct"
+  verb_checks:
+    applicable: false
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "ضرورة قصوى"
+      enrichment:
+        root: "ضرر"
+      examples:
+        - text: "أصبح تأمين مصادر الطاقة النظيفة ضرورة قصوى."
+          type: usage
+          source: "مؤلف"
+      pos_check:
+        pos: noun
+    - lemma: "حتمية"
+      enrichment:
+        root: "حتم"
+      examples:
+        - text: "التعليم المستمر حتمية يفرضها التطور التكنولوجي."
+          type: usage
+          source: "مؤلف"
+      pos_check:
+        pos: noun
+    - lemma: "لزام"
+      enrichment:
+        root: "لزم"
+      examples:
+        - text: "كان لزاماً على المؤسسة أن تحدّث أنظمتها."
+          type: usage
+          source: "مؤلف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

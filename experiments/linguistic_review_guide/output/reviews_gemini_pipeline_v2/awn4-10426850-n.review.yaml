@@ -1,0 +1,235 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي يركز على الجانب الأخلاقي (التربية والأخلاق) ويغفل الجانب الطبقي/الاجتماعي الذي هو أساس مصطلح patrician/aristocrat."
+    observations: "المجموعة تضم مصطلحاً معرباً (أرستقراطي) وآخر أصيلاً (نبيل). المعنى يجمع بين الرفعة الاجتماعية وحسن الأدب."
+  blind_candidates:
+    - lemma: "أَرِسْتُوقْرَاطِيّ"
+      generation_method: taarib
+      justification: "المصطلح العالمي المعرب للدلالة على المنتمي لطبقة النبلاء."
+    - lemma: "نَبِيل"
+      generation_method: majaz
+      justification: "لفظ عربي أصيل يدل على شرف المولد وكرم الشمائل."
+    - lemma: "شَرِيف"
+      generation_method: majaz
+      justification: "يدل على علو المنزلة والانتساب لأسرة ذات شأن."
+    - lemma: "مُهَذَّب"
+      generation_method: ishtiqaq
+      justification: "يركز على جانب 'التربية والأخلاق الراقية' المذكور في التعريف."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "أَرِسْتُوقْرَاطِيّ"
+      confirm:
+        - text: "«أحد أفراد الطبقة الأرستوقراطية؛ وبخاصة: أحد النبلاء. من يحذو حذو أبناء الطبقة الأرستوقراطية في تصرفه أو تفكيره.»"
+          source: "المورد الحديث"
+    - lemma: "نَبِيل"
+      confirm:
+        - text: "«الشريف العظيم الكريم الحسب الحميد الشمائل.»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+        - text: "«(النَّبِيل) الشريف.»"
+          source: "المعجم الوسيط"
+    - lemma: "شَرِيف"
+      confirm:
+        - text: "«شريف روماني؛ الشريف؛ النبيل؛ الأرستوقراطي.»"
+          source: "المورد الحديث (ترجمة Patrician)"
+        - text: "«العالي المنزلة.»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+    - lemma: "مُهَذَّب"
+      confirm:
+        - text: "«من ربي تربية صالحة والمنقي الخالي مما يشينه.»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+    - lemma: "وَجِيه"
+      confirm:
+        - text: "«ذو الجاه وسيد القوم.»"
+          source: "المعجم الوسيط"
+        - text: "«من فيه خصال حميدة من شأنه أن يعرف ولا ينكر.»"
+          source: "كتاب التعريفات للجرجاني"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "أَرِسْتُوقْرَاطِيّ"
+      decision: confirmed
+      decision_reason: "مصطلح معرب مستقر في اللغة الحديثة للدلالة على الطبقة الاجتماعية الراقية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "أَرِسْتُوقْرَاطِيّ"
+    - lemma: "نَبِيل"
+      decision: confirmed
+      decision_reason: "لفظ أصيل يجمع بين شرف الأصل وحسن الخلق، وهو المقابل الأدق لـ Noble/Patrician."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نَبِيل"
+    - lemma: "شَرِيف"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف قوي للنبل والرفعة الاجتماعية، وغالباً ما يرتبط بالحسب والنسب."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "شَرِيف", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُهَذَّب"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يجسد الجانب السلوكي والتربوي الوارد في التعريف (Refined upbringing and manners)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُهَذَّب", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "وَجِيه"
+      decision: confirmed
+      decision_reason: "يدل على الشخص ذي الجاه والمكانة المرموقة في المجتمع."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "وَجِيه", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "شخص ذو تربية وأخلاق راقية"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بحت ويحتاج لإضافة البعد الطبقي والاجتماعي المرتبط بالمفهوم."
+    authored:
+      - type: terminological
+        text: "شَخْصٌ يَنْتَمِي إِلَى طَبَقَةٍ اجْتِمَاعِيَّةٍ أَوْ سِيَاسِيَّةٍ رَفِيعَةٍ، يَتَّسِمُ بِالتَّرْبِيَةِ العَالِيَةِ وَالأَخْلَاقِ الرَّاقِيَةِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "أَرِسْتُوقْرَاطِيّ"
+        examples:
+          - text: "عُرِفَ الدُّبْلُومَاسِيُّ بِسُلُوكِهِ الأَرِسْتُوقْرَاطِيِّ الرَّصِينِ فِي المَحَافِلِ الدَّوْلِيَّةِ."
+            type: usage
+      - lemma: "نَبِيل"
+        examples:
+          - text: "كَانَ نَبِيلًا فِي تَعَامُلِهِ مَعَ النَّاسِ كَافَّةً، يَتَرَفَّعُ عَنِ الصَّغَائِرِ."
+            type: usage
+      - lemma: "شَرِيف"
+        examples:
+          - text: "يُعَدُّ هَذَا الشَّابُّ سَلِيلَ عَائِلَةٍ شَرِيفَةٍ ذَاتِ تَارِيخٍ عَرِيقٍ."
+            type: usage
+      - lemma: "مُهَذَّب"
+        examples:
+          - text: "إِنَّهُ رَجُلٌ مُهَذَّبٌ تَرَكَ أَثَرًا طَيِّبًا لَدَى كُلِّ مَنِ التَقَى بِهِ."
+            type: usage
+      - lemma: "وَجِيه"
+        examples:
+          - text: "حَضَرَ حَفْلَ الِافْتِتَاحِ جَمْعٌ مِنْ وُجَهَاءِ المَدِينَةِ وَأَعْيَانِهَا."
+            type: usage
+  actions:
+    - command: update_definition
+      params: {synset_id: "{synset_id}", definition_index: 0, text: "شَخْصٌ يَنْتَمِي إِلَى طَبَقَةٍ اجْتِمَاعِيَّةٍ أَوْ سِيَاسِيَّةٍ رَفِيعَةٍ، يَتَّسِمُ بِالتَّرْبِيَةِ العَالِيَةِ وَالأَخْلَاقِ الرَّاقِيَةِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "نَبِيل"
+      entry_id: "{auto}"
+      root: "نبل"
+      maqayis_quote: "«النَّونُ وَالْبَاءُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى فَضْلٍ وَكِبَرٍ، ثُمَّ يُسْتَعَارُ مِنْهُ الْحِذْقُ فِي الْعَمَلِ، فَيُقَالُ لِلْفَضْلِ فِي الْإِنْسَانِ نُبْلٌ.»"
+    - lemma: "شَرِيف"
+      entry_id: "{auto}"
+      root: "شرف"
+      maqayis_quote: "«الشِّينُ وَالرَّاءُ وَالْفَاءُ أَصْلٌ يَدُلُّ عَلَى عُلُوٍّ وَارْتِفَاعٍ. فَالشَّرَفُ: الْعُلُوُّ. وَالشَّرِيفُ: الرَّجُلُ الْعَالِي.»"
+    - lemma: "مُهَذَّب"
+      entry_id: "{auto}"
+      root: "هذب"
+      maqayis_quote: "«الْهَاءُ وَالذَّالُ وَالْبَاءُ: كَلِمَةٌ تَدُلُّ عَلَى تَنْقِيَةِ شَيْءٍ مِمَّا يَعِيبُهُ. يُقَالُ: شَيْءٌ مُهَذَّبٌ: مُنَقًّى مِمَّا يَعِيبُهُ.»"
+    - lemma: "وَجِيه"
+      entry_id: "{auto}"
+      root: "وجه"
+      maqayis_quote: "«الْوَاوُ وَالْجِيمُ وَالْهَاءُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُقَابَلَةٍ لِشَيْءٍ... هُوَ وَجِيهٌ بَيِّنٌ الْجَاهِ.»"
+  per_sense:
+    - lemma: "أَرِسْتُوقْرَاطِيّ"
+      sense_id: "{auto}"
+      nuance: "يركز على الانتماء لطبقة اجتماعية معينة ذات امتيازات سياسية أو مادية."
+      mwe: false
+    - lemma: "نَبِيل"
+      sense_id: "{auto}"
+      nuance: "يجمع بين رفعة الشأن وسمو الأخلاق والشهامة."
+      mwe: false
+    - lemma: "شَرِيف"
+      sense_id: "{auto}"
+      nuance: "يؤكد على علو المنزلة المرتبط غالباً بالنسب أو الشرف المعنوي."
+      mwe: false
+    - lemma: "مُهَذَّب"
+      sense_id: "{auto}"
+      nuance: "يركز بشكل حصري على جودة التربية وحسن السلوك واللطافة."
+      mwe: false
+    - lemma: "وَجِيه"
+      sense_id: "{auto}"
+      nuance: "يدل على الشخص ذي المكانة والكلمة المسموعة في قومه (Prominent)."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نبل","maqayis":"«النَّونُ وَالْبَاءُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى فَضْلٍ وَكِبَرٍ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"شرف","maqayis":"«الشِّينُ وَالرَّاءُ وَالْفَاءُ أَصْلٌ يَدُلُّ عَلَى عُلُوٍّ وَارْتِفَاعٍ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"هذب","maqayis":"«الْهَاءُ وَالذَّالُ وَالْبَاءُ: كَلِمَةٌ تَدُلُّ عَلَى تَنْقِيَةِ شَيْءٍ مِمَّا يَعِيبُهُ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"وجه","maqayis":"«الْوَاوُ وَالْجِيمُ وَالْهَاءُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُقَابَلَةٍ لِشَيْءٍ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الانتماء لطبقة اجتماعية معينة ذات امتيازات سياسية أو مادية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

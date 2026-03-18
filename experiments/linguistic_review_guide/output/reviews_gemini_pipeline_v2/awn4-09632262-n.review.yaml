@@ -1,0 +1,240 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة 'رأسمالي' تُستخدم كاسم وصفة، ويجب التأكد من ضبطها الصرفي (رَأْسَمَالِيّ)."
+    observations: "المصطلح مركب من 'رأس' و'مال'، وهو تعريب لمفهوم الرأسمالية (Capitalism). المصطلح شائع في الأدبيات الاقتصادية المعاصرة."
+  blind_candidates:
+    - lemma: "رَأْسَمَالِيّ"
+      generation_method: tarkib
+      justification: "الترجمة القياسية لمصطلح capitalist، مشتقة من رأس المال."
+    - lemma: "مُسْتَثْمِر"
+      generation_method: ishtiqaq
+      justification: "من استثمر المال، وهو الوصف الوظيفي الأساسي للرأسمالي."
+    - lemma: "مُمَوِّل"
+      generation_method: ishtiqaq
+      justification: "من موّل، أي قدم المال للمشروع."
+    - lemma: "مُتَمَوِّل"
+      generation_method: ishtiqaq
+      justification: "من تموّل، أي صار ذا مال أو تعامل بالمال."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "رأسمالي"
+      confirm:
+        - text: "الرأسماليّ: شخص ذو رأسمالٍ ضخم موظَّف في المشاريع الاقتصادية."
+          source: "المورد الحديث (2008)"
+    - lemma: "رَأْسَمَالِيّ"
+      confirm:
+        - text: "الرأسماليّ: شخص ذو رأسمالٍ ضخم موظَّف في المشاريع الاقتصادية."
+          source: "المورد الحديث (2008)"
+    - lemma: "مُسْتَثْمِر"
+      confirm:
+        - text: "مُستثّمر: شخص أو شركة تضع إمكانات مادية قيد الاستخدام، وتتوقع تحصيل عائد وربح مُقابل هذا الاستثمار."
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة (1996)"
+    - lemma: "مُمَوِّل"
+      confirm:
+        - text: "(الممول) من ينْفق على عمل مَا ودافع الضرائب (محدثة)."
+          source: "المعجم الوسيط"
+    - lemma: "مُتَمَوِّل"
+      confirm:
+        - text: "تَمَوَّلَ الرَّجُلُ: اتَّخَذَ مَالًا."
+          source: "مقاييس اللغة (ابن فارس)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "رأسمالي"
+      decision: confirmed
+      decision_reason: "المصطلح الأساسي والأكثر دقة في السياق الاقتصادي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "رَأْسَمَالِيّ"
+    - lemma: "مُسْتَثْمِر"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف وظيفي دقيق للرأسمالي في سياق الاستثمار."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُسْتَثْمِر", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُمَوِّل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يُستخدم للإشارة إلى من يقدم رأس المال للمشاريع."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُمَوِّل", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُتَمَوِّل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يدل على حيازة المال واستخدامه، وهو مصطلح تراثي محدث."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُتَمَوِّل", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "شخص يستثمر رأس المال في مشروع تجاري (خاصة المشاريع الكبيرة)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكن يمكن صياغته بأسلوب معجمي أكثر إحكاماً ليشمل ملكية رأس المال والهدف الربحي."
+    authored:
+      - type: terminological
+        text: "شَخْصٌ يَمْلِكُ رَأْسَ مَالٍ وَيَسْتَثْمِرُهُ فِي مَشَارِيعَ اقْتِصَادِيَّةٍ لِتَحْقِيقِ الرِّبْحِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "شَخْصٌ يَمْلِكُ رَأْسَ مَالٍ وَيَسْتَثْمِرُهُ فِي مَشَارِيعَ اقْتِصَادِيَّةٍ لِتَحْقِيقِ الرِّبْحِ."}
+
+  examples:
+    per_lemma:
+      - lemma: "رَأْسَمَالِيّ"
+        examples:
+          - text: "يَسْعَى الرَّأْسَمَالِيُّ إِلَى تَوْسِيعِ نِطَاقِ اسْتِثْمَارَاتِهِ فِي السُّوقِ العَالَمِيَّةِ."
+            type: usage
+      - lemma: "مُسْتَثْمِر"
+        examples:
+          - text: "جَذَبَ المَشْرُوعُ الجَدِيدُ عَدَداً كَبِيراً مِنَ المُسْتَثْمِرِينَ."
+            type: usage
+      - lemma: "مُمَوِّل"
+        examples:
+          - text: "بَحَثَتِ الشَّرِكَةُ النَّاشِئَةُ عَنْ مُمَوِّلٍ يَدْعَمُ خُطَّتَهَا التَّوَسُّعِيَّةَ."
+            type: usage
+      - lemma: "مُتَمَوِّل"
+        examples:
+          - text: "كَانَ جَدُّهُ مُتَمَوِّلاً كَبِيراً لَهُ أَمْلَاكٌ فِي عِدَّةِ مُدُنٍ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يَسْعَى الرَّأْسَمَالِيُّ إِلَى تَوْسِيعِ نِطَاقِ اسْتِثْمَارَاتِهِ فِي السُّوقِ العَالَمِيَّةِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "رَأْسَمَالِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "رأس"
+          root: "رأس"
+          maqayis_quote: "«الرَّاءُ وَالْهَمْزَةُ وَالسِّينُ أَصْلٌ يَدُلُّ عَلَى تَجَمُّعٍ وَارْتِفَاعٍ.»"
+        - word: "مال"
+          root: "مول"
+          maqayis_quote: "«الْمِيمُ وَالْوَاوُ وَاللَّامُ كَلِمَةٌ وَاحِدَةٌ، هِيَ تَمَوَّلَ الرَّجُلُ: اتَّخَذَ مَالًا.»"
+    - lemma: "مُسْتَثْمِر"
+      entry_id: "{auto}"
+      root: "ثمر"
+      maqayis_quote: "«الثَّاءُ وَالْمِيمُ وَالرَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ شَيْءٌ يَتَوَلَّدُ عَنْ شَيْءٍ مُتَجَمِّعٍ.»"
+    - lemma: "مُمَوِّل"
+      entry_id: "{auto}"
+      root: "مول"
+      maqayis_quote: "«الْمِيمُ وَالْوَاوُ وَاللَّامُ كَلِمَةٌ وَاحِدَةٌ، هِيَ تَمَوَّلَ الرَّجُلُ: اتَّخَذَ مَالًا.»"
+    - lemma: "مُتَمَوِّل"
+      entry_id: "{auto}"
+      root: "مول"
+      maqayis_quote: "«الْمِيمُ وَالْوَاوُ وَاللَّامُ كَلِمَةٌ وَاحِدَةٌ، هِيَ تَمَوَّلَ الرَّجُلُ: اتَّخَذَ مَالًا.»"
+
+  per_sense:
+    - lemma: "رَأْسَمَالِيّ"
+      sense_id: "{auto}"
+      nuance: "يركز على الانتماء للنظام الرأسمالي أو امتلاك رأس مال ضخم."
+      mwe: false
+    - lemma: "مُسْتَثْمِر"
+      sense_id: "{auto}"
+      nuance: "يركز على عملية وضع المال في مشروع لتحقيق عائد."
+      mwe: false
+    - lemma: "مُمَوِّل"
+      sense_id: "{auto}"
+      nuance: "يركز على توفير الأموال اللازمة لتشغيل المشروع."
+      mwe: false
+    - lemma: "مُتَمَوِّل"
+      sense_id: "{auto}"
+      nuance: "يشير إلى من صار ذا مال وثروة ويستخدمها في التجارة."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"رأس","root":"رأس","maqayis":"«الرَّاءُ وَالْهَمْزَةُ وَالسِّينُ أَصْلٌ يَدُلُّ عَلَى تَجَمُّعٍ وَارْتِفَاعٍ.»"},{"word":"مال","root":"مول","maqayis":"«الْمِيمُ وَالْوَاوُ وَاللَّامُ كَلِمَةٌ وَاحِدَةٌ، هِيَ تَمَوَّلَ الرَّجُلُ: اتَّخَذَ مَالًا.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ثمر","maqayis":"«الثَّاءُ وَالْمِيمُ وَالرَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ شَيْءٌ يَتَوَلَّدُ عَنْ شَيْءٍ مُتَجَمِّعٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"مول","maqayis":"«الْمِيمُ وَالْوَاوُ وَاللَّامُ كَلِمَةٌ وَاحِدَةٌ، هِيَ تَمَوَّلَ الرَّجُلُ: اتَّخَذَ مَالًا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"مول","maqayis":"«الْمِيمُ وَالْوَاوُ وَاللَّامُ كَلِمَةٌ وَاحِدَةٌ، هِيَ تَمَوَّلَ الرَّجُلُ: اتَّخَذَ مَالًا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الانتماء للنظام الرأسمالي أو امتلاك رأس مال ضخم.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على عملية وضع المال في مشروع لتحقيق عائد.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على توفير الأموال اللازمة لتشغيل المشروع.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يشير إلى من صار ذا مال وثروة ويستخدمها في التجارة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

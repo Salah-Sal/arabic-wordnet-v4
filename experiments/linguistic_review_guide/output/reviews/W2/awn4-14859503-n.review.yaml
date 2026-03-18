@@ -1,0 +1,238 @@
+stage1_review:
+  assessment:
+    concerns:
+      - غياب التشكيل الكامل عن اللمات الحالية.
+      - اللمة "مادة مخففة" عبارة وصفية، بينما يفضل استخدام "مخفف" ككلمة مفردة في السياقات التقنية.
+      - الحاجة إلى لمات أكثر تخصصاً (مثل مرقق وممدد) لتغطية الجوانب التقنية المختلفة (الدهانات، الكيمياء).
+    observations: "المجموعة تغطي مفهوم المواد التي تضاف لتقليل التركيز أو اللزوجة. اللمات الحالية صحيحة دلالياً لكنها تفتقر للضبط الصرفي والتمايز التقني."
+  blind_candidates:
+    - lemma: "مُخَفِّف"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل 'خفف'، وهو المصطلح القياسي للمادة التي تقلل التركيز أو اللزوجة."
+    - lemma: "مَادَّةٌ مُخَفِّفَة"
+      generation_method: tarkib
+      justification: "تركيب وصفي شائع الاستخدام في الأدبيات الكيميائية والتقنية."
+    - lemma: "مُرَقِّق"
+      generation_method: ishtiqaq
+      justification: "يستخدم خاصة في سياق الدهانات (thinner) للإشارة إلى المادة التي ترقق قوام السائل."
+    - lemma: "مُمَدِّد"
+      generation_method: ishtiqaq
+      justification: "يستخدم في الكيمياء للإشارة إلى المادة التي تزيد من حجم المحلول مع تقليل تركيزه (diluent)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُخَفِّف"
+      confirm:
+        - text: "أية مادة سائلة أو صلبة أو غازية تستخدم في التمديد أو في الإذابة"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية (2012)"
+        - text: "عامل يقلل تركيز شيء ما، أو يخفف أثره."
+          source: "معجم المصطلحات الطبية (ج.2، 2003)"
+      expands:
+        - text: "هوعملية تذويب تستخدم مع جميع أنواع مواد التلوين."
+          source: "مسرد هندسة وتكنولوجيا السيارات (ArabTerm)"
+    - lemma: "مَادَّةٌ مُخَفِّفَة"
+      confirm:
+        - text: "مادة مخَفّفة للّزُوجة وبخاصة في الدم."
+          source: "المورد الحديث (2008)"
+    - lemma: "مُرَقِّق"
+      confirm:
+        - text: "سائل كزيت التُّربنتينة ونحوه، يُتَّخذ مُرقِّقًا لِقَوام الطِّلاء وأنواع الورنيش."
+          source: "المورد الحديث (2008)"
+        - text: "مرقق القوام"
+          source: "المعجم الموحد لمصطلحات الكيمياء (1992)"
+    - lemma: "مُمَدِّد"
+      confirm:
+        - text: "مرقق، ممدد (thinner)"
+          source: "المعجم الموحد لمصطلحات الكيمياء (1992)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مخفف"
+      decision: confirmed
+      decision_reason: "المصطلح الأكثر شيوعاً وعمومية للدلالة على مادة التخفيف في مختلف المجالات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُخَفِّف"
+    - lemma: "مادة مخففة"
+      decision: confirmed
+      decision_reason: "تعبير وصفي دقيق وشائع الاستخدام في السياقات العلمية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَادَّةٌ مُخَفِّفَة"
+    - lemma: "مُرَقِّق"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تقني متخصص يستخدم غالباً في سياق الدهانات والطلاء (Thinner)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُرَقِّق", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُمَدِّد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يستخدم في الكيمياء للدلالة على المادة التي تزيد الحجم وتقلل التركيز (Diluent)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُمَدِّد", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "عامل تخفيف"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب جداً ويعتبر ترجمة حرفية للمصطلح الإنجليزي، ويفضل تعريفه ببيان وظيفته الفيزيائية والكيميائية."
+    authored:
+      - type: terminological
+        text: "مَادَّةٌ سَائِلَةٌ أَوْ صَلْبَةٌ أَوْ غَازِيَّةٌ تُضَافُ إِلَى مَادَّةٍ أُخْرَى لِتَقْلِيلِ تَرْكِيزِهَا أَوْ لِتَقْلِيلِ لُزُوجَتِهَا لِتُصْبِحَ أَكْثَرَ سُيُولَةً."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "مُخَفِّف"
+        examples:
+          - text: "يُضَافُ المُخَفِّفُ إِلَى الطِّلاءِ لِتَسْهِيلِ مَدِّهِ عَلَى الجُدْرَانِ."
+            type: usage
+      - lemma: "مَادَّةٌ مُخَفِّفَة"
+        examples:
+          - text: "يُعَدُّ المَاءُ مَادَّةً مُخَفِّفَةً شَائِعَةً لِلأَحْمَاضِ فِي المُخْتَبَرَاتِ."
+            type: usage
+      - lemma: "مُرَقِّق"
+        examples:
+          - text: "اسْتَخْدَمَ الدَّهَّانُ المُرَقِّقَ لِتَخْفِيفِ قَوَامِ الوَرْنِيشِ."
+            type: usage
+      - lemma: "مُمَدِّد"
+        examples:
+          - text: "يُضَافُ المُمَدِّدُ لِلْمَحَالِيلِ الكِيمْيَائِيَّةِ لِلْحُصُولِ عَلَى التَّرْكِيزِ المَطْلُوبِ."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مَادَّةٌ سَائِلَةٌ أَوْ صَلْبَةٌ أَوْ غَازِيَّةٌ تُضَافُ إِلَى مَادَّةٍ أُخْرَى لِتَقْلِيلِ تَرْكِيزِهَا أَوْ لِتَقْلِيلِ لُزُوجَتِهَا لِتُصْبِحَ أَكْثَرَ سُيُولَةً."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُخَفِّف"
+      entry_id: "{auto}"
+      root: "خف"
+      maqayis_quote: "«الْخَاءُ وَالْفَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ شَيْءٌ يُخَالِفُ الثِّقَلَ وَالرَّزَانَةَ. يُقَالُ خَفَّ الشَّيْءُ يَخِفُّ خِفَّةً، وَهُوَ خَفِيفٌ.»"
+    - lemma: "مَادَّةٌ مُخَفِّفَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "مادة"
+          root: "مد"
+          maqayis_quote: "«الْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى جَرِّ شَيْءٍ فِي طُولٍ، وَاتِّصَالِ شَيْءٍ بِشَيْءٍ فِي اسْتِطَالَةٍ.»"
+        - word: "مخففة"
+          root: "خف"
+          maqayis_quote: "«الْخَاءُ وَالْفَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ شَيْءٌ يُخَالِفُ الثِّقَلَ وَالرَّزَانَةَ.»"
+    - lemma: "مُرَقِّق"
+      entry_id: "{auto}"
+      root: "رق"
+      maqayis_quote: "«الرَّاءُ وَالْقَافُ أَصْلَانِ: أَحَدُهُمَا صِفَةٌ تَكُونُ مُخَالِفَةً لِلْجَفَاءِ، وَالثَّانِي اضْطِرَابُ شَيْءٍ مَائِعٍ.»"
+    - lemma: "مُمَدِّد"
+      entry_id: "{auto}"
+      root: "مد"
+      maqayis_quote: "«الْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى جَرِّ شَيْءٍ فِي طُولٍ، وَاتِّصَالِ شَيْءٍ بِشَيْءٍ فِي اسْتِطَالَةٍ.»"
+  per_sense:
+    - lemma: "مُخَفِّف"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام والشامل لتقليل التركيز أو اللزوجة."
+      mwe: false
+    - lemma: "مَادَّةٌ مُخَفِّفَة"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي يؤكد على الطبيعة المادية للعامل."
+      mwe: true
+    - lemma: "مُرَقِّق"
+      sense_id: "{auto}"
+      nuance: "يستخدم غالباً في سياق تقليل لزوجة السوائل الغليظة كالدهانات (Thinner)."
+      mwe: false
+    - lemma: "مُمَدِّد"
+      sense_id: "{auto}"
+      nuance: "يستخدم في الكيمياء لزيادة حجم المحلول وتقليل تركيزه (Diluent)."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خف","maqayis":"«الْخَاءُ وَالْفَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ شَيْءٌ يُخَالِفُ الثِّقَلَ وَالرَّزَانَةَ. يُقَالُ خَفَّ الشَّيْءُ يَخِفُّ خِفَّةً، وَهُوَ خَفِيفٌ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مادة","root":"مد","maqayis":"«الْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى جَرِّ شَيْءٍ فِي طُولٍ، وَاتِّصَالِ شَيْءٍ بِشَيْءٍ فِي اسْتِطَالَةٍ.»"},{"word":"مخففة","root":"خف","maqayis":"«الْخَاءُ وَالْفَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ شَيْءٌ يُخَالِفُ الثِّقَلَ وَالرَّزَانَةَ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"رق","maqayis":"«الرَّاءُ وَالْقَافُ أَصْلَانِ: أَحَدُهُمَا صِفَةٌ تَكُونُ مُخَالِفَةً لِلْجَفَاءِ، وَالثَّانِي اضْطِرَابُ شَيْءٍ مَائِعٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"مد","maqayis":"«الْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى جَرِّ شَيْءٍ فِي طُولٍ، وَاتِّصَالِ شَيْءٍ بِشَيْءٍ فِي اسْتِطَالَةٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العام والشامل لتقليل التركيز أو اللزوجة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير وصفي يؤكد على الطبيعة المادية للعامل.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يستخدم غالباً في سياق تقليل لزوجة السوائل الغليظة كالدهانات (Thinner).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يستخدم في الكيمياء لزيادة حجم المحلول وتقليل تركيزه (Diluent).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

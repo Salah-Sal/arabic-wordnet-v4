@@ -1,0 +1,308 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة «بقعة» عامة جداً (spot/stain) ولا تدل بذاتها على طبقة طافية على الماء."
+      - "المفهوم في الأصل الإنجليزي (slick) يركز على الطبقة الطافية، وغالباً ما يُقصد بها بقعة الزيت أو النفط."
+    observations: "تتطلب الدلالة تقييداً يوضح طبيعة المادة الطافية. يمكن استخدام مركبات مثل «بقعة زيت» أو إحياء ألفاظ فصيحة مثل «طفوة» التي تدل على ما يعلو السائل من دسم وغيره."
+  blind_candidates:
+    - lemma: "بُقْعَةُ زَيْت"
+      generation_method: tarkib
+      justification: "مركب إضافي شائع يعبر عن طبقة الزيت الطافية على الماء."
+    - lemma: "بُقْعَةُ نِفْط"
+      generation_method: tarkib
+      justification: "مركب إضافي مستخدم في سياق التلوث البحري للتعبير عن بقع النفط."
+    - lemma: "طَفْوَة"
+      generation_method: ishtiqaq
+      justification: "من الجذر (ط ف و)، وتدل فصيحاً على ما يعلو السائل ويطفو عليه من دسم أو خثورة، وتناسب الطبقة الطافية."
+    - lemma: "طَافِيَةُ زَيْت"
+      generation_method: tarkib
+      justification: "مركب إضافي استخدمته بعض المعاجم المعاصرة لترجمة مصطلح (oil slick)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "بقعة"
+      confirm: []
+      contradicts:
+        - text: "القطعة من الأرض تتميز عمّا حولها القِطعة من اللون تخالف ما حولها"
+          source: "المعجم الوسيط"
+          conflict: "تدل على مجرد الاختلاف في اللون أو الهيئة (بقعة مكانية أو بصرية) ولا تخص الطبقة الطافية على سطح مائي."
+      expands: []
+    - lemma: "بقعة زيت"
+      confirm: []
+      contradicts: []
+      expands:
+        - text: "رباد: عن العبرية بمعنى بقعة زيت."
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+          addition: "يثبت استخدام المركب للتعبير عن هذا المعنى كدلالة شائعة."
+    - lemma: "بقعة نفط"
+      confirm:
+        - text: "بقعة نفط (oil slick)"
+          source: "المعجم الموحد لمصطلحات علوم البحار (2000)"
+      contradicts: []
+      expands: []
+    - lemma: "طفوة"
+      confirm:
+        - text: "ما علا اللَّبَنَ من الدَّسَمِ والخُثُورَةِ"
+          source: "المعجم الكبير"
+      contradicts: []
+      expands:
+        - text: "طَفوة"
+          source: "المعجم الموحد لمصطلحات الكيمياء (1992)"
+          addition: "مستخدمة كمصطلح علمي للتعبير عن الطبقة الطافية."
+    - lemma: "طافية زيت"
+      confirm:
+        - text: "طافية الزيت: طبقة رقيقة من الزيت طافيةٌ على الماء. (oil slick)"
+          source: "المورد الحديث (2008)"
+      contradicts: []
+      expands: []
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "بُقْعَة"
+      decision: removed
+      decision_reason: "الكلمة عامة جداً وتعني أي مساحة متميزة بلونها أو هيئتها، ولا تدل وحدها على طبقة زيتية أو نفايات طافية على الماء، مما يخل بمبدأ دقة المصطلح."
+      evidence_assessment:
+        case: contradicts_only
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "بُقْعَة زَيْت"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مركب إضافي شائع ودقيق في التعبير عن طبقة الزيت التي تطفو على سطح الماء."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "بُقْعَة زَيْت"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "بُقْعَة نِفْط"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح متخصص معتمد في معاجم علوم البحار للتعبير عن التسربات النفطية الطافية (oil slick)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "بُقْعَة نِفْط"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "طَافِيَة زَيْت"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح دقيق أورده المورد الحديث مع تعريف مطابق تماماً لتعريف المجموعة الترادفية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "طَافِيَة زَيْت"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "طَفْوَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "كلمة فصيحة أصيلة تدل على ما يعلو ويطفو من المواد الدسمة، وتتسع دلالتها لتشمل طبقات الزيت الطافية بشكل عام."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "طَفْوَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "طبقة رقيقة من الزيت أو القمامة تطفو على سطح الماء"
+    assessment:
+      decision: revise
+      reason: "التعريف مقبول ولكنه يحتاج إلى تحسين في الصياغة ليكون أكثر سبكاً، مع استبدال (القمامة) بـ (النفايات) لتكون أشمل وأدق في السياق المائي."
+    authored:
+      - type: terminological
+        text: "طَبَقَةٌ رَقِيقَةٌ مِنْ مَوَادَّ كَالزَّيْتِ أَوِ النِّفَايَاتِ، تَطْفُو عَلَى سَطْحِ الْمَاءِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "طَبَقَةٌ رَقِيقَةٌ مِنْ مَوَادَّ كَالزَّيْتِ أَوِ النِّفَايَاتِ، تَطْفُو عَلَى سَطْحِ الْمَاءِ."
+  examples:
+    per_lemma:
+      - lemma: "بُقْعَة زَيْت"
+        examples:
+          - text: "خَلَّفَتِ السَّفِينَةُ الْغَارِقَةُ بُقْعَةَ زَيْتٍ ضَخْمَةً تُهَدِّدُ الْحَيَاةَ الْبَحْرِيَّةَ."
+            type: usage
+      - lemma: "بُقْعَة نِفْط"
+        examples:
+          - text: "تُكَافِحُ الْفِرَقُ الْبِيئِيَّةُ لِلسَّيْطَرَةِ عَلَى بُقْعَةِ النِّفْطِ قَبْلَ وُصُولِهَا إِلَى الشَّاطِئِ."
+            type: usage
+      - lemma: "طَافِيَة زَيْت"
+        examples:
+          - text: "رَصَدَتْ طَائِرَةُ الِاسْتِطْلَاعِ طَافِيَةَ زَيْتٍ تَمْتَدُّ لِعِدَّةِ أَمْيَالٍ فِي الْمُحِيطِ."
+            type: usage
+      - lemma: "طَفْوَة"
+        examples:
+          - text: "تَكَلَّلَ سَطْحُ الْبُحَيْرَةِ بِطَفْوَةٍ مِنَ الْمُخَلَّفَاتِ الزَّيْتِيَّةِ الطَّافِيَةِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "خَلَّفَتِ السَّفِينَةُ الْغَارِقَةُ بُقْعَةَ زَيْتٍ ضَخْمَةً تُهَدِّدُ الْحَيَاةَ الْبَحْرِيَّةَ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تُكَافِحُ الْفِرَقُ الْبِيئِيَّةُ لِلسَّيْطَرَةِ عَلَى بُقْعَةِ النِّفْطِ قَبْلَ وُصُولِهَا إِلَى الشَّاطِئِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "رَصَدَتْ طَائِرَةُ الِاسْتِطْلَاعِ طَافِيَةَ زَيْتٍ تَمْتَدُّ لِعِدَّةِ أَمْيَالٍ فِي الْمُحِيطِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تَكَلَّلَ سَطْحُ الْبُحَيْرَةِ بِطَفْوَةٍ مِنَ الْمُخَلَّفَاتِ الزَّيْتِيَّةِ الطَّافِيَةِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "بُقْعَة زَيْت"
+      entry_id: "{auto}"
+      roots:
+        - word: "بقعة"
+          root: "بقع"
+          maqayis_quote: "«الْبَاءُ وَالْقَافُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ... وَهُوَ مُخَالَفَةُ الْأَلْوَانِ بَعْضِهَا بَعْضًا»"
+        - word: "زيت"
+          root: "زيت"
+          maqayis_quote: "«الزَّاءُ وَالْيَاءُ وَالتَّاءُ كَلِمَةٌ وَاحِدَةٌ، وَهِيَ الزَّيْتُ»"
+    - lemma: "بُقْعَة نِفْط"
+      entry_id: "{auto}"
+      roots:
+        - word: "بقعة"
+          root: "بقع"
+          maqayis_quote: "«الْبَاءُ وَالْقَافُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ... وَهُوَ مُخَالَفَةُ الْأَلْوَانِ بَعْضِهَا بَعْضًا»"
+        - word: "نفط"
+          root: "نفط"
+          maqayis_quote: "«النُّونُ وَالْفَاءُ وَالطَّاءُ: ثَلَاثُ كَلِمَاتٍ: النِّفْطُ مَعْرُوفٌ»"
+    - lemma: "طَافِيَة زَيْت"
+      entry_id: "{auto}"
+      roots:
+        - word: "طافية"
+          root: "طفو"
+          maqayis_quote: "«الطَّاءُ وَالْفَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ، وَهُوَ يَدُلُّ عَلَى الشَّيْءِ الْخَفِيفِ يَعْلُو الشَّيْءَ»"
+        - word: "زيت"
+          root: "زيت"
+          maqayis_quote: "«الزَّاءُ وَالْيَاءُ وَالتَّاءُ كَلِمَةٌ وَاحِدَةٌ، وَهِيَ الزَّيْتُ»"
+    - lemma: "طَفْوَة"
+      entry_id: "{auto}"
+      root: "طفو"
+      maqayis_quote: "«الطَّاءُ وَالْفَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ، وَهُوَ يَدُلُّ عَلَى الشَّيْءِ الْخَفِيفِ يَعْلُو الشَّيْءَ»"
+  per_sense:
+    - lemma: "بُقْعَة زَيْت"
+      sense_id: "{auto}"
+      nuance: "العبارة الأوسع انتشاراً للتعبير عن بقعة الزيت، ذات طابع عام وإعلامي."
+      mwe: true
+    - lemma: "بُقْعَة نِفْط"
+      sense_id: "{auto}"
+      nuance: "تُستخدم أكثر في السياقات البيئية والبحرية للإشارة إلى التسربات النفطية الضخمة."
+      mwe: true
+    - lemma: "طَافِيَة زَيْت"
+      sense_id: "{auto}"
+      nuance: "مصطلح معجمي حديث يركز على خاصية الطفو كعنصر رئيسي للطبقة."
+      mwe: true
+    - lemma: "طَفْوَة"
+      sense_id: "{auto}"
+      nuance: "لفظة فصيحة مفردة يمكن أن تعبر عن أي طبقة طافية من زيت أو دسم أو غيرهما."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"بقعة","root":"بقع","maqayis":"«الْبَاءُ وَالْقَافُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ... وَهُوَ مُخَالَفَةُ الْأَلْوَانِ بَعْضِهَا بَعْضًا»"},{"word":"زيت","root":"زيت","maqayis":"«الزَّاءُ وَالْيَاءُ وَالتَّاءُ كَلِمَةٌ وَاحِدَةٌ، وَهِيَ الزَّيْتُ»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"بقعة","root":"بقع","maqayis":"«الْبَاءُ وَالْقَافُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ... وَهُوَ مُخَالَفَةُ الْأَلْوَانِ بَعْضِهَا بَعْضًا»"},{"word":"نفط","root":"نفط","maqayis":"«النُّونُ وَالْفَاءُ وَالطَّاءُ: ثَلَاثُ كَلِمَاتٍ: النِّفْطُ مَعْرُوفٌ»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"طافية","root":"طفو","maqayis":"«الطَّاءُ وَالْفَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ، وَهُوَ يَدُلُّ عَلَى الشَّيْءِ الْخَفِيفِ يَعْلُو الشَّيْءَ»"},{"word":"زيت","root":"زيت","maqayis":"«الزَّاءُ وَالْيَاءُ وَالتَّاءُ كَلِمَةٌ وَاحِدَةٌ، وَهِيَ الزَّيْتُ»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"طفو","maqayis":"«الطَّاءُ وَالْفَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ، وَهُوَ يَدُلُّ عَلَى الشَّيْءِ الْخَفِيفِ يَعْلُو الشَّيْءَ»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"العبارة الأوسع انتشاراً للتعبير عن بقعة الزيت، ذات طابع عام وإعلامي.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تُستخدم أكثر في السياقات البيئية والبحرية للإشارة إلى التسربات النفطية الضخمة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح معجمي حديث يركز على خاصية الطفو كعنصر رئيسي للطبقة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"لفظة فصيحة مفردة يمكن أن تعبر عن أي طبقة طافية من زيت أو دسم أو غيرهما.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

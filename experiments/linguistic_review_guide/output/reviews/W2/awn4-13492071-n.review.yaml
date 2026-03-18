@@ -1,0 +1,202 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "استخدام 'ازرقاق' غير دقيق هنا، فهو يقابل طبياً (Cyanosis) وهو نقص الأكسجين وليس (Ecchymosis) الذي يعبر عن التكدم والنزيف تحت الجلد."
+      - "التعريف الحالي يبدو ترجمة حرفية واضحة للتعريف الإنجليزي (هروب الدم = escape of blood)."
+    observations: "المصطلح الطبي الدقيق والشائع لهذه الحالة هو (كدمة)، وقديمًا استخدمت العرب كلمة (قَرَت) للتعبير بدقة عن تسرب الدم تحت الجلد وتغير لونه."
+  blind_candidates:
+    - lemma: "كَدْمَة"
+      generation_method: ishtiqaq
+      justification: "مشتقة من الفعل كدم، وتطلق على الأثر الذي يتركه تجمع الدم تحت الجلد نتيجة صدمة أو ضربة."
+    - lemma: "رَضَّة"
+      generation_method: majaz
+      justification: "مجاز مرسل علاقته السببية؛ فالرض (الضرب) هو سبب التكدم، وتستخدم للتعبير عن أثر الإصابة."
+    - lemma: "انْسِكَابٌ دَمَوِيّ"
+      generation_method: tarkib
+      justification: "مركب وصفي يعبر بدقة علمية عن خروج الدم من الأوعية إلى الأنسجة."
+    - lemma: "قَرَت"
+      generation_method: ishtiqaq
+      justification: "لفظ عربي أصيل يعني تسرب الدم تحت الجلد وتغير لونه نتيجة الضرب أو الإصابة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "ازرقاق"
+      contradicts:
+        - text: "الأزرقاق: cyanosis"
+          source: "المَكنَز الزراعي متعدد اللغات"
+          conflict: "المصطلح يشير إلى (cyanosis) وهو ازرقاق الجلد لنقص الأكسجين، وليس (ecchymosis) الذي هو نزيف تحت الجلد."
+    - lemma: "كدمة"
+      confirm:
+        - text: "كَدْمَة: ecchymosis"
+          source: "المعجم الطبي الموحد (2009)"
+        - text: "كَدْمة: إصابة رضية سطحية ينشأ عنها انسكاب دموي في الأنسجة دون تمزقها."
+          source: "معجم المصطلحات الطبية (ج.1، 1985)"
+        - text: "كدمة: تورم يحدث نتيجة تسرب الدم من الأوعية الدموية للأنسجة المحيطة بها. ecchymoma"
+          source: "معجم المصطلحات الطبية (ج.2، 2003)"
+    - lemma: "رضة"
+      expands:
+        - text: "رَضٌّ، كَدْمَة: contusion; bruise"
+          source: "المعجم الموحد لمصطلحات الطب البيطري (2010)"
+          addition: "تشير المعاجم إلى الرضة كمرادف مقارب للكدمة، ولكنها ترتبط بـ contusion أكثر من ecchymosis."
+    - lemma: "انسكاب دموي"
+      evidence_status: "no_material_found"
+    - lemma: "قرت"
+      confirm:
+        - text: "(1) القَرَت: تَسَرُّب الدّم إلى الأنسجة من أثَر الضَّرب (2) الكَدْمة: تغيُّر في لون الجلد ناشئ عن القَرَت. ecchymosis"
+          source: "المورد الحديث (2008)"
+        - text: "قَرِتَ الدَّمُ، إِذَا يَبِسَ بَيْنَ الْجِلْدِ وَاللَّحْمِ. وَهُوَ دَمٌ قَارِتٌ. وَقَرِتَ الْجِلْدُ، إِذَا ضُرِبَ فَاسْوَدَّ."
+          source: "مقاييس اللغة لابن فارس"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "ازرقاق"
+      decision: removed
+      decision_reason: "المصطلح غير دقيق في هذا السياق، فهو يشير طبيًا إلى (Cyanosis) الناتج عن نقص الأكسجين، وليس للتكدم وتسرب الدم (Ecchymosis)."
+      evidence_assessment:
+        case: contradicts_only
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "كدمة"
+      decision: confirmed
+      decision_reason: "المصطلح دقيق وشائع جداً، ويدعمه المعجم الطبي الموحد والمعاجم العامة كترجمة معتمدة لـ ecchymosis."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "كَدْمَة"
+
+    - lemma: "رَضَّة"
+      source: stage1
+      decision: removed
+      decision_reason: "الرضة (Contusion) تختلف قليلًا عن الكدمة (Ecchymosis) طبيًا، والكدمة أدق وأكفى للتعبير عن المفهوم الموصوف."
+      evidence_assessment:
+        case: mixed
+
+    - lemma: "انْسِكَابٌ دَمَوِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "هو وصف للعملية الفسيولوجية وليس مصطلحًا مسكوكًا للحالة نفسها، والكدمة أوجز وأدق."
+      evidence_assessment:
+        case: no_material
+
+    - lemma: "قَرَت"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح عربي تراثي فصيح ودقيق جدًا في وصف حالة تسرب الدم ويبوسته تحت الجلد، وقد اعتمده المورد الحديث كترجمة لـ ecchymosis."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "قَرَت"
+            pos: "n"
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "هروب الدم من الأوعية الدموية الممزقة إلى الأنسجة المحيطة لتكوين بقعة أرجوانية أو سوداء وزرقاء على الجلد"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مترجم حرفيًا بركاكة (هروب الدم). الصياغة الطبية السليمة هي (تسرب الدم)."
+    authored:
+      - type: terminological
+        text: "تسرب الدم من الأوعية الدموية المتمزقة إلى الأنسجة المحيطة، مما يؤدي إلى ظهور بقعة متغيرة اللون تميل إلى الزرقة أو الأرجوانية على الجلد."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "تسرب الدم من الأوعية الدموية المتمزقة إلى الأنسجة المحيطة، مما يؤدي إلى ظهور بقعة متغيرة اللون تميل إلى الزرقة أو الأرجوانية على الجلد."
+
+  examples:
+    per_lemma:
+      - lemma: "كَدْمَة"
+        examples:
+          - text: "أصيب اللاعب بضربة قوية تركت كَدْمَة زرقاء واضحة على ساقه."
+            type: usage
+      - lemma: "قَرَت"
+        examples:
+          - text: "نَشَأَ عَنِ الضَّرْبَةِ قَرَتٌ تَغَيَّرَ مَعَهُ لَوْنُ الجِلْدِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "أصيب اللاعب بضربة قوية تركت كَدْمَة زرقاء واضحة على ساقه."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "كَدْمَة"
+      entry_id: "{auto}"
+      root: "كدم"
+      maqayis_quote: "«الْكَافُ وَالدَّالُ وَالْمِيمُ أَصْلٌ صَحِيحٌ فِيهِ كَلِمَةٌ وَاحِدَةٌ. يُقَالُ كَدَمَ، إِذَا عَضَّ بِأَدْنَى فِيهِ»"
+    - lemma: "قَرَت"
+      entry_id: "{auto}"
+      root: "قرت"
+      maqayis_quote: "«الْقَافُ وَالرَّاءُ وَالتَّاءُ أُصَيْلٌ يَدُلُّ عَلَى قُبْحٍ فِي سَحْنَةٍ... وَأَصْلُ ذَلِكَ مِنْ قَرَِتَ الدَّمُ، إِذَا يَبِسَ بَيْنَ الْجِلْدِ وَاللَّحْمِ»"
+
+  per_sense:
+    - lemma: "كَدْمَة"
+      sense_id: "{auto}"
+      nuance: "المصطلح الطبي والشائع المعاصر للتعبير عن التكدم وتغير لون الجلد."
+      mwe: false
+    - lemma: "قَرَت"
+      sense_id: "{auto}"
+      nuance: "لفظ تراثي فصيح يصف تحديداً تسرب الدم ويبوسته تحت الجلد إثر ضربة أو إصابة."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"كدم","maqayis":"«الْكَافُ وَالدَّالُ وَالْمِيمُ أَصْلٌ صَحِيحٌ فِيهِ كَلِمَةٌ وَاحِدَةٌ. يُقَالُ كَدَمَ، إِذَا عَضَّ بِأَدْنَى فِيهِ»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قرت","maqayis":"«الْقَافُ وَالرَّاءُ وَالتَّاءُ أُصَيْلٌ يَدُلُّ عَلَى قُبْحٍ فِي سَحْنَةٍ... وَأَصْلُ ذَلِكَ مِنْ قَرَِتَ الدَّمُ، إِذَا يَبِسَ بَيْنَ الْجِلْدِ وَاللَّحْمِ»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الطبي والشائع المعاصر للتعبير عن التكدم وتغير لون الجلد.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"لفظ تراثي فصيح يصف تحديداً تسرب الدم ويبوسته تحت الجلد إثر ضربة أو إصابة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

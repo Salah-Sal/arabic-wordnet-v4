@@ -1,0 +1,308 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "عدم شمولية اللمات الموجودة لجميع الجوانب الدلالية لمفهوم العامل المسبب للتلف، حيث يمكن إضافة لمات أخرى شائعة الاستخدام."
+    observations: "التعريف الحالي جيد ولكنه يحتاج إلى صياغة معجمية أدق. اللمات الموجودة (مُتْلِف، مُضْعِف) صحيحة صرفياً كاسمي فاعل."
+  blind_candidates:
+    - lemma: "مُفْسِد"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من أفسد، وهو يدل على العامل الذي يسبب الخلل والفساد للشيء، مما يطابق مفهوم الإتلاف والإضعاف."
+    - lemma: "آفَة"
+      generation_method: majaz
+      justification: "تستخدم مجازاً أو اصطلاحاً للتعبير عن كل سبب أو عامل يلحق الضرر أو التلف أو الضعف بشيء ما (مثل آفة زراعية، آفة اجتماعية)."
+    - lemma: "مُضِرّ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من أضرّ، ويدل على العامل الذي يلحق الضرر والأذى."
+    - lemma: "مُعْطِب"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من أعطب، أي ألحق العطب والخلل بالشيء، وهو مرادف قوي للتلف."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُتْلِف"
+      confirm:
+        - text: "«(الْمُتْلف) مصدر ميمي والمفازة وَنَحْوهَا مِمَّا يُؤَدِّي إِلَى التّلف (ج) متالف. (الْمُتْلف) المتلاف (ج) متالف»"
+          source: "المعجم الوسيط لمجموعة من المؤلفين"
+        - text: "«مُتْلِف: من (ت ل ف) المهلك والمسرف ومفني الشيء.»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+    - lemma: "مُضْعِف"
+      confirm: []
+      contradicts:
+        - text: "«المُضْعِفُ: مَنْ هَزُلَتْ دابَّتُه ونحوها, أو مرِضَتْ وذهبتْ قُوَّتُها.»"
+          source: "المعجم الكبير"
+          conflict: "بالمعنى المعجمي القديم يشير إلى من ضعفت دابته، وليس بالضرورة العامل الذي يسبب الضعف للآخرين."
+      expands:
+        - text: "«(المضعف) (عِنْد الصرفيين) المضاعف»"
+          source: "المعجم الوسيط لمجموعة من المؤلفين"
+          addition: "له استخدام اصطلاحي آخر في الصرف."
+    - lemma: "مُفْسِد"
+      confirm:
+        - text: "«آفَة: عرض مفسد لما أصاب من شيء»"
+          source: "كتاب العين"
+        - text: "«مفسد»"
+          source: "المعجم الموحد لمصطلحات علم الصحة وجسم الانسان (1992)"
+    - lemma: "آفَة"
+      confirm:
+        - text: "«الآفَةُ: العاهَةُ، أو عَرَضٌ مُفْسِدٌ لما أصابَه.»"
+          source: "القاموس المحيط للفيروزآبادي"
+        - text: "«(الآفة) كل مَا يُصِيب شَيْئا فيفسده من عاهة أَو مرض أَو قحط»"
+          source: "المعجم الوسيط لمجموعة من المؤلفين"
+    - lemma: "مُضِرّ"
+      confirm:
+        - text: "«مُضِرّ»"
+          source: "المعجم الطبي الموحد (2009)"
+    - lemma: "مُعْطِب"
+      confirm: []
+      contradicts:
+        - text: "«(المعطب) مَوضِع العطب (ج) معاطب»"
+          source: "المعجم الوسيط لمجموعة من المؤلفين"
+          conflict: "ورد كاسم مكان (مَعْطَب) وليس كاسم فاعل (مُعْطِب)."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مُتْلِف"
+      decision: confirmed
+      decision_reason: "صيغة قياسية لاسم الفاعل من أتلف، وتدل على من يسبب التلف، ولها شواهد معجمية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُتْلِف"
+
+    - lemma: "مُضْعِف"
+      decision: confirmed
+      decision_reason: "رغم أن المعاجم القديمة توردها بمعنى من ضعفت دابته، إلا أنها قياساً كاسم فاعل من (أضعف) تعني العامل الذي يسبب الضعف، وهي مستخدمة بهذا المعنى في السياقات المعاصرة."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُضْعِف"
+
+    - lemma: "مُفْسِد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف دقيق للعامل الذي يسبب الخلل والتلف، ومؤيد بشواهد معجمية واصطلاحية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُفْسِد", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "آفَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبر بدقة عن مفهوم العامل أو العرض الذي يفسد الشيء ويضعفه، ولها شواهد معجمية قوية في هذا السياق الدلالي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "آفَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "مُضِرّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اسم فاعل شائع ومناسب للتعبير عن العامل الذي يسبب الضرر والأذى، وهو وارد في المعاجم المتخصصة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُضِرّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "مُعْطِب"
+      source: stage1
+      decision: removed
+      decision_reason: "لم ترد كاسم فاعل بوضوح في المعاجم التي تم فحصها، بل وردت كاسم مكان (مَعْطَب)، وتكفي اللمات الأخرى."
+      evidence_assessment:
+        case: contradicts_only
+
+stage4_content:
+  definition:
+    current: "عامل يسبب التلف أو الضعف"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ترجمة شبه حرفية، ويمكن صياغته بأسلوب معجمي أدق يشمل كافة الجوانب الدلالية للمات (الإتلاف، الإفساد، الإضعاف)."
+    authored:
+      - type: linguistic
+        text: "كل عامل أو سبب مادي أو معنوي يؤدي إلى إضعاف الشيء أو إتلافه أو إلحاق الضرر به."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "كل عامل أو سبب مادي أو معنوي يؤدي إلى إضعاف الشيء أو إتلافه أو إلحاق الضرر به."}
+
+  examples:
+    per_lemma:
+      - lemma: "مُتْلِف"
+        examples:
+          - text: "يعدّ هذا الفيروس من المُتْلِفات التي تقضي على المحاصيل الزراعية."
+            type: usage
+      - lemma: "مُضْعِف"
+        examples:
+          - text: "كان الإرهاق المستمر مُضْعِفاً لقدرته على التركيز في العمل."
+            type: usage
+      - lemma: "مُفْسِد"
+        examples:
+          - text: "يُعد التلوث الكيميائي مُفْسِداً للبيئة الطبيعية."
+            type: usage
+      - lemma: "آفَة"
+        examples:
+          - text: "الجهل آفَةُ المجتمعات التي تعيق تقدمها وتطورها."
+            type: usage
+      - lemma: "مُضِرّ"
+        examples:
+          - text: "ابتعد عن كل طعام مُضِرّ بصحتك."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يعدّ هذا الفيروس من المُتْلِفات التي تقضي على المحاصيل الزراعية."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "كان الإرهاق المستمر مُضْعِفاً لقدرته على التركيز في العمل."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يُعد التلوث الكيميائي مُفْسِداً للبيئة الطبيعية."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "الجهل آفَةُ المجتمعات التي تعيق تقدمها وتطورها."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "ابتعد عن كل طعام مُضِرّ بصحتك."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُتْلِف"
+      entry_id: "{auto}"
+      root: "تلف"
+      maqayis_quote: "«التاء واللام والفاء أصلٌ واحد يدلُّ على هَلاك الشَّيء... يُقال: تَلِف الشَّيءُ يَتْلَفُ تَلَفاً، وهو تالِفٌ.»"
+    - lemma: "مُضْعِف"
+      entry_id: "{auto}"
+      root: "ضعف"
+      maqayis_quote: "«الضاد والعين والفاء أصلٌ يدلُّ على خِلاف القُوّة... يُقال ضَعُف يضْعُف ضَعْفاً وضُعْفاً.»"
+    - lemma: "مُفْسِد"
+      entry_id: "{auto}"
+      root: "فسد"
+      maqayis_quote: "«الفاء والسين والدال كلمةٌ واحدة، فسَد الشَّيءُ يفسُد فساداً، وفَسُد أيضاً، والصَّلاح خِلافُه.»"
+    - lemma: "آفَة"
+      entry_id: "{auto}"
+      root: "أوف"
+      maqayis_quote: "«الهمزة والواو والفاء أصلٌ واحد، يدلُّ على عَرَضٍ يدخل في الشّيءِ فيُفْسدُه.»"
+    - lemma: "مُضِرّ"
+      entry_id: "{auto}"
+      root: "ضرر"
+      maqayis_quote: "«الضاد والراء أصلٌ واحد يدلُّ على خِلاف النَّفع... والضَّرَرُ: النُّقْصان يدخُل في الشَّيء.»"
+
+  per_sense:
+    - lemma: "مُتْلِف"
+      sense_id: "{auto}"
+      nuance: "يركز على إحداث الضرر الشديد أو إهلاك الشيء وإفنائه."
+      mwe: false
+    - lemma: "مُضْعِف"
+      sense_id: "{auto}"
+      nuance: "يركز على سلب القوة أو تقليل الفعالية دون تدمير الشيء كلياً."
+      mwe: false
+    - lemma: "مُفْسِد"
+      sense_id: "{auto}"
+      nuance: "يركز على إحداث الخلل وإخراج الشيء عن حالة الصلاح والاستقامة."
+      mwe: false
+    - lemma: "آفَة"
+      sense_id: "{auto}"
+      nuance: "تطلق غالباً على العوامل الطبيعية أو الأمراض والظواهر التي تسبب التلف أو الضعف، وتستخدم مجازاً للأسباب المعنوية كالأخلاق السيئة."
+      mwe: false
+    - lemma: "مُضِرّ"
+      sense_id: "{auto}"
+      nuance: "كلمة عامة تطلق على أي عامل يسبب الأذى أو النقصان في الفائدة."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"تلف","maqayis":"«التاء واللام والفاء أصلٌ واحد يدلُّ على هَلاك الشَّيء... يُقال: تَلِف الشَّيءُ يَتْلَفُ تَلَفاً، وهو تالِفٌ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ضعف","maqayis":"«الضاد والعين والفاء أصلٌ يدلُّ على خِلاف القُوّة... يُقال ضَعُف يضْعُف ضَعْفاً وضُعْفاً.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"فسد","maqayis":"«الفاء والسين والدال كلمةٌ واحدة، فسَد الشَّيءُ يفسُد فساداً، وفَسُد أيضاً، والصَّلاح خِلافُه.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"أوف","maqayis":"«الهمزة والواو والفاء أصلٌ واحد، يدلُّ على عَرَضٍ يدخل في الشّيءِ فيُفْسدُه.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ضرر","maqayis":"«الضاد والراء أصلٌ واحد يدلُّ على خِلاف النَّفع... والضَّرَرُ: النُّقْصان يدخُل في الشَّيء.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على إحداث الضرر الشديد أو إهلاك الشيء وإفنائه.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على سلب القوة أو تقليل الفعالية دون تدمير الشيء كلياً.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على إحداث الخلل وإخراج الشيء عن حالة الصلاح والاستقامة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تطلق غالباً على العوامل الطبيعية أو الأمراض والظواهر التي تسبب التلف أو الضعف، وتستخدم مجازاً للأسباب المعنوية كالأخلاق السيئة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"كلمة عامة تطلق على أي عامل يسبب الأذى أو النقصان في الفائدة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

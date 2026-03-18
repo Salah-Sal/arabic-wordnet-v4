@@ -1,0 +1,219 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "عدم دقة مصطلح 'تكون الكريات' كمرادف تام لـ 'تكون الدم' رغم تقاربهما دلالياً وارتباطهما في الترجمة الإنجليزية (hemocytopoiesis و hematopoiesis)."
+    observations: "المصطلحان المعروضان هما تركيبان إضافيان يعبران عن المفهوم الطبي، والمصطلح الأول 'تكون الدم' هو الأكثر شيوعاً ودقة في المعاجم الطبية الحديثة."
+  blind_candidates:
+    - lemma: "تَكَوُّنُ الدَّمِ"
+      generation_method: tarkib
+      justification: "تركيب إضافي يعبر بدقة ومباشرة عن عملية تولد الخلايا الدموية."
+    - lemma: "تَخَلُّقُ الدَّمِ"
+      generation_method: tarkib
+      justification: "تركيب إضافي يستخدم في السياقات الطبية لوصف العملية الحيوية لخلق وتكوين الخلايا."
+    - lemma: "صُنْعُ الدَّمِ"
+      generation_method: tarkib
+      justification: "تعبير مفهومي، لكنه أقل علمية من التكون والتخلق."
+    - lemma: "بِنَاءُ الدَّمِ"
+      generation_method: tarkib
+      justification: "تعبير مجازي يشير إلى تشييد الخلايا الدموية وتوليدها."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تكون الدم"
+      confirm:
+        - text: "تَكَوُّنُ الدَّم ... hematopoiesis"
+          source: "المعجم الطبي الموحد (2009)"
+        - text: "تَكَوُّن الدم ... hematopoiesis; haematopoiesis"
+          source: "المعجم الموحد لمصطلحات الطب البيطري (2010)"
+    - lemma: "تكون الكريات"
+      evidence_status: no_material_found
+    - lemma: "تخلق الدم"
+      expands:
+        - text: "تكوُّن الدم خارج النخاع: تخلق الخلايا الدموية و نموها خارج نخاع العظم كما في الطِّحال و الكبد و العقد اللمفاوية."
+          source: "معجم المصطلحات الطبية (ج.3، 1997)"
+          addition: "يستخدم لفظ 'تخلق' كمرادف وظيفي ومفسر لعملية التكون."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تكون الدم"
+      decision: confirmed
+      decision_reason: "المصطلح الطبي المعتمد والأكثر شيوعاً في المعاجم المتخصصة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَكَوُّنُ الدَّمِ"
+            
+    - lemma: "تكون الكريات"
+      decision: confirmed
+      decision_reason: "ترجمة دقيقة لمصطلح (hemocytopoiesis) المترادف مع (hematopoiesis)، وهو مستخدم طبياً للإشارة إلى تكوين خلايا (كريات) الدم."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَكَوُّنُ الكُرَيَّاتِ"
+
+    - lemma: "تَخَلُّقُ الدَّمِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح طبي فصيح وصحيح دلالياً، ويستخدم في الشروح الطبية لوصف العملية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "تَخَلُّقُ الدَّمِ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "تكوين خلايا الدم في الجسم الحي (خاصة في نخاع العظم)"
+    assessment:
+      decision: revise
+      reason: "صياغة التعريف بأسلوب معجمي دقيق يتوافق مع بنية التعاريف العلمية."
+    authored:
+      - type: terminological
+        text: "عمليَّة حيويَّة يتمُّ فيها تَكَوُّن خلايا الدَّم وتخَلُّقها في الجسم الحيّ، وتحدث أساساً في نخاع العظم."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "عمليَّة حيويَّة يتمُّ فيها تَكَوُّن خلايا الدَّم وتخَلُّقها في الجسم الحيّ، وتحدث أساساً في نخاع العظم."
+
+  examples:
+    per_lemma:
+      - lemma: "تَكَوُّنُ الدَّمِ"
+        examples:
+          - text: "يُعَدُّ نِقْيُ العَظْمِ المركَزَ الأساسيَّ لِعَمَليَّةِ تَكَوُّنِ الدَّمِ في جِسْمِ الإنْسانِ."
+            type: usage
+      - lemma: "تَكَوُّنُ الكُرَيَّاتِ"
+        examples:
+          - text: "يُساعِدُ هِرْمونُ الإريثروبويتين على تَحْفيزِ تَكَوُّنِ الكُرَيَّاتِ الحَمْراءِ."
+            type: usage
+      - lemma: "تَخَلُّقُ الدَّمِ"
+        examples:
+          - text: "يُمْكِنُ أنْ يَحْدُثَ تَخَلُّقُ الدَّمِ خارِجَ النِّقْيِ في بَعْضِ الحالاتِ المَرَضِيَّةِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "يُعَدُّ نِقْيُ العَظْمِ المركَزَ الأساسيَّ لِعَمَليَّةِ تَكَوُّنِ الدَّمِ في جِسْمِ الإنْسانِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تَكَوُّنُ الدَّمِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "تكون"
+          root: "كون"
+          maqayis_quote: "«الْكَافُ وَالْوَاوُ وَالنُّونُ أَصْلٌ يَدُلُّ عَلَى الْإِخْبَارِ عَنْ حُدُوثِ شَيْءٍ... يَقُولُونَ: كَانَ الشَّيْءُ يَكُونُ كَوْنًا، إِذَا وَقَعَ وَحَضَرَ.»"
+        - word: "الدم"
+          root: "دمي"
+          maqayis_quote: "«الدَّالُ وَالْمِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى غِشْيَانِ الشَّيْءِ مِنْ نَاحِيَةِ أَنْ يُطْلَى بِهِ.»"
+    - lemma: "تَكَوُّنُ الكُرَيَّاتِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "تكون"
+          root: "كون"
+          maqayis_quote: "«الْكَافُ وَالْوَاوُ وَالنُّونُ أَصْلٌ يَدُلُّ عَلَى الْإِخْبَارِ عَنْ حُدُوثِ شَيْءٍ... يَقُولُونَ: كَانَ الشَّيْءُ يَكُونُ كَوْنًا، إِذَا وَقَعَ وَحَضَرَ.»"
+        - word: "الكريات"
+          root: "كرو"
+          maqayis_quote: "«الْكَافُ وَالرَّاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى لِينٍ فِي الشَّيْءِ وَسُهُولَةٍ... وَالْكُرَةُ نَاقِصَةٌ، نَقَصَتْ وَاوًا، سُمِّيَتْ بِذَلِكَ لِأَنَّهُ يُكْرَى بِهَا إِذَا رُمِيَ بِهَا.»"
+    - lemma: "تَخَلُّقُ الدَّمِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "تخلق"
+          root: "خلق"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْقَافُ أَصْلَانِ: أَحَدُهُمَا تَقْدِيرُ الشَّيْءِ، وَالْآخَرُ مَلَاسَةُ الشَّيْءِ.»"
+        - word: "الدم"
+          root: "دمي"
+          maqayis_quote: "«الدَّالُ وَالْمِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى غِشْيَانِ الشَّيْءِ مِنْ نَاحِيَةِ أَنْ يُطْلَى بِهِ.»"
+          
+  per_sense:
+    - lemma: "تَكَوُّنُ الدَّمِ"
+      sense_id: "{auto}"
+      nuance: "المصطلح الشائع والأكثر عمومية للتعبير عن العملية البيولوجية لإنتاج الدم."
+      mwe: true
+    - lemma: "تَكَوُّنُ الكُرَيَّاتِ"
+      sense_id: "{auto}"
+      nuance: "مصطلح يركز دلالياً على إنتاج الخلايا (الكريات) بحد ذاتها، ويقابل مصطلح (hemocytopoiesis)."
+      mwe: true
+    - lemma: "تَخَلُّقُ الدَّمِ"
+      sense_id: "{auto}"
+      nuance: "يبرز عملية الخلق والتنشئة والنمو الخلوي للدم."
+      mwe: true
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"تكون","root":"كون","maqayis":"«الْكَافُ وَالْوَاوُ وَالنُّونُ أَصْلٌ يَدُلُّ عَلَى الْإِخْبَارِ عَنْ حُدُوثِ شَيْءٍ... يَقُولُونَ: كَانَ الشَّيْءُ يَكُونُ كَوْنًا، إِذَا وَقَعَ وَحَضَرَ.»"},{"word":"الدم","root":"دمي","maqayis":"«الدَّالُ وَالْمِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى غِشْيَانِ الشَّيْءِ مِنْ نَاحِيَةِ أَنْ يُطْلَى بِهِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"تكون","root":"كون","maqayis":"«الْكَافُ وَالْوَاوُ وَالنُّونُ أَصْلٌ يَدُلُّ عَلَى الْإِخْبَارِ عَنْ حُدُوثِ شَيْءٍ... يَقُولُونَ: كَانَ الشَّيْءُ يَكُونُ كَوْنًا، إِذَا وَقَعَ وَحَضَرَ.»"},{"word":"الكريات","root":"كرو","maqayis":"«الْكَافُ وَالرَّاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى لِينٍ فِي الشَّيْءِ وَسُهُولَةٍ... وَالْكُرَةُ نَاقِصَةٌ، نَقَصَتْ وَاوًا، سُمِّيَتْ بِذَلِكَ لِأَنَّهُ يُكْرَى بِهَا إِذَا رُمِيَ بِهَا.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"تخلق","root":"خلق","maqayis":"«الْخَاءُ وَاللَّامُ وَالْقَافُ أَصْلَانِ: أَحَدُهُمَا تَقْدِيرُ الشَّيْءِ، وَالْآخَرُ مَلَاسَةُ الشَّيْءِ.»"},{"word":"الدم","root":"دمي","maqayis":"«الدَّالُ وَالْمِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى غِشْيَانِ الشَّيْءِ مِنْ نَاحِيَةِ أَنْ يُطْلَى بِهِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الشائع والأكثر عمومية للتعبير عن العملية البيولوجية لإنتاج الدم.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح يركز دلالياً على إنتاج الخلايا (الكريات) بحد ذاتها، ويقابل مصطلح (hemocytopoiesis).","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يبرز عملية الخلق والتنشئة والنمو الخلوي للدم.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

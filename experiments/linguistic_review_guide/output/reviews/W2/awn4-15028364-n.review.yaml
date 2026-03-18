@@ -1,0 +1,222 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمّات الحالية تفتقر للتشكيل التام.
+      - اللمّة "مادة تبريد" هي ترجمة حرفية، واللمّة "وسيط تبريد" أكثر تخصصاً.
+      - غياب اللمّة "مُبَرِّد" وهي الأكثر شيوعاً واستعمالاً في العربية المعاصرة.
+    observations: "المجموعة تغطي مفهوماً تقنياً في الديناميكا الحرارية. اللمّات الحالية دقيقة لكنها محدودة."
+  blind_candidates:
+    - lemma: "مُبَرِّد"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من بَرَّدَ، يُستخدم للدلالة على المادة أو الجهاز الذي يقوم بالتبريد."
+    - lemma: "سَائِلُ تَبْرِيدٍ"
+      generation_method: tarkib
+      justification: "مركب إضافي شائع الاستخدام في أنظمة المحركات والتكييف."
+    - lemma: "غَازُ تَبْرِيدٍ"
+      generation_method: tarkib
+      justification: "مركب إضافي يشير إلى الحالة الفيزيائية الغالبة لوسائط التبريد (مثل الفريون)."
+    - lemma: "مُثَلِّج"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من ثَلَّجَ، ورد في المعاجم العلمية (الفيزياء) كمرادف لـ refrigerant."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مَادَّة تَبْرِيد"
+      confirm:
+        - text: "تنقل مادة التبريد الطاقة الحرارية من الجسم المطلوب تبريده إلى المحيط."
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة (1996)"
+    - lemma: "وَسِيط تَبْرِيد"
+      confirm:
+        - text: "هو غاز سريع الغليان يُستخدم في مُكيّفات الهواء... وظيفته داخل دورة التبريد المُغلقة امتصاص الحرارة."
+          source: "مسرد هندسة وتكنولوجيا السيارات (ArabTerm)"
+    - lemma: "مُبَرِّد"
+      confirm:
+        - text: "مُبَرِّد؛ مادة التبريد (refrigerant)"
+          source: "المورد الحديث (2008)"
+        - text: "مائع يُستخدم لإجراء عملية التبريد في نظام تبريد معين."
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة (1996)"
+    - lemma: "مُثَلِّج"
+      confirm:
+        - text: "مثلِّج (refrigerant)"
+          source: "المعجم الموحد لمصطلحات الفيزياء العامة والنووية (1989)"
+    - lemma: "مَائِع تَبْرِيد"
+      confirm:
+        - text: "مائع مبرِّد (refrigerant)"
+          source: "المعجم الموحد لمصطلحات الكيمياء (1992)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مادة تبريد"
+      decision: confirmed
+      decision_reason: "مصطلح دقيق وشائع الاستخدام لوصف المادة المستخدمة في التبريد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَادَّةُ تَبْرِيدٍ"
+    - lemma: "وسيط تبريد"
+      decision: confirmed
+      decision_reason: "مصطلح تقني رصين يعبر عن المادة كوسط (Medium) لنقل الحرارة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "وَسِيطُ تَبْرِيدٍ"
+    - lemma: "مُبَرِّد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "الاسم الأكثر شيوعاً للمادة في الاستخدام التقني المعاصر."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُبَرِّد", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُثَلِّج"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح علمي موثق في معجم الفيزياء الموحد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُثَلِّج", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مَائِعُ تَبْرِيدٍ"
+      decision: confirmed
+      decision_reason: "وصف علمي دقيق يشمل السوائل والغازات المستخدمة في أنظمة التبريد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "مَائِعُ تَبْرِيدٍ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "أي مادة تستخدم للتبريد (كما في الثلاجة)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي عام وغير مصطلحي، أحتاج لتضمين الآلية (امتصاص الحرارة وتغير الحالة الفيزيائية)."
+    authored:
+      - type: terminological
+        text: "مَادَّةٌ أو مَائِعٌ (سائل أو غاز) يُسْتَخْدَمُ فِي نِظَامِ تَبْرِيدٍ لِامْتِصَاصِ الحَرَارَةِ مِنْ حَيِّزٍ مَا وَطَرْدِهَا إِلَى الخَارِجِ، وَذَلِكَ عَنْ طَرِيقِ تَغَيُّرِ حَالَتِهِ الفِيزْيَائِيَّةِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مَادَّةٌ أو مَائِعٌ يُسْتَخْدَمُ فِي نِظَامِ تَبْرِيدٍ لِامْتِصَاصِ الحَرَارَةِ مِنْ حَيِّزٍ مَا وَطَرْدِهَا إِلَى الخَارِجِ عَنْ طَرِيقِ تَغَيُّرِ حَالَتِهِ الفِيزْيَائِيَّةِ."}
+  examples:
+    per_lemma:
+      - lemma: "مَادَّةُ تَبْرِيدٍ"
+        examples:
+          - text: "تُسْتَخْدَمُ مَوَادُّ تَبْرِيدٍ خَاصَّةٍ فِي الثَّلَّاجَاتِ لِضَمَانِ كَفَاءَةِ تَبْرِيدِ الْأَطْعِمَةِ."
+            type: usage
+      - lemma: "وَسِيطُ تَبْرِيدٍ"
+        examples:
+          - text: "يُعَدُّ غَازُ الْفِرِيُونِ مِنْ أَشْهَرِ وَسَائِطِ التَّبْرِيدِ الْمُسْتَخْدَمَةِ فِي نُظُمِ التَّكْيِيفِ."
+            type: usage
+      - lemma: "مُبَرِّد"
+        examples:
+          - text: "يَجِبُ التَّأَكُّدُ مِنْ عَدَمِ نَقْصِ الْمُبَرِّدِ فِي دَوْرَةِ التَّبْرِيدِ لِتَجَنُّبِ تَعَطُّلِ الضَّاغِطِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يَعْمَلُ الْمُبَرِّدُ عَلَى نَقْلِ الطَّاقَةِ الْحَرَارِيَّةِ مِنْ دَاخِلِ الثَّلَّاجَةِ إِلَى الْهَوَاءِ الْخَارِجِيِّ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَادَّةُ تَبْرِيدٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مادة"
+          root: "مدد"
+          maqayis_quote: "لم يذكر ابن فارس 'مادة' بهذا المعنى في مدد، لكن الأصل يدل على الامتداد والزيادة."
+        - word: "تبريد"
+          root: "برد"
+          maqayis_quote: "«الْبَاءُ وَالرَّاءُ وَالدَّالُ أُصُولٌ أَرْبَعَةٌ: أَحَدُهَا خِلَافُ الْحَرِّ...»"
+    - lemma: "وَسِيطُ تَبْرِيدٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "وسيط"
+          root: "وسط"
+          maqayis_quote: "«الْوَاوُ وَالسِّينُ وَالطَّاءُ: بِنَاءٌ صَحِيحٌ يَدُلُّ عَلَى الْعَدْلِ وَالنِّصْفِ.»"
+        - word: "تبريد"
+          root: "برد"
+          maqayis_quote: "«الْبَاءُ وَالرَّاءُ وَالدَّالُ أُصُولٌ أَرْبَعَةٌ: أَحَدُهَا خِلَافُ الْحَرِّ...»"
+    - lemma: "مُبَرِّد"
+      entry_id: "{auto}"
+      root: "برد"
+      maqayis_quote: "«الْبَاءُ وَالرَّاءُ وَالدَّالُ أُصُولٌ أَرْبَعَةٌ: أَحَدُهَا خِلَافُ الْحَرِّ...»"
+    - lemma: "مُثَلِّج"
+      entry_id: "{auto}"
+      root: "ثلج"
+      maqayis_quote: "«الثَّاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ، وَهُوَ الثَّلْجُ الْمَعْرُوفُ.»"
+    - lemma: "مَائِعُ تَبْرِيدٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مائع"
+          root: "ميع"
+          maqayis_quote: "«الْمِيمُ وَالْيَاءُ وَالْعَيْنُ كَلِمَةٌ صَحِيحَةٌ تَدُلُّ عَلَى جَرَيَانِ شَيْءٍ وَاضْطِرَابِ شَيْءٍ وَحَرَكَتِهِ.»"
+        - word: "تبريد"
+          root: "برد"
+          maqayis_quote: "«الْبَاءُ وَالرَّاءُ وَالدَّالُ أُصُولٌ أَرْبَعَةٌ: أَحَدُهَا خِلَافُ الْحَرِّ...»"
+  per_sense:
+    - lemma: "مَادَّةُ تَبْرِيدٍ"
+      sense_id: "{auto}"
+      nuance: "تعبير عام يشمل أي مادة صلبة أو سائلة أو غازية تُستخدم للتبريد."
+      mwe: true
+    - lemma: "وَسِيطُ تَبْرِيدٍ"
+      sense_id: "{auto}"
+      nuance: "يركز على دور المادة كوسط ناقل للحرارة في دورة مغلقة."
+      mwe: true
+    - lemma: "مُبَرِّد"
+      sense_id: "{auto}"
+      nuance: "الاسم الفني الشائع للمادة الوظيفية (Cooling agent)."
+      mwe: false
+    - lemma: "مُثَلِّج"
+      sense_id: "{auto}"
+      nuance: "يُستخدم غالباً في السياق العلمي الفيزيائي."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"برد","maqayis":"«الْبَاءُ وَالرَّاءُ وَالدَّالُ أُصُولٌ أَرْبَعَةٌ: أَحَدُهَا خِلَافُ الْحَرِّ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

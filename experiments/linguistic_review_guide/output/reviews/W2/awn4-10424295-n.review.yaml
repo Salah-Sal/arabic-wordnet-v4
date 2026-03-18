@@ -1,0 +1,179 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "الترجمة الحرفية لكلمة (passes) إلى (يجتاز) أفقدت التعريف معناه الأصلي في سياق الأعراق، حيث يُقصد بها هنا إخفاء الانتماء العرقي الحقيقي والادعاء بالانتماء لعرق آخر (Racial passing)."
+      - "اللمة الحالية (مُنْتَحِل لِصِفَة عِرْقِيَّة) طويلة وأشبه بعبارة وصفية حرة منها إلى مصطلح معجمي مسكوك."
+    observations: "المفهوم يشير إلى ظاهرة (Racial passing) وهي الانخراط في جماعة عرقية أخرى وإخفاء الأصل العرقي. في التراث المعجمي والثقافي العربي، يقابل ذلك مفهوم الادعاء في النسب وتسمية الشخص بـ (الدَّعِيّ)."
+  blind_candidates:
+    - lemma: "مُنْتَحِلٌ عِرْقِيّ"
+      generation_method: tarkib
+      justification: "تركيب وصفي يعبر بدقة عن الشخص الذي ينتحل انتماءً عرقياً غير انتمائه الحقيقي."
+    - lemma: "دَعِيّ"
+      generation_method: majaz
+      justification: "استخدام مجازي لمصطلح (الدعي) وهو في الأصل المنسوب لغير أبيه أو قومه، ويتناسب دلالياً مع ادعاء الانتماء العرقي."
+    - lemma: "مُتَخَفٍّ عِرْقِيّ"
+      generation_method: tarkib
+      justification: "تركيب وصفي يشير إلى فعل التخفي وإخفاء الهوية العرقية."
+    - lemma: "مُدَّعِي الِانْتِمَاء"
+      generation_method: tarkib
+      justification: "الذي يدعي الانتماء إلى غير قومه، وهو تعبير دقيق لغوياً."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُنْتَحِل لِصِفَة عِرْقِيَّة"
+      evidence_status: "no_material_found"
+    - lemma: "دَعِيّ"
+      confirm:
+        - text: "الْمُتَّهَمُ في نَسَبِه المَنْسوب إلى غيرِ أَبيه"
+          source: "المعجم الكبير"
+        - text: "الْمُتَّهم فِي نسبه والمنسوب إِلَى غير أَبِيه"
+          source: "المعجم الوسيط"
+    - lemma: "مُنْتَحِلٌ عِرْقِيّ"
+      expands:
+        - text: "انْتَحَلَ كَذَا، إِذَا تَعَاطَاهُ وَادَّعَاهُ."
+          source: "مقاييس اللغة (مادة نحل)"
+        - text: "مجموعة يتكون أعضاؤها من عِرق واحد يجعلونه الرابط الأساس بينهم."
+          source: "مسرد الإعلام والتواصل، ArabTerm (مادة عرقية)"
+    - lemma: "مُتَخَفٍّ عِرْقِيّ"
+      evidence_status: "no_material_found"
+    - lemma: "مُدَّعِي الِانْتِمَاء"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مُنْتَحِل لِصِفَة عِرْقِيَّة"
+      decision: removed
+      decision_reason: "عبارة وصفية طويلة وليست مصطلحاً معجمياً مسكوكاً."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "مُنْتَحِلٌ عِرْقِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح مركب وصفي وموجز، يعبر بدقة ومباشرة عن مدلول الانتحال والانتماء المزور لعرق آخر، ويصلح للاستخدام المعاصر."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "مُنْتَحِلٌ عِرْقِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "دَعِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فصيح وعريق يدل على من ينتسب إلى غير أصله أو يدعي ما ليس له فيه حق، وهو يطابق المفهوم ثقافياً وتراثياً ويمكن استخدامه كمرادف بليغ."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "دَعِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُتَخَفٍّ عِرْقِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "أقل دقة من (منتحل عرقي)؛ لأن التخفي قد يكون لأسباب أخرى كالهرب من الاضطهاد ولا يتضمن بالضرورة ادعاء الانتماء الفاعل للمجموعة الأخرى."
+    - lemma: "مُدَّعِي الِانْتِمَاء"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير عام جداً ولا يقتصر على الانتماء العرقي، بل قد يشمل الانتماء السياسي أو الفكري أو الديني."
+
+stage4_content:
+  definition:
+    current: "شخص يجتاز كعضو في مجموعة عرقية أو إثنية مختلفة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يحتوي على ترجمة حرفية ركيكة وخاطئة لكلمة (passes) بـ (يجتاز). المفهوم الصحيح هو إخفاء الأصل والادعاء بالانتماء لجماعة عرقية أخرى."
+    authored:
+      - type: terminological
+        text: "شخص يخفي أصله العرقي أو الإثني وينتسب إلى مجموعة عرقية أخرى ليُعَدَّ فرداً منها."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "شخص يخفي أصله العرقي أو الإثني وينتسب إلى مجموعة عرقية أخرى ليُعَدَّ فرداً منها."}
+
+  examples:
+    per_lemma:
+      - lemma: "مُنْتَحِلٌ عِرْقِيّ"
+        examples:
+          - text: "كشفت الأبحاث التاريخية أن الكاتب كان مُنْتَحِلاً عِرْقِيًّا أخفى أصوله الحقيقية طوال حياته."
+            type: usage
+      - lemma: "دَعِيّ"
+        examples:
+          - text: "لا يُقبَل في العُرف أن ينسب الرجل نفسه لغير قومه فيكون دَعِيًّا بينهم."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "كشفت الأبحاث التاريخية أن الكاتب كان مُنْتَحِلاً عِرْقِيًّا أخفى أصوله الحقيقية طوال حياته."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "دَعِيّ"
+      entry_id: "{auto}"
+      root: "دعو"
+      maqayis_quote: "«الدَّالُ وَالْعَيْنُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ... وَالِادِّعَاءُ فِي الْحَرْبِ: الِاعْتِزَاءُ، وَهُوَ أَنْ تَقُولَ: أَنَا ابْنُ فُلَانٍ»"
+    - lemma: "مُنْتَحِلٌ عِرْقِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "منتحل"
+          root: "نحل"
+          maqayis_quote: "«النُّونُ وَالْحَاءُ وَاللَّامُ... وَالثَّالِثَةُ قَوْلُهُمْ: انْتَحَلَ كَذَا، إِذَا تَعَاطَاهُ وَادَّعَاهُ»"
+        - word: "عرقي"
+          root: "عرق"
+          maqayis_quote: "«الْعَيْنُ وَالرَّاءُ وَالْقَافُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى أُصُولِ الْأَشْيَاءِ... مِنْهُ عِرْقُ الشَّجَرَةِ وَغَيْرِهَا»"
+  per_sense:
+    - lemma: "مُنْتَحِلٌ عِرْقِيّ"
+      sense_id: "{auto}"
+      nuance: "مصطلح حديث ومركب يركز بشكل دقيق ومباشر على الجانب العرقي والإثني للإخفاء والانتحال."
+      mwe: true
+    - lemma: "دَعِيّ"
+      sense_id: "{auto}"
+      nuance: "مصطلح تراثي واسع يشمل من يدعي نسباً أو أصلاً غير أصله، ويُستعمل سياقياً للتعبير عن الانتحال العرقي بنبرة ذم واستنكار."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"دعو","maqayis":"«الدَّالُ وَالْعَيْنُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ... وَالِادِّعَاءُ فِي الْحَرْبِ: الِاعْتِزَاءُ، وَهُوَ أَنْ تَقُولَ: أَنَا ابْنُ فُلَانٍ»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"منتحل","root":"نحل","maqayis":"«النُّونُ وَالْحَاءُ وَاللَّامُ... وَالثَّالِثَةُ قَوْلُهُمْ: انْتَحَلَ كَذَا، إِذَا تَعَاطَاهُ وَادَّعَاهُ»"},{"word":"عرقي","root":"عرق","maqayis":"«الْعَيْنُ وَالرَّاءُ وَالْقَافُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى أُصُولِ الْأَشْيَاءِ... مِنْهُ عِرْقُ الشَّجَرَةِ وَغَيْرِهَا»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح حديث ومركب يركز بشكل دقيق ومباشر على الجانب العرقي والإثني للإخفاء والانتحال.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح تراثي واسع يشمل من يدعي نسباً أو أصلاً غير أصله، ويُستعمل سياقياً للتعبير عن الانتحال العرقي بنبرة ذم واستنكار.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.90

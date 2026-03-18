@@ -1,0 +1,124 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "عنق"
+      confirm:
+        - text: "«عُنُق: neck» — المعجم الموحد لمصطلحات الجيولوجيا (2000)"
+          source: "المعجم الموحد لمصطلحات الجيولوجيا (2000)"
+        - text: "«عنق كلِّ شيء: أوَّله وما استدقّ منه» — معجم اللغة العربية المعاصرة"
+          source: "معجم اللغة العربية المعاصرة"
+      expands:
+        - text: "«عُنُق البركان: volcanic neck» — المعجم الموحد لمصطلحات علوم الزلازل (1999)"
+          source: "المعجم الموحد لمصطلحات علوم الزلازل (1999)"
+        - text: "«ما صَلُبَ وارْتَفَعَ من الأرْضِ وحَوالَيْهِ سَهْلٌ» — القاموس المحيط"
+          source: "القاموس المحيط"
+          addition: "يستخدم مصطلح 'المعنق' للأرض الصلبة المرتفعة وسط السهل."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "برزخ"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«(فِي علم الجغرافية) قِطْعَة أَرض ضيقَة محصورة بَين بحرين موصلة بَين أَرضين» — المعجم الوسيط"
+      justification: "المصطلح العربي الأدق لـ (isthmus) أو (neck of land) الذي يصل بين يابستين."
+    - lemma: "لسان"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«شريط ضيق من اليابس يمتد في البحر» — المعجم الوسيط"
+      justification: "يستخدم لوصف (tongue) أو (spit) من الأرض يبرز في الماء."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "عنق"
+      decision: confirmed
+      decision_reason: "استعمال اصطلاحي ومجازي مستقر في الجغرافيا والجيولوجيا (neck of land)."
+      evidence_assessment:
+        case: "confirm_only"
+      nuance_differentiation: "تسمية عامة تطلق على ما استدق وضاق من الأرض تشبيهاً بالعضو الحيوي."
+      example: "يتميز هذا الساحل بوجود أعناق من اليابسة تبرز في مياه المحيط."
+    - lemma: "برزخ"
+      source: step05
+      decision: confirmed
+      decision_reason: "المصطلح الجغرافي القياسي لما يصل بين يابستين أو يفصل بين مائين."
+      step05_citation: "«شريطٌ من اليابس يفصل بين مائَيْن» — المعجم الكبير"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على وظيفة الفصل بين مائين أو الوصل بين كتلتين يابستين كبيرتين."
+      example: "برزخ بنما هو حلقة الوصل الطبيعية بين أمريكا الشمالية والجنوبية."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "برزخ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09390630-n"
+    - lemma: "لسان"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح جغرافي مستعمل لوصف الامتداد الطولي الضيق للأرض داخل الماء."
+      step05_citation: "«شريط ضيق من اليابس يمتد في البحر» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على شكل الامتداد الطولي (اللساني) داخل المسطح المائي."
+      example: "تكونت السفن لسانًا رمليًا طبيعيًا عند مدخل الخليج."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "لسان"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09390630-n"
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "شريط ضيق وممتد من الأرض"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي ناقص من حيث تحديد علاقة هذا الشريط بالماء أو بالكتل الأرضية الأخرى."
+  authored_definitions:
+    - type: terminological
+      text: "شريط ضيق من اليابس يبرز في الماء أو يصل بين كتلتين أرضيتين كبيرتين."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-09390630-n"
+        definition_index: 0
+        text: "شريط ضيق من اليابس يبرز في الماء أو يصل بين كتلتين أرضيتين كبيرتين."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-09357302-n"
+    test_result: "correct"
+  actions: []
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "عنق"
+      enrichment:
+        root: "ع ن ق"
+      examples:
+        - text: "يبرز عنق ضيق من الأرض ليفصل بين بحيرتين."
+          type: usage
+          source: "مؤلف"
+    - lemma: "برزخ"
+      enrichment:
+        root: "ب ر ز خ"
+      examples:
+        - text: "بينهما برزخ لا يبغيان"
+          type: quran
+          source: "سورة الرحمن"
+    - lemma: "لسان"
+      enrichment:
+        root: "ل س ن"
+      examples:
+        - text: "تتميز المدينة بلسان من الأرض يمتد داخل البحر."
+          type: usage
+          source: "مؤلف"
+  cultural_fit:
+    assessment: native

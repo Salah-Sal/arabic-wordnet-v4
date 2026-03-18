@@ -1,0 +1,167 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة عبارة عن مركبات وصفية وإضافية تستخدم عادة كوصف (شخص من الدرجة الثالثة، متدني المستوى) وليست مصطلحات مفردة مسكوكة بقوة."
+      - "الافتقار إلى التشكيل الكامل في اللمّات الحالية."
+    observations: "المفهوم الإنجليزي 'third-rater' يشير إلى الشخص الرديء أو المتدني في مستواه وكفاءته. التعبير 'شخص من الدرجة الثالثة' ترجمة حرفية ولكنها شائعة ومفهومة في السياق المعاصر، وكذلك التعبير 'متدني المستوى' وهو مركب إضافي شائع للاستخدام كاسم فاعل يدل على الشخص."
+  blind_candidates:
+    - lemma: "عَامِلٌ رَدِيء"
+      generation_method: tarkib
+      justification: "تعبير مركب وصفي يشير إلى من يعمل بغير كفاءة ويتميز بالرداءة."
+    - lemma: "مُتَرَدٍّ"
+      generation_method: ishtiqaq
+      justification: "مشتق من التردي والانحطاط، ويعني من قلّت كفاءته وساء أداؤه."
+    - lemma: "دُونُ الْمُسْتَوَى"
+      generation_method: tarkib
+      justification: "تعبير متداول يشير إلى من لم يبلغ المستوى المقبول في أدائه أو صفاته."
+    - lemma: "سَفِيه"
+      generation_method: majaz
+      justification: "مجاز من خفة العقل والرداءة في التصرف، يستخدم لوصف ذوي المستويات الدنيئة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "شَخْص مِنَ الدَّرَجَة الثَّالِثَة"
+      evidence_status: "no_material_found"
+    - lemma: "مُتَدَنِّي الْمُسْتَوَى"
+      expands:
+        - text: "مُتَرَدٍّ: أداؤه الوظيفيّ متدهور."
+          source: "المعجم الموحد لمصطلحات علم الصيدلة (2009)"
+          addition: "يدل على التردي في الأداء والمستوى كما في اللمة."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "شَخْص مِنَ الدَّرَجَة الثَّالِثَة"
+      decision: confirmed
+      decision_reason: "تعبير مستخدم وشائع كترجمة للمصطلح، ويعبر بدقة عن دلالة المجموعة الترادفية وإن كان عبارة مركبة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "شَخْصٌ مِنَ الدَّرَجَةِ الثَّالِثَةِ"
+    - lemma: "مُتَدَنِّي الْمُسْتَوَى"
+      decision: confirmed
+      decision_reason: "مركب إضافي شائع الاستعمال لوصف الأشخاص ذوي الكفاءة المنخفضة."
+      evidence_assessment:
+        case: expands_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُتَدَنِّي الْمُسْتَوَى"
+
+stage4_content:
+  definition:
+    current: "شخص من الدرجة الثالثة أو أقل جودة بوضوح"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يحتوي على ركاكة وترجمة حرفية ('أقل جودة بوضوح')."
+    authored:
+      - type: terminological
+        text: "شَخْصٌ رَدِيءُ الأَدَاءِ وَقَلِيلُ الكَفَاءَةِ، يُصَنَّفُ فِي دَرَجَةٍ دُنْيَا لِتَدَنِّي مُسْتَوَاهُ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "شَخْصٌ رَدِيءُ الأَدَاءِ وَقَلِيلُ الكَفَاءَةِ، يُصَنَّفُ فِي دَرَجَةٍ دُنْيَا لِتَدَنِّي مُسْتَوَاهُ."
+  examples:
+    per_lemma:
+      - lemma: "شَخْصٌ مِنَ الدَّرَجَةِ الثَّالِثَةِ"
+        examples:
+          - text: "لَمْ يُقْبَلْ فِي الوَظِيفَةِ لِأَنَّهُ شَخْصٌ مِنَ الدَّرَجَةِ الثَّالِثَةِ."
+            type: usage
+      - lemma: "مُتَدَنِّي الْمُسْتَوَى"
+        examples:
+          - text: "تَجَنَّبْ تَوْظِيفَ أَيِّ مُتَدَنِّي الْمُسْتَوَى فِي هَذَا المَشْرُوعِ الحَسَّاسِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "لَمْ يُقْبَلْ فِي الوَظِيفَةِ لِأَنَّهُ شَخْصٌ مِنَ الدَّرَجَةِ الثَّالِثَةِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تَجَنَّبْ تَوْظِيفَ أَيِّ مُتَدَنِّي الْمُسْتَوَى فِي هَذَا المَشْرُوعِ الحَسَّاسِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "شَخْصٌ مِنَ الدَّرَجَةِ الثَّالِثَةِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "شخص"
+          root: "شخص"
+          maqayis_quote: "«الشِّينُ وَالْخَاءُ وَالصَّادُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى ارْتِفَاعٍ فِي شَيْءٍ...»"
+        - word: "درجة"
+          root: "درج"
+          maqayis_quote: "«الدَّالُ وَالرَّاءُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُضِيِّ الشَّيْءِ وَالْمُضِيِّ فِي الشَّيْءِ...»"
+        - word: "ثالثة"
+          root: "ثلث"
+          maqayis_quote: "«الثَّاءُ وَاللَّامُ وَالثَّاءُ كَلِمَةٌ وَاحِدَةٌ، وَهِيَ فِي الْعَدَدِ...»"
+    - lemma: "مُتَدَنِّي الْمُسْتَوَى"
+      entry_id: "{auto}"
+      roots:
+        - word: "متدني"
+          root: "دني"
+          maqayis_quote: "«الدَّالُ وَالنُّونُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ يُقَاسُ بَعْضُهُ عَلَى بَعْضٍ، وَهُوَ الْمُقَارَبَةُ...»"
+        - word: "المستوى"
+          root: "سوي"
+          maqayis_quote: "«السِّينُ وَالْوَاوُ وَالْيَاءُ أَصْلٌ يَدُلُّ عَلَى اسْتِقَامَةٍ وَاعْتِدَالٍ بَيْنَ شَيْئَيْنِ...»"
+  per_sense:
+    - lemma: "شَخْصٌ مِنَ الدَّرَجَةِ الثَّالِثَةِ"
+      sense_id: "{auto}"
+      nuance: "تعبير يفيد التصنيف ضمن المراتب الدنيا في الجودة والكفاءة، وهو ترجمة حرفية دقيقة."
+      mwe: true
+    - lemma: "مُتَدَنِّي الْمُسْتَوَى"
+      sense_id: "{auto}"
+      nuance: "تعبير شائع يفيد النقص العام في الكفاءة والمستوى سواء في الأداء أو الأخلاق."
+      mwe: true
+  synset:
+    cultural_fit: phraset
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"شخص","root":"شخص","maqayis":"«الشِّينُ وَالْخَاءُ وَالصَّادُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى ارْتِفَاعٍ فِي شَيْءٍ...»"},{"word":"درجة","root":"درج","maqayis":"«الدَّالُ وَالرَّاءُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُضِيِّ الشَّيْءِ وَالْمُضِيِّ فِي الشَّيْءِ...»"},{"word":"ثالثة","root":"ثلث","maqayis":"«الثَّاءُ وَاللَّامُ وَالثَّاءُ كَلِمَةٌ وَاحِدَةٌ، وَهِيَ فِي الْعَدَدِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"متدني","root":"دني","maqayis":"«الدَّالُ وَالنُّونُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ يُقَاسُ بَعْضُهُ عَلَى بَعْضٍ، وَهُوَ الْمُقَارَبَةُ...»"},{"word":"المستوى","root":"سوي","maqayis":"«السِّينُ وَالْوَاوُ وَالْيَاءُ أَصْلٌ يَدُلُّ عَلَى اسْتِقَامَةٍ وَاعْتِدَالٍ بَيْنَ شَيْئَيْنِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير يفيد التصنيف ضمن المراتب الدنيا في الجودة والكفاءة، وهو ترجمة حرفية دقيقة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير شائع يفيد النقص العام في الكفاءة والمستوى سواء في الأداء أو الأخلاق.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"phraset"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.90

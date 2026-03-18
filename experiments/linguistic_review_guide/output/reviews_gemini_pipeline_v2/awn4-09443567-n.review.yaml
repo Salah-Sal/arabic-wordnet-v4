@@ -1,0 +1,206 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'لعقة ملح' تبدو ترجمة حرفية للمصطلح الإنجليزي (salt lick)، حيث أن 'لعقة' تعبر عن الفعل (المرة من اللعق) أكثر من تعبيرها عن المكان أو الترسب الملحى."
+      - "اللمة 'ملاحة' صحيحة ولكنها عامة تشمل مناجم الملح والملاحات الصناعية، وتحتاج إلى تخصيص أو لمات أكثر دقة لوصف المفهوم المتعلق بالحيوانات."
+    observations: "المفهوم يشير إلى ظاهرة طبيعية (ترسبات) أو صناعية (كتل ملحية) تقصدها الحيوانات لسد حاجتها من الأملاح. في العربية، جذرا (ملح) و(لحس) هما الأنسب للتعبير عن هذا المفهوم. مصطلح 'مَلْحَس' (مكان اللحس) مدعوم معجمياً كاسم مكان."
+  blind_candidates:
+    - lemma: "مَلْحَسَة"
+      generation_method: ishtiqaq
+      justification: "على وزن (مَفْعَلَة) للدلالة على مكان الفعل (اللحس)، وهو الوزن القياسي لأسماء الأمكنة التي يكثر فيها الشيء أو الفعل."
+    - lemma: "مَلَّاحَة"
+      generation_method: majaz
+      justification: "تُطلق في الأصل على مكان الملح (منبته أو مكان تكونه)، ويمكن توسيع دلالتها لتشمل الملاحات الطبيعية التي تقصدها الحيوانات."
+    - lemma: "مَلْحَس"
+      generation_method: ishtiqaq
+      justification: "على وزن (مَفْعَل)، وهو اسم مكان من (لَحَسَ)، وقد ورد في المعجم الوسيط بمعنى 'مكان اللحس'."
+    - lemma: "لَعْقَةُ مِلْحٍ"
+      generation_method: tarkib
+      justification: "تركيب إضافي يترجم المصطلح الإنجليزي (salt lick) ويعبر عن الكتلة التي تلعقها الحيوانات."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مَلَّاحَة"
+      confirm:
+        - text: "«المَلَّاحَةُ: مكان تكوُّن الملح أو بيعه»"
+          source: "المعجم الوسيط"
+        - text: "«ملاّحة: salt pan»"
+          source: "مسرد الجغرافيا والتاريخ (ArabTerm)"
+        - text: "«مَلَّاحَة: salina»"
+          source: "المعجم الموحد لمصطلحات الجيولوجيا"
+    - lemma: "مَلْحَس"
+      confirm:
+        - text: "«المَلْحَسُ: اللَّحْس ومكان اللحس (ج) ملاحس»"
+          source: "المعجم الوسيط"
+        - text: "«ويقال تركته بملاحس البقر أولادها أي بمكان قفر... وذلك أن بقر الوحش لا تضع أولادها إلا في الفلاة»"
+          source: "المعجم الوسيط (مادة لحس)"
+    - lemma: "مَلْحَة"
+      confirm:
+        - text: "«المَلْحة: .أ» موطن [كينبوع ماء إلخ] تلعقه الحيوانات لِما فيه من ملح. .ب» مستحضر مَلِحٌ يقدّم إلى الماشية كي تلعقَهُ.»"
+          source: "المورد الحديث (إنجليزي-عربي)"
+    - lemma: "لعقة ملح"
+      confirm:
+        - text: "«لَعْقَة: (lick)»"
+          source: "المورد الحديث"
+      expands:
+        - text: "تُستخدم كترجمة اصطلاحية لـ (salt lick) في السياقات البيطرية والحيوانية الحديثة."
+          source: "الاستخدام الشائع"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مَلَّاحَة"
+      decision: confirmed
+      decision_reason: "مصطلح معجمي صحيح يدل على مكان تكون الملح، وهو ما يتفق مع الشق الأول من التعريف (ترسبات ملحية)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَلَّاحَة"
+    - lemma: "لَعْقَة مِلْح"
+      decision: confirmed
+      decision_reason: "رغم أنها ترجمة حرفية، إلا أنها المصطلح الأكثر شيوعاً حالياً للتعبير عن كتل الملح التي توضع للماشية، وتؤدي الغرض الدلالي في سياق المجموعة."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "لَعْقَةُ مِلْحٍ"
+    - lemma: "مَلْحَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح متخصص دقيق جداً ورد في المعاجم الحديثة (المورد) لوصف الموطن الذي تلعقه الحيوانات طلباً للملح."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَلْحَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مَلْحَس"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح كلاسيكي (اسم مكان) يعبر بدقة عن 'مكان اللحس'، وقد ارتبط في التراث بـ 'ملاحس البقر' وهي الأماكن القفر التي ترتادها بقر الوحش."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَلْحَس", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "ترسبات ملحية تلعقها الحيوانات بانتظام"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي صحيح لكنه يفتقر إلى التفصيل الذي يميزها كظاهرة بيئية أو ممارسة في تربية الحيوان."
+    authored:
+      - type: terminological
+        text: "ترسبات ملحية طبيعية في الأرض، أو كتل ملحية صناعية، تقصدها الحيوانات (كالمواشي والوحوش) لتلعقها فتعوض ما ينقصها من أملاح معدنية."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "ترسبات ملحية طبيعية في الأرض، أو كتل ملحية صناعية، تقصدها الحيوانات لتلعقها فتعوض ما ينقصها من أملاح معدنية."}
+  examples:
+    per_lemma:
+      - lemma: "مَلَّاحَة"
+        examples:
+          - text: "تقصد الغزلان الملاحة القريبة من النهر لتعويض نقص الأملاح في جسدها."
+            type: usage
+      - lemma: "لَعْقَةُ مِلْحٍ"
+        examples:
+          - text: "وضع المربي لعقة ملح في الحظيرة لتشجيع الماشية على شرب الماء."
+            type: usage
+      - lemma: "مَلْحَة"
+        examples:
+          - text: "تعد المَلْحة محطة ضرورية للحيوانات البرية في مواسم معينة."
+            type: usage
+      - lemma: "مَلْحَس"
+        examples:
+          - text: "كانت ملاحس البقر منتشرة في الفلوات التي ترتادها الحيوانات الوحشية."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تقصد الغزلان الملاحة القريبة من النهر لتعويض نقص الأملاح في جسدها."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَلَّاحَة"
+      entry_id: "{auto}"
+      root: "ملح"
+      maqayis_quote: "«الميم واللام والحاء أصلان، أحدهما الملح الذي يؤكل، والآخر الحُسْن.»"
+    - lemma: "مَلْحَة"
+      entry_id: "{auto}"
+      root: "ملح"
+      maqayis_quote: "«الميم واللام والحاء أصلان، أحدهما الملح الذي يؤكل، والآخر الحُسْن.»"
+    - lemma: "مَلْحَس"
+      entry_id: "{auto}"
+      root: "لحس"
+      maqayis_quote: "«اللام والحاء والسين أصلٌ واحد، وهو أخذ الشيء باللسان.»"
+    - lemma: "لَعْقَةُ مِلْحٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "لعقة"
+          root: "لعق"
+          maqayis_quote: "«اللام والعين والقاف أصلٌ صحيح، وهو أخذ الشيء باللسان.»"
+        - word: "ملح"
+          root: "ملح"
+          maqayis_quote: "«الميم واللام والحاء أصلان، أحدهما الملح الذي يؤكل، والآخر الحُسْن.»"
+  per_sense:
+    - lemma: "مَلَّاحَة"
+      sense_id: "{auto}"
+      nuance: "تركز على المكون الملحى للمكان (موقع الملح)."
+      mwe: false
+    - lemma: "مَلْحَة"
+      sense_id: "{auto}"
+      nuance: "مصطلح حديث يجمع بين الملح وفعل اللعق، وهو الأكثر دقة ترجمياً."
+      mwe: false
+    - lemma: "مَلْحَس"
+      sense_id: "{auto}"
+      nuance: "تركز على سلوك الحيوان (مكان اللعق) ولها خلفية تراثية."
+      mwe: false
+    - lemma: "لَعْقَةُ مِلْحٍ"
+      sense_id: "{auto}"
+      nuance: "غالباً ما تُستخدم للكتل الصناعية التي توضع للماشية."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ملح","maqayis":"«الميم واللام والحاء أصلان، أحدهما الملح الذي يؤكل، والآخر الحُسْن.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركز على المكون الملحى للمكان","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

@@ -1,0 +1,247 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "نقص التشكيل في اللمات الموجودة (مفتح، مادة تفتيح)."
+      - "غياب مصطلح 'مبيض' وهو المصطلح الأكثر شيوعاً وعمومية لهذا المفهوم."
+      - "غياب المصطلحات الفنية المتخصصة مثل 'مقصرة' أو 'قاصر الألوان'."
+    observations: "المجموعة تغطي عوامل التفتيح الكيميائية لمختلف الأسطح (شعر، جلد، خشب). اللمات الحالية تركز على 'التفتيح' (lightening) بينما يغفل المعجم 'التبييض' (bleaching/whitening) وهو جزء أساسي من التعريف."
+  blind_candidates:
+    - lemma: "مُفَتِّح"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من فَتَّحَ (خفف اللون)، وهو المصطلح الشائع في مستحضرات التجميل للشعر والبشرة."
+    - lemma: "مُبَيِّض"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من بَيَّضَ، وهو المصطلح العام لكل ما يزيل اللون أو يجعله أبيض (كالكلور ومبيضات الغسيل)."
+    - lemma: "مَادَّةُ تَبْيِيض"
+      generation_method: tarkib
+      justification: "تعبير مركب يشير إلى الجوهر المادي المستخدم في عملية التبييض."
+    - lemma: "مُقَصِّرَة"
+      generation_method: ishtiqaq
+      justification: "اسم آلة/فاعل من قَصَرَ الثياب (بيضها)، وهو مصطلح فني كيميائي قديم وحديث لمنتجات التبييض (Bleach)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُفَتِّح"
+      confirm:
+        - text: "«مُفَتِّح ... دواء يخرج المادة السادة عن المجرى»"
+          source: "كشاف اصطلاحات الفنون"
+        - text: "«مُفَتِّح (deoppilant)»"
+          source: "المعجم الطبي الموحد"
+      expands:
+        - text: "«تفتيح القماش المغسول إلى درجة كبيرة عن طريق إزالة لونه»"
+          source: "مسرد صناعة النسيج (ArabTerm)"
+    - lemma: "مُبَيِّض"
+      confirm:
+        - text: "«مُبيِّض (bleach): مركب أكسدة يتضمن عادة الكلور متحدا مع الكالسيوم أو الصوديوم»"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية"
+        - text: "«مُبَيِّض (whitener): مستحضر مبيِّض»"
+          source: "المورد الحديث"
+      expands:
+        - text: "«مُبَيِّض القهوة: مادة تضاف للقهوة تكسبها عادة لوناً فاتحاً»"
+          source: "المعجم الموحد لمصطلحات تقانات الأغذية"
+    - lemma: "مُقَصِّرَة"
+      confirm:
+        - text: "«المُقَصِّرة: مادة كيميائية تُستخدم في التقصير (تبييض قماش بالتعريض للشمس أو بمواد كيميائية)»"
+          source: "المورد الحديث"
+    - lemma: "قاصِرُ الأَلْوَان"
+      confirm:
+        - text: "«قاصِر الألوان، مُبَيِّض (bleaching agent): مادة تبيض المادة الغذائية التي تعامل بها»"
+          source: "المعجم الموحد لمصطلحات تقانات الأغذية"
+    - lemma: "مَادَّةُ تَبْيِيض"
+      confirm:
+        - text: "«مادّة مبيِّضة (whitener)»"
+          source: "المورد الحديث"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مفتح"
+      decision: confirmed
+      decision_reason: "مصطلح شائع الاستخدام خاصة في سياق التجميل (تفتيح البشرة والشعر)، وقد ورد في المعاجم الطبية والتقنية."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُفَتِّح"
+    - lemma: "مادة تفتيح"
+      decision: confirmed
+      decision_reason: "تعبير مركب شائع يصف الوظيفة الدلالية للمجموعة بشكل مباشر."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَادَّةُ تَفْتِيح"
+    - lemma: "مُبَيِّض"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح الأكثر شمولاً وعمومية لعوامل التبييض الكيميائية، وموثق في المعاجم التقنية والحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُبَيِّض", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-92466539-n"}
+    - lemma: "مَادَّةُ تَبْيِيض"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير مركب اصطلاحي يجمع بين 'المادة' والعملية 'التبييض' كما ورد في التعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "مَادَّةُ تَبْيِيض", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-92466539-n"}
+    - lemma: "مُقَصِّرَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فني دقيق (Bleacher/Bleaching agent) يستند إلى أصل عربي فصيح (التقصير) وموثق في المعاجم الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُقَصِّرَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-92466539-n"}
+
+stage4_content:
+  definition:
+    current: "أي نوع من عوامل التفتيح التي يمكن استخدامها لتفتيح مظهر الشعر والجلد والخشب والأسطح الأخرى"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي طويل، ويفضل صياغة معجمية تركز على الطبيعة الكيميائية والوظيفة."
+    authored:
+      - type: terminological
+        text: "مَادَّةٌ كِيمْيَائِيَّةٌ تُسْتَعْمَلُ لإِزَالَةِ الأَلْوَانِ أَوْ تَخْفِيفِهَا مِنْ نَحْوِ الشَّعْرِ وَالبَشَرَةِ وَالخَشَبِ وَالأَنْسِجَةِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-92466539-n", definition_index: 0, text: "مَادَّةٌ كِيمْيَائِيَّةٌ تُسْتَعْمَلُ لإِزَالَةِ الأَلْوَانِ أَوْ تَخْفِيفِهَا مِنْ نَحْوِ الشَّعْرِ وَالبَشَرَةِ وَالخَشَبِ وَالأَنْسِجَةِ."}
+  examples:
+    per_lemma:
+      - lemma: "مُبَيِّض"
+        examples:
+          - text: "تُستخدم المبيضات التي تحتوي على الكلور لتعقيم الأسطح وتبييض الملابس."
+            type: usage
+      - lemma: "مُفَتِّح"
+        examples:
+          - text: "ينصح الخبراء باختيار مُفَتِّح بشرة خالٍ من المواد الكيميائية الضارة."
+            type: usage
+      - lemma: "مُقَصِّرَة"
+        examples:
+          - text: "أضاف العامل المُقَصِّرَة إلى حوض الغسيل لتفتيح لون الأقمشة القطنية."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-92466539-n", text: "تُضاف مادة تبييض قوية إلى عجينة الورق للحصول على بياض ناصع."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُفَتِّح"
+      entry_id: "{auto}"
+      root: "فتح"
+      maqayis_quote: "«الْفَاءُ وَالتَّاءُ وَالْحَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى خِلَافِ الْإِغْلَاقِ.»"
+    - lemma: "مُبَيِّض"
+      entry_id: "{auto}"
+      root: "بيض"
+      maqayis_quote: "«الْبَاءُ وَالْيَاءُ وَالضَّادُ أَصْلٌ... فَالْأَصْلُ الْبَيَاضُ مِنَ الْأَلْوَانِ.»"
+    - lemma: "مُقَصِّرَة"
+      entry_id: "{auto}"
+      root: "قصر"
+      maqayis_quote: "«الْقَافُ وَالصَّادُ وَالرَّاءُ أَصْلَانِ... أَحَدُهُمَا يَدُلُّ عَلَى أَلَّا يَبْلُغَ الشَّيْءُ مَدَاهُ وَنِهَايَتَهُ، وَالْآخَرُ عَلَى الْحَبْسِ.» (ملاحظة: استُخدم لاحقاً لتقصير الثياب أي تبييضها)."
+    - lemma: "مَادَّةُ تَفْتِيح"
+      entry_id: "{auto}"
+      roots:
+        - word: "مادة"
+          root: "مدد"
+          maqayis_quote: "«الْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى جَرِّ الشَّيْءِ فِي طُولٍ.»"
+        - word: "تفتيح"
+          root: "فتح"
+          maqayis_quote: "«الْفَاءُ وَالتَّاءُ وَالْحَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى خِلَافِ الْإِغْلَاقِ.»"
+    - lemma: "مَادَّةُ تَبْيِيض"
+      entry_id: "{auto}"
+      roots:
+        - word: "مادة"
+          root: "مدد"
+          maqayis_quote: "«الْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى جَرِّ الشَّيْءِ فِي طُولٍ.»"
+        - word: "تبييض"
+          root: "بيض"
+          maqayis_quote: "«الْبَاءُ وَالْيَاءُ وَالضَّادُ أَصْلٌ... فَالْأَصْلُ الْبَيَاضُ مِنَ الْأَلْوَانِ.»"
+  per_sense:
+    - lemma: "مُبَيِّض"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام والشامل للمواد الكيميائية التي تزيل اللون تماماً."
+      mwe: false
+    - lemma: "مُفَتِّح"
+      sense_id: "{auto}"
+      nuance: "يستخدم غالباً في سياق التجميل للإشارة إلى تخفيف حدة اللون (البشرة والشعر) وليس إزالته بالضرورة."
+      mwe: false
+    - lemma: "مُقَصِّرَة"
+      sense_id: "{auto}"
+      nuance: "مصطلح تقني يرتبط تقليدياً بمعالجة الأنسجة والألياف."
+      mwe: false
+    - lemma: "مَادَّةُ تَفْتِيح"
+      sense_id: "{auto}"
+      nuance: "تعبير مركب يصف أي جوهر مادي وظيفته التفتيح."
+      mwe: true
+    - lemma: "مَادَّةُ تَبْيِيض"
+      sense_id: "{auto}"
+      nuance: "تعبير مركب يصف أي جوهر مادي وظيفته التبييض."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"فتح","maqayis":"«الْفَاءُ وَالتَّاءُ وَالْحَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى خِلَافِ الْإِغْلَاقِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"بيض","maqayis":"«الْبَاءُ وَالْيَاءُ وَالضَّادُ أَصْلٌ... فَالْأَصْلُ الْبَيَاضُ مِنَ الْأَلْوَانِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قصر","maqayis":"«الْقَافُ وَالصَّادُ وَالرَّاءُ أَصْلَانِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العام والشامل للمواد الكيميائية التي تزيل اللون تماماً.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-92466539-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-92466539-n"
+        score: 0.95

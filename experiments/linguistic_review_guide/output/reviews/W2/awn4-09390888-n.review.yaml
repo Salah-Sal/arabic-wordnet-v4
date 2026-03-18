@@ -1,0 +1,155 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "حاجة"
+      confirm:
+        - text: "«المَأْرِبَةُ. وهي مايَفْتَقِرُ إليه الإِنسانُ ويَطْلُبُه.»"
+          source: "المعجم الكبير"
+      expands:
+        - text: "«الحاجة: الفقر إلى الشيء مع محبته.»"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+          addition: "يوسّع المعنى ليشمل حالة الافتقار بالإضافة إلى الشيء المفتقر إليه."
+    - lemma: "عوز"
+      contradicts:
+        - text: "«العَوَزُ، بالفتح: العُدْمُ وسوءُ الحال.»"
+          source: "لسان العرب"
+          conflict: "اللمة تدل حصرياً على حالة الافتقار والعدم، بينما تعريف المجموعة والمُشتمل يدلان على الشيء المفتقر إليه."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "مَأْرَب"
+      source_section: "step0_headword"
+      evidence_citation: "«المَأْرِبَةُ. وهي مايَفْتَقِرُ إليه الإِنسانُ ويَطْلُبُه.» — المعجم الكبير"
+      justification: "تتطابق تماماً مع تعريف المجموعة الترادفية؛ فهي تعبر عن الشيء الذي يُفتقر إليه ويُطلب."
+  knowledge_candidates:
+    - lemma: "مُتَطَلَّب"
+      justification: "توليد بالاشتقاق من 'تطلّب'؛ ليدل على الشيء الذي تفرضه الحاجة كضرورة، وهو شائع في الاستعمال المعاصر لتمثيل الأشياء الضرورية."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "حاجة"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي يعبر بوضوح عن الشيء الذي يفتقر إليه الإنسان ويطلبه."
+      evidence_assessment:
+        case: mixed
+      substitution_test:
+        result: pass
+      nuance_differentiation: "اللفظ الأعم والأكثر شيوعاً للدلالة على كل ما تدعو إليه الضرورة ويُسعى لتحصيله."
+      example: "وفرت الجمعية الخيرية كل حاجةٍ تلزم الأسر المتضررة."
+    
+    - lemma: "عوز"
+      decision: removed
+      decision_reason: "المصطلح يدل حصراً على حالة الافتقار والعدم، بينما تعريف المجموعة والمُشتمل يدلان على الشيء المفتقر إليه؛ ولا يجوز الخلط بين الحالة والموضوع."
+      evidence_assessment:
+        case: contradicts_only
+      substitution_test:
+        result: fail
+      nuance_differentiation: "تدل على حالة الفقر والعدم، ولا تطلق على الشيء المادي أو المعنوي المفتقر إليه."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+            
+    - lemma: "مَأْرَب"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح عربي فصيح وشائع يدل بدقة على الحاجة المطلوبة."
+      step05_citation: "«المَأْرِبَةُ. وهي مايَفْتَقِرُ إليه الإِنسانُ ويَطْلُبُه.» — المعجم الكبير"
+      substitution_test:
+        result: pass
+      nuance_differentiation: "تتميز بكونها تعبر عن الحاجة التي يقترن بها غرض محدد يسعى الإنسان لتحقيقه."
+      example: "قصدت السوق لقضاء مأربٍ لا غنى لي عنه."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مأرب"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09390888-n"
+
+    - lemma: "مُتَطَلَّب"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح معاصر مطرد الاستعمال يدل على الشيء الذي تفرضه الحاجة كضرورة."
+      step05_citation: "معرفة لغوية — اشتقاق لتمثيل ما يُطلب ويلزم."
+      substitution_test:
+        result: pass
+      nuance_differentiation: "تُستعمل أكثر في السياقات الأكاديمية أو التقنية للإشارة إلى الحاجات التي تُشترط مسبقاً وتُفرض كمتطلبات."
+      example: "يُعد توفر الماء النقي أهم متطلبٍ للبقاء على قيد الحياة."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "متطلب"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09390888-n"
+            
+  added_lemmas:
+    - lemma: "مَأْرَب"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+    - lemma: "مُتَطَلَّب"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "أي شيء ضروري ولكنه غير متوفر (ناقص)"
+  assessment:
+    decision: retain
+    reason: "التعريف الحالي دقيق ويعكس مفهوم المجموعة الترادفية بشكل صحيح ومباشر."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-09390100-n"
+    test_result: correct
+  antonymy:
+    per_lemma:
+      - lemma: "حاجة"
+        antonym_found: false
+      - lemma: "مَأْرَب"
+        antonym_found: false
+      - lemma: "مُتَطَلَّب"
+        antonym_found: false
+  verb_checks:
+    applicable: false
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "حاجة"
+      enrichment:
+        root: "ح-و-ج"
+      examples:
+        - text: "وفرت الجمعية الخيرية كل حاجةٍ تلزم الأسر المتضررة."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "مَأْرَب"
+      enrichment:
+        root: "أ-ر-ب"
+      examples:
+        - text: "قصدت السوق لقضاء مأربٍ لا غنى لي عنه."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "مُتَطَلَّب"
+      enrichment:
+        root: "ط-ل-ب"
+      examples:
+        - text: "يُعد توفر الماء النقي أهم متطلبٍ للبقاء على قيد الحياة."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-09390888-n"
+        text: "وفرت الجمعية الخيرية كل حاجةٍ تلزم الأسر المتضررة."

@@ -1,0 +1,211 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة تفتقر إلى التشكيل الكامل."
+      - "المصطلح 'مادة مرطبة' هو عبارة وصفية أكثر من كونه وحدة معجمية مسكوكة، لكنه مستخدم في المجالات التقنية."
+      - "افتقار المجموعة للمصطلح المفرد 'مُرَطِّب' وهو المقابل المباشر لـ humectant في المعاجم الطبية والتقنية."
+    observations: "المفهوم تقني يشير إلى المواد التي تمنع جفاف المنتجات (مثل الأطعمة ومستحضرات التجميل). المصطلحات العربية الشائعة تمزج بين الوصف الوظيفي (حافظ للرطوبة) والاسم المشتق (مرطب)."
+  blind_candidates:
+    - lemma: "مُرَطِّب"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل 'رطّب'، وهو المصطلح القياسي للمواد التي تزيد الرطوبة أو تحافظ عليها."
+    - lemma: "حافِظُ الرُّطُوبَة"
+      generation_method: tarkib
+      justification: "مركب إضافي يصف الوظيفة الأساسية للمادة (humectant) في الحفاظ على رطوبة الوسط الذي تضاف إليه."
+    - lemma: "مُسْتَرْطِب"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من 'استرطب'، ويُستخدم تقنياً للمواد التي تجذب الرطوبة من الجو (hygroscopic)، وهو قريب دلالياً."
+    - lemma: "جاذِبُ الرُّطُوبَة"
+      generation_method: tarkib
+      justification: "مركب إضافي يصف قدرة المادة على سحب الرطوبة، ويشيع في الاستخدامات الكيميائية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُرَطِّب"
+      confirm:
+        - text: "«مُرَطِّب: humectant»"
+          source: "المعجم الطبي الموحد (2009)"
+        - text: "«يُرطب - مُرطب: مادة تلين وتخفف من التركيز. humectant»"
+          source: "معجم المصطلحات الطبية (1997)"
+      expands:
+        - text: "«جهاز يُزيد من الرطوبة في غرفة ما. Humidifier»"
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة (1996)"
+          addition: "يُستخدم المصطلح أيضاً للأجهزة (Humidifier) وليس فقط للمواد."
+    - lemma: "مُسْتَرْطِب"
+      confirm:
+        - text: "«مُسْتَرْطِب: له خاصية امتصاص الرطوبة من الجو. hygroscopic»"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+      expands:
+        - text: "«مُسْتَرْطِب: ماص للرطوبة. hygroscopic»"
+          source: "المعجم الموحد للمصطلحات المهنية والتقنية"
+    - lemma: "مادة مرطبة"
+      confirm:
+        - text: "«مُرطب: مادة تلين وتخفف من التركيز.»"
+          source: "معجم المصطلحات الطبية (1997)"
+    - lemma: "حافظ للرطوبة"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مُرَطِّب"
+      source: stage1
+      decision: confirmed
+      decision_reason: "هو المصطلح القياسي والمباشر للمفهوم في المعاجم الطبية والتقنية (Medical, Chemistry)، ويتميز بكونه كلمة مفردة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُرَطِّب", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "حافِظُ الرُّطُوبَة"
+      decision: confirmed
+      decision_reason: "مركب إضافي فصيح ومستقر في الاستخدام العلمي لوصف وظيفة المادة، وهو تصحيح لـ 'حافظ للرطوبة' غير المشكلة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حافِظُ الرُّطُوبَة"
+    - lemma: "مَادَّةٌ مُرَطِّبَة"
+      decision: confirmed
+      decision_reason: "تعبير وصفي شائع جداً في السياقات الصناعية والتجارية، ويدعم وضوح المفهوم لغير المتخصصين."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَادَّة مُرَطِّبَة"
+    - lemma: "مُسْتَرْطِب"
+      source: stage1
+      decision: removed
+      decision_reason: "على الرغم من قرابته الدلالية، إلا أن المعاجم تخصصه للمواد الماصة للرطوبة من الجو (hygroscopic)، وهي فئة فرعية أو مختلفة قليلاً عن الـ humectant الذي يُضاف للحفاظ على الرطوبة الداخلية."
+
+stage4_content:
+  definition:
+    current: "أي مادة تضاف إلى مادة أخرى للحفاظ على رطوبتها"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي صحيح لغوياً ولكنه يفتقر إلى الدقة المصطلحية التي تميز هذه الفئة من المواد عن مجرد 'الماء' أو 'البلل'."
+    authored:
+      - type: terminological
+        text: "مادة تضاف إلى مادة أخرى لامتصاص الرطوبة أو الحفاظ عليها، وتُستخدم خاصة في الأطعمة ومستحضرات التجميل لمنع الجفاف."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "مُرَطِّب"
+        examples:
+          - text: "يُعد الجلسرين من أشهر المرطبات المستخدمة في صناعة الكريمات الجلدية."
+            type: usage
+      - lemma: "حافِظُ الرُّطُوبَة"
+        examples:
+          - text: "تُضاف بعض المواد الحافظة للرطوبة إلى الخبز المصنع لإطالة مدة طراوته."
+            type: usage
+      - lemma: "مَادَّة مُرَطِّبَة"
+        examples:
+          - text: "تحتوي المنتجات الغذائية المعلبة على مواد مرطبة لمنع تيبسها."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مادة تضاف إلى مادة أخرى لامتصاص الرطوبة أو الحفاظ عليها، وتُستخدم خاصة في الأطعمة ومستحضرات التجميل لمنع الجفاف."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُرَطِّب"
+      entry_id: "{auto}"
+      root: "رطب"
+      maqayis_quote: "«الرَّاءُ وَالطَّاءُ وَالْبَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خِلَافِ الْيُبْسِ. مِنْ ذَلِكَ الرَّطْبُ وَالرَّطِيبُ.»"
+    - lemma: "حافِظُ الرُّطُوبَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "حافظ"
+          root: "حفظ"
+          maqayis_quote: "«الْحَاءُ وَالْفَاءُ وَالظَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُرَاعَاةِ الشَّيْءِ وَقِيَامٍ عَلَيْهِ.»"
+        - word: "الرطوبة"
+          root: "رطب"
+          maqayis_quote: "«الرَّاءُ وَالطَّاءُ وَالْبَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خِلَافِ الْيُبْسِ.»"
+    - lemma: "مَادَّة مُرَطِّبَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "مادة"
+          root: "مدد"
+          maqayis_quote: "«الْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ، وَهُوَ جَرُّ الشَّيْءِ فِي طُولٍ وَاتِّصَالٍ.»"
+        - word: "مرطبة"
+          root: "رطب"
+          maqayis_quote: "«الرَّاءُ وَالطَّاءُ وَالْبَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خِلَافِ الْيُبْسِ.»"
+  per_sense:
+    - lemma: "مُرَطِّب"
+      sense_id: "{auto}"
+      nuance: "المصطلح المفرد الأكثر دقة وتداولاً في السياق الطبي والكيميائي."
+      mwe: false
+    - lemma: "حافِظُ الرُّطُوبَة"
+      sense_id: "{auto}"
+      nuance: "يركز على الوظيفة الحافظة للمادة في السياقات الصناعية والغذائية."
+      mwe: true
+    - lemma: "مَادَّة مُرَطِّبَة"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي عام يناسب السياقات التجارية والتعليمية."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"رطب","maqayis":"«الرَّاءُ وَالطَّاءُ وَالْبَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خِلَافِ الْيُبْسِ. مِنْ ذَلِكَ الرَّطْبُ وَالرَّطِيبُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"حافظ","root":"حفظ","maqayis":"«الْحَاءُ وَالْفَاءُ وَالظَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُرَاعَاةِ الشَّيْءِ وَقِيَامٍ عَلَيْهِ.»"},{"word":"الرطوبة","root":"رطب","maqayis":"«الرَّاءُ وَالطَّاءُ وَالْبَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خِلَافِ الْيُبْسِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مادة","root":"مدد","maqayis":"«الْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ، وَهُوَ جَرُّ الشَّيْءِ فِي طُولٍ وَاتِّصَالٍ.»"},{"word":"مرطبة","root":"رطب","maqayis":"«الرَّاءُ وَالطَّاءُ وَالْبَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خِلَافِ الْيُبْسِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح المفرد الأكثر دقة وتداولاً في السياق الطبي والكيميائي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الوظيفة الحافظة للمادة في السياقات الصناعية والغذائية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير وصفي عام يناسب السياقات التجارية والتعليمية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

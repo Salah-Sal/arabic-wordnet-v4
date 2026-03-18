@@ -1,0 +1,166 @@
+stage1_review:
+  assessment:
+    concerns:
+      - 'اللمة الحالية "متبع حمية" تفتقر إلى التشكيل، وهي عبارة عن تركيب إضافي وليست كلمة مفردة.'
+      - 'لا توجد لمة مفردة تعبر عن المفهوم في المجموعة.'
+    observations: 'المفهوم يدل على الشخص الذي يلتزم بنظام غذائي معين، عادة لإنقاص الوزن أو لأسباب صحية. التعبير الشائع المعاصر هو "مُتَّبِع حِمْيَة"، لكن اللغة العربية تمتلك مفردات فصيحة تعبر عن المعنى بكلمة واحدة مثل "مُحْتَمٍ" (اسم فاعل من احتمى، وهو من يمتنع عن بعض الطعام).'
+  blind_candidates:
+    - lemma: 'مُحْتَمٍ'
+      generation_method: ishtiqaq
+      justification: 'اسم فاعل من الفعل "احتمى" المأخوذ من "الحِمْيَة"، وهو يطابق معنى الشخص الذي يمتنع عن أطعمة معينة.'
+    - lemma: 'مُتَّبِعُ حِمْيَةٍ'
+      generation_method: tarkib
+      justification: 'تعبير مركب شائع ومباشر، يعبر بوضوح عن المعنى المقصود.'
+    - lemma: 'ذُو حِمْيَةٍ'
+      generation_method: tarkib
+      justification: 'تركيب يعبر عن صاحب الحمية أو الملتزم بها.'
+    - lemma: 'مُتَخَفِّف'
+      generation_method: majaz
+      justification: 'من التخفف في الأكل لإنقاص الوزن، استخدام مجازي للمفهوم.'
+
+stage2_evidence:
+  per_lemma:
+    - lemma: 'مُتَّبِع حِمْيَة'
+      evidence_status: 'no_material_found'
+    - lemma: 'مُتَّبِعُ حِمْيَةٍ'
+      evidence_status: 'no_material_found'
+    - lemma: 'مُحْتَمٍ'
+      evidence_status: 'no_material_found'
+    - lemma: 'ذُو حِمْيَةٍ'
+      evidence_status: 'no_material_found'
+    - lemma: 'مُتَخَفِّف'
+      evidence_status: 'no_material_found'
+
+stage3_analysis:
+  per_lemma:
+    - lemma: 'مُتَّبِع حِمْيَة'
+      decision: confirmed
+      decision_reason: 'تعبير مركب شائع الاستخدام ومسكوك دلالياً في السياقات المعاصرة للتعبير عن المفهوم. يحتاج إلى تصحيح التشكيل ليصبح "مُتَّبِعُ حِمْيَةٍ".'
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: '{auto}'
+            new_lemma: 'مُتَّبِعُ حِمْيَةٍ'
+    - lemma: 'مُحْتَمٍ'
+      source: stage1
+      decision: confirmed
+      decision_reason: 'صيغة مفردة فصيحة ومختصرة مشتقة من الفعل "احتمى" الذي يعني الامتناع عن ما يضر من الطعام، وتطابق المفهوم بدقة.'
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: 'مُحْتَمٍ'
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: '{auto}'
+            synset_id: '{synset_id}'
+    - lemma: 'مُتَّبِعُ حِمْيَةٍ'
+      source: stage1
+      decision: removed
+      decision_reason: 'هي اللمة الحالية نفسها بعد تشكيلها، لذلك تم دمج الإجراء مع اللمة الأصلية.'
+    - lemma: 'ذُو حِمْيَةٍ'
+      source: stage1
+      decision: removed
+      decision_reason: 'تعبير وصفي غير مسكوك اصطلاحياً، ويمكن الاستغناء عنه بـ "متبع حمية" و"محتمٍ".'
+    - lemma: 'مُتَخَفِّف'
+      source: stage1
+      decision: removed
+      decision_reason: 'دلالته أعم من اتباع الحمية، وقد تعني التخفف من الأحمال أو الثياب وليس بالضرورة الطعام.'
+
+stage4_content:
+  definition:
+    current: 'شخص يتبع نظاماً غذائياً (حمية)'
+    assessment:
+      decision: retain
+      reason: 'التعريف الحالي دقيق وواضح ويعكس المفهوم بشكل جيد.'
+  examples:
+    per_lemma:
+      - lemma: 'مُتَّبِعُ حِمْيَةٍ'
+        examples:
+          - text: 'ينصح الأطباءُ كُلَّ مُتَّبِعِ حِمْيَةٍ بشرب كميات وافرة من الماء.'
+            type: usage
+      - lemma: 'مُحْتَمٍ'
+        examples:
+          - text: 'تجنَّبَ المُحْتَمِي تناوُلَ السُّكَّرياتِ التزاماً بنظامه الغذائي.'
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: '{auto}'
+          text: 'ينصح الأطباءُ كُلَّ مُتَّبِعِ حِمْيَةٍ بشرب كميات وافرة من الماء.'
+      - command: add_sense_example
+        params:
+          sense_id: '{auto}'
+          text: 'تجنَّبَ المُحْتَمِي تناوُلَ السُّكَّرياتِ التزاماً بنظامه الغذائي.'
+
+stage5_enrichment:
+  per_entry:
+    - lemma: 'مُحْتَمٍ'
+      entry_id: '{auto}'
+      root: 'حمي'
+      maqayis_quote: '«الْحَاءُ وَالْمِيمُ وَالْيَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الْمَنْعِ وَالدَّفْعِ.»'
+    - lemma: 'مُتَّبِعُ حِمْيَةٍ'
+      entry_id: '{auto}'
+      roots:
+        - word: 'متبع'
+          root: 'تبع'
+          maqayis_quote: '«التَّاءُ وَالْبَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ لَا يَشِذُّ عَنْهُ مِنَ الْبَابِ شَيْءٌ، وَهُوَ التُّلُوُّ وَالْقَفْوُ.»'
+        - word: 'حمية'
+          root: 'حمي'
+          maqayis_quote: '«الْحَاءُ وَالْمِيمُ وَالْيَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الْمَنْعِ وَالدَّفْعِ.»'
+  per_sense:
+    - lemma: 'مُتَّبِعُ حِمْيَةٍ'
+      sense_id: '{auto}'
+      nuance: 'تعبير مركب معاصر وشائع الاستخدام في السياقات الطبية والعامة.'
+      mwe: true
+    - lemma: 'مُحْتَمٍ'
+      sense_id: '{auto}'
+      nuance: 'لفظ مفرد فصيح وأكثر اختصاراً، ذو جذور تراثية.'
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: '{auto}'
+        key: note
+        value: '{"root":"حمي","maqayis":"«الْحَاءُ وَالْمِيمُ وَالْيَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الْمَنْعِ وَالدَّفْعِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: '{auto}'
+        key: note
+        value: '{"roots":[{"word":"متبع","root":"تبع","maqayis":"«التَّاءُ وَالْبَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ لَا يَشِذُّ عَنْهُ مِنَ الْبَابِ شَيْءٌ، وَهُوَ التُّلُوُّ وَالْقَفْوُ.»"},{"word":"حمية","root":"حمي","maqayis":"«الْحَاءُ وَالْمِيمُ وَالْيَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الْمَنْعِ وَالدَّفْعِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: '{auto}'
+        key: note
+        value: '{"nuance":"تعبير مركب معاصر وشائع الاستخدام في السياقات الطبية والعامة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: '{auto}'
+        key: note
+        value: '{"nuance":"لفظ مفرد فصيح وأكثر اختصاراً، ذو جذور تراثية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: '{synset_id}'
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: '{synset_id}'
+        score: 0.95

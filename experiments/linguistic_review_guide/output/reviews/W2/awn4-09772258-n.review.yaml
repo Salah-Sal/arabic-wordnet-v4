@@ -1,0 +1,116 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "مَوْلُود بُرْج الْعَذْرَاء"
+      confirm:
+        - text: "«(3) مولود برج العذراء.»"
+          source: "المورد الحديث (2008)"
+        - text: "«برج العذراء: virgo»"
+          source: "المعجم الموحد لمصطلحات الرياضيات والفلك (1990)"
+      expands:
+        - text: "«(السنبلة) واحدة السنبل وأحد بروج السماء الاثنى عشر ويسمى أيضاً العذراء»"
+          source: "المعجم الوسيط"
+          addition: "يحدد الأسماء البديلة للبرج (السنبلة)."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "مَوْلُود الْعَذْرَاء"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«(3) مولود برج العذراء.» — المورد الحديث"
+      justification: "صيغة مختصرة شائعة للمصطلح المركب."
+  knowledge_candidates:
+    - lemma: "عَذْرَاء"
+      justification: "استخدام اسم البرج للإشارة إلى الشخص المنتمي إليه (مجاز مرسل)، وهو شائع جداً في التداول."
+    - lemma: "مَوْلُود بُرْج السنبلة"
+      justification: "استخدام الاسم التراثي للبرج (السنبلة) مع لفظ المولود."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "مَوْلُود بُرْج الْعَذْرَاء"
+      decision: confirmed
+      decision_reason: "مصطلح معجمي محقق ومستقر في المعاجم الحديثة المتخصصة."
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "الصيغة الكاملة والأكثر رسمية في السياق التنجيمي."
+      example: "يُعرف مَوْلُود برج العذراء بدقته وتحليله المنطقي للأمور."
+
+    - lemma: "مَوْلُود الْعَذْرَاء"
+      source: step05
+      decision: confirmed
+      decision_reason: "صيغة مختصرة مقبولة ومستعملة."
+      step05_citation: "«(3) مولود برج العذراء.» — المورد الحديث"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "صيغة أكثر إيجازاً من الصيغة الكاملة."
+      example: "بصفتك مَوْلُود العذراء، فإنك تهتم بالتفاصيل الصغيرة."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مَوْلُود الْعَذْرَاء"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09772258-n"
+
+    - lemma: "عَذْرَاء"
+      source: step05
+      decision: confirmed
+      decision_reason: "استخدام اسم البرج دلالة على الشخص المنتمي إليه هو الاستخدام الأكثر شيوعاً في لغة اليوم."
+      step05_citation: "«(1) العذراء؛ السنبلة (فل) (2) برج العذراء [في التنجيم] (3) مولود برج العذراء.» — المورد الحديث"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "استخدام مجازي شائع (إطلاق اسم البرج على الشخص)، ويُفهم من السياق."
+      example: "هل أنت عذراء أم ميزان؟"
+      actions:
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09772258-n"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "(علم التنجيم) شخص ولد بينما الشمس في برج العذراء"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق علمياً ومنسجم مع الاصطلاح التنجيمي."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-09786620-n (عامل، فاعل)"
+    test_result: "wrong"
+  actions:
+    - command: remove_synset_relation
+      params:
+        source_id: "awn4-09772258-n"
+        relation_type: "hypernym"
+        target_id: "awn4-09786620-n"
+    - command: add_synset_relation
+      params:
+        source_id: "awn4-09772258-n"
+        relation_type: "hypernym"
+        target_id: "awn4-00001740-n"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "مَوْلُود بُرْج الْعَذْرَاء"
+      enrichment:
+        root: "و-ل-د"
+    - lemma: "مَوْلُود الْعَذْرَاء"
+      enrichment:
+        root: "و-ل-د"
+    - lemma: "عَذْرَاء"
+      enrichment:
+        root: "ع-ذ-ر"
+        figurative_relation: "metonymy"
+  cultural_fit:
+    assessment: native
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-09772258-n"
+        text: "يُقال إن مَوْلُود برج العذراء يتميز بالذكاء التحليلي."

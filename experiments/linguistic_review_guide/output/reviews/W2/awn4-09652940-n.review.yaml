@@ -1,0 +1,160 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "رحّالة"
+      confirm:
+        - text: "«الكثير الرُّحلة. [ والتاء للمبالغة ]»"
+          source: "المعجم الوسيط"
+        - text: "«الكثيرُ الرِّحْلَةِ, يقال: رَجُلٌ رَحَّالَةٌ, وغَلَبَ على من كانوا يَرْحلون فى طَلَبِ الحديثِ, والتاء للمبالغة»"
+          source: "المعجم الكبير"
+      contradicts:
+        - text: "«السَّرْجُ سَرْجٌ من جُلُودٍ لا خَشَبَ فيه, كان يُتَّخَذُ للرَّكْضِ الشَّديدِ»"
+          source: "المعجم الكبير"
+          conflict: "هذا المعنى لكلمة رَحَالَة (بفتح الراء وتخفيف الحاء) وليس رَحَّالَة"
+    - lemma: "مسافر"
+      confirm:
+        - text: "«ذو السفر»"
+          source: "المعجم الكبير"
+        - text: "«المسافر: هو من قصد سيرًا وسطًا ثلاثة أيام ولياليها، وفارق بيوت بلده.»"
+          source: "كتاب التعريفات للشريف الجرجاني"
+      contradicts:
+        - text: "«مسافر الوجه : ما يَظهر منه»"
+          source: "المعجم الوسيط"
+          conflict: "معنى مخصص لتركيب إضافي"
+      expands:
+        - text: "«الثور الوحشي الذي يخرج من أرض إلى أخرى»"
+          source: "المعجم الكبير"
+          addition: "إطلاق الكلمة على الحيوان (الثور الوحشي)"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "عابر سبيل"
+      source_section: "step5_english_bridge"
+      evidence_citation: "مرادف لغوي مستعمل في السياقات الدينية والعامة"
+      justification: "تركيب إضافي يعبر عن من يمر بالطريق"
+  knowledge_candidates:
+    - lemma: "مُرْتَحِل"
+      justification: "اسم فاعل من الفعل الخماسي 'ارتحل'، ويعبر بدقة عن الانتقال من مكان لآخر."
+  generation_notes: "المصطلحات الحالية تغطي المعنى الأساسي."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "رحّالة"
+      decision: confirmed
+      decision_reason: "صيغة فصيحة مستعملة، وتفيد المبالغة في السفر والترحال."
+      evidence_assessment:
+        case: "mixed"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "صيغة مبالغة تدل على من يكثر السفر والترحال، وغالباً يكون لأغراض الاستكشاف."
+      example: "دوّن الرحالة مشاهداته عن الشعوب التي زارها في كتاب."
+    - lemma: "مسافر"
+      decision: confirmed
+      decision_reason: "الكلمة الأساسية الشائعة والفصيحة للتعبير عن هذا المفهوم."
+      evidence_assessment:
+        case: "mixed"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تدل على مطلق من يقوم بالسفر، سواء لمرة واحدة أو بشكل متكرر."
+      example: "استراح المسافر في المحطة قبل أن يكمل طريقه."
+    - lemma: "عابر سبيل"
+      source: step05
+      decision: removed
+      decision_reason: "تركيب يغلب عليه طابع الانقطاع والاحتياج وليس مجرد السفر."
+      step05_citation: "مرادف لغوي"
+    - lemma: "مُرْتَحِل"
+      source: step05
+      decision: confirmed
+      decision_reason: "كلمة فصيحة دقيقة في التعبير عن الانتقال والسفر."
+      step05_citation: "توليد معرفي (اشتقاق)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تشير بشكل خاص إلى الانتقال من مكان الإقامة وترك الديار."
+      example: "بقي المرتحل يتنقل بين القرى بحثاً عن الكلأ والماء."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُرْتَحِل"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09652940-n"
+  added_lemmas:
+    - lemma: "مُرْتَحِل"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "create_entry + add_sense"
+  synset_flags:
+    definition_review_needed: true
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "شخص يغير موقعه"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي حرفي وضعيف لغوياً (يغير موقعه)، ويحتاج إلى صياغة معجمية أمتن."
+  authored_definitions:
+    - type: linguistic
+      text: "من ينتقل من مكان إلى آخر قاطعاً مسافة."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-09652940-n"
+        definition_index: 0
+        text: "من ينتقل من مكان إلى آخر قاطعاً مسافة."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عَامِل / فَاعِل"
+    test_result: "needs_closer"
+  verb_checks:
+    applicable: false
+  antonymy:
+    per_lemma:
+      - lemma: "مسافر"
+        antonym_found: true
+        antonym: "مُقِيم"
+      - lemma: "مُرْتَحِل"
+        antonym_found: true
+        antonym: "مُسْتَقِرّ"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "رحّالة"
+      enrichment:
+        root: "ر-ح-ل"
+      examples:
+        - text: "دوّن الرحالة مشاهداته عن الشعوب التي زارها في كتاب."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "مسافر"
+      enrichment:
+        root: "س-ف-ر"
+      examples:
+        - text: "استراح المسافر في المحطة قبل أن يكمل طريقه."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "مُرْتَحِل"
+      enrichment:
+        root: "ر-ح-ل"
+      examples:
+        - text: "بقي المرتحل يتنقل بين القرى بحثاً عن الكلأ والماء."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-09652940-n"
+        text: "استراح المسافر في المحطة قبل أن يكمل طريقه."

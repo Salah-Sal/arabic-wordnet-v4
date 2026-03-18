@@ -1,0 +1,178 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمّات الموجودة صحيحة تماماً لكنها تفتقر للتشكيل الكامل.
+      - التعريف العربي الحالي جيد ودقيق، لكن يمكن إغناؤه بذكر "الفضة" أو "إكسير الحياة" لشمولية الاستخدام المعجمي.
+    observations: "المجموعة تغطي مفهوماً مركزياً في تاريخ العلوم العربية (الخيمياء). اللفظ 'إكسير' معرب قديم، و'حجر الفلاسفة' ترجمة مفهومية (Calque) استقرت في الأدبيات العربية."
+  blind_candidates:
+    - lemma: "إِكْسِير"
+      generation_method: taarib
+      justification: "اللفظ المعرب الأشهر للمادة التي تحول المعادن، أصله يوناني (xērion) ودخل العربية مبكراً."
+    - lemma: "حَجَرُ الفَلَاسِفَةِ"
+      generation_method: tarkib
+      justification: "مركب إضافي يمثل الترجمة الحرفية للمفهوم العالمي (Philosopher's stone)."
+    - lemma: "كِيمِيَاء"
+      generation_method: majaz
+      justification: "تُطلق الكيمياء في النصوص القديمة على الإكسير نفسه (المادة) وليس العلم فقط، من باب إطلاق اسم العلم على موضوعه أو وسيلته."
+    - lemma: "الخِلْطُ الأَعْظَمُ"
+      generation_method: tarkib
+      justification: "تسمية كلاسيكية أخرى للإكسير في كتب جابر بن حيان وغيره من الخيميائيين العرب."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "إِكْسِير"
+      confirm:
+        - text: "مادَّة مركَّبة كان الأقدمون يعتقدون أنّها تحوِّل المعدن الرخيص إلى ذهب."
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "مادة مركبة كان الأقدمون يزعمون أنها تُحوِّل المعدن الرخيص إلى ذهب."
+          source: "المعجم الكبير"
+    - lemma: "حَجَرُ الفَلَاسِفَةِ"
+      confirm:
+        - text: "حجر [أو مادة أو مستحضر كيميائي] خيالي اعتقد أصحاب الكيمياء القديمة أنّه قادرٌ على تحويل المعادن الخسيسة إلى ذهب أو فضة."
+          source: "المورد الحديث"
+        - text: "بواسطة الإكسير أي حجر الفلاسفة."
+          source: "تكملة المعاجم العربية (دوزي)"
+    - lemma: "الكِيمِيَاء"
+      confirm:
+        - text: "إكسير كانوا يزعمون أنه يُحيل المعادن ويجعلها ذهباً أو فضة."
+          source: "التعريفات الفقهيّة للبركتي"
+        - text: "وكان يراد بها عند القدماء تحويل بعض المعادن إلى بعض... ولا سيما تحويلها إلى ذهب."
+          source: "المعجم الوسيط"
+    - lemma: "السِّيمِيَاء"
+      expands:
+        - text: "السِّيمياء: (كم) الكيمياء القديمة وكانت غايتها تحويل المعادن الخسيسة إلى ذهب، واكتشاف علاج كلّي للمرض."
+          source: "معجم اللغة العربية المعاصرة"
+          addition: "تشير هنا إلى العلم نفسه (الخيمياء) وليس المادة فقط."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "الإكسير"
+      decision: confirmed
+      decision_reason: "المصطلح العربي الأصيل (المعرب) للمفهوم، وهو الأكثر شيوعاً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "الإِكْسِير"
+    - lemma: "حجر الفلاسفة"
+      decision: confirmed
+      decision_reason: "مركب اصطلاحي ثابت ومستخدم بكثرة في الترجمات العلمية والفلسفية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حَجَرُ الفَلَاسِفَةِ"
+    - lemma: "كِيمِيَاء"
+      source: stage1
+      decision: confirmed
+      decision_reason: "استخدام تراثي موثق في المعاجم (كالوسيط والبركتي) للدلالة على الإكسير نفسه."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "كِيمِيَاء", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "مادة افتراضية اعتقد الخيميائيون أنها قادرة على تحويل المعادن الخسيسة إلى ذهب"
+    assessment:
+      decision: revise
+      reason: "لإضافة تفصيل 'الفضة' وتوضيح أنها تُعرف أيضاً بحجر الفلاسفة، تماشياً مع الدقة المعجمية."
+    authored:
+      - type: terminological
+        text: "مادّةٌ افتراضيّةٌ خياليّةٌ اعتقدَ الخيميائيُّونَ بقُدْرَتِها على تحويلِ المعادنِ الخسيسةِ (ك الرصاصِ والنحاسِ) إلى ذهبٍ أو فضّةٍ، ويُطلَقُ عليها أيضاً حجرُ الفلاسفةِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "الإِكْسِير"
+        examples:
+          - text: "أفنى الخيميائيون أعمارهم في البحث عن الإكسير الذي يحيل المعادن ذهباً."
+            type: usage
+      - lemma: "حَجَرُ الفَلَاسِفَةِ"
+        examples:
+          - text: "يُعَدُّ حجرُ الفلاسفةِ في التراثِ الكيميائيِّ رمزاً للكمالِ والتحوُّلِ الروحيِّ والماديِّ."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مادّةٌ افتراضيّةٌ خياليّةٌ اعتقدَ الخيميائيُّونَ بقُدْرَتِها على تحويلِ المعادنِ الخسيسةِ إلى ذهبٍ أو فضّةٍ، وتُسمَّى أيضاً حجرَ الفلاسفةِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "الإِكْسِير"
+      entry_id: "{auto}"
+      root: "كسر"
+      maqayis_quote: "«الْكَافُ وَالسِّينُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى هَشْمِ الشَّيْءِ وَهَضْمِهِ.»"
+    - lemma: "حَجَرُ الفَلَاسِفَةِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "حجر"
+          root: "حجر"
+          maqayis_quote: "«الْحَاءُ وَالْجِيمُ وَالرَّاءُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ، وَهُوَ الْمَنْعُ وَالْإِحَاطَةُ عَلَى الشَّيْءِ.»"
+        - word: "الفلاسفة"
+          root: "فلسف"
+          maqayis_quote: "لفظ يوناني معرب (Philosophia)، لا أصل له في مقاييس اللغة العربية."
+    - lemma: "كِيمِيَاء"
+      entry_id: "{auto}"
+      root: "كيم"
+      maqayis_quote: "لفظ معرب من اليونانية أو السريانية، لا يذكره ابن فارس في المقاييس."
+  per_sense:
+    - lemma: "الإِكْسِير"
+      sense_id: "{auto}"
+      nuance: "الاسم النوعي للمادة المذيبة أو المحولة، وغالباً ما يرتبط بالسائل (إكسير الحياة)."
+      mwe: false
+    - lemma: "حَجَرُ الفَلَاسِفَةِ"
+      sense_id: "{auto}"
+      nuance: "تسمية مفهومية للمادة في صورتها الصلبة، وهي الأكثر شيوعاً في الأدبيات العالمية المترجمة."
+      mwe: true
+    - lemma: "كِيمِيَاء"
+      sense_id: "{auto}"
+      nuance: "استخدام تراثي نادر يطلق اسم 'الصنعة' أو العلم على 'الإكسير' نفسه."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"كسر","maqayis":"«الْكَافُ وَالسِّينُ وَالرَّاءُ أَصْلٌ صَحِيحٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"حجر","root":"حجر","maqayis":"«الْحَاءُ وَالْجِيمُ وَالرَّاءُ أَصْلٌ وَاحِدٌ...»"},{"word":"فلاسفة","root":"فلسف","maqayis":"عجمي معرب"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم النوعي للمادة المحولة، ويرتبط بالسائل غالباً.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

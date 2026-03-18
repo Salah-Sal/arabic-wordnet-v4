@@ -1,0 +1,211 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمتان الموجودتان صحيحتان تماماً، ولكن يمكن إضافة مصطلحات تربوية (بيداغوجية) شائعة في مناهج العلوم العربية."
+    observations: "المجموعة تغطي المفهوم الكيميائي لـ 'mixture'. المصطلحات العربية (خليط، مزيج) مستقرة تقنياً."
+  blind_candidates:
+    - lemma: "خَلِيط"
+      generation_method: ishtiqaq
+      justification: "الاسم القياسي للمادة التي تنتج عن عملية الخلط، وهو الأكثر شيوعاً في السياقات التقنية."
+    - lemma: "مَزِيج"
+      generation_method: ishtiqaq
+      justification: "يستخدم بكثرة في الكيمياء العضوية وغير العضوية للدلالة على المواد المختلطة."
+    - lemma: "مَخْلُوط"
+      generation_method: ishtiqaq
+      justification: "المصطلح المعتمد في معظم المناهج الدراسية العربية لتمييز الخليط الفيزيائي عن المركب الكيميائي."
+    - lemma: "خِلْط"
+      generation_method: ishtiqaq
+      justification: "مصطلح كلاسيكي (طبي ومعجمي) يطلق على كل ما يداخل الشيء من مواد أخرى، خاصة في تركيب الأدوية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خَلِيط"
+      confirm:
+        - text: "«ما اختلَط من صنفين أو أصناف»"
+          source: "المعجم الوسيط"
+        - text: "«mixture»"
+          source: "المعجم الطبي الموحد"
+    - lemma: "مَزِيج"
+      confirm:
+        - text: "«mixture»"
+          source: "المعجم الطبي الموحد"
+        - text: "«مزيج من عصير الفواكه: ممزوج منه»"
+          source: "معجم الصواب اللغوي"
+    - lemma: "مَخْلُوط"
+      confirm:
+        - text: "«مخلوط بوردو: مخلوط يحتوي على مركبات النحاس»"
+          source: "المعجم الموحد لمصطلحات الكيمياء"
+        - text: "«mixture»"
+          source: "المعجم الموحد لمصطلحات الكيمياء"
+    - lemma: "خِلْط"
+      confirm:
+        - text: "«ما خالط الشيءَ الشيءُ يؤلَّف مع أشياء أخرى»"
+          source: "المعجم الوسيط"
+        - text: "«أخلاط الإنسان (في الطب القديم): أمزجته الأربعة»"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "خَلِيط"
+      decision: confirmed
+      decision_reason: "المصطلح التقني الأكثر دقة وشيوعاً في الفيزياء والكيمياء للتعبير عن الخليط المادي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَلِيط"
+
+    - lemma: "مَزِيج"
+      decision: confirmed
+      decision_reason: "مرادف قوي لـ 'خليط'، ويشيع استخدامه في السياقات الطبية والكيمياء السائلة (المحاليل)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَزِيج"
+
+    - lemma: "مَخْلُوط"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح منهجي معتمد في التعليم العام في معظم الدول العربية للتعبير عن هذا المفهوم تحديداً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَخْلُوط", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "خِلْط"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تراثي وتقني (في الصيدلة التقليدية) يصف المكونات المختلطة، ويضيف عمقاً تاريخياً للمفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "خِلْط", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "(كيمياء) مادة تتكون من مادتين أو أكثر مختلطة معاً (بنسب غير ثابتة ودون ترابط كيميائي)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دقيق علمياً لكن يمكن صياغته بأسلوب معجمي أكثر رصانة مع الحفاظ على المحتوى التقني."
+    authored:
+      - type: terminological
+        text: "جسم مادي يتألف من مادتين أو أكثر غير متحدتين كيميائياً، تجتمعان معاً بنسب غير ثابتة، ويمكن فصل مكوناته بفاعليات فيزيائية."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "جسم مادي يتألف من مادتين أو أكثر غير متحدتين كيميائياً، تجتمعان معاً بنسب غير ثابتة، ويمكن فصل مكوناته بفاعليات فيزيائية."}
+
+  examples:
+    per_lemma:
+      - lemma: "خَلِيط"
+        examples:
+          - text: "الهواء هو خليط من عدة غازات، أهمها النيتروجين والأكسجين."
+            type: usage
+      - lemma: "مَزِيج"
+        examples:
+          - text: "يتكون البرونز من مزيج معدني يجمع بين النحاس والقصدير."
+            type: usage
+      - lemma: "مَخْلُوط"
+        examples:
+          - text: "يعد ماء البحر مخلوطاً متجانساً يتألف من الماء والأملاح الذائبة."
+            type: usage
+      - lemma: "خِلْط"
+        examples:
+          - text: "هذا الترياق عبارة عن خِلْط من أعشاب برية وزيوت طبيعية."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يمكن فصل مكونات الخليط بطرق فيزيائية مثل الترشيح أو التقطير."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خَلِيط"
+      entry_id: "{auto}"
+      root: "خلط"
+      maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالطَّاءُ أَصْلٌ وَاحِدٌ... تَقُولُ: خَلَطْتُ الشَّيْءَ بِغَيْرِهِ فَاخْتَلَطَ.»"
+    - lemma: "مَزِيج"
+      entry_id: "{auto}"
+      root: "مزج"
+      maqayis_quote: "«الْمِيمُ وَالزَّاءُ وَالْجِيمُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى خَلْطِ الشَّيْءِ بِغَيْرِهِ.»"
+    - lemma: "مَخْلُوط"
+      entry_id: "{auto}"
+      root: "خلط"
+      maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالطَّاءُ أَصْلٌ وَاحِدٌ... تَقُولُ: خَلَطْتُ الشَّيْءَ بِغَيْرِهِ فَاخْتَلَطَ.»"
+    - lemma: "خِلْط"
+      entry_id: "{auto}"
+      root: "خلط"
+      maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالطَّاءُ أَصْلٌ وَاحِدٌ... تَقُولُ: خَلَطْتُ الشَّيْءَ بِغَيْرِهِ فَاخْتَلَطَ.»"
+
+  per_sense:
+    - lemma: "خَلِيط"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام والأكثر شيوعاً في سياقات الهندسة والمواد الصلبة والغازية."
+      mwe: false
+    - lemma: "مَزِيج"
+      sense_id: "{auto}"
+      nuance: "يوحي بتناغم المكونات أو سيلانها، ويشيع في السوائل (كالأدوية والمشروبات)."
+      mwe: false
+    - lemma: "مَخْلُوط"
+      sense_id: "{auto}"
+      nuance: "يستخدم غالباً في السياق التعليمي لبيان عدم وجود تفاعل كيميائي."
+      mwe: false
+    - lemma: "خِلْط"
+      sense_id: "{auto}"
+      nuance: "يركز على المكونات ذاتها كعناصر داخلة في تركيب الكل، خاصة في السياق الصيدلاني."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خلط","maqayis":"«الْخَاءُ وَاللَّامُ وَالطَّاءُ أَصْلٌ وَاحِدٌ... تَقُولُ: خَلَطْتُ الشَّيْءَ بِغَيْرِهِ فَاخْتَلَطَ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"مزج","maqayis":"«الْمِيمُ وَالزَّاءُ وَالْجِيمُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى خَلْطِ الشَّيْءِ بِغَيْرِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العام والأكثر شيوعاً في سياقات الهندسة والمواد الصلبة والغازية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-14610438-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-14610438-n"
+        score: 0.95

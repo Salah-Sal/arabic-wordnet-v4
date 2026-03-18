@@ -1,0 +1,196 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة عبارة عن مركب وصفي إضافي (مُعَقِّد لِلْأُمُور) وهو تعبير صحيح دلالياً ولكنه وصفي أكثر منه معجمياً."
+      - "كلمة 'مُعَقِّد' بمفردها تحمل معنى الساحر في المعاجم القديمة، لكنها في المعجم الحديث تعني صانع التعقيد."
+    observations: "المفهوم يشير إلى الشخص الذي يميل إلى جعل الأمور متشابكة وصعبة الحل. التعبير العربي الأنسب هو استخدام اسم الفاعل من 'عقّد' أو 'عسّر' مع بيان متعلَّقهما (الأمور/المسائل)."
+  blind_candidates:
+    - lemma: "مُعَقِّدٌ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل الرباعي 'عَقَّدَ'، وهو المقابل المباشر لـ complexifier."
+    - lemma: "مُعَسِّرٌ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من 'عَسَّرَ' (جعل الأمر عسيراً)، وهو نقيض 'المُيَسِّر' ويناسب السياق تماماً."
+    - lemma: "مُصَعِّبٌ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من 'صَعَّبَ'، أقل شيوعاً من 'معقد' و'معسر' لكنه فصيح."
+    - lemma: "مُشَبِّكُ الأُمُورِ"
+      generation_method: tarkib
+      justification: "مركب إضافي يستعير صورة التشابك للتعبير عن التعقيد."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُعَقِّد لِلْأُمُور"
+      confirm:
+        - text: "«المُعَقِّد: السَّاحر الَّذِي ينفث فِي العقد»"
+          source: "المعجم الوسيط"
+          addition: "المعنى التراثي للفظ يشير إلى العقد السحرية، بينما المعنى الحديث يتسع ليشمل تعقيد الأمور المعنوية."
+      evidence_status: "no_material_found"
+    - lemma: "مُعَقِّدٌ"
+      confirm:
+        - text: "«عَقَّدَ فُلَانٌ كَلَامَهُ، إِذَا عَمَّاهُ وَأَعْوَصَهُ»"
+          source: "مقاييس اللغة"
+      expands:
+        - text: "«مُعقَّد: ما كان مختلطا متشابكاً غير بسيط»"
+          source: "المعجم الموحد لقاموس الطب البيطري"
+          addition: "اسم المفعول يشير للتعقيد، واسم الفاعل (المعقد) هو فاعله."
+    - lemma: "مُعَسِّرٌ"
+      confirm:
+        - text: "«الذى يَضِيقُ على غريمه»"
+          source: "المعجم الوسيط"
+        - text: "«عَسَّرْتُ عَلَيْهِ تَعْسِيرًا، إِذَا خَالَفْتَهُ»"
+          source: "مقاييس اللغة"
+    - lemma: "مُصَعِّبٌ"
+      confirm:
+        - text: "«صَعُبَ يَصْعُبُ صُعُوبَةً، وَيُقَالُ أَصْعَبْتُ الْأَمْرَ: أَلْفَيْتُهُ صَعْبًا»"
+          source: "مقاييس اللغة"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مُعَقِّد لِلْأُمُور"
+      decision: confirmed
+      decision_reason: "تعبير دقيق ومستعمل لتفصيل وكشف دلالة اسم الفاعل الذي قد يلتبس بغيره."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُعَقِّدٌ لِلْأُمُورِ"
+    - lemma: "مُعَقِّدٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اللفظ المفرد الأصيل للمفهوم، وشيوع استخدامه في العربية الحديثة كاسم فاعل لتعقيد المسائل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُعَقِّدٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09966606-n"}
+    - lemma: "مُعَسِّرٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف قوي ونقيض للميسر، ويدل على ذات الفاعلية في جعل الأمر عسيراً."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُعَسِّرٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09966606-n"}
+
+stage4_content:
+  definition:
+    current: "شخص يجعل الأمور معقدة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي بسيط جداً وغير اصطلاحي."
+    authored:
+      - type: terminological
+        text: "مَنْ يَتَعَمَّدُ جَعْلَ المَسَائِلِ أَوِ الأُمُورِ شَائِكَةً وَمُتَدَاخِلَةً، بِحَيْثُ يَصْعُبُ فَهْمُهَا أَوْ حَلُّهَا."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-09966606-n", definition_index: 0, text: "مَنْ يَتَعَمَّدُ جَعْلَ المَسَائِلِ أَوِ الأُمُورِ شَائِكَةً وَمُتَدَاخِلَةً، بِحَيْثُ يَصْعُبُ فَهْمُهَا أَوْ حَلُّهَا."}
+  examples:
+    per_lemma:
+      - lemma: "مُعَقِّدٌ لِلْأُمُورِ"
+        examples:
+          - text: "لا تَكُنْ مُعَقِّدًا لِلأُمُورِ فَالشَّأْنُ أَبْسَطُ مِمَّا تَتَصَوَّرُ."
+            type: usage
+      - lemma: "مُعَقِّدٌ"
+        examples:
+          - text: "يُعْرَفُ هَذَا الكَاتِبُ بِأَنَّهُ مُعَقِّدٌ لِلأَفْكَارِ البَسِيطَةِ."
+            type: usage
+      - lemma: "مُعَسِّرٌ"
+        examples:
+          - text: "كَانَ مُعَسِّرًا فِي مَنَاهِجِهِ البَحْثِيَّةِ مِمَّا أَطَالَ زَمَنَ الإِنْجَازِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-09966606-n", text: "لَقَدْ أَصْبَحَ مُعَقِّدًا لِكُلِّ حَلٍّ نَطْرَحُهُ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُعَقِّدٌ"
+      entry_id: "{auto}"
+      root: "عقد"
+      maqayis_quote: "«الْعَيْنُ وَالْقَافُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى شَدٍّ وَشِدَّةِ وُثُوقٍ، وَإِلَيْهِ تَرْجِعُ فَرَوْعُ الْبَابِ كُلُّهَا.»"
+    - lemma: "مُعَسِّرٌ"
+      entry_id: "{auto}"
+      root: "عسر"
+      maqayis_quote: "«الْعَيْنُ وَالسِّينُ وَالرَّاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى صُعُوبَةٍ وَشِدَّةٍ.»"
+    - lemma: "مُعَقِّدٌ لِلْأُمُورِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مُعَقِّد"
+          root: "عقد"
+          maqayis_quote: "«الْعَيْنُ وَالْقَافُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى شَدٍّ وَشِدَّةِ وُثُوقٍ.»"
+        - word: "الأمور"
+          root: "أمر"
+          maqayis_quote: "«الْهَمْزَةُ وَالْمِيمُ وَالرَّاءُ أُصُولٌ ثَلَاثَةٌ... وَالأَمْرُ الَّذِي هُوَ نَقِيضُ النَّهْيِ.»"
+
+  per_sense:
+    - lemma: "مُعَقِّدٌ لِلْأُمُورِ"
+      sense_id: "{auto}"
+      nuance: "التعبير الأكثر دقة في السياقات الاجتماعية والعملية لتفصيل متعلق التعقيد."
+      mwe: true
+    - lemma: "مُعَقِّدٌ"
+      sense_id: "{auto}"
+      nuance: "اللفظ المفرد الذي يشير للفاعلية المطلقة في التعقيد، وقد يُستخدم فنياً أو أدبياً."
+      mwe: false
+    - lemma: "مُعَسِّرٌ"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب العسير والضيق في النتائج المترتبة على فعل التعقيد."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عقد","maqayis":"«الْعَيْنُ وَالْقَافُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى شَدٍّ وَشِدَّةِ وُثُوقٍ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عسر","maqayis":"«الْعَيْنُ وَالسِّينُ وَالرَّاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى صُعُوبَةٍ وَشِدَّةٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مُعَقِّد","root":"عقد","maqayis":"«الْعَيْنُ وَالْقَافُ وَالدَّالُ...»"},{"word":"الأمور","root":"أمر","maqayis":"«الْهَمْزَةُ وَالْمِيمُ وَالرَّاءُ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"التعبير الأكثر دقة في السياقات الاجتماعية والعملية...","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-09966606-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-09966606-n"
+        score: 0.9

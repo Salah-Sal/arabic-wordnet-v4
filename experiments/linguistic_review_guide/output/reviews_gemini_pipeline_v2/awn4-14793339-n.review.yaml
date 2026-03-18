@@ -1,0 +1,224 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة وحيدة (رماد)، والمجموعة تفتقر إلى المرادفات اللغوية الدقيقة أو الأوزان الصرفية المتخصصة في البقايا."
+    observations: "المفهوم واضح لغوياً، وهو المادة المتبقية بعد الاحتراق. التركيز سيكون على البحث عن أوزان (فُعَالَة) أو اشتقاقات من جذر (رمد) تعبر عن دقة المادة أو كثرتها."
+  blind_candidates:
+    - lemma: "رَمَاد"
+      generation_method: majaz
+      justification: "اللفظ الأصلي والأشهر للمادة المتبقية من الاحتراق."
+    - lemma: "حُرَاقَة"
+      generation_method: ishtiqaq
+      justification: "على وزن (فُعَالَة) الدال على البقايا والفضلات (مثل حثالة، قماشة)، ليعبر عن بقايا الشيء المحترق."
+    - lemma: "رِمْدِد"
+      generation_method: ishtiqaq
+      justification: "صيغة مبالغة أو وزن مكثف من الجذر (رمد) للدلالة على الرماد الدقيق جداً."
+    - lemma: "بَقِيَّةُ الاحْتِرَاق"
+      generation_method: tarkib
+      justification: "مركب إضافي يصف المفهوم بدقة في حال غياب اللفظ المفرد."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "رَمَاد"
+      confirm:
+        - text: "«(الرماد) مَا تخلف من احتراق الْموَاد»"
+          source: "المعجم الوسيط"
+        - text: "«ما تَخَلَّفَ من احتراقِ المواد، وهو دُقاقُ الفَحْم من حَرَّاقَة النَّار، وما هَبَا من الجمْر فطارَ دُقاقًا»"
+          source: "المعجم الكبير"
+      expands:
+        - text: "«(ج) أرمدة»"
+          source: "المعجم الوسيط"
+    - lemma: "حُرَاقَة"
+      contradicts:
+        - text: "«(الحراقة) مَا تقع فِيهِ النَّار عِنْد الْقدح من خرقَة وَنَحْوهَا»"
+          source: "المعجم الوسيط"
+          conflict: "الدليل يشير إلى أداة إشعال النار (الزند) أو سفينة حربية، وليس بقايا الاحتراق."
+    - lemma: "رِمْدِد"
+      confirm:
+        - text: "«يُقال: رَمادٌ رِمْدِدٌ ورِمْدِدٌ: أَرْمَدُ، أى: كثيرٌ مُتَنَاهٍ فى الدِّقَّة والاحتراق»"
+          source: "المعجم الكبير"
+        - text: "«فَإِذَا كَانَ أَرَقَّ مَا يَكُونُ فَهُوَ رِمْدِدٌ»"
+          source: "مقاييس اللغة"
+    - lemma: "سُخَام"
+      confirm:
+        - text: "«(السخام) سَواد الْقدر والفحم»"
+          source: "المعجم الوسيط"
+        - text: "«جسيمات كربونية دقيقة نتجت عن احتراق غير كامل ترابطت مع بعضها»"
+          source: "ArabTerm"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "رماد"
+      decision: confirmed
+      decision_reason: "اللفظ الأساسي والمطابق تماماً لتعريف المجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "رَمَاد"
+        - command: add_form
+          params:
+            entry_id: "{auto}"
+            written_form: "أَرْمِدَة"
+    - lemma: "حُرَاقَة"
+      source: stage1
+      decision: removed
+      decision_reason: "على الرغم من ملاءمة الوزن الصرفي نظرياً، إلا أن الاستعمال المعجمي حصرها في أداة الإشعال أو السفن."
+    - lemma: "رِمْدِد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ عربي فصيح ودقيق جداً يصف الحالة القصوى من الرماد (الدقة والتناهي في الاحتراق)، مما يغني المجموعة الترادفية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "رِمْدِد"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "سُخَام"
+      decision: confirmed
+      decision_reason: "يرتبط دلالياً ببقايا الاحتراق (السواد الناتج)، ويستخدم في السياقات التقنية والعلمية لوصف نوع معين من الرماد الكربوني (Soot)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "سُخَام"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "أَرْمِدَاء"
+      decision: confirmed
+      decision_reason: "اسم للرماد ورد في المعاجم القديمة كصيغة مبالغة أو جمع، ويفيد الكثرة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "أَرْمِدَاء"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "البقايا التي تتبقى عند حرق شيء ما"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يحتاج إلى صياغة أكثر دقة وملاءمة للأسلوب المعجمي العربي."
+    authored:
+      - type: linguistic
+        text: "مَا يَتَبَقَّى مِنْ شَيْءٍ بَعْدَ احْتِرَاقِهِ وَتَحَوُّلِهِ إِلَى مَادَّةٍ دَقِيقَةٍ غَالِباً."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "مَا يَتَبَقَّى مِنْ شَيْءٍ بَعْدَ احْتِرَاقِهِ وَتَحَوُّلِهِ إِلَى مَادَّةٍ دَقِيقَةٍ غَالِباً."
+  examples:
+    per_lemma:
+      - lemma: "رَمَاد"
+        examples:
+          - text: "نَثَرَتِ الرِّياحُ رَمَادَ المَوْقِدِ فِي أَرْجَاءِ الغُرْفَةِ."
+            type: usage
+      - lemma: "رِمْدِد"
+        examples:
+          - text: "تَحَوَّلَتِ الغَابَةُ بَعْدَ الـحَرِيقِ الهَائِلِ إِلَى رِمْدِدٍ لَا يُبِينُ."
+            type: usage
+      - lemma: "سُخَام"
+        examples:
+          - text: "تَرَاكَمَ السُّخَامُ عَلَى جُدْرَانِ المِدْخَنَةِ لِعَدَمِ تَنْظِيفِهَا."
+            type: usage
+      - lemma: "أَرْمِدَاء"
+        examples:
+          - text: "غَطَّتِ الأَرْمِدَاءُ سَاحَةَ الـمَعْرَكَةِ بَعْدَ حَرْقِ الـخِيَامِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "ذَرَّتِ الرِّيحُ رَمَادَ الـحَطَبِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "رَمَاد"
+      entry_id: "{auto}"
+      root: "رمد"
+      maqayis_quote: "«الرَّاءُ وَالْمِيمُ وَالدَّالُ ثَلَاثَةُ أُصُولٍ... الثَّانِي: الرَّمَادُ، وَهُوَ مَعْرُوفٌ، فَإِذَا كَانَ أَرَقَّ مَا يَكُونُ فَهُوَ رِمْدِدٌ.»"
+    - lemma: "رِمْدِد"
+      entry_id: "{auto}"
+      root: "رمد"
+      maqayis_quote: "«فَإِذَا كَانَ أَرَقَّ مَا يَكُونُ فَهُوَ رِمْدِدٌ.»"
+    - lemma: "سُخَام"
+      entry_id: "{auto}"
+      root: "سخم"
+      maqayis_quote: "«السِّينُ وَالْخَاءُ وَالْمِيمُ أَصْلٌ مُطَّرِدٌ... يَدُلُّ عَلَى اللَّيْنِ وَالسَّوَادِ... وَهُوَ سَوَادُ الْقِدْرِ.»"
+    - lemma: "أَرْمِدَاء"
+      entry_id: "{auto}"
+      root: "رمد"
+      maqayis_quote: "«وَالْأَرْمِدَاءُ، عَلَى وَزْنِ أَفْعِلَاءَ: الرَّمَادُ.»"
+  per_sense:
+    - lemma: "رَمَاد"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام والشامل لجميع أنواع بقايا الاحتراق."
+      mwe: false
+    - lemma: "رِمْدِد"
+      sense_id: "{auto}"
+      nuance: "يختص بالرماد المتناهي في الدقة والاحتراق."
+      mwe: false
+    - lemma: "سُخَام"
+      sense_id: "{auto}"
+      nuance: "يختص بالبقايا السوداء الكربونية (الهباب) أو سواد القدر."
+      mwe: false
+    - lemma: "أَرْمِدَاء"
+      sense_id: "{auto}"
+      nuance: "صيغة مبالغة تفيد كثرة الرماد وتراكمه."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"رمد","maqayis":"«الرَّاءُ وَالْمِيمُ وَالدَّالُ ثَلَاثَةُ أُصُولٍ... الثَّانِي: الرَّمَادُ، وَهُوَ مَعْرُوفٌ، فَإِذَا كَانَ أَرَقَّ مَا يَكُونُ فَهُوَ رِمْدِدٌ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ العام والشامل لجميع أنواع بقايا الاحتراق.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 1.0

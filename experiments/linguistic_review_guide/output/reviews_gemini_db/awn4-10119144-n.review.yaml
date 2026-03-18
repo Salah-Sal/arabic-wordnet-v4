@@ -1,0 +1,202 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "تابِع"
+      confirm:
+        - text: "«(التَّابِع) التَّالِي وَالْخَادِم وَمَا يتبع غَيره»"
+          source: "المعجم الوسيط"
+        - text: "«التَّالِي الخَادِم»"
+          source: "المعجم الكبير"
+    - lemma: "مُرِيد"
+      expands:
+        - text: "«الراغب المحب ومنه المريد في الصوفية وهو أول مراتب الصوفي»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+        - text: "«(عند الصوفية) على موجب الاشتقاق: من له إرادة... ولكنه فى عرف هذه الطائفة من لا إرادة له... مات قلبه عن كل شيء دون الله»"
+          source: "المعجم الكبير"
+          addition: "تخصيص المعنى في التابع الروحي للشيخ (في التصوف) أو المتبع المخلص العاطفي"
+      contradicts:
+        - text: "«الشديد العتو الخبيث المتمرد الشرير»"
+          source: "المعجم الوسيط"
+          conflict: "المعنى الأساسي للمريد (من مرد) يناقض التبعية، والمقصود هنا المعنى الصوفي أو المجازي (من أراد)"
+    - lemma: "نَصِير"
+      contradicts:
+        - text: "«الكثير العون والتأييد لغيره من الناس»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+          conflict: "النصير هو المعين والمؤيد، ولا يشترط فيه قبول قيادة الآخر والتبعية له بل قد يكون مكافئاً أو أقوى منه"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "مُوَالٍ"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«المُوالي: التابع المرتبط بعهد الولاء... التابع المخلص» — المورد الحديث"
+      justification: "مصطلح يعبر عن التابع المخلص لمن يواليه ويقبل قيادته (اشتقاق/مجاز)."
+  knowledge_candidates:
+    - lemma: "مُتَّبِع"
+      justification: "اسم فاعل من الفعل 'اتبع' (اشتقاق)، وهو أصل في التعبير عن من يسير على نهج آخر ويقبل قيادته."
+    - lemma: "مُقْتَدٍ"
+      justification: "اسم فاعل من 'اقتدى' (اشتقاق)، يعبر عن الذي يتخذ من الآخر قدوة وقائداً يتبعه."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "تابِع"
+      decision: confirmed
+      decision_reason: "يتطابق تماماً مع المفهوم المعجمي لمن يتبع غيره ويقبل قيادته."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "لفظ عام يطلق على كل من يتبع غيره ويسير خلفه مادياً أو معنوياً."
+      example: "كان له أتباع كثر يؤمنون بأفكاره ويطيعون أوامره."
+      actions: []
+
+    - lemma: "مُرِيد"
+      decision: confirmed
+      decision_reason: "شائع في الاستخدام للإشارة إلى التابع المخلص، وإن كان أصله في التبعية الروحية لشيخ الطريقة."
+      evidence_assessment:
+        case: "mixed"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يحمل ظلالاً من التبعية الروحية والمحبة الصادقة للمتبوع وتفويض الإرادة له (أخص من التابع)."
+      example: "التف حول الفيلسوف عدد من المريدين الذين تأثروا بمنهجه."
+      actions: []
+
+    - lemma: "نَصِير"
+      decision: removed
+      decision_reason: "النصير هو المعين والداعم والمؤيد، ولا يفيد بالضرورة معنى الانقياد وقبول القيادة الذي يقتضيه المفهوم، بل قد يكون مستقلاً أو أقوى من المنصور."
+      evidence_assessment:
+        case: "contradicts_only"
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "المناصرة تفيد الدعم والتأييد والمساعدة دون اشتراط التبعية."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "مُوَالٍ"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح دقيق للتعبير عن التابع الذي يربطه بمتبوعه عهد ولاء أو نصرة وتبعية."
+      step05_citation: "«المُوالي: التابع المرتبط بعهد الولاء... التابع المخلص» — المورد الحديث"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تختص بالتبعية المبنية على النصرة أو العهد أو الولاء المتبادل."
+      example: "بقي الوزير موالياً للملك طيلة فترة حكمه ينفذ توجيهاته."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُوَالٍ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10119144-n"
+
+    - lemma: "مُتَّبِع"
+      source: step05
+      decision: confirmed
+      decision_reason: "لفظ فصيح واسم فاعل مباشر من الفعل اتبع، يعبر بدقة عن المفهوم."
+      step05_citation: "دليل اشتقاقي مباشر من الجذر ت-ب-ع، بمعنى من يقوم بفعل الاتباع."
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "أقرب إلى التبعية الفكرية أو المنهجية الواعية (متبع لمنهج أو فكرة أو قائد)."
+      example: "كان متبعاً لخطى أستاذه في كل أبحاثه ومقاربته العلمية."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُتَّبِع"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10119144-n"
+
+  synset_flags:
+    definition_review_needed: true
+
+  added_lemmas:
+    - lemma: "مُوَالٍ"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "create_entry + add_sense"
+    - lemma: "مُتَّبِع"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "create_entry + add_sense"
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "شخص يقبل قيادة آخر"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي ترجمة حرفية نوعاً ما لكلمة accepts the leadership، ويفتقر إلى الصياغة المعجمية العربية التي تعتمد على بيان فعل التبعية والانقياد المباشر."
+  authored_definitions:
+    - type: terminological
+      text: "مَنْ يتبع غيره وينقاد له ويقبل قيادته أو يسير على نهجه."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-10119144-n"
+        definition_index: 0
+        text: "مَنْ يتبع غيره وينقاد له ويقبل قيادته أو يسير على نهجه."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عَامِل, فَاعِل"
+    test_result: "wrong"
+  antonymy:
+    per_lemma:
+      - lemma: "تابِع"
+        antonym_found: true
+        antonym: "مَتْبُوع"
+      - lemma: "مُتَّبِع"
+        antonym_found: true
+        antonym: "مُتَّبَع"
+  verb_checks:
+    applicable: false
+  selectional_restrictions:
+    - lemma: "تابِع"
+      constraint: "يشترط أن يكون عاقلاً في هذا السياق (تابِع كشخص ينقاد للقيادة)."
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "تابِع"
+      enrichment:
+        root: "ت-ب-ع"
+      examples:
+        - text: "تجمهر أتباع القائد حوله تأييداً لقراراته واستعداداً لتنفيذها."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "مُرِيد"
+      enrichment:
+        root: "ر-و-د"
+      examples:
+        - text: "أحاط المريدون بشيخهم يستمعون إلى مواعظه بإجلال وانقياد."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "مُوَالٍ"
+      enrichment:
+        root: "و-ل-ي"
+      examples:
+        - text: "ظل الزعيم محاطاً بحلفاء موالين له طيلة فترة حكمه."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "مُتَّبِع"
+      enrichment:
+        root: "ت-ب-ع"
+      examples:
+        - text: "كان الرجل متبعاً مخلصاً لتعاليم معلمه لا يحيد عنها."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

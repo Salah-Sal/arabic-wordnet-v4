@@ -1,0 +1,137 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي يحتوي على أقواس تفصيلية يمكن دمجها في سياق التعريف نفسه ليكون أكثر سبكاً."
+      - "عدم وجود أدلة معجمية للمصطلحات كمسكوكات اسمية مستقلة نظراً لكونها أسماء فاعلين قياسية تشتق مباشرة من الفعل."
+    observations: "المفهوم يدل على اسم فاعل لحدث البصق. الصيغ القياسية لاسم الفاعل من الفعل (بصق) أو (بزق) أو (تفل) هي الأنسب، وتعد ترجمة دقيقة للمصطلح الإنجليزي."
+  blind_candidates:
+    - lemma: "بَاصِق"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل بصق، وهو الأوسع شيوعاً للدلالة على من يقوم بهذا الفعل."
+    - lemma: "بَازِق"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل بزق، وهو مرادف مباشر لبصق."
+    - lemma: "تَافِل"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل تفل، ويحمل دلالة قريبة."
+    - lemma: "بَزَّاق"
+      generation_method: ishtiqaq
+      justification: "صيغة مبالغة تفيد من يكثر البصق."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "بَاصِق"
+      evidence_status: "no_material_found"
+    - lemma: "بَازِق"
+      evidence_status: "no_material_found"
+    - lemma: "تَافِل"
+      evidence_status: "no_material_found"
+    - lemma: "بَزَّاق"
+      expands:
+        - text: "بَزَّاقُ: بالفتح، وتشديد الزاي: موضع قرب تلّ فخّار من أعمال واسط"
+          source: "معجم البلدان لياقوت الحموي"
+          addition: "يدل على معنى آخر (اسم موضع) كما يطلق على نوع من الرخويات."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "بَاصِق"
+      decision: confirmed
+      decision_reason: "الكلمة هي اسم الفاعل القياسي من الفعل (بصق)، وهي الترجمة الأدق والأنسب للمفهوم الإنجليزي (spitter)، وتفي بالمعنى المعجمي."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "بَاصِق"
+            
+    - lemma: "بَازِق"
+      source: stage1
+      decision: removed
+      decision_reason: "مرادف أقل شيوعاً من باصق، ولا داعي لإدراجه اكتفاءً بالأشهر."
+      evidence_assessment:
+        case: no_material
+        
+    - lemma: "تَافِل"
+      source: stage1
+      decision: removed
+      decision_reason: "التفل قد يرافقه ريق قليل ويغلب استخدامه في سياقات أخرى كالرقية أو التعبير عن الاشمئزاز، فالبصق أعم وأدق هنا."
+      evidence_assessment:
+        case: no_material
+
+    - lemma: "بَزَّاق"
+      source: stage1
+      decision: removed
+      decision_reason: "صيغة مبالغة قد تدل على المهنة أو الكثرة، وكثيراً ما تطلق على نوع من الرخويات (الحلزون)، لذا تستبعد منعاً للبس."
+      evidence_assessment:
+        case: mixed
+
+stage4_content:
+  definition:
+    current: "شخص يبصق (يخرج اللعاب أو البلغم من الفم)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يستخدم الأقواس الشارحة بشكل غير محبذ معجمياً، من الأفضل صياغة التعريف كجملة واحدة متصلة بأسلوب المعجم الوسيط."
+    authored:
+      - type: terminological
+        text: "شَخْصٌ يُخْرِجُ اللُّعَابَ أَوِ البَلْغَمَ مِنْ فَمِهِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-10656272-n", definition_index: 0, text: "شَخْصٌ يُخْرِجُ اللُّعَابَ أَوِ البَلْغَمَ مِنْ فَمِهِ."}
+
+  examples:
+    per_lemma:
+      - lemma: "بَاصِق"
+        examples:
+          - text: "عُوقِبَ البَاصِقُ فِي الشَّارِعِ العَامِّ بِغَرَامَةٍ مَالِيَّةٍ لِمُخَالَفَتِهِ قَوَاعِدَ النَّظَافَةِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "عُوقِبَ البَاصِقُ فِي الشَّارِعِ العَامِّ بِغَرَامَةٍ مَالِيَّةٍ لِمُخَالَفَتِهِ قَوَاعِدَ النَّظَافَةِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "بَاصِق"
+      entry_id: "{auto}"
+      root: "بصق"
+      maqayis_quote: "«الْبَاءُ وَالصَّادُ وَالْقَافُ أَصْلٌ وَاحِدٌ يُشَارِكُ الْبَاءَ وَالسِّينَ وَالْقَافَ، وَالْأَمْرُ بَيْنَهُمَا قَرِيبٌ. يُقَالُ: بَصَقَ بِمَعْنَى بَزَقَ وَبَسَقَ.»"
+      
+  per_sense:
+    - lemma: "بَاصِق"
+      sense_id: "{auto}"
+      nuance: "اسم فاعل يدل على من يخرج اللعاب أو البلغم من فمه بصفة عامة."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"بصق","maqayis":"«الْبَاءُ وَالصَّادُ وَالْقَافُ أَصْلٌ وَاحِدٌ يُشَارِكُ الْبَاءَ وَالسِّينَ وَالْقَافَ، وَالْأَمْرُ بَيْنَهُمَا قَرِيبٌ. يُقَالُ: بَصَقَ بِمَعْنَى بَزَقَ وَبَسَقَ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اسم فاعل يدل على من يخرج اللعاب أو البلغم من فمه بصفة عامة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-10656272-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-10656272-n"
+        score: 0.95

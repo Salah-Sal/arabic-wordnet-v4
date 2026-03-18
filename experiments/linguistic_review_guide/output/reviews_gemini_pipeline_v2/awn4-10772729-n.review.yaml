@@ -1,0 +1,97 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "الارتباط بالمجموعة العليا (hypernym) 'عامل/فاعل' خاطئ؛ لأن الفيكتوري يُعرَّف بانتمائه لعهد تاريخي وليس بكونه عاملاً أو مُنجزاً للأمور."
+      - "نقص التوثيق المعجمي للمصطلح كاسم (noun) في المعاجم العربية القديمة لكونه مفهوماً تاريخياً غربياً حديثاً."
+    observations: "المصطلح 'فيكتوري' هو النسبة القياسية إلى 'فيكتوريا'، ويُستخدم في العربية للدلالة على الشخص (اسم) والصفة. التعريف العربي الحالي دقيق ومباشر."
+  blind_candidates:
+    - lemma: "فِيكْتُورِيّ"
+      generation_method: ishtiqaq
+      justification: "النسبة القياسية إلى الملكة فيكتوريا، وتُستخدم اسماً للدلالة على الشخص الذي عاش في ذلك العصر."
+    - lemma: "فِيكْتُورِيَانِيّ"
+      generation_method: taarib
+      justification: "صيغة معربة بديلة للنسبة تُستخدم أحياناً في السياقات التاريخية."
+    - lemma: "شَخْصٌ فِيكْتُورِيّ"
+      generation_method: tarkib
+      justification: "تركيب وصفي يحدد الماهية بدقة كاسم."
+    - lemma: "فِيكْتُورِيُّ الْعَهْدِ"
+      generation_method: tarkib
+      justification: "تركيب إضافي يربط الشخص بالحقبة التاريخية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "فِيكْتُورِيّ"
+      confirm:
+        - text: "«(2) ال?يكتوريّ: أحد أبناء عصر الملكة ?يكتوريا.»"
+          source: "المورد الحديث"
+    - lemma: "فِيكْتُورِيَانِيّ"
+      evidence_status: "no_material_found"
+    - lemma: "فِيكْتُورِيُّ الْعَهْدِ"
+      evidence_status: "no_material_found"
+    - lemma: "شَخْصٌ فِيكْتُورِيّ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "فِيكْتُورِيّ"
+      decision: confirmed
+      decision_reason: "هو المصطلح الشائع والمعتمد في الترجمة التاريخية، وقد وثقه معجم المورد الحديث كاسم يدل على الشخص."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "فِيكْتُورِيّ"
+
+stage4_content:
+  definition:
+    current: "شخص عاش في عهد الملكة فيكتوريا"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق وجامع لمانع في سياق المفهوم التاريخي."
+  examples:
+    per_lemma:
+      - lemma: "فِيكْتُورِيّ"
+        examples:
+          - text: "عُرِفَ الْفِيكْتُورِيُّونَ بِتَقَالِيدِهِمْ الصَّارِمَةِ وَأَخْلَاقِهِمْ الْمُحَافِظَةِ."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "فِيكْتُورِيّ"
+      entry_id: "{auto}"
+      note: "اللفظ أعجمي منسوب إلى الملكة البريطانية فيكتوريا (Victoria)، ولا جذر له في العربية."
+  per_sense:
+    - lemma: "فِيكْتُورِيّ"
+      sense_id: "{auto}"
+      nuance: "يُستخدم للدلالة على الهوية التاريخية والثقافية للشخص المرتبط بالعهد الفيكتوري."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"origin":"proper_name_nisba","foreign_base":"Victoria"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يدل على الشخص من منظور تاريخي أو ثقافي","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

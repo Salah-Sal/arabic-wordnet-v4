@@ -1,0 +1,178 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الحالية 'التواجد في مكانين' أقرب لكونها عبارة وصفية منها إلى مصطلح معجمي محدد (Lexical unit)."
+      - "استخدام كلمة 'التواجد' في المعنى اللغوي الدقيق (تفاعل من الوجد) يختلف عن معناه المحدث الشائع (الحضور/الوجود في مكان)، لذا يفضل استخدام 'الوجود' للأدقة اللغوية."
+      - "المصطلح الإنجليزي 'bilocation' يمثل وحدة معجمية واحدة، بينما الترجمة العربية تعتمد على التركيب (MWE)."
+    observations: "المفهوم مرتبط بسياق لاهوتي كاثوليكي (معجزات القديسين)، وله مرادفات في السياق الصوفي الإسلامي مثل 'تعدد الأمكنة' أو 'الحضور في أبدان متعددة'، لكن المصطلح التقني المعتمد في الترجمات العربية الحديثة يميل للتركيب الوصفي."
+  blind_candidates:
+    - lemma: "الاِزْدِوَاجُ المَكَانِيُّ"
+      generation_method: tarkib
+      justification: "تركيب وصفي يترجم بدقة مفهوم (bilocation) بوصفه ازدواجاً للوجود في حيزين مكانيين."
+    - lemma: "الحُضُورُ الثُّنَائِيُّ"
+      generation_method: tarkib
+      justification: "مصطلح شائع في السياقات الروحية واللاهوتية للتعبير عن حضور الشخص في مكانين في آن واحد."
+    - lemma: "الوُجُودُ الثُّنَائِيُّ"
+      generation_method: tarkib
+      justification: "صيغة لغوية دقيقة تعبر عن ثنائية الوجود المادي المتزامن."
+    - lemma: "تَعَدُّدُ الأَمَاكِنِ"
+      generation_method: tarkib
+      justification: "تعبير تراثي (صوفي) يشير إلى قدرة الروح أو الجسد على الظهور في أمكنة متعددة في وقت واحد."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "التواجد في مكانين"
+      expands:
+        - text: "«يستحيل على المرء أن يُوجد في مكانين معًا في آن واحد [مثل أجنبيّ]»"
+          source: "معجم اللغة العربية المعاصرة"
+          addition: "يؤكد أن التعبير عن المفهوم في العربية المعاصرة يتم عبر هذه الصيغة الوصفية (الوجود في مكانين في آن واحد)."
+    - lemma: "الاِزْدِوَاجُ المَكَانِيُّ"
+      confirm:
+        - text: "«ازدِواج الضَّرائب: دفعها في مكانين أو بلدين مختلفين.»"
+          source: "معجم اللغة العربية المعاصرة"
+          addition: "يدعم استخدام 'الازدواج' للتعبير عن حالة الوجود أو الحدوث في مكانين مختلفين متزامنين."
+    - lemma: "الحُضُورُ الثُّنَائِيُّ"
+      evidence_status: "no_material_found"
+    - lemma: "الوُجُودُ الثُّنَائِيُّ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "التواجد في مكانين"
+      decision: confirmed
+      decision_reason: "المصطلح الحالي مقبول لشيوعه في ترجمة المفهوم اللاهوتي 'bilocation'، وسنقوم بتشكيله كاملاً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "التَّوَاجُدُ فِي مَكَانَيْنِ"
+    - lemma: "الوُجُودُ فِي مَكَانَيْنِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "بديل لغوي أكثر دقة من 'التواجد'، حيث أن 'الوجود' هو المصطلح الفصيح للمفهوم."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "الوُجُودُ فِي مَكَانَيْنِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "الاِزْدِوَاجُ المَكَانِيُّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تقني (Nominal) يعبر عن الظاهرة كوحدة معجمية واحدة تناظر المصطلح الإنجليزي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "الاِزْدِوَاجُ المَكَانِيُّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "الحُضُورُ الثُّنَائِيُّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يستخدم في السياق اللاهوتي والصوفي لوصف حضور الشخص في مكانين مختلفين."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "الحُضُورُ الثُّنَائِيُّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "القدرة (التي تُقال عن بعض القديسين الكاثوليك) على التواجد في مكانين في وقت واحد"
+    assessment:
+      decision: revise
+      reason: "التعريف يحتاج إلى تدقيق لغوي وصياغة أكثر إحكاماً بأسلوب المعاجم."
+    authored:
+      - type: terminological
+        text: "القُدْرَةُ (التي تُعْزَى لِبَعْضِ القِدِّيسِينَ) عَلَى الوُجُودِ فِي مَكَانَيْنِ مُخْتَلِفَيْنِ فِي آنٍ وَاحِدٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "التَّوَاجُدُ فِي مَكَانَيْنِ"
+        examples:
+          - text: "يُعَدُّ التَّوَاجُدُ فِي مَكَانَيْنِ مِنَ الكَرَامَاتِ الخَارِقَةِ لِلْعَادَةِ الَّتِي تُنْسَبُ لِلْقِدِّيسِ بيو."
+            type: usage
+      - lemma: "الاِزْدِوَاجُ المَكَانِيُّ"
+        examples:
+          - text: "يُحاوِلُ عُلَمَاءُ مَا وَرَاءَ النَّفْسِ إِيجَادَ تَفْسِيرَاتٍ عِلْمِيَّةٍ لِظَاهِرَةِ الاِزْدِوَاجِ المَكَانِيِّ."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "القُدْرَةُ (التي تُعْزَى لِبَعْضِ القِدِّيسِينَ) عَلَى الوُجُودِ فِي مَكَانَيْنِ مُخْتَلِفَيْنِ فِي آنٍ وَاحِدٍ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "التَّوَاجُدُ فِي مَكَانَيْنِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "التواجد"
+          root: "وجد"
+          maqayis_quote: "«الْوَاوُ وَالْجِيمُ وَالدَّالُ، يَدُلُّ عَلَى أَصْلٍ وَاحِدٍ، وَهُوَ الشَّيُّ يُلْفِيهِ.»"
+        - word: "مكانين"
+          root: "كون"
+          maqayis_quote: "«الْكَافُ وَالْوَاوُ وَالنُّونُ أَصْلٌ يَدُلُّ عَلَى الْإِخْبَارِ عَنْ حُدُوثِ شَيْءٍ... وَالْمَكَانُ اشْتِقَاقُهُ مِنْ كَانَ يَكُونُ.»"
+    - lemma: "الاِزْدِوَاجُ المَكَانِيُّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "الازدواج"
+          root: "زوج"
+          maqayis_quote: "«الزَّاءُ وَالْوَاوُ وَالْجِيمُ أَصْلٌ يَدُلُّ عَلَى مُقَارَنَةِ شَيْءٍ لِشَيْءٍ.»"
+        - word: "المكاني"
+          root: "كون"
+          maqayis_quote: "«الْكَافُ وَالْوَاوُ وَالنُّونُ أَصْلٌ يَدُلُّ عَلَى الْإِخْبَارِ عَنْ حُدُوثِ شَيْءٍ.»"
+  per_sense:
+    - lemma: "التَّوَاجُدُ فِي مَكَانَيْنِ"
+      sense_id: "{auto}"
+      nuance: "التعبير الشائع في الترجمات العربية الحديثة، يستخدم لوصف معجزات القديسين."
+      mwe: true
+    - lemma: "الاِزْدِوَاجُ المَكَانِيُّ"
+      sense_id: "{auto}"
+      nuance: "مصطلح تقني يركز على الجانب الظواهري (Phenomenological) لثنائية الموقع."
+      mwe: true
+  synset:
+    cultural_fit: lexical_gap
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"التواجد","root":"وجد","maqayis":"«الْوَاوُ وَالْجِيمُ وَالدَّالُ...»"},{"word":"مكانين","root":"كون","maqayis":"«الْكَافُ وَالْوَاوُ وَالنُّونُ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"التعبير الشائع في الترجمات العربية الحديثة","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"lexical_gap"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

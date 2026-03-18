@@ -1,0 +1,135 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "مَانِح"
+      confirm:
+        - text: "«منَحَ يَمنَح، مَنْحًا، فهو مانِح، والمفعول مَمْنوح»"
+          source: "معجم اللغة العربية المعاصرة لأحمد مختار عمر"
+        - text: "«شخصي يعطي أنسجته أو دمه لغيره.»"
+          source: "معجم المصطلحات الطبية (ج.2، 2003)"
+    - lemma: "وَاهِب"
+      confirm:
+        - text: "«وَاهِب: من (و ه ب) الذي يعطي الشيء بلا عوض.»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+        - text: "«وهَبَ يهَب، هَبْ، هِبَةً ووَهْبًا، فهو واهِب»"
+          source: "معجم اللغة العربية المعاصرة لأحمد مختار عمر"
+        - text: "«الشخص الذي يهب شيئا للموهوب له بدون عوض»"
+          source: "المعجم الموحد لمصطلحات القانون (2017)"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "مُعْطٍ"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«المُعْطي؛ المانح؛ الواهب» — المورد الحديث"
+      justification: "اشتقاق اسم الفاعل من الفعل أعطى المذكور في التعريف، وهو مرادف مباشر."
+    - lemma: "مُتَبَرِّع"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«مُتَبَرِّع ؛ مانِح ؛ مُعْطٍ» — المعجم الطبي الموحد"
+      justification: "استخدام شائع للدلالة على من يمنح شيئاً (كالدم أو المال) طوعاً، لكنه يحمل طابعاً تخصصياً."
+  knowledge_candidates: []
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "مَانِح"
+      decision: confirmed
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على الإعطاء على سبيل التفضل أو توفير المنفعة."
+      example: "شكرت الجامعة مانح الجائزة على دعمه السخي للبحث العلمي."
+    - lemma: "وَاهِب"
+      decision: confirmed
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يختص بالذي يعطي الشيء تمليكاً بلا عوض أو مقابل."
+      example: "الله هو الواهب الذي يرزق عباده بغير حساب."
+    - lemma: "مُعْطٍ"
+      source: step05
+      decision: confirmed
+      decision_reason: "مرادف دقيق وأشمل من سابقيه، مشتق من الفعل الوارد في التعريف ذاته."
+      step05_citation: "«المُعْطي؛ المانح؛ الواهب» — المورد الحديث"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "اللفظ الأعم والأشمل لأي نوع من أنواع البذل والمناولة والتمليك، دون قيد عدم العوض بالضرورة."
+      example: "كان الشيخ معطياً للفقراء والمساكين لا يرد سائلاً."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُعْطٍ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10163245-n"
+    - lemma: "مُتَبَرِّع"
+      source: step05
+      decision: removed
+      decision_reason: "يحمل دلالة أضيق تتعلق بالمنح الطوعي في السياقات الخيرية أو الطبية، ولا يطابق العموم في التعريف."
+      step05_citation: "«مُتَبَرِّع ؛ مانِح ؛ مُعْطٍ» — المعجم الطبي الموحد"
+
+  added_lemmas:
+    - lemma: "مُعْطٍ"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شخص يمنح أو يعطي شيئاً ما"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وواضح ويغطي المعنى المقصود بأسلوب لغوي سليم."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عَامِل / فَاعِل"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "مَانِح"
+        antonym_found: true
+        antonym: "مَمْنُوح"
+      - lemma: "وَاهِب"
+        antonym_found: true
+        antonym: "مَوْهُوب"
+      - lemma: "مُعْطٍ"
+        antonym_found: true
+        antonym: "آخِذ"
+  verb_checks:
+    applicable: false
+  selectional_restrictions:
+    - lemma: "مَانِح"
+      constraint: "يشترط أن يكون الفاعل عاقلاً أو جهة اعتبارية تمتلك إرادة العطاء."
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "مَانِح"
+      enrichment:
+        root: "منح"
+      examples:
+        - text: "شكرت الجامعة مانح الجائزة على دعمه السخي للبحث العلمي."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "وَاهِب"
+      enrichment:
+        root: "وهب"
+      examples:
+        - text: "الله هو الواهب الذي يرزق عباده بغير حساب."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "مُعْطٍ"
+      enrichment:
+        root: "عطو"
+      examples:
+        - text: "كان الشيخ معطياً للفقراء والمساكين لا يرد سائلاً."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

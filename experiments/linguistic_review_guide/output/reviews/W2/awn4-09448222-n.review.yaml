@@ -1,0 +1,123 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "أراضٍ قاحلة متخددة"
+      confirm:
+        - text: "«خَدَّ السيل في الأَرض إِذا شقها بجريه»"
+          source: "لسان العرب"
+        - text: "«الأُخْدود: شق في الأَرض مستطيل»"
+          source: "لسان العرب"
+      expands:
+        - text: "«تخدد القوم إِذا صاروا فرقاً»"
+          source: "لسان العرب"
+          addition: "معنى مجازي للانقسام والفرق"
+      peripheral_observations:
+        - "تُستعمل مادة (خ-د-د) في المعاجم القديمة لوصف الشقوق التي يُحدثها الماء في الأرض (الأخاديد)، وهو ما يطابق الوصف الجيولوجي لـ (scablands) التي تتميز بالقنوات (channels/coulees)."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "الأراضي المتخددة"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«الأراضي المتخددة بالقنوات هي مناطق في شرق واشنطن...» — سياق جيولوجي"
+      justification: "الترجمة الاصطلاحية الشائعة للمصطلح الجيولوجي (Channeled Scablands)."
+    - lemma: "أراضٍ متخددة"
+      source_section: "step9_specialized"
+      evidence_citation: "«خَدَّ السيل في الأَرض إِذا شقها بجريه» — لسان العرب"
+      justification: "استخدام الوصف المشتق من الجذر (خ-د-د) للتعبير عن الأرض المشققة بالقنوات."
+  knowledge_candidates:
+    - lemma: "سكابلاند"
+      justification: "تعريب صوتي (transliteration) يُستخدم أحياناً في النصوص الجيولوجية المتخصصة لتجنب الالتباس مع (Badlands)."
+  generation_notes: "المصطلح جيولوجي متخصص؛ الجذر العربي (خ-د-د) يوفر مقابلاً دقيقاً جداً لمعنى (channeled) من حيث الشق الطولي في الأرض."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "أراضٍ قاحلة متخددة"
+      decision: confirmed
+      decision_reason: "تعبير وصفي دقيق ومستقر دلالياً، يجمع بين صفة القحول (scab) والتخدد (channeled)."
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تجمع اللمة بين القحول وتخدد القنوات، مما يميزها عن الأرض الوعرة العامة (Badlands)."
+      example: "تتميز الأراضي القاحلة المتخددة في شرق واشنطن بتضاريسها الفريدة التي شكلتها الفيضانات الجليدية."
+
+    - lemma: "الأراضي المتخددة"
+      source: step05
+      decision: confirmed
+      decision_reason: "المصطلح الفني الأكثر شيوعاً في الجيولوجيا لترجمة (Channeled Scablands)."
+      step05_citation: "سياق جيولوجي عام لترجمة Channeled Scablands"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "مصطلح فني محدد يركز على القنوات المحفورة (تخدد)."
+      example: "تعتبر الأراضي المتخددة في حوض كولومبيا مثالاً نموذجياً لتأثير السيول الجارفة."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "الأراضي المتخددة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09448222-n"
+
+    - lemma: "سكابلاند"
+      source: step05
+      decision: removed
+      decision_reason: "ترجمة صوتية (transliteration) لا تفي بمبدأ إيثار العربي عند توفر مقابل فصيح دقيق (متخددة)."
+      step05_citation: "تعريب صوتي للمصطلح الإنجليزي"
+
+  synset_flags:
+    definition_review_needed: false
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "(جيولوجيا) أرض مرتفعة مسطحة ذات تربة فقيرة وقليل من الغطاء النباتي تتخللها قنوات جافة من أصل جليدي (خاصة في شرق واشنطن)"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق علمياً ومطابق للمرجع الإنجليزي والواقع الجيولوجي."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "أرض، تربة (awn4-09358146-n)"
+    test_result: "needs_closer"
+    suggested_hypernym: "أرض (awn4-08016484-n)"
+  reasoning:
+    hypernymy_justification: "المجموعة الحالية (awn4-09358146-n) تعرف التربة كمادة (soil)، بينما (Scablands) هي منطقة أو تضاريس (land/region)."
+  actions:
+    - command: add_synset_relation
+      params:
+        source_id: "awn4-09448222-n"
+        relation_type: "hypernym"
+        target_id: "awn4-08016484-n"
+    - command: remove_synset_relation
+      params:
+        source_id: "awn4-09448222-n"
+        relation_type: "hypernym"
+        target_id: "awn4-09358146-n"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "أراضٍ قاحلة متخددة"
+      enrichment:
+        root: "خ-د-د"
+      examples:
+        - text: "تغطي الأراضي القاحلة المتخددة مساحات شاسعة من هضبة كولومبيا."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "الأراضي المتخددة"
+      enrichment:
+        root: "خ-د-د"
+      examples:
+        - text: "تعتبر الأراضي المتخددة شاهداً على الفيضانات العملاقة التي حدثت في العصر الجليدي."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native
+  reasoning:
+    cultural_fit_reasoning: "المفهوم جيولوجي عام، والمصطلح العربي المقترح يستخدم جذوراً تراثية (خ-د-د) للتعبير عن ظاهرة عالمية."

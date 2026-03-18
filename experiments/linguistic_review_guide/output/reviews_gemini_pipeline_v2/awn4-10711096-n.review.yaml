@@ -1,0 +1,157 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف العربي دقيق، واللمة الحالية (ناقر) تعد ترجمة جيدة للمفهوم الإنجليزي tapper، ولكن يمكن إضافة صيغة المبالغة (نقار) للدلالة على تكرار النقر المذكور في التعريف."
+    observations: "مفهوم 'tapper' يدل على شخص يقوم بالنقر الخفيف. الجذر 'نقر' يناسب الخفة، بينما 'طرق' أو 'دق' يوحيان بالقوة والشدة."
+  blind_candidates:
+    - lemma: "نَقَّار"
+      generation_method: ishtiqaq
+      justification: "صيغة مبالغة (فعّال) من الجذر (نقر) تدل على كثرة النقر وتكراره، وهو ما يطابق قيد (بشكل متكرر) في التعريف."
+    - lemma: "نَاقِر"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من (نقر)، يعبر بشكل مباشر عن الشخص الذي يقوم بفعل النقر (الضرب بخفة)."
+    - lemma: "طَارِق"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من (طرق)، يشير إلى من يضرب أو يقرع، ويرتبط عادة بالقرع على الأبواب."
+    - lemma: "دَقَّاق"
+      generation_method: ishtiqaq
+      justification: "صيغة مبالغة من (دق)، تستخدم لمن يكرر الضرب."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "نَاقِر"
+      confirm:
+        - text: "«السهم يصيب الهدف أخطأت نواقره: لم يستقم على الصواب»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«beater»"
+          source: "مسرد الفن، التسلية والرياضة، المنظمة العربية للتربية والثقافة والعلوم"
+          addition: "استخدام المصطلح في سياق الآلات الإيقاعية."
+    - lemma: "نَقَّار"
+      confirm:
+        - text: "«الكثير النَّقْر رَجُلٌ نَقَّارٌ: بحَّاث عن الأمور والأخبار مَن يحترف نَقْر الحجارة والخشب من يَنقُش الرُّكُب واللُّجُم ونحوهما»"
+          source: "المعجم الوسيط"
+    - lemma: "طَارِق"
+      contradicts:
+        - text: "«الآتى ليلًا النَّجمُ الثَّاقِبُ الحادث, أو الحادث ليلًا»"
+          source: "المعجم الوسيط"
+          conflict: "الكلمة لها دلالات مخصصة (الآتي ليلاً) ولا تستخدم عادة بمعنى الناقر بخفة بشكل عام."
+    - lemma: "دَقَّاق"
+      contradicts:
+        - text: "«من يدق الأبازير بائع الدقيق»"
+          source: "المعجم الوسيط"
+          conflict: "تفيد شدة الدق أو السحق وترتبط بمهن محددة، وهو ما يعارض فكرة الضرب بخفة."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "نَاقِر"
+      decision: confirmed
+      decision_reason: "اللمة دقيقة وتصاغ كاسم فاعل من الفعل (نقر) الذي يعبر عن الضرب بخفة."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نَاقِر"
+    - lemma: "نَقَّار"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صيغة المبالغة من (نقر) تعكس الجانب المتعلق بالتكرار المذكور في التعريف، وتعد إضافة جيدة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "نَقَّار", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "طَارِق"
+      source: stage1
+      decision: removed
+      decision_reason: "ترتبط غالباً بالقرع على الأبواب أو القدوم ليلاً، ولا تنقل بدقة معنى الضرب بخفة."
+    - lemma: "دَقَّاق"
+      source: stage1
+      decision: removed
+      decision_reason: "الفعل (دق) يوحي بالشدة والقوة (كالدق للسحق)، وهو ما يتعارض مع قيد (بخفة) في التعريف."
+
+stage4_content:
+  definition:
+    current: "شخص يضرب سطحاً بخفة وعادة بشكل متكرر"
+    assessment:
+      decision: retain
+      reason: "التعريف الحالي دقيق وواضح وينقل المعنى المقصود بكلمة (tapper) بأمانة مستخدماً جنس (شخص) وفصل نوعي (يضرب سطحاً بخفة وبشكل متكرر)."
+  examples:
+    per_lemma:
+      - lemma: "نَاقِر"
+        examples:
+          - text: "استخدم ناقر الطبل أسلوباً إيقاعياً مميزاً."
+            type: usage
+      - lemma: "نَقَّار"
+        examples:
+          - text: "استدعى صاحب المصنع نقاراً ليختبر جودة الأسطح الخشبية."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "استخدم ناقر الطبل أسلوباً إيقاعياً مميزاً."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "نَاقِر"
+      entry_id: "{auto}"
+      root: "نقر"
+      maqayis_quote: "«النُّونُ وَالْقَافُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى قَرْعِ شَيْءٍ حَتَّى تُهْزَمَ فِيهِ هَزْمَةٌ»"
+    - lemma: "نَقَّار"
+      entry_id: "{auto}"
+      root: "نقر"
+      maqayis_quote: "«النُّونُ وَالْقَافُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى قَرْعِ شَيْءٍ حَتَّى تُهْزَمَ فِيهِ هَزْمَةٌ»"
+  per_sense:
+    - lemma: "نَاقِر"
+      sense_id: "{auto}"
+      nuance: "تدل على من يقوم بالنقر أو الضرب الخفيف بصفة عامة."
+      mwe: false
+    - lemma: "نَقَّار"
+      sense_id: "{auto}"
+      nuance: "تدل على المبالغة وتكرار فعل النقر بصورة متتابعة أو اتخاذه كحرفة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نقر","maqayis":"«النُّونُ وَالْقَافُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى قَرْعِ شَيْءٍ حَتَّى تُهْزَمَ فِيهِ هَزْمَةٌ»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تدل على من يقوم بالنقر أو الضرب الخفيف بصفة عامة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نقر","maqayis":"«النُّونُ وَالْقَافُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى قَرْعِ شَيْءٍ حَتَّى تُهْزَمَ فِيهِ هَزْمَةٌ»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تدل على المبالغة وتكرار فعل النقر بصورة متتابعة أو اتخاذه كحرفة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

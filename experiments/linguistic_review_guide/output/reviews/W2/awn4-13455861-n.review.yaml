@@ -1,0 +1,219 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "استخدام كلمة 'امتصاص' في تعريف مجموعة ترادفية تحتوي على لمة 'امتصاص' يُعد دوراً تعريفياً."
+    observations: "المفهوم يشير إلى عملية حيوية (بيولوجية) تتمثل في امتصاص العناصر الغذائية في مجرى الدم أو الخلايا بعد عملية الهضم. المصطلحات 'امتصاص' و'تمثل غذائي' أو 'تمثيل غذائي' تعبر بدقة عن هذا المعنى وتستخدم في المعاجم العلمية المعتمدة."
+  blind_candidates:
+    - lemma: "اِمْتِصَاص"
+      generation_method: ishtiqaq
+      justification: "مصدر مشتق يعبر عن استقطاب السوائل والمواد، وهو المعتمد علمياً للدلالة على أخذ الجسم للغذاء المهضوم."
+    - lemma: "تَمَثُّلٌ غِذَائِيّ"
+      generation_method: tarkib
+      justification: "مركب وصفي يشير إلى تحول الغذاء ليماثل طبيعة الجسم ويندمج فيه."
+    - lemma: "تَمْثِيلٌ غِذَائِيّ"
+      generation_method: tarkib
+      justification: "مركب وصفي شائع ومستقر في علم الأحياء للإشارة إلى عملية assimilation."
+    - lemma: "اِسْتِيعَاب"
+      generation_method: ishtiqaq
+      justification: "مشتق دال على احتواء الشيء بأكمله، وقد يستعمل مجازياً في الاستيعاب الحيوي."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "اِمْتِصَاص"
+      confirm:
+        - text: "«انتقال الماء والمواد المعدنية من الوسط إلى الكائن الحي أو انتقال المواد الغذائية المهضومة من الأمعاء إلى مجرى الدم أو اللمف»"
+          source: "المعجم الموحد لمصطلحات علم الأحياء (1993)"
+    - lemma: "تَمَثُّلٌ غِذَائِيّ"
+      confirm:
+        - text: "«تمثل (غذايا) : assimilation»"
+          source: "المعجم الموحد لمصطلحات علم الصحة وجسم الانسان (1992)"
+        - text: "«مص assimilate. وبخاصة: «ا» تمثيل الطعام او تمثله. «ب» استيعاب؛ امتصاص.»"
+          source: "المورد الحديث (2008)"
+    - lemma: "تَمْثِيلٌ غِذَائِيّ"
+      confirm:
+        - text: "«تمثيل غذائي : assimilation»"
+          source: "المعجم الموحد لمصطلحات علم الأحياء (1993)"
+    - lemma: "اِسْتِيعَاب"
+      contradicts:
+        - text: "«قدرة جسم مائي على تنقية نفسه من الملوثات»"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية (2012)"
+          conflict: "يغلب استخدامه في سياقات بيئية وهندسية أو معرفية وإدراكية، وتقل دقته كبديل عن الامتصاص والتمثيل في السياق الحيوي الهضمي البحت."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "امتصاص"
+      decision: confirmed
+      decision_reason: "مصطلح علمي دقيق ومستقر يقابل absorption، ويُعرّف في المعاجم العلمية بانتقال المواد الغذائية من الأمعاء للدم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "اِمْتِصَاص"
+            
+    - lemma: "تمثل غذائي"
+      decision: confirmed
+      decision_reason: "مصطلح معتمد يقابل assimilation، ويفيد صيرورة الغذاء جزءاً من مادة الجسم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَمَثُّلٌ غِذَائِيّ"
+
+    - lemma: "تَمْثِيلٌ غِذَائِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف شائع ومعتمد لـ 'تمثل غذائي' في المعاجم الأحيائية والطبية، ويستحق الإضافة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "تَمْثِيلٌ غِذَائِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "اِسْتِيعَاب"
+      source: stage1
+      decision: removed
+      decision_reason: "دلالته واسعة وتغلب في السياقات الإدراكية، ولا يضاهي دقة المصطلحات الأخرى في هذا المفهوم الحيوي."
+
+stage4_content:
+  definition:
+    current: "عملية امتصاص العناصر الغذائية في الجسم بعد الهضم"
+    assessment:
+      decision: revise
+      reason: "لتجنب تكرار كلمة 'امتصاص' التي تمثل إحدى اللمات (دور تعريفي)، ولصياغة تعريف مصطلحي دقيق يصف آلية الانتقال أو الاندماج الحيوي."
+    authored:
+      - type: terminological
+        text: "عملية حيوية تنتقل من خلالها المواد الغذائية المهضومة من القناة الهضمية إلى مجرى الدم أو اللمف لتستفيد منها الخلايا وتندمج في أنسجة الجسم."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "العملية الحيوية التي تنتقل من خلالها المواد الغذائية المهضومة من القناة الهضمية إلى مجرى الدم أو اللمف لتستفيد منها الخلايا وتندمج في أنسجة الجسم."}
+
+  examples:
+    per_lemma:
+      - lemma: "اِمْتِصَاص"
+        examples:
+          - text: "يتم اِمْتِصَاصُ معظم العناصر الغذائية في الأمعاء الدقيقة."
+            type: usage
+      - lemma: "تَمَثُّلٌ غِذَائِيّ"
+        examples:
+          - text: "تعتمد صحة الكائن الحي على كفاءة التَّمَثُّلِ الْغِذَائِيِّ لبناء الأنسجة التالفة."
+            type: usage
+      - lemma: "تَمْثِيلٌ غِذَائِيّ"
+        examples:
+          - text: "يؤدي الكبد دوراً محورياً في عمليات التَّمْثِيلِ الْغِذَائِيِّ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يتم اِمْتِصَاصُ معظم العناصر الغذائية في الأمعاء الدقيقة."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تعتمد صحة الكائن الحي على كفاءة التَّمَثُّلِ الْغِذَائِيِّ لبناء الأنسجة التالفة."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يؤدي الكبد دوراً محورياً في عمليات التَّمْثِيلِ الْغِذَائِيِّ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "اِمْتِصَاص"
+      entry_id: "{auto}"
+      root: "مصص"
+      maqayis_quote: "«(مَصَّ) الْمِيمُ وَالصَّادُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى شِبْهِ التَّذَوُّقِ لِلشَّيْءِ، وَأَخْذِ خَالِصِهِ...»"
+    - lemma: "تَمَثُّلٌ غِذَائِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "تمثل"
+          root: "مثل"
+          maqayis_quote: "«(مَثَلَ) الْمِيمُ وَالثَّاءُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مُنَاظَرَةِ الشَّيْءِ لِلشَّيْءِ...»"
+        - word: "غذائي"
+          root: "غذي"
+          maqayis_quote: "«(غَذَى) الْغَيْنُ وَالذَّالُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى شَيْءٍ مِنَ الْمَأْكَلِ، وَعَلَى جِنْسٍ مِنَ الْحَرَكَةِ...»"
+    - lemma: "تَمْثِيلٌ غِذَائِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "تمثيل"
+          root: "مثل"
+          maqayis_quote: "«(مَثَلَ) الْمِيمُ وَالثَّاءُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مُنَاظَرَةِ الشَّيْءِ لِلشَّيْءِ...»"
+        - word: "غذائي"
+          root: "غذي"
+          maqayis_quote: "«(غَذَى) الْغَيْنُ وَالذَّالُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى شَيْءٍ مِنَ الْمَأْكَلِ، وَعَلَى جِنْسٍ مِنَ الْحَرَكَةِ...»"
+
+  per_sense:
+    - lemma: "اِمْتِصَاص"
+      sense_id: "{auto}"
+      nuance: "يركز على الآلية الفيزيولوجية الدقيقة لانتقال العناصر الغذائية عبر جدران الأمعاء إلى الدم."
+      mwe: false
+    - lemma: "تَمَثُّلٌ غِذَائِيّ"
+      sense_id: "{auto}"
+      nuance: "يركز على النتيجة الحيوية باندماج هذه العناصر وصيرورتها جزءاً من المادة الحية للكائن."
+      mwe: true
+    - lemma: "تَمْثِيلٌ غِذَائِيّ"
+      sense_id: "{auto}"
+      nuance: "مرادف لـ 'تمثل غذائي' وشائع في الاستعمال الطبي للإشارة إلى الأيض البنائي."
+      mwe: true
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"مصص","maqayis":"«(مَصَّ) الْمِيمُ وَالصَّادُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى شِبْهِ التَّذَوُّقِ لِلشَّيْءِ، وَأَخْذِ خَالِصِهِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"تمثل","root":"مثل","maqayis":"«(مَثَلَ) الْمِيمُ وَالثَّاءُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مُنَاظَرَةِ الشَّيْءِ لِلشَّيْءِ...»"},{"word":"غذائي","root":"غذي","maqayis":"«(غَذَى) الْغَيْنُ وَالذَّالُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى شَيْءٍ مِنَ الْمَأْكَلِ، وَعَلَى جِنْسٍ مِنَ الْحَرَكَةِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"تمثيل","root":"مثل","maqayis":"«(مَثَلَ) الْمِيمُ وَالثَّاءُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مُنَاظَرَةِ الشَّيْءِ لِلشَّيْءِ...»"},{"word":"غذائي","root":"غذي","maqayis":"«(غَذَى) الْغَيْنُ وَالذَّالُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى شَيْءٍ مِنَ الْمَأْكَلِ، وَعَلَى جِنْسٍ مِنَ الْحَرَكَةِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الآلية الفيزيولوجية الدقيقة لانتقال العناصر الغذائية عبر جدران الأمعاء إلى الدم.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على النتيجة الحيوية باندماج هذه العناصر وصيرورتها جزءاً من المادة الحية للكائن.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مرادف لـ \"تمثل غذائي\" وشائع في الاستعمال الطبي للإشارة إلى الأيض البنائي.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

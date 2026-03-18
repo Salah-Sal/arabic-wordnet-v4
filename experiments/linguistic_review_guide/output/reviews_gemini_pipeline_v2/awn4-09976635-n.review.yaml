@@ -1,0 +1,201 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الحالية غير مشكولة."
+      - "المعنى قد يتقاطع مع مفاهيم أخرى مثل الرجعية والتقليدية، مما يستوجب إضافتها لتوسيع الشبكة الترادفية."
+    observations: "المفهوم يشير إلى الشخص المقاوم للتغيير والذي يتمسك بالوضع الراهن أو الماضي. التعبير عنه في العربية المعاصرة شائع ومستقر."
+  blind_candidates:
+    - lemma: "مُحَافِظ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل (حَافَظَ)، ويُستخدم اصطلاحاً للإشارة إلى من يحافظ على القديم ويرفض التغيير."
+    - lemma: "تَقْلِيدِيّ"
+      generation_method: ishtiqaq
+      justification: "نسبة إلى التقليد، وهو الذي يتبع الموروث والعادات ويرفض الأفكار الجديدة."
+    - lemma: "رَجْعِيّ"
+      generation_method: ishtiqaq
+      justification: "نسبة إلى الرجوع، ويُطلق على من يرفض التقدم ويرغب في العودة إلى الماضي."
+    - lemma: "مُتَحَجِّر"
+      generation_method: majaz
+      justification: "مستعار من تحجر الشيء إذا صلب، ويُقصد به من قسا فكره وتجمد ولم يقبل التغيير."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُحَافِظ"
+      confirm:
+        - text: "«(المحافظ) الَّذِي يُدِير شئون مؤسسة أَو بلد كَبِير أَو مَجْمُوعَة من الْبِلَاد وَتسَمى الْمُحَافظَة وَمِنْه محافظ العاصمة ومحافظ الْمصرف والمتمسك بالتقاليد الاجتماعية والسياسية (مج)»"
+          source: "المعجم الوسيط لمجموعة من المؤلفين"
+    - lemma: "رَجْعِيّ"
+      confirm:
+        - text: "«الرَّجْعِيُّ: المَنْسُوبُ إلى الرَّجْعَةِ البَاقِي عَلَى القَدِيم فى الأَفْكَارِ والعَادَاتِ دُونَ مُسَايَرَةِ العُصُورِ. (محدثة).»"
+          source: "المعجم الكبير"
+    - lemma: "تَقْلِيدِيّ"
+      expands:
+        - text: "«صفة الكلام الخاضع لمقاييس قديمة.»"
+          source: "مسرد الإعلام والتواصل"
+          addition: "يستخدم كصفة واسم للمتمسك بالمقاييس والعادات القديمة."
+    - lemma: "مُتَحَجِّر"
+      contradicts:
+        - text: "«المُتَحَجِّر: هو الذي يأذن له الإمام بإحياء أرض مَيْتة...»"
+          source: "التعريفات الفقهيّة للبركتي"
+          conflict: "المعنى المعجمي القديم محصور في الفقه، والاستعمال المجازي لجمود الفكر غير موثق صراحة هنا كاسم فاعل مستقل."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "محافظ"
+      decision: confirmed
+      decision_reason: "اللمة دقيقة ومثبتة في المعاجم الحديثة للدلالة على المتمسك بالتقاليد الرافض للتغيير."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُحَافِظ"
+    - lemma: "رَجْعِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح شائع ومثبت في المعاجم المعاصرة للدلالة على من يرفض التغيير والأفكار الجديدة بل ويدعو للعودة للماضي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "رَجْعِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَقْلِيدِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "كلمة تستخدم بكثرة للدلالة على الشخص الذي يفضل الطرق القديمة والمعتادة على الأفكار الجديدة."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَقْلِيدِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُتَحَجِّر"
+      source: stage1
+      decision: removed
+      decision_reason: "رغم شيوع استخدامه المجازي (عقل متحجر)، إلا أنه غالباً ما يستخدم كصفة وليس كاسم مفرد للمفهوم ذاته بنفس درجة استقرار اللمات الأخرى."
+
+stage4_content:
+  definition:
+    current: "شخص يتردد في قبول التغييرات والأفكار الجديدة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقبول ولكنه أقرب للترجمة الحرفية؛ من الأفضل صياغته بأسلوب معجمي عربي رصين."
+    authored:
+      - type: terminological
+        text: "مَنْ يَمِيلُ إِلَى مُعَارَضَةِ التَّغْيِيرِ أَوِ التَّجْدِيدِ، وَيُؤْثِرُ التَّمَسُّكَ بِالوَضْعِ الرَّاهِنِ أَوِ الْمَوْرُوثِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مَنْ يَمِيلُ إِلَى مُعَارَضَةِ التَّغْيِيرِ أَوِ التَّجْدِيدِ، وَيُؤْثِرُ التَّمَسُّكَ بِالوَضْعِ الرَّاهِنِ أَوِ الْمَوْرُوثِ."}
+  examples:
+    per_lemma:
+      - lemma: "مُحَافِظ"
+        examples:
+          - text: "يُعْرَفُ عَنْهُ أَنَّهُ مُحَافِظٌ يَرْفُضُ أَيَّ تَعْدِيلٍ جَذْرِيٍّ عَلَى القَوَانِينِ القَدِيمَةِ."
+            type: usage
+      - lemma: "رَجْعِيّ"
+        examples:
+          - text: "اتَّهَمُوهُ بِأَنَّهُ رَجْعِيٌّ يَقِفُ عَقَبَةً فِي وَجْهِ التَّطَوُّرِ وَيَدْعُو لِلْعَوْدَةِ إِلَى المَاضِي."
+            type: usage
+      - lemma: "تَقْلِيدِيّ"
+        examples:
+          - text: "هُوَ تَقْلِيدِيٌّ فِي تَفْكِيرِهِ، لا يَتَقَبَّلُ الأَسَالِيبَ الحَدِيثَةَ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يُعْرَفُ عَنْهُ أَنَّهُ مُحَافِظٌ يَرْفُضُ أَيَّ تَعْدِيلٍ جَذْرِيٍّ عَلَى القَوَانِينِ القَدِيمَةِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "اتَّهَمُوهُ بِأَنَّهُ رَجْعِيٌّ يَقِفُ عَقَبَةً فِي وَجْهِ التَّطَوُّرِ وَيَدْعُو لِلْعَوْدَةِ إِلَى المَاضِي."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "هُوَ تَقْلِيدِيٌّ فِي تَفْكِيرِهِ، لا يَتَقَبَّلُ الأَسَالِيبَ الحَدِيثَةَ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُحَافِظ"
+      entry_id: "{auto}"
+      root: "حفظ"
+      maqayis_quote: "«الْحَاءُ وَالْفَاءُ وَالظَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُرَاعَاةِ الشَّيْءِ.»"
+    - lemma: "رَجْعِيّ"
+      entry_id: "{auto}"
+      root: "رجع"
+      maqayis_quote: "«الرَّاءُ وَالْجِيمُ وَالْعَيْنُ أَصْلٌ كَبِيرٌ مُطَّرِدٌ مُنْقَاسٌ، يَدُلُّ عَلَى رَدٍّ وَتَكْرَارٍ.»"
+    - lemma: "تَقْلِيدِيّ"
+      entry_id: "{auto}"
+      root: "قلد"
+      maqayis_quote: "«الْقَافُ وَاللَّامُ وَالدَّالُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدَهُمَا عَلَى تَعْلِيقِ شَيْءٍ عَلَى شَيْءٍ وَلِيَهُ بِهِ، وَالْآخَرُ عَلَى حَظٍّ وَنَصِيبٍ.»"
+  per_sense:
+    - lemma: "مُحَافِظ"
+      sense_id: "{auto}"
+      nuance: "يعارض التغيير ويميل إلى الإبقاء على الوضع الراهن أو المألوف."
+      mwe: false
+    - lemma: "رَجْعِيّ"
+      sense_id: "{auto}"
+      nuance: "يعارض التغيير بل ويدعو إلى العودة إلى الماضي والتخلي عن المكتسبات الحديثة، وغالباً ما يحمل دلالة سلبية أو سياسية."
+      mwe: false
+    - lemma: "تَقْلِيدِيّ"
+      sense_id: "{auto}"
+      nuance: "يلتزم بالعادات والتقاليد الموروثة ويرفض التجديد، ويمكن أن يستخدم في سياقات غير سياسية كالفن أو السلوك اليومي."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حفظ","maqayis":"«الْحَاءُ وَالْفَاءُ وَالظَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُرَاعَاةِ الشَّيْءِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"رجع","maqayis":"«الرَّاءُ وَالْجِيمُ وَالْعَيْنُ أَصْلٌ كَبِيرٌ مُطَّرِدٌ مُنْقَاسٌ، يَدُلُّ عَلَى رَدٍّ وَتَكْرَارٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قلد","maqayis":"«الْقَافُ وَاللَّامُ وَالدَّالُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدَهُمَا عَلَى تَعْلِيقِ شَيْءٍ عَلَى شَيْءٍ وَلِيَهُ بِهِ، وَالْآخَرُ عَلَى حَظٍّ وَنَصِيبٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يعارض التغيير ويميل إلى الإبقاء على الوضع الراهن أو المألوف.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يعارض التغيير بل ويدعو إلى العودة إلى الماضي والتخلي عن المكتسبات الحديثة، وغالباً ما يحمل دلالة سلبية أو سياسية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يلتزم بالعادات والتقاليد الموروثة ويرفض التجديد، ويمكن أن يستخدم في سياقات غير سياسية كالفن أو السلوك اليومي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

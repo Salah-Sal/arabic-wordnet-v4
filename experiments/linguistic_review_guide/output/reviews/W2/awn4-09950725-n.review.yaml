@@ -1,0 +1,152 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الحالية 'شخص أخرق' عبارة عن تعبير وصفي وترجمة حرفية (Calque) لـ 'clumsy person' وليست مصطلحا معجميا مسكوكا. يمكن أداء المعنى بكلمة واحدة وهي 'أخرق'."
+    observations: "المفهوم يعبر عن شخص يفتقر إلى الرشاقة أو التنسيق في الحركة، ويقابله في العربية صفة 'أخرق' التي تستعمل كاسم (صفة مشبهة)."
+  blind_candidates:
+    - lemma: "أَخْرَق"
+      generation_method: ishtiqaq
+      justification: "مشتق من الفعل خَرِقَ، ويطلق على من لا يحسن العمل بيده أو تنقصه الرشاقة، وهو أصح مقابل للمفهوم."
+    - lemma: "غَشِيم"
+      generation_method: majaz
+      justification: "من الغشم وهو الخبط، وتستخدم حديثا للدلالة على قليل الخبرة أو سيئ التنسيق الحركي."
+    - lemma: "فَدْم"
+      generation_method: majaz
+      justification: "الفدم هو العيي الثقيل، وقد تستعار الدلالة لتشمل ثقل الحركة وضعف التنسيق."
+    - lemma: "مُتَخَبِّط"
+      generation_method: ishtiqaq
+      justification: "مشتق من التخبط، وهو الحركة العشوائية غير المتزنة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "شخص أخرق"
+      evidence_status: "no_material_found"
+    - lemma: "أَخْرَق"
+      confirm:
+        - text: "«أخْرَق: غير بارع أو لبِق، وبخاصة في استعمال اليدين أو الأدوات. تُعْوِزُهُ الرشاقةُ في الحركة.»"
+          source: "المورد الحديث"
+    - lemma: "غَشِيم"
+      expands:
+        - text: "«الجاهلُ بالأمور , كأنَّه مثل الغاشم , وهو الحاطب بالليل يقطع كلَّ ما قدر عليه بلا نظر ولا فكر»"
+          source: "المعجم الوسيط"
+          addition: "المعنى يركز على الجهل بالأمور وافتقار الخبرة أكثر من التنسيق الحركي."
+    - lemma: "فَدْم"
+      expands:
+        - text: "«رجلٌ فَدْمٌ: ثقيل الفهم عَيِيٌّ»"
+          source: "المعجم الوسيط"
+          addition: "يشير إلى ثقل الفهم والعيّ في الكلام، وليس بالضرورة ضعف التنسيق الحركي."
+    - lemma: "مُتَخَبِّط"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "شخص أخرق"
+      decision: removed
+      decision_reason: "ترجمة حرفية للتركيب الإنجليزي (clumsy person) وتعبير وصفي غير مسكوك. يمكن التعبير عنه بكلمة واحدة (أخرق)."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "أَخْرَق"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صفة صحيحة تستخدم كاسم وتدل بوضوح على الشخص الذي تعوزه الرشاقة أو لا يحسن التصرف والحركة، وهو المقابل الدقيق للمفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "أَخْرَق"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "غَشِيم"
+      source: stage1
+      decision: removed
+      decision_reason: "تدل على قلة الخبرة والجهل بالأمور أو التهور، ولا تركز على ضعف التنسيق الحركي بالتحديد."
+
+    - lemma: "فَدْم"
+      source: stage1
+      decision: removed
+      decision_reason: "تعني ثقيل الفهم أو العيي عن الكلام، وهي بعيدة عن الدلالة الحركية المقصودة."
+
+    - lemma: "مُتَخَبِّط"
+      source: stage1
+      decision: removed
+      decision_reason: "تشير إلى العشوائية وفقدان الوجهة والتشتت أكثر من ضعف التنسيق الحركي الجسدي البحت."
+
+stage4_content:
+  definition:
+    current: "شخص ذو تنسيق حركي ضعيف"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ركيك ومترجم حرفيا من الإنجليزية. يمكن صياغته بأسلوب معجمي عربي فصيح ودقيق."
+    authored:
+      - type: terminological
+        text: "شخص لا يُحسِن العمل بيده وتُعْوِزُه الرَّشَاقَة في حركتِه."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "شخص لا يُحسِن العمل بيده وتُعْوِزُه الرَّشَاقَة في حركتِه."
+
+  examples:
+    per_lemma:
+      - lemma: "أَخْرَق"
+        examples:
+          - text: "انزلق الأخرقُ وتعثرت خطواتُه وهو يحمل الأطباقَ فتساقطت من يديه."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "انزلق الأخرقُ وتعثرت خطواتُه وهو يحمل الأطباقَ فتساقطت من يديه."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "أَخْرَق"
+      entry_id: "{auto}"
+      root: "خرق"
+      maqayis_quote: "«الْخَاءُ وَالرَّاءُ وَالْقَافُ أَصْلٌ وَاحِدٌ، وَهُوَ مَزْقُ الشَّيْءِ وَجَوْبُهُ... وَالْخَرْقُ: نَقِيضُ الرِّفْقِ... وَالْخَرْقَاءُ: الْمَرْأَةُ لَا تُحْسِنُ عَمَلًا.»"
+  per_sense:
+    - lemma: "أَخْرَق"
+      sense_id: "{auto}"
+      nuance: "تعبر عن انعدام المهارة الحركية والافتقار إلى الرشاقة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خرق","maqayis":"«الْخَاءُ وَالرَّاءُ وَالْقَافُ أَصْلٌ وَاحِدٌ، وَهُوَ مَزْقُ الشَّيْءِ وَجَوْبُهُ... وَالْخَرْقُ: نَقِيضُ الرِّفْقِ... وَالْخَرْقَاءُ: الْمَرْأَةُ لَا تُحْسِنُ عَمَلًا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبر عن انعدام المهارة الحركية والافتقار إلى الرشاقة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

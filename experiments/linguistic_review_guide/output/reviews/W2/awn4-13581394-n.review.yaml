@@ -1,0 +1,177 @@
+# Stage 1: Review + Generate (no evidence)
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'تغير متسارع' ليست وحدة معجمية مسكوكة بل هي عبارة وصفية (phrase)."
+      - "اللمة 'دوامة' جيدة ولكنها تحتاج إلى تشكيل وتوثيق سياقي في الاقتصاد."
+    observations: "المفهوم يشير إلى الظاهرة الاقتصادية التي يتغذى فيها التغير على نفسه (مثل التضخم)، وهو ما يسمى بالإنجليزية spiral. اللغة العربية تستخدم 'دوامة' كمجاز أو 'لولب' كمصطلح تقني."
+  blind_candidates:
+    - lemma: "دَوَّامَة اقْتِصَادِيَّة"
+      generation_method: tarkib
+      justification: "تركيب وصفي شائع لوصف الدوامات التضخمية أو الركودية."
+    - lemma: "لَوْلَبَة"
+      generation_method: ishtiqaq
+      justification: "المصدر من 'لولب'، يعبر عن عملية التحول إلى شكل لولبي متصاعد، ويستخدم في المصطلحات الاقتصادية."
+    - lemma: "تَسَلْسُل مُتَصَاعِد"
+      generation_method: tarkib
+      justification: "وصف للعملية الاقتصادية المتسارعة."
+    - lemma: "حَلَقَة مُتَسَارِعَة"
+      generation_method: tarkib
+      justification: "وصف للعملية التي تدور حول نفسها مع زيادة السرعة."
+
+# Stage 2: Evidence Gathering
+stage2_evidence:
+  per_lemma:
+    - lemma: "دوامة"
+      confirm:
+        - text: "«وسط البحر أو النهر الذي تدوم عليه الأمواج بسرعة وبشدة وهي مستديرة وأعلاها متسع وأسفلها ضيق»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«تضخم لولبي: ارتفاع الأسعار يؤدي إلى المطالبة بزيادة الأجور التي تؤدي بدورها إلى ارتفاع التكاليف وزيادة جديدة في الأسعار..وهكذا دواليك»"
+          source: "المعجم الموحد لمصطلحات الاقتصاد"
+          addition: "يؤكد استخدام صورة الدوران (اللولب/الدوامة) لوصف التسارع الاقتصادي."
+    - lemma: "تغير متسارع"
+      evidence_status: "no_material_found"
+    - lemma: "لَوْلَب"
+      confirm:
+        - text: "«لولب الأجور والأسعار: wage-price spiral»"
+          source: "المعجم الموحد لمصطلحات الاقتصاد"
+    - lemma: "لَوْلَبَة"
+      confirm:
+        - text: "«يتلولب: يتخذ سبيلا لولبيا»"
+          source: "المورد الحديث"
+
+# Stage 3: Lemma Linguistic Analysis
+stage3_analysis:
+  per_lemma:
+    - lemma: "دوامة"
+      decision: confirmed
+      decision_reason: "مصطلح مجازي فصيح ومستقر في اللغة العربية المعاصرة للتعبير عن الظواهر الاقتصادية المتسارعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "دَوَّامَة"
+    - lemma: "تغير متسارع"
+      decision: removed
+      decision_reason: "عبارة وصفية حرة (free phrase) وليست وحدة معجمية مسجلة في القواميس."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "لَوْلَب"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تقني دقيق مستخدم في الأدبيات الاقتصادية لترجمة spiral."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "لَوْلَب", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "لَوْلَبَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبر عن العملية (process) بشكل أدق من الاسم الجامد، وهي مستخدمة في السياقات العلمية والاقتصادية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "لَوْلَبَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+# Stage 4: Content
+stage4_content:
+  definition:
+    current: "تغير متسارع باستمرار في الاقتصاد"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ترجمة حرفية، ويفضل صياغته بأسلوب معجمي يوضح طبيعة التسارع."
+    authored:
+      - type: terminological
+        text: "حَرَكَةٌ اقْتِصَادِيَّةٌ مُتَسَارِعَةٌ يَتَأَثَّرُ فِيهَا كُلُّ تَغَيُّرٍ بِمَا سَبَقَهُ فَيَزِيدُ مِنْ حِدَّتِهِ، كَمَا في دَوَّامَةِ الأُجُورِ وَالأَسْعَارِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "حَرَكَةٌ اقْتِصَادِيَّةٌ مُتَسَارِعَةٌ يَتَأَثَّرُ فِيهَا كُلُّ تَغَيُّرٍ بِمَا سَبَقَهُ فَيَزِيدُ مِنْ حِدَّتِهِ، كَمَا في دَوَّامَةِ الأُجُورِ وَالأَسْعَارِ."
+  examples:
+    per_lemma:
+      - lemma: "دَوَّامَة"
+        examples:
+          - text: "دَخَلَ الِاقْتِصَادُ في دَوَّامَةِ التَّضَخُّمِ الَّتِي أَدَّتْ إِلَى انْهِيَارِ القُوَّةِ الشِّرَائِيَّةِ."
+            type: usage
+      - lemma: "لَوْلَب"
+        examples:
+          - text: "يُحَذِّرُ الخُبَرَاءُ مِنْ لَوْلَبِ الأُجُورِ وَالأَسْعَارِ الَّذِي قَدْ يَخْرُجُ عَنِ السَّيْطَرَةِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "أَدَّى الِارْتِفَاعُ المُتَتَالِي لِلأَسْعَارِ إِلَى نُشُوءِ دَوَّامَةٍ اقْتِصَادِيَّةٍ خَطِيرَةٍ."
+
+# Stage 5: Enrichment (metadata)
+stage5_enrichment:
+  per_entry:
+    - lemma: "دَوَّامَة"
+      entry_id: "{auto}"
+      root: "دوم"
+      maqayis_quote: "«الدَّالُ وَالْوَاوُ وَالْمِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى السُّكُونِ وَاللُّزُومِ... وَمِنَ الْمَحْمُولِ عَلَى هَذَا... تَدْوِيمُ الطَّائِرِ فِي الْهَوَاءِ; وَذَلِكَ إِذَا حَلَّقَ.»"
+    - lemma: "لَوْلَب"
+      entry_id: "{auto}"
+      root: "للب"
+      maqayis_quote: "«اللَّامُ وَالْبَاءُ. أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى لُزُومٍ وَثَبَاتٍ، وَعَلَى خُلُوصٍ وَجَوْدَةٍ.» (ملاحظة: اللولب مصطلح معرب أو منحوت قد يرجع لهذا الأصل بمعنى الثبات في الحركة)."
+    - lemma: "لَوْلَبَة"
+      entry_id: "{auto}"
+      root: "للب"
+  per_sense:
+    - lemma: "دَوَّامَة"
+      sense_id: "{auto}"
+      nuance: "تستخدم غالباً في السياقات الإعلامية والسياسية لوصف الأزمات التي يصعب الخروج منها."
+      mwe: false
+    - lemma: "لَوْلَب"
+      sense_id: "{auto}"
+      nuance: "مصطلح تقني اقتصادي يشير تحديداً إلى آلية التسارع التبادلي بين متغيرين."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"دوم","maqayis":"«الدَّالُ وَالْوَاوُ وَالْمِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى السُّكُونِ وَاللُّزُومِ... وَمِنَ الْمَحْمُولِ عَلَى هَذَا... تَدْوِيمُ الطَّائِرِ فِي الْهَوَاءِ; وَذَلِكَ إِذَا حَلَّقَ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تستخدم غالباً في السياقات الإعلامية والسياسية لوصف الأزمات التي يصعب الخروج منها.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

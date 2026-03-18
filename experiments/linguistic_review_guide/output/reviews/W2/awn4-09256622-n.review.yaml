@@ -1,0 +1,145 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "رأس"
+      confirm:
+        - text: "«(فى الجُغرافيا البحرِيَّة): جُزْءٌ مِن الأَرْضِ, مُمْتَدٌّ فى البحر» — المعجم الكبير"
+        - text: "«(جغ) جزء من البرّ ممتدّ في البحر \"رأس الخيمة- رأس سدر\"» — معجم اللغة العربية المعاصرة"
+    - lemma: "لسان بري"
+      confirm:
+        - text: "«واللسان: لسان البر الذي أدلعه في الريف عليه الكوفة اليوم والحيرة قبل اليوم... وكانت العرب تقول أدلع البرّ لسانه في الريف» — معجم البلدان"
+        - text: "«اللِّسَانُ: شريط ضيق من اليابس يمتد في البحر» — المعجم الوسيط"
+      expands:
+        - text: "«لسان أرضي داخل البحر» — المعجم الموحد لمصطلحات علوم الزلازل"
+          addition: "استخدام 'أرضي' كبديل لـ 'بري' في السياق العلمي المعاصر."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "لسان أرضي"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«لسان أرضي: يمتد داخل البحر» — المعجم الموحد لمصطلحات الجيولوجيا"
+      justification: "مصطلح جغرافي متخصص للدلالة على اللسان الممتد في الماء، وهو الأكثر شيوعاً في المعاجم العلمية الموحدة."
+    - lemma: "رعن"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«الرعن: قنة الجبل الخارجة منه والداخلة في البحر» — المورد الحديث"
+      justification: "لفظ تراثي ومعاصر يستخدم للدلالة على بروز الجبل في البحر، وهو مرادف دقيق لـ 'promontory' و 'cape'."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "رأس"
+      decision: confirmed
+      decision_reason: "مصطلح جغرافي مستقر ومستخدم على نطاق واسع في التسميات الجغرافية (مثل رأس الرجاء الصالح)."
+      evidence_assessment:
+        case: "confirm_only"
+      nuance_differentiation: "اللفظ العام والشامل لأي شريط أرضي يبرز في الماء بغض النظر عن شكله أو طبيعته التضريسية."
+      example: "يعد رأس الرجاء الصالح في جنوب أفريقيا من أشهر الرؤوس الجغرافية التي غيرت مجرى الملاحة."
+
+    - lemma: "لسان بري"
+      decision: confirmed
+      decision_reason: "تعبير تراثي وفصيح يصور الامتداد الأرضي باللسان، ومسجل في المعاجم الجغرافية التاريخية."
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على الشكل المستطيل والضيق للامتداد الأرضي المشابه لِلسان."
+      example: "يمتد اللسان البري طويلاً في مياه الخليج، مما يوفر حماية طبيعية للميناء القديم."
+
+    - lemma: "لسان أرضي"
+      source: step05
+      decision: confirmed
+      decision_reason: "المصطلح العلمي الأكثر دقة وشيوعاً في الجغرافيا الطبيعية المعاصرة."
+      step05_citation: "«لسان أرضي: يمتد داخل البحر» — المعجم الموحد لمصطلحات الجيولوجيا"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "المرادف العلمي الحديث لـ 'لسان بري'، ويستخدم في الدراسات الجيومورفولوجية."
+      example: "تتشكل الألسنة الأرضية غالباً بفعل تيارات الحمل التي ترسب الرمال عند انحناءات الساحل."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "لسان أرضي"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09256622-n"
+
+    - lemma: "رعن"
+      source: step05
+      decision: confirmed
+      decision_reason: "لفظ عربي أصيل يصف الجزء البارز من الجبل في البحر."
+      step05_citation: "«الرعن: قنة الجبل الخارجة منه والداخلة في البحر» — المورد الحديث"
+      nuance_differentiation: "يخصص الرأس الذي يكون عبارة عن أنف جبل أو بروز صخري مرتفع، وليس مجرد شريط رملي."
+      example: "كانت السفن القديمة تهتدي بالرعان الجبلية الشاهقة لتحديد مواقعها على طول الساحل الصخري."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "رعن"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09256622-n"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شريط من الأرض يبرز في مسطح مائي"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق ومباشر ويغطي الدلالة اللغوية والعلمية للمفهوم."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-09357302-n (أرض، بر، يابسة)"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "رأس"
+        antonym_found: true
+        antonym: "خليج"
+  actions:
+    - command: add_synset_relation
+      params:
+        source_id: "awn4-09256622-n"
+        relation_type: "antonym"
+        target_id: "awn4-09241517-n"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "رأس"
+      enrichment:
+        root: "ر-أ-س"
+      examples:
+        - text: "رأس الرجاء الصالح"
+          type: usage
+          source: "شائع"
+    - lemma: "لسان بري"
+      enrichment:
+        root: "ل-س-ن"
+      examples:
+        - text: "اللسان البري يحمي الخليج من الرياح العاتية."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "لسان أرضي"
+      enrichment:
+        root: "ل-س-ن"
+      examples:
+        - text: "يتكون اللسان الأرضي من تراكم الرواسب البحرية."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "رعن"
+      enrichment:
+        root: "ر-ع-ن"
+      examples:
+        - text: "بكل عرض معرض.. مؤرضة قد ذهبت في مؤرض"
+          type: poetry
+          source: "تاج العروس"
+        - text: "هذا الرعن الجبلي يبرز بوضوح في مياه المحيط."
+          type: usage
+          source: "مؤلَّف"
+  cultural_fit:
+    assessment: native

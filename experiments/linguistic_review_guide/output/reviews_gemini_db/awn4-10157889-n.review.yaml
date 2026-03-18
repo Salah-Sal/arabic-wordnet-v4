@@ -1,0 +1,178 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "حَلِيف"
+      confirm:
+        - text: "«المتعاهد على التناصر الملازم»"
+          source: "المعجم الوسيط"
+        - text: "«الحالفُ المُحَالِفُ المُعِينُ المُلازِمُ»"
+          source: "المعجم الكبير"
+    - lemma: "شَخْص طَيِّب"
+      evidence_status: "no_material_found"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "نَصِير"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«الكثير العون والتأييد لغيره من الناس» — موسوعة السلطان قابوس لأسماء العرب"
+      justification: "مصطلح فصيح (صيغة مبالغة) يدل على كثرة التأييد والعون والوقوف في صف الشخص."
+    - lemma: "مُؤَيِّد"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«supporter» — المورد الحديث"
+      justification: "مصطلح من الاشتقاق (اسم فاعل) يدل على من يقدم الدعم والمساندة والوقوف في صف أحدهم."
+  generation_notes: "تم التوليد بناء على تحليل الكلمات المفتاحية لمفهوم التأييد والمناصرة والوقوف في الصف."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "حَلِيف"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح وشائع يدل بدقة على من يتعاهد معك على التناصر والوقوف في صفك."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يغلب استعماله في السياقات التي تتضمن تعاهداً رسمياً أو عرفياً كالسياق العسكري أو السياسي."
+      example: "وقفت الدولة الحليفة إلى جانبنا في الأزمة الأخيرة."
+
+    - lemma: "شَخْص طَيِّب"
+      decision: removed
+      decision_reason: "ترجمة حرفية عمياء (Blind Literal) للمصطلح الإنجليزي 'good guy'. في العربية، 'شخص طيب' تعني إنساناً حسن الأخلاق ولا تحمل الدلالة الاصطلاحية المقصودة (الشخص الذي يقف في صفك)."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "مرفوض لأنه لا يؤدي المعنى المقصود في هذا السياق الدلالي."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "نَصِير"
+      source: step05
+      decision: confirmed
+      decision_reason: "كلمة فصيحة تناسب الدلالة على من يقف في صفك ويدعمك، من غير اشتراط التعاهد الرسمي."
+      step05_citation: "«الكثير العون والتأييد لغيره من الناس» — موسوعة السلطان قابوس لأسماء العرب"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يختلف عن الحليف بأنه لا يستلزم بالضرورة وجود حلف أو معاهدة مسبقة، بل هو من يقف معك وينصرك بدافع المبدأ أو المودة."
+      example: "كان صديقه خير نصير له في مواجهة خصومه."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "نَصِير"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10157889-n"
+
+    - lemma: "مُؤَيِّد"
+      source: step05
+      decision: confirmed
+      decision_reason: "اسم فاعل مناسب للدلالة على من يقف في صفك ويساندك."
+      step05_citation: "«supporter» — المورد الحديث"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يبرز معنى الموافقة والدعم والمؤازرة بالرأي أو الفعل لموقف أو شخص."
+      example: "لم يجد الشاب أي مؤيد له في قراره الصعب."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُؤَيِّد"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10157889-n"
+
+  synset_flags:
+    definition_review_needed: true
+  added_lemmas:
+    - lemma: "نَصِير"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+    - lemma: "مُؤَيِّد"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "أي شخص يكون في صفك"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي أشبه بترجمة حرفية عامية وتركيبه ركيك. تمت صياغة تعريف لغوي أدق يعبر عن الوقوف إلى جانب الشخص."
+  authored_definitions:
+    - type: linguistic
+      text: "مَن يُناصرك ويقف إلى جانبك مُؤَيِّداً ومُعِيناً"
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-10157889-n"
+        definition_index: 0
+        text: "مَن يُناصرك ويقف إلى جانبك مُؤَيِّداً ومُعِيناً"
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-09786620-n"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "حَلِيف"
+        antonym_found: false
+      - lemma: "نَصِير"
+        antonym_found: false
+      - lemma: "مُؤَيِّد"
+        antonym_found: false
+  verb_checks:
+    applicable: false
+  selectional_restrictions:
+    - lemma: "حَلِيف"
+      constraint: "فاعل عاقل أو كيان اعتباري (مثل دولة)"
+    - lemma: "نَصِير"
+      constraint: "فاعل عاقل أو كيان اعتباري"
+    - lemma: "مُؤَيِّد"
+      constraint: "فاعل عاقل أو كيان اعتباري"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "حَلِيف"
+      enrichment:
+        root: "ح-ل-ف"
+      examples:
+        - text: "وقفت الدولة الحليفة إلى جانبنا في الأزمة الأخيرة."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "نَصِير"
+      enrichment:
+        root: "ن-ص-ر"
+      examples:
+        - text: "كان صديقه خير نصير له في مواجهة خصومه."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "مُؤَيِّد"
+      enrichment:
+        root: "أ-ي-د"
+      examples:
+        - text: "لم يجد الشاب أي مؤيد له في قراره الصعب."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-10157889-n"
+        text: "وقفت الدولة الحليفة إلى جانبنا في الأزمة الأخيرة."

@@ -1,0 +1,230 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'تعقيم' تشير غالبا في المعاجم المتخصصة إلى الإبادة الكاملة (Sterilization)، بينما التعريف يركز على التثبيط (Inhibition/Antisepsis)."
+      - "غياب المصطلحات الفنية الدقيقة التي تميز بين التطهير (antisepsis) والتعقم (asepsis)."
+    observations: "المجموعة تغطي مفاهيم الوقاية من العدوى الميكروبية. اللمات الموجودة صحيحة وشائعة، لكنها تحتاج إلى تعزيز بمصطلحات أكثر تخصصا لتمثيل الفوارق الدقيقة بين منع النمو (antisepsis) والخلو من الجراثيم (asepsis)."
+  blind_candidates:
+    - lemma: "تَطْهِير"
+      generation_method: ishtiqaq
+      justification: "اللفظ الأكثر شيوعا للتعبير عن عملية تنقية الأشياء من الميكروبات."
+    - lemma: "تَعْقِيم"
+      generation_method: ishtiqaq
+      justification: "مصطلح طبي حديث شائع للتعبير عن جعل الشيء عقيما من الكائنات الحية."
+    - lemma: "إِبْطَالُ العُفُونَة"
+      generation_method: tarkib
+      justification: "ترجمة مصطلحية دقيقة لمصطلح (Antisepsis) حيث العفونة تقابل (sepsis)."
+    - lemma: "تَعَقُّم"
+      generation_method: ishtiqaq
+      justification: "المصدر من تعقم، ويستخدم للتعبير عن حالة الخلو من الميكروبات (asepsis)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تطهير"
+      confirm:
+        - text: "إبادة الجراثيم بمطهر."
+          source: "معجم المصطلحات الطبية (ج.1، 1985)"
+        - text: "جعل الشيء خالياً من الميكروبات الضارة."
+          source: "المعجم الموحد لمصطلحات تقانات الأغذية (2004)"
+      expands:
+        - text: "التطهير يدل على تدمير معظم وليس كل هذه الكائنات."
+          source: "مسرد المناخ والبيئة وإدارة النفايات الصلبة (ArabTerm)"
+    - lemma: "تعقيم"
+      confirm:
+        - text: "عملية تؤدي إلى إبادة البكتريا وغيرها من الكائنات الحية الدقيقة بوساطة الغليان أو غير ذلك لتعقيم المَعَدَّات الجراحية."
+          source: "المعجم الوسيط"
+      expands:
+        - text: "تدمير جميع الكائنات الحية في الماء، على أسطح المواد والأدوات المختلفة."
+          source: "مسرد المناخ والبيئة وإدارة النفايات الصلبة (ArabTerm)"
+    - lemma: "تَعَقُّم"
+      confirm:
+        - text: "خلو من الإنتان والعوامل المسببة له."
+          source: "المعجم الموحد لمصطلحات علم الصيدلة (2009)"
+    - lemma: "إِبْطَالُ العُفُونَة"
+      confirm:
+        - text: "مانع العفونة (Antiseptic): كل عقار يقتل البكتيريا أو يوقف نموها."
+          source: "معجم المصطلحات الطبية (ج.1، 1985)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تطهير"
+      decision: confirmed
+      decision_reason: "اللفظ الأساسي والمطابق للتعريف في المعاجم الطبية العامة والمتخصصة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَطْهِير"
+    - lemma: "تعقيم"
+      decision: confirmed
+      decision_reason: "رغم دلالته الفنية على الإبادة الكاملة، إلا أنه يستخدم ترادفيا مع التطهير في السياقات الطبية العامة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَعْقِيم"
+    - lemma: "تَعَقُّم"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فني دقيق يمثل جانب الـ (asepsis) في المجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "تَعَقُّم"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "إِبْطَالُ العُفُونَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "ترجمة دقيقة لمصطلح (antisepsis) وتستعمل في الأدبيات الطبية الرصينة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "إِبْطَالُ العُفُونَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "عملية تثبيط نمو وتكاثر الكائنات الحية الدقيقة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب؛ يفضل إضافة الغرض من العملية (منع العدوى أو الفساد) لتمييزه عن التثبيط البيولوجي العام."
+    authored:
+      - type: terminological
+        text: "عملية مَنْع أو توقيف نمو وتكاثر الكائنات الحية الدقيقة المسببة للأمراض باستخدام وسائل فيزيائية أو كيميائية لمنع الإنتان."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "عملية مَنْع أو توقيف نمو وتكاثر الكائنات الحية الدقيقة المسببة للأمراض باستخدام وسائل فيزيائية أو كيميائية لمنع الإنتان."
+  examples:
+    per_lemma:
+      - lemma: "تَطْهِير"
+        examples:
+          - text: "يجب إجراء تطهير كامل للجروح السطحية لمنع حدوث أي مضاعفات."
+            type: usage
+      - lemma: "تَعْقِيم"
+        examples:
+          - text: "يعد تعقيم الأدوات الجراحية خطوة حيوية قبل البدء في أي عملية."
+            type: usage
+      - lemma: "تَعَقُّم"
+        examples:
+          - text: "تحرص المستشفيات على ضمان حالة التعقم في غرف العمليات بصرامة."
+            type: usage
+      - lemma: "إِبْطَالُ العُفُونَة"
+        examples:
+          - text: "تعتمد مبادئ إبطال العفونة على استخدام المطهرات الكيميائية فوق الأنسجة الحية."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "تتضمن عملية التطهير والتعقيم استخدام مواد كيميائية لتثبيط الجراثيم."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تَطْهِير"
+      entry_id: "{auto}"
+      root: "طهر"
+      maqayis_quote: "«الطَّاءُ وَالْهَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى نَقَاءٍ وَزَوَالِ دَنَسٍ.»"
+    - lemma: "تَعْقِيم"
+      entry_id: "{auto}"
+      root: "عقم"
+      maqayis_quote: "«الْعَيْنُ وَالْقَافُ وَالْمِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى غُمُوضٍ وَضِيقٍ وَشِدَّةٍ... عَقِمَتِ الرَّحِمُ عُقْمًا، وَذَلِكَ هَزْمَةٌ تَقَعُ فِي الرَّحِمِ فَلَا تَقْبَلُ الْوَلَدَ.»"
+    - lemma: "تَعَقُّم"
+      entry_id: "{auto}"
+      root: "عقم"
+      maqayis_quote: "«الْعَيْنُ وَالْقَافُ وَالْمِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى غُمُوضٍ وَضِيقٍ وَشِدَّةٍ.»"
+    - lemma: "إِبْطَالُ العُفُونَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "إبطال"
+          root: "بطل"
+          maqayis_quote: "«الْبَاءُ وَالطَّاءُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ ذَهَابُ الشَّيْءِ وَقِلَّةُ مُكْثِهِ وَلُبْثِهِ.»"
+        - word: "العفونة"
+          root: "عفن"
+          maqayis_quote: "«الْعَيْنُ وَالْفَاءُ وَالنُّونُ كَلِمَةٌ تَدُلُّ عَلَى فَسَادٍ فِي شَيْءٍ مِنْ نَدًى.»"
+  per_sense:
+    - lemma: "تَطْهِير"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام والشامل لعملية التنقية وقتل الجراثيم."
+      mwe: false
+    - lemma: "تَعْقِيم"
+      sense_id: "{auto}"
+      nuance: "يركز على جعل الوسط غير قابل لنمو أي حياة (عقيم)، وغالبا ما يستخدم للأدوات."
+      mwe: false
+    - lemma: "تَعَقُّم"
+      sense_id: "{auto}"
+      nuance: "يشير إلى الحالة أو الإجراءات التي تضمن بقاء الوسط خاليا من الميكروبات (Asepsis)."
+      mwe: false
+    - lemma: "إِبْطَالُ العُفُونَة"
+      sense_id: "{auto}"
+      nuance: "مصطلح فني يركز على منع التعفن والإنتان في الأنسجة الحية (Antisepsis)."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"طهر","maqayis":"«الطَّاءُ وَالْهَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى نَقَاءٍ وَزَوَالِ دَنَسٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عقم","maqayis":"«الْعَيْنُ وَالْقَافُ وَالْمِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى غُمُوضٍ وَضِيقٍ وَشِدَّةٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"إبطال","root":"بطل","maqayis":"«الْبَاءُ وَالطَّاءُ وَاللَّامُ أَصْلٌ وَاحِدٌ...»"},{"word":"العفونة","root":"عفن","maqayis":"«الْعَيْنُ وَالْفَاءُ وَالنُّونُ كَلِمَةٌ تَدُلُّ عَلَى فَسَادٍ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العام والشامل لعملية التنقية وقتل الجراثيم.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

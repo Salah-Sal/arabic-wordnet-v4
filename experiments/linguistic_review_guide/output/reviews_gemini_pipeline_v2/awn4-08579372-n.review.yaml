@@ -1,0 +1,155 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة (غرب) تفتقر للتشكيل التام."
+    observations: "المفهوم يعبر عن الجزء المكاني الواقع في جهة الغرب بالنسبة لكلٍّ جغرافي (بلد، مدينة، إلخ)، وهو مفهوم أصيل في اللغة العربية."
+  blind_candidates:
+    - lemma: "غَرْب"
+      generation_method: ishtiqaq
+      justification: "الاسم المباشر الدال على الجهة أو الجزء الواقع فيها."
+    - lemma: "مَغْرِب"
+      generation_method: ishtiqaq
+      justification: "اسم مكان يدل على موضع الغروب أو الناحية الغربية."
+    - lemma: "جِهَة غَرْبِيَّة"
+      generation_method: tarkib
+      justification: "تعبير مركب يدل على الناحية المكانية الغربية."
+    - lemma: "نَاحِيَة غَرْبِيَّة"
+      generation_method: tarkib
+      justification: "مركب وصفي شائع الاستخدام في السياقات الجغرافية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "غَرْب"
+      confirm:
+        - text: "«(الغرب) جِهَة غرُوب الشَّمْس والبلاد الْوَاقِعَة فِيهِ وَهِي مَا تقَابل بِلَاد الشرق»"
+          source: "المعجم الوسيط"
+        - text: "«الغَرْبُ: المَغْرِبُ»"
+          source: "القاموس المحيط"
+    - lemma: "مَغْرِب"
+      confirm:
+        - text: "«مَغْرِبُ الشَّمْسِ: حَيْثُ تَغْرُبُ»"
+          source: "القاموس المحيط"
+        - text: "«المغرب: مَكَان غرُوب الشَّمْس»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«مَغْرِبِيّ: مَنْسُوب إِلَى الْمَغْرِبِ، أَوْ مِنْ سُكَّانِ بِلَادِ الْمَغْرِبِ»"
+          source: "المعجم الوسيط"
+          addition: "يدل على النسبة الجغرافية للجهة."
+    - lemma: "جِهَة غَرْبِيَّة"
+      evidence_status: "no_material_found"
+    - lemma: "نَاحِيَة غَرْبِيَّة"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "غرب"
+      decision: confirmed
+      decision_reason: "المصطلح الأساسي والأكثر دقة للتعبير عن الجزء الغربي من الكيان الجغرافي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "غَرْب"
+    - lemma: "مَغْرِب"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اسم مكان أصيل يدل على الناحية الغربية، وإن كان استخدامه الغالب اليوم ينصرف للمغرب الأقصى أو وقت الصلاة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَغْرِب", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "جِهَة غَرْبِيَّة"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير وصفي حر وليس وحدة معجمية مسكوكة."
+    - lemma: "نَاحِيَة غَرْبِيَّة"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير وصفي حر يفتقر للتثبيت المعجمي كمدخل مستقل."
+
+stage4_content:
+  definition:
+    current: "موقع في الجزء الغربي من بلد أو منطقة أو مدينة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقبول ولكنه يحتاج صياغة أكثر دقة بأسلوب المعاجم العربية."
+    authored:
+      - type: linguistic
+        text: "الجزء أو الناحية من الأرض التي تقع في جهة غروب الشمس بالنسبة إلى بلد أو منطقة أو مدينة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "الجزء أو الناحية من الأرض التي تقع في جهة غروب الشمس بالنسبة إلى بلد أو منطقة أو مدينة."}
+  examples:
+    per_lemma:
+      - lemma: "غَرْب"
+        examples:
+          - text: "يتركز معظم السكان في غَرْب البلاد نظراً لاعتدال المناخ وتوفر المياه."
+            type: usage
+      - lemma: "مَغْرِب"
+        examples:
+          - text: "سافرت القوافل التجارية قديماً نحو مَغْرِب الإقليم لتبادل البضائع."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يتركز معظم السكان في غَرْب البلاد نظراً لاعتدال المناخ وتوفر المياه."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "سافرت القوافل التجارية قديماً نحو مَغْرِب الإقليم لتبادل البضائع."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "غَرْب"
+      entry_id: "{auto}"
+      root: "غرب"
+      maqayis_quote: "«الْغَيْنُ وَالرَّاءُ وَالْبَاءُ أَصْلٌ صَحِيحٌ... وَمِنْ هَذَا الْبَابِ: غُرُوبُ الشَّمْسِ، كَأَنَّهُ بُعْدُهَا عَنْ وَجْهِ الْأَرْضِ.»"
+    - lemma: "مَغْرِب"
+      entry_id: "{auto}"
+      root: "غرب"
+      maqayis_quote: "«الْغَيْنُ وَالرَّاءُ وَالْبَاءُ أَصْلٌ صَحِيحٌ... وَمِنْ هَذَا الْبَابِ: غُرُوبُ الشَّمْسِ، كَأَنَّهُ بُعْدُهَا عَنْ وَجْهِ الْأَرْضِ.»"
+  per_sense:
+    - lemma: "غَرْب"
+      sense_id: "{auto}"
+      nuance: "المصطلح المباشر والشائع للتعبير عن الجزء الجغرافي."
+      mwe: false
+    - lemma: "مَغْرِب"
+      sense_id: "{auto}"
+      nuance: "اسم مكان يشير إلى موضع الغروب أو الناحية التي يقع فيها، وقد يحمل دلالة تاريخية أو حضارية."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"غرب","maqayis":"«الْغَيْنُ وَالرَّاءُ وَالْبَاءُ أَصْلٌ صَحِيحٌ... وَمِنْ هَذَا الْبَابِ: غُرُوبُ الشَّمْسِ، كَأَنَّهُ بُعْدُهَا عَنْ وَجْهِ الْأَرْضِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح المباشر والشائع للتعبير عن الجزء الجغرافي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

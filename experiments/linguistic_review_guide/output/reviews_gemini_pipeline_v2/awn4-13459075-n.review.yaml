@@ -1,0 +1,175 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي يقتصر على 'التنفيذ التسلسلي'، بينما الجوهر الدلالي للمعالجة الدفعية هو 'التجميع' ومعالجة المجموعات دون تدخل بشري."
+    observations: "المصطلح العربي المستقر هو 'معالجة دفعية'، وهناك مرادفات حديثة مستخدمة في المعاجم المتخصصة مثل 'معالجة الحزمة'."
+  blind_candidates:
+    - lemma: "مُعَالَجَةٌ دُفْعِيَّةٌ"
+      generation_method: tarkib
+      justification: "الترجمة القياسية لـ (batch processing) حيث 'دفعية' تعني المعالجة على دفعات (batches)."
+    - lemma: "مُعَالَجَةُ الحُزْمَةِ"
+      generation_method: tarkib
+      justification: "استخدام 'الحزمة' (bundle/packet) للتعبير عن المجموعة المعالجة ككتلة واحدة."
+    - lemma: "تَنْفِيذٌ دُفْعِيٌّ"
+      generation_method: tarkib
+      justification: "يركز على جانب 'التنفيذ' (execution) المذكور في التعريف."
+    - lemma: "مُعَالَجَةٌ بِالدُّفْعَاتِ"
+      generation_method: tarkib
+      justification: "تعبير وصفي شائع في المعاجم التقنية الموحدة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "معالجة دفعية"
+      confirm:
+        - text: "تنفيذُ ملفٍّ دفعيّ (سلسلة من أوامر نظام التشغيل المُخزنة ضمن ملف، تنفذ تباعاً، بدون تدخل المستخدِم بعد بدء التنفيذ)."
+          source: "معجم مصطلحات المعلوماتية (2000)"
+        - text: "عملية معالجة متقطعة تعالج فيها كمية معينة من السائل في كل مرة، أي على دفعات"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية (2012)"
+    - lemma: "معالجة الحزمة"
+      confirm:
+        - text: "معالجة مجموعة من البيانات أو البرامج بأقل قدر من التفاعل البشري."
+          source: "معجم البيانات والذكاء الاصطناعي (2024)"
+    - lemma: "معالجة بالدفعات"
+      confirm:
+        - text: "معالجة تلقائية لمتتالية من المعطيات في شكل دفعات حسب ترتيب متتال"
+          source: "المعجم الموحد لمصطلحات تقانة المعلومات (2011)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "معالجة دفعية"
+      decision: confirmed
+      decision_reason: "المصطلح الأساسي والمستقر في أدبيات الحوسبة وتقنية المعلومات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُعَالَجَةٌ دُفْعِيَّةٌ"
+    - lemma: "مُعَالَجَةُ الحُزْمَةِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح حديث معتمد في معاجم الذكاء الاصطناعي والبيانات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "مُعَالَجَةُ الحُزْمَةِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-13459075-n"}
+    - lemma: "مُعَالَجَةٌ بِالدُّفْعَاتِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف فصيح معتمد في المعاجم الموحدة (ALECSO)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "مُعَالَجَةٌ بِالدُّفْعَاتِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-13459075-n"}
+
+stage4_content:
+  definition:
+    current: "التنفيذ التسلسلي لبرامج الكمبيوتر"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي قاصر؛ فالمعالجة الدفعية لا تقتصر على التسلسل بل تشمل تجميع المهام وتنفيذها دون تدخل بشري."
+    authored:
+      - type: terminological
+        text: "تَنْفِيذُ مَجْمُوعَةٍ مِنَ البَرَامِجِ أَوْ مِلَفَّاتِ البَيَانَاتِ بِشَكْلٍ مُتَتَالٍ دُونَ تَدَخُّلٍ مُبَاشِرٍ مِنَ المُسْتَخْدِمِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-13459075-n", definition_index: 0, text: "تَنْفِيذُ مَجْمُوعَةٍ مِنَ البَرَامِجِ أَوْ مِلَفَّاتِ البَيَانَاتِ بِشَكْلٍ مُتَتَالٍ دُونَ تَدَخُّلٍ مُبَاشِرٍ مِنَ المُسْتَخْدِمِ."}
+  examples:
+    per_lemma:
+      - lemma: "مُعَالَجَةٌ دُفْعِيَّةٌ"
+        examples:
+          - text: "تُسْتَخْدَمُ المُعَالَجَةُ الدُّفْعِيَّةُ فِي تَنْفِيذِ كُشُوفِ المُرَتَّبَاتِ فِي نِهَايَةِ الشَّهْرِ."
+            type: usage
+      - lemma: "مُعَالَجَةُ الحُزْمَةِ"
+        examples:
+          - text: "تَتَمَيَّزُ مُعَالَجَةُ الحُزْمَةِ بِالكِفَايَةِ فِي التَّعَامُلِ مَعَ كَمِّيَّاتٍ ضَخْمَةٍ مِنَ البَيَانَاتِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-13459075-n", text: "تُسْتَخْدَمُ المُعَالَجَةُ الدُّفْعِيَّةُ فِي تَنْفِيذِ كُشُوفِ المُرَتَّبَاتِ فِي نِهَايَةِ الشَّهْرِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُعَالَجَةٌ دُفْعِيَّةٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "معالجة"
+          root: "علج"
+          maqayis_quote: "«الْعَيْنُ وَاللَّامُ وَالْجِيمُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَمَرُّسٍ وَمُزَاوَلَةٍ... وَالْعِلَاجُ: مُزَاوَلَةُ الشَّيْءِ وَمُعَالَجَتُهُ.»"
+        - word: "دفعية"
+          root: "دفع"
+          maqayis_quote: "«الدَّالُ وَالْفَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ مَشْهُورٌ، يَدُلُّ عَلَى تَنْحِيَةِ الشَّيْءِ... وَالدُّفْعَةُ مِنَ الْمَطَرِ وَالدَّمِ وَغَيْرِهِ... كُلُّ ذَلِكَ مُشْتَقٌّ مِنْ أَنَّ بَعْضَهُ يَدْفَعُ بَعْضًا.»"
+    - lemma: "مُعَالَجَةُ الحُزْمَةِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "معالجة"
+          root: "علج"
+          maqayis_quote: "«الْعَيْنُ وَاللَّامُ وَالْجِيمُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَمَرُّسٍ وَمُزَاوَلَةٍ...»"
+        - word: "الحزمة"
+          root: "حزم"
+          maqayis_quote: "«الْحَاءُ وَالزَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ، وَهُوَ شَدُ الشَّيْءِ وَجَمْعُهُ، قِيَاسٌ مُطَّرِدٌ... وَالْحُزْمَةُ مِنَ الْحَطَبِ وَغَيْرِهِ مَعْرُوفَةٌ.»"
+  per_sense:
+    - lemma: "مُعَالَجَةٌ دُفْعِيَّةٌ"
+      sense_id: "{auto}"
+      nuance: "المصطلح الأكثر شيوعاً واستقراراً في علوم الحاسوب."
+      mwe: true
+    - lemma: "مُعَالَجَةُ الحُزْمَةِ"
+      sense_id: "{auto}"
+      nuance: "يركز على مفهوم 'الحزمة' ككتلة بيانات موحدة، وهو رائج في سياق البيانات الضخمة."
+      mwe: true
+    - lemma: "مُعَالَجَةٌ بِالدُّفْعَاتِ"
+      sense_id: "{auto}"
+      nuance: "صيغة وصفية تؤكد على طبيعة العملية التكرارية على أجزاء."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"معالجة","root":"علج","maqayis":"«الْعَيْنُ وَاللَّامُ وَالْجِيمُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَمَرُّسٍ وَمُزَاوَلَةٍ... وَالْعِلَاجُ: مُزَاوَلَةُ الشَّيْءِ وَمُعَالَجَتُهُ.»"},{"word":"دفعية","root":"دفع","maqayis":"«الدَّالُ وَالْفَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ مَشْهُورٌ، يَدُلُّ عَلَى تَنْحِيَةِ الشَّيْءِ... وَالدُّفْعَةُ مِنَ الْمَطَرِ وَالدَّمِ وَغَيْرِهِ... كُلُّ ذَلِكَ مُشْتَقٌّ مِنْ أَنَّ بَعْضَهُ يَدْفَعُ بَعْضًا.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"معالجة","root":"علج","maqayis":"«...»"},{"word":"الحزمة","root":"حزم","maqayis":"«الْحَاءُ وَالزَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ، وَهُوَ شَدُ الشَّيْءِ وَجَمْعُهُ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الأكثر شيوعاً واستقراراً في علوم الحاسوب.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-13459075-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-13459075-n"
+        score: 0.95

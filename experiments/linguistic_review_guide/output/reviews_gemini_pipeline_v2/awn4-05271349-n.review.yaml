@@ -1,0 +1,218 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّة الحالية 'مادة جسدية' صحيحة ولكنها تعبير وصفي بسيط، ويفتقر المعنى لبعض المصطلحات التراثية أو الفلسفية التي تعبر عن الجوهر المادي."
+    observations: "المفهوم يشير إلى المادة الفيزيائية التي يتكون منها الجسم. في المعاجم القديمة، يُعرّف 'اللحم' بأنه 'المادة المعروفة في الجسد'، ولكن بما أن اللحم له مجموعة ترادفية خاصة، يفضل استخدام مصطلحات أعمّ."
+  blind_candidates:
+    - lemma: "جُسْمَانٌ"
+      generation_method: ishtiqaq
+      justification: "لفظ تراثي يشير إلى جسم الإنسان وشخصه وكتلته المادية."
+    - lemma: "مَادَّةٌ جَسَدِيَّةٌ"
+      generation_method: tarkib
+      justification: "تعبير اصطلاحي مباشر يصف المادة التي يتكون منها الجسد."
+    - lemma: "بِضْعَةٌ"
+      generation_method: majaz
+      justification: "تشير في الأصل إلى القطعة من اللحم، وتُستخدم مجازاً للإشارة إلى جزء من مادة الجسم."
+    - lemma: "جَسَدَانِيَّةٌ"
+      generation_method: ishtiqaq
+      justification: "مصدر صناعي يعبر عن الطبيعة المادية للجسد أو الجوهر الجسدي."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مادة جسدية"
+      confirm:
+        - text: "«وهذه المسافة تتغير بتغير مادة الجسم»"
+        - source: "مسرد الهندسة الكهربائية (ArabTerm)"
+    - lemma: "جُسْمَانٌ"
+      confirm:
+        - text: "«(الجسمان) الْجِسْم والشخص»"
+          source: "المعجم الوسيط"
+        - text: "«(الجسمان): الشخص»"
+          source: "مقاييس اللغة"
+    - lemma: "لَحْمٌ"
+      expands:
+        - text: "«المادة المعروفة في الجسد»"
+          source: "كتاب العين"
+          addition: "يؤكد أن اللحم هو المادة الأساسية المكونة للجسد، مما يدعم مفهوم 'مادة الجسم'."
+    - lemma: "جُسْمَانِيَّةٌ"
+      confirm:
+        - text: "«الجسمانية؛ الجَسَدانيّة: الوجود الماديّ؛ الجسد»"
+          source: "المورد الحديث"
+    - lemma: "مَادَّةٌ بَدَنِيَّةٌ"
+      confirm:
+        - text: "«لحمي: جسدي»"
+          source: "تكملة المعاجم (دوزي)"
+          addition: "يدعم استخدام الأوصاف المشتقة من 'بدن' و'جسد' لوصف المادة."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مادة جسدية"
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي دقيق وشائع في الاستخدام العلمي المعاصر لوصف المادة المكونة للجسم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَادَّةٌ جَسَدِيَّةٌ"
+    - lemma: "جُسْمَانٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ عربي أصيل يعبر عن الذات المادية والجسمية، وهو أدق في التعبير عن 'كتلة الجسم' كمادة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "جُسْمَانٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مَادَّةٌ بَدَنِيَّةٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف قوي لـ'مادة جسدية' مع التركيز على 'البدن' ككيان مادي فيزيائي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "مَادَّةٌ بَدَنِيَّةٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "جُسْمَانِيَّةٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير عن الجوهر المادي للجسم، مستخدم في السياقات الفلسفية والحديثة لوصف الطبيعة الجسمانية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "جُسْمَانِيَّةٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "بِضْعَةٌ"
+      source: stage1
+      decision: removed
+      decision_reason: "على الرغم من دلالتها على قطعة اللحم، إلا أنها تظل محدودة في دلالتها الجزئية ولا ترقى لوصف 'المادة' ككل."
+
+stage4_content:
+  definition:
+    current: "مادة الجسم"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب جداً ويقترب من الدور اللفظي."
+    authored:
+      - type: terminological
+        text: "الجوهر أو المادة الفيزيائية التي يتألف منها بدن الكائن الحي، وتشمل الأنسجة والعظام والدم وغيرها."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "الجوهر أو المادة الفيزيائية التي يتألف منها بدن الكائن الحي، وتشمل الأنسجة والعظام والدم وغيرها."}
+  examples:
+    per_lemma:
+      - lemma: "مَادَّةٌ جَسَدِيَّةٌ"
+        examples:
+          - text: "يعد اللحم المادة الجسدية الأساسية التي تغلف هيكل الحيوان."
+            type: usage
+      - lemma: "جُسْمَانٌ"
+        examples:
+          - text: "يتكون جسمان الإنسان من عناصر كيميائية متعددة ومركبات حيوية معقدة."
+            type: usage
+      - lemma: "مَادَّةٌ بَدَنِيَّةٌ"
+        examples:
+          - text: "تختلف المادة البدنية في كثافتها وصلابتها بين الكائنات الحية تبعا لبيئتها."
+            type: usage
+      - lemma: "جُسْمَانِيَّةٌ"
+        examples:
+          - text: "تتميز الكائنات الحية بجسمانية فريدة تتألف من مواد عضوية قادرة على التجدد."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَادَّةٌ جَسَدِيَّةٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مادة"
+          root: "مدد"
+          maqayis_quote: "«المميم والدال أصل واحد يدل على جر شيء في طول، واتصال شيء بشيء في استطالة»"
+        - word: "جسدية"
+          root: "جسد"
+          maqayis_quote: "«الجيم والسين والدال يدل على تجمع الشيء أيضا واشتداده. من ذلك جسد الإنسان»"
+    - lemma: "جُسْمَانٌ"
+      entry_id: "{auto}"
+      root: "جسم"
+      maqayis_quote: "«الجيم والسين والميم يدل على تجمع الشيء. فالجسم كل شخص مدرك... والجسمان: الشخص»"
+    - lemma: "مَادَّةٌ بَدَنِيَّةٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مادة"
+          root: "مدد"
+          maqayis_quote: "«المميم والدال أصل واحد يدل على جر شيء في طول، واتصال شيء بشيء في استطالة»"
+        - word: "بدنية"
+          root: "بدن"
+          maqayis_quote: "«الباء والدال والنون أصل واحد، وهو شخص الشيء دون شواه... هذا بدن الإنسان»"
+    - lemma: "جُسْمَانِيَّةٌ"
+      entry_id: "{auto}"
+      root: "جسم"
+      maqayis_quote: "«الجيم والسين والميم يدل على تجمع الشيء. فالبجسم كل شخص مدرك»"
+  per_sense:
+    - lemma: "مَادَّةٌ جَسَدِيَّةٌ"
+      sense_id: "{auto}"
+      nuance: "المصطلح العلمي الشائع لوصف المادة المكونة للجسد."
+      mwe: true
+    - lemma: "جُسْمَانٌ"
+      sense_id: "{auto}"
+      nuance: "يركز على الكتلة الفيزيائية أو الشخص القائم (البدن في كليته المادية)."
+      mwe: false
+    - lemma: "مَادَّةٌ بَدَنِيَّةٌ"
+      sense_id: "{auto}"
+      nuance: "مرادف لـ'مادة جسدية' يركز على الجانب العضوي الملموس (البدن)."
+      mwe: true
+    - lemma: "جُسْمَانِيَّةٌ"
+      sense_id: "{auto}"
+      nuance: "يشير إلى الطبيعة المادية للبدن أو الجوهر الجسماني بشكل أكثر تجريداً."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مادة","root":"مدد","maqayis":"«...»"},{"word":"جسدية","root":"جسد","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جسم","maqayis":"«الجيم والسين والميم يدل على تجمع الشيء. فالجسم كل شخص مدرك... والجسمان: الشخص»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العلمي الشائع لوصف المادة المكونة للجسد.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

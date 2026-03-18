@@ -1,0 +1,163 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "ابن البلد"
+      confirm:
+        - text: "«أ», ابن البلد: .أ» أحد مواليد مدينة معيَّنة... «ب» أحد السكان الوطنيين"
+          source: "المورد الحديث (2008)"
+        - text: "ابن بلد وجمعها أولاد بلاد: ابن المدينة، حضري"
+          source: "تكملة المعاجم العربية (دوزي)"
+        - text: "ابن البلاد: أهلي، بلدي (من أهل البلد الأصليين الناشئين في البلد)"
+          source: "تكملة المعاجم العربية (دوزي)"
+        - text: "ابن البلد، ضد غريب"
+          source: "تكملة المعاجم العربية (دوزي)"
+    - lemma: "مواطن أصلي"
+      confirm:
+        - text: "«أصليّ» (ترجمة لـ native)"
+          source: "المورد الحديث (2008)"
+      expands:
+        - text: "«مُوَاطن» (بمعنى الموافق، أو من عاش مع القوم في وطن واحد)"
+          source: "معجم الصواب اللغوي"
+      evidence_status: "confirm"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "بَلَدِيّ"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«بلدي: نسبة إلى البلد بمعنى المكان المتخذ وطناً. يقال عن الرجل: هو بلدي أي ابن البلد ضد غريب وبراني» — دوزي"
+      justification: "اللفظ يستخدم كاسم (noun) ليدل على الشخص الذي ينتمي للبلد بالمولد والنشأة."
+    - lemma: "أصيل"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«(7) أَصليّ salt in its native state» — المورد الحديث"
+      justification: "كلمة 'أصيل' أو 'أصلي' هي الترجمة الأكاديمية والمصطلحية المعتمدة لـ native في سياق السكان والنباتات والحيوانات."
+  knowledge_candidates:
+    - lemma: "ابن البلاد"
+      justification: "صيغة وردت في المعجم (دوزي) كمرادف مباشر لـ 'ابن بلد' وتؤدي المعنى بدقة."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "ابن البلد"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح وشائع الاستعمال وله توثيق معجمي صريح في المعاجم الحديثة والمعاجم التي تتبع الاستعمال (دوزي، المورد)."
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+        type: "إضافي"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يغلب عليه طابع الانتماء المحلي (المدينة أو الحي) في سياق حضري، ويميل للاستعمال غير الرسمي."
+      example: "يتميز ابن البلد بشهامته وحرصه على خدمة جيرانه وأهل حيّه."
+    - lemma: "مواطن أصلي"
+      decision: confirmed
+      decision_reason: "المصطلح الرسمي والقانوني المعاصر للتعبير عن 'السكان الأصليين' (Natives)، وهو دقيق ومستقر دلالياً."
+      evidence_assessment:
+        case: "confirm"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+        type: "وصفي"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "مصطلح رسمي قانوني يستخدم غالباً في سياق الديموغرافيا والحقوق والتمييز بين السكان الأصليين والمهاجرين."
+      example: "تُبذل الجهود الدولية للحفاظ على لغات المواطنين الأصليين المهددة بالانقراض."
+    - lemma: "بَلَدِيّ"
+      source: step05
+      decision: confirmed
+      decision_reason: "استخدام اللفظ كاسم (noun) موثق في المعاجم (دوزي) ويعني 'ابن البلد'."
+      step05_citation: "«يقال عن الرجل: هو بلدي أي ابن البلد ضد غريب وبراني» — دوزي"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على الانتساب لنفس البلد (المكان) وغالباً ما يستخدم للمقارنة بين المقيمين (البلديين) والغرباء (البرانيين)."
+      example: "سألته عن أصله، فقال: هو بلدي؛ أي من أهل بلدي وداري."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "بَلَدِيّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09644402-n"
+    - lemma: "أصيل"
+      source: step05
+      decision: confirmed
+      decision_reason: "مستعمل بكثرة في السياقات العلمية والبيولوجية والديموغرافية كمرادف لـ native."
+      step05_citation: "«أصيل: native» — معجم مصطلحات المعلوماتية / المورد الحديث"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يؤكد على العراقة والأصالة والقِدم في المكان، ويشمل الإنسان وغيره."
+      example: "يُعتبر هؤلاء القوم السكان الأصلاء (أصيل) لهذه المنطقة الجبلية."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "أصيل"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09644402-n"
+
+step3_definition:
+  current_definition: "شخص ولد في مكان أو بلد معين"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي ترجمة حرفية ركيكة؛ الأفضل صياغته بأسلوب معجمي عربي أصيل."
+  authored_definitions:
+    - type: terminological
+      text: "مَنْ وُلِدَ في بَلَدٍ أو مَكانٍ ما ونشأ فيه، ويُنْسَبُ إليه."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-09644402-n"
+        definition_index: 0
+        text: "مَنْ وُلِدَ في بَلَدٍ أو مَكانٍ ما ونشأ فيه، ويُنْسَبُ إليه."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-09786620-n (عامل/فاعل)"
+    test_result: "wrong"
+  actions:
+    - command: add_synset_relation
+      params:
+        source_id: "awn4-09644402-n"
+        relation_type: "hypernym"
+        target_id: "{auto_person_synset}"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "ابن البلد"
+      enrichment:
+        root: "ب-ن-ي / ب-ل-د"
+      examples:
+        - text: "يتميز ابن البلد بشهامته وحرصه على خدمة جيرانه وأهل حيّه."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "مواطن أصلي"
+      enrichment:
+        root: "و-ط-ن / أ-ص-ل"
+      examples:
+        - text: "قامت الدولة بحماية حقوق المواطنين الأصليين في مناطقهم النائية."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "بَلَدِيّ"
+      enrichment:
+        root: "ب-ل-د"
+      examples:
+        - text: "يقال عن الرجل: هو بلدي؛ أي ابن البلد ضد غريب وبراني."
+          source: "تكملة المعاجم العربية (دوزي)"
+          type: usage
+    - lemma: "أصيل"
+      enrichment:
+        root: "أ-ص-ل"
+      examples:
+        - text: "هؤلاء هم السكان الأصلاء لهذه الجزيرة منذ مئات السنين."
+          type: usage
+          source: "مؤلَّف"
+  cultural_fit:
+    assessment: native

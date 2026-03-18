@@ -1,0 +1,232 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "خلو اللمات الموجودة من التشكيل."
+      - "الترجمة في التعريف جيدة ولكن يمكن صياغتها بأسلوب معجمي عربي أفضل بدلًا من الترجمة الحرفية لكلمة trait."
+    observations: "المفهوم يعبر عن غياب الانضباط والنظام. المصطلحات العربية الشائعة تشمل 'تسيب' ومركبات النفي مثل 'عدم انضباط' والمصطلح المنحوت 'لاانضباط'."
+  blind_candidates:
+    - lemma: "لَاانْضِبَاط"
+      generation_method: tarkib
+      justification: "مركب مزجي يفيد النفي المطلق لحالة الانضباط، ويستخدم كمصطلح واحد يقابل indiscipline."
+    - lemma: "فَوْضَوِيَّة"
+      generation_method: ishtiqaq
+      justification: "مشتق من الفوضى، للدلالة على غياب النظام والانضباط."
+    - lemma: "انْفِلَات"
+      generation_method: ishtiqaq
+      justification: "من انفلت، أي خرج عن السيطرة والنظام."
+    - lemma: "تَرَهُّل"
+      generation_method: majaz
+      justification: "انتقال دلالي من الضعف البدني إلى الضعف التنظيمي وغياب الانضباط الإداري."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تسيب"
+      confirm:
+        - text: "«الإهمـالُ وانعـدامُ الضـوابط, وضَعْفُ الالتزام بالقوانين.»"
+          source: "المعجم الكبير"
+        - text: "«الإهمال والتقاعس عن أداء الواجب والالتزام بالقوانين»"
+          source: "معجم الصواب اللغوي لأحمد مختار عمر"
+    - lemma: "عدم انضباط"
+      evidence_status: "no_material_found"
+    - lemma: "لَاانْضِبَاط"
+      confirm:
+        - text: "«اللاانضباط: عدم الخضوع للنظام.»"
+          source: "المورد الحديث (2008)"
+    - lemma: "فَوْضَوِيَّة"
+      contradicts:
+        - text: "«نحلة سياسية تقول بإلغاء الحكومة وبناء العلاقات على الأسس الفردية الحرة»"
+          source: "المعجم الوسيط"
+          conflict: "المصطلح يشير إلى مذهب سياسي (الأناركية) وليس مجرد غياب الانضباط الشخصي."
+    - lemma: "انْفِلَات"
+      expands:
+        - text: "«محرف مراقبة يستعمل عادة لإلغاء تنفيذ برنامج أو وظيفة»"
+          source: "المعجم الموحد لمصطلحات تقانة المعلومات"
+          addition: "له استخدامات تقنية متخصصة بعيدة عن السمة السلوكية."
+    - lemma: "تَرَهُّل"
+      expands:
+        - text: "«أُصيب الجهاز الإداريُّ بالتَّرهُّل (مجاز): تضخَّم حجمُه بزيادة العاملين فيه عن احتياجات العمل مما يؤدى إلى تراخٍ وضَعْفٍ فى الأداء»"
+          source: "المعجم الكبير"
+          addition: "يختص أكثر بالجانب الإداري والترهل الوظيفي وليس بالضرورة الانضباط السلوكي العام."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تسيب"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح وشائع وموثق معجمياً للدلالة على انعدام الضوابط والالتزام."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَسَيُّب"
+
+    - lemma: "عدم انضباط"
+      decision: confirmed
+      decision_reason: "تعبير تركيبي إضافي سليم لغوياً ويؤدي المعنى المباشر بدقة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عَدَمُ انْضِبَاطٍ"
+
+    - lemma: "لَاانْضِبَاط"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح موثق في المعاجم الحديثة كمقابل مباشر للفظة الإنجليزية indiscipline."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "لَاانْضِبَاط", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "فَوْضَوِيَّة"
+      source: stage1
+      decision: removed
+      decision_reason: "يتعارض دلالياً لاختصاصه بمذهب سياسي محدد."
+
+    - lemma: "انْفِلَات"
+      source: stage1
+      decision: removed
+      decision_reason: "مصطلح يشير بالأكثر إلى خروج الأشياء عن السيطرة، وهو أوسع من مجرد انعدام الانضباط."
+
+    - lemma: "تَرَهُّل"
+      source: stage1
+      decision: removed
+      decision_reason: "مجازي يميل لوصف التضخم والتراخي الإداري وليس الانضباط السلوكي بشكل مباشر."
+
+stage4_content:
+  definition:
+    current: "سمة الافتقار للانضباط"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ترجمة حرفية ويمكن صياغته بأسلوب عربي معجمي أسلس يوضح المعنى بشكل أدق."
+    authored:
+      - type: terminological
+        text: "سمة أو حالة تتصف بغياب الانضباط والالتزام بالقواعد والنظم والضوابط المحددة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "سمة أو حالة تتصف بغياب الانضباط والالتزام بالقواعد والنظم والضوابط المحددة."}
+
+  examples:
+    per_lemma:
+      - lemma: "تَسَيُّب"
+        examples:
+          - text: "أدَّى التَّسَيُّبُ الإداريُّ في الشَّركة إلى تراجع الإنتاج وتأخر المشاريع."
+            type: usage
+      - lemma: "عَدَمُ انْضِبَاطٍ"
+        examples:
+          - text: "عُوقب الموظَّفُ بسبب عَدَمِ انْضِبَاطِهِ في أوقات الحضور والانصراف."
+            type: usage
+      - lemma: "لَاانْضِبَاط"
+        examples:
+          - text: "انتقدَ المديرُ حَالَةَ اللَّاانْضِبَاطِ التي سادت بين الطُّلاَّبِ في ساحة المدرسة."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "أدَّى التَّسَيُّبُ الإداريُّ في الشَّركة إلى تراجع الإنتاج وتأخر المشاريع."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "عُوقب الموظَّفُ بسبب عَدَمِ انْضِبَاطِهِ في أوقات الحضور والانصراف."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "انتقدَ المديرُ حَالَةَ اللَّاانْضِبَاطِ التي سادت بين الطُّلاَّبِ في ساحة المدرسة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تَسَيُّب"
+      entry_id: "{auto}"
+      root: "سيب"
+      maqayis_quote: "«السِّينُ وَالْيَاءُ وَالْبَاءُ أَصْلٌ يَدُلُّ عَلَى اسْتِمْرَارِ شَيْءٍ وَذَهَابِهِ.»"
+    - lemma: "عَدَمُ انْضِبَاطٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "عدم"
+          root: "عدم"
+          maqayis_quote: "«الْعَيْنُ وَالدَّالُ وَالْمِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى فُقْدَانِ الشَّيْءِ وَذَهَابِهِ.»"
+        - word: "انضباط"
+          root: "ضبط"
+          maqayis_quote: "«الضَّادُ وَالْبَاءُ وَالطَّاءُ أَصْلٌ صَحِيحٌ. ضَبَطَ الشَّيْءَ ضَبْطًا.»"
+    - lemma: "لَاانْضِبَاط"
+      entry_id: "{auto}"
+      root: "ضبط"
+      maqayis_quote: "«الضَّادُ وَالْبَاءُ وَالطَّاءُ أَصْلٌ صَحِيحٌ. ضَبَطَ الشَّيْءَ ضَبْطًا.»"
+
+  per_sense:
+    - lemma: "تَسَيُّب"
+      sense_id: "{auto}"
+      nuance: "يعبر عادة عن التراخي الإداري أو السلوكي والإهمال في الالتزام بالضوابط."
+      mwe: false
+    - lemma: "عَدَمُ انْضِبَاطٍ"
+      sense_id: "{auto}"
+      nuance: "تعبير تركيبي مباشر وواضح يشير إلى غياب الانضباط."
+      mwe: true
+    - lemma: "لَاانْضِبَاط"
+      sense_id: "{auto}"
+      nuance: "مصطلح منحوت يستخدم كمقابل مباشر وموجز للفظة الإنجليزية الدالة على غياب النظام."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سيب","maqayis":"«السِّينُ وَالْيَاءُ وَالْبَاءُ أَصْلٌ يَدُلُّ عَلَى اسْتِمْرَارِ شَيْءٍ وَذَهَابِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"عدم","root":"عدم","maqayis":"«الْعَيْنُ وَالدَّالُ وَالْمِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى فُقْدَانِ الشَّيْءِ وَذَهَابِهِ.»"},{"word":"انضباط","root":"ضبط","maqayis":"«الضَّادُ وَالْبَاءُ وَالطَّاءُ أَصْلٌ صَحِيحٌ. ضَبَطَ الشَّيْءَ ضَبْطًا.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ضبط","maqayis":"«الضَّادُ وَالْبَاءُ وَالطَّاءُ أَصْلٌ صَحِيحٌ. ضَبَطَ الشَّيْءَ ضَبْطًا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يعبر عادة عن التراخي الإداري أو السلوكي والإهمال في الالتزام بالضوابط.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير تركيبي مباشر وواضح يشير إلى غياب الانضباط.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح منحوت يستخدم كمقابل مباشر وموجز للفظة الإنجليزية الدالة على غياب النظام.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

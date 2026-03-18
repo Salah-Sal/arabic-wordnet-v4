@@ -1,0 +1,186 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "نقص التشكيل في اللمات الموجودة."
+      - "التعريف الحالي يقتصر على النباتات، وهو ما يتوافق مع سياق هذه المجموعة الترادفية المحددة في OEWN (plant nutrient)."
+    observations: "اللمتان الموجودتان ('عنصر غذائي' و'مادة مغذية') دقيقتان ومستعملتان في السياق العلمي. المصطلحات الناتجة عن التوليد الأعمى عززت ملاءمة اللمات الحالية وأضافت مرشحات قوية مثل 'مغذٍّ' و'عنصر مغذٍ'."
+  blind_candidates:
+    - lemma: "مُغَذٍّ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من (غذا)، وهو ما يمد الكائن الحي بما يحتاجه للنمو، ويستخدم في علم الأحياء والكيمياء."
+    - lemma: "غِذَاء"
+      generation_method: ishtiqaq
+      justification: "الاسم العام لما يتقوى به الجسم، ويستعمل في بعض المعاجم التقنية بمعنى (nutrient)."
+    - lemma: "مَادَّة غِذَائِيَّة"
+      generation_method: tarkib
+      justification: "تعبير وصفي شائع للمادة التي تحمل القيمة الغذائية."
+    - lemma: "عُنْصُر غِذَائِيّ"
+      generation_method: tarkib
+      justification: "تعبير اصطلاحي دقيق للعناصر الكيميائية التي يحتاجها النبات (مثل النيتروجين والفوسفور)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "عُنْصُر غِذَائِيّ"
+      confirm:
+        - text: "«عُنصر غذائيّ: fertiliser element / nutrient element»"
+          source: "المعجم الموحد لمصطلحات المياه (2000)"
+    - lemma: "مَادَّة مُغَذِّيَة"
+      confirm:
+        - text: "«مادة مُغَذِّية: nutrient»"
+          source: "المورد الحديث (2008)"
+        - text: "«مغذٍّ، مادة مغذية: nutrient»"
+          source: "المعجم الموحد لمصطلحات الكيمياء (1992)"
+    - lemma: "مُغَذٍّ"
+      confirm:
+        - text: "«مُغَذٍّ؛ مُقيت: nutrient»"
+          source: "المورد الحديث (2008)"
+        - text: "«مُغذِّية [ج:مُغذِّيات]: nutrient»"
+          source: "المعجم الطبي الموحد (2009)"
+    - lemma: "عُنْصُر مُغَذٍّ"
+      confirm:
+        - text: "«غُذيّ، عنصر مُغَذِّ: nutrient; nutriment»"
+          source: "المعجم الموحد لمصطلحات الطب البيطري (2010)"
+    - lemma: "غِذَاء"
+      confirm:
+        - text: "«أي مادة تمتص من قبل الكائنات العضوية لتعزيز نموها أو تسهيله: nutrient»"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية (2012)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "عنصر غذائي"
+      decision: confirmed
+      decision_reason: "مصطلح تقني دقيق يتوافق تماماً مع تعريف المجموعة (nutrient element)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عُنْصُرٌ غِذَائِيٌّ"
+    - lemma: "مادة مغذية"
+      decision: confirmed
+      decision_reason: "مصطلح شائع وموثق في المعاجم الحديثة والتقنية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَادَّةٌ مُغَذِّيَةٌ"
+    - lemma: "مُغَذٍّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اسم فاعل فصيح ومستعمل كمصطلح مفرد مرادف للمركبات الوصفية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُغَذٍّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-00021914-n"}
+    - lemma: "عُنْصُرٌ مُغَذٍّ"
+      decision: confirmed
+      decision_reason: "مرادف دقيق لعنصر غذائي، موثق في معاجم المصطلحات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "عُنْصُرٌ مُغَذٍّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-00021914-n"}
+
+stage4_content:
+  definition:
+    current: "أي مادة (مثل عنصر كيميائي أو مركب غير عضوي) يمكن أن يمتصها النبات الأخضر ويستخدمها في التخليق العضوي"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دقيق علمياً لكنه يحتاج إلى ضبط لغوي وتشكيل ليتوافق مع أسلوب المعجم الوسيط."
+    authored:
+      - type: terminological
+        text: "مادَّةٌ (عُنْصُرٌ كِيمِيَائِيٌّ أَوْ مُرَكَّبٌ غَيْرُ عُضْوِيٌّ) يَمْتَصُّهَا النَّبَاتُ الأَخْضَرُ وَيَسْتَعْمِلُهَا فِي التَّخْلِيقِ العُضْوِيِّ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-00021914-n", definition_index: 0, text: "مادَّةٌ (عُنْصُرٌ كِيمِيَائِيٌّ أَوْ مُرَكَّبٌ غَيْرُ عُضْوِيٌّ) يَمْتَصُّهَا النَّبَاتُ الأَخْضَرُ وَيَسْتَعْمِلُهَا فِي التَّخْلِيقِ العُضْوِيِّ."}
+  examples:
+    per_lemma:
+      - lemma: "عُنْصُرٌ غِذَائِيٌّ"
+        examples:
+          - text: "يُعَدُّ النيتروجينُ أَهَمَّ عُنْصُرٍ غِذَائِيٍّ يَحْتَاجُهُ النَّبَاتُ لِنُمُوِّ أَوْرَاقِهِ."
+            type: usage
+      - lemma: "مَادَّةٌ مُغَذِّيَةٌ"
+        examples:
+          - text: "تَحْتَوِي الأَسْمِدَةُ عَلَى مَوَادَّ مُغَذِّيَةٍ تَعْمَلُ عَلَى تَحْسِينِ جَوْدَةِ التُّرْبَةِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يُعَدُّ النيتروجينُ أَهَمَّ عُنْصُرٍ غِذَائِيٍّ يَحْتَاجُهُ النَّبَاتُ لِنُمُوِّ أَوْرَاقِهِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُغَذٍّ"
+      entry_id: "{auto}"
+      root: "غذو"
+      maqayis_quote: "«الْغَيْنُ وَالذَّالُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى شَيْءٍ مِنَ الْمَأْكَلِ... فَأَمَّا الْمَأْكَلُ فَالْغِذَاءُ، وَهُوَ الطَّعامُ وَالشَّرابُ.»"
+    - lemma: "عُنْصُرٌ غِذَائِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "عنصر"
+          root: "عنصر"
+          maqayis_quote: "الجذر رباعي (عنصر)، لم يذكره ابن فارس كأصل مستقل، وفي المعاجم المتأخرة يعني الأصل والحسب."
+        - word: "غذائي"
+          root: "غذو"
+          maqayis_quote: "«الْغَيْنُ وَالذَّالُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى شَيْءٍ مِنَ الْمَأْكَلِ.»"
+  per_sense:
+    - lemma: "عُنْصُرٌ غِذَائِيٌّ"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب الكيميائي (عنصر) في تغذية النبات."
+      mwe: true
+    - lemma: "مَادَّةٌ مُغَذِّيَةٌ"
+      sense_id: "{auto}"
+      nuance: "مصطلح عام يشمل أي مادة توفر الغذاء."
+      mwe: true
+    - lemma: "مُغَذٍّ"
+      sense_id: "{auto}"
+      nuance: "صيغة مفردة (اسم فاعل) تدل على الوظيفة الغذائية للمادة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"غذو","maqayis":"«الْغَيْنُ وَالذَّالُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى شَيْءٍ مِنَ الْمَأْكَلِ... فَأَمَّا الْمَأْكَلُ فَالْغِذَاءُ، وَهُوَ الطَّعامُ وَالشَّرابُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الجانب الكيميائي (عنصر) في تغذية النبات.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-00021914-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-00021914-n"
+        score: 0.95

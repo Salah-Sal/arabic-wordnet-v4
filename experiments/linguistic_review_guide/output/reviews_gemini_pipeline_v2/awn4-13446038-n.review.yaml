@@ -1,0 +1,200 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الحالية تفتقر للتشكيل الكامل."
+      - "عدم تغطية الجانب التقني لمصطلح (accretion) الذي يعني النمو الطبيعي أو التدريجي بإضافة طبقات."
+    observations: "اللمّات المزودة (تراكم، تكدس) صحيحة وتعبر عن مفهوم التجمع والزيادة، ولكن يمكن إثراء المجموعة بمصطلحات أكثر دقة للنمو التدريجي مثل (تنامٍ) و(تزايد)."
+  blind_candidates:
+    - lemma: "تَرَاكُم"
+      generation_method: ishtiqaq
+      justification: "المصدر القياسي من الجذر (ركم) الذي يدل على تجمع الشيء بعضه فوق بعض، وهو المرادف الأدق لـ accumulation."
+    - lemma: "تَنَامٍ"
+      generation_method: ishtiqaq
+      justification: "المصدر من الفعل (تنامى) الذي يعبر عن الزيادة المطردة والنمو الطبيعي، وهو المناظر لمفهوم accretion."
+    - lemma: "تَكَدُّس"
+      generation_method: ishtiqaq
+      justification: "المصدر من الفعل (تكدس) ويعبر عن تجمع المواد في كتل أو أكوام."
+    - lemma: "تَزَايُد"
+      generation_method: ishtiqaq
+      justification: "يعبر عن الزيادة التدريجية المتصلة، ويستخدم تقنياً في الجيولوجيا لمقابلة accretion."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تَرَاكُم"
+      confirm:
+        - text: "تَجَمُّع الأشياء بعضها إلى بعض"
+          source: "المعجم الكبير"
+        - text: "إضافات متتالية من مادة إلى كائن مستهدف... مما يؤدي إلى زيادة كمية"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+      expands:
+        - text: "تزايد رقعة الأرض بالتطمي أو التغريم"
+          source: "المعجم الموحد لمصطلحات النفط"
+          addition: "استخدام المصطلح في سياق جيولوجي لمقابلة accretion."
+    - lemma: "تَكَدُّس"
+      confirm:
+        - text: "تجمع المواد بشكل كتلة، كالصفيحات الدموية مثلا"
+          source: "المعجم الموحد لمصطلحات علم الصيدلة"
+      contradicts:
+        - text: "الحالة التي تكون فيها الأشجار متقاربة بشكل وثيق مما يرفع من التنافس على الموارد ويحد من إمكانات النمو الكامل"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+          conflict: "هنا يحمل معنى سلبياً (overstocked) قد لا يتفق دائماً مع النمو الطبيعي."
+    - lemma: "تَنَامٍ"
+      confirm:
+        - text: "تزايد حجم جسم غير عضوي نتيجة إضافة أو تراكم الجزيئات"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية"
+        - text: "نمو في بنية جسم من خلال تراكم أو تكتل مواد على سطحه... تنامي (المرادف العربي)"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+    - lemma: "تَزَايُد"
+      confirm:
+        - text: "الازدياد المتدرج في حجم الجسم بضم مزيد من المادة إليه"
+          source: "المعجم الموحد لمصطلحات الجيولوجيا"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تراكم"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي يعبر عن التجمع والزيادة التدريجية، مدعوم بقوة في المعاجم العامة والتقنية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَرَاكُم"
+    - lemma: "تكدس"
+      decision: confirmed
+      decision_reason: "مقبول كمرادف للتراكم المادي أو تجمع الكتل، وإن كان يحمل أحياناً إيحاءً بالكثافة المفرطة."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَكَدُّس"
+    - lemma: "تَنَامٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح دقيق جداً لمفهوم (accretion) خاصة في السياقات العلمية والهندسية، حيث يعبر عن النمو بالزيادة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَنَامٍ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَزَايُد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف مستخدم في الجيولوجيا وعلم الزلازل للتعبير عن الازدياد المتدرج في حجم الجسم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَزَايُد", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "زيادة عن طريق النمو الطبيعي أو الإضافة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ترجمة حرفية، ويفضل صياغته بأسلوب معجمي يوضح التدرج في الزيادة."
+    authored:
+      - type: terminological
+        text: "الزيادة المتدرجة في حجم مادة أو جسم ما، نتيجة لإضافة أجزاء جديدة أو بالنمو الذاتي."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "تَرَاكُم"
+        examples:
+          - text: "أدى تراكمُ الثلوجِ إلى إغلاقِ الطُّرقِ الجبلية."
+            type: usage
+      - lemma: "تَكَدُّس"
+        examples:
+          - text: "يُلاحَظُ تَكَدُّسُ البضائعِ في الموانئِ نتيجةَ تأخرِ الشحن."
+            type: usage
+      - lemma: "تَنَامٍ"
+        examples:
+          - text: "ساهمَ تنامي الوَعيِ الصحيِ في الحدِ من انتشارِ الأوبئة."
+            type: usage
+      - lemma: "تَزَايُد"
+        examples:
+          - text: "تشهدُ المنطقةُ تزايداً مطرداً في الكثافةِ السكانية."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "الزيادة المتدرجة في حجم مادة أو جسم ما، نتيجة لإضافة أجزاء جديدة أو بالنمو الذاتي."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تَرَاكُم"
+      entry_id: "{auto}"
+      root: "ركم"
+      maqayis_quote: "«الرَّاءُ وَالْكَافُ وَالْمِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى [تَجَمُّعِ] الشَّيْءِ. تَقُولُ رَكَمْتُ الشَّيْءَ: أَلْقَيْتَ بَعْضَهُ عَلَى بَعْضٍ.»"
+    - lemma: "تَكَدُّس"
+      entry_id: "{auto}"
+      root: "كدس"
+      maqayis_quote: "«الْكَافُ وَالدَّالُ وَالسِّينُ... كُدْسُ الطَّعَامِ [وهو ما جُمع منه].»"
+    - lemma: "تَنَامٍ"
+      entry_id: "{auto}"
+      root: "نمي"
+      maqayis_quote: "«النُّونُ وَالْمِيمُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى ارْتِفَاعٍ وَزِيَادَةٍ. وَنَمَى الْمَالُ يَنْمِي: زَادَ.»"
+    - lemma: "تَزَايُد"
+      entry_id: "{auto}"
+      root: "زيد"
+      maqayis_quote: "«الزَّاءُ وَالْيَاءُ وَالدَّالُ أَصْلٌ يَدُلُّ عَلَى الْفَضْلِ. يَقُولُونَ زَادَ الشَّيْءُ يَزِيدُ، فَهُوَ زَائِدٌ.»"
+  per_sense:
+    - lemma: "تَرَاكُم"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام للتجمع والإضافة التدريجية عبر الزمن."
+      mwe: false
+    - lemma: "تَكَدُّس"
+      sense_id: "{auto}"
+      nuance: "يوحي بالتجمع الكثيف أو المتراص في مكان واحد، وغالباً ما يرتبط بالأجسام المادية."
+      mwe: false
+    - lemma: "تَنَامٍ"
+      sense_id: "{auto}"
+      nuance: "يركز على جانب النمو الذاتي أو العضوي المطرد (accretion)."
+      mwe: false
+    - lemma: "تَزَايُد"
+      sense_id: "{auto}"
+      nuance: "يعبر عن استمرارية الزيادة في الكم أو المقدار."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ركم","maqayis":"«الرَّاءُ وَالْكَافُ وَالْمِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى [تَجَمُّعِ] الشَّيْءِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العام للتجمع والإضافة التدريجية عبر الزمن.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

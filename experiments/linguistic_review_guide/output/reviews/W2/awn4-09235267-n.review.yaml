@@ -1,0 +1,127 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "مسطح مائي راكد"
+      evidence_status: "no_material_found"
+    - lemma: "مياه راكدة"
+      confirm:
+        - text: "«مياه أمطار أو فيضان، غير جارية بسبب وجود عائق أو حاجز طبيعي أو اصطناعي، كسد مثلا.»"
+          source: "مسرد المناخ والبيئة وإدارة النفايات الصلبة"
+      expands:
+        - text: "«مياه ذات حركة بطيئة جداً أو معدومة تماماً تؤدي عادة إلى نقص في الأكسجين.»"
+          source: "المعجم الموحد لمصطلحات المياه"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "مياه مرتدة"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«المياه المُرتدّة: مياهٌ تُصَدّ عن سيلها أو يُدْفع بها إلى الوراء» — المورد الحديث"
+      justification: "تركيب وصفي يشير إلى ارتداد المياه وتجمعها بسبب سد أو حاجز، وهو يطابق دلالة المصطلح الإنجليزي (backwater) والتعريف المعجمي تماما."
+  knowledge_candidates:
+    - lemma: "مياه متجمعة"
+      justification: "تركيب وصفي؛ يعبر عن المياه التي تجمعت نتيجة عائق أو سد، مستخدم كمقابل في بعض المعاجم المتخصصة."
+  generation_notes: "تم التركيز على المصطلحات المتعلقة بآلية تكون هذه المياه نتيجة الحجز والارتداد بدلا من التركيز على مجرد الركود."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "مسطح مائي راكد"
+      decision: removed
+      decision_reason: "تركيب وصفي حر وليس مصطلحا مسكوكا مستقلا، بل يعتمد على ضم صفة (راكد) إلى مصطلح (مسطح مائي)."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+        type: "وصفي"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "عبارة وصفية عامة تفتقر إلى التخصيص المصطلحي."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "مياه راكدة"
+      decision: confirmed
+      decision_reason: "مصطلح تقني موثق وشائع الاستخدام، يطابق التعريف في السياق البيئي والمناخي."
+      evidence_assessment:
+        case: "mixed"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+        type: "وصفي"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تركز على انعدام الحركة والجريان للمياه المحجوزة كأثر لوجود الحاجز أو السد."
+      example: "تتجمع المياه الراكدة خلف السدود وتشكل بيئة لبعض الأحياء الدقيقة."
+    - lemma: "مياه مرتدة"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح متخصص دقيق يعبر عن المياه التي تصد وترجع إلى الوراء بسبب حاجز أو مانع كالسد، ويقابل المصطلح الإنجليزي بشكل مباشر."
+      step05_citation: "«المياه المُرتدّة: مياهٌ تُصَدّ عن سيلها أو يُدْفع بها إلى الوراء» — المورد الحديث"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+        type: "وصفي"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تركز على آلية التكون وهي ارتداد المياه ورجوعها بسبب السد أو المانع، مما يجعلها أدق في التعبير عن المعنى من الركود المجرد."
+      example: "أدى بناء السد الجديد إلى تكون مياه مرتدة غمرت الأراضي الزراعية المجاورة."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مياه مرتدة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09235267-n"
+  synset_flags:
+    definition_review_needed: false
+  added_lemmas:
+    - lemma: "مياه مرتدة"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "مسطح مائي نشأ عن فيضان أو مد أو بسبب حجزه بواسطة سد"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وشامل، ويتوافق مع الأدلة المعجمية للمصطلحات المؤكدة، ويشرح بوضوح أسباب تكون هذا المسطح المائي."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "مسطح مائي"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "مياه راكدة"
+        antonym_found: true
+        antonym: "مياه جارية"
+      - lemma: "مياه مرتدة"
+        antonym_found: true
+        antonym: "مياه جارية"
+  verb_checks:
+    applicable: false
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "مياه راكدة"
+      enrichment:
+        root: "ركد"
+      examples:
+        - text: "تتجمع المياه الراكدة خلف السدود وتشكل بيئة لبعض الأحياء الدقيقة."
+          type: usage
+          source: "مؤلف"
+      pos_check:
+        pos: noun
+    - lemma: "مياه مرتدة"
+      enrichment:
+        root: "ردد"
+      examples:
+        - text: "أدى بناء السد الجديد إلى تكون مياه مرتدة غمرت الأراضي الزراعية المجاورة."
+          type: usage
+          source: "مؤلف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

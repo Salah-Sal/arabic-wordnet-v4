@@ -1,0 +1,158 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "سائل تبريد"
+      confirm:
+        - text: "عامل سائل (غاز أو سائل) ينتج التبريد"
+          source: "المعجم الموحد لمصطلحات النقل (2010)"
+    - lemma: "مبرد"
+      confirm:
+        - text: "«السائل أو الغاز المستعمل في التبريد.»"
+          source: "المعجم الموحد لمصطلحات تقانات الأغذية (2004)"
+        - text: "«تجهيزة لإزالة الحرارة من سائل ما.»"
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة (1996)"
+        - text: "«مائع يُستخدم لإجراء عملية التبريد في نظام تبريد معين...»"
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة (1996)"
+      contradicts:
+        - text: "«أداة بها سطوح خشنة, تستعمل لتسوية الأشياء...»"
+          source: "المعجم الوسيط"
+          conflict: "المبرد بكسر الميم هو أداة السحل (المبرد)، بينما المبرد بضم الميم وكسر الراء هو مائع التبريد."
+    - lemma: "وسيط تبريد"
+      confirm:
+        - text: "«مائع يُستخدم لإجراء عملية التبريد»"
+          source: "المعجم الموحد للمصطلحات المهنية والتقنية ج. 1 (1996)"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "وسيط تبريد"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«وسيط التبريد (refrigerant)» — مسرد هندسة وتكنولوجيا السيارات"
+      justification: "مصطلح تقني شائع في الهندسة والميكانيكا لوصف المادة التي تقوم بنقل الحرارة."
+  knowledge_candidates:
+    - lemma: "مائع تبريد"
+      justification: "الترجمة الدقيقة لـ (cooling fluid/agent)؛ حيث يشمل الغاز والسائل معاً كما ورد في التعريف."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "سائل تبريد"
+      decision: confirmed
+      decision_reason: "مصطلح تقني مستقر ومطابق للتعريف."
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على الحالة الفيزيائية السائلة للمادة، وهو الأكثر شيوعاً في سياق السيارات."
+      example: "يجب فحص مستوى سائل التبريد في محرك السيارة بانتظام لتجنب السخونة الزائدة."
+
+    - lemma: "مبرد"
+      decision: confirmed
+      decision_reason: "مصطلح معجمي مؤكد، مع ضرورة تمييزه بضم الميم (مُبَرِّد) عن أداة السحل (مِبْرَد)."
+      evidence_assessment:
+        case: "mixed"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "لفظ عام يطلق على المادة (الوكيل) أو الجهاز (المبادل الحراري)، وهو اسم فاعل من بَرَّدَ."
+      example: "يُعد الفريون من أشهر المبردات المستخدمة في أجهزة التكييف."
+      actions:
+        - command: set_metadata
+          params:
+            entity_type: "sense"
+            entity_id: "{auto}"
+            key: "diacritics"
+            value: "مُبَرِّد"
+
+    - lemma: "وسيط تبريد"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح تقني هندسي دقيق مستخرج من المعاجم المتخصصة."
+      step05_citation: "«وسيط تبريد» — المعجم الموحد للمصطلحات المهنية والتقنية (1996)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يستخدم في سياق الدور الوظيفي للمادة كوسيط لنقل الحرارة في دورات التبريد المغلقة."
+      example: "يعمل وسيط التبريد على امتصاص الحرارة من داخل الثلاجة وطردها للخارج."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "وسيط تبريد"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-14846311-n"
+
+    - lemma: "مائع تبريد"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح فيزيائي دقيق يشمل السوائل والغازات معاً، مما يجعله مطابقاً لجوهر التعريف."
+      step05_citation: "مرشح معرفي بناءً على دلالة (fluid coolant)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "الأدق علمياً حيث يشمل الحالتين (الغازية والسائلة) كما نص التعريف."
+      example: "تُستخدم مائعات التبريد المتطورة في المفاعلات النووية لنقل الطاقة الحرارية بكفاءة."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مائع تبريد"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-14846311-n"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "عامل سائل (غاز أو سائل) ينتج التبريد؛ يستخدم خاصة لتبريد نظام عن طريق نقل الحرارة بعيداً من جزء إلى آخر"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق علمياً وشامل للحالات الفيزيائية المختلفة (غاز/سائل) ولوظيفته الأساسية."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عامِل كِيمْيَائِيّ"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "مبرد"
+        antonym_found: true
+        antonym: "مسخن"
+  actions:
+    - command: add_synset_relation
+      params:
+        source_id: "awn4-14846311-n"
+        relation_type: "antonym"
+        target_id: "{auto}"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "سائل تبريد"
+      enrichment:
+        root: "س-ي-ل"
+      examples:
+        - text: "يجب فحص مستوى سائل التبريد في محرك السيارة بانتظام لتجنب السخونة الزائدة."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "مبرد"
+      enrichment:
+        root: "ب-ر-د"
+      examples:
+        - text: "يُعد الفريون من أشهر المبردات المستخدمة في أجهزة التكييف."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "وسيط تبريد"
+      enrichment:
+        root: "و-س-ط"
+      examples:
+        - text: "يعمل وسيط التبريد على امتصاص الحرارة من داخل الثلاجة وطردها للخارج."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "مائع تبريد"
+      enrichment:
+        root: "م-ي-ع"
+      examples:
+        - text: "تُستخدم مائعات التبريد المتطورة في المفاعلات النووية لنقل الطاقة الحرارية بكفاءة."
+          type: usage
+          source: "مؤلَّف"
+  cultural_fit:
+    assessment: native

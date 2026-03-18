@@ -1,0 +1,269 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي هو ترجمة حرفية للتعريف الإنجليزي."
+      - "الاقتصار على لمّتين فقط يُغفل ثراء المعجم العربي في وصف المحاربين بأنواعهم (المدرّع، الغازي، الشجاع)."
+    observations: "اللمّات الموجودة (محارب، مقاتل) صحيحة تماماً وأساسية، لكن يمكن إثراء المجموعة بمصطلحات تراثية دقيقة مثل (الكمي) للمحارب الشجاع المدرّع."
+  blind_candidates:
+    - lemma: "مُحَارِب"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من (حارب)، وهو المصطلح المعاصر الأكثر شيوعاً للمنخرط في الحرب."
+    - lemma: "مُقَاتِل"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من (قاتل)، يدل على من يباشر القتال فعلياً."
+    - lemma: "غَازٍ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من (غزا)، يُطلق على المحارب السائر إلى قتال العدو في بلاده."
+    - lemma: "كَمِيّ"
+      generation_method: majaz
+      justification: "مصطلح تراثي دقيق للمحارب الشجاع الذي يتكمّى (يستتر) في سلاحه ودروعه."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُقَاتِل"
+      confirm:
+        - text: "«مَن يصلح للقتال أو يباشره»"
+          source: "المعجم الوسيط"
+    - lemma: "مُحَارِب"
+      confirm:
+        - text: "«warrior: المحارب؛ المقاتل؛ الجنديّ.»"
+          source: "المورد الحديث"
+        - text: "«الحاربُ: الغاصِبُ النَّاهِبُ المُحارب»"
+          source: "المعجم الكبير"
+    - lemma: "كَمِيّ"
+      confirm:
+        - text: "«الشجاع المِقدام الجرىء الحافظ لِسرِّه، لابس السِّلاح»"
+          source: "المعجم الوسيط"
+        - text: "«الْكَافُ وَالْمِيمُ وَالْحَرْفُ الْمُعْتَلُّ يَدُلُّ عَلَى خَفَاءِ شَيْءٍ... وَلِذَلِكَ سُمِّيَ الشُّجَاعُ الْكَمِّيَّ. قَالُوا: هُوَ الَّذِي يَتَكَمَّى فِي سِلَاحِهِ، أَيْ يَتَغَطَّى بِهِ.»"
+          source: "مقاييس اللغة"
+    - lemma: "غَازٍ"
+      confirm:
+        - text: "«السائر إلى قتال العدو.»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+        - text: "«الْغَازِي: الطَّالِبُ لِذَلِكَ [الْغَزْو]»"
+          source: "مقاييس اللغة"
+    - lemma: "بَاسِل"
+      confirm:
+        - text: "«الشجاع الأسد الشديد»"
+          source: "المعجم الكبير"
+        - text: "«يقال للشجاع: باسِلٌ بَيْن البسالة»"
+          source: "اشتقاق الأسماء للأصمعي"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "محارب"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي وشائع يصف المنخرط في الحرب."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُحَارِب"
+    - lemma: "مقاتل"
+      decision: confirmed
+      decision_reason: "مصطلح دقيق يركز على فعل القتال والمباشرة له."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُقَاتِل"
+    - lemma: "كَمِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تراثي غني يصف المحارب المدرع الشجاع، ويضيف بعداً تاريخياً ولغوياً للمجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "كَمِيّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "غَازٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يصف نوعاً خاصاً من المحاربين الذين يخرجون للغزو، وهو مستعمل بكثرة في السياق التاريخي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "غَازٍ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "بَاسِل"
+      decision: confirmed
+      decision_reason: "وصف للمحارب الشجاع الشديد، ويُستخدم اسماً للمحارب أيضاً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "بَاسِل"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "شخص منخرط في أو خبير في الحرب"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ركيك وترجمة حرفية."
+    authored:
+      - type: terminological
+        text: "مَن يَصلُح لِلقِتالِ أَو يُباشِرُه، ويُطلَقُ على كُلِّ مَنِ اتَّخَذَ الحَرْبَ مِهْنَةً لَه أو خَبُرَ فُنُونَها."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "مَن يَصلُح لِلقِتالِ أَو يُباشِرُه، ويُطلَقُ على كُلِّ مَنِ اتَّخَذَ الحَرْبَ مِهْنَةً لَه أو خَبُرَ فُنُونَها."
+  examples:
+    per_lemma:
+      - lemma: "مُحَارِب"
+        examples:
+          - text: "عادَ المُحارِبُ من الجَبْهَةِ مُثقلاً بالأَوْسِمَةِ والجِراح."
+            type: usage
+      - lemma: "مُقَاتِل"
+        examples:
+          - text: "يَمتازُ المُقاتِلُ العَرَبيُّ بالشَّجاعَةِ والصَّبْرِ في المَيادين."
+            type: usage
+      - lemma: "كَمِيّ"
+        examples:
+          - text: "إِنَّا لَمِن مَعشَرٍ أَفنى أَوائِلَهُم ... قَولُ الكُماةِ أَلا أَينَ المُحامونا"
+            type: poetry
+            source: "عبد يغوث الحارثي"
+      - lemma: "غَازٍ"
+        examples:
+          - text: "خَرَجَ الغازي في طَلَبِ العَدُوِّ رَغْبَةً في النَّصْرِ أو الشَّهادَة."
+            type: usage
+      - lemma: "بَاسِل"
+        examples:
+          - text: "وَقَفَ الباسِلُ في وَجْهِ الأَعْداءِ صامِداً كالجَبَل."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "يُعَدُّ خالد بن الوليد من أَبْرَزِ المُحارِبينَ في التاريخ الإسلامي."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُحَارِب"
+      entry_id: "{auto}"
+      root: "حرب"
+      maqayis_quote: "«الْحَاءُ وَالرَّاءُ وَالْبَاءُ أُصُولٌ ثَلَاثَةٌ: أَحَدُهَا السَّلْبُ... الْحَرْبُ، وَاشْتِقَاقُهَا مِنَ الْحَرَبِ وَهُوَ السَّلْبُ... وَرَجُلٌ مِحْرَابٌ: شُجَاعٌ قَؤُومٌ بِأَمْرِ الْحَرْبِ مُبَاشِرٌ لَهَا.»"
+    - lemma: "مُقَاتِل"
+      entry_id: "{auto}"
+      root: "قتل"
+      maqayis_quote: "«الْقَافُ وَالتَّاءُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِذْلَالٍ وَإِمَاتَةٍ. يُقَالُ: قَتَلَهُ قَتْلًا.»"
+    - lemma: "كَمِيّ"
+      entry_id: "{auto}"
+      root: "كمي"
+      maqayis_quote: "«الْكَافُ وَالْمِيمُ وَالْحَرْفُ الْمُعْتَلُّ يَدُلُّ عَلَى خَفَاءِ شَيْءٍ... وَلِذَلِكَ سُمِّيَ الشُّجَاعُ الْكَمِّيَّ. قَالُوا: هُوَ الَّذِي يَتَكَمَّى فِي سِلَاحِهِ، أَيْ يَتَغَطَّى بِهِ.»"
+    - lemma: "غَازٍ"
+      entry_id: "{auto}"
+      root: "غزو"
+      maqayis_quote: "«الْغَيْنُ وَالزَّاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ صَحِيحَانِ، أَحَدُهُمَا طَلَبُ شَيْءٍ... فَالْأَوَّلُ الْغَزْوُ... وَالْغَازِي: الطَّالِبُ لِذَلِكَ.»"
+    - lemma: "بَاسِل"
+      entry_id: "{auto}"
+      root: "بسل"
+      maqayis_quote: "«الْبَاءُ وَالسِّينُ وَاللَّامُ أَصْلٌ وَاحِدٌ... وَالْبَسَالَةُ الشَّجَاعَةُ مِنْ هَذَا; لِأَنَّهَا الِامْتِنَاعُ عَلَى الْقِرْنِ.»"
+  per_sense:
+    - lemma: "مُحَارِب"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام للمنخرط في الحرب بصفة مهنية أو فعلية."
+      mwe: false
+    - lemma: "مُقَاتِل"
+      sense_id: "{auto}"
+      nuance: "يركز على المباشرة الفعلية لعملية القتال والاشتباك."
+      mwe: false
+    - lemma: "كَمِيّ"
+      sense_id: "{auto}"
+      nuance: "يصف المحارب الشجاع المدرع الذي يستتر بسلاحه."
+      mwe: false
+    - lemma: "غَازٍ"
+      sense_id: "{auto}"
+      nuance: "يصف المحارب الذي يخرج في حملات هجومية (غزوات)."
+      mwe: false
+    - lemma: "بَاسِل"
+      sense_id: "{auto}"
+      nuance: "يركز على صفة الشجاعة والشدة في القتال."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حرب","maqayis":"«الْحَاءُ وَالرَّاءُ وَالْبَاءُ أُصُولٌ ثَلَاثَةٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قتل","maqayis":"«الْقَافُ وَالتَّاءُ وَاللَّامُ أَصْلٌ صَحِيحٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"كمي","maqayis":"«الْكَافُ وَالْمِيمُ وَالْحَرْفُ الْمُعْتَلُّ يَدُلُّ عَلَى خَفَاءِ شَيْءٍ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"غزو","maqayis":"«الْغَيْنُ وَالزَّاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ صَحِيحَانِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"بسل","maqayis":"«الْبَاءُ وَالسِّينُ وَاللَّامُ أَصْلٌ وَاحِدٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العام للمنخرط في الحرب بصفة مهنية أو فعلية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

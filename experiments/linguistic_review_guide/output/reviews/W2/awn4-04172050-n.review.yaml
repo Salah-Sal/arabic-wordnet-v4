@@ -1,0 +1,252 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي ترجمة شبه حرفية للتعريف الإنجليزي، ولا يبدو متوافقاً تماماً مع الأسلوب المعجمي العربي."
+      - "كلمة 'قطاع' تُستخدم عادةً في المعاني المجردة (القطاع الاقتصادي) أو الهندسية (قطاع الدائرة)، ولا تعبر عن جزء مادي يتركب لتكوين جسم."
+    observations: "تتضمن المجموعة مفهوم الأجزاء المنفصلة التي يتم تجميعها لتكوين شيء كامل. اللمات 'جزء' و'قسم' قريبة، لكن 'قطعة' هي الأنسب للتعبير عن 'piece' التي تتركب مع غيرها."
+  blind_candidates:
+    - lemma: "قِطْعَة"
+      generation_method: ishtiqaq
+      justification: "مشتقة من القطع، وتطلق على الجزء المفصول من الشيء، وتناسب الأجزاء التي تتركب لتكوين جسم كقطع الغيار."
+    - lemma: "مَقْطَع"
+      generation_method: ishtiqaq
+      justification: "مشتق من القطع، ويدل على موضع القطع أو الجزء المقطوع."
+    - lemma: "وِحْدَة_تَرْكِيبِيَّة"
+      generation_method: tarkib
+      justification: "مركب وصفي يشير إلى الجزء المستقل الذي يتركب مع غيره لتكوين كل متكامل."
+    - lemma: "فِلْقَة"
+      generation_method: majaz
+      justification: "من فلق الشيء إذا شقه، وتطلق مجازاً على الجزء أو القطعة من الشيء."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "جزء"
+      confirm:
+        - text: "القطعة من الشيء، وما يتركب الشيء منه ومن غيره والنصيب"
+          source: "المعجم الوسيط"
+    - lemma: "قسم"
+      confirm:
+        - text: "النصيب أو الجزء من الشيء المقسوم"
+          source: "المعجم الوسيط"
+    - lemma: "قطاع"
+      contradicts:
+        - text: "من الليل طائفة منه تكون في أوله إلى ثلثه ومن الدائرة جزء محصور بين نصفي قطر وجزء من المحيط"
+          source: "المعجم الوسيط"
+          conflict: "يستخدم أكثر للأجزاء المعنوية أو التقسيمات الهندسية ولا يطلق عادة على قطع التركيب المادية."
+    - lemma: "قطعة"
+      confirm:
+        - text: "الحصة من الشيء"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "قطعة؛ جزء؛ قسم"
+          source: "المورد الحديث (2008)"
+          addition: "ترجمة مباشرة للمصطلح الإنجليزي segment"
+    - lemma: "مقطع"
+      contradicts:
+        - text: "من كل شيء آخره حيث ينقطع وينتهي"
+          source: "المعجم الوسيط"
+          conflict: "لا يدل على الجزء الذي يركب مع غيره، بل على موضع القطع أو الانتهاء."
+    - lemma: "وحدة تركيبية"
+      contradicts:
+        - text: "الوحدة التركيبية الدنيا لدى Martinet لفظ واحد مكون من عدة كلمات معجمية."
+          source: "المعجم الموحد لمصطلحات اللسانيات (2002)"
+          conflict: "مصطلح لساني لا ينطبق على الأجسام المادية."
+    - lemma: "فلقة"
+      contradicts:
+        - text: "القطعة ومن الجفنة أحد نصفيها إذا انفلقت"
+          source: "المعجم الوسيط"
+          conflict: "تطلق بشكل خاص على ما ينشق كنصفي النواة ولا تعم كل قطع التركيب."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "جزء"
+      decision: confirmed
+      decision_reason: "اللفظة الأساسية والأعم للتعبير عن أي مكون يدخل في تركيب الكل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "جُزْء"
+    - lemma: "قسم"
+      decision: confirmed
+      decision_reason: "كلمة فصيحة تعبر عن النصيب أو الجزء المفرز، ويمكن استخدامها للدلالة على أجزاء الجسم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "قِسْم"
+    - lemma: "قطاع"
+      decision: removed
+      decision_reason: "القطاع في الاستعمال العربي الفصيح والمعاصر يغلب على المجالات المعنوية أو الأشكال الهندسية، ولا يعبر بدقة عن الأجزاء المادية التي تتراكب لتكوين جسم."
+      evidence_assessment:
+        case: contradicts_only
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "قِطْعَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "القطعة هي الحصة من الشيء، وتطلق تحديداً على الأجزاء المادية المنفصلة التي يمكن تركيبها (كما في قطع الغيار أو قطع التركيب)، مما يطابق التعريف المذكور بشكل مثالي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "قِطْعَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "مَقْطَع"
+      source: stage1
+      decision: removed
+      decision_reason: "المقطع يفيد مكان القطع أو آخره، أو المقطع الصوتي، ولا يعني الجزء التركيبي."
+      evidence_assessment:
+        case: contradicts_only
+    - lemma: "وِحْدَة_تَرْكِيبِيَّة"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير وصفي غير مسكوك معجمياً بهذا المعنى المادي المحدد."
+      evidence_assessment:
+        case: contradicts_only
+    - lemma: "فِلْقَة"
+      source: stage1
+      decision: removed
+      decision_reason: "الفلقة تطلق غالباً على ما ينشق ولا تعبر عن الأجزاء المتعددة التي تركب معاً بشكل عام."
+      evidence_assessment:
+        case: contradicts_only
+
+stage4_content:
+  definition:
+    current: "أحد الأجزاء أو القطع المتعددة التي تتناسب مع غيرها لتكوين جسم كامل"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يبدو كترجمة حرفية. صياغة التعريف بأسلوب عربي أكثر سلاسة ودقة تعزز من جودته."
+    authored:
+      - type: terminological
+        text: "القطعة أو المكون الذي يتركب مع أجزاء أخرى لتكوين جسم أو كيان كامل."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "القطعة أو المكون الذي يتركب مع أجزاء أخرى لتكوين جسم أو كيان كامل."
+
+  examples:
+    per_lemma:
+      - lemma: "جُزْء"
+        examples:
+          - text: "يتكون هذا المحرك من أجزاء دقيقة ومعقدة."
+            type: usage
+      - lemma: "قِسْم"
+        examples:
+          - text: "رُكّبَت أقسام الهيكل الخشبي معاً لتكوين السفينة."
+            type: usage
+      - lemma: "قِطْعَة"
+        examples:
+          - text: "جمّع الطفل قطع اللعبة لتشكيل مجسم المنزل."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يتكون هذا المحرك من أجزاء دقيقة ومعقدة."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "رُكّبَت أقسام الهيكل الخشبي معاً لتكوين السفينة."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "جمّع الطفل قطع اللعبة لتشكيل مجسم المنزل."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "جُزْء"
+      entry_id: "{auto}"
+      root: "جزأ"
+    - lemma: "قِسْم"
+      entry_id: "{auto}"
+      root: "قسم"
+      maqayis_quote: "«الْقَافُ وَالسِّينُ وَالْمِيمُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى جَمَالٍ وَحُسْنٍ وَالْآخَرُ عَلَى تَجْزِئَةِ شَيْءٍ.»"
+    - lemma: "قِطْعَة"
+      entry_id: "{auto}"
+      root: "قطع"
+      maqayis_quote: "«الْقَافُ وَالطَّاءُ وَالْعَيْنُ أَصْلٌ صَحِيحٌ وَاحِدٌ، يَدُلُّ عَلَى صَرْمٍ وَإِبَانَةِ شَيْءٍ مِنْ شَيْءٍ.»"
+
+  per_sense:
+    - lemma: "جُزْء"
+      sense_id: "{auto}"
+      nuance: "يعبر عن أي مكون أساسي يدخل في تركيب الكل، وهو اللفظ الأعم."
+      mwe: false
+    - lemma: "قِسْم"
+      sense_id: "{auto}"
+      nuance: "يشير إلى جزء مفرز أو مفصول، وغالباً ما ينتج عن عملية تقسيم."
+      mwe: false
+    - lemma: "قِطْعَة"
+      sense_id: "{auto}"
+      nuance: "تطلق تحديداً على الأجزاء المادية المنفصلة التي يمكن تجميعها وتركيبها."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جزأ"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قسم","maqayis":"«الْقَافُ وَالسِّينُ وَالْمِيمُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى جَمَالٍ وَحُسْنٍ وَالْآخَرُ عَلَى تَجْزِئَةِ شَيْءٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قطع","maqayis":"«الْقَافُ وَالطَّاءُ وَالْعَيْنُ أَصْلٌ صَحِيحٌ وَاحِدٌ، يَدُلُّ عَلَى صَرْمٍ وَإِبَانَةِ شَيْءٍ مِنْ شَيْءٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يعبر عن أي مكون أساسي يدخل في تركيب الكل، وهو اللفظ الأعم.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يشير إلى جزء مفرز أو مفصول، وغالباً ما ينتج عن عملية تقسيم.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تطلق تحديداً على الأجزاء المادية المنفصلة التي يمكن تجميعها وتركيبها.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'

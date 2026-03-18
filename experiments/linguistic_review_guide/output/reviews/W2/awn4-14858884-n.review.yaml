@@ -1,0 +1,204 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'مساعد للهضم' أقرب لكونها عبارة وصفية شارحة منها لكونها مصطلحاً معجمياً مستقلاً."
+      - "اللمة 'مهضم' تفتقر إلى التشكيل الكامل."
+    observations: "المفهوم مرتبط بجذر واحد هو (هضم)، والألفاظ المشتقة منه (هاضوم، هاضم، مهضم) هي الأكثر دقة وشيوعاً في المعاجم المتخصصة واللغوية."
+  blind_candidates:
+    - lemma: "مُهَضِّم"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل هضّم (المتعدي بالتضعيف)، ويطلق على كل ما يعين على عملية الهضم."
+    - lemma: "هَاضُوم"
+      generation_method: ishtiqaq
+      justification: "صيغة مبالغة أو اسم آلة سماعي، ورد في المعاجم القديمة والحديثة بمعنى الدواء أو المادة التي تهضم الطعام."
+    - lemma: "هَاضِم"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل هضم، ويستخدم طبياً للإشارة إلى الأنزيمات أو الأدوية الهاضمة."
+    - lemma: "هَضُوم"
+      generation_method: ishtiqaq
+      justification: "صيغة مبالغة على وزن فَعُول، تستخدم كبديل للهَاضُوم في الدلالة على ما يهضم الطعام."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُهَضِّم"
+      confirm:
+        - text: "مُهضِّم [مفرد]: شيء مساعد على الهضم، خاصّ بعمل العصارات الهضميَّة."
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "هَاضُوم"
+      confirm:
+        - text: "«الْهَاضُومُ: الَّذِي يَهْضِمُ الطَّعَامَ»"
+          source: "مقاييس اللغة"
+        - text: "«(الهاضوم) كل دَوَاء يهضم الطَّعام وكل مَادَّة تهضم الطَّعام كاللعاب والصفراء وَغَيرهمَا»"
+          source: "المعجم الوسيط"
+        - text: "«هاضوم [مفرد]: (طب) كل دواء يهضم الطَّعام... كلُّ مادّة تهضم الطّعام كاللُّعاب والصَّفراء»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "هَاضِم"
+      confirm:
+        - text: "«هاضِم [مفرد]: (طب) دواء أو مادّة تحوّل الطعامَ في جهاز الهضم إلى مادة صالحة لأن يتمثَّلها الجسم.»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "هَضُوم"
+      confirm:
+        - text: "«هَضوم [مفرد]: هاضوم؛ كُلُّ دواء يهضم الطَّعام.»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«هَضُوم: مساعد على الهضم»"
+          source: "المورد الحديث (2008)"
+    - lemma: "مساعد للهضم"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مهضم"
+      decision: confirmed
+      decision_reason: "مصطلح شائع ومستخدم في المعاجم المعاصرة، لكنه يحتاج لضبط التشكيل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُهَضِّم"
+    - lemma: "مساعد للهضم"
+      decision: removed
+      decision_reason: "عبارة وصفية غير مسكوكة كمدخل معجمي مستقل، وهي أقرب للتعريف منها للمصطلح."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "هَاضُوم"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح أصيل ودقيق ورد في المعاجم القديمة والحديثة للدلالة على المادة أو الدواء الهاضم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "هَاضُوم", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "هَاضِم"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يستخدم طبياً للإشارة إلى الأدوية والمواد الهاضمة، وهو مدعوم بالأدلة المعجمية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "هَاضِم", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "هَضُوم"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف قوي للهَاضُوم ومُثبت في المعاجم اللغوية والمتخصصة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "هَضُوم", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "أي مادة تعزز عملية الهضم"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب جداً، ويفضل التوسع لبيان الوظيفة الفسيولوجية للمادة."
+    authored:
+      - type: terminological
+        text: "دواء أو مادة تساعد في تحويل الطعام في جهاز الهضم إلى مواد بسيطة قابلة للامتصاص والتمثيل."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "دواء أو مادة تساعد في تحويل الطعام في جهاز الهضم إلى مواد بسيطة قابلة للامتصاص والتمثيل."}
+  examples:
+    per_lemma:
+      - lemma: "مُهَضِّم"
+        examples:
+          - text: "يُنصح بتناول مُهَضِّم طبيعي بعد الوجبات الدسمة لتجنب عسر الهضم."
+            type: usage
+      - lemma: "هَاضُوم"
+        examples:
+          - text: "يحتوي اللعاب على هَاضُوم طبيعي للنشويات."
+            type: usage
+      - lemma: "هَاضِم"
+        examples:
+          - text: "يستخدم الأطباء هَاضِمًا صناعيًا لعلاج حالات نقص الأنزيمات."
+            type: usage
+      - lemma: "هَضُوم"
+        examples:
+          - text: "تناول المريض هَضُومًا لتسهيل عملية الهضم بعد الجراحة."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُهَضِّم"
+      entry_id: "{auto}"
+      root: "هضم"
+      maqayis_quote: "«الْهَاءُ وَالضَّادُ وَالْمِيمُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى كَسْرٍ وَضَغْطٍ وَتَدَاخُلٍ. وَهَضَمْتُ الشَّيْءَ هَضْمًا: كَسَرْتُهُ. ... وَالْهَاضُومُ: الَّذِي يَهْضِمُ الطَّعَامَ.»"
+    - lemma: "هَاضُوم"
+      entry_id: "{auto}"
+      root: "هضم"
+      maqayis_quote: "«الْهَاءُ وَالضَّادُ وَالْمِيمُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى كَسْرٍ وَضَغْطٍ وَتَدَاخُلٍ. وَهَضَمْتُ الشَّيْءَ هَضْمًا: كَسَرْتُهُ. ... وَالْهَاضُومُ: الَّذِي يَهْضِمُ الطَّعَامَ.»"
+    - lemma: "هَاضِم"
+      entry_id: "{auto}"
+      root: "هضم"
+      maqayis_quote: "«الْهَاءُ وَالضَّادُ وَالْمِيمُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى كَسْرٍ وَضَغْطٍ وَتَدَاخُلٍ. وَهَضَمْتُ الشَّيْءَ هَضْمًا: كَسَرْتُهُ. ... وَالْهَاضُومُ: الَّذِي يَهْضِمُ الطَّعَامَ.»"
+    - lemma: "هَضُوم"
+      entry_id: "{auto}"
+      root: "هضم"
+      maqayis_quote: "«الْهَاءُ وَالضَّادُ وَالْمِيمُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى كَسْرٍ وَضَغْطٍ وَتَدَاخُلٍ. وَهَضَمْتُ الشَّيْءَ هَضْمًا: كَسَرْتُهُ. ... وَالْهَاضُومُ: الَّذِي يَهْضِمُ الطَّعَامَ.»"
+  per_sense:
+    - lemma: "مُهَضِّم"
+      sense_id: "{auto}"
+      nuance: "مصطلح معاصر وشائع الاستخدام في الصيدلة والطب الشعبي."
+      mwe: false
+    - lemma: "هَاضُوم"
+      sense_id: "{auto}"
+      nuance: "مصطلح أصيل يشمل الأدوية والمواد الطبيعية (مثل اللعاب) التي تقوم بعملية الهضم."
+      mwe: false
+    - lemma: "هَاضِم"
+      sense_id: "{auto}"
+      nuance: "يؤكد على الصفة الوظيفية (الفاعلية) للمادة في عملية الهضم."
+      mwe: false
+    - lemma: "هَضُوم"
+      sense_id: "{auto}"
+      nuance: "صيغة مبالغة تفيد القوة في الهضم، وتستخدم كمرادف للهَاضُوم."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"هضم","maqayis":"«الْهَاءُ وَالضَّادُ وَالْمِيمُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى كَسْرٍ وَضَغْطٍ وَتَدَاخُلٍ. وَهَضَمْتُ الشَّيْءَ هَضْمًا: كَسَرْتُهُ. ... وَالْهَاضُومُ: الَّذِي يَهْضِمُ الطَّعَامَ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح معاصر وشائع الاستخدام في الصيدلة والطب الشعبي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

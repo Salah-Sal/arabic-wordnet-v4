@@ -1,0 +1,223 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي حرفي جداً ويحتاج إلى صياغة معجمية أمتن."
+      - "اللمة الموجودة 'برميل بارود' هي ترجمة اقتراضية (Calque) شائعة في الاستعمال المعاصر، ولكن هناك عبارات أخرى أدق وأكثر تجريداً للمفهوم."
+    observations: "المفهوم يشير إلى حالة مجازية تتسم بالخطورة وقابلية التفاقم السريع. التعبيرات مثل 'وضع متفجر' أو 'قنبلة موقوتة' تفي بالغرض بشكل أكثر فصاحة وتجريداً."
+  blind_candidates:
+    - lemma: "وَضْع مُتَفَجِّر"
+      generation_method: tarkib
+      justification: "تركيب وصفي يعبر بدقة عن الحالة القابلة للانفجار أو التأزم."
+    - lemma: "بُؤْرَة تَوَتُّر"
+      generation_method: tarkib
+      justification: "تركيب إضافي يكثر استعماله في السياقات السياسية والأمنية للإشارة إلى الأماكن المهددة بالانفجار."
+    - lemma: "قُنْبُلَة مَوْقُوتَة"
+      generation_method: majaz
+      justification: "تعبير مجازي يشير إلى وضع أو حالة خطيرة ستنفجر حتماً إذا لم يتم تداركها."
+    - lemma: "بَرْمِيل بَارُود"
+      generation_method: taarib
+      justification: "ترجمة اقتراضية شاعت في الصحافة لوصف الوضع المشحون بالخطر والمستعد للانفجار."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "برميل بارود"
+      confirm:
+        - text: "بارود: ملح البارود... وذرور (مسحوق) للمدفع. بارود أبيض: نطرون... بيت بارود: جعبة للبارود. طلاق بارود: رمي بالبارود. عُمار بارود: حشوة بارود."
+          source: "تكملة المعاجم العربية لرينهارت دوزي"
+    - lemma: "قنبلة موقوتة"
+      confirm:
+        - text: "قنبلة موقوتة: مضبوطة بوقت معيّن... قنبلة موقوتة: معوَّق تفجيرها، ومضبوط بجهاز خاصّ حتى وقت معيَّن لتنفجر فيه."
+          source: "معجم اللغة العربية المعاصرة لأحمد مختار عمر"
+    - lemma: "وضع متفجر"
+      confirm:
+        - text: "مَوْقِفٌ متفجِّر: خطير، قابل للاشتعال."
+          source: "معجم اللغة العربية المعاصرة لأحمد مختار عمر"
+      expands:
+        - text: "تفتُّت قذيفة أو موادّ متفجِّرة بعنف بتأثير ضغط داخلي إلى شظايا متطايرة في كِّل اتجاه مع دويّ... مجازاً للمواقف."
+          source: "معجم اللغة العربية المعاصرة لأحمد مختار عمر"
+          addition: "يؤكد جواز إطلاق صفة الانفجار على المواقف المعنوية."
+    - lemma: "بؤرة توتر"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "برميل بارود"
+      decision: confirmed
+      decision_reason: "ترجمة اقتراضية مستقرة تماماً في اللغة المعاصرة والخطاب السياسي والأمني للإشارة للموقف الخطر القابل للانفجار."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "بَرْمِيل بَارُود"
+
+    - lemma: "وَضْع مُتَفَجِّر"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير فصيح ووصفي دقيق للمفهوم، يعبر عن المعنى بشكل مباشر ومدعوم بالشواهد المعجمية (موقف متفجر)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "وَضْع مُتَفَجِّر", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "قُنْبُلَة مَوْقُوتَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مجاز شائع للتعبير عن المخاطر الكامنة التي قد تؤدي إلى تدمير أو انفجار معنوي في أي لحظة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "قُنْبُلَة مَوْقُوتَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "بُؤْرَة تَوَتُّر"
+      source: stage1
+      decision: removed
+      decision_reason: "بالرغم من صحته في الاستعمال المعاصر، إلا أن 'وضع متفجر' و'برميل بارود' يغطيان الدلالة بشكل أدق، وهو يميل إلى معنى التمركز الجغرافي للنزاع أكثر من الحالة نفسها."
+
+stage4_content:
+  definition:
+    current: "حالة قابلة للانفجار المحتمل"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يميل إلى الترجمة الحرفية، ويجب توسيعه ليعكس الدلالة المجازية للخطر والتأزم."
+    authored:
+      - type: linguistic
+        text: "وَضْعٌ أَوْ حَالَةٌ مَحْفُوفَةٌ بِالْمَخَاطِرِ وَقَابِلَةٌ لِلتَّفَاقُمِ أَوِ الِانْفِجَارِ فِي أَيِّ لَحْظَةٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "وَضْعٌ أَوْ حَالَةٌ مَحْفُوفَةٌ بِالْمَخَاطِرِ وَقَابِلَةٌ لِلتَّفَاقُمِ أَوِ الِانْفِجَارِ فِي أَيِّ لَحْظَةٍ."}
+
+  examples:
+    per_lemma:
+      - lemma: "بَرْمِيل بَارُود"
+        examples:
+          - text: "أَصْبَحَتِ المِنْطَقَةُ أَشْبَهَ بِبَرْمِيلِ بَارُودٍ يَنْتَظِرُ شَرَارَةً صَغِيرَةً لِيَنْفَجِرَ."
+            type: usage
+      - lemma: "وَضْع مُتَفَجِّر"
+        examples:
+          - text: "تَدَخَّلَتِ اللِّجَانُ الدَّوْلِيَّةُ لِتَهْدِئَةِ الوَضْعِ المُتَفَجِّرِ قَبْلَ وُقُوعِ كَارِثَةٍ حَقِيقِيَّةٍ."
+            type: usage
+      - lemma: "قُنْبُلَة مَوْقُوتَة"
+        examples:
+          - text: "تُعَدُّ هَذِهِ الأَزْمَةُ قُنْبُلَةً مَوْقُوتَةً تَهْدِدُ اسْتِقْرَارَ المُجْتَمَعِ بِأَكْمَلِهِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "أَصْبَحَتِ المِنْطَقَةُ أَشْبَهَ بِبَرْمِيلِ بَارُودٍ يَنْتَظِرُ شَرَارَةً صَغِيرَةً لِيَنْفَجِرَ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تَدَخَّلَتِ اللِّجَانُ الدَّوْلِيَّةُ لِتَهْدِئَةِ الوَضْعِ المُتَفَجِّرِ قَبْلَ وُقُوعِ كَارِثَةٍ حَقِيقِيَّةٍ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تُعَدُّ هَذِهِ الأَزْمَةُ قُنْبُلَةً مَوْقُوتَةً تَهْدِدُ اسْتِقْرَارَ المُجْتَمَعِ بِأَكْمَلِهِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "بَرْمِيل بَارُود"
+      entry_id: "{auto}"
+      roots:
+        - word: "برميل"
+          root: "برمل"
+          maqayis_quote: ""
+        - word: "بارود"
+          root: "برد"
+          maqayis_quote: "«الْبَاءُ وَالرَّاءُ وَالدَّالُ أُصُولٌ أَرْبَعَةٌ: أَحَدُهَا خِلَافُ الْحَرِّ، وَالْآخَرُ السُّكُونُ وَالثُّبُوتُ، وَالثَّالِثُ الْمَلْبُوسُ، وَالرَّابِعُ الِاضْطِرَابُ وَالْحَرَكَةُ.»"
+    - lemma: "وَضْع مُتَفَجِّر"
+      entry_id: "{auto}"
+      roots:
+        - word: "وضع"
+          root: "وضع"
+          maqayis_quote: "«الْوَاوُ وَالضَّادُ وَالْعَيْنُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الْخَفْضِ لِلشَّيْءِ وَحَطِّهِ.»"
+        - word: "متفجر"
+          root: "فجر"
+          maqayis_quote: "«الْفَاءُ وَالْجِيمُ وَالرَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ التَّفَتُّحُ فِي الشَّيْءِ.»"
+    - lemma: "قُنْبُلَة مَوْقُوتَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "قنبلة"
+          root: "قنبل"
+          maqayis_quote: ""
+        - word: "موقوتة"
+          root: "وقت"
+          maqayis_quote: ""
+  per_sense:
+    - lemma: "بَرْمِيل بَارُود"
+      sense_id: "{auto}"
+      nuance: "تعبير مجازي يستحضر الصورة المادية للشيء القابل للاشتعال ككناية عن حالة شديدة الاحتقان وقابلة للانفجار السريع."
+      mwe: true
+    - lemma: "وَضْع مُتَفَجِّر"
+      sense_id: "{auto}"
+      nuance: "يركز على الوصف التجريدي المباشر للموقف المتأزم الذي وصل إلى نقطة اللاعودة."
+      mwe: true
+    - lemma: "قُنْبُلَة مَوْقُوتَة"
+      sense_id: "{auto}"
+      nuance: "يستعمل للتشديد على فكرة الحتمية وأن الانفجار قادم مع مرور الوقت إذا لم يُعالج السبب."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"برميل","root":"برمل","maqayis":""},{"word":"بارود","root":"برد","maqayis":"«الْبَاءُ وَالرَّاءُ وَالدَّالُ أُصُولٌ أَرْبَعَةٌ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"وضع","root":"وضع","maqayis":"«الْوَاوُ وَالضَّادُ وَالْعَيْنُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الْخَفْضِ لِلشَّيْءِ وَحَطِّهِ.»"},{"word":"متفجر","root":"فجر","maqayis":"«الْفَاءُ وَالْجِيمُ وَالرَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ التَّفَتُّحُ فِي الشَّيْءِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"قنبلة","root":"قنبل","maqayis":""},{"word":"موقوتة","root":"وقت","maqayis":""}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير مجازي يستحضر الصورة المادية للشيء القابل للاشتعال ككناية عن حالة شديدة الاحتقان وقابلة للانفجار السريع.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الوصف التجريدي المباشر للموقف المتأزم الذي وصل إلى نقطة اللاعودة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يستعمل للتشديد على فكرة الحتمية وأن الانفجار قادم مع مرور الوقت إذا لم يُعالج السبب.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.90

@@ -1,0 +1,240 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة (عاطفي مفرط) عبارة وصفية حرة (تتكون من موصوف وصفة) وليست مصطلحاً مسكوكاً."
+      - "التعريف الحالي مقبول ولكنه ركيك بعض الشيء."
+    observations: "المفهوم يشير إلى الشخص الذي يغلب عاطفته ومخيلته على عقله، وهو يقابل 'sentimentalist' أو 'romanticist' في الإنجليزية. التعبير العربي الأنسب والأكثر شيوعاً هو (عاطفي) كاسم، إلى جانب (رومانسي) و(وجداني)."
+  blind_candidates:
+    - lemma: "عَاطِفِيّ"
+      generation_method: ishtiqaq
+      justification: "مشتق من 'العاطفة'، وهو اللفظ الأشهر للدلالة على من تغلب عليه مشاعره."
+    - lemma: "وِجْدَانِيّ"
+      generation_method: ishtiqaq
+      justification: "نسبة إلى 'الوَجْدان'، لوصف الشخص الذي ينساق وراء عوالمه النفسية الباطنية."
+    - lemma: "رُومَانْسِيّ"
+      generation_method: taarib
+      justification: "مصطلح معرب شائع ومستقر للتعبير عن الشخص الحالم والمفرط في عاطفته."
+    - lemma: "حَسَّاس"
+      generation_method: ishtiqaq
+      justification: "صيغة مبالغة (فَعَّال) تدل على شدة التأثر وسرعة الانفعال."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "عَاطِفِيّ مُفْرِط"
+      evidence_status: "no_material_found"
+    - lemma: "عَاطِفِيّ"
+      confirm:
+        - text: "العاطفيّ: الشديد التأثّر بالعاطفة. (ترجمة لـ sentimentalist)"
+          source: "المورد الحديث (2008)"
+      expands:
+        - text: "عاطفيّ؛ انفعاليّ emotional"
+          source: "المورد الحديث (2008)"
+    - lemma: "وِجْدَانِيّ"
+      confirm:
+        - text: "(1) وِجدانيّ sentimental poetry (2) عاطفيّ both for sentimental and realistic reasons"
+          source: "المورد الحديث (2008)"
+    - lemma: "رُومَانْسِيّ"
+      confirm:
+        - text: "مذهب أدبي جاء كرد فعل على الكلاسيكية، وهو نزعة ذاتية توظف الأنا في تقصي عوالم الحلم."
+          source: "المعجم الموحد لمصطلحات اللسانيات (2002)"
+      expands:
+        - text: "وردت كلمة «رومانسية» في المعجم الأساسي بمعنى العودة إلى الطبيعة وإيثار الحسّ والعاطفة على العقل والمنطق وهي من الكلمات المستحدثة في لغة العصر الحديث."
+          source: "معجم الصواب اللغوي لأحمد مختار عمر"
+    - lemma: "حَسَّاس"
+      contradicts:
+        - text: "الشَّديد الحِسِّ والإدراك هو حَسَّاسٌ لكذا: سريعُ الانفعالِ"
+          source: "المعجم الكبير"
+          conflict: "المعنى أعم ويشمل شدة الإدراك والتأثر الخفيف، ولا يعني بالضرورة 'الانغماس في العاطفة المفرطة'."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "عَاطِفِيّ مُفْرِط"
+      decision: removed
+      decision_reason: "تركيب وصفي غير مسكوك (صفة وموصوف)، ويمكن الاستغناء عنه باللمة الأقوى والأشيع 'عاطفي'."
+      evidence_assessment:
+        case: no_material
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    
+    - lemma: "وِجْدَانِيّ"
+      decision: confirmed
+      decision_reason: "لفظ فصيح ومشتق بشكل سليم، ويستخدم للتعبير عن الميل إلى تحكيم المشاعر الباطنية، وقد أقره المورد كترجمة لـ sentimental."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "وِجْدَانِيّ"
+            
+    - lemma: "عَاطِفِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "هي الترجمة الدقيقة والمباشرة لمفهوم (sentimentalist)، وتُستخدم كاسم فاعل لمن تسيطر عليه عاطفته."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "عَاطِفِيّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+            
+    - lemma: "رُومَانْسِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح معرب شائع ومثبت معجمياً، يؤدي المعنى المرتبط بالحالمية والميل العاطفي الشديد (romanticist)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "رُومَانْسِيّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "حَسَّاس"
+      source: stage1
+      decision: removed
+      decision_reason: "الكلمة تدل على سرعة التأثر والانفعال، ولا ترقى إلى معنى 'الانغماس وتغليب العاطفة'."
+
+stage4_content:
+  definition:
+    current: "شخص ينغمس في العاطفة المفرطة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ركيك ويمكن صياغته بأسلوب معجمي أوضح يبين غلبة العاطفة على العقل."
+    authored:
+      - type: terminological
+        text: "شخص تسيطر عليه مشاعره وينقاد لعاطفته ومخيلته في مواقفه وأحكامه."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "شخص تسيطر عليه مشاعره وينقاد لعاطفته ومخيلته في مواقفه وأحكامه."
+
+  examples:
+    per_lemma:
+      - lemma: "عَاطِفِيّ"
+        examples:
+          - text: "عرف بين أصدقائه بأنه عاطفيّ تغلبه دموعه في المواقف الإنسانية."
+            type: usage
+      - lemma: "وِجْدَانِيّ"
+        examples:
+          - text: "يميل الشاعر الوجدانيّ إلى التعبير عن مكنونات نفسه وتجربته الذاتية."
+            type: usage
+      - lemma: "رُومَانْسِيّ"
+        examples:
+          - text: "هو شاب رومانسيّ يبحث دائماً عن الحب المثالي."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يميل الشاعر الوجدانيّ إلى التعبير عن مكنونات نفسه وتجربته الذاتية."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "عرف بين أصدقائه بأنه عاطفيّ تغلبه دموعه في المواقف الإنسانية."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "هو شاب رومانسيّ يبحث دائماً عن الحب المثالي."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "عَاطِفِيّ"
+      entry_id: "{auto}"
+      root: "عطف"
+      maqayis_quote: "«الْعَيْنُ وَالطَّاءُ وَالْفَاءُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى انْثِنَاءٍ وَعِيَاجٍ.»"
+    - lemma: "وِجْدَانِيّ"
+      entry_id: "{auto}"
+      root: "وجد"
+      maqayis_quote: "«الْوَاوُ وَالْجِيمُ وَالدَّالُ، يَدُلُّ عَلَى أَصْلٍ وَاحِدٍ، وَهُوَ الشَّيُّ يُلْفِيهِ.»"
+    - lemma: "رُومَانْسِيّ"
+      entry_id: "{auto}"
+
+  per_sense:
+    - lemma: "عَاطِفِيّ"
+      sense_id: "{auto}"
+      nuance: "تفيد الاستسلام المطلق للمشاعر الإنسانية وتغليبها في الحكم على الأمور."
+      mwe: false
+    - lemma: "وِجْدَانِيّ"
+      sense_id: "{auto}"
+      nuance: "تركز على عمق المشاعر الداخلية والتأثر النفسي الباطني وغالباً ما ترتبط بالأدب والشعر."
+      mwe: false
+    - lemma: "رُومَانْسِيّ"
+      sense_id: "{auto}"
+      nuance: "تحمل دلالة على الحالمية والميل للخيال والمثالية، ولها جذور في المذاهب الأدبية."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عطف","maqayis":"«الْعَيْنُ وَالطَّاءُ وَالْفَاءُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى انْثِنَاءٍ وَعِيَاجٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"وجد","maqayis":"«الْوَاوُ وَالْجِيمُ وَالدَّالُ، يَدُلُّ عَلَى أَصْلٍ وَاحِدٍ، وَهُوَ الشَّيُّ يُلْفِيهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تفيد الاستسلام المطلق للمشاعر الإنسانية وتغليبها في الحكم على الأمور.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركز على عمق المشاعر الداخلية والتأثر النفسي الباطني وغالباً ما ترتبط بالأدب والشعر.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تحمل دلالة على الحالمية والميل للخيال والمثالية، ولها جذور في المذاهب الأدبية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.90

@@ -1,0 +1,212 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمات الموجودة غير مشكولة ومصطلحات حديثة الاستخدام الطبي."
+      - "التعريف يركز على كلمة 'عملية' التي تعتبر ترجمة حرفية لـ process في هذا السياق، لكنها مستقرة في الاستعمال الطبي."
+    observations: "المفهوم طبي يصف التغيرات العضوية والتطورات التي تحدث نتيجة للإصابة بمرض. الترجمة الحالية 'عملية مرضية' و'سير مرضي' صحيحة وشائعة في الأدبيات الطبية."
+  blind_candidates:
+    - lemma: "مَسَارُ المَرَضِ"
+      generation_method: tarkib
+      justification: "تركيب إضافي يعبر عن التطور الزمني والمكاني للمرض في الجسم، وهو يقابل process."
+    - lemma: "عَمَلِيَّةٌ مَرَضِيَّةٌ"
+      generation_method: tarkib
+      justification: "تركيب وصفي يترجم حرفيا pathological process وهو مستخدم وشائع."
+    - lemma: "سَيْرٌ مَرَضِيّ"
+      generation_method: tarkib
+      justification: "تركيب وصفي يعبر عن مسار المرض وتطوره."
+    - lemma: "إِمْرَاضٌ"
+      generation_method: ishtiqaq
+      justification: "مصدر يدل على إحداث المرض وتطوره (pathogenesis) وهو وثيق الصلة بالمفهوم."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "سَيْرٌ مَرَضِيّ"
+      expands:
+        - text: "مساعد على وقف سير المرض"
+          source: "المورد الحديث (2008)"
+    - lemma: "عَمَلِيَّةٌ مَرَضِيَّةٌ"
+      evidence_status: "no_material_found"
+    - lemma: "مَسَارُ المَرَضِ"
+      confirm:
+        - text: "مصطلح يطلق على علاجات طبية أو جراحية بغرض تعديل مسار المرض."
+          source: "معجم المصطلحات الطبية (ج.3، 1997)"
+    - lemma: "إِمْرَاضٌ"
+      confirm:
+        - text: "إِمْراض: pathogenesis"
+          source: "المعجم الطبي الموحد (2009)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "سير مرضي"
+      decision: confirmed
+      decision_reason: "مصطلح طبي مستقر يعبر عن التطور والتغيرات الناتجة عن المرض، وورد في المعاجم الطبية ضمن سياقات مشابهة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "سَيْرٌ مَرَضِيّ"
+
+    - lemma: "عملية مرضية"
+      decision: confirmed
+      decision_reason: "ترجمة مستقرة ومباشرة للمصطلح الإنجليزي (pathological process) وتستخدم بكثرة في الأدبيات الطبية الحديثة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عَمَلِيَّةٌ مَرَضِيَّةٌ"
+
+    - lemma: "مَسَارُ المَرَضِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف دقيق وشائع للاستخدام في السياق السريري لوصف التطور المرضي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "مَسَارُ المَرَضِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "إِمْرَاضٌ"
+      source: stage1
+      decision: removed
+      decision_reason: "هذا المصطلح يقابل عادة (pathogenesis) وهو نشأة المرض وتطوره، ورغم قرابته إلا أنه يمثل مفهوما مستقلا في الشبكة الدلالية (synset أخرى)."
+
+stage4_content:
+  definition:
+    current: "عملية عضوية تحدث نتيجة لمرض"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق وواضح، ويعكس المعنى العلمي للمصطلح ويطابق التعريف الإنجليزي من حيث المضمون العضوي."
+  examples:
+    per_lemma:
+      - lemma: "سَيْرٌ مَرَضِيّ"
+        examples:
+          - text: "أدى العلاج المبكر إلى إبطاء السير المرضي للحالة."
+            type: usage
+      - lemma: "عَمَلِيَّةٌ مَرَضِيَّةٌ"
+        examples:
+          - text: "يعمل الدواء على إيقاف العملية المرضية في الخلايا المصابة."
+            type: usage
+      - lemma: "مَسَارُ المَرَضِ"
+        examples:
+          - text: "يختلف مسار المرض من مريض لآخر بناءً على استجابته المناعية."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "أدى العلاج المبكر إلى إبطاء السير المرضي للحالة."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يعمل الدواء على إيقاف العملية المرضية في الخلايا المصابة."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يختلف مسار المرض من مريض لآخر بناءً على استجابته المناعية."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "سَيْرٌ مَرَضِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "سير"
+          root: "سير"
+          maqayis_quote: "«السِّينُ وَالْيَاءُ وَالرَّاءُ أَصْلٌ يَدُلُّ عَلَى مُضِيٍّ وَجَرَيَانٍ...»"
+        - word: "مرضي"
+          root: "مرض"
+          maqayis_quote: "«الْمِيمُ وَالرَّاءُ وَالضَّادُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مَا يَخْرُجُ بِهِ الْإِنْسَانُ عَنْ حَدِّ الصِّحَّةِ...»"
+
+    - lemma: "عَمَلِيَّةٌ مَرَضِيَّةٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "عملية"
+          root: "عمل"
+          maqayis_quote: "«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامٌّ فِي كُلِّ فِعْلٍ يُفْعَلُ...»"
+        - word: "مرضية"
+          root: "مرض"
+          maqayis_quote: "«الْمِيمُ وَالرَّاءُ وَالضَّادُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مَا يَخْرُجُ بِهِ الْإِنْسَانُ عَنْ حَدِّ الصِّحَّةِ...»"
+
+    - lemma: "مَسَارُ المَرَضِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مسار"
+          root: "سير"
+          maqayis_quote: "«السِّينُ وَالْيَاءُ وَالرَّاءُ أَصْلٌ يَدُلُّ عَلَى مُضِيٍّ وَجَرَيَانٍ...»"
+        - word: "المرض"
+          root: "مرض"
+          maqayis_quote: "«الْمِيمُ وَالرَّاءُ وَالضَّادُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مَا يَخْرُجُ بِهِ الْإِنْسَانُ عَنْ حَدِّ الصِّحَّةِ...»"
+
+  per_sense:
+    - lemma: "سَيْرٌ مَرَضِيّ"
+      sense_id: "{auto}"
+      nuance: "يركز على التتابع الزمني والمراحل التي يمر بها المرض."
+      mwe: true
+    - lemma: "عَمَلِيَّةٌ مَرَضِيَّةٌ"
+      sense_id: "{auto}"
+      nuance: "ترجمة دقيقة وشائعة تركز على التغيرات العضوية والآليات الناتجة عن المرض."
+      mwe: true
+    - lemma: "مَسَارُ المَرَضِ"
+      sense_id: "{auto}"
+      nuance: "تعبير شائع في السياقات السريرية لوصف تطور المرض عبر الزمن."
+      mwe: true
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"سير","root":"سير","maqayis":"«السِّينُ وَالْيَاءُ وَالرَّاءُ أَصْلٌ يَدُلُّ عَلَى مُضِيٍّ وَجَرَيَانٍ...»"},{"word":"مرضي","root":"مرض","maqayis":"«الْمِيمُ وَالرَّاءُ وَالضَّادُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مَا يَخْرُجُ بِهِ الْإِنْسَانُ عَنْ حَدِّ الصِّحَّةِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"عملية","root":"عمل","maqayis":"«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامٌّ فِي كُلِّ فِعْلٍ يُفْعَلُ...»"},{"word":"مرضية","root":"مرض","maqayis":"«الْمِيمُ وَالرَّاءُ وَالضَّادُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مَا يَخْرُجُ بِهِ الْإِنْسَانُ عَنْ حَدِّ الصِّحَّةِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مسار","root":"سير","maqayis":"«السِّينُ وَالْيَاءُ وَالرَّاءُ أَصْلٌ يَدُلُّ عَلَى مُضِيٍّ وَجَرَيَانٍ...»"},{"word":"المرض","root":"مرض","maqayis":"«الْمِيمُ وَالرَّاءُ وَالضَّادُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مَا يَخْرُجُ بِهِ الْإِنْسَانُ عَنْ حَدِّ الصِّحَّةِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على التتابع الزمني والمراحل التي يمر بها المرض.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"ترجمة دقيقة وشائعة تركز على التغيرات العضوية والآليات الناتجة عن المرض.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير شائع في السياقات السريرية لوصف تطور المرض عبر الزمن.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,212 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة (مُشْتَبَه بِه) هي عبارة اصطلاحية (MWE) وليست كلمة مفردة، وهي صحيحة وشائعة جداً، ولكن يُفتقر إلى ذكر كلمات مفردة فصيحة تعبر عن نفس المعنى مثل (مَشْبُوه) أو (ظَنِين)."
+    observations: "التعريف الحالي دقيق وموجز، ويميز المفهوم جيداً. العلاقة الدلالية مع (عامل / فاعل) صحيحة في سياق تصنيف الكيانات."
+  blind_candidates:
+    - lemma: "مَشْبُوه"
+      generation_method: ishtiqaq
+      justification: "اسم مفعول من (شَبُهَ) أو مشتق من الشبهة، يدل على من تحوم حوله الشبهات."
+    - lemma: "ظَنِين"
+      generation_method: ishtiqaq
+      justification: "مشتق من (الظن) على وزن فَعيل بمعنى مفعول، وهو من يُظَن به السوء أو يُتهم."
+    - lemma: "مُتَّهَم"
+      generation_method: ishtiqaq
+      justification: "من وقعت عليه التهمة والشك."
+    - lemma: "مَظْنُون"
+      generation_method: ishtiqaq
+      justification: "اسم مفعول من (ظن)، أي من توجه إليه الظنون."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُشْتَبَه بِه"
+      confirm:
+        - text: "مُشْتَبَهٌ بهِ"
+          source: "المعجم الطبي الموحد (2009)"
+        - text: "-قبض على المشتبه فيه [فصيحة]-قبض على المشبوه [صحيحة]"
+          source: "معجم الصواب اللغوي لأحمد مختار عمر"
+    - lemma: "مَشْبُوه"
+      confirm:
+        - text: "ما يُرْتَابُ فى أَمْرِه... مَنْ حامَتْ حولَه ظنونُ السُّوءِ فى اقترافِ الجرائم وفى الانحرافِ عن السُّلُوكِ الْمُسْتَقِيم"
+          source: "المعجم الكبير"
+    - lemma: "ظَنِين"
+      confirm:
+        - text: "كلُّ ما لا يوثق به المُتَّهَم القليلُ الخير"
+          source: "المعجم الوسيط"
+        - text: "المتهم"
+          source: "المعجم الكبير"
+    - lemma: "مُتَّهَم"
+      contradicts:
+        - text: "الشخص الذي يوجه إليه اتهام رسمي من النيابة العامة بارتكاب جريمة معينة، ويعتبر بريئا حتى تثبُت إدانته"
+          source: "المعجم الموحد لمصطلحات القانون (2017)"
+          conflict: "يحمل دلالة قانونية أضيق تتعلق بتوجيه تهمة رسمية (Accused)، بينما المشتبه به (Suspect) هو من تحوم حوله الشكوك قبل توجيه التهمة."
+    - lemma: "مَظْنُون"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مُشْتَبَه بِه"
+      decision: confirmed
+      decision_reason: "مركب اصطلاحي مستقر وشائع الاستخدام في السياقات القانونية والأمنية للتعبير عن الشخص الذي تحوم حوله الشكوك."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُشْتَبَه بِهِ"
+    - lemma: "مَشْبُوه"
+      source: stage1
+      decision: confirmed
+      decision_reason: "كلمة فصيحة ومثبتة في المعاجم الحديثة والكبيرة بمعنى من حامت حوله ظنون السوء."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَشْبُوه", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "ظَنِين"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ تراثي فصيح ومثبت في المعاجم القديمة والحديثة للتعبير عن الشخص المتهم أو من لا يوثق به."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "ظَنِين", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُتَّهَم"
+      source: stage1
+      decision: removed
+      decision_reason: "يختلف دلالياً وقانونياً عن (المشتبه به)، حيث يطلق على من وُجهت إليه تهمة رسمية (Accused) وليس مجرد مشتبه به (Suspect)."
+    - lemma: "مَظْنُون"
+      source: stage1
+      decision: removed
+      decision_reason: "كلمة عامة ولم تثبت كاستخدام اصطلاحي مخصص للمفهوم مقارنة بالبدائل الأخرى مثل (ظنين)."
+
+stage4_content:
+  definition:
+    current: "شخص تحوم حوله الشكوك"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد ولكنه يحتاج إلى إضافة توضيح بسيط لجعله أقرب لأسلوب المعاجم."
+    authored:
+      - type: terminological
+        text: "مَنْ حامت حوله الشبهات أو ظنون السوء في ارتكاب جريمة أو فعل مريب، ولم تثبت إدانته بعد."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مَنْ حامت حوله الشبهات أو ظنون السوء في ارتكاب جريمة أو فعل مريب، ولم تثبت إدانته بعد."}
+  examples:
+    per_lemma:
+      - lemma: "مُشْتَبَه بِهِ"
+        examples:
+          - text: "ألقت الشرطة القبض على مُشْتَبَه بِهِ في قضية السرقة."
+            type: usage
+      - lemma: "مَشْبُوه"
+        examples:
+          - text: "ابتعد عن الأماكن والمقاهي التي يرتادها كل مَشْبُوه."
+            type: usage
+      - lemma: "ظَنِين"
+        examples:
+          - text: "بقي ظَنِيناً في أعين الناس حتى ظهرت براءته من التهمة."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "ألقت الشرطة القبض على مُشْتَبَه بِهِ في قضية السرقة."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "ابتعد عن الأماكن والمقاهي التي يرتادها كل مَشْبُوه."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "بقي ظَنِيناً في أعين الناس حتى ظهرت براءته من التهمة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُشْتَبَه بِهِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مشتبه"
+          root: "شبه"
+          maqayis_quote: "«الشِّينُ وَالْبَاءُ وَالْهَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَشَابُهِ الشَّيْءِ وَتَشَاكُلِهِ لَوْنًا وَوَصْفًا.»"
+    - lemma: "مَشْبُوه"
+      entry_id: "{auto}"
+      root: "شبه"
+      maqayis_quote: "«الشِّينُ وَالْبَاءُ وَالْهَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَشَابُهِ الشَّيْءِ وَتَشَاكُلِهِ لَوْنًا وَوَصْفًا.»"
+    - lemma: "ظَنِين"
+      entry_id: "{auto}"
+      root: "ظنن"
+      maqayis_quote: "«الظَّاءُ وَالنُّونُ أُصَيْلٌ صَحِيحٌ يَدُلُّ عَلَى مَعْنَيَيْنِ مُخْتَلِفَيْنِ: يَقِينٍ وَشَكٍّ... وَالْأَصْلُ الْآخَرُ: الشَّكُّ... وَمِنْ ذَلِكَ الظِّنَّةُ: التُّهْمَةَ. وَالظَّنِينُ: الْمُتَّهَمُ.»"
+  per_sense:
+    - lemma: "مُشْتَبَه بِهِ"
+      sense_id: "{auto}"
+      nuance: "يُستخدم كمركب اصطلاحي شائع بشكل خاص في السياقات القانونية والأمنية لمن تحوم حوله شكوك دون إثبات الجرم."
+      mwe: true
+    - lemma: "مَشْبُوه"
+      sense_id: "{auto}"
+      nuance: "يحمل دلالة سلبية أقوى على سوء السلوك أو الانحراف، وقد يُستخدم كصفة للأشخاص أو الأماكن ذات السمعة السيئة."
+      mwe: false
+    - lemma: "ظَنِين"
+      sense_id: "{auto}"
+      nuance: "لفظ تراثي فصيح بليغ يشير إلى من تحيط به التهم ولا يوثق به."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مشتبه","root":"شبه","maqayis":"«الشِّينُ وَالْبَاءُ وَالْهَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَشَابُهِ الشَّيْءِ وَتَشَاكُلِهِ لَوْنًا وَوَصْفًا.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"شبه","maqayis":"«الشِّينُ وَالْبَاءُ وَالْهَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَشَابُهِ الشَّيْءِ وَتَشَاكُلِهِ لَوْنًا وَوَصْفًا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ظنن","maqayis":"«الظَّاءُ وَالنُّونُ أُصَيْلٌ صَحِيحٌ يَدُلُّ عَلَى مَعْنَيَيْنِ مُخْتَلِفَيْنِ: يَقِينٍ وَشَكٍّ... وَالْأَصْلُ الْآخَرُ: الشَّكُّ... وَمِنْ ذَلِكَ الظِّنَّةُ: التُّهْمَةَ. وَالظَّنِينُ: الْمُتَّهَمُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُستخدم كمركب اصطلاحي شائع بشكل خاص في السياقات القانونية والأمنية لمن تحوم حوله شكوك دون إثبات الجرم.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يحمل دلالة سلبية أقوى على سوء السلوك أو الانحراف، وقد يُستخدم كصفة للأشخاص أو الأماكن ذات السمعة السيئة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"لفظ تراثي فصيح بليغ يشير إلى من تحيط به التهم ولا يوثق به.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

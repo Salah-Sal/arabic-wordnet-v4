@@ -1,0 +1,198 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة «مُعَلِّم نَفْسَه» تحتاج لتصحيح التشكيل وضبط بنية التركيب (إضافة الكسرة تحت الشدة)."
+      - "نقص في المصطلحات الحديثة الدقيقة مثل «متعلم ذاتي» التي شاعت في السياقات التربوية."
+    observations: "المجموعة تغطي مفهوم العصامية والتعلم الذاتي. المصطلح «عصامي» هو الأكثر تراثاً وشيوعاً، بينما تفتقر المجموعة للمصطلحات التقنية المعاصرة."
+  blind_candidates:
+    - lemma: "عَصَامِيّ"
+      generation_method: majaz
+      justification: "مأخوذ من قصة عصام بن شهبر الذي ساد بنفسه لا بآبائه، وهو المصطلح العربي الأصيل المقابل لـ (self-made) و(self-taught)."
+    - lemma: "ذَاتِيُّ التَّثَقُّفِ"
+      generation_method: tarkib
+      justification: "تركيب وصفي يعبر عن الشخص الذي يثقف نفسه بنفسه، وهو شائع في المعاجم الحديثة مثل المورد."
+    - lemma: "ذَاتِيُّ التَّحْصِيلِ"
+      generation_method: tarkib
+      justification: "تركيب وصفي يعبر عن اكتساب المعلم بشكل مستقل، وهو مستخدم في الأدبيات التربوية."
+    - lemma: "تِلْمِيذُ ذَاتِهِ"
+      generation_method: tarkib
+      justification: "تعبير استعاري يشير إلى التلمذة المستقلة دون معلم خارجي."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "عَصَامِيّ"
+      confirm:
+        - text: "«(العصامي) من سَاد بشرف نَفسه ويقابله العظامي»"
+          source: "المعجم الوسيط"
+        - text: "«نفس عصام سودت عصاما.. يقال للسائد بنفسه لا بآبائه»"
+          source: "مقاييس اللغة"
+      expands:
+        - text: "«عصامي: self-made»"
+          source: "المعجم الموحد لمصطلحات التقنيات التربوية"
+    - lemma: "مُعَلِّم نَفْسَه"
+      confirm:
+        - text: "«ذاتيّ التحصيل: «أ» مُعلِّمٌ نفسَهُ بنفسه.»"
+          source: "المورد الحديث (عبر ArabTerm)"
+    - lemma: "مُتَعَلِّمٌ ذَاتِيٌّ"
+      confirm:
+        - text: "«متعلم ذاتي: self-educated»"
+          source: "مسرد التربية (ArabTerm)"
+    - lemma: "ذَاتِيُّ التَّثَقُّفِ"
+      confirm:
+        - text: "«ذاتيّ التثقُّف: مُثَقِّفٌ نفسَهُ بنفسه.»"
+          source: "المورد الحديث (عبر ArabTerm)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "عَصَامِيّ"
+      decision: confirmed
+      decision_reason: "مصطلح أصيل وشائع جداً للتعبير عن الاعتماد على النفس في التحصيل وبناء الذات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عَصَامِيّ"
+    - lemma: "مُعَلِّم نَفْسَه"
+      decision: confirmed
+      decision_reason: "تعبير وصفي صحيح ودقيق، يحتاج فقط لضبط التشكيل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُعَلِّمُ نَفْسِهِ"
+    - lemma: "مُتَعَلِّمٌ ذَاتِيٌّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تقني حديث شائع في السياقات التربوية والأكاديمية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "مُتَعَلِّمٌ ذَاتِيٌّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09844815-n"}
+    - lemma: "ذَاتِيُّ التَّثَقُّفِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح معجمي حديث (المورد) يركز على الجانب الثقافي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "ذَاتِيُّ التَّثَقُّفِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09844815-n"}
+
+stage4_content:
+  definition:
+    current: "شخص علم نفسه بنفسه"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي بسيط جداً ويميل للعامية، يفضل استخدام لغة معجمية أكثر رصانة."
+    authored:
+      - type: terminological
+        text: "مَن حصَّل المعرفةَ أو العِلْمَ بِمجهودِهِ الشَّخْصِيِّ دُونَ الاستِعَانَةِ بِمُعَلِّمٍ أو الانتِسَابِ لِمؤَسَّسَةٍ تَعْلِيمِيَّةٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-09844815-n", definition_index: 0, text: "مَن حصَّل المعرفةَ أو العِلْمَ بِمجهودِهِ الشَّخْصِيِّ دُونَ الاستِعَانَةِ بِمُعَلِّمٍ أو الانتِسَابِ لِمؤَسَّسَةٍ تَعْلِيمِيَّةٍ."}
+
+  examples:
+    per_lemma:
+      - lemma: "عَصَامِيّ"
+        examples:
+          - text: "يُعَدُّ العَقَّادُ عَصَامِيًّا نَادِرًا، فَقَدْ كَوَّنَ ثَقَافَتَهُ العَرِيضَةَ بِنَفْسِهِ."
+            type: usage
+      - lemma: "مُعَلِّمُ نَفْسِهِ"
+        examples:
+          - text: "كَانَ الفَارَابِيُّ مُعَلِّمَ نَفْسِهِ فِي كَثِيرٍ مِنَ العُلُومِ الَّتِي بَرَعَ فِيهَا."
+            type: usage
+      - lemma: "مُتَعَلِّمٌ ذَاتِيٌّ"
+        examples:
+          - text: "فِي عَصْرِ المَعْلُومَاتِيَّةِ، أَصْبَحَ كُلُّ بَاحِثٍ نَاجِحٍ مُتَعَلِّمًا ذَاتِيًّا بِالضَّرُورَةِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يُعَدُّ العَقَّادُ عَصَامِيًّا نَادِرًا، فَقَدْ كَوَّنَ ثَقَافَتَهُ العَرِيضَةَ بِنَفْسِهِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "عَصَامِيّ"
+      entry_id: "{auto}"
+      root: "عصم"
+      maqayis_quote: "«(عَصَمَ) الْعَيْنُ وَالصَّادُ وَالْمِيمُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى إِمْسَاكٍ وَمَنْعٍ وَمُلَازَمَةٍ ... نَفْسُ عِصَامٍ سَوَّدَتْ عِصَامًا»"
+    - lemma: "مُعَلِّمُ نَفْسِهِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "معلم"
+          root: "علم"
+          maqayis_quote: "«(عَلَمَ) الْعَيْنُ وَاللَّامُ وَالْمِيمُ أَصْلٌ صَحِيحٌ وَاحِدٌ، يَدُلُّ عَلَى أَثَرٍ بِالشَّيْءِ يَتَمَيَّزُ بِهِ عَنْ غَيْرِهِ.»"
+        - word: "نفسه"
+          root: "نفس"
+          maqayis_quote: "«(نَفَسَ) النُّونُ وَالْفَاءُ وَالسِّينُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خُرُوجِ النَّسِيمِ... وَالنَّفْسُ: رُوحُ الْحَيَوَانِ.»"
+    - lemma: "مُتَعَلِّمٌ ذَاتِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "متعلم"
+          root: "علم"
+          maqayis_quote: "«(عَلَمَ) الْعَيْنُ وَاللَّامُ وَالْمِيمُ أَصْلٌ صَحِيحٌ وَاحِدٌ، يَدُلُّ عَلَى أَثَرٍ بِالشَّيْءِ يَتَمَيَّزُ بِهِ عَنْ غَيْرِهِ.»"
+        - word: "ذاتي"
+          root: "ذوو"
+          maqayis_quote: "«(ذُو) الذَّالُ وَالْوَاوُ أَصْلٌ يَدُلُّ عَلَى صَاحِبِ الشَّيْءِ... وَالذَّاتُ هِيَ النَّفْسُ.»"
+  per_sense:
+    - lemma: "عَصَامِيّ"
+      sense_id: "{auto}"
+      nuance: "تؤكد على الجانب الأخلاقي والاجتماعي للاعتماد على النفس وبناء المجد الشخصي."
+      mwe: false
+    - lemma: "مُعَلِّمُ نَفْسِهِ"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي مباشر يركز على عدم وجود معلم خارجي."
+      mwe: true
+    - lemma: "مُتَعَلِّمٌ ذَاتِيٌّ"
+      sense_id: "{auto}"
+      nuance: "مصطلح حديث يركز على المنهجية التعليمية المستقلة."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عصم","maqayis":"«(عَصَمَ) الْعَيْنُ وَالصَّادُ وَالْمِيمُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى إِمْسَاكٍ وَمَنْعٍ وَمُلَازَمَةٍ ... نَفْسُ عِصَامٍ سَوَّدَتْ عِصَامًا»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تؤكد على الجانب الأخلاقي والاجتماعي للاعتماد على النفس وبناء المجد الشخصي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-09844815-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-09844815-n"
+        score: 0.95

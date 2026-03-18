@@ -1,0 +1,182 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "شيء ثانوي"
+      evidence_status: "no_material_found"
+    - lemma: "غير ضروري"
+      evidence_status: "no_material_found"
+    - lemma: "كمالية"
+      contradicts:
+        - text: "مذهب النزوع الى الكمال"
+          source: "مسرد علم الاجتماع (ArabTerm)"
+          conflict: "التعريف يخص مذهب الكمالية (perfectionism) وليس دلالة الشيء غير الأساسي"
+        - text: "كَمَالِيَّة: من (ك م ل) نسبة إلى كَمَال"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+          conflict: "ينص على النسبة فقط دون تحديد معنى الشيء غير الأساسي"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "نَافِلَة"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«ما زاد على النَّصِيب أو الحق أو الفرض» — المعجم الوسيط"
+      justification: "لفظ فصيح يعبر بدقة عن الشيء الزائد الذي يمكن الاستغناء عنه، وهو مقابل مباشر لـ inessential."
+    - lemma: "فَضْلَة"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«ما يقابل العمدة ... وقد يطلق على ما يزيد على أصل المراد» — كشاف اصطلاحات الفنون والعلوم"
+      justification: "مصطلح تراثي دقيق يدل على ما ليس أساسياً ويمكن التخلي عنه دون الإخلال بالأصل."
+  knowledge_candidates:
+    - lemma: "زَائِدَة"
+      justification: "آلية التوليد: اشتقاق. اسم فاعل يدل على ما يزيد عن الحاجة الأساسية."
+  generation_notes: "اللمّات الأصلية عبارة عن تراكيب وصفية حرة. تم التركيز على إيجاد مصطلحات مفردة مسكوكة."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "شيء ثانوي"
+      decision: removed
+      decision_reason: "تركيب وصفي حر وليس وحدة معجمية مسكوكة"
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: fail
+      nuance_differentiation: "تركيب وصفي حر يمكن صياغته بأشكال متعددة"
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "غير ضروري"
+      decision: removed
+      decision_reason: "تركيب نفي حر، وليس اسماً مفرداً يمثل كياناً"
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: fail
+      nuance_differentiation: "نفي للصفة وليس كياناً مستقلاً"
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "كمالية"
+      decision: removed
+      decision_reason: "بالمفرد تعني مذهب الكمالية (Perfectionism)، وتستعمل عادة بالجمع (كماليات) للدلالة على الأشياء الزائدة"
+      evidence_assessment:
+        case: "contradicts_only"
+      substitution_test:
+        result: fail
+      nuance_differentiation: "المفرد منها يحمل دلالة فلسفية، ولا يستعمل بمعنى الشيء غير الأساسي"
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "نَافِلَة"
+      source: step05
+      decision: confirmed
+      decision_reason: "لفظ عربي فصيح يدل بدقة على ما زاد عن الحاجة أو الفرض"
+      step05_citation: "«ما زاد على النَّصِيب أو الحق أو الفرض» — المعجم الوسيط"
+      substitution_test:
+        result: pass
+      nuance_differentiation: "تختص بالزيادة المستحسنة أو المضافة التي يمكن الاستغناء عنها، وغالباً في السياق التراثي والديني"
+      example: "اقتصرْ في بحثك على الأصول ودَعْ عنك النوافل."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "نَافِلَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09335551-n"
+    - lemma: "فَضْلَة"
+      source: step05
+      decision: confirmed
+      decision_reason: "لفظ تراثي يدل على ما زاد عن الحاجة أو ما يقابل العمدة"
+      step05_citation: "«ما يقابل العمدة ... وقد يطلق على ما يزيد على أصل المراد» — كشاف اصطلاحات الفنون والعلوم"
+      substitution_test:
+        result: pass
+      nuance_differentiation: "تختص بالسياق النحوي واللغوي، وتعني ما زاد وبقي من الشيء ولا يُخل حذفه بالمعنى"
+      example: "هذه التفاصيل فضلة لا حاجة لنا بها في التقرير النهائي."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "فَضْلَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09335551-n"
+  synset_flags:
+    definition_review_needed: true
+  added_lemmas:
+    - lemma: "نَافِلَة"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "create_entry + add_sense"
+    - lemma: "فَضْلَة"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "create_entry + add_sense"
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "أي شيء ليس أساسياً"
+  assessment:
+    decision: revise
+    reason: "صياغة التعريف ليكون دقيقاً لغوياً ويتناسب مع اللمّات الجديدة المضافة الدالة على الزيادة وعدم الضرورة"
+  authored_definitions:
+    - type: terminological
+      text: "ما زاد عن الحاجة الأساسية أو الأصل ويمكن الاستغناء عنه دون إخلال"
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-09335551-n"
+        definition_index: 0
+        text: "ما زاد عن الحاجة الأساسية أو الأصل ويمكن الاستغناء عنه دون إخلال"
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "شَيْء مُسْتَقِلّ"
+    test_result: correct
+  antonymy:
+    per_lemma:
+      - lemma: "نَافِلَة"
+        antonym_found: true
+        antonym: "ضَرُورَة"
+      - lemma: "فَضْلَة"
+        antonym_found: true
+        antonym: "عُمْدَة"
+  actions:
+    - command: add_synset_relation
+      params:
+        source_id: "awn4-09335551-n"
+        relation_type: "antonym"
+        target_id: "{auto}"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "نَافِلَة"
+      enrichment:
+        root: "ن-ف-ل"
+      examples:
+        - text: "اقتصرْ في عملك على الأساسيات ودَعْ عنك النوافل."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "فَضْلَة"
+      enrichment:
+        root: "ف-ض-ل"
+      examples:
+        - text: "هذه التفاصيل في التقرير مجرد فضلة لا حاجة حقيقية لها."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

@@ -1,0 +1,224 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "المجموعة تقتصر على لمة واحدة (غريب)، ويمكن إثراؤها بمرادفات تغطي الجوانب المختلفة لمفهوم الشخص غير المعروف."
+    observations: "المفهوم الإنجليزي (stranger) يغطي من لا تعرفه (مجهول/غريب) ومن هو من خارج مجموعتك (أجنبي/دخيل). في العربية تتوزع هذه الدلالات على عدة ألفاظ تشترك في معنى الغرابة وانعدام المعرفة."
+  blind_candidates:
+    - lemma: "مَجْهُول"
+      generation_method: ishtiqaq
+      justification: "مشتق من الجذر (جهل) للدلالة على من لا تُعرف هويته."
+    - lemma: "أَجْنَبِيّ"
+      generation_method: ishtiqaq
+      justification: "مشتق من الجذر (جنب) الدال على البعد، للإشارة إلى من ليس من القوم."
+    - lemma: "دَخِيل"
+      generation_method: ishtiqaq
+      justification: "مشتق من الجذر (دخل) لمن يدخل على قوم وليس منهم."
+    - lemma: "طَارِئ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من طرأ، لمن يأتي فجأة ولا يكون معروفاً."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "غَرِيب"
+      confirm:
+        - text: "الرجل ليس من القوم, ولا من البلد"
+          source: "المعجم الوسيط"
+        - text: "غير المعروف أو المألوف والرجل ليس من القوم ولا من البلد"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+    - lemma: "أَجْنَبِيّ"
+      confirm:
+        - text: "الأَجْنَبُ من هذا الأمْرِ , أى : لا تَعَلُّقَ له به , ولا مَعْرِفَة"
+          source: "المعجم الكبير"
+        - text: "مَنْ لا يتمتع بجنسيَّة الدولة"
+          source: "المعجم الوسيط"
+    - lemma: "دَخِيل"
+      confirm:
+        - text: "من دَخلَ في قوم وانتسب إليهم وليس منهم"
+          source: "المعجم الوسيط"
+    - lemma: "مَجْهُول"
+      contradicts:
+        - text: "ضد المعلوم."
+          source: "المعجم الكبير"
+          conflict: "تدل على صفة انعدام العلم بالشيء عموماً، ولا تستخدم كاسم مستقل للدلالة على (stranger) بنفس الدقة كاسم لشخص."
+    - lemma: "طَارِئ"
+      expands:
+        - text: "الطارئ؛ الدّخيل"
+          source: "المورد الحديث"
+          addition: "ورد كترجمة لـ stranger بمعنى من يطرأ فجأة."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "غَرِيب"
+      decision: confirmed
+      decision_reason: "اللمة الأساسية والأكثر شيوعاً ودقة للتعبير عن الشخص غير المعروف أو الذي ليس من أهل المكان."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "غَرِيب"
+    
+    - lemma: "أَجْنَبِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صحيحة لغوياً وتستخدم بمعنى من لا توجد به صلة أو معرفة، إضافة إلى معناها القانوني المعاصر (غير المواطن)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "أَجْنَبِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: awn4-10680655-n}
+
+    - lemma: "دَخِيل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "من معانيها الدقيقة من دخل في قوم وليس منهم، وهو تقاطع دلالي قوي مع (stranger) خاصة في التجمعات المغلقة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "دَخِيل", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: awn4-10680655-n}
+
+    - lemma: "مَجْهُول"
+      source: stage1
+      decision: removed
+      decision_reason: "استخدامها في هذا السياق يكون غالباً كصفة (شخص مجهول) وليس كاسم مفرد للمفهوم ذاته."
+      evidence_assessment:
+        case: contradicts_only
+
+    - lemma: "طَارِئ"
+      source: stage1
+      decision: removed
+      decision_reason: "الطارئ يحمل دلالة المفاجأة والحدث السريع أكثر من انعدام المعرفة المطلق."
+      evidence_assessment:
+        case: mixed
+
+stage4_content:
+  definition:
+    current: "فرد لا تربطك به معرفة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكن يمكن جعله أكثر دقة وشمولاً بأسلوب معجمي يغطي انعدام المعرفة وعدم الانتماء للمكان."
+    authored:
+      - type: terminological
+        text: "شخص لا تربطك به صلة أو معرفة سابقة، أو من ليس من أهل البلد والقوم."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: awn4-10680655-n, definition_index: 0, text: "شخص لا تربطك به صلة أو معرفة سابقة، أو من ليس من أهل البلد والقوم."}
+
+  examples:
+    per_lemma:
+      - lemma: "غَرِيب"
+        examples:
+          - text: "لا تفتح الباب لأي شخص غريب."
+            type: usage
+      - lemma: "أَجْنَبِيّ"
+        examples:
+          - text: "شعرت وكأنني أجنبي وسط هذا التجمع المألوف."
+            type: usage
+      - lemma: "دَخِيل"
+        examples:
+          - text: "نظروا إليه بريبة كأنه دخيل على مجلسهم."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: awn4-10680655-n, text: "لا تفتح الباب لأي شخص غريب."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "شعرت وكأنني أجنبي وسط هذا التجمع المألوف."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "نظروا إليه بريبة كأنه دخيل على مجلسهم."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "غَرِيب"
+      entry_id: "{auto}"
+      root: "غرب"
+      maqayis_quote: "«الْغَيْنُ وَالرَّاءُ وَالْبَاءُ أَصْلٌ صَحِيحٌ... وَالْغُرْبَةُ: الْبُعْدُ عَنِ الْوَطَنِ»"
+    - lemma: "أَجْنَبِيّ"
+      entry_id: "{auto}"
+      root: "جنب"
+      maqayis_quote: "«الْجِيمُ وَالنُّونُ وَالْبَاءُ أَصْلَانِ مُتَقَارِبَانِ أَحَدُهُمَا: النَّاحِيَةُ، وَالَآخَرُ الْبُعْدُ... وَأَمَّا الْبُعْدُ فَالْجَنَابَةُ»"
+    - lemma: "دَخِيل"
+      entry_id: "{auto}"
+      root: "دخل"
+      maqayis_quote: "«الدَّالُ وَالْخَاءُ وَاللَّامُ أَصْلٌ مُطَّرِدٌ مُنْقَاسٌ، وَهُوَ الْوُلُوجُ... وَدَخِيلُكَ: الَّذِي يُدَاخِلُكَ فِي أُمُورِكَ»"
+
+  per_sense:
+    - lemma: "غَرِيب"
+      sense_id: "{auto}"
+      nuance: "المصطلح الأعم والأكثر تداولاً لمن لا يُعرف أو من هو من خارج البيئة."
+      mwe: false
+    - lemma: "أَجْنَبِيّ"
+      sense_id: "{auto}"
+      nuance: "يركز على انعدام الصلة أو الانتماء لمجموعة أو دولة معينة."
+      mwe: false
+    - lemma: "دَخِيل"
+      sense_id: "{auto}"
+      nuance: "يحمل دلالة دخول الشخص في مجموعة أو مكان ليس أصيلاً فيه، وقد يرافقه شعور بالتطفل."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"غرب","maqayis":"«الْغَيْنُ وَالرَّاءُ وَالْبَاءُ أَصْلٌ صَحِيحٌ... وَالْغُرْبَةُ: الْبُعْدُ عَنِ الْوَطَنِ»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جنب","maqayis":"«الْجِيمُ وَالنُّونُ وَالْبَاءُ أَصْلَانِ مُتَقَارِبَانِ أَحَدُهُمَا: النَّاحِيَةُ، وَالَآخَرُ الْبُعْدُ... وَأَمَّا الْبُعْدُ فَالْجَنَابَةُ»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"دخل","maqayis":"«الدَّالُ وَالْخَاءُ وَاللَّامُ أَصْلٌ مُطَّرِدٌ مُنْقَاسٌ، وَهُوَ الْوُلُوجُ... وَدَخِيلُكَ: الَّذِي يُدَاخِلُكَ فِي أُمُورِكَ»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الأعم والأكثر تداولاً لمن لا يُعرف أو من هو من خارج البيئة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على انعدام الصلة أو الانتماء لمجموعة أو دولة معينة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يحمل دلالة دخول الشخص في مجموعة أو مكان ليس أصيلاً فيه، وقد يرافقه شعور بالتطفل.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: awn4-10680655-n
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: awn4-10680655-n
+        score: 0.95

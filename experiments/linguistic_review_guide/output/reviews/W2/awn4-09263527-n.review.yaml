@@ -1,0 +1,97 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "سلسلة"
+      confirm:
+        - text: "«السِّلسلة: عددٌ من ذرّات تترابط وكأنها حلقات منظومةٌ في سلسلة (ك)»"
+          source: "المورد الحديث"
+        - text: "«مصطلح يستعمل لوصف بعض التركيبات الكيميائية العضوية والتشريحية التي تتصل جزيئاتها بعضها ببعض على التوالي»"
+          source: "معجم المصطلحات الطبية"
+    - lemma: "سلسلة كيميائية"
+      evidence_status: "no_material_found"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "سلسلة كربونية"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«في التسمية المنهجية للمركبات العضوية يعتمد اسم المركب العضوي على عدد ذرات الكربون في أطول سلسلة كربونية» — المعجم الموحد لمصطلحات الكيمياء"
+      justification: "مصطلح متخصص يشير إلى نوع شائع جداً من السلاسل الكيميائية في المركبات العضوية."
+  knowledge_candidates:
+    - lemma: "سلسلة ذرية"
+      justification: "آلية التوليد: تركيب وصفي. مصطلح يعبر بشكل مباشر عن 'سلسلة من الذرات' المذكورة في التعريف."
+  generation_notes: "تم التركيز على السلاسل في السياق الكيميائي والعضوي."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "سلسلة"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح ومطرد الاستعمال في السياق الكيميائي للتعبير عن توالي الذرات وترابطها، وموثق في المعاجم العلمية والعامة."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "اللفظ الأساسي الدال على المفهوم الكيميائي لترابط الذرات كحلقات السلسلة."
+      example: "يحدد طول سلسلة الكربون خصائص المركب العضوي الناتجة."
+    
+    - lemma: "سلسلة كيميائية"
+      decision: removed
+      decision_reason: "مركب وصفي حر غير مسكوك كمصطلح معجمي مستقل؛ المتخصصون يكتفون بلفظ 'سلسلة' ويفهم السياق الكيميائي من التخصص، أو يخصصونها بنوع الذرات كـ 'سلسلة كربونية'."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تعبير وصفي حر يهدف لتخصيص السلسلة في سياق الكيمياء، وليس مصطلحاً ثابتاً."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+            
+    - lemma: "سلسلة كربونية"
+      source: step05
+      decision: removed
+      decision_reason: "المصطلح أخص من تعريف المجموعة (Hyponym)، فالتعريف يشمل أي ذرات مترابطة في كيمياء بينما هذا يقتصر على ذرات الكربون فقط."
+      step05_citation: "«في التسمية المنهجية للمركبات العضوية يعتمد اسم المركب العضوي على عدد ذرات الكربون في أطول سلسلة كربونية» — المعجم الموحد لمصطلحات الكيمياء"
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "أخص دلالياً؛ تقتصر على السلاسل المكونة من ذرات الكربون ولا تشمل السلاسل الكيميائية الأخرى."
+      
+    - lemma: "سلسلة ذرية"
+      source: step05
+      decision: removed
+      decision_reason: "مركب وصفي حر غير مسكوك كمصطلح معجمي ثابت في المعاجم التخصصية الكيميائية."
+      step05_citation: "توليد معرفي بناء على التعريف."
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "وصف مباشر لمحتوى السلسلة وليس وحدة معجمية اصطلاحية."
+
+  synset_flags:
+    definition_review_needed: false
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "(كيمياء) سلسلة من الذرات المترابطة (عادة في جزيء عضوي)"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وواضح، يحدد المجال (كيمياء) ويشرح الماهية (ترابط الذرات) ويطابق المفهوم الإنجليزي والأدلة المعجمية."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "لبنة أساسية"
+    test_result: "correct"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "سلسلة"
+      enrichment:
+        root: "سلسل"
+        figurative_relation: "metaphor"
+      examples:
+        - text: "يتكون البوليمر من سلسلة طويلة من الوحدات المتكررة."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

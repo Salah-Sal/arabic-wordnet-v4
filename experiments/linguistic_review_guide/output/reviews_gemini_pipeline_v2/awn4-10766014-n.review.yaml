@@ -1,0 +1,190 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف العربي الحالي بسيط جدًا ويكرّر المعنى بصورة تقترب من الدور (شخص يختفي)."
+      - "اللمة الوحيدة الموجودة (مختفٍ) تفتقر إلى التنويع الدلالي."
+    observations: "المفهوم يشير إلى الشخص الذي يغيب عن الأنظار أو يتوارى، وهو مفهوم يمكن التعبير عنه بعدة صيغ اسم فاعل من أفعال تدل على الاختفاء أو التواري أو الغياب."
+  blind_candidates:
+    - lemma: "مُتَوَارٍ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من 'توارى' وهو التستر أو الغياب عن الأنظار، ويناسب جداً معنى vanisher."
+    - lemma: "مُتَلَاشٍ"
+      generation_method: ishtiqaq
+      justification: "من 'تلاشى'، ويستخدم للشخص الذي يغيب تدريجياً أو يختفي كأنه لم يكن."
+    - lemma: "مُتَغَيِّب"
+      generation_method: ishtiqaq
+      justification: "من 'تغيب'، ويشير إلى الشخص الذي يغيب عن مكان وجوده المعتاد."
+    - lemma: "آبِق"
+      generation_method: ishtiqaq
+      justification: "من 'أبق' وهو الهروب سراً أو التواري، وإن غلب استخدامه قديماً للعبيد الفارين."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُخْتَفٍ"
+      confirm:
+        - text: "«يُقال للرجل المستتر مستخفٍ.»"
+          source: "مقاييس اللغة"
+        - text: "«المُخْتَفِى (عند أهل الحجاز): الذى يَنْبِشُ القُبُورَ»"
+          source: "المعجم الكبير"
+          addition: "يؤكد وجود الصيغة كاسم فاعل مستقل، وإن خصصها بمدلول محدد في لهجة قديمة."
+      expands:
+        - text: "«خَفِيَ الشَّيْءُ يَخْفَى... إِذَا سَتَرْتَهُ»"
+          source: "مقاييس اللغة"
+    - lemma: "مُتَوَارٍ"
+      confirm:
+        - text: "«توارى: استتر»"
+          source: "المعجم الوسيط"
+    - lemma: "مُتَغَيِّب"
+      confirm:
+        - text: "«غاب الرّجل عن بلده... والغيبة: الوقيعة في الناس لأنها لا تقال إلا في غيبة.»"
+          source: "مقاييس اللغة"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مُخْتَفٍ"
+      decision: confirmed
+      decision_reason: "الكلمة هي التعبير المباشر والأكثر شيوعاً عن الشخص الذي يختفي، وهي اسم فاعل قياسي من الفعل 'اختفى'."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُخْتَفٍ"
+    - lemma: "مُتَوَارٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف قوي يشير إلى الاختفاء عن الأنظار (visual disappearance)، ويستخدم كثيراً في السياقات الأدبية والبوليسية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُتَوَارٍ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُتَغَيِّب"
+      source: stage1
+      decision: confirmed
+      decision_reason: "شائع الاستخدام في العصر الحديث للإشارة إلى الأشخاص المفقودين أو الذين غادروا أماكنهم ولم يعودوا."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُتَغَيِّب", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "شخص يختفي"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب جداً ويعتمد على اشتقاق الكلمة نفسها."
+    authored:
+      - type: terminological
+        text: "شَخْصٌ اِخْتَفَى عَنِ الْأَنْظَارِ أَوْ بَعُدَ بِحَيْثُ لَا يُعْرَفُ مَكَانُهُ أَوْ يَصْعُبُ تَعَقُّبُهُ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "شَخْصٌ اِخْتَفَى عَنِ الْأَنْظَارِ أَوْ بَعُدَ بِحَيْثُ لَا يُعْرَفُ مَكَانُهُ أَوْ يَصْعُبُ تَعَقُّبُهُ."}
+  examples:
+    per_lemma:
+      - lemma: "مُخْتَفٍ"
+        examples:
+          - text: "لَا يَزَالُ الْبَحْثُ جَارِيًا عَنِ الْمُخْتَفِي فِي تِلْكَ الْغَابَةِ مُنْذُ ثَلَاثَةِ أَيَّامٍ."
+            type: usage
+      - lemma: "مُتَوَارٍ"
+        examples:
+          - text: "ظَلَّ الْمُتَّهَمُ مُتَوَارِيًا عَنِ الْأَنْظَارِ لِأَسَابِيعَ قَبْلَ أَنْ يَتِمَّ الْقَبْضُ عَلَيْهِ."
+            type: usage
+      - lemma: "مُتَغَيِّب"
+        examples:
+          - text: "أَبْلَغَتِ الْعَائِلَةُ الشُّرْطَةَ عَنْ فَرْدٍ مُتَغَيِّبٍ لَمْ يَعُدْ إِلَى الْمَنْزِلِ."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُخْتَفٍ"
+      entry_id: "{auto}"
+      root: "خفي"
+      maqayis_quote: "«الْخَاءُ وَالْفَاءُ وَالْيَاءُ أَصْلَانِ مُتَبَايِنَانِ مُتَضَادَّانِ. فَالْأَوَّلُ السَّتْرُ، وَالثَّانِي الْإِظْهَارُ.»"
+    - lemma: "مُتَوَارٍ"
+      entry_id: "{auto}"
+      root: "وري"
+      maqayis_quote: "«الْوَاوُ وَالرَّاءُ وَالْحَرْفُ الْمُعْتَلُّ: بِنَاءٌ عَلَى غَيْرِ قِيَاسٍ... وَأَمَّا قَوْلُهُمْ وَرَاءَكَ فَإِنَّهُ يَكُونُ مِنْ خَلْفٍ، وَيَكُونُ مِنْ قُدَّامٍ.»"
+    - lemma: "مُتَغَيِّب"
+      entry_id: "{auto}"
+      root: "غيب"
+      maqayis_quote: "«الْغَيْنُ وَالْيَاءُ وَالْبَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَسَتُّرِ الشَّيْءِ عَنِ الْعُيُونِ.»"
+  per_sense:
+    - lemma: "مُخْتَفٍ"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام والشامل لمن غاب مكانه."
+      mwe: false
+    - lemma: "مُتَوَارٍ"
+      sense_id: "{auto}"
+      nuance: "تفيد الاستتار خلف شيء أو الغياب عن الرؤية البصرية (sight)."
+      mwe: false
+    - lemma: "مُتَغَيِّب"
+      sense_id: "{auto}"
+      nuance: "تفيد الغياب عن الموضع المعتاد، وتستخدم غالباً في السياقات الرسمية."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خفي","maqayis":"«الْخَاءُ وَالْفَاءُ وَالْيَاءُ أَصْلَانِ مُتَبَايِنَانِ مُتَضَادَّانِ. فَالْأَوَّلُ السَّتْرُ، وَالثَّانِي الْإِظْهَارُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"وري","maqayis":"«الْوَاوُ وَالرَّاءُ وَالْحَرْفُ الْمُعْتَلُّ: بِنَاءٌ عَلَى غَيْرِ قِيَاسٍ... وَأَمَّا قَوْلُهُمْ وَرَاءَكَ فَإِنَّهُ يَكُونُ مِنْ خَلْفٍ، وَيَكُونُ مِنْ قُدَّامٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"غيب","maqayis":"«الْغَيْنُ وَالْيَاءُ وَالْبَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَسَتُّرِ الشَّيْءِ عَنِ الْعُيُونِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ العام والشامل لمن غاب مكانه.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تفيد الاستتار خلف شيء أو الغياب عن الرؤية البصرية (sight).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تفيد الغياب عن الموضع المعتاد، وتستخدم غالباً في السياقات الرسمية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

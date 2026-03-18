@@ -1,0 +1,131 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "جِسْم"
+      confirm:
+        - text: "«الجِسْمُ: متحيز قَابل للْقِسْمَة.»"
+          source: "معجم مقاليد العلوم للسيوطي"
+        - text: "«الجسم: ما له طول وعرض وعمق»"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+        - text: "«هو الجوهر الممتد في الجهات، أعني الصورة الجسمية.»"
+          source: "كشّاف اصطلاحات الفنون والعلوم للتهانوي"
+    - lemma: "شَيْء مَادِّيّ"
+      confirm:
+        - text: "«الشيء: كُلُّ ما هو مُدْرَكٌ بالحواسّ أو بالعقل»"
+          source: "المورد الحديث"
+      expands:
+        - text: "«درسٌ يتمّ فيه التعليم بواسطة أشياء مادّية مُحَسَّة أو منظورة»"
+          source: "المورد الحديث (تحت مادة درس عياني)"
+    - lemma: "غَرَض"
+      contradicts:
+        - text: "«الغَرَض: الهدف... ج: أغراض... وغرضه كذا، أي: حاجته وبُغيته.»"
+          source: "المعجم الوسيط"
+          conflict: "المدلول المعجمي للغرض هو الهدف أو المرمى، وليس الكيان الفيزيائي الملموس في سياق الوجود المادي العام."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "جِرْم"
+      source_section: "step0_evidence"
+      evidence_citation: "«الجِرْمُ: الجِسْمُ . - يقالُ : فلانٌ حَسَنُ الجِرْمِ ألواحُ الجَسدِ وجُثْمانُه .» — المعجم الكبير"
+      justification: "يرد 'الجرم' كمرادف للجسم في المعاجم القديمة، وهو يعبر عن الكيان المادي الصلب الذي له حيز."
+  knowledge_candidates:
+    - lemma: "كِيَان فِيزيَائِيّ"
+      justification: "مصطلح علمي حديث (ترجمة تركيبية) يعبر بدقة عن 'physical object' في سياق الفيزياء."
+  generation_notes: "تم استبعاد 'موضوع' لأنها ترجمة لـ object في السياق الفلسفي/المنطقي (subject/object) وليس الفيزيائي."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "جِسْم"
+      decision: confirmed
+      decision_reason: "المصطلح العربي الأساسي والأكثر دقة للتعبير عن الكيان المادي ذي الأبعاد."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "الجسم هو اللفظ العام لكل ما يشغل حيزاً وله أبعاد ثلاثة، ويصلح للمدركات والمجردات العلمية (جسم صلب، جسم غازي)."
+      example: "سقط جِسْمٌ ثقيل من نافذة الطابق العلوي."
+
+    - lemma: "شَيْء مَادِّيّ"
+      decision: confirmed
+      decision_reason: "مركب وصفي مستقر في الاستعمال العلمي والمنطقي لتمييز الأعيان عن المجردات."
+      evidence_assessment:
+        case: "expands"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+        type: "وصفي"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على الجانب الأنطولوجي (المادية) في مقابل الأشياء الذهنية أو التصورية."
+      example: "لا يمكن للاشعة السينية اختراق كل شَيْء مَادِّيّ بكفاءة متساوية."
+
+    - lemma: "غَرَض"
+      decision: removed
+      decision_reason: "خلط دلالي ناتج عن تعدد معاني الكلمة الإنجليزية (object). الغرض في العربية هو الهدف (target/goal) وليس الكيان المادي (physical entity)."
+      evidence_assessment:
+        case: "contradicts"
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "جِرْم"
+      source: step05
+      decision: confirmed
+      decision_reason: "لفظ تراثي فصيح يطلق على الجسم والجسد، وشائع الاستعمال في الفلك (الأجرام السماوية)."
+      step05_citation: "«الجرم هو الجسم وقد يخص بالفلكيات» — كشاف اصطلاحات الفنون"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يوحي بالصلابة والتماسك والحدود الواضحة، وكثيراً ما يرتبط بالأجسام الكبيرة أو الفلكية."
+      example: "رصد الفلكيون جِرْماً غامضاً يقترب من مدار الأرض."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "جِرْم"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-00002684-n"
+
+step3_definition:
+  assessment:
+    decision: retain
+    reason: "التعريف الحالي دقيق ويغطي الجوانب الأساسية (الملموسية، المرئية، إلقاء الظل)."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "كِيَان مَادِّيّ"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "جِسْم"
+        antonym_found: true
+        antonym: "رُوح"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "جِسْم"
+      enrichment:
+        root: "ج-س-م"
+      examples:
+        - text: "«الجِسْمُ: ما له طول وعرض وعمق»"
+          type: usage
+          source: "التوقيف للمناوي"
+      morphology:
+        broken_plural_link: "أجسام، جسوم"
+    - lemma: "شَيْء مَادِّيّ"
+      examples:
+        - text: "الكون يتكون من طاقة وكل شَيْء مَادِّيّ نراه حولنا."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "جِرْم"
+      enrichment:
+        root: "ج-ر-م"
+      examples:
+        - text: "«الجرم بالكسر الجسد مطلقا... وجمعه أجرام وجروم»"
+          type: usage
+          source: "دستور العلماء"
+      morphology:
+        broken_plural_link: "أجرام، جروم"
+  cultural_fit:
+    assessment: native

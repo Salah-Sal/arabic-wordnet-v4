@@ -1,0 +1,278 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "نقص المصطلحات المفردة المقابلة لـ (promulgation) و(proclamation) مثل (إصدار) و(إشهار)."
+      - "المصطلح (إصدار مرسوم) مركب إضافي متخصص جداً بينما المجموعة تعبر عن الفعل العام."
+    observations: "المجموعة الحالية تركز على الجانب الرسمي للإعلان، ولكنها تفتقر إلى الألفاظ الأساسية التي تغطي الدلالة القانونية والمجتمعية بشكل شامل."
+  blind_candidates:
+    - lemma: "إِصْدَار"
+      generation_method: ishtiqaq
+      justification: "المقابل الدقيق لـ (promulgation) في السياق القانوني والسياسي، وهو فعل إخراج القانون للعلن."
+    - lemma: "إِشْهَار"
+      generation_method: ishtiqaq
+      justification: "المقابل الدقيق لـ (proclamation) خاصة في السياقات الرسمية والقانونية (كإشهار الإفلاس)."
+    - lemma: "بَلَاغ"
+      generation_method: ishtiqaq
+      justification: "يستخدم للإعلان الرسمي الصادر عن جهة مسؤولة (Official bulletin/proclamation)."
+    - lemma: "نَشْر رَسْمِيّ"
+      generation_method: tarkib
+      justification: "الفعل المادي الذي يتحقق به الإشعار العام (Official publication)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "إِعْلَان"
+      confirm:
+        - text: "«(الإعلان) إِظْهَار الشَّيْء بالنشر عَنهُ فِي الصُّحُف وَنَحْوهَا (محدثة)»"
+          source: "المعجم الوسيط"
+        - text: "«إخبار العموم أو فئة مخصوصة بنشاط أو حدث.»"
+          source: "مسرد الإعلام والتواصل (ArabTerm)"
+    - lemma: "تَصْرِيح"
+      confirm:
+        - text: "«إدلاء حكومة أو رجل مسؤول ببيان عن أمر إدارى أو سياسى»"
+          source: "المعجم الوسيط"
+        - text: "«إعلانٌ يَصدرُ مِنْ دولتين فأكثر مُبَيِّنٌ لسياسةٍ مشتركةٍ مُتَّفق عليها»"
+          source: "المعجم الكبير"
+    - lemma: "إِصْدَار"
+      confirm:
+        - text: "«إصدار: promulgation»"
+          source: "المعجم الموحد لمصطلحات القانون"
+        - text: "«إصدار: emission; issuing»"
+          source: "المعجم الموحد لمصطلحات الاقتصاد"
+    - lemma: "إِشْهَار"
+      confirm:
+        - text: "«إشهار الخبر: [صحيحة] ... لم يرد في المعاجم بمعنى «أعلن»، وإنما الوارد «شَهَرَ» الثلاثي.»"
+          source: "معجم الصواب اللغوي"
+        - text: "«إشهار: publicity»"
+          source: "مسرد علم الاجتماع (ArabTerm)"
+    - lemma: "إِصْدَار مَرْسُوم"
+      confirm:
+        - text: "«إصدار القانون: promulgation of law»"
+          source: "المعجم الموحد لمصطلحات القانون"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "إِعْلَان"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي يعبر عن نشر الخبر للعموم، ويدعمه المعجم الوسيط كلفظة محدثة مقبولة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "إِعْلَان"
+    - lemma: "تَصْرِيح"
+      decision: confirmed
+      decision_reason: "يعبر عن الجانب الرسمي الصادر عن المسؤولين، وهو ما يتفق مع (formal act)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَصْرِيح"
+    - lemma: "إِصْدَار مَرْسُوم"
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي قانوني شائع يمثل حالة تطبيقية لـ (promulgation)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "إِصْدَار مَرْسُوم"
+    - lemma: "إِصْدَار"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح الفني المقابل لـ (promulgation) في القوانين والأنظمة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "إِصْدَار", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "إِشْهَار"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر عن الجانب العلني الرسمي (proclamation) خاصة في التصرفات القانونية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "إِشْهَار", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "الفعل الرسمي للإعلان؛ تقديم إشعار عام"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي حرفي نوعاً ما؛ يفضل صياغته بأسلوب معجمي يجمع بين المعنى العام والمتخصص."
+    authored:
+      - type: terminological
+        text: "الإِبْلَاغُ الرَّسْمِيُّ عَنْ أَمْرٍ مَا لِيَعْلَمَ بِهِ الْجُمْهُورُ؛ أَوْ إِخْرَاجُ قَانُونٍ أَوْ مَرْسُومٍ إِلَى حَيِّزِ التَّنْفِيذِ بِإِعْلَانِهِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "إِعْلَان"
+        examples:
+          - text: "تَمَّ إِعْلَانُ نَتَائِجِ الِانْتِخَابَاتِ فِي بَيَانٍ صَحَفِيٍّ."
+            type: usage
+      - lemma: "تَصْرِيح"
+        examples:
+          - text: "أَدْلَى الرَّئِيسُ بِتَصْرِيحٍ هَامٍّ حَوْلَ السِّيَاسَةِ الْخَارِجِيَّةِ."
+            type: usage
+      - lemma: "إِصْدَار"
+        examples:
+          - text: "يَتِمُّ نَفَاذُ الْقَانُونِ فَوْرَ إِصْدَارِهِ مِنْ جِهَةِ الِاخْتِصَاصِ."
+            type: usage
+      - lemma: "إِشْهَار"
+        examples:
+          - text: "قَرَّرَتِ الْمَحْكَمَةُ إِشْهَارَ إِفْلَاسِ الشَّرِكَةِ."
+            type: usage
+      - lemma: "إِصْدَار مَرْسُوم"
+        examples:
+          - text: "تَوَلَّى الْمَلِكُ إِصْدَارَ مَرْسُومٍ بِمَنْحِ أَوْسِمَةٍ لِلْمُبْدِعِينَ."
+            type: usage
+  actions:
+    - command: update_definition
+      params: {synset_id: "{synset_id}", definition_index: 0, text: "الإِبْلَاغُ الرَّسْمِيُّ عَنْ أَمْرٍ مَا لِيَعْلَمَ بِهِ الْجُمْهُورُ؛ أَوْ إِخْرَاجُ قَانُونٍ أَوْ مَرْسُومٍ إِلَى حَيِّزِ التَّنْفِيذِ بِإِعْلَانِهِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "إِعْلَان"
+      entry_id: "{auto}"
+      root: "علن"
+      maqayis_quote: "«الْعَيْنُ وَاللَّامُ وَالنُّونُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِظْهَارِ الشَّيْءِ وَالْإِشَارَةِ [إِلَيْهِ] وَظُهُورِهِ.»"
+    - lemma: "تَصْرِيح"
+      entry_id: "{auto}"
+      root: "صرح"
+      maqayis_quote: "«الصَّادُ وَالرَّاءُ وَالْحَاءُ أَصْلٌ مُنْقَاسٌ، يَدُلُّ عَلَى ظُهُورِ الشَّيْءِ وَبُرُوزِهِ.»"
+    - lemma: "إِصْدَار"
+      entry_id: "{auto}"
+      root: "صدر"
+      maqayis_quote: "«الصَّادُ وَالدَّالُ وَالرَّاءُ أَصْلَانِ صَحِيحَانِ، أَحَدُهُمَا يَدُلُّ عَلَى خِلَافِ الْوِرْدِ، وَالْآخِرُ صَدْرُ الْإِنْسَانِ وَغَيْرُهُ.»"
+    - lemma: "إِشْهَار"
+      entry_id: "{auto}"
+      root: "شهر"
+      maqayis_quote: "«الشِّينُ وَالْهَاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى وُضُوحٍ فِي الْأَمْرِ وَإِضَاءَةٍ.»"
+    - lemma: "إِصْدَار مَرْسُوم"
+      entry_id: "{auto}"
+      roots:
+        - word: "إصدار"
+          root: "صدر"
+          maqayis_quote: "«الصَّادُ وَالدَّالُ وَالرَّاءُ أَصْلَانِ صَحِيحَانِ، أَحَدُهُمَا يَدُلُّ عَلَى خِلَافِ الْوِرْدِ...»"
+        - word: "مرسوم"
+          root: "رسم"
+          maqayis_quote: "«الرَّاءُ وَالسِّينُ وَالْمِيمُ أَصْلَانِ: أَحَدُهُمَا الْأَثَرُ، وَالْآخِرُ ضَرْبٌ مِنَ السَّيْرِ. فَالْأَوَّلُ الرَّسْمُ: أَثَرُ الشَّيْءِ.»"
+  per_sense:
+    - lemma: "إِعْلَان"
+      sense_id: "{auto}"
+      nuance: "المعنى العام والشامل لنشر الخبر أو المعلومة للجمهور."
+      mwe: false
+    - lemma: "تَصْرِيح"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب القولي والبيان الصادر عن جهة مسؤولة."
+      mwe: false
+    - lemma: "إِصْدَار"
+      sense_id: "{auto}"
+      nuance: "يختص بالخروج الرسمي للوثائق أو القوانين أو العملات."
+      mwe: false
+    - lemma: "إِشْهَار"
+      sense_id: "{auto}"
+      nuance: "يتضمن معنى الإعلان بقصد الذيوع أو التثبيت القانوني (كالزواج أو الإفلاس)."
+      mwe: false
+    - lemma: "إِصْدَار مَرْسُوم"
+      sense_id: "{auto}"
+      nuance: "تخصيص لعملية الإصدار في نوع معين من الوثائق الرسمية (المراسيم)."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"علن","maqayis":"«الْعَيْنُ وَاللَّامُ وَالنُّونُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِظْهَارِ الشَّيْءِ وَالْإِشَارَةِ [إِلَيْهِ] وَظُهُورِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صرح","maqayis":"«الصَّادُ وَالرَّاءُ وَالْحَاءُ أَصْلٌ مُنْقَاسٌ، يَدُلُّ عَلَى ظُهُورِ الشَّيْءِ وَبُرُوزِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صدر","maqayis":"«الصَّادُ وَالدَّالُ وَالرَّاءُ أَصْلَانِ صَحِيحَانِ، أَحَدُهُمَا يَدُلُّ عَلَى خِلَافِ الْوِرْدِ، وَالْآخِرُ صَدْرُ الْإِنْسَانِ وَغَيْرُهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"شهر","maqayis":"«الشِّينُ وَالْهَاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى وُضُوحٍ فِي الْأَمْرِ وَإِضَاءَةٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"إصدار","root":"صدر","maqayis":"«الصَّادُ وَالدَّالُ وَالرَّاءُ أَصْلَانِ صَحِيحَانِ...»"},{"word":"مرسوم","root":"رسم","maqayis":"«الرَّاءُ وَالسِّينُ وَالْمِيمُ أَصْلَانِ: أَحَدُهُمَا الْأَثَرُ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المعنى العام والشامل لنشر الخبر أو المعلومة للجمهور.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الجانب القولي والبيان الصادر عن جهة مسؤولة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يختص بالخروج الرسمي للوثائق أو القوانين أو العملات.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يتضمن معنى الإعلان بقصد الذيوع أو التثبيت القانوني (كالزواج أو الإفلاس).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تخصيص لعملية الإصدار في نوع معين من الوثائق الرسمية (المراسيم).","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

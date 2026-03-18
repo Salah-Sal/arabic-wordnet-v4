@@ -1,0 +1,188 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "المصطلح الإنجليزي (scanning) عام، وقد يعني التفرس أو الفحص في مجالات أخرى، لكن في سياق التعريف المرفق (تحويل الصور إلى شكل رقمي) فإن (مسح ضوئي) يعبر بدقة عن العملية البصرية الآلية."
+    observations: "المفهوم يشير إلى تحويل مادي إلى رقمي عبر ماسح ضوئي. اللمة الموجودة (مسح ضوئي) شائعة جداً في لغة التقنية المعاصرة."
+  blind_candidates:
+    - lemma: "مَسْحٌ ضَوْئِيٌّ"
+      generation_method: tarkib
+      justification: "تركيب وصفي يصف عملية مسح الصورة باستخدام الضوء لتحويلها لبيانات حاسوبية."
+    - lemma: "رَقْمَنَةٌ"
+      generation_method: ishtiqaq
+      justification: "اشتقاق من الرقم، بمعنى تحويل الصورة أو النص المادي إلى هيئة رقمية."
+    - lemma: "تَفَرُّسٌ"
+      generation_method: majaz
+      justification: "مجاز من التفرس وهو النظر الدقيق والتأمل، يشبه عمل الآلة في قراءة تفاصيل الصورة."
+    - lemma: "قِرَاءَةٌ بَصَرِيَّةٌ"
+      generation_method: tarkib
+      justification: "تركيب وصفي يوضح عملية استقراء الحاسوب للبيانات البصرية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مسح ضوئي"
+      confirm:
+        - text: "«مسْح ضوئي، مَسْح رقمي (scanning)»"
+          source: "مسرد الإعلام والتواصل، المنظمة العربية للتربية والثقافة والعلوم (موقع ArabTerm)"
+        - text: "«مسح ضوئي (scanning)»"
+          source: "موسوعة الكهرباء (IEC 60050)"
+    - lemma: "رقمنة"
+      confirm:
+        - text: "«(في علوم الحاسب الآلى): تحويل النُّصوص والصُّوَر إلى لغة الحاسوب الرقميَّة بما لها من قُدرة على الحفظ والنَّقْل والاسترجاع»"
+          source: "المعجم الكبير"
+    - lemma: "تفرس"
+      contradicts:
+        - text: "«تَفَرُّسٌ مَقْطَعِيٌّ مِحْوَرِيٌّ مُحَوسَب (CAT scanning)»"
+          source: "المعجم الطبي الموحد (2009)"
+          conflict: "يُستخدم مصطلح (تفرس) غالباً في السياق الطبي للفحوصات الإشعاعية، وليس لمسح الصور التقليدية."
+    - lemma: "قراءة بصرية"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مسح ضوئي"
+      decision: confirmed
+      decision_reason: "مصطلح تقني مسكوك وشائع جداً للتعبير عن ترجمة الصور والوثائق إلى صيغة رقمية باستخدام الماسح الضوئي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَسْحٌ ضَوْئِيٌّ"
+
+    - lemma: "رقمنة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح معتمد وموثق في المعاجم الحديثة للدلالة على تحويل البيانات (ومنها الصور) إلى صيغة رقمية، وهو يتقاطع مع المفهوم بشكل مباشر."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "رَقْمَنَةٌ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "تفرس"
+      source: stage1
+      decision: removed
+      decision_reason: "يرتبط المصطلح غالباً بالتصوير الطبي والمجهري وليس بالمسح الضوئي للصور المعتادة."
+
+    - lemma: "قراءة بصرية"
+      source: stage1
+      decision: removed
+      decision_reason: "عبارة وصفية غير مسكوكة بشكل كافٍ لتدل على مفهوم رقمنة الصور كبديل أساسي."
+
+stage4_content:
+  definition:
+    current: "عملية ترجمة الصور إلى شكل رقمي يمكن للكمبيوتر التعرف عليه"
+    assessment:
+      decision: revise
+      reason: "التعريف ركيك لغوياً («ترجمة الصور» غير دقيقة هنا). يمكن صياغته بأسلوب مصطلحي أفضل."
+    authored:
+      - type: terminological
+        text: "عملية تحويل الصور والنصوص من هيئتها المادية إلى بيانات رقمية ليتمكن الحاسوب من معالجتها أو تخزينها."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "عملية تحويل الصور والنصوص من هيئتها المادية إلى بيانات رقمية ليتمكن الحاسوب من معالجتها أو تخزينها."
+
+  examples:
+    per_lemma:
+      - lemma: "مسح ضوئي"
+        examples:
+          - text: "أجرى الموظف مسحاً ضوئياً للوثائق لحفظها في الأرشيف الإلكتروني."
+            type: usage
+      - lemma: "رقمنة"
+        examples:
+          - text: "بدأت المكتبة الوطنية مشروعاً ضخماً لرقمنة المخطوطات القديمة."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "أجرى الموظف مسحاً ضوئياً للوثائق لحفظها في الأرشيف الإلكتروني."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "بدأت المكتبة الوطنية مشروعاً ضخماً لرقمنة المخطوطات القديمة."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مسح ضوئي"
+      entry_id: "{auto}"
+      roots:
+        - word: "مسح"
+          root: "مسح"
+          maqayis_quote: "«الْمِيمُ وَالسِّينُ وَالْحَاءُ أَصْلٌ صَحِيحٌ، وَهُوَ إِمْرَارُ الشَّيْءِ عَلَى الشَّيْءِ بَسْطًا.»"
+        - word: "ضوئي"
+          root: "ضوأ"
+          maqayis_quote: "«الضَّادُ وَالْوَاوُ وَالْهَمْزَةُ أَصْلٌ صَحِيحٌ، يَدُلُّ عَلَى نُورٍ.»"
+    - lemma: "رقمنة"
+      entry_id: "{auto}"
+      root: "رقم"
+      maqayis_quote: "«الرَّاءُ وَالْقَافُ وَالْمِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خَطٍّ وَكِتَابَةٍ وَمَا أَشْبَهَ ذَلِكَ.»"
+
+  per_sense:
+    - lemma: "مسح ضوئي"
+      sense_id: "{auto}"
+      nuance: "المصطلح الأبرز والأكثر تداولاً لهذه التقنية."
+      mwe: true
+    - lemma: "رقمنة"
+      sense_id: "{auto}"
+      nuance: "أعم من المسح الضوئي؛ فهو يشمل تحويل أي نوع من البيانات إلى صيغة رقمية سواء كان عبر المسح أو غيره."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مسح","root":"مسح","maqayis":"«الْمِيمُ وَالسِّينُ وَالْحَاءُ أَصْلٌ صَحِيحٌ، وَهُوَ إِمْرَارُ الشَّيْءِ عَلَى الشَّيْءِ بَسْطًا.»"},{"word":"ضوئي","root":"ضوأ","maqayis":"«الضَّادُ وَالْوَاوُ وَالْهَمْزَةُ أَصْلٌ صَحِيحٌ، يَدُلُّ عَلَى نُورٍ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"رقم","maqayis":"«الرَّاءُ وَالْقَافُ وَالْمِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خَطٍّ وَكِتَابَةٍ وَمَا أَشْبَهَ ذَلِكَ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الأبرز والأكثر تداولاً لهذه التقنية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"أعم من المسح الضوئي؛ فهو يشمل تحويل أي نوع من البيانات إلى صيغة رقمية سواء كان عبر المسح أو غيره.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

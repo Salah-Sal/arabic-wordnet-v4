@@ -1,0 +1,212 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة 'كعب الكتاب' تفتقر إلى التشكيل الكامل."
+      - "اقتصار المجموعة على لمة واحدة رغم وجود مرادفات شائعة ومستخدمة تقنياً مثل 'ظهر الكتاب'."
+    observations: "المفهوم يشير إلى الجزء الرابط لملزمة الكتاب، ويُعرف تقنياً في صناعة التجليد بـ 'الكعب' أو 'الظهر'. الجذر (ك ع ب) يحمل دلالة النتوء والارتفاع، وهو ما يناسب شكل كعب الكتاب."
+  blind_candidates:
+    - lemma: "كَعْبُ الكِتَابِ"
+      generation_method: tarkib
+      justification: "التعبير الاصطلاحي الأكثر دقة وشيوعاً في سياق المكتبات وتجليد الكتب."
+    - lemma: "ظَهْرُ الكِتَابِ"
+      generation_method: tarkib
+      justification: "تسمية وصفية شائعة للجزء الخارجي المرئي من الكتاب عند صفه."
+    - lemma: "فَقَارُ الكِتَابِ"
+      generation_method: majaz
+      justification: "استعارة من 'العمود الفقري' (backbone) لبيان الدور البنيوي في تماسك الصفحات."
+    - lemma: "عَقِبُ الكِتَابِ"
+      generation_method: majaz
+      justification: "تسمية للجزء الخلفي قياساً على عقب الإنسان، وإن كانت أقل شيوعاً من الكعب."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "كَعْبُ الكِتَابِ"
+      confirm:
+        - text: "«تكعيب [مفرد]: ... 2 - عمليّة تتمّ في تجليد الكتب بعد خياطة المَلازم.»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«كَعْب [مفرد]: ... 1 - كلّ ما ارتفع وعلا...»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "ظَهْرُ الكِتَابِ"
+      confirm:
+        - text: "«(3) ظَهْر الكتَاب [الحاملُ عادةً عنوانَهُ واسم مؤلِّفِه واسم ناشرِه].»"
+          source: "المورد الحديث"
+        - text: "«(6) ... ب- الجزء الأوسط من ظهر الكتاب المجلد.»"
+          source: "المورد الحديث (في مادة saddle)"
+      expands:
+        - text: "«قنطرة: ظهر تجليد الكتاب، ظهر الكتاب المجلد (شيرب).»"
+          source: "تكملة المعاجم العربية (دوزي)"
+          addition: "تشير إلى أن 'ظهر الكتاب' هو المصطلح المفسر لمصطلحات تقنية أخرى."
+    - lemma: "كَعْبٌ"
+      confirm:
+        - text: "«كعْب: كعب الحذاء والجمع أكعاب ويقال كعب مبارك...»"
+          source: "تكملة المعاجم العربية (دوزي)"
+        - text: "«الكعب من القصب والرمح يقال له: كعب، تشبيها بالكعب في الفصل بين العقدتين.»"
+          source: "المفردات للراغب الأصفهاني"
+          addition: "يدعم استخدام اللفظ للدلالة على الأجزاء الفاصلة أو الرابطة."
+    - lemma: "فَقَارُ الكِتَابِ"
+      evidence_status: "no_material_found"
+    - lemma: "عَقِبُ الكِتَابِ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "كعب الكتاب"
+      decision: confirmed
+      decision_reason: "المصطلح التقني القياسي المستخدم في التجليد وعلم المكتبات، وتدعمه الاشتقاقات الصرفية (تكعيب)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "كَعْبُ الكِتَابِ"
+    - lemma: "ظَهْرُ الكِتَابِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح معجمي صريح في المعاجم الحديثة (المورد الحديث) ويُستخدم بكثرة كمرادف للكعب."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "ظَهْرُ الكِتَابِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "كَعْبٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يُستخدم اللفظ مفرداً في سياق صناعة الكتب والمكتبات للدلالة على ذات الجزء، وهو الأصل الذي اشتُق منه الفعل التقني 'كعّب' (جلد الكتاب)."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "كَعْبٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "فَقَارُ الكِتَابِ"
+      source: stage1
+      decision: removed
+      decision_reason: "استعارة غير مسكوكة معجمياً، ولا يوجد دليل على استخدامها كمصطلح ثابت."
+    - lemma: "عَقِبُ الكِتَابِ"
+      source: stage1
+      decision: removed
+      decision_reason: "رغم صحة الاستعارة لغوياً، إلا أنها غير مستخدمة اصطلاحاً في هذا السياق."
+
+stage4_content:
+  definition:
+    current: "جزء غلاف الكتاب الذي يضم الجانب الداخلي للصفحات ويواجه الخارج عند وضع الكتاب على الرف"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي طويل، ويمكن صياغته بأسلوب معجمي أكثر إحكاماً وتركيزاً على الوظيفة البنيوية والجمالية."
+    authored:
+      - type: terminological
+        text: "مُؤَخَّرُ غِلَافِ الكِتَابِ الَّذِي تُجْمَعُ عِنْدَهُ المَلَازِمُ، وَيَظْهَرُ عَلَيْهِ عُنْوَانُهُ عِنْدَ صَفِّهِ فِي المَكْتَبَةِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مُؤَخَّرُ غِلَافِ الكِتَابِ الَّذِي تُجْمَعُ عِنْدَهُ المَلَازِمُ، وَيَظْهَرُ عَلَيْهِ عُنْوَانُهُ عِنْدَ صَفِّهِ فِي المَكْتَبَةِ."}
+  examples:
+    per_lemma:
+      - lemma: "كَعْبُ الكِتَابِ"
+        examples:
+          - text: "دَوَّنَ النَّاشِرُ اسْمَ المُؤَلِّفِ عَلَى كَعْبِ الكِتَابِ لِيَسْهُلَ التَّعَرُّفُ عَلَيْهِ فِي الرَّفِّ."
+            type: usage
+      - lemma: "ظَهْرُ الكِتَابِ"
+        examples:
+          - text: "يُفَضِّلُ بَعْضُ المُجَلِّدِينَ تَقْوِيَةَ ظَهْرِ الكِتَابِ بِقُمَاشٍ مَتِينٍ لِضَمَانِ طُولِ بَقَائِهِ."
+            type: usage
+      - lemma: "كَعْبٌ"
+        examples:
+          - text: "تَآكَلَ كَعْبُ المُجَلَّدِ القَدِيمِ مِمَّا أَدَّى إِلَى تَفَكُّكِ أَوْرَاقِهِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "دَوَّنَ النَّاشِرُ اسْمَ المُؤَلِّفِ عَلَى كَعْبِ الكِتَابِ لِيَسْهُلَ التَّعَرُّفُ عَلَيْهِ فِي الرَّفِّ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يُفَضِّلُ بَعْضُ المُجَلِّدِينَ تَقْوِيَةَ ظَهْرِ الكِتَابِ بِقُمَاشٍ مَتِينٍ لِضَمَانِ طُولِ بَقَائِهِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "كَعْبُ الكِتَابِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "كعب"
+          root: "كعب"
+          maqayis_quote: "«الْكَافُ وَالْعَيْنُ وَالْبَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى نُتُوٍّ وَارْتِفَاعٍ فِي الشَّيْءِ...»"
+        - word: "كتاب"
+          root: "كتب"
+          maqayis_quote: "«الْكَافُ وَالتَّاءُ وَالْبَاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى جَمْعِ شَيْءٍ إِلَى شَيْءٍ...»"
+    - lemma: "ظَهْرُ الكِتَابِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "ظهر"
+          root: "ظهر"
+          maqayis_quote: "«الظَّاءُ وَالْهَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى قُوَّةٍ وَبُرُوزٍ...»"
+        - word: "كتاب"
+          root: "كتب"
+          maqayis_quote: "«الْكَافُ وَالتَّاءُ وَالْبَاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى جَمْعِ شَيْءٍ إِلَى شَيْءٍ...»"
+    - lemma: "كَعْبٌ"
+      entry_id: "{auto}"
+      root: "كعب"
+      maqayis_quote: "«الْكَافُ وَالْعَيْنُ وَالْبَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى نُتُوٍّ وَارْتِفَاعٍ فِي الشَّيْءِ...»"
+  per_sense:
+    - lemma: "كَعْبُ الكِتَابِ"
+      sense_id: "{auto}"
+      nuance: "المصطلح التقني البنيوي الذي يشير إلى مكان ربط الصفحات."
+      mwe: true
+    - lemma: "ظَهْرُ الكِتَابِ"
+      sense_id: "{auto}"
+      nuance: "المصطلح الوصفي الذي يركز على الجانب الخارجي المرئي."
+      mwe: true
+    - lemma: "كَعْبٌ"
+      sense_id: "{auto}"
+      nuance: "تسمية مخففة تُستخدم في الأوساط التخصصية (المكتبات والتجليد)."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"كعب","root":"كعب","maqayis":"«الْكَافُ وَالْعَيْنُ وَالْبَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى نُتُوٍّ وَارْتِفَاعٍ فِي الشَّيْءِ...»"},{"word":"كتاب","root":"كتب","maqayis":"«الْكَافُ وَالتَّاءُ وَالْبَاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى جَمْعِ شَيْءٍ إِلَى شَيْءٍ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"ظهر","root":"ظهر","maqayis":"«الظَّاءُ وَالْهَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى قُوَّةٍ وَبُرُوزٍ...»"},{"word":"كتاب","root":"كتب","maqayis":"«الْكَافُ وَالتَّاءُ وَالْبَاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى جَمْعِ شَيْءٍ إِلَى شَيْءٍ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"كعب","maqayis":"«الْكَافُ وَالْعَيْنُ وَالْبَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى نُتُوٍّ وَارْتِفَاعٍ فِي الشَّيْءِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح التقني البنيوي الذي يشير إلى مكان ربط الصفحات.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

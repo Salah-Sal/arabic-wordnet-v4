@@ -1,0 +1,177 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "أَكْبَر سِنّاً"
+      evidence_status: "no_material_found"
+    - lemma: "مُسِنّ"
+      contradicts:
+        - text: "«من بدتْ عليه أعراضُ الشَّيخوخة أو الهِرَم» — المعجم الكبير"
+          conflict: "المدخل يصف حالة الشيخوخة المطلقة، بينما تعريف المجموعة يركز على الكبر النسبي (أكبر منك وإن لم يكن شيخاً)."
+        - text: "«بضم الميم وكسر السين هو ما دخل في السّنة الثالثة مأخوذ من الأسنان وهو طلوع السّنّ في هذه السّنة» — كشّاف اصطلاحات الفنون والعلوم للتهانوي"
+          conflict: "المدخل يصف بلوغ سن متقدمة للحيوان ولا يعكس الدلالة النسبية الواردة في التعريف."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "أَسَنّ"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«الأرشد؛ الأسنّ (elder)» — المورد الحديث"
+      justification: "اسم تفضيل من الجذر (سنن) يعبر بدقة عن الكبر النسبي في العمر مقارنة بشخص آخر، وهو مطابق للتعريف."
+    - lemma: "أَرْشَد"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«الأرشد؛ الأكبر سنًّا (senior)» — المورد الحديث"
+      justification: "لفظ يعبر عن الأكبر سناً والذي يُفترض فيه نضج العقل والرشد تبعاً لزيادة السن."
+  knowledge_candidates:
+    - lemma: "أَكْبَر"
+      justification: "آلية التوليد: اشتقاق. استخدام لغوي أصيل (اسم تفضيل من كبر) يعبر عن من يفوق غيره في العمر، ويشيع استخدامه اسماً للدلالة على هذا المعنى (مثل: الأخ الأكبر)."
+  generation_notes: "تم التركيز على أسماء التفضيل التي شاع استعمالها كأسماء للدلالة على الكبر النسبي بين شخصين، لتجاوز الخلل الدلالي في إقحام (مسن) الذي يدل على كبر مطلق."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "أَكْبَر سِنّاً"
+      decision: removed
+      decision_reason: "اللمة عبارة عن تركيب وصفي حر (اسم تفضيل + تمييز منصوب) وليست وحدة معجمية مسكوكة تصلح كمدخل اسمي مستقل."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "عبارة نحوية وصفية غير مسكوكة."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+            
+    - lemma: "مُسِنّ"
+      decision: removed
+      decision_reason: "المصطلح يدل على حالة الشيخوخة والتقدم المطلق في السن، وهو ما يناقض تعريف المجموعة الذي يركز على الكبر النسبي (أكبر منك)."
+      evidence_assessment:
+        case: "contradicts_only"
+      mwe_check:
+        is_mwe: false
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "تدل على الهرم والشيخوخة وليس مجرد الكبر النسبي."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "أَسَنّ"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح فصيح دقيق الدلالة على الكبر النسبي في العمر ويصح استعماله اسماً."
+      step05_citation: "«الأرشد؛ الأسنّ (elder)» — المورد الحديث"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يختص بالدلالة على الكبر والزيادة في السن تحديداً من بين أوجه الكبر الأخرى."
+      example: "يجب على الصغير أن يوقّر مَن هو أسَنُّ منه."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "أَسَنّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10068026-n"
+
+    - lemma: "أَكْبَر"
+      source: step05
+      decision: confirmed
+      decision_reason: "لفظ شائع الاستعمال يدل على من يفوق غيره سناً ويُستعمل كاسم مستقل للتدليل على هذا المعنى."
+      step05_citation: "معرفة لغوية (آلية التوليد: اشتقاق)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "دلالته أعم، فقد تعني الأكبر سناً أو قدراً ومنزلة، ولكنه ينصرف إلى السن بقرينة السياق."
+      example: "استشار الأخَ الأكبرَ في قراره المصيري."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "أَكْبَر"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10068026-n"
+
+  synset_flags:
+    definition_review_needed: false
+    split_needed: false
+  added_lemmas:
+    - lemma: "أَسَنّ"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+    - lemma: "أَكْبَر"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شخص أكبر منك سناً"
+  assessment:
+    decision: retain
+    reason: "التعريف الحالي دقيق وواضح وينقل المعنى المقصود للكبر النسبي في العمر بصورة صحيحة."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-09786620-n"
+    test_result: "wrong"
+  antonymy:
+    per_lemma:
+      - lemma: "أَسَنّ"
+        antonym_found: true
+        antonym: "أَصْغَر"
+      - lemma: "أَكْبَر"
+        antonym_found: true
+        antonym: "أَصْغَر"
+  verb_checks:
+    applicable: false
+  selectional_restrictions:
+    - lemma: "أَسَنّ"
+      constraint: "فاعل عاقل"
+    - lemma: "أَكْبَر"
+      constraint: "فاعل عاقل"
+  actions:
+    - command: remove_synset_relation
+      params:
+        source_id: "awn4-10068026-n"
+        relation_type: "hypernym"
+        target_id: "awn4-09786620-n"
+    - command: add_synset_relation
+      params:
+        source_id: "awn4-10068026-n"
+        relation_type: "hypernym"
+        target_id: "awn4-00007846-n"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "أَسَنّ"
+      enrichment:
+        root: "سنن"
+      examples:
+        - text: "وقَّرَ الشابُّ مَن هو أسَنُّ منه احتراماً وتقديراً."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "أَكْبَر"
+      enrichment:
+        root: "كبر"
+      examples:
+        - text: "استمعتُ إلى نصيحة أخي الأكْبَرِ لأنه أكثر مني خبرة."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-10068026-n"
+        text: "وقَّرَ الشابُّ مَن هو أسَنُّ منه احتراماً وتقديراً."
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-10068026-n"
+        text: "استمعتُ إلى نصيحة أخي الأكْبَرِ لأنه أكثر مني خبرة."

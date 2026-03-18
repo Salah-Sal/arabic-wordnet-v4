@@ -1,0 +1,200 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة 'شَخْص لَعُوب' عبارة وصفية فضفاضة، والأفضل استخدام كلمة 'لَعُوب' كاسم علم على هذا النوع من الأشخاص."
+      - "التعريف الحالي طويل ويبدو وكأنه ترجمة حرفية للتعريف الإنجليزي."
+    observations: "المفهوم يعبر عن الشخص المستهتر في علاقاته العاطفية، وهناك تعابير تراثية دقيقة مثل 'زير نساء' وتعابير معاصرة مثل 'لعوب' و'عابث'."
+  blind_candidates:
+    - lemma: "زِيرُ نِسَاءٍ"
+      generation_method: majaz
+      justification: "تعبير عربي أصيل يُطلق على من يكثر زيارة النساء ومجالستهن ومحادثتهن."
+    - lemma: "لَعُوبٌ"
+      generation_method: ishtiqaq
+      justification: "صيغة مبالغة من اللعب، تُستخدم لوصف الشخص الذي يعبث بالمشاعر والعلاقات."
+    - lemma: "عَابِثٌ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من العبث، وهو العمل الذي لا فائدة منه، ويُستخدم لوصف المستهتر بالعلاقات."
+    - lemma: "مُتَصَيِّدُ نِسَاءٍ"
+      generation_method: tarkib
+      justification: "تعبير حديث يصف من يسعى وراء النساء بنية الإيقاع بهن."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "زِير نِسَاء"
+      confirm:
+        - text: "«الزِّيرُ: الذي يُكْثِرُ زيارَةَ النِّساءِ، ويُحِبُّ مُجالَسَتَهُنَّ ومُحادَثَتَهُنَّ. يقال: فلان زير نساء»"
+          source: "المعجم الوسيط"
+        - text: "«زير نساء: يَتَتَبَّعُهُنَّ»"
+          source: "المعجم الكبير"
+    - lemma: "شَخْص لَعُوب"
+      confirm:
+        - text: "«عابث؛ لعوب؛ مَرِح باستهتار»"
+          source: "المورد الحديث (2008)"
+          addition: "استخدام لعوب لوصف الشخص العابث المستهتر."
+    - lemma: "لَعُوب"
+      confirm:
+        - text: "«اللَّعُوبُ من النِّساء: الرَّشيقة الحركات الحَسَنةُ الدَّلال»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«عابث؛ لعوب؛ مَرِح باستهتار»"
+          source: "المورد الحديث (2008)"
+    - lemma: "عَابِث"
+      confirm:
+        - text: "«عابث؛ لعوب؛ مَرِح باستهتار»"
+          source: "المورد الحديث (2008)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "زِير نِسَاء"
+      decision: confirmed
+      decision_reason: "مصطلح عربي تراثي دقيق يطابق المعنى تماماً، وهو مسكوك وشائع."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "زِيرُ نِسَاءٍ"
+    - lemma: "شَخْص لَعُوب"
+      decision: confirmed
+      decision_reason: "رغم أنها عبارة وصفية إلا أنها مستخدمة وشائعة في السياقات الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "شَخْصٌ لَعُوبٌ"
+    - lemma: "لَعُوب"
+      source: stage1
+      decision: confirmed
+      decision_reason: "كلمة واحدة تغني عن الوصف، وهي صيغة مبالغة تدل على كثرة اللعب والمراوغة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "لَعُوبٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-10460154-n"}
+    - lemma: "عَابِث"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تؤكد الجانب السلوكي للاستهتار بالعلاقات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "عَابِثٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-10460154-n"}
+
+stage4_content:
+  definition:
+    current: "شخص يسعى وراء عدد من الشركاء الاجتماعيين والجنسيين المختلفين في وقت واحد"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي طويل، والأفضل صياغته بأسلوب معجمي يركز على تعدد العلاقات والعبث بالمشاعر."
+    authored:
+      - type: terminological
+        text: "مَنْ عُرِفَ بِتَعَدُّدِ عَلَاقَاتِهِ العَاطِفِيَّةِ أَوِ الجِنْسِيَّةِ فِي آنٍ وَاحِدٍ، وَبِوَلَعِهِ بِمُلَاحَقَةِ النِّسَاءِ وَالعَبَثِ بِمَشَاعِرِهِنَّ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "زِير نِسَاء"
+        examples:
+          - text: "كَانَ الشَّابُّ مَعْرُوفًا بِأَنَّهُ زِيرُ نِسَاءٍ، فَلَمْ تَثِقْ بِهِ فَتَاةٌ."
+            type: usage
+      - lemma: "لَعُوب"
+        examples:
+          - text: "احْذَرِي ذَلِكَ الشَّابَّ اللَّعُوبَ، فَهُوَ لَا يَبْحَثُ عَنْ الِاسْتِقْرَارِ."
+            type: usage
+      - lemma: "عَابِث"
+        examples:
+          - text: "لَا يَجِبُ أَنْ نَأْخُذَ كَلَامَ هَذَا العَابِثِ عَلَى مَحْمَلِ الجِدِّ."
+            type: usage
+  actions:
+    - command: update_definition
+      params: {synset_id: "awn4-10460154-n", definition_index: 0, text: "مَنْ عُرِفَ بِتَعَدُّدِ عَلَاقَاتِهِ العَاطِفِيَّةِ أَوِ الجِنْسِيَّةِ فِي آنٍ وَاحِدٍ، وَبِوَلَعِهِ بِمُلَاحَقَةِ النِّسَاءِ وَالعَبَثِ بِمَشَاعِرِهِنَّ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "زِير نِسَاء"
+      entry_id: "{auto}"
+      roots:
+        - word: "زير"
+          root: "زور"
+          maqayis_quote: "«الزَّاءُ وَالْوَاوُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الْمَيْلِ وَالْعُدُولِ... وَمِنَ الْبَابِ: الزَّائِرُ، لِأَنَّهُ إِذَا زَارَكَ فَقَدْ عَدَلَ عَنْ غَيْرِكَ.»"
+        - word: "نساء"
+          root: "نسو"
+          maqayis_quote: "«النون والسين والواو كلمة تدلُّ على تأخيرِ شيء... والنِّساء جمعُ امرأة.»"
+    - lemma: "لَعُوب"
+      entry_id: "{auto}"
+      root: "لعب"
+      maqayis_quote: "«اللَّامُ وَالْعَيْنُ وَالْبَاءُ كَلِمَتَانِ مِنْهُمَا يَتَفَرَّعُ كَلِمَاتٌ. إِحْدَاهُمَا اللَّعِبُ مَعْرُوفٌ... وَقِيلَ: إِنَّ أَصْلَ الْبَابِ هُوَ الذَّهَابُ عَلَى غَيْرِ اسْتِقَامَةٍ.»"
+    - lemma: "عَابِث"
+      entry_id: "{auto}"
+      root: "عبث"
+      maqayis_quote: "«العين والباء والثاء أصلٌ واحد، وهو خلطُ الشيءِ بالشيء... والعبث: ما لا فائدة فيه.»"
+  per_sense:
+    - lemma: "زِير نِسَاء"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب التراثي والاجتماعي في ملاحقة النساء."
+      mwe: true
+    - lemma: "لَعُوب"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب النفسي والمراوغة في المشاعر."
+      mwe: false
+    - lemma: "عَابِث"
+      sense_id: "{auto}"
+      nuance: "يركز على جانب الاستهتار وعدم الجدية في الالتزام."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"زير","root":"زور","maqayis":"«...»"},{"word":"نساء","root":"نسو","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"لعب","maqayis":"«...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عبث","maqayis":"«...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الجانب التراثي والاجتماعي في ملاحقة النساء.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-10460154-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-10460154-n"
+        score: 0.9

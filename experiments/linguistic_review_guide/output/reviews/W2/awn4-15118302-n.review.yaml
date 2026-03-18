@@ -1,0 +1,184 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة 'مادة متطايرة' تفتقر للتشكيل الكامل."
+      - "اللمة الحالية عبارة عن مركب (MWE)، ويفضل إضافة مرادفات مفردة إن وجدت مثل 'طيار' أو 'متطاير'."
+    observations: "المفهوم علمي دقيق يشير إلى المواد سريعة التبخر. اللمة الحالية صحيحة وشائعة في الكيمياء."
+  blind_candidates:
+    - lemma: "مَادَّةٌ مُتَطَايِرَةٌ"
+      generation_method: tarkib
+      justification: "التركيب الوصفي الأكثر شيوعاً في المعاجم العلمية الحديثة للتعبير عن volatile substance."
+    - lemma: "طَيَّارٌ"
+      generation_method: ishtiqaq
+      justification: "صيغة مبالغة على وزن 'فعال' تدل على كثرة التطاير، وتستخدم اسماً ووصفاً للمواد المتطايرة (مثل الزيوت الطيارة)."
+    - lemma: "مُتَطَايِرٌ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل الخماسي 'تطاير' يدل على القابلية للتحول إلى بخار."
+    - lemma: "مُتَبَخِّرٌ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل يشير إلى المادة التي تتحول إلى بخار بسهولة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مادة متطايرة"
+      confirm:
+        - text: "مادة متطايرة (volatile matter)"
+          source: "المعجم الموحد لمصطلحات الكيمياء (1992)"
+    - lemma: "طَيَّارٌ"
+      confirm:
+        - text: "طيَّار: عنصر يتبخر عند درجة حرارة منخفضة نسبيا (volatile)"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية (2012)"
+        - text: "طَيَّار (volatile)"
+          source: "المعجم الموحد لمصطلحات علم الصحة وجسم الانسان (1992)"
+    - lemma: "مُتَطَايِرٌ"
+      confirm:
+        - text: "متطاير: (مادة) تتبخر بسهولة في درجات الحرارة العادية (volatile)"
+          source: "المعجم الموحد لمصطلحات المياه (2000)"
+        - text: "متطاير (volatile)"
+          source: "المعجم الموحد لمصطلحات الفيزياء العامة والنووية (1989)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مادة متطايرة"
+      decision: confirmed
+      decision_reason: "مصطلح علمي مستقر وموثق في المعاجم المتخصصة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَادَّةٌ مُتَطَايِرَةٌ"
+    - lemma: "طَيَّارٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح مفرد موثق في المعاجم الهندسية والطبية كمرادف لـ volatile."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "طَيَّارٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُتَطَايِرٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يستخدم اسماً للمادة المتطايرة في السياقات العلمية (substantive use)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُتَطَايِرٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "مادة تتغير بسهولة من الحالة الصلبة أو السائلة إلى بخار"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق علمياً وجامع مانع."
+  examples:
+    per_lemma:
+      - lemma: "مَادَّةٌ مُتَطَايِرَةٌ"
+        examples:
+          - text: "يُراعى عند التعامل مع المواد المتطايرة استخدام أجهزة شفط الهواء لمنع استنشاق أبخرتها."
+            type: usage
+      - lemma: "طَيَّارٌ"
+        examples:
+          - text: "الأسيتون سائل طيار يستخدم بكثرة كمذيب في المختبرات."
+            type: usage
+      - lemma: "مُتَطَايِرٌ"
+        examples:
+          - text: "يتم قياس كمية المتطاير في العينة عن طريق تسخينها ورصد النقص في الكتلة."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَادَّةٌ مُتَطَايِرَةٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مادة"
+          root: "مدد"
+          maqayis_quote: "«الْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى جَرِّ شَيْءٍ فِي طُولٍ، وَاتِّصَالِ شَيْءٍ بِشَيْءٍ فِي اسْتِطَالَةٍ.»"
+        - word: "متطايرة"
+          root: "طير"
+          maqayis_quote: "«الطَّاءُ وَالْيَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خِفَّةِ الشَّيْءِ فِي الْهَوَاءِ.»"
+    - lemma: "طَيَّارٌ"
+      entry_id: "{auto}"
+      root: "طير"
+      maqayis_quote: "«الطَّاءُ وَالْيَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خِفَّةِ الشَّيْءِ فِي الْهَوَاءِ.»"
+    - lemma: "مُتَطَايِرٌ"
+      entry_id: "{auto}"
+      root: "طير"
+      maqayis_quote: "«الطَّاءُ وَالْيَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خِفَّةِ الشَّيْءِ فِي الْهَوَاءِ.»"
+  per_sense:
+    - lemma: "مَادَّةٌ مُتَطَايِرَةٌ"
+      sense_id: "{auto}"
+      nuance: "المصطلح العلمي الوصفي الأكثر دقة وشيوعاً."
+      mwe: true
+    - lemma: "طَيَّارٌ"
+      sense_id: "{auto}"
+      nuance: "صيغة تدل على شدة القابلية للتطاير، وتستخدم غالباً للزيوت والمذيبات."
+      mwe: false
+    - lemma: "مُتَطَايِرٌ"
+      sense_id: "{auto}"
+      nuance: "يركز على الحالة الديناميكية للمادة وقدرتها على التحول السريع لبخار."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مادة","root":"مدد","maqayis":"«الْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ...»"},{"word":"متطايرة","root":"طير","maqayis":"«الطَّاءُ وَالْيَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"طير","maqayis":"«الطَّاءُ وَالْيَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خِفَّةِ الشَّيْءِ فِي الْهَوَاءِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"طير","maqayis":"«الطَّاءُ وَالْيَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خِفَّةِ الشَّيْءِ فِي الْهَوَاءِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العلمي الوصفي الأكثر دقة وشيوعاً.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"صيغة تدل على شدة القابلية للتطاير، وتستخدم غالباً للزيوت والمذيبات.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الحالة الديناميكية للمادة وقدرتها على التحول السريع لبخار.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 1.0

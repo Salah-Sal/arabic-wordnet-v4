@@ -1,0 +1,161 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'تحول إلى صوت صفيري' هي عبارة وصفية وليست مصطلحاً معجمياً مسكوكاً."
+      - "اللمة 'تصفير' تحتاج إلى ضبط بالشكل الكامل لتمييزها عن معانٍ أخرى (مثل تصفير العدادات أو التصفير بمعنى الجوع)."
+    observations: "المصطلح الإنجليزي 'assibilation' يشير إلى عملية تحول صامت (غالباً انفجاري) إلى صامت صفيري (sibilant). في اللسانيات العربية الحديثة، يُستخدم مصطلح 'التصفير' لهذا المفهوم، وهو مشتق من 'الصفير' الذي هو صفة لمجموعة من الحروف (ص، ز، س). اللمات الموجودة تحتاج مراجعة لحذف العبارات الوصفية وضبط المصطلحات الفنية."
+  blind_candidates:
+    - lemma: "تَصْفِيرٌ"
+      generation_method: ishtiqaq
+      justification: "المصدر القياسي للفعل (صفَّر) بمعنى جعل الصوت صفيرياً، وهو المصطلح المعتمد في المعاجم اللسانية الموحدة."
+    - lemma: "تَحَوُّلٌ صَفِيرِيٌّ"
+      generation_method: tarkib
+      justification: "تركيب وصفي فني يصف العملية بدقة، ويشيع استخدامه في الدراسات الصوتية المقارنة."
+    - lemma: "إِصْفَارٌ"
+      generation_method: ishtiqaq
+      justification: "مصدر محتمل للفعل (أصفر)، وإن كان (تصفير) هو الأشيع في هذا السياق."
+    - lemma: "تَسْيِينٌ"
+      generation_method: ishtiqaq
+      justification: "مصطلح خاص في علم الأصوات يشير إلى تحول الصوت إلى (سين)، وهو أحد أنواع الـ (assibilation)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تصفير"
+      confirm:
+        - text: "تحويل صوت انسدادي إلى صفيري."
+          source: "المعجم الموحد لمصطلحات اللسانيات (2002)"
+        - text: "تحويل صوت انسدادي إلى صفيري."
+          source: "مسرد الإعلام والتواصل (ArabTerm)"
+      expands:
+        - text: "تغيير ألوان مواد الألياف... وخاصة الألياف الصناعية... عن طريق الحرارة."
+          source: "مسرد صناعة النسيج (ArabTerm)"
+          addition: "معنى بعيد عن السياق اللساني (yellowing)."
+    - lemma: "تحول إلى صوت صفيري"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تصفير"
+      decision: confirmed
+      decision_reason: "مصطلح تقني ثابت في علم الأصوات (Phonetics) وموثق في المعاجم اللسانية المتخصصة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَصْفِيرٌ"
+    - lemma: "تحول إلى صوت صفيري"
+      decision: removed
+      decision_reason: "عبارة وصفية طويلة (phrase) وليست وحدة معجمية مسكوكة؛ يُكتفى بالمصطلح المركز."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "تَحَوُّلٌ صَفِيرِيٌّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح مركّب شائع في الدراسات اللسانية لوصف عملية الـ (assibilation)."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "تَحَوُّلٌ صَفِيرِيٌّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-13455579-n"
+
+stage4_content:
+  definition:
+    current: "تطور صوت ساكن إلى صوت صفيري"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي صحيح لكن يحتاج إلى صياغة أكثر دقة لغويًا واصطلاحيًا، مع الإشارة إلى أن الصوت المتحول غالباً ما يكون انسدادياً."
+    authored:
+      - type: terminological
+        text: "عَمَلِيَّةُ تَحَوُّلِ صَوْتٍ صَامِتٍ (غَالِبًا مَا يَكُونُ انْسِدَادِيًّا) إِلَى صَوْتٍ صَفِيرِيٍّ كَالسِّينِ أَوِ الصَّادِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-13455579-n"
+          definition_index: 0
+          text: "عَمَلِيَّةُ تَحَوُّلِ صَوْتٍ صَامِتٍ (غَالِبًا مَا يَكُونُ انْسِدَادِيًّا) إِلَى صَوْتٍ صَفِيرِيٍّ كَالسِّينِ أَوِ الصَّادِ."
+
+  examples:
+    per_lemma:
+      - lemma: "تَصْفِيرٌ"
+        examples:
+          - text: "يُعَدُّ التَّصْفِيرُ مِنَ الظَّوَاهِرِ الصَّوْتِيَّةِ الَّتِي تَطْرَأُ عَلَى بَعْضِ اللَّهَجَاتِ عِنْدَ نُطْقِ التَّاءِ."
+            type: usage
+      - lemma: "تَحَوُّلٌ صَفِيرِيٌّ"
+        examples:
+          - text: "يُؤَدِّي التَّحَوُّلُ الصَّفِيرِيُّ لِلصَّامِتِ إِلَى تَغْيِيرِ مَخْرَجِ الْحَرْفِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "awn4-13455579-n"
+          text: "ظاهرة التصفير في اللغة"
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تَصْفِيرٌ"
+      entry_id: "{auto}"
+      root: "صفر"
+      maqayis_quote: "«الصَّادُ وَالْفَاءُ وَالرَّاءُ سِتَّةُ أَوْجُهٍ: ... وَالرَّابِعُ: صَوْتٌ ... فَالصَّفِيرُ لِلطَّائِرِ. وَقَوْلُهُمْ: مَا بِهَا صَافِرٌ مِنْ هَذَا، أَيْ كَأَنَّهُ يُصَوِّتُ.»"
+    - lemma: "تَحَوُّلٌ صَفِيرِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "تحول"
+          root: "حول"
+          maqayis_quote: "«الْحَاءُ وَالْوَاوُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ يَدُلُّ عَلَى تَغَيُّرِ الشَّيْءِ وَانْفِصَالِهِ عَنْ غَيْرِهِ.»"
+        - word: "صفيري"
+          root: "صفر"
+          maqayis_quote: "«الصَّادُ وَالْفَاءُ وَالرَّاءُ سِتَّةُ أَوْجُهٍ: ... وَالرَّابِعُ: صَوْتٌ...»"
+  per_sense:
+    - lemma: "تَصْفِيرٌ"
+      sense_id: "{auto}"
+      nuance: "المصطلح الفني المختصر والأكثر شيوعاً في المعاجم اللسانية."
+      mwe: false
+    - lemma: "تَحَوُّلٌ صَفِيرِيٌّ"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي فني يستخدم لتوضيح طبيعة التغير الصوتي."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صفر","maqayis":"«الصَّادُ وَالْفَاءُ وَالرَّاءُ سِتَّةُ أَوْجُهٍ: ... وَالرَّابِعُ: صَوْتٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الفني المختصر والأكثر شيوعاً في المعاجم اللسانية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-13455579-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-13455579-n"
+        score: 0.95

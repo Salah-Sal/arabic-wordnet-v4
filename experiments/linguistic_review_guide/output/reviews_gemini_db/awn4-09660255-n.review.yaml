@@ -1,0 +1,170 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "أبيض"
+      confirm:
+        - text: "«البيضانُ من الناس: خِلافُ السُّودانِ منهم»"
+          source: "المعجم الكبير"
+        - text: "«الأبيض: أحد أفراد العرق الأبيض»"
+          source: "المورد الحديث (2008)"
+        - text: "«البِيضانُ: ... ضِدُّ السُّودانِ»"
+          source: "القاموس المحيط للفيروزآبادي"
+      expands:
+        - text: "«وجه أبيض نقي اللون من الكلف والسواد الشائن»"
+          source: "المعجم الوسيط"
+          addition: "يصف البياض في الوجه تحديداً"
+    - lemma: "قوقازي"
+      confirm:
+        - text: "«(ب) أحد أفراد العرق الأبيض»"
+          source: "المورد الحديث (2008)"
+      expands:
+        - text: "«نسبة إلى القوقاز بمعنى مجموعة سلاسل جبلية...»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+          addition: "يؤكد الأصل الجغرافي للمصطلح"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "أوروبي"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«(1) أوروبي (2) شخصٌ أوروبيّ.» — المورد الحديث (2008)"
+      justification: "التعريف ينص على أن الشخص من أصل أوروبي، والمصطلح يستخدم كمرادف للعرق الأبيض في سياقات معينة."
+    - lemma: "قفقاسي"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«قوقازيّ؛ قفقاسيّ: ... أحد أفراد العرق الأبيض.» — المورد الحديث (2008)"
+      justification: "شكل بديل (variant) لمصطلح قوقازي ناتج عن اختلاف التعريب."
+  knowledge_candidates:
+    - lemma: "رجل أبيض"
+      justification: "تعبير مركّب (MWE) شائع الاستخدام لوصف الشخص من هذا العرق (تركيب وصفي)."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "أبيض"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي وموثق في المعاجم القديمة والحديثة للدلالة على العرق."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "الاسم العام والأكثر شيوعاً للدلالة على لون البشرة والعرق في الاستعمال اليومي."
+      example: "يتميز سكان شمال أوروبا ببشرة بيضاء فاتحة."
+    - lemma: "قوقازي"
+      decision: confirmed
+      decision_reason: "مصطلح أنثروبولوجي وعلمي مستقر."
+      evidence_assessment:
+        case: "confirm"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "مصطلح تصنيفي علمي (Taxonomic) يشير إلى العرق الأبيض من الناحية السلالية."
+      example: "يُصنف علماء الأعراق البشرية معظم سكان أوروبا ضمن العرق القوقازي."
+    - lemma: "قفقاسي"
+      source: step05
+      decision: confirmed
+      decision_reason: "شكل بديل (variant) مقبول ومستخدم في المعاجم الحديثة."
+      step05_citation: "«قوقازيّ؛ قفقاسيّ: ... أحد أفراد العرق الأبيض.» — المورد الحديث (2008)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "بديل صوتي للفظ 'قوقازي'، يستعمل في بعض الترجمات العربية."
+      example: "ينتسب العديد من المهاجرين في أمريكا إلى أصل قفقاسي."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "قفقاسي"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09660255-n"
+    - lemma: "أوروبي"
+      source: step05
+      decision: confirmed
+      decision_reason: "مرادف دلالي قوي يشير إلى الأصل الجغرافي المذكور في التعريف."
+      step05_citation: "«شخصٌ أوروبيّ.» — المورد الحديث (2008)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على الموطن الجغرافي (أوروبا) كبديل للهوية العرقية البيضاء."
+      example: "كان المستكشف الأوروبي أول من وصل إلى تلك المناطق."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "أوروبي"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09660255-n"
+    - lemma: "رجل أبيض"
+      source: step05
+      decision: removed
+      decision_reason: "تركيب وصفي حر (Free modification) وليس مصطلحاً مسكوكاً مستقلاً عن لمة 'أبيض'."
+      step05_citation: "معرفة لغوية"
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "شخص من أصل أوروبي ذو بشرة فاتحة أو شاحبة"
+  assessment:
+    decision: revise
+    reason: "لجعل التعريف أكثر دقة معجمية واصطلاحية."
+  authored_definitions:
+    - type: terminological
+      text: "شخصٌ من العِرْق الأبيض، ينحدرُ من أصولٍ أوروبيَّة، ويتميَّزُ ببشرةٍ فاتحةِ اللَّون."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-09660255-n"
+        definition_index: 0
+        text: "شخصٌ من العِرْق الأبيض، ينحدرُ من أصولٍ أوروبيَّة، ويتميَّزُ ببشرةٍ فاتحةِ اللَّون."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عَامِل، فَاعِل (awn4-09786620-n)"
+    test_result: "wrong"
+  actions:
+    - command: remove_synset_relation
+      params:
+        source_id: "awn4-09660255-n"
+        relation_type: "hypernym"
+        target_id: "awn4-09786620-n"
+    - command: add_synset_relation
+      params:
+        source_id: "awn4-09660255-n"
+        relation_type: "hypernym"
+        target_id: "awn4-00007846-n"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "أبيض"
+      enrichment:
+        root: "ب-ي-ض"
+      examples:
+        - text: "البيضانُ من الناس: خِلافُ السُّودانِ منهم."
+          type: usage
+          source: "المعجم الكبير"
+    - lemma: "قوقازي"
+      enrichment:
+        root: "ق-و-ق-ز"
+        etymology: "loanword"
+      examples:
+        - text: "يُصنف علماء الأعراق البشرية معظم سكان أوروبا ضمن العرق القوقازي."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "قفقاسي"
+      enrichment:
+        root: "ق-ف-ق-س"
+        etymology: "loanword"
+      examples:
+        - text: "ينتسب العديد من المهاجرين في أمريكا إلى أصل قفقاسي."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "أوروبي"
+      enrichment:
+        root: "أ-و-ر-ب"
+      examples:
+        - text: "كان المستكشف الأوروبي أول من وصل إلى تلك المناطق."
+          type: usage
+          source: "مؤلَّف"
+  cultural_fit:
+    assessment: native

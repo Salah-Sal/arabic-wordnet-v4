@@ -1,0 +1,221 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة (فَاقِد لِعَزِيز) عبارة وصفية حرة وليست مصطلحاً مسكوكاً (تفتقر للتثبيت المعجمي كمركب)."
+      - "عدم وجود لمات عربية دقيقة مثل (ثاكل) و(مصاب) في المجموعة الحالية."
+    observations: "المفهوم يشير إلى شخص تعرض لفقدان أحد أحبائه بالموت، وهو ما يتقاطع دلالياً في العربية مع مفاهيم الفجيعة والثكل والمصاب والمصيبة."
+  blind_candidates:
+    - lemma: "مَفْجُوع"
+      generation_method: ishtiqaq
+      justification: "اسم مفعول من (فَجَعَ)، للدلالة على من أصيب برزية أو فقد عزيزاً."
+    - lemma: "ثَاكِل"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من (ثَكِلَ)، وهو من فقد ولده أو حبيبه."
+    - lemma: "مُصَاب"
+      generation_method: ishtiqaq
+      justification: "اسم مفعول من (أُصِيبَ)، للدلالة على من حلت به مصيبة أو فاجعة."
+    - lemma: "مَكْلُوم"
+      generation_method: majaz
+      justification: "مجاز من الكَلْم (الجرح)، للتعبير عن المجروح بفقد أحبته."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "فَاقِد لِعَزِيز"
+      evidence_status: "no_material_found"
+    - lemma: "مَفْجُوع"
+      confirm:
+        - text: "«(2) «أ» متوحِّد. «ب» بائس. «ج» مفجوعٌ بأصدقائه؛ مستشعرٌ أن أصدقاءه قد تخلّوا عنه»"
+          source: "المورد الحديث (2008)"
+    - lemma: "ثَاكِل"
+      confirm:
+        - text: "«(1) محروم (2) ثاكلٌ؛ ثَكْلَى.» (ترجمة لـ bereaved)"
+          source: "المورد الحديث (2008)"
+    - lemma: "مُصَاب"
+      confirm:
+        - text: "«الفجيعَةُ والمصيبةُ. يقال: جبَر اللُه مُصابَه الشِّدَّةُ النَّازِلَة مَنْ يُصابُ بأَذًى»"
+          source: "المعجم الكبير"
+        - text: "«الإصابة الشدّة النازلة من يصاب بأذى»"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "فَاقِد لِعَزِيز"
+      decision: removed
+      decision_reason: "عبارة وصفية غير مسكوكة، يمكن استبدال (عزيز) بكلمات أخرى (حبيب، قريب)، مما ينفي عنها صفة المصطلح الثابت."
+      evidence_assessment:
+        case: no_material
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "مَفْجُوع"
+      decision: confirmed
+      decision_reason: "مصطلح دقيق وشائع للتعبير عن من فقد عزيزاً وأصيب بفاجعة الموت."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَفْجُوع"
+    - lemma: "ثَاكِل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فصيح وعميق الدلالة على الفقد والموت، وخاصة فقد الأبناء والأحبة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "ثَاكِل"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09869865-n"
+    - lemma: "مُصَاب"
+      source: stage1
+      decision: confirmed
+      decision_reason: "كلمة شائعة وفصيحة للتعبير عمن نزلت به مصيبة أو فاجعة كالموت."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُصَاب"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09869865-n"
+
+stage4_content:
+  definition:
+    current: "شخص عانى من وفاة شخص يحبه"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يبدو كترجمة حرفية للتعريف الإنجليزي ويفتقر إلى الصياغة المعجمية العربية الرصينة."
+    authored:
+      - type: terminological
+        text: "مَن فَقَدَ عزيزاً عليه بالموت فذاقَ أَلَمَ فِراقِهِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-09869865-n"
+          definition_index: 0
+          text: "مَن فَقَدَ عزيزاً عليه بالموت فذاقَ أَلَمَ فِراقِهِ."
+  examples:
+    per_lemma:
+      - lemma: "مَفْجُوع"
+        examples:
+          - text: "وَاسَى الجِيرَانُ المَفْجُوعَ فِي مُصَابِهِ."
+            type: usage
+      - lemma: "ثَاكِل"
+        examples:
+          - text: "بَكَتِ الأُمُّ الثَّاكِلُ عَلَى فِرَاقِ وَلَدِهَا."
+            type: usage
+      - lemma: "مُصَاب"
+        examples:
+          - text: "قَدَّمَ المُعَزُّونَ التَّعَازِيَ لِلْمُصَابِ فِي فَقِيدِهِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "وَاسَى الجِيرَانُ المَفْجُوعَ فِي مُصَابِهِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "بَكَتِ الأُمُّ الثَّاكِلُ عَلَى فِرَاقِ وَلَدِهَا."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "قَدَّمَ المُعَزُّونَ التَّعَازِيَ لِلْمُصَابِ فِي فَقِيدِهِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَفْجُوع"
+      entry_id: "{auto}"
+      root: "فجع"
+      maqayis_quote: "«الْفَاءُ وَالْجِيمُ وَالْعَيْنُ كَلِمَةٌ وَاحِدَةٌ، وَهِيَ الْفَجِيعَةُ، وَهِيَ الرَّزِيَّةُ.»"
+    - lemma: "ثَاكِل"
+      entry_id: "{auto}"
+      root: "ثكل"
+      maqayis_quote: "«الثَّاءُ وَالْكَافُ وَاللَّامُ كَلِمَةٌ وَاحِدَةٌ تَدُلُّ عَلَى فُِقْدَانِ الشَّيْءِ، وَكَأَنَّهُ يُخْتَصُّ بِذَلِكَ فُِقْدَانُ الْوَلَدِ.»"
+    - lemma: "مُصَاب"
+      entry_id: "{auto}"
+      root: "صوب"
+      maqayis_quote: "«الصَّادُ وَالْوَاوُ وَالْبَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى نُزُولِ شَيْءٍ وَاسْتِقْرَارِهِ قَرَارَهُ.»"
+  per_sense:
+    - lemma: "مَفْجُوع"
+      sense_id: "{auto}"
+      nuance: "تؤكد على شدة التأثر والألم النفسي الناتج عن الصدمة المفاجئة كالموت."
+      mwe: false
+    - lemma: "ثَاكِل"
+      sense_id: "{auto}"
+      nuance: "تختص عادة بمن فقد ولده، وتتسع لتشمل فقدان الأحبة بصفة عامة."
+      mwe: false
+    - lemma: "مُصَاب"
+      sense_id: "{auto}"
+      nuance: "كلمة أعم وأشمل لمن نزلت به مصيبة، وتستخدم في سياق المواساة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"فجع","maqayis":"«الْفَاءُ وَالْجِيمُ وَالْعَيْنُ كَلِمَةٌ وَاحِدَةٌ، وَهِيَ الْفَجِيعَةُ، وَهِيَ الرَّزِيَّةُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ثكل","maqayis":"«الثَّاءُ وَالْكَافُ وَاللَّامُ كَلِمَةٌ وَاحِدَةٌ تَدُلُّ عَلَى فُِقْدَانِ الشَّيْءِ، وَكَأَنَّهُ يُخْتَصُّ بِذَلِكَ فُِقْدَانُ الْوَلَدِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صوب","maqayis":"«الصَّادُ وَالْوَاوُ وَالْبَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى نُزُولِ شَيْءٍ وَاسْتِقْرَارِهِ قَرَارَهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تؤكد على شدة التأثر والألم النفسي الناتج عن الصدمة المفاجئة كالموت.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تختص عادة بمن فقد ولده، وتتسع لتشمل فقدان الأحبة بصفة عامة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"كلمة أعم وأشمل لمن نزلت به مصيبة، وتستخدم في سياق المواساة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-09869865-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-09869865-n"
+        score: 0.95

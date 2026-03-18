@@ -1,0 +1,109 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "مياه إقليمية"
+      confirm:
+        - text: "«المسافة البحرية التي تمتد فيما بعد المياه الداخلية إلى حدود مسافة 12 ميلا منها، وقد تم تحديد هذه المسافة بمقتضى اتفاقية الأمم المتحدة حول قانون البحار لسنة 1982»"
+          source: "المعجم الموحد لمصطلحات القانون (2017)"
+        - text: "«المياه الإقليميّة [لدولةٍ ما]»"
+          source: "المورد الحديث (2008)"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "مياه وطنية"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«مياه وطنية، مياه إقليمية: المياه الوطنيّة الخاضعة لسيّادة الدّولة» — المعجم الموحد لمصطلحات النقل (2010)"
+      justification: "التركيب الوصفي (مياه وطنية) ورد في المعاجم المتخصصة كمرادف للمياه الإقليمية."
+  knowledge_candidates:
+    - lemma: "مياه سيادية"
+      justification: "توليد بالتركيب الوصفي (مياه + سيادية) للتعبير عن المياه التي تمارس عليها الدولة سيادتها."
+  generation_notes: "المصطلح المعياري والمسكوك في القانون الدولي هو المياه الإقليمية."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "مياه إقليمية"
+      decision: confirmed
+      decision_reason: "مصطلح تقني ثابت ومستقر (مركب وصفي)، ويطابق المعنى المطلوب بدقة في القانون الدولي."
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "المصطلح الأساسي والأكثر شيوعاً للدلالة على المياه الخاضعة لسيادة الدولة."
+      example: "اعترضت قوات خفر السواحل السفينة بعد دخولها المياه الإقليمية دون تصريح."
+      
+    - lemma: "مياه وطنية"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح مسكوك ورد في المعاجم المتخصصة (مركب وصفي)، ويصح كمرادف."
+      step05_citation: "«مياه وطنية، مياه إقليمية: المياه الوطنيّة الخاضعة لسيّادة الدّولة» — المعجم الموحد لمصطلحات النقل (2010)"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "مرادف للمياه الإقليمية يركز على الجانب السيادي والوطني، وقد يُطلق في بعض السياقات على المياه الداخلية."
+      example: "تعد حماية المياه الوطنية من التلوث مسؤولية كبرى."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مياه وطنية"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09479744-n"
+            
+    - lemma: "مياه سيادية"
+      source: step05
+      decision: removed
+      decision_reason: "تركيب وصفي حر وغير مسكوك معجمياً، ويغني عنه مصطلح المياه الإقليمية."
+      step05_citation: "توليد ذاتي"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "fail"
+
+  added_lemmas:
+    - lemma: "مياه وطنية"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "المياه المحيطة بدولة ما وأقاليمها والتي تمارس تلك الدولة سيادة قضائية عليها"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وواضح ويطابق المفهوم القانوني بشكل كافٍ."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-09248053-n"
+    test_result: "correct"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "مياه إقليمية"
+      enrichment:
+        root: "موه"
+      examples:
+        - text: "لا يجوز لأي سفينة حربية أجنبية المرور في المياه الإقليمية إلا بإذن مسبق."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+        
+    - lemma: "مياه وطنية"
+      enrichment:
+        root: "موه"
+      examples:
+        - text: "تسعى الدولة لاستغلال الثروات السمكية في مياهها الوطنية بشكل مستدام."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+
+  cultural_fit:
+    assessment: native

@@ -1,0 +1,230 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'شَخْص رَزِين' عبارة وصفية حرة (اسم + صفة) ولا تمثل وحدة معجمية مسكوكة."
+      - "عدم إدراج الصفات المفردة التي تعمل كأسماء في هذا السياق مثل 'رزين' و'وقور'."
+    observations: "المفهوم يشير إلى الشخص الذي يتسم بالجدية والاتزان والبعد عن الطيش والهزل. في العربية، يُعبر عن هذا المفهوم بصفات مشبهة أو صيغ مبالغة تعمل عمل الأسماء الدالة على أصحابها، مثل رزين، وقور، جاد."
+  blind_candidates:
+    - lemma: "رَزِين"
+      generation_method: ishtiqaq
+      justification: "مشتق من الجذر 'رزن' الدال على الثبات والثقل، ويُطلق على الشخص الحليم الهادئ."
+    - lemma: "وَقُور"
+      generation_method: ishtiqaq
+      justification: "مشتق من 'الوقار' وهو الحلم والرزانة، ويعبر بدقة عن الشخص المتزن."
+    - lemma: "مُتَّزِن"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من 'اتزن'، يشير إلى الشخص المستقر نفسياً وعقلياً."
+    - lemma: "عَاقِل"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من 'عقل'، ويشير إلى الشخص الذي يضبط نفسه وتصرفاته بحكمة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "جَادّ"
+      confirm:
+        - text: "«جَادّ: من (ج د د) المجتهد المثابر والمبتعد عن الهزل.»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+    - lemma: "شَخْص رَزِين"
+      contradicts:
+        - text: "«الرَّزِينُ: الثَّقِيلُ من كلِّ شَيْءٍ من النَّاس: الحَلِيمُ الوَقُورُ»"
+          source: "المعجم الكبير"
+          conflict: "المعاجم تورد كلمة 'رزين' مفردة كصفة مشبهة تدل على الشخص، ولا داعي لتقييدها بكلمة 'شخص' كجزء من المصطلح."
+    - lemma: "رَزِين"
+      confirm:
+        - text: "«الرَّزِينُ: الثَّقِيلُ من كلِّ شَيْءٍ من النَّاس: الحَلِيمُ الوَقُورُ»"
+          source: "المعجم الكبير"
+        - text: "«رَزِين: من (ر ز ن) الحليم الوقور، والأصيل.»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+    - lemma: "وَقُور"
+      confirm:
+        - text: "«الوَقُورُ: ذو الوِقار, وذات الوقار»"
+          source: "المعجم الوسيط"
+        - text: "«وَقُور: من (و ق ر) الرزين الحليم العظيم.»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+    - lemma: "مُتَّزِن"
+      evidence_status: "no_material_found"
+    - lemma: "عَاقِل"
+      confirm:
+        - text: "«العاقِل: المُدْرِكُ»"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "جَادّ"
+      decision: confirmed
+      decision_reason: "كلمة فصيحة ومستعملة تدل على من يبتعد عن الهزل ويميل إلى الجد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "جَادّ"
+
+    - lemma: "شَخْص رَزِين"
+      decision: removed
+      decision_reason: "عبارة وصفية تتألف من موصوف وصفة، وتفشل في اختبار التعبير المركب (MWE). الاستعاضة عنها بالصفة 'رَزِين'."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "رَزِين"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير دقيق ومباشر عن المفهوم، موثق معجمياً للدلالة على الشخص الحليم والمتزن."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "رَزِين", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "وَقُور"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صفة بليغة ومستقرة معجمياً تدل على الرزانة والهيبة والاتزان العاطفي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "وَقُور", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "مُتَّزِن"
+      source: stage1
+      decision: removed
+      decision_reason: "المرادفات 'رزين' و'وقور' أكثر دقة وارتباطاً بالسمات الشخصية المقصودة في هذا السياق المعجمي."
+
+    - lemma: "عَاقِل"
+      source: stage1
+      decision: removed
+      decision_reason: "كلمة 'عاقل' أعم دلالياً وتشير إلى امتلاك ملكة العقل مقابل الجنون، ولا تقتصر على معنى الوقار والرزانة."
+
+stage4_content:
+  definition:
+    current: "شخص جاد ورزين"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يستخدم كلمات المجموعة كجزء من التعريف (دوران)، ويحتاج إلى صياغة معجمية أدق."
+    authored:
+      - type: linguistic
+        text: "مَنْ يَتَّصِفُ بِالوَقَارِ وَالحِلْمِ وَيَمِيلُ إِلَى الجِدِّ وَيَبْتَعِدُ عَنِ الهَزْلِ وَالطَّيْشِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مَنْ يَتَّصِفُ بِالوَقَارِ وَالحِلْمِ وَيَمِيلُ إِلَى الجِدِّ وَيَبْتَعِدُ عَنِ الهَزْلِ وَالطَّيْشِ."}
+
+  examples:
+    per_lemma:
+      - lemma: "جَادّ"
+        examples:
+          - text: "عُرِفَ عَنْهُ أَنَّهُ رَجُلٌ جَادٌّ فِي عَمَلِهِ وَحَيَاتِهِ لا يُحِبُّ اللَّهْوَ."
+            type: usage
+      - lemma: "رَزِين"
+        examples:
+          - text: "كَانَ رَزِينًا فِي مَجْلِسِهِ لا يَسْتَفِزُّهُ طَيْشُ الشَّبَابِ."
+            type: usage
+      - lemma: "وَقُور"
+        examples:
+          - text: "تَحَدَّثَ الشَّيْخُ الوَقُورُ بِحِكْمَةٍ أَنْصَتَ لَهَا الْجَمِيعُ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "عُرِفَ عَنْهُ أَنَّهُ رَجُلٌ جَادٌّ فِي عَمَلِهِ وَحَيَاتِهِ لا يُحِبُّ اللَّهْوَ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "كَانَ رَزِينًا فِي مَجْلِسِهِ لا يَسْتَفِزُّهُ طَيْشُ الشَّبَابِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تَحَدَّثَ الشَّيْخُ الوَقُورُ بِحِكْمَةٍ أَنْصَتَ لَهَا الْجَمِيعُ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "جَادّ"
+      entry_id: "{auto}"
+      root: "جدد"
+      maqayis_quote: "«(جَدَّ) الْجِيمُ وَالدَّالُ أُصُولٌ ثَلَاثَةٌ: الْأَوَّلُ الْعَظَمَةُ، وَالثَّانِي الْحَظُّ، وَالثَّالِثُ الْقَطْعُ... وَلَيْسَ بِبَعِيدٍ أَنْ يَكُونَ الْجِدُّ فِي الْأَمْرِ وَالْمُبَالَغَةُ فِيهِ مِنْ هَذَا»"
+    - lemma: "رَزِين"
+      entry_id: "{auto}"
+      root: "رزن"
+      maqayis_quote: "«(رَزَنَ) الرَّاءُ وَالزَّاءُ وَالنُّونُ أَصْلٌ يَدُلُّ عَلَى تَجَمُّعٍ وَثَبَاتٍ. يَقُولُونَ رَزُنَ الشَّيْءُ: ثَقُلَ. وَرَجُلٌ رَزِينٌ وَامْرَأَةٌ رَزَانٌ.»"
+    - lemma: "وَقُور"
+      entry_id: "{auto}"
+      root: "وقر"
+      maqayis_quote: "«(وَقَرَ) الْوَاوُ وَالْقَافُ وَالرَّاءُ: أَصْلٌ يَدُلُّ عَلَى ثِقَلٍ فِي الشَّيْءِ... وَمِنْهُ الْوَقَارُ: الْحِلْمُ وَالرَّزَانَةُ. وَرَجُلٌ ذُو قِرَةٍ، أَيْ وَقُورٌ.»"
+
+  per_sense:
+    - lemma: "جَادّ"
+      sense_id: "{auto}"
+      nuance: "يركز على الاهتمام والمثابرة والابتعاد عن الهزل واللعب."
+      mwe: false
+    - lemma: "رَزِين"
+      sense_id: "{auto}"
+      nuance: "يركز على ثبات العقل والحلم وعدم التسرع والطيش."
+      mwe: false
+    - lemma: "وَقُور"
+      sense_id: "{auto}"
+      nuance: "يركز على الهيبة والسكون واحترام الناس لمظهره وطبعه المتزن."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جدد","maqayis":"«(جَدَّ) الْجِيمُ وَالدَّالُ أُصُولٌ ثَلَاثَةٌ: الْأَوَّلُ الْعَظَمَةُ، وَالثَّانِي الْحَظُّ، وَالثَّالِثُ الْقَطْعُ... وَلَيْسَ بِبَعِيدٍ أَنْ يَكُونَ الْجِدُّ فِي الْأَمْرِ وَالْمُبَالَغَةُ فِيهِ مِنْ هَذَا»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"رزن","maqayis":"«(رَزَنَ) الرَّاءُ وَالزَّاءُ وَالنُّونُ أَصْلٌ يَدُلُّ عَلَى تَجَمُّعٍ وَثَبَاتٍ. يَقُولُونَ رَزُنَ الشَّيْءُ: ثَقُلَ. وَرَجُلٌ رَزِينٌ وَامْرَأَةٌ رَزَانٌ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"وقر","maqayis":"«(وَقَرَ) الْوَاوُ وَالْقَافُ وَالرَّاءُ: أَصْلٌ يَدُلُّ عَلَى ثِقَلٍ فِي الشَّيْءِ... وَمِنْهُ الْوَقَارُ: الْحِلْمُ وَالرَّزَانَةُ. وَرَجُلٌ ذُو قِرَةٍ، أَيْ وَقُورٌ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الاهتمام والمثابرة والابتعاد عن الهزل واللعب.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على ثبات العقل والحلم وعدم التسرع والطيش.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الهيبة والسكون واحترام الناس لمظهره وطبعه المتزن.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

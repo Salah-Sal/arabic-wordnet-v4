@@ -1,0 +1,234 @@
+# ── المرحلة ١: المراجعة والتوليد (بدون أدلة) ──────────────
+stage1_review:
+  assessment:
+    concerns:
+      - "كلمة 'ضحية' عامة جداً وقد تشمل ضحايا الحوادث والجرائم العنيفة، بينما المجموعة تركز على الخداع."
+      - "كلمة 'مغفل' دقيقة ولكنها قد تحمل صبغة قدحية (insulting) أحياناً."
+    observations: "المفهوم يدور حول الشخص الذي يسهل انقياده أو خداعه لنقص في الخبرة أو الفطنة. هناك رصيد لغوي واسع في العربية لهذه الحالة يجمع بين السذاجة والغفلة."
+  blind_candidates:
+    - lemma: "مَخْدُوع"
+      generation_method: ishtiqaq
+      justification: "اسم مفعول مباشر من فعل خدع، يصف من وقع عليه فعل الخداع."
+    - lemma: "غِرّ"
+      generation_method: ishtiqaq
+      justification: "لفظ تراثي دقيق يصف من لا تجربة له فيسهل خداعه، كما في الحديث 'المؤمن غر كريم'."
+    - lemma: "سَاذَج"
+      generation_method: taarib
+      justification: "مصطلح شائع جداً في المعجم الحديث (من الفارسية: ساده) لوصف الشخص البسيط الذي يصدق كل شيء."
+    - lemma: "مُسْتَغْفَل"
+      generation_method: ishtiqaq
+      justification: "اسم مفعول من استغفل، يفيد طلب غفلة الشخص للإيقاع به."
+
+# ── المرحلة ٢: جمع الأدلة ────────────────────────────────
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُغَفَّل"
+      confirm:
+        - text: "«المُغَفَّلُ: من لا فِطْنة له»"
+          source: "المعجم الوسيط"
+        - text: "«المغَفَّل الذي ليس له فطنة»"
+          source: "معجم الصواب اللغوي"
+    - lemma: "ضَحِيَّة"
+      confirm:
+        - text: "«ضحيّة (victim)»"
+          source: "المورد الحديث"
+      expands:
+        - text: "«مَنْ يُلْقى مَصرَعَه في حادثٍ, أو جريمةٍ, أو جائحةٍ»"
+          source: "المعجم الكبير"
+          addition: "يشير إلى أن المعنى الأصلي مادي (قتل/حادث) لكنه يتوسع ليشمل المتضرر من الجريمة (بما فيها الاحتيال)."
+    - lemma: "غِرّ"
+      confirm:
+        - text: "«الغِرُّ: من ينخدع إذا خُدِع [للذكر والأنثى]»"
+          source: "المعجم الوسيط"
+        - text: "«الغِرُّ: الذي لم يجرب الأمور مع حداثة السن، وهو كالغَمْرِ»"
+          source: "المعجم العربي الإنجليزي (لين)"
+    - lemma: "سَاذَج"
+      confirm:
+        - text: "«السّاذَج؛ المُغَفَّل (dupe)»"
+          source: "المورد الحديث"
+    - lemma: "مَخْدُوع"
+      confirm:
+        - text: "«الغَرِيرُ: المخدوع»"
+          source: "المحيط في اللغة"
+        - text: "«رجل وطئ امرأة معتقداً... سمي مغروراً لأن البائع غرّه...»"
+          source: "تكملة المعاجم (دوزي)"
+
+# ── المرحلة ٣: التحليل اللغوي للّمات ────────────────────
+stage3_analysis:
+  per_lemma:
+    - lemma: "مُغَفَّل"
+      decision: confirmed
+      decision_reason: "مصطلح معجمي دقيق ومباشر لوصف الشخص فاقد الفطنة الذي يسهل خداعه."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُغَفَّل"
+    - lemma: "ضَحِيَّة"
+      decision: confirmed
+      decision_reason: "رغم عموميتها، إلا أنها الكلمة الأكثر شيوعاً في العصر الحديث لوصف المتضرر من عمليات الاحتيال (Victim)."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "ضَحِيَّة"
+    - lemma: "غِرّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ أصيل يعبر بدقة عن 'الغرارة' (lack of experience) التي تؤدي للانخداع."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "غِرّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "سَاذَج"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح لا غنى عنه في الاستعمال المعاصر لوصف الشخص سليم النية الذي يسهل استغفاله."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "سَاذَج", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مَخْدُوع"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اسم مفعول يصف الحالة الناتجة عن فعل الخداع بوضوح."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَخْدُوع", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+# ── المرحلة ٤: التعريف والأمثلة ──────────────────────────
+stage4_content:
+  definition:
+    current: "شخص يتم خداعه أو الاحتيال عليه"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي بسيط جداً؛ يفضل صياغته بأسلوب معجمي يجمع بين الحالة الذهنية (الغفلة) والنتيجة (الخداع)."
+    authored:
+      - type: terminological
+        text: "مَنْ يُنْخَدِعُ بِسُهُولَةٍ لِقِلَّةِ فِطْنَتِهِ أَوْ لِطِيبِ نَفْسِهِ؛ مَنْ يَقَعُ عَلَيْهِ فِعْلُ الخِدَاعِ أَوِ الاحْتِيَالِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مَنْ يُنْخَدِعُ بِسُهُولَةٍ لِقِلَّةِ فِطْنَتِهِ أَوْ لِطِيبِ نَفْسِهِ؛ مَنْ يَقَعُ عَلَيْهِ فِعْلُ الخِدَاعِ أَوِ الاحْتِيَالِ."}
+  examples:
+    per_lemma:
+      - lemma: "مُغَفَّل"
+        examples:
+          - text: "وَقَعَ التَّاجِرُ المُغَفَّلُ فِي شِرَاكِ المُحْتَالِينَ الَّذِينَ بَاعُوهُ بَضَاعَةً وَهْمِيَّةً."
+            type: usage
+      - lemma: "ضَحِيَّة"
+        examples:
+          - text: "صَارَ المَسْكِينُ ضَحِيَّةً لِعَمَلِيَّةِ نَصْبٍ مُحْكَمَةٍ كَلَّفَتْهُ كُلَّ مَدَّخَرَاتِهِ."
+            type: usage
+      - lemma: "غِرّ"
+        examples:
+          - text: "إِنَّهُ شَابٌّ غِرٌّ لَا يَعْرِفُ بَعْدُ طُرُقَ المَكْرِ وَالاحْتِيَالِ فِي السُّوقِ."
+            type: usage
+      - lemma: "سَاذَج"
+        examples:
+          - text: "لَا تَكُنْ سَاذَجاً تُصَدِّقُ كُلَّ مَا يُقَالُ لَكَ مِنْ وعُودٍ بَرَّاقَةٍ."
+            type: usage
+      - lemma: "مَخْدُوع"
+        examples:
+          - text: "ظَلَّ المَخْدُوعُ يَعْتَقِدُ أَنَّهُ رَبِحَ الجَائِزَةَ الكُبْرَى حَتَّى اكتَشَفَ أَنَّ الرَّسَائِلَ كَانَتْ مُزَيَّفَةً."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يَسْتَهْدِفُ المُحْتَالُونَ بَعْضَ النَّاسِ المُغَفَّلِينَ لِلاسْتِيلاءِ عَلَى أَمْوَالِهِمْ."}
+
+# ── المرحلة ٥: الإثراء (البيانات الوصفية) ─────────────────
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُغَفَّل"
+      entry_id: "{auto}"
+      root: "غفل"
+      maqayis_quote: "«الْغَيْنُ وَالْفَاءُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَرْكِ الشَّيْءِ سَهْوًا... رَجُلٌ غُفْلٌ: لَمْ يُجَرِّبِ الْأُمُورَ.»"
+    - lemma: "ضَحِيَّة"
+      entry_id: "{auto}"
+      root: "ضحو"
+      maqayis_quote: "«الضَّادُ وَالْحَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى بُرُوزِ الشَّيْءِ... وَالضَّحِيَّةُ مَعْرُوفَةٌ، وَهِيَ الْأُضْحِيَّةُ.»"
+    - lemma: "غِرّ"
+      entry_id: "{auto}"
+      root: "غرر"
+      maqayis_quote: "«الْغَيْنُ وَالرَّاءُ أُصُولٌ ثَلَاثَةٌ صَحِيحَةٌ: الْأَوَّلُ الْمِثَالُ، وَالثَّانِي النُّقْصَانُ، وَالثَّالِثُ الْعِتْقُ وَالْبَيَاضُ وَالْكَرَمُ... بَيْعُ الْغَرَرِ، وَهُوَ الْخَطَرُ الَّذِي لَا يُدْرَى أَيَكُونُ أَمْ لَا.»"
+    - lemma: "مَخْدُوع"
+      entry_id: "{auto}"
+      root: "خدع"
+      maqayis_quote: "«الْخَاءُ وَالدَّالُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ... الْإِخْدَاعُ إِخْفَاءُ الشَّيْءِ... خَدَعْتُ الرَّجُلَ خَتَلْتُهُ.»"
+    - lemma: "سَاذَج"
+      entry_id: "{auto}"
+      root: "سذج"
+  per_sense:
+    - lemma: "مُغَفَّل"
+      sense_id: "{auto}"
+      nuance: "تصف نقص الفطنة والذكاء في التعامل."
+      mwe: false
+    - lemma: "ضَحِيَّة"
+      sense_id: "{auto}"
+      nuance: "تصف الشخص من منظور الضرر الذي لحق به، وهي الكلمة الرسمية في السياقات الجنائية."
+      mwe: false
+    - lemma: "غِرّ"
+      sense_id: "{auto}"
+      nuance: "تصف نقص الخبرة الناتج عن صغر السن أو عدم ممارسة الأمور."
+      mwe: false
+    - lemma: "سَاذَج"
+      sense_id: "{auto}"
+      nuance: "تصف بساطة التفكير التي تؤدي لتصديق الأكاذيب بسهولة (غالبًا ما تكون مرتبطة بطيبة القلب)."
+      mwe: false
+    - lemma: "مَخْدُوع"
+      sense_id: "{auto}"
+      nuance: "تصف الشخص كونه طرفاً في عملية خداع تمت بنجاح ضده."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"غفل","maqayis":"«الْغَيْنُ وَالْفَاءُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَرْكِ الشَّيْءِ سَهْوًا... رَجُلٌ غُفْلٌ: لَمْ يُجَرِّبِ الْأُمُورَ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تصف نقص الفطنة والذكاء في التعامل.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

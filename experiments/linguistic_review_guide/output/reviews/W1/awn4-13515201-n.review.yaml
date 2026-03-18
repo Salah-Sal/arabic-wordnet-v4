@@ -1,0 +1,96 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "عملية بشرية"
+      evidence_status: "no_material_found"
+      peripheral_observations:
+        - "التركيب 'عملية بشرية' غير مسجل كمدخلة معجمية في المعاجم المستعلمة، لكنه تركيب إضافي وصفي سليم لغوياً."
+        - "المصطلح 'نشاط بشري' (human activity) مسجل في معجم ArabTerm (المدخلة 500224) للدلالة على مفهوم قريب."
+        - "المصطلح 'عملية اجتماعية' (social process) مسجل في معجم ArabTerm (المدخلة 399678)، مما يؤكد استخدام 'عملية' لترجمة 'process' في السياقات الإنسانية."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "نشاط بشري"
+      source_section: "step7_english_bridge"
+      evidence_citation: "«نشاط بشري — human activity» — مسرد الجغرافيا والتاريخ (ArabTerm)"
+      justification: "مصطلح شائع جداً للتعبير عن الأفعال التي يقوم بها البشر، وإن كان في WordNet يميل لمفهوم الـ activity."
+  knowledge_candidates:
+    - lemma: "عملية بشرية"
+      justification: "ترجمة حرفية دقيقة للمصطلح الإنجليزي 'human process'، وتتسق مع ترجمة المشتمِل 'عملية'."
+    - lemma: "عملية إنسانية"
+      justification: "تنويع دلالي باستخدام 'إنسانية' بدلاً من 'بشرية'، وتستخدم غالباً في السياقات الحضارية أو الاجتماعية."
+  generation_notes: "المصطلح الإنجليزي يمثل فئة عليا (high-level category) في شبكة WordNet، والترجمة التركيبية هي الوسيلة المتبعة لتمثيلها في العربية لغياب لفظ مفرد جامع."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "عملية بشرية"
+      decision: confirmed
+      decision_reason: "مصطلح تقني دقيق يتبع هيكلية المشتمِل (عملية)، وهو مستقر في الكتابات العلمية والاجتماعية المترجمة."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على الجانب الإجرائي والتسلسلي للتغيرات التي يشترك فيها البشر (process)، بخلاف 'نشاط' الذي يركز على الفعل السلوكي."
+      example: "تعد التنمية المستدامة عملية بشرية تهدف إلى تحسين حياة الأجيال القادمة."
+    
+    - lemma: "عملية إنسانية"
+      source: step05
+      decision: confirmed
+      decision_reason: "مرادف مقبول لـ 'عملية بشرية' مع مسحة دلالية تميل للجانب الحضاري."
+      step05_citation: "قياساً على 'نشاط إنساني' و'عمل إنساني'."
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "أقل حيادية من 'بشرية' حيث قد توحي أحياناً بالنزعة الإنسانية (humanism)، لكنها صالحة كمرادف في معظم السياقات."
+      example: "التربية والتعليم هي أهم عملية إنسانية لبناء المجتمعات."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "عملية إنسانية"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-13515201-n"
+
+    - lemma: "نشاط بشري"
+      source: step05
+      decision: removed
+      decision_reason: "على الرغم من شيوعه، إلا أنه يرادف مفهوم human activity (i33122) في WordNet، والخلط بينهما يفسد الهيكلية الدلالية للشبكة."
+      step05_citation: "«نشاط بشري — human activity» — ArabTerm"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "عملية يشارك فيها البشر"
+  assessment:
+    decision: retain
+    reason: "التعريف الحالي دقيق وبسيط ومطابق للمفهوم الإنجليزي (a process in which human beings are involved)."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-00029976-n (عَمَلِيَّة)"
+    test_result: "correct"
+  actions:
+    - command: remove_sense
+      params:
+        sense_id: "{auto}" # لإزالة 'عملية فيزيائية' من المجموعة المشتمِلة (awn4-00029976-n) لأنها تندرج تحت مفهوم آخر
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "عملية بشرية"
+      enrichment:
+        root: "ع-م-ل"
+      examples:
+        - text: "تعتبر العولمة عملية بشرية كبرى أعادت صياغة العلاقات الدولية."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "عملية إنسانية"
+      enrichment:
+        root: "ع-م-ل"
+      examples:
+        - text: "الثقافة هي عملية إنسانية تراكمية تنتقل عبر الأجيال."
+          type: usage
+          source: "مؤلَّف"
+  cultural_fit:
+    assessment: native

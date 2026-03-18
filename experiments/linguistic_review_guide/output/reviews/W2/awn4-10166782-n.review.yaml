@@ -1,0 +1,101 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "مُبْتَسِم ابْتِسَامَة عَرِيضَة"
+      evidence_status: "no_material_found"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "مُفْتَرّ"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«افترَّ الشَّخصُ: ابتسم وبَدَت أسنانه» — معجم اللغة العربية المعاصرة"
+      justification: "اشتقاق (اسم فاعل) من الفعل 'افترّ' الذي يطابق الابتسام العريض الدال على 'grin'."
+  knowledge_candidates:
+    - lemma: "بَسَّام"
+      justification: "اشتقاق (صيغة مبالغة) على وزن 'فَعَّال' للدلالة على كثرة الابتسام وسعته."
+  generation_notes: "تم استبعاد اللمة الأصلية لكونها تركيباً وصفياً حراً."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "مُبْتَسِم ابْتِسَامَة عَرِيضَة"
+      decision: removed
+      decision_reason: "تركيب وصفي حر وليس وحدة معجمية مسكوكة."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "وصف حر لا يمكن استخدامه كمصطلح."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "مُفْتَرّ"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح فصيح دقيق يعبر عن الابتسام العريض الذي تبدو فيه الأسنان."
+      step05_citation: "«افترَّ الشَّخصُ: ابتسم وبَدَت أسنانه» — معجم اللغة العربية المعاصرة"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يتميز بدلالته الدقيقة على الابتسام العريض وظهور الأسنان بخلاف المبتسم العادي."
+      example: "تلقى النبأ بوجه مفترّ يفيض بالبشر."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُفْتَرّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10166782-n"
+
+    - lemma: "بَسَّام"
+      source: step05
+      decision: removed
+      decision_reason: "صيغة مبالغة تدل على كثرة الابتسام وليس بالضرورة الابتسام العريض."
+      step05_citation: "معرفة لغوية"
+
+  synset_flags:
+    definition_review_needed: false
+  added_lemmas:
+    - lemma: "مُفْتَرّ"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شخص يبتسم ابتسامة عريضة"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق ويؤدي المعنى المقصود."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-09786620-n"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "مُفْتَرّ"
+        antonym_found: true
+        antonym: "عَابِس"
+  verb_checks:
+    applicable: false
+  selectional_restrictions:
+    - lemma: "مُفْتَرّ"
+      constraint: "فاعل عاقل (شخص)"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "مُفْتَرّ"
+      enrichment:
+        root: "ف-ر-ر"
+      examples:
+        - text: "تلقى النبأ بوجه مفترّ يفيض بالبشر."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

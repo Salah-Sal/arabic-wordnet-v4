@@ -1,0 +1,202 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "فظاعة"
+      confirm:
+        - text: "«حَدَثٌ أو أَمْر شديد الشَّناعة»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«الفظاعة: الشناعة»"
+          source: "القاموس المحيط"
+      expands:
+        - text: "«الفظاعة: مرارة»"
+          source: "تكملة المعاجم العربية"
+          addition: "دلالة حسية إضافية (المرارة)"
+
+    - lemma: "شيء مرعب"
+      confirm:
+        - text: "«(2) شيء مرعب»"
+          source: "المورد الحديث"
+      expands:
+        - text: "«المرعبة: موضع الرعب والفزع»"
+          source: "المعجم الوسيط"
+          addition: "ارتباط اللفظ بالمكان المثير للفزع"
+
+    - lemma: "هول"
+      confirm:
+        - text: "«الهول: الأمر الفظيع يهول أي يفزع»"
+          source: "التوقيف على مهمات التعاريف"
+        - text: "«الهول: الفزع والمخيف المفزع والأمر الشديد»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«التهاويل: زينة التَّصاوِير والنُّقوش والسِّلاح والثِّياب»"
+          source: "لسان العرب"
+          addition: "دلالة فنية زخرفية بعيدة عن المعنى الأصلي"
+
+    - lemma: "فظيعة"
+      confirm:
+        - text: "«فظائع: أحداث أو أمور شديدة الشناعة»"
+          source: "معجم اللغة العربية المعاصرة"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "هول"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«الهول: الأمر الفظيع يهول أي يفزع» — التوقيف على مهمات التعاريف"
+      justification: "لفظ تراثي مستقر يدل على الأمر الفظيع الذي يثير الفزع، وهو مطابق تماماً لتعريف المجموعة."
+    - lemma: "فظيعة"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«فظائع: أحداث أو أمور شديدة الشناعة» — معجم اللغة العربية المعاصرة"
+      justification: "الاسم المؤنث من الصفة (فظيع) يُستخدم كاسم ذات للدلالة على الحدث أو الشيء الشنيع."
+  knowledge_candidates:
+    - lemma: "شناعة"
+      justification: "مصدر يدل على القبح الشديد والفظاعة، ويُستخدم لوصف الأمور التي تثير الاشمئزاز (آلية: اشتقاق من الجذر ش-ن-ع)."
+    - lemma: "مفزعة"
+      justification: "اسم فاعل مؤنث استُخدم اسماً للدلالة على الحادثة أو الشيء الذي يوقع الفزع (آلية: اشتقاق من الجذر ف-ز-ع)."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "فظاعة"
+      decision: confirmed
+      decision_reason: "مدعومة بأدلة معجمية صريحة وتطابق تام مع المفهوم"
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تدل على القبح الشديد والشناعة في الشيء أو الفعل، وغالباً ما تُستخدم في سياق أخلاقي أو وصفي للجرائم."
+      example: "هالني فظاعة المشهد الذي خلّفه الإعصار في المدينة."
+
+    - lemma: "شيء مرعب"
+      decision: confirmed
+      decision_reason: "تعبير وصفي مستقر في المعاجم الثنائية لوصف الكيان المثير للرعب"
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تعبير وصفي عام يركز على الأثر النفسي (الرعب) الذي يسببه الشيء."
+      example: "كانت الغابة في الليل شيئاً مرعباً يوحي بالخطر."
+
+    - lemma: "هول"
+      source: step05
+      decision: confirmed
+      decision_reason: "لفظ أصيل وقوي الدلالة على الأمر الشديد الفظيع"
+      step05_citation: "«الهول: الأمر الفظيع يهول أي يفزع» — التوقيف على مهمات التعاريف"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يوحي بعظمة الأمر وجلاله وما يرافقه من هيبة وفزع شديد، ويُستخدم كثيراً في وصف الكوارث."
+      example: "لم يستطع أحدٌ تحمل هول الصدمة عند سماع الخبر."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "هول"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-03543047-n"
+
+    - lemma: "فظيعة"
+      source: step05
+      decision: confirmed
+      decision_reason: "اسم ذات يدل على الحدث الشنيع، شائع الاستعمال في صيغة الجمع"
+      step05_citation: "«فظائع: أحداث أو أمور شديدة الشناعة» — معجم اللغة العربية المعاصرة"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تُستخدم غالباً للدلالة على الحوادث المادية والجرائم (فظائع الحرب)، وتميل للتشخيص أكثر من المصدر المجرد (فظاعة)."
+      example: "وثّقت المنظمات الحقوقية فظيعةً جديدةً ارتكبتها قوات الاحتلال."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "فظيعة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-03543047-n"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شيء يثير الرعب أو الاشمئزاز؛ شيء فظيع"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي وصفي بسيط؛ يُفضّل تعريف مصطلحي يجمع بين الشناعة والأثر النفسي."
+  authored_definitions:
+    - type: terminological
+      text: "أمرٌ أو حَدَثٌ شديد الشَّناعة والقبح يثير في النفس الفزع أو الاشمئزاز."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-03543047-n"
+        definition_index: 0
+        text: "أمرٌ أو حَدَثٌ شديد الشَّناعة والقبح يثير في النفس الفزع أو الاشمئزاز."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "شيء"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "فظاعة"
+        antonym_found: true
+        antonym: "جمال"
+      - lemma: "هول"
+        antonym_found: true
+        antonym: "أمن"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "فظاعة"
+      enrichment:
+        root: "ف-ظ-ع"
+      examples:
+        - text: "فظاعة الحرب تكمن في تدميرها للإنسان والعمران."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+
+    - lemma: "شيء مرعب"
+      enrichment:
+        root: "ر-ع-ب"
+      examples:
+        - text: "الخيانة شيء مرعب يحطم الثقة بين الناس."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+
+    - lemma: "هول"
+      enrichment:
+        root: "ه-و-ل"
+      examples:
+        - text: "«يَا أَيُّهَا النَّاسُ اتَّقُوا رَبَّكُمْ إِنَّ زَلْزَلَةَ السَّاعَةِ شَيْءٌ عَظِيمٌ»"
+          type: quran
+          source: "الحج/ 1 (شاهد على عظمة الهول)"
+        - text: "هالني هول المطلع يوم الحساب."
+          type: usage
+          source: "مؤلَّف"
+      morphology:
+        broken_plural_link: "أهوال"
+      pos_check:
+        pos: noun
+
+    - lemma: "فظيعة"
+      enrichment:
+        root: "ف-ظ-ع"
+      examples:
+        - text: "ارتكب المجرم فظيعة نكراء اهتز لها الرأي العام."
+          type: usage
+          source: "مؤلَّف"
+      morphology:
+        broken_plural_link: "فظائع"
+      pos_check:
+        pos: noun
+
+  cultural_fit:
+    assessment: native

@@ -1,0 +1,140 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "أصل"
+      confirm:
+        - text: "«(حي) سَلَف أو أساس يتحدَّر الكائن الحيّ منه.»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«ما يتفرَّع منه الشيءُ, يقال : الأبُ أصلٌ للولد , والنهر أصلٌ للجدول.»"
+          source: "المعجم الكبير"
+      expands:
+        - text: "«الأصل الذي يركب فيه الطعم»"
+          source: "المعجم الموحد لمصطلحات علم الأحياء (1993)"
+          addition: "يؤكد استخدامه في سياق النبات (أصل التطعيم)."
+    - lemma: "والد"
+      confirm:
+        - text: "«الْأَب وَمن الشَّاء الْحَامِل وَالْمَعْرُوف عَنْهَا كَثْرَة النِّتَاج»"
+          source: "المعجم الوسيط"
+        - text: "«أبٌ أو أُمّ؛ نَتُوج»"
+          source: "المورد الحديث (ترجمة parent)"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "سَلَف"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«سَلَف — progenitor» — المعجم الطبي الموحد / المورد الحديث"
+      justification: "مصطلح حيوي وتقني يعبر عن الكائن المتقدم الذي تنحدر منه الذرية."
+    - lemma: "أَرُومة"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«أَرُومة — stock» — المعجم الموحد لمصطلحات علم الأحياء"
+      justification: "يستخدم للتعبير عن أصل السلالة أو النبتة الأصلية في التطعيم."
+  knowledge_candidates:
+    - lemma: "نَتُوج"
+      justification: "صيغة مبالغة تعبر عن الكائن المنتج للنسل، وردت في المعاجم لوصف الشجر والنوق."
+      mechanism: "مجاز/اشتقاق"
+    - lemma: "نبات أم"
+      justification: "تركيب وصفي شائع جداً في علم النبات للتعبير عن النبتة التي تؤخذ منها العقل أو البذور."
+      mechanism: "تركيب"
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "أصل"
+      decision: confirmed
+      decision_reason: "مصطلح مركزي في التعبير عن المنشأ الحيوي، خاصة في علم النبات والوراثة."
+      evidence_assessment:
+        case: "confirm_only"
+      nuance_differentiation: "يركز على كون الكائن هو 'المصدر' أو 'المخزون' (stock) الذي تتفرع منه الكائنات الجديدة."
+      example: "تنتقل الصفات الوراثية من الأصل إلى الفروع عبر الجينات."
+    - lemma: "والد"
+      decision: confirmed
+      decision_reason: "مصطلح عام يشمل الأب والأم، ويستخدم في السياق الحيواني والحيوي العام."
+      evidence_assessment:
+        case: "confirm_only"
+      nuance_differentiation: "يركز على فعل التوليد (begetting) والارتباط المباشر بالذرية."
+      example: "يتم فحص الحمض النووي للتأكد من هوية الوالد الحقيقي للحيوان."
+    - lemma: "سَلَف"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح علمي دقيق للتعبير عن 'الوالد' في سياق الانحدار السلالي (progenitor)."
+      step05_citation: "«سَلَف — progenitor» — المعجم الطبي الموحد"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يستخدم غالباً للتعبير عن الجيل السابق أو الأصول المتقدمة في شجرة النسب."
+      example: "تتشابه صفات هذا النبات مع سلفه البري."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "سلف"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-00006150-n"
+    - lemma: "أَرُومة"
+      source: step05
+      decision: removed
+      decision_reason: "تميل دلالتها إلى 'الأصل العرقي' أو 'بقايا الشجر' أكثر من 'الكائن الوالد' الفردي."
+      step05_citation: "«أصل كل شىء ومجتمعه» — المعجم الكبير"
+    - lemma: "نَتُوج"
+      source: step05
+      decision: removed
+      decision_reason: "صفة مبالغة تركز على غزارة الإنتاج (prolific) وليست مرادفاً عاماً لـ parent."
+      step05_citation: "«المثمر يُقال شجرة نتوج وناقة نتوج» — المعجم الوسيط"
+
+step3_definition:
+  current_definition: "كائن (نبات أو حيوان) يتم الحصول منه على كائنات أصغر"
+  assessment:
+    decision: revise
+    reason: "التعبير بـ 'كائنات أصغر' غير دقيق علمياً، فالذرية قد تكون مماثلة في الحجم عند النضج، والمصطلح الأدق هو 'أفراد جديدة' أو 'ذرية'."
+  authored_definitions:
+    - type: terminological
+      text: "كائن حي (حيوان أو نبات) تنحدر منه أفراد جديدة من النوع نفسه بالتكاثر."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-00006150-n"
+        definition_index: 0
+        text: "كائن حي (حيوان أو نبات) تنحدر منه أفراد جديدة من النوع نفسه بالتكاثر."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عُضْوِيَّة، كَائِن حَيّ، مُتَعَضٍّ (awn4-00004475-n)"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "والد"
+        antonym_found: true
+        antonym: "نَسْل"
+      - lemma: "سلف"
+        antonym_found: true
+        antonym: "خَلَف"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "أصل"
+      enrichment:
+        root: "أ-ص-ل"
+      examples:
+        - text: "الأصل في التطعيم هو النبات الذي يُغرس فيه الطعم."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "والد"
+      enrichment:
+        root: "و-ل-د"
+      examples:
+        - text: "يعتمد بقاء النوع على انتقال الصفات الوراثية من الوالد إلى نسله."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "سلف"
+      enrichment:
+        root: "س-ل-ف"
+      examples:
+        - text: "يحتفظ الهجين ببعض سمات سلفه الأصلي."
+          type: usage
+          source: "مؤلَّف"
+  cultural_fit:
+    assessment: native

@@ -1,0 +1,153 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الحالية 'جنوب غرب' تفتقر للتشكيل الكامل."
+      - "المصطلح مركب (MWE) ويحتاج إلى تحديد طبيعته الصرفية."
+    observations: "المصطلح 'جنوب غرب' شائع جداً في الاستعمال المعاصر والتقني لوصف المواقع الجغرافية، بينما 'الجنوب الغربي' هو التعبير المعجمي الأكثر دقة للفصاحة التراثية والمعاصرة عند استخدامه كاسم علم أو اسم لمنطقة."
+  blind_candidates:
+    - lemma: "جَنُوب غَرْب"
+      generation_method: tarkib
+      justification: "تركيب إضافي شائع الاستخدام للتعبير عن هذه الجهة/الموقع."
+    - lemma: "الْجَنُوب الْغَرْبِيّ"
+      generation_method: tarkib
+      justification: "الاسم المعرف الكامل للمنطقة، وهو الأكثر ملاءمة لتعريف 'الموقع'."
+    - lemma: "جَنُوبِيّ غَرْبِيّ"
+      generation_method: ishtiqaq
+      justification: "صيغة النسبة التي تستخدم أحياناً كاسم للدلالة على الإقليم."
+    - lemma: "جِهَةُ الْجَنُوبِ الْغَرْبِيِّ"
+      generation_method: tarkib
+      justification: "تعبير وصفي دقيق للموقع المقصود."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "جنوب غرب"
+      confirm:
+        - text: "«تقع في جنوب غرب خليج سان فرانسيسكو»"
+          source: "معجم مصطلحات المعلوماتية (2000)"
+        - text: "«جنوب غرب آسيا»"
+          source: "المكنز الزراعي (ArabTerm)"
+    - lemma: "الجنوب الغربي"
+      confirm:
+        - text: "«في الجنوب الغربي من صنعاء»"
+          source: "المعجم الكبير (مجمع اللغة العربية)"
+        - text: "«إلى الجنوب الغربي من مدينة الحلة»"
+          source: "المعجم الكبير (مجمع اللغة العربية)"
+        - text: "«(3) الجنوب الغربيّ (4) إقليم جنوبيّ غربيّ»"
+          source: "المورد الحديث"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "جنوب غرب"
+      decision: confirmed
+      decision_reason: "مصطلح مركب شائع ومقبول في الاستعمال الجغرافي المعاصر والتقني."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "جَنُوب غَرْب"
+    - lemma: "الْجَنُوب الْغَرْبِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "هو التعبير الاسمي الأدق والأكثر فصاحة للدلالة على الموقع أو الإقليم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "الْجَنُوب الْغَرْبِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-08579251-n"}
+
+stage4_content:
+  definition:
+    current: "موقع في الجزء الجنوبي الغربي من بلد أو منطقة أو مدينة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي طويل، ويفضل صياغته بأسلوب معجمي يركز على كونه جهة أو إقليماً."
+    authored:
+      - type: terminological
+        text: "مَوْقِعٌ أَوْ إِقْلِيمٌ يَقَعُ فِي الْجِهَةِ الْجَنُوبِيَّةِ الْغَرْبِيَّةِ مِنْ بَلَدٍ أَوْ مِنْطَقَةٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-08579251-n", definition_index: 0, text: "مَوْقِعٌ أَوْ إِقْلِيمٌ يَقَعُ فِي الْجِهَةِ الْجَنُوبِيَّةِ الْغَرْبِيَّةِ مِنْ بَلَدٍ أَوْ مِنْطَقَةٍ."}
+
+  examples:
+    per_lemma:
+      - lemma: "جَنُوب غَرْب"
+        examples:
+          - text: "تقع اليمن في جنوب غرب شبه الجزيرة العربية."
+            type: usage
+      - lemma: "الْجَنُوب الْغَرْبِيّ"
+        examples:
+          - text: "تشتهر المنطقة الواقعة في الجنوب الغربي من البلاد بمناظرها الطبيعية."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-08579251-n", text: "تقع اليمن في جنوب غرب شبه الجزيرة العربية."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "جَنُوب غَرْب"
+      entry_id: "{auto}"
+      roots:
+        - word: "جنوب"
+          root: "جنب"
+          maqayis_quote: "«الْجِيمُ وَالنُّونُ وَالْبَاءُ أَصْلَانِ مُتَقَارِبَانِ أَحَدُهُمَا: النَّاحِيَةُ، وَالَآخَرُ الْبُعْدُ.»"
+        - word: "غرب"
+          root: "غرب"
+          maqayis_quote: "«الْغَيْنُ وَالرَّاءُ وَالْبَاءُ أَصْلٌ صَحِيحٌ... وَمِنْ هَذَا الْبَابِ: غُرُوبُ الشَّمْسِ، كَأَنَّهُ بُعْدُهَا عَنْ وَجْهِ الْأَرْضِ.»"
+    - lemma: "الْجَنُوب الْغَرْبِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "الجنوب"
+          root: "جنب"
+          maqayis_quote: "«الْجِيمُ وَالنُّونُ وَالْبَاءُ أَصْلَانِ مُتَقَارِبَانِ أَحَدُهُمَا: النَّاحِيَةُ، وَالَآخَرُ الْبُعْدُ.»"
+        - word: "الغربي"
+          root: "غرب"
+          maqayis_quote: "«الْغَيْنُ وَالرَّاءُ وَالْبَاءُ أَصْلٌ صَحِيحٌ... وَمِنْ هَذَا الْبَابِ: غُرُوبُ الشَّمْسِ، كَأَنَّهُ بُعْدُهَا عَنْ وَجْهِ الْأَرْضِ.»"
+  per_sense:
+    - lemma: "جَنُوب غَرْب"
+      sense_id: "{auto}"
+      nuance: "تستخدم كتركيب إضافي غالباً ما يسبق اسم المكان (مضاف)."
+      mwe: true
+    - lemma: "الْجَنُوب الْغَرْبِيّ"
+      sense_id: "{auto}"
+      nuance: "تستخدم كاسم معرف (تركيب وصفي) للدلالة على الإقليم ككيان مستقل."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"جنوب","root":"جنب","maqayis":"«الْجِيمُ وَالنُّونُ وَالْبَاءُ أَصْلَانِ مُتَقَارِبَانِ أَحَدُهُمَا: النَّاحِيَةُ...»"},{"word":"غرب","root":"غرب","maqayis":"«الْغَيْنُ وَالرَّاءُ وَالْبَاءُ أَصْلٌ صَحِيحٌ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تستخدم كتركيب إضافي غالباً ما يسبق اسم المكان (مضاف).","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-08579251-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-08579251-n"
+        score: 0.95

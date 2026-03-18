@@ -1,0 +1,228 @@
+# ── المرحلة ١: المراجعة والتوليد (بدون أدلة) ──────────────
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف العربي الحالي شديد الاختصار (شخص يسيل لعابه)."
+      - "اللمة الموجودة (مُرَيِّل) صحيحة اشتقاقاً لكنها قد تُعتبر حديثة أو دارجة في بعض الأوساط، بينما توجد بدائل فصيحة قوية في المعاجم."
+    observations: "المفهوم يشير إلى حالة فسيولوجية (سيلان اللعاب) ترتبط عادةً بالأطفال أو كبار السن أو ذوي الاحتياجات الخاصة. المادة اللغوية في العربية ثرية جداً لهذا الوصف، وتتوزع بين الجذور (ر-ي-ل) و(ر-و-ل) و(م-ج-ج)."
+  blind_candidates:
+    - lemma: "رَيَّال"
+      generation_method: ishtiqaq
+      justification: "صيغة مبالغة على وزن 'فَعَّال' من الرُّيَال (اللعاب السائل)، وتدل على كثرة الفعل."
+    - lemma: "مُرَيِّل"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل 'رَيَّلَ' (سال لعابه)، وهو اشتقاق قياسي للمداومة."
+    - lemma: "رَائِل"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل الثلاثي 'رَالَ' بمعنى سال لعابه."
+    - lemma: "ذُو الرُّيَالِ"
+      generation_method: tarkib
+      justification: "تركيب إضافي ينسب الشخص إلى اللعاب السائل (الرُّيال)."
+
+# ── المرحلة ٢: جمع الأدلة ────────────────────────────────
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُرَيِّل"
+      confirm:
+        - text: "«رَالَ الصبيُّ رِيلاً: سالَ لُعابهُ»"
+          source: "المعجم الوسيط"
+        - text: "«المُرَيِّلَةُ: فوطة تلفُّ حول عُنُق الصبي لوقاية ثوبه من اللعاب»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«مُبَوَّب (انظر بابة): لَعِب، الذي يسيل لعابه، مُرَوّل»"
+          source: "تكملة المعاجم العربية لـ رينهارت دوزي"
+    - lemma: "رَيَّال"
+      evidence_status: "no_material_found"
+    - lemma: "رَائِل"
+      confirm:
+        - text: "«الرَّائِل: من اللعاب: المتقطر.»"
+          source: "المعجم الكبير"
+      contradicts:
+        - text: "«الرَّائِلُ: السِّنُّ الزائدة»"
+          source: "المعجم الوسيط"
+          conflict: "اللفظ مشترك بين اللعاب والسن الزائدة."
+    - lemma: "مِرْوَل"
+      confirm:
+        - text: "«المِرْوَلُ: الكثير اللُّعاب»"
+          source: "المعجم الوسيط"
+        - text: "«المِرْوَل: الرَّجل الكثير الرُّؤَال، وهو اللُّعاب.»"
+          source: "لسان العرب"
+    - lemma: "مَاجّ"
+      confirm:
+        - text: "«الماجّ من الناسِ والإِبل: الذي لا يستطيعُ أَن يُمْسِكَ رِيقَه من الكِبَر.»"
+          source: "لسان العرب"
+        - text: "«يُقال أَحمقُ ماجٌّ للذي يسيل لعابه.»"
+          source: "لسان العرب"
+        - text: "«الماجُّ: مَنْ يَسِيلُ لُعَابُه كِبَراً وهَرَماً.»"
+          source: "تاج العروس"
+
+# ── المرحلة ٣: التحليل اللغوي للّمات ────────────────────
+stage3_analysis:
+  per_lemma:
+    - lemma: "مُرَيِّل"
+      decision: confirmed
+      decision_reason: "اللمة صحيحة لغوياً ومشتقة من المادة (ر-ي-ل) التي نص المعجم الوسيط على أنها تعني سيلان اللعاب، وهي شائعة الاستخدام في العصر الحديث (قياساً على المريلة)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُرَيِّل"
+    - lemma: "مِرْوَل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فصيح وعريق ورد في أمهات المعاجم (اللسان والوسيط) لوصف الشخص كثير اللعاب."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مِرْوَل", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مَاجّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ دقيق ومثبت في المعاجم لوصف الشخص الذي يسيل لعابه لعلة الكبر أو الحمق."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَاجّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "رَائِل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اسم فاعل فصيح من الفعل (رال) الذي يعني سال اللعاب، ويدل على من يقع منه هذا الفعل."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "رَائِل", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+# ── المرحلة ٤: التعريف والأمثلة ──────────────────────────
+stage4_content:
+  definition:
+    current: "شخص يسيل لعابه"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط، والأولى استخدام صياغة معجمية تجمع الموصوف بالصفة والسبب."
+    authored:
+      - type: terminological
+        text: "شخصٌ يَقْطُرُ لُعابُه من فَمِه عجزاً عن حَبْسِه لكِبَرٍ أو بَلَهٍ أو لِعِلَّة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "شخصٌ يَقْطُرُ لُعابُه من فَمِه عجزاً عن حَبْسِه لكِبَرٍ أو بَلَهٍ أو لِعِلَّة."}
+
+  examples:
+    per_lemma:
+      - lemma: "مُرَيِّل"
+        examples:
+          - text: "يَحتاجُ الطِّفلُ المُرَيِّلُ إلى مِرْيَلَةٍ تَحْمي ثِيابَه من البلل."
+            type: usage
+      - lemma: "مِرْوَل"
+        examples:
+          - text: "كانَ الشَّيْخُ الهرمُ مِرْوَلاً يَمُجُّ رِيقَه ولا يَستطيعُ حَبْسَه."
+            type: usage
+      - lemma: "مَاجّ"
+        examples:
+          - text: "يُوصَفُ الأَحْمَقُ بأنَّه مَاجٌّ إذا كانَ لُعابُه يَسيلُ دُونَ شُعورٍ منه."
+            type: usage
+      - lemma: "رَائِل"
+        examples:
+          - text: "رَأيتُ صبيّاً رَائِلاً يَجرِي في الحَدِيقة."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يَحتاجُ الطِّفلُ المُرَيِّلُ إلى مِرْيَلَةٍ تَحْمي ثِيابَه من البلل."}
+
+# ── المرحلة ٥: الإثراء (البيانات الوصفية) ─────────────────
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُرَيِّل"
+      entry_id: "{auto}"
+      root: "ريل"
+    - lemma: "مِرْوَل"
+      entry_id: "{auto}"
+      root: "رول"
+      maqayis_quote: "«الرَّاءُ وَالْوَاوُ وَاللَّامُ أَصْلٌ يَدُلُّ عَلَى لَطْخِ شَيْءٍ بِشَيْءٍ... وَالرُّوَالُ: بُزاقُ الدَّابَّةِ.»"
+    - lemma: "مَاجّ"
+      entry_id: "{auto}"
+      root: "مجج"
+      maqayis_quote: "«الْمِيمُ وَالْجِيمُ كَلِمَتَانِ... وَالثَّانِيَةُ رَمْيٌ لِلشَّيْءِ بِسُرْعَةٍ... وَهُوَ هَرِمٌ مَاجٌّ: يَمُجُّ رِيقَهُ وَلَا يَسْتَطِيعُ أَنْ يَحْبِسَهُ مِنْ كِبَرِهِ.»"
+    - lemma: "رَائِل"
+      entry_id: "{auto}"
+      root: "ريل"
+
+  per_sense:
+    - lemma: "مُرَيِّل"
+      sense_id: "{auto}"
+      nuance: "اللفظ الأكثر شيوعاً في الاستخدام الحديث، وغالباً ما يُستخدم لوصف الأطفال."
+      mwe: false
+    - lemma: "مِرْوَل"
+      sense_id: "{auto}"
+      nuance: "لفظ فصيح يؤكد على كثرة اللعاب (صيغة مفعال)."
+      mwe: false
+    - lemma: "مَاجّ"
+      sense_id: "{auto}"
+      nuance: "مخصص لوصف من يسيل لعابه بسبب الهرم أو الحمق."
+      mwe: false
+    - lemma: "رَائِل"
+      sense_id: "{auto}"
+      nuance: "اسم فاعل مباشر يصف الحالة الراهنة لسيلان اللعاب."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ريل"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"رول","maqayis":"«الرَّاءُ وَالْوَاوُ وَاللَّامُ أَصْلٌ يَدُلُّ عَلَى لَطْخِ شَيْءٍ بِشَيْءٍ... وَالرُّوَالُ: بُزاقُ الدَّابَّةِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"مجج","maqayis":"«الْمِيمُ وَالْجِيمُ كَلِمَتَانِ... وَالثَّانِيَةُ رَمْيٌ لِلشَّيْءِ بِسُرْعَةٍ... وَهُوَ هَرِمٌ مَاجٌّ: يَمُجُّ رِيقَهُ وَلَا يَسْتَطِيعُ أَنْ يَحْبِسَهُ مِنْ كِبَرِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ الأكثر شيوعاً في الاستخدام الحديث، وغالباً ما يُستخدم لوصف الأطفال.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,171 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمتان (تدبل) و(تكون الدبال) خاليتان من التشكيل."
+      - "(تكون الدبال) عبارة وصفية مركبة وليست مصطلحاً مسكوكاً دقيقاً."
+    observations: "المصطلح (تدبل) مشتق بدقة من الجذر (دبل) الدال على الإصلاح بالسرجين، واشتقاقه على وزن (تفعُّل) يعبر بوضوح عن عملية التحول التلقائي إلى دبال (humus). من المناسب الاعتماد عليه بشكل رئيسي."
+  blind_candidates:
+    - lemma: "تَدَبُّل"
+      generation_method: ishtiqaq
+      justification: "على وزن تفعُّل، للدلالة على صيرورة المادة العضوية وتحولها إلى دبال."
+    - lemma: "تَدْبِيل"
+      generation_method: ishtiqaq
+      justification: "على وزن تفعيل، للدلالة على إحداث الدبال وتكوينه."
+    - lemma: "تَكَوُّنُ الدُّبَالِ"
+      generation_method: tarkib
+      justification: "مركب إضافي يصف العملية مباشرة (الترجمة الحرفية)."
+    - lemma: "إِدْبَال"
+      generation_method: ishtiqaq
+      justification: "على وزن إفعال."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تَدَبُّل"
+      confirm:
+        - text: "تحويل المواد العضوية الكربونية إلى مواد دبالية"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية (2012)"
+        - text: "تحول المادة العضوية إلى دبال، تحلل المواد النباتية والحيوانية وتحولها إلى مواد عضوية عديمة الشكل قليلة الذوبان سوداء اللون عموما"
+          source: "المعجم الموحد لمصطلحات علم الأحياء (1993)"
+    - lemma: "تَكَوُّن الدُّبَال"
+      evidence_status: "no_material_found"
+    - lemma: "تَدْبِيل"
+      confirm:
+        - text: "humification"
+          source: "المعجم الموحد لمصطلحات المياه (2000)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تدبل"
+      decision: confirmed
+      decision_reason: "مصطلح معتمد وموثق في المعاجم العلمية الحديثة، وهو دقيق صرفياً على وزن (تفعُّل) الذي يفيد المطاوعة والتحول."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      nuance: "مصطلح مفرد يشير إلى عملية تحول المواد العضوية إلى دبال بشكل طبيعي."
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَدَبُّل"
+
+    - lemma: "تكون الدبال"
+      decision: removed
+      decision_reason: "تركيب إضافي وصفي حر (تشكل/تكوين/صنع الدبال) وليس مصطلحاً مسكوكاً، ويمكن الاستغناء عنه بالمصطلح المفرد الدقيق."
+      evidence_assessment:
+        case: no_material
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "تَدْبِيل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح موثق في بعض المعاجم العلمية، ويصلح كمرادف لـ (تدبُّل) للدلالة على العملية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      nuance: "يشير إلى الجانب الفعلي والسببي من العملية (إحداث الدبال)."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "تَدْبِيل"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "عملية تكوين الدبال من بقايا النباتات"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد، لكن يمكن جعله أكثر شمولية ليعكس تحول مختلف المواد العضوية (نباتية وحيوانية) إلى دبال."
+    authored:
+      - type: terminological
+        text: "عملية تحول المواد العضوية كبقايا النباتات والحيوانات إلى دبال في التربة بفعل الكائنات الدقيقة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "عملية تحول المواد العضوية كبقايا النباتات والحيوانات إلى دبال في التربة بفعل الكائنات الدقيقة."
+
+  examples:
+    per_lemma:
+      - lemma: "تَدَبُّل"
+        examples:
+          - text: "تُعد عملية التَّدَبُّل ضرورية للحفاظ على خصوبة التربة الزراعية."
+            type: usage
+      - lemma: "تَدْبِيل"
+        examples:
+          - text: "يساهم التَّدْبِيل السليم للمخلفات في تحسين بنية التربة."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "تُعد عملية التَّدَبُّل ضرورية للحفاظ على خصوبة التربة الزراعية."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يساهم التَّدْبِيل السليم للمخلفات في تحسين بنية التربة."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تَدَبُّل"
+      entry_id: "{auto}"
+      root: "دبل"
+      maqayis_quote: "«الدَّالُ وَالْبَاءُ وَاللَّامُ أَصْلٌ يَدُلُّ عَلَى جَمْعٍ وَتَجَمُّعٍ وَإِصْلَاحٍ لَمِرَمَّةٍ... أَرْضٌ مَدْبُولَةٌ، إِذَا أُصْلِحَتْ بِسِرْجِينٍ وَغَيْرِهِ.»"
+    - lemma: "تَدْبِيل"
+      entry_id: "{auto}"
+      root: "دبل"
+      maqayis_quote: "«الدَّالُ وَالْبَاءُ وَاللَّامُ أَصْلٌ يَدُلُّ عَلَى جَمْعٍ وَتَجَمُّعٍ وَإِصْلَاحٍ لَمِرَمَّةٍ... أَرْضٌ مَدْبُولَةٌ، إِذَا أُصْلِحَتْ بِسِرْجِينٍ وَغَيْرِهِ.»"
+  per_sense:
+    - lemma: "تَدَبُّل"
+      sense_id: "{auto}"
+      nuance: "مصطلح مفرد يشير إلى عملية تحول المواد العضوية إلى دبال بشكل طبيعي."
+      mwe: false
+    - lemma: "تَدْبِيل"
+      sense_id: "{auto}"
+      nuance: "يشير إلى الجانب الفعلي والسببي من العملية (إحداث الدبال)."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"دبل","maqayis":"«الدَّالُ وَالْبَاءُ وَاللَّامُ أَصْلٌ يَدُلُّ عَلَى جَمْعٍ وَتَجَمُّعٍ وَإِصْلَاحٍ لَمِرَمَّةٍ... أَرْضٌ مَدْبُولَةٌ، إِذَا أُصْلِحَتْ بِسِرْجِينٍ وَغَيْرِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح مفرد يشير إلى عملية تحول المواد العضوية إلى دبال بشكل طبيعي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يشير إلى الجانب الفعلي والسببي من العملية (إحداث الدبال).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

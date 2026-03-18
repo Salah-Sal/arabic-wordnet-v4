@@ -1,0 +1,161 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة «نقل» عامة جداً وتصلح لأي عملية نقل، بينما المفهوم يخص انتقال المواد المذابة (العصارة/الغذاء) فسيولوجياً داخل النبات."
+      - "المفهوم الإنجليزي (translocation) في سياق فسيولوجيا النبات يترجم غالباً إلى «انتقال» أو «انتقال الغذاء»."
+    observations: "مصطلح «نقل» صحيح من الناحية اللغوية والعامة، لكن إضافة مشتقات مثل «انتقال» تزيد من دقة التعبير عن العملية الفسيولوجية الذاتية في النبات."
+  blind_candidates:
+    - lemma: "اِنْتِقَال"
+      generation_method: ishtiqaq
+      justification: "مشتق من الجذر (ن ق ل) على وزن افتعال، ويدل على تحول الشيء من موضع لآخر ذاتياً، وهو شائع في العمليات الفسيولوجية."
+    - lemma: "نَقْل"
+      generation_method: ishtiqaq
+      justification: "مصدر مباشر يدل على إحداث الحركة من مكان لآخر."
+    - lemma: "تَغْيِير مَوْضِع"
+      generation_method: tarkib
+      justification: "ترجمة وصفية تعبر عن دلالة (translocation)."
+    - lemma: "إِزْفَاء"
+      generation_method: taarib
+      justification: "استخدام معجمي لترجمة translocation، رغم أنه يغلب استخدامه في الوراثة (للكروموسومات)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "نَقْل"
+      confirm:
+        - text: "«تحويل شيء من مكان إلى مكان»"
+          source: "مقاييس اللغة"
+        - text: "«(نقل) الشَّيْء نقلا حوله من مَوضِع إِلَى مَوضِع»"
+          source: "المعجم الوسيط"
+    - lemma: "اِنْتِقَال"
+      confirm:
+        - text: "«حُصُول الشَّيْء فِي حيّز بعد أَن كَانَ فِي حيّز آخر»"
+          source: "دستور العلماء للأحمدنكري"
+      expands:
+        - text: "«انتقال الغذاء: translocation (plant physiology)»"
+          source: "المَكنَز الزراعي متعدد اللغات"
+    - lemma: "تَغْيِير مَوْضِع"
+      evidence_status: "no_material_found"
+    - lemma: "إِزْفَاء"
+      contradicts:
+        - text: "«انتقال قطعة من صبغيّ ما والتحامها بصبغيّ آخر غير نظير.»"
+          source: "المعجم الموحد لمصطلحات علم الوراثة"
+          conflict: "يُستخدم المصطلح بشكل أساسي في علم الوراثة (الطفرات الصبغية) ولا يُستخدم في فسيولوجيا النبات للدلالة على نقل العصارة."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "نَقْل"
+      decision: confirmed
+      decision_reason: "مصدر دقيق وشائع للتعبير عن حركة المواد في النبات (نقل النسغ، نقل المواد المذابة)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نَقْل"
+
+    - lemma: "اِنْتِقَال"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فسيولوجي دقيق يشير إلى العملية الذاتية لتحرك المواد داخل النبات (Translocation)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "اِنْتِقَال", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "تَغْيِير مَوْضِع"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير وصفي غير مسكوك كمصطلح في فسيولوجيا النبات."
+
+    - lemma: "إِزْفَاء"
+      source: stage1
+      decision: removed
+      decision_reason: "مصطلح خاص بعلم الوراثة (الصبغيات) ولا ينطبق على فسيولوجيا النبات."
+
+stage4_content:
+  definition:
+    current: "نقل المواد المذابة داخل النبات"
+    assessment:
+      decision: retain
+      reason: "التعريف الحالي دقيق وعلمي ويصف العملية (Translocation) بوضوح."
+  examples:
+    per_lemma:
+      - lemma: "نَقْل"
+        examples:
+          - text: "تدرس فسيولوجيا النبات آليات نَقْل المواد العضوية في نسيج اللحاء."
+            type: usage
+      - lemma: "اِنْتِقَال"
+        examples:
+          - text: "يتم اِنْتِقَال العصارة المذابة من الأوراق إلى باقي أجزاء النبات الجائعة."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تدرس فسيولوجيا النبات آليات نَقْل المواد العضوية في نسيج اللحاء."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يتم اِنْتِقَال العصارة المذابة من الأوراق إلى باقي أجزاء النبات الجائعة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "نَقْل"
+      entry_id: "{auto}"
+      root: "نقل"
+      maqayis_quote: "«النون والقاف واللام أصلٌ صحيح يدلُّ على تحويل شيءٍ من مكان إلى مكان»"
+    - lemma: "اِنْتِقَال"
+      entry_id: "{auto}"
+      root: "نقل"
+      maqayis_quote: "«النون والقاف واللام أصلٌ صحيح يدلُّ على تحويل شيءٍ من مكان إلى مكان»"
+  per_sense:
+    - lemma: "نَقْل"
+      sense_id: "{auto}"
+      nuance: "يركز على فعل التحويل وتمرير المواد من قبل أوعية النبات."
+      mwe: false
+    - lemma: "اِنْتِقَال"
+      sense_id: "{auto}"
+      nuance: "يركز على العملية الفسيولوجية والحركة الذاتية للمواد من موضع لآخر داخل جسم النبات."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نقل","maqayis":"«النون والقاف واللام أصلٌ صحيح يدلُّ على تحويل شيءٍ من مكان إلى مكان»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نقل","maqayis":"«النون والقاف واللام أصلٌ صحيح يدلُّ على تحويل شيءٍ من مكان إلى مكان»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على فعل التحويل وتمرير المواد من قبل أوعية النبات.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على العملية الفسيولوجية والحركة الذاتية للمواد من موضع لآخر داخل جسم النبات.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

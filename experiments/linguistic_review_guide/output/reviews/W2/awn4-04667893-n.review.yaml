@@ -1,0 +1,295 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة (تفكير) عامة جداً وتشير إلى مجرد إعمال العقل، ولا تفي بدلالة (thoughtfulness) التي تعني التروي والتمهل والتفكير العميق قبل التصرف."
+    observations: "المفهوم يشير إلى سمة شخصية تتسم بالتمهل والتدبر وعدم التسرع في اتخاذ القرارات أو الأفعال (deliberation / thoughtfulness). توجد في العربية عدة ألفاظ دقيقة تعبر عن هذا المعنى مثل الروية والأناة."
+  blind_candidates:
+    - lemma: "تَرَوٍّ"
+      generation_method: ishtiqaq
+      justification: "مصدر مشتق يدل على التمهل والتفكر قبل الإقدام على الفعل وعدم التعجل فيه."
+    - lemma: "أَنَاة"
+      generation_method: majaz
+      justification: "مأخوذة من التأني والحلم وتستعمل للدلالة على السمة الشخصية المتمثلة في عدم العجلة والتفكير بعناية."
+    - lemma: "تَبَصُّر"
+      generation_method: ishtiqaq
+      justification: "مشتقة من البصر والبصيرة، وتعني التأمل في عواقب الأمور وتبينها قبل التصرف."
+    - lemma: "تَعَقُّل"
+      generation_method: ishtiqaq
+      justification: "مصدر يدل على استخدام العقل لضبط التصرفات وتدبرها وتجنب التسرع."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تفكير"
+      expands:
+        - text: "إِعْمَال الْعقل فِي مشكلة للتوصل إِلَى حلهَا"
+          source: "المعجم الوسيط لمجموعة من المؤلفين"
+          addition: "يبين أن التفكير هو إعمال العقل بشكل عام ولا يحمل بالضرورة دلالة التمهل أو السمة الشخصية (التفكير بعناية قبل التصرف)."
+    - lemma: "روية"
+      confirm:
+        - text: "النَّظَرُ والتَّفَكُّـرُ في الأَمْرِ, وهى خلاف البديهة... مرحلة مِنْ مَراحِلِ العَمَلِ الإرادِيِّ, تقومُ على تفكيرٍ وأَنَاةٍ قَبْلَ اتِّخاذِ قرارٍ ما"
+          source: "المعجم الكبير"
+        - text: "النظر والتفكير في الأمور , وهي خلاف البديهة"
+          source: "المعجم الوسيط"
+    - lemma: "تَرَوٍّ"
+      confirm:
+        - text: "التروي: والتروية التفكر في الشيء والإمالة بين خواطر النفس في تحصيل الرأي."
+          source: "التوقيف على مهمات التعاريف للمناوي"
+    - lemma: "أَنَاة"
+      confirm:
+        - text: "الحلم والوقار . التُّؤَدَة , يقال : إنَّه لذو أناةٍ ورفق . الرِّفق . الانتظار"
+          source: "المعجم الكبير"
+        - text: "الأناة: لغةً الحِلْمُ والوقار والانتظار... هو معنى باعثٌ على الاحتياط في الأمور، والتأنّي هو إتباعها بعد الدخول فيه والتوقف قبله وهي ضد العَجَلة."
+          source: "التعريفات الفقهيّة للبركتي"
+    - lemma: "تَبَصُّر"
+      confirm:
+        - text: "تَأمل وتعرف وَيُقَال تبصر الشَّيْء وتبصر فِي رَأْيه تبين مَا يَأْتِيهِ من خير أَو شَرّ"
+          source: "المعجم الوسيط لمجموعة من المؤلفين"
+    - lemma: "تَعَقُّل"
+      confirm:
+        - text: "التعقل: التدبر، وتعقلت الشيء تدبرته."
+          source: "التوقيف على مهمات التعاريف للمناوي"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تفكير"
+      decision: removed
+      decision_reason: "كلمة عامة تعني مطلق إعمال العقل، ولا تحمل دلالة السمة الشخصية (التروي وعدم التسرع) التي يشير إليها المفهوم (thoughtfulness)."
+      evidence_assessment:
+        case: mixed
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+            
+    - lemma: "روية"
+      decision: confirmed
+      decision_reason: "دقيقة جداً في التعبير عن المفهوم، حيث تعني النظر والتفكر في الأمر بتأنٍّ قبل اتخاذ القرار، وهي السمة المطلوبة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "رَوِيَّة"
+
+    - lemma: "تَرَوٍّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصدر يدل على التمهل والتفكر في الأمر قبل الإقدام عليه، ويعبر بدقة عن السمة الشخصية المطلوبة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَرَوٍّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-04667893-n"}
+
+    - lemma: "أَنَاة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعني الحلم والوقار والتمهل وعدم العجلة، وتعد من أدق الألفاظ المعبرة عن سمة التفكير بعناية قبل التصرف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "أَنَاة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-04667893-n"}
+
+    - lemma: "تَبَصُّر"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصدر يدل على التأمل في العواقب وتبين الخير والشر قبل الإقدام، ويطابق سمة التفكير العميق والحذر."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَبَصُّر", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-04667893-n"}
+
+    - lemma: "تَعَقُّل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تدل على استخدام العقل والتدبر لضبط النفس وتجنب التسرع، وتوافق المفهوم تماماً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَعَقُّل", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-04667893-n"}
+
+stage4_content:
+  definition:
+    current: "سمة التفكير بعناية قبل التصرف"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكن يمكن صياغته بأسلوب معجمي أدق يعكس جانب التمهل وتدبر العواقب كسمة شخصية."
+    authored:
+      - type: terminological
+        text: "سمة تتسم بالتفكير المتأني وتدبر العواقب قبل الإقدام على فعل أو اتخاذ قرار."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-04667893-n", definition_index: 0, text: "سمة تتسم بالتفكير المتأني وتدبر العواقب قبل الإقدام على فعل أو اتخاذ قرار."}
+
+  examples:
+    per_lemma:
+      - lemma: "رَوِيَّة"
+        examples:
+          - text: "اتخذ قراره بروية بعد دراسة كل الخيارات المتاحة."
+            type: usage
+      - lemma: "تَرَوٍّ"
+        examples:
+          - text: "طلب المدير من فريقه التروي قبل إصدار البيان النهائي."
+            type: usage
+      - lemma: "أَنَاة"
+        examples:
+          - text: "عُرف القاضي بالأناة في إصدار الأحكام."
+            type: usage
+      - lemma: "تَبَصُّر"
+        examples:
+          - text: "يجب التبصر في عواقب الأمور قبل الإقدام عليها."
+            type: usage
+      - lemma: "تَعَقُّل"
+        examples:
+          - text: "أظهر تعقلاً كبيراً في التعامل مع الأزمة."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-04667893-n", text: "اتخذ قراره بروية بعد دراسة كل الخيارات المتاحة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "رَوِيَّة"
+      entry_id: "{auto}"
+      root: "روي"
+      maqayis_quote: "«الرَّاءُ وَالْوَاوُ وَالْيَاءُ أَصْلٌ وَاحِدٌ... ثُمَّ شُبِّهَ بِهِ الَّذِي يَأْتِي الْقَوْمَ بِعِلْمٍ أَوْ خَبَرٍ فَيَرْوِيهِ، كَأَنَّهُ أَتَاهُمْ برِيِّهِمْ مِنْ ذَلِكَ.»"
+    - lemma: "تَرَوٍّ"
+      entry_id: "{auto}"
+      root: "روي"
+      maqayis_quote: "«الرَّاءُ وَالْوَاوُ وَالْيَاءُ أَصْلٌ وَاحِدٌ...»"
+    - lemma: "أَنَاة"
+      entry_id: "{auto}"
+      root: "أني"
+      maqayis_quote: "«الْهَمْزَةُ وَالنُّونُ وَمَا بَعْدَهُمَا مِنَ الْمُعْتَلِّ، لَهُ أُصُولٌ أَرْبَعَةٌ: الْبُطْءُ وَمَا أَشْبَهَهُ مِنَ الْحِلْمِ وَغَيْرِهِ... وَقَالَ الْخَلِيلُ: الْأَنَاةُ الْحِلْمُ، وَالْفِعْلُ مِنْهُ تَأَنَّى وَتَأَيَّا.»"
+    - lemma: "تَبَصُّر"
+      entry_id: "{auto}"
+      root: "بصر"
+      maqayis_quote: "«الْبَاءُ وَالصَّادُ وَالرَّاءُ أَصْلَانِ: أَحَدُهُمَا الْعِلْمُ بِالشَّيْءِ; يُقَالُ: هُوَ بَصِيرٌ بِهِ... وَأَصْلُ ذَلِكَ كُلِّهِ وُضُوحُ الشَّيْءِ.»"
+    - lemma: "تَعَقُّل"
+      entry_id: "{auto}"
+      root: "عقل"
+      maqayis_quote: "«الْعَيْنُ وَالْقَافُ وَاللَّامُ أَصْلٌ وَاحِدٌ مُنْقَاسٌ مُطَّرِدٌ، يَدُلُّ عُظْمُهُ عَلَى حُبْسَةٍ فِي الشَّيْءِ أَوْ مَا يُقَارِبُ الْحُبْسَةَ. مِنْ ذَلِكَ الْعَقْلِ، وَهُوَ الْحَابِسُ عَنْ ذَمِيمِ الْقَوْلِ وَالْفِعْلِ.»"
+
+  per_sense:
+    - lemma: "رَوِيَّة"
+      sense_id: "{auto}"
+      nuance: "تركز على إجالة النظر والتفكر العميق قبل الإقدام على الفعل."
+      mwe: false
+    - lemma: "تَرَوٍّ"
+      sense_id: "{auto}"
+      nuance: "تؤكد على التمهل وعدم الاستعجال في اتخاذ القرار."
+      mwe: false
+    - lemma: "أَنَاة"
+      sense_id: "{auto}"
+      nuance: "تشير إلى السكينة والحلم والوقار كسمة شخصية متأصلة."
+      mwe: false
+    - lemma: "تَبَصُّر"
+      sense_id: "{auto}"
+      nuance: "تبرز التأمل في العواقب والتمييز بين الخير والشر قبل التصرف."
+      mwe: false
+    - lemma: "تَعَقُّل"
+      sense_id: "{auto}"
+      nuance: "تسلط الضوء على استخدام العقل لضبط النفس وتجنب التسرع الانفعالي."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"روي","maqayis":"«الرَّاءُ وَالْوَاوُ وَالْيَاءُ أَصْلٌ وَاحِدٌ... ثُمَّ شُبِّهَ بِهِ الَّذِي يَأْتِي الْقَوْمَ بِعِلْمٍ أَوْ خَبَرٍ فَيَرْوِيهِ، كَأَنَّهُ أَتَاهُمْ برِيِّهِمْ مِنْ ذَلِكَ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"روي","maqayis":"«الرَّاءُ وَالْوَاوُ وَالْيَاءُ أَصْلٌ وَاحِدٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"أني","maqayis":"«الْهَمْزَةُ وَالنُّونُ وَمَا بَعْدَهُمَا مِنَ الْمُعْتَلِّ، لَهُ أُصُولٌ أَرْبَعَةٌ: الْبُطْءُ وَمَا أَشْبَهَهُ مِنَ الْحِلْمِ وَغَيْرِهِ... وَقَالَ الْخَلِيلُ: الْأَنَاةُ الْحِلْمُ، وَالْفِعْلُ مِنْهُ تَأَنَّى وَتَأَيَّا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"بصر","maqayis":"«الْبَاءُ وَالصَّادُ وَالرَّاءُ أَصْلَانِ: أَحَدُهُمَا الْعِلْمُ بِالشَّيْءِ; يُقَالُ: هُوَ بَصِيرٌ بِهِ... وَأَصْلُ ذَلِكَ كُلِّهِ وُضُوحُ الشَّيْءِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عقل","maqayis":"«الْعَيْنُ وَالْقَافُ وَاللَّامُ أَصْلٌ وَاحِدٌ مُنْقَاسٌ مُطَّرِدٌ، يَدُلُّ عُظْمُهُ عَلَى حُبْسَةٍ فِي الشَّيْءِ أَوْ مَا يُقَارِبُ الْحُبْسَةَ. مِنْ ذَلِكَ الْعَقْلِ، وَهُوَ الْحَابِسُ عَنْ ذَمِيمِ الْقَوْلِ وَالْفِعْلِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركز على إجالة النظر والتفكر العميق قبل الإقدام على الفعل.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تؤكد على التمهل وعدم الاستعجال في اتخاذ القرار.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تشير إلى السكينة والحلم والوقار كسمة شخصية متأصلة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تبرز التأمل في العواقب والتمييز بين الخير والشر قبل التصرف.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تسلط الضوء على استخدام العقل لضبط النفس وتجنب التسرع الانفعالي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-04667893-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-04667893-n"
+        score: 0.95

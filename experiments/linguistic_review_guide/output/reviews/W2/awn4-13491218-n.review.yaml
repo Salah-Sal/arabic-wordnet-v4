@@ -1,0 +1,170 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة «لوح جاف» في الإنجليزية (dry plate) تعني اللوح نفسه، لكن التعريف يصف «طريقة تصوير» (process/method). مع ذلك، يُستخدم المصطلح مجازياً في الإنجليزية والعربية للإشارة إلى الطريقة بأكملها."
+    observations: "اللمة «لوح جاف» صحيحة تقنياً وموثقة في المعاجم التقنية. يمكن إضافة «طريقة اللوح الجاف» كمرادف دقيق للتعريف الذي يصف العملية (process)."
+  blind_candidates:
+    - lemma: "لَوْح جَافّ"
+      generation_method: tarkib
+      justification: "تركيب وصفي يترجم حرفياً المصطلح التقني المعتمد."
+    - lemma: "طَرِيقَة اللَّوْح الجَافّ"
+      generation_method: tarkib
+      justification: "تركيب إضافي يصف العملية أو الطريقة نفسها كما ورد في التعريف."
+    - lemma: "لَوْح زُجَاجِيّ حَسَّاس"
+      generation_method: tarkib
+      justification: "تركيب وصفي يعتمد على المكونات المذكورة في التعريف."
+    - lemma: "لَوْح جِيلَاتِينِيّ"
+      generation_method: tarkib
+      justification: "تركيب وصفي ينسب اللوح إلى المادة المستخدمة في طلائه."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "لوح جاف"
+      confirm:
+        - text: "«لوح جاف: dry plate» (مجال الطباعة - كهرباء)"
+          source: "المعجم الموحد للمصطلحات المهنية والتقنية ج. 1"
+    - lemma: "طريقة اللوح الجاف"
+      evidence_status: "no_material_found"
+    - lemma: "لوح زجاجي حساس"
+      evidence_status: "no_material_found"
+    - lemma: "لوح جيلاتيني"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "لوح جاف"
+      decision: confirmed
+      decision_reason: "مصطلح تقني موثق في المعاجم المتخصصة، ويُستخدم للدلالة على اللوح نفسه وعلى التقنية مجازاً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "لَوْح جَافّ"
+    - lemma: "طَرِيقَة اللَّوْح الجَافّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير دقيق ومباشر يتطابق مع التعريف الذي يصف «طريقة تصوير»، ويقابل المصطلح الإنجليزي (dry plate process)."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "طَرِيقَة اللَّوْح الجَافّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-13491218-n"
+    - lemma: "لَوْح زُجَاجِيّ حَسَّاس"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير وصفي عام وليس مصطلحاً مسكوكاً."
+    - lemma: "لَوْح جِيلَاتِينِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير وصفي ولم يثبت استخدامه كمصطلح بديل معتمد للطريقة."
+
+stage4_content:
+  definition:
+    current: "طريقة تصوير سابقة استخدمت لوحاً زجاجياً مطلياً بمستحلب جيلاتيني حساس للضوء"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق علمياً ومصاغ بأسلوب مصطلحي سليم، ويقابل التعريف الإنجليزي بدقة."
+  examples:
+    per_lemma:
+      - lemma: "لَوْح جَافّ"
+        examples:
+          - text: "يُعَدُّ اختراع اللوح الجاف نقلة نوعية في تاريخ التصوير الفوتوغرافي."
+            type: usage
+      - lemma: "طَرِيقَة اللَّوْح الجَافّ"
+        examples:
+          - text: "حلّت طريقة اللوح الجاف محل تقنيات التصوير القديمة التي تطلبت تحضيراً معقداً قبل التقاط الصورة."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يُعَدُّ اختراع اللوح الجاف نقلة نوعية في تاريخ التصوير الفوتوغرافي."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "حلّت طريقة اللوح الجاف محل تقنيات التصوير القديمة التي تطلبت تحضيراً معقداً قبل التقاط الصورة."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "لَوْح جَافّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "لوح"
+          root: "لوح"
+          maqayis_quote: "«اللَّامُ وَالْوَاوُ وَالْحَاءُ أَصْلٌ صَحِيحٌ، مُعْظَمُهُ مُقَارَبَةُ بَابِ اللَّمَعَانِ.»"
+        - word: "جاف"
+          root: "جفف"
+          maqayis_quote: "«الْجِيمُ وَالْفَاءُ أَصْلَانِ: فَالْأَوَّلُ قَوْلُكَ جَفَّ الشَّيْءُ جُفُوفًا يَجِفُّ.»"
+    - lemma: "طَرِيقَة اللَّوْح الجَافّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "طريقة"
+          root: "طرق"
+          maqayis_quote: "«الطَّاءُ وَالرَّاءُ وَالْقَافُ أَرْبَعَةُ أُصُولٍ، أَحَدُهَا: الْإِتْيَانُ مَسَاءً، وَالثَّانِي: الضَّرْبُ.»"
+        - word: "اللوح"
+          root: "لوح"
+          maqayis_quote: "«اللَّامُ وَالْوَاوُ وَالْحَاءُ أَصْلٌ صَحِيحٌ، مُعْظَمُهُ مُقَارَبَةُ بَابِ اللَّمَعَانِ.»"
+        - word: "الجاف"
+          root: "جفف"
+          maqayis_quote: "«الْجِيمُ وَالْفَاءُ أَصْلَانِ: فَالْأَوَّلُ قَوْلُكَ جَفَّ الشَّيْءُ جُفُوفًا يَجِفُّ.»"
+  per_sense:
+    - lemma: "لَوْح جَافّ"
+      sense_id: "{auto}"
+      nuance: "يُشير إلى الأداة الفيزيائية (اللوح) ويُستخدم مجازاً للتعبير عن التقنية."
+      mwe: true
+    - lemma: "طَرِيقَة اللَّوْح الجَافّ"
+      sense_id: "{auto}"
+      nuance: "تعبير مخصص ومباشر للإشارة إلى العملية التقنية (Process)."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"لوح","root":"لوح","maqayis":"«اللَّامُ وَالْوَاوُ وَالْحَاءُ أَصْلٌ صَحِيحٌ، مُعْظَمُهُ مُقَارَبَةُ بَابِ اللَّمَعَانِ.»"},{"word":"جاف","root":"جفف","maqayis":"«الْجِيمُ وَالْفَاءُ أَصْلَانِ: فَالْأَوَّلُ قَوْلُكَ جَفَّ الشَّيْءُ جُفُوفًا يَجِفُّ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"طريقة","root":"طرق","maqayis":"«الطَّاءُ وَالرَّاءُ وَالْقَافُ أَرْبَعَةُ أُصُولٍ، أَحَدُهَا: الْإِتْيَانُ مَسَاءً، وَالثَّانِي: الضَّرْبُ.»"},{"word":"اللوح","root":"لوح","maqayis":"«اللَّامُ وَالْوَاوُ وَالْحَاءُ أَصْلٌ صَحِيحٌ، مُعْظَمُهُ مُقَارَبَةُ بَابِ اللَّمَعَانِ.»"},{"word":"الجاف","root":"جفف","maqayis":"«الْجِيمُ وَالْفَاءُ أَصْلَانِ: فَالْأَوَّلُ قَوْلُكَ جَفَّ الشَّيْءُ جُفُوفًا يَجِفُّ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُشير إلى الأداة الفيزيائية (اللوح) ويُستخدم مجازاً للتعبير عن التقنية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير مخصص ومباشر للإشارة إلى العملية التقنية (Process).","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-13491218-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-13491218-n"
+        score: 0.95

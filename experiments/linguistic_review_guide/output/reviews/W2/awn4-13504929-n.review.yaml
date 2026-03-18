@@ -1,0 +1,200 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمتان الموجودتان صحيحتان ومناسبتان، لكنهما تفتقران إلى التشكيل الكامل."
+    observations: "تغطي المجموعة الترادفية مفهومين متقاربين علمياً: 'fossilization' (الاستحاثة أو التحفر، أي تكوّن الأحافير) و'petrification' (التحجر أو التصخر، أي الاستحالة إلى حجر أو صخر عبر الإحلال المعدني). المصطلحات العربية دقيقة وتغطي هذين الجانبين بوضوح."
+  blind_candidates:
+    - lemma: "تَحَجُّر"
+      generation_method: ishtiqaq
+      justification: "مصدر على وزن تفعُّل من الجذر (ح ج ر)، يعبر عن سيرورة التحول إلى حجر وهو المعنى الحرفي للعملية."
+    - lemma: "اسْتِحَاثَة"
+      generation_method: ishtiqaq
+      justification: "مصدر من استحثَّ بمعنى طلب الشيء في التراب، وقد اشتُق منه مصطلح 'مستحاثة' (Fossil)، فصارت الاستحاثة هي عملية تكوّن المستحاثات."
+    - lemma: "تَصَخُّر"
+      generation_method: ishtiqaq
+      justification: "مصدر من الجذر (ص خ ر) يعبر عن التحول إلى مادة صخرية صلبة كمرادف للتحجر."
+    - lemma: "مُسْتَحَاثِيَّة"
+      generation_method: ishtiqaq
+      justification: "مصدر صناعي من مستحاثة للتعبير عن الكينونة أو العملية، كبديل للاستحاثة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "اسْتِحَاثَة"
+      expands:
+        - text: "«تحول بقايا المتعضيات الحية إلى مادة متحجرة»"
+          source: "المعجم الموحد لمصطلحات علوم الزلازل (1999)"
+          addition: "يثبت استخدام المصطلح للدلالة على العملية ذاتها (Fossilization)."
+    - lemma: "تَحَجُّر"
+      confirm:
+        - text: "«تغير المواد العضوية إلى مادة حجرية بإحلال مواد معدنية محل أنسجتها العضوية التي تحتفظ ببنيتها المجهرية الأصلية»"
+          source: "المعجم الموحد لمصطلحات الجيولوجيا (2000)"
+    - lemma: "تَصَخُّر"
+      confirm:
+        - text: "«تغيُّرُ البقايا الحفريّة, نباتيةً كانت أو حيوانية, بوساطة المحاليل المعدنية إلى مادة صخرية»"
+          source: "المعجم الكبير"
+    - lemma: "مُسْتَحَاثِيَّة"
+      evidence_status: no_material_found
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "استحاثة"
+      decision: confirmed
+      decision_reason: "مصطلح علمي قياسي ومعتمد يدل بدقة على عملية تكوّن المستحاثات (الأحافير). تم ضبط التشكيل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "اسْتِحَاثَة"
+            
+    - lemma: "تحجر"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي يعبر بشكل مباشر عن الجانب الآخر من المفهوم، وهو التحول المادي إلى حجر (Petrification). تم ضبط التشكيل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَحَجُّر"
+
+    - lemma: "تَصَخُّر"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف دقيق معجمياً وعلمياً للتحجر، ومثبت في المعاجم المتخصصة لنفس الدلالة الجيولوجية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَصَخُّر", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "مُسْتَحَاثِيَّة"
+      source: stage1
+      decision: removed
+      decision_reason: "مصطلح مقترح لا توجد أدلة تدعمه، ويكتفى بـ'استحاثة'."
+
+stage4_content:
+  definition:
+    current: "عملية تحجر نبات أو حيوان كان موجوداً في عصر سابق؛ عملية التحول إلى حجر"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد ولكنه يستخدم كلمات من المجموعة نفسها (تحجر). يجب صياغة تعريف مصطلحي دقيق يشمل الجانبين البيولوجي والمعدني بأسلوب علمي سليم."
+    authored:
+      - type: terminological
+        text: "عملية تحول البقايا العضوية للكائنات الحية التي عاشت في عصور سابقة إلى مادة صلبة كالحجر عبر إحلال المعادن محل أنسجتها."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "عملية تحول البقايا العضوية للكائنات الحية التي عاشت في عصور سابقة إلى مادة صلبة كالحجر عبر إحلال المعادن محل أنسجتها."}
+
+  examples:
+    per_lemma:
+      - lemma: "اسْتِحَاثَة"
+        examples:
+          - text: "تتطلب عملية اسْتِحَاثَة الكائنات ملايين السنين وتوافر ظروف جيولوجية خاصة."
+            type: usage
+      - lemma: "تَحَجُّر"
+        examples:
+          - text: "يُعد تَحَجُّر الأخشاب القديمة من أبرز الظواهر الطبيعية في هذه الغابة."
+            type: usage
+      - lemma: "تَصَخُّر"
+        examples:
+          - text: "أدى تَصَخُّر الرواسب العضوية إلى حفظ هياكل الديناصورات سليمة."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تتطلب عملية اسْتِحَاثَة الكائنات ملايين السنين وتوافر ظروف جيولوجية خاصة."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يُعد تَحَجُّر الأخشاب القديمة من أبرز الظواهر الطبيعية في هذه الغابة."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "أدى تَصَخُّر الرواسب العضوية إلى حفظ هياكل الديناصورات سليمة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "اسْتِحَاثَة"
+      entry_id: "{auto}"
+      root: "حوث"
+      maqayis_quote: "«يَقُولُونَ اسْتَبَثْتُ الشَّيْءَ وَاسْتَحَثْتُهُ، إِذَا ضَاعَ فِي تُرَابٍ فَطَلَبْتَهُ.»"
+    - lemma: "تَحَجُّر"
+      entry_id: "{auto}"
+      root: "حجر"
+      maqayis_quote: "«الْحَاءُ وَالْجِيمُ وَالرَّاءُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ، وَهُوَ الْمَنْعُ وَالْإِحَاطَةُ عَلَى الشَّيْءِ... وَالْحَجَرُ مَعْرُوفٌ، وَأَحْسِبُ أَنَّ الْبَابَ كُلَّهُ مَحْمُولٌ عَلَيْهِ وَمَأْخُوذٌ مِنْهُ، لِشِدَّتِهِ وَصَلَابَتِهِ.»"
+    - lemma: "تَصَخُّر"
+      entry_id: "{auto}"
+      root: "صخر"
+      maqayis_quote: "«الصَّادُ وَالْخَاءُ وَالرَّاءُ كَلِمَةٌ صَحِيحَةٌ، وَهِيَ الصَّخْرَةُ: الْحَجَرَةُ الْعَظِيمَةُ.»"
+  per_sense:
+    - lemma: "اسْتِحَاثَة"
+      sense_id: "{auto}"
+      nuance: "مصطلح علمي دقيق يركز على عملية تكون المستحاثات (الأحافير) عبر الزمن الجيولوجي الطويل."
+      mwe: false
+    - lemma: "تَحَجُّر"
+      sense_id: "{auto}"
+      nuance: "يشير بشكل مباشر إلى المظهر المادي للعملية، وهو اكتساب صلابة الحجر نتيجة إحلال المواد المعدنية."
+      mwe: false
+    - lemma: "تَصَخُّر"
+      sense_id: "{auto}"
+      nuance: "مرادف للتحجر، ولكنه يبرز التحول إلى مادة صخرية كجزء من دورة الصخور الرسوبية."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حوث","maqayis":"«يَقُولُونَ اسْتَبَثْتُ الشَّيْءَ وَاسْتَحَثْتُهُ، إِذَا ضَاعَ فِي تُرَابٍ فَطَلَبْتَهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حجر","maqayis":"«الْحَاءُ وَالْجِيمُ وَالرَّاءُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ، وَهُوَ الْمَنْعُ وَالْإِحَاطَةُ عَلَى الشَّيْءِ... وَالْحَجَرُ مَعْرُوفٌ، وَأَحْسِبُ أَنَّ الْبَابَ كُلَّهُ مَحْمُولٌ عَلَيْهِ وَمَأْخُوذٌ مِنْهُ، لِشِدَّتِهِ وَصَلَابَتِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صخر","maqayis":"«الصَّادُ وَالْخَاءُ وَالرَّاءُ كَلِمَةٌ صَحِيحَةٌ، وَهِيَ الصَّخْرَةُ: الْحَجَرَةُ الْعَظِيمَةُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح علمي دقيق يركز على عملية تكون المستحاثات (الأحافير) عبر الزمن الجيولوجي الطويل.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يشير بشكل مباشر إلى المظهر المادي للعملية، وهو اكتساب صلابة الحجر نتيجة إحلال المواد المعدنية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مرادف للتحجر، ولكنه يبرز التحول إلى مادة صخرية كجزء من دورة الصخور الرسوبية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

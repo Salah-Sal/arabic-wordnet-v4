@@ -1,0 +1,180 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة (هدية الحفل) تعتبر تركيباً وصفياً مباشراً وليس مصطلحاً مسكوكاً قديماً."
+      - "يغيب عن المجموعة مصطلح 'توزيعات/توزيعة' وهو الشائع جداً في الاستخدام المعاصر للدلالة على هدايا الحفلات."
+    observations: "المفهوم يشير إلى الهدايا الرمزية التي يتلقاها ضيوف الحفل، سواء كان زفافاً أو عيد ميلاد أو غيره، كتذكار. في الثقافة العربية المعاصرة، أصبحت هذه الهدايا تُعرف باسم 'توزيعات'."
+  blind_candidates:
+    - lemma: "تَوْزِيعَة"
+      generation_method: ishtiqaq
+      justification: "مشتقة من الفعل وزع، وتطلق في العرف المعاصر على الهدايا التي توزع في الحفلات."
+    - lemma: "هَدِيَّةُ الْحَفْلِ"
+      generation_method: tarkib
+      justification: "تركيب إضافي يصف بدقة الهدية المقدمة بمناسبة الحفل."
+    - lemma: "تَذْكَارُ الْحَفْلِ"
+      generation_method: tarkib
+      justification: "تركيب إضافي يشير إلى الجانب التذكاري من الهدية."
+    - lemma: "هَدِيَّةُ الزَّائِرِ"
+      generation_method: tarkib
+      justification: "تركيب إضافي لبيان أن الهدية مخصصة للضيف والزائر."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "هدية الحفل"
+      evidence_status: "no_material_found"
+    - lemma: "تَوْزِيعَة"
+      evidence_status: "no_material_found"
+    - lemma: "تَذْكَارُ الْحَفْلِ"
+      evidence_status: "no_material_found"
+    - lemma: "هَدِيَّةُ الزَّائِرِ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "هدية الحفل"
+      decision: confirmed
+      decision_reason: "مصطلح مركب إضافي شفاف يعبر بدقة عن مفهوم الهدية الصغيرة التي تقدم للضيوف في الحفلات، وهو مفهوم مستخدم بشكل واسع وإن لم يُنص عليه في المعاجم القديمة بهذا التركيب."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "هَدِيَّةُ الْحَفْلِ"
+
+    - lemma: "تَوْزِيعَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح معاصر وشائع جداً (وخاصة بصيغة الجمع 'توزيعات') للتعبير عن الهدايا التذكارية التي توزع على ضيوف المناسبات والحفلات، وصيغته الصرفية سليمة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "تَوْزِيعَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-03900459-n"
+
+    - lemma: "تَذْكَارُ الْحَفْلِ"
+      source: stage1
+      decision: removed
+      decision_reason: "تركيب إضافي يميل إلى الوصف، وليس له ثبات واستقرار المعنى الاصطلاحي مثل 'هدية الحفل' أو 'توزيعات'."
+
+    - lemma: "هَدِيَّةُ الزَّائِرِ"
+      source: stage1
+      decision: removed
+      decision_reason: "تركيب وصفي عام يمكن أن ينطبق على أي زائر في أي سياق، وليس مخصوصاً بضيوف الحفلات."
+
+stage4_content:
+  definition:
+    current: "تذكار عبارة عن هدية صغيرة تعطى للضيوف في حفلة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مفهوم ولكنه أقرب للترجمة الحرفية وركيك التركيب؛ تم إعادة الصياغة لتكون أدق وبأسلوب معجمي أنسب."
+    authored:
+      - type: terminological
+        text: "هديّة رمزيّة صغيرة تُوزّع على ضيوف الحفل تذكاراً لهم."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-03900459-n"
+          definition_index: 0
+          text: "هديّة رمزيّة صغيرة تُوزّع على ضيوف الحفل تذكاراً لهم."
+
+  examples:
+    per_lemma:
+      - lemma: "هدية الحفل"
+        examples:
+          - text: "وزع العروسان هدايا الحفل على المدعوين في نهاية الزفاف."
+            type: usage
+      - lemma: "تَوْزِيعَة"
+        examples:
+          - text: "تضمنت التوزيعات التي قُدمت للأطفال حلوى وألعاباً صغيرة."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "وزع العروسان هدايا الحفل على المدعوين في نهاية الزفاف."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تضمنت التوزيعات التي قُدمت للأطفال حلوى وألعاباً صغيرة."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "هَدِيَّةُ الْحَفْلِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "هدية"
+          root: "هدي"
+          maqayis_quote: "«الْهَاءُ وَالدَّالُ وَالْحَرْفُ الْمُعْتَلُّ: أَصْلَانِ [أَحَدُهُمَا] التَّقَدُّمُ لِلْإِرْشَادِ، وَالْآخَرُ بَعْثَةُ لَطَفٍ... وَالْأَصْلُ الْآخَرُ الْهَدِيَّةُ: مَا أَهْدَيْتَ مَنْ لَطَفٍ إِلَى ذِي مَوَدَّةٍ.»"
+        - word: "الحفل"
+          root: "حفل"
+          maqayis_quote: "«الْحَاءُ وَالْفَاءُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ الْجَمْعُ. يُقَالُ حَفَلَ النَّاسُ وَاحْتَفَلُوا، إِذَا اجْتَمَعُوا فِي مَجْلِسِهِمْ.»"
+    - lemma: "تَوْزِيعَة"
+      entry_id: "{auto}"
+      root: "وزع"
+      maqayis_quote: "«الْوَاوُ وَالزَّاءُ وَالْعَيْنُ: بِنَاءٌ مَوْضُوعٌ عَلَى غَيْرِ قِيَاسٍ. وَوَزَعْتُهُ عَنِ الْأَمْرِ: كَفَفْتُهُ... وَبِهَا أَوْزَاعٌ مِنَ النَّاسِ، أَيْ جَمَاعَاتٌ.»"
+
+  per_sense:
+    - lemma: "هَدِيَّةُ الْحَفْلِ"
+      sense_id: "{auto}"
+      nuance: "العبارة الوصفية والمباشرة للمفهوم، شائعة في السياقات العامة."
+      mwe: true
+    - lemma: "تَوْزِيعَة"
+      sense_id: "{auto}"
+      nuance: "مصطلح معاصر يُستخدم غالباً بصيغة الجمع للدلالة على هدايا الحفلات التذكارية الجاهزة."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"هدية","root":"هدي","maqayis_quote":"«الْهَاءُ وَالدَّالُ وَالْحَرْفُ الْمُعْتَلُّ: أَصْلَانِ [أَحَدُهُمَا] التَّقَدُّمُ لِلْإِرْشَادِ، وَالْآخَرُ بَعْثَةُ لَطَفٍ... وَالْأَصْلُ الْآخَرُ الْهَدِيَّةُ: مَا أَهْدَيْتَ مَنْ لَطَفٍ إِلَى ذِي مَوَدَّةٍ.»"},{"word":"الحفل","root":"حفل","maqayis_quote":"«الْحَاءُ وَالْفَاءُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ الْجَمْعُ. يُقَالُ حَفَلَ النَّاسُ وَاحْتَفَلُوا، إِذَا اجْتَمَعُوا فِي مَجْلِسِهِمْ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"وزع","maqayis_quote":"«الْوَاوُ وَالزَّاءُ وَالْعَيْنُ: بِنَاءٌ مَوْضُوعٌ عَلَى غَيْرِ قِيَاسٍ. وَوَزَعْتُهُ عَنِ الْأَمْرِ: كَفَفْتُهُ... وَبِهَا أَوْزَاعٌ مِنَ النَّاسِ، أَيْ جَمَاعَاتٌ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"العبارة الوصفية والمباشرة للمفهوم، شائعة في السياقات العامة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح معاصر يُستخدم غالباً بصيغة الجمع للدلالة على هدايا الحفلات التذكارية الجاهزة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-03900459-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-03900459-n"
+        score: 0.90

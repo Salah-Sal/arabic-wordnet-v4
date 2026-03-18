@@ -1,0 +1,108 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "شخص غير متدين"
+      confirm:
+        - text: "«الزنديق: من لا يتدين بدين» — التعريفات الفقهيّة للبركتي"
+          source: "التعريفات الفقهيّة للبركتي"
+        - text: "«irreligious: زنديق؛ مارق؛ لاديني» — المورد الحديث"
+          source: "المورد الحديث"
+      expands:
+        - text: "«علماني: عالمي، دنيوي لاديني، ليس من رجال الدين» — تكملة المعاجم العربية لدوزي"
+          source: "تكملة المعاجم العربية"
+          addition: "يربط بين اللادينية والعلمانية"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "لاديني"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«irreligious: لادينيّ» — المورد الحديث"
+      justification: "المقابل المباشر لمفهوم irreligious و nonreligious في المعاجم الحديثة."
+    - lemma: "ملحد"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«atheist: المُلْحِد» — المورد الحديث"
+      justification: "رغم أنه أخص دلالياً (إنكار الإله)، إلا أنه يستعمل مرادفاً في سياقات عامة."
+  knowledge_candidates:
+    - lemma: "دنيوي"
+      justification: "باعتباره نقيضاً لـ 'أخروي' أو 'ديني' (مجاز)."
+    - lemma: "دهري"
+      justification: "إحياء للفظ تراثي يعبر عن المادي الذي لا يؤمن بالدين (مجاز)."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "شخص غير متدين"
+      decision: confirmed
+      decision_reason: "تعبير وصفي مستقر ومباشر للمفهوم المقصود في العربية المعاصرة."
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "توصيف عام محايد يركز على غياب الممارسة الدينية أو التبجيل."
+      example: "يعيش فلان حياة شخص غير متدين، فلا يتردد على دور العبادة ولا يمارس الشعائر."
+      actions: []
+
+    - lemma: "لاديني"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح اصطلاحي (MWE/Fixed term) مستقر في الفكر الحديث للتعبير عن غياب الانتماء الديني."
+      step05_citation: "«irreligious: لادينيّ» — المورد الحديث"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "أكثر تجريداً واصطلاحية من 'غير متدين'، وغالباً ما يشير إلى موقف فكري وليس مجرد فتور في العبادة."
+      example: "يسود التوجه اللاديني في بعض المجتمعات الحديثة نتيجة الانفصال عن المؤسسات الدينية التقليدية."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "لاديني"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09648959-n"
+
+    - lemma: "ملحد"
+      source: step05
+      decision: removed
+      decision_reason: "أخص دلالياً؛ فالملحد ينكر وجود الإله، بينما غير المتدين قد لا ينكره ولكنه لا يظهر التبجيل أو الممارسة (وهو مفهوم المجموعة)."
+      step05_citation: "«الملحد: الطاعن في الدين المائل عنه» — المعجم الوسيط"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شخص لا يظهر التبجيل لإله"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق ومطابق للمفهوم العالمي لـ nonreligious person، ويغطي اللمات المختارة."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-09786620-n"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "شخص غير متدين"
+        antonym_found: true
+        antonym: "متدين"
+      - lemma: "لاديني"
+        antonym_found: true
+        antonym: "ديني"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "شخص غير متدين"
+      enrichment:
+        root: "ش-خ-ص"
+      examples:
+        - text: "عاش فلان كشخص غير متدين، فلم يكن يبالي بشعائر أو معتقدات."
+          type: usage
+          source: "مؤلف"
+    - lemma: "لاديني"
+      enrichment:
+        root: "د-ي-ن"
+      examples:
+        - text: "يرى الفكر اللاديني أن الأخلاق يمكن أن تقوم على أسس عقلانية مستقلة عن الوحي."
+          type: usage
+          source: "مؤلف"
+  cultural_fit:
+    assessment: native

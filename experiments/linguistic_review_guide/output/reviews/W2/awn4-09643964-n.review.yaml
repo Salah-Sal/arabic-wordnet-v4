@@ -1,0 +1,221 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "ابن البلد"
+      confirm:
+        - text: "«ابن البلد: أحد مواليد مدينة معينة a native of London. أحد السكان الوطنيين the natives of China»"
+          source: "المورد الحديث"
+    - lemma: "من السكان الأصليين"
+      confirm:
+        - text: "«السكان الأوائل ببعض الأقاليم أو المناطق (السكان الأصليين بأستراليا)»"
+          source: "مسرد المناخ والبيئة وإدارة النفايات الصلبة (موقع ArabTerm)"
+    - lemma: "مواطن أصلي"
+      confirm:
+        - text: "«وطني: مولود في موطن معيَّن a city's native sons»"
+          source: "المورد الحديث"
+      expands:
+        - text: "«الوطن الأمّ: مَسقَط الرأس»"
+          source: "المورد الحديث"
+          addition: "الارتباط بمسقط الرأس"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "أرومي"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«الأَروميّ: واحد من سكان البلاد الأصليين أو القُدامى» — المورد الحديث"
+      justification: "مصطلح عربي تراثي تمت استعادته للتعبير عن الشعوب الأصلية (aborigines)."
+    - lemma: "واطن"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«وَاطِن ؛ سَاكِنٌ أَصْلِيّ — aboriginal (indigenous)» — المعجم الطبي الموحد"
+      justification: "يستعمل في سياق الطب والأحياء للتعبير عن الكائنات أو السكان الأصليين (native)."
+  knowledge_candidates:
+    - lemma: "سكان أصليون"
+      justification: "التركيب الأكثر شيوعاً ورسمية للتعبير عن المفهوم (indigenous people) عوضاً عن الصيغة الجارة 'من السكان الأصليين'."
+    - lemma: "أصيل"
+      justification: "كثيراً ما يستعمل كاسم (موصوف محذوف) للدلالة على الساكن الأصلي للبلاد."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "ابن البلد"
+      decision: confirmed
+      decision_reason: "مصطلح اصطلاحي مستقر (MWE) ومعترف به معجمياً للدلالة على المواليد والسكان المحليين."
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على الانتماء المحلي والولادة في مكان معين ببعد اجتماعي وشعبي."
+      example: "كان رُعاةُ الكنيسة يَحرصون على أن يَكُونوا مِن أَبناءِ البلد لِفَهْمِ حاجاتِ الرَّعيّةِ."
+
+    - lemma: "من السكان الأصليين"
+      decision: removed
+      decision_reason: "عبارة وصفية جارة وليست وحدة معجمية؛ يُفضّل عنها التركيب الاسمي 'سكان أصليون' أو المفرد 'ساكن أصلي'."
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "pass"
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "مواطن أصلي"
+      decision: confirmed
+      decision_reason: "مصطلح واضح يجمع بين صفة المواطنة والأصالة التاريخية في المكان."
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على البعد القانوني والوطني للأصالة في الموطن."
+      example: "يُعامل القانون المهاجر الجديد والمواطن الأصلي على حد سواء في الحقوق المدنية."
+
+    - lemma: "أرومي"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح متخصص مستعمل في المعاجم الحديثة للدلالة على الأبورجيني (aborigine)."
+      step05_citation: "«الأَروميّ: واحد من سكان البلاد الأصليين أو القُدامى» — المورد الحديث"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "مصطلح تراثي مُحيى، يشير إلى الأصول القديمة جداً للسكان قبل الهجرات اللاحقة."
+      example: "تتمسك القبائل الأروميّة في أستراليا بتقاليدها العريقة رغم زحف التمدن."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "أرومي"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09643964-n"
+
+    - lemma: "واطن"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح علمي (طبي وحيوي) يشير إلى الكائنات أو السكان الأصليين (native/indigenous)."
+      step05_citation: "«وَاطِن ؛ سَاكِنٌ أَصْلِيّ» — المعجم الطبي الموحد"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على التوطن الطبيعي في البيئة والنشوء فيها."
+      example: "تعد حيوانات الكنغر من الأنواع الواطنة في القارة الأسترالية."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "واطن"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09643964-n"
+
+    - lemma: "سكان أصليون"
+      source: step05
+      decision: confirmed
+      decision_reason: "التركيب الاسمي المعياري للمفهوم (indigenous people) في القانون والخطاب الدولي."
+      step05_citation: "«السكان الأوائل ببعض الأقاليم أو المناطق» — مسرد ArabTerm"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "الاصطلاح الجماعي الرسمي للأمم والشعوب الأصلية."
+      example: "يضمن إعلان الأمم المتحدة حماية حقوق السكان الأصليين في أراضيهم."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "سكان أصليون"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09643964-n"
+
+step3_definition:
+  current_definition: "شخص من السكان الأصليين ولد في مكان معين"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي فيه دور (استعمال 'السكان الأصليين' لتعريف 'السكان الأصليين')؛ كما أنه يحتاج صياغة أكثر دقة لغوياً."
+  authored_definitions:
+    - type: terminological
+      text: "من كان من السُّكَّانِ الأَصْلِيِّينَ الذين وُلِدُوا ونَشأُوا في إِقليمٍ أو مَوْطِنٍ مُعيَّنٍ ويتميزون بهويّة ثقافيّة خاصّة."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-09643964-n"
+        definition_index: 0
+        text: "من كان من السُّكَّانِ الأَصْلِيِّينَ الذين وُلِدُوا ونَشأُوا في إِقليمٍ أو مَوْطِنٍ مُعيَّنٍ ويتميزون بهويّة ثقافيّة خاصّة."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-09786620-n (عامل، فاعل)"
+    test_result: "wrong"
+    justification: "المجموعة الحالية تعني الساكن أو الشخص، وعلاقتها بـ 'عامل' (worker) خاطئة تماماً."
+  actions:
+    - command: remove_synset_relation
+      params:
+        source_id: "awn4-09643964-n"
+        relation_type: "hypernym"
+        target_id: "awn4-09786620-n"
+    - command: add_synset_relation
+      params:
+        source_id: "awn4-09643964-n"
+        relation_type: "hypernym"
+        target_id: "awn4-00007846-n" # شخص (person)
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "ابن البلد"
+      enrichment:
+        root: "ب-ن-ي ب-ل-د"
+      examples:
+        - text: "كان رُعاةُ الكنيسة يَحرصون على أن يَكُونوا مِن أَبناءِ البلد لِفَهْمِ حاجاتِ الرَّعيّةِ."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "مواطن أصلي"
+      enrichment:
+        root: "و-ط-ن أ-ص-ل"
+      examples:
+        - text: "يُعامل القانون المهاجر الجديد والمواطن الأصلي على حد سواء في الحقوق المدنية."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "أرومي"
+      enrichment:
+        root: "أ-ر-م"
+      examples:
+        - text: "تتمسك القبائل الأروميّة في أستراليا بتقاليدها العريقة رغم زحف التمدن."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "واطن"
+      enrichment:
+        root: "و-ط-ن"
+      examples:
+        - text: "تعد حيوانات الكنغر من الأنواع الواطنة في القارة الأسترالية."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "سكان أصليون"
+      enrichment:
+        root: "س-ك-ن أ-ص-ل"
+      examples:
+        - text: "يضمن إعلان الأمم المتحدة حماية حقوق السكان الأصليين في أراضيهم."
+          type: usage
+          source: "مؤلَّف"
+  cultural_fit:
+    assessment: phraset
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: "synset"
+        entity_id: "awn4-09643964-n"
+        key: "cultural_fit"
+        value: "phraset"

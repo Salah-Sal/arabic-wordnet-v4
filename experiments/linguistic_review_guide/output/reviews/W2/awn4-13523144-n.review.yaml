@@ -1,0 +1,194 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'انخساف' تشير عادة إلى الهبوط الأرضي أو الجيولوجي (subsidence) أكثر من كونها انطواءً حيوياً."
+    observations: "المفهوم طبي وحيوي يشير إلى تداخل الأنسجة وتكوين جيوب (invagination / intussusception). المصطلح 'انغماد' دقيق جداً ويعكس المعنى العلمي."
+  blind_candidates:
+    - lemma: "اِنْغِمَاد"
+      generation_method: ishtiqaq
+      justification: "مشتق من الغمد، يعكس دخول شيء في شيء آخر كالسيف في غمده، وهو مناسب لانطواء النسيج."
+    - lemma: "اِنْغِلَاف"
+      generation_method: ishtiqaq
+      justification: "من الغلاف، يعبر عن تداخل الأجزاء لتغلف بعضها."
+    - lemma: "اِنْطِوَاء دَاخِلِيّ"
+      generation_method: tarkib
+      justification: "وصف مباشر لعملية الانطواء نحو الداخل."
+    - lemma: "تَقَعُّر"
+      generation_method: ishtiqaq
+      justification: "يعبر عن التشكيل المجوف الناتج عن الانطواء."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "انغماد"
+      confirm:
+        - text: "«انغلاف جزء من عضو ما في تجويف سائره، كما في الانغماد المعوي حيث ينغمد جزء من المعي (الغمود intussusceptum) في باقي المعي (الغمد intussuscipiens).»"
+          source: "معجم المصطلحات الطبية (ج.3، 1997)"
+        - text: "«انبعاج جزء من نسيج أو عضو إلى الداخل»"
+          source: "المعجم الموحد لمصطلحات علم الأحياء (1993)"
+    - lemma: "انخساف"
+      contradicts:
+        - text: "«انهيار مفاجئ أو نزول تدريجي لسطح الأرض مع تحرك أفقي ضعيف أو منعدم.»"
+          source: "مسرد المناخ والبيئة وإدارة النفايات الصلبة"
+          conflict: "المعنى جيولوجي يختص بهبوط الأرض وليس انطواء نسيج حيوي في نفسه."
+    - lemma: "انغلاف"
+      confirm:
+        - text: "«إدخال جزء من عضو ما في جزءٍ آخر منه.»"
+          source: "معجم المصطلحات الطبية (ج.3، 1997)"
+    - lemma: "انطواء داخلي"
+      evidence_status: "no_material_found"
+    - lemma: "تقعر"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "انخساف"
+      decision: removed
+      decision_reason: "المصطلح يشير بشكل أساسي إلى ظاهرة جيولوجية (هبوط سطح الأرض) ولا يُستخدم في السياق الطبي أو البيولوجي للتعبير عن تداخل الأنسجة."
+      evidence_assessment:
+        case: contradicts_only
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    
+    - lemma: "انغماد"
+      decision: confirmed
+      decision_reason: "مصطلح طبي وبيولوجي دقيق ومعتمد في المعاجم المتخصصة لوصف تداخل الأنسجة (invagination)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "اِنْغِمَاد"
+
+    - lemma: "اِنْغِلَاف"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف دقيق ومعتمد في المعاجم الطبية (intussusception) للتعبير عن إدخال جزء من عضو في جزء آخر."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "اِنْغِلَاف"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "اِنْطِوَاء دَاخِلِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير وصفي غير مسكوك، والمصطلحات المفردة كافية ودقيقة."
+
+    - lemma: "تَقَعُّر"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير عام لا يختص بالانطواء الحيوي."
+
+stage4_content:
+  definition:
+    current: "انطواء طبقة خارجية لتكوين جيب في السطح"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد ولكنه يفتقر إلى الدقة البيولوجية والطبية التي تناسب المصطلحات (انغماد/انغلاف). سنخصصه ليكون أكثر شمولاً وتحديداً."
+    authored:
+      - type: terminological
+        text: "انطواء جزء من نسيج حيوي أو طبقة خارجية إلى الداخل لتكوين جيب أو غمد في السطح."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "انطواء جزء من نسيج حيوي أو طبقة خارجية إلى الداخل لتكوين جيب أو غمد في السطح."
+  
+  examples:
+    per_lemma:
+      - lemma: "اِنْغِمَاد"
+        examples:
+          - text: "يحدث الانغماد المعوي عندما يتداخل جزء من الأمعاء في الجزء الذي يليه."
+            type: usage
+      - lemma: "اِنْغِلَاف"
+        examples:
+          - text: "تعتبر حالة الانغلاف المعوي من الحالات الطبية التي تتطلب تدخلاً سريعاً."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يحدث الانغماد المعوي عندما يتداخل جزء من الأمعاء في الجزء الذي يليه."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تعتبر حالة الانغلاف المعوي من الحالات الطبية التي تتطلب تدخلاً سريعاً."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "اِنْغِمَاد"
+      entry_id: "{auto}"
+      root: "غمد"
+      maqayis_quote: "«(غَمَدَ) الْغَيْنُ وَالْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ صَحِيحٌ، يَدُلُّ عَلَى تَغْطِيَةٍ وَسَتْرٍ.»"
+    - lemma: "اِنْغِلَاف"
+      entry_id: "{auto}"
+      root: "غلف"
+      maqayis_quote: "«(غَلَفَ) الْغَيْنُ وَاللَّامُ وَالْفَاءُ كَلِمَةٌ وَاحِدَةٌ صَحِيحَةٌ، تَدُلُّ عَلَى غِشَاوَةٍ وَغِشْيَانِ شَيْءٍ لِشَيْءٍ.»"
+  
+  per_sense:
+    - lemma: "اِنْغِمَاد"
+      sense_id: "{auto}"
+      nuance: "المصطلح الأكثر شيوعاً في السياقات الطبية لوصف انطواء الأنسجة الحية لتكوين جيب أو غمد."
+      mwe: false
+    - lemma: "اِنْغِلَاف"
+      sense_id: "{auto}"
+      nuance: "يركز على فكرة التغليف، ويُستخدم كثيراً في سياق الانغلاف المعوي."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"غمد","maqayis":"«(غَمَدَ) الْغَيْنُ وَالْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ صَحِيحٌ، يَدُلُّ عَلَى تَغْطِيَةٍ وَسَتْرٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"غلف","maqayis":"«(غَلَفَ) الْغَيْنُ وَاللَّامُ وَالْفَاءُ كَلِمَةٌ وَاحِدَةٌ صَحِيحَةٌ، تَدُلُّ عَلَى غِشَاوَةٍ وَغِشْيَانِ شَيْءٍ لِشَيْءٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الأكثر شيوعاً في السياقات الطبية لوصف انطواء الأنسجة الحية لتكوين جيب أو غمد.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على فكرة التغليف، ويُستخدم كثيراً في سياق الانغلاف المعوي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

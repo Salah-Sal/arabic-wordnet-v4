@@ -1,0 +1,128 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "مبيد للجراثيم"
+      confirm:
+        - text: "«صفة لما يقتل الكائنات الحية الدقيقة المسببة للأمراض» — معجم المصطلحات الطبية (ج.2، 2003)"
+    - lemma: "مضاد للميكروبات"
+      confirm:
+        - text: "«antimicrobial preservative: مادة حافظة مضادة للميكروبات» — المعجم الموحد لمصطلحات تقانات الأغذية (2004)"
+        - text: "«antimicrobial properties: خواص مضادة للميكروبات» — المكنز الزراعي متعدد اللغات"
+    - lemma: "مطهر"
+      confirm:
+        - text: "«(في الطب): مادة تقف التعفن أو التخمر أو التقيح» — المعجم الوسيط"
+        - text: "«(Antiseptic): مادة تقتل الميكروبات التي تسبب العدوى، فيقف التعفن أو التخمر أو التقيح» — المعجم الكبير"
+        - text: "«كل عقار يقتل البكتيريا أو يوقف نموها» — معجم المصطلحات الطبية (ج.1، 1985)"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "معقم"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«إزالة أو تدمير الكائنات الحية الدقيقة في أي مرحلة من مراحل نموها» — المعجم الموحد لمصطلحات الطاقة المتجددة (1996)"
+      justification: "المعقم هو العامل الذي يحقق خلو الوسط من الكائنات الدقيقة، وهو المرادف الأقوى للمطهر في السياق العملي."
+    - lemma: "مبيد الجراثيم"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«germicide: مبيد الجراثيم» — المعجم الموحد لمصطلحات الطب البيطري (2010)"
+      justification: "صيغة مضافة مباشرة (بدون اللام) أكثر شيوعاً كمصطلح بسيط."
+  knowledge_candidates:
+    - lemma: "مضاد مكروبي"
+      justification: "اشتقاق: مصطلح علمي دقيق يناظر antimicrobial، يستخدم الصفة المشتقة من 'مكروب' مباشرة."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "مبيد للجراثيم"
+      decision: confirmed
+      decision_reason: "مصطلح طبي مستقر ومدعوم بالمعاجم المتخصصة."
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على وظيفة 'الإبادة' أو القتل المباشر للجراثيم."
+      example: "يُستخدم اليود كعامل مبيد للجراثيم في العمليات الجراحية."
+    - lemma: "مضاد للميكروبات"
+      decision: confirmed
+      decision_reason: "ترجمة دقيقة وشائعة للمصطلح العلمي antimicrobial."
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يغطي القتل والمنع (stopping growth)، وهو أعم من المبيد."
+      example: "تحتوي بعض الأقمشة الحديثة على طلاء مضاد للميكروبات."
+    - lemma: "مطهر"
+      decision: confirmed
+      decision_reason: "اللفظ التراثي والعلمي الأشهر في العربية لهذا المفهوم."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "اللفظ العام والشائع الذي يشمل المواد الكيميائية البسيطة (مثل الكحول)."
+      example: "يجب مسح الجرح بمطهر قبل وضع الضمادة."
+    - lemma: "معقم"
+      source: step05
+      decision: confirmed
+      decision_reason: "مرادف أساسي للمفهوم في السياق الطبي والصناعي."
+      step05_citation: "«إزالة أو تدمير الكائنات الحية الدقيقة» — المعجم الموحد لمصطلحات الطاقة المتجددة"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يوحي بدقة أكبر وعملية تطهير شاملة (sterilization)."
+      example: "يعمل الأوتوكلاف كمعقم للأدوات الطبية باستخدام البخار والضغط."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "معقم"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-03212950-n"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "عامل (كالحرارة أو الإشعاع أو مادة كيميائية) يدمر الكائنات الحية الدقيقة التي قد تحمل المرض"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق علمياً ويغطي الوسائل الفيزيائية والكيميائية."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عَامِل كِيمْيَائِيّ"
+    test_result: "needs_closer"
+    reason: "بما أن التعريف يشمل الحرارة والإشعاع، فإن 'عامل كيميائي' مخصص جداً. المشتمل الأنسب هو 'عامل تدمير' أو 'عامل تطهير'."
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "مبيد للجراثيم"
+      enrichment:
+        root: "ب-ي-د"
+      examples:
+        - text: "استخدم الأطباء سائلاً مبيداً للجراثيم لتعقيم الغرفة."
+          type: usage
+          source: "مؤلف"
+    - lemma: "مضاد للميكروبات"
+      enrichment:
+        root: "ض-د-د"
+      examples:
+        - text: "يتم فحص فعالية المادة كمضاد للميكروبات في المختبر."
+          type: usage
+          source: "مؤلف"
+    - lemma: "مطهر"
+      enrichment:
+        root: "ط-ه-ر"
+      examples:
+        - text: "الكحول الإيثيلي مطهر فعال ضد العديد من الفيروسات."
+          type: usage
+          source: "مؤلف"
+    - lemma: "معقم"
+      enrichment:
+        root: "ع-ق-م"
+      examples:
+        - text: "تُعرض الأدوات للأشعة فوق البنفسجية كمعقم فيزيائي."
+          type: usage
+          source: "مؤلف"
+  cultural_fit:
+    assessment: native

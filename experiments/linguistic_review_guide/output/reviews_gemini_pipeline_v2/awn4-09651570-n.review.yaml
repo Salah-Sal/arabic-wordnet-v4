@@ -1,0 +1,304 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'شخص متدين' هي عبارة وصفية (موصوف + صفة) وليست مصطلحاً معجمياً مستقلاً."
+      - "التعريف الحالي 'شخص يظهر التفاني والإخلاص لإله' يبدو مترجماً حرفياً عن الإنجليزية (manifests devotion to a deity) ولا يتبع أسلوب المعاجم العربية."
+    observations: "المفهوم يشير إلى الشخص الذي يلتزم بتعاليم الدين ويؤدي العبادات. اللغة العربية غنية جداً بالمفردات التي تعبر عن هذا المعنى بدرجات متفاوتة، مثل المتدين، التقي، العابد، الناسك، والورع."
+  blind_candidates:
+    - lemma: "مُتَدَيِّن"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل 'تدين'، وهو اللفظ الأشيع في العصر الحديث للدلالة على الالتزام بالدين."
+    - lemma: "تَقِيّ"
+      generation_method: ishtiqaq
+      justification: "صفة مشبهة من 'التقوى'، تعبر عن من يخاف الله ويجتنب المعاصي."
+    - lemma: "عَابِد"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من 'عبد'، يدل على المكثر من أداء العبادات والفرائض."
+    - lemma: "نَاسِك"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من 'نسك'، يدل على من يتفرغ للعبادة ويزهد في الدنيا."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "شخص متدين"
+      evidence_status: no_material_found
+    - lemma: "مُتَدَيِّن"
+      confirm:
+        - text: "تَدَيَّنَ: فلانٌ: اسْتَقْرَض وأخَذَ ديْنًا. بِكذا: دانَ به"
+          source: "المعجم الكبير"
+      expands:
+        - text: "تربية دينية، مدرسة دينية... هَوَسٌ دينِيّ"
+          source: "مسرد التربية، المعجم الطبي الموحد"
+          addition: "يؤكد كثرة استعمال الجذر (دين) في المصطلحات المتعلقة بالدين في العصر الحديث والمترجمة عن (religious)."
+    - lemma: "تَقِيّ"
+      confirm:
+        - text: "«مَنْ يتقي الله تعالى»"
+          source: "المعجم الوسيط"
+        - text: "«من (و ق ي) من يخشي الله ويتجنب ما يكره، والحذر الذي يصون نفسه ويحميها من الأذى أو المعاصي ونحوهما.»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+    - lemma: "عَابِد"
+      confirm:
+        - text: "«الشخص الذي يداوم على أداء الفرائض والنّوافل والأوراد من أجل الثّواب الأخروي، وجمعه عبّاد.»"
+          source: "كشّاف اصطلاحات الفنون والعلوم للتهانوي"
+        - text: "«الموحد»"
+          source: "المعجم الوسيط"
+    - lemma: "نَاسِك"
+      confirm:
+        - text: "«المتعبِّد المتزهِّد»"
+          source: "المعجم الوسيط"
+    - lemma: "وَرِع"
+      confirm:
+        - text: "«الرجل التقي المُتَحَرِّجُ، وهو وَرِعٌ بيِّن الورَعِ»"
+          source: "لسان العرب لابن منظور"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "شخص متدين"
+      decision: removed
+      decision_reason: "تركيب وصفي حر (موصوف + صفة) وليس مصطلحاً مسكوكاً أو وحدة معجمية."
+      evidence_assessment:
+        case: no_material
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    
+    - lemma: "متدين"
+      decision: confirmed
+      decision_reason: "مصطلح معاصر وشائع ومباشر للتعبير عن الشخص الملتزم بدينه."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُتَدَيِّن"
+
+    - lemma: "تَقِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "من أهم الألفاظ العربية الإسلامية المعبرة عن الملتزم بالدين والمتجنب للمعاصي، وهو أعمق في المعنى من المتدين العادي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَقِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "عَابِد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ فصيح دقيق يعبر عن الشخص الذي يلازم العبادة ويؤدي الفرائض، ويدخل في معنى التديّن."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "عَابِد", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "نَاسِك"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يدل على المتعبد الزاهد المتفرغ للعبادة، وهو نوع من المتدينين يغلب عليه التنسك."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "نَاسِك", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "وَرِع"
+      source: stage1
+      decision: confirmed
+      decision_reason: "من درجات التدين والتقوى، وهو المتجنب للشبهات مخافة الحرام، ويدخل في معنى المتدين."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "وَرِع", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "شخص يظهر التفاني والإخلاص لإله"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يحتوي على ركاكة ناتجة عن الترجمة الحرفية من الإنجليزية (التفاني لإله)، ويجب صياغة تعريف شامل بأسلوب المعاجم العربية يغطي مفاهيم الالتزام الديني والتقوى والعبادة."
+    authored:
+      - type: terminological
+        text: "شخصٌ يلتزم بتعاليم دينه، ويُظهر الخشية والخضوع والمداومة على أداء العبادات."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "شخصٌ يلتزم بتعاليم دينه، ويُظهر الخشية والخضوع والمداومة على أداء العبادات."}
+
+  examples:
+    per_lemma:
+      - lemma: "مُتَدَيِّن"
+        examples:
+          - text: "عُرف عنه منذ صباه أنه شابٌّ مُتَدَيِّنٌ يحافظ على صلواته."
+            type: usage
+      - lemma: "تَقِيّ"
+        examples:
+          - text: "كان رجلاً تَقِيًّا يخاف الله في سرّه وعلنه."
+            type: usage
+      - lemma: "عَابِد"
+        examples:
+          - text: "قضى ليلته عَابِدًا مُتبتّلًا يناجي ربه."
+            type: usage
+      - lemma: "نَاسِك"
+        examples:
+          - text: "اعتزل النَّاسِكُ في صومعته للعبادة والتأمل."
+            type: usage
+      - lemma: "وَرِع"
+        examples:
+          - text: "مِنْ صفات العالِم الحق أن يكون وَرِعًا يتجنب الشبهات."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "كان يرافق في سفره رجلاً متديناً صالحاً."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "عُرف عنه منذ صباه أنه شابٌّ مُتَدَيِّنٌ يحافظ على صلواته."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُتَدَيِّن"
+      entry_id: "{auto}"
+      root: "دين"
+      maqayis_quote: "«الدَّالُ وَالْيَاءُ وَالنُّونُ أَصْلٌ وَاحِدٌ إِلَيْهِ يَرْجِعُ فُرُوعُهُ كُلُّهَا. وَهُوَ جِنْسٌ مِنَ الِانْقِيَادِ، وَالذُّلِّ. فَالدِّينُ: الطَّاعَةُ...»"
+    - lemma: "تَقِيّ"
+      entry_id: "{auto}"
+      root: "وقي"
+      maqayis_quote: "«الْوَاوُ وَالْقَافُ وَالْيَاءُ: كَلِمَةٌ وَاحِدَةٌ تَدُلُّ عَلَى دَفْعِ شَيْءٍ عَنْ شَيْءٍ بِغَيْرِهِ. وَوَقَيْتُهُ أَقِيهِ وَقْيًا. وَالْوِقَايَةُ: مَا يَقِي الشَّيْءَ...»"
+    - lemma: "عَابِد"
+      entry_id: "{auto}"
+      root: "عبد"
+      maqayis_quote: "«الْعَيْنُ وَالْبَاءُ وَالدَّالُ أَصْلَانِ صَحِيحَانِ، كَأَنَّهُمَا مُتَضَادَّانِ، وَ [الْأَوَّلُ] مِنْ ذَيْنِكَ الْأَصْلَيْنِ يَدُلُّ عَلَى لِينٍ وَذُلٍّ...»"
+    - lemma: "نَاسِك"
+      entry_id: "{auto}"
+      root: "نسك"
+      maqayis_quote: "«النُّونُ وَالسِّينُ وَالْكَافُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى عِبَادَةٍ وَتَقَرُّبٍ إِلَى اللَّهِ تَعَالَى. وَرَجُلٌ نَاسِكٌ...»"
+    - lemma: "وَرِع"
+      entry_id: "{auto}"
+      root: "ورع"
+      maqayis_quote: "«الْوَاوُ وَالرَّاءُ وَالْعَيْنُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى الْكَفِّ وَالِانْقِبَاضِ. مِنْهُ الْوَرَعُ: الْعِفَّةُ، وَهِيَ الْكَفُّ عَمًّا لَا يَنْبَغِي...»"
+
+  per_sense:
+    - lemma: "مُتَدَيِّن"
+      sense_id: "{auto}"
+      nuance: "مصطلح عام يشير إلى من يلتزم بتعاليم الدين ويظهر ذلك في سلوكه وحياته اليومية."
+      mwe: false
+    - lemma: "تَقِيّ"
+      sense_id: "{auto}"
+      nuance: "يركز على شدة الخوف من الله وامتثال أوامره واجتناب نواهيه."
+      mwe: false
+    - lemma: "عَابِد"
+      sense_id: "{auto}"
+      nuance: "يركز على كثرة أداء الشعائر والفرائض التعبدية من صلاة وصيام ونحوها."
+      mwe: false
+    - lemma: "نَاسِك"
+      sense_id: "{auto}"
+      nuance: "يميل إلى الزهد في الدنيا والانقطاع والتفرغ للعبادة."
+      mwe: false
+    - lemma: "وَرِع"
+      sense_id: "{auto}"
+      nuance: "يبالغ في تجنب الشبهات والمكروهات مخافة الوقوع في الحرام."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"دين","maqayis":"«الدَّالُ وَالْيَاءُ وَالنُّونُ أَصْلٌ وَاحِدٌ إِلَيْهِ يَرْجِعُ فُرُوعُهُ كُلُّهَا. وَهُوَ جِنْسٌ مِنَ الِانْقِيَادِ، وَالذُّلِّ. فَالدِّينُ: الطَّاعَةُ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح عام يشير إلى من يلتزم بتعاليم الدين ويظهر ذلك في سلوكه وحياته اليومية.","mwe":false}'
+    
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"وقي","maqayis":"«الْوَاوُ وَالْقَافُ وَالْيَاءُ: كَلِمَةٌ وَاحِدَةٌ تَدُلُّ عَلَى دَفْعِ شَيْءٍ عَنْ شَيْءٍ بِغَيْرِهِ. وَوَقَيْتُهُ أَقِيهِ وَقْيًا. وَالْوِقَايَةُ: مَا يَقِي الشَّيْءَ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على شدة الخوف من الله وامتثال أوامره واجتناب نواهيه.","mwe":false}'
+
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عبد","maqayis":"«الْعَيْنُ وَالْبَاءُ وَالدَّالُ أَصْلَانِ صَحِيحَانِ، كَأَنَّهُمَا مُتَضَادَّانِ، وَ [الْأَوَّلُ] مِنْ ذَيْنِكَ الْأَصْلَيْنِ يَدُلُّ عَلَى لِينٍ وَذُلٍّ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على كثرة أداء الشعائر والفرائض التعبدية من صلاة وصيام ونحوها.","mwe":false}'
+
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نسك","maqayis":"«النُّونُ وَالسِّينُ وَالْكَافُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى عِبَادَةٍ وَتَقَرُّبٍ إِلَى اللَّهِ تَعَالَى. وَرَجُلٌ نَاسِكٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يميل إلى الزهد في الدنيا والانقطاع والتفرغ للعبادة.","mwe":false}'
+
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ورع","maqayis":"«الْوَاوُ وَالرَّاءُ وَالْعَيْنُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى الْكَفِّ وَالِانْقِبَاضِ. مِنْهُ الْوَرَعُ: الْعِفَّةُ، وَهِيَ الْكَفُّ عَمًّا لَا يَنْبَغِي...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يبالغ في تجنب الشبهات والمكروهات مخافة الوقوع في الحرام.","mwe":false}'
+
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

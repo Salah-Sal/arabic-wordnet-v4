@@ -1,0 +1,310 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'توسعة جانبية' تفتقر إلى التشكيل وتعد مركباً وصفياً مقبولاً."
+      - "اللمة 'مفسح' غير شائعة في الاستعمال المعاصر كاسم مكان مخصص للوقوف، وهناك مصطلحات هندسية أكثر دقة."
+    observations: "المفهوم يشير إلى 'turnout' أو 'lay-by' وهو جزء يتم توسعته في الطريق للسماح للمركبات بالتوقف أو التجاوز. المعاجم المتخصصة في الهندسة المدنية والنقل توفر مصطلحات مسكوكة ومستقرة لهذا المفهوم مثل 'حارة انتظار' و'مركن جانبي'."
+  blind_candidates:
+    - lemma: "حَارَة انْتِظَار"
+      generation_method: tarkib
+      justification: "تركيب إضافي يُستخدم في الهندسة المدنية للدلالة على الجزء الجانبي من الطريق المخصص للتوقف."
+    - lemma: "مَرْكَن جَانِبِيّ"
+      generation_method: tarkib
+      justification: "تركيب وصفي يُشير إلى مكان ركن السيارات الجانبي، وهو متداول في معاجم النقل."
+    - lemma: "فُسْحَة وُقُوف"
+      generation_method: tarkib
+      justification: "تركيب إضافي يعبر بدقة عن المساحة المخصصة لوقوف السيارات."
+    - lemma: "مُتَّسَع"
+      generation_method: ishtiqaq
+      justification: "اسم مكان من 'اتسع' يدل على المكان الواسع، ويمكن إطلاقه على التوسعة في الطريق."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "توسعة جانبية"
+      evidence_status: "no_material_found"
+    - lemma: "مفسح"
+      evidence_status: "no_material_found"
+    - lemma: "حارة انتظار"
+      confirm:
+        - text: "جزء من طريق خارج حدود حركة الآليات يمكن للسيارات التوقف فيه (lay-by)"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية (2012)"
+    - lemma: "مركن جانبي"
+      confirm:
+        - text: "مركن جانبي، نقطة الوقوف (lay by)"
+          source: "المعجم الموحد لمصطلحات النقل (2010)"
+    - lemma: "فسحة وقوف"
+      confirm:
+        - text: "فسحة الوقوف (على جانب الطريق) (lay by)"
+          source: "المعجم الموحد لمصطلحات النفط (1999)"
+    - lemma: "متسع"
+      contradicts:
+        - text: "يقال ما لي عن ذلك متسع مصرف"
+          source: "المعجم الوسيط"
+          conflict: "الكلمة تستخدم للدلالة على السعة بشكل عام وليس مصطلحاً مسكوكاً لتوسعة الطريق المخصصة لوقوف السيارات."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "توسعة جانبية"
+      decision: confirmed
+      decision_reason: "مصطلح هندسي وصفي واضح الملامح ومفهوم الدلالة ويشير مباشرة إلى عملية التوسعة التي تتم على جانب الطريق."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَوْسِعَة جَانِبِيَّة"
+
+    - lemma: "مفسح"
+      decision: removed
+      decision_reason: "لم يثبت استعمالها معجمياً للإشارة إلى هذا المفهوم التقني، وهناك بدائل معاصرة أكثر دقة وشيوعاً."
+      evidence_assessment:
+        case: no_material
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "حَارَة انْتِظَار"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح مسكوك ومعتمد في المعجم الموحد لمصطلحات الهندسة المدنية ويطابق تعريف المجموعة بدقة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "حَارَة انْتِظَار"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "مَرْكَن جَانِبِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح مسكوك ومعتمد في المعجم الموحد لمصطلحات النقل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مَرْكَن جَانِبِيّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "فُسْحَة وُقُوف"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح معتمد ومستخدم في المعاجم التقنية للإشارة إلى المساحة المخصصة للتوقف خارج مسار السير."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "فُسْحَة وُقُوف"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "مُتَّسَع"
+      source: stage1
+      decision: removed
+      decision_reason: "كلمة عامة تشير إلى المكان الواسع، ولا تشكل مصطلحاً مخصصاً لـ lay-by."
+      evidence_assessment:
+        case: contradicts_only
+
+stage4_content:
+  definition:
+    current: "جزء من الطريق تم توسيعه للسماح للسيارات بالمرور أو التوقف"
+    assessment:
+      decision: revise
+      reason: "صياغة التعريف بأسلوب معجمي أكثر إحكاماً، مع استبدال 'السيارات' بـ 'المركبات' لتشمل كافة الأنواع."
+    authored:
+      - type: terminological
+        text: "جُزْءٌ مِنَ الطَّرِيقِ يُوَسَّعُ خَارِجَ المَسَارِ الرَّئِيسِيِّ لِلسَّمَاحِ لِلمَرْكَبَاتِ بِالتَّوَقُّفِ أَوِ المُرُورِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "جُزْءٌ مِنَ الطَّرِيقِ يُوَسَّعُ خَارِجَ المَسَارِ الرَّئِيسِيِّ لِلسَّمَاحِ لِلمَرْكَبَاتِ بِالتَّوَقُّفِ أَوِ المُرُورِ."
+
+  examples:
+    per_lemma:
+      - lemma: "تَوْسِعَة جَانِبِيَّة"
+        examples:
+          - text: "قَامَتِ البَلَدِيَّةُ بِإِضَافَةِ تَوْسِعَةٍ جَانِبِيَّةٍ عَلَى طُولِ الطَّرِيقِ الجَبَلِيِّ لِتَسْهِيلِ حَرَكَةِ المُرُورِ."
+            type: usage
+      - lemma: "حَارَة انْتِظَار"
+        examples:
+          - text: "تَوَقَّفَتِ الشَّاحِنَةُ فِي حَارَةِ الِانْتِظَارِ لِإِصْلَاحِ العُطْلِ الطَّارِئِ."
+            type: usage
+      - lemma: "مَرْكَن جَانِبِيّ"
+        examples:
+          - text: "يُوَفِّرُ المَرْكَنُ الجَانِبِيُّ مِسَاحَةً آمِنَةً لِاسْتِرَاحَةِ السَّائِقِينَ خِلَالَ الرِّحْلَاتِ الطَّوِيلَةِ."
+            type: usage
+      - lemma: "فُسْحَة وُقُوف"
+        examples:
+          - text: "أَوْقَفَ سَيَّارَتَهُ فِي فُسْحَةِ وُقُوفٍ لِلرَّدِّ عَلَى مُكَالَمَةٍ هَاتِفِيَّةٍ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "قَامَتِ البَلَدِيَّةُ بِإِضَافَةِ تَوْسِعَةٍ جَانِبِيَّةٍ عَلَى طُولِ الطَّرِيقِ الجَبَلِيِّ لِتَسْهِيلِ حَرَكَةِ المُرُورِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تَوَقَّفَتِ الشَّاحِنَةُ فِي حَارَةِ الِانْتِظَارِ لِإِصْلَاحِ العُطْلِ الطَّارِئِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يُوَفِّرُ المَرْكَنُ الجَانِبِيُّ مِسَاحَةً آمِنَةً لِاسْتِرَاحَةِ السَّائِقِينَ خِلَالَ الرِّحْلَاتِ الطَّوِيلَةِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "أَوْقَفَ سَيَّارَتَهُ فِي فُسْحَةِ وُقُوفٍ لِلرَّدِّ عَلَى مُكَالَمَةٍ هَاتِفِيَّةٍ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تَوْسِعَة جَانِبِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "توسعة"
+          root: "وسع"
+          maqayis_quote: "«الْوَاوُ وَالسِّينُ وَالْعَيْنُ: كَلِمَةٌ تَدُلُّ عَلَى خِلَافِ الضِّيقِ وَالْعُسْرِ.»"
+        - word: "جانبية"
+          root: "جنب"
+          maqayis_quote: "«الْجِيمُ وَالنُّونُ وَالْبَاءُ أَصْلَانِ: أَحَدُهُمَا النَّاحِيَةُ، وَالْآخَرُ الْبُعْدُ.»"
+    - lemma: "حَارَة انْتِظَار"
+      entry_id: "{auto}"
+      roots:
+        - word: "حارة"
+          root: "حور"
+          maqayis_quote: "«الْحَاءُ وَالْوَاوُ وَالرَّاءُ ثَلَاثَةُ أُصُولٍ: أَحَدُهَا اللَّوْنُ، وَالْآخَرُ الرُّجُوعُ، وَالثَّالِثُ أَنْ يَدُورَ الشَّيْءُ حَتَّى يَرْجِعَ إِلَى مَا كَانَ عَلَيْهِ.»"
+        - word: "انتظار"
+          root: "نظر"
+          maqayis_quote: "«النُّونُ وَالظَّاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَرْجِعُ فُرُوعُهُ إِلَى مَعْنًى وَاحِدٍ، وَهُوَ تَأَمُّلُ الشَّيْءِ وَمُعَايَنَتُهُ.»"
+    - lemma: "مَرْكَن جَانِبِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مركن"
+          root: "ركن"
+          maqayis_quote: "«الرَّاءُ وَالْكَافُ وَالنُّونُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى قُوَّةٍ. فَرُكْنُ الشَّيْءِ: جَانِبُهُ الْأَقْوَى.»"
+        - word: "جانبي"
+          root: "جنب"
+          maqayis_quote: "«الْجِيمُ وَالنُّونُ وَالْبَاءُ أَصْلَانِ: أَحَدُهُمَا النَّاحِيَةُ، وَالْآخَرُ الْبُعْدُ.»"
+    - lemma: "فُسْحَة وُقُوف"
+      entry_id: "{auto}"
+      roots:
+        - word: "فسحة"
+          root: "فسح"
+          maqayis_quote: "«الْفَاءُ وَالسِّينُ وَالْحَاءُ كَلِمَةٌ وَاحِدَةٌ تَدُلُّ عَلَى سَعَةٍ وَاتِّسَاعٍ. مِنْ ذَلِكَ الْفَسِيحُ: الْوَاسِعُ.»"
+        - word: "وقوف"
+          root: "وقف"
+          maqayis_quote: "«الْوَاوُ وَالْقَافُ وَالْفَاءُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَمَكُّثٍ فِي شَيْءٍ ثُمَّ يُقَاسُ عَلَيْهِ.»"
+
+  per_sense:
+    - lemma: "تَوْسِعَة جَانِبِيَّة"
+      sense_id: "{auto}"
+      nuance: "تُشير إلى العمليَّة الهندسيَّة أو التَّصميم الدَّال على توسيع مسار الطَّريق."
+      mwe: true
+    - lemma: "حَارَة انْتِظَار"
+      sense_id: "{auto}"
+      nuance: "تُركِّز على الوظيفة المُخصَّصة لانتظار المركبات خارج المسار السَّريع، وهي الأكثر شيوعاً هندسياً ومقننة في معاجم الهندسة المدنية."
+      mwe: true
+    - lemma: "مَرْكَن جَانِبِيّ"
+      sense_id: "{auto}"
+      nuance: "مصطلح مألوف في هندسة النقل يدل على مكان مُخصّص لركن السيارات جانباً للراحة أو الطوارئ."
+      mwe: true
+    - lemma: "فُسْحَة وُقُوف"
+      sense_id: "{auto}"
+      nuance: "تُبرز المساحة المتاحة للوقوف العابر وهي شائعة في المصطلحات النفطية وغيرها."
+      mwe: true
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"توسعة","root":"وسع","maqayis":"«الْوَاوُ وَالسِّينُ وَالْعَيْنُ: كَلِمَةٌ تَدُلُّ عَلَى خِلَافِ الضِّيقِ وَالْعُسْرِ.»"},{"word":"جانبية","root":"جنب","maqayis":"«الْجِيمُ وَالنُّونُ وَالْبَاءُ أَصْلَانِ: أَحَدُهُمَا النَّاحِيَةُ، وَالْآخَرُ الْبُعْدُ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"حارة","root":"حور","maqayis":"«الْحَاءُ وَالْوَاوُ وَالرَّاءُ ثَلَاثَةُ أُصُولٍ: أَحَدُهَا اللَّوْنُ، وَالْآخَرُ الرُّجُوعُ، وَالثَّالِثُ أَنْ يَدُورَ الشَّيْءُ حَتَّى يَرْجِعَ إِلَى مَا كَانَ عَلَيْهِ.»"},{"word":"انتظار","root":"نظر","maqayis":"«النُّونُ وَالظَّاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَرْجِعُ فُرُوعُهُ إِلَى مَعْنًى وَاحِدٍ، وَهُوَ تَأَمُّلُ الشَّيْءِ وَمُعَايَنَتُهُ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مركن","root":"ركن","maqayis":"«الرَّاءُ وَالْكَافُ وَالنُّونُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى قُوَّةٍ. فَرُكْنُ الشَّيْءِ: جَانِبُهُ الْأَقْوَى.»"},{"word":"جانبي","root":"جنب","maqayis":"«الْجِيمُ وَالنُّونُ وَالْبَاءُ أَصْلَانِ: أَحَدُهُمَا النَّاحِيَةُ، وَالْآخَرُ الْبُعْدُ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"فسحة","root":"فسح","maqayis":"«الْفَاءُ وَالسِّينُ وَالْحَاءُ كَلِمَةٌ وَاحِدَةٌ تَدُلُّ عَلَى سَعَةٍ وَاتِّسَاعٍ. مِنْ ذَلِكَ الْفَسِيحُ: الْوَاسِعُ.»"},{"word":"وقوف","root":"وقف","maqayis":"«الْوَاوُ وَالْقَافُ وَالْفَاءُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَمَكُّثٍ فِي شَيْءٍ ثُمَّ يُقَاسُ عَلَيْهِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تُشير إلى العمليَّة الهندسيَّة أو التَّصميم الدَّال على توسيع مسار الطَّريق.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تُركِّز على الوظيفة المُخصَّصة لانتظار المركبات خارج المسار السَّريع، وهي الأكثر شيوعاً هندسياً ومقننة في معاجم الهندسة المدنية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح مألوف في هندسة النقل يدل على مكان مُخصّص لركن السيارات جانباً للراحة أو الطوارئ.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تُبرز المساحة المتاحة للوقوف العابر وهي شائعة في المصطلحات النفطية وغيرها.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

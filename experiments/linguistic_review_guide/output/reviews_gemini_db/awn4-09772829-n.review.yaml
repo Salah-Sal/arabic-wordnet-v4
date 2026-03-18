@@ -1,0 +1,105 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "مَوْلُود بُرْج الْجَدْي"
+      confirm:
+        - text: "«(1) الجَدْي (فل) (2) برج الجدي (3) مولود برج الجدي.» — المورد الحديث (2008)"
+          source: "المورد الحديث"
+      expands:
+        - text: "«أحد بروج السَّماء، ترتيبه العاشر بين القوس والدّلو، وزمنه من 22 من ديسمبر إلى 19 من يناير.» — معجم اللغة العربية المعاصرة"
+          source: "معجم اللغة العربية المعاصرة"
+          addition: "يوضح السياق الفلكي والزمني المرتبط بالمولود."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "الْجَدْي"
+      source_section: "step0_evidence"
+      evidence_citation: "«(1) الجَدْي (فل) (2) برج الجدي (3) مولود برج الجدي.» — المورد الحديث (2008)"
+      justification: "الاسم الأصلي للبرج يُستخدم بالمجاز المرسل للدلالة على الشخص المنتمي إليه."
+  knowledge_candidates:
+    - lemma: "صَاحِب بُرْج الْجَدْي"
+      justification: "تركيب وصفي شائع في التنجيم المعاصر (آلية التركيب الوصفي)."
+  generation_notes: "التوسع من اسم البرج إلى الشخص المنتمي إليه (اللمّنة بالمجاز) هو الأسلوب الأكثر شيوعاً في هذا المجال."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "مَوْلُود بُرْج الْجَدْي"
+      decision: confirmed
+      decision_reason: "مصطلح اصطلاحي مستقر في المعاجم الحديثة (المورد) والاستعمال المعاصر."
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تعبير وصفي دقيق ومباشر يحدد علاقة الشخص بالبرج."
+      example: "يُعرف مولود برج الجدي بشخصيته العملية وانضباطه العالي وطموحه الكبير."
+
+    - lemma: "الْجَدْي"
+      source: step05
+      decision: confirmed
+      decision_reason: "مذكور في المورد الحديث كمعنى مستقل (Capricorn) ويُستخدم بكثرة في السياقات الحوارية."
+      step05_citation: "«(1) الجَدْي (فل) (2) برج الجدي (3) مولود برج الجدي.» — المورد الحديث"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "استخدام اسم البرج للدلالة على الشخص هو من باب المجاز والتوسع اللغوي."
+      example: "بصفتي من برج الجدي، فأنا أميل دائماً للتخطيط للمستقبل بدقة."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "الْجَدْي"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09772829-n"
+
+    - lemma: "صَاحِب بُرْج الْجَدْي"
+      source: step05
+      decision: removed
+      decision_reason: "تركيب وصفي حر وليس مصطلحاً معجمياً مسكوكاً بالقدر الكافي."
+      step05_citation: "معرفة لغوية"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "(علم التنجيم) شخص ولد بينما الشمس في برج الجدي"
+  assessment:
+    decision: retain
+    reason: "تعريف دقيق علمياً ومطابق للمرجع الإنجليزي وللمعاجم الفلكية."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عَامِل، فَاعِل (شخص يعمل ويُنجِز الأمور)"
+    test_result: "needs_closer"
+    actions:
+      - command: add_synset_relation
+        params:
+          source_id: "awn4-09772829-n"
+          relation_type: "hypernym"
+          target_id: "awn4-00007846-n"
+  actions:
+    - command: remove_synset_relation
+      params:
+        source_id: "awn4-09772829-n"
+        relation_type: "hypernym"
+        target_id: "awn4-09786620-n"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "مَوْلُود بُرْج الْجَدْي"
+      enrichment:
+        root: "و-ل-د"
+      examples:
+        - text: "يتسم مولود برج الجدي بالمثابرة والقدرة على تحمل المسؤوليات الصعبة."
+          type: usage
+          source: "مؤلف"
+    - lemma: "الْجَدْي"
+      enrichment:
+        root: "ج-د-ي"
+        figurative_relation: "metonymy"
+      examples:
+        - text: "يقول عالم الفلك إن الجدي سيواجه تحولات إيجابية في مسيرته المهنية هذا العام."
+          type: usage
+          source: "مؤلف"
+  cultural_fit:
+    assessment: native

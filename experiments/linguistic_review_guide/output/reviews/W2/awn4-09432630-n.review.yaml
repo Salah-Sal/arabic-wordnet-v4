@@ -1,0 +1,137 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "خط التلال"
+      evidence_status: "no_material_found"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "سلسلة تلال"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«(2) سلسلة تلال أو جبال (3) الحَيْد؛ الحَرْف: مرتفع طويل ضيق في قاع المحيط أو على سطح الأرض» — المورد الحديث (2008)"
+      justification: "تركيب إضافي ورد في القواميس الثنائية كترجمة دقيقة لمفهوم ridge."
+    - lemma: "حَيْد"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«الحَيْد: تل منخفض متطاول» — المعجم الموحد لمصطلحات الجيولوجيا (2000)"
+      justification: "مصطلح علمي تراثي مخصص للمرتفعات الجبلية الطويلة والضيقة."
+  knowledge_candidates:
+    - lemma: "حافة جبلية"
+      justification: "تركيب وصفي مستخدم في الجغرافيا للإشارة إلى المرتفعات الممتدة."
+  generation_notes: "المصطلح الأصلي ترجمة حرفية، وتم استخراج البدائل من المعاجم العلمية والقواميس ثنائية اللغة."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "خط التلال"
+      decision: removed
+      decision_reason: "مركب إضافي يمثل ترجمة حرفية للمصطلح الإنجليزي (ridgeline) ولم يثبت معجميا، والأفصح والأشيع استخدام مصطلح (حيد) أو (سلسلة تلال)."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "تعبير مترجم حرفياً يقصد به الامتداد الخطي للمرتفعات، لكنه يفتقر إلى الأصالة والاستقرار المعجمي."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "حَيْد"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح علمي وتراثي دقيق ومعتمد في مجامع اللغة للإشارة إلى المرتفعات الممتدة كالسلسلة."
+      step05_citation: "«الحَيْد: تل منخفض متطاول» — المعجم الموحد لمصطلحات الجيولوجيا (2000)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "الحيد هو المرتفع الطويل والضيق الشاخص كالحرف من الجبل أو في قاع المحيط، ويغلب عليه الاستعمال العلمي الطبوغرافي."
+      example: "سار المتسلقون على طول الحيد الجبلي للوصول إلى القمة."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "حَيْد"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09432630-n"
+
+    - lemma: "سلسلة تلال"
+      source: step05
+      decision: confirmed
+      decision_reason: "تركيب إضافي فصيح ومستعمل ومطابق تماماً لتعريف المجموعة الترادفية."
+      step05_citation: "«سلسلة تلال أو جبال» — المورد الحديث (2008)"
+      substitution_test:
+        result: "pass"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      nuance_differentiation: "السلسلة تدل على تتابع التلال واتصالها ببعضها في خط ممتد، وهو تعبير وصفي أعم وأكثر تداولاً في السياق العام."
+      example: "تفصل سلسلة تلال بين السهول الساحلية والمناطق الداخلية."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "سلسلة تلال"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09432630-n"
+
+  synset_flags:
+    definition_review_needed: false
+  added_lemmas:
+    - lemma: "حَيْد"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+    - lemma: "سلسلة تلال"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "سلسلة طويلة وضيقة من التلال"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وواضح ويطابق المعنى المستهدف بدقة."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "تكوين جيولوجي"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "حَيْد"
+        antonym_found: false
+      - lemma: "سلسلة تلال"
+        antonym_found: false
+  verb_checks:
+    applicable: false
+  selectional_restrictions: []
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "حَيْد"
+      enrichment:
+        root: "ح-ي-د"
+      examples:
+        - text: "سار المتسلقون على طول الحيد الجبلي للوصول إلى القمة."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "سلسلة تلال"
+      enrichment:
+        root: "س-ل-س-ل"
+      examples:
+        - text: "تفصل سلسلة تلال بين السهول الساحلية والمناطق الداخلية."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-09432630-n"
+        text: "سار المتسلقون على طول الحيد الجبلي للوصول إلى القمة."

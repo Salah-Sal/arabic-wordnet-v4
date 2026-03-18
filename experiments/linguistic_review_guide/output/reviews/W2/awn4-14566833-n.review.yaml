@@ -1,0 +1,197 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "كلمة 'تهديد' في الأصل مصدر للفعل (هدّد)، وتُطلق على 'الفعل' نفسه، لكن استخدامها للدلالة على 'مصدر الخطر' (الاسم) شائع جداً في اللغة المعاصرة."
+      - "كلمة 'وعيد' غالباً ما ترتبط بالتهديد القولي بالعقوبة، وقد تكون ضيقة النطاق بالنسبة لمفهوم (menace) الذي يشمل المصادر المادية غير العاقلة (كالأمراض أو الكوارث)."
+    observations: "المصطلحات الحالية مقبولة ومعتمدة في المعاجم الحديثة كترجمة لـ (threat) و(menace)، ولكن يُفضل إضافة اسم الفاعل (مُهَدِّد) لكونه أكثر دقة في الدلالة على 'الشيء' أو 'الكيان' المصدر للخطر."
+  blind_candidates:
+    - lemma: "مُهَدِّد"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل (هدّد)، وهو اللفظ الأدق للدلالة على الذات أو الشيء الذي يمثل تهديداً."
+    - lemma: "نَذِير"
+      generation_method: majaz
+      justification: "يُطلق على الشيء الذي ينذر بوقوع خطر أو شر، وهو مرادف معنوي لـ (menace) في سياقات معينة."
+    - lemma: "بَادِرَة"
+      generation_method: majaz
+      justification: "تُستخدم للتعبير عن الشيء الذي يحمل نذر الخطر أو الشر."
+    - lemma: "مَخْطَر"
+      generation_method: ishtiqaq
+      justification: "على وزن (مَفْعَل)، ويُقصد به مكان الخطر أو مظنته، ويمكن استخدامه دلالة على مصدره."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تَهْدِيد"
+      confirm:
+        - text: "«إثارة الخوف في نفس المستمع وإقناعه بأن شخصا ما يُمثل خطرا عليه يهدده.»"
+          source: "مسرد الإعلام والتواصل (ArabTerm)"
+        - text: "«(1) تهديد؛ وعيد (2) خطرٌ (3) شخص مزعج...» كترجمة لـ (menace)."
+          source: "المورد الحديث"
+    - lemma: "وَعِيد"
+      confirm:
+        - text: "«(1) تهديد؛ وعيد» كترجمة لـ (threat) و(menace)."
+          source: "المورد الحديث"
+      expands:
+        - text: "«يوم الوعيد: يوم القيامة.»"
+          source: "المعجم الوسيط"
+          addition: "يشير إلى أن الاستخدام الكلاسيكي لـ (الوعيد) غالباً ما يكون في سياق العقوبة."
+    - lemma: "خَطَر"
+      confirm:
+        - text: "«الحالة التي قد تُنْتِج حدثا غير مرغوب فيه، سبب الخطر.»"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+        - text: "«الإشراف على الهلاك وخوف التلف.»"
+          source: "التوقيف على مهمات التعاريف"
+    - lemma: "نَذِير"
+      confirm:
+        - text: "«الإنذار والمُنذر.»"
+          source: "المعجم الوسيط"
+    - lemma: "مُهَدِّد"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تهديد"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي وشائع جداً في اللغة العربية المعاصرة للتعبير عن مصدر الخطر (threat)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَهْدِيد"
+    - lemma: "وعيد"
+      decision: confirmed
+      decision_reason: "مرادف معتمد في المعاجم العربية-الإنجليزية لـ (menace)، وإن كان استخدامه يميل للسياقات القولية."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "وَعِيد"
+    - lemma: "مُهَدِّد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اسم فاعل دقيق جداً للدلالة على 'الكيان' أو 'العنصر' الذي يصدر عنه التهديد، وهو يسد فجوة بين المصدر (تهديد) والاسم العام (خطر)."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُهَدِّد", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "نذير"
+      decision: removed
+      decision_reason: "أقرب للدلالة على الإشارة أو العلامة المنذرة بالخطر منه إلى مصدر الخطر نفسه."
+
+stage4_content:
+  definition:
+    current: "شيء يعتبر مصدراً للخطر"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي بسيط جداً، ويُفضل صياغته بأسلوب معجمي يوضح طبيعة هذا المصدر."
+    authored:
+      - type: terminological
+        text: "كُلُّ مَا يُمَثِّلُ مَصْدَراً لِلأَذَى أَوْ الهَلَاكِ أَوْ الضَّرَرِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "كُلُّ مَا يُمَثِّلُ مَصْدَراً لِلأَذَى أَوْ الهَلَاكِ أَوْ الضَّرَرِ."}
+  examples:
+    per_lemma:
+      - lemma: "تَهْدِيد"
+        examples:
+          - text: "تُمَثِّلُ الأَسْلِحَةُ النَّوَوِيَّةُ تَهْدِيداً لِلسِّلْمِ العَالَمِيِّ."
+            type: usage
+      - lemma: "وَعِيد"
+        examples:
+          - text: "كَانَ كَلَامُهُ وَعِيداً شَدِيداً لِأَعْدَائِهِ."
+            type: usage
+      - lemma: "مُهَدِّد"
+        examples:
+          - text: "يُعَدُّ التَّلَوُّثُ البِيئِيُّ مِنَ المُهَدِّدَاتِ الرَّئِيسِيَّةِ لِلتَّنَوُّعِ البِيُولُوجِيِّ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يُشكّل هذا الوباء تهديداً حقيقياً للصحة العامة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تَهْدِيد"
+      entry_id: "{auto}"
+      root: "هدد"
+      maqayis_quote: "«الهاء والدال أصل واحد، وهو صوت ووقوع شيء.»"
+    - lemma: "وَعِيد"
+      entry_id: "{auto}"
+      root: "وعد"
+      maqayis_quote: "«الواو والعين والدال أصل صحيح واحد، يدل على قطع بأمر، من خير أو شر.»"
+    - lemma: "مُهَدِّد"
+      entry_id: "{auto}"
+      root: "هدد"
+      maqayis_quote: "«الهاء والدال أصل واحد، وهو صوت ووقوع شيء.»"
+  per_sense:
+    - lemma: "تَهْدِيد"
+      sense_id: "{auto}"
+      nuance: "عام وشامل لكل ما ينذر بالخطر، سواء كان قولا أو فعلا أو كياناً."
+      mwe: false
+    - lemma: "وَعِيد"
+      sense_id: "{auto}"
+      nuance: "يغلب عليه طابع التهديد بالشر أو العقوبة، وغالباً ما يكون قولياً."
+      mwe: false
+    - lemma: "مُهَدِّد"
+      sense_id: "{auto}"
+      nuance: "يركز على الكيان أو العنصر الفاعل الذي يصدر عنه الخطر."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"هدد","maqayis":"«الهاء والدال أصل واحد، وهو صوت ووقوع شيء.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"وعد","maqayis":"«الواو والعين والدال أصل صحيح واحد، يدل على قطع بأمر، من خير أو شر.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"عام وشامل لكل ما ينذر بالخطر، سواء كان قولا أو فعلا أو كياناً.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يغلب عليه طابع التهديد بالشر أو العقوبة، وغالباً ما يكون قولياً.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الكيان أو العنصر الفاعل الذي يصدر عنه الخطر.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

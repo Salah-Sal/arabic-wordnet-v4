@@ -1,0 +1,196 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "ارتباط لفظ 'بالوعة' في الاستعمال اليومي بشبكات الصرف الصحي، مما قد يوحي بكونه لفظاً غير تقني، لكنه في الواقع مستخدم في الترجمات العلمية (مثل بالوعة الكربون)."
+      - "لفظ 'مصرف' شديد الاشتراك الدلالي (بين البنك ومكان الصرف)، ويحتاج إلى سياق يوضحه."
+    observations: "المفهوم يشمل الجوانب الفيزيائية (الحرارة)، والبيئية (الكربون)، والتقنية (المعلومات). المصطلح العربي يجب أن يعبر عن جهة الاستقبال والامتصاص."
+  blind_candidates:
+    - lemma: "مَصْرَف"
+      generation_method: ishtiqaq
+      justification: "اشتقاق من 'صرف' للدلالة على المكان أو الوسيلة التي يُصرف إليها الشيء."
+    - lemma: "مَغِيض"
+      generation_method: majaz
+      justification: "استعارة من اللفظ العربي القديم للمكان الذي يغور فيه الماء وينقص، وهو أدق للمفاهيم البيئية والطبيعية (مثل بالوعات الكربون)."
+    - lemma: "مُسْتَوْعِب"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من 'استوعب' للدلالة على قدرة النظام على امتصاص المادة أو الطاقة."
+    - lemma: "بَالُوعَة"
+      generation_method: majaz
+      justification: "توسيع دلالي للفظ 'بالوعة' ليشمل أي نظام يبتلع (يمتص) الطاقة أو المادة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "بالوعة"
+      confirm:
+        - text: "«البالوعة: ثقب يُعد لتصريف الماء»"
+          source: "المعجم الوسيط"
+        - text: "«بالوعة الكربون: carbon sink»"
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة"
+        - text: "«بالوعة جهد كهربائي: voltage sink»"
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة"
+    - lemma: "مصرف"
+      confirm:
+        - text: "«المصرف: مكان الصرف»"
+          source: "المعجم الوسيط"
+        - text: "«المصرف: في FET: المسرى الذي تتجه إليه حوامل الشحنات... من المصدر»"
+          source: "معجم مصطلحات المعلوماتية"
+    - lemma: "مغيض"
+      confirm:
+        - text: "«المغيض: المكان الذي يغيض فيه الماء»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«غاض الماء: نقص وغار في الأرض»"
+          source: "مقاييس اللغة"
+          addition: "يدعم مفهوم الامتصاص والتبديد في الأنظمة الطبيعية."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "بالوعة"
+      decision: confirmed
+      decision_reason: "مصطلح تقني مستقر في مجالات البيئة والكهرباء للتعبير عن الـ (sink)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "بَالُوعَة"
+    - lemma: "مصرف"
+      decision: confirmed
+      decision_reason: "مستخدم بكثرة في الهندسة الإلكترونية (مصرف التيار) والأنظمة الهيدروليكية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَصْرَف"
+    - lemma: "مغيض"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ فصيح يعبر بدقة عن 'البالوعات الطبيعية' (Natural Sinks) التي تمتص المادة وتخفيها."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَغِيض", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "(في التكنولوجيا) عملية تعمل على امتصاص أو إزالة الطاقة أو مادة من نظام ما"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي حرفي بعض الشيء ويقتصر على وصفها كعملية، بينما هي في الواقع قد تكون وسيلة أو مكاناً."
+    authored:
+      - type: terminological
+        text: "وَسِيلَةٌ أَوْ مَكَانٌ أَوْ عَمَلِيَّةٌ تَعْمَلُ عَلَى امْتِصَاصِ الطَّاقَةِ أَوِ المَوَادِّ أَوْ إِزَالَتِهَا مِنْ نِظَامٍ مَا لِتَبْدِيدِهَا أَوْ تَخْزِينِهَا."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "وَسِيلَةٌ أَوْ مَكَانٌ أَوْ عَمَلِيَّةٌ تَعْمَلُ عَلَى امْتِصَاصِ الطَّاقَةِ أَوِ المَوَادِّ أَوْ إِزَالَتِهَا مِنْ نِظَامٍ مَا لِتَبْدِيدِهَا أَوْ تَخْزِينِهَا."}
+  examples:
+    per_lemma:
+      - lemma: "بَالُوعَة"
+        examples:
+          - text: "تُعد الغابات المدارية أهم البالوعات الطبيعية لغاز ثاني أكسيد الكربون في العالم."
+            type: usage
+      - lemma: "مَصْرَف"
+        examples:
+          - text: "يُستخدم المَصْرَف الحراري في الحواسيب لمنع ارتفاع درجة حرارة المعالج."
+            type: usage
+      - lemma: "مَغِيض"
+        examples:
+          - text: "المحيطات هي المغيض الأكبر للحرارة الزائدة الناتجة عن الاحتباس الحراري."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "تعمل البحار كبالوعات ضخمة تمتص كميات هائلة من الحرارة من الغلاف الجوي."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "بَالُوعَة"
+      entry_id: "{auto}"
+      root: "بلع"
+      maqayis_quote: "«الْبَاءُ وَاللَّامُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، وَهُوَ ازْدِرَادُ الشَّيْءِ. تَقُولُ: بَلَعْتُ الشَّيْءَ أَبْلَعُهُ. وَالْبَالُوعُ مِنْ هَذَا لِأَنَّهُ يَبْلَعُ الْمَاءَ.»"
+    - lemma: "مَصْرَف"
+      entry_id: "{auto}"
+      root: "صرف"
+      maqayis_quote: "«الصَّادُ وَالرَّاءُ وَالْفَاءُ مُعْظَمُ بَابِهِ يَدُلُّ عَلَى رَجْعِ الشَّيْءِ. مِنْ ذَلِكَ صَرَفْتُ الْقَوْمَ صَرْفًا وَانْصَرَفُوا، إِذَا رَجَعْتَهُمْ فَرَجَعُوا.»"
+    - lemma: "مَغِيض"
+      entry_id: "{auto}"
+      root: "غيض"
+      maqayis_quote: "«الْغَيْنُ وَالْيَاءُ وَالضَّادُ أُصَيْلٌ يَدُلُّ عَلَى نُقْصَانٍ فِي شَيْءٍ، وَغُمُوضٍ وَقِلَّةٍ. يُقَالُ غَاضَ الْمَاءُ يَغِيضُ: خِلَافُ فَاضَ.»"
+  per_sense:
+    - lemma: "بَالُوعَة"
+      sense_id: "{auto}"
+      nuance: "تستخدم غالباً في السياقات البيئية (بالوعة كربون) أو في التعبير عن امتصاص المادة."
+      mwe: false
+    - lemma: "مَصْرَف"
+      sense_id: "{auto}"
+      nuance: "تشير إلى القناة أو المخرج الذي يُوجّه إليه التدفق (كهربائياً أو مائياً) للتخلص منه."
+      mwe: false
+    - lemma: "مَغِيض"
+      sense_id: "{auto}"
+      nuance: "لفظ فصيح يوحي بالانخفاض أو الغور، ويستخدم لوصف النظم الطبيعية التي تمتص وتخفي المادة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"بلع","maqayis":"«الباء واللام والعين أصلٌ واحد، وهو ازدِرادُ الشيء.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صرف","maqayis":"«الصاد والراء والفاء معظم بابه يدل على رجوع الشيء.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"غيض","maqayis":"«الغين والياء والضاد أصيل يدل على نقصان في شيء.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تستخدم غالباً في السياقات البيئية (بالوعة كربون) أو في التعبير عن امتصاص المادة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تشير إلى القناة أو المخرج الذي يُوجّه إليه التدفق (كهربائياً أو مائياً) للتخلص منه.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"لفظ فصيح يوحي بالانخفاض أو الغور، ويستخدم لوصف النظم الطبيعية التي تمتص وتخفي المادة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

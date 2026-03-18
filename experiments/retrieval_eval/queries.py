@@ -11,8 +11,10 @@ import random
 import yaml
 from pathlib import Path
 
-PREPARED_DIR = (Path(__file__).resolve().parent.parent
-                / "linguistic_review_guide" / "claude_code_db" / "prepared")
+_LOCAL_PREPARED = Path(__file__).resolve().parent / "prepared"
+_PROJECT_PREPARED = (Path(__file__).resolve().parent.parent
+                     / "linguistic_review_guide" / "claude_code_db" / "prepared")
+PREPARED_DIR = _LOCAL_PREPARED if _LOCAL_PREPARED.is_dir() else _PROJECT_PREPARED
 
 
 def load_manifest(export_dir: Path) -> tuple[dict, dict]:

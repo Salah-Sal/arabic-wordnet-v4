@@ -1,0 +1,210 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي عام جداً ولا يحدد السياق البيولوجي للعملية المتعلقة بالكائنات الحية بل يعبر عن التخلص من أي شيء."
+    observations: "المجموعة الترادفية تعبر عن العملية الحيوية لطرح أجزاء من الجسم مثل الجلد، أو الشعر، أو الأوراق، أو الريش. اللمات الحالية (انسلاخ، تساقط) تغطي جوانب مختلفة من هذه العملية (الانسلاخ للجلد، والتساقط للشعر والأوراق). يمكن إضافة 'طرح' كمرادف عام وشامل."
+  blind_candidates:
+    - lemma: "إِنْسِلَاخ"
+      generation_method: ishtiqaq
+      justification: "دلالة على طرح الجلد أو القشرة الخارجية في الحيوانات."
+    - lemma: "تَسَاقُط"
+      generation_method: ishtiqaq
+      justification: "دلالة على سقوط الأوراق أو الشعر بشكل طبيعي ومتتابع."
+    - lemma: "طَرْح"
+      generation_method: majaz
+      justification: "دلالة على إلقاء الشيء أو التخلص منه، وتستخدم بيولوجياً للإشارة إلى طرح الريش والجلد."
+    - lemma: "إِسْقَاط"
+      generation_method: ishtiqaq
+      justification: "دلالة على التخلص من الأجزاء وإسقاطها."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "إِنْسِلَاخ"
+      confirm:
+        - text: "«عملية تحدث في الحشرات وغيرها من الحيوانات أثناء النمو، وفيها يتخلص الحيوان من جلده الخارجي...»"
+          source: "المعجم الموحد لمصطلحات علم الأحياء (1993)"
+        - text: "«انسلاخ درع الحيوان في أوقات مختلفة ليتسنى نموه وزيادة حجمه كما في المفصليات والزواحف»"
+          source: "المعجم الموحد لمصطلحات علم الأحياء (1993)"
+    - lemma: "تَسَاقُط"
+      confirm:
+        - text: "«سقط تتابع سُقوطُه»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«تَسَاقُط»"
+          source: "مسرد الجغرافيا والتاريخ"
+          addition: "يستخدم كمصطلح بيئي وجغرافي في السياق ذاته."
+    - lemma: "طَرْح"
+      confirm:
+        - text: "«يَنْسُل: يطرح الطائر ريشه أو يغيّره دوريًا. تَطْرح [الأفعى إهابَها دوريًّا]»"
+          source: "المورد الحديث (2008)"
+    - lemma: "إِسْقَاط"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "انسلاخ"
+      decision: confirmed
+      decision_reason: "مصطلح علمي دقيق يعبر عن طرح الحيوان لجلده أو درعه."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "إِنْسِلَاخ"
+    - lemma: "تساقط"
+      decision: confirmed
+      decision_reason: "مصطلح مناسب ودقيق للتعبير عن طرح الأوراق أو الشعر بشكل متتابع."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَسَاقُط"
+    - lemma: "طَرْح"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير عربي فصيح يُستخدم للتعبير عن التخلص الدوري من الأجزاء مثل الريش والجلد في السياق الأحيائي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "طَرْح", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "إِسْقَاط"
+      source: stage1
+      decision: removed
+      decision_reason: "يشير غالبًا إلى تدخل قصدي أو عملية غير طبيعية كالإجهاض، والكلمات الأخرى أوضح وأكثر دلالة على العملية الطبيعية."
+      evidence_assessment:
+        case: no_material
+
+stage4_content:
+  definition:
+    current: "العملية التي يتم بموجبها التخلص من شيء ما"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي عام جداً ولا يحدد السياق البيولوجي للعملية المتعلقة بالكائنات الحية وتخلصها من أجزائها."
+    authored:
+      - type: terminological
+        text: "عملية حيوية يتخلص بموجبها الكائن الحي من أجزاء خارجية كالجلد أو الريش أو الأوراق بشكل دوري وطبيعي."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "عملية حيوية يتخلص بموجبها الكائن الحي من أجزاء خارجية كالجلد أو الريش أو الأوراق بشكل دوري وطبيعي."
+
+  examples:
+    per_lemma:
+      - lemma: "انسلاخ"
+        examples:
+          - text: "يحدث انسلاخ الجلد في الثعابين للسماح لها بالنمو."
+            type: usage
+      - lemma: "تساقط"
+        examples:
+          - text: "تتميز الأشجار النفضية بتساقط أوراقها في فصل الخريف."
+            type: usage
+      - lemma: "طَرْح"
+        examples:
+          - text: "يبدأ الطائر في طرح ريشه القديم مع بداية فصل الصيف."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يحدث انسلاخ الجلد في الثعابين للسماح لها بالنمو."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تتميز الأشجار النفضية بتساقط أوراقها في فصل الخريف."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يبدأ الطائر في طرح ريشه القديم مع بداية فصل الصيف."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "انسلاخ"
+      entry_id: "{auto}"
+      root: "سلخ"
+      maqayis_quote: "«السِّينُ وَاللَّامُ وَالْخَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ إِخْرَاجُ الشَّيْءِ عَنْ جِلْدِهِ... وَالسِّلْخُ: جِلْدُ الْحَيَّةِ تَنْسَلِخُ.»"
+    - lemma: "تساقط"
+      entry_id: "{auto}"
+      root: "سقط"
+      maqayis_quote: "«السِّينُ وَالْقَافُ وَالطَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الْوُقُوعِ، وَهُوَ مُطَّرِدٌ.»"
+    - lemma: "طَرْح"
+      entry_id: "{auto}"
+      root: "طرح"
+      maqayis_quote: "«الطَّاءُ وَالرَّاءُ وَالْحَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى نَبْذِ الشَّيْءِ وَإِلْقَائِهِ.»"
+
+  per_sense:
+    - lemma: "انسلاخ"
+      sense_id: "{auto}"
+      nuance: "يختص بطرح القشرة الخارجية أو الجلد كما في الزواحف والمفصليات."
+      mwe: false
+    - lemma: "تساقط"
+      sense_id: "{auto}"
+      nuance: "يختص بوقوع الأجزاء كالأوراق والشعر بشكل متتابع."
+      mwe: false
+    - lemma: "طَرْح"
+      sense_id: "{auto}"
+      nuance: "مصطلح عام يشمل إلقاء الريش أو الجلد أو أي أجزاء أخرى بشكل دوري."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سلخ","maqayis":"«السِّينُ وَاللَّامُ وَالْخَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ إِخْرَاجُ الشَّيْءِ عَنْ جِلْدِهِ... وَالسِّلْخُ: جِلْدُ الْحَيَّةِ تَنْسَلِخُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سقط","maqayis":"«السِّينُ وَالْقَافُ وَالطَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الْوُقُوعِ، وَهُوَ مُطَّرِدٌ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"طرح","maqayis":"«الطَّاءُ وَالرَّاءُ وَالْحَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى نَبْذِ الشَّيْءِ وَإِلْقَائِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يختص بطرح القشرة الخارجية أو الجلد كما في الزواحف والمفصليات.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يختص بوقوع الأجزاء كالأوراق والشعر بشكل متتابع.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح عام يشمل إلقاء الريش أو الجلد أو أي أجزاء أخرى بشكل دوري.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

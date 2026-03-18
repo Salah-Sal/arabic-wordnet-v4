@@ -1,0 +1,191 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمتان الموجودتان (حاط من القدر، مخفض للقيمة) هما عبارتان وصفيّتان حرتان تتألفان من اسم فاعل وجار ومجرور، ولا تمثلان وحدات معجمية مسكوكة (MWE) تصلح لتكون مداخل مستقلة."
+    observations: "المفهوم يشير إلى شخص يقوم بفعل مادي (تقليل جودة العملات بخلطها بمعادن رخيصة) أو معنوي (إنقاص قدر الشيء وقيمته). الجذران (بخس) و(زيف) يعبران عن هذين الجانبين بدقة في المعجمية العربية."
+  blind_candidates:
+    - lemma: "مُبَخِّس"
+      generation_method: ishtiqaq
+      justification: "مشتق من الفعل 'بخّس' (على وزن مُفَعِّل) الذي يعني أنقص قيمة الشيء أو قلل من شأنه، وهو يطابق معنى (degrader)."
+    - lemma: "مُزَيِّف"
+      generation_method: ishtiqaq
+      justification: "مشتق من الفعل 'زيّف'، وهو مصطلح معجمي معروف لمن يغش العملات المعدنية أو يقلل جودتها وهو المعنى الدقيق لـ (debaser)."
+    - lemma: "مُغِشّ"
+      generation_method: ishtiqaq
+      justification: "من الفعل 'غشّ'، يعبر عن من يخلط الجيد بالرديء."
+    - lemma: "مُخَفِّض"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل 'خفّض'، يعبر عن تنقيص القيمة مباشرة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "حَاطّ مِنْ الْقَدْر"
+      evidence_status: "no_material_found"
+    - lemma: "مُخْفِض لِلْقِيمَة"
+      evidence_status: "no_material_found"
+    - lemma: "مُبَخِّس"
+      expands:
+        - text: "«بَخَّسَ تَبْخِيسًا: إِذَا صَارَ فِي السُّلَامَى وَالْعَيْنِ، وَذَلِكَ حَتَّى نُقْصَانِهِ.»"
+          source: "مقاييس اللغة لابن فارس"
+          addition: "يؤكد الجذر على النقصان، والتبخيس هو الإنقاص والتنقيص المعنوي أو المادي."
+    - lemma: "مُزَيِّف"
+      confirm:
+        - text: "«طائرة صديقة أو باخرة، تحاكي هجوم مركبة معادية، في تمرين دفاعيّ صديق.»"
+          source: "المعجم الموحد لمصطلحات الحرب الإلكترونية (2004)"
+      expands:
+        - text: "«ودرهم مبهرج زيف.»"
+          source: "المحيط في اللغة"
+          addition: "يؤكد ارتباط 'الزيف' بالدراهم المغشوشة والمردودة، مما يدعم استخدام 'مُزيّف' لمن يقوم بهذا الفعل."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "حَاطّ مِنْ الْقَدْر"
+      decision: removed
+      decision_reason: "عبارة وصفية حرة تتكون من اسم فاعل وشبه جملة، ولا تعد تعبيراً اصطلاحياً مسكوكاً يمكن ضمه كمدخل معجمي."
+      evidence_assessment:
+        case: no_material
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "مُخْفِض لِلْقِيمَة"
+      decision: removed
+      decision_reason: "عبارة وصفية حرة (شبه جملة) تشرح المفهوم وليست وحدة معجمية مسكوكة."
+      evidence_assessment:
+        case: no_material
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "مُبَخِّس"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صيغة مبالغة واسم فاعل تفي بالغرض الدلالي في الجانب المعنوي (إنقاص القيمة والقدر) وتتوافق مع فصاحة الاشتقاق العربي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُبَخِّس"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "مُزَيِّف"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح عربي دقيق يُطلق على من يخلط المعادن الرخيصة بالعملات الأصيلة بهدف تخفيض قيمتها وغشها، وهو يغطي الجزء المادي من التعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُزَيِّف"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "شخص يخفض من الجودة أو الطابع أو القيمة (مثل إضافة معدن أرخص للعملات)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد، ولكن صياغته أقرب إلى الترجمة الحرفية ويمكن تحسين سبكه بأسلوب المعجم الوسيط ليكون أكثر طبيعية في العربية."
+    authored:
+      - type: terminological
+        text: "شخص يعمد إلى خفض جودة شيء أو قيمته أو قدره، كمن يضيف معدناً رخيصاً إلى العملات لتقليل قيمتها الحقيقية."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "شخص يعمد إلى خفض جودة شيء أو قيمته أو قدره، كمن يضيف معدناً رخيصاً إلى العملات لتقليل قيمتها الحقيقية."
+
+  examples:
+    per_lemma:
+      - lemma: "مُبَخِّس"
+        examples:
+          - text: "كان التاجر مُبَخِّسًا للسلع المعروضة ليشتريها بأرخص الأثمان."
+            type: usage
+      - lemma: "مُزَيِّف"
+        examples:
+          - text: "ألقي القبض على المُزَيِّف الذي كان يسك عملات مغشوشة."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "كان التاجر مُبَخِّسًا للسلع المعروضة ليشتريها بأرخص الأثمان."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "ألقي القبض على المُزَيِّف الذي كان يسك عملات مغشوشة."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُبَخِّس"
+      entry_id: "{auto}"
+      root: "بخس"
+      maqayis_quote: "«الْبَاءُ وَالْخَاءُ وَالسِّينُ أَصْلٌ وَاحِدٌ، وَهُوَ النَّقْصُ.»"
+    - lemma: "مُزَيِّف"
+      entry_id: "{auto}"
+      root: "زيف"
+      maqayis_quote: "«الزَّاءُ وَالْيَاءُ وَالْفَاءُ فِيهِ كَلَامٌ، وَمَا أَظُنُّ شَيْئًا مِنْهُ صَحِيحًا. يَقُولُونَ دِرْهَمٌ زَائِفٌ وَزَيْفٌ.»"
+  per_sense:
+    - lemma: "مُبَخِّس"
+      sense_id: "{auto}"
+      nuance: "يُستخدم للتركيز على الجانب المعنوي أو التقييمي في تقليل قيمة الشيء أو قدره."
+      mwe: false
+    - lemma: "مُزَيِّف"
+      sense_id: "{auto}"
+      nuance: "يُستخدم للتركيز على الجانب المادي كالغش بإضافة معادن رخيصة للعملات أو التزوير الملموس."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"بخس","maqayis_quote":"«الْبَاءُ وَالْخَاءُ وَالسِّينُ أَصْلٌ وَاحِدٌ، وَهُوَ النَّقْصُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"زيف","maqayis_quote":"«الزَّاءُ وَالْيَاءُ وَالْفَاءُ فِيهِ كَلَامٌ، وَمَا أَظُنُّ شَيْئًا مِنْهُ صَحِيحًا. يَقُولُونَ دِرْهَمٌ زَائِفٌ وَزَيْفٌ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُستخدم للتركيز على الجانب المعنوي أو التقييمي في تقليل قيمة الشيء أو قدره.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُستخدم للتركيز على الجانب المادي كالغش بإضافة معادن رخيصة للعملات أو التزوير الملموس.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

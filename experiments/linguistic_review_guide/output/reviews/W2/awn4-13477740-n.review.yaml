@@ -1,0 +1,208 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "المصطلحات الحالية تغطي المعنى العام، لكن هناك مصطلحات أكثر دقة في السياقات التقنية والفيزيائية مثل (تلاشٍ) و(تخامد)."
+    observations: "المجموعة تدور حول النقصان التدريجي في السياقات العلمية والتقنية (شحنة، تيار، أمواج). المصطلح (اضمحلال) هو الأكثر دقة تقنياً لوصف الـ decay، بينما (تضاؤل) يصف الـ decline العام."
+  blind_candidates:
+    - lemma: "تَلاشٍ"
+      generation_method: ishtiqaq
+      justification: "يُستخدم لوصف النقصان التدريجي حتى العدم، وهو شائع في سياق الأمواج والتيارات (Decay/Dissipation)."
+    - lemma: "تَخامُد"
+      generation_method: ishtiqaq
+      justification: "مصطلح فيزيائي دقيق للنقصان التدريجي في السعة أو الطاقة مع الزمن (Damping/Decay)."
+    - lemma: "تَوْهِين"
+      generation_method: ishtiqaq
+      justification: "يستخدم تحديداً لوصف الضعف أو النقصان في شدة الإشارة أو التيار (Attenuation/Decline)."
+    - lemma: "نُضُوب"
+      generation_method: majaz
+      justification: "استعارة من نضوب الماء، تُستخدم لوصف نفاد الشحنة المخزنة تدريجياً."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "اضمحلال"
+      confirm:
+        - text: "«تناقصٌ في مطال الإشارة مع الزمن.»"
+          source: "معجم مصطلحات المعلوماتية (2000)"
+        - text: "«اضمحلال الأمواج: decay of waves»"
+          source: "المعجم الموحد لمصطلحات علوم البحار (2000)"
+      expands:
+        - text: "«اضمحلال النشاط الإشعاعي: decay of radioactivity»"
+          source: "المعجم الموحد لمصطلحات الفيزياء العامة والنووية (1989)"
+    - lemma: "تضاؤل"
+      confirm:
+        - text: "«نقص مستمر في مدى تذبذب موجات الطاقة المختلفة مثل الكهرباء والصوت.»"
+          source: "معجم المصطلحات الطبية (ج.2، 2003)"
+        - text: "«تضاؤل: decay»"
+          source: "المعجم الموحد لمصطلحات الكيمياء (1992)"
+    - lemma: "تلاش"
+      confirm:
+        - text: "«معدل تلاشي الصوت: rate of decay of sound»"
+          source: "المعجم الموحد لمصطلحات الفيزياء العامة والنووية (1989)"
+        - text: "«تلاشي الأغشية، اضمحلال الأغشية: membrane decay»"
+          source: "المعجم الموحد لمصطلحات المياه (2000)"
+    - lemma: "تخامد"
+      confirm:
+        - text: "«تخامد: damping/decay»"
+          source: "المعجم الموحد للمصطلحات المهنية والتقنية (1996)"
+    - lemma: "توهين"
+      confirm:
+        - text: "«نقصان مطال إشارة كهربائية، أثناء انتقالها بعيداً عن مصدرها.»"
+          source: "معجم مصطلحات المعلوماتية (2000)"
+    - lemma: "نضوب"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "اضمحلال"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي ودقيق في الفيزياء والكهرباء لوصف النقصان التدريجي (Decay)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "اضْمِحْلال"
+    - lemma: "تضاؤل"
+      decision: confirmed
+      decision_reason: "مقبول لوصف النقصان التدريجي المستمر، وورد في المعاجم العلمية كمرادف لـ decay."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَضاؤُل"
+    - lemma: "تلاش"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف قوي للاضمحلال، خاصة في سياق الصوت والأمواج، وموثق في المعاجم الفيزيائية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَلاشٍ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تخامد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تقني دقيق يصف تلاشي الطاقة أو السعة تدريجياً، خاصة في الدوائر الكهربائية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَخامُد", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "انخفاض تدريجي؛ كما في الشحنة المخزنة أو التيار"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكنه يحتاج إلى صياغة أكثر دقة وموسوعية لتشمل الجوانب الفيزيائية."
+    authored:
+      - type: terminological
+        text: "نُقْصانٌ تَدْريجيٌّ في كَمِّيَّةٍ أو شِدَّةٍ، كَما في الشِّحنةِ الكَهْرُبائيَّةِ المَخْزونَةِ أو مطالِ التَّيّارِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "نُقْصانٌ تَدْريجيٌّ في كَمِّيَّةٍ أو شِدَّةٍ، كَما في الشِّحنةِ الكَهْرُبائيَّةِ المَخْزونَةِ أو مطالِ التَّيّارِ."}
+  examples:
+    per_lemma:
+      - lemma: "اضْمِحْلال"
+        examples:
+          - text: "يحدث اضمحلال الشحنة في المكثف تدريجياً عند فصله عن المصدر."
+            type: usage
+      - lemma: "تَضاؤُل"
+        examples:
+          - text: "لوحظ تضاؤل شدة التيار الكهربائي في الدائرة نتيجة زيادة المقاومة."
+            type: usage
+      - lemma: "تَلاشٍ"
+        examples:
+          - text: "أدى تلاشي الموجات الصوتية في الوسط إلى انعدام الصدى."
+            type: usage
+      - lemma: "تَخامُد"
+        examples:
+          - text: "يعتمد تخامد الاهتزازات في الدائرة الكهربائية على قيمة المقاومة الداخلية."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يتم رصد اضمحلال التيار في الملفات الحثية عند انقطاع التغذية."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "اضْمِحْلال"
+      entry_id: "{auto}"
+      root: "ضمحل"
+    - lemma: "تَضاؤُل"
+      entry_id: "{auto}"
+      root: "ضأل"
+      maqayis_quote: "«الضَّادُ وَالْهَمْزَةُ وَاللَّامُ أُصَيْلٌ يَدُلُّ عَلَى ضَعْفٍ وَدِقَّةٍ فِي جِسْمٍ.»"
+    - lemma: "تَلاشٍ"
+      entry_id: "{auto}"
+      root: "لشي"
+    - lemma: "تَخامُد"
+      entry_id: "{auto}"
+      root: "خمد"
+  per_sense:
+    - lemma: "اضْمِحْلال"
+      sense_id: "{auto}"
+      nuance: "يُركز على الفقدان الذاتي أو الطبيعي للمادة أو الطاقة مع الزمن (Decay)."
+      mwe: false
+    - lemma: "تَضاؤُل"
+      sense_id: "{auto}"
+      nuance: "نقصان تدريجي عام في المقدار أو الشدة، وغالباً ما يُستخدم في السياقات غير الفيزيائية أيضاً."
+      mwe: false
+    - lemma: "تَلاشٍ"
+      sense_id: "{auto}"
+      nuance: "النقصان التدريجي الذي ينتهي بالعدم أو الزوال الكامل."
+      mwe: false
+    - lemma: "تَخامُد"
+      sense_id: "{auto}"
+      nuance: "نقصان تدريجي في سعة الاهتزاز أو مطال الإشارة بسبب وجود وسط مقاوم (Damping)."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ضمحل"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ضأل","maqayis":"«الضَّادُ وَالْهَمْزَةُ وَاللَّامُ أُصَيْلٌ يَدُلُّ عَلَى ضَعْفٍ وَدِقَّةٍ فِي جِسْمٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُركز على الفقدان الذاتي أو الطبيعي للمادة أو الطاقة مع الزمن (Decay)","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

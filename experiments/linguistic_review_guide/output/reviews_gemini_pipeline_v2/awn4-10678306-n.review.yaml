@@ -1,0 +1,300 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'رَوَاقِيّ' مشكولة بشكل خاطئ (بفتح الراء)، والصواب 'رِوَاقِيّ' (بكسر الراء)."
+      - "اللمة 'جَلِد' مشكولة بشكل خاطئ، والصواب 'جَلْد' بسكون اللام، أو 'جَلِيد'."
+      - "التعريف الحالي 'شخص يبدو غير مبالٍ بالعواطف' ترجمة حرفية ركيكة لا تعكس المعنى الدقيق في العربية."
+    observations: "المفهوم يشير إلى الشخص الذي يضبط انفعالاته ولا يظهر تأثراً عاطفياً. في العربية، يعبر عن ذلك بصفات تدل على القوة والصبر (مثل جَلْد وجليد) أو رباطة الجأش (مُتَمَاسِك)، وكذلك بالمصطلح الفلسفي السلوكي 'رِوَاقِيّ'. ويمكن إضافة مركب مثل 'مُتَبَلِّد الإحساس' للدلالة على الجانب السلبي من انعدام العواطف."
+  blind_candidates:
+    - lemma: "رِوَاقِيّ"
+      generation_method: ishtiqaq
+      justification: "نسبة إلى الفلسفة الرواقية التي تدعو إلى كبح العواطف."
+    - lemma: "مُتَبَلِّدُ الإِحْسَاسِ"
+      generation_method: tarkib
+      justification: "مركب وصفي إضافي يعبر عن فقدان التجاوب العاطفي."
+    - lemma: "بَارِدُ العَاطِفَةِ"
+      generation_method: tarkib
+      justification: "مركب وصفي إضافي يعبر عن برود المشاعر وعدم الانفعال."
+    - lemma: "جَلِيد"
+      generation_method: ishtiqaq
+      justification: "صفة مشبهة تدل على الصبر العظيم وعدم إظهار التأثر."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "جَلِد"
+      confirm:
+        - text: "«جلُد الشَّخْصُ: قوي واشتدّ بأسه- صبَر على المكروه فهو جَلْد»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "رَوَاقِيّ"
+      confirm:
+        - text: "«الرِّواقيّ: شخص رواقيّ المَسْلك. وبخاصة: مَنْ لا يتأثّر، ظاهريًّا، بالفرح أو التَّرَح»"
+          source: "المورد الحديث"
+    - lemma: "مُتَمَاسِك"
+      evidence_status: "no_material_found"
+    - lemma: "مُتَبَلِّدُ الإِحْسَاسِ"
+      confirm:
+        - text: "«متبلّد الشّعور؛ عديم الإحساس insensitive»"
+          source: "المورد الحديث"
+    - lemma: "جَلِيد"
+      confirm:
+        - text: "«الْجَلَدُ الصَّلَابَةُ وَالْجَلَادَةُ ... فَهُوَ جَلْدٌ وَجَلِيدٌ»"
+          source: "مختار الصحاح"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "جَلِد"
+      decision: confirmed
+      decision_reason: "الكلمة صحيحة في الدلالة على الصبر وتحمل المشاق دون إظهار التأثر، ولكن التشكيل في الشبكة (جَلِد) غير دقيق، والصواب (جَلْد)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "جَلْد"
+    - lemma: "رَوَاقِيّ"
+      decision: confirmed
+      decision_reason: "المصطلح دقيق ومستعمل للتعبير عن الشخص الذي يكبح عواطفه ولا يظهر الانفعال، لكن التشكيل يحتاج إلى تصحيح بكسر الراء."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "رِوَاقِيّ"
+    - lemma: "مُتَمَاسِك"
+      decision: confirmed
+      decision_reason: "صفة شائعة في الاستعمال المعاصر للدلالة على الشخص الذي يحافظ على رباطة جأشه في المواقف الصعبة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُتَمَاسِك"
+    - lemma: "مُتَبَلِّدُ الإِحْسَاسِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مركب وصفي دقيق للتعبير عن تبلد المشاعر وعدم الانفعال، ويغطي الجانب السلبي من المفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُتَبَلِّد الإِحْسَاسِ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "جَلِيد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف دقيق وتراثي لـ 'جَلْد' في الدلالة على صلابة الجأش وعدم إظهار الضعف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "جَلِيد"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "شخص يبدو غير مبالٍ بالعواطف"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ترجمة حرفية ركيكة لا تعكس المعنى الدقيق في العربية."
+    authored:
+      - type: terminological
+        text: "شخصٌ رابطُ الجأشِ يكبحُ عواطفَهُ ولا يُظهِرُ تأثُّراً ظاهريّاً بالانفعالاتِ، سواءٌ من بابِ التَّجلُّدِ أو تبلُّدِ الإحساسِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "جَلِد"
+        examples:
+          - text: "أظهرَ الرَّجلُ أنَّهُ جَلْدٌ أمامَ المصائبِ التي ألمَّتْ بِهِ."
+            type: usage
+      - lemma: "رَوَاقِيّ"
+        examples:
+          - text: "تلقَّى خبرَ إقالتِهِ بِهُدوءٍ رِوَاقِيٍّ مُلْفِتٍ."
+            type: usage
+      - lemma: "مُتَمَاسِك"
+        examples:
+          - text: "بقيَ الأبُ مُتَمَاسِكاً خِلالَ مَراسِمِ العَزاءِ."
+            type: usage
+      - lemma: "مُتَبَلِّدُ الإِحْسَاسِ"
+        examples:
+          - text: "كانَ مُتَبَلِّدَ الإِحْسَاسِ لا يَتَأَثَّرُ بِمُعاناةِ الآخَرِينَ."
+            type: usage
+      - lemma: "جَلِيد"
+        examples:
+          - text: "كانَ الشَّيخُ جَلِيداً لا تُهَزُّ قَناتُهُ."
+            type: usage
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "شخصٌ رابطُ الجأشِ يكبحُ عواطفَهُ ولا يُظهِرُ تأثُّراً ظاهريّاً بالانفعالاتِ، سواءٌ من بابِ التَّجلُّدِ أو تبلُّدِ الإحساسِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "أظهرَ الرَّجلُ أنَّهُ جَلْدٌ أمامَ المصائبِ التي ألمَّتْ بِهِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تلقَّى خبرَ إقالتِهِ بِهُدوءٍ رِوَاقِيٍّ مُلْفِتٍ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "بقيَ الأبُ مُتَمَاسِكاً خِلالَ مَراسِمِ العَزاءِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "كانَ مُتَبَلِّدَ الإِحْسَاسِ لا يَتَأَثَّرُ بِمُعاناةِ الآخَرِينَ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "كانَ الشَّيخُ جَلِيداً لا تُهَزُّ قَناتُهُ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "جَلِد"
+      entry_id: "{auto}"
+      root: "جلد"
+      maqayis_quote: "«الْجِيمُ وَاللَّامُ وَالدَّالُ أَصْلٌ وَاحِدٌ وَهُوَ يَدُلُّ عَلَى قُوَّةٍ وَصَلَابَةٍ.»"
+    - lemma: "رَوَاقِيّ"
+      entry_id: "{auto}"
+      root: "روق"
+      maqayis_quote: "«الرَّاءُ وَالْوَاوُ وَالْقَافُ أَصْلَانِ، يَدُلُّ أَحَدُهُمَا عَلَى تَقَدُّمِ شَيْءٍ، وَالْآخَرُ عَلَى حُسْنٍ وَجَمَالٍ.»"
+    - lemma: "مُتَمَاسِك"
+      entry_id: "{auto}"
+      root: "مسك"
+      maqayis_quote: "«الْمِيمُ وَالسِّينُ وَالْكَافُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى حَبْسِ الشَّيْءِ أَوْ تَحَبُّسِهِ.»"
+    - lemma: "مُتَبَلِّدُ الإِحْسَاسِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "متبلد"
+          root: "بلد"
+          maqayis_quote: "«الْبَاءُ وَاللَّامُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَتَقَارَبُ فُرُوعُهُ عِنْدَ النَّظَرِ فِي قِيَاسِهِ، وَالْأَصْلُ الصَّدْرُ.»"
+        - word: "الإحساس"
+          root: "حس"
+          maqayis_quote: "«الْحَاءُ وَالسِّينُ أَصْلَانِ: فَالْأَوَّلُ غَلَبَةُ الشَّيْءِ بِقَتْلٍ أَوْ غَيْرِهِ، وَالثَّانِي حِكَايَةُ صَوْتٍ عِنْدَ تَوَجُّعٍ وَشَبَهِهِ.»"
+    - lemma: "جَلِيد"
+      entry_id: "{auto}"
+      root: "جلد"
+      maqayis_quote: "«الْجِيمُ وَاللَّامُ وَالدَّالُ أَصْلٌ وَاحِدٌ وَهُوَ يَدُلُّ عَلَى قُوَّةٍ وَصَلَابَةٍ.»"
+  per_sense:
+    - lemma: "جَلِد"
+      sense_id: "{auto}"
+      nuance: "يُركز على قوة التحمل والصبر على المكروه دون إظهار الضعف أو الألم."
+      mwe: false
+    - lemma: "رَوَاقِيّ"
+      sense_id: "{auto}"
+      nuance: "يُركز على الجانب الفلسفي أو السلوكي المتمثل في كبح العواطف وعدم التأثر ظاهرياً."
+      mwe: false
+    - lemma: "مُتَمَاسِك"
+      sense_id: "{auto}"
+      nuance: "يُركز على القدرة على ضبط النفس وعدم الانهيار في المواقف العاطفية أو الصعبة."
+      mwe: false
+    - lemma: "مُتَبَلِّدُ الإِحْسَاسِ"
+      sense_id: "{auto}"
+      nuance: "يُشير إلى حالة سلبية من فقدان الاستجابة العاطفية أو تبلد المشاعر."
+      mwe: true
+    - lemma: "جَلِيد"
+      sense_id: "{auto}"
+      nuance: "مرادف لـ 'جَلْد'، ويدل على ثبات الجأش والصبر العظيم والمبالغة فيه."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جلد","maqayis":"«الْجِيمُ وَاللَّامُ وَالدَّالُ أَصْلٌ وَاحِدٌ وَهُوَ يَدُلُّ عَلَى قُوَّةٍ وَصَلَابَةٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"روق","maqayis":"«الرَّاءُ وَالْوَاوُ وَالْقَافُ أَصْلَانِ، يَدُلُّ أَحَدُهُمَا عَلَى تَقَدُّمِ شَيْءٍ، وَالْآخَرُ عَلَى حُسْنٍ وَجَمَالٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"مسك","maqayis":"«الْمِيمُ وَالسِّينُ وَالْكَافُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى حَبْسِ الشَّيْءِ أَوْ تَحَبُّسِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"متبلد","root":"بلد","maqayis":"«الْبَاءُ وَاللَّامُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَتَقَارَبُ فُرُوعُهُ عِنْدَ النَّظَرِ فِي قِيَاسِهِ، وَالْأَصْلُ الصَّدْرُ.»"},{"word":"الإحساس","root":"حس","maqayis":"«الْحَاءُ وَالسِّينُ أَصْلَانِ: فَالْأَوَّلُ غَلَبَةُ الشَّيْءِ بِقَتْلٍ أَوْ غَيْرِهِ، وَالثَّانِي حِكَايَةُ صَوْتٍ عِنْدَ تَوَجُّعٍ وَشَبَهِهِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جلد","maqayis":"«الْجِيمُ وَاللَّامُ وَالدَّالُ أَصْلٌ وَاحِدٌ وَهُوَ يَدُلُّ عَلَى قُوَّةٍ وَصَلَابَةٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُركز على قوة التحمل والصبر على المكروه دون إظهار الضعف أو الألم.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُركز على الجانب الفلسفي أو السلوكي المتمثل في كبح العواطف وعدم التأثر ظاهرياً.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُركز على القدرة على ضبط النفس وعدم الانهيار في المواقف العاطفية أو الصعبة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُشير إلى حالة سلبية من فقدان الاستجابة العاطفية أو تبلد المشاعر.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مرادف لـ \"جَلْد\"، ويدل على ثبات الجأش والصبر العظيم والمبالغة فيه.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

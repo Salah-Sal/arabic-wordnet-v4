@@ -1,0 +1,179 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي صياغة مترجمة حرفيا، ويمكن تحسين أسلوبها المعجمي."
+    observations: "المفهوم الممثل في المجموعة الترادفية بسيط ومباشر، ويعبر عنه في العربية باسم الفاعل (عَاطِس) من الفعل (عَطَسَ)."
+  blind_candidates:
+    - lemma: "عَاطِس"
+      generation_method: ishtiqaq
+      justification: "اسم الفاعل القياسي من الفعل (عَطَسَ) لمن يقوم بالفعل."
+    - lemma: "عَطَّاس"
+      generation_method: ishtiqaq
+      justification: "صيغة مبالغة على وزن (فَعَّال) للدلالة على من يكثر منه العطاس."
+    - lemma: "مِعْطَاس"
+      generation_method: ishtiqaq
+      justification: "صيغة مبالغة على وزن (مِفْعَال) للدلالة على الشدة والكثرة."
+    - lemma: "عَطُوس"
+      generation_method: ishtiqaq
+      justification: "صيغة مبالغة على وزن (فَعُول) للمبالغة في الفعل."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "عَاطِس"
+      confirm:
+        - text: "«... قبل أن أَسمع عُطاس عاطِس ...»"
+          source: "لسان العرب لابن منظور"
+      expands:
+        - text: "«(الْعَاطِس) من الظباء الَّذِي يستقبلك من أمامك وَالصُّبْح»"
+          source: "المعجم الوسيط لمجموعة من المؤلفين"
+          addition: "له استخدامات مجازية قديمة (كالظبي أو الصبح)."
+    - lemma: "عَطَّاس"
+      confirm:
+        - text: "«عَطَّاس من (ع ط س) الشديد العطس والكثيره.»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+    - lemma: "مِعْطَاس"
+      confirm:
+        - text: "«مِعْطَاس من (ع ط س) الكثير العطس.»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+    - lemma: "عَطُوس"
+      expands:
+        - text: "«(العطوس) من الرِّجَال الَّذِي يَسْتَقْدِم فِي الغمرات والحروب»"
+          source: "المعجم الوسيط لمجموعة من المؤلفين"
+          addition: "يستخدم مجازياً للرجل الشجاع المقدام."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "عَاطِس"
+      decision: confirmed
+      decision_reason: "هو الوصف القياسي والمباشر (اسم الفاعل) لمن يقوم بفعل العطس، وهو الأنسب والأكثر دقة للمجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عَاطِس"
+    - lemma: "عَطَّاس"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صيغة مبالغة قياسية وفصيحة ومثبتة معجمياً لمن يكثر منه العطاس (sneezer)، وتثري المجموعة الترادفية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "عَطَّاس"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "مِعْطَاس"
+      source: stage1
+      decision: removed
+      decision_reason: "صيغة صحيحة ولكن 'عَطَّاس' تغني عنها في الدلالة على المبالغة."
+    - lemma: "عَطُوس"
+      source: stage1
+      decision: removed
+      decision_reason: "استخدامها المعجمي الغالب هو الاستخدام المجازي للرجل الشجاع والمقدام."
+
+stage4_content:
+  definition:
+    current: "شخص يعطس"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ترجمة حرفية بسيطة، ويمكن استبداله بتعريف لغوي أدق بأسلوب المعاجم العربية."
+    authored:
+      - type: linguistic
+        text: "مَنْ يَصْدُرُ عَنْهُ العُطَاسُ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "مَنْ يَصْدُرُ عَنْهُ العُطَاسُ."
+  examples:
+    per_lemma:
+      - lemma: "عَاطِس"
+        examples:
+          - text: "يُسْتَحَبُّ تَشْمِيتُ العَاطِسِ إِذَا حَمِدَ اللَّهَ."
+            type: usage
+      - lemma: "عَطَّاس"
+        examples:
+          - text: "يُعَانِي العَطَّاسُ مِنْ حَسَاسِيَّةٍ تُهَيِّجُ جِيُوبَهُ الأَنْفِيَّةَ فِي فَصْلِ الرَّبِيعِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يُسْتَحَبُّ تَشْمِيتُ العَاطِسِ إِذَا حَمِدَ اللَّهَ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يُعَانِي العَطَّاسُ مِنْ حَسَاسِيَّةٍ تُهَيِّجُ جِيُوبَهُ الأَنْفِيَّةَ فِي فَصْلِ الرَّبِيعِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "عَاطِس"
+      entry_id: "{auto}"
+      root: "عطس"
+      maqayis_quote: "«(عَطَسَ) الْعَيْنُ وَالطَّاءُ وَالسِّينُ كَلِمَةٌ وَاحِدَةٌ ثُمَّ تُسْتَعَارُ، وَهِيَ الْعُطَاسُ»"
+    - lemma: "عَطَّاس"
+      entry_id: "{auto}"
+      root: "عطس"
+      maqayis_quote: "«(عَطَسَ) الْعَيْنُ وَالطَّاءُ وَالسِّينُ كَلِمَةٌ وَاحِدَةٌ ثُمَّ تُسْتَعَارُ، وَهِيَ الْعُطَاسُ»"
+  per_sense:
+    - lemma: "عَاطِس"
+      sense_id: "{auto}"
+      nuance: "الوصف القياسي والمباشر لفاعل العطس العابر."
+      mwe: false
+    - lemma: "عَطَّاس"
+      sense_id: "{auto}"
+      nuance: "صيغة مبالغة تدل على من يكثر منه العطاس ويشتد."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عطس","maqayis":"«(عَطَسَ) الْعَيْنُ وَالطَّاءُ وَالسِّينُ كَلِمَةٌ وَاحِدَةٌ ثُمَّ تُسْتَعَارُ، وَهِيَ الْعُطَاسُ»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عطس","maqayis":"«(عَطَسَ) الْعَيْنُ وَالطَّاءُ وَالسِّينُ كَلِمَةٌ وَاحِدَةٌ ثُمَّ تُسْتَعَارُ، وَهِيَ الْعُطَاسُ»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الوصف القياسي والمباشر لفاعل العطس العابر.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"صيغة مبالغة تدل على من يكثر منه العطاس ويشتد.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

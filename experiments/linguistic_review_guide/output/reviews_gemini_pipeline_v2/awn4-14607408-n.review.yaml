@@ -1,0 +1,146 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة غير مشكولة تشكيلاً كاملاً."
+      - "المجموعة تحتوي على لمة واحدة فقط، بينما توجد بدائل معربة أو معربة جزئياً في المعاجم المتخصصة."
+    observations: "المفهوم علمي تاريخي بائد يرجع للقرن الثامن عشر، والمصطلح الغالب عليه هو التعريب المباشر (Phlogiston)، لكن توجد محاولات لتعريبه بمصطلحات أصيلة مثل 'اللاهوب'."
+  blind_candidates:
+    - lemma: "فَلُوجِسْتُون"
+      generation_method: taarib
+      justification: "التعريب المباشر للمصطلح العالمي، وهو الأكثر شيوعاً وتداولاً في تاريخ العلوم والترجمة العربية الحديثة."
+    - lemma: "اللَّاهُوب"
+      generation_method: ishtiqaq
+      justification: "اشتقاق على وزن (فاعول) من جذر (لهب)، وهو وزن يدل على المبالغة أو المادة الفاعلة، ليدل على المادة المسؤولة عن اللهب."
+    - lemma: "عُنْصُرُ الِاحْتِرَاق"
+      generation_method: tarkib
+      justification: "تركيب إضافي يصف الوظيفة المفترضة لهذه المادة كعنصر أساسي مسبب لعملية الاحتراق."
+    - lemma: "مَادَّةُ اللَّهَب"
+      generation_method: tarkib
+      justification: "تركيب إضافي يربط المادة بالظاهرة المرئية (اللهب) التي زُعم أنها تنطلق منها."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "فَلُوجِسْتُون"
+      confirm:
+        - text: "«فلوجيستون (مادة مفترضة في الاحتراق)»"
+          source: "المعجم الطبي الموحد (2009)"
+        - text: "«نظرية الفلوجيستون: phlogiston theory»"
+          source: "المعجم الموحد لمصطلحات الكيمياء (1992)"
+    - lemma: "اللَّاهُوب"
+      confirm:
+        - text: "«اللّاهوب: مادة كيميائية وهميّة كان يُعْتَقَد، قبل اكتشاف الأكسجين، أنها من المُقَوِّمات الأساسية للأجسام الملتهبة.»"
+          source: "المورد الحديث (2008)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "فلوجستون"
+      decision: confirmed
+      decision_reason: "المصطلح العلمي الأكثر شيوعاً واستقراراً في اللغة العربية المعاصرة لتمثيل المفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "فَلُوجِسْتُون"
+        - command: add_form
+          params:
+            entry_id: "{auto}"
+            written_form: "فَلُوجِيستُون"
+    - lemma: "اللَّاهُوب"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح عربي أصيل (تعريب مفهومي) موثق في المعاجم الحديثة (المورد الحديث) كمرادف دقيق للفلوجستون."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "اللَّاهُوب"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "مادة افتراضية كان يعتقد سابقاً بوجودها في جميع المواد القابلة للاحتراق ويتم إطلاقها أثناء الاحتراق"
+    assessment:
+      decision: retain
+      reason: "التعريف الحالي دقيق وعلمي ويغطي الجوهر الدلالي للمفهوم بوضوح."
+  examples:
+    per_lemma:
+      - lemma: "فَلُوجِسْتُون"
+        examples:
+          - text: "كان الكيميائيون يعتقدون أن مادة الفلوجستون تخرج من الأجسام عند اشتعالها."
+            type: usage
+      - lemma: "اللَّاهُوب"
+        examples:
+          - text: "اقترح بعض اللغويين استخدام كلمة اللاهوب كترجمة عربية لمصطلح الفلوجستون."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "طوّر الكيميائي شتال نظرية الفلوجستون لتفسير ظواهر الاحتراق والتأكسد."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "فَلُوجِسْتُون"
+      entry_id: "{auto}"
+    - lemma: "اللَّاهُوب"
+      entry_id: "{auto}"
+      root: "لهب"
+      maqayis_quote: "«اللَّامُ وَالْهَاءُ وَالْبَاءُ أَصْلٌ صَحِيحٌ، وَهُوَ ارْتِفَاعُ لِسَانِ النَّارِ، ثُمَّ يُقَاسُ عَلَيْهِ مَا يُقَارِبُهُ. مِنْ ذَلِكَ اللَّهَبُ: لَهَبُ النَّارِ.»"
+  per_sense:
+    - lemma: "فَلُوجِسْتُون"
+      sense_id: "{auto}"
+      nuance: "المصطلح العلمي المعرب المباشر والأكثر تداولاً في الكتب الأكاديمية."
+      mwe: false
+    - lemma: "اللَّاهُوب"
+      sense_id: "{auto}"
+      nuance: "بديل عربي أصيل مقترح في المعاجم الحديثة، يعتمد على الاشتقاق لتمثيل المفهوم."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":null,"origin":"Greek"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"لهب","maqayis":"«اللَّامُ وَالْهَاءُ وَالْبَاءُ أَصْلٌ صَحِيحٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العلمي المعرب المباشر","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"بديل عربي أصيل مقترح","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

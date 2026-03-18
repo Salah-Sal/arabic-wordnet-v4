@@ -1,0 +1,207 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة 'رأس المضرب' هي ترجمة لـ 'clubhead' وليس لـ 'toe' الذي هو جزء من الرأس."
+      - "التعريف يذكر 'جزء رأس المضرب' مما يؤكد أن 'رأس المضرب' نفسه ليس المفهوم المقصود هنا، بل هو الكل."
+    observations: "مصطلح 'toe' في سياق مضرب الغولف يشير إلى الجزء الأبعد عن مقبض العصا. في اللغة العربية، يعبر عن نهايات الأشياء وأطرافها بكلمات مثل 'طَرَف' أو 'مُقَدَّم'. المفهوم يفتقر إلى كلمة مفردة متخصصة ويحتاج إلى تعبير مركب إضافي لتوضيحه."
+  blind_candidates:
+    - lemma: "طَرَفُ المِضْرَبِ"
+      generation_method: tarkib
+      justification: "تعبير مركب إضافي وصفي يدل على الجزء الأقصى والأبعد من المضرب."
+    - lemma: "مُقَدَّمُ المِضْرَبِ"
+      generation_method: tarkib
+      justification: "يشير إلى الجزء الأمامي أو المتقدم من المضرب."
+    - lemma: "شَبَاةُ المِضْرَبِ"
+      generation_method: majaz
+      justification: "الشباة في العربية هي حدّ الشيء وطرفه، واستخدامها هنا مجازي قياساً على أطراف الأدوات."
+    - lemma: "أَنْفُ المِضْرَبِ"
+      generation_method: majaz
+      justification: "استخدام مجازي لكلمة أنف للدلالة على الجزء البارز الممتد الأبعد، قياساً على الاستخدام الإنجليزي toe."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "رأس المضرب"
+      evidence_status: "no_material_found"
+    - lemma: "طَرَفُ المِضْرَبِ"
+      evidence_status: "no_material_found"
+    - lemma: "مُقَدَّمُ المِضْرَبِ"
+      evidence_status: "no_material_found"
+    - lemma: "شَبَاةُ المِضْرَبِ"
+      evidence_status: "no_material_found"
+    - lemma: "أَنْفُ المِضْرَبِ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "رأس المضرب"
+      decision: removed
+      decision_reason: "الترجمة غير دقيقة، فـ 'رأس المضرب' يقابل (clubhead) وهو الكل، بينما المفهوم هنا هو (toe) وهو جزء من هذا الرأس."
+      evidence_assessment:
+        case: no_material
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+            
+    - lemma: "طَرَفُ المِضْرَبِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير وصفي دقيق ومناسب يدل على الجزء الأقصى من الأداة وهو ما يطابق المفهوم (toe) في المضرب."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "طَرَفُ المِضْرَبِ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "مُقَدَّمُ المِضْرَبِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يستخدم 'مقدم' في العربية للدلالة على الجزء الأمامي أو المتقدم من الأشياء، وهو مرادف جيد في هذا السياق الرياضي."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُقَدَّمُ المِضْرَبِ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "شَبَاةُ المِضْرَبِ"
+      source: stage1
+      decision: removed
+      decision_reason: "على الرغم من صحتها لغوياً، إلا أنها مهجورة ولا تستخدم في السياقات الرياضية المعاصرة."
+      evidence_assessment:
+        case: no_material
+
+    - lemma: "أَنْفُ المِضْرَبِ"
+      source: stage1
+      decision: removed
+      decision_reason: "الاستعارة هنا قد تكون غريبة على السياق الرياضي العربي، والبدائل الأخرى أكثر شيوعاً ومباشرة."
+      evidence_assessment:
+        case: no_material
+
+stage4_content:
+  definition:
+    current: "(الغولف) جزء رأس المضرب الأبعد عن العصا"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مفهوم ولكنه صياغياً ركيك بعض الشيء، ويمكن تحسينه ليكون أكثر دقة وجرياناً على اللسان العربي."
+    authored:
+      - type: terminological
+        text: "الجُزْءُ مِنْ رَأْسِ مِضْرَبِ الغُولْفِ الأَبْعَدُ عَنْ مِقْبَضِهِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "الجُزْءُ مِنْ رَأْسِ مِضْرَبِ الغُولْفِ الأَبْعَدُ عَنْ مِقْبَضِهِ."
+
+  examples:
+    per_lemma:
+      - lemma: "طَرَفُ المِضْرَبِ"
+        examples:
+          - text: "أَصابَتِ الكُرَةُ طَرَفَ المِضْرَبِ فَانْحَرَفَتْ عَنْ مَسارِها الصَّحيحِ."
+            type: usage
+      - lemma: "مُقَدَّمُ المِضْرَبِ"
+        examples:
+          - text: "يُفَضِّلُ بَعْضُ اللاعِبينَ ضَرْبَ الكُرَةِ بِمُقَدَّمِ المِضْرَبِ لِتَحْقيقِ تَأْثيرٍ مُعَيَّنٍ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "أَصابَتِ الكُرَةُ طَرَفَ المِضْرَبِ فَانْحَرَفَتْ عَنْ مَسارِها الصَّحيحِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يُفَضِّلُ بَعْضُ اللاعِبينَ ضَرْبَ الكُرَةِ بِمُقَدَّمِ المِضْرَبِ لِتَحْقيقِ تَأْثيرٍ مُعَيَّنٍ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "طَرَفُ المِضْرَبِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "طرف"
+          root: "طرف"
+          maqayis_quote: "«الطَّاءُ وَالرَّاءُ وَالْفَاءُ أَصْلَانِ: فَالْأَوَّلُ يَدُلُّ عَلَى حَدِ الشَّيْءِ وَحَرْفِهِ...»"
+        - word: "المضرب"
+          root: "ضرب"
+          maqayis_quote: "«الضَّادُ وَالرَّاءُ وَالْبَاءُ أَصْلٌ وَاحِدٌ، ثُمَّ يُسْتَعَارُ وَيُحْمَلُ عَلَيْهِ. مِنْ ذَلِكَ ضَرَبْتُ ضَرْبًا...»"
+    - lemma: "مُقَدَّمُ المِضْرَبِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مقدم"
+          root: "قدم"
+          maqayis_quote: "«الْقَافُ وَالدَّالُ وَالْمِيمُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى سَبْقٍ وَرَعْفٍ ثُمَّ يُفَرَّعُ مِنْهُ مَا يُقَارِبُهُ...»"
+        - word: "المضرب"
+          root: "ضرب"
+          maqayis_quote: "«الضَّادُ وَالرَّاءُ وَالْبَاءُ أَصْلٌ وَاحِدٌ، ثُمَّ يُسْتَعَارُ وَيُحْمَلُ عَلَيْهِ. مِنْ ذَلِكَ ضَرَبْتُ ضَرْبًا...»"
+
+  per_sense:
+    - lemma: "طَرَفُ المِضْرَبِ"
+      sense_id: "{auto}"
+      nuance: "يُركز على كون هذا الجزء هو الحد أو النهاية القصوى للمضرب."
+      mwe: true
+    - lemma: "مُقَدَّمُ المِضْرَبِ"
+      sense_id: "{auto}"
+      nuance: "يُركز على الجانب الأمامي أو البارز المتجه نحو مسار الكرة."
+      mwe: true
+
+  synset:
+    cultural_fit: phraset
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"طرف","root":"طرف","maqayis":"«الطَّاءُ وَالرَّاءُ وَالْفَاءُ أَصْلَانِ: فَالْأَوَّلُ يَدُلُّ عَلَى حَدِ الشَّيْءِ وَحَرْفِهِ...»"},{"word":"المضرب","root":"ضرب","maqayis":"«الضَّادُ وَالرَّاءُ وَالْبَاءُ أَصْلٌ وَاحِدٌ، ثُمَّ يُسْتَعَارُ وَيُحْمَلُ عَلَيْهِ. مِنْ ذَلِكَ ضَرَبْتُ ضَرْبًا...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُركز على كون هذا الجزء هو الحد أو النهاية القصوى للمضرب.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مقدم","root":"قدم","maqayis":"«الْقَافُ وَالدَّالُ وَالْمِيمُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى سَبْقٍ وَرَعْفٍ ثُمَّ يُفَرَّعُ مِنْهُ مَا يُقَارِبُهُ...»"},{"word":"المضرب","root":"ضرب","maqayis":"«الضَّادُ وَالرَّاءُ وَالْبَاءُ أَصْلٌ وَاحِدٌ، ثُمَّ يُسْتَعَارُ وَيُحْمَلُ عَلَيْهِ. مِنْ ذَلِكَ ضَرَبْتُ ضَرْبًا...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُركز على الجانب الأمامي أو البارز المتجه نحو مسار الكرة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"phraset"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,170 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "تيار مائي"
+      expands:
+        - text: "«تيار مائي»"
+          source: "مسرد الجغرافيا والتاريخ، المنظمة العربية للتربية والثقافة والعلوم (موقع ArabTerm)"
+          addition: "مصطلح تقني لتيار المياه يتقاطع مع المفهوم"
+    - lemma: "مجرى مائي"
+      confirm:
+        - text: "«يقصد بالمجرى المائي- طبقاً للمادة 2 من اتفاقية الأمم المتحدة لعام 1997 بشأن الاستخدامات لغير أغراض الملاحة للمجاري المائية الدولية- نظام المياه السطحية والمياه الجوفية التي تشكل بحكم علاقاتها الطبيعية (المادية) ببعضها البعض كتلة واحدة، والتي تتدفق وتندفع نحو نقطة وصول واحدة.»"
+          source: "المعجم الموحد لمصطلحات المياه (2000)"
+        - text: "«هي مجاري بمياه متدفقة مواقع مائية، وتشمل الطبيعية والاصطناعية، على أن يكون هناك انحدار.»"
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة (1996)"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "ماء جار"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«المجاري المائية السطحية المُتدفقة باستمرار أو على فترات زمنية مُعينة. وهو المُسمى العام للجداول، والأنهار، والتيارات المائية، والقنوات، وما شابه ذلك.» — المعجم الموحد لمصطلحات المياه (2000)"
+      justification: "مصطلح يطابق التعريف بدقة ويعبر عن عموم المياه الجارية، وقد ورد في المعاجم الحديثة كمقابل لـ flowing water."
+    - lemma: "جدول"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«مجرى مائي صغير» — المعجم الموحد لمصطلحات الجيولوجيا (2000)"
+      justification: "الجدول هو مجرى مائي مستمر الجريان يعبر عن المفهوم."
+  knowledge_candidates:
+    - lemma: "مسيل مائي"
+      justification: "تركيب وصفي من اشتقاق 'مسيل' (ما سال من الماء أو موضع السيل) و'مائي'، يطلق على المجرى الطبيعي للماء المطابق لمفهوم stream."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "تيار مائي"
+      decision: confirmed
+      decision_reason: "مصطلح تقني مستقر يعبر عن حركة المياه أو المسار المائي"
+      evidence_assessment:
+        case: "expands_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على قوة التدفق والحركة الدائمة للماء داخل المسار"
+      example: "جرف التيار المائي القوي القارب الصغير بعيداً عن الشاطئ."
+      actions: []
+    - lemma: "مجرى مائي"
+      decision: confirmed
+      decision_reason: "مصطلح دقيق ومستقر يعبر عن المسار الذي تجري فيه المياه، ويطابق التعريف المعتمد"
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على الحيز المكاني (المسار أو القناة) الذي تتدفق فيه المياه سواء كانت سطحية أو جوفية"
+      example: "يعتبر النهر مجرى مائياً طبيعياً يغذي الأراضي الزراعية المحيطة به."
+      actions: []
+    - lemma: "ماء جار"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح فصيح ومستقر يمثل المفهوم العام للمياه المتدفقة"
+      step05_citation: "«المجاري المائية السطحية المُتدفقة باستمرار أو على فترات زمنية مُعينة...» — المعجم الموحد لمصطلحات المياه (2000)"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على طبيعة الماء نفسه وحالته الحركية أكثر من التركيز على المسار المكاني"
+      example: "تعتمد القرية في ريها على ماء جارٍ ينبع من الجبل."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "ماء جار"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09471510-n"
+    - lemma: "جدول"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح فصيح وشائع يعبر عن المجرى المائي"
+      step05_citation: "«مجرى مائي صغير» — المعجم الموحد لمصطلحات الجيولوجيا (2000)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يخص المجرى المائي الذي غالباً ما يكون أصغر حجماً من النهر"
+      example: "تتجمع مياه الأمطار لتشكل جدولاً يمر عبر الوادي."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "جدول"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09471510-n"
+  added_lemmas:
+    - lemma: "ماء جار"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+    - lemma: "جدول"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "جسم طبيعي من المياه الجارية يتدفق فوق الأرض أو تحتها"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وشامل لجميع أنواع المجاري المائية والتيارات ويطابق المفهوم الإنجليزي تماماً."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-09248053-n"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "تيار مائي"
+        antonym_found: false
+      - lemma: "مجرى مائي"
+        antonym_found: false
+      - lemma: "ماء جار"
+        antonym_found: false
+      - lemma: "جدول"
+        antonym_found: false
+  verb_checks:
+    applicable: false
+  selectional_restrictions:
+    - lemma: "تيار مائي"
+      constraint: "يوصف بالسرعة أو البطء"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "تيار مائي"
+      enrichment:
+        root: "ت-ي-ر"
+      examples:
+        - text: "ساهم التيار المائي السريع في توليد الطاقة الكهربائية بكفاءة عالية."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "مجرى مائي"
+      enrichment:
+        root: "ج-ر-ي"
+      examples:
+        - text: "يجب حماية كل مجرى مائي من التلوث الصناعي."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "ماء جار"
+      enrichment:
+        root: "م-و-ه"
+      examples:
+        - text: "تعتمد القرية في ريها على ماء جارٍ ينبع من الجبل."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "جدول"
+      enrichment:
+        root: "ج-د-ل"
+      examples:
+        - text: "تتجمع مياه الأمطار لتشكل جدولاً يمر عبر الوادي."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

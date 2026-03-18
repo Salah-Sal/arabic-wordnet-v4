@@ -1,0 +1,153 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "قاطع لللبن"
+      confirm:
+        - text: "«قاطِعٌ للَّبَن» — المعجم الطبي الموحد (2009)"
+          source: "المعجم الطبي الموحد (2009)"
+          conflict: "اللمّة في AWN مـكتوبة بثلاث لامات (لللبن) بينما هي في المعجم بلامين (للَّبن) وفقاً لقواعد الإملاء."
+    - lemma: "مانع لإفراز الحليب"
+      evidence_status: "no_material_found"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "قاطع اللبن"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«قاطِعُ اللَّبَن» — المعجم الطبي الموحد (2009)"
+      justification: "مصطلح طبي معتمد في المعجم الطبي الموحد (UMD) كمرادف لمصطلح phygogalactic المرادف لـ lactifuge."
+    - lemma: "قاطع للبن"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«قاطِعٌ للَّبَن» — المعجم الطبي الموحد (2009)"
+      justification: "الشكل الصحيح إملائياً للمّة الموجودة في AWN، وهو معتمد في UMD."
+  knowledge_candidates:
+    - lemma: "مُوقِف الإلبان"
+      justification: "اشتقاق مصطلحي من 'الإلبان' (lactation) و'موقف' (stopper/inhibitor) لمواكبة مصطلحات مثل 'توقف الإلبان'."
+  generation_notes: "اللمّات الطبية في هذا المجال تتبع غالباً نمط 'قاطع + اللبن' أو 'مدر + اللبن'."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "قاطع لللبن"
+      decision: removed
+      decision_reason: "خطأ إملائي فادح؛ كُتبت اللمّة بثلاث لامات 'لللبن' والصواب بلامين 'للَّبن'، لأن اللام الأولى هي حرف الجر واللام الثانية هي لام التعريف التي تليها لام الكلمة الأصلية 'لبن' (لـ + الـ + لبن -> للَّبن)."
+      evidence_assessment:
+        case: "confirm"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "لا يوجد فرق دلالي، بل هو خطأ كتابي فحسب."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "مانع لإفراز الحليب"
+      decision: removed
+      decision_reason: "تعبير وصفي حر (تركيب وصفي إضافي) يغلب عليه طابع الشرح والتعريف وليس مصطلحاً مسكوكاً مستقراً في المعاجم الطبية."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "وصف عام للوظيفة بينما المصطلحات المتخصصة تميل للاختصار (مثل قاطع اللبن)."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "قاطع اللبن"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح طبي معتمد ومستقر في المعجم الطبي الموحد (UMD) لتمثيل المفهوم العلمي 'phygogalactic'."
+      step05_citation: "«قاطِعُ اللَّبَن» — المعجم الطبي الموحد (2009)"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على النتيجة النهائية وهي 'قطع' إنتاج اللبن، ويغلب استخدامه في السياق الصيدلاني."
+      example: "يُوصي الطبيب بتناول دواء قاطع اللبن في حال رغبة الأم في التوقف عن الرضاعة الطبيعية."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "قاطع اللبن"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-14953347-n"
+
+    - lemma: "قاطع للبن"
+      source: step05
+      decision: confirmed
+      decision_reason: "الصيغة الإملائية الصحيحة للمصطلح الوارد في AWN، وهي معتمدة في المعاجم الطبية."
+      step05_citation: "«قاطِعٌ للَّبَن» — المعجم الطبي الموحد (2009)"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "مرادف تام لـ 'قاطع اللبن' مع اختلاف طفيف في الصياغة (إضافة لام الجر)."
+      example: "يُعتبر هذا المستحضر الكيميائي عاملاً قاطعاً للبن."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "قاطع للبن"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-14953347-n"
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "أي عامل يقلل من إفراز الحليب (يعطى مثلاً للمرأة التي لا ترضع)"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي أقرب للوصف العام، ويحتاج لصياغة أكثر دقة ومصطلحية."
+  authored_definitions:
+    - type: terminological
+      text: "مادَّةٌ أَو عامِلٌ كيمْيائِيٌّ يَعْمَلُ عَلى تَقْليلِ إِفْرازِ اللَّبَنِ في الثَّدْيِ أَو إِيقافِهِ."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-14953347-n"
+        definition_index: 0
+        text: "مادَّةٌ أَو عامِلٌ كيمْيائِيٌّ يَعْمَلُ عَلى تَقْليلِ إِفْرازِ اللَّبَنِ في الثَّدْيِ أَو إِيقافِهِ."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عَامِل كِيمْيَائِيّ"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "قاطع اللبن"
+        antonym_found: true
+        antonym: "مدر اللبن"
+  actions:
+    - command: add_synset_relation
+      params:
+        source_id: "awn4-14953347-n"
+        relation_type: "antonym"
+        target_id: "awn4-00000000-n" # مدر اللبن (يجب تحديد المعرّف الفعلي إن وجد)
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "قاطع اللبن"
+      enrichment:
+        root: "ق-ط-ع"
+      examples:
+        - text: "يُستعمل قاطع اللبن لتجفيف الثدي عند الفطام."
+          source: "مؤلَّف"
+    - lemma: "قاطع للبن"
+      enrichment:
+        root: "ق-ط-ع"
+      examples:
+        - text: "يُصنف هذا العقار ضمن الأدوية القاطعة للبن."
+          source: "مؤلَّف"
+  cultural_fit:
+    assessment: native

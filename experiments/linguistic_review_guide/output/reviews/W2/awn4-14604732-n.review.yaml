@@ -1,0 +1,208 @@
+# ═══════════════════════════════════════════════════════════════
+# مراجعة المجموعة الترادفية: awn4-14604732-n
+# ═══════════════════════════════════════════════════════════════
+
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'كيمياء' تُستخدم غالباً كاسم للعلم، لكنها فصيحة أيضاً للدلالة على الخصائص والتركيب عند إضافتها لمادة ما."
+      - "المجموعة الحالية تفتقر إلى بعض المترادفات الشائعة في السياقات التقنية الحديثة مثل 'تكوين' أو 'بنية'."
+    observations: "المجموعة تغطي مفهومين متكاملين: المكونات (Composition) والخواص (Properties). 'تركيب كيميائي' يركز على الأول، بينما 'كيمياء' تجمع بينهما."
+  blind_candidates:
+    - lemma: "تَرْكِيب كِيمْيَائِيّ"
+      generation_method: tarkib
+      justification: "اشتقاق وصفي مباشر من التعريف لبيان المكونات الكيميائية."
+    - lemma: "كِيمْيَاء"
+      generation_method: ishtiqaq
+      justification: "استخدام اسم العلم للدلالة على الخصائص والتركيب (بالمجاز المرسل/علاقة المجاورة)."
+    - lemma: "تَكْوِين كِيمْيَائِيّ"
+      generation_method: tarkib
+      justification: "استخدام 'تكوين' للدلالة على الهيئة والمكونات."
+    - lemma: "بِنْيَة كِيمْيَائِيَّة"
+      generation_method: tarkib
+      justification: "لفظ تقني يشير إلى الهيكل والمكونات."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تركيب كيميائي"
+      confirm:
+        - text: "«تركيب كيميائي: (كم) تكوين موادّ كيميائيّة معقَّدة من موادّ أبسط منها بالتَّفاعلات الكيميائيّة ذات الظُّروف الخاصّة.»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«chemical composition: تركيب كيميائي»"
+          source: "المعجم الموحد لمصطلحات علم الأحياء"
+    - lemma: "كيمياء"
+      confirm:
+        - text: "«وعند المتأخرين هو علمٌ يبحث فيه عن طبائع جميع الأجسام وخواصّها بواسطة الحل والتركيب...»"
+          source: "التعريفات الفقهية للبركتي"
+        - text: "«(عند المحدثين) علم يبحث فيه عن خواص العناصر المادية والقوانين التي تخضع لها...»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«كيمياء الخشب: wood chemistry»"
+          source: "المعجم الموحد للمصطلحات المهنية والتقنية"
+          addition: "استخدام 'كيمياء' مضافة إلى المادة لبيان تركيبها وخصائصها."
+    - lemma: "تكوين"
+      confirm:
+        - text: "«تكوين: هيئة لعضو أو نسيج من حيث مكوّناته»"
+          source: "المعجم الموحد لمصطلحات علم التشريح العياني"
+        - text: "«ورد التكوين في المعاجم بمعنى تركيب الشيء بالتأليف بين أجزائه...»"
+          source: "معجم الصواب اللغوي"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تركيب كيميائي"
+      decision: confirmed
+      decision_reason: "مصطلح دقيق وشائع الاستخدام في جميع المعاجم العلمية الحديثة للمقابلة مع Chemical Composition."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَرْكِيب كِيمْيَائِيّ"
+    - lemma: "كيمياء"
+      decision: confirmed
+      decision_reason: "مقبول دلالياً عند إضافته للمواد لبيان خواصها وتركيبها، وهو المقابل المباشر للّمة الإنجليزية chemistry في هذا السياق."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "كِيمْيَاء"
+    - lemma: "تكوين كيميائي"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح بديل مستعمل بكثرة في الجيولوجيا وعلم الأحياء للإشارة إلى البنية المكونة للمادة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "تَكْوِين كِيمْيَائِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "بنية كيميائية"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يستخدم في الكيمياء العضوية والطب لبيان كيفية ترابط الذرات والجزيئات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "بِنْيَة كِيمْيَائِيَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "التركيب الكيميائي وخصائص مادة أو جسم ما"
+    assessment:
+      decision: retain
+      reason: "التعريف واضح ودقيق ويشمل عنصري التكوين والخواص اللذين تتناولهما المجموعة."
+  examples:
+    per_lemma:
+      - lemma: "تَرْكِيب كِيمْيَائِيّ"
+        examples:
+          - text: "حلل العلماء التركيب الكيميائي للتربة المريخية."
+            type: usage
+      - lemma: "كِيمْيَاء"
+        examples:
+          - text: "تختلف كيمياء الدم لدى المصابين بالأمراض المزمنة."
+            type: usage
+      - lemma: "تَكْوِين كِيمْيَائِيّ"
+        examples:
+          - text: "يحدد التكوين الكيميائي للصخور خصائصها الفيزيائية."
+            type: usage
+      - lemma: "بِنْيَة كِيمْيَائِيَّة"
+        examples:
+          - text: "تؤثر البنية الكيميائية للجزيء على درجة ذوبانه في الماء."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تَرْكِيب كِيمْيَائِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "تركيب"
+          root: "ركب"
+          maqayis_quote: "«الرَّاءُ وَالْكَافُ وَالْبَاءُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ مُنْقَاسٌ، وَهُوَ عُلُوُّ شَيْءٍ شَيْئًا.»"
+        - word: "كيميائي"
+          root: "كيم"
+    - lemma: "كِيمْيَاء"
+      entry_id: "{auto}"
+      root: "كيم"
+    - lemma: "تَكْوِين كِيمْيَائِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "تكوين"
+          root: "كون"
+          maqayis_quote: "«الْكَافُ وَالْوَاوُ وَالنُّونُ أَصْلٌ يَدُلُّ عَلَى الْإِخْبَارِ عَنْ حُدُوثِ شَيْءٍ.»"
+        - word: "كيميائي"
+          root: "كيم"
+    - lemma: "بِنْيَة كِيمْيَائِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "بنية"
+          root: "بني"
+          maqayis_quote: "«الْبَاءُ وَالنُّونُ وَالْيَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ بِنَاءُ الشَّيْءِ بِضَمِّ بَعْضِهِ إِلَى بَعْضٍ.»"
+        - word: "كيميائية"
+          root: "كيم"
+  per_sense:
+    - lemma: "تَرْكِيب كِيمْيَائِيّ"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب الهيكلي والمكونات التي تدخل في بناء المادة."
+      mwe: true
+    - lemma: "كِيمْيَاء"
+      sense_id: "{auto}"
+      nuance: "مصطلح أعم يشمل المكونات والخصائص الوظيفية والتفاعلية للمادة."
+      mwe: false
+    - lemma: "تَكْوِين كِيمْيَائِيّ"
+      sense_id: "{auto}"
+      nuance: "يركز على العناصر والمواد التي نشأت منها المادة وخلقت منها."
+      mwe: true
+    - lemma: "بِنْيَة كِيمْيَائِيَّة"
+      sense_id: "{auto}"
+      nuance: "يشير إلى التنظيم الفراغي والروابط بين الذرات في المادة."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"تركيب","root":"ركب","maqayis":"«الرَّاءُ وَالْكَافُ وَالْبَاءُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ مُنْقَاسٌ، وَهُوَ عُلُوُّ شَيْءٍ شَيْئًا.»"},{"word":"كيميائي","root":"كيم"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"كيم"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الجانب الهيكلي والمكونات التي تدخل في بناء المادة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

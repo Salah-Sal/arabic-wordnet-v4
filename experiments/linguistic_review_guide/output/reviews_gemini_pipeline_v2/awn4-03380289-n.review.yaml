@@ -1,0 +1,157 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الحالية 'الجزء الضعيف' هي عبارة وصفية وليست مصطلحاً معجمياً مستقلاً بكلمة واحدة، رغم شيوعها في سياق المبارزة."
+      - "المجموعة الترادفية تفتقر إلى مصطلح معجمي متخصص يقابل الكلمة الإنجليزية (foible) بشكل دقيق وموجز."
+    observations: "المفهوم تقني يتعلق بأجزاء نصل السيف في رياضة المبارزة. في العربية، يُستخدم الوصف (الجزء الضعيف) مقابل (الجزء القوي/Forte). تقترح المعاجم الحديثة المتخصصة (مثل المورد الحديث) مصطلحاً معجماً موجزاً هو (الضَّعُوف) على وزن (فَعُول) للدلالة على هذا الجزء."
+  blind_candidates:
+    - lemma: "الجُزْءُ الضَّعِيف"
+      generation_method: tarkib
+      justification: "الترجمة الوصفية القياسية المعتمدة في أدبيات رياضة المبارزة العربية."
+    - lemma: "الضَّعُوف"
+      generation_method: ishtiqaq
+      justification: "مصطلح معجمي متخصص اقترحه منير البعلبكي في المورد الحديث للدلالة على الجزء الأضعف من السيف، وهو أكثر إيجازاً ومناسبة لبنية WordNet."
+    - lemma: "ذُبَابُ السَّيْف"
+      generation_method: majaz
+      justification: "مصطلح تراثي يطلق على طرف السيف الذي يضرب به، وهو يتداخل مكانياً مع الجزء الضعيف."
+    - lemma: "رِقَّةُ النَّصْل"
+      generation_method: tarkib
+      justification: "وصف لدقة النصل ونحافته في المنطقة القريبة من الرأس، وهو مرادف وصفي محتمل."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "الجُزْءُ الضَّعِيف"
+      confirm:
+        - text: "«الجزء الأضعف من السيف»"
+          source: "التعريف الحالي في WordNet"
+      expands:
+        - text: "«(1) الضَّعوف: الجزء الأضعف من السَّيف [ما بين منتصفه ورأسه المُسْتَدِقّ]»"
+          source: "المورد الحديث"
+          addition: "يؤكد أن الوصف 'الجزء الأضعف' هو المفهوم المقصود للمصطلح foible."
+    - lemma: "الضَّعُوف"
+      confirm:
+        - text: "«foible: الضَّعوف: الجزء الأضعف من السَّيف [ما بين منتصفه ورأسه المُسْتَدِقّ]»"
+          source: "المورد الحديث"
+    - lemma: "ذُبَابُ السَّيْف"
+      confirm:
+        - text: "«ذُبابُ السَّيْفِ: طَرَفُه الذى يَضْرِبُ به، وقيل: حَدُّ طَرَفِهِ الذى بين شَفْرَتَيْهِ»"
+          source: "المعجم الكبير"
+    - lemma: "الضَّعِيف"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "الجزء الضعيف"
+      decision: confirmed
+      decision_reason: "مصطلح تقني معياري مستخدم في رياضة المبارزة الحديثة، وهو دقيق في وصف المفهوم المطلوب."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "الجُزْءُ الضَّعِيف"
+    - lemma: "الضَّعُوف"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح معجمي حديث موجز (كلمة واحدة) يتناسب مع طبيعة المداخل المعجمية ويقابل المصطلح الإنجليزي (foible) بشكل دقيق، وقد أثبته معجم المورد الحديث."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "الضَّعُوف", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-03380289-n"}
+    - lemma: "ذُبَابُ السَّيْف"
+      source: stage1
+      decision: removed
+      decision_reason: "رغم تداخله مع المفهوم، إلا أن (الذباب) يركز على 'طرف' السيف أو 'رأسه' الحاد، بينما (الجزء الضعيف) يشمل ثلث النصل تقريباً."
+    - lemma: "رِقَّةُ النَّصْل"
+      source: stage1
+      decision: removed
+      decision_reason: "عبارة وصفية عامة وغير مسكوكة كمصطلح."
+
+stage4_content:
+  definition:
+    current: "الجزء الأضعف من نصل السيف من الجزء القوي إلى الطرف"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق علمياً وتقنياً ويحدد النطاق المكاني للجزء بشكل صحيح."
+  examples:
+    per_lemma:
+      - lemma: "الجُزْءُ الضَّعِيف"
+        examples:
+          - text: "يَسْتَخْدَمُ المُبَارِزُ الجُزْءَ الضَّعِيفَ مِنَ النَّصْلِ لِتَنْفِيذِ حَرَكَاتِ التَّمْوِيهِ لِخِفَّتِهِ وَسُرْعَتِهِ."
+            type: usage
+      - lemma: "الضَّعُوف"
+        examples:
+          - text: "إِذَا أَرَدْتَ أَنْ تُضْعِفَ هُجُومَ خَصْمِكَ، فَعَلَيْكَ أَنْ تَضْغَطَ بِقَوِيِّ سَيْفِكَ عَلَى ضَعُوفِ سَيْفِهِ."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "الجُزْءُ الضَّعِيف"
+      entry_id: "{auto}"
+      roots:
+        - word: "الجزء"
+          root: "جزأ"
+          maqayis_quote: "«الْجِيمُ وَالزَّاءُ وَالْهَمْزَةُ أَصْلٌ وَاحِدٌ، هُوَ الِاكْتِفَاءُ بِالشَّيْءِ... وَالْجُزْءُ: الطَّائِفَةُ مِنَ الشَّيْءِ.»"
+        - word: "الضعيف"
+          root: "ضعف"
+          maqayis_quote: "«الضَّادُ وَالْعَيْنُ وَالْفَاءُ أَصْلَانِ مُتَبَايِنَانِ، يَدُلُّ أَحَدُهُمَا عَلَى خِلَافِ الْقُوَّةِ...»"
+    - lemma: "الضَّعُوف"
+      entry_id: "{auto}"
+      root: "ضعف"
+      maqayis_quote: "«الضَّادُ وَالْعَيْنُ وَالْفَاءُ أَصْلَانِ مُتَبَايِنَانِ، يَدُلُّ أَحَدُهُمَا عَلَى خِلَافِ الْقُوَّةِ...»"
+  per_sense:
+    - lemma: "الجُزْءُ الضَّعِيف"
+      sense_id: "{auto}"
+      nuance: "مصطلح وصفي تقني شائع الاستخدام في سياق التعليم والتدريب على رياضة المبارزة."
+      mwe: true
+    - lemma: "الضَّعُوف"
+      sense_id: "{auto}"
+      nuance: "مصطلح معجمي حديث موجز، يفضل استخدامه في السياقات الأكاديمية والترجمات المتخصصة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"الجزء","root":"جزأ","maqayis":"«الْجِيمُ وَالزَّاءُ وَالْهَمْزَةُ أَصْلٌ وَاحِدٌ، هُوَ الِاكْتِفَاءُ بِالشَّيْءِ... وَالْجُزْءُ: الطَّائِفَةُ مِنَ الشَّيْءِ.»"},{"word":"الضعيف","root":"ضعف","maqayis":"«الضَّادُ وَالْعَيْنُ وَالْفَاءُ أَصْلَانِ مُتَبَايِنَانِ، يَدُلُّ أَحَدُهُمَا عَلَى خِلَافِ الْقُوَّةِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ضعف","maqayis":"«الضَّادُ وَالْعَيْنُ وَالْفَاءُ أَصْلَانِ مُتَبَايِنَانِ، يَدُلُّ أَحَدُهُمَا عَلَى خِلَافِ الْقُوَّةِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح وصفي تقني شائع الاستخدام في سياق التعليم والتدريب على رياضة المبارزة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح معجمي حديث موجز، يفضل استخدامه في السياقات الأكاديمية والترجمات المتخصصة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-03380289-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-03380289-n"
+        score: 0.9

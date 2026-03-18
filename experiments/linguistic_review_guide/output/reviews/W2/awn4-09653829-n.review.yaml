@@ -1,0 +1,205 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "بائس"
+      confirm:
+        - text: "«بَأْساً, وبُؤساً, وبَئِيساً: افتقر, واشتدَّت حاجته. فهو بائس»"
+          source: "المعجم الوسيط"
+        - text: "«البائس: الذي لا يجد شيئا من شدة الحال.»"
+          source: "غريب القرآن في شعر العرب"
+      expands:
+        - text: "«بائس؛ مُتَخَلًّى عنه»"
+          source: "المورد الحديث"
+    - lemma: "منكوب"
+      confirm:
+        - text: "«منكوب [مفرد]: مصابٌ بنكبة، ضحيَّةُ كارثة»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«المنكوب: المصاب بنكبة»"
+          source: "المعجم الوسيط"
+        - text: "«منكوب: تعيس، شقي، بائس»"
+          source: "تكملة المعاجم العربية"
+    - lemma: "سيئ الحظ"
+      confirm:
+        - text: "«تعيس وتجمع على تعساء: يائس، شقي، سيئ الحظ»"
+          source: "تكملة المعاجم العربية"
+        - text: "«سوء الحظّ؛ نَكَدُ الطالع»"
+          source: "المورد الحديث"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "تعيس"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«تعيس؛ قليل الحظّ؛ مَنْكود» — المورد الحديث"
+      justification: "ورد صراحة كترادف لـ unfortunate ومقابل لسيئ الحظ."
+    - lemma: "منحوس"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«منحوس: تعيس، مزعج، مكدر، معاكس مشئوم» — تكملة المعاجم العربية"
+      justification: "يشير إلى الشخص الذي يلاحقه النحس (سوء الحظ)."
+  knowledge_candidates:
+    - lemma: "شقي"
+      justification: "اشتقاق من الشقاء، وهو مصطلح تراثي ومعاصر شائع لمن ساء حظه في الحياة."
+      mechanism: "اشتقاق"
+    - lemma: "منكود"
+      justification: "اشتقاق من النكد، ويستعمل غالباً في 'منكود الطالع' أو وصفاً للشخص سيئ الحظ."
+      mechanism: "اشتقاق"
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "بائس"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي يعبر عن شدة الحال والبؤس الناتج عن سوء الحظ."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على البؤس المادي والمعنوي والافتقار الناتج عن المصائب."
+      example: "عطف الرجل على الطفل البائس الذي فقد عائلته في الحرب."
+    - lemma: "منكوب"
+      decision: confirmed
+      decision_reason: "مصطلح دقيق لمن أصابته نكبة أو كارثة."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يرتبط غالباً بوقوع حدث كارثي مفاجئ (نكبة) جعل الشخص في حالة سيئة."
+      example: "هرعت فرق الإغاثة لتقديم المساعدة للمنكوبين في المناطق المتضررة."
+    - lemma: "سيئ الحظ"
+      decision: confirmed
+      decision_reason: "تعبير مركب فصيح وشائع الاستعمال."
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+        type: "وصفي"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "وصف مباشر لعدم التوفيق وملازمة النحس."
+      example: "يرى نفسه شخصاً سيئ الحظ لأن جميع محاولاته في النجاح باءت بالفشل."
+    - lemma: "تعيس"
+      source: step05
+      decision: confirmed
+      decision_reason: "مرادف قوي جداً ومستعمل بكثرة في المعاجم الحديثة والقديمة."
+      step05_citation: "«تعيس وتجمع على تعساء: يائس، شقي، سيئ الحظ» — تكملة المعاجم العربية"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على الحالة النفسية من الحزن والشقاء الناتجة عن سوء الطالع."
+      example: "عاش حياة تعيسة ملأتها خيبات الأمل المتلاحقة."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "تعيس"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09653829-n"
+    - lemma: "شقي"
+      source: step05
+      decision: confirmed
+      decision_reason: "لفظ تراثي قرآني يعبر عن سوء العاقبة والحظ في الدنيا والآخرة."
+      step05_citation: "«تعيس، شقي، سيئ الحظ» — تكملة المعاجم العربية"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يوحي باستمرارية الشقاء والمكابدة في الحياة."
+      example: "ما عرف الراحة قط، بل قضى عمره شقياً يصارع نوائب الدهر."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "شقي"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09653829-n"
+    - lemma: "منحوس"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح فصيح (من النحس) يعبر بدقة عن ملازمة سوء الحظ."
+      step05_citation: "«منحوس: تعيس، مزعج، مكدر، معاكس مشئوم» — تكملة المعاجم العربية"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على جانب 'النحس' أو الطالع السيئ الذي يرافق الشخص."
+      example: "يظن زملاؤه أنه منحوس، فما يدخل في مشروع إلا ويفشل."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "منحوس"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09653829-n"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شخص يعاني من سوء الحظ أو المصائب"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وجامع للمفهوم المعجمي لجميع اللمات المؤكدة."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عامل/فاعل"
+    test_result: "wrong"
+    actions:
+      - command: remove_synset_relation
+        params:
+          source_id: "awn4-09653829-n"
+          relation_type: "hypernym"
+          target_id: "awn4-09786620-n"
+      - command: add_synset_relation
+        params:
+          source_id: "awn4-09653829-n"
+          relation_type: "hypernym"
+          target_id: "awn4-00007846-n"  # شخص/إنسان (بافتراض هذا المعرف للمفهوم العام)
+  antonymy:
+    per_lemma:
+      - lemma: "سيئ الحظ"
+        antonym_found: true
+        antonym: "سعيد الحظ"
+      - lemma: "تعيس"
+        antonym_found: true
+        antonym: "سعيد"
+      - lemma: "شقي"
+        antonym_found: true
+        antonym: "سعيد"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "بائس"
+      enrichment:
+        root: "ب-أ-س"
+      examples:
+        - text: "«أتاني عليها أطلس اللون بائس»"
+          type: poetry
+          source: "تاج العروس"
+    - lemma: "منكوب"
+      enrichment:
+        root: "ن-ك-ب"
+      examples:
+        - text: "تبرعت الدولة بمبالغ طائلة لإغاثة المنكوبين من الفيضانات."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "تعيس"
+      enrichment:
+        root: "ت-ع-س"
+      examples:
+        - text: "«تعيس وتجمع على تعساء: يائس، شقي، سيئ الحظ»"
+          type: usage
+          source: "تكملة المعاجم العربية"
+    - lemma: "شقي"
+      enrichment:
+        root: "ش-ق-ي"
+      examples:
+        - text: "«فأما الذين شقوا ففي النار لهم فيها زفير وشهيق»"
+          type: quran
+          source: "سورة هود"
+    - lemma: "منحوس"
+      enrichment:
+        root: "ن-ح-س"
+      examples:
+        - text: "«وجهه منحوس لا يصادف خيرا من يعاشره»"
+          type: usage
+          source: "محيط المحيط"
+  cultural_fit:
+    assessment: native

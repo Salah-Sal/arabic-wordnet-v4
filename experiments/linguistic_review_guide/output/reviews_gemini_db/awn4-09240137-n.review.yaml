@@ -1,0 +1,150 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "شاطئ"
+      confirm:
+        - text: "«مِنْطَقَةٌ مُنْحَدِرَةٌ من اليابس على حافة البحر ونحوه» — المعجم الكبير"
+      expands:
+        - text: "«(شاطئ) النَّهر والوادي شطه وجانبه» — المعجم الوسيط لمجموعة من المؤلفين"
+          addition: "المعنى المعجمي أوسع من التعريف الحالي، إذ يشمل حواف الأنهار والأودية فضلاً عن البحار، ولا يُشترط أن يكون رملياً بالضرورة"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "شاطئ رملي"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«(1) شاطئ رمليّ (2) منطقة ساحلية» — المورد الحديث (2008)"
+      justification: "تركيب وصفي يطابق حرفياً تعريف المجموعة بكون المنطقة 'رملية'."
+    - lemma: "بلاج"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«بِلاج [مفرد]: شاطئ البحر.» — معجم اللغة العربية المعاصرة لأحمد مختار عمر"
+      justification: "لفظ معرّب شائع الاستعمال في العصر الحديث للتعبير عن الشاطئ الرملي المخصص للسباحة والاستجمام."
+  knowledge_candidates:
+    - lemma: "ساحل"
+      justification: "آلية التوليد: إطلاق عام مرادف. الساحل هو الأرض المجاورة للبحر، ويستخدم غالباً كمرادف للشاطئ."
+    - lemma: "سيف"
+      justification: "آلية التوليد: إحياء الممات. السيف في لغة العرب هو ساحل البحر أو الوادي، وهو لفظ فصيح دقيق."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "شاطئ"
+      decision: confirmed
+      decision_reason: "مصطلح عربي فصيح وشائع، يتطابق بقوة مع المفهوم."
+      evidence_assessment:
+        case: "expands"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يمثل جانب البحر أو النهر حيث تلتقي اليابسة بالماء، وهو أعم من أن يكون رملياً فقط، إلا أنه المرادف الأشيع لمفهوم (beach)."
+      example: "قضت العائلة يومها على شاطئ البحر تستمتع بنسيمه العليل."
+
+    - lemma: "شاطئ رملي"
+      source: step05
+      decision: confirmed
+      decision_reason: "تركيب وصفي شائع ومستقر مصطلحياً، يخصص الشاطئ بكونه رملياً كما ينص التعريف (sandy beach)."
+      step05_citation: "«(1) شاطئ رمليّ (2) منطقة ساحلية» — المورد الحديث (2008)"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يؤكد صراحة على الطبيعة الرملية للمنطقة مقارنة بالشاطئ الصخري أو الطيني."
+      example: "يُفضِّل السُّيَّاح الاستجمام على شاطئ رملي آمن بدلًا من المرتفعات الصخرية."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "شاطئ رملي"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09240137-n"
+
+    - lemma: "بلاج"
+      source: step05
+      decision: removed
+      decision_reason: "لفظ دخيل (أجنبي غير معرّب صرفياً بالكامل) ويوجد بديل عربي فصيح وشائع يغني عنه، فلا نُؤْثِر اللفظ الأجنبي."
+      step05_citation: "«بِلاج [مفرد]: شاطئ البحر.» — معجم اللغة العربية المعاصرة لأحمد مختار عمر"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يرتبط بالاستعمال العامي أو المترجم للشاطئ المجهز للسباحة والاستجمام."
+
+    - lemma: "ساحل"
+      source: step05
+      decision: removed
+      decision_reason: "أعمّ من الشاطئ؛ فالساحل يطلق على امتداد الأرض المحاذية للبحر (coast) بشكل عام، بينما الشاطئ (beach) يخص المنطقة المنحدرة الملامسة للماء والتي تغطيها الرواسب."
+      step05_citation: "«شريط من الأرض بين خط الشاطئ وأي تغير ملحوظ في الطبوغرافيا» — المعجم الموحد لمصطلحات الزلازل"
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "الساحل أوسع جغرافياً من الشاطئ."
+
+    - lemma: "سيف"
+      source: step05
+      decision: removed
+      decision_reason: "مصطلح تراثي مهجور نادراً ما يُستعمل في السياقات العلمية أو العامة المعاصرة للدلالة على الشاطئ تحديداً، ويسبب اشتراكاً لفظياً قوياً مع أداة القتال."
+      step05_citation: "«سِيفُ البَحْرِ: سَاحِلُهُ.» — تاج العروس"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "لفظ مهجور يشير إلى الساحل الممتد."
+
+  synset_flags:
+    definition_review_needed: true
+  added_lemmas:
+    - lemma: "شاطئ رملي"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "منطقة رملية تنحدر نحو مياه البحر أو البحيرة"
+  assessment:
+    decision: revise
+    reason: "توسيع التعريف ليشمل الأنهار وتوضيح مكونات الشاطئ بما يتوافق مع الاستعمال الجغرافي الدقيق والمألوف للفظ (الشاطئ) الذي قد يشمل الحصى بالإضافة إلى الرمال."
+  authored_definitions:
+    - type: terminological
+      text: "منطقة منحدرة من اليابسة تحاذي مسطحاً مائياً كالبحر أو النهر، وتتكون غالباً من الرواسب كالرمال أو الحصى."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-09240137-n"
+        definition_index: 0
+        text: "منطقة منحدرة من اليابسة تحاذي مسطحاً مائياً كالبحر أو النهر، وتتكون غالباً من الرواسب كالرمال أو الحصى."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "تكوين جيولوجي"
+    test_result: "correct"
+  verb_checks:
+    applicable: false
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "شاطئ"
+      enrichment:
+        root: "شطأ"
+      examples:
+        - text: "اصطَفَّتِ القَوَارِبُ عَلَى شَاطِئِ البَحْرِ بِانْتِظَارِ الصَّيَّادِين."
+          type: usage
+          source: "مؤلَّف"
+      morphology:
+        broken_plural_link: "شَوَاطِئ"
+      pos_check:
+        pos: noun
+    - lemma: "شاطئ رملي"
+      enrichment:
+        root: "شطأ"
+      examples:
+        - text: "بُنِيَ المُنْتَجَعُ السِّيَاحِيُّ بِمُحَاذَاةِ شَاطِئٍ رَمْلِيٍّ بَدِيع."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-09240137-n"
+        text: "اصطَفَّتِ القَوَارِبُ عَلَى شَاطِئِ البَحْرِ بِانْتِظَارِ الصَّيَّادِين."

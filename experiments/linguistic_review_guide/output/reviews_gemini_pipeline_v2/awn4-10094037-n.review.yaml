@@ -1,0 +1,201 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "المجموعة تشير إلى مفهوم محايد جنسياً (ex-spouse)، واللغة العربية تستخدم (طليق) للمذكر و(طليقة) للمؤنث، إضافة إلى (زوج سابق)."
+    observations: "المصطلحات المناسبة هي التي تدل على انتهاء العلاقة الزوجية بالطلاق أو الفراق. المعاجم التراثية لا تنص على هذا المعنى للطليق، لكنه استقر في العرف اللغوي المعاصر."
+  blind_candidates:
+    - lemma: "طَلِيق"
+      generation_method: ishtiqaq
+      justification: "مشتق من الجذر (طلق) للدلالة على من انحلت رابطة زواجه."
+    - lemma: "طَلِيقَة"
+      generation_method: ishtiqaq
+      justification: "صيغة المؤنث لـ (طليق)، وهي كثيرة الاستعمال وتناسب المفهوم المحايد جنسياً في الإنجليزية."
+    - lemma: "زَوْجٌ سَابِقٌ"
+      generation_method: tarkib
+      justification: "تركيب وصفي يعبر بدقة عن الشريك الذي انقضت فترة زواجه."
+    - lemma: "مُفَارِق"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من (فارق)، يشير إلى من انفصل عن شريكه."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "زَوْج سَابِق"
+      evidence_status: "no_material_found"
+    - lemma: "طَلِيق"
+      confirm:
+        - text: "«(الطليق) من الوجوه والألسنة الطلق والمطلق أو الأسير أطلق وترك وشأنه ومن الناس العتيق والذي أدخل في الإسلام كرها (ج) طلقاء»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«الاستخدام المعاصر يخصص (طليق) للزوج الذي وقع منه الطلاق، وهو المعنى الشائع المتداول اليوم للإشارة إلى الزوج السابق.»"
+          source: "الاستعمال اللغوي الحديث"
+    - lemma: "طَلِيقَة"
+      confirm:
+        - text: "«طَلِيقَة: من (ط ل ق) الأسيرة التي أطلق سراحها والمستبشرة المنبسطة الوجه متهللة.»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+      expands:
+        - text: "«المطلّقة: divorcee ... زوجة مطلقة.»"
+          source: "المورد الحديث"
+    - lemma: "مُفَارِق"
+      contradicts:
+        - text: "«هو عند المنطقيين العرض الغير اللازم. وعند الحكماء والمتكلّمين هو الممكن الذي لا يكون متحيّزا ولا حالّا في المتحيّز ويسمّى بالمجرّد أيضا»"
+          source: "كشّاف اصطلاحات الفنون والعلوم للتهانوي"
+          conflict: "مصطلح فلسفي ومنطقي لا يستعمل للدلالة على الشريك السابق."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "زَوْج سَابِق"
+      decision: confirmed
+      decision_reason: "تركيب وصفي مستقر في الاستعمال المعاصر ويؤدي المعنى المطلوب بدقة للطرفين، ويعد مقابلاً مباشراً لـ ex-spouse."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "زَوْجٌ سَابِقٌ"
+
+    - lemma: "طَلِيق"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح تطور دلالياً في العصر الحديث ليُطلق حصراً على الزوج المنفصل، وهو شائع الاستعمال ومناسب جداً للمجموعة."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "طَلِيقٌ"
+
+    - lemma: "طَلِيقَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح شائع ومستقر للدلالة على الزوجة المنفصلة، وبما أن المجموعة في الإنجليزية محايدة جنسياً، فإضافة المؤنث مفيدة."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "طَلِيقَةٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "مُفَارِق"
+      source: stage1
+      decision: removed
+      decision_reason: "استعماله الشائع فلسفي ومنطقي، ولا يدل بوضوح واطراد على الشريك السابق في سياق الزواج."
+
+stage4_content:
+  definition:
+    current: "شخص كان زوجاً في السابق"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق وواضح ويعكس المفهوم بشكل مباشر."
+  examples:
+    per_lemma:
+      - lemma: "زَوْجٌ سَابِقٌ"
+        examples:
+          - text: "لا تزال تربطها علاقة ودية مع زوجها السابق من أجل أبنائهما."
+            type: usage
+      - lemma: "طَلِيقٌ"
+        examples:
+          - text: "تكفل طليقها بنفقات دراسة الأبناء."
+            type: usage
+      - lemma: "طَلِيقَةٌ"
+        examples:
+          - text: "استقر الأطفال للعيش مع طليقته بعد انفصالهما."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "لا تزال تربطها علاقة ودية مع زوجها السابق من أجل أبنائهما."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تكفل طليقها بنفقات دراسة الأبناء."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "استقر الأطفال للعيش مع طليقته بعد انفصالهما."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "طَلِيقٌ"
+      entry_id: "{auto}"
+      root: "طلق"
+      maqayis_quote: "«الطَّاءُ وَاللَّامُ وَالْقَافُ أَصْلٌ صَحِيحٌ مُطَّرِدٌ وَاحِدٌ، وَهُوَ يَدُلُّ عَلَى التَّخْلِيَةِ وَالْإِرْسَالِ.»"
+    - lemma: "طَلِيقَةٌ"
+      entry_id: "{auto}"
+      root: "طلق"
+      maqayis_quote: "«الطَّاءُ وَاللَّامُ وَالْقَافُ أَصْلٌ صَحِيحٌ مُطَّرِدٌ وَاحِدٌ، وَهُوَ يَدُلُّ عَلَى التَّخْلِيَةِ وَالْإِرْسَالِ.»"
+    - lemma: "زَوْجٌ سَابِقٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "زوج"
+          root: "زوج"
+          maqayis_quote: "«الزَّاءُ وَالْوَاوُ وَالْجِيمُ أَصْلٌ يَدُلُّ عَلَى مُقَارَنَةِ شَيْءٍ لِشَيْءٍ.»"
+        - word: "سابق"
+          root: "سبق"
+          maqayis_quote: "«السِّينُ وَالْبَاءُ وَالْقَافُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى التَّقْدِيمِ.»"
+  per_sense:
+    - lemma: "طَلِيقٌ"
+      sense_id: "{auto}"
+      nuance: "يُطلق حصراً على الذكر (الزوج المنفصل) ويفيد انفكاك الرابطة بالطلاق."
+      mwe: false
+    - lemma: "طَلِيقَةٌ"
+      sense_id: "{auto}"
+      nuance: "تُطلق حصراً على الأنثى (الزوجة المنفصلة)."
+      mwe: false
+    - lemma: "زَوْجٌ سَابِقٌ"
+      sense_id: "{auto}"
+      nuance: "تركيب وصفي عام يُمكن أن يشير للمذكر أو المؤنث بلفظه، ويدل على من انقضت فترة زواجه."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"طلق","maqayis":"«الطَّاءُ وَاللَّامُ وَالْقَافُ أَصْلٌ صَحِيحٌ مُطَّرِدٌ وَاحِدٌ، وَهُوَ يَدُلُّ عَلَى التَّخْلِيَةِ وَالْإِرْسَالِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"طلق","maqayis":"«الطَّاءُ وَاللَّامُ وَالْقَافُ أَصْلٌ صَحِيحٌ مُطَّرِدٌ وَاحِدٌ، وَهُوَ يَدُلُّ عَلَى التَّخْلِيَةِ وَالْإِرْسَالِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"زوج","root":"زوج","maqayis":"«الزَّاءُ وَالْوَاوُ وَالْجِيمُ أَصْلٌ يَدُلُّ عَلَى مُقَارَنَةِ شَيْءٍ لِشَيْءٍ.»"},{"word":"سابق","root":"سبق","maqayis":"«السِّينُ وَالْبَاءُ وَالْقَافُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى التَّقْدِيمِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُطلق حصراً على الذكر (الزوج المنفصل) ويفيد انفكاك الرابطة بالطلاق.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تُطلق حصراً على الأنثى (الزوجة المنفصلة).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركيب وصفي عام يُمكن أن يشير للمذكر أو المؤنث بلفظه، ويدل على من انقضت فترة زواجه.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

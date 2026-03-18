@@ -1,0 +1,137 @@
+YOLO mode is enabled. All tool calls will be automatically approved.
+Loaded cached credentials.
+YOLO mode is enabled. All tool calls will be automatically approved.
+Attempt 1 failed: You have exhausted your capacity on this model. Your quota will reset after 1s.. Retrying after 5011ms...
+Attempt 1 failed: You have exhausted your capacity on this model. Your quota will reset after 0s.. Retrying after 5758ms...
+Bash command parsing error detected for command: << 'EOF' > /workspace/review.yaml
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الحالية تفتقر إلى التشكيل."
+      - "التعريف الحالي جيد ولكنه يفتقر إلى ذكر أن النتح يمثل فقداناً للماء الزائد أو تبخراً سطحياً."
+    observations: "المصطلح «نتح» هو المصطلح العلمي الدقيق والمستقر لعملية Transpiration في علم النبات، وهو مشتق من دلالة الرشح وخروج العرق في اللغة العربية."
+  blind_candidates:
+    - lemma: "نَتْح"
+      generation_method: ishtiqaq
+      justification: "مصدر للفعل نتح الذي يعني خروج العرق والرشح، وقد خُصص علمياً للدلالة على طرح النبات للماء."
+    - lemma: "إِفْرَاز مَائِيّ"
+      generation_method: tarkib
+      justification: "تركيب وصفي يصف عملية إخراج النبات للماء."
+    - lemma: "تَبَخُّر نَبَاتِيّ"
+      generation_method: tarkib
+      justification: "تركيب وصفي يربط عملية التبخر بالنبات."
+    - lemma: "عَرَق النَّبَات"
+      generation_method: majaz
+      justification: "إطلاق مجازي يشبه إفراز النبات للماء بتعرق الإنسان."
+stage2_evidence:
+  per_lemma:
+    - lemma: "نَتْح"
+      confirm:
+        - text: "«نَتْح [مفرد]: ج نُتوح (لغير المصدر): ... (نت) خروج الماء من النبات بالتبخُّر السطحي.»"
+          source: "معجم اللغة العربية المعاصرة لأحمد مختار عمر"
+        - text: "«النَّتْح: عَرَق النبات.»"
+          source: "المورد الحديث"
+        - text: "«عملية انتقال المياه من النباتات إلى الجو على شكل بخار.»"
+          source: "المعجم الموحد لمصطلحات المياه (ARABTERM)"
+      contradicts: []
+      expands: []
+    - lemma: "إِفْرَاز مَائِيّ"
+      evidence_status: "no_material_found"
+    - lemma: "تَبَخُّر نَبَاتِيّ"
+      evidence_status: "no_material_found"
+    - lemma: "عَرَق النَّبَات"
+      evidence_status: "no_material_found"
+stage3_analysis:
+  per_lemma:
+    - lemma: "نتح"
+      decision: confirmed
+      decision_reason: "هو المصطلح العلمي العربي المعتمد والمستقر لعملية (transpiration) في علم النبات، وقد ورد معناه الدقيق في المعاجم الحديثة والمصطلحات الموحدة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نَتْح"
+    - lemma: "إِفْرَاز مَائِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير وصفي عام لا يرقى ليكون مصطلحاً مسكوكاً مستقلاً لهذه العملية."
+    - lemma: "تَبَخُّر نَبَاتِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير وصفي غير شائع الاستخدام كمصطلح معجمي."
+    - lemma: "عَرَق النَّبَات"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير مجازي تفسيري، وليس مصطلحاً علمياً معتمداً للتعبير عن العملية."
+stage4_content:
+  definition:
+    current: "انبعاث بخار الماء من أوراق النباتات"
+    assessment:
+      decision: revise
+      reason: "لتضمين الطابع العلمي الدقيق للعملية وتوسيعها لتشمل الأجزاء الأخرى غير الأوراق وتوضيح أنها فقدان للماء."
+    authored:
+      - type: terminological
+        text: "عملية حيوية يفقد بها النبات الماء على هيئة بخار، وتحدث غالباً من خلال الثغور الموجودة في الأوراق."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "نَتْح"
+        examples:
+          - text: "تزداد معدلات النَّتْح في النباتات خلال الأيام الحارة والجافة."
+            type: usage
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-13590977-n"
+        definition_index: 0
+        text: "عملية حيوية يفقد بها النبات الماء على هيئة بخار، وتحدث غالباً من خلال الثغور الموجودة في الأوراق."
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-13590977-n"
+        text: "تزداد معدلات النَّتْح في النباتات خلال الأيام الحارة والجافة."
+stage5_enrichment:
+  per_entry:
+    - lemma: "نَتْح"
+      entry_id: "{auto}"
+      root: "نتح"
+      maqayis_quote: "«(نَتَحَ) النُّونُ وَالتَّاءُ وَالْحَاءُ. نَتَحَ الْعَرَقُ: رَشَحَ. وَمَنَاتِحُ الْعَرَقِ: مَخَارِجُهُ. وَنَتَحَ النِّحْيُ: رَشَحَ أَيْضًا.»"
+  per_sense:
+    - lemma: "نَتْح"
+      sense_id: "{auto}"
+      nuance: "المصطلح العلمي الدقيق والأوحد للتعبير عن فقدان النبات للماء."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نتح","maqayis":"«(نَتَحَ) النُّونُ وَالتَّاءُ وَالْحَاءُ. نَتَحَ الْعَرَقُ: رَشَحَ. وَمَنَاتِحُ الْعَرَقِ: مَخَارِجُهُ. وَنَتَحَ النِّحْيُ: رَشَحَ أَيْضًا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العلمي الدقيق والأوحد للتعبير عن فقدان النبات للماء.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-13590977-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-13590977-n"
+        score: 0.95
+EOF Syntax Errors: [ 'Error node: "<" at 0:0' ]
+missing pgrep output

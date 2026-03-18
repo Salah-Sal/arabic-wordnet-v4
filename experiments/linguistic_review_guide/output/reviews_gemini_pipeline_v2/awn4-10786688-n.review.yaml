@@ -1,0 +1,206 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'خَاضِع لِلْوِصَايَة' هي عبارة وصفية (phrase) وليست مصطلحاً معجمياً مفرداً."
+    observations: "المجموعة تدور حول الشخص الواقع تحت رعاية قانونية أو حماية. اللمات الحالية تغطي الجانب الوصفي والكفالة، ولكن ينقصها المصطلح القانوني 'قاصر' الذي يعد المرادف الأبرز في السياقات التشريعية لـ 'ward'."
+  blind_candidates:
+    - lemma: "مَحْمِيّ"
+      generation_method: ishtiqaq
+      justification: "اسم مفعول من 'حمى'، وهو المقابل المباشر لتعريف 'person under protection'."
+    - lemma: "مَوْلًى عَلَيْه"
+      generation_method: tarkib
+      justification: "مصطلح فقهي وقانوني يشير إلى الشخص الذي يملك غيره الولاية على شؤونه."
+    - lemma: "مَكْفُول"
+      generation_method: ishtiqaq
+      justification: "من الكفالة، وهو تعبير شائع في السياقات الاجتماعية والشرعية لمن هم تحت الرعاية."
+    - lemma: "مَوْصًى عَلَيْه"
+      generation_method: ishtiqaq
+      justification: "من الوصاية، وهو المصطلح الأدق لغوياً لوصف الشخص الخاضع للوصي (ward of a guardian)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خَاضِع لِلْوِصَايَة"
+      evidence_status: "no_material_found"
+    - lemma: "مَكْفُول"
+      confirm:
+        - text: "«ربيب، يتيم مكفول»"
+          source: "المعجم الموحد لمصطلحات القانون (2017)"
+    - lemma: "مَحْمِيّ"
+      confirm:
+        - text: "«المَحْمِيّ؛ الصنيعة: شخص تحت حماية أو رعاية متنفِّذٍ أو ذي سلطان.»"
+          source: "المورد الحديث (2008)"
+    - lemma: "مَوْلًى عَلَيْه"
+      evidence_status: "no_material_found"
+    - lemma: "قَاصِر"
+      confirm:
+        - text: "«(قن) مَنْ لم يبلغ سنّ الرُّشْد فيوضع تحت حماية وعناية وصيّ \"ولد قاصر\".»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«القاصر من الورثة من لم يبلغ سنّ الرشد»"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مَكْفُول"
+      decision: confirmed
+      decision_reason: "مصطلح أصيل ومدعوم بالأدلة في سياق اليتيم والمكفول."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَكْفُول"
+    - lemma: "خَاضِع لِلْوِصَايَة"
+      decision: confirmed
+      decision_reason: "على الرغم من كونه مركباً وصفياً، إلا أنه يمثل المصطلح القانوني الشائع لمفهوم 'ward of court/guardian'."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+    - lemma: "قَاصِر"
+      source: stage1
+      decision: confirmed
+      decision_reason: "هو المرادف القانوني الأكثر دقة للـ 'ward' في أغلب السياقات المتعلقة بالأشخاص."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "قَاصِر", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مَحْمِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يدعم الجانب الدلالي للحماية (protection) الوارد في التعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَحْمِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مَوْلًى عَلَيْه"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فقهي وقانوني عريق لوصف من تقع عليه الولاية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "مَوْلًى عَلَيْه", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "شخص تحت حماية أو وصاية شخص آخر"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب جداً ويحتاج لتوضيح الطبيعة القانونية أو الاجتماعية للوضعية."
+    authored:
+      - type: terminological
+        text: "شخص عاجز أو قاصر تضعه السلطات أو القانون تحت رعاية وصي أو جهة تتولى حمايته وإدارة شؤونه."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "شخص عاجز أو قاصر تضعه السلطات أو القانون تحت رعاية وصي أو جهة تتولى حمايته وإدارة شؤونه."}
+  examples:
+    per_lemma:
+      - lemma: "مَكْفُول"
+        examples:
+          - text: "يُعامل اليتيم المكفول كفرد من أفراد الأسرة التي ترعاه."
+            type: usage
+      - lemma: "قَاصِر"
+        examples:
+          - text: "عُين المحامي وصيًا على القاصر لحماية حقوقه المالية حتى يبلغ سن الرشد."
+            type: usage
+      - lemma: "خَاضِع لِلْوِصَايَة"
+        examples:
+          - text: "لا يحق للشخص الخاضع للوصاية التصرف في أملاكه دون إذن الوصي."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "أصدرت المحكمة قراراً بتعيين وصي على القاصر الخاضع للوصاية لضمان حماية مصالحه."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَكْفُول"
+      entry_id: "{auto}"
+      root: "كفل"
+      maqayis_quote: "«الْكَافُ وَالْفَاءُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَضَمُّنِ الشَّيْءِ لِلشَّيْءِ... وَالْكَافِلُ: الَّذِي يَكْفُلُ إِنْسَانًا يَعُولُهُ.»"
+    - lemma: "قَاصِر"
+      entry_id: "{auto}"
+      root: "قصر"
+      maqayis_quote: "«الْقَافُ وَالصَّادُ وَالرَّاءُ أَصْلَانِ صَحِيحَانِ، أَحَدُهُمَا يَدُلُّ عَلَى أَلَّا يَبْلُغَ الشَّيْءُ مَدَاهُ وَنِهَايَتَهُ، وَالْآخَرُ عَلَى الْحَبْسِ.»"
+    - lemma: "مَحْمِيّ"
+      entry_id: "{auto}"
+      root: "حمي"
+      maqayis_quote: "«الْحَاءُ وَالْمِيمُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ، وَهُوَ مَنْعُ الشَّيْءِ.» (مستفاد من دلالة حمى)"
+    - lemma: "مَوْلًى عَلَيْه"
+      entry_id: "{auto}"
+      roots:
+        - word: "مولى"
+          root: "ولي"
+          maqayis_quote: "«الْوَاوُ وَاللَّامُ وَالْيَاءُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى قُرْبٍ... وَكُلُّ مَنْ وَلِيَ أَمْرَ آخَرَ فَهُوَ وَلِيُّهُ.»"
+  per_sense:
+    - lemma: "مَكْفُول"
+      sense_id: "{auto}"
+      nuance: "تركز على جانب الكفالة والنفقة والالتزام المعنوي والمالي."
+      mwe: false
+    - lemma: "قَاصِر"
+      sense_id: "{auto}"
+      nuance: "تركز على الجانب القانوني المتعلق بعدم بلوغ سن الرشد."
+      mwe: false
+    - lemma: "مَحْمِيّ"
+      sense_id: "{auto}"
+      nuance: "تركز على حالة الحماية والأمان التي يوفرها الطرف الآخر."
+      mwe: false
+    - lemma: "مَوْلًى عَلَيْه"
+      sense_id: "{auto}"
+      nuance: "تعبير فقهي وقانوني يركز على انتقال سلطة القرار إلى الولي."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"كفل","maqayis":"«الْكَافُ وَالْفَاءُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَضَمُّنِ الشَّيْءِ لِلشَّيْءِ... وَالْكَافِلُ: الَّذِي يَكْفُلُ إِنْسَانًا يَعُولُهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قصر","maqayis":"«الْقَافُ وَالصَّادُ وَالرَّاءُ أَصْلَانِ صَحِيحَانِ، أَحَدُهُمَا يَدُلُّ عَلَى أَلَّا يَبْلُغَ الشَّيْءُ مَدَاهُ وَنِهَايَتَهُ، وَالْآخَرُ عَلَى الْحَبْسِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركز على حالة الحماية والأمان التي يوفرها الطرف الآخر.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

@@ -1,0 +1,168 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "شيء متروك"
+      confirm:
+        - text: "«مَتْرُوك: الشيء المطروح، والمُخلّى»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+      expands:
+        - text: "«المتروك: الحديث الذي اتّهم راويه بالكذب»"
+          source: "كشّاف اصطلاحات الفنون"
+          addition: "استعمال اصطلاحي في علم الحديث"
+
+    - lemma: "مُهملات"
+      confirm:
+        - text: "«سَلَّة المهملات: سلَّة تُلقى فيها النُّفايات»"
+          source: "معجم اللغة العربية المعاصرة"
+      contradicts:
+        - text: "«المهملات: هي الألفاظ الغير الدالة على معنى بالوضع»"
+          source: "كتاب التعريفات للجرجاني"
+          conflict: "التعريف الكلاسيكي يحصرها في الألفاظ اللغوية المهملة، بينما تعريف المجموعة عام"
+      expands:
+        - text: "«الهمل: السدى المتروك ليلاً أو نهاراً»"
+          source: "لسان العرب"
+          addition: "الأصل اللغوي يشمل كل ما ترك سدى"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "نُفايات"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«مواد أو أجسام أو قطع تخلص منها أو يريد أو مضطر صاحبها للتخلص منها» — مسرد المناخ والبيئة (ArabTerm)"
+      justification: "مصطلح معياري حديث يعبر بدقة عن الشيء الذي يتم التخلص منه"
+    - lemma: "مُخَلَّفات"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«كل المواد التي يتم التخلّص منها، أو يُراد التخلّص منها» — المعجم الموحد لمصطلحات المياه"
+      justification: "يستخدم لوصف ما يتبقى ويُطرح من عمليات الإنتاج أو الاستهلاك"
+  knowledge_candidates:
+    - lemma: "مَنْبُوذات"
+      justification: "اشتقاق من 'نبذ' بمعنى طرح، ويناسب الأشياء المادية الملقاة"
+    - lemma: "فَضَلات"
+      justification: "ما فضل عن الشيء وطُرح لعدم الحاجة إليه"
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "مُهملات"
+      decision: "confirmed"
+      decision_reason: "مصطلح مستقر في الاستعمال المعاصر للدلالة على المواد المطروحة، مدعوم بالمعاجم الحديثة"
+      evidence_assessment:
+        case: "mixed"
+        notes:
+          - "انزياح دلالي من المصطلح اللغوي (ألفاظ لا معنى لها) إلى المعنى العام (أشياء متروكة)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تدل غالباً على الأشياء الصغيرة أو المكتبية أو المنزلية التي تُجمع في سلة"
+      example: "وضع الموظف الأوراق القديمة في سلة المهملات."
+
+    - lemma: "شيء متروك"
+      decision: "confirmed"
+      decision_reason: "وصف مباشر للمفهوم، مدعوم بمعجم السلطان قابوس كاسم للشيء المطروح"
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تعبير عام يشمل أي شيء مادي وُجد دون صاحب أو هُجر"
+      example: "عثر الجيران على أشياء متروكة في ممر البناية."
+
+    - lemma: "نُفايات"
+      source: "step05"
+      decision: "confirmed"
+      decision_reason: "أكثر المصطلحات دقة ومطابقة للتعريف الإنجليزي (discard/waste)"
+      step05_citation: "«النفايات بأنها مواد أو أجسام أو قطع تخلص منها أو يريد أو مضطر صاحبها للتخلص منها» — مسرد المناخ (ArabTerm)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تركز على كون الشيء عديم القيمة ويجب التخلص منه نهائياً"
+      example: "يتم جمع النفايات المنزلية في أوقات محددة يومياً."
+      actions:
+        - command: "create_entry"
+          params:
+            lemma: "نُفايات"
+            pos: "n"
+        - command: "add_sense"
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09290396-n"
+
+    - lemma: "مُخَلَّفات"
+      source: "step05"
+      decision: "confirmed"
+      decision_reason: "مصطلح تقني شائع لما يتبقى من العمليات ويُطرح"
+      step05_citation: "«كل المواد التي يتم التخلّص منها» — المعجم الموحد لمصطلحات المياه"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تركز على كون الشيء بقايا (residue) ناتجة عن نشاط سابق"
+      example: "تُشكل المخلفات الصناعية خطراً على البيئة إذا لم تُعالج."
+      actions:
+        - command: "create_entry"
+          params:
+            lemma: "مُخَلَّفات"
+            pos: "n"
+        - command: "add_sense"
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09290396-n"
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "أي شيء يتم طرحه جانباً أو التخلص منه"
+  assessment:
+    decision: "revise"
+    reason: "تحسين الصياغة لتكون أكثر جزالة ودقة مصطلحية"
+  authored_definitions:
+    - type: "terminological"
+      text: "كل ما يُطرح جانباً أو يُتخلص منه لعدم الحاجة إليه أو لفقدان قيمته."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: "update_definition"
+      params:
+        synset_id: "awn4-09290396-n"
+        definition_index: 0
+        text: "كل ما يُطرح جانباً أو يُتخلص منه لعدم الحاجة إليه أو لفقدان قيمته."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "جِسْم / شَيْء مَادِّيّ / غَرَض"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "مُهملات"
+        antonym_found: true
+        antonym: "مُقْتَنَيَات"
+      - lemma: "نُفايات"
+        antonym_found: true
+        antonym: "مَوَارِد"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "مُهملات"
+      enrichment:
+        root: "ه-م-ل"
+      examples:
+        - text: "يجب تفريغ سلة المهملات بانتظام لمنع انتشار الروائح."
+          type: "usage"
+          source: "مؤلَّف"
+    - lemma: "شيء متروك"
+      enrichment:
+        root: "ت-ر-ك"
+      examples:
+        - text: "تحذر السلطات من لمس أي أشياء متروكة في الأماكن العامة."
+          type: "usage"
+          source: "مؤلَّف"
+    - lemma: "نُفايات"
+      enrichment:
+        root: "ن-ف-ي"
+      examples:
+        - text: "تُصنف النفايات إلى عضوية وغير عضوية لتسهيل تدويرها."
+          type: "usage"
+          source: "مؤلَّف"
+    - lemma: "مُخَلَّفات"
+      enrichment:
+        root: "خ-ل-ف"
+      examples:
+        - text: "أعطت البلدية تصريحاً لنقل مخلفات البناء إلى المكب المخصص."
+          type: "usage"
+          source: "مؤلَّف"
+  cultural_fit:
+    assessment: "native"

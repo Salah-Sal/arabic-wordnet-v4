@@ -1,0 +1,202 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي دائري (استخدام الجذر في التعريف)."
+      - "نقص المترادفات العربية للمفهوم."
+    observations: "المفهوم يشير إلى الشخص القائم بمحاولة أو سعي لإنجاز أمر ما. المصطلح الحالي 'محاول' صحيح صرفياً ودلالياً ولكنه يحتاج إلى تعزيز بمترادفات أخرى تعبر عن السعي والتصدي."
+  blind_candidates:
+    - lemma: "مُحَاوِل"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل 'حاول' وهو الأكثر مباشرة للتعبير عن القائم بالمحاولة."
+    - lemma: "سَاعٍ"
+      generation_method: ishtiqaq
+      justification: "من الفعل 'سعى'، ويعبر عن الشخص الذي يبذل جهداً في طلب أمر ما."
+    - lemma: "مُتَصَدٍّ"
+      generation_method: ishtiqaq
+      justification: "من الفعل 'تصدى'، ويشير إلى من يقبل على القيام بمهمة أو محاولة مواجهة تحدٍ."
+    - lemma: "مُجَرِّب"
+      generation_method: ishtiqaq
+      justification: "من الفعل 'جرب'، ويشير إلى من يحاول القيام بأمر ما لاختباره أو تعلمه."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُحَاوِل"
+      confirm:
+        - text: "«trier: ... المُحاوِل»"
+          source: "المورد الحديث (2008)"
+        - text: "«حاوَلَ الأمرَ: أراد إدراكه وإنجازه»"
+          source: "المعجم الوسيط"
+    - lemma: "مُجَرِّب"
+      confirm:
+        - text: "«trier: ... المُجرِّب»"
+          source: "المورد الحديث (2008)"
+        - text: "«يجرب؛ يختبر؛ يفحص (2) يحاول»"
+          source: "المورد الحديث (2008)"
+    - lemma: "سَاعٍ"
+      confirm:
+        - text: "«يسعى؛ يحاول»"
+          source: "المورد الحديث (2008) - في مادة aim"
+      expands:
+        - text: "«الساعي: عامل الصدقات وموزع البريد»"
+          source: "المعجم الوسيط"
+          addition: "المعنى الاصطلاحي القديم يختلف، ولكن المعنى العام للسعي (المحاولة والطلب) ما يزال مستخدماً."
+    - lemma: "مُتَصَدٍّ"
+      confirm:
+        - text: "«تصدى لفلان: تعرض له رافعاً رأسه إليه، أقبل عليه بوجهه»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«تصدى للأمر: رفع رأسه إليه»"
+          source: "المحكم والمحيط الأعظم"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مُحَاوِل"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي ومباشر للمفهوم، وموثق في المعاجم الحديثة كمرادف لـ trier."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُحَاوِل"
+    - lemma: "مُجَرِّب"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يستخدم للتعبير عن الشخص الذي يحاول القيام بأمر ما على سبيل الاختبار أو التجربة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُجَرِّب", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "سَاعٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر عن المحاولة المقترنة بالجهد والحركة نحو الهدف."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "سَاعٍ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُتَصَدٍّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر عن الشخص الذي يبادر بمحاولة مواجهة أو إنجاز أمر ما."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُتَصَدٍّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "من يحاول"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب جداً ودائري."
+    authored:
+      - type: terminological
+        text: "شَخْصٌ يَبْذُلُ جُهْدًا أَوْ يَقُومُ بِمُحَاوَلَةٍ لِإِنْجَازِ عَمَلٍ أَوْ بَلُوغِ هَدَفٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "شَخْصٌ يَبْذُلُ جُهْدًا أَوْ يَقُومُ بِمُحَاوَلَةٍ لِإِنْجَازِ عَمَلٍ أَوْ بَلُوغِ هَدَفٍ."}
+  examples:
+    per_lemma:
+      - lemma: "مُحَاوِل"
+        examples:
+          - text: "كَانَ المُحَاوِلُ الأَوَّلُ لِلطَّيَرَانِ هُوَ عَبَّاس بْن فِرْنَاس."
+            type: usage
+      - lemma: "مُجَرِّب"
+        examples:
+          - text: "إِنَّهُ مُجَرِّبٌ دَؤُوبٌ لَا يَكِفُّ عَنِ المُحَاوَلَةِ حَتَّى يَنْجَحَ."
+            type: usage
+      - lemma: "سَاعٍ"
+        examples:
+          - text: "يُعَدُّ السَّاعِي لِلْمَعْرِفَةِ مِنْ أَنْبَلِ النَّاسِ هِمَّةً."
+            type: usage
+      - lemma: "مُتَصَدٍّ"
+        examples:
+          - text: "ظَهَرَ مُتَصَدٍّ جَدِيدٌ لِحَلِّ هَذِهِ المَسْأَلَةِ الرِّيَاضِيَّةِ المُعَقَّدَةِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "كَانَ المُحَاوِلُ الأَوَّلُ لِلطَّيَرَانِ هُوَ عَبَّاس بْن فِرْنَاس."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُحَاوِل"
+      entry_id: "{auto}"
+      root: "حول"
+      maqayis_quote: "«الْحَاءُ وَالْوَاوُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ تَحَرُّكٌ فِي دَوْرٍ... وَالْحِيلَةُ وَالْحَوِيلُ وَالْمُحَاوَلَةُ مِنْ طَرِيقٍ وَاحِدٍ، وَهُوَ الْقِيَاسُ الَّذِي ذَكَرْنَاهُ؛ لِأَنَّهُ يَدُورُ حَوَالَيِ الشَّيْءِ لِيُدْرِكَهُ.»"
+    - lemma: "مُجَرِّب"
+      entry_id: "{auto}"
+      root: "جرب"
+      maqayis_quote: "«الْجِيمُ وَالرَّاءُ وَالْبَاءُ أَصْلَانِ: أَحَدُهُمَا الشَّيْءُ الْبَسِيطُ يَعْلُوهُ كَالنَّبَاتِ مِنْ جِنْسِهِ، وَالْآخَرُ شَيْءٌ يَحْوِي شَيْئًا.»"
+    - lemma: "سَاعٍ"
+      entry_id: "{auto}"
+      root: "سعي"
+      maqayis_quote: "«السِّينُ وَالْعَيْنُ وَالْيَاءُ لَيْسَ أَصْلًا مَقِيسًا، وَقَدْ جَاءَتْ فِيهِ كَلِمَاتٌ... يُقَالُ سَعَى يَسْعَى سَعْيًا، إِذَا عَدَا. وَالسَّعْيُ: التَّصَرُّفُ فِي كُلِّ عَمَلٍ.» (مستخلص)"
+    - lemma: "مُتَصَدٍّ"
+      entry_id: "{auto}"
+      root: "صدي"
+      maqayis_quote: "«الصَّادُ وَالدَّالُ وَالْحَرْفُ الْمُعْتَلُّ فِيهِ كَلِمٌ مُتَبَاعِدَةُ الْقِيَاسِ... وَتَصَدَّى فُلَانٌ لِلشَّيْءِ، يَسْتَشْرِفُهُ نَاظِرًا إِلَيْهِ.»"
+  per_sense:
+    - lemma: "مُحَاوِل"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام الذي يعبر عن مجرد القيام بالمحاولة."
+      mwe: false
+    - lemma: "مُجَرِّب"
+      sense_id: "{auto}"
+      nuance: "يشير إلى المحاولة المبنية على الاختبار العملي."
+      mwe: false
+    - lemma: "سَاعٍ"
+      sense_id: "{auto}"
+      nuance: "يوحي بالجد والاجتهاد والاستمرارية في المحاولة."
+      mwe: false
+    - lemma: "مُتَصَدٍّ"
+      sense_id: "{auto}"
+      nuance: "يوحي بالمبادرة لمواجهة تحدٍ أو التصدي لمهمة معينة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حول","maqayis":"«الْحَاءُ وَالْوَاوُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ تَحَرُّكٌ فِي دَوْرٍ... وَالْحِيلَةُ وَالْحَوِيلُ وَالْمُحَاوَلَةُ مِنْ طَرِيقٍ وَاحِدٍ، وَهُوَ الْقِيَاسُ الَّذِي ذَكَرْنَاهُ؛ لِأَنَّهُ يَدُورُ حَوَالَيِ الشَّيْءِ لِيُدْرِكَهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العام الذي يعبر عن مجرد القيام بالمحاولة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

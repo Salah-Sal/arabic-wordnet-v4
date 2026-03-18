@@ -1,0 +1,196 @@
+stage1_review:
+  assessment:
+    concerns:
+      - غياب التشكيل التام عن اللمات الحالية.
+      - الاكتفاء بمركبات وصفية وإضافية مع توفر لفظ مفرد دقيق (مسرطن).
+    observations: "المصطلحات الحالية صحيحة دلالياً لكنها تعبيرية أكثر منها معجمية مركزة. المصطلح 'مسرطن' (اسم فاعل من سرطن الرباعي) هو المقابل الأدق والأكثر شيوعاً في الأدبيات العلمية المعاصرة ككلمة مفردة."
+  blind_candidates:
+    - lemma: "مُسَرْطِن"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل الرباعي 'سرطن' (أحدث السرطان)، وهو المصطلح الفني المفرد المقابل لـ carcinogen."
+    - lemma: "مَادَّةٌ مُسَرْطِنَةٌ"
+      generation_method: tarkib
+      justification: "مركب وصفي شائع جداً في الاستخدام العام والمتخصص لوصف المواد المسببة للسرطان."
+    - lemma: "مُسَبِّبُ السَّرَطَانِ"
+      generation_method: tarkib
+      justification: "مركب إضافي يصف الوظيفة الدلالية للمادة بشكل مباشر ودقيق."
+    - lemma: "مُسَرْطِنَة"
+      generation_method: ishtiqaq
+      justification: "الصيغة المؤنثة من 'مسرطن' وتستخدم غالباً كاسم مفرِد للإشارة إلى 'المادة' المسرطنة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مادة مسرطنة"
+      confirm:
+        - text: "مادة مسرطنة: مادة محدثة للسرطان."
+          source: "المعجم الموحد لمصطلحات تقانات الأغذية (2004)"
+        - text: "مادة مسرطنة: carcinogen"
+          source: "المعجم الموحد لمصطلحات المياه (2000)"
+    - lemma: "مسبب للسرطان"
+      confirm:
+        - text: "مُسرطِن: عامل مسبب للسرطان أو للأورام الخبيثة."
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية (2012)"
+    - lemma: "مسرطن"
+      confirm:
+        - text: "المُسَرْطِن: مادةٌ مُحْدِثةٌ للسَّرطان."
+          source: "المورد الحديث (2008)"
+        - text: "مُسَرْطِن: carcinogen"
+          source: "المعجم الطبي الموحد (2009)"
+    - lemma: "مسرطنة"
+      confirm:
+        - text: "المُسَرْطَنَةُ: الْمَوَادُّ ال تِى تُ سَبِّبُ تَ حَوُّل الخلايا إلى خلايا سَرَطانية مدمِّرة."
+          source: "المعجم الكبير"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مادة مسرطنة"
+      decision: confirmed
+      decision_reason: "مصطلح مركّب مستقر في المعاجم المتخصصة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَادَّةٌ مُسَرْطِنَةٌ"
+    - lemma: "مسبب للسرطان"
+      decision: confirmed
+      decision_reason: "تعبير دقيق ومستخدم في التعريفات المعجمية لوصف المادة المسرطنة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُسَبِّبٌ لِلسَّرَطَانِ"
+    - lemma: "مُسَرْطِن"
+      source: stage1
+      decision: confirmed
+      decision_reason: "هو المصطلح الفني المفرد الأدق والمستخدم عالمياً كمقابل لـ carcinogen."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُسَرْطِن", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُسَبِّبُ السَّرَطَانِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صيغة إضافية مقتضبة وأكثر تركيبية من 'مسبب للسرطان'."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "مُسَبِّبُ السَّرَطَانِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "أي مادة تسبب السرطان"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي بسيط جداً؛ يفضل صياغته بأسلوب معجمي يوضح طبيعة التأثير."
+    authored:
+      - type: terminological
+        text: "مادَّةٌ تُحدِثُ السَّرطانَ أو تُحَفِّزُ نُمُوَّ الخلايا السَّرطانيةِ في الأنسجةِ الحيَّةِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "مَادَّةٌ مُسَرْطِنَةٌ"
+        examples:
+          - text: "يُعَدُّ التَّبغُ من أخطرِ المَوادِّ المُسَرْطِنَةِ التي يتعرَّضُ لها الإنسانُ."
+            type: usage
+      - lemma: "مُسَرْطِن"
+        examples:
+          - text: "صَنَّفَتْ مُنَظَّمَةُ الصِّحَّةِ العالميَّةِ اللَّحمَ المُصَنَّعَ كمُسَرْطِنٍ من الفِئَةِ الأولى."
+            type: usage
+      - lemma: "مُسَبِّبٌ لِلسَّرَطَانِ"
+        examples:
+          - text: "يجبُ الحَذَرُ من التَّعرُّضِ الطَّويلِ للأشِعَّةِ فوقَ البنفسجيَّةِ لأنَّها مُسَبِّبٌ للسَّرطانِ."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مادَّةٌ تُحدِثُ السَّرطانَ أو تُحَفِّزُ نُمُوَّ الخلايا السَّرطانيةِ في الأنسجةِ الحيَّةِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَادَّةٌ مُسَرْطِنَةٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مادة"
+          root: "مدد"
+          maqayis_quote: "«الْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى جَرِّ شَيْءٍ فِي طُولٍ، وَاتِّصَالِ شَيْءٍ بِشَيْءٍ فِي اسْتِطَالَةٍ.»"
+        - word: "مسرطنة"
+          root: "سرط"
+          maqayis_quote: "«السِّينُ وَالرَّاءُ وَالطَّاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ، يَدُلُّ عَلَى غَيْبَةٍ فِي مَرٍّ وَذَهَابٍ. مِنْ ذَلِكَ: سَرَطْتُ الطَّعَامَ، إِذَا بَلَعْتَهُ.»"
+    - lemma: "مُسَرْطِن"
+      entry_id: "{auto}"
+      root: "سرطن"
+      maqayis_quote: "«السِّينُ وَالرَّاءُ وَالطَّاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ، يَدُلُّ عَلَى غَيْبَةٍ فِي مَرٍّ وَذَهَابٍ. مِنْ ذَلِكَ: سَرَطْتُ الطَّعَامَ، إِذَا بَلَعْتَهُ.»"
+  per_sense:
+    - lemma: "مَادَّةٌ مُسَرْطِنَةٌ"
+      sense_id: "{auto}"
+      nuance: "التعبير الأكثر شيوعاً ووصفاً في الاستعمال العام."
+      mwe: true
+    - lemma: "مُسَرْطِن"
+      sense_id: "{auto}"
+      nuance: "مصطلح فني مفرد يركز على الوظيفة البيولوجية للمادة."
+      mwe: false
+    - lemma: "مُسَبِّبٌ لِلسَّرَطَانِ"
+      sense_id: "{auto}"
+      nuance: "تعبير تفسيري يوضح العلية بين المادة والمرض."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مادة","root":"مدد","maqayis":"«الْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى جَرِّ شَيْءٍ فِي طُولٍ، وَاتِّصَالِ شَيْءٍ بِشَيْءٍ فِي اسْتِطَالَةٍ.»"},{"word":"مسرطنة","root":"سرط","maqayis":"«السِّينُ وَالرَّاءُ وَالطَّاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ، يَدُلُّ عَلَى غَيْبَةٍ فِي مَرٍّ وَذَهَابٍ. مِنْ ذَلِكَ: سَرَطْتُ الطَّعَامَ، إِذَا بَلَعْتَهُ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سرطن","maqayis":"«السِّينُ وَالرَّاءُ وَالطَّاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ، يَدُلُّ عَلَى غَيْبَةٍ فِي مَرٍّ وَذَهَابٍ. مِنْ ذَلِكَ: سَرَطْتُ الطَّعَامَ، إِذَا بَلَعْتَهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"التعبير الأكثر شيوعاً ووصفاً في الاستعمال العام.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح فني مفرد يركز على الوظيفة البيولوجية للمادة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

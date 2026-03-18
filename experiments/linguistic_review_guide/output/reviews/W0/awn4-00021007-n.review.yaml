@@ -1,0 +1,108 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "مَادَّة"
+      confirm:
+        - text: "«(المادة) كل جسم ذي امتداد ووزن ويشغل حيزا من الفراغ (مو)» — المعجم الوسيط"
+          source: "المعجم الوسيط"
+        - text: "«مُصطلح يشمل كافة الأجسام المرئية التي لها كُتلة. أمّا الحيّز المكاني الذي يخلو من أية مادة فيُسمّى الفراغ.» — المعجم الموحد لمصطلحات الطاقة المتجددة"
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة"
+      expands:
+        - text: "«عند الحكماء هي المحل وتسمّى بالهيولى أيضا» — كشاف اصطلاحات الفنون للتهانوي"
+          source: "كشاف اصطلاحات الفنون"
+          addition: "ربط المادة بمصطلح الهيولى الفلسفي"
+        - text: "«مادة الشيء: هي التي يحصل الشيء معها بالقوة، وقيل: المادة: الزيادة المتصلة.» — كتاب التعريفات للجرجاني"
+          source: "كتاب التعريفات"
+          addition: "تعريف فلسفي يركز على الوجود بالقوة والزيادة"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "هَيُولَى"
+      source_section: "step0_evidence"
+      evidence_citation: "«عند الحكماء هي المحل وتسمّى بالهيولى أيضا» — كشاف اصطلاحات الفنون للتهانوي"
+      justification: "مصطلح تراثي وفلسفي أصيل لمفهوم المادة الأولى (Hyle) التي تتشكل منها الأجسام"
+  knowledge_candidates:
+    - lemma: "جَوْهَر"
+      justification: "يُستخدم في السياقات الفلسفية القديمة للتعبير عن الأصل المادي للأشياء (Substance)"
+  generation_notes: "اللمة الأصلية 'مادة' هي المصطلح العلمي الحديث الأكثر دقة، بينما 'هيولى' و'جوهر' هما البدائل التراثية/الفلسفية"
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "مَادَّة"
+      decision: confirmed
+      decision_reason: "أدلة معجمية قطعية تطابق التعريف العلمي للمجموعة"
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "اللمة الأساسية والوحيدة للمفهوم العلمي للمادة في الفيزياء والكيمياء"
+      example: "تتكون المادة من ذرات وجزيئات تشغل حيزاً من الفراغ ولها كتلة محددة."
+    - lemma: "هَيُولَى"
+      source: step05
+      decision: confirmed
+      decision_reason: "مرادف فلسفي تراثي مثبت في معاجم الاصطلاحات (التهانوي)"
+      step05_citation: "«عند الحكماء هي المحل وتسمّى بالهيولى أيضا» — كشاف اصطلاحات الفنون"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تختص بالسياق الفلسفي والمنطقي القديم للإشارة إلى المادة الأولى قبل تشكلها"
+      example: "يعتقد الفلاسفة القدامى أن الهيولى هي المادة الأولى التي تتقبل الصور المختلفة."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "هَيُولَى"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-00021007-n"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "ما له كتلة ويشغل حيّزًا من الفراغ"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق علمياً ومصاغ بأسلوب مصطلحي سليم يجمع بين الكتلة والحيّز"
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "كِيَان مَادِّيّ"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "مَادَّة"
+        antonym_found: true
+        antonym: "طَاقَة"
+  actions:
+    - command: add_synset_relation
+      params:
+        source_id: "awn4-00021007-n"
+        relation_type: "antonym"
+        target_id: "{auto}"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "مَادَّة"
+      enrichment:
+        root: "م-د-د"
+      examples:
+        - text: "الْمَادَّة كل جسم ذي امتداد ووزن ويشغل حيزا من الفراغ"
+          type: usage
+          source: "المعجم الوسيط"
+      pos_check:
+        pos: noun
+    - lemma: "هَيُولَى"
+      enrichment:
+        root: null
+        etymology: "loanword"
+      examples:
+        - text: "المادّة عند الحكماء هي المحل وتسمّى بالهيولى"
+          type: usage
+          source: "كشاف اصطلاحات الفنون"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-00021007-n"
+        text: "تتكون المادة من جزيئات صغيرة جداً تسمى الذرات."

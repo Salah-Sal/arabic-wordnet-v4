@@ -1,0 +1,230 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'كائن حي' موجودة في المجموعة الأم (الكائنات الحية بشكل عام) مما يخلق دوراناً دلالياً. 'كائن حي' يشمل النباتات أيضاً، ولا يقتصر على الحيوان."
+    observations: "المفهوم يشير إلى المملكة الحيوانية التي تتميز بالحس والحركة الإرادية. اللفظ الأدق علمياً وتراثياً هو 'حيوان'."
+  blind_candidates:
+    - lemma: "دَابَّة"
+      generation_method: majaz
+      justification: "تُطلق مجازاً أو بعموم على كل ما يدب على الأرض من الحيوانات."
+    - lemma: "بَهِيمَة"
+      generation_method: ishtiqaq
+      justification: "مشتقة من البهم (عدم الإفصاح)، وتطلق على الحيوانات لكونها لا تنطق."
+    - lemma: "مَخْلُوق حَيّ"
+      generation_method: tarkib
+      justification: "مركب وصفي يدل على الكائن ذي الحياة."
+    - lemma: "ذُو رُوح"
+      generation_method: tarkib
+      justification: "مركب إضافي يشير إلى ما به روح يتحرك بها، وهو مرادف قديم للحيوان."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "حَيَوَان"
+      confirm:
+        - text: "«الحَيَوَانُ: حساس متحرك بالإرادة.»"
+          source: "معجم مقاليد العلوم للسيوطي"
+        - text: "«الحيوان: الجسم النامي الحساس المتحرك بالإرادة.»"
+          source: "كتاب التعريفات للشريف الجرجاني"
+        - text: "«( في علم الأحياء ) animal : كائِنٌ حىٌّ , يَتَغذَّى غذاءً مباينًا ... وغالبًا ما يكون متحرِّكًا ومتنقِّلاً .»"
+          source: "المعجم الكبير"
+    - lemma: "كَائِن حَيّ"
+      contradicts:
+        - text: "«شكل من أشكال الحياة: نبات أو حيوان أو فطريات أو بكتيريا.»"
+          source: "مسرد المناخ والبيئة (موقع ArabTerm)"
+          conflict: "التعريف يشمل النبات والفطريات والبكتيريا، ولا يقتصر على الحيوان الذي يتحرك بالإرادة، وهو مخصص للمجموعة الأم."
+    - lemma: "دَابَّة"
+      expands:
+        - text: "«كلُّ ما يدِبُّ على الأرض؛ ... والمرادُ: جميعُ الدَّوابِّ ما عدا الإنسان الحيوان والطيور»"
+          source: "المعجم الكبير"
+          addition: "تدل على الحيوانات التي تدب على الأرض، وغلب على ما يُركب."
+    - lemma: "بَهِيمَة"
+      expands:
+        - text: "«كل ذَات أَربع قَوَائِم من دَوَاب الْبر وَالْبَحْر مَا عدا السبَاع»"
+          source: "المعجم الوسيط"
+          addition: "أخص من الحيوان؛ تطلق على ذوات الأربع عدا السباع."
+    - lemma: "مَخْلُوق حَيّ"
+      evidence_status: "no_material_found"
+    - lemma: "ذُو رُوح"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "حَيَوَان"
+      decision: confirmed
+      decision_reason: "اللفظ الأدق والأشمل الذي يطابق التعريف تماماً، وهو مصطلح علمي وتراثي متفق عليه."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حَيَوَان"
+    - lemma: "كَائِن حَيّ"
+      decision: removed
+      decision_reason: "مصطلح أعم من الحيوان حيث يشمل النبات والبكتيريا والفطريات (وهو اللمة الموجودة في المجموعة الأم). استخدامه هنا غير دقيق."
+      evidence_assessment:
+        case: contradicts_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "دَابَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ فصيح يطلق على كل حيوان يدب على الأرض، ويقابل الدلالة الإنجليزية (beast/creature)."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "دَابَّة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "بَهِيمَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ فصيح يطلق على ذوات الأربع، ويقابل الدلالة الإنجليزية (brute/beast)."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "بَهِيمَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "مَخْلُوق حَيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "عبارة وصفية غير مسكوكة كمصطلح مرادف للحيوان، وهي أعم منه."
+    - lemma: "ذُو رُوح"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير وصفي عام لا يشكل وحدة معجمية مسكوكة مستقلة للحيوان."
+
+stage4_content:
+  definition:
+    current: "كائن حي يتميز بالحركة الإرادية"
+    assessment:
+      decision: retain
+      reason: "التعريف الحالي دقيق ويفي بالغرض، ويشابه التعريفات المعجمية التراثية والحديثة (حساس متحرك بالإرادة)."
+    actions: []
+  examples:
+    per_lemma:
+      - lemma: "حَيَوَان"
+        examples:
+          - text: "تنقسم الكائنات الحية إلى نبات وحيوان."
+            type: usage
+      - lemma: "دَابَّة"
+        examples:
+          - text: "﴿وَمَا مِن دَابَّةٍ فِي الْأَرْضِ إِلَّا عَلَى اللَّهِ رِزْقُهَا﴾"
+            type: quran
+      - lemma: "بَهِيمَة"
+        examples:
+          - text: "﴿أُحِلَّتْ لَكُم بَهِيمَةُ الْأَنْعَامِ﴾"
+            type: quran
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تنقسم الكائنات الحية إلى نبات وحيوان."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "﴿وَمَا مِن دَابَّةٍ فِي الْأَرْضِ إِلَّا عَلَى اللَّهِ رِزْقُهَا﴾"
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "﴿أُحِلَّتْ لَكُم بَهِيمَةُ الْأَنْعَامِ﴾"
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "حَيَوَان"
+      entry_id: "{auto}"
+      root: "حيي"
+      maqayis_quote: "«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ... فَالْحَيَاةُ وَالْحَيَوَانُ، وَهُوَ ضِدُّ الْمَوْتِ وَالْمَوَتَانِ.»"
+    - lemma: "دَابَّة"
+      entry_id: "{auto}"
+      root: "دبب"
+      maqayis_quote: "«الدَّالُ وَالْبَاءُ أَصْلٌ وَاحِدٌ صَحِيحٌ مُنْقَاسٌ، وَهُوَ حَرَكَةٌ عَلَى الْأَرْضِ أَخَفُّ مِنَ الْمَشْيِ... وَكُلُّ مَا مَشَى عَلَى الْأَرْضِ فَهُوَ دَابَّةٌ.»"
+    - lemma: "بَهِيمَة"
+      entry_id: "{auto}"
+      root: "بهم"
+      maqayis_quote: "«الْبَاءُ وَالْهَاءُ وَالْمِيمُ: أَنْ يَبْقَى الشَّيْءُ لَا يُعْرَفُ الْمَأْتَى إِلَيْهِ... وَمِنْهُ الْبَهِيمُ: اللَّوْنُ الَّذِي لَا يُخَالِطُهُ غَيْرُهُ... وَالْبَهْمُ صِغَارُ الْغَنَمِ.»"
+  per_sense:
+    - lemma: "حَيَوَان"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام الشامل لكل الكائنات الحية المتحركة بالإرادة."
+      mwe: false
+    - lemma: "دَابَّة"
+      sense_id: "{auto}"
+      nuance: "تختص غالباً بما يدب على الأرض، ويغلب إطلاقها على ما يُركب ويُحمل عليه."
+      mwe: false
+    - lemma: "بَهِيمَة"
+      sense_id: "{auto}"
+      nuance: "تختص بذوات الأربع من الحيوانات عدا السباع والطيور."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حيي","maqayis":"«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ... فَالْحَيَاةُ وَالْحَيَوَانُ، وَهُوَ ضِدُّ الْمَوْتِ وَالْمَوَتَانِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"دبب","maqayis":"«الدَّالُ وَالْبَاءُ أَصْلٌ وَاحِدٌ صَحِيحٌ مُنْقَاسٌ، وَهُوَ حَرَكَةٌ عَلَى الْأَرْضِ أَخَفُّ مِنَ الْمَشْيِ... وَكُلُّ مَا مَشَى عَلَى الْأَرْضِ فَهُوَ دَابَّةٌ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"بهم","maqayis":"«الْبَاءُ وَالْهَاءُ وَالْمِيمُ: أَنْ يَبْقَى الشَّيْءُ لَا يُعْرَفُ الْمَأْتَى إِلَيْهِ... وَمِنْهُ الْبَهِيمُ: اللَّوْنُ الَّذِي لَا يُخَالِطُهُ غَيْرُهُ... وَالْبَهْمُ صِغَارُ الْغَنَمِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ العام الشامل لكل الكائنات الحية المتحركة بالإرادة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تختص غالباً بما يدب على الأرض، ويغلب إطلاقها على ما يُركب ويُحمل عليه.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تختص بذوات الأربع من الحيوانات عدا السباع والطيور.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

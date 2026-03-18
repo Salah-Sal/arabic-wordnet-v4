@@ -1,0 +1,140 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "سِتَار"
+      expands:
+        - text: "ما يُسْتَتَرُ به"
+          source: "المعجم الكبير"
+          addition: "استُعير المعنى المادي للغطاء للدلالة على شخص (امرأة) يُتخذ واجهة لإخفاء حقيقة شخص آخر"
+    - lemma: "غِطَاء"
+      expands:
+        - text: "ما يُجعل فوق الشيء فيواريه ويستره"
+          source: "المعجم الوسيط"
+          addition: "استُعير المعنى المادي للستر والإخفاء ليُطلق على شخص يُبعد الشبهة"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "سُتْرَة"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«السّترة ما استترت به من شيء كائنا ما كان» — معجم البلدان لياقوت الحموي"
+      justification: "لفظ عام يدل على الإخفاء والستر، وهو مجاز (إزاحة دلالية) لمن يُتخذ لستر شيء، وإن كان أقل شيوعاً من ستار."
+  knowledge_candidates:
+    - lemma: "وَاجِهَة"
+      justification: "مصطلح شائع (إزاحة دلالية / مجاز) يُطلق على الشخص أو الشيء الذي يُستخدم كستار لتمثيل شيء آخر أو إخفاء حقيقته أمام المجتمع."
+  generation_notes: "المفهوم الإنجليزي (beard) خاص جداً بثقافة معينة، ولا يقابله في العربية لفظ مسكوك مخصص له حصراً؛ بل تُستخدم ألفاظ عامة تفيد الستر أو التغطية أو الواجهة مجازياً."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "سِتَار"
+      decision: "confirmed"
+      decision_reason: "استعمال مجازي شائع ومناسب لتعريف واجهة الإخفاء"
+      evidence_assessment:
+        case: "expands"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يدل على الحجب والإخفاء بشكل عام، واستعير هنا للشخص."
+      example: "تزوجها لتكون ستاراً يخفي به حقيقة ميوله أمام عائلته."
+
+    - lemma: "غِطَاء"
+      decision: "confirmed"
+      decision_reason: "استعمال مجازي مقبول يؤدي معنى إبعاد الشبهة والتغطية"
+      evidence_assessment:
+        case: "expands"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على معنى التغطية وإخفاء الحقائق أو الأفعال."
+      example: "استخدم علاقاته النسائية غطاءً لإبعاد الشبهات عنه."
+
+    - lemma: "وَاجِهَة"
+      source: "step05"
+      decision: "confirmed"
+      decision_reason: "كلمة شائعة جداً في الاستعمال المجازي للتعبير عن شخص يُستخدم للإخفاء"
+      step05_citation: "معرفة لغوية — مجاز"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تدل على الجانب المرئي والمعلن للمجتمع والذي يخفي حقيقة باطنة."
+      example: "كان زواجهما مجرد واجهة اجتماعية لإرضاء الناس."
+      actions:
+        - command: "create_entry"
+          params:
+            lemma: "وَاجِهَة"
+            pos: "n"
+        - command: "add_sense"
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09864809-n"
+
+  added_lemmas:
+    - lemma: "وَاجِهَة"
+      reason: "مصدر: الخطوة ٠٫٥ — أكثر دقة وشيوعاً في التعبير عن هذا المعنى المجازي"
+      via_command: "create_entry + add_sense"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شخص يبعد الشبهة عن شخص آخر (خاصة امرأة ترافق رجلاً مثلياً لإخفاء مثليته)"
+  assessment:
+    decision: "retain"
+    reason: "التعريف دقيق ويترجم المفهوم الإنجليزي المعني بشكل سليم وواضح"
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عَامِل"
+    test_result: "wrong"
+  antonymy:
+    per_lemma:
+      - lemma: "سِتَار"
+        antonym_found: false
+      - lemma: "غِطَاء"
+        antonym_found: false
+  verb_checks:
+    applicable: false
+  selectional_restrictions:
+    - lemma: "سِتَار"
+      constraint: "شخص (في هذا السياق المجازي)"
+    - lemma: "غِطَاء"
+      constraint: "شخص أو علاقة (في هذا السياق المجازي)"
+    - lemma: "وَاجِهَة"
+      constraint: "شخص أو علاقة (في هذا السياق المجازي)"
+  actions:
+    - command: "remove_synset_relation"
+      params:
+        source_id: "awn4-09864809-n"
+        relation_type: "hypernym"
+        target_id: "awn4-09786620-n"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "سِتَار"
+      enrichment:
+        root: "س-ت-ر"
+        figurative_relation: "metaphor"
+      examples:
+        - text: "تزوجها لتكون ستاراً يخفي به حقيقة ميوله أمام المجتمع."
+          type: "usage"
+          source: "مؤلَّف"
+      pos_check:
+        pos: "noun"
+
+    - lemma: "غِطَاء"
+      enrichment:
+        root: "غ-ط-و"
+        figurative_relation: "metaphor"
+      examples:
+        - text: "استخدم تلك العلاقة غطاءً لإبعاد الشبهات عنه."
+          type: "usage"
+          source: "مؤلَّف"
+      pos_check:
+        pos: "noun"
+
+    - lemma: "وَاجِهَة"
+      enrichment:
+        root: "و-ج-ه"
+        figurative_relation: "metaphor"
+      examples:
+        - text: "اتخذها واجهةً لكي لا يثير ريبة أسرته."
+          type: "usage"
+          source: "مؤلَّف"
+      pos_check:
+        pos: "noun"
+
+  cultural_fit:
+    assessment: "lexical_gap"

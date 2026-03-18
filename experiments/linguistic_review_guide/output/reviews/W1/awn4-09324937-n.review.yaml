@@ -1,0 +1,102 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "رأس"
+      confirm:
+        - text: "«الرأس: مجتمع الخلقة، ومجتمع كل شيء راسه»"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+        - text: "«(الرَّأْس) من كل شَيْء أَعْلَاهُ»"
+          source: "المعجم الوسيط"
+        - text: "«الرأسُ: م، وأعْلى كلِّ شيءٍ»"
+          source: "القاموس المحيط"
+      expands:
+        - text: "«(13) «أ» الرأس: الجزء الموشك على الانفجار من بثرة أو خرّاج.»"
+          source: "المورد الحديث"
+          addition: "استخدام اللفظ للكتل المدمجة الصغيرة (مثل رؤوس البثور)"
+        - text: "«رأس المخروط... ورأس المثلث هو الزاوية التي بين الساقين»"
+          source: "كشاف اصطلاحات الفنون"
+          addition: "توسيع المعنى ليشمل الأجزاء الطرفية المحددة هندسياً"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "مُكَوَّر"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«مكوّر: كرنب (ملفوف) متلاصق الأوراق» — تكملة المعاجم العربية لرينهارت دوزي"
+      justification: "يصف الكتلة النباتية المدمجة التي تأخذ شكلاً كروياً (مثل الملفوف)، وهو لبّ دلالة المجموعة."
+  knowledge_candidates:
+    - lemma: "كُبَّة"
+      justification: "آلية التوليد: مجاز. يُطلق في العربية على الكتلة المدمجة المستديرة من مادة ما (مثل كبة الغزل)، ويُستعمل لوصف التجمعات المتراصة."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "رأس"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي وشامل في العربية يغطي المعنى التشريحي والوظيفي والشكلي (القمة والكتلة الطرفية)."
+      evidence_assessment:
+        case: "confirm"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "اللفظ العام الذي يدل على العضو أو الجزء العلوي أو الكتلة المتصدرة للشيء."
+      example: "اشترى رَأْسَيْنِ من الخس لصنع السلطة."
+    
+    - lemma: "مُكَوَّر"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح دقيق لوصف الكتلة المدمجة المستديرة خاصة في السياق النباتي (مثل الملفوف المكوّر)."
+      step05_citation: "«مكوّر: كرنب (ملفوف) متلاصق الأوراق» — دوزي"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على صفة الاندماج والالتفاف التي تشكل الكتلة المستديرة، وهو أخص من 'رأس'."
+      example: "يتميز الكرنب المكوّر بأوراقه المتراصة فوق بعضها."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُكَوَّر"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09324937-n"
+
+    - lemma: "كُبَّة"
+      source: step05
+      decision: removed
+      decision_reason: "رغم دلالتها على الكتلة المستديرة، إلا أنها ترتبط غالباً بالخيوط (كبة غزل) أو نوع من الطعام، وليست مصطلحاً عاماً للكتل المدمجة في هذا السياق."
+      step05_citation: "معجم اللغة العربية المعاصرة"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "كتلة مدمجة مستديرة"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وجامع للمفهوم المقصود (ILI i85519) الذي يشمل كتل النباتات والأدوات."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "جِسْم"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "رأس"
+        antonym_found: false
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "رأس"
+      enrichment:
+        root: "ر أ س"
+      examples:
+        - text: "رأسُ المطرقةِ مصنوعٌ من الفولاذِ المقوى."
+          type: usage
+          source: "مؤلف"
+        - text: "قطف المزارع رؤوس الزهرة الناضجة."
+          type: usage
+          source: "مؤلف"
+    - lemma: "مُكَوَّر"
+      enrichment:
+        root: "ك و ر"
+      examples:
+        - text: "يُفضل بعض الناس الكرنب المكوّر في الطهي لسهولة تقطيعه."
+          type: usage
+          source: "مؤلف"
+  cultural_fit:
+    assessment: native

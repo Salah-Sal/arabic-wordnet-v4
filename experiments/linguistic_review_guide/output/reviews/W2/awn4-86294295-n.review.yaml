@@ -1,0 +1,222 @@
+# ── المرحلة ١: المراجعة والتوليد (بدون أدلة) ──────────────
+stage1_review:
+  assessment:
+    concerns:
+      - "المجموعة الترادفية مرتبطة بعلاقة اشتمال (hypernym) خاطئة تماماً؛ حيث أن 'عامل' (شخص يعمل ويُنجِز الأمور) لا يمثل جنساً قريباً لمفهوم 'شخص أسود' في التصنيف الأنثروبولوجي أو المعجمي العام."
+      - "اللمّة الموجودة 'شخص أسود' هي عبارة وصفية أكثر منها وحدة معجمية بسيطة، رغم شيوعها."
+    observations: "المفهوم واضح ويعبر عن الفئة العرقية المرتبطة بأصول إفريقية استوائية. اللغة العربية غنية بالمصطلحات التي تصف الألوان والأعراق، ويحتاج المفهوم إلى لّمات أكثر تخصيصاً وتكثيفاً معجمياً."
+  blind_candidates:
+    - lemma: "أَسْوَد"
+      generation_method: majaz
+      justification: "استخدام اسم اللون (الأسود) للدلالة على الشخص صاحب تلك البشرة، وهو الاستخدام الأكثر شيوعاً في العصر الحديث."
+    - lemma: "زِنْجِيّ"
+      generation_method: ishtiqaq
+      justification: "المصطلح المعجمي الكلاسيكي والعلمي للدلالة على الشعوب ذات البشرة السوداء المنحدرة من إفريقيا."
+    - lemma: "إِفْرِيِقِيّ"
+      generation_method: ishtiqaq
+      justification: "الدلالة بالأصل الجغرافي على الفئة العرقية، وهو استخدام شائع وشبه مرادف في السياقات الاجتماعية."
+    - lemma: "أَسْوَدُ الْبَشَرَةِ"
+      generation_method: tarkib
+      justification: "تعبير مركّب وصفي مسكوك يُستخدم كبديل تأدبي أو دقيق للمصطلحات اللونية المباشرة."
+
+# ── المرحلة ٢: جمع الأدلة ────────────────────────────────
+stage2_evidence:
+  per_lemma:
+    - lemma: "شخص أسود"
+      evidence_status: "no_material_found"
+    - lemma: "أَسْوَد"
+      confirm:
+        - text: "«أتانى القوم أسودهم وأحمرهم: أى عربهم وعجمهم»"
+          source: "المعجم الكبير"
+        - text: "«الأسود: من الناس أكثرهم سيادة»"
+          source: "المعجم الوسيط (بمعنى السيادة، لكن يوضح الاستخدام للناس)"
+      expands:
+        - text: "«الأسود نقيض الأبيض ... (ج) سود وسودان»"
+          source: "المعجم الوسيط"
+    - lemma: "زِنْجِيّ"
+      confirm:
+        - text: "«واحد الزنج أو الزنوج»"
+          source: "المعجم الوسيط"
+        - text: "«اقلعط الشّعْر: جعد كشعر الزنج»"
+          source: "المحكم والمحيط الأعظم (تأكيد على الارتباط بالهيئة الجسدية)"
+    - lemma: "إِفْرِيِقِيّ"
+      confirm:
+        - text: "«الأميركي الإفريقي: أميركي من أصل إفريقي وبخاصة من أصل زنجي»"
+          source: "المورد الحديث"
+    - lemma: "أَسْوَدُ الْبَشَرَةِ"
+      confirm:
+        - text: "«الهوتنتوت: شعب جنوب إفريقي ذو بشرة داكنة»"
+          source: "المورد الحديث (استخدام تعبير البشرة الداكنة/السوداء في التعريفات)"
+
+# ── المرحلة ٣: التحليل اللغوي للّمات ────────────────────
+stage3_analysis:
+  per_lemma:
+    - lemma: "شخص أسود"
+      decision: confirmed
+      decision_reason: "تعبير وصفي دقيق ومباشر ومقبول في الاستخدام المعاصر، ويمثل ترجمة دقيقة للمصطلح الإنجليزي 'Black person'."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "شَخْصٌ أَسْوَدُ"
+    - lemma: "أَسْوَد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "وحدة معجمية بسيطة (اسم فاعل/صفة مشبهة) تُستخدم كاسم علم على الفئة العرقية، وهي الأكثر تداولاً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "أَسْوَد", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "زِنْجِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح معجمي أصيل يحدد الفئة بدقة، رغم حساسيته في بعض السياقات المعاصرة، إلا أنه يظل الوحدة المعجمية الأساسية في القواميس."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "زِنْجِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "أَسْوَدُ الْبَشَرَةِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مركب إضافي (أو وصفي مقيد) يمثل تعبيراً اصطلاحياً ثابتاً ومحترماً في اللغة العربية لوصف الفئة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "أَسْوَدُ الْبَشَرَةِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "إِفْرِيِقِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "رغم استخدامه كمرادف أحياناً، إلا أنه يدل في الأصل على الانتماء الجغرافي للقارة، وقد يشمل غير السود (كشمال إفريقيا)، مما يجعله أقل دقة كمصطلح عِرقي في مجموعة ترادفية متخصصة."
+
+# ── المرحلة ٤: التعريف والأمثلة ──────────────────────────
+stage4_content:
+  definition:
+    current: "شخص ذو بشرة داكنة ينحدر من أفريقيا (أو كان أسلافه من أفريقيا)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكنه يفتقر إلى الصياغة المعجمية الرصينة."
+    authored:
+      - type: terminological
+        text: "إنسانٌ ذو بَشَرَةٍ سَوْدَاءَ، يَنْحَدِرُ أَصْلُهُ مِنْ شُعُوبِ إِفْرِيِقْيَا الِاسْتِوَائِيَّةِ أَوْ جَنُوبِ الصَّحْرَاءِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "إنسانٌ ذو بَشَرَةٍ سَوْدَاءَ، يَنْحَدِرُ أَصْلُهُ مِنْ شُعُوبِ إِفْرِيِقْيَا الِاسْتِوَائِيَّةِ أَوْ جَنُوبِ الصَّحْرَاءِ."}
+
+  examples:
+    per_lemma:
+      - lemma: "شَخْصٌ أَسْوَدُ"
+        examples:
+          - text: "يُعَدُّ نِيلْسُون مَانْدِيلَا أَوَّلَ شَخْصٍ أَسْوَدَ يَتَوَلَّى رِئَاسَةَ جَنُوبِ إِفْرِيِقْيَا."
+            type: usage
+      - lemma: "أَسْوَد"
+        examples:
+          - text: "اشْتَهَرَ هَذَا الْكَاتِبُ بِدِفَاعِهِ عَنْ حُقُوقِ كُلِّ أَسْوَدَ فِي تِلْكَ الْبِلَادِ."
+            type: usage
+      - lemma: "زِنْجِيّ"
+        examples:
+          - text: "يُشِيرُ الْمُؤَرِّخُونَ إِلَى هِجْرَةِ عِدَّةِ قَبَائِلَ زِنْجِيَّةٍ نَحْوَ الشَّرْقِ."
+            type: usage
+      - lemma: "أَسْوَدُ الْبَشَرَةِ"
+        examples:
+          - text: "فَازَ عَدَّاءٌ أَسْوَدُ الْبَشَرَةِ بِالْمِيدَالِيَّةِ الذَّهَبِيَّةِ فِي السِّبَاقِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يُمَثِّلُ هَذَا الْمُصْطَلَحُ الْأَفْرَادَ الَّذِينَ يَعُودُونَ بِأُصُولِهِمْ الْجِينِيَّةِ إِلَى قَارَّةِ إِفْرِيِقْيَا."}
+
+# ── المرحلة ٥: الإثراء (البيانات الوصفية) ─────────────────
+stage5_enrichment:
+  per_entry:
+    - lemma: "أَسْوَد"
+      entry_id: "{auto}"
+      root: "سود"
+      maqayis_quote: "«السِّينُ وَالْوَاوُ وَالدَّالُ أَصْلٌ وَاحِدٌ، وَهُوَ خِلَافُ الْبَيَاضِ فِي اللَّوْنِ، ثُمَّ يُحْمَلُ عَلَيْهِ وَيُشْتَقُّ مِنْهُ.»"
+    - lemma: "زِنْجِيّ"
+      entry_id: "{auto}"
+      root: "زنج"
+      maqayis_quote: "«الزَّاءُ وَالنُّونُ وَالْجِيمُ لَيْسَ بِشَيْءٍ. عَلَى أَنَّهُمْ يَقُولُونَ الزَّنَجُ: الْعَطَشُ.»"
+    - lemma: "أَسْوَدُ الْبَشَرَةِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "أسود"
+          root: "سود"
+          maqayis_quote: "«السِّينُ وَالْوَاوُ وَالدَّالُ أَصْلٌ وَاحِدٌ...»"
+        - word: "البشرة"
+          root: "بشر"
+          maqayis_quote: "«الْبَاءُ وَالشِّينُ وَالرَّاءُ أَصْلٌ وَاحِدٌ: ظُهُورُ الشَّيْءِ مَعَ حُسْنٍ وَجَمَالٍ. فَالْبَشَرَةُ ظَاهِرُ جِلْدِ الْإِنْسَانِ.»"
+  per_sense:
+    - lemma: "أَسْوَد"
+      sense_id: "{auto}"
+      nuance: "يُستخدم كاسم جنس للدلالة على الفرد من خلال لونه بصفته السمة الغالبة."
+      mwe: false
+    - lemma: "زِنْجِيّ"
+      sense_id: "{auto}"
+      nuance: "مصطلح أنثروبولوجي يركز على الخصائص الإثنية والعرقية المتوارثة."
+      mwe: false
+    - lemma: "أَسْوَدُ الْبَشَرَةِ"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي أكثر رسمية وتأدباً، يركز على المظهر الخارجي."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سود","maqayis":"«السِّينُ وَالْوَاوُ وَالدَّالُ أَصْلٌ وَاحِدٌ، وَهُوَ خِلَافُ الْبَيَاضِ فِي اللَّوْنِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"زنج","maqayis":"«الزَّاءُ وَالنُّونُ وَالْجِيمُ لَيْسَ بِشَيْءٍ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"أسود","root":"سود","maqayis":"«...»"},{"word":"البشرة","root":"بشر","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُستخدم كاسم جنس للدلالة على الفرد من خلال لونه بصفته السمة الغالبة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

@@ -1,0 +1,210 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "المجموعة تحتوي على لمة واحدة فقط (هناك)، وهناك مترادفات فصيحة أخرى مفقودة."
+      - "التعريف الحالي مقتضب جداً."
+    observations: "المجموعة تدل على الظرفية المكانية للبعيد، وهي في العربية الفصحى تشمل (هناك) للمتوسط، و(هنالك) للأبعد أو للتأكيد، و(ثَمَّ) للمكان البعيد بأسلوب أدبي."
+  blind_candidates:
+    - lemma: "هُنَاكَ"
+      generation_method: ishtiqaq
+      justification: "اسم إشارة للمكان البعيد أو المتوسط، وهو اللفظ الأشيع."
+    - lemma: "هُنَالِكَ"
+      generation_method: ishtiqaq
+      justification: "اسم إشارة للمكان البعيد جداً أو لزيادة التأكيد على الموقع، ورد في القرآن الكريم."
+    - lemma: "ثَمَّ"
+      generation_method: ishtiqaq
+      justification: "اسم إشارة للمكان البعيد، يستعمل كظرف مكان غير متصرف في السياقات الأدبية والفصيحة."
+    - lemma: "ثَمَّةَ"
+      generation_method: tarkib
+      justification: "صيغة مؤنثة من (ثَمَّ) تلحقها تاء التأنيث، وتستخدم بكثرة في الجمل الوجودية (ثمة خلاف)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "هُنَاكَ"
+      confirm:
+        - text: "اسم إشارة للمكان البعيد وتتصل به كاف الخطاب ولام البعد فيقال (هناك) أو (هنالك) للإشارة إلى المكان البعيد أو إلى معنى وجد"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "هُنَالِكَ"
+      confirm:
+        - text: "هنالك للتبعيد، واللام زائدة، والكاف للخطاب وفيها دليل على التبعيد"
+          source: "الصحاح في اللغة"
+        - text: "يقع إشارة إلى الزمان، والمكان القريب، والمكان أملك به، يقال: هُنَا، وهُنَاكَ، وهُنَالِكَ"
+          source: "مفردات الراغب"
+    - lemma: "ثَمَّ"
+      confirm:
+        - text: "اسم يشار به إلى المكان البعيد بمعنى هناك وهو ظرف لا يتصرف"
+          source: "المعجم الوسيط"
+        - text: "اسم يشار به إلى المكان البعيد بمنزلة هناك وهو ظرف مكان"
+          source: "المعجم الكبير"
+    - lemma: "ثَمَّةَ"
+      confirm:
+        - text: "ثَمَّةَ: بالفتح من أسماء الإشارة للإشارة إلى المكان"
+          source: "دستور العلماء"
+        - text: "وردت «ثَمَّ» في المعاجم بفتح الثاء، ومعناها «هناك»، وهي ظرف متصرف، وقد تلحقها التاء، فتصبح «ثَمَّة»."
+          source: "معجم الصواب اللغوي"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "هناك"
+      decision: confirmed
+      decision_reason: "اللمة الأصلية في المجموعة وهي صحيحة تماماً للمدلول."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "هُنَاكَ"
+    - lemma: "هُنَالِكَ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مترادف فصيح مؤكد في المعاجم والقرآن الكريم للإشارة للمكان البعيد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "هُنَالِكَ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "ثَمَّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اسم إشارة مكاني فصيح يدل على المكان البعيد، وهو مرادف مباشر لـ (هناك)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "ثَمَّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "ثَمَّةَ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تنويع لغوي فصيح لـ (ثَمَّ) يكثر استخدامه في العربية المعاصرة كمرادف لـ (هناك) في السياقات التجريدية والوجودية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "ثَمَّةَ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "موقع غير هنا؛ ذلك المكان"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط، ويفضل استخدام صياغة معجمية رصينة تحدد نوع اللفظ كاسم إشارة للمكان."
+    authored:
+      - type: terminological
+        text: "اسْمُ إِشَارَةٍ يُشَارُ بِهِ إِلَى المَكَانِ البَعِيدِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "اسْمُ إِشَارَةٍ يُشَارُ بِهِ إِلَى المَكَانِ البَعِيدِ."}
+  examples:
+    per_lemma:
+      - lemma: "هُنَاكَ"
+        examples:
+          - text: "سَأَلْتُهُ عَنِ المَدِينَةِ فَقَالَ: هِيَ هُنَاكَ بَعْدَ الجَبَلِ."
+            type: usage
+      - lemma: "هُنَالِكَ"
+        examples:
+          - text: "هُنَالِكَ دَعَا زَكَرِيَّا رَبَّهُ."
+            type: quran
+      - lemma: "ثَمَّ"
+        examples:
+          - text: "لَيْسَ ثَمَّ طَرِيقٌ آخَرُ لِلنَّجَاةِ."
+            type: usage
+      - lemma: "ثَمَّةَ"
+        examples:
+          - text: "ثَمَّةَ فَرْقٌ جَوْهَرِيٌّ بَيْنَ النَّظَرِيَّتَيْنِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "سَأَلْتُهُ عَنِ المَدِينَةِ فَقَالَ: هِيَ هُنَاكَ بَعْدَ الجَبَلِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "هُنَالِكَ دَعَا زَكَرِيَّا رَبَّهُ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "لَيْسَ ثَمَّ طَرِيقٌ آخَرُ لِلنَّجَاةِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "ثَمَّةَ فَرْقٌ جَوْهَرِيٌّ بَيْنَ النَّظَرِيَّتَيْنِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "هُنَاكَ"
+      entry_id: "{auto}"
+      root: "هنا"
+      maqayis_quote: "«يَقُولُونَ: هُنَا كَلِمَةُ تَقْرِيبٍ، وَهَاهُنَا تَبْعِيدٌ...»"
+    - lemma: "هُنَالِكَ"
+      entry_id: "{auto}"
+      root: "هنا"
+      maqayis_quote: "«يَقُولُونَ: هُنَا كَلِمَةُ تَقْرِيبٍ، وَهَاهُنَا تَبْعِيدٌ...»"
+    - lemma: "ثَمَّ"
+      entry_id: "{auto}"
+      root: "ثمم"
+      maqayis_quote: "«الثَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ، هُوَ اجْتِمَاعٌ فِي لِينٍ. يُقَالُ ثَمَمْتُ الشَّيْءَ ثَمًّا، إِذَا جَمَعْتَهُ.»"
+    - lemma: "ثَمَّةَ"
+      entry_id: "{auto}"
+      root: "ثمم"
+      maqayis_quote: "«الثَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ، هُوَ اجْتِمَاعٌ فِي لِينٍ. يُقَالُ ثَمَمْتُ الشَّيْءَ ثَمًّا، إِذَا جَمَعْتَهُ.»"
+  per_sense:
+    - lemma: "هُنَاكَ"
+      sense_id: "{auto}"
+      nuance: "اللفظ المعياري والأكثر شيوعاً للإشارة إلى المكان البعيد أو المتوسط."
+      mwe: false
+    - lemma: "هُنَالِكَ"
+      sense_id: "{auto}"
+      nuance: "تستخدم للمكان الأبعد من (هناك) أو لزيادة التوكيد والتبعية، وتكثر في النصوص الدينية والأدبية."
+      mwe: false
+    - lemma: "ثَمَّ"
+      sense_id: "{auto}"
+      nuance: "ظرف مكاني أدبي وفصيح، يغلب استخدامه في الجمل الوجودية للإخبار عن وجود شيء في مكان ما."
+      mwe: false
+    - lemma: "ثَمَّةَ"
+      sense_id: "{auto}"
+      nuance: "صيغة لـ (ثَمَّ) تلحقها التاء، وهي شائعة جداً في العربية المعاصرة للتعبير عن الظرفية المكانية التجريدية."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"هنا","maqayis":"«يَقُولُونَ: هُنَا كَلِمَةُ تَقْرِيبٍ، وَهَاهُنَا تَبْعِيدٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ثمم","maqayis":"«الثَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ، هُوَ اجْتِمَاعٌ فِي لِينٍ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ المعياري والأكثر شيوعاً للإشارة إلى المكان البعيد أو المتوسط.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 1.0

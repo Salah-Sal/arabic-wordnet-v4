@@ -1,0 +1,235 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللّمات الموجودة عبارة عن تعابير وصفية طويلة وليست مصطلحات معجمية موجزة."
+      - "كلمة 'سادة' في 'مادة سادة' قد تُقرأ 'Sada' (بمعنى سادة/أسياد أو سادة/بسيطة) والصواب 'سادّة' بتشديد الدال."
+      - "استخدام 'الزيوان' شائع ولكن 'الزؤان' هو المصطلح الطبي المعتمد في المعجم الطبي الموحد."
+    observations: "المجموعة تفتقر إلى المصطلحات الطبية الدقيقة (مثل زؤاني ومحدث للعد) التي تعبر عن المفهوم بكلمة واحدة أو مركب اصطلاحي مستقر."
+  blind_candidates:
+    - lemma: "مَادَّة مُسِدَّة لِلْمَسَام"
+      generation_method: tarkib
+      justification: "تعبير اصطلاحي طبي يعبر عن خاصية سد المسام (obstruent/occlusive) بشكل أدق من 'سادة'."
+    - lemma: "مَادَّة مُزَوِّنَة"
+      generation_method: ishtiqaq
+      justification: "اشتقاق اسم فاعل من 'زؤان/زيوان' للتعبير عن خاصية إنتاج الزؤان (comedogenic)."
+    - lemma: "مَادَّة مُبَثِّرَة"
+      generation_method: ishtiqaq
+      justification: "اشتقاق من 'بثر' (حب الشباب) للتعبير عن المادة المسببة له (acnegenic)، وقد وردت في معاجم مثل دوزي."
+    - lemma: "زُؤَانِيَّة"
+      generation_method: ishtiqaq
+      justification: "مصدر صناعي أو صفة من الزؤان لتمثيل خاصية المادة (comedogenicity)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مادة سادة للمسام"
+      confirm:
+        - text: "«السُّدَادُ: دَاءٌ يَأْخُذُ فِي الْأَنْفِ يَمْنَعُ النَّسِيمَ.»"
+          source: "مقاييس اللغة"
+        - text: "«مُسِدّ: obstruent»"
+          source: "المعجم الطبي الموحد"
+    - lemma: "مادة مسببة للزيوان"
+      confirm:
+        - text: "«زُؤانِيُّ: comedogenic»"
+          source: "المعجم الطبي الموحد"
+        - text: "«زُؤان (صمامة من الكراتين و الزهم تسد فتحة جريب الشعرة): comedo»"
+          source: "المعجم الطبي الموحد"
+    - lemma: "مَادَّة زُؤَانِيَّة"
+      confirm:
+        - text: "«زُؤانِيُّ: comedogenic»"
+          source: "المعجم الطبي الموحد"
+        - text: "«وَحْمَةٌ زُؤانِيَّة: nevus comedonicus»"
+          source: "المعجم الطبي الموحد"
+    - lemma: "مَادَّة مُحْدِثَة لِلْعُدّ"
+      confirm:
+        - text: "«مُحْدِثُ العُدّ: acnegenic»"
+          source: "المعجم الطبي الموحد"
+        - text: "«عُدّ: acne»"
+          source: "المعجم الطبي الموحد"
+    - lemma: "مَادَّة مُبَثِّرَة"
+      confirm:
+        - text: "«مبثرة للفم أي تسبب خروج البثور في الفم»"
+          source: "تكملة المعاجم العربية (دوزي)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مادة سادة للمسام"
+      decision: confirmed
+      decision_reason: "تعبير وصفي شائع وواضح دلالياً، يحتاج فقط لتصحيح التشكيل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَادَّة سَادَّة لِلْمَسَام"
+    - lemma: "مادة مسببة للزيوان"
+      decision: confirmed
+      decision_reason: "مصطلح مقبول وشائع الاستخدام، يحتاج للتشكيل الكامل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَادَّة مُسَبِّبَة لِلزِّيوَان"
+    - lemma: "مَادَّة زُؤَانِيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح طبي دقيق وموجز يتفق مع المعجم الطبي الموحد (comedogenic)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مَادَّة زُؤَانِيَّة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-92466616-n"
+    - lemma: "مَادَّة مُحْدِثَة لِلْعُدّ"
+      decision: confirmed
+      decision_reason: "المصطلح العلمي الأدق لـ (acnegenic) حيث أن 'العُدّ' هو الاسم الطبي لحب الشباب."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مَادَّة مُحْدِثَة لِلْعُدّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-92466616-n"
+    - lemma: "مَادَّة مُسِدَّة لِلْمَسَام"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير طبي أكثر احترافية من 'سادة'، حيث يستخدم 'المسد' في السياقات الطبية للأشياء التي تسبب الانسداد (obstruent)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مَادَّة مُسِدَّة لِلْمَسَام"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-92466616-n"
+
+stage4_content:
+  definition:
+    current: "مادة تميل لإنتاج حب الشباب، مثلاً عن طريق سد المسام في الجلد"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكنه يفتقر للمصطلحات العلمية الدقيقة (الزؤان، العدّ) ويحتاج لصياغة أكثر شمولاً."
+    authored:
+      - type: terminological
+        text: "مادّة فيزيائيّة تحفّز تكوّن الزُّؤان (الرؤوس السوداء والبيضاء) أو تسبّب ظهور العُدّ (حب الشباب) عن طريق انسداد جريبات الشعر والمسام في الجلد."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-92466616-n"
+          definition_index: 0
+          text: "مادّة فيزيائيّة تحفّز تكوّن الزُّؤان (الرؤوس السوداء والبيضاء) أو تسبّب ظهور العُدّ (حب الشباب) عن طريق انسداد جريبات الشعر والمسام في الجلد."
+  examples:
+    per_lemma:
+      - lemma: "مَادَّة سَادَّة لِلْمَسَام"
+        examples:
+          - text: "يجب على ذوي البشرة الحساسة تجنب مستحضرات التجميل التي تحتوي على مواد سادّة للمسام."
+            type: usage
+      - lemma: "مَادَّة زُؤَانِيَّة"
+        examples:
+          - text: "يُنصح دائمًا باختيار واقي شمس غير زؤاني لضمان عدم تفاقم مشاكل البشرة الدهنية."
+            type: usage
+      - lemma: "مَادَّة مُحْدِثَة لِلْعُدّ"
+        examples:
+          - text: "أثبتت الدراسات المخبرية أن بعض الزيوت المعدنية قد تعمل كمواد محدثة للعدّ عند استخدامها بتركيز عالٍ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "awn4-92466616-n"
+          text: "تتسبب المواد السادّة للمسام في احتباس الزيوت داخل الجلد، مما يؤدي إلى ظهور الرؤوس السوداء."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَادَّة سَادَّة لِلْمَسَام"
+      entry_id: "{auto}"
+      roots:
+        - word: "مادة"
+          root: "مدد"
+          maqayis_quote: "«الْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى جَرِّ شَيْءٍ فِي طُولٍ، وَاتِّصَالِ شَيْءٍ بِشَيْءٍ فِي اسْتِطَالَةٍ.»"
+        - word: "سادة"
+          root: "سدد"
+          maqayis_quote: "«السِّينُ وَالدَّالُ أَصْلٌ وَاحِدٌ، وَهُوَ يَدُلُّ عَلَى رَدْمِ شَيْءٍ وَمُلَاءَمَتِهِ.»"
+        - word: "مسام"
+          root: "سمم"
+          maqayis_quote: "«السِّينُ وَالْمِيمُ الْأَصْلُ الْمُطَّرِدُ فِيهِ يَدُلُّ عَلَى مَدْخَلٍ فِي الشَّيْءِ، كَالثُّقْبِ وَغَيْرِهِ.»"
+    - lemma: "مَادَّة زُؤَانِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "مادة"
+          root: "مدد"
+          maqayis_quote: "«الْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى جَرِّ شَيْءٍ فِي طُولٍ، وَاتِّصَالِ شَيْءٍ بِشَيْءٍ فِي اسْتِطَالَةٍ.»"
+        - word: "زؤانية"
+          root: "زأن"
+          maqayis_quote: "لا يوجد أصل صريح في مقاييس اللغة لهذا الجذر، واللفظ معرب أو مشتق من اسم النبات."
+    - lemma: "مَادَّة مُحْدِثَة لِلْعُدّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مادة"
+          root: "مدد"
+          maqayis_quote: "«الْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى جَرِّ شَيْءٍ فِي طُولٍ، وَاتِّصَالِ شَيْءٍ بِشَيْءٍ فِي اسْتِطَالَةٍ.»"
+        - word: "محدثة"
+          root: "حدث"
+          maqayis_quote: "«الْحَاءُ وَالدَّالُ وَالثَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ كَوْنُ الشَّيْءِ لَمْ يَكُنْ.»"
+        - word: "العد"
+          root: "عدد"
+          maqayis_quote: "«الْعَيْنُ وَالدَّالُ أَصْلٌ صَحِيحٌ وَاحِدٌ، يَدُلُّ عَلَى إِحْصَاءٍ... والعدُّ: البثور تخرج بالوجه.»"
+  per_sense:
+    - lemma: "مَادَّة زُؤَانِيَّة"
+      sense_id: "{auto}"
+      nuance: "المصطلح الطبي الأكثر دقة لوصف المواد التي تنتج الرؤوس السوداء والبيضاء (comedogenic)."
+      mwe: true
+    - lemma: "مَادَّة مُحْدِثَة لِلْعُدّ"
+      sense_id: "{auto}"
+      nuance: "يركز على المادة التي تسبب مرض حب الشباب (acnegenic) بشكل عام، وليس فقط سد المسام."
+      mwe: true
+    - lemma: "مَادَّة سَادَّة لِلْمَسَام"
+      sense_id: "{auto}"
+      nuance: "يركز على الآلية الميكانيكية للانسداد (pore-blocking)."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-92466616-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-92466616-n"
+        score: 0.9

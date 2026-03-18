@@ -1,0 +1,131 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "مَوْلُود بُرْج الدَّلْو"
+      confirm:
+        - text: "«(1) الدَّلْو؛ السّاقي (فل) (2) بُرْج الدَّلو [في التنجيم] (3) مولودُ برج الدلو.»"
+          source: "المورد الحديث"
+    - lemma: "الدَّلْو"
+      confirm:
+        - text: "«بُرْجٌ مِن بُروجِ السَّماء بين الجدْىِ والحُوتِ...»"
+          source: "المعجم الكبير"
+      expands:
+        - text: "«بُرْجٌ في السماءِ، وسِمَةٌ للإِبِلِ، والداهِيَةُ.»"
+          source: "القاموس المحيط"
+      peripheral_observations:
+        - "تُطلق الدلو على الإناء الذي يُستقى به من البئر، وعلى الداهية، وعلى نصيب المرء من الشيء."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "صَاحِب بُرْج الدَّلْو"
+      source_section: "step9_specialized"
+      justification: "تعبير اصطلاحي شائع جداً في كتب التنجيم والمجلات للإشارة إلى الشخص المنتمي للبرج."
+  knowledge_candidates:
+    - lemma: "الدَّلْويّ"
+      justification: "اسم منسوب (Relational Noun) شائع الاستعمال في العربية المعاصرة للإشارة إلى الأشخاص المنتمين لبرج الدلو، على غرار 'الحملي' و'العقربي'."
+      generation_mechanism: "اشتقاق (النسبة)"
+  generation_notes: "تم استبعاد 'الساقي' لأنه يشير إلى الكوكبة أو الرمز الفلكي نفسه وليس الشخص."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "مَوْلُود بُرْج الدَّلْو"
+      decision: confirmed
+      decision_reason: "مصطلح مستقر وموثق في المعاجم الحديثة (المورد) ويطابق التعريف تماماً."
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+        type: "إضافي"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "الوصف الصريح للشخص من خلال واقعة الولادة تحت البرج."
+      example: "يتميز مولود برج الدلو بقدرته العالية على التحليل وحبه للحرية."
+
+    - lemma: "الدَّلْويّ"
+      source: step05
+      decision: confirmed
+      decision_reason: "صيغة اشتقاقية قياسية وشائعة جداً في الاستعمال المعاصر."
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "صيغة موجزة (كلمة واحدة) تفيد النسبة والسمات الشخصية."
+      example: "تجمع الصفات المشتركة بين الدلويين في حبهم للابتكار والتميز."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "الدلوي"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09772973-n"
+
+    - lemma: "صَاحِب بُرْج الدَّلْو"
+      source: step05
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي مستقر في الأدبيات الفلكية العربية."
+      mwe_check:
+        is_mwe: true
+        accepted: true
+        type: "إضافي"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على انتساب الشخص للبرج كصفة ملازمة."
+      example: "يتسم صاحب برج الدلو بالعقلانية والميل نحو العمل الجماعي."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "صاحب برج الدلو"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09772973-n"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "(علم التنجيم) شخص ولد بينما الشمس في برج الدلو"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق ومصطلح عليه في علم التنجيم."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-09786620-n (عَامِل، فَاعِل)"
+    test_result: "wrong"
+  actions:
+    - command: add_synset_relation
+      params:
+        source_id: "awn4-09772973-n"
+        relation_type: "hypernym"
+        target_id: "awn4-09782522-n" # شخص، فرد
+    - command: remove_synset_relation
+      params:
+        source_id: "awn4-09772973-n"
+        relation_type: "hypernym"
+        target_id: "awn4-09786620-n"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "مَوْلُود بُرْج الدَّلْو"
+      enrichment:
+        root: "و-ل-د"
+      examples:
+        - text: "يُعرف مولود برج الدلو باستقلاليته وتفكيره المبتكر."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "الدَّلْويّ"
+      enrichment:
+        root: "د-ل-و"
+      examples:
+        - text: "اجتمع الدلويون في مؤتمر حول الإبداع الفكري."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "صَاحِب بُرْج الدَّلْو"
+      enrichment:
+        root: "ص-ح-ب"
+      examples:
+        - text: "يتوقع صاحب برج الدلو عاماً مليئاً بالتحديات والفرص."
+          type: usage
+          source: "مؤلَّف"
+  cultural_fit:
+    assessment: native

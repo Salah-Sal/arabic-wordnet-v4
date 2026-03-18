@@ -1,0 +1,120 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "عامل كيميائي"
+      confirm:
+        - text: "«عَامِلٌ كيمْيائِيّ — chemical agent»"
+          source: "المعجم الطبي الموحد (2009)"
+      evidence_status: "confirm"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "عامل"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«أيّ عنصر أو كائن أو قوة فعالة ينتج عنها تأثير أو تغيير ما» — المعجم الموحد لمصطلحات الهندسة المدنية (2012)"
+      justification: "الترجمة المباشرة والأكثر شيوعاً للمصطلح الإنجليزي 'agent' في السياق العلمي والمادي."
+    - lemma: "مؤثر"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«فاعِل، عامِل، مؤَثِّر — agent» — المعجم الموحد لمصطلحات الطب البيطري (2010)"
+      justification: "مترادف شائع للعامل في السياقات الفيزيائية والكيميائية."
+  knowledge_candidates:
+    - lemma: "فاعل"
+      justification: "آلية: اشتقاق (اسم فاعل من فَعَلَ). يُستخدم أحياناً للدلالة على الشيء الذي يُحدث أثراً."
+  generation_notes: "تم التركيز على اللمات التي تحمل دلالة المادة أو القوة المؤثرة كما ورد في التعريف."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "عامل كيميائي"
+      decision: confirmed
+      decision_reason: "مصطلح تقني مستقر وموثق في المعاجم العلمية الحديثة (المعجم الطبي الموحد)."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يُخصّص المفهوم العام للـ 'agent' في النطاق الكيميائي فقط."
+      example: "يُشكّل غاز الخردل عاملًا كيميائيًّا شديد السّميّة يُستخدم في الأغراض العسكرية."
+      actions: []
+
+    - lemma: "عامل"
+      source: step05
+      decision: confirmed
+      decision_reason: "هو المصطلح المرجعي العام الذي يطابق تعريف المجموعة الإنجليزي (agent) والتعريف العربي الحالي بدقة تامة."
+      step05_citation: "«أيّ عنصر أو كائن أو قوة فعالة ينتج عنها تأثير أو تغيير ما» — المعجم الموحد لمصطلحات الهندسة المدنية (2012)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "المصطلح العام الذي يشمل العوامل الكيميائية والفيزيائية والحيوية."
+      example: "يُعد الضوء عاملًا فيزيائيًّا حيويًّا لا غنى عنه في عملية البناء الضوئي."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "عامل"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-14802595-n"
+
+    - lemma: "مؤثر"
+      source: step05
+      decision: confirmed
+      decision_reason: "مترادف علمي مقبول للدلالة على الشيء (المادة أو القوة) الذي يترك أثراً في غيره."
+      step05_citation: "«فاعِل، عامِل، مؤَثِّر — agent» — المعجم الموحد لمصطلحات الطب البيطري (2010)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على نتيجة الفعل (الأثر) المترتب على وجود المادة أو القوة."
+      example: "تتعرض المادة لتأثير مؤثرات خارجية كالحرارة والضغط الجوي."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مؤثر"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-14802595-n"
+
+  added_lemmas:
+    - lemma: "عامل"
+      reason: "مرشح من الخطوة ٠٫٥ — التطابق التام مع تعريف المجموعة."
+      via_command: create_entry + add_sense
+    - lemma: "مؤثر"
+      reason: "مرشح من الخطوة ٠٫٥ — مرادف علمي موثق."
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "مادّة تُمارِس قوّة أو تأثيرًا ما"
+  assessment:
+    decision: retain
+    reason: "التعريف الحالي دقيق ومطابق للأدلة المعجمية المختصة في الهندسة والطب."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-00007347-n (سبب، عامل مسبب)"
+    test_result: "correct"
+  actions: []
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "عامل كيميائي"
+      enrichment:
+        root: "ع-م-ل"
+      examples:
+        - text: "يُشكّل غاز الخردل عاملًا كيميائيًّا شديد السّميّة."
+          type: usage
+          source: "مؤلف"
+    - lemma: "عامل"
+      enrichment:
+        root: "ع-م-ل"
+      examples:
+        - text: "يُعد الضوء عاملًا فيزيائيًّا حيويًّا لنمو النّباتات."
+          type: usage
+          source: "مؤلف"
+    - lemma: "مؤثر"
+      enrichment:
+        root: "أ-ث-ر"
+      examples:
+        - text: "يتفاعل النّظام الكوني تحت تأثير مؤثرات خارجيّة."
+          type: usage
+          source: "مؤلف"
+  cultural_fit:
+    assessment: native

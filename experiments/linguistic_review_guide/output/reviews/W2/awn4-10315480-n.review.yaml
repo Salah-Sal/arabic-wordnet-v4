@@ -1,0 +1,132 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "مُتَزَوِّج"
+      confirm:
+        - text: "«المُتزوِّج: الشخص المتزوِّج.»"
+          source: "المورد الحديث (2008)"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "قَرِين"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«رفيق؛ قرين؛ خَدِين / زوج؛ زوجة» — المورد الحديث (2008)"
+      justification: "كلمة تستخدم للإشارة إلى الزوج أو الزوجة لوجود اقتران بينهما."
+  knowledge_candidates:
+    - lemma: "مُتَأَهِّل"
+      justification: "اشتقاق من الجذر (أ هـ ل) على وزن (مُتَفَعِّل) للدلالة على من صار ذا أهل أي تزوّج."
+  generation_notes: "تم توليد كلمات ترتبط بالزواج والاقتران."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "مُتَزَوِّج"
+      decision: confirmed
+      decision_reason: "مصطلح شائع ومباشر للدلالة على الشخص المتزوج وهو اسم فاعل مطابق للدلالة."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "المصطلح الأساسي والشائع الذي يصف الحالة الاجتماعية دون ظلال دلالية إضافية."
+      example: "عاد الموظف المُتَزَوِّج إلى منزله بعد يوم عمل طويل ليقضي وقته مع أسرته."
+
+    - lemma: "قَرِين"
+      source: step05
+      decision: removed
+      decision_reason: "أعم دلالة من المتزوج، وقد تشير إلى الرفيق أو الصاحب، وليست خاصة بوصف الحالة الاجتماعية."
+      step05_citation: "«رفيق؛ قرين؛ خَدِين / زوج؛ زوجة» — المورد الحديث (2008)"
+
+    - lemma: "مُتَأَهِّل"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح فصيح ومستعمل للدلالة على من تزوّج وصار له أهل."
+      step05_citation: "معرفة لغوية (اشتقاق)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يحمل ظلالاً تشير إلى تكوين الأسرة والانتماء إلى أهل، بخلاف متزوج التي تصف الحدث المباشر."
+      example: "يُفضّل في بعض الوظائف تعيين المُتَأَهِّل لما عُرف عنه من استقرار."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُتَأَهِّل"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10315480-n"
+
+  synset_flags:
+    definition_review_needed: true
+
+  added_lemmas:
+    - lemma: "مُتَأَهِّل"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "شخص متزوج"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي دائري يستخدم كلمة من نفس جذر اللمة."
+  authored_definitions:
+    - type: linguistic
+      text: "شخص اتخذ زوجاً أو زوجة وارتبط معه بعقد زواج."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-10315480-n"
+        definition_index: 0
+        text: "شخص اتخذ زوجاً أو زوجة وارتبط معه بعقد زواج."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عَامِل، فَاعِل"
+    test_result: "wrong"
+  antonymy:
+    per_lemma:
+      - lemma: "مُتَزَوِّج"
+        antonym_found: true
+        antonym: "أَعْزَب"
+      - lemma: "مُتَأَهِّل"
+        antonym_found: true
+        antonym: "أَعْزَب"
+  verb_checks:
+    applicable: false
+  actions:
+    - command: remove_synset_relation
+      params:
+        source_id: "awn4-10315480-n"
+        relation_type: "hypernym"
+        target_id: "awn4-09786620-n"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "مُتَزَوِّج"
+      enrichment:
+        root: "زوج"
+      examples:
+        - text: "تُقدم بعض الشركات إعانة إضافية للموظف المُتَزَوِّج."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "مُتَأَهِّل"
+      enrichment:
+        root: "أهل"
+      examples:
+        - text: "عاد الرجل المُتَأَهِّل إلى بيته بعد يوم عمل طويل."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-10315480-n"
+        text: "تُقدم بعض الشركات إعانة إضافية للموظف المُتَزَوِّج."

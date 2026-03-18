@@ -1,0 +1,164 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة (منشط) تفتقر للتشكيل الكامل."
+      - "التعريف العربي الحالي دقيق علمياً لكنه طويل قليلاً ويحتاج صياغة معجمية أكثر إحكاماً."
+    observations: "المصطلح 'activator' في السياق البيولوجي هو مفهوم أساسي يُقابله في العربية 'مُنَشِّط'. الأدلة المعجمية العلمية (المعجم الموحد) تدعم هذا الاستخدام بقوة."
+  blind_candidates:
+    - lemma: "مُنَشِّط"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل (نَشَّطَ) بتضعيف العين للتعدية، للدلالة على القائم بفعل التنشيط (الزيادة في النشاط)، وهو المصطلح القياسي في علم الأحياء."
+    - lemma: "عَامِل مُنَشِّط"
+      generation_method: tarkib
+      justification: "تركيب وصفي يجمع بين (عامل) للدلالة على الكيان المسبب و(منشط) لوصف الوظيفة، وهو معادل دقيق لـ 'agency' أو 'activator'."
+    - lemma: "حَافِز"
+      generation_method: majaz
+      justification: "يُستخدم كمرادف أحياناً في السياقات العامة، وإن كان يميل في السياق العلمي للـ (catalyst)."
+    - lemma: "بَادِئ"
+      generation_method: ishtiqaq
+      justification: "للدلالة على بدء العملية الحيوية (initiation)، وهو مصطلح فرعي متصل بالمفهوم."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُنَشِّط"
+      confirm:
+        - text: "مُنَشِّط: activator"
+          source: "المعجم الموحد لمصطلحات علم الأحياء (1993)"
+        - text: "مُنَشِّط: activator"
+          source: "المعجم الموحد لمصطلحات الكيمياء (1992)"
+        - text: "مُنَشِّط الرنا: activator of RNA"
+          source: "المعجم الموحد لمصطلحات علم الوراثة (2009)"
+    - lemma: "عَامِل مُنَشِّط"
+      confirm:
+        - text: "عامِل مُنشِّط: activity factor"
+          source: "المعجم الموحد لمصطلحات المياه (2000)"
+      expands:
+        - text: "عامل منشط: يُستخدم في الأدبيات العلمية العربية لوصف البروتينات أو الجزيئات التي تُحفز عملية النسخ الجيني."
+          source: "الاستعمال العلمي الشائع"
+    - lemma: "حَافِز"
+      contradicts:
+        - text: "مادة تزيد من سرعة التفاعل الكيميائي الناجم عن بعض المواد دون أن تستهلك نفسها"
+          source: "المعجم الموحد لمصطلحات النقل (2010)"
+          conflict: "التعريف يخص الـ catalyst (المحفز الكيميائي) بينما activator يزيد من نشاط كيان موجود بالفعل كالإنزيم."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "منشط"
+      decision: confirmed
+      decision_reason: "مصطلح علمي موثق ومطابق تماماً للمفهوم البيولوجي الموصوف في المجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُنَشِّط"
+    - lemma: "عَامِل مُنَشِّط"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي (وصفي) وارد في المعاجم المتخصصة وفي سياق التعريف الإنجليزي (any agency) لبيان الدور الوظيفي للمادة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "عَامِل مُنَشِّط", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "حَافِز"
+      decision: removed
+      decision_reason: "يُفضل قصر استخدامه علمياً على 'catalyst' لتجنب الاشتراك الدلالي في السياق المتخصص."
+    - lemma: "بَادِئ"
+      decision: removed
+      decision_reason: "يُقابل 'initiator' أو 'primer' وهو مفهوم متميز عن 'activator' وإن ارتبط به."
+
+stage4_content:
+  definition:
+    current: "(بيولوجيا) أي عامل يؤدي إلى التنشيط؛ جزيء يزيد من نشاط إنزيم أو بروتين يزيد من إنتاج منتج جيني في نسخ الحمض النووي"
+    assessment:
+      decision: revise
+      reason: "تبسيط الصياغة لتكون أكثر إحكاماً واتساقاً مع أسلوب المعاجم العلمية المتخصصة."
+    authored:
+      - type: terminological
+        text: "(في علم الأحياء) جُزَيءٌ أو عامِلٌ مَادِّيٌّ يَعْمَلُ علَى زيادةِ نَشَاطِ إنزِيمٍ أو تحفيزِ بَالِغَةِ بَرُوتِينٍ لزيادةِ إنتاجِ مُنْتَجٍ جِينيٍّ أثْنَاءَ عَمَليَّةِ نَسْخِ الحَمْضِ النَّوَوِيِّ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "(في علم الأحياء) جُزَيءٌ أو عامِلٌ مَادِّيٌّ يَعْمَلُ علَى زيادةِ نَشَاطِ إنزِيمٍ أو تحفيزِ بَالِغَةِ بَرُوتِينٍ لزيادةِ إنتاجِ مُنْتَجٍ جِينيٍّ أثْنَاءَ عَمَليَّةِ نَسْخِ الحَمْضِ النَّوَوِيِّ."}
+  examples:
+    per_lemma:
+      - lemma: "مُنَشِّط"
+        examples:
+          - text: "يُعَدُّ مِلْحُ المَغْنِيزْيُومِ مُنَشِّطًا ضَرُوريًّا لِعملِ بَعْضِ الإنزِيمَاتِ الفُسْفَاتِيَّةِ."
+            type: usage
+      - lemma: "عَامِل مُنَشِّط"
+        examples:
+          - text: "تَرْتَبِطُ العَوَامِلُ المُنَشِّطَةُ بِمَوَاقِعَ مُحَدَّدَةٍ عَلَى الدَّنَا لِتَحْفِيزِ نَسْخِ الجِينَاتِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يُعَدُّ مِلْحُ المَغْنِيزْيُومِ مُنَشِّطًا ضَرُوريًّا لِعملِ بَعْضِ الإنزِيمَاتِ الفُسْفَاتِيَّةِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُنَشِّط"
+      entry_id: "{auto}"
+      root: "نشط"
+      maqayis_quote: "«النُّونُ وَالشِّينُ وَالطَّاءُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى اهْتِزَازٍ وَحَرَكَةٍ. مِنْهُ النَّشَاطُ مَعْرُوفٌ وَهُوَ لِمَا فِيهِ مِنَ الْحَرَكَةِ وَالِاهْتِزَازِ وَالتَّفَتُّحِ.»"
+    - lemma: "عَامِل مُنَشِّط"
+      entry_id: "{auto}"
+      roots:
+        - word: "عامل"
+          root: "عمل"
+          maqayis_quote: "«العَيْنُ وَالمِيمُ وَاللامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامُّ فِي كُلِّ فِعْلٍ يُفْعَلُ.»"
+        - word: "منشط"
+          root: "نشط"
+          maqayis_quote: "«النُّونُ وَالشِّينُ وَالطَّاءُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى اهْتِزَازٍ وَحَرَكَةٍ.»"
+  per_sense:
+    - lemma: "مُنَشِّط"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام والمجرد للدلالة على المادة أو الجزيء الذي يزيد النشاط."
+      mwe: false
+    - lemma: "عَامِل مُنَشِّط"
+      sense_id: "{auto}"
+      nuance: "يُستخدم غالباً في سياق الفيزياء الحيوية والوراثة للتأكيد على الدور السببي للكيان المادي."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نشط","maqayis":"«النُّونُ وَالشِّينُ وَالطَّاءُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى اهْتِزَازٍ وَحَرَكَةٍ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"عامل","root":"عمل","maqayis":"«...»"},{"word":"منشط","root":"نشط","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العام والمجرد للدلالة على المادة أو الجزيء الذي يزيد النشاط.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

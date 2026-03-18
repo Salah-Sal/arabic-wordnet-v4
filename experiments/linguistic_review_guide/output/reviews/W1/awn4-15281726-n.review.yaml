@@ -1,0 +1,140 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "فترة اللعب"
+      evidence_status: "no_material_found"
+    - lemma: "لعب"
+      contradicts:
+        - text: "«عَمِل عَمَلاً لا يُجدى عليه نفعاً [ ضد : جَدَّ ]»"
+          source: "المعجم الوسيط"
+          conflict: "اللمة تدل على وقوع الفعل والحدث المجرد، في حين أن المجموعة الترادفية تدل على الكمية والفترة الزمنية (وقت اللعب)."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "وقت اللعب"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«وقت اللَّعِب: وقتٌ مخصَّصٌ لِلَّهْوِ أو التسلية.» — المورد الحديث (2008)"
+      justification: "تعبير يعبر بدقة عن الفترة الزمنية المخصصة للعب ويتوافق مع التعريف."
+  knowledge_candidates:
+    - lemma: "مدة اللعب"
+      justification: "آلية التوليد: التركيب (المركب الإضافي). دمج كلمة مدة الدالة على الكمية الزمنية مع المصدر اللعب لإنتاج مصطلح دقيق يعبر عن الفترة المستغرقة."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "فترة اللعب"
+      decision: confirmed
+      decision_reason: "تركيب إضافي سليم يدل بوضوح على الفترة الزمنية ويتوافق مع المفهوم."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تعبير مركب يحدد الإطار الزمني للعب بشكل عام."
+      example: "انتهت فترة اللعب الأصلية بالتعادل بين الفريقين."
+      actions: []
+
+    - lemma: "لعب"
+      decision: removed
+      decision_reason: "اللمة تدل على حدث اللعب (المصدر) وليس على المدة الزمنية، مما يخالف المفهوم."
+      evidence_assessment:
+        case: "contradicts_only"
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "تدل على الحدث المجرد أو الممارسة، وليس على الكمية أو الفترة الزمنية."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "وقت اللعب"
+      source: step05
+      decision: confirmed
+      decision_reason: "تعبير إضافي صحيح ومرادف دقيق للمفهوم."
+      step05_citation: "«وقت اللَّعِب: وقتٌ مخصَّصٌ لِلَّهْوِ أو التسلية.» — المورد الحديث (2008)"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "مرادف أكثر شيوعاً في الاستعمال العام مقارنة بفترة اللعب."
+      example: "قضى الأطفال وقت اللعب في الحديقة بنشاط."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "وقت اللعب"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-15281726-n"
+
+    - lemma: "مدة اللعب"
+      source: step05
+      decision: confirmed
+      decision_reason: "تركيب إضافي يعبر عن الكمية الزمنية (المدة) بدقة."
+      step05_citation: "مرشح من المعرفة اللغوية بناءً على دلالة مدة كمرادف لفترة ووقت."
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تؤكد على الجانب الكمي الزمني (المدة) بشكل أصرح وخاصة في السياقات الرياضية."
+      example: "قرر الحكم تمديد مدة اللعب بخمس دقائق إضافية."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مدة اللعب"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-15281726-n"
+
+  added_lemmas:
+    - lemma: "وقت اللعب"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "create_entry + add_sense"
+    - lemma: "مدة اللعب"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "create_entry + add_sense"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "(في الألعاب أو المسرحيات أو العروض الأخرى) الوقت الذي يستمر فيه اللعب"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق ويعبر عن المفهوم الزمني بشكل كافٍ وصحيح."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "كَمِّيَّة / مِقْدَار"
+    test_result: "correct"
+  verb_checks:
+    applicable: false
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "فترة اللعب"
+      examples:
+        - text: "انتهت فترة اللعب الأصلية بالتعادل فتم اللجوء إلى الأشواط الإضافية."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "وقت اللعب"
+      examples:
+        - text: "خصصت المدرسة ساعة واحدة لتكون وقت اللعب للأطفال."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "مدة اللعب"
+      examples:
+        - text: "أضاف الحكم وقتاً بدل ضائع لتعويض ما ضاع من مدة اللعب."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

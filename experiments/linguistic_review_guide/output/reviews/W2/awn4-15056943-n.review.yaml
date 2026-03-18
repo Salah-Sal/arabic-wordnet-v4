@@ -1,0 +1,230 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة تفتقر للتشكيل الكامل."
+      - "التعريف العربي الحالي هو ترجمة حرفية للتعريف الإنجليزي."
+      - "يمكن إثراء المجموعة بمصطلحات أكثر دقة مثل 'ذيفان' للمواد السامة ذات الأصل الحيوي."
+    observations: "المجموعة تغطي مفهوم المادة السامة بشكل عام، واللفظ الأساسي هو 'سم'، مع وجود تركيب وصفي 'مادة سامة' يخدم السياق العلمي."
+  blind_candidates:
+    - lemma: "سُمّ"
+      generation_method: majaz
+      justification: "اللفظ العربي الأصيل والأكثر شمولاً وشيوعاً للمادة القاتلة."
+    - lemma: "زُعَاف"
+      generation_method: majaz
+      justification: "لفظ فصيح يطلق على السم الشديد الذي يجهز على الكائن الحي بسرعة."
+    - lemma: "مَادَّة سَامَّة"
+      generation_method: tarkib
+      justification: "تركيب وصفي مستقر في السياقات العلمية والبيئية."
+    - lemma: "ذِيفَان"
+      generation_method: ishtiqaq
+      justification: "مصطلح متخصص (Toxin) يشير إلى السموم الناتجة عن الكائنات الحية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "سُمّ"
+      confirm:
+        - text: "«السُّمُّ: المادة القاتلة... والضَّمُّ أفصح»"
+          source: "المعجم الكبير"
+        - text: "«السَّمُّ: كل مادة سامة»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«يُقال سُمّ وسَمّ وسِمّ، والجمع سِمام وسُموم»"
+          source: "المصباح المنير"
+    - lemma: "مَادَّة سَامَّة"
+      confirm:
+        - text: "«مادة سامة: أي مادة كيميائية يمكن أن تشكل خطرا على الصحة أو البيئة»"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية"
+        - text: "«مادة سامة: السموم»"
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة"
+    - lemma: "ذِيفَان"
+      confirm:
+        - text: "«الذِّيفَانُ هو السم الذي يقوم كائن حي بإنتاجه»"
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة"
+        - text: "«مادة سامة للعضوية الحية من أصل حيويّ»"
+          source: "المعجم الموحد لمصطلحات علم الصيدلة"
+      expands:
+        - text: "«الذيفان: السم القاتل»"
+          source: "القاموس المحيط"
+    - lemma: "زُعَاف"
+      confirm:
+        - text: "«سُمٌّ زُعَافٌ: سريعُ القتل»"
+          source: "المعجم الوسيط"
+        - text: "«الزَّاءُ وَالْعَيْنُ وَالْفَاءُ أُصَيْلٌ. يُقَالُ سُمٌّ زُعَافٌ: قَاتِلٌ»"
+          source: "مقاييس اللغة"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "سم"
+      decision: confirmed
+      decision_reason: "اللفظ الأساسي والمحوري للمجموعة الترادفية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "سُمّ"
+    - lemma: "مادة سامة"
+      decision: confirmed
+      decision_reason: "مصطلح تقني علمي مستقر يعبر عن الوصف الوظيفي للمادة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَادَّة سَامَّة"
+    - lemma: "ذِيفَان"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح علمي دقيق يعبر عن السموم ذات الأصل الحيوي (Toxin) وهو فصيح الجذر."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "ذِيفَان", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-15056943-n"}
+    - lemma: "زُعَاف"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اسم للمادة السامة الشديدة، يثري المجموعة بدلالة القوة وسرعة القتل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "زُعَاف", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-15056943-n"}
+
+stage4_content:
+  definition:
+    current: "أي مادة تسبب إصابة أو مرض أو موت كائن حي"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ترجمة حرفية وغير محكمة لغوياً."
+    authored:
+      - type: terminological
+        text: "كلُّ مادةٍ يؤدِّي دخولُها إلى جِسْم الكائن الحيِّ بكميَّاتٍ معيَّنة إلى اضطراباتٍ وظيفيَّةٍ أو عُضويَّةٍ أو تُفضي إلى مَوتِه."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-15056943-n", definition_index: 0, text: "كلُّ مادةٍ يؤدِّي دخولُها إلى جِسْم الكائن الحيِّ بكميَّاتٍ معيَّنة إلى اضطراباتٍ وظيفيَّةٍ أو عُضويَّةٍ أو تُفضي إلى مَوتِه."}
+  examples:
+    per_lemma:
+      - lemma: "سُمّ"
+        examples:
+          - text: "دَسَّ لَهُ السُّمَّ فِي الطَّعَامِ لِلتَّخَلُّصِ مِنْهُ."
+            type: usage
+      - lemma: "مَادَّة سَامَّة"
+        examples:
+          - text: "يَجِبُ التَّعَامُلُ بِحَذَرٍ مَعَ هَذِهِ المَوَادِّ السَّامَّةِ فِي المَعْمَلِ."
+            type: usage
+      - lemma: "ذِيفَان"
+        examples:
+          - text: "تُفرِزُ بَعضُ البكتيريا ذِيفَانًا قَاتِلًا يُهَاجِمُ الجِهَازَ العَصَبِيَّ."
+            type: usage
+      - lemma: "زُعَاف"
+        examples:
+          - text: "سَقَاهُ زُعَافًا لمْ يُمهِلهُ طَوِيلًا."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-15056943-n", text: "يُحذِّرُ الخبراءُ من تسرُّبِ أيِّ مادةٍ سامةٍ إلى مصادرِ المياهِ الجوفيَّة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "سُمّ"
+      entry_id: "{auto}"
+      root: "سمم"
+      maqayis_quote: "«السِّينُ وَالْمِيمُ الْأَصْلُ الْمُطَّرِدُ فِيهِ يَدُلُّ عَلَى مَدْخَلٍ فِي الشَّيْءِ، كَالثُّقْبِ وَغَيْرِهِ... وَالسَُّمُّ الْقَاتِلُ... لِأَنَّهُ يَرفِي الْجِسْمِ وَيُدَاخِلُهُ.»"
+    - lemma: "مَادَّة سَامَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "مادة"
+          root: "مدد"
+          maqayis_quote: "«الْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى جَلْبِ الشَّيْءِ فِي طُولٍ.»"
+        - word: "سامة"
+          root: "سمم"
+          maqayis_quote: "«السِّينُ وَالْمِيمُ... وَالسَّامَّةُ: الْخَاصَّةُ...»"
+    - lemma: "ذِيفَان"
+      entry_id: "{auto}"
+      root: "ذيف"
+      maqayis_quote: "«الذَّالُ وَالْيَاءُ وَالْفَاءُ كَلِمَةٌ وَاحِدَةٌ لَا قِيَاسَ لَهَا، وَهِيَ الذَِّيفَانُ وَهُوَ السُّمُّ الْقَاتِلُ.»"
+    - lemma: "زُعَاف"
+      entry_id: "{auto}"
+      root: "زعف"
+      maqayis_quote: "«الزَّاءُ وَالْعَيْنُ وَالْفَاءُ أُصَيْلٌ. يُقَالُ سُمٌّ زُعَافٌ: قَاتِلٌ.»"
+  per_sense:
+    - lemma: "سُمّ"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام الشامل لجميع أنواع المواد القاتلة."
+      mwe: false
+    - lemma: "مَادَّة سَامَّة"
+      sense_id: "{auto}"
+      nuance: "يركز على التوصيف الكيميائي والفيزيائي للمادة في السياقات التقنية."
+      mwe: true
+    - lemma: "ذِيفَان"
+      sense_id: "{auto}"
+      nuance: "يحدد السموم ذات المنشأ الحيوي (تفرزها كائنات حية)."
+      mwe: false
+    - lemma: "زُعَاف"
+      sense_id: "{auto}"
+      nuance: "يشير إلى السم شديد المفعول وسريع القتل."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سمم","maqayis":"«السِّينُ وَالْمِيمُ الْأَصْلُ الْمُطَّرِدُ فِيهِ يَدُلُّ عَلَى مَدْخَلٍ فِي الشَّيْءِ... وَالسَُّمُّ الْقَاتِلُ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مادة","root":"مدد","maqayis":"«الْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى جَلْبِ الشَّيْءِ فِي طُولٍ.»"},{"word":"سامة","root":"سمم","maqayis":"«السِّينُ وَالْمِيمُ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ذيف","maqayis":"«الذَّالُ وَالْيَاءُ وَالْفَاءُ كَلِمَةٌ وَاحِدَةٌ لَا قِيَاسَ لَهَا...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"زعف","maqayis":"«الزَّاءُ وَالْعَيْنُ وَالْفَاءُ أُصَيْلٌ. يُقَالُ سُمٌّ زُعَافٌ: قَاتِلٌ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ العام الشامل لجميع أنواع المواد القاتلة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-15056943-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-15056943-n"
+        score: 0.95

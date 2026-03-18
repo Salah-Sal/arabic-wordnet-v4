@@ -1,0 +1,189 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمة الحالية "شمال شرق" تفتقر إلى التشكيل الكامل.
+      - "شمال شرق" تعبير مركب (MWE) ويجب معاملته كوحدة معجمية.
+    observations: "المفهوم يشير إلى جهة فرعية أو منطقة جغرافية تقع في ذلك الاتجاه. التعبير الأكثر شيوعاً في العربية المعاصرة هو 'الشمال الشرقي' أو 'شمال شرق'. القواميس الحديثة مثل المورد تؤكد استخدام هذه الصيغ المركبة."
+  blind_candidates:
+    - lemma: "شِمَال شَرْق"
+      generation_method: tarkib
+      justification: "تعبير مركب إضافي شائع جداً للدلالة على الجهة والمنطقة."
+    - lemma: "الشِّمَال الشَّرْقِيّ"
+      generation_method: tarkib
+      justification: "الصيغة المعرفة التي تشير غالباً إلى الإقليم أو المنطقة الجغرافية المحددة."
+    - lemma: "شِمَالِيّ شَرْقِيّ"
+      generation_method: ishtiqaq
+      justification: "صفة منسوبة تُستخدم كاسم للدلالة على الموقع أو الريح أو الشخص المنتمي لتلك الجهة."
+    - lemma: "نَاحِيَة الشِّمَال الشَّرْقِيّ"
+      generation_method: tarkib
+      justification: "عبارة وصفية دقيقة لتحديد الموقع."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "شمال شرق"
+      confirm:
+        - text: "«(2) الشمالُ الشَّرقيُّ (3) شماليٌّ شرقيٌّ.»"
+          source: "المورد الحديث"
+      expands:
+        - text: "«الشَّمال: الجهةُ التى تُقابِلُ الجنوبَ... الشرق: جهة شروق الشمس»"
+          source: "المعجم الكبير"
+          addition: "يؤكد المكونات الأساسية للتركيب."
+    - lemma: "شِمَال شَرْق"
+      confirm:
+        - text: "«(2) الشمالُ الشَّرقيُّ (3) شماليٌّ شرقيٌّ.»"
+          source: "المورد الحديث"
+    - lemma: "الشِّمَال الشَّرْقِيّ"
+      confirm:
+        - text: "«الشمالُ الشَّرقيُّ: northeast»"
+          source: "المورد الحديث"
+    - lemma: "شِمَالِيّ شَرْقِيّ"
+      confirm:
+        - text: "«شماليٌّ شرقيٌّ: northeast»"
+          source: "المورد الحديث"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "شمال شرق"
+      decision: confirmed
+      decision_reason: "تعبير مركب شائع ومقبول في العربية الحديثة للدلالة على الجهة والموقع، ويحتاج فقط إلى التشكيل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "شِمَال شَرْق"
+    - lemma: "الشِّمَال الشَّرْقِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح جغرافي مستقر للدلالة على المنطقة أو الإقليم الواقع في تلك الجهة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "الشِّمَال الشَّرْقِيّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "شِمَالِيّ شَرْقِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يستخدم كاسم وصفة للدلالة على الموقع أو ما ينتمي إليه، وهو موثق في القواميس الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "شِمَالِيّ شَرْقِيّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "موقع في الجزء الشمالي الشرقي من بلد أو منطقة أو مدينة"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق وواضح ويغطي الجوانب المكانية للمصطلح."
+  examples:
+    per_lemma:
+      - lemma: "شِمَال شَرْق"
+        examples:
+          - text: "تَقَعُ الْقَرْيَةُ شِمَال شَرْق الْمَدِينَةِ."
+            type: usage
+      - lemma: "الشِّمَال الشَّرْقِيّ"
+        examples:
+          - text: "تَشْتَهِرُ مِنْطَقَةُ الشِّمَالِ الشَّرْقِيِّ بِطَبِيعَتِهَا الْخَلَّابَةِ."
+            type: usage
+      - lemma: "شِمَالِيّ شَرْقِيّ"
+        examples:
+          - text: "هَبَّتْ رِيحٌ شِمَالِيَّةٌ شَرْقِيَّةٌ بَارِدَةٌ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "يَسْكُنُ فِي إِقْلِيمِ الشِّمَالِ الشَّرْقِيِّ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "شِمَال شَرْق"
+      entry_id: "{auto}"
+      roots:
+        - word: "شمال"
+          root: "شمل"
+          maqayis_quote: "«الشين والميم واللام أصلان... الجانب الذي يخالف اليمين.»"
+        - word: "شرق"
+          root: "شرق"
+          maqayis_quote: "«الشين والراء والقاف أصل واحد يدل على إضاءة وفتح.»"
+    - lemma: "الشِّمَال الشَّرْقِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "الشمال"
+          root: "شمل"
+          maqayis_quote: "«الشين والميم واللام أصلان... الجانب الذي يخالف اليمين.»"
+        - word: "الشرقي"
+          root: "شرق"
+          maqayis_quote: "«الشين والراء والقاف أصل واحد يدل على إضاءة وفتح.»"
+    - lemma: "شِمَالِيّ شَرْقِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "شمالي"
+          root: "شمل"
+          maqayis_quote: "«الشين والميم واللام أصلان... الجانب الذي يخالف اليمين.»"
+        - word: "شرقي"
+          root: "شرق"
+          maqayis_quote: "«الشين والراء والقاف أصل واحد يدل على إضاءة وفتح.»"
+  per_sense:
+    - lemma: "شِمَال شَرْق"
+      sense_id: "{auto}"
+      nuance: "تعبير مركب يستخدم غالباً ظرفياً أو كاسم جهة."
+      mwe: true
+    - lemma: "الشِّمَال الشَّرْقِيّ"
+      sense_id: "{auto}"
+      nuance: "يستخدم كاسم علم جغرافي للإشارة إلى إقليم أو منطقة بعينها."
+      mwe: true
+    - lemma: "شِمَالِيّ شَرْقِيّ"
+      sense_id: "{auto}"
+      nuance: "صيغة صفاتية تشير إلى الموقع أو الاتجاه أو ما ينسب إليهما."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"شمال","root":"شمل","maqayis":"«الشين والميم واللام أصلان... الجانب الذي يخالف اليمين.»"},{"word":"شرق","root":"شرق","maqayis":"«الشين والراء والقاف أصل واحد يدل على إضاءة وفتح.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير مركب يستخدم غالباً ظرفياً أو كاسم جهة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

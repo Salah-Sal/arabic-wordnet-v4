@@ -1,0 +1,144 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "جدار"
+      confirm:
+        - text: "«الجدار: كالحائط لكن الحائط يقال اعتبارا بالإحاطة بالمكان، والجدار اعتبارا بالنتوء والارتفاع.»"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+        - text: "«(الْجِدَار) الْحَائِط (ج) جدر»"
+          source: "المعجم الوسيط"
+        - text: "«جدار: مصطلح عامّ يشير إلى جدار عضو أو جوف في الجسم.»"
+          source: "المعجم الموحد لمصطلحات علم التشريح العياني"
+      expands:
+        - text: "«الجدار أيضا: محلّة ببغداد»"
+          source: "معجم البلدان لياقوت الحموي"
+          addition: "معنى اسم علم لمكان"
+
+    - lemma: "حائط"
+      confirm:
+        - text: "«(الْحَائِط) الْجِدَار والبستان (ج) حيطان وحوائط»"
+          source: "المعجم الوسيط"
+        - text: "«الحائط: عبارة عن الجدار لأنه يحوط ما فيه ويطلق على البُستان.»"
+          source: "التعريفات الفقهيّة للبركتي"
+      expands:
+        - text: "«الحائط: البستان، سمي به لأنه حائط لا سقف له.»"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+          addition: "دلالة البستان المسوّر"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "حاجز"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«جدار يقسم هيكل الحيوان إلى حجرات كما في رأسيات الأرجل و المرجان» — المعجم الموحد لمصطلحات الجيولوجيا"
+      justification: "يستخدم في السياقات التشريحية والتقنية للدلالة على البنية الفاصلة التي تعمل كالجدار."
+  knowledge_candidates:
+    - lemma: "سد"
+      justification: "يستخدم مجازياً للدلالة على المنع التام كالجدار (سد منيع)، آلية التوليد: مجاز."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "جدار"
+      decision: confirmed
+      decision_reason: "الكلمة الأساسية للمفهوم، وتغطي الجوانب الهيكلية والوظيفية."
+      evidence_assessment:
+        case: "confirm_only"
+      nuance_differentiation: "يؤكد على جانب النتوء والارتفاع والقوة الهيكلية."
+      example: "يشكّل جدارُ الصدّ في المفاعل النووي حماية أساسية ضدّ تسرّب الإشعاعات."
+
+    - lemma: "حائط"
+      decision: confirmed
+      decision_reason: "مرادف أصيل يستخدم في سياقات مشابهة للجدار."
+      evidence_assessment:
+        case: "confirm_only"
+      nuance_differentiation: "يلمّح إلى الإحاطة (enclosure) والاحتواء أكثر من مجرد الدعم الهيكلي."
+      example: "واجه المحتجّون حائطاً بشرياً من رجال الأمن حال دون عبورهم الجسر."
+
+    - lemma: "حاجز"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح تقني وتخصصي مستقر للدلالة على البنى الجدارية في التشريح والتقانة."
+      step05_citation: "«جدار يقسم هيكل الحيوان إلى حجرات» — المعجم الموحد لمصطلحات الجيولوجيا"
+      mwe_check:
+        is_mwe: false
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركّز على الوظيفة الفاصلة (partition) أو المانعة (barrier) التي يؤديها الجدار."
+      example: "يعمل الحاجزُ الأنفي على تقسيم تجويف الأنف إلى ممرّين منفصلين."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "حاجز"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09497292-n"
+
+    - lemma: "سد"
+      source: step05
+      decision: removed
+      decision_reason: "على الرغم من استعماله المجازي، إلا أنه غالباً ما يُشير إلى منشأة مائية أو عائق كلي في مجرى، وهو مفهوم مستقل في WordNet."
+      step05_citation: "«الحاجز بين الشيئين والبناء في مجرى الماء ليحجزه» — المعجم الوسيط"
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "أي شيء يوحي بالجدار في الهيكل أو الوظيفة أو التأثير"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي ترجمة حرفية، والصياغة المقترحة تتبع أسلوب المعاجم العربية مع الحفاظ على المفهوم."
+  authored_definitions:
+    - type: terminological
+      text: "كلّ ما شابَهَ الجِدَارَ في بِنْيَتِهِ أو عَمَلِهِ أو أَثَرِه."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-09497292-n"
+        definition_index: 0
+        text: "كلّ ما شابَهَ الجِدَارَ في بِنْيَتِهِ أو عَمَلِهِ أو أَثَرِه."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "جِسْم، شَيْء مَادِّيّ، غَرَض"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "جدار"
+        antonym_found: false
+      - lemma: "حائط"
+        antonym_found: false
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "جدار"
+      enrichment:
+        root: "ج-د-ر"
+      examples:
+        - text: "﴿أَوْ مِنْ وَرَاءِ جُدُرٍ﴾"
+          type: quran
+          source: "القرآن الكريم"
+      morphology:
+        broken_plural_link: "جدران، جدر"
+    - lemma: "حائط"
+      enrichment:
+        root: "ح-و-ط"
+      examples:
+        - text: "للحيطان آذان"
+          type: usage
+          source: "مثل سائر"
+      morphology:
+        broken_plural_link: "حيطان، حوائط"
+    - lemma: "حاجز"
+      enrichment:
+        root: "ح-ج-ز"
+      examples:
+        - text: "يتموضع القلب خلف الحاجز الصدري"
+          type: usage
+          source: "مؤلَّف"
+      morphology:
+        broken_plural_link: "حواجز"
+  cultural_fit:
+    assessment: native

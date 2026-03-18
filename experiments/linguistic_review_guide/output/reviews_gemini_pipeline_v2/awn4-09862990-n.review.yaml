@@ -1,0 +1,182 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف العربي مقتضب جداً ويحتاج لتوسعة ليشمل غرض الاستحمام (التنظيف، التبرد، العبادة)."
+    observations: "المجموعة تحتوي على اسمي فاعل للفعلين (استحم واغتسل). المعاجم العربية تميز بين 'المستحمّ' (بفتح الحاء - المكان) و'المستحمّ' (بكسرها - الفاعل)، والأمر نفسه في 'المغتسل'. اللمات الحالية دقيقة ولكنها تفتقر للتشكيل الكامل."
+  blind_candidates:
+    - lemma: "مُسْتَحِمّ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل (استحمّ) وهو اللفظ المعاصر الشائع للشخص الذي يستحم."
+    - lemma: "مُغْتَسِل"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل (اغتسل) ويستعمل في السياق الديني للغسل الواجب أو المسنون."
+    - lemma: "مُتَحَمِّم"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل (تحمّم) وهو مرادف فصيح للفعل (استحم)."
+    - lemma: "مُتَبَرِّد"
+      generation_method: ishtiqaq
+      justification: "من الاستعمالات المجازية للغسل بغرض التبرد بالماء في الصيف."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُسْتَحِمّ"
+      confirm:
+        - text: "والاستحمام: الاغتسال بالحميم (الماء الحار)."
+          source: "مقاييس اللغة"
+        - text: "مُسْتَحِمّ: اسم فاعل من استحمَّ."
+          source: "المعجم الوسيط (استنتاج)"
+      expands:
+        - text: "المُسْتَحَمّ: الموضع الذي يغتسل فيه."
+          source: "المعجم الكبير"
+          addition: "المعاجم تركز على المكان (اسم المكان) ولكن اسم الفاعل مشتق قياسياً."
+    - lemma: "مُغْتَسِل"
+      confirm:
+        - text: "{اركض برجلك هذا مغتسل بارد وشراب}."
+          source: "القرآن الكريم (سورة ص)"
+          addition: "الآية تشير للمكان أو الماء، لكن اسم الفاعل 'مغتسل' (بكسر السين) هو الشخص القائم بالفعل."
+    - lemma: "مُتَحَمِّم"
+      confirm:
+        - text: "تحمم: اغتسل، اغتسل في الحمم."
+          source: "معجم دوزي"
+    - lemma: "مُتَبَرِّد"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مُسْتَحِمّ"
+      decision: confirmed
+      decision_reason: "هو اللفظ الأكثر شيوعاً ودقة للتعبير عن المفهوم في العصر الحديث."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُسْتَحِمّ"
+    - lemma: "مُغْتَسِل"
+      decision: confirmed
+      decision_reason: "لفظ فصيح يكثر استخدامه في السياقات الدينية والشرعية (كغسل الجنابة أو الجمعة)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُغْتَسِل"
+    - lemma: "مُتَحَمِّم"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اشتقاق فصيح من الفعل (تحمم) ويدعم المعنى المقصود."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُتَحَمِّم", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09862990-n"}
+    - lemma: "مُتَبَرِّد"
+      decision: removed
+      decision_reason: "مفهوم أخص من الغرض العام للاستحمام، إذ يقتصر على التبرد فقط."
+
+stage4_content:
+  definition:
+    current: "شخص يستحم"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب وتكراري (يدور حول اللفظ نفسه)."
+    authored:
+      - type: terminological
+        text: "مَنْ يُغَطِّسُ جِسْمَهُ فِي المَاءِ أَوْ يُفِيضُهُ عَلَيْهِ لِغَرَضِ التَّنَظُّفِ أَوِ التَّبَرُّدِ أَوِ العِبَادَةِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-09862990-n", definition_index: 0, text: "مَنْ يُغَطِّسُ جِسْمَهُ فِي المَاءِ أَوْ يُفِيضُهُ عَلَيْهِ لِغَرَضِ التَّنَظُّفِ أَوِ التَّبَرُّدِ أَوِ العِبَادَةِ."}
+  examples:
+    per_lemma:
+      - lemma: "مُسْتَحِمّ"
+        examples:
+          - text: "خَرَجَ المُسْتَحِمُّ مِنَ الحَمَّامِ مُنْتَعِشاً بَعْدَ يَوْمِ عَمَلٍ شَاقٍّ."
+            type: usage
+      - lemma: "مُغْتَسِل"
+        examples:
+          - text: "رَأَيْتُ المُغْتَسِلَ يَتَطَهَّرُ بِالمَاءِ لِصَلَاةِ الجُمُعَةِ."
+            type: usage
+      - lemma: "مُتَحَمِّم"
+        examples:
+          - text: "يَبْدُو المُتَحَمِّمُ فِي النَّهْرِ مُسْتَمْتِعاً بِبُرُودَةِ المَاءِ فِي الصَّيْفِ."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُسْتَحِمّ"
+      entry_id: "{auto}"
+      root: "حمم"
+      maqayis_quote: "«الْحَاءُ وَالْمِيمُ ... أَحَدُ أُصُولِهِ الْحَرَارَةُ، فَالْحَمِيمُ الْمَاءُ الْحَارُّ. وَالِاسْتِحْمَامُ: الِاغْتِسَالُ بِهِ.»"
+    - lemma: "مُغْتَسِل"
+      entry_id: "{auto}"
+      root: "غسل"
+      maqayis_quote: "«الْغَيْنُ وَالسِّينُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَطْهِيرِ الشَّيْءِ وَتَنْقِيَتِهِ.»"
+    - lemma: "مُتَحَمِّم"
+      entry_id: "{auto}"
+      root: "حمم"
+      maqayis_quote: "«الْحَاءُ وَالْمِيمُ ... أَحَدُ أُصُولِهِ الْحَرَارَةُ، فَالْحَمِيمُ الْمَاءُ الْحَارُّ.»"
+  per_sense:
+    - lemma: "مُسْتَحِمّ"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام الشائع في العصر الحديث للشخص الذي ينظف جسده بالماء."
+      mwe: false
+    - lemma: "مُغْتَسِل"
+      sense_id: "{auto}"
+      nuance: "غالباً ما يُستخدم في سياق الطهارة الدينية أو الغسل الكامل للجسد."
+      mwe: false
+    - lemma: "مُتَحَمِّم"
+      sense_id: "{auto}"
+      nuance: "يؤكد على فعل الدخول في الحمام (الحرارة) أو الاغتسال المقصود."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حمم","maqayis":"«الْحَاءُ وَالْمِيمُ ... أَحَدُ أُصُولِهِ الْحَرَارَةُ، فَالْحَمِيمُ الْمَاءُ الْحَارُّ. وَالِاسْتِحْمَامُ: الِاغْتِسَالُ بِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"غسل","maqayis":"«الْغَيْنُ وَالسِّينُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَطْهِيرِ الشَّيْءِ وَتَنْقِيَتِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ العام الشائع في العصر الحديث للشخص الذي ينظف جسده بالماء.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"غالباً ما يُستخدم في سياق الطهارة الدينية أو الغسل الكامل للجسد.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-09862990-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-09862990-n"
+        score: 0.95

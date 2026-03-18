@@ -1,0 +1,173 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللّمات الحالية تفتقر إلى التشكيل الكامل.
+      - مصطلح "كريستال" دخيل (معرب حديث) رغم شيوعه، ويفضل التركيز على "بلورة".
+    observations: "المفهوم يشير إلى الحالة الصلبة المنتظمة للمادة، وهو مصطلح علمي دقيق. كلمة 'بلورة' هي التعريب القديم المعتمد في المعاجم الكلاسيكية والحديثة."
+  blind_candidates:
+    - lemma: "بِلَّوْرَة"
+      generation_method: ishtiqaq
+      justification: "الاسم القياسي لوحدة المادة الصلبة ذات البناء الذري المنتظم."
+    - lemma: "بِلَّوْر"
+      generation_method: ishtiqaq
+      justification: "اسم جنس يطلق على المادة نفسها أو الحجر الشفاف."
+    - lemma: "كْرِيسْتَال"
+      generation_method: taarib
+      justification: "اللفظ العالمي المعرب الشائع في السياقات العلمية والتجارية."
+    - lemma: "جِسْمٌ مُتَبَلْوِر"
+      generation_method: tarkib
+      justification: "وصف علمي دقيق للمادة التي اتخذت شكلاً بلورياً."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "بِلَّوْرَة"
+      confirm:
+        - text: "«جِسْمٌ صلب طبيعى أو صناعى تترتب في داخله الذَّرَّات والأيونات ترتيباً مُنَظَّماً»"
+          source: "المعجم الكبير"
+        - text: "«كل مادة صلبة مشكلة تشكيلا هندسيا خاصا بتوزيع منظم للذرات أو الجزيئات المكونة لها»"
+          source: "المعجم الموحد لمصطلحات الكيمياء"
+    - lemma: "بِلَّوْر"
+      confirm:
+        - text: "«حجر أبيض شفاف ونوع من الزجاج»"
+          source: "المعجم الوسيط"
+        - text: "«جَوْهَرٌ أبيضُ شَفَّاف... وهو نوعٌ من الزُّجاج النقِي»"
+          source: "المعجم الكبير"
+      expands:
+        - text: "«الْبَلُّورُ حَجَرٌ مَعْرُوفٌ وَأَحْسَنُهُ مَا يُجلَبُ مِنْ جَزَائِرِ الزَّنْجِ»"
+          source: "المصباح المنير"
+          addition: "يشير إلى المصدر الجغرافي القديم لأجود أنواعه."
+    - lemma: "كْرِيسْتَال"
+      confirm:
+        - text: "«مادّة صُلبة متجانسة، يتمّ تشكيلُها بتكرير النَّمط الثُّلاثيّ الأبعاد من الذرّات أو الأيونات أو الجزيئات»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "جِسْمٌ مُتَبَلْوِر"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "بلورة"
+      decision: confirmed
+      decision_reason: "المصطلح الأصيل والأكثر دقة وملاءمة للسياق العلمي واللغوي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "بِلَّوْرَة"
+    - lemma: "كريستال"
+      decision: confirmed
+      decision_reason: "مصطلح معرب شائع جداً في العلوم الحديثة والصناعة، وله إدخال معجمي يدعم المعنى المطلوب."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "كْرِيسْتَال"
+    - lemma: "بِلَّوْر"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اسم الجنس للمادة، وهو ضروري للإحاطة بالمعنى في سياقه العام (المادة البلورية)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "بِلَّوْر", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "جِسْمٌ مُتَبَلْوِر"
+      source: stage1
+      decision: removed
+      decision_reason: "عبارة وصفية حرة وليست مصطلحاً مسكوكاً مستقلاً في المعاجم."
+
+stage4_content:
+  definition:
+    current: "مادة صلبة تشكلت عن طريق تصلب مادة كيميائية ولها بنية ذرية منتظمة للغاية"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ترجمة حرفية، ويفضل استخدام صياغة معجمية عربية أكثر رصانة ودقة علمية."
+    authored:
+      - type: terminological
+        text: "جسم صلب متجانس، طبيعي أو صناعي، تترتب فيه الذرات أو الجزيئات في بناء هندسي منتظم ومتكرر، تعكسه عادةً أسطح خارجية مستوية."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "بِلَّوْرَة"
+        examples:
+          - text: "تُظْهِرُ بِلَّوْرَةُ مِلْحِ الطَّعَامِ شَكْلاً مُكَعَّبًا بِسَبَبِ تَرْتِيبِ ذَرَّاتِ الصُّودْيُومِ وَالْكُلُورِ."
+            type: usage
+      - lemma: "بِلَّوْر"
+        examples:
+          - text: "تُصْنَعُ عَدَسَاتُ التَّلِسْكُوبَاتِ مِنْ بِلَّوْرٍ عَالِي النَّقَاءِ لِضَمَانِ وُضُوحِ الرُّؤْيَةِ."
+            type: usage
+      - lemma: "كْرِيسْتَال"
+        examples:
+          - text: "تَعْتَمِدُ الشَّاشَاتُ الْحَدِيثَةُ عَلَى تِكْنُولُوجْيَا الْكْرِيسْتَالِ السَّائِلِ لِعَرْضِ الصُّوَرِ."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "جسم صلب متجانس، طبيعي أو صناعي، تترتب فيه الذرات أو الجزيئات في بناء هندسي منتظم ومتكرر، تعكسه عادةً أسطح خارجية مستوية."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "بِلَّوْرَة"
+      entry_id: "{auto}"
+      root: "بلور"
+      maqayis_quote: "لم يرد في مقاييس اللغة بهذا اللفظ لكونه معرباً قديماً من اليونانية (beryllos)، ولكنه عومل معاملة الرباعي (بلور)."
+    - lemma: "بِلَّوْر"
+      entry_id: "{auto}"
+      root: "بلور"
+      maqayis_quote: "لم يرد في مقاييس اللغة بهذا اللفظ لكونه معرباً قديماً."
+    - lemma: "كْرِيسْتَال"
+      entry_id: "{auto}"
+      root: "كرستل"
+      maqayis_quote: "لفظ أعجمي معرب حديثاً، لا جذر له في المعاجم القديمة."
+  per_sense:
+    - lemma: "بِلَّوْرَة"
+      sense_id: "{auto}"
+      nuance: "تشير إلى الوحدة البنائية المفردة أو الشكل الهندسي المحدد."
+      mwe: false
+    - lemma: "بِلَّوْر"
+      sense_id: "{auto}"
+      nuance: "اسم جنس يطلق على المادة نفسها أو الحجر الكريم الشفاف."
+      mwe: false
+    - lemma: "كْرِيسْتَال"
+      sense_id: "{auto}"
+      nuance: "يستخدم غالباً في السياقات التقنية الحديثة وفي وصف الزجاج الفاخر."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"بلور","origin":"Greek (beryllos)","status":"muarrab"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تشير إلى الوحدة البنائية المفردة أو الشكل الهندسي المحدد.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

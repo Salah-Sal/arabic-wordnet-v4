@@ -1,0 +1,150 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "شاطئ"
+      confirm:
+        - text: "الخط الفاصل بين اليابسة وحوض مائي"
+          source: "المعجم الموحد لمصطلحات الجيولوجيا"
+        - text: "ساحِلُ البَحْرِ (فى الجغرافيا): مِنْطَقَةٌ مُنْحَدِرَةٌ من اليابس على حافة البحر ونحوه"
+          source: "المعجم الكبير"
+    - lemma: "ضفة"
+      confirm:
+        - text: "من الْبَحْر أَو النَّهر أَو الْوَادي وَنَحْوه شطه وساحله وهما ضفتان"
+          source: "المعجم الوسيط"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "شَطّ"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«(شاطئ) النَّهر والوادي شطه وجانبه» — المعجم الوسيط"
+      justification: "لفظ معجمي أصيل مرادف للشاطئ والجانب المائي."
+  knowledge_candidates:
+    - lemma: "سَاحِل"
+      justification: "من أشهر المقابلات لمفهوم الأرض المحاذية للماء، ولا سيما البحر، ومستقر في الاستعمال الجغرافي."
+  generation_notes: "تم استخراج 'شط' من تعريف المعجم الوسيط، واستحضار 'ساحل' كمرادف جغرافي شهير."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "شاطئ"
+      decision: "confirmed"
+      decision_reason: "أدلة مؤكدة من معاجم لغوية وجغرافية"
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يغلب إطلاقه على حافة البحر أو المسطحات المائية الكبيرة، وقد يطلق على النهر."
+      example: "تتكسر الأمواج على شاطئ البحر."
+      actions: []
+
+    - lemma: "ضفة"
+      decision: "confirmed"
+      decision_reason: "أدلة مؤكدة من معاجم لغوية"
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يغلب إطلاقها على حافة الأنهار والوديان (ضفتا النهر)."
+      example: "بنى الفلاح كوخه على ضفة النهر."
+      actions: []
+
+    - lemma: "شَطّ"
+      source: "step05"
+      decision: "confirmed"
+      decision_reason: "مرادف معجمي فصيح وشائع"
+      step05_citation: "«(شاطئ) النَّهر والوادي شطه وجانبه» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "لفظ عام يشمل حافة النهر والبحر، ويكثر في الاستعمال الشعبي والفصيح."
+      example: "وقف الصياد على شط النهر يراقب الماء."
+      actions:
+        - command: "create_entry"
+          params:
+            lemma: "شَطّ"
+            pos: "n"
+        - command: "add_sense"
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09456346-n"
+
+    - lemma: "سَاحِل"
+      source: "step05"
+      decision: "confirmed"
+      decision_reason: "مرادف أساسي وفصيح للفظ شاطئ"
+      step05_citation: "«ساحِلُ البَحْرِ: مِنْطَقَةٌ مُنْحَدِرَةٌ من اليابس على حافة البحر ونحوه» — المعجم الكبير"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يختص غالباً بمحاذاة البحار والمحيطات، ويمتد لمسافة أوسع من الشاطئ."
+      example: "تمتد المدن على طول ساحل البحر الأبيض المتوسط."
+      actions:
+        - command: "create_entry"
+          params:
+            lemma: "سَاحِل"
+            pos: "n"
+        - command: "add_sense"
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09456346-n"
+
+  added_lemmas:
+    - lemma: "شَطّ"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "create_entry + add_sense"
+    - lemma: "سَاحِل"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "create_entry + add_sense"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "الأرض على طول حافة مسطح مائي"
+  assessment:
+    decision: "retain"
+    reason: "التعريف دقيق ومناسب للمفهوم الجغرافي واللغوي."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "تكوين جيولوجي"
+    test_result: "correct"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "شاطئ"
+      enrichment:
+        root: "ش-ط-ا"
+      examples:
+        - text: "تتكسر الأمواج على شاطئ البحر."
+          type: "usage"
+          source: "مؤلَّف"
+      pos_check:
+        pos: "noun"
+
+    - lemma: "ضفة"
+      enrichment:
+        root: "ض-ف-ف"
+      examples:
+        - text: "بنى الفلاح كوخه على ضفة النهر."
+          type: "usage"
+          source: "مؤلَّف"
+      pos_check:
+        pos: "noun"
+
+    - lemma: "شَطّ"
+      enrichment:
+        root: "ش-ط-ط"
+      examples:
+        - text: "وقف الصياد على شط النهر يراقب الماء."
+          type: "usage"
+          source: "مؤلَّف"
+      pos_check:
+        pos: "noun"
+
+    - lemma: "سَاحِل"
+      enrichment:
+        root: "س-ح-ل"
+      examples:
+        - text: "تمتد المدن على طول ساحل البحر الأبيض المتوسط."
+          type: "usage"
+          source: "مؤلَّف"
+      pos_check:
+        pos: "noun"
+
+  cultural_fit:
+    assessment: "native"

@@ -1,0 +1,238 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "المجموعة المترادفة العليا (hypernym) الحالية غير صحيحة دلالياً، حيث تشير إلى 'عامل' أو 'فاعل' (person who works)، بينما يُفترض أن تكون 'قريب' أو 'شخص' (person/relative)."
+      - "التعريف الحالي بسبقه بكلمة 'شخص' جيد، لكن صياغته تميل قليلاً إلى البساطة التفسيرية، ويحتاج إلى صياغة معجمية أكثر رصانة."
+    observations: "المفهوم الإنجليزي 'loved one' يغطي كلاً من الأحباء (بالمعنى العام) والأقارب (بالمعنى الخاص)، وهو ما تفتقر إليه المجموعة الحالية بحصرها في 'حبيب' و'عزيز'. الألفاظ العربية مثل 'حميم' و'قريب' ضرورية لاستكمال الشبكة الدلالية للمفهوم، خاصة مع نص التعريف على كونه 'فرداً من العائلة'."
+  blind_candidates:
+    - lemma: "قَرِيب"
+      generation_method: ishtiqaq
+      justification: "المصطلح الأكثر شيوعاً في العربية للتعبير عن 'loved one' في سياق العائلة (كما ورد في التعريف)."
+    - lemma: "حَمِيم"
+      generation_method: ishtiqaq
+      justification: "يشير إلى القرب الشديد والمودة الخالصة، ويستخدم لوصف الأصدقاء المقربين والأقارب."
+    - lemma: "صَفِيّ"
+      generation_method: ishtiqaq
+      justification: "الحبيب الخالص أو الصديق المختار، وهو تعبير تراثي رصين."
+    - lemma: "مَحْبُوب"
+      generation_method: ishtiqaq
+      justification: "الاسم المفعول المباشر من الفعل 'حبّ'، وهو المقابل الحرفي لـ 'loved one'."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "حَبِيب"
+      confirm:
+        - text: "«(الحبيب) المحبوب والمحب... (ج) أحباء وأحبة»"
+          source: "المعجم الوسيط"
+        - text: "«الحَبِيبُ: المُحِبُّ المَحْبُوبُ , والأُنثَى حَبِيبَة الرَّفِيقُ»"
+          source: "المعجم الكبير"
+    - lemma: "عَزِيز"
+      confirm:
+        - text: "«(الْعَزِيز) من أَسمَاء الله تَعَالَى وَمَعْنَاهُ الْغَالِب الَّذِي لَا يقهر»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«عزيز: عزيز النفس، عزيز عليّ (أي غالٍ)»"
+          source: "الاستعمال المعاصر"
+    - lemma: "قَرِيب"
+      confirm:
+        - text: "«(الْقَرِيب) الداني فِي الْمَكَان أَو الزَّمَان أَو النّسَب... (ج) أقرباء»"
+          source: "المعجم الوسيط"
+        - text: "«فُلَانٌ ذُو قَرَابَتِي، وَهُوَ مَنْ يَقْرُبُ مِنْكَ رَحِمًا»"
+          source: "مقاييس اللغة"
+    - lemma: "حَمِيم"
+      confirm:
+        - text: "«(الحَمِيم) القريبُ الذى تودُّه ويودُّك. وقيل: القريبُ الذى تهتمُّ لأمره»"
+          source: "المعجم الكبير"
+        - text: "«(الْحَمِيم) القريب الَّذِي توده ويودك... (ج) أحماء»"
+          source: "المعجم الوسيط"
+    - lemma: "صَفِيّ"
+      confirm:
+        - text: "«الصديقُ المختارُ. الحبيبُ الخالصُ الذى يُحسِنُ ويُخْلِصُ الإخاءَ»"
+          source: "المعجم الكبير"
+        - text: "«الصديقُ المختصُّ. يقال: هو صَفِيِّي»"
+          source: "المعجم الوسيط"
+    - lemma: "مَحْبُوب"
+      confirm:
+        - text: "«حَبِيب: المحبوب والمحب»"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "حَبِيب"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي وشامل يعبر عن الشخص المحبوب، وهو فصيح وشائع."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حَبِيب"
+    - lemma: "عَزِيز"
+      decision: confirmed
+      decision_reason: "يستخدم لوصف الشخص الذي له مكانة عالية في القلب، وهو مرادف قوي لـ 'loved one'."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عَزِيز"
+    - lemma: "قَرِيب"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يدعم الشق الثاني من التعريف 'عادة ما يكون فرداً من عائلتك'، وهو المصطلح الرسمي والاجتماعي الأكثر دقة في هذا السياق."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "قَرِيب", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09646098-n"}
+    - lemma: "حَمِيم"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر عن القرب النفسي والمودة المتبادلة، وهو رصين وفصيح."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "حَمِيم", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09646098-n"}
+    - lemma: "صَفِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يضيف بعداً من الصفاء والإخلاص في المحبة، وهو مرادف كلاسيكي غني."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "صَفِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09646098-n"}
+
+stage4_content:
+  definition:
+    current: "شخص تحبه، عادة ما يكون فرداً من عائلتك"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي بسيط جداً ويميل للترجمة الحرفية، يحتاج لصياغة معجمية تجمع بين المحبة والقرابة."
+    authored:
+      - type: linguistic
+        text: "الشخصُ الذي تَودُّه وتُخلص له المحبَّة، وغالباً ما يكون من الأهل أو الأقارب."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "حَبِيب"
+        examples:
+          - text: "وَدَّعَ المسافِرُ أحبابَه وأهْلَه بدموعِ الحُزْنِ."
+            type: usage
+      - lemma: "عَزِيز"
+        examples:
+          - text: "فَقَدْتُ صديقاً عزيزاً كان بمثابةِ الأخِ لي."
+            type: usage
+      - lemma: "قَرِيب"
+        examples:
+          - text: "حَضَرَ الأقرباءُ جميعاً للاحتفالِ بنجاحِ ابنهِ."
+            type: usage
+      - lemma: "حَمِيم"
+        examples:
+          - text: "لا يُفشي المرءُ أسرارَه إلا لصديقٍ حَمِيمٍ."
+            type: usage
+      - lemma: "صَفِيّ"
+        examples:
+          - text: "هو صَفِيِّي الذي أثقُ برأيهِ وأستشيرُه في معضلاتي."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-09646098-n", definition_index: 0, text: "الشخصُ الذي تَودُّه وتُخلص له المحبَّة، وغالباً ما يكون من الأهل أو الأقارب."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "حَبِيب"
+      entry_id: "{auto}"
+      root: "حبب"
+      maqayis_quote: "«الْحَاءُ وَالْبَاءُ أُصُولٌ ثَلَاثَةٌ، أَحَدُهَا اللُّزُومُ وَالثَّبَاتُ... وَأَمَّا اللُّزُومُ فَالْحُبُّ وَالْمَحَبَّةُ، اشْتِقَاقُهُ مِنْ أَحَبَّهُ إِذَا لَزِمَهُ.»"
+    - lemma: "عَزِيز"
+      entry_id: "{auto}"
+      root: "عزز"
+      maqayis_quote: "«الْعَيْنُ وَالزَّاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ، يَدُلُّ عَلَى شِدَّةٍ وَقُوَّةٍ وَمَا ضَاهَاهُمَا، مِنْ غَلَبَةٍ وَقَهْرٍ.»"
+    - lemma: "قَرِيب"
+      entry_id: "{auto}"
+      root: "قرب"
+      maqayis_quote: "«الْقَافُ وَالرَّاءُ وَالْبَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى خِلَافِ الْبُعْدِ.»"
+    - lemma: "حَمِيم"
+      entry_id: "{auto}"
+      root: "حمم"
+      maqayis_quote: "«الْحَاءُ وَالْمِيمُ أَصْلَانِ: أَحَدُهُمَا جِنْسٌ مِنَ الْحَرَارَةِ...»"
+    - lemma: "صَفِيّ"
+      entry_id: "{auto}"
+      root: "صفو"
+      maqayis_quote: "«الصَّادُ وَالْفَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خُلُوصٍ مِنْ كُلِّ شَوْبٍ.»"
+  per_sense:
+    - lemma: "حَبِيب"
+      sense_id: "{auto}"
+      nuance: "لفظ عام يعبر عن المحبوب أياً كان."
+      mwe: false
+    - lemma: "عَزِيز"
+      sense_id: "{auto}"
+      nuance: "يركز على القيمة والمكانة العالية للشخص في النفس."
+      mwe: false
+    - lemma: "قَرِيب"
+      sense_id: "{auto}"
+      nuance: "يركز على صلة الرحم والقرابة العائلية."
+      mwe: false
+    - lemma: "حَمِيم"
+      sense_id: "{auto}"
+      nuance: "يدل على القرب الشديد المصحوب بالحرارة العاطفية والاهتمام."
+      mwe: false
+    - lemma: "صَفِيّ"
+      sense_id: "{auto}"
+      nuance: "يدل على الاختيار والاصطفاء لصفاء المودة وخلوها من الكدر."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حبب","maqayis":"«الْحَاءُ وَالْبَاءُ أُصُولٌ ثَلَاثَةٌ، أَحَدُهَا اللُّزُومُ وَالثَّبَاتُ... وَأَمَّا اللُّزُومُ فَالْحُبُّ وَالْمَحَبَّةُ، اشْتِقَاقُهُ مِنْ أَحَبَّهُ إِذَا لَزِمَهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عزز","maqayis":"«الْعَيْنُ وَالزَّاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ، يَدُلُّ عَلَى شِدَّةٍ وَقُوَّةٍ وَمَا ضَاهَاهُمَا، مِنْ غَلَبَةٍ وَقَهْرٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"لفظ عام يعبر عن المحبوب أياً كان.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-09646098-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-09646098-n"
+        score: 0.9

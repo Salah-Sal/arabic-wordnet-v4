@@ -1,0 +1,142 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "اليم"
+      confirm:
+        - text: "«اليَمُّ: البَحْرُ، لا يُكَسَّر، ولا يُجْمَع جَمْعَ السالِمِ.»"
+          source: "القاموس المحيط للفيروزآبادي"
+        - text: "«اليَمُّ: البحر. قال تعالى: فَأَلْقِيهِ فِي الْيَمِّ»"
+          source: "المفردات في غريب القرآن للراغب الأصفهاني"
+        - text: "«البحر الذي لا يدرك قعره ولا شطاه, أو لجته»"
+          source: "كتاب العين للخليل بن أحمد الفراهيدي"
+      peripheral_observations:
+        - "الحمام الوحشي"
+    - lemma: "بحر محيط"
+      confirm:
+        - text: "«البحْرُ المُحيطُ: ... وهو محيط بالدنيا جميعها كإحاطة الهالة بالقمر»"
+          source: "معجم البلدان لياقوت الحموي"
+      expands:
+        - text: "«البحْرُ المُحيطُ: ... وهو محيط بالدنيا جميعها كإحاطة الهالة بالقمر»"
+          source: "معجم البلدان لياقوت الحموي"
+          addition: "كان يطلق تاريخياً على البحر المحيط باليابسة (الأوقيانوس)، ولكنه ينسحب دلالياً على أي جسم مائي شديد الاتساع."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "محيط"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«المحيط؛ الأوقيانوس» — المورد الحديث"
+      justification: "ترجمة مباشرة لمفهوم المسطح المائي المالح الواسع (ocean)."
+  knowledge_candidates:
+    - lemma: "خضم"
+      justification: "مجاز/اشتقاق: يطلق الخضم على الجمع الكثير، ثم أطلق على معظم البحر أو البحر الواسع العظيم، وهو يطابق دلالة (main/briny) الإنجليزية التي تشير إلى عرض البحر أو البحر المفتوح."
+    - lemma: "لجة"
+      justification: "مجاز: تطلق اللجة على معظم البحر وتردد أمواجه، وتعبر بدقة عن المسطح المائي المفتوح العميق."
+  generation_notes: "تم التركيز على المفردات التي تعبر عن اتساع البحر وعمقه."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "اليم"
+      decision: confirmed
+      decision_reason: "مصطلح عربي فصيح متواتر يعبر عن البحر الواسع المفتوح."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "اليم يشير غالباً إلى البحر العظيم الذي لا يدرك قعره، وقد يحمل دلالة أدبية أو قرآنية."
+      example: "ابْتلع اليَمُّ السفينةَ بما فيها لشدة العواصف."
+    - lemma: "بحر محيط"
+      decision: confirmed
+      decision_reason: "تعبير وصفي فصيح يشير إلى البحر العظيم الذي يحيط باليابسة."
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "بحر محيط تركز على صفة الإحاطة والاتساع الهائل مقارنة بالبحر العادي."
+      example: "سافر البحارة عبر بحر محيط لا تُرى فيه يابسة."
+    - lemma: "خضم"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح فصيح يطلق على البحر العظيم الواسع، وهو بديل ممتاز لـ main."
+      step05_citation: "«الخضم: البحر، أو مجتمع مائه» — المعاجم العربية"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "الخضم يركز على الكثرة والاتساع والتلاطم."
+      example: "مخرت الباخرة عباب خضمّ واسع لا حدود له."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "خضم"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09368829-n"
+    - lemma: "لجة"
+      source: step05
+      decision: removed
+      decision_reason: "اللجة تركز على العمق واضطراب الأمواج أكثر من تركيزها على الجِرم المائي الشاسع في ذاته."
+      step05_citation: "مجرد المعرفة اللغوية."
+    - lemma: "محيط"
+      source: step05
+      decision: removed
+      decision_reason: "كلمة (محيط) Ocean ترتبط بمجموعة ترادفية أخرى مستقلة في شبكة WordNet، بينما هذه المجموعة مخصصة لمصطلحات مثل main و briny التي تعني عرض البحر أو اليم العظيم."
+      step05_citation: "المورد الحديث"
+  synset_flags:
+    definition_review_needed: false
+  added_lemmas:
+    - lemma: "خضم"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "أي جسم كبير جداً من الماء (المالح)"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق ويفي بالغرض ويعبر عن المفهوم."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "مسطح مائي"
+    test_result: "correct"
+  verb_checks:
+    applicable: false
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "اليم"
+      enrichment:
+        root: "يمم"
+      examples:
+        - text: "﴿فَأَلْقِيهِ فِي الْيَمِّ وَلَا تَخَافِي وَلَا تَحْزَنِي﴾"
+          type: quran
+          source: "القرآن الكريم"
+      pos_check:
+        pos: noun
+    - lemma: "بحر محيط"
+      enrichment:
+        root: "بحر"
+      examples:
+        - text: "عبرت السفينة بحراً محيطاً لا يرى له ساحل."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "خضم"
+      enrichment:
+        root: "خضم"
+      examples:
+        - text: "تاهت سفينتهم في خضم عظيم الأطراف."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-09368829-n"
+        text: "﴿فَأَلْقِيهِ فِي الْيَمِّ وَلَا تَخَافِي وَلَا تَحْزَنِي﴾"

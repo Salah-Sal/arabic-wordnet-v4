@@ -1,0 +1,124 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "طَارِق"
+      confirm:
+        - text: "«الذي يطرق الباب أي يجعله قصده»"
+          source: "معجم البلدان لياقوت الحموي"
+        - text: "«من الناس: الآتي ليلًا طلبًا للضيافة, أو الاسْتِغاثَة, ونحوهما»"
+          source: "المعجم الكبير"
+      expands:
+        - text: "«النَّجمُ؛ لِطُلُوعِه ليلًا»"
+          source: "المعجم الكبير"
+          addition: "استُعير الاسم للنجم لظهوره ليلاً كما يظهر الطارق"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "قَارِع"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«فا .rap وبخاصة: قارعُ الباب» — المورد الحديث (2008)"
+      justification: "اشتقاق قياسي (اسم فاعل) من الفعل 'قرع' للتعبير عن الشخص الذي يضرب الباب طلباً للدخول."
+  knowledge_candidates:
+    - lemma: "قَارِع البَاب"
+      justification: "تركيب إضافي مكون من اسم الفاعل والمفعول به لتخصيص المعنى."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "طَارِق"
+      decision: confirmed
+      decision_reason: "مصطلح عربي فصيح، وهو اسم الفاعل من 'طرق'، ويعبر بدقة عن الشخص الذي يدق الباب طلباً للدخول. ورغم ارتباطه تراثياً بالآتي ليلاً، إلا أن دلالته اللغوية العامة متطابقة مع المفهوم."
+      evidence_assessment:
+        case: "mixed"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "اللفظ الأصلي والأكثر شيوعاً للتعبير عن من يدق الباب، وغالباً ما يرتبط في الاستعمال التراثي بالزائر ليلاً."
+      example: "أسرع الرجل لفتح الباب عندما سمع صوت الطارق."
+    
+    - lemma: "قَارِع"
+      source: step05
+      decision: confirmed
+      decision_reason: "اسم فاعل من 'قرع'، وهو مرادف دقيق ومستعمل للتعبير عن من يضرب الباب."
+      step05_citation: "«فا .rap وبخاصة: قارعُ الباب» — المورد الحديث (2008)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "مرادف لـ'طارق'، غير أن الفعل 'قرع' قد يوحي بشدة وقوة أكبر في الدق مقارنة بالطرق."
+      example: "وقف القارع أمام الباب منتظراً أن يُؤذن له بالدخول."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "قَارِع"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10259458-n"
+            
+    - lemma: "قَارِع البَاب"
+      source: step05
+      decision: removed
+      decision_reason: "تركيب إضافي وصفي حر وليس مصطلحاً مسكوكاً مستقلاً، ويمكن الاستغناء عنه بلفظتي 'قارع' و'طارق' المفردتين."
+      step05_citation: "مرشح من المعرفة اللغوية"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تركيب وصفي حر."
+
+  added_lemmas:
+    - lemma: "قَارِع"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شخص يطرق (كما في طلب الدخول)"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي يبدو ترجمة حرفية ومقيدة بقوسين. صياغة تعريف لغوي سلس ستكون أبلغ."
+  authored_definitions:
+    - type: linguistic
+      text: "الشخص الذي يطرق الباب طلباً للدخول أو الاستئذان."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-10259458-n"
+        definition_index: 0
+        text: "الشخص الذي يطرق الباب طلباً للدخول أو الاستئذان."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عَامِل / فَاعِل"
+    test_result: "correct"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "طَارِق"
+      enrichment:
+        root: "ط-ر-ق"
+      examples:
+        - text: "أسرع الرجل لفتح الباب عندما سمع صوت الطارق."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "قَارِع"
+      enrichment:
+        root: "ق-ر-ع"
+      examples:
+        - text: "وقف القارع أمام الباب منتظراً أن يُؤذن له بالدخول."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-10259458-n"
+        text: "أسرع الرجل لفتح الباب عندما سمع صوت الطارق."

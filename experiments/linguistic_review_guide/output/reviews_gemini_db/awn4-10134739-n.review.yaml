@@ -1,0 +1,197 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "فَاّر"
+      confirm:
+        - text: "«فَرَّ فرا وفرارا هرب فَهُوَ فار وفرور وفرورة وفرار» — المعجم الوسيط"
+        - text: "«رجل فَرٌّ وفَارٌّ، والمَفَرُّ: موضع الفرار» — المفردات في غريب القرآن"
+      peripheral_observations:
+        - "اللمة مكتوبة بخطأ إملائي بوضع الشدة على الألف بدلا من الراء (فَاّر بدلا من فَارّ)."
+    - lemma: "هَارِب"
+      confirm:
+        - text: "«هَرَبَ يَهْرُبُ هَرَباً: فَرَّ... وقال ابن الأعرابي: الهارب الذي صدر عن الماء» — لسان العرب"
+        - text: "«الهارب: اللاجئ؛ الآبق» — المورد الحديث"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "فَارّ"
+      source_section: "step0_evidence"
+      evidence_citation: "«فَرَّ فرا وفرارا هرب فَهُوَ فار...» — المعجم الوسيط"
+      justification: "تصحيح إملائي للمة الأصلية (فَاّر)."
+    - lemma: "فَرَّار"
+      source_section: "step0_evidence"
+      evidence_citation: "«فَهُوَ فار وفرور وفرورة وفرار» — المعجم الوسيط"
+      justification: "صيغة مبالغة لمن يكثر منه الفرار."
+  knowledge_candidates:
+    - lemma: "مُتَهَرِّب"
+      justification: "اشتقاق: من الفعل (تهرّب)، وتستخدم بكثرة لوصف الشخص الذي يفر من وضع غير ملائم أو مسؤولية."
+  generation_notes: "تم اقتراح (فارّ) كبديل أصح إملائياً للمة الأصلية المعيبة."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "فَاّر"
+      decision: removed
+      decision_reason: "خطأ إملائي واضح، وُضعت الشدة على الألف بدلاً من الراء، الصواب (فَارّ)."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "مرفوضة لخطئها الإملائي."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "هَارِب"
+      decision: confirmed
+      decision_reason: "اللمة فصيحة ومستقرة، وتطابق المفهوم تماماً."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تدل على الهروب من موقف أو مكان خشية العاقبة، وهي الأكثر شيوعاً وعمومية."
+      example: "عَثَرَتِ الشُّرْطَةُ عَلَى اللِّصِّ الهَارِبِ."
+
+    - lemma: "فَارّ"
+      source: step05
+      decision: confirmed
+      decision_reason: "تصحيح للمة (فَاّر)، وتدل بقوة على المفهوم من الفعل (فرّ)."
+      step05_citation: "«فَرَّ فرا وفرارا هرب فَهُوَ فار» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تؤكد على سرعة الانطلاق والابتعاد لتجنب الخطر."
+      example: "تَعَقَّبَتِ السُّلُطَاتُ السَّجِينَ الفَارَّ."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "فَارّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10134739-n"
+
+    - lemma: "فَرَّار"
+      source: step05
+      decision: confirmed
+      decision_reason: "صيغة مبالغة فصيحة تناسب المفهوم."
+      step05_citation: "«فَهُوَ فار وفرور وفرورة وفرار» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تحمل دلالة المبالغة والتكرار في الهروب."
+      example: "لَمْ يَتَمَكَّنِ الفَرَّارُ مِنَ الإِفْلَاتِ مِنْ قَبْضَةِ العَدَالَةِ."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "فَرَّار"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10134739-n"
+
+    - lemma: "مُتَهَرِّب"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح شائع ومناسب للتعبير عن الفرار من الأوضاع أو الواجبات."
+      step05_citation: "معرفة لغوية واشتقاق قياسي."
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تختص غالباً بالفرار المعنوي من موقف أو واجب غير ملائم أكثر من الفرار الجسدي المادي."
+      example: "عُوقِبَ التَّاجِرُ لِأَنَّهُ مُتَهَرِّبٌ مِنْ دَفْعِ الضَّرَائِبِ."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُتَهَرِّب"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10134739-n"
+
+  added_lemmas:
+    - lemma: "فَارّ"
+      reason: "تصحيح إملائي للمة الأصلية المرفوضة"
+      via_command: "create_entry + add_sense"
+    - lemma: "فَرَّار"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "create_entry + add_sense"
+    - lemma: "مُتَهَرِّب"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "create_entry + add_sense"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شخص يهرب من وضع غير ملائم"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وواضح ويعكس المفهوم المقصود بصورة صحيحة."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عَامِل, فَاعِل"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "هَارِب"
+        antonym_found: false
+      - lemma: "فَارّ"
+        antonym_found: false
+      - lemma: "فَرَّار"
+        antonym_found: false
+      - lemma: "مُتَهَرِّب"
+        antonym_found: false
+  verb_checks:
+    applicable: false
+  selectional_restrictions:
+    - lemma: "هَارِب"
+      constraint: "فاعل حي، غالباً عاقل"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "هَارِب"
+      enrichment:
+        root: "هرب"
+      examples:
+        - text: "عَثَرَتِ الشُّرْطَةُ عَلَى اللِّصِّ الهَارِبِ."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "فَارّ"
+      enrichment:
+        root: "فرر"
+      examples:
+        - text: "تَعَقَّبَتِ السُّلُطَاتُ السَّجِينَ الفَارَّ."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "فَرَّار"
+      enrichment:
+        root: "فرر"
+      examples:
+        - text: "لَمْ يَتَمَكَّنِ الفَرَّارُ مِنَ الإِفْلَاتِ مِنْ قَبْضَةِ العَدَالَةِ."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "مُتَهَرِّب"
+      enrichment:
+        root: "هرب"
+      examples:
+        - text: "عُوقِبَ التَّاجِرُ لِأَنَّهُ مُتَهَرِّبٌ مِنْ دَفْعِ الضَّرَائِبِ."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-10134739-n"
+        text: "عَثَرَتِ الشُّرْطَةُ عَلَى اللِّصِّ الهَارِبِ."
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-10134739-n"
+        text: "تَعَقَّبَتِ السُّلُطَاتُ السَّجِينَ الفَارَّ."

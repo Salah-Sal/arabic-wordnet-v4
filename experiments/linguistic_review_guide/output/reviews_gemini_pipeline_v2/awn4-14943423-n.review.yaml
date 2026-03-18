@@ -1,0 +1,199 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'مادة التلقيح' هي عبارة وصفية وليست مصطلحاً معجمياً بسيطاً (lexical unit)."
+      - "التعريف الحالي يحتاج إلى صياغة أكثر جزالة لتتوافق مع أسلوب المعجم الوسيط."
+    observations: "المفهوم يشمل اللقاحات (Vaccines) والأمصال المناعية (Serums). العرب قديماً استخدموا مصطلح 'لقاح' للنتاج، والمحدثون استعاروه للمادة التي تمنح المناعة، كما اعتمدوا 'طُعم' كمرادف في الطب."
+  blind_candidates:
+    - lemma: "لَقَاح"
+      generation_method: ishtiqaq
+      justification: "من 'لَقِحَتِ' الشجر أو الحيوان، وهي المادة التي يُلقح بها الجسم لإكسابه المناعة."
+    - lemma: "طُعْم"
+      generation_method: majaz
+      justification: "استعارة من طعم الصيد، وهو ما يُغرى به الجهاز المناعي للاستجابة، وهو مصطلح طبي معتمد في المعاجم الحديثة."
+    - lemma: "مَصْل"
+      generation_method: majaz
+      justification: "السائل المستخلص من الدم الحامل للأضداد، ويُستخدم كاسم للمادة الواقية."
+    - lemma: "تَلْقِيح"
+      generation_method: ishtiqaq
+      justification: "المصدر المستخدم كاسم للمادة في بعض السياقات العامة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "لَقَاح"
+      confirm:
+        - text: "«قَدْرٌ من الجراثيم يسير يُدخل في جسم الإنسان أو الحيوان ليكسبه مناعة من المرض الذى تحدثه هذه الجراثيم، وهو الطُّعْم أيضاً»"
+          source: "المعجم الوسيط"
+        - text: "«مادة حيويّة مناعية، تستخدم للتمنيع الفاعل...»"
+          source: "المعجم الموحد لمصطلحات علم الصيدلة"
+      expands:
+        - text: "«لَقاح بفتح اللام هو ما يُلقح به، والكسر (لِقاح) للمصدر»"
+          source: "المعجم الوسيط / معجم الصواب اللغوي"
+    - lemma: "طُعْم"
+      confirm:
+        - text: "«(في الطب) (Vaccine): الْمَصْلُ فيه مستحضرات تستنهض الجهاز المناعى لتوليد أضداد تُكسب الجسمَ مناعةً من المرض»"
+          source: "المعجم الكبير"
+        - text: "«لِقاح؛ مَصْلٌ يُحقَنُ به الجسم ليكتسب مناعة ضِدّ المرض»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "مَصْل"
+      confirm:
+        - text: "«ما يتَّخذ من دم حيوان مُحصن من الإصابة بِمَرَض... ثم يحقن بِهِ جسم آخر ليكسبه مناعة تقيه الْإِصَابَة بذلك الْمَرَض»"
+          source: "المعجم الوسيط"
+    - lemma: "مادة التلقيح"
+      evidence_status: "no_material_found"
+    - lemma: "تَلْقِيح"
+      confirm:
+        - text: "«التلقيح: اصطلاحا، استعمال الشخص القوة المفكرة بأن يرتب أمورا حاصلة في الذهن...»"
+          source: "التوقيف على مهمات التعاريف (معنى منطقي مغاير)"
+      expands:
+        - text: "«تلقيح: حَقْن الجسم بالمصل ليكتسب مناعة من المرض»"
+          source: "معجم اللغة العربية المعاصرة"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "لقاح"
+      decision: confirmed
+      decision_reason: "المصطلح العربي الأساسي والأكثر دقة وشيوعاً للمادة الممنّعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "لَقَاح"
+    - lemma: "مادة التلقيح"
+      decision: removed
+      decision_reason: "عبارة وصفية حرة وليست مصطلحاً مسكوكاً."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "طُعْم"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح طبي 'محدث' معتمد في المجامع اللغوية كمرادف دقيق للقاح."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "طُعْم", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-14943423-n"}
+    - lemma: "مَصْل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يُستخدم مرادفاً للقاح في السياقات العامة، وله دلالة طبية محددة (Serum) تندرج ضمن التعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَصْل", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-14943423-n"}
+    - lemma: "تَلْقِيح"
+      source: stage1
+      decision: removed
+      decision_reason: "يدل على عملية الحقن (Process) أكثر مما يدل على المادة نفسها (Substance)."
+
+stage4_content:
+  definition:
+    current: "مادة (فيروس أو سم أو مصل مناعي) يتم إدخالها في الجسم لإنتاج أو زيادة المناعة ضد مرض معين"
+    assessment:
+      decision: revise
+      reason: "لتحويل الصياغة إلى أسلوب معجمي رصين يعتمد الجنس القريب والفصل النوعي."
+    authored:
+      - type: terminological
+        text: "مُستحضَرٌ طِبِّيّ يحتوي على جراثيم أو سموم مضعفة أو مقتولة، يُحقنُ به الجسم لتحفيز استجابته المناعية ووقايته من مرضٍ ما."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "لَقَاح"
+        examples:
+          - text: "يُعدُّ لَقَاحُ شلل الأطفال من أعظم إنجازات الطب الوقائي في القرن العشرين."
+            type: usage
+      - lemma: "طُعْم"
+        examples:
+          - text: "أعلنت وزارة الصحة عن حملة قومية لإعطاء طُعْمِ الحصبة لطلبة المدارس."
+            type: usage
+      - lemma: "مَصْل"
+        examples:
+          - text: "يُحقن المصاب بعضة أفعى بِمَصْلٍ مُضادٍ للسم بصفة عاجلة."
+            type: usage
+  actions:
+    - command: update_definition
+      params: {synset_id: "awn4-14943423-n", definition_index: 0, text: "مُستحضَرٌ طِبِّيّ يحتوي على جراثيم أو سموم مضعفة أو مقتولة، يُحقنُ به الجسم لتحفيز استجابته المناعية ووقايته من مرضٍ ما."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "لَقَاح"
+      entry_id: "{auto}"
+      root: "لقح"
+      maqayis_quote: "«اللَّامُ وَالْقَافُ وَالْحَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِحْبَالِ ذَكَرٍ لِأُنْثَى، ثُمَّ يُقَاسُ عَلَيْهِ مَا يُشَبَّهُ. مِنْهُ لِقَاحُ النَّعَمِ وَالشَّجَرِ.»"
+    - lemma: "طُعْم"
+      entry_id: "{auto}"
+      root: "طعم"
+      maqayis_quote: "«الطَّاءُ وَالْعَيْنُ وَالْمِيمُ أَصْلٌ مُطَّرِدٌ مُنْقَاسٌ فِي تَذَوُّقِ الشَّيْءِ. يُقَالُ: طَعِمْتُ الشَّيْءَ طَعْمًا. وَالطَّعَامُ هُوَ الْمَأْكُولُ.»"
+    - lemma: "مَصْل"
+      entry_id: "{auto}"
+      root: "مصل"
+      maqayis_quote: "«الْمِيمُ وَالصَّادُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَحَلُّبِ شَيْءٍ وَقَطْرِهِ. مِنْهُ الْمَصْلُ: مَاءُ الْأَقِطِ.»"
+  per_sense:
+    - lemma: "لَقَاح"
+      sense_id: "{auto}"
+      nuance: "المصطلح العلمي الشامل للمادة الممنّعة سواء كانت حية أو ميتة."
+      mwe: false
+    - lemma: "طُعْم"
+      sense_id: "{auto}"
+      nuance: "يُركز على الجانب الوقائي والتحصيني (Inoculation/Vaccination) ويُستخدم بكثرة في الحملات الرسمية."
+      mwe: false
+    - lemma: "مَصْل"
+      sense_id: "{auto}"
+      nuance: "يُشير تحديداً إلى المادة السائلة المستخلصة من الدم والتي تحتوي على أضداد جاهزة (Serum)."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"لقح","maqayis":"«اللَّامُ وَالْقَافُ وَالْحَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِحْبَالِ ذَكَرٍ لِأُنْثَى...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"طعم","maqayis":"«الطَّاءُ وَالْعَيْنُ وَالْمِيمُ أَصْلٌ مُطَّرِدٌ مُنْقَاسٌ فِي تَذَوُّقِ الشَّيْءِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"مصل","maqayis":"«الْمِيمُ وَالصَّادُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَحَلُّبِ شَيْءٍ وَقَطْرِهِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العلمي الشامل للمادة الممنّعة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-14943423-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-14943423-n"
+        score: 0.95

@@ -1,0 +1,174 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "شَخْص مِنَ الطِّرَاز الْأَوَّل"
+      evidence_status: "no_material_found"
+
+step05_lemma_generation:
+  knowledge_candidates:
+    - lemma: "فَذّ"
+      justification: "مجاز (تخصيص دلالي): من الانفراد إلى التفرد والتميز في المكانة والكفاية، وهو ما يقابل (first-rater) بدقة في الاستعمال العربي الفصيح."
+    - lemma: "مُبَرِّز"
+      justification: "اشتقاق: اسم فاعل من الفعل (بَرَّزَ) بمعنى فاق أقرانه، للدلالة على الشخص الممتاز والمتقدم."
+    - lemma: "مُتَفَوِّق"
+      justification: "اشتقاق: اسم فاعل من (تفوق)، يدل على الشخص الذي يتجاوز أقرانه في المرتبة أو الأداء."
+  generation_notes: "تم استبعاد عبارة 'شخص من الطراز الأول' لكونها تركيباً وصفياً حراً وتوليد أسماء فاعل وصفات مشبهة تدل على الشخص المتميز."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "شَخْص مِنَ الطِّرَاز الْأَوَّل"
+      decision: removed
+      decision_reason: "تركيب وصفي حر (مركب إسنادي/إضافي) وليس مصطلحاً مسكوكاً مستقلاً، وهو أشبه بترجمة حرفية تفسيرية."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: fail
+      nuance_differentiation: "عبارة وصفية تفسيرية تفتقر لخصائص المصطلح المستقل."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "فَذّ"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح فصيح دقيق وشائع للدلالة على الشخص المنقطع النظير والمتفرد في مجاله، ووزنه ملائم."
+      step05_citation: "«(الْفَذ) الْفَرد والمتفرد فِي مكانته أَو كِفَايَته» — المعجم الوسيط"
+      substitution_test:
+        result: pass
+      nuance_differentiation: "تدل على التفرد والانقطاع عن النظير في التميز والإبداع."
+      example: "أثبت أنه عالمٌ فَذٌّ لا يُشقّ له غبار في تخصصه الدقيق."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "فَذّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10113165-n"
+
+    - lemma: "مُبَرِّز"
+      source: step05
+      decision: confirmed
+      decision_reason: "لفظ عربي فصيح يدل على من برز وفاق أقرانه، وهو يعبر بقوة عن منزلة المتميزين."
+      step05_citation: "«كَانَ شاعرًا مُبَرِّزًا» — معجم الصواب اللغوي"
+      substitution_test:
+        result: pass
+      nuance_differentiation: "تركز على الظهور والبروز والسبق في المضمار مقارنة بالآخرين."
+      example: "كان باحثاً مُبَرِّزاً في مجاله متقدماً على أقرانه جميعاً."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُبَرِّز"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10113165-n"
+
+    - lemma: "مُتَفَوِّق"
+      source: step05
+      decision: confirmed
+      decision_reason: "لفظ مستقر وشائع الاستعمال للدلالة على الشخص صاحب المرتبة العالية أو الامتياز."
+      step05_citation: "«تفوق على قومه فاقهم وترفع عليهم» — المعجم الوسيط"
+      substitution_test:
+        result: pass
+      nuance_differentiation: "تشير إلى العلو وتجاوز المتوسط أو العادي، وتكثر في السياقات الأكاديمية والمهنية."
+      example: "كُرّم كل متفوق في المهرجان السنوي للمبدعين."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُتَفَوِّق"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10113165-n"
+
+  synset_flags:
+    definition_review_needed: true
+  added_lemmas:
+    - lemma: "فَذّ"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "create_entry + add_sense"
+    - lemma: "مُبَرِّز"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "create_entry + add_sense"
+    - lemma: "مُتَفَوِّق"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "create_entry + add_sense"
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "شخص من الدرجة الأولى أو ممتاز"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي ركيك وشبه مترجم حرفياً ويعتمد على العبارة الوصفية الحرة. استبدل بتعريف اصطلاحي متين يعبر عن معنى التفوق."
+  authored_definitions:
+    - type: terminological
+      text: "شخص فائق لأقرانه متفرد في مكانته وكفايته."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-10113165-n"
+        definition_index: 0
+        text: "شخص فائق لأقرانه متفرد في مكانته وكفايته."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-09786620-n"
+    test_result: "correct"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "فَذّ"
+      enrichment:
+        root: "فذذ"
+      examples:
+        - text: "أثبت أنه عالمٌ فَذٌّ لا يُشقّ له غبار في تخصصه الدقيق."
+          type: usage
+          source: "مؤلَّف"
+      morphology:
+        broken_plural_link: "أفذاذ"
+      pos_check:
+        pos: noun
+    - lemma: "مُبَرِّز"
+      enrichment:
+        root: "برز"
+      examples:
+        - text: "كان باحثاً مُبَرِّزاً في مجاله متقدماً على أقرانه جميعاً."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "مُتَفَوِّق"
+      enrichment:
+        root: "فوق"
+      examples:
+        - text: "كُرّم كل متفوق في المهرجان السنوي للمبدعين."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-10113165-n"
+        text: "أثبت أنه عالمٌ فَذٌّ لا يُشقّ له غبار في تخصصه الدقيق."
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-10113165-n"
+        text: "كان باحثاً مُبَرِّزاً في مجاله متقدماً على أقرانه جميعاً."
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-10113165-n"
+        text: "كُرّم كل متفوق في المهرجان السنوي للمبدعين."

@@ -1,0 +1,119 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "شَرِيحَة طويلة"
+      evidence_status: "no_material_found"
+    - lemma: "شَرِيط"
+      confirm:
+        - text: "«سَيْرٌ من نَسِيجٍ ونحوه ممدودٌ ضَيِّقُ العَرْضِ»"
+          source: "المعجم الكبير"
+        - text: "«سير من نسيج ونحوه ممدود ضيق العرض»"
+          source: "المعجم الوسيط"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "شِقَّة"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«الشِّقّة؛ الشَّريط: مساحة أو قطعة طويلة ضيّقة [من الأرض أو القماش]» — المورد الحديث"
+      justification: "وردت في المعاجم ثنائية اللغة ترجمة لـ strip، وتعني المساحة أو القطعة الطويلة الضيقة، ويكون ذلك عادة عن طريق الشق."
+  knowledge_candidates:
+    - lemma: "سَيْر"
+      justification: "آلية التوليد: المجاز. السير في الأصل حزام أو شريط من الجلد، ويُستعمل مجازاً للدلالة على أي قطعة طويلة وضيقة ممتدة (مثل سير الآلة). ولكن دلالته الأصلية ترتبط بالجلد والربط."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "شَرِيط"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح ومستقر ومتداول، ويتطابق تماماً مع المفهوم (القطعة الطويلة والضيقة)."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "اللفظة الأعم والأكثر دقة للمفهوم؛ تُطلق على القطعة الممتدة الضيقة من النسيج أو الورق أو غيره."
+      example: "قصّ الخياط شريطاً من القماش لتزيين حافة الثوب."
+    - lemma: "شَرِيحَة طويلة"
+      decision: removed
+      decision_reason: "مركب وصفي حر وليس مصطلحاً مسكوكاً مستقراً. يمكن التعبير عن المفهوم بكلمة مفردة مثل 'شريط'."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "تعبير وصفي يتكون من موصوف وصفة، ولا يشكل وحدة معجمية مستقلة."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "شِقَّة"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح فصيح متداول يدل على القطعة الطويلة المستطيلة (غالباً من القماش أو الأرض)، وتؤدي معنى المفهوم بدقة."
+      step05_citation: "«الشِّقّة؛ الشَّريط: مساحة أو قطعة طويلة ضيّقة [من الأرض أو القماش]» — المورد الحديث"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تُشير عادةً إلى ما يُقتطع أو يُشَقّ من الشيء الأكبر، وتختص غالباً بمساحات الأرض أو قطع القماش."
+      example: "اشترى شِقّةً من الأرض المجاورة للنهر لزراعتها."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "شِقَّة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09472659-n"
+    - lemma: "سَيْر"
+      source: step05
+      decision: removed
+      decision_reason: "السير يختص غالباً بالجلد أو المادة المرنة المتينة التي تُتّخذ للربط أو نقل الحركة، وليس المفهوم العام للقطعة الطويلة الضيقة من أي شيء."
+      step05_citation: "لا يوجد"
+  synset_flags:
+    definition_review_needed: false
+  added_lemmas:
+    - lemma: "شِقَّة"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "قطعة طويلة وضيقة نسبياً من شيء ما"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وموجز ويعبر عن المفهوم بوضوح، ويتطابق مع أدلة المعاجم."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-09408804-n"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "شَرِيط"
+        antonym_found: false
+      - lemma: "شِقَّة"
+        antonym_found: false
+  verb_checks:
+    applicable: false
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "شَرِيط"
+      enrichment:
+        root: "ش-ر-ط"
+      examples:
+        - text: "قصّ الخياط شريطاً من القماش لتزيين حافة الثوب."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "شِقَّة"
+      enrichment:
+        root: "ش-ق-ق"
+      examples:
+        - text: "اقتطع الفلاح شِقّةً من الأرض المجاورة للنهر."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

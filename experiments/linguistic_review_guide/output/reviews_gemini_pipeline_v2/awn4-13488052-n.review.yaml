@@ -1,0 +1,188 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف العربي الحالي يخلط بين تراجع التضخم (disinflation) والانكماش (deflation)؛ حيث ذكر 'تخفيض الأسعار' بينما تراجع التضخم هو تباطؤ معدل الزيادة."
+      - "اللمة الموجودة 'تراجع التضخم' صحيحة ولكنها تحتاج إلى ضبط بالشكل."
+    observations: "المفهوم اقتصادي تقني يتعلق بالسياسات النقدية الرامية للسيطرة على القوة الشرائية وميزان المدفوعات."
+  blind_candidates:
+    - lemma: "تَرَاجُعُ التَّضَخُّمِ"
+      generation_method: tarkib
+      justification: "ترجمة مباشرة للمصطلح الإنجليزي (disinflation) تعبر عن عودة مستويات التضخم للوراء أو تباطؤها."
+    - lemma: "انْحِسَارُ التَّضَخُّمِ"
+      generation_method: majaz
+      justification: "استخدام لفظ 'انحسار' (ككشف الماء عن الشيء) للتعبير عن تراجع حدة الظاهرة الاقتصادية."
+    - lemma: "امْتِصَاصُ التَّضَخُّمِ"
+      generation_method: majaz
+      justification: "مصطلح تقني مستخدم في معجم مصطلحات الاقتصاد للتعبير عن إجراءات إزالة التضخم."
+    - lemma: "تَخْفِيضُ التَّضَخُّمِ"
+      generation_method: tarkib
+      justification: "تعبير وصفي للعملية الإرادية لخفض معدلات التضخم."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تَرَاجُعُ التَّضَخُّمِ"
+      evidence_status: "no_material_found"
+    - lemma: "انْحِسَارُ التَّضَخُّمِ"
+      confirm:
+        - text: "انحسار التضخّم (اد)."
+          source: "Al-Mawrid Al-Hadeeth"
+    - lemma: "امْتِصَاصُ التَّضَخُّمِ"
+      confirm:
+        - text: "إزالة التضخم بعدة وسائل منها رفع الفوائد لتشجيع الادخار"
+          source: "المعجم الموحد لمصطلحات الاقتصاد (2000)"
+    - lemma: "تَضَخُّم"
+      confirm:
+        - text: "(في علم الاقتصاد) Inflation: تناقصُ قيمة العُمْلة الشرائية؛ نتيجةَ الزيادةِ المفرطة في النقد المتداول... الأمرُ الذي يُؤَدِّي إلى ارتفاع أسعار الخدمات والمنتجات"
+          source: "المعجم الكبير"
+    - lemma: "انْكِمَاش"
+      expands:
+        - text: "نقص المتداول من النُّقُود الورقية (مج)"
+          source: "المعجم الوسيط"
+          addition: "يوضح الفرق بين التضخم والانكماش (المقابل لخفض التضخم)."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تراجع التضخم"
+      decision: confirmed
+      decision_reason: "مصطلح شائع الاستخدام في الصحافة الاقتصادية ويعبر بدقة عن تباطؤ التضخم."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَرَاجُعُ التَّضَخُّمِ"
+    - lemma: "انْحِسَارُ التَّضَخُّمِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح معجمي مؤصل في القواميس الحديثة (المورد) كمرادف لـ disinflation."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "انْحِسَارُ التَّضَخُّمِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-13488052-n"}
+    - lemma: "امْتِصَاصُ التَّضَخُّمِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تقني متخصص ورد في المعجم الموحد لمصطلحات الاقتصاد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "امْتِصَاصُ التَّضَخُّمِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-13488052-n"}
+
+stage4_content:
+  definition:
+    current: "تخفيض الأسعار بهدف تحسين ميزان المدفوعات"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب وقد يوحي بالانكماش الكلي للأسعار، بينما المقصود غالباً هو كبح جماح الزيادة السعرية."
+    authored:
+      - type: terminological
+        text: "إجراءات اقتصادية تهدف إلى خفض المستوى العام للأسعار أو إبطاء معدل ارتفاعها لتحسين ميزان المدفوعات."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-13488052-n", definition_index: 0, text: "إجراءات اقتصادية تهدف إلى خفض المستوى العام للأسعار أو إبطاء معدل ارتفاعها لتحسين ميزان المدفوعات."}
+  examples:
+    per_lemma:
+      - lemma: "تَرَاجُعُ التَّضَخُّمِ"
+        examples:
+          - text: "استبشر المحللون بتراجع التضخم في منطقة اليورو بعد سلسلة من رفع أسعار الفائدة."
+            type: usage
+      - lemma: "انْحِسَارُ التَّضَخُّمِ"
+        examples:
+          - text: "بدأت بوادر انحسار التضخم تظهر في الأسواق المحلية مع استقرار سلاسل الإمداد."
+            type: usage
+      - lemma: "امْتِصَاصُ التَّضَخُّمِ"
+        examples:
+          - text: "يعتبر امتصاص التضخم من أولويات البنوك المركزية للحفاظ على استقرار العملة."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-13488052-n", text: "أدت سياسة امتصاص التضخم إلى تحسن ملحوظ في ميزان المدفوعات."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تَرَاجُعُ التَّضَخُّمِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "تراجع"
+          root: "رجع"
+          maqayis_quote: "«الرَّاءُ وَالْجِيمُ وَالْعَيْنُ أَصْلٌ كَبِيرٌ مُطَّرِدٌ مُنْقَاسٌ، يَدُلُّ عَلَى رَدٍّ وَتَكْرَارٍ.»"
+        - word: "تضخم"
+          root: "ضخم"
+          maqayis_quote: "«الضَّادُ وَالْخَاءُ وَالْمِيمُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى عِظَمٍ فِي الشَّيْءِ.»"
+    - lemma: "انْحِسَارُ التَّضَخُّمِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "انحسار"
+          root: "حسر"
+          maqayis_quote: "«الْحَاءُ وَالسِّينُ وَالرَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ مِنْ كَشْفِ الشَّيْءِ.»"
+        - word: "تضخم"
+          root: "ضخم"
+          maqayis_quote: "«الضَّادُ وَالْخَاءُ وَالْمِيمُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى عِظَمٍ فِي الشَّيْءِ.»"
+    - lemma: "امْتِصَاصُ التَّضَخُّمِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "امتصاص"
+          root: "مص"
+          maqayis_quote: "«الْمِيمُ وَالصَّادُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى شِبْهِ التَّذَوُّقِ لِلشَّيْءِ، وَأَخْذِ خَالِصِهِ.»"
+        - word: "تضخم"
+          root: "ضخم"
+          maqayis_quote: "«الضَّادُ وَالْخَاءُ وَالْمِيمُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى عِظَمٍ فِي الشَّيْءِ.»"
+  per_sense:
+    - lemma: "تَرَاجُعُ التَّضَخُّمِ"
+      sense_id: "{auto}"
+      nuance: "يعبر عن الحركة التلقائية أو الناتجة عن السوق لتباطؤ الأسعار."
+      mwe: true
+    - lemma: "انْحِسَارُ التَّضَخُّمِ"
+      sense_id: "{auto}"
+      nuance: "يوحي بزوال الأثر التضخمي تدريجياً كزوال الماء."
+      mwe: true
+    - lemma: "امْتِصَاصُ التَّضَخُّمِ"
+      sense_id: "{auto}"
+      nuance: "مصطلح تقني يوحي بفعل إرادي من السلطات النقدية لسحب السيولة الفائضة."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"تراجع","root":"رجع","maqayis":"«الرَّاءُ وَالْجِيمُ وَالْعَيْنُ أَصْلٌ كَبِيرٌ مُطَّرِدٌ مُنْقَاسٌ، يَدُلُّ عَلَى رَدٍّ وَتَكْرَارٍ.»"},{"word":"تضخم","root":"ضخم","maqayis":"«الضَّادُ وَالْخَاءُ وَالْمِيمُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى عِظَمٍ فِي الشَّيْءِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يعبر عن الحركة التلقائية أو الناتجة عن السوق لتباطؤ الأسعار.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-13488052-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-13488052-n"
+        score: 0.9

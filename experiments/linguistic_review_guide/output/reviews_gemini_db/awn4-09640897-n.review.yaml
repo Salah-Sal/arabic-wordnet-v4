@@ -1,0 +1,167 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "خبير"
+      confirm:
+        - text: "«ذو الخِبْرة الذي يُخْبِرُ الشئَ بعِلْمِهِ» — المعجم الوسيط"
+        - text: "«الذي يعلم الأشياء ويقف على حقيقتها بعلمه وقدرته» — موسوعة السلطان قابوس لأسماء العرب"
+        - text: "«العليمُ بظواهر الأشياءِ وبِبَواطِنِها» — المعجم الكبير"
+      expands:
+        - text: "«expert; competent person; skilled person» — موسوعة الكهرباء (IEC 60050)"
+    - lemma: "متخصص"
+      confirm:
+        - text: "«specialist» — المعجم الموحد لمصطلحات علم الصحة وجسم الانسان"
+        - text: "«specialized» — المعجم الموحد لمصطلحات علم الأحياء"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "اختصاصي"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«specialist» — المورد الحديث"
+      justification: "اللفظ المعاصر الأكثر شيوعاً كلقب مهني للشخص المتخصص."
+    - lemma: "ماهر"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«skilled person» — موسوعة الكهرباء"
+      justification: "يؤكد جانب المهارة (skillfully) المذكور في التعريف."
+    - lemma: "حاذق"
+      source_section: "step9_specialized"
+      evidence_citation: "«الماهر في كل شيء» — كتاب العين"
+      justification: "لفظ تراثي فصيح يجمع بين المهارة والذكاء في الأداء."
+  knowledge_candidates:
+    - lemma: "ضليع"
+      justification: "تعبير مجازي شائع (اشتقاق من قوة الأضلاع) للشخص المتمكن جداً من علمه."
+  generation_notes: "تم التركيز على اللمات التي تجمع بين المعرفة العلمية (knowledge) والقدرة الأدائية (ability) كما في التعريف."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "خبير"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي مؤكد معجمياً واستعمالياً."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على عمق المعرفة المكتسبة من طول التجربة والممارسة (الخبرة)."
+      example: "استعانت المحكمة بخبير دولي في تزوير العملات."
+    - lemma: "متخصص"
+      decision: confirmed
+      decision_reason: "مصطلح حديث شائع للدلالة على حصر المعرفة في مجال محدد."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على حصر الجهد والمعرفة في فرع دقيق من فروع العلم أو العمل."
+      example: "هو طبيب متخصص في جراحة الأعصاب."
+    - lemma: "اختصاصي"
+      source: step05
+      decision: confirmed
+      decision_reason: "اللقب المهني الرسمي المقابل لـ specialist."
+      step05_citation: "«specialist» — المورد الحديث"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يُستخدم غالباً كلقب وظيفي أو أكاديمي رسمي أكثر من 'متخصص'."
+      example: "يعمل اختصاصي مختبر في المستشفى الجامعي."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "اختصاصي"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09640897-n"
+    - lemma: "ماهر"
+      source: step05
+      decision: confirmed
+      decision_reason: "يغطي جانب المهارة الأدائية (performs skillfully) المذكور في التعريف."
+      step05_citation: "«skilled person» — موسوعة الكهرباء"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على جودة الأداء والبراعة اليدوية أو العقلية في تنفيذ العمل."
+      example: "هذا النجار ماهر جداً في تصميم الأثاث الكلاسيكي."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "ماهر"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09640897-n"
+    - lemma: "حاذق"
+      source: step05
+      decision: confirmed
+      decision_reason: "لفظ تراثي فصيح ومستعمل معاصراً للدلالة على الذكاء والبراعة معاً."
+      step05_citation: "«الماهر في كل شيء» — كتاب العين"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يوحي بسرعة الفهم والقدرة على النفاذ إلى جوهر الأمر مع دقة التنفيذ."
+      example: "كان المهندس حاذقاً في حل المشكلات التقنية المعقدة."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "حاذق"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09640897-n"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شخص ذو معرفة أو قدرة خاصة يؤدي عمله بمهارة"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وشامل للجوانب المعرفية والأدائية للمفهوم."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عَامِل، فَاعِل"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "خبير"
+        antonym_found: true
+        antonym: "مبتدئ"
+      - lemma: "ماهر"
+        antonym_found: true
+        antonym: "أخرق"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "خبير"
+      enrichment:
+        root: "خبر"
+      examples:
+        - text: "فَاسْأَلْ بِهِ خَبِيرًا"
+          type: quran
+          source: "الفرقان: 59"
+    - lemma: "متخصص"
+      enrichment:
+        root: "خصص"
+      examples:
+        - text: "يسعى كل طالب لأن يصبح متخصصاً في مجال يحبه."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "اختصاصي"
+      enrichment:
+        root: "خصص"
+      examples:
+        - text: "قرر المجلس تعيين اختصاصي تغذية لمتابعة الوجبات المدرسية."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "ماهر"
+      enrichment:
+        root: "مهر"
+      examples:
+        - text: "الماهر بالقرآن مع السفرة الكرام البررة"
+          type: hadith
+          source: "صحيح مسلم"
+    - lemma: "حاذق"
+      enrichment:
+        root: "حذق"
+      examples:
+        - text: "طبيب حاذق يشخص الداء من نظرة."
+          type: usage
+          source: "مؤلَّف"
+  cultural_fit:
+    assessment: native

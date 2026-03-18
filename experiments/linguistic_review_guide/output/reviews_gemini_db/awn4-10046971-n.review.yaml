@@ -1,0 +1,155 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "شَبِيه"
+      expands:
+        - text: "«(الشبيه) المثل» — المعجم الوسيط"
+          addition: "يؤكد المعنى العام للمماثلة، ويُخصص في الاستعمال المعاصر لمن يطابق شخصية مشهورة في ملامحه."
+        - text: "«الْمُماثِلُ» — المعجم الكبير"
+          addition: "يثبت المعنى اللغوي للمشابهة التامة."
+    - lemma: "نُسْخَة طِبْق الْأَصْل"
+      expands:
+        - text: "«certified true copy» — المعجم الموحد لمصطلحات التجارة والمحاسبة"
+          addition: "المعنى الأصلي للمصطلح يخص الوثائق والمنسوخات، ولكنه استُعير مجازاً للتعبير عن المطابقة التامة بين الأشخاص."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "بَدِيل"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«الخَلَفُ والعوض [...] في الاصطلاح السينمائي: من يؤدّي بالعربية أو بغيرها كلام ممثل أجنبي في رواية سينمائية» — المعجم الوسيط"
+      justification: "مصطلح يستعمل في المجال السينمائي للدلالة على من يقوم مقام الممثل (Stand-in/Double)."
+    - lemma: "صُورَة طِبْق الْأَصْل"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«صورةٌ طبق الأصل a son who is the image of his father» — المورد الحديث"
+      justification: "تعبير اصطلاحي مرادف لـ 'نسخة طبق الأصل' ويستعمل بكثرة في وصف التطابق الشكلي بين الأشخاص."
+  knowledge_candidates:
+    - lemma: "دُوبْلِير"
+      justification: "آلية التوليد: التعريب. اللفظ معرب عن (Double) ويشيع استخدامه في الأوساط السينمائية العربية للدلالة على بديل الممثل للقيام بالمشاهد الخطرة أو البديلة."
+  generation_notes: "تم التركيز على المصطلحات المتعلقة بالتطابق الشكلي (شبه) والوظيفي السينمائي (بديل)."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "شَبِيه"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح ومطرد، وهو الدال الأساسي على من يماثل غيره في الشكل، ويستعمل بكثرة للمشاهير."
+      evidence_assessment:
+        case: "expands_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "اللفظ العام والأكثر تجريداً للدلالة على المماثلة في الخلقة والملامح."
+      example: "تجمهر المعجبون حول شبيه اللاعب الشهير لالتقاط الصور معه."
+
+    - lemma: "نُسْخَة طِبْق الْأَصْل"
+      decision: confirmed
+      decision_reason: "تعبير مركب مجازي شائع ومستقر في الاستعمال لوصف التطابق الشديد بين شخصين كأنهما منسوخان من بعضهما."
+      evidence_assessment:
+        case: "expands_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تعبير مجازي يبالغ في وصف التطابق الملامحي، مستعار من الاستنساخ الورقي."
+      example: "كان الممثل المساعد في الفيلم نسخة طبق الأصل عن البطل مما سهل تصوير المشاهد الخطرة."
+
+    - lemma: "بَدِيل"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح معجمي معتمد في السياق السينمائي لمن يحل محل الممثل، وهو يقابل كلمة (Double) الإنجليزية في هذا السياق."
+      step05_citation: "«في الاصطلاح السينمائي: من يؤدّي [...] كلام ممثل أجنبي في رواية سينمائية» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على الوظيفة الأدائية (السينمائية) حيث يقوم الشخص مقام الممثل الأصلي في التصوير، ولا يشترط فيه بالضرورة التطابق الشكلي التام خارج العمل."
+      example: "استعان المخرج ببديل محترف لأداء مشهد القفز من المبنى المرتفع بدلاً من البطل."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "بَدِيل"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10046971-n"
+
+    - lemma: "صُورَة طِبْق الْأَصْل"
+      source: step05
+      decision: removed
+      decision_reason: "التعبير يمثل ترادفاً تاماً مع اللمة الموجودة 'نسخة طبق الأصل'، ولا يضيف ظلاً دلالياً جديداً يستدعي إدراجه كلمّة مستقلة تجنباً للتكرار."
+      step05_citation: "«صورةٌ طبق الأصل a son who is the image of his father» — المورد الحديث"
+
+    - lemma: "دُوبْلِير"
+      source: step05
+      decision: removed
+      decision_reason: "لفظ أجنبي دخيل غير معرب صرفياً (لا يخضع للأوزان العربية بشكل سليم)، والكلمة الفصيحة 'بديل' تؤدي معناه وتغني عنه تماماً."
+      step05_citation: "معرفة لغوية (آلية التعريب)"
+
+  synset_flags:
+    definition_review_needed: false
+    split_needed: false
+  added_lemmas:
+    - lemma: "بَدِيل"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شخص يشبه إلى حد كبير شخصية مشهورة (خاصة ممثل)"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وشامل، ويوضح الجانب الشكلي (يشبه) والسياق الوظيفي (شخصية مشهورة وممثل) بدقة، مما يطابق الدلالة الإنجليزية المستهدفة."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عَامِل"
+    test_result: "wrong"
+  selectional_restrictions:
+    - lemma: "شَبِيه"
+      constraint: "يُسند إلى العاقل في هذا السياق (شخص شبيه)."
+    - lemma: "بَدِيل"
+      constraint: "يُسند إلى العاقل ذي الوظيفة الأدائية (في السينما والتصوير)."
+  actions:
+    - command: remove_synset_relation
+      params:
+        source_id: "awn4-10046971-n"
+        relation_type: "hypernym"
+        target_id: "awn4-09786620-n"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "شَبِيه"
+      enrichment:
+        root: "ش-ب-ه"
+      examples:
+        - text: "يا شبيهَ البَدْرِ فى الحُسْنِ وفى بُعْدِ المنالِ / جُدْ فقد تَنْفَجِرُ الصَّخْرَةُ بالمـــاءِ الزُّلالِ"
+          type: poetry
+          source: "ابن الرومي"
+        - text: "تجمهر المعجبون حول شبيه اللاعب الشهير لالتقاط الصور معه ظناً منهم أنه هو."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "نُسْخَة طِبْق الْأَصْل"
+      enrichment:
+        root: "ن-س-خ"
+        figurative_relation: "metaphor"
+      examples:
+        - text: "كان الممثل المساعد في الفيلم نسخة طبق الأصل عن البطل مما سهل تصوير المشاهد الخطرة دون ملاحظة الفروق."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "بَدِيل"
+      enrichment:
+        root: "ب-د-ل"
+      examples:
+        - text: "استعان المخرج ببديل محترف لأداء مشهد القفز من المبنى المرتفع بدلاً من البطل لتجنب إصابته."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-10046971-n"
+        text: "تجمهر المعجبون حول شبيه اللاعب الشهير لالتقاط الصور معه ظناً منهم أنه هو."

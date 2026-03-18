@@ -1,0 +1,143 @@
+YOLO mode is enabled. All tool calls will be automatically approved.
+Loaded cached credentials.
+YOLO mode is enabled. All tool calls will be automatically approved.
+Error executing tool read_file: Path not in workspace: Attempted path "/tmp/query_fard.json" resolves outside the allowed workspace directories: /workspace, /workspace/prepared, /output or the project temp directory: /tmp/tmp.ETQKu4shbV/.gemini/tmp/workspace
+Bash command parsing error detected for command: << 'EOF' > /output/awn4-10223458-n.review.yaml
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي مقتضب ومترجم حرفياً، ويحتاج إلى صياغة مصطلحية أدق تبرز معنى الاستقلالية للكائن."
+    observations: "المفهوم يعبر عن الفرد (individual) ككائن حي مستقل في السياق البيولوجي. اللمة الموجودة (فرد) دقيقة وشائعة في هذا الاستخدام."
+  blind_candidates:
+    - lemma: "وَاحِد"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل يدل على الإفراد والوحدة، مما يقابل المفهوم الكمي للكائن المفرد."
+    - lemma: "عَيْن"
+      generation_method: majaz
+      justification: "استخدام مجازي شائع في العربية للدلالة على الفرد أو الشخص بعينه."
+    - lemma: "نَسَمَة"
+      generation_method: majaz
+      justification: "تطلق النسمة على الكائن الحي المفرد (خصوصاً البشر، وأحياناً الدواب) للتعبير عن كائن حي واحد."
+    - lemma: "كَائِنٌ مُفْرَد"
+      generation_method: tarkib
+      justification: "مركب وصفي يعبر بشكل مباشر عن التعريف (a single organism)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "فَرْد"
+      confirm:
+        - text: "«الفَرْدُ: ما كانَ وَحْدَه... والفارِدُ والفَرْدُ: الثَّوْرُ.»"
+          source: "المحيط في اللغة للصاحب بن عباد"
+        - text: "«إنسان، شخص بعينه... (سف) ما لا يمكن تسمية أجزائه باسم الكل، فالرجل فرد لأن القطعة منه لا تسمَّى رجلاً.»"
+          source: "معجم اللغة العربية المعاصرة لأحمد مختار عمر"
+        - text: "«(الْفَرد) من الْإِنْسَان وَغَيره الْفَرد (ج) أَفْرَاد وفراد»"
+          source: "المعجم الوسيط لمجموعة من المؤلفين"
+    - lemma: "وَاحِد"
+      evidence_status: "no_material_found"
+    - lemma: "عَيْن"
+      evidence_status: "no_material_found"
+    - lemma: "نَسَمَة"
+      evidence_status: "no_material_found"
+    - lemma: "كَائِنٌ مُفْرَد"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "فَرْد"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي وشائع في السياق العلمي والعام للدلالة على الكائن الحي المستقل (individual)، وتؤكده المعاجم بمعنى ما كان وحده ومن لا نظير له."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "فَرْد"
+    - lemma: "وَاحِد"
+      source: stage1
+      decision: removed
+      decision_reason: "مصطلح عام يدل على العدد والتوحد المادي ولا يستعمل كمصطلح بيولوجي للدلالة على الكائن المستقل كالفرد."
+    - lemma: "عَيْن"
+      source: stage1
+      decision: removed
+      decision_reason: "تستعمل العين للدلالة على ذات الشيء وشخصه في السياقات الفقهية والعامة، لكنها غير دقيقة كمصطلح علمي بيولوجي."
+    - lemma: "نَسَمَة"
+      source: stage1
+      decision: removed
+      decision_reason: "تختص النسمة في الغالب بتعداد البشر (أو الحيوانات أحياناً) ولا تعبر عن المفهوم البيولوجي المجرد للكائن الحي."
+    - lemma: "كَائِنٌ مُفْرَد"
+      source: stage1
+      decision: removed
+      decision_reason: "مركب وصفي حر وليس مصطلحاً مسكوكاً مستقراً ككلمة (فرد)."
+
+stage4_content:
+  definition:
+    current: "كائن حي واحد"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب ويميل إلى الترجمة الحرفية. يحتاج إلى صياغة أكثر دقة لبيان استقلالية الكائن كونه وحدة أساسية."
+    authored:
+      - type: terminological
+        text: "الكائن الحيُّ الواحد الذي يمثِّلُ وحدةً مستقلَّةً ضمن نوعه."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "فَرْد"
+        examples:
+          - text: "تختلف استجابة كلِّ فَرْدٍ للتغيرات البيئيَّة بحسب تركيبه الجينيّ."
+            type: usage
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "الكائن الحيُّ الواحد الذي يمثِّلُ وحدةً مستقلَّةً ضمن نوعه."
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "تختلف استجابة كلِّ فَرْدٍ للتغيرات البيئيَّة بحسب تركيبه الجينيّ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "فَرْد"
+      entry_id: "{auto}"
+      root: "فرد"
+      maqayis_quote: "«(فَرَدَ) الْفَاءُ وَالرَّاءُ وَالدَّالُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى وُحْدَةٍ.»"
+  per_sense:
+    - lemma: "فَرْد"
+      sense_id: "{auto}"
+      nuance: "يُستخدم علمياً وعامةً للإشارة إلى كائن حي مستقل (individual) ضمن نوع أو جماعة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"فرد","maqayis":"«(فَرَدَ) الْفَاءُ وَالرَّاءُ وَالدَّالُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى وُحْدَةٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُستخدم علمياً وعامةً للإشارة إلى كائن حي مستقل (individual) ضمن نوع أو جماعة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95
+EOF Syntax Errors: [ 'Error node: "<" at 0:0' ]
+missing pgrep output

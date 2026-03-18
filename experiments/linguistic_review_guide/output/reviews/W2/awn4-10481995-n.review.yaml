@@ -1,0 +1,245 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "الاكتفاء بلمتين فقط في المجموعة الترادفية الحالية رغم غنى اللغة العربية بالتعبيرات المجازية لهذا المفهوم."
+      - "غلبة اللفظ المعرّب (دينامو) على المجموعة."
+    observations: "المفهوم يعبر عن شخصية مفعمة بالحيوية والنشاط الدائم، وهو مفهوم حديث نسبياً في صياغته الاصطلاحية (powerhouse/dynamo)، لكنه يجد جذوراً في التعبيرات المجازية العربية المستندة إلى النار (شعلة) أو الحركة (دينامو/محرك)."
+  blind_candidates:
+    - lemma: "شُعْلَةُ نَشَاطٍ"
+      generation_method: tarkib
+      justification: "تعبير اصطلاحي شائع جداً في العربية المعاصرة لوصف الشخص المفعم بالحيوية، وهو من باب التشبيه البليغ (مركب إضافي)."
+    - lemma: "دِينَامُو"
+      generation_method: taarib
+      justification: "لفظ عالمي معرب مستخدم بكثرة في السياقات الإدارية والرياضية لوصف المحرك الأساسي للعمل والشخص النشيط."
+    - lemma: "كُتْلَةُ نَشَاطٍ"
+      generation_method: tarkib
+      justification: "مركب إضافي يعبر عن تركز النشاط في شخص واحد، وهو بديل قوي لشعلة النشاط."
+    - lemma: "مِحْرَاك"
+      generation_method: ishtiqaq
+      justification: "على وزن (مفعال) للمبالغة من الحركة، ويستخدم مجازاً لمن يحرك الأمور بنشاطه (وإن كان له دلالة سلبية أحياناً في الفتن)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "دِينَامُو"
+      confirm:
+        - text: "«فلانٌ دينامو هذا العمل: مُحَرِّكه ومُدِيرُه (مجاز)»"
+          source: "المعجم الكبير"
+        - text: "«رَجُل دينامو: رجل نشيط.»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "شُعْلَة نَشَاط"
+      confirm:
+        - text: "«وَيُقَال كَأَنَّهُ شعلة نشاط أَو شعلة ذكاء»"
+          source: "المعجم الوسيط"
+    - lemma: "شُعْلَة طَاقَة"
+      confirm:
+        - text: "«الطَّاقَة: الْقُدْرَة وَمَا يَسْتَطِيع الْإِنْسَان أَن يَفْعَله»"
+          source: "المعجم الوسيط (أدلة مكونات)"
+      expands:
+        - text: "«الشُّعْلَةُ: الْحَرَارَة الساطعة واللهب»"
+          source: "المعجم الوسيط"
+          addition: "استخدام 'شعلة' مع 'طاقة' هو امتداد مجازي للحرارة والالتهاب للتعبير عن القوة الكامنة والنشاط."
+    - lemma: "كُتْلَة نَشَاط"
+      confirm:
+        - text: "«الْكُتْلَةُ: القِطْعة المجتمعة من الشَّيء»"
+          source: "المعجم الوسيط"
+        - text: "«النَّشَاطُ: ممارسة صادقة لعمل من الأعمال»"
+          source: "المعجم الوسيط"
+    - lemma: "مِحْرَاك"
+      contradicts:
+        - text: "«أَدَاة تحرّك بهَا النَّار وَيُقَال هُوة محراك دأبه هيج الْفِتَن»"
+          source: "المعجم الوسيط"
+          conflict: "الدلالة المعجمية للمحراك تميل إلى السلبية (هيج الفتن) بينما المجموعة إيجابية."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "دِينَامُو"
+      decision: confirmed
+      decision_reason: "مصطلح معرّب ثابت في المعاجم الحديثة للدلالة على الشخص المحرك للعمل والنشيط، وهو مكافئ دقيق لـ dynamo الإنجليزية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "دِينَامُو"
+    - lemma: "شُعْلَة طَاقَة"
+      decision: confirmed
+      decision_reason: "تعبير مجازي مقبول، وإن كان أقل شيوعاً من شعلة نشاط، إلا أنه يصور الطاقة كجذوة مشتعلة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "شُعْلَةُ طَاقَةٍ"
+    - lemma: "شُعْلَة نَشَاط"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي أصيل ومدعوم بنص صريح في المعجم الوسيط، وهو الأكثر ملاءمة للسياق العربي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "شُعْلَةُ نَشَاطٍ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10481995-n"
+    - lemma: "كُتْلَة نَشَاط"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير مجازي شائع يصور الشخص كأنه تجسيد حي للنشاط، مقبول كبديل لغوي."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "كُتْلَةُ نَشَاطٍ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10481995-n"
+    - lemma: "مِحْرَاك"
+      source: stage1
+      decision: removed
+      decision_reason: "الاستعمال المعجمي الغالب للمحراك مجازاً هو في هيج الفتن والشرور، مما يجعله غير مناسب لوصف الشخص عالي الطاقة بالمعنى الإيجابي."
+
+stage4_content:
+  definition:
+    current: "شخص عالي الطاقة لا يكل"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكن يمكن صياغته بأسلوب معجمي أكثر دقة يبرز الجانب المجازي والحركي."
+    authored:
+      - type: terminological
+        text: "شَخْصٌ مفعمٌ بالحيويةِ والهمّةِ العاليةِ، يَنْشَطُ في العملِ كالمحرّكِ ولا يَعتريهِ فُتورٌ أو مَلَلٌ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-10481995-n"
+          definition_index: 0
+          text: "شَخْصٌ مفعمٌ بالحيويةِ والهمّةِ العاليةِ، يَنْشَطُ في العملِ كالمحرّكِ ولا يَعتريهِ فُتورٌ أو مَلَلٌ."
+  examples:
+    per_lemma:
+      - lemma: "دِينَامُو"
+        examples:
+          - text: "يُعَدُّ سكرتيرُ النادي دِينَامُو حقيقيًّا، فهو يُنظّمُ كلَّ التفاصيلِ بدقّةٍ مذهلةٍ."
+            type: usage
+      - lemma: "شُعْلَة نَشَاط"
+        examples:
+          - text: "كانَ المُتطوّعُ الشابُّ شُعْلَةَ نَشَاطٍ في مُخيّمِ الإغاثةِ، يُساعدُ الجميعَ دونَ توقُّفٍ."
+            type: usage
+      - lemma: "كُتْلَة نَشَاط"
+        examples:
+          - text: "دخلَ اللاعبُ البديلُ مِحورَ الارتكازِ فبدا كأنّهُ كُتْلَةُ نَشَاطٍ بَثَّتِ الرُّوحَ في فَرِيقِهِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "awn4-10481995-n"
+          text: "مُديرُنا الجديدُ دِينَامُو لا يَهدأ، فهو يُتابعُ أدقَّ التّفاصيلِ بِنَفَسٍ لا يَنْقَطِعُ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "دِينَامُو"
+      entry_id: "{auto}"
+      note: '{"origin":"معرب (Greek: dynamis)","usage":"modern"}'
+    - lemma: "شُعْلَة نَشَاط"
+      entry_id: "{auto}"
+      roots:
+        - word: "شعلة"
+          root: "شعل"
+          maqayis_quote: "«الشِّينُ وَالْعَيْنُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى انْتِشَارٍ وَتَفَرُّقٍ فِي الشَّيْءِ الْوَاحِدِ مِنْ جَوَانِبِهِ... وَالشُّعْلَةُ مِنَ النَّارِ، مَعْرُوفَةٌ.»"
+        - word: "نشاط"
+          root: "نشط"
+          maqayis_quote: "«النُّونُ وَالشِّينُ وَالطَّاءُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى اهْتِزَازٍ وَحَرَكَةٍ. مِنْهُ النَّشَاطُ مَعْرُوفٌ وَهُوَ لِمَا فِيهِ مِنَ الْحَرَكَةِ وَالِاهْتِزَازِ وَالتَّفَتُّحِ.»"
+    - lemma: "كُتْلَة نَشَاط"
+      entry_id: "{auto}"
+      roots:
+        - word: "كتلة"
+          root: "كتل"
+          maqayis_quote: "«الْكَافُ وَالتَّاءُ وَاللَّامُ أُصَيْلٌ يَدُلُّ عَلَى تَجَمُّعٍ. يُقَالُ: هَذِهِ كُتْلَةٌ مِنْ شَيْءٍ، أَيْ قِطْعَةٌ مُجْتَمِعَةٌ.»"
+        - word: "نشاط"
+          root: "نشط"
+          maqayis_quote: "«النُّونُ وَالشِّينُ وَالطَّاءُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى اهْتِزَازٍ وَحَرَكَةٍ. مِنْهُ النَّشَاطُ مَعْرُوفٌ وَهُوَ لِمَا فِيهِ مِنَ الْحَرَكَةِ وَالِاهْتِزَازِ وَالتَّفَتُّحِ.»"
+  per_sense:
+    - lemma: "دِينَامُو"
+      sense_id: "{auto}"
+      nuance: "تركز على الجانب الوظيفي والمحرك للعمل (المحرك الأساسي)."
+      mwe: false
+    - lemma: "شُعْلَة نَشَاط"
+      sense_id: "{auto}"
+      nuance: "تركز على الحيوية والظهور والاتقاد (طاقة بصرية/معنوية)."
+      mwe: true
+    - lemma: "كُتْلَة نَشَاط"
+      sense_id: "{auto}"
+      nuance: "تركز على تكثيف النشاط واندفاعه في الشخص (طاقة جسدية/حركية)."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"origin":"معرب (Greek: dynamis)","usage":"modern"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"شعلة","root":"شعل","maqayis":"«الشِّينُ وَالْعَيْنُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى انْتِشَارٍ وَتَفَرُّقٍ فِي الشَّيْءِ الْوَاحِدِ مِنْ جَوَانِبِهِ...»"},{"word":"نشاط","root":"نشط","maqayis":"«النُّونُ وَالشِّينُ وَالطَّاءُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى اهْتِزَازٍ وَحَرَكَةٍ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"كتلة","root":"كتل","maqayis":"«الْكَافُ وَالتَّاءُ وَاللَّامُ أُصَيْلٌ يَدُلُّ عَلَى تَجَمُّعٍ...»"},{"word":"نشاط","root":"نشط","maqayis":"«النُّونُ وَالشِّينُ وَالطَّاءُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى اهْتِزَازٍ وَحَرَكَةٍ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركز على الجانب الوظيفي والمحرك للعمل (المحرك الأساسي).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركز على الحيوية والظهور والاتقاد (طاقة بصرية/معنوية).","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركز على تكثيف النشاط واندفاعه في الشخص (طاقة جسدية/حركية).","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-10481995-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-10481995-n"
+        score: 0.95

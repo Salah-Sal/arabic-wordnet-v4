@@ -1,0 +1,181 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'مَاسِخ' قد تكون غير مألوفة لغير المتخصصين، رغم دقتها العلمية."
+    observations: "المصطلح علمي بامتياز، واللغة العربية غنية بجذور (مسخ) و(شوه) التي تغطي هذا المفهوم بدقة. المصطلح الإنجليزي teratogen يقابله في العربية الفصحى العلمية 'الماسخ' وفي الوصف الطبي 'المشوه للأجنة'."
+  blind_candidates:
+    - lemma: "مَاسِخ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من (مسخ)، وهو المصطلح المعتمد في المعجم الطبي الموحد للتعبير عن العامل المحدث للتشوهات."
+    - lemma: "مُشَوِّه"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من (شوّه)، يعبر عن إحداث القبح أو الخلل في الخلقة."
+    - lemma: "عَامِل مَسْخِيّ"
+      generation_method: tarkib
+      justification: "مركب وصفي يستخدم الصفة المشتقة من (مسخ) لوصف العامل المسبب للتشوه."
+    - lemma: "مُسَبِّب التَّشَوُّهَات"
+      generation_method: tarkib
+      justification: "تعبير وصفي دقيق يشرح الوظيفة الدلالية للمصطلح."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مَاسِخ"
+      confirm:
+        - text: "مُحدث لشذوذات في المضغة أو في الجنين."
+          source: "المعجم الموحد لمصطلحات علم الصيدلة (2009)"
+        - text: "ما يحدث مُسُوخا."
+          source: "المعجم الموحد لمصطلحات الطب البيطري (2010)"
+        - text: "ترجمة teratogen."
+          source: "المعجم الطبي الموحد (2009)"
+    - lemma: "مُشَوِّه للأجنة"
+      confirm:
+        - text: "جنين مشوه يولد برأس وصدر واحد... (استخدام مشوه في سياق الأجنة)."
+          source: "معجم المصطلحات الطبية (ج.1، 1985)"
+      expands:
+        - text: "مشوه: صفة لمن في بنيته نقص."
+          source: "معجم المصطلحات الطبية (ج.2، 2003)"
+    - lemma: "عَامِل مَسْخِيّ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مَاسِخ"
+      decision: confirmed
+      decision_reason: "مصطلح علمي معتمد وموثق في المعاجم الطبية الموحدة كترجمة دقيقة لـ teratogen."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَاسِخ"
+    - lemma: "مُشَوِّه للأجنة"
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي شائع وواضح دلالياً، ويستخدم بكثرة في التوعية الطبية."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُشَوِّه لِلأَجِنَّة"
+    - lemma: "عَامِل مَسْخِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مركب وصفي علمي سليم الصياغة ويستخدم كمرادف وظيفي."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "عَامِل مَسْخِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "أي عامل يتداخل مع التطور الجنيني الطبيعي؛ مثل الكحول أو الثاليدومايد أو الأشعة السينية"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكن يمكن صياغته بأسلوب معجمي أكثر دقة وشمولية."
+    authored:
+      - type: terminological
+        text: "عامل حيوي أو كيميائي أو فيزيائي يسبب تشوهات خلقية للجنين خلال فترة تطوره ونموه."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "مَاسِخ"
+        examples:
+          - text: "يُعد الثاليدومايد من أشهر العوامل الماسخة التي تسببت في كوارث طبية في القرن الماضي."
+            type: usage
+      - lemma: "مُشَوِّه لِلأَجِنَّة"
+        examples:
+          - text: "تحذر النشرات الطبية من تناول الأدوية المشوهة للأجنة خلال الأشهر الأولى من الحمل."
+            type: usage
+      - lemma: "عَامِل مَسْخِيّ"
+        examples:
+          - text: "تدرس المختبرات تأثير كل مادة كيميائية جديدة للتأكد من عدم كونها عاملاً مسخياً."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "عامل حيوي أو كيميائي أو فيزيائي يسبب تشوهات خلقية للجنين خلال فترة تطوره ونموه."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَاسِخ"
+      entry_id: "{auto}"
+      root: "مسخ"
+      maqayis_quote: "«الْمِيمُ وَالسِّينُ وَالْخَاءُ كَلِمَتَانِ: إِحْدَاهُمَا الْمَسْخُ، وَهُوَ يَدُلُّ عَلَى تَشْوِيهٍ... مَسَخَهُ اللَّهُ: شَوَّهَ خَلْقَهُ مِنْ صُورَةٍ حَسَنَةٍ إِلَى قَبِيحَةٍ.»"
+    - lemma: "مُشَوِّه لِلأَجِنَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "مشوه"
+          root: "شوه"
+          maqayis_quote: "«الشِّينُ وَالْوَاوُ وَالْهَاءُ أَصْلَانِ: أَحَدُهُمَا يَدُلُّ عَلَى قُبْحِ الْخِلْقَةِ... يُقَالُ شَاهَتِ الْوُجُوهُ أَيْ قَبُحَتْ.»"
+        - word: "الأجنة"
+          root: "جنن"
+          maqayis_quote: "«الْجِيمُ وَالنُّونُ أَصْلٌ وَاحِدٌ، وَهُوَ السَّتْرُ وَالتَّسَتُّرُ... وَالْجَنِينُ: الْوَلَدُ فِي بَطْنِ أُمِّهِ.»"
+    - lemma: "عَامِل مَسْخِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "عامل"
+          root: "عمل"
+          maqayis_quote: "«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامُّ فِي كُلِّ فِعْلٍ يُفْعَلُ.»"
+        - word: "مسخي"
+          root: "مسخ"
+          maqayis_quote: "«الْمِيمُ وَالسِّينُ وَالْخَاءُ كَلِمَتَانِ: إِحْدَاهُمَا الْمَسْخُ، وَهُوَ يَدُلُّ عَلَى تَشْوِيهٍ...»"
+  per_sense:
+    - lemma: "مَاسِخ"
+      sense_id: "{auto}"
+      nuance: "المصطلح العلمي التخصصي الدقيق في السياق الأكاديمي والصيدلاني."
+      mwe: false
+    - lemma: "مُشَوِّه لِلأَجِنَّة"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي إرشادي يستخدم لتوضيح المعنى لعامة الناس وللمرضى."
+      mwe: true
+    - lemma: "عَامِل مَسْخِيّ"
+      sense_id: "{auto}"
+      nuance: "صيغة تجمع بين الصفة العلمية (مسخي) والاسم العام (عامل)."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"مسخ","maqayis":"«الْمِيمُ وَالسِّينُ وَالْخَاءُ كَلِمَتَانِ: إِحْدَاهُمَا الْمَسْخُ، وَهُوَ يَدُلُّ عَلَى تَشْوِيهٍ... مَسَخَهُ اللَّهُ: شَوَّهَ خَلْقَهُ مِنْ صُورَةٍ حَسَنَةٍ إِلَى قَبِيحَةٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مشوه","root":"شوه","maqayis":"«الشِّينُ وَالْوَاوُ وَالْهَاءُ أَصْلَانِ...»"},{"word":"الأجنة","root":"جنن","maqayis":"«الْجِيمُ وَالنُّونُ أَصْلٌ وَاحِدٌ... الْجَنِينُ: الْوَلَدُ فِي بَطْنِ أُمِّهِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العلمي التخصصي الدقيق.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

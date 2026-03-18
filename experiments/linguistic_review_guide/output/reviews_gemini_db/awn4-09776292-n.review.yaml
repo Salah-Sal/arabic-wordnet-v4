@@ -1,0 +1,165 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "رِجْس"
+      confirm:
+        - text: "«الرِّجْسُ: الشيء القذر، يقال: رجل رجس، ورجال أَرْجَاسٌ.»"
+          source: "المفردات في غريب القرآن للراغب الأصفهاني"
+      expands:
+        - text: "«القذر وَالشَّيْء القذر وَالْفِعْل الْقَبِيح وَالْحرَام واللعنة وَالْكفْر وَالْعَذَاب»"
+          source: "المعجم الوسيط لمجموعة من المؤلفين"
+          addition: "استخدام اللفظ في دلالات أوسع كالعذاب والعمل القبيح"
+    - lemma: "شَخْص مَقِيت"
+      evidence_status: "no_material_found"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "مَقِيت"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«(1) بغيض؛ مَقِيْت؛ مثير للاشمئزاز» — المورد الحديث (2008)"
+      justification: "وردت في المعاجم الثنائية كمقابل مباشر لمعنى الكراهية الشديدة."
+  knowledge_candidates:
+    - lemma: "بَغِيض"
+      justification: "اشتقاق (صفة مشبهة): تستعمل كاسم للدلالة على الشخص الذي يُبغض ويُكره بشدة، وهي شائعة الاستعمال في هذا السياق."
+  generation_notes: "التركيز على الصفات التي تقوم مقام الموصوف المحذوف."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "رِجْس"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح مدعوم معجمياً للاستعمال في وصف الشخص الكريه (رجل رجس)."
+      evidence_assessment:
+        case: "mixed"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تتضمن دلالة قوية على القذارة والنجاسة والنفور الشديد، وهي ذات طابع ديني/تراثي."
+      example: "كان في طباعه وأفعاله رِجْساً ينفر منه كل مَن عرفه."
+
+    - lemma: "شَخْص مَقِيت"
+      decision: removed
+      decision_reason: "تركيب وصفي حر (نعت ومنعوت) وليس مصطلحاً مسكوكاً."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "مركب إسنادي وصفي يفتقر للثبات المعجمي."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "بَغِيض"
+      source: step05
+      decision: confirmed
+      decision_reason: "صفة مشبهة شائعة تعمل عمل الاسم وتتطابق مع الدلالة المقصودة للمجموعة."
+      step05_citation: "معرفة لغوية (اشتقاق)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تؤكد على الكراهية والنفور العام دون اقتضاء شرط القذارة أو النجاسة كما في (رِجْس)."
+      example: "لم يكن في القرية بَغِيضٌ يُنفر منه أكثر من ذلك المرابي."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "بَغِيض"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09776292-n"
+
+    - lemma: "مَقِيت"
+      source: step05
+      decision: confirmed
+      decision_reason: "صفة شائعة تدل على شدة البغض، ومناسبة للاستعمال كاسم."
+      step05_citation: "«(1) بغيض؛ مَقِيْت؛ مثير للاشمئزاز» — المورد الحديث (2008)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تدل على الكراهية المقترنة باستثقال الظل وسوء الطبع."
+      example: "تجنب الناس ذلك المَقِيت لسوء خلقه وحدة لسانه."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مَقِيت"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09776292-n"
+
+  synset_flags:
+    definition_review_needed: true
+
+  added_lemmas:
+    - lemma: "بَغِيض"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "create_entry + add_sense"
+    - lemma: "مَقِيت"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "create_entry + add_sense"
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "شخص مكروه أو مثير للاشمئزاز"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي مقبول ولكنه مصاغ بأسلوب غير معجمي. يفضل أن يكون أكثر دقة وإحكاماً."
+  authored_definitions:
+    - type: terminological
+      text: "شخصٌ مبغوضٌ يُثير النُّفورَ والاشمئزازَ لسوءِ طِباعِهِ أو قُبْحِ أَفْعالِه."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-09776292-n"
+        definition_index: 0
+        text: "شخصٌ مبغوضٌ يُثير النُّفورَ والاشمئزازَ لسوءِ طِباعِهِ أو قُبْحِ أَفْعالِه."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "شخص يعمل ويُنجِز الأمور"
+    test_result: "wrong"
+  verb_checks:
+    applicable: false
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "رِجْس"
+      enrichment:
+        root: "ر-ج-س"
+      examples:
+        - text: "كان في طباعه وأفعاله رِجْساً ينفر منه كل مَن عرفه."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "بَغِيض"
+      enrichment:
+        root: "ب-غ-ض"
+      examples:
+        - text: "لم يكن في القرية بَغِيضٌ يُنفر منه أكثر من ذلك المرابي."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "مَقِيت"
+      enrichment:
+        root: "م-ق-ت"
+      examples:
+        - text: "تجنب الناس ذلك المَقِيت لسوء خلقه وحدة لسانه."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-09776292-n"
+        text: "كان في طباعه وأفعاله رِجْساً ينفر منه كل مَن عرفه."

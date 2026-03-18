@@ -1,0 +1,249 @@
+# ═══════════════════════════════════════════════════════════════
+# AWN4 Gemini Review Pipeline v2 (5-Stage)
+# Synset: awn4-09360312-n (lees)
+# ═══════════════════════════════════════════════════════════════
+
+stage1_review:
+  assessment:
+    concerns:
+      - اللمات الحالية تفتقر للتشكيل الكامل.
+      - الحاجة إلى مصطلحات تراثية أكثر تخصصاً لمفهوم "lees" مثل "الدردي".
+    observations: "المفهوم يشير إلى الرواسب الناتجة عن التخمير، وهو مفهوم معجمي ثري في العربية يرتبط بصناعة الأشربة والأدهان."
+  blind_candidates:
+    - lemma: "ثُفْل الخَمْر"
+      generation_method: tarkib
+      justification: "تعبير إضافي شائع في المعاجم لوصف رواسب الخمر (دُرْدِيّه)."
+    - lemma: "عَكَر"
+      generation_method: ishtiqaq
+      justification: "لفظ عربي أصيل يدل على دُردي كل شيء وما رسب أسفله."
+    - lemma: "دُرْدِيّ"
+      generation_method: majaz
+      justification: "مصطلح معجمي دقيق لما يركد في أسفل الموائع (كالخمر والزيت)، وله دلالة تخصصية بالتخمير."
+    - lemma: "خُثَارَة"
+      generation_method: ishtiqaq
+      justification: "ما يتبقى من الشيء ويغلظ قوامه ويرسب، وتستخدم في سياق بقايا السوائل."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "ثُفْل الخَمْر"
+      confirm:
+        - text: "«ثُفْل؛ عُكارة؛ رواسب.»"
+          source: "المورد الحديث"
+        - text: "«(ثَفَلَ) الثَّاءُ وَالْفَاءُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ الشَّيْءُ يَسْتَقِرُّ تَحْتَ الشَّيْءِ... يُقَالُ هُوَ ثُفْلُ الْقِدْرِ وَغَيْرِهَا، وَهُوَ مَا رَسَا مِنَ الْخُثَارَةِ.»"
+          source: "مقاييس اللغة"
+    - lemma: "عَكَر"
+      confirm:
+        - text: "«العَكَرُ: دُرْدِيُّ كلّ شيء. وعَكَرُ الشرابِ والماء والدهن: آخرُه وخائرُه.»"
+          source: "لسان العرب"
+        - text: "«العَكَرُ، محركةً... دُرْدِيُّ كلِّ شيءٍ... عَكِرَ الماءُ والنَّبيذُ.»"
+          source: "القاموس المحيط"
+        - text: "«عُكارة: ما ترسَّب من شيء غير صافٍ.»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "دُرْدِيّ"
+      confirm:
+        - text: "«(الدردي) مَا رسب أَسْفَل الْعَسَل وَالزَّيْت وَنَحْوهمَا من كل شَيْء مَائِع كالأشربة والأدهان والخميرة تتْرك على الْعصير ليتخمر.»"
+          source: "المعجم الوسيط"
+        - text: "«دُرْدِيُّ الزَّيْتِ وغَيْرِه: ما يَبْقَى فى أسْفَل وِعائِه. الرُّوبَةُ؛ وقيل: أراد به الخَمِيرةَ التى تُتْرَكُ على العَصِيرِ والنَّبِيذِ.»"
+          source: "المعجم الكبير"
+      expands:
+        - text: "«وَإِنْ صُبَّ الْعَكَرُ فَلَيْسَ بِنَبِيذٍ حَتَّى يَتَغَيَّر.»"
+          source: "المغرب في ترتيب المعرب"
+          addition: "يربط بين العكر (الدردي) وعملية تغير النبيذ."
+    - lemma: "خُثَارَة"
+      confirm:
+        - text: "«خُثَارَةُ اللَّبن وغيره: بَقِيَّتُه.»"
+          source: "المعجم الكبير"
+        - text: "«الخُثارةُ من كلِّ شيء: فضلته وبقيَّته.»"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "ثُفْل الخَمْر"
+      decision: confirmed
+      decision_reason: "مصطلح مركب ثابت في المعاجم لوصف رواسب التخمير، ومدعوم بأدلة معجمية حديثة وتراثية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "ثُفْل الخَمْر"
+    - lemma: "عَكَر"
+      decision: confirmed
+      decision_reason: "لفظ أصيل واسع الانتشار يدل على العكارة والراسب، وهو مرادف قوي في السياق."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عَكَر"
+    - lemma: "دُرْدِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "من أدق المصطلحات العربية لوصف رواسب الأشربة (lees)، وله ارتباط وثيق بعملية التخمير في نصوص التراث."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "دُرْدِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "خُثَارَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف صحيح يدل على ما غلظ ورسب من السوائل، ويدعم الشبكة الدلالية للمجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "خُثَارَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "الرواسب الناتجة عن تخمير المشروبات الكحولية"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط؛ التعديل يهدف لجعله أكثر دقة معجمية بأسلوب المعجم الوسيط."
+    authored:
+      - type: terminological
+        text: "الرَّاسِبُ الخَاثِرُ الَّذِي يَبْقَى فِي أَسْفَلِ الأَوْعِيَةِ بَعْدَ تَخْمِيرِ المَشْرُوبَاتِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "الرَّاسِبُ الخَاثِرُ الَّذِي يَبْقَى فِي أَسْفَلِ الأَوْعِيَةِ بَعْدَ تَخْمِيرِ المَشْرُوبَاتِ."}
+  examples:
+    per_lemma:
+      - lemma: "ثُفْل الخَمْر"
+        examples:
+          - text: "تَجَمَّعَ ثُفْلُ الخَمْرِ فِي قَاعِ المِعْصَرَةِ بَعْدَ انْتِهَاءِ العَصْرِ."
+            type: usage
+      - lemma: "عَكَر"
+        examples:
+          - text: "صَفَّى الخَمَّارُ الشَّرَابَ مِنَ العَكَرِ لِيُصْبِحَ رَائِقاً."
+            type: usage
+      - lemma: "دُرْدِيّ"
+        examples:
+          - text: "يُتْرَكُ دُرْدِيُّ العَصِيرِ فِيهِ لِيُسَاعِدَ عَلَى سُرْعَةِ التَّخَمُّرِ."
+            type: usage
+      - lemma: "خُثَارَة"
+        examples:
+          - text: "لَمْ يَبْقَ فِي قَعْرِ الإِنَاءِ سِوَى خُثَارَةِ السَّائِلِ المَسْكُوبِ."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "ثُفْل الخَمْر"
+      entry_id: "{auto}"
+      roots:
+        - word: "ثفل"
+          root: "ثفل"
+          maqayis_quote: "«الثَّاءُ وَالْفَاءُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ الشَّيْءُ يَسْتَقِرُّ تَحْتَ الشَّيْءِ... يُقَالُ هُوَ ثُفْلُ الْقِدْرِ... وَهُوَ مَا رَسَا مِنَ الْخُثَارَةِ.»"
+        - word: "خمر"
+          root: "خمر"
+          maqayis_quote: "«الْخَاءُ وَالْمِيمُ وَالرَّاءُ أَصْلٌ وَاحِدٌ حَقِيقَتُهُ السَّتْرُ، وَالتَّدَاخُلُ فِي اسْتِخْفَاءٍ... وَالْخَمْرُ سُمِّيَتْ بِذَلِكَ لِأَنَّهَا تُخَامِرُ الْعَقْلَ.»"
+    - lemma: "عَكَر"
+      entry_id: "{auto}"
+      root: "عكر"
+      maqayis_quote: "«الْعَيْنُ وَالْكَافُ وَالرَّاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ، يَدُلُّ عَلَى... التَّجَمُّعِ وَالتَّرَاكُمِ... الْعَكِرُ دُرْدِيُّ الزَّيْتِ.»"
+    - lemma: "دُرْدِيّ"
+      entry_id: "{auto}"
+      root: "درد"
+      maqayis_quote: "«الدَّالُ وَالرَّاءُ وَالدَّالُ أُصَيْلٌ فِيهِ كَلَامٌ يَسِيرٌ... فالدَّرَدُ مِنَ الأَسْنَانِ: لُصُوقُهَا بالأَسْنَاخِ...»"
+    - lemma: "خُثَارَة"
+      entry_id: "{auto}"
+      root: "خثر"
+      maqayis_quote: "«الْخَاءُ وَالثَّاءُ وَالرَّاءُ أَصْلٌ يَدُلُّ عَلَى غِلَظٍ فِي الشَّيْءِ مَعَ اسْتِرْخَاءٍ.»"
+  per_sense:
+    - lemma: "ثُفْل الخَمْر"
+      sense_id: "{auto}"
+      nuance: "يركز على طبيعة المادة الراسبة في القاع كمادة ثقيلة."
+      mwe: true
+    - lemma: "عَكَر"
+      sense_id: "{auto}"
+      nuance: "يركز على صفة الكدر والاختلاط في السائل قبل أو بعد الرسوب."
+      mwe: false
+    - lemma: "دُرْدِيّ"
+      sense_id: "{auto}"
+      nuance: "مصطلح تقني تراثي دقيق لوصف رواسب الأشربة المخمرة تحديداً."
+      mwe: false
+    - lemma: "خُثَارَة"
+      sense_id: "{auto}"
+      nuance: "يركز على القوام الغليظ والثخين للبقية المتبقية من السائل."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"ثفل","root":"ثفل","maqayis":"«الثَّاءُ وَالْفَاءُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ الشَّيْءُ يَسْتَقِرُّ تَحْتَ الشَّيْءِ... يُقَالُ هُوَ ثُفْلُ الْقِدْرِ... وَهُوَ مَا رَسَا مِنَ الْخُثَارَةِ.»"},{"word":"خمر","root":"خمر","maqayis":"«الْخَاءُ وَالْمِيمُ وَالرَّاءُ أَصْلٌ وَاحِدٌ حَقِيقَتُهُ السَّتْرُ، وَالتَّدَاخُلُ فِي اسْتِخْفَاءٍ... وَالْخَمْرُ سُمِّيَتْ بِذَلِكَ لِأَنَّهَا تُخَامِرُ الْعَقْلَ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عكر","maqayis":"«الْعَيْنُ وَالْكَافُ وَالرَّاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ، يَدُلُّ عَلَى... التَّجَمُّعِ وَالتَّرَاكُمِ... الْعَكِرُ دُرْدِيُّ الزَّيْتِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"درد","maqayis":"«الدَّالُ وَالرَّاءُ وَالدَّالُ أُصَيْلٌ فِيهِ كَلَامٌ يَسِيرٌ... فالدَّرَدُ مِنَ الأَسْنَانِ: لُصُوقُهَا بالأَسْنَاخِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خثر","maqayis":"«الْخَاءُ وَالثَّاءُ وَالرَّاءُ أَصْلٌ يَدُلُّ عَلَى غِلَظٍ فِي الشَّيْءِ مَعَ اسْتِرْخَاءٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على طبيعة المادة الراسبة في القاع كمادة ثقيلة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على صفة الكدر والاختلاط في السائل قبل أو بعد الرسوب.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح تقني تراثي دقيق لوصف رواسب الأشربة المخمرة تحديداً.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على القوام الغليظ والثخين للبقية المتبقية من السائل.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

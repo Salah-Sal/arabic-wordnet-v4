@@ -1,0 +1,100 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "بَنَّاء عَضَلَات"
+      evidence_status: "no_material_found"
+    - lemma: "لَاعِب كَمَال أَجْسَام"
+      evidence_status: "no_material_found"
+
+step05_lemma_generation:
+  evidence_candidates: []
+  knowledge_candidates:
+    - lemma: "مُمَارِس كَمَال أَجْسَام"
+      justification: "تركيب إضافي؛ تعبير وصفي دقيق لمن يمارس هذه الرياضة بانتظام دون أن يكون بالضرورة لاعباً تنافسياً."
+  generation_notes: "المفهوم حديث ويرتبط برياضة معينة، والتعبير الشائع له مركب إضافي مبني على اسم الرياضة (كمال الأجسام)."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "لَاعِب كَمَال أَجْسَام"
+      decision: confirmed
+      decision_reason: "مصطلح مركب (إضافي) مستقر وشائع جداً في العربية المعاصرة لوصف ممارس رياضة كمال الأجسام التنافسية."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "المصطلح الأبرز والأكثر تداولاً لممارس هذه الرياضة، ويحمل دلالة على الانخراط التنافسي أو الاحترافي فيها."
+      example: "يقضي لاعب كمال الأجسام ساعات طويلة في الصالة الرياضية لنحت عضلاته."
+      actions: []
+
+    - lemma: "بَنَّاء عَضَلَات"
+      decision: removed
+      decision_reason: "ترجمة حرفية عمياء (Blind Literal) للمصطلح الإنجليزي (muscle builder)، وغير مستعملة في السياق الرياضي العربي الذي يفضل النسبة لاسم الرياضة (كمال أجسام)."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "ترجمة غير اصطلاحية"
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "مُمَارِس كَمَال أَجْسَام"
+      source: step05
+      decision: removed
+      decision_reason: "تعبير وصفي حر يفتقر للتثبيت المعجمي مقارنة بـ (لاعب كمال أجسام)."
+      step05_citation: "توليد ذاتي"
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "وصف عام"
+
+  synset_flags:
+    definition_review_needed: false
+    split_needed: false
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شخص يقوم بتمارين خاصة لتنمية عضلات قوية"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق ويعكس المفهوم بوضوح باستخدام جنس قريب (شخص) وفصل نوعي مناسب (يقوم بتمارين...)."
+  actions: []
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عَامِل"
+    test_result: "needs_closer"
+  antonymy:
+    per_lemma:
+      - lemma: "لَاعِب كَمَال أَجْسَام"
+        antonym_found: false
+  verb_checks:
+    applicable: false
+  selectional_restrictions:
+    - lemma: "لَاعِب كَمَال أَجْسَام"
+      constraint: "فاعل عاقل (بشر)"
+  actions: []
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "لَاعِب كَمَال أَجْسَام"
+      enrichment:
+        root: "ل-ع-ب"
+      examples:
+        - text: "يتبع لاعب كمال الأجسام نظاماً غذائياً صارماً غنياً بالبروتينات لزيادة كتلته العضلية."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: phraset
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-09882251-n"
+        text: "يتبع لاعب كمال الأجسام نظاماً غذائياً صارماً غنياً بالبروتينات لزيادة كتلته العضلية."

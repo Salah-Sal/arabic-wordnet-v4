@@ -1,0 +1,227 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف يترجم بدقة الدلالة المجازية لكلمة philosopher في اللغة الإنجليزية (الشخص الحكيم الهادئ)."
+      - "المجموعة تحتوي على (حكيم) و(رجل حكيم)، وكلاهما يعبران عن المعنى."
+    observations: "المفهوم يشير إلى الشخص الذي يواجه الحياة بحكمة وهدوء، وهو امتداد دلالي لصفة الحكمة والفلسفة."
+  blind_candidates:
+    - lemma: "فَيْلَسُوف"
+      generation_method: majaz
+      justification: "مجازاً، يُطلق الفيلسوف على الشخص الذي يتناول أمور الحياة بحكمة وهدوء ورصانة."
+    - lemma: "مُتَعَقِّل"
+      generation_method: ishtiqaq
+      justification: "مشتقة من العقل والتعقل، وتدل على من يتصرف بهدوء وحكمة."
+    - lemma: "رَصِين"
+      generation_method: ishtiqaq
+      justification: "الرصين هو الثابت الهادئ الذي يزن الأمور بعقله."
+    - lemma: "مُفَكِّر"
+      generation_method: ishtiqaq
+      justification: "تُطلق على من يُعمل عقله في الأمور ويتخذ قراراته بناءً على التأمل."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "حَكِيم"
+      confirm:
+        - text: "«من أسماء الله تعالى ذو الحكمة الفيلسوف (مو) الطبيب (مو)»"
+          source: "المعجم الوسيط"
+        - text: "«صاحب الحِكْمَة الذي يُحْكِمُ الأشياء ويُتْقِنُها القاضي الحاكم الفيلسوف»"
+          source: "المعجم الكبير"
+    - lemma: "رَجُل حَكِيم"
+      confirm:
+        - text: "«رَجُلٌ حكيمٌ: عَدْلٌ»"
+          source: "المعجم الكبير"
+    - lemma: "فَيْلَسُوف"
+      confirm:
+        - text: "«العالِم الباحث فى فروع الفلسفة (مَعَ)»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«الحكيم: الفيلسوف (مو)»"
+          source: "المعجم الوسيط"
+          addition: "استخدام متبادل بين الحكيم والفيلسوف مجازاً للدلالة على المعنى"
+    - lemma: "مُتَعَقِّل"
+      evidence_status: "no_material_found"
+    - lemma: "رَصِين"
+      contradicts:
+        - text: "«الموجعُ المُتَأَلِّمُ. يُقال: رَجُلٌ رَصِينُ الجَوْفِ»"
+          source: "المعجم الكبير"
+          conflict: "دلالة مختلفة"
+    - lemma: "مُفَكِّر"
+      confirm:
+        - text: "«من يعمل عقله في الأمر ويرتب بعض ما يعلم ليصل به إلى مجهول»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "حَكِيم"
+      decision: confirmed
+      decision_reason: "كلمة أصيلة تعبر تماماً عن الشخص ذي الحكمة والهدوء، وتُستعمل بوضوح لنقل مفهوم الـ philosopher بالمعنى المجازي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حَكِيم"
+    - lemma: "رَجُل حَكِيم"
+      decision: confirmed
+      decision_reason: "تعبير وصفي شائع ومثبت معجمياً للدلالة على الرجل ذي الحكمة والعدل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "رَجُل حَكِيم"
+    - lemma: "فَيْلَسُوف"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تستخدم مجازاً للدلالة على الشخص الحكيم الهادئ، وتطابق التوسع الدلالي في الكلمة الإنجليزية (philosopher) كما نصت المعاجم على ترادفها المجازي مع الحكيم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "فَيْلَسُوف"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "مُتَعَقِّل"
+      source: stage1
+      decision: removed
+      decision_reason: "لا ترقى لتكون مصطلحاً مستقلاً يحمل نفس العمق الدلالي للمجموعة؛ تُستخدم غالباً كصفة عامة."
+      evidence_assessment:
+        case: no_material
+    - lemma: "رَصِين"
+      source: stage1
+      decision: removed
+      decision_reason: "معناها الأساسي يشير إلى الثبات والشدة، ولا تحمل بالضرورة دلالة الحكمة العميقة المطلوبة في المجموعة بشكلها المجازي."
+      evidence_assessment:
+        case: contradicts_only
+    - lemma: "مُفَكِّر"
+      source: stage1
+      decision: removed
+      decision_reason: "تشير إلى إعمال العقل، ولا ترادف بالضرورة مفهوم الحكيم الهادئ أو الفيلسوف في هذا السياق العاطفي."
+      evidence_assessment:
+        case: confirm_only
+
+stage4_content:
+  definition:
+    current: "شخص حكيم هادئ وعقلاني؛ شخص يعيش حياة العقل برباطة جأش"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق وشامل، وينقل بوضوح المعنى المجازي للفيلسوف أو الحكيم الذي يواجه الحياة برباطة جأش."
+  examples:
+    per_lemma:
+      - lemma: "حَكِيم"
+        examples:
+          - text: "تصرَّفَ في الأزمة كشخصٍ حَكِيمٍ، وتقبّلَ الخسارةَ برباطةِ جأش."
+            type: usage
+      - lemma: "رَجُل حَكِيم"
+        examples:
+          - text: "كان جَدّي رَجُلاً حَكِيماً، يُرْجَعُ إليه في المُلِمّات والمصاعب."
+            type: usage
+      - lemma: "فَيْلَسُوف"
+        examples:
+          - text: "تلقّى نبأ إخفاقه كفيلسوف، فلم يجزع وبدأ يخطط من جديد بهدوء وعقلانية."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "تصرَّفَ في الأزمة كشخصٍ حَكِيمٍ، وتقبّلَ الخسارةَ برباطةِ جأش."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تلقّى نبأ إخفاقه كفيلسوف، فلم يجزع وبدأ يخطط من جديد بهدوء وعقلانية."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "حَكِيم"
+      entry_id: "{auto}"
+      root: "حكم"
+      maqayis_quote: "«الْحَاءُ وَالْكَافُ وَالْمِيمُ أَصْلٌ وَاحِدٌ، وَهُوَ الْمَنْعُ. وَأَوَّلُ ذَلِكَ الْحُكْمُ، وَهُوَ الْمَنْعُ مِنَ الظُّلْمِ.»"
+    - lemma: "رَجُل حَكِيم"
+      entry_id: "{auto}"
+      roots:
+        - word: "رجل"
+          root: "رجل"
+          maqayis_quote: "«الرَّاءُ وَالْجِيمُ وَاللَّامُ مُعْظَمُ بَابِهِ يَدُلُّ عَلَى الْعُضْوِ الَّذِي هُوَ رِجْلُ كُلِّ ذِي رِجْلٍ.»"
+        - word: "حكيم"
+          root: "حكم"
+          maqayis_quote: "«الْحَاءُ وَالْكَافُ وَالْمِيمُ أَصْلٌ وَاحِدٌ، وَهُوَ الْمَنْعُ... وَالْحِكْمَةُ هَذَا قِيَاسُهَا، لِأَنَّهَا تَمْنَعُ مِنَ الْجَهْلِ.»"
+    - lemma: "فَيْلَسُوف"
+      entry_id: "{auto}"
+      root: "فلسف"
+      maqayis_quote: "«لا يوجد في مقاييس اللغة»"
+  per_sense:
+    - lemma: "حَكِيم"
+      sense_id: "{auto}"
+      nuance: "اللفظ الأصيل والأكثر شيوعاً للتعبير عن ذي الحكمة والهدوء."
+      mwe: false
+    - lemma: "رَجُل حَكِيم"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي يُبرز اتصاف الشخص (الرجل) بالحكمة، ويُستخدم في السياقات السردية."
+      mwe: true
+    - lemma: "فَيْلَسُوف"
+      sense_id: "{auto}"
+      nuance: "استخدام مجازي، يُبرز الجانب العقلاني البحت والتجرد من العواطف والانفعالات."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حكم","maqayis":"«الْحَاءُ وَالْكَافُ وَالْمِيمُ أَصْلٌ وَاحِدٌ، وَهُوَ الْمَنْعُ. وَأَوَّلُ ذَلِكَ الْحُكْمُ، وَهُوَ الْمَنْعُ مِنَ الظُّلْمِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"رجل","root":"رجل","maqayis":"«الرَّاءُ وَالْجِيمُ وَاللَّامُ مُعْظَمُ بَابِهِ يَدُلُّ عَلَى الْعُضْوِ الَّذِي هُوَ رِجْلُ كُلِّ ذِي رِجْلٍ.»"},{"word":"حكيم","root":"حكم","maqayis":"«الْحَاءُ وَالْكَافُ وَالْمِيمُ أَصْلٌ وَاحِدٌ، وَهُوَ الْمَنْعُ... وَالْحِكْمَةُ هَذَا قِيَاسُهَا، لِأَنَّهَا تَمْنَعُ مِنَ الْجَهْلِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"فلسف","maqayis":""}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ الأصيل والأكثر شيوعاً للتعبير عن ذي الحكمة والهدوء.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير وصفي يُبرز اتصاف الشخص (الرجل) بالحكمة، ويُستخدم في السياقات السردية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"استخدام مجازي، يُبرز الجانب العقلاني البحت والتجرد من العواطف والانفعالات.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

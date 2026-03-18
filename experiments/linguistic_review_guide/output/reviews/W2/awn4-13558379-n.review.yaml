@@ -1,0 +1,240 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي يحتاج إلى صياغة بأسلوب المعجم الوسيط ليكون أكثر دقة لغوياً."
+      - "بعض اللمات (ميكانيكا ضوئية) عبارة عن تعريب (Calque) لكنه شائع الاستخدام، بينما (صناعة الألواح الضوئية) ترجمة شبه حرفية لمفهوم (photoplate making)."
+    observations: "المجموعة الترادفية تعبر عن مفهوم تقني في مجال الطباعة (photomechanics أو photoengraving). نلاحظ أن المصطلحات العربية تتنوع بين الترجمة الحرفية والتعريب وإحياء مصطلحات أقدم مثل الحفر الضوئي."
+  blind_candidates:
+    - lemma: "طِبَاعَةٌ مَكِنِيَّةٌ ضَوْئِيَّة"
+      generation_method: tarkib
+      justification: "تركيب وصفي يعبر بدقة عن مفهوم الطباعة التي تجمع بين الآليات الضوئية والميكانيكية."
+    - lemma: "حَفْرٌ ضَوْئِيّ"
+      generation_method: tarkib
+      justification: "تركيب إضافي/وصفي شائع في صناعة الطباعة للتعبير عن إعداد الكليشيهات باستخدام التصوير."
+    - lemma: "طَبْعٌ تَصْوِيرِيّ"
+      generation_method: tarkib
+      justification: "تركيب يجمع بين الطبع والتصوير للدلالة على العملية."
+    - lemma: "تَصْوِيرٌ طِبَاعِيّ"
+      generation_method: tarkib
+      justification: "عكس التركيب السابق ويركز على التصوير كأداة لتحقيق أهداف طباعية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "صِنَاعَةُ الْأَلْوَاحِ الضَّوْئِيَّة"
+      evidence_status: "no_material_found"
+    - lemma: "مِيكَانِيكَا ضَوْئِيَّة"
+      evidence_status: "no_material_found"
+    - lemma: "حَفْرٌ ضَوْئِيّ"
+      confirm:
+        - text: "«(1) الحَفْر الضوئيّ: إعداد الكليشيهات (2) صفيحة طباعية؛ كليشيه»"
+          source: "المورد الحديث"
+    - lemma: "طِبَاعَةٌ مَكِنِيَّةٌ ضَوْئِيَّة"
+      confirm:
+        - text: "«الطباعة المَكِنيّة الضوئية. photomechanical printing»"
+          source: "المورد الحديث"
+    - lemma: "طَبْعٌ تَصْوِيرِيّ"
+      confirm:
+        - text: "«طبع تصويري آلي - photomechanical printing»"
+          source: "المعجم الموحد للمصطلحات المهنية والتقنية"
+    - lemma: "تَصْوِيرٌ طِبَاعِيّ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "صِنَاعَةُ الْأَلْوَاحِ الضَّوْئِيَّة"
+      decision: confirmed
+      decision_reason: "ترجمة حرفية مقبولة وواضحة المعنى لمصطلح (photoplate making)، وتركيب معتمد مفهومياً في السياق الطباعي."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "صِنَاعَةُ الْأَلْوَاحِ الضَّوْئِيَّة"
+    
+    - lemma: "مِيكَانِيكَا ضَوْئِيَّة"
+      decision: confirmed
+      decision_reason: "اقتراض مفهومي (calque) مقبول وشائع في الأدبيات التقنية لمصطلح (photomechanics)."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مِيكَانِيكَا ضَوْئِيَّة"
+
+    - lemma: "حَفْرٌ ضَوْئِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح معجمي موثق ويعبر بدقة عن عملية إنتاج الأسطح الطباعية (الكليشيهات) بالضوء."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "حَفْرٌ ضَوْئِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "طِبَاعَةٌ مَكِنِيَّةٌ ضَوْئِيَّة"
+      source: stage1
+      decision: removed
+      decision_reason: "مصطلح طويل نسبياً، ويكفي عنه 'ميكانيكا ضوئية' و'حفر ضوئي' اللذان يؤديان الغرض بوضوح وإيجاز أكبر."
+
+    - lemma: "طَبْعٌ تَصْوِيرِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "مصطلح أعم قد يلتبس مع أنواع أخرى من الطبع المباشر، و'حفر ضوئي' أدق في سياق إنتاج الألواح."
+
+    - lemma: "تَصْوِيرٌ طِبَاعِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "لم يثبت استعماله كمسكوك اصطلاحي، ومعناه وصفي عام."
+
+stage4_content:
+  definition:
+    current: "العملية التي يتم فيها إنتاج أسطح الطباعة (الألواح أو الأسطوانات) بطرق فوتوغرافية"
+    assessment:
+      decision: revise
+      reason: "تطوير الصياغة لتكون أدق لغوياً وتجنب الكلمات الدخيلة مثل 'فوتوغرافية' حيث يمكن استخدام 'التصوير الضوئي'."
+    authored:
+      - type: terminological
+        text: "عملية إنتاج أسطح الطباعة من ألواح وأسطوانات ونحوها باستخدام طرائق التصوير الضوئي."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "عملية إنتاج أسطح الطباعة من ألواح وأسطوانات ونحوها باستخدام طرائق التصوير الضوئي."}
+
+  examples:
+    per_lemma:
+      - lemma: "صِنَاعَةُ الْأَلْوَاحِ الضَّوْئِيَّة"
+        examples:
+          - text: "تعتمد المطابع الحديثة على صناعة الألواح الضوئية لإنتاج نسخ دقيقة وعالية الجودة."
+            type: usage
+      - lemma: "مِيكَانِيكَا ضَوْئِيَّة"
+        examples:
+          - text: "أحدثت الميكانيكا الضوئية ثورة في عالم الطباعة منذ ابتكارها."
+            type: usage
+      - lemma: "حَفْرٌ ضَوْئِيّ"
+        examples:
+          - text: "تُستخدَم تقنيات الحفر الضوئي في إعداد كليشيهات الطباعة للصحف."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تعتمد المطابع الحديثة على صناعة الألواح الضوئية لإنتاج نسخ دقيقة وعالية الجودة."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "أحدثت الميكانيكا الضوئية ثورة في عالم الطباعة منذ ابتكارها."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تُستخدَم تقنيات الحفر الضوئي في إعداد كليشيهات الطباعة للصحف."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "صِنَاعَةُ الْأَلْوَاحِ الضَّوْئِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "صناعة"
+          root: "صنع"
+          maqayis_quote: "«الصَّادُ وَالنُّونُ وَالْعَيْنُ أَصْلٌ صَحِيحٌ وَاحِدٌ، وَهُوَ عَمَلُ الشَّيْءِ صُنْعًا.»"
+        - word: "الواح"
+          root: "لوح"
+          maqayis_quote: "«اللَّامُ وَالْوَاوُ وَالْحَاءُ أَصْلٌ صَحِيحٌ، مُعْظَمُهُ مُقَارَبَةُ بَابِ اللَّمَعَانِ... وَاللَّوْحُ: الْوَاحِدُ مِنْ أَلْوَاحِ السَّفِينَةِ; وَهُوَ أَيْضًا كُلُّ عَظْمٍ عَرِيضٍ.»"
+        - word: "الضوئية"
+          root: "ضوء"
+          maqayis_quote: "«الضَّادُ وَالْوَاوُ وَالْهَمْزَةُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى النُّورِ.»"
+    
+    - lemma: "مِيكَانِيكَا ضَوْئِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "ميكانيكا"
+          root: ""
+          maqayis_quote: ""
+        - word: "ضوئية"
+          root: "ضوء"
+          maqayis_quote: "«الضَّادُ وَالْوَاوُ وَالْهَمْزَةُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى النُّورِ.»"
+          
+    - lemma: "حَفْرٌ ضَوْئِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "حفر"
+          root: "حفر"
+          maqayis_quote: "«الْحَاءُ وَالْفَاءُ وَالرَّاءُ أَصْلَانِ: أَحَدُهُمَا حَفْرِ الشَّيْءِ، وَهُوَ قَلْعُهُ سُفْلًا ; وَالْآخَرُ أَوَّلُ الْأَمْرِ.»"
+        - word: "ضوئي"
+          root: "ضوء"
+          maqayis_quote: "«الضَّادُ وَالْوَاوُ وَالْهَمْزَةُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى النُّورِ.»"
+
+  per_sense:
+    - lemma: "صِنَاعَةُ الْأَلْوَاحِ الضَّوْئِيَّة"
+      sense_id: "{auto}"
+      nuance: "يُركز على المنتج النهائي للعملية وهو اللوح الطباعي."
+      mwe: true
+    - lemma: "مِيكَانِيكَا ضَوْئِيَّة"
+      sense_id: "{auto}"
+      nuance: "مصطلح تقني عام يشير إلى التخصص والتقنية بأكملها."
+      mwe: true
+    - lemma: "حَفْرٌ ضَوْئِيّ"
+      sense_id: "{auto}"
+      nuance: "يركز على طريقة تشكيل السطح الطباعي عن طريق التآكل أو الحفر المعالج بالضوء."
+      mwe: true
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"صناعة","root":"صنع","maqayis":"«الصَّادُ وَالنُّونُ وَالْعَيْنُ أَصْلٌ صَحِيحٌ وَاحِدٌ، وَهُوَ عَمَلُ الشَّيْءِ صُنْعًا.»"},{"word":"الواح","root":"لوح","maqayis":"«اللَّامُ وَالْوَاوُ وَالْحَاءُ أَصْلٌ صَحِيحٌ، مُعْظَمُهُ مُقَارَبَةُ بَابِ اللَّمَعَانِ... وَاللَّوْحُ: الْوَاحِدُ مِنْ أَلْوَاحِ السَّفِينَةِ; وَهُوَ أَيْضًا كُلُّ عَظْمٍ عَرِيضٍ.»"},{"word":"الضوئية","root":"ضوء","maqayis":"«الضَّادُ وَالْوَاوُ وَالْهَمْزَةُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى النُّورِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"ميكانيكا","root":"","maqayis":""},{"word":"ضوئية","root":"ضوء","maqayis":"«الضَّادُ وَالْوَاوُ وَالْهَمْزَةُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى النُّورِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"حفر","root":"حفر","maqayis":"«الْحَاءُ وَالْفَاءُ وَالرَّاءُ أَصْلَانِ: أَحَدُهُمَا حَفْرِ الشَّيْءِ، وَهُوَ قَلْعُهُ سُفْلًا ; وَالْآخَرُ أَوَّلُ الْأَمْرِ.»"},{"word":"ضوئي","root":"ضوء","maqayis":"«الضَّادُ وَالْوَاوُ وَالْهَمْزَةُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى النُّورِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُركز على المنتج النهائي للعملية وهو اللوح الطباعي.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح تقني عام يشير إلى التخصص والتقنية بأكملها.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على طريقة تشكيل السطح الطباعي عن طريق التآكل أو الحفر المعالج بالضوء.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.90

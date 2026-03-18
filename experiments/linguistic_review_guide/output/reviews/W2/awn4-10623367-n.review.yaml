@@ -1,0 +1,96 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "جالس"
+      confirm:
+        - text: "«جَالِس من (ج ل س) القَاعد.»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+      expands:
+        - text: "«حيوان مثبت في قعر البحر مباشرة بدون ساق»"
+          source: "المعجم الموحد لمصطلحات الجيولوجيا (2000)"
+          addition: "يشمل الكائنات البحرية المثبتة (sessile) التي لا تتحرك، وهو ما يتسق مع شمول التعريف للحيوان."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "قاعد"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«القاعد: الجالس من قيام» — موسوعة السلطان قابوس لأسماء العرب"
+      justification: "مرادف مباشر للمّة 'جالس' ويشيع استخدامه لوصف من هو في وضعية الجلوس."
+  knowledge_candidates:
+    - lemma: "جليس"
+      justification: "صيغة مبالغة أو صفة مشبهة تدل على من يكثر الجلوس أو من يجلس مع غيره (مجالسة)، وتستخدم في سياقات معينة مثل 'جليس الأطفال' (baby-sitter)."
+  generation_notes: "تم التركيز على المترادفات العامة التي تغطي مفهوم وضعية الجلوس للكائن الحي."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "جالس"
+      decision: confirmed
+      decision_reason: "المصطلح الأساسي والأكثر شيوعاً للتعبير عن الكائن في وضع الجلوس، ومؤيد بالأدلة المعجمية."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تدل على من اتخذ وضعية الجلوس فعلياً، وهي اسم فاعل من جلس."
+      example: "رأيتُ الرَّجُلَ جالساً أمامَ بيتِهِ يقرأُ كتاباً."
+
+    - lemma: "قاعد"
+      source: step05
+      decision: confirmed
+      decision_reason: "مرادف فصيح وشائع الاستخدام، ويرد كثيراً في النصوص الدينية والأدبية للتعبير عن الجلوس."
+      step05_citation: "«القاعد: الجالس من قيام» — موسوعة السلطان قابوس لأسماء العرب"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "كلمة 'قاعد' قد توحي أحياناً بطول مدة الجلوس أو الاستقرار في المكان، بينما 'جالس' قد تشير إلى مجرد الهيئة."
+      example: "ظلَّ القاضي قاعداً في منصته حتى انتهى من سماع الشهود."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "قاعد"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10623367-n"
+
+  added_lemmas:
+    - lemma: "قاعد"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "كائن (شخص أو حيوان) يجلس"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وشامل للإنسان والحيوان ويتفق مع المفهوم العلمي (sitter)."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "كَائِن حَيّ (awn4-00004475-n)"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "جالس"
+        antonym_found: true
+        antonym: "قائم"
+      - lemma: "قاعد"
+        antonym_found: true
+        antonym: "واقف"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "جالس"
+      enrichment:
+        root: "ج-ل-س"
+      examples:
+        - text: "رأيتُ الرَّجُلَ جالساً أمامَ بيتِهِ يقرأُ كتاباً."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "قاعد"
+      enrichment:
+        root: "ق-ع-د"
+      examples:
+        - text: "ظلَّ القاضي قاعداً في منصته حتى انتهى من سماع الشهود."
+          type: usage
+          source: "مؤلَّف"
+  cultural_fit:
+    assessment: native

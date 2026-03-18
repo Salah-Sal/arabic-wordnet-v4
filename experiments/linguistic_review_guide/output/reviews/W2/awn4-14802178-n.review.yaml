@@ -1,0 +1,171 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "مضاد للحموضة"
+      confirm:
+        - text: "«عقار يستعمل لمعادلة حموضة المعدة.»"
+          source: "معجم المصطلحات الطبية (ج.1، 1985)"
+        - text: "«مُضادّ للحموضة.»"
+          source: "المورد الحديث (2008)"
+      expands:
+        - text: "«مضاد للحموضة» — ترجمة المصطلح antacid."
+          source: "المعجم الموحد لمصطلحات الطب البيطري (2010)"
+    - lemma: "عامل قلوي"
+      evidence_status: "no_material_found"
+      peripheral_observations:
+        - "اللمّة تبدو كترجمة حرفية وصفية للمصطلح الإنجليزي (alkaline agent)، ولم تظهر كمصطلح مسكوك في المعاجم المسترجعة."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "مُقَلْوِن"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«مُقَلْوِن» — المعجم الطبي الموحد (2009)"
+      justification: "ترجمة معجمية معتمدة للمصطلح الإنجليزي (alkalizer) المدرج في المجموعة."
+    - lemma: "مضاد الحموضة"
+      source_section: "step0_evidence"
+      evidence_citation: "«مضاد الحموضة: عقار يستعمل لمعادلة حموضة المعدة.» — معجم المصطلحات الطبية"
+      justification: "تنويع تركيبي شائع جداً ومعتمد في المعاجم الطبية."
+  knowledge_candidates:
+    - lemma: "دواء للحموضة"
+      justification: "تعبير وصفي شائع الاستعمال في السياقات غير المتخصصة."
+  generation_notes: "تم التركيز على المصطلحات التقنية (مقلون) والتراكيب الإضافية المعتمدة."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "مضاد للحموضة"
+      decision: confirmed
+      decision_reason: "مصطلح تقني مستقر ومعتمد في المعاجم الطبية والبيطرية الحديثة."
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+        type: "وصفي"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "المصطلح الصريح للدلالة على الوظيفة العلاجية المباشرة (مضاد)."
+      example: "يُنصح بتناول مضاد للحموضة لتخفيف الحرقة الناتجة عن ارتجاع المريء."
+    
+    - lemma: "عامل قلوي"
+      decision: confirmed
+      decision_reason: "ترجمة مقبولة للمصطلح الإنجليزي (alkaline agent) وتتوافق مع تعريف المجموعة، وإن كانت أقل شيوعاً من مضاد الحموضة."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+        type: "وصفي"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على الخاصية الكيميائية للمادة (القلوية) بدلاً من الوظيفة العلاجية (المضادة للحموضة)."
+      example: "يعمل هيدروكسيد الألومنيوم كعامل قلوي يعادل حموضة المعدة."
+
+    - lemma: "مُقَلْوِن"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح تقني دقيق يشتق من (القلوي) ويناظر المصطلح الإنجليزي (alkalizer)."
+      step05_citation: "«مُقَلْوِن» — المعجم الطبي الموحد"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "مصطلح اشتقاقي يصف المادة التي تزيد القلوية، ويستخدم في سياقات كيميائية وطبية أوسع."
+      example: "تُستخدم المواد المقلونة في معالجة المياه لرفع درجة حموضتها."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُقَلْوِن"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-14802178-n"
+
+    - lemma: "مضاد الحموضة"
+      source: step05
+      decision: confirmed
+      decision_reason: "تنويع تركيبي فصيح ومعتمد في المعاجم الطبية."
+      step05_citation: "«مضاد الحموضة» — معجم المصطلحات الطبية"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+        type: "إضافي"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "مطابق دلالياً لـ (مضاد للحموضة) مع اختلاف يسير في التركيب النحوي."
+      example: "يتوفر مضاد الحموضة في الصيدليات على شكل أقراص أو شراب."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مضاد الحموضة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-14802178-n"
+
+  added_lemmas:
+    - lemma: "مُقَلْوِن"
+      reason: "مصدر: الخطوة ٠٫٥ (يناظر alkalizer)"
+      via_command: create_entry + add_sense
+    - lemma: "مضاد الحموضة"
+      reason: "مصدر: الخطوة ٠٫٥ (تنويع تركيبي معتمد)"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي مقبول ولكنه يفتقر إلى الصبغة المصطلحيه الدقيقة؛ يفضل تعريفه كمادة أو دواء."
+  authored_definitions:
+    - type: terminological
+      text: "مادّة أو دواء يُستخدم لمعادلة حموضة المعدة الزائدة وتخفيف الأعراض الناتجة عنها مثل حرقة المعدة وعسر الهضم."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-14802178-n"
+        definition_index: 0
+        text: "مادّة أو دواء يُستخدم لمعادلة حموضة المعدة الزائدة وتخفيف الأعراض الناتجة عنها مثل حرقة المعدة وعسر الهضم."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عَامِل كِيمْيَائِيّ"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "مضاد للحموضة"
+        antonym_found: false
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "مضاد للحموضة"
+      enrichment:
+        root: "ض-د-د"
+      examples:
+        - text: "يُنصح بتناول مضاد للحموضة بعد الوجبات الدسمة لتجنب عسر الهضم."
+          type: usage
+          source: "مؤلف"
+    - lemma: "عامل قلوي"
+      enrichment:
+        root: "ق-ل-ي"
+      examples:
+        - text: "يضاف عامل قلوي للتربة لتعديل مستوى حموضتها."
+          type: usage
+          source: "مؤلف"
+    - lemma: "مُقَلْوِن"
+      enrichment:
+        root: "ق-ل-ي"
+      examples:
+        - text: "يُستخدم المقلون في الصناعات الكيميائية لضبط درجة القلوية في المحاليل."
+          type: usage
+          source: "مؤلف"
+    - lemma: "مضاد الحموضة"
+      enrichment:
+        root: "ض-د-د"
+      examples:
+        - text: "يصف الأطباء مضاد الحموضة لمرضى القرحة الهضمية."
+          type: usage
+          source: "مؤلف"
+  cultural_fit:
+    assessment: native

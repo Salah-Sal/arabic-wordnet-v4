@@ -1,0 +1,107 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "مُرْسِل بِالْبَرِيد"
+      evidence_status: "no_material_found"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "مُبْرِد"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«المُبْرِد: مَنْ يُرْسلُ رسالةً بالبريد» — المورد الحديث"
+      justification: "اسم فاعل من الفعل (أَبْرَدَ) بمعنى أرسل بالبريد، وهو مقابل مفرد ومباشر للمصطلح."
+  knowledge_candidates:
+    - lemma: "مُرْسِل"
+      justification: "لفظ عام يدل على باعث الرسالة أو الطرد، لكنه أعم من مفهوم الإرسال البريدي تحديداً (مجاز/إطلاق العام على الخاص)."
+  generation_notes: "صيغة (مُرْسِل بالبريد) تركيب وصفي حر، والمقابل الفصيح المسكوك في كلمة واحدة هو (مُبْرِد) من الفعل (أبرد بالرسالة)."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "مُرْسِل بِالْبَرِيد"
+      decision: removed
+      decision_reason: "تركيب وصفي حر وليس وحدة معجمية مسكوكة (MWE)"
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "تركيب حر يمكن استبدال أجزائه، وليس مصطلحاً معجمياً مستقلاً."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "مُبْرِد"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح فصيح مفرد يؤدي المعنى بدقة"
+      step05_citation: "«المُبْرِد: مَنْ يُرْسلُ رسالةً بالبريد» — المورد الحديث"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "لفظ فصيح مفرد يغني عن التركيب الوصفي للإرسال عبر البريد."
+      example: "سلّم المُبْرِدُ الطردَ إلى موظف البريد ليوصله إلى وجهته."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُبْرِد"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10302617-n"
+
+  added_lemmas:
+    - lemma: "مُبْرِد"
+      reason: "مصدر: الخطوة ٠٫٥ — بديل مفرد عن التركيب الوصفي"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شخص يرسل شيئاً بالبريد"
+  assessment:
+    decision: revise
+    reason: "صياغة التعريف لتكون أكثر دقة وفصاحة (استبدال «شخص» بـ «مَن»)"
+  authored_definitions:
+    - type: terminological
+      text: "مَنْ يُرسل رسالةً أو طرداً ونحوهما بطريق البريد"
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-10302617-n"
+        definition_index: 0
+        text: "مَنْ يُرسل رسالةً أو طرداً ونحوهما بطريق البريد"
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عَامِل"
+    test_result: "needs_closer"
+  verb_checks:
+    applicable: false
+  selectional_restrictions:
+    - lemma: "مُبْرِد"
+      constraint: "عاقل"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "مُبْرِد"
+      enrichment:
+        root: "ب-ر-د"
+      examples:
+        - text: "سلّم المُبْرِدُ الطردَ إلى موظف البريد ليوصله إلى وجهته."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-10302617-n"
+        text: "سلّم المُبْرِدُ الطردَ إلى موظف البريد ليوصله إلى وجهته."

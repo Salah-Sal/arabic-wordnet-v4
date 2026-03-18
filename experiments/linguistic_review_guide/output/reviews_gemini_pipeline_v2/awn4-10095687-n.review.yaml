@@ -1,0 +1,200 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة هي تعابير مركبة (MWEs)، بينما قد يُفضل وجود لمّات مفردة إن وُجدت."
+      - "كلمة 'صرعة' في المعاجم القديمة تتعلق بالمصارعة، واستخدامها بمعنى 'موضة' أو 'fad' هو استخدام حديث."
+    observations: "المفهوم يعبر عن الشخص الذي ينساق وراء كل جديد عابر. اللمّات الحالية دقيقة من الناحية الوصفية الحديثة."
+  blind_candidates:
+    - lemma: "مُتَبَدِّع"
+      generation_method: ishtiqaq
+      justification: "على وزن مُتَفَعِّل من الجذر (بدع)، ليدل على تتبع البدع والمستحدثات الاجتماعية (fads)."
+    - lemma: "صَرَعَاتِيّ"
+      generation_method: ishtiqaq
+      justification: "اسم منسوب إلى 'صرعات' (جمع صرعة بمعناها الحديث)، ليدل على الشخص المهتم بها."
+    - lemma: "مُتَتَبِّع لِلصَّرَعَات"
+      generation_method: tarkib
+      justification: "استخدام 'متتبع' بدلاً من 'متبع' لبيان القصد والنشاط في ملاحقة الصرعات."
+    - lemma: "مُتَهَوِّس بِالبِدَع"
+      generation_method: tarkib
+      justification: "كلمة 'متهوس' تعكس الجانب الهوسي أو الولع الشديد الذي تتضمنه كلمة faddist."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُتَّبِع لِلصَّرْعَات"
+      confirm:
+        - text: "«فاد (fad): زِيّ؛ بِدعة؛ موضة؛ وَلَعٌ مهووس يستحوذ على الناس فترة قصيرة»"
+          source: "المورد الحديث"
+    - lemma: "مُقَلِّد لِلْمُوضَة"
+      confirm:
+        - text: "«المُقَلِّد: المحاكي المتبع غيره فيما يقوله أو يفعل من غير حجة ولا دليل»"
+          source: "موسوعة السلطان قابوس"
+        - text: "«المُوضَة: نمط يولع به الإنسانُ مدّة ثم يزول.»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "مُتَبَدِّع"
+      confirm:
+        - text: "«البِدْعَة: ما اسْتُحْدِثَ فى الدِّين وغيره»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«البدعة لغة ما كان مخترعاً على غير مثال سابق»"
+          source: "كشاف اصطلاحات الفنون"
+    - lemma: "مُتَتَبِّع لِلصَّرَعَات"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مُتَّبِع لِلصَّرْعَات"
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي حديث دقيق يطابق تعريف المجموعة واللفظ الإنجليزي faddist."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُتَّبِع لِلصَّرْعَات"
+    - lemma: "مُقَلِّد لِلْمُوضَة"
+      decision: confirmed
+      decision_reason: "شائع الاستخدام للتعبير عن الشخص الذي يتبع خطوط الموضة المتقلبة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُقَلِّد لِلْمُوضَة"
+    - lemma: "مُتَتَبِّع لِلصَّرَعَات"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير وصفي دقيق يشير إلى النشاط في ملاحقة كل جديد."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "مُتَتَبِّع لِلصَّرَعَات", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُتَبَدِّع"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ مفرد يعبر عن الشخص الذي يتبع البدع والمستحدثات، ويتوافق مع المعنى اللغوي الواسع للبدعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُتَبَدِّع", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "شخص يتبع مجموعة متنوعة من البدع أو الصرعات"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكنه يفتقر للصبغة المعجمية الفصيحة."
+    authored:
+      - type: terminological
+        text: "شَخْصٌ يَنْقَادُ لِكُلِّ مُسْتَحْدَثٍ أَوْ تَقْلِيعَةٍ عَابِرَةٍ وَيُولَعُ بِهَا دُونَ تَمْيِيزٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "مُتَّبِع لِلصَّرْعَات"
+        examples:
+          - text: "يُعَدُّ هَذَا الشَّابُّ مُتَّبِعًا لِلصَّرْعَات؛ فَلَا يَكَادُ يَظْهَرُ نَمَطٌ جَدِيدٌ إِلَّا وَكَانَ أَوَّلَ مَنْ يَعْتَمِدُهُ."
+            type: usage
+      - lemma: "مُقَلِّد لِلْمُوضَة"
+        examples:
+          - text: "كَوْنُكَ مُقَلِّدًا لِلْمُوضَةِ لَا يَعْنِي أَنَّكَ تَمْتَلِكُ ذَوْقًا خَاصًّا، بَلْ هُوَ هَوَسٌ بِالتَّغْيِيرِ الْمُسْتَمِرِّ."
+            type: usage
+      - lemma: "مُتَبَدِّع"
+        examples:
+          - text: "كَانَ مَعْرُوفًا بِأَنَّهُ مُتَبَدِّعٌ فِي مَلْبَسِهِ وَمَأْكَلِهِ، يَتَقَفَّى كُلَّ غَرِيبٍ مُسْتَحْدَثٍ."
+            type: usage
+  actions:
+    - command: update_definition
+      params: {synset_id: "{synset_id}", definition_index: 0, text: "شَخْصٌ يَنْقَادُ لِكُلِّ مُسْتَحْدَثٍ أَوْ تَقْلِيعَةٍ عَابِرَةٍ وَيُولَعُ بِهَا دُونَ تَمْيِيزٍ."}
+    - command: add_sense_example
+      params: {sense_id: "{auto}", text: "يُعَدُّ هَذَا الشَّابُّ مُتَّبِعًا لِلصَّرْعَات؛ فَلَا يَكَادُ يَظْهَرُ نَمَطٌ جَدِيدٌ إِلَّا وَكَانَ أَوَّلَ مَنْ يَعْتَمِدُهُ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُتَّبِع لِلصَّرْعَات"
+      entry_id: "{auto}"
+      roots:
+        - word: "متبع"
+          root: "تبع"
+          maqayis_quote: "«التَّاءُ وَالْبَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ لَا يَشِذُّ عَنْهُ مِنَ الْبَابِ شَيْءٌ، وَهُوَ التُّلُوُّ وَالْقَفْوُ.»"
+        - word: "صرعات"
+          root: "صرع"
+          maqayis_quote: "«الصَّادُ وَالرَّاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى سُقُوطِ شَيْءٍ إِلَى الْأَرْضِ عَنْ مِرَاسِ اثْنَيْنِ.»"
+    - lemma: "مُقَلِّد لِلْمُوضَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "مقلد"
+          root: "قلد"
+          maqayis_quote: "«الْقَافُ وَاللَّامُ وَالدَّالُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدَهُمَا عَلَى تَعْلِيقِ شَيْءٍ عَلَى شَيْءٍ وَلِيَهُ بِهِ.»"
+        - word: "موضة"
+          root: "موض"
+          maqayis_quote: "لم يرد في مقاييس اللغة لأنها كلمة معربة."
+    - lemma: "مُتَبَدِّع"
+      entry_id: "{auto}"
+      root: "بدع"
+      maqayis_quote: "«الْبَاءُ وَالدَّالُ وَالْعَيْنُ أَصْلَانِ: أَحَدُهُمَا ابْتِدَاءُ الشَّيْءِ وَصُنْعُهُ لَا عَنْ مِثَالٍ.»"
+  per_sense:
+    - lemma: "مُتَّبِع لِلصَّرْعَات"
+      sense_id: "{auto}"
+      nuance: "التعبير الأكثر دقة وشمولاً للمفهوم الحديث."
+      mwe: true
+    - lemma: "مُقَلِّد لِلْمُوضَة"
+      sense_id: "{auto}"
+      nuance: "يركز على جانب المحاكاة والتقليد في الملبس والمظهر."
+      mwe: true
+    - lemma: "مُتَبَدِّع"
+      sense_id: "{auto}"
+      nuance: "لفظ مفرد يشير إلى الشخص الذي يتبنى كل ما هو مخترع ومحدث."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"متبع","root":"تبع","maqayis_quote":"«التَّاءُ وَالْبَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ...»"},{"word":"صرعات","root":"صرع","maqayis_quote":"«الصَّادُ وَالرَّاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"بدع","maqayis":"«الْبَاءُ وَالدَّالُ وَالْعَيْنُ أَصْلَانِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"التعبير الأكثر دقة وشمولاً للمفهوم الحديث.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

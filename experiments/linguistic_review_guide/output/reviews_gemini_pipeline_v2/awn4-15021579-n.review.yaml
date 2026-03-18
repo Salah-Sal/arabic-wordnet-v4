@@ -1,0 +1,203 @@
+# ── المرحلة ١: المراجعة والتوليد (بدون أدلة) ──────────────
+stage1_review:
+  assessment:
+    concerns:
+      - لا توجد مشكلات جوهرية، اللمات الحالية دقيقة وتغطي الاستخدامين المعاصر والتراثي.
+    observations: "المفهوم يشمل المادة في حالتها المفتتة (مسحوق) وكذلك اللفظ المعرّب الشائع (بودرة). التعريف الحالي يركز على الحالة الفيزيائية."
+  blind_candidates:
+    - lemma: "مَسْحُوق"
+      generation_method: ishtiqaq
+      justification: "الاسم القياسي المشتق من فعل سحق، وهو الأكثر دقة للتعبير عن المادة التي تم سحقها."
+    - lemma: "ذَرُور"
+      generation_method: ishtiqaq
+      justification: "صيغة فَعُول لما يُذر، وتستخدم في المعاجم العربية للمادة المسحوقة التي تُرش على الجروح أو تُوضع في العين."
+    - lemma: "دُقَاق"
+      generation_method: ishtiqaq
+      justification: "صيغة فُعَال لما فتُت أو دُق، وهو لفظ تراثي دقيق لوصف فتات كل شيء."
+    - lemma: "بُودْرَة"
+      generation_method: taarib
+      justification: "اللفظ المعرّب الأكثر شيوعاً في الحياة اليومية (خاصة للتجميل والمواد الكيميائية المنزلية)."
+
+# ── المرحلة ٢: جمع الأدلة ────────────────────────────────
+stage2_evidence:
+  per_lemma:
+    - lemma: "مَسْحُوق"
+      confirm:
+        - text: "«(المسحوق) المدقوق (ج) مساحيق و (فِي الكيمياء) صفة للمادة الصلبة عِنْدَمَا تُوجد على شكل دقائق صَغِيرَة (مج)»"
+          source: "المعجم الوسيط"
+        - text: "«(فى الكيمياء) Powder: صِفَةٌ للمادةِ الصُّلْبَةِ عندما تُوجَدُ على شَكلِ دقائقَ صغيرةٍ»"
+          source: "المعجم الكبير"
+    - lemma: "بُودْرَة"
+      confirm:
+        - text: "«بُدْرَة: بودرة، كلّ مَسْحوق ناعم أو مطحون بشكل دقيق»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«(1) ذَرُور؛ مسحوق؛ بُوْدرة»"
+          source: "المورد الحديث"
+    - lemma: "ذَرُور"
+      confirm:
+        - text: "«(الذرور) مَا يذر فِي الْعين وعَلى الْجرْح من دَوَاء يَابِس وعَلى الطَّعَام من ملح مسحوق (ج) أذرة»"
+          source: "المعجم الوسيط"
+        - text: "«كلُّ ما يُذَرُّ ما يُذَرُّ في العين، وعلى الجُرْح من دَواءٍ يابس»"
+          source: "المعجم الكبير"
+    - lemma: "دُقَاق"
+      confirm:
+        - text: "«الدُّقَاقُ: فتات كل شيء»"
+          source: "المعجم الوسيط"
+        - text: "«الصَّغِيرُ الرَّدِىءُ فُتَاتُ كُلِّ شىءٍ دُقَّ. وقيل: ما انْدَقَّ مِنَ الشَّىْءِ»"
+          source: "المعجم الكبير"
+
+# ── المرحلة ٣: التحليل اللغوي للّمات ────────────────────
+stage3_analysis:
+  per_lemma:
+    - lemma: "مَسْحُوق"
+      decision: confirmed
+      decision_reason: "اللفظ الأساسي والمطابق تماماً للتعريف العلمي واللغوي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَسْحُوق"
+    - lemma: "بُودْرَة"
+      decision: confirmed
+      decision_reason: "لفظ معرّب مستقر وشائع الاستخدام في العلوم والحياة اليومية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "بُودْرَة"
+    - lemma: "ذَرُور"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ تراثي ومعجمي دقيق يصف المسحوق من منظور وظيفي (ما يُذر)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "ذَرُور", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "دُقَاق"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ تراثي يعبر عن الفتات الناتج عن الدق، وهو مرادف قوي في سياق المواد المطحونة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "دُقَاق", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+# ── المرحلة ٤: التعريف والأمثلة ──────────────────────────
+stage4_content:
+  definition:
+    current: "مادة صلبة على شكل جزيئات صغيرة سائبة؛ مادة صلبة تم سحقها"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد ولكنه يحتاج صياغة أكثر دقة وموسوعية."
+    authored:
+      - type: terminological
+        text: "مادّةٌ صُلْبَةٌ مُحَوَّلةٌ إلى جُزَيْئاتٍ دَقيقةٍ جدًّا ومُتَفرِّقةٍ عن طريق السَّحْقِ أو الدَّقِّ أو الطَّحْنِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مادّةٌ صُلْبَةٌ مُحَوَّلةٌ إلى جُزَيْئاتٍ دَقيقةٍ جدًّا ومُتَفرِّقةٍ عن طريق السَّحْقِ أو الدَّقِّ أو الطَّحْنِ."}
+  examples:
+    per_lemma:
+      - lemma: "مَسْحُوق"
+        examples:
+          - text: "أضافَ الكيميائيُّ مَسْحُوقَ الفَحْمِ إلى المَحْلُولِ."
+            type: usage
+      - lemma: "بُودْرَة"
+        examples:
+          - text: "يُفضَّلُ استِخدامُ بُودْرَةِ التَّلْكِ لتَجْفيفِ الجِلْدِ."
+            type: usage
+      - lemma: "ذَرُور"
+        examples:
+          - text: "أعدَّ العَطَّارُ ذَرُورًا من التَّوابِلِ لِتَطْييبِ الطَّعامِ."
+            type: usage
+      - lemma: "دُقَاق"
+        examples:
+          - text: "جَمَعَ النَّجَّارُ دُقَاقَ الخَشَبِ النَّاتِجَ عن النَّشْرِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "أضافَ الكيميائيُّ مَسْحُوقَ الفَحْمِ إلى المَحْلُولِ."}
+
+# ── المرحلة ٥: الإثراء (البيانات الوصفية) ─────────────────
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَسْحُوق"
+      entry_id: "{auto}"
+      root: "سحق"
+      maqayis_quote: "«السِّينُ وَالْحَاءُ وَالْقَافُ أَصْلَانِ: أَحَدُهُمَا الْبُعْدُ، وَالْآخَرُ إِنْهَاكُ الشَّيْءِ حَتَّى يَبْلُغَ بِهِ إِلَى حَالِ الْبِلَى... سَحَقْتُ الشَّيْءَ أَسْحَقُهُ سَحْقًا.»"
+    - lemma: "ذَرُور"
+      entry_id: "{auto}"
+      root: "ذرر"
+      maqayis_quote: "«الذَّالُ وَالرَّاءُ الْمُشَدَّدَةُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَطَافَةٍ وَانْتِشَارٍ. وَمِنْ ذَلِكَ الذَّرُّ... وَذَرَرْتُ الْمِلْحَ وَالدَّوَاءَ.»"
+    - lemma: "دُقَاق"
+      entry_id: "{auto}"
+      root: "دقق"
+      maqayis_quote: "«الدَّالُ وَالْقَافُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى صِغَرٍ وَحَقَارَةٍ. فَالدَّقِيقُ: خِلَافُ الْجَلِيلِ... وَتَقُولُ: دَقَقْتُ الشَّيْءَ أَدُقُّهُ دَقًّا.»"
+    - lemma: "بُودْرَة"
+      entry_id: "{auto}"
+      root: "بدر"
+      maqayis_quote: "«الْبَاءُ وَالدَّالُ وَالرَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ تَمَامُ الشَّيْءِ وَامْتِلَاؤُهُ، وَالْمُبَادَرَةُ إِلَيْهِ... (ملاحظة: اللفظ معرب ولكن الجذر العربي يحمل معنى المبادرة والتمام).»"
+  per_sense:
+    - lemma: "مَسْحُوق"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام الذي يعبر عن المادة المسحوقة نتيجة فعل السحق."
+      mwe: false
+    - lemma: "بُودْرَة"
+      sense_id: "{auto}"
+      nuance: "لفظ شائع يُستخدم غالباً لمساحيق التجميل والمواد الكيميائية المنزلية."
+      mwe: false
+    - lemma: "ذَرُور"
+      sense_id: "{auto}"
+      nuance: "يُركز على طريقة الاستخدام بالذر أو الرش، خاصة في السياق الطبي والغذائي."
+      mwe: false
+    - lemma: "دُقَاق"
+      sense_id: "{auto}"
+      nuance: "يُركز على كون المادة هي الفتات المتبقي بعد عملية الدق أو الكسر."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سحق","maqayis":"«السِّينُ وَالْحَاءُ وَالْقَافُ أَصْلَانِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ العام الذي يعبر عن المادة المسحوقة نتيجة فعل السحق.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

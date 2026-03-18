@@ -1,0 +1,171 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "المصطلحات الموجودة (إيروجيل، هلام هوائي) تفتقر إلى التشكيل الكامل."
+      - "الاقتصار على التعريب اللفظي (إيروجيل) والترجمة الحرفية (هلام هوائي) دون إدراج المصطلحات التقنية المعتمدة في المعاجم الطبية والعلمية الموحدة."
+    observations: "المجموعة تخص مادة علمية حديثة (Aerogel). الترجمة العربية تعتمد إما على التعريب الصوتي أو الترجمة التفسيرية لتركيب المادة (هلام + هواء/غاز). توجد حاجة لتأكيد هذه المصطلحات وتوثيقها من المعاجم المتخصصة."
+  blind_candidates:
+    - lemma: "إِيرُوجِيل"
+      generation_method: taarib
+      justification: "التعريب الصوتي المباشر للمصطلح العالمي، وهو الأكثر شيوعاً في الأبحاث العلمية."
+    - lemma: "هُلَامٌ هَوَائِيٌّ"
+      generation_method: tarkib
+      justification: "ترجمة حرفية دقيقة للمصطلح الإنجليزي (Aerogel)، حيث يعبر عن طبيعة المادة كونه هلاماً يحل الهواء محل سائلها."
+    - lemma: "هُلَامٌ غَازِيٌّ"
+      generation_method: tarkib
+      justification: "تعبير أدق علمياً لأن المكون الذي يحل محل السائل هو الغاز، وهو المصطلح المعتمد في بعض المعاجم الموحدة."
+    - lemma: "هَوَاءٌ مُتَجَمِّدٌ"
+      generation_method: majaz
+      justification: "تسمية شائعة للمادة في الأدبيات العلمية المبسطة نظراً لمظهرها الشفاف المائل للزرقة وخفتها الشديدة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "إيروجيل"
+      evidence_status: "no_material_found"
+    - lemma: "هلام هوائي"
+      evidence_status: "no_material_found"
+    - lemma: "هُلَامَةٌ غَازِيَّة"
+      confirm:
+        - text: "aerogel: هُلَامَةٌ غَازِيَّة"
+          source: "المعجم الطبي الموحد (2009)"
+    - lemma: "هُلَام"
+      expands:
+        - text: "«(الهلام) مرق السكباج المبرد المصفى من الدهن ومادة بروتينية شفافة تستخرج من الأنسجة الحيوانية المختلفة... وتكون جامدة عند جفافها ولكنها تتحول إلى سائل بالرطوبة (مو)»"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "إيروجيل"
+      decision: confirmed
+      decision_reason: "مصطلح تقني عالمي معرب صوتياً، واسع الانتشار في التخصصات الكيميائية والفيزيائية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "إِيرُوجِيل"
+    - lemma: "هلام هوائي"
+      decision: confirmed
+      decision_reason: "ترجمة اصطلاحية شائعة تعبر عن طبيعة المادة، وتستخدم كمرادف عربي أصيل بجانب اللفظ المعرب."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "هُلَامٌ هَوَائِيٌّ"
+    - lemma: "هُلَامَةٌ غَازِيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح معتمد في المعجم الطبي الموحد (MUA) لترجمة Aerogel، وهو الأدق علمياً لوصف حالة المادة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "هُلَامَةٌ غَازِيَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-84176644-n"}
+
+stage4_content:
+  definition:
+    current: "مادة صناعية مسامية خفيفة للغاية مشتقة من الهلام، حيث تم استبدال المكون السائل للهلام بالغاز"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكن يمكن تحسينه ليكون أكثر دقة من الناحية الفيزيائية بذكر خاصية الصلابة وعدم الانكماش."
+    authored:
+      - type: terminological
+        text: "مادة صلبة اصطناعية، مسامية وفائقة الخفة، تُشتق من هلام استُبدل فيه المكون السائل بالغاز دون انكماش يُذكر في هيكلها."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-84176644-n", definition_index: 0, text: "مادة صلبة اصطناعية، مسامية وفائقة الخفة، تُشتق من هلام استُبدل فيه المكون السائل بالغاز دون انكماش يُذكر في هيكلها."}
+  examples:
+    per_lemma:
+      - lemma: "إِيرُوجِيل"
+        examples:
+          - text: "يُستخدم الإيروجيل في العزل الحراري لمكوكات الفضاء نظراً لقدرته العالية على مقاومة الحرارة."
+            type: usage
+      - lemma: "هُلَامٌ هَوَائِيٌّ"
+        examples:
+          - text: "تُصنف الهلامات الهوائية كأخف المواد الصلبة كثافة في العالم."
+            type: usage
+      - lemma: "هُلَامَةٌ غَازِيَّة"
+        examples:
+          - text: "تتكون الهلامة الغازية من شبكة صلبة ثلاثية الأبعاد تحبس الغاز في مسامها."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يُستخدم الإيروجيل في العزل الحراري لمكوكات الفضاء نظراً لقدرته العالية على مقاومة الحرارة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "إِيرُوجِيل"
+      entry_id: "{auto}"
+    - lemma: "هُلَامٌ هَوَائِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "هلام"
+          root: "هلم"
+          maqayis_quote: "«الْهَاءُ وَاللَّامُ وَالْمِيمُ لَيْسَ فِيهِ إِلَّا قَوْلُهُمْ هَلُمَّ: كَلِمَةُ دَعْوَةٍ إِلَى شَيْءٍ.»"
+        - word: "هوائي"
+          root: "هوي"
+          maqayis_quote: "«الْهَاءُ وَالْوَاوُ وَالْيَاءُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى خُلُوٍّ وَسُقُوطٍ. أَصْلُهُ الْهَوَاءُ بَيْنَ الْأَرْضِ وَالسَّمَاءِ، سُمِّيَ لِخُلُوِّهِ.»"
+    - lemma: "هُلَامَةٌ غَازِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "هلامة"
+          root: "هلم"
+          maqayis_quote: "«الْهَاءُ وَاللَّامُ وَالْمِيمُ لَيْسَ فِيهِ إِلَّا قَوْلُهُمْ هَلُمَّ...»"
+        - word: "غازية"
+          root: "غاز"
+  per_sense:
+    - lemma: "إِيرُوجِيل"
+      sense_id: "{auto}"
+      nuance: "الاسم التقني المعرب والأكثر تداولاً في الأوساط العلمية العالمية."
+      mwe: false
+    - lemma: "هُلَامٌ هَوَائِيٌّ"
+      sense_id: "{auto}"
+      nuance: "ترجمة وصفية للمصطلح، توضح طبيعة المادة للمتلقي غير المتخصص."
+      mwe: true
+    - lemma: "هُلَامَةٌ غَازِيَّة"
+      sense_id: "{auto}"
+      nuance: "المصطلح الرسمي المعتمد في المعاجم الطبية والعلمية الموحدة."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"هلام","root":"هلم","maqayis":"«الهاء واللام والميم...»"},{"word":"هوائي","root":"هوي","maqayis":"«الهاء والواو والياء...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم التقني المعرب والأكثر تداولاً في الأوساط العلمية العالمية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-84176644-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-84176644-n"
+        score: 0.95

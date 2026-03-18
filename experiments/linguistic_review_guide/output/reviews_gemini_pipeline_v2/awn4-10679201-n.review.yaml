@@ -1,0 +1,193 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة 'مُنْحَنِي الظَّهْر' عبارة عن مركب إضافي (وصف معتمد على إضافة) وليست كلمة مفردة، إلا أنها تعبر بدقة عن المفهوم."
+      - "التعريف العربي 'شخص يحمل نفسه ورأسه...' يعد ترجمة ركيكة وحرفية للتعبير الإنجليزي 'carries himself'."
+    observations: "المفهوم يشير إلى الشخص الذي اعتاد على حني رأسه وكتفيه للأمام (stooper). في العربية يمكن التعبير عن ذلك بألفاظ مفردة مثل 'أجنأ' أو مركبة مثل 'منحني الظهر'."
+  blind_candidates:
+    - lemma: "أَحْدَب"
+      generation_method: majaz
+      justification: "تستخدم مجازاً للدلالة على من انحنى ظهره وبرز، رغم أنها تدل في الأصل على وجود تشوه أو نتوء."
+    - lemma: "أَجْنَأ"
+      generation_method: ishtiqaq
+      justification: "من الفعل 'جنأ' بمعنى مال وانحنى، والاسم يدل على من في كاهله انحناء على صدره، وهو يطابق المعنى بدقة."
+    - lemma: "مُكِبّ"
+      generation_method: ishtiqaq
+      justification: "من الفعل 'أكب' أي مال وانحنى، ويستخدم لمن يطأطئ رأسه ويميل بجذعه للأمام."
+    - lemma: "مُقَوَّسُ الظَّهْرِ"
+      generation_method: tarkib
+      justification: "مركب وصفي يدل على حالة تقوس وانحناء الظهر بشكل دائم."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُنْحَنِي الظَّهْرِ"
+      expands:
+        - text: "«شيخ أَقوَسُ: منحني الظهر»"
+          source: "كتاب العين للخليل بن أحمد الفراهيدي"
+          addition: "يثبت استخدام المركب 'منحني الظهر' لبيان حالة تقوس الظهر وانحنائه."
+    - lemma: "أَجْنَأ"
+      confirm:
+        - text: "«الأحدب الذى فى كاهله انحناء على صدره»"
+          source: "المعجم الوسيط"
+        - text: "«الذى فى كاهله انْحِناءُ على صَدْره, وليس بالأحدبِ رَجُلٌ أَجْنَأُ: أَحْدَبُ الظَّهْرِ الأقْعَسُ, وهو الذى فى صَدْره انْكِبابٌ إلى ظَهْرِه»"
+          source: "المعجم الكبير"
+    - lemma: "أَحْدَب"
+      expands:
+        - text: "«من تقوس ظهره فانحنى إلى الأمام وظهرت على ظهره حُدْبة»"
+          source: "معجم المصطلحات الطبية"
+          addition: "يدل على أن الانحناء يصاحبه نتوء أو حدبة، مما يجعله أخص من المفهوم المطلوب."
+    - lemma: "مُكِبّ"
+      evidence_status: no_material_found
+    - lemma: "مُقَوَّسُ الظَّهْرِ"
+      evidence_status: no_material_found
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مُنْحَنِي الظَّهْر"
+      decision: confirmed
+      decision_reason: "تعبير مركب فصيح ومستعمل وشائع للدلالة على من انحنى ظهره للأمام، ويؤدي المعنى المطلوب بدقة رغم كونه مركباً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُنْحَنِي الظَّهْرِ"
+
+    - lemma: "أَجْنَأ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "كلمة معجمية دقيقة جداً ومخصصة لوصف من في كاهله انحناء للأمام على صدره، وتطابق المفهوم (stooper) تماماً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "أَجْنَأ"
+            pos: "n"
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "أَحْدَب"
+      source: stage1
+      decision: removed
+      decision_reason: "تشير الكلمة عادة إلى وجود تشوه خلقي أو مرضي (حدبة) يصاحب الانحناء، بينما المفهوم يشير إلى الانحناء الاعتيادي أو المكتسب (stooper)."
+
+    - lemma: "مُكِبّ"
+      source: stage1
+      decision: removed
+      decision_reason: "كلمة أعم قد تدل على من أمال رأسه ووجهه في موقف معين وليس بالضرورة من انحنى ظهره وكتفاه خلقة أو عادة."
+
+    - lemma: "مُقَوَّسُ الظَّهْرِ"
+      source: stage1
+      decision: removed
+      decision_reason: "معناها صحيح لكن 'منحني الظهر' كافية وتفي بالغرض وهي مستخدمة بالفعل، فلا حاجة لإضافة هذا المركب الوصفي الرديف."
+
+stage4_content:
+  definition:
+    current: "شخص يحمل نفسه ورأسه وكتفاه منحنيان للأمام عادة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ركيك ومترجم حرفياً (يحمل نفسه - carries himself)، ويجب صياغة تعريف بأسلوب عربي طبيعي وفصيح."
+    authored:
+      - type: terminological
+        text: "شخص معتاد على المشي والوقوف ورأسه وكتفاه منحنيان إلى الأمام."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "شخص معتاد على المشي والوقوف ورأسه وكتفاه منحنيان إلى الأمام."
+
+  examples:
+    per_lemma:
+      - lemma: "مُنْحَنِي الظَّهْرِ"
+        examples:
+          - text: "أقبل الشيخ يمشي مُنْحَنِي الظَّهْرِ متكئاً على عصاه."
+            type: usage
+      - lemma: "أَجْنَأ"
+        examples:
+          - text: "كان الرجل أَجْنَأَ، يميل برأسه وكتفيه إلى الأمام."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "أقبل الشيخ يمشي مُنْحَنِي الظَّهْرِ متكئاً على عصاه."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "أَجْنَأ"
+      entry_id: "{auto}"
+      root: "جنأ"
+      maqayis_quote: "«الْجِيمُ وَالنُّونُ وَالْهَمْزَةُ أَصْلٌ وَاحِدٌ، وَهُوَ الْعَطْفُ عَلَى الشَّيْءِ وَالْحُنُوُّ عَلَيْهِ. يُقَالُ جَنِئَ عَلَيْهِ يَجْنَأُ جَنَأً، إِذَا احْدَوْدَبَ»"
+    - lemma: "مُنْحَنِي الظَّهْرِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "منحني"
+          root: "حنو"
+          maqayis_quote: "«الْحَاءُ وَالنُّونُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَعَطُّفٍ وَتَعَوُّجٍ. يُقَالُ حَنَوْتُ الشَّيْءَ حَنْوًا وَحَنَيْتُهُ، إِذَا عَطَفْتَهُ حَنْيًا»"
+        - word: "الظهر"
+          root: "ظهر"
+          maqayis_quote: "«الظَّاءُ وَالْهَاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى قُوَّةٍ وَبُرُوزٍ... وَالْأَصْلُ فِيهِ كُلِّهِ ظَهْرُ الْإِنْسَانِ، وَهُوَ خِلَافُ بَطْنِهِ، وَهُوَ يَجْمَعُ الْبُرُوزَ وَالْقُوَّةَ»"
+  
+  per_sense:
+    - lemma: "مُنْحَنِي الظَّهْرِ"
+      sense_id: "{auto}"
+      nuance: "تعبير شائع ومفهوم لوصف حالة الانحناء بشكل عام."
+      mwe: true
+    - lemma: "أَجْنَأ"
+      sense_id: "{auto}"
+      nuance: "لفظة فصيحة ومختصة جداً بمن في كاهله انحناء على صدره دون أن يكون بالضرورة أحدب."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جنأ","maqayis":"«الْجِيمُ وَالنُّونُ وَالْهَمْزَةُ أَصْلٌ وَاحِدٌ، وَهُوَ الْعَطْفُ عَلَى الشَّيْءِ وَالْحُنُوُّ عَلَيْهِ. يُقَالُ جَنِئَ عَلَيْهِ يَجْنَأُ جَنَأً، إِذَا احْدَوْدَبَ»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"منحني","root":"حنو","maqayis":"«الْحَاءُ وَالنُّونُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَعَطُّفٍ وَتَعَوُّجٍ. يُقَالُ حَنَوْتُ الشَّيْءَ حَنْوًا وَحَنَيْتُهُ، إِذَا عَطَفْتَهُ حَنْيًا»"},{"word":"الظهر","root":"ظهر","maqayis":"«الظَّاءُ وَالْهَاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى قُوَّةٍ وَبُرُوزٍ... وَالْأَصْلُ فِيهِ كُلِّهِ ظَهْرُ الْإِنْسَانِ، وَهُوَ خِلَافُ بَطْنِهِ، وَهُوَ يَجْمَعُ الْبُرُوزَ وَالْقُوَّةَ»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير شائع ومفهوم لوصف حالة الانحناء بشكل عام.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"لفظة فصيحة ومختصة جداً بمن في كاهله انحناء على صدره دون أن يكون بالضرورة أحدب.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

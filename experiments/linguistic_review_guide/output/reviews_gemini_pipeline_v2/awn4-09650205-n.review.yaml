@@ -1,0 +1,146 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي واللمة الموجودة يعكسان ترجمة حرفية خاطئة للمصطلح الإنجليزي (percher)."
+      - "المعنى المقصود في الشبكة العالمية (OEWN) هو عامل فحص الأقمشة في صناعة النسيج (cloth inspector)، وليس مجرد شخص يجلس في مكان مرتفع."
+      - "الاندراج تحت الفئة العليا (عامل/فاعل) يؤكد أن المقصود وظيفة أو مهنة محددة."
+    observations: "المجموعة الترادفية تعاني من خلط بين المعنى اللغوي العام للفعل (جثم) وبين مصطلح تقني في صناعة المنسوجات. المصطلح الإنجليزي 'percher' يشير إلى العامل الذي يفحص القماش على إطار يسمى 'perch'. لذا يجب تصحيح اللمة والتعريف بالكامل."
+  blind_candidates:
+    - lemma: "فَاحِصُ أَقْمِشَة"
+      generation_method: tarkib
+      justification: "ترجمة دقيقة للوظيفة المقصودة (cloth inspector) بناءً على الفئة العليا (عامل)."
+    - lemma: "مُرَاقِبُ جَوْدَةِ المَنْسُوجَاتِ"
+      generation_method: tarkib
+      justification: "مصطلح معاصر يعبر عن طبيعة العمل (inspection/quality control)."
+    - lemma: "جَاثِم"
+      generation_method: ishtiqaq
+      justification: "بناءً على التعريف الحرفي المذكور (شخص يجلس على مجثم)، رغم عدم دقته المفهومية."
+    - lemma: "مُعَايِنُ أَقْمِشَة"
+      generation_method: tarkib
+      justification: "مرادف للفاحص، مستخدم في السياقات الصناعية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "جَاثِم"
+      confirm:
+        - text: "«الجاثِمُ اللاَّزِمُ مكانه لا يَبْرح»"
+          source: "لسان العرب"
+        - text: "«جَثَمَ الإنسانُ والطائرُ وغيرُهما: لَزِمَ مكانَه فلم يَبْرَحْ»"
+          source: "المعجم الكبير"
+      contradicts:
+        - text: "«عامل يقوم بفحص الأقمشة للبحث عن العيوب»"
+          source: "OEWN (i87238)"
+          conflict: "اللمة العربية تعبر عن وضعية جلوس (perching) بينما المعنى المقصود مهنة (inspection)."
+    - lemma: "فَاحِصُ أَقْمِشَة"
+      confirm:
+        - text: "«فاحص: اسم فاعل من فحص؛ فحص الشيء: بحثه وطلبه»"
+          source: "المعجم الوسيط"
+        - text: "«قماش: نسيج منسوج من خيوط»"
+          source: "آرابتيرم (ضمن سياق الصناعة)"
+      evidence_status: "no_material_found" # لا يوجد مدخل معجمي مركب حرفي، بل أدلة للمكونات
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "جَاثِم"
+      decision: removed
+      decision_reason: "اللمة ناتجة عن ترجمة حرفية خاطئة لمصطلح تقني. 'percher' في هذا السياق هو عامل نسيج وليس شخصاً يجلس كطائر."
+      evidence_assessment:
+        case: contradicts_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "فَاحِصُ أَقْمِشَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح العربي الأدق للتعبير عن مهنة فحص الأقمشة (percher/cloth inspector) المتسقة مع الفئة العليا (عامل)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "فَاحِصُ أَقْمِشَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09650205-n"
+
+stage4_content:
+  definition:
+    current: "شخص يجلس على مكان مرتفع (مجثم)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يصف وضعية جلوس جسدية (perching) بناءً على فهم خاطئ للكلمة الإنجليزية، بينما السياق التقني يشير إلى مهنة فحص المنسوجات."
+    authored:
+      - type: terminological
+        text: "عامل يتولى فحص المنسوجات والأقمشة لاكتشاف ما قد يكون بها من عيوب، وذلك بمرورها فوق منصة خاصة تسمى المنصة أو المجثم (إطار الفحص)."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-09650205-n"
+          definition_index: 0
+          text: "عامل يتولى فحص المنسوجات والأقمشة لاكتشاف ما قد يكون بها من عيوب، وذلك بمرورها فوق منصة خاصة تسمى المنصة أو المجثم (إطار الفحص)."
+  examples:
+    per_lemma:
+      - lemma: "فَاحِصُ أَقْمِشَة"
+        examples:
+          - text: "يقوم فاحص الأقمشة في مصنع الغزل بالتأكد من خلو المنسوجات من العيوب قبل طرحها في الأسواق."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يقوم فاحص الأقمشة في مصنع الغزل بالتأكد من خلو المنسوجات من العيوب قبل طرحها في الأسواق."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "فَاحِصُ أَقْمِشَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "فاحص"
+          root: "فحص"
+          maqayis_quote: "«الفاء والحاء والصاد كلمة تدل على طلب الشيء وبحثه.»"
+        - word: "أقمشة"
+          root: "قمش"
+          maqayis_quote: "«القاف والميم والشين كلمة تدل على جمع الشيء من هنا وهناك.»"
+  per_sense:
+    - lemma: "فَاحِصُ أَقْمِشَة"
+      sense_id: "{auto}"
+      nuance: "مصطلح مهني متخصص في صناعة النسيج."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"فاحص","root":"فحص","maqayis":"«الفاء والحاء والصاد كلمة تدل على طلب الشيء وبحثه.»"},{"word":"أقمشة","root":"قمش","maqayis":"«القاف والميم والشين كلمة تدل على جمع الشيء من هنا وهناك.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح مهني متخصص في صناعة النسيج.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-09650205-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-09650205-n"
+        score: 0.95

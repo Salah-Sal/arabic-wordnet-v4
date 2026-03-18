@@ -1,0 +1,222 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة (انعزال) تشير إلى حالة الانفصال المكاني أو الاجتماعي وليس إلى قلة الحديث بشكل خاص."
+      - "اللمة (قلة كلام) تفتقر إلى التشكيل."
+    observations: "المفهوم يعبر عن سمة شخصية تتمثل في الإحجام عن الكلام والميل إلى الصمت."
+  blind_candidates:
+    - lemma: "صَمْت"
+      generation_method: ishtiqaq
+      justification: "مصدر يدل على ترك الكلام، ويعبر عن السمة بشكل مباشر."
+    - lemma: "سُكُوت"
+      generation_method: ishtiqaq
+      justification: "مصدر يدل على عدم النطق مع القدرة عليه."
+    - lemma: "قِلَّةُ كَلَامٍ"
+      generation_method: tarkib
+      justification: "مركب إضافي يصف حالة المقل في تواصله اللفظي."
+    - lemma: "انْطِوَاء"
+      generation_method: majaz
+      justification: "امتداد دلالي لحالة الانسحاب الداخلي التي يصاحبها عادة قلة التواصل."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "انعزال"
+      contradicts:
+        - text: "«الحالة التي تفصل فيها حواجز بيئية أو اجتماعية بين الجماعات»"
+          source: "المعجم الموحد لمصطلحات علم الوراثة"
+          conflict: "تدل على العزلة الفيزيائية أو الاجتماعية وليس قلة الحديث."
+    - lemma: "قلة كلام"
+      confirm:
+        - text: "«(1) قلّة كلام؛ تكتّم (2) تحفُّظ.»"
+          source: "المورد الحديث"
+    - lemma: "صَمْت"
+      confirm:
+        - text: "«لم يَنْطِق . ويقال لغير النَّاطق : صامِتٌ»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«السُّكُوْتُ, أو طُولُهُ»"
+          source: "المعجم الكبير"
+          addition: "يبين أن الصمت قد يعني طول السكوت مما يجعله سمة."
+    - lemma: "سُكُوت"
+      confirm:
+        - text: "«السكوت: هو ترك التكلم مع القدرة عليه.»"
+          source: "كتاب التعريفات للشريف الجرجاني"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "انعزال"
+      decision: removed
+      decision_reason: "المصطلح يشير إلى العزلة والانقطاع عن الناس مكانياً أو اجتماعياً، وهذا أعم وأشمل من مجرد عدم التواصل اللفظي المقصود في المجموعة."
+      evidence_assessment:
+        case: contradicts_only
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+            
+    - lemma: "قِلَّة كَلَام"
+      decision: confirmed
+      decision_reason: "تعبير دقيق ومباشر لوصف الشخص الذي لا يتحدث كثيراً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "قِلَّة كَلَام"
+
+    - lemma: "صَمْت"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصدر فصيح يدل على السكوت، وهو مرادف قوي ومباشر لسمة عدم التواصل اللفظي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "صَمْت", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "سُكُوت"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف للصمت ويعبر عن الحالة بوضوح."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "سُكُوت", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "سمة كون المرء غير متواصل"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ترجمة حرفية ركيكة (غير متواصل)، والأفضل صياغته بأسلوب معجمي دقيق."
+    authored:
+      - type: terminological
+        text: "سمة شخصية تتمثل في ميل الفرد إلى الصمت وقلة الحديث مع الآخرين."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "سمة شخصية تتمثل في ميل الفرد إلى الصمت وقلة الحديث مع الآخرين."}
+        
+  examples:
+    per_lemma:
+      - lemma: "قِلَّة كَلَام"
+        examples:
+          - text: "يُعْرَفُ عَنِ الرَّجُلِ قِلَّةُ كَلَامِهِ فِي الْمَجَالِسِ."
+            type: usage
+      - lemma: "صَمْت"
+        examples:
+          - text: "كَانَ الصَّمْتُ مِنْ أَبْرَزِ صِفَاتِهِ مُنْذُ صِغَرِهِ."
+            type: usage
+      - lemma: "سُكُوت"
+        examples:
+          - text: "يُؤْثِرُ بَعْضُ النَّاسِ السُّكُوتَ تَجَنُّبًا لِلْخِلَافَاتِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يُعْرَفُ عَنِ الرَّجُلِ قِلَّةُ كَلَامِهِ فِي الْمَجَالِسِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "كَانَ الصَّمْتُ مِنْ أَبْرَزِ صِفَاتِهِ مُنْذُ صِغَرِهِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يُؤْثِرُ بَعْضُ النَّاسِ السُّكُوتَ تَجَنُّبًا لِلْخِلَافَاتِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "قِلَّة كَلَام"
+      entry_id: "{auto}"
+      roots:
+        - word: "قلة"
+          root: "قلل"
+          maqayis_quote: "«الْقَافُ وَاللَّامُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى نَزَارَةِ الشَّيْءِ...»"
+        - word: "كلام"
+          root: "كلم"
+          maqayis_quote: "«الْكَافُ وَاللَّامُ وَالْمِيمُ أَصْلَانِ: أَحَدُهُمَا يَدُلُّ عَلَى نُطْقٍ مُفْهِمٍ...»"
+    - lemma: "صَمْت"
+      entry_id: "{auto}"
+      root: "صمت"
+      maqayis_quote: "«الصَّادُ وَالْمِيمُ وَالتَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى إِبْهَامٍ وَإِغْلَاقٍ. مِنْ ذَلِكَ صَمَتَ الرَّجُلُ، إِذَا سَكَتَ...»"
+    - lemma: "سُكُوت"
+      entry_id: "{auto}"
+      root: "سكت"
+      maqayis_quote: "«السِّينُ وَالْكَافُ وَالتَّاءُ يَدُلُّ عَلَى خِلَافِ الْكَلَامِ. تَقُولُ: سَكَتَ يَسْكُتُ سُكُوتًا...»"
+
+  per_sense:
+    - lemma: "قِلَّة كَلَام"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي مباشر يشير إلى ندرة الحديث."
+      mwe: true
+    - lemma: "صَمْت"
+      sense_id: "{auto}"
+      nuance: "يشير إلى السمة العامة المتمثلة في عدم النطق وطول السكوت."
+      mwe: false
+    - lemma: "سُكُوت"
+      sense_id: "{auto}"
+      nuance: "يشير إلى تعمد ترك الكلام مع القدرة عليه، وقد يكون طبعاً أو موقفاً."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"قلة","root":"قلل","maqayis":"«الْقَافُ وَاللَّامُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى نَزَارَةِ الشَّيْءِ...»"},{"word":"كلام","root":"كلم","maqayis":"«الْكَافُ وَاللَّامُ وَالْمِيمُ أَصْلَانِ: أَحَدُهُمَا يَدُلُّ عَلَى نُطْقٍ مُفْهِمٍ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صمت","maqayis":"«الصَّادُ وَالْمِيمُ وَالتَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى إِبْهَامٍ وَإِغْلَاقٍ. مِنْ ذَلِكَ صَمَتَ الرَّجُلُ، إِذَا سَكَتَ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سكت","maqayis":"«السِّينُ وَالْكَافُ وَالتَّاءُ يَدُلُّ عَلَى خِلَافِ الْكَلَامِ. تَقُولُ: سَكَتَ يَسْكُتُ سُكُوتًا...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير وصفي مباشر يشير إلى ندرة الحديث.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يشير إلى السمة العامة المتمثلة في عدم النطق وطول السكوت.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يشير إلى تعمد ترك الكلام مع القدرة عليه، وقد يكون طبعاً أو موقفاً.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,152 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي عبارة عن ترجمة شبه حرفية (شخص يستريح) ويمكن صياغته بشكل معجمي أفضل."
+      - "عدم وجود تشكيل للّمات في المجموعة."
+    observations: "المفهوم يشير إلى الشخص الذي يقوم بفعل الاستراحة، وتعتبر أسماء الفاعل مثل (مُسْتَرِيح) هي الأنسب للتعبير عن هذا المعنى في اللغة العربية."
+  blind_candidates:
+    - lemma: "مُسْتَرِيح"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من استراح يدل على من يقوم بفعل الراحة."
+    - lemma: "مُرْتَاح"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل يدل على من نال الراحة."
+    - lemma: "مُسْتَجِمّ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من استجم يدل على من يطلب الراحة والجمام."
+    - lemma: "مُسْتَرْخٍ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل لمن يقوم بالاسترخاء."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُسْتَرِيح"
+      confirm:
+        - text: "«المستريح: من العباد من أطلعه الله على سر القدر؛ لأنه يرى أن كل مقدور يجب وقوعه في وقته المعلوم، وكل ما ليس بمقدور يمتنع وقوعه، فاستراح من الطلب والانتظار لما لم يقع.»"
+          source: "Al-Sharīf al-Jurjānī, Kitāb al-Taʿrīfāt"
+    - lemma: "مُرْتَاح"
+      confirm:
+        - text: "«مُرْتَاح: من (ر و ح) المستريح المتنعم.»"
+          source: "Sultan Qaboos Encyclopedia of Arab Names"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مستريح"
+      decision: confirmed
+      decision_reason: "اللفظ المباشر والأدق الدال على من يقوم بفعل الاستراحة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُسْتَرِيح"
+    - lemma: "مُرْتَاح"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف قوي يدل على من نال الراحة ويستخدم في نفس السياق."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُرْتَاح"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "مُسْتَجِمّ"
+      source: stage1
+      decision: removed
+      decision_reason: "أخص من المعنى المطلوب لارتباطه بالاستجمام وقضاء العطلة."
+    - lemma: "مُسْتَرْخٍ"
+      source: stage1
+      decision: removed
+      decision_reason: "يدل على الارتخاء البدني أكثر من مجرد الاستراحة."
+
+stage4_content:
+  definition:
+    current: "شخص يستريح"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ركيك؛ يمكن تحسينه ليصبح أكثر دقة معجمياً."
+    authored:
+      - type: linguistic
+        text: "مَنْ يستريح أو يأخذ قسطاً من الراحة بعد عناء أو عمل."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "مَنْ يستريح أو يأخذ قسطاً من الراحة بعد عناء أو عمل."
+
+  examples:
+    per_lemma:
+      - lemma: "مُسْتَرِيح"
+        examples:
+          - text: "جلس المُسْتَرِيحُ في ظل الشجرة بعد يوم عمل طويل."
+            type: usage
+      - lemma: "مُرْتَاح"
+        examples:
+          - text: "بدا عليه أنه مُرْتَاحٌ بعد أن أنهى جميع مهامه."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "جلس المُسْتَرِيحُ في ظل الشجرة بعد يوم عمل طويل."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُسْتَرِيح"
+      entry_id: "{auto}"
+      root: "روح"
+      maqayis_quote: "«الرَّاءُ وَالْوَاوُ وَالْحَاءُ أَصْلٌ كَبِيرٌ مُطَّرِدٌ، يَدُلُّ عَلَى سَعَةٍ وَفُسْحَةٍ وَاطِّرَادٍ.»"
+    - lemma: "مُرْتَاح"
+      entry_id: "{auto}"
+      root: "روح"
+      maqayis_quote: "«الرَّاءُ وَالْوَاوُ وَالْحَاءُ أَصْلٌ كَبِيرٌ مُطَّرِدٌ، يَدُلُّ عَلَى سَعَةٍ وَفُسْحَةٍ وَاطِّرَادٍ.»"
+  per_sense:
+    - lemma: "مُسْتَرِيح"
+      sense_id: "{auto}"
+      nuance: "اللفظ المباشر الدال على من يقوم بفعل الاستراحة بشكل عام."
+      mwe: false
+    - lemma: "مُرْتَاح"
+      sense_id: "{auto}"
+      nuance: "يدل على من تحققت له الراحة والنعيم فضلاً عن الفعل المجرد."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"روح","maqayis":"«الرَّاءُ وَالْوَاوُ وَالْحَاءُ أَصْلٌ كَبِيرٌ مُطَّرِدٌ، يَدُلُّ عَلَى سَعَةٍ وَفُسْحَةٍ وَاطِّرَادٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ المباشر الدال على من يقوم بفعل الاستراحة بشكل عام.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

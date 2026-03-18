@@ -1,0 +1,180 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "منحدر"
+      confirm:
+        - text: "«(المنحدر) الأحدور»"
+          source: "المعجم الوسيط"
+        - text: "«سطح مائل، يصل بين مستوى مرتفع كقمة جبل أو حافة هضبة ومستوى منخفض كوادي أسفل الجبل أو سهل.»"
+          source: "مسرد المناخ والبيئة"
+    - lemma: "ميل"
+      confirm:
+        - text: "«سطح مائل في الهندسة»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«الميل: العدول عن الوسط إلى أحد الجانبين»"
+          source: "التوقيف على مهمات التعاريف"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "أحدور"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«الأحدور: المكان الذي ينحدر منه الشيء» — المعجم الوسيط"
+      justification: "مصطلح معجمي فصيح يدل على المكان المائل الذي يُنحدر منه."
+    - lemma: "حدور"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«الحدور: الموضع المنحدر والأحدور» — المعجم الوسيط"
+      justification: "مصطلح معجمي يدل على الموضع المنحدر."
+  knowledge_candidates:
+    - lemma: "سفح"
+      justification: "آلية التوليد: المجاز (علاقة مكانية). السفح هو أسفل الجبل، ويطلق مجازاً على الجانب المائل أو المنحدر من التكوينات المرتفعة."
+  generation_notes: "تم استخراج 'أحدور' و'حدور' من المعاجم، وتم اقتراح 'سفح' من المعرفة المعجمية الجغرافية."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "منحدر"
+      decision: confirmed
+      decision_reason: "مصطلح دقيق وشائع للتعبير عن التكوين الجيولوجي المائل."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يدل بشكل مباشر على المكان أو السطح الجغرافي الذي يميل إلى الأسفل (اسم مكان)."
+      example: "تساقطت الصخور بشدة من أعلى المنحدر."
+    - lemma: "ميل"
+      decision: confirmed
+      decision_reason: "مستعمل للدلالة على الانحناء والسطح المائل، وإن كان أكثر تجريداً للتعبير عن زاوية الانحدار."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "أكثر تجريداً، حيث يعبر غالباً عن صفة الانحراف أو درجة الانحدار، بخلاف 'منحدر' الذي يركز على الكيان الجغرافي نفسه."
+      example: "كان ميل التل شديداً مما صعّب تسلقه."
+    - lemma: "أحدور"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح عربي فصيح ودقيق معجمياً يدل على المكان المائل."
+      step05_citation: "«الأحدور: المكان الذي ينحدر منه الشيء» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يمثل صيغة لغوية قياسية فصيحة مرادفة للمنحدر."
+      example: "وقف المتأمل عند أحدور الوادي يراقب المزارع."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "أحدور"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09460358-n"
+    - lemma: "حدور"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح عربي دقيق للموضع المنحدر."
+      step05_citation: "«الحدور: الموضع المنحدر والأحدور» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "مرادف لمنحدر ويُستخدم لوصف الانحدار في التضاريس والأماكن العالية."
+      example: "سارت القافلة بحذر أسفل الحدور الخطير."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "حدور"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09460358-n"
+    - lemma: "سفح"
+      source: step05
+      decision: confirmed
+      decision_reason: "يُستعمل بكثرة في الجغرافيا للإشارة إلى الجانب المائل من الجبل."
+      step05_citation: "المعرفة اللغوية (السفح: أسفل الجبل وجانبه المائل)."
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يختص عادةً بمنحدرات الجبال والمرتفعات من الأسفل أو الجوانب الممتدة."
+      example: "تنتشر القرى في سفح الجبل الخصب."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "سفح"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09460358-n"
+  added_lemmas:
+    - lemma: "أحدور"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+    - lemma: "حدور"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+    - lemma: "سفح"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  current_definition: "تكوين جيولوجي مرتفع ومائل"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق ويغطي المفهوم الجيولوجي والجغرافي للأسطح المائلة."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "تكوين جيولوجي"
+    test_result: "correct"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "منحدر"
+      enrichment:
+        root: "ح-د-ر"
+      examples:
+        - text: "تساقطت الصخور بشدة من أعلى المنحدر."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "ميل"
+      enrichment:
+        root: "م-ي-ل"
+      examples:
+        - text: "كان ميل التل شديداً مما صعّب تسلقه."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "أحدور"
+      enrichment:
+        root: "ح-د-ر"
+      examples:
+        - text: "وقف المتأمل عند أحدور الوادي يراقب المزارع."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "حدور"
+      enrichment:
+        root: "ح-د-ر"
+      examples:
+        - text: "سارت القافلة بحذر أسفل الحدور الخطير."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "سفح"
+      enrichment:
+        root: "س-ف-ح"
+      examples:
+        - text: "تنتشر القرى في سفح الجبل الخصب."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-09460358-n"
+        text: "تساقطت الصخور بشدة من أعلى المنحدر."

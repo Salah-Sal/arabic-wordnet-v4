@@ -1,0 +1,208 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّة 'مستقلب' تفتقر إلى التشكيل الكامل."
+      - "اللمّة 'ناتج أيضي' هي تعبير مركب (MWE)."
+      - "غياب مصطلحات علمية دقيقة أخرى مثل 'أَيْضَة' و'مَئِيْضَة'."
+    observations: "المجموعة الترادفية تعبر عن مفهوم 'Metabolite'. المصطلح الأكثر شيوعاً هو 'مستقلب' المشتق من 'الاستقلاب'، لكن المعاجم الطبية والبيولوجية الحديثة تقترح أيضاً 'أَيْضَة' و'مَئِيْضَة' كبدائل عربية أصيلة وموجزة."
+  blind_candidates:
+    - lemma: "مُسْتَقْلَب"
+      generation_method: ishtiqaq
+      justification: "اسم مفعول من 'استقلب' (Metabolize)، وهو المصطلح المعياري في الكيمياء الحيوية."
+    - lemma: "نَاتِج أَيْضِيّ"
+      generation_method: tarkib
+      justification: "تعبير وصفي دقيق يشير إلى المادة الناتجة عن عملية الأيض."
+    - lemma: "أَيْضَة"
+      generation_method: ishtiqaq
+      justification: "اسم مرة أو وحدة من 'الأيض' على وزن 'فَعْلَة'، يُستخدم في المعاجم الحديثة للدلالة على المادة الأيضية."
+    - lemma: "مَادَّة أَيْضِيَّة"
+      generation_method: tarkib
+      justification: "تعبير عام يشمل المواد الداخلة والناتجة عن عملية التمثيل الغذائي."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مستقلب"
+      confirm:
+        - text: "«المنتج الكيميائي للتغييرات التي تطرأ على الجزيء السلفي، بما في ذلك المواد الكيميائية المشاركة في عملية التمثيل الغذائي.»"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+        - text: "«مُسْتَقْلَب [ج:مُسْتَقْلَبات]»"
+          source: "المعجم الطبي الموحد"
+    - lemma: "ناتج أيضي"
+      confirm:
+        - text: "«مستقلب، ناتج الأيض»"
+          source: "المعجم الموحد لمصطلحات علم الصحة"
+    - lemma: "أَيْضَة"
+      confirm:
+        - text: "«الأَيْضة: مادّة ناشئة عن الأيض.»"
+          source: "المورد الحديث"
+        - text: "«أَيْضة: مادة ناشئة عن الأيض.»"
+          source: "المعجم الموحد لمصطلحات الطب البيطري"
+    - lemma: "مَئِيْضَة"
+      confirm:
+        - text: "«مُسْتَقْلَب [ج:مُسْتَقْلَبات]؛ مَئِيْضَة»"
+          source: "المعجم الطبي الموحد"
+    - lemma: "ايض"
+      confirm:
+        - text: "«(في علم الأحياء Metabolism) : عمليات التحوّل الغذائي»"
+          source: "المعجم الكبير"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مستقلب"
+      decision: confirmed
+      decision_reason: "مصطلح علمي مستقر ومعتمد في معظم المعاجم التقنية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُسْتَقْلَب"
+    - lemma: "ناتج أيضي"
+      decision: confirmed
+      decision_reason: "تعبير وصفي شائع الاستخدام في السياقات التعليمية والعامة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نَاتِج أَيْضِيّ"
+    - lemma: "أَيْضَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح موجز (كلمة واحدة) ومعتمد في المعاجم اللغوية والبيطرية الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "أَيْضَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-15135363-n"}
+    - lemma: "مَئِيْضَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح طبي تخصصي موثق في المعجم الطبي الموحد، يتبع الصيغة الصرفية لاسم المفعول من الفعل 'آض'."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَئِيْضَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-15135363-n"}
+    - lemma: "مَادَّة أَيْضِيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير وصفي واسع يشمل المفهوم بدقة في سياق المواد الكيميائية الحيوية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "مَادَّة أَيْضِيَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-15135363-n"}
+
+stage4_content:
+  definition:
+    current: "أي مادة تشارك في عملية التمثيل الغذائي (سواء كمنتج للأيض أو ضرورية له)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دقيق ولكنه يحتاج إلى صياغة أكثر مهنية وتجنب استخدام 'أي' في البداية."
+    authored:
+      - type: terminological
+        text: "مادّة تشارك في التفاعلات الكيميائيّة الحيويّة داخل الكائن الحيّ (الأيض)، سواء كانت ناتجة عنها أو ضرورية لاستمرارها."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-15135363-n", definition_index: 0, text: "مادّة تشارك في التفاعلات الكيميائيّة الحيويّة داخل الكائن الحيّ (الأيض)، سواء كانت ناتجة عنها أو ضرورية لاستمرارها."}
+  examples:
+    per_lemma:
+      - lemma: "مُسْتَقْلَب"
+        examples:
+          - text: "تُعد الأحماض الأمينية مستقلبات أساسية لبناء البروتينات في الجسم."
+            type: usage
+      - lemma: "أَيْضَة"
+        examples:
+          - text: "يتم تحليل الأيضات المختلفة في المختبر لتشخيص الاضطرابات الوراثية."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-15135363-n", text: "ثاني أكسيد الكربون هو ناتج أيضي لعملية التنفس الخلوي."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُسْتَقْلَب"
+      entry_id: "{auto}"
+      root: "قلب"
+      maqayis_quote: "«الْقَافُ وَاللَّامُ وَالْبَاءُ أَصْلَانِ صَحِيحَانِ... الْآخَرُ عَلَى رَدِّ شَيْءٍ مِنْ جِهَةٍ إِلَى جِهَةٍ... وَقَلَّبْتُهُ بِيَدِي تَقْلِيبًا.»"
+    - lemma: "أَيْضَة"
+      entry_id: "{auto}"
+      root: "ايض"
+      maqayis_quote: "«الْهَمْزَةُ وَالْيَاءُ وَالضَّادُ كَلِمَةٌ وَاحِدَةٌ تَدُلُّ عَلَى الرُّجُوعِ وَالْعَوْدِ، يُقَالُ: آضَ يَئِيضُ: إِذَا رَجَعَ.»"
+    - lemma: "مَئِيْضَة"
+      entry_id: "{auto}"
+      root: "ايض"
+      maqayis_quote: "«الْهَمْزَةُ وَالْيَاءُ وَالضَّادُ كَلِمَةٌ وَاحِدَةٌ تَدُلُّ عَلَى الرُّجُوعِ وَالْعَوْدِ.»"
+    - lemma: "نَاتِج أَيْضِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "ناتج"
+          root: "نتج"
+          maqayis_quote: "«النُّونُ وَالتَّاءُ وَالْجِيمُ كَلِمَةٌ وَاحِدَةٌ، وَهِيَ النَّتَاجُ، يُقَالُ نَتَجَتِ النَّاقَةُ.»"
+        - word: "أيضي"
+          root: "ايض"
+          maqayis_quote: "«الْهَمْزَةُ وَالْيَاءُ وَالضَّادُ كَلِمَةٌ وَاحِدَةٌ تَدُلُّ عَلَى الرُّجُوعِ وَالْعَوْدِ.»"
+  per_sense:
+    - lemma: "مُسْتَقْلَب"
+      sense_id: "{auto}"
+      nuance: "المصطلح العلمي الشامل والأكثر شيوعاً في الأبحاث والكتب الأكاديمية."
+      mwe: false
+    - lemma: "أَيْضَة"
+      sense_id: "{auto}"
+      nuance: "مصطلح موجز (كلمة واحدة) يفضل في التصنيفات اللغوية الحديثة."
+      mwe: false
+    - lemma: "مَئِيْضَة"
+      sense_id: "{auto}"
+      nuance: "مصطلح طبي تخصصي يظهر في المعاجم الطبية الموحدة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قلب","maqayis":"«الْقَافُ وَاللَّامُ وَالْبَاءُ أَصْلَانِ صَحِيحَانِ... الْآخَرُ عَلَى رَدِّ شَيْءٍ مِنْ جِهَةٍ إِلَى جِهَةٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العلمي الشامل والأكثر شيوعاً في الأبحاث والكتب الأكاديمية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-15135363-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-15135363-n"
+        score: 0.95

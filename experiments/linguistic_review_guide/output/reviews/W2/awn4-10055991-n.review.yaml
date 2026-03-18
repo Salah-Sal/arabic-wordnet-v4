@@ -1,0 +1,112 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "متعاطي مخدرات"
+      confirm:
+        - text: "«مُتَعاطي المُخَدَّرات: druggy» — المعجم الطبي الموحد (2009)"
+          source: "المعجم الطبي الموحد (2009)"
+          
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "مدمن مخدرات"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«مدمن مخدرات: drug addict» — المعجم الموحد لمصطلحات القانون (2017)"
+      justification: "تركيب إضافي متداول."
+  knowledge_candidates:
+    - lemma: "متعاط"
+      justification: "اشتقاق: اسم فاعل من الفعل (تعاطى)، ويُستخدم اصطلاحاً بمعنى (user) في سياق المخدرات والسموم."
+  generation_notes: "تم استبعاد (مدمن مخدرات) كمرادف تام لأن التعاطي أعم من الإدمان."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "متعاطي مخدرات"
+      decision: confirmed
+      decision_reason: "مصطلح صحيح ومستقر في المعاجم الطبية والقانونية، ويدل مباشرة على المفهوم."
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "اللفظ المباشر والأكثر دقة للدلالة على من يتناول المخدرات بصفة عامة دون اشتراط الإدمان."
+      example: "تُقدِّم المصحات النفسية برامج تأهيلية لمساعدة أي متعاطي مخدرات على التعافي."
+    - lemma: "مدمن مخدرات"
+      source: step05
+      decision: removed
+      decision_reason: "مرفوض لأن الإدمان (addiction) أخص من مطلق التعاطي (use/abuse)؛ فقد يكون المتعاطي غير مدمن."
+      step05_citation: "«مدمن مخدرات» — المعجم الموحد لمصطلحات القانون (2017)"
+    - lemma: "متعاط"
+      source: step05
+      decision: confirmed
+      decision_reason: "ترجمة دقيقة لكلمة (user) الإنجليزية، وتُستخدم مستقلة في السياق الجنائي والطبي للإشارة لمتعاطي المخدرات."
+      step05_citation: "اشتقاق قياسي (اسم فاعل) تم توليده لتغطية الترجمة الإنجليزية."
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "لفظ عام يكتسب دلالته على تعاطي المخدرات من السياق، ويتميز بالاختصار وسهولة التداول."
+      example: "أُجريت تحاليل الدم للمشتبه به لمعرفة ما إذا كان متعاطياً."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "متعاط"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10055991-n"
+
+  synset_flags:
+    definition_review_needed: false
+    split_needed: false
+  added_lemmas:
+    - lemma: "متعاط"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شخص يتعاطى المخدرات"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وبسيط، ويفصل المعنى بوضوح دون تعقيد."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عَامِل"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "متعاطي مخدرات"
+        antonym_found: false
+  verb_checks:
+    applicable: false
+  selectional_restrictions:
+    - lemma: "متعاطي مخدرات"
+      constraint: "يُطلق على العاقل (الإنسان)"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "متعاطي مخدرات"
+      enrichment:
+        root: "ع-ط-و"
+      examples:
+        - text: "يجب اعتبار متعاطي المخدرات مريضاً يحتاج للعلاج وليس مجرماً فقط."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "متعاط"
+      enrichment:
+        root: "ع-ط-و"
+      examples:
+        - text: "ظهرت على الشاب علامات تدل على أنه متعاطٍ."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-10055991-n"
+        text: "يجب اعتبار متعاطي المخدرات مريضاً يحتاج للعلاج وليس مجرماً فقط."

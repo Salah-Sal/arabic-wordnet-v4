@@ -1,0 +1,138 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "بينثوس"
+      evidence_status: "no_material_found"
+    - lemma: "قاعيات"
+      confirm:
+        - text: "«(2) القاعيات: حيوانات ونباتات قاع البحر.»"
+          source: "المورد الحديث (2008)"
+        - text: "«الحيوانات التي تعيش على قاع البحر وقد تكون ثابتة أو متحركة»"
+          source: "المعجم الموحد لمصطلحات الجيولوجيا (2000)"
+        - text: "«الحيوانات التي تعيش على قاع البحر وقد تكون ثابتة أو متحركة»"
+          source: "المعجم الموحد لمصطلحات علوم الزلازل (1999)"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "أحياء قاعية"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«الكائنات الحية على، في، أو بالقرب من قاع البحر (أو البحيرة).» — مسرد المناخ والبيئة (ArabTerm)"
+      justification: "مصطلح علمي دقيق يطابق تعريف المجموعة والترجمة الإنجليزية benthos."
+    - lemma: "أحياء القاع"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«الحيوانات التي تعيش في قاع البحر» — المعجم الموحد لمصطلحات علم الأحياء (1993)"
+      justification: "مرادف مستعمل في المعاجم المتخصصة."
+  knowledge_candidates:
+    - lemma: "القاعيات"
+      justification: "استخدام صيغة المعرفة بالتعريف للدلالة على الصنف ككل."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "بينثوس"
+      decision: removed
+      decision_reason: "لم يرد المصطلح في المعاجم العربية المعتمدة في قاعدة البيانات، وهو مجرد تعريب لفظي للكلمة الأجنبية، ويغني عنه مصطلح القاعيات المستعمل فصيحاً."
+      evidence_assessment:
+        case: "no_material"
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "قاعيات"
+      decision: confirmed
+      decision_reason: "مصطلح علمي مستقر ومعرّف في المعاجم المتخصصة بما يطابق دلالة المجموعة."
+      evidence_assessment:
+        case: "confirm_only"
+      nuance_differentiation: "اسم جمع يدل على الكائنات التي تعيش في قاع المياه (نباتاً وحيواناً)."
+      example: "تعتبر القاعيات من المكونات الأساسية للنظم الإيكولوجية المائية، حيث تساهم في تدوير المواد المغذية في قاع البحار."
+
+    - lemma: "أحياء قاعية"
+      source: step05
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي علمي دقيق وشائع الاستعمال في العلوم المائية والبيئية."
+      step05_citation: "«الكائنات الحية على، في، أو بالقرب من قاع البحر» — مسرد المناخ والبيئة (ArabTerm)"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: pass
+      nuance_differentiation: "مركب وصفي يستخدم كبديل دقيق لـ benthos مع التركيز على الصفة الحيوية."
+      example: "تتنوع الأحياء القاعية بتنوع طبيعة القاع، فمنها ما يلتصق بالصخور ومنها ما يحفر في الرمل."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "أحياء قاعية"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-00005787-n"
+
+    - lemma: "أحياء القاع"
+      source: step05
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي مركب شائع في المعاجم البيولوجية."
+      step05_citation: "«الحيوانات التي تعيش في قاع البحر» — المعجم الموحد لمصطلحات علم الأحياء (1993)"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: pass
+      nuance_differentiation: "مركب إضافي يدل على الكائنات بحسب موطنها في قاع المسطحات المائية."
+      example: "تشمل أحياء القاع كائنات مجهرية وأخرى ترى بالعين المجردة مثل بعض أنواع الديدان والمحار."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "أحياء القاع"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-00005787-n"
+
+step3_definition:
+  current_definition: "كائنات (نباتات وحيوانات) تعيش في أو بالقرب من قاع بحر أو بحيرة أو نهر أو جدول"
+  assessment:
+    decision: retain
+    reason: "التعريف الحالي دقيق وشامل ويطابق التعريفات المتخصصة التي تم العثور عليها."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عُضْوِيَّة، كَائِن حَيّ"
+    test_result: correct
+  antonymy:
+    per_lemma:
+      - lemma: "قاعيات"
+        antonym_found: true
+        antonym: "عوالق"
+  actions:
+    - command: add_synset_relation
+      params:
+        source_id: "awn4-00005787-n"
+        relation_type: "antonym"
+        target_id: "{auto}"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "قاعيات"
+      enrichment:
+        root: "ق-و-ع"
+      examples:
+        - text: "تعتبر القاعيات من المكونات الأساسية للنظم الإيكولوجية المائية، حيث تساهم في تدوير المواد المغذية في قاع البحار."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "أحياء قاعية"
+      enrichment:
+        root: "ح-ي-ي"
+      examples:
+        - text: "تتنوع الأحياء القاعية بتنوع طبيعة القاع، فمنها ما يلتصق بالصخور ومنها ما يحفر في الرمل."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "أحياء القاع"
+      enrichment:
+        root: "ح-ي-ي"
+      examples:
+        - text: "تشمل أحياء القاع كائنات مجهرية وأخرى ترى بالعين المجردة مثل بعض أنواع الديدان والمحار."
+          type: usage
+          source: "مؤلَّف"
+  cultural_fit:
+    assessment: native

@@ -1,0 +1,185 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة تفتقر إلى التشكيل الكامل."
+      - "لفظ 'عامل' قد يكون عامّاً جداً، و'مشغل' أدق تقنياً."
+    observations: "المجموعة تتعلق بمهنة تشغيل أجهزة الراديو/اللاسلكي. المصطلحات العربية الشائعة هي 'عامل لاسلكي' و'مشغل راديو'. في السياقات العسكرية، قد يُستخدم 'مخابر' أو 'إشاري' لكنها لم تظهر في المعاجم العامة كمرادفات مباشرة لهذا المعنى الدقيق."
+  blind_candidates:
+    - lemma: "مُشَغِّلُ لَاسِلْكِيّ"
+      generation_method: tarkib
+      justification: "تركيب وصفي يعبر بدقة عن وظيفة التشغيل (Operator) في مجال اللاسلكي (Wireless)."
+    - lemma: "خَابِر"
+      generation_method: majaz
+      justification: "من الخبر والخبرة في الاتصالات، ويُستخدم في بعض السياقات العسكرية لوصف القائم على أجهزة الاتصال."
+    - lemma: "مُرَاسِلُ رَادْيُو"
+      generation_method: tarkib
+      justification: "تركيب يعبر عن وظيفة إرسال واستقبال الرسائل عبر الراديو."
+    - lemma: "عَامِلُ مِذْيَاع"
+      generation_method: tarkib
+      justification: "استخدام اللفظ العربي الفصيح 'مذياع' كبديل لـ 'راديو'."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "عامل لاسلكي"
+      confirm:
+        - text: "«عامل البَرْق: المُكلَّف بإرسال البرقيّات.»"
+          source: "معجم اللغة العربية المعاصرة"
+      expands:
+        - text: "«بَرْقيَّة لاسلكيَّة: برقيَّة تُرسل بالّلاسلكي.»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "مشغل راديو"
+      confirm:
+        - text: "«جهاز الاستقبال: الرَّاديو، جهاز كهربيّ يُعَدّ لاستقبال الرَّسائل اللاّسلكيّة المرسلة بطريق أجهزة الإذاعة.»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "مُشَغِّلُ لَاسِلْكِيّ"
+      expands:
+        - text: "«وتشير الكلمة كذلك إلى الشخص الذي يعمل على تشغيل الحاسوب أو النظام.»"
+          source: "المعجم الموحد لمصطلحات تقانة المعلومات (في مادة عامل/مشغل)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "عامل لاسلكي"
+      decision: confirmed
+      decision_reason: "مصطلح شائع ومستخدم لوصف المشغل اللاسلكي، ويتفق مع النماذج المعجمية مثل 'عامل البرق'."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عَامِلُ لَاسِلْكِيّ"
+    - lemma: "مشغل راديو"
+      decision: confirmed
+      decision_reason: "مصطلح حديث دقيق يعبر عن تشغيل تقنية الراديو تحديداً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُشَغِّلُ رَادْيُو"
+    - lemma: "مُشَغِّلُ لَاسِلْكِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "أدق من 'عامل' في السياق التقني الحديث لوصف المشغل."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "مُشَغِّلُ لَاسِلْكِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-10524019-n"}
+
+stage4_content:
+  definition:
+    current: "شخص يقوم بتشغيل جهاز إرسال لاسلكي"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي بسيط جداً، يفضل صياغته بأسلوب معجمي يجمع بين الإرسال والاستقبال."
+    authored:
+      - type: terminological
+        text: "شَخْصٌ مُكَلَّفٌ بِإِدَارَةِ أَوْ تَشْغِيلِ أَجْهِزَةِ الْإِرْسَالِ وَالِاسْتِقْبَالِ اللَّاسِلْكِيَّةِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-10524019-n"
+          definition_index: 0
+          text: "شَخْصٌ مُكَلَّفٌ بِإِدَارَةِ أَوْ تَشْغِيلِ أَجْهِزَةِ الْإِرْسَالِ وَالِاسْتِقْبَالِ اللَّاسِلْكِيَّةِ."
+
+  examples:
+    per_lemma:
+      - lemma: "عَامِلُ لَاسِلْكِيّ"
+        examples:
+          - text: "تَلَقَّى عَامِلُ اللَّاسِلْكِيِّ إِشَارَةَ اسْتِغَاثَةٍ مِنَ السَّفِينَةِ التَّائِهَةِ."
+            type: usage
+      - lemma: "مُشَغِّلُ رَادْيُو"
+        examples:
+          - text: "يَعْمَلُ الْمُشَغِّلُ عَلَى ضَبْطِ تَرَدُّدَاتِ الرَّادْيُو لِضَمَانِ نَقَاوَةِ الصَّوْتِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "awn4-10524019-n"
+          text: "أَرْسَلَ عَامِلُ اللَّاسِلْكِيِّ بَرْقِيَّةً عاجِلَةً إِلَى قِيادَةِ الْقاعِدَةِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "عَامِلُ لَاسِلْكِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "عامل"
+          root: "عمل"
+          maqayis_quote: "«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامٌّ فِي كُلِّ فِعْلٍ يُفْعَلُ.»"
+        - word: "لاسلكي"
+          root: "سلك"
+          maqayis_quote: "«السِّينُ وَاللَّامُ وَالْكَافُ أَصْلٌ يَدُلُّ عَلَى نُفُوذِ شَيْءٍ فِي شَيْءٍ.»"
+    - lemma: "مُشَغِّلُ رَادْيُو"
+      entry_id: "{auto}"
+      roots:
+        - word: "مشغل"
+          root: "شغل"
+          maqayis_quote: "«الشِّينُ وَالْغَيْنُ وَاللَّامُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خِلَافِ الْفَرَاغِ.»"
+        - word: "راديو"
+          root: null
+          maqayis_quote: null
+
+  per_sense:
+    - lemma: "عَامِلُ لَاسِلْكِيّ"
+      sense_id: "{auto}"
+      nuance: "المصطلح الأعم للأشخاص العاملين في مجال الاتصالات اللاسلكية التقليدية."
+      mwe: true
+    - lemma: "مُشَغِّلُ رَادْيُو"
+      sense_id: "{auto}"
+      nuance: "يركز على تقنية الراديو بالذات، وغالباً ما يُستخدم في السياقات المهنية الحديثة."
+      mwe: true
+    - lemma: "مُشَغِّلُ لَاسِلْكِيّ"
+      sense_id: "{auto}"
+      nuance: "أكثر دقة من 'عامل' في التعبير عن وظيفة التشغيل المباشر للأجهزة."
+      mwe: true
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"عامل","root":"عمل","maqayis":"«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ...»"},{"word":"لاسلكي","root":"سلك","maqayis":"«السِّينُ وَاللَّامُ وَالْكَافُ أَصْلٌ يَدُلُّ عَلَى نُفُوذِ شَيْءٍ فِي شَيْءٍ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مشغل","root":"شغل","maqayis":"«الشِّينُ وَالْغَيْنُ وَاللَّامُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خِلَافِ الْفَرَاغِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الأعم للأشخاص العاملين في مجال الاتصالات اللاسلكية التقليدية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-10524019-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-10524019-n"
+        score: 0.9

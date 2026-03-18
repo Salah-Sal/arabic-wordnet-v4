@@ -1,0 +1,238 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة «مدر لللبن» تحتوي على خطأ إملائي في دمج حرف الجر مع التعريف (الصواب: لِلبَنِ أو لِلَّبَنِ)، والأفضل استخدام صيغة الإضافة «مُدِرُّ اللَّبَنِ»."
+      - "التعريف الحالي «أي عامل يعزز إنتاج الحليب» يحتاج إلى صياغة أكثر دقة ومعجمية."
+    observations: "المفهوم طبي كيميائي يشير إلى المواد أو الهرمونات التي تحفز إنتاج الحليب. المصطلحات العربية تتراوح بين التعريب المباشر (لاكتوجين) والاشتقاق الدقيق (مدر) والوصف التقني (محفز الإلبان)."
+  blind_candidates:
+    - lemma: "مُدِرُّ اللَّبَنِ"
+      generation_method: tarkib
+      justification: "تعبير اصطلاحي طبي شائع للمواد التي تزيد إدرار اللبن."
+    - lemma: "لَاكْتُوجِين"
+      generation_method: taarib
+      justification: "تعريب مباشر للمصطلح العلمي العالمي (Lactogen)."
+    - lemma: "مُحَفِّزُ الإِلْبَانِ"
+      generation_method: tarkib
+      justification: "مصطلح تقني دقيق مستخدم في المعاجم الطبية (مثل المعجم الطبي الموحد) للتعبير عن محفزات إنتاج الحليب."
+    - lemma: "مُدِرُّ الحَلِيبِ"
+      generation_method: tarkib
+      justification: "بديل شائع لكلمة اللبن، يستخدم في السياقات المعاصرة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "لاكتوجين"
+      confirm:
+        - text: "«لاكتوجين المشيمة: (galactagogin)»"
+          source: "المعجم الطبي الموحد"
+        - text: "«هرمون اللاكتوجين المشيمي: (placental lactogen hormone)»"
+          source: "المكنز الزراعي"
+    - lemma: "مدر لللبن"
+      contradicts:
+        - text: "«مُدِرٌّ للَّبَن»"
+          source: "المعجم الطبي الموحد"
+          conflict: "الخطأ في تكرار اللام ثلاث مرات في اللمة الموجودة «لللبن»."
+    - lemma: "مُدِرُّ اللَّبَنِ"
+      confirm:
+        - text: "«مُدِرُّ اللَّبَن (galactagogue)»"
+          source: "المعجم الطبي الموحد"
+        - text: "«مُدر اللبن (الحليب): مادة تزيد إفراز اللبن من الثدي.»"
+          source: "معجم المصطلحات الطبية"
+    - lemma: "مُحَفِّزُ الإِلْبَانِ"
+      confirm:
+        - text: "«مُحفِّزُ الإِلْبان (lactogen)»"
+          source: "المعجم الطبي الموحد"
+    - lemma: "مُدِرُّ الحَلِيبِ"
+      confirm:
+        - text: "«مُدر اللبن (الحليب)»"
+          source: "معجم المصطلحات الطبية"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "لاكتوجين"
+      decision: confirmed
+      decision_reason: "تعريب مقبول وشائع في المصطلحات الطبية والزراعية المتخصصة للهرمونات والعوامل المحفزة لإنتاج الحليب."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "لَاكْتُوجِين"
+    - lemma: "مدر لللبن"
+      decision: removed
+      decision_reason: "خطأ إملائي في صياغة المركب بتكرار اللام ثلاث مرات، وسيتم استبداله بصيغة الإضافة الأكثر فصاحة ومعيارية."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "مُدِرُّ اللَّبَنِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح العربي المعياري والأكثر شيوعاً في المعاجم الطبية والقديمة لهذا المفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُدِرُّ اللَّبَنِ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "مُحَفِّزُ الإِلْبَانِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "ترجمة دقيقة وتقنية لمصطلح (lactogen) في المعاجم المتخصصة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُحَفِّزُ الإِلْبَانِ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "مُدِرُّ الحَلِيبِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "بديل مرادف مستخدم بكثرة في السياقات العامة والطبية المعاصرة باستخدام كلمة حليب."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُدِرُّ الحَلِيبِ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "أي عامل يعزز إنتاج الحليب"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مبسط جداً ويفتقر للغة المعجمية المتخصصة."
+    authored:
+      - type: terminological
+        text: "مَادَّةٌ أَوْ عَامِلٌ كِيمْيَائِيٌّ يُحَفِّزُ أَوْ يَزِيدُ مِنْ إِفْرَازِ اللَّبَنِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "مَادَّةٌ أَوْ عَامِلٌ كِيمْيَائِيٌّ يُحَفِّزُ أَوْ يَزِيدُ مِنْ إِفْرَازِ اللَّبَنِ."
+  examples:
+    per_lemma:
+      - lemma: "لَاكْتُوجِين"
+        examples:
+          - text: "يُعَدُّ لَاكْتُوجِينُ المَشِيمَةِ عُنْصُراً حَيَوِيّاً فِي نُمُوِّ الغُدَدِ الثَّدْيِيَّةِ أَثْنَاءَ الحَمْلِ."
+            type: usage
+      - lemma: "مُدِرُّ اللَّبَنِ"
+        examples:
+          - text: "تُنْصَحُ بَعْضُ المُرْضِعَاتِ بِتَنَاوُلِ الحُلْبَةِ كَمُدِرٍّ طَبِيعِيٍّ لِلَّبَنِ."
+            type: usage
+      - lemma: "مُحَفِّزُ الإِلْبَانِ"
+        examples:
+          - text: "يَعْمَلُ هَذَا الهُرْمُونُ كَمُحَفِّزٍ قَوِيٍّ لِلإِلْبَانِ عِنْدَ الثَّدْيِيَّاتِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تُنْصَحُ بَعْضُ المُرْضِعَاتِ بِتَنَاوُلِ الحُلْبَةِ كَمُدِرٍّ طَبِيعِيٍّ لِلَّبَنِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "لَاكْتُوجِين"
+      entry_id: "{auto}"
+      note: '{"taarib":"Lactogen"}'
+    - lemma: "مُدِرُّ اللَّبَنِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مدر"
+          root: "درر"
+          maqayis_quote: "«الدَّالُ وَالرَّاءُ فِي الْمُضَاعَفِ يَدُلُّ عَلَى أَصْلَيْنِ: أَحَدُهُمَا تَوَلُّدُ شَيْءٍ عَنْ شَيْءٍ... فَالْأَوَّلُ الدَّرُّ دَرُّ اللَّبَنِ.»"
+        - word: "اللبن"
+          root: "لبن"
+          maqayis_quote: "«اللَّامُ وَالْبَاءُ وَالنُّونُ أَصْلٌ صَحِيحٌ يَتَفَرَّعُ مِنْهُ كَلِمَاتٌ، وَهُوَ اللَّبَنُ الْمَشْرُوبُ.»"
+    - lemma: "مُحَفِّزُ الإِلْبَانِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "محفز"
+          root: "حفز"
+          maqayis_quote: "«الْحَاءُ وَالْفَاءُ وَالزَّاءُ كَلِمَةٌ وَاحِدَةٌ تَدَلُّ عَلَى الْحَثِّ وَمَا قَرُبَ مِنْهُ.»"
+        - word: "الإلبان"
+          root: "لبن"
+          maqayis_quote: "«اللَّامُ وَالْبَاءُ وَالنُّونُ أَصْلٌ صَحِيحٌ... وَهُوَ اللَّبَنُ الْمَشْرُوبُ.»"
+    - lemma: "مُدِرُّ الحَلِيبِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مدر"
+          root: "درر"
+          maqayis_quote: "«الدَّالُ وَالرَّاءُ... تَوَلُّدُ شَيْءٍ عَنْ شَيْءٍ... فَالْأَوَّلُ الدَّرُّ دَرُّ اللَّبَنِ.»"
+        - word: "الحليب"
+          root: "حلب"
+          maqayis_quote: "«الْحَاءُ وَاللَّامُ وَالْبَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ اسْتِمْدَادُ الشَّيْءِ... يُقَالُ الْحَلَبُ حَلَبُ الشَّاءِ.»"
+  per_sense:
+    - lemma: "لَاكْتُوجِين"
+      sense_id: "{auto}"
+      nuance: "يُسْتَخْدَمُ لِلإِشَارَةِ إِلَى العَوَامِلِ الكِيمْيَائِيَّةِ أَوِ الهُرْمُونَاتِ بِشَكْلٍ خَاصّ."
+      mwe: false
+    - lemma: "مُدِرُّ اللَّبَنِ"
+      sense_id: "{auto}"
+      nuance: "المصطلح العربي التقليدي والطبي العام، يشمل الأدوية والأعشاب."
+      mwe: true
+    - lemma: "مُحَفِّزُ الإِلْبَانِ"
+      sense_id: "{auto}"
+      nuance: "مصطلح تقني يركز على عملية الإلبان كآلية فيزيولوجية."
+      mwe: true
+    - lemma: "مُدِرُّ الحَلِيبِ"
+      sense_id: "{auto}"
+      nuance: "مرادف لمدِر اللبن، ويشيع استخدامه بلفظ الحليب في السياقات المعاصرة."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"درر","maqayis":"«الدَّالُ وَالرَّاءُ... تَوَلُّدُ شَيْءٍ عَنْ شَيْءٍ... فَالْأَوَّلُ الدَّرُّ دَرُّ اللَّبَنِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العربي التقليدي والطبي العام، يشمل الأدوية والأعشاب.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

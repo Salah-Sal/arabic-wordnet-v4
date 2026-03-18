@@ -1,0 +1,240 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة (طرف) غير مشكولة."
+      - "التعريف الحالي حرفي بعض الشيء ومختصر، ويمكن تحسينه ليصبح أدق في السياق القانوني."
+    observations: "مصطلح (طَرَف) شائع جداً في الاستخدام القانوني للدلالة على أحد أطراف الخصومة أو العقد. وهناك مرادفات أخرى تستخدم بحسب طبيعة الإجراء كخصم ومتقاض."
+  blind_candidates:
+    - lemma: "طَرَف"
+      generation_method: majaz
+      justification: "استخدام مجازي للدلالة على أحد الجوانب في نزاع أو اتفاق، وهو شائع ومستقر."
+    - lemma: "مُتَقَاضٍ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل تقاضى، يدل على من يشارك في دعوى أمام القضاء."
+    - lemma: "خَصْم"
+      generation_method: majaz
+      justification: "يدل على المنازع في خصومة، ويشمل المدعي والمدعى عليه."
+    - lemma: "فَرِيق"
+      generation_method: majaz
+      justification: "يطلق على الجهة أو الجماعة التي تشكل أحد أطراف الإجراء القانوني أو التعاقدي."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "طَرَف"
+      confirm:
+        - text: "«أحَدُ الْمُتَعاقِدَيْن من الرِّجال»"
+          source: "المعجم الكبير"
+        - text: "«طَرَف خَصْم، طَرَف منازِع ... طرف أصليّ»"
+          source: "المعجم الموحد لمصطلحات القانون (2017)"
+        - text: "«(1) المتقاضي: خَصْمٌ أو طرف في دعوى قضائية»"
+          source: "المورد الحديث"
+    - lemma: "مُتَقَاضٍ"
+      confirm:
+        - text: "«المتقاضي: خَصْمٌ أو طرف في دعوى قضائية»"
+          source: "المورد الحديث"
+    - lemma: "خَصْم"
+      confirm:
+        - text: "«الخَصم: المدعي والمدعى عليه لأن كلَّ واحد منهما خصمٌ للآخر.»"
+          source: "التعريفات الفقهيّة للبركتي"
+        - text: "«الْخصم: ... وَالْمُدَّعِي وَالْمُدَّعى عَلَيْهِ فَإِن كل وَاحِد مِنْهُمَا خصم للْآخر.»"
+          source: "دستور العلماء للأحمدنكري"
+    - lemma: "فَرِيق"
+      confirm:
+        - text: "«الطائفة من الناس.»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "طَرَف"
+      decision: confirmed
+      decision_reason: "مصطلح قانوني أصيل وشائع جداً للتعبير عن المشارك في إجراء قانوني أو تعاقدي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "طَرَف"
+    - lemma: "مُتَقَاضٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح دقيق يدل حصراً على من يكون طرفاً في دعوى أمام القضاء."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُتَقَاضٍ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "خَصْم"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فقهي وقانوني ثابت يطلق على المدعي والمدعى عليه في الخصومات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "خَصْم", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "فَرِيق"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يُستخدم بكثرة في لغة القانون وصياغة العقود للإشارة لأحد الأطراف، خاصة إذا كان يمثل جهة اعتبارية أو مجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "فَرِيق", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "شخص مشارك في إجراءات قانونية"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي حرفي، ويمكن صياغته بأسلوب معجمي أدق يشمل الخصومة والدعوى."
+    authored:
+      - type: terminological
+        text: "أَحَدُ المُشْتَرِكِينَ فِي دَعْوَى أَوْ خُصُومَةٍ أَوْ إِجْرَاءٍ قَانُونِيٍّ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "أَحَدُ المُشْتَرِكِينَ فِي دَعْوَى أَوْ خُصُومَةٍ أَوْ إِجْرَاءٍ قَانُونِيٍّ."}
+  examples:
+    per_lemma:
+      - lemma: "طَرَف"
+        examples:
+          - text: "حَضَرَ كِلَا الطَّرَفَيْنِ أَمَامَ قَاضِي التَّحْقِيقِ لِلْإِدْلَاءِ بِأَقْوَالِهِمَا."
+            type: usage
+      - lemma: "مُتَقَاضٍ"
+        examples:
+          - text: "يَكْفَلُ الدُّسْتُورُ حُقُوقَ المُتَقَاضِينَ فِي مُحَاكَمَةٍ عَادِلَةٍ."
+            type: usage
+      - lemma: "خَصْم"
+        examples:
+          - text: "قَدَّمَ الخَصْمُ مُسْتَنَدَاتٍ جَدِيدَةً تُعَزِّزُ مَوْقِفَهُ."
+            type: usage
+      - lemma: "فَرِيق"
+        examples:
+          - text: "وَقَّعَ الفَرِيقَانِ عَلَى بُنُودِ الاِتِّفَاقِيَّةِ بَعْدَ تَسْوِيَةِ النِّزَاعِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "حَضَرَ كِلَا الطَّرَفَيْنِ أَمَامَ قَاضِي التَّحْقِيقِ لِلْإِدْلَاءِ بِأَقْوَالِهِمَا."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يَكْفَلُ الدُّسْتُورُ حُقُوقَ المُتَقَاضِينَ فِي مُحَاكَمَةٍ عَادِلَةٍ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "قَدَّمَ الخَصْمُ مُسْتَنَدَاتٍ جَدِيدَةً تُعَزِّزُ مَوْقِفَهُ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "وَقَّعَ الفَرِيقَانِ عَلَى بُنُودِ الاِتِّفَاقِيَّةِ بَعْدَ تَسْوِيَةِ النِّزَاعِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "طَرَف"
+      entry_id: "{auto}"
+      root: "طرف"
+      maqayis_quote: "«الطَّاءُ وَالرَّاءُ وَالْفَاءُ أَصْلَانِ: فَالْأَوَّلُ يَدُلُّ عَلَى حَدِ الشَّيْءِ وَحَرْفِهِ، وَالثَّانِي يَدُلُّ عَلَى حَرَكَةٍ فِي بَعْضِ الْأَعْضَاءِ.»"
+    - lemma: "مُتَقَاضٍ"
+      entry_id: "{auto}"
+      root: "قضي"
+      maqayis_quote: "«الْقَافُ وَالضَّادُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِحْكَامِ أَمْرٍ وَإِتْقَانِهِ وَإِنْفَاذِهِ لِجِهَتِهِ.»"
+    - lemma: "خَصْم"
+      entry_id: "{auto}"
+      root: "خصم"
+      maqayis_quote: "«الْخَاءُ وَالصَّادُ وَالْمِيمُ أَصْلَانِ: أَحَدُهُمَا الْمُنَازَعَةُ، وَالثَّانِي جَانِبُ وِعَاءٍ.»"
+    - lemma: "فَرِيق"
+      entry_id: "{auto}"
+      root: "فرق"
+      maqayis_quote: "«الْفَاءُ وَالرَّاءُ وَالْقَافُ أُصَيْلٌ صَحِيحٌ يَدُلُّ عَلَى تَمْيِيزٍ وَتَزْيِيلٍ بَيْنَ شَيْئَيْنِ.»"
+  per_sense:
+    - lemma: "طَرَف"
+      sense_id: "{auto}"
+      nuance: "يُستخدم كلفظ عام وشامل لأي جهة تشارك في إجراء قانوني سواء كان دعوى أو عقداً."
+      mwe: false
+    - lemma: "مُتَقَاضٍ"
+      sense_id: "{auto}"
+      nuance: "يختص بمن يرفع دعوى أو تُرفع عليه أمام القضاء، بخلاف الطرف الذي قد يكون في عقد."
+      mwe: false
+    - lemma: "خَصْم"
+      sense_id: "{auto}"
+      nuance: "يحمل دلالة المنازعة والمخاصمة، ويغلب استخدامه في الدعاوى التي فيها نزاع بين طرفين."
+      mwe: false
+    - lemma: "فَرِيق"
+      sense_id: "{auto}"
+      nuance: "قد يدل على طرف يتكون من مجموعة من الأفراد، ويستخدم غالباً في صياغة العقود."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"طرف","maqayis":"«الطَّاءُ وَالرَّاءُ وَالْفَاءُ أَصْلَانِ: فَالْأَوَّلُ يَدُلُّ عَلَى حَدِ الشَّيْءِ وَحَرْفِهِ، وَالثَّانِي يَدُلُّ عَلَى حَرَكَةٍ فِي بَعْضِ الْأَعْضَاءِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قضي","maqayis":"«الْقَافُ وَالضَّادُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِحْكَامِ أَمْرٍ وَإِتْقَانِهِ وَإِنْفَاذِهِ لِجِهَتِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خصم","maqayis":"«الْخَاءُ وَالصَّادُ وَالْمِيمُ أَصْلَانِ: أَحَدُهُمَا الْمُنَازَعَةُ، وَالثَّانِي جَانِبُ وِعَاءٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"فرق","maqayis":"«الْفَاءُ وَالرَّاءُ وَالْقَافُ أُصَيْلٌ صَحِيحٌ يَدُلُّ عَلَى تَمْيِيزٍ وَتَزْيِيلٍ بَيْنَ شَيْئَيْنِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُستخدم كلفظ عام وشامل لأي جهة تشارك في إجراء قانوني سواء كان دعوى أو عقداً.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يختص بمن يرفع دعوى أو تُرفع عليه أمام القضاء، بخلاف الطرف الذي قد يكون في عقد.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يحمل دلالة المنازعة والمخاصمة، ويغلب استخدامه في الدعاوى التي فيها نزاع بين طرفين.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"قد يدل على طرف يتكون من مجموعة من الأفراد، ويستخدم غالباً في صياغة العقود.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

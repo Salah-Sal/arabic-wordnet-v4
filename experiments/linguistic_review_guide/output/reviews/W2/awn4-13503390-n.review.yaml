@@ -1,0 +1,211 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الحالية 'تلبد' تركز على جانب واحد من المفهوم (التجمع اللبدي) بينما يفتقر المصطلح العربي للجانب العلمي لعملية 'flocculation' بمعناها الكيميائي والفيزيائي."
+      - "الحاجة لإدراج مصطلحات تقنية أكثر دقة مثل 'تندف' و'تنديف' و'تحوصب'."
+    observations: "المفهوم يشير إلى عملية تشكل تجمعات هشة (flocs) من جزيئات كانت عالقة. المصطلح العربي 'تلبد' ممتاز للوصف الفيزيائي (تراكم يشبه اللبد)، لكن المعاجم التقنية تفضل 'تندف' للاشتقاق من 'الندف' (كندف الثلج أو القطن) وهو الوصف الأدق للكتل الناتجة."
+  blind_candidates:
+    - lemma: "تَنَدُّف"
+      generation_method: ishtiqaq
+      justification: "المصدر القياسي للفعل (تندف) المشتق من الندف، وهو المصطلح المعتمد في الكيمياء والهندسة لعملية الـ flocculation."
+    - lemma: "تَخَثُّر"
+      generation_method: majaz
+      justification: "يستخدم أحياناً لوصف تجمع الدقائق، وإن كان يميل أكثر لمعنى التجلط (coagulation)."
+    - lemma: "تَلَبُّد"
+      generation_method: ishtiqaq
+      justification: "من (لبد)، ويصف التجمع المتراص الذي يشبه اللبد أو الصوف، وهو موافق للتعريف تماماً."
+    - lemma: "تَجَلُّط"
+      generation_method: majaz
+      justification: "يستخدم في سياقات معينة للدلالة على تجمع المواد الغروية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تَلَبُّد"
+      confirm:
+        - text: "«تلبد الشعر والصوف ونحوهما التبد»"
+          source: "المعجم الوسيط"
+        - text: "«تلبد: عبارة عن التصاق المساحيق وتكوينها لكتل غير منتظمة الأشكال»"
+          source: "المعجم الموحد لتقانات الأغذية"
+      expands:
+        - text: "«تلبد: flocculation»"
+          source: "مسرد الجغرافيا والتاريخ (ArabTerm)"
+    - lemma: "تَنَدُّف"
+      confirm:
+        - text: "«تندف: تراكم المواد الصلبة المشتتة الموجودة في طور سائل باستعمال المواد الكيميائية ليسهل فصلها أو ترسيبها»"
+          source: "المعجم الموحد لتقانات الأغذية"
+        - text: "«تندف: flocculation»"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية"
+    - lemma: "تَنْدِيف"
+      confirm:
+        - text: "«تنديف: مزج معتدل لتسريع تكتل الجسيمات لتعزيز الترسيب أو التعويم»"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية"
+    - lemma: "تَحَوْصُب"
+      confirm:
+        - text: "«تحوصب: طريقة كيميائية من طرق معالجة المياه تهدف إلى التخلص من المواد الغروية»"
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة"
+    - lemma: "نَدْف"
+      confirm:
+        - text: "«نُدَف: كتل صغيرة هلامية تتشكل في المياه عند إضافة مادة مخثرة»"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية"
+      expands:
+        - text: "«ندف القطن: طرقه وضربه بالمندف ليرق ويزول تلبده»"
+          source: "معجم اللغة العربية المعاصرة"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تلبد"
+      decision: confirmed
+      decision_reason: "اللمة الأساسية، دقيقة جداً في وصف التجمع 'الصوفي' أو اللبدي للغيوم والمواد، وهي مدعومة معجمياً لهذا المفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَلَبُّد"
+    - lemma: "تَنَدُّف"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح العلمي الأكثر دقة وشيوعاً لعملية flocculation في الكيمياء والهندسة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَنَدُّف", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَنْدِيف"
+      decision: confirmed
+      decision_reason: "يستخدم للدلالة على العملية المحفزة صناعياً لتشكيل الندف، وهو شائع في معالجة المياه."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَنْدِيف", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَحَوْصُب"
+      decision: confirmed
+      decision_reason: "مصطلح تقني متخصص جداً في هندسة المياه والبيئة، يثري الشبكة الدلالية للمفاهيم العلمية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَحَوْصُب", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَخَثُّر"
+      decision: removed
+      decision_reason: "على الرغم من وروده أحياناً، إلا أنه يشير لغوياً وعلمياً لعملية التجلط (coagulation) التي تسبق التندف، ويفضل الحفاظ على الفرق الدلالي بينهما."
+
+stage4_content:
+  definition:
+    current: "عملية التلبد؛ تشكيل تجمعات صوفية تشبه السحب"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يركز على الوصف الشكلي فقط، ويحتاج لإضافة البعد العلمي والتقني لعملية تشكل الندف."
+    authored:
+      - type: terminological
+        text: "عملية تشكل كتل صغيرة أو تجمعات هشة (ندف) من جزيئات دقيقة معلقة في سائل، أو تشكل تجمعات صوفية في الغازات كالغيوم."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+      - type: encyclopedic
+        text: "تستخدم هذه العملية في معالجة المياه لإزالة الشوائب الغروية عن طريق إضافة مخثرات تؤدي لتجمع الجزيئات الصغيرة في كتل أكبر يسهل ترسيبها أو ترشيحها."
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "عملية تشكل كتل صغيرة أو تجمعات هشة (ندف) من جزيئات دقيقة معلقة في سائل، أو تشكل تجمعات صوفية في الغازات كالغيوم."}
+      - command: add_definition
+        params: {synset_id: "{synset_id}", text: "تستخدم هذه العملية في معالجة المياه لإزالة الشوائب الغروية عن طريق إضافة مخثرات تؤدي لتجمع الجزيئات الصغيرة في كتل أكبر يسهل ترسيبها أو ترشيحها."}
+  examples:
+    per_lemma:
+      - lemma: "تَلَبُّد"
+        examples:
+          - text: "أدى تلبد الغيوم في السماء إلى حجب أشعة الشمس تماماً."
+            type: usage
+      - lemma: "تَنَدُّف"
+        examples:
+          - text: "يحدث تندف الجزيئات الغروية عند الوصول إلى نقطة التعادل الكهربائي."
+            type: usage
+      - lemma: "تَنْدِيف"
+        examples:
+          - text: "تعد مرحلة التنديف ضرورية في محطات تنقية المياه لضمان كفاءة الترسيب."
+            type: usage
+      - lemma: "تَحَوْصُب"
+        examples:
+          - text: "تم تحسين نظام التحوصب في المحطة لزيادة جودة المياه المعالجة."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "أدى تلبد الغيوم في السماء إلى حجب أشعة الشمس تماماً."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تَلَبُّد"
+      entry_id: "{auto}"
+      root: "لبد"
+      maqayis_quote: "«اللَّامُ وَالْبَاءُ وَالدَّالُ كَلِمَةٌ صَحِيحَةٌ تَدُلُّ عَلَى تَكَرُّسِ الشَّيْءِ بَعْضِهِ فَوْقَ بَعْضٍ. مِنْ ذَلِكَ اللِّبْدُ، وَهُوَ مَعْرُوفٌ.»"
+    - lemma: "تَنَدُّف"
+      entry_id: "{auto}"
+      root: "ندف"
+      maqayis_quote: "«النُّونُ وَالدَّالُ وَالْفَاءُ كَلِمَةٌ صَحِيحَةٌ، وَهِيَ شِبْهُ النَّفْشِ لِلشَّيْءِ بِآلَةٍ. وَنَدَفْتُ الْقُطْنَ بِالْمِنْدَفِ.»"
+    - lemma: "تَنْدِيف"
+      entry_id: "{auto}"
+      root: "ندف"
+      maqayis_quote: "«النُّونُ وَالدَّالُ وَالْفَاءُ كَلِمَةٌ صَحِيحَةٌ، وَهِيَ شِبْهُ النَّفْشِ لِلشَّيْءِ بِآلَةٍ.»"
+    - lemma: "تَحَوْصُب"
+      entry_id: "{auto}"
+      root: "حصب"
+      maqayis_quote: "«الْحَاءُ وَالصَّادُ وَالْبَاءُ أَصْلٌ وَاحِدٌ... وَيُقَالُ إِنَّ الْحَصِبَ مِنَ الْأَلْبَانِ الَّذِي لَا يُخْرِجُ زُبْدَهُ... لِأَنَّهُ كَأَنَّهُ مِنْ بَرْدِهِ يَشْتَدُّ حَتَّى يَصِيرَ كَالْحَصْبَاءِ.»"
+  per_sense:
+    - lemma: "تَلَبُّد"
+      sense_id: "{auto}"
+      nuance: "يركز على الهيئة الفيزيائية للتجمع المتراص الذي يشبه اللبد، ويشيع استخدامه لوصف الغيوم والشعر والصوف."
+      mwe: false
+    - lemma: "تَنَدُّف"
+      sense_id: "{auto}"
+      nuance: "المصطلح العلمي الدقيق لعملية الـ flocculation، ويركز على تكون 'الندف' (الكتل الهشة)."
+      mwe: false
+    - lemma: "تَنْدِيف"
+      sense_id: "{auto}"
+      nuance: "غالباً ما يشير إلى الفعل المتعمد (التفعيل) لإحداث التندف في العمليات الصناعية."
+      mwe: false
+    - lemma: "تَحَوْصُب"
+      sense_id: "{auto}"
+      nuance: "مصطلح تقني متخصص جداً يستخدم في سياقات هندسة المياه."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"لبد","maqayis":"«اللَّامُ وَالْبَاءُ وَالدَّالُ كَلِمَةٌ صَحِيحَةٌ تَدُلُّ عَلَى تَكَرُّسِ الشَّيْءِ بَعْضِهِ فَوْقَ بَعْضٍ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الهيئة الفيزيائية للتجمع المتراص الذي يشبه اللبد...","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

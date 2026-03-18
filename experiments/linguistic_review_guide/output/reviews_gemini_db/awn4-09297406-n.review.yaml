@@ -1,0 +1,136 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "خور"
+      confirm:
+        - text: "«مصبُّ الماء فى البحر المنخفض من الأرض بين مرتفعين الخليج»"
+          source: "المعجم الوسيط"
+        - text: "«مَصَبُّ الماءِ فى البَحْرِ مَصَبُّ المِياهِ الجارِيَةِ فى البَحْرِ, إذا اتَّسَعَ وعَرُضَ الخَلِيجُ من البَحْر»"
+          source: "المعجم الكبير"
+    - lemma: "مصب"
+      confirm:
+        - text: "«مَوضِع الصب ومصب النَّهر حَيْثُ يلتقي مَاؤُهُ بِمَاء الْبَحْر أَو الْبحيرَة»"
+          source: "المعجم الوسيط لمجموعة من المؤلفين"
+        - text: "«مَصَبُّ النَّهر, ونوحه: مَوْضعُ التقاء ماء النهر بماء البحر»"
+          source: "المعجم الكبير"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "مصب خليجي"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«estuary» — المعجم الموحد لمصطلحات الجيولوجيا (2000)"
+      justification: "تركيب وصفي دقيق يخصص المصب بشكله الخليجي الذي يسمح باختلاط المياه ويقابله الإنجليزي estuary."
+  knowledge_candidates:
+    - lemma: "مصب نهري"
+      justification: "تركيب إضافي وصفي مستعمل بكثرة في الجغرافيا لبيان نوع المصب (لتمييزه عن مصبات أخرى)."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "خور"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح ومستقر للتعبير عن الخليج أو المصب الواسع الذي تتداخل فيه مياه البحر مع النهر."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على التشكيل الجغرافي (خليج أو لسان ماء مالح متداخل مع اليابسة)."
+      example: "تنمو أشجار القرم بكثافة على ضفاف الخور المالح."
+
+    - lemma: "مصب"
+      decision: confirmed
+      decision_reason: "كلمة فصيحة واسعة الانتشار، رغم أنها أعم دلالة من المفهوم الإنجليزي الدقيق."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "مصطلح أعم يطلق على نقطة انتهاء النهر وصب مياهه في البحر سواء اتسع أم لا."
+      example: "تتراكم الطمي والرسوبيات عند مصب النهر."
+
+    - lemma: "مصب خليجي"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح تخصصي دقيق يؤدي معنى estuary بانضباط."
+      step05_citation: "«estuary» — المعجم الموحد لمصطلحات الجيولوجيا (2000)"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+        mwe_type: "وصفي"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "مصطلح علمي دقيق يجمع بين وظيفة الصب (مصب) وشكل الاتساع البحري (خليجي)."
+      example: "تشكل منطقة المصب الخليجي بيئة مثالية لاختلاط المياه وتكاثر الأسماك."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مصب خليجي"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09297406-n"
+
+    - lemma: "مصب نهري"
+      source: step05
+      decision: removed
+      decision_reason: "أعم من مفهوم المجموعة (التي تختص بالمصب الخليجي المتسع الذي يخلط الماء المالح والعذب)، فكل مصب خليجي هو مصب نهري وليس العكس."
+      step05_citation: "معرفة لغوية"
+
+  synset_flags:
+    definition_review_needed: false
+
+  added_lemmas:
+    - lemma: "مصب خليجي"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "الجزء الواسع من النهر حيث يقترب من البحر؛ وفيه تختلط المياه العذبة بالمالحة"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وواضح ويغطي مفهوم المصب الخليجي (estuary)."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "مسطح مائي"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "خور"
+        antonym_found: false
+      - lemma: "مصب"
+        antonym_found: true
+        antonym: "منبع"
+      - lemma: "مصب خليجي"
+        antonym_found: false
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "خور"
+      enrichment:
+        root: "خور"
+      examples:
+        - text: "تنمو أشجار القرم بكثافة على ضفاف الخور المالح."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "مصب"
+      enrichment:
+        root: "صبب"
+      examples:
+        - text: "تتراكم الطمي والرسوبيات عند مصب النهر."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "مصب خليجي"
+      enrichment:
+        root: "صبب"
+      examples:
+        - text: "تشكل منطقة المصب الخليجي بيئة مثالية لاختلاط المياه وتكاثر الأسماك."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

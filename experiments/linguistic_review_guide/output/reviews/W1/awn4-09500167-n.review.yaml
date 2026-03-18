@@ -1,0 +1,121 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "شبكة"
+      confirm:
+        - text: "«شبكة الصياد في البر والبحر وهي كل متداخل متشابك.» — قاعدة البيانات المعجمية"
+      expands:
+        - text: "«مجموعة أفرع تُشكّل مساراً مغلقاً في شبكةٍ ما» — قاعدة البيانات المعجمية"
+        - text: "«بنية من العلاقات بين عناصر متعددة.» — قاعدة البيانات المعجمية"
+    - lemma: "نسيج"
+      confirm:
+        - text: "«الثوب المنسوج.» — قاعدة البيانات المعجمية"
+      expands:
+        - text: "«مجموعة من خلايا متماثلة منتظمة في وحدة هيكلية ووظيفية.» — قاعدة البيانات المعجمية"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "شَرَك"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«حِبالة الصائد، مِصْيدة، ما يُنصب للصَّيد وهي كل متداخل متشابك» — معجم اللغة العربية المعاصرة"
+      justification: "تدل على الشبكة المتداخلة التي تُصنع لاصطياد الأشياء، وتتقاطع مع دلالة الشبكة المعقدة."
+  knowledge_candidates:
+    - lemma: "نَسِيجة"
+      justification: "اشتقاق على وزن 'فَعيلة' بمعنى مفعولة، للدلالة على البنية الناتجة عن عملية النسج والتشابك."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "شبكة"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح ومستقر للدلالة على البنية المتشابكة."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تدل على التداخل والتقاطع، وهي أعم وأشمل من النسيج."
+      example: "نسج العنكبوت شبكة متينة للإيقاع بالفرائس."
+    
+    - lemma: "نسيج"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح مستعمل للدلالة على ما تم نسجه وترابطه سواء مادياً أو معنوياً."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تدل على الترابط المتراص والالتحام الناتج عن عملية النسج بشكل محكم."
+      example: "اكتشف العلماء نسيجاً كونياً معقداً يربط بين المجرات."
+
+    - lemma: "نَسِيجة"
+      source: step05
+      decision: confirmed
+      decision_reason: "لفظ فصيح يفيد معنى المفعولية ويخص الكيان الذي تم نسجه، متطابق مع المفهوم."
+      step05_citation: "اشتقاق لغوي"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تؤكد على كينونة الشيء الناتج عن عملية النسج كقطعة واحدة متكاملة."
+      example: "كانت الرواية نسيجة معقدة من الحكايات المتداخلة."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "نَسِيجة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09500167-n"
+
+    - lemma: "شَرَك"
+      source: step05
+      decision: removed
+      decision_reason: "الشَّرَك يميل أساساً إلى الفخ والمصيدة، وهو مفهوم مرتبط بوظيفة الشبكة للاصطياد وليس ببنيتها المجردة."
+      step05_citation: "«حِبالة الصائد»"
+
+  added_lemmas:
+    - lemma: "نَسِيجة"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شبكة معقدة توحي بشيء تم تشكيله عن طريق النسج أو التشابك"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وواضح وينقل المعنى المقصود بصدق."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-00002684-n"
+    test_result: "correct"
+  verb_checks:
+    applicable: false
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "شبكة"
+      enrichment:
+        root: "ش-ب-ك"
+      examples:
+        - text: "نسج العنكبوت شبكة متينة للإيقاع بالفرائس."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "نسيج"
+      enrichment:
+        root: "ن-س-ج"
+      examples:
+        - text: "اكتشف العلماء نسيجاً كونياً معقداً يربط بين المجرات."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "نَسِيجة"
+      enrichment:
+        root: "ن-س-ج"
+      examples:
+        - text: "كانت الرواية نسيجة معقدة من الحكايات المتداخلة."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

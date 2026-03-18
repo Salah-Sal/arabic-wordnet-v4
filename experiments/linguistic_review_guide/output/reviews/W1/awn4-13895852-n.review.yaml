@@ -1,0 +1,111 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "تقاطع"
+      confirm:
+        - text: "«تقاطع منظومتين يتمثل في مجموع العناصر المشتركة بين المنظومتين.» — مسرد المناخ والبيئة (ArabTerm)"
+          source: "ArabTerm"
+        - text: "«تجسيد نقطة من مستوٍ بتقاطع اتجاهين» — المعجم الموحد لمصطلحات الهندسة المدنية"
+          source: "ArabTerm"
+        - text: "«(ر): intersection.» — المعجم الموحد لمصطلحات الرياضيات والفلك"
+          source: "ArabTerm"
+      contradicts:
+        - text: "«الشَّيْء بَان بعضه من بعض وَالْقَوْم هجر بَعضهم بَعْضًا» — المعجم الوسيط"
+          source: "المعجم الوسيط"
+          conflict: "المعنى اللغوي الأصلي (الهجر والبين) يختلف عن المفهوم الرياضي المعاصر"
+      expands:
+        - text: "«التقاء مستو بين تيارين للسّير يُكوّنان بينهما زاوية محسوسة» — المعجم الموحد لمصطلحات النقل"
+          source: "ArabTerm"
+          addition: "تخصيص المفهوم لمجال النقل وهندسة الطرق"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "نقطة تقاطع"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«(2) نقطة التقاطع... (3) التقاطع (ر).» — المورد الحديث"
+      justification: "تعبير اصطلاحي دقيق يمثل الجزء الأول من التعريف (نقطة مشتركة)"
+  knowledge_candidates:
+    - lemma: "التقاء"
+      justification: "لفظ عربي فصيح يدل على معنى الاجتماع والاشتراك في حيز واحد، ويُستخدم لوصف التقاء الخطوط أو الأشكال"
+  generation_notes: "التعريف يجمع بين المفهوم المجرد (مجموعة نقاط) والكيان الهندسي (نقطة)؛ اللفظ 'تقاطع' هو المصطلح التقني السائد."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "تقاطع"
+      decision: confirmed
+      decision_reason: "مصطلح تقني مستقر ومدعوم بأدلة معجمية في الرياضيات والهندسة"
+      evidence_assessment:
+        case: "mixed"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "اللفظ العام والشامل للمفهوم الرياضي والهندسي سواء كان نقطة أو خطاً أو مجموعة عناصر مشتركة"
+      example: "يُمثل تقاطع المجموعتين مجموعة العناصر التي تنتمي لكليهما معاً."
+
+    - lemma: "نقطة تقاطع"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح هندسي مسكوك يعبر بدقة عن 'نقطة مشتركة' الواردة في التعريف"
+      step05_citation: "«نقطة التقاطع (intersection point)» — المعجم الموحد لمصطلحات الرياضيات"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على الكيان النقطي المشترك الناتج عن عملية التقاطع، بينما 'تقاطع' قد يشمل خطوطاً أو مساحات"
+      example: "تُحدد نقطة تقاطع المستقيمين بإحداثيات مشتركة تحقق معادلتي المستقيمين."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "نقطة تقاطع"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-13895852-n"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "نقطة أو مجموعة نقاط مشتركة بين شكلين هندسيين أو أكثر"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق ومطابق للمصطلحات الرياضية والهندسية في المعاجم المتخصصة"
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "مجموعة"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "تقاطع"
+        antonym_found: true
+        antonym: "اتحاد"
+  actions:
+    - command: add_synset_relation
+      params:
+        source_id: "awn4-13895852-n"
+        relation_type: "antonym"
+        target_id: "{auto_union_synset}"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "تقاطع"
+      enrichment:
+        root: "ق-ط-ع"
+      examples:
+        - text: "تقاطع المجموعتين هو مجموعة العناصر المشتركة بينهما."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "نقطة تقاطع"
+      enrichment:
+        root: "ن-ق-ط"
+      examples:
+        - text: "يتقاطع المستقيمان في نقطة تقاطع وحيدة إذا لم يكونا متوازيين."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native
+  reasoning:
+    cultural_fit_reasoning: "المفهوم رياضي عالمي وله مصطلحات عربية فصيحة مستقرة في التراث والتعليم المعاصر"

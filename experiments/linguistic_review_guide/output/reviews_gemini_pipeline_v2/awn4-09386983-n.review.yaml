@@ -1,0 +1,195 @@
+stage1_review:
+  assessment:
+    concerns: []
+    observations: "المصطلحان الموجودان (عامل طفرة، مُطَفِّر) دقيقان ومتوافقان مع المعاجم العلمية الحديثة. المصطلح الأول (عامل طفرة) هو تركيب إضافي وصفي، بينما الثاني (مُطَفِّر) هو اسم فاعل من الفعل (طَفَّرَ) وهو المصطلح المعياري في علم الوراثة."
+  blind_candidates:
+    - lemma: "مُطَفِّر"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من طفَّر (أحدث طفرة)، وهو المصطلح الأكاديمي الشائع لـ mutagen."
+    - lemma: "عَامِلُ طَفْرَةٍ"
+      generation_method: tarkib
+      justification: "تركيب إضافي يربط بين المفهوم الوظيفي (عامل) والنتيجة الحيوية (طفرة)، وهو ترجمة مباشرة للمفهوم."
+    - lemma: "مُحْدِثُ طَفْرَةٍ"
+      generation_method: tarkib
+      justification: "تركيب إضافي يستخدم اسم الفاعل (مُحْدِث) للدلالة على التسبب في الظاهرة."
+    - lemma: "مُسَبِّبُ الطَّفَرَاتِ"
+      generation_method: tarkib
+      justification: "تركيب إضافي يصف الوظيفة السببية للفاعل تجاه مجموع الطفرات."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُطَفِّر"
+      confirm:
+        - text: "عامل فيزيائيّ أو كيميائيّ قادر على إحداث الطفرات."
+          source: "المعجم الموحد لمصطلحات علم الوراثة (2009)"
+        - text: "العميل الذي يسبب طفرة."
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+    - lemma: "عامل طفرة"
+      confirm:
+        - text: "عامل مطفر يحوي مجموعات من الأزيريدين [في سياق تعريف مطفر الأزيريدين]"
+          source: "المعجم الموحد لمصطلحات علم الوراثة (2009)"
+          addition: "استخدام 'عامل مطفر' أو 'عامل طفرة' كوحدة دلالية لوصف السبب."
+    - lemma: "طَفْرَة"
+      expands:
+        - text: "تغيرات مفاجئة ومتوارثة في المادة الوراثية للكائن."
+          source: "المعجم الموحد لمصطلحات علم الوراثة (2009)"
+    - lemma: "طفر"
+      confirm:
+        - text: "الطَّاءُ وَالْفَاءُ الرَّاءُ كَلِمَةٌ صَحِيحَةٌ، يُقَالُ: طَفَرَ: وَثَبَ."
+          source: "مقاييس اللغة لابن فارس"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مُطَفِّر"
+      decision: confirmed
+      decision_reason: "مصطلح علمي دقيق وشائع الاستخدام في تخصصات الوراثة والطب والصيدلة، وموثق في المعاجم الموحدة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُطَفِّر"
+    - lemma: "عامل طفرة"
+      decision: confirmed
+      decision_reason: "تركيب إضافي صحيح لغوياً ومستخدم كمرادف توضيحي للمصطلح التقني المفرد."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+    - lemma: "عَامِلٌ مُطَفِّرٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تركيب وصفي موثق في المعاجم العلمية (مثل معجم علم الوراثة) كتعريف للمُطَفِّر، ويصلح ليكون لمة مستقلة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "عَامِلٌ مُطَفِّرٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "أي عامل (فيزيائي أو بيئي) يمكن أن يحدث طفرة جينية أو يزيد من معدل الطفرات"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكنه يفتقر إلى الصبغة المعجمية الفصيحة وإدراج الجانب الكيميائي الذي يعد من أهم عوامل الطفرات."
+    authored:
+      - type: terminological
+        text: "(في علوم الأحياء): مادةٌ أو قوّةٌ (فيزيائيّةٌ أو كيميائيّةٌ أو بيئيّةٌ) تُؤَدِّي إلى حُدوثِ طَفْرَةٍ جِينِيَّةٍ أو تَزِيدُ مِنْ مَعَدَّلِ حدوثها في الكائِنِ الحيّ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "(في علوم الأحياء): مادةٌ أو قوّةٌ (فيزيائيّةٌ أو كيميائيّةٌ أو بيئيّةٌ) تُؤَدِّي إلى حُدوثِ طَفْرَةٍ جِينِيَّةٍ أو تَزِيدُ مِنْ مَعَدَّلِ حدوثها في الكائِنِ الحيّ."}
+  examples:
+    per_lemma:
+      - lemma: "مُطَفِّر"
+        examples:
+          - text: "تُعدُّ الأشعةُ فوقَ البنفسجيّةِ مُطَفِّرًا قويًّا يُؤثّرُ في سلامةِ الحَمضِ النوويّ."
+            type: usage
+      - lemma: "عامل طفرة"
+        examples:
+          - text: "يُحذّرُ الأطباءُ من التعرُّضِ لبعضِ المَوادِ الكيميائيّةِ التي تَعملُ كعاملِ طفرةٍ في الخلايا."
+            type: usage
+      - lemma: "عَامِلٌ مُطَفِّرٌ"
+        examples:
+          - text: "يُصنَّفُ غازُ الخردلِ كعاملٍ مُطَفِّرٍ بسبَبِ قدرتِهِ على تغييرِ التركيبِ الوراثيّ."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُطَفِّر"
+      entry_id: "{auto}"
+      root: "طفر"
+      maqayis_quote: "«الطَّاءُ وَالْفَاءُ الرَّاءُ كَلِمَةٌ صَحِيحَةٌ، يُقَالُ: طَفَرَ: وَثَبَ.»"
+    - lemma: "عامل طفرة"
+      entry_id: "{auto}"
+      roots:
+        - word: "عامل"
+          root: "عمل"
+          maqayis_quote: "«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامَّةُ فِعْلِ الشَّيْءِ.»"
+        - word: "طفرة"
+          root: "طفر"
+          maqayis_quote: "«الطَّاءُ وَالْفَاءُ الرَّاءُ كَلِمَةٌ صَحِيحَةٌ، يُقَالُ: طَفَرَ: وَثَبَ.»"
+    - lemma: "عَامِلٌ مُطَفِّرٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "عامل"
+          root: "عمل"
+          maqayis_quote: "«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامَّةُ فِعْلِ الشَّيْءِ.»"
+        - word: "مطفر"
+          root: "طفر"
+          maqayis_quote: "«الطَّاءُ وَالْفَاءُ الرَّاءُ كَلِمَةٌ صَحِيحَةٌ، يُقَالُ: طَفَرَ: وَثَبَ.»"
+  per_sense:
+    - lemma: "مُطَفِّر"
+      sense_id: "{auto}"
+      nuance: "المصطلح التقني المفرد والأكثر دقة في السياقات العلمية."
+      mwe: false
+    - lemma: "عامل طفرة"
+      sense_id: "{auto}"
+      nuance: "صيغة تركيبية تستخدم في السياق التعليمي أو التوضيحي لربط العامل بالنتيجة."
+      mwe: true
+    - lemma: "عَامِلٌ مُطَفِّرٌ"
+      sense_id: "{auto}"
+      nuance: "وصف وظيفي يجمع بين اسم الفاعل والصفة المشتقة، شائع في تعريفات المعاجم الموحدة."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"طفر","maqayis":"«الطَّاءُ وَالْفَاءُ الرَّاءُ كَلِمَةٌ صَحِيحَةٌ، يُقَالُ: طَفَرَ: وَثَبَ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"عامل","root":"عمل","maqayis":"«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامَّةُ فِعْلِ الشَّيْءِ.»"},{"word":"طفرة","root":"طفر","maqayis":"«الطَّاءُ وَالْفَاءُ الرَّاءُ كَلِمَةٌ صَحِيحَةٌ، يُقَالُ: طَفَرَ: وَثَبَ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"عامل","root":"عمل","maqayis":"«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامَّةُ فِعْلِ الشَّيْءِ.»"},{"word":"مطفر","root":"طفر","maqayis":"«الطَّاءُ وَالْفَاءُ الرَّاءُ كَلِمَةٌ صَحِيحَةٌ، يُقَالُ: طَفَرَ: وَثَبَ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح التقني المفرد والأكثر دقة في السياقات العلمية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"صيغة تركيبية تستخدم في السياق التعليمي أو التوضيحي لربط العامل بالنتيجة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"وصف وظيفي يجمع بين اسم الفاعل والصفة المشتقة، شائع في تعريفات المعاجم الموحدة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

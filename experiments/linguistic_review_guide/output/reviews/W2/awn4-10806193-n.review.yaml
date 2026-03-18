@@ -1,0 +1,189 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمة الحالية "شاهد" تفتقر إلى التشكيل الكامل.
+      - التعريف الحالي موجز جداً، ويمكن تحسينه بدقة قانونية أكبر.
+    observations: "المجموعة الترادفية تمثل مفهوماً قانونياً مركزياً (الشاهد). اللفظ الحالي صحيح تماماً، ولكن يمكن إثراء المجموعة بمرادفات فصيحة (شهيد) وتعبيرات مسكوكة شائعة (شاهد عيان)."
+  blind_candidates:
+    - lemma: "مُحَلَّف"
+      generation_method: ishtiqaq
+      justification: "من الفعل حلف، للدلالة على الشخص الذي أدى اليمين (القسم) قبل الإدلاء بشهادته، وهو وصف ملازم للشاهد في المحاكم."
+    - lemma: "شَهِيد"
+      generation_method: ishtiqaq
+      justification: "الصيغة التراثية والفصيحة للشاهد، وردت في القرآن الكريم بهذا المعنى (ولا يضار كاتب ولا شهيد)."
+    - lemma: "مُعَايِن"
+      generation_method: ishtiqaq
+      justification: "من المعاينة، وهو من حضر الواقعة ورآها بعينه."
+    - lemma: "مُبَيِّن"
+      generation_method: ishtiqaq
+      justification: "من الإبانة، وهو من يوضح ويظهر الحقائق التي علمها أمام القضاء."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "شاهد"
+      confirm:
+        - text: "«(فى القانون) شَخصٌ مُكَلَّفٌ بالحُضُور أمام القضاء أو سُلْطَة التَّحقيق؛ لكى يُدْلِى بمعلوماته فى شَأْن واقعةٍ ذات أهميةٍ فى الدَّعوى الجنائِيَّة»"
+          source: "المعجم الكبير"
+        - text: "«من يؤدّي الشهادة»"
+          source: "المعجم الوسيط"
+    - lemma: "شَهِيد"
+      confirm:
+        - text: "«من يُؤَدِّي الشَّهَادَة وَفِي التَّنْزِيل الْعَزِيز {وَلَا يضار كَاتب وَلَا شَهِيد}»"
+          source: "المعجم الوسيط"
+        - text: "«من يُؤدِّى الشَّهادةَ... الأمينُ فى شهادته»"
+          source: "المعجم الكبير"
+    - lemma: "شَاهِد عِيَان"
+      confirm:
+        - text: "«مَنْ شَهِد بِشَيْءٍ رآه بعينه»"
+          source: "المعجم الكبير"
+        - text: "«أخبار ينقلها شاهد عيان من موقع الحدث»"
+          source: "مسرد الإعلام والتواصل (ArabTerm)"
+    - lemma: "مُحَلَّف"
+      contradicts:
+        - text: "«(في القضاء) jury: هم أعوانُ القُضاةِ، ينضمُّون إلى مَجْلِسِ القضاء...»"
+          source: "المعجم الكبير"
+          conflict: "المحلف (أو المحلفون) في السياق القانوني يشير إلى هيئة المحلفين (Jury) وليس إلى الشاهد الفرد (Witness) الذي يدلي بشهادته."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "شاهد"
+      decision: confirmed
+      decision_reason: "اللمة الأساسية والمطابقة تماماً للمفهوم القانوني."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "شَاهِد"
+    - lemma: "شَهِيد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ فصيح وتراثي ورد في القرآن الكريم والمعاجم الكبرى بمعنى الشاهد المؤدي للشهادة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "شَهِيد", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "شَاهِد عِيَان"
+      decision: confirmed
+      decision_reason: "تعبير مركب شائع جداً في السياقات القانونية والإعلامية لوصف الشاهد الذي رأى الحدث بنفسه."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "شَاهِد عِيَان", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُحَلَّف"
+      source: stage1
+      decision: removed
+      decision_reason: "المصطلح يشير إلى عضو هيئة المحلفين (Juror) وليس الشاهد (Witness)."
+
+stage4_content:
+  definition:
+    current: "(قانون) شخص يشهد تحت القسم في محكمة قانونية"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يحتاج إلى مزيد من الدقة الاصطلاحية القانونية وتوضيح الغرض من الحضور."
+    authored:
+      - type: terminological
+        text: "شخص يطلب منه الحضور أمام جهة قضائية أو سلطة تحقيق للإدلاء بما يعلمه عن وقائع معينة بعد حلف اليمين القانونية."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "شَاهِد"
+        examples:
+          - text: "استدعى القاضي الشاهد للإدلاء بأقواله في قضية السرقة."
+            type: usage
+      - lemma: "شَهِيد"
+        examples:
+          - text: "«وَلَا يُضَارَّ كَاتِبٌ وَلَا شَهِيدٌ»"
+            type: quran
+            source: "سورة البقرة، الآية 282"
+      - lemma: "شَاهِد عِيَان"
+        examples:
+          - text: "أكد شاهد عيان أن السيارة تجاوزت الإشارة الحمراء قبل وقوع الاصطدام."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "شخص يطلب منه الحضور أمام جهة قضائية أو سلطة تحقيق للإدلاء بما يعلمه عن وقائع معينة بعد حلف اليمين القانونية."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "استدعى القاضي الشاهد للإدلاء بأقواله في قضية السرقة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "شَاهِد"
+      entry_id: "{auto}"
+      root: "شهد"
+      maqayis_quote: "«الشِّينُ وَالْهَاءُ وَالدَّالُ أَصْلٌ يَدُلُّ عَلَى حُضُورٍ وَعِلْمٍ وَإِعْلَامٍ، لَا يَخْرُجُ شَيْءٌ مِنْ فُرُوعِهِ عَنِ الَّذِي ذَكَرْنَاهُ. مِنْ ذَلِكَ الشَّهَادَةُ، يَجْمَعُ الْأُصُولَ الَّتِي ذَكَرْنَاهَا مِنَ الْحُضُورِ، وَالْعِلْمِ، وَالْإِعْلَامِ.»"
+    - lemma: "شَهِيد"
+      entry_id: "{auto}"
+      root: "شهد"
+      maqayis_quote: "«الشِّينُ وَالْهَاءُ وَالدَّالُ أَصْلٌ يَدُلُّ عَلَى حُضُورٍ وَعِلْمٍ وَإِعْلَامٍ... وَالشَّهِيدُ: الْقَتِيلُ فِي سَبِيلِ اللَّهِ... وَالشَّاهِدُ: اللِّسَانُ، وَالشَّاهِدُ: الْمَلَكُ.»"
+    - lemma: "شَاهِد عِيَان"
+      entry_id: "{auto}"
+      roots:
+        - word: "شاهد"
+          root: "شهد"
+          maqayis_quote: "«الشِّينُ وَالْهَاءُ وَالدَّالُ أَصْلٌ يَدُلُّ عَلَى حُضُورٍ وَعِلْمٍ وَإِعْلَامٍ...»"
+        - word: "عيان"
+          root: "عين"
+          maqayis_quote: "«الْعَيْنُ وَالْيَاءُ وَالنُّونُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى عُضْوٍ بِهِ يُبْصَرُ وَيُنْظَرُ... وَرَأَيْتُ الشَّيْءَ عَيَانًا، أَيْ مُعَايَنَةً.»"
+  per_sense:
+    - lemma: "شَاهِد"
+      sense_id: "{auto}"
+      nuance: "اللفظ القانوني العام والشائع الذي يطلق على كل من يؤدي الشهادة."
+      mwe: false
+    - lemma: "شَهِيد"
+      sense_id: "{auto}"
+      nuance: "لفظ فصيح وتراثي (قرآني)، قل استخدامه في العصر الحديث بهذا المعنى لصالح معنى الشهيد في سبيل الله، ولكنه باقٍ في الاستعمال الأدبي واللغوي."
+      mwe: false
+    - lemma: "شَاهِد عِيَان"
+      sense_id: "{auto}"
+      nuance: "تعبير مركب يحدد نوع الشهادة بأنها نابعة عن رؤية بصرية مباشرة للحدث (معاينة)."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"شهد","maqayis":"«الشِّينُ وَالْهَاءُ وَالدَّالُ أَصْلٌ يَدُلُّ عَلَى حُضُورٍ وَعِلْمٍ وَإِعْلَامٍ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"شاهد","root":"شهد","maqayis":"«الشِّينُ وَالْهَاءُ وَالدَّالُ أَصْلٌ يَدُلُّ عَلَى حُضُورٍ وَعِلْمٍ وَإِعْلَامٍ...»"},{"word":"عيان","root":"عين","maqayis":"«الْعَيْنُ وَالْيَاءُ وَالنُّونُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى عُضْوٍ بِهِ يُبْصَرُ وَيُنْظَرُ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ القانوني العام والشائع.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

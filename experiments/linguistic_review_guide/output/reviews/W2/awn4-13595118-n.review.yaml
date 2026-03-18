@@ -1,0 +1,161 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة (فلكنة) تفتقر إلى التشكيل."
+    observations: "المفهوم يشير إلى العملية الكيميائية الصناعية (Vulcanization). اللمة المعربة 'فلكنة' شائعة ومستخدمة في الصناعة، كما يوجد مصطلح مشتق 'كبرتة' يصف العملية بدقة لكونها تعتمد على إضافة الكبريت."
+  blind_candidates:
+    - lemma: "فَلْكَنَة"
+      generation_method: taarib
+      justification: "تعريب للمصطلح الإنجليزي Vulcanization، وهو مصطلح شائع ومثبت في الصناعة."
+    - lemma: "كَبْرَتَة"
+      generation_method: ishtiqaq
+      justification: "اشتقاق على وزن (فَعْلَلَة) من مادة الكبريت، نظراً لاستخدامها أساساً في معالجة المطاط."
+    - lemma: "مُعَالَجَةٌ بِالكِبْرِيت"
+      generation_method: tarkib
+      justification: "وصف مباشر وواضح للعملية الكيميائية."
+    - lemma: "تَصْلِيبُ المَطَّاط"
+      generation_method: tarkib
+      justification: "تعبير يصف الهدف النهائي من العملية وهو زيادة صلابة المطاط وقوته."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "فَلْكَنَة"
+      confirm:
+        - text: "«الفَلْكَنَة: «أ» تقسية المطّاط بمعالجته بالكبريت. «ب» معالجة يُراد بها التَّقسية أو غيرها بطرائق مختلفة.»"
+          source: "المورد الحديث (2008)"
+        - text: "«هي طريقة كيميائية تقنية، طوّرها الأمريكي تشارلز جوديير (Charles Goodyear)، ويتم فيها جعل الكاوتشوك مُقاوماً للمؤثرات الجوية، والكيميائية، والإجهادات الميكانيكية تحت تأثير الزمن، ودرجة الحرارة، والضغط.»"
+          source: "مسرد هندسة وتكنولوجيا السيارات، موقع ArabTerm"
+    - lemma: "كَبْرَتَة"
+      confirm:
+        - text: "«عملية إضافة الكبريت إلى المطاط لتقليل لزوجته وإعطائه المرونة والقوة»"
+          source: "المعجم الموحد لمصطلحات الكيمياء (1992)"
+    - lemma: "مُعَالَجَةٌ بِالكِبْرِيت"
+      evidence_status: "no_material_found"
+    - lemma: "تَصْلِيبُ المَطَّاط"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "فلكنة"
+      decision: confirmed
+      decision_reason: "مصطلح معرب شائع ومثبت معجمياً للدلالة على هذه العملية الصناعية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "فَلْكَنَة"
+    - lemma: "كَبْرَتَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح علمي دقيق ومثبت معجمياً في مجالات الكيمياء للدلالة على عملية إضافة الكبريت للمطاط."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "كَبْرَتَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُعَالَجَةٌ بِالكِبْرِيت"
+      source: stage1
+      decision: removed
+      decision_reason: "وصف حر للعملية وليس مصطلحاً مسكوكاً ثابتاً."
+    - lemma: "تَصْلِيبُ المَطَّاط"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير وصفي يركز على الهدف من العملية وليس مصطلحاً متخصصاً مستقلاً."
+
+stage4_content:
+  definition:
+    current: "عملية معالجة المطاط أو المواد الشبيهة بالمطاط بالكبريت عند حرارة عالية لتحسين المرونة والقوة أو لتصلبها"
+    assessment:
+      decision: revise
+      reason: "تحسين الصياغة اللغوية وضبط الضمائر لتكون أكثر دقة وانسيابية."
+    authored:
+      - type: terminological
+        text: "عملية معالجة المطاط أو المواد الشبيهة به بالكبريت عند درجة حرارة عالية؛ لتحسين مرونته وقوته أو لتصليبه."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "عملية معالجة المطاط أو المواد الشبيهة به بالكبريت عند درجة حرارة عالية؛ لتحسين مرونته وقوته أو لتصليبه."}
+
+  examples:
+    per_lemma:
+      - lemma: "فَلْكَنَة"
+        examples:
+          - text: "أحدثت فَلْكَنَةُ المطاط ثورة حقيقية في صناعة إطارات السيارات."
+            type: usage
+      - lemma: "كَبْرَتَة"
+        examples:
+          - text: "تتم كَبْرَتَةُ المطاط الصناعي لزيادة متانته وتحمله للحرارة العالية."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "أحدثت فَلْكَنَةُ المطاط ثورة حقيقية في صناعة إطارات السيارات."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تتم كَبْرَتَةُ المطاط الصناعي لزيادة متانته وتحمله للحرارة العالية."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "فَلْكَنَة"
+      entry_id: "{auto}"
+      root: "فلكن"
+    - lemma: "كَبْرَتَة"
+      entry_id: "{auto}"
+      root: "كبر"
+      maqayis_quote: "«الْكَافُ وَالْبَاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى خِلَافِ الصِّغَرِ...»"
+  per_sense:
+    - lemma: "فَلْكَنَة"
+      sense_id: "{auto}"
+      nuance: "مصطلح معرب شائع الاستخدام لوصف عملية المعالجة الحرارية للمطاط بوجه عام."
+      mwe: false
+    - lemma: "كَبْرَتَة"
+      sense_id: "{auto}"
+      nuance: "مصطلح مشتق من مادة الكبريت المستخدمة في العملية، ويغلب استخدامه في السياقات الكيميائية والصناعية الدقيقة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"فلكن"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"كبر","maqayis":"«الْكَافُ وَالْبَاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى خِلَافِ الصِّغَرِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح معرب شائع الاستخدام لوصف عملية المعالجة الحرارية للمطاط بوجه عام.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح مشتق من مادة الكبريت المستخدمة في العملية، ويغلب استخدامه في السياقات الكيميائية والصناعية الدقيقة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

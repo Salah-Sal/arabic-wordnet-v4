@@ -1,0 +1,247 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمّات الحالية مأخوذة مباشرة من أفعال التعريف (يصحح -> مصحح، يقوم -> مقوم)، مما يجعل التعريف واللمّات في حلقة مفرغة (دوران).
+      - المصطلح الإنجليزي (rectifier) يُستخدم في سياقين: بشري (مصحح للأخطاء) وتقني (مقوّم للتيار)، والتعريف الحالي يركز على الجانب البشري بينما المعاجم التقنية العربية تركز على الجانب الآلي.
+    observations: "اللمّات المختارة (مصحح ومقوم) فصيحة وتؤدي المعنى، لكنها تفتقر إلى 'مصلح' الذي هو الكلمة العربية المركزية لهذا المفهوم (إزالة الفساد). يحتاج التعريف إلى إعادة صياغة بأسلوب معجمي رصين."
+  blind_candidates:
+    - lemma: "مُصْلِح"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل (أصلح)، وهو اللفظ العربي الأصيل لكل من يزيل الفساد أو الخلل في الأمور."
+    - lemma: "مُعَدِّل"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل (عدّل)، ويعني من يقيم الشيء ويسويه، وهو من أقرب الكلمات لمعنى (rectifier)."
+    - lemma: "مُهَذِّب"
+      generation_method: majaz
+      justification: "اسم فاعل من (هذّب)، ويُستخدم مجازاً لمن ينقي الأمور من الشوائب والعيوب ويصلحها."
+    - lemma: "مُنَقِّح"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من (نقّح)، ويُستخدم لمن يراجع العمل ويصلح ما فيه من نقص أو خطأ."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُصَحِّح"
+      confirm:
+        - text: "«المصحِّح؛ المعدِّل إلخ»"
+          source: "المورد الحديث"
+      expands:
+        - text: "«برنامج صغير أو ملف يصحح أغلاط برنامج أو ملف»"
+          source: "المعجم الموحد لمصطلحات تقانة المعلومات"
+          addition: "الاستخدام يمتد للبرمجيات أيضاً."
+    - lemma: "مُقَوِّم"
+      confirm:
+        - text: "«المقوم: أداة لتحويل التيار المتردِّد إلى تيار مُطَّرد»"
+          source: "المورد الحديث"
+        - text: "«من يقيم ويسوي»"
+          source: "موسوعة السلطان قابوس"
+      contradicts:
+        - text: "«الخشبَة الَّتِي يمسكهَا الحراث»"
+          source: "المعجم الوسيط"
+          conflict: "هذا هو المعنى التراثي للأداة، وليس للشخص."
+    - lemma: "مُصْلِح"
+      confirm:
+        - text: "«من يزيل فساد الشيء ويقومه»"
+          source: "موسوعة السلطان قابوس"
+        - text: "«أصْلَحَ الشيءَ: أزال فَسادَه»"
+          source: "المعجم الوسيط"
+    - lemma: "مُعَدِّل"
+      confirm:
+        - text: "«من يقيم ويسوي، ومن يغير الحكم أو الطلب بما هو أولى عنده»"
+          source: "موسوعة السلطان قابوس"
+    - lemma: "مُهَذِّب"
+      confirm:
+        - text: "«من يربي الصبي تربية صالحة خالية من النقائص»"
+          source: "موسوعة السلطان قابوس"
+      expands:
+        - text: "«هذب الشيء: نقاه من العيوب»"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مُصَحِّح"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح ومستقر للدلالة على من يقوم بتصويب الأخطاء، سواء كانت لغوية أو فنية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُصَحِّح"
+    - lemma: "مُقَوِّم"
+      decision: confirmed
+      decision_reason: "على الرغم من شيوعه كأداة تقنية، إلا أنه لغوياً هو الفاعل لكل من يقيم ما اعوج من الأمور."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُقَوِّم"
+    - lemma: "مُصْلِح"
+      source: stage1
+      decision: confirmed
+      decision_reason: "هو اللفظ الأشمل والأكثر تعبيراً عن إعادة الأمور إلى حال الصلاح وإزالة الفساد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُصْلِح", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُعَدِّل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يغطي جانب التسوية والموازنة وتغيير المسار نحو الأفضل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُعَدِّل", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُهَذِّب"
+      source: stage1
+      decision: removed
+      decision_reason: "يرتبط أكثر بالتربية والتنقية المعنوية، وهو أبعد قليلاً عن المفهوم العام للـ (rectifier) الذي يميل للجانب العملي/المادي."
+
+stage4_content:
+  definition:
+    current: "شخص يصحح أو يُقوّم الأمور"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يستخدم نفس اللمّات لشرحها، وهو تعريف دائري غير كافٍ."
+    authored:
+      - type: terminological
+        text: "شخصٌ يتولَّى إزالةَ ما في الأمورِ من فسادٍ أو خَلَلٍ، ويقومُ بتعديلِ ما اعوجَّ منها أو تَصحيحِ أخطائِها."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "شخصٌ يتولَّى إزالةَ ما في الأمورِ من فسادٍ أو خَلَلٍ، ويقومُ بتعديلِ ما اعوجَّ منها أو تَصحيحِ أخطائِها."}
+  examples:
+    per_lemma:
+      - lemma: "مُصَحِّح"
+        examples:
+          - text: "يجب عرض الوثيقة على مُصَحِّحٍ لغويٍّ لضمان خلوها من الأخطاء."
+            type: usage
+      - lemma: "مُقَوِّم"
+        examples:
+          - text: "يُعتبر القاضي مُقَوِّماً للمسار القانوني في القضايا المعقدة."
+            type: usage
+      - lemma: "مُصْلِح"
+        examples:
+          - text: "المُصْلِحُ الحقيقيُّ هو من يسعى لرأب الصدع في المجتمع."
+            type: usage
+      - lemma: "مُعَدِّل"
+        examples:
+          - text: "تعمل اللجنة بصفتها مُعَدِّلاً للمقترحات المقدمة لتحسين الأداء."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يُعدُّ المُصْلِحُ الاجتماعيُّ عنصراً فعالاً في تصحيح مفاهيم الناس الخاطئة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُصَحِّح"
+      entry_id: "{auto}"
+      root: "صحح"
+      maqayis_quote: "«الصَّادُ وَالْحَاءُ أَصْلٌ يَدُلُّ عَلَى الْبَرَاءَةِ مِنَ الْمَرَضِ وَالْعَيْبِ، وَعَلَى الِاسْتِوَاءِ.»"
+    - lemma: "مُقَوِّم"
+      entry_id: "{auto}"
+      root: "قوم"
+      maqayis_quote: "«الْقَافُ وَالْوَاوُ وَالْمِيمُ... يَدُلُّ... عَلَى انْتِصَابٍ أَوْ عَزْمٍ... وَمِنَ الْبَابِ: قَوَّمْتُ الشَّيْءَ تَقْوِيمًا.»"
+    - lemma: "مُصْلِح"
+      entry_id: "{auto}"
+      root: "صلح"
+      maqayis_quote: "«الصَّادُ وَاللَّامُ وَالْحَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خِلَافِ الْفَسَادِ.»"
+    - lemma: "مُعَدِّل"
+      entry_id: "{auto}"
+      root: "عدل"
+      maqayis_quote: "«الْعَيْنُ وَالدَّالُ وَاللَّامُ أَصْلَانِ صَحِيحَانِ... أَحَدُهُمَا يَدُلُّ عَلَى اسْتِوَاءٍ... يُقَالُ: عَدَلْتُهُ حَتَّى اعْتَدَلَ، أَيْ أَقَمْتُهُ حَتَّى اسْتَقَامَ وَاسْتَوَى.»"
+  per_sense:
+    - lemma: "مُصَحِّح"
+      sense_id: "{auto}"
+      nuance: "يركز على تصويب الأخطاء المحددة (errors)."
+      mwe: false
+    - lemma: "مُقَوِّم"
+      sense_id: "{auto}"
+      nuance: "يركز على تقويم الانحراف (straightening) أو التقييم المعياري."
+      mwe: false
+    - lemma: "مُصْلِح"
+      sense_id: "{auto}"
+      nuance: "يركز على معالجة الفساد (corruption) والخلل العام وإعادة الشيء لصلاح حاله."
+      mwe: false
+    - lemma: "مُعَدِّل"
+      sense_id: "{auto}"
+      nuance: "يركز على إجراء التعديلات (adjustments) والموازنة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صحح","maqayis":"«الصَّادُ وَالْحَاءُ أَصْلٌ يَدُلُّ عَلَى الْبَرَاءَةِ مِنَ الْمَرَضِ وَالْعَيْبِ، وَعَلَى الِاسْتِوَاءِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قوم","maqayis":"«الْقَافُ وَالْوَاوُ وَالْمِيمُ... يَدُلُّ... عَلَى انْتِصَابٍ أَوْ عَزْمٍ... وَمِنَ الْبَابِ: قَوَّمْتُ الشَّيْءَ تَقْوِيمًا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صلح","maqayis":"«الصَّادُ وَاللَّامُ وَالْحَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خِلَافِ الْفَسَادِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عدل","maqayis":"«الْعَيْنُ وَالدَّالُ وَاللَّامُ أَصْلَانِ صَحِيحَانِ... أَحَدُهُمَا يَدُلُّ عَلَى اسْتِوَاءٍ... يُقَالُ: عَدَلْتُهُ حَتَّى اعْتَدَلَ، أَيْ أَقَمْتُهُ حَتَّى اسْتَقَامَ وَاسْتَوَى.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على تصويب الأخطاء المحددة (errors).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على تقويم الانحراف (straightening) أو التقييم المعياري.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على معالجة الفساد (corruption) والخلل العام وإعادة الشيء لصلاح حاله.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على إجراء التعديلات (adjustments) والموازنة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params: {entity_type: synset, entity_id: "{synset_id}", score: 0.95}

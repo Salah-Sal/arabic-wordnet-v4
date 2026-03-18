@@ -1,0 +1,234 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "نقص التشكيل في اللمات الموجودة."
+      - "الحاجة إلى تمثيل أدق لمعنى 'restrainer' (الوازع/الكابح) بجانب 'controller' (المتحكم/الضابط)."
+    observations: "المجموعة الترادفية تعبر عن القائم بمهام التوجيه والضبط، سواء كان بشراً أو جهازاً. اللمات الموجودة (ضابط ومتحكم) صحيحة ولكنها تميل للجانب التقني أو الإداري، بينما يفتقر السياق للمصطلحات التي تركز على صفة المنع والكف (restraining)."
+  blind_candidates:
+    - lemma: "ضابِط"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من ضبط، وهو اللفظ الأشيع للتعبير عن القائم بالتحكم والضبط."
+    - lemma: "مُتَحَكِّم"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من تحكم، يعبر عن القدرة على التوجيه والسيطرة."
+    - lemma: "وازِع"
+      generation_method: majaz
+      justification: "من 'وزع' أي كف ومنع، وهو أدق لفظ عربي للتعبير عن 'restrainer' في السياق الوظيفي أو الأخلاقي."
+    - lemma: "مُقَيِّد"
+      generation_method: ishtiqaq
+      justification: "من 'قيد'، يعبر عن وضع حدود أو قيود (restraints) على حركة أو عمل ما."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "ضابط"
+      confirm:
+        - text: "(الضَّابِط) (عِنْد الْعلمَاء) حكم كلي ينطبق على جزئياته... رَجُلٌ ضابط: قوى شديد."
+          source: "المعجم الوسيط"
+        - text: "ضابط: controller."
+          source: "ArabTerm (هندسة التحكم)"
+    - lemma: "متحكم"
+      confirm:
+        - text: "تجهيزةٌ تَعتمدُ عليها تجهيزاتٌ أخرى في النفاذ إلى جزءٍ من النظام الحاسوبي... المتحكِّمُ في قرص تخزين."
+          source: "معجم مصطلحات المعلوماتية"
+        - text: "متحكم ذاتي: automatic controller."
+          source: "المعجم الموحد لمصطلحات الفيزياء"
+    - lemma: "وازع"
+      confirm:
+        - text: "وازِع: ج وازعون ووَزَعة ووُزّاع: اسم فاعل من وزَعَ... زاجر ومانع داخلي... مَنْ يُدَبِّر أمور الجيش ويردّ مَنْ شذّ من أفراده."
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "(الْوَازِع) فِي الْحَرْب الْمُوكل بالصفوف يتَقَدَّم الصَّفّ فَيُصْلِحهُ وَيقدم وَيُؤَخر."
+          source: "المعجم الوسيط"
+    - lemma: "مراقب"
+      confirm:
+        - text: "مُراقب: controller."
+          source: "المعجم الموحد لمصطلحات القانون"
+        - text: "مُرَاقِب جوي: air controller."
+          source: "المعجم الموحد لمصطلحات النقل"
+        - text: "المُرَاقِبُ: من يقوم بالرَّقابة."
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "ضابط"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي يشمل المعنى التقني (controller) والمعنى البشري (regulator)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "ضابِط"
+    - lemma: "متحكم"
+      decision: confirmed
+      decision_reason: "مصطلح دقيق يعبر عن السيطرة الكاملة والتوجيه في الأنظمة التقنية والبشرية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُتَحَكِّم"
+    - lemma: "وازع"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يمثل جانب الكف والمنع (restrainer) بامتياز، خاصة في السياقات التنظيمية والأخلاقية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "وازِع", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مراقب"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يستخدم بكثرة في المصطلحات الوظيفية (مراقب جوي، مراقب مالي) للتعبير عن الشخص الذي يوجه ويضبط العمل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُراقب", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "شخص يوجه ويضبط"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب جداً، ويفضل شموله للجانب التقني والبشري كما توحي اللمات والترجمة الإنجليزية."
+    authored:
+      - type: terminological
+        text: "مَنْ (أَوْ مَا) يَتَوَلَّى تَوْجِيهَ عَمَلِيَّةٍ أَوْ جِهَازٍ أَوْ جَمَاعَةٍ وَيَتَحَكَّمُ فِي سَيْرِهَا لِضَمَانِ انْضِبَاطِهَا وَكَبْحِ خُرُوجِهَا عَنِ النِّظَامِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "ضابِط"
+        examples:
+          - text: "يُعَدُّ هَذَا الضَّابِطُ مَسْؤُولًا عَنْ تَنْظِيمِ حَرَكَةِ الْمُرُورِ فِي الْمَيْدَانِ."
+            type: usage
+      - lemma: "مُتَحَكِّم"
+        examples:
+          - text: "يُدِيرُ الْمُتَحَكِّمُ الْآلِيُّ كَافَّةَ الْعَمَلِيَّاتِ فِي الْمَصْنَعِ بِدِقَّةٍ عَالِيَةٍ."
+            type: usage
+      - lemma: "وازِع"
+        examples:
+          - text: "عَيَّنَ الْقَائِدُ وَازِعًا لِلْجَيْشِ لِيَرُدَّ مَنْ شَذَّ عَنْ قَوَاعِدِ النِّظَامِ."
+            type: usage
+      - lemma: "مُراقب"
+        examples:
+          - text: "قَامَ الْمُرَاقِبُ الْجَوِّيُّ بِتَوْجِيهِ الطَّائِرَةِ لِلْهُبُوطِ بِأَمَانٍ."
+            type: usage
+  actions:
+    - command: update_definition
+      params: {synset_id: "{synset_id}", definition_index: 0, text: "مَنْ (أَوْ مَا) يَتَوَلَّى تَوْجِيهَ عَمَلِيَّةٍ أَوْ جِهَازٍ أَوْ جَمَاعَةٍ وَيَتَحَكَّمُ فِي سَيْرِهَا لِضَمَانِ انْضِبَاطِهَا وَكَبْحِ خُرُوجِهَا عَنِ النِّظَامِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "ضابِط"
+      entry_id: "{auto}"
+      root: "ضبط"
+      maqayis_quote: "«الضَّادُ وَالْبَاءُ وَالطَّاءُ أَصْلٌ صَحِيحٌ. ضَبَطَ الشَّيْءَ ضَبْطًا. وَالْأَضْبَطُ: الَّذِي يَعْمَلُ بِيَدَيْهِ جَمِيعًا.»"
+    - lemma: "مُتَحَكِّم"
+      entry_id: "{auto}"
+      root: "حكم"
+      maqayis_quote: "«الْحَاءُ وَالْكَافُ وَالْمِيمُ أَصْلٌ وَاحِدٌ، وَهُوَ الْمَنْعُ. وَأَوَّلُ ذَلِكَ الْحُكْمُ، وَهُوَ الْمَنْعُ مِنَ الظُّلْمِ.»"
+    - lemma: "وازِع"
+      entry_id: "{auto}"
+      root: "وزع"
+      maqayis_quote: "«الْوَاوُ وَالزَّاءُ وَالْعَيْنُ: بِنَاءٌ مَوْضُوعٌ عَلَى غَيْرِ قِيَاسٍ. وَوَزَعْتُهُ عَنِ الْأَمْرِ: كَفَفْتُهُ.»"
+    - lemma: "مُراقب"
+      entry_id: "{auto}"
+      root: "رقب"
+      maqayis_quote: "«الرَّاءُ وَالْقَافُ وَالْبَاءُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ، يَدُلُّ عَلَى انْتِصَابٍ لِمُرَاعَاةِ شَيْءٍ. مِنْ ذَلِكَ الرَّقِيبُ، وَهُوَ الْحَافِظُ.»"
+  per_sense:
+    - lemma: "ضابِط"
+      sense_id: "{auto}"
+      nuance: "يوحي بالدقة الصارمة والالتزام بقواعد محددة (regulator)."
+      mwe: false
+    - lemma: "مُتَحَكِّم"
+      sense_id: "{auto}"
+      nuance: "يوحي بالسيطرة الفعلية والقدرة على تغيير المسار أو القرار (controller)."
+      mwe: false
+    - lemma: "وازِع"
+      sense_id: "{auto}"
+      nuance: "يركز على وظيفة المنع والكف والردع (restrainer)."
+      mwe: false
+    - lemma: "مُراقب"
+      sense_id: "{auto}"
+      nuance: "يركز على المتابعة والتدقيق لإدارة سير العمل (monitor/overseer)."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ضبط","maqayis":"«الضَّادُ وَالْبَاءُ وَالطَّاءُ أَصْلٌ صَحِيحٌ. ضَبَطَ الشَّيْءَ ضَبْطًا...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حكم","maqayis":"«الْحَاءُ وَالْكَافُ وَالْمِيمُ أَصْلٌ وَاحِدٌ، وَهُوَ الْمَنْعُ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"وزع","maqayis":"«الْوَاوُ وَالزَّاءُ وَالْعَيْنُ: بِنَاءٌ مَوْضُوعٌ عَلَى غَيْرِ قِيَاسٍ. وَوَزَعْتُهُ عَنِ الْأَمْرِ: كَفَفْتُهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"رقب","maqayis":"«الرَّاءُ وَالْقَافُ وَالْبَاءُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ، يَدُلُّ عَلَى انْتِصَابٍ لِمُرَاعَاةِ شَيْءٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يوحي بالدقة الصارمة والالتزام بقواعد محددة (regulator)","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يوحي بالسيطرة الفعلية والقدرة على تغيير المسار أو القرار (controller)","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على وظيفة المنع والكف والردع (restrainer)","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على المتابعة والتدقيق لإدارة سير العمل (monitor/overseer)","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

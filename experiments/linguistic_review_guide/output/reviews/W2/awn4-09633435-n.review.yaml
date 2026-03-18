@@ -1,0 +1,104 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "شخص من العامة"
+      evidence_status: "no_material_found"
+    - lemma: "عامّي"
+      confirm:
+        - text: "«العامّيّ: شخص غير نبيل النَّسب.»"
+          source: "المورد الحديث (2008)"
+        - text: "«العامّيّ: فرد من العامّة»"
+          source: "المورد الحديث (2008)"
+        - text: "«العاميُّ: من رَضِي من المعارف بالتقليدات... والوسط من يسوسه من فوقه، ويسوس هو من دونه.»"
+          source: "معجم مقاليد العلوم للسيوطي"
+      expands:
+        - text: "«المنسوب إلى العامّة»"
+          source: "المعجم الوسيط"
+          addition: "المعنى اللغوي العام للنسبة إلى العوام."
+      peripheral_observations:
+        - "يُطلق 'العامّي' أيضاً على الكلام العفوي المتداول (colloquial) وعلى الجاهل أو الأعمى كما في بعض المعاجم."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "سُوقِيّ"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "معرفة سابقة كمرادف دلالي في بعض السياقات للمنتمي إلى طبقة العامة."
+      justification: "مجاز: أُطلقت على من ينتمي للأسواق أي العامة، إلا أنها تحمل دلالة قدحية."
+  knowledge_candidates:
+    - lemma: "مُواطِن عَادِيّ"
+      justification: "تركيب وصفي (وصف): تعبير معاصر يستخدم في السياقات السياسية والاجتماعية للإشارة إلى الفرد الذي لا يملك ألقاباً أو امتيازات خاصة."
+  generation_notes: "تمت الاستعانة بمخرجات الترجمة الثنائية. مفهوم 'commoner' يقابله 'عامي' بشكل دقيق، في حين أن التراكيب الأخرى وصفية."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "عامّي"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح ومستقر في المعاجم ثنائية اللغة لترجمة المفهوم المقصود (commoner)."
+      evidence_assessment:
+        case: "confirm"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "اللفظ الأدق والمفرد للتعبير عن الفرد من عامة الشعب في مقابل النبلاء."
+      example: "تزوّج الأمير من فتاة عاميّة متجاوزاً تقاليد العائلة المالكة."
+    - lemma: "شخص من العامة"
+      decision: removed
+      decision_reason: "تركيب وصفي حر (شبه جملة) وليس مصطلحاً مسكوكاً؛ يمكن استبداله بـ 'رجل من العامة' أو 'فرد من العامة' دون خلل دلالي."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تعبير وصفي يشرح المفهوم ولا يمثّل وحدة معجمية."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "سُوقِيّ"
+      source: step05
+      decision: removed
+      decision_reason: "الكلمة تحمل دلالة قدحية (ابتذال/سوء أدب) في الاستعمال المعاصر ولا تقتصر على مجرد نفي اللقب النبيل."
+      step05_citation: "معرفة معجمية"
+    - lemma: "مُواطِن عَادِيّ"
+      source: step05
+      decision: removed
+      decision_reason: "تعبير وصفي حر يكثر في لغة الصحافة ولكنه ليس مصطلحاً مسكوكاً كبديل لـ commoner بالمعنى التاريخي للنبلاء."
+      step05_citation: "توليد ذاتي"
+  synset_flags:
+    definition_review_needed: false
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شخص لا يحمل أي لقب نبيل"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق ويعكس المعنى المقصود في شجرة WordNet بصورة واضحة ومباشرة."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عَامِل / فَاعِل"
+    test_result: "wrong"
+  antonymy:
+    per_lemma:
+      - lemma: "عامّي"
+        antonym_found: true
+        antonym: "نَبِيل"
+  verb_checks:
+    applicable: false
+  selectional_restrictions:
+    - lemma: "عامّي"
+      constraint: "يشترط أن يكون فاعلاً عاقلاً (إنسان)"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "عامّي"
+      enrichment:
+        root: "ع-م-م"
+      examples:
+        - text: "لم يكن يُسمح في العصور القديمة للنبيل بالزواج من امرأة عاميّة."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

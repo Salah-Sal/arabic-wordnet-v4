@@ -1,0 +1,239 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "عدم تضمن المجموعة لصيغ الإضافة المباشرة (مثل كابح الجراثيم) التي تُعد المقابل الاسمي الأدق لـ bacteriostat."
+      - "عدم وجود تشكيل على اللمات الحالية."
+    observations: "المفهوم علمي ينتمي إلى مجالات الكيمياء والصيدلة وعلم الأحياء الدقيقة. يشير إلى العامل الذي يوقف نمو البكتيريا دون أن يقتلها (عكس مبيد البكتيريا). تُترجم bacteriostat في المعاجم العربية بصيغ متعددة كالمركبات الإضافية (كابح الجراثيم، موقف الجراثيم) والمركبات الوصفية (كابح بكتيري) أو بأسلوب الجار والمجرور (كابح للجراثيم)."
+  blind_candidates:
+    - lemma: "مُثَبِّطٌ جُرْثُومِيٌّ"
+      generation_method: ishtiqaq
+      justification: "وصف العامل بكونه مثبطاً (يمنع النمو) ونسبته إلى الجرثوم."
+    - lemma: "كَابِحٌ بَكْتِيرِيٌّ"
+      generation_method: ishtiqaq
+      justification: "الكبح يعني المنع والوقف، ونسبته إلى البكتيريا كمركب وصفي."
+    - lemma: "مَانِعُ نُمُوِّ الْبَكْتِيرِيَا"
+      generation_method: tarkib
+      justification: "تعبير تركيبي إضافي يصف وظيفة المادة حرفياً."
+    - lemma: "مُوقِفُ الْجَرَاثِيمِ"
+      generation_method: ishtiqaq
+      justification: "من الفعل أوقف، أي العامل الذي يوقف الجراثيم عن التكاثر."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "كابح للجراثيم"
+      confirm:
+        - text: "«كابِحٌ للجَراثيم» (bacteriostatic)"
+          source: "المعجم الطبي الموحد (2009)"
+    - lemma: "مثبط للبكتيريا"
+      evidence_status: "no_material_found"
+    - lemma: "مُثَبِّطٌ جُرْثُومِيٌّ"
+      evidence_status: "no_material_found"
+    - lemma: "كَابِحٌ بَكْتِيرِيٌّ"
+      evidence_status: "no_material_found"
+    - lemma: "مَانِعُ نُمُوِّ الْبَكْتِيرِيَا"
+      expands:
+        - text: "«عامل يوقف أو يعيق نمو البكتيريا دون إبادتها»"
+          source: "المعجم الموحد لمصطلحات الكيمياء (1992)"
+          addition: "يؤكد المعنى الوصفي للمفهوم"
+    - lemma: "مُوقِفُ الْجَرَاثِيمِ"
+      confirm:
+        - text: "«موقف بكتيري، موقف الجراتيم» (bacteriostat)"
+          source: "المعجم الموحد لمصطلحات الكيمياء (1992)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "كابح للجراثيم"
+      decision: confirmed
+      decision_reason: "صيغة صحيحة نحوياً ومعتمدة في المعاجم الطبية للدلالة على العامل الكابح، وتستعمل اسماً وصفة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "كَابِحٌ لِلْجَرَاثِيمِ"
+    - lemma: "مثبط للبكتيريا"
+      decision: confirmed
+      decision_reason: "تعبير دقيق ومألوف علمياً للإشارة إلى العامل المثبط باستخدام الجار والمجرور."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُثَبِّطٌ لِلْبَكْتِيرِيَا"
+    - lemma: "مُثَبِّطٌ جُرْثُومِيٌّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مركب وصفي دقيق ومختصر، يتفق مع قواعد النحت المصطلحي."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "مُثَبِّطٌ جُرْثُومِيٌّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "كَابِحٌ بَكْتِيرِيٌّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تركيبي وصفي جيد ويؤدي المعنى بوضوح وإيجاز."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "كَابِحٌ بَكْتِيرِيٌّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مَانِعُ نُمُوِّ الْبَكْتِيرِيَا"
+      source: stage1
+      decision: removed
+      decision_reason: "شرح وتعريف للمفهوم أكثر من كونه مصطلحاً مسكوكاً."
+      evidence_assessment:
+        case: expands_only
+      mwe_check:
+        is_mwe: true
+    - lemma: "مُوقِفُ الْجَرَاثِيمِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح مسكوك ومعتمد في المعاجم الكيميائية كترجمة مباشرة لـ bacteriostat."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "مُوقِفُ الْجَرَاثِيمِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "مادة كيميائية أو بيولوجية تمنع نمو البكتيريا"
+    assessment:
+      decision: revise
+      reason: "يُفضّل إضافة قيد 'دون إبادتها' لتمييزه عن المبيد الجرثومي (bactericide)."
+    authored:
+      - type: terminological
+        text: "مَادَّةٌ كِيمْيَائِيَّةٌ أَوْ بِيُولُوجِيَّةٌ تَكْبَحُ نُمُوَّ الْبَكْتِيرِيَا وَتُوقِفُ تَكَاثُرَهَا دُونَ إِبَادَتِهَا."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مَادَّةٌ كِيمْيَائِيَّةٌ أَوْ بِيُولُوجِيَّةٌ تَكْبَحُ نُمُوَّ الْبَكْتِيرِيَا وَتُوقِفُ تَكَاثُرَهَا دُونَ إِبَادَتِهَا."}
+
+  examples:
+    per_lemma:
+      - lemma: "كابح للجراثيم"
+        examples:
+          - text: "يُعَدُّ هَذَا الْمُرَكَّبُ كَابِحاً لِلْجَرَاثِيمِ فَعَّالاً فِي حِفْظِ الْأَطْعِمَةِ."
+            type: usage
+      - lemma: "مثبط للبكتيريا"
+        examples:
+          - text: "أُضِيفَ مُثَبِّطٌ لِلْبَكْتِيرِيَا إِلَى مَوَادِّ التَّنْظِيفِ لِلْحَدِّ مِنَ التَّلَوُّثِ."
+            type: usage
+      - lemma: "مُثَبِّطٌ جُرْثُومِيٌّ"
+        examples:
+          - text: "وَصَفَ الطَّبِيبُ مُرْهَماً يَحْتَوِي عَلَى مُثَبِّطٍ جُرْثُومِيٍّ لِمَنْعِ تَفَاقُمِ الِالْتِهَابِ."
+            type: usage
+      - lemma: "كَابِحٌ بَكْتِيرِيٌّ"
+        examples:
+          - text: "تَعْمَلُ الْمَادَّةُ كَكَابِحٍ بَكْتِيرِيٍّ يَمْنَعُ انْتِشَارَ الْعَدْوَى."
+            type: usage
+      - lemma: "مُوقِفُ الْجَرَاثِيمِ"
+        examples:
+          - text: "يُسْتَخْدَمُ مُوقِفُ الْجَرَاثِيمِ فِي تَعْقِيمِ الْأَدَوَاتِ الطِّبِّيَّةِ لِضَمَانِ سَلَامَتِهَا."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يُعَدُّ هَذَا الْمُرَكَّبُ كَابِحاً لِلْجَرَاثِيمِ فَعَّالاً فِي حِفْظِ الْأَطْعِمَةِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "كابح للجراثيم"
+      entry_id: "{auto}"
+      roots:
+        - word: "كابح"
+          root: "كبح"
+          maqayis_quote: "«الْكَافُ وَالْبَاءُ وَالْحَاءُ كَلِمَةٌ. يُقَالُ: كَبَحْتُ الْفَرَسَ بِلِجَامِهِ أَكْبَحُهُ.»"
+        - word: "الجراثيم"
+          root: "جرثم"
+    - lemma: "مثبط للبكتيريا"
+      entry_id: "{auto}"
+      roots:
+        - word: "مثبط"
+          root: "ثبط"
+        - word: "البكتيريا"
+          root: "بكتيريا"
+    - lemma: "مُثَبِّطٌ جُرْثُومِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مثبط"
+          root: "ثبط"
+        - word: "جرثومي"
+          root: "جرثم"
+    - lemma: "كَابِحٌ بَكْتِيرِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "كابح"
+          root: "كبح"
+          maqayis_quote: "«الْكَافُ وَالْبَاءُ وَالْحَاءُ كَلِمَةٌ. يُقَالُ: كَبَحْتُ الْفَرَسَ بِلِجَامِهِ أَكْبَحُهُ.»"
+        - word: "بكتيري"
+          root: "بكتيريا"
+    - lemma: "مُوقِفُ الْجَرَاثِيمِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "موقف"
+          root: "وقف"
+          maqayis_quote: "«الْوَاوُ وَالْقَافُ وَالْفَاءُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَمَكُّثٍ فِي شَيْءٍ ثُمَّ يُقَاسُ عَلَيْهِ.»"
+        - word: "الجراثيم"
+          root: "جرثم"
+  per_sense:
+    - lemma: "كابح للجراثيم"
+      sense_id: "{auto}"
+      nuance: "صيغة جار ومجرور معتمدة في المعاجم الطبية."
+      mwe: true
+    - lemma: "مثبط للبكتيريا"
+      sense_id: "{auto}"
+      nuance: "صيغة جار ومجرور تشير تحديداً للبكتيريا كاسم لاتيني معرّب."
+      mwe: true
+    - lemma: "مُثَبِّطٌ جُرْثُومِيٌّ"
+      sense_id: "{auto}"
+      nuance: "مركب وصفي يستخدم التسمية العربية (جراثيم)."
+      mwe: true
+    - lemma: "كَابِحٌ بَكْتِيرِيٌّ"
+      sense_id: "{auto}"
+      nuance: "مركب وصفي يستخدم التسمية اللاتينية المعربة (بكتيريا)."
+      mwe: true
+    - lemma: "مُوقِفُ الْجَرَاثِيمِ"
+      sense_id: "{auto}"
+      nuance: "مركب إضافي معتمد في الكيمياء يؤكد على آلية (الإيقاف) دون الإبادة."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

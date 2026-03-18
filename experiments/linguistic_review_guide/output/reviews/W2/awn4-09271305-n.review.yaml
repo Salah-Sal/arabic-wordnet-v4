@@ -1,0 +1,190 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "أرض ساحلية"
+      expands:
+        - text: "«منطقة ساحلية (المرادف العربي)» — مسرد المناخ والبيئة (ArabTerm)"
+          addition: "يؤكد أن التعبير وصفي لمدلول (ساحل) أو (منطقة ساحلية)."
+      evidence_status: "no_material_found" # لم يرد كمدخل معجمي مستقل بل كتركيب وصفي
+
+    - lemma: "ساحل"
+      confirm:
+        - text: "«المنطقة من اليابس التي تجاور بحرا أو مسطحًا مائيًا كبيرًا وتتأثر بأمواجه» — المعجم الوسيط"
+        - text: "«شاطئ البحر أو النهر، المنطقة من اليابس التي تجاور بحرًا أو مسطحًا مائيًّا كبيرًا» — المعجم الكبير"
+      expands:
+        - text: "«شريط من الأرض بين خط الشاطئ وأي تغير ملحوظ في الطبوغرافيا» — المعجم الموحد لمصطلحات الجيولوجيا"
+          addition: "تحديد جغرافي دقيق للمفهوم كمنطقة يابسة."
+
+    - lemma: "منطقة ساحلية"
+      confirm:
+        - text: "«منطقة من اليابسة والبحر تمتدّ على الساحل، وتشمل مصبات الأنهار والمناطق الشاطئية والبحرية» — المعجم الموحد لمصطلحات المياه"
+        - text: "«منطقة ساحلية» — المورد الحديث"
+
+    - lemma: "سيف"
+      confirm:
+        - text: "«السيف بالكسر: ساحل البحر» — تاج اللغة وصحاح العربية"
+        - text: "«سيف البحر: ساحله» — المعجم الكبير"
+        - text: "«سيف القارة: الجزء المنبسط من القارة مما يلي البحر» — المعجم الوسيط"
+          addition: "استخدام اصطلاحي جغرافي دقيق لمدلول coastland."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "ساحل"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«المنطقة من اليابس التي تجاور بحرا...» — المعجم الوسيط"
+      justification: "المرادف الأشيع والأدق لغوياً ومصطلحياً."
+    - lemma: "منطقة ساحلية"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«(2) منطقة ساحلية (littoral)» — المورد الحديث"
+      justification: "مصطلح حديث مستقر في المعاجم التقنية."
+  knowledge_candidates:
+    - lemma: "سيف"
+      justification: "مصطلح تراثي فصيح (بالكسر) يطلق على ساحل البحر، وله استخدام جيولوجي معاصر (سيف القارة) يطابق مفهوم coastland."
+    - lemma: "شريط ساحلي"
+      justification: "تركيب وصفي مستعمل بكثرة في الجغرافيا المعاصرة للدلالة على الأرض الساحلية الممتدة."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "أرض ساحلية"
+      decision: confirmed
+      decision_reason: "تعبير وصفي واضح ومطابق للتعريف، وإن لم يرد كمدخل مستقل."
+      evidence_assessment:
+        case: "expands"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تعبير وصفي عام يركز على طبيعة الأرض وموقعها."
+      example: "تتميز الأرض الساحلية في هذه المنطقة بخصوبة تربتها وتنوع غطائها النباتي."
+
+    - lemma: "ساحل"
+      source: step05
+      decision: confirmed
+      decision_reason: "اللفظ المعياري في اللغة لوصف المنطقة اليابسة المجاورة للبحر."
+      step05_citation: "«المنطقة من اليابس التي تجاور بحرا...» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "اللفظ الأصيل والشامل للمنطقة (Area) والخط (Line) معاً، ولكنه في سياق الجغرافيا يشير للمنطقة."
+      example: "يمتد ساحل البحر الأحمر على مسافة طويلة تتنوع فيها التضاريس."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "ساحل"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09271305-n"
+
+    - lemma: "منطقة ساحلية"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح تقني مستقر في المعاجم الحديثة والموحدة."
+      step05_citation: "«منطقة من اليابسة والبحر تمتدّ على الساحل» — المعجم الموحد لمصطلحات المياه"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على البعد الجغرافي والإداري للمفهوم كمجال مكاني محدد."
+      example: "تخضع المنطقة الساحلية لقوانين بيئية صارمة لحماية الشعب المرجانية."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "منطقة ساحلية"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09271305-n"
+
+    - lemma: "سيف"
+      source: step05
+      decision: confirmed
+      decision_reason: "لفظ تراثي فصيح ومصطلح جيولوجي دقيق."
+      step05_citation: "«سيف القارة: الجزء المنبسط من القارة مما يلي البحر» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "لفظ كلاسيكي يركز على الامتداد الأرضي بمحاذاة الماء، وله دقة عالية في السياق العلمي."
+      example: "نزل القوم بسيف البحر وبنوا فيه مساكنهم."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "سيف"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09271305-n"
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "أرض في منطقة ساحلية"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي دوري (استخدم 'منطقة ساحلية' لتعريف 'أرض ساحلية') وغير دقيق في تحديد جوهر المفهوم."
+  authored_definitions:
+    - type: terminological
+      text: "المنطقة من اليابس التي تجاور بحرًا أو مسطحًا مائيًّا كبيرًا وتتأثر بخصائصه الجوية والمائية."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-09271305-n"
+        definition_index: 0
+        text: "المنطقة من اليابس التي تجاور بحرًا أو مسطحًا مائيًّا كبيرًا وتتأثر بخصائصه الجوية والمائية."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "أرض، تربة (awn4-09358146-n)"
+    test_result: "wrong"
+  actions:
+    - command: remove_synset_relation
+      params:
+        source_id: "awn4-09271305-n"
+        relation_type: "hypernym"
+        target_id: "awn4-09358146-n"
+    - command: add_synset_relation
+      params:
+        source_id: "awn4-09271305-n"
+        relation_type: "hypernym"
+        target_id: "awn4-09357302-n"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "أرض ساحلية"
+      enrichment:
+        root: "أ-ر-ض / س-ح-ل"
+      examples:
+        - text: "تعتبر الأرض الساحلية مزاراً سياحياً هاماً."
+          type: usage
+          source: "مؤلف"
+    - lemma: "ساحل"
+      enrichment:
+        root: "س-ح-ل"
+      examples:
+        - text: "«المنطقة من اليابس التي تجاور بحرا...»"
+          type: usage
+          source: "المعجم الوسيط"
+    - lemma: "منطقة ساحلية"
+      enrichment:
+        root: "ن-ط-ق / س-ح-ل"
+      examples:
+        - text: "تنمو أشجار المانغروف في المنطقة الساحلية."
+          type: usage
+          source: "مؤلف"
+    - lemma: "سيف"
+      enrichment:
+        root: "س-ي-ف"
+      examples:
+        - text: "«فأتينا سيف البحر»"
+          type: hadith
+          source: "تاج اللغة وصحاح العربية"
+  cultural_fit:
+    assessment: native
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-09271305-n"
+        text: "فأتينا سيف البحر"

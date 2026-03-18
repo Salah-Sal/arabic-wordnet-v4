@@ -1,0 +1,152 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "إكسسوار مسرحي"
+      evidence_status: "no_material_found"
+      peripheral_observations:
+        - lemma: "إكسسوار مسرحي"
+          observation: "لم يرد المركب كمدخل مستقل في المعاجم، لكنه المصطلح المعياري المستقر في الدراما والمسرح."
+          source: "المعرفة اللغوية"
+
+    - lemma: "دعامة"
+      contradicts:
+        - text: "«الدعامة: ما يسند به الحائط إذا مال يمنعه من السقوط»"
+          source: "التوقيف على مهمات التعاريف"
+          conflict: "المدلول المعجمي مادي محض (سناد ميكانيكي) بينما المفهوم المسرحي يدل على مقتنيات ومواد منقولة."
+        - text: "«(الدعامة) عماد البيت الذي يقوم عليه»"
+          source: "المعجم الوسيط"
+          conflict: "المعنى يتعلق بالبناء والإنشاء، بينما المجموعة تتعلق بالأغراض المنقولة (movable objects)."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "إكسسوار"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«إكسسوار [جمع]: قطع من الأدوات التزيينيّة... وهو من الأشياء الكماليّة» — المعجم المعاصر"
+      justification: "اللفظ المعرّب المستخدم للدلالة على الملحقات والأدوات التكميلية، ويشمل المفهوم المسرحي."
+    - lemma: "أدوات المسرح"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«الصِّناعة المسرحيَّة: البراعة في تقنيات وأدوات المسرح» — المعجم المعاصر"
+      justification: "تعبير عربي فصيح ورد في المعجم المعاصر لوصف الجانب التقني والمادي للعرض المسرحي."
+  knowledge_candidates:
+    - lemma: "لوازم مسرحية"
+      justification: "آلية التوليد: تركيب وصفي. مصطلح شائع الاستخدام في الأدبيات المسرحية للدلالة على كافة المتطلبات المادية للمشهد."
+  generation_notes: "التحليل يظهر أن المصطلح 'دعامة' هو ترجمة حرفية خاطئة للفظ الإنجليزي 'prop' الذي يشترك لفظياً مع معنى 'support' في سياقات أخرى."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "إكسسوار مسرحي"
+      decision: confirmed
+      decision_reason: "مصطلح فني مستقر ومحدد دلالياً يطابق التعريف تماماً."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "التسمية الفنية الكاملة للمفهوم، تميزه عن الإكسسوارات الشخصية أو الصناعية."
+      example: "قام فني الإكسسوارات بتجهيز كل إكسسوار مسرحي ورد ذكره في النص قبل العرض."
+      actions: []
+
+    - lemma: "دعامة"
+      decision: removed
+      decision_reason: "ترجمة حرفية خاطئة (Calque)؛ الدعامة في العربية تعني السناد والعمود، بينما المقصود هنا المقتنيات المنقولة."
+      evidence_assessment:
+        case: "contradicts"
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "اللفظ لا ينتمي لهذا الحقل الدلالي إطلاقاً."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "إكسسوار"
+      source: step05
+      decision: confirmed
+      decision_reason: "اللفظ الشائع والأكثر تداولاً في الوسط الفني."
+      step05_citation: "«إكسسوار [جمع]: قطع من الأدوات التزيينيّة...» — المعجم المعاصر"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "اللفظ المعرّب الشائع؛ يستخدم غالباً للاختصار بدلاً من المركب الكامل."
+      example: "تطلب المشهد إضافة إكسسوار قديم ليعطي إيحاءً بالحقبة التاريخية."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "إكسسوار"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-04018636-n"
+
+    - lemma: "أدوات المسرح"
+      source: step05
+      decision: confirmed
+      decision_reason: "تعبير فصيح ورد في المعجم المعاصر في سياق التقنيات المسرحية."
+      step05_citation: "«الصِّناعة المسرحيَّة: البراعة في تقنيات وأدوات المسرح» — المعجم المعاصر"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تعبير وصفي فصيح يركز على الوظيفة الأداتية لهذه الأغراض."
+      example: "تشمل أدوات المسرح كل ما يحتاجه الممثل من قطع مادية لإتمام دوره."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "أدوات المسرح"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-04018636-n"
+
+  added_lemmas:
+    - lemma: "إكسسوار"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+    - lemma: "أدوات المسرح"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "أي أدوات أو أشياء منقولة تستخدم في موقع تصوير مسرحية أو فيلم"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق علمياً ويغطي المفهوم بشكل كافٍ وصياغته العربية سليمة."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-00002684-n"
+    test_result: "correct"
+  actions: []
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "إكسسوار مسرحي"
+      enrichment:
+        root: null
+        etymology: "loanword"
+      examples:
+        - text: "يُعدّ الإكسسوار المسرحي جزءاً لا يتجزأ من لغة العرض البصرية."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "إكسسوار"
+      enrichment:
+        root: null
+        etymology: "loanword"
+      examples:
+        - text: "تحتوي غرفة الإكسسوارات على مئات القطع التي جُمعت عبر سنوات."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "أدوات المسرح"
+      enrichment:
+        root: "أ-د-و"
+      examples:
+        - text: "تطورت أدوات المسرح عبر العصور لتواكب التكنولوجيا الحديثة."
+          type: usage
+          source: "مؤلَّف"
+  cultural_fit:
+    assessment: phraset
+  actions: []

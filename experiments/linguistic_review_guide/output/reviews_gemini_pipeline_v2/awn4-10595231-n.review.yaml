@@ -1,0 +1,221 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي دقيق ولكنه يفتقر إلى صياغة معجمية أكثر رصانة."
+      - "كلمة (طالب) عامة جداً وتحتاج إلى سياق أحياناً لتدل على الباحث، ولكنها مقبولة."
+    observations: "المجموعة تعبر عن مفهوم الشخص الذي يبحث عن شيء أو يطلبه، واللمتان الموجودتان تعبران عن شقين: البحث (باحث) والطلب (طالب)."
+  blind_candidates:
+    - lemma: "مُسْتَقْصٍ"
+      generation_method: ishtiqaq
+      justification: "مشتق من الفعل استقصى، ويدل على من يبالغ في البحث لمعرفة أدق التفاصيل."
+    - lemma: "بَحَّاثَة"
+      generation_method: ishtiqaq
+      justification: "صيغة مبالغة تدل على من يكثر البحث والتنقيب."
+    - lemma: "مُسْتَخْبِر"
+      generation_method: ishtiqaq
+      justification: "مشتق من استخبر، ويعني من يطلب الخبر والمعرفة بالاستفسار."
+    - lemma: "مُفَتِّش"
+      generation_method: ishtiqaq
+      justification: "مشتق من فتّش، ويدل على من يبحث عن الأشياء المفقودة أو المخفية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "بَاحِث"
+      confirm:
+        - text: "«من (ب ح ث) المفتش عن الشيء والمجتهد في التعرف على حقيقته.»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+    - lemma: "طَالِب"
+      confirm:
+        - text: "«ومن يهم بتحصيل الشيء أو يلتمسه ويريده.»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+    - lemma: "مُسْتَقْصٍ"
+      evidence_status: "no_material_found"
+    - lemma: "بَحَّاثَة"
+      contradicts:
+        - text: "«التراب الذى يُبحث فيه عن الشيء»"
+          source: "المعجم الوسيط"
+          conflict: "المعنى المعجمي الأصلي يشير إلى التراب، ورغم شيوعها حديثاً للدلالة على العالم المتبحر، إلا أنها لا تناسب مطلق الباحث."
+    - lemma: "مُسْتَخْبِر"
+      evidence_status: "no_material_found"
+    - lemma: "مُفَتِّش"
+      contradicts:
+        - text: "«موظف يقوم بتفتيش أعمال حكومية أو غيرها (محدثة)»"
+          source: "المعجم الوسيط"
+          conflict: "تدل على وظيفة رسمية أو منصب، بينما المفهوم عام لكل باحث أو طالب حاجة."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "باحث"
+      decision: confirmed
+      decision_reason: "كلمة فصيحة ومستعملة وتطابق الدلالة على من يبحث عن شيء أو يستكشفه."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "بَاحِث"
+    
+    - lemma: "طالب"
+      decision: confirmed
+      decision_reason: "كلمة صحيحة تدل على من يطلب شيئاً ويسعى وراءه، وهو ما يطابق معنى seeker."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "طَالِب"
+
+    - lemma: "مُسْتَقْصٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مشتق صحيح يدل على من يبلغ أقصى الجهد في البحث والاستفسار، وهو مرادف قوي لمعنى المفهوم."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُسْتَقْصٍ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "بَحَّاثَة"
+      source: stage1
+      decision: removed
+      decision_reason: "الدلالة الأصلية مختلفة، والاستعمال الحديث يخص العالم المتبحر وليس مجرد الباحث عن شيء."
+
+    - lemma: "مُسْتَخْبِر"
+      source: stage1
+      decision: removed
+      decision_reason: "تركز أكثر على طلب الأخبار والاستعلام، وقد لا تشمل البحث المادي أو المعنوي العام."
+
+    - lemma: "مُفَتِّش"
+      source: stage1
+      decision: removed
+      decision_reason: "ارتبطت بوظيفة رسمية وتخرج عن الدلالة العامة للمفهوم المنشود هنا."
+
+stage4_content:
+  definition:
+    current: "شخص يقوم بالبحث أو الاستفسار"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد ولكنه يعتمد على نفس ألفاظ اللمات (البحث)، ويمكن صياغته بأسلوب معجمي أوضح يشمل الطلب والسعي."
+    authored:
+      - type: terminological
+        text: "شخص يطلب شيئاً أو يسعى لمعرفته بالبحث والتنقيب والاستقصاء."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "شخص يطلب شيئاً أو يسعى لمعرفته بالبحث والتنقيب والاستقصاء."}
+  
+  examples:
+    per_lemma:
+      - lemma: "بَاحِث"
+        examples:
+          - text: "كان باحثاً عن الحقيقة لا يكل ولا يمل."
+            type: usage
+      - lemma: "طَالِب"
+        examples:
+          - text: "كل طالبِ حقٍّ سيصل إليه عاجلاً أم آجلاً."
+            type: usage
+      - lemma: "مُسْتَقْصٍ"
+        examples:
+          - text: "أرسلت الشركة مستقصياً للوقوف على أسباب المشكلة."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "كان باحثاً عن الحقيقة لا يكل ولا يمل."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "كل طالبِ حقٍّ سيصل إليه عاجلاً أم آجلاً."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "أرسلت الشركة مستقصياً للوقوف على أسباب المشكلة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "بَاحِث"
+      entry_id: "{auto}"
+      root: "بحث"
+      maqayis_quote: "«الْبَاءُ وَالْحَاءُ وَالثَّاءُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى إِثَارَةِ الشَّيْءِ... وَالْبَحْثُ أَنْ تَسْأَلَ عَنْ شَيْءٍ وَتَسْتَخْبِرَ.»"
+    - lemma: "طَالِب"
+      entry_id: "{auto}"
+      root: "طلب"
+      maqayis_quote: "«الطَّاءُ وَاللَّامُ وَالْبَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى ابْتِغَاءِ الشَّيْءِ. يُقَالُ: طَلَبْتُ الشَّيْءَ أَطْلُبُهُ طَلَبًا.»"
+    - lemma: "مُسْتَقْصٍ"
+      entry_id: "{auto}"
+      root: "قصو"
+      maqayis_quote: "«الْقَافُ وَالصَّادُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى بُعْدٍ وَإِبْعَادٍ.»"
+  
+  per_sense:
+    - lemma: "بَاحِث"
+      sense_id: "{auto}"
+      nuance: "يركز على عملية التفتيش والتنقيب وبذل الجهد للوصول إلى الشيء أو الحقيقة."
+      mwe: false
+    - lemma: "طَالِب"
+      sense_id: "{auto}"
+      nuance: "يركز على إرادة الحصول على الشيء والسعي إليه، سواء كان مادياً أو معنوياً."
+      mwe: false
+    - lemma: "مُسْتَقْصٍ"
+      sense_id: "{auto}"
+      nuance: "يركز على بلوغ الغاية والمنتهى في البحث لمعرفة أدق التفاصيل."
+      mwe: false
+  
+  synset:
+    cultural_fit: native
+  
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"بحث","maqayis":"«الْبَاءُ وَالْحَاءُ وَالثَّاءُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى إِثَارَةِ الشَّيْءِ... وَالْبَحْثُ أَنْ تَسْأَلَ عَنْ شَيْءٍ وَتَسْتَخْبِرَ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"طلب","maqayis":"«الطَّاءُ وَاللَّامُ وَالْبَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى ابْتِغَاءِ الشَّيْءِ. يُقَالُ: طَلَبْتُ الشَّيْءَ أَطْلُبُهُ طَلَبًا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قصو","maqayis":"«الْقَافُ وَالصَّادُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى بُعْدٍ وَإِبْعَادٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على عملية التفتيش والتنقيب وبذل الجهد للوصول إلى الشيء أو الحقيقة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على إرادة الحصول على الشيء والسعي إليه، سواء كان مادياً أو معنوياً.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على بلوغ الغاية والمنتهى في البحث لمعرفة أدق التفاصيل.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

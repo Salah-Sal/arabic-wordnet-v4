@@ -1,0 +1,190 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "تقتصر المجموعة حالياً على لمة واحدة فقط (خط) رغم تعدد المرادفات في السياق المكاني."
+    observations: "المجموعة تعبر عن المفهوم التجريدي والهندسي للخط كموقع مكاني أحادي البعد. اللمات المرشحة يجب أن تغطي الجوانب المختلفة لهذا المفهوم (المسار الحركي، الحد الفاصل، الصف المنتظم)."
+  blind_candidates:
+    - lemma: "خَطّ"
+      generation_method: majaz
+      justification: "اللفظ الأساسي والمباشر للمفهوم الهندسي والمكاني للخط."
+    - lemma: "مَسَار"
+      generation_method: ishtiqaq
+      justification: "يعبر عن الخط المكاني الذي يمثل طريقاً أو وجهة (trajectory/path)."
+    - lemma: "حَدّ"
+      generation_method: majaz
+      justification: "يعبر عن الخط الذي يمثل نهاية أو فاصلاً مكانيًا بين حيزين."
+    - lemma: "سَطْر"
+      generation_method: majaz
+      justification: "يعبر عن الخط المستقيم الذي يجمع أشياء في صف واحد (row/line)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خَطّ"
+      confirm:
+        - text: "«الخَطُّ عند المهندسين: طُولٌ لا عَرْضَ لَه»"
+          source: "القاموس المحيط"
+        - text: "«أثر ممتد فوق سطح ما»"
+          source: "معجم اللغة العربية المعاصرة"
+      expands:
+        - text: "«الخَطُّ: الطريقةُ، واللَّبَنُ في الحَجَرِ، والنَّبْطُ»"
+          source: "القاموس المحيط"
+    - lemma: "مَسَار"
+      confirm:
+        - text: "«خط سير طائرة أو باخرة، وينسب سمت هذا الخط إلى خط الطول الحقيقي»"
+          source: "المعجم الموحد لمصطلحات الاستشعار عن بعد"
+        - text: "«اتجاه الطيران، أو الخط المرسوم على خريطة والذي يمثل المسار المطلوب»"
+          source: "المعجم الموحد لمصطلحات الاستشعار عن بعد"
+    - lemma: "حَدّ"
+      confirm:
+        - text: "«وعند المهندسين نهاية المقدار وهو الخط والسطح والجسم التعليمي ويسمى طرفا أيضا»"
+          source: "كشاف اصطلاحات الفنون"
+        - text: "«الحاجز بين شيئين... وحد الدار ما تتميز به عن غيرها»"
+          source: "التوقيف على مهمات التعاريف"
+    - lemma: "سَطْر"
+      confirm:
+        - text: "«خط مستقيم على الورق... صف من كل شيء»"
+          source: "معجم اللغة العربية المعاصرة"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "خط"
+      decision: confirmed
+      decision_reason: "اللمة الأساسية المتفقة تماماً مع التعريف الهندسي والمكاني."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَطّ"
+    - lemma: "مَسَار"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يستخدم للتعبير عن الخط المكاني الذي يحدده مسير جسم ما (trajectory)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَسَار", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-08610818-n"}
+    - lemma: "حَدّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يستخدم للتعبير عن الخط الفاصل أو خط النهاية المكاني."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "حَدّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-08610818-n"}
+    - lemma: "سَطْر"
+      source: stage1
+      decision: removed
+      decision_reason: "أكثر تخصيصاً بالصفوف المكونة من وحدات منفصلة (كلمات، أشجار) أو الخطوط المكتوبة، بينما المجموعة تعبر عن الموقع المكاني الممتد."
+
+stage4_content:
+  definition:
+    current: "موقع مكاني محدد بامتداد حقيقي أو وهمي أحادي البعد"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دقيق لكنه يفتقر للصياغة المعجمية الرشيقة، ويفضل تبسيط المصطلحات الفيزيائية."
+    authored:
+      - type: terminological
+        text: "موقعٌ في الفضاءِ يتحدَّدُ بامتدادٍ طوليٍّ أحاديِّ البُعدِ، سواءٌ أكانَ حقيقيًّا أم تخيُّليًّا."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "خَطّ"
+        examples:
+          - text: "رَسَمَ المُهَنْدِسُ خَطًّا مُسْتَقِيمًا عَلَى الخَارِطَةِ لِتَحْدِيدِ الطَّرِيقِ."
+            type: usage
+      - lemma: "مَسَار"
+        examples:
+          - text: "تَتَبَّعَ الرَّادَارُ مَسَارَ الطَّائِرَةِ عَبْرَ القَارَّاتِ."
+            type: usage
+      - lemma: "حَدّ"
+        examples:
+          - text: "يَقَعُ مَنْزِلِي عِنْدَ الحَدِّ الفَاصِلِ بَيْنَ المَدِينَتَيْنِ."
+            type: usage
+  actions:
+    - command: update_definition
+      params: {synset_id: "awn4-08610818-n", definition_index: 0, text: "موقعٌ في الفضاءِ يتحدَّدُ بامتدادٍ طوليٍّ أحاديِّ البُعدِ، سواءٌ أكانَ حقيقيًّا أم تخيُّليًّا."}
+    - command: add_sense_example
+      params: {sense_id: "{auto}", text: "رَسَمَ المُهَنْدِسُ خَطًّا مُسْتَقِيمًا عَلَى الخَارِطَةِ لِتَحْدِيدِ الطَّرِيقِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خَطّ"
+      entry_id: "{auto}"
+      root: "خطط"
+      maqayis_quote: "«الْخَاءُ وَالطَّاءُ أَصْلٌ وَاحِدٌ ; وَهُوَ أَثَرٌ يَمْتَدُّ امْتِدَادًا.»"
+    - lemma: "مَسَار"
+      entry_id: "{auto}"
+      root: "سير"
+      maqayis_quote: "«السِّينُ وَالْيَاءُ وَالرَّاءُ أَصْلٌ يَدُلُّ عَلَى مُضِيٍّ وَجَرَيَانٍ... وَالسَّيْرُ: الْجِلْدُ... سُمِّيَ بِذَلِكَ لِامْتِدَادِهِ.»"
+    - lemma: "حَدّ"
+      entry_id: "{auto}"
+      root: "حدد"
+      maqayis_quote: "«الْحَاءُ وَالدَّالُ أَصْلَانِ: الْأَوَّلُ الْمَنْعُ، وَالثَّاني طَرَفُ الشَّيْءِ. فَالْحَدُّ: الْحَاجِزُ بَيْنَ الشَّيْئَيْنِ.»"
+  per_sense:
+    - lemma: "خَطّ"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام والمجرد للأثر الممتد طولاً بلا عرض."
+      mwe: false
+    - lemma: "مَسَار"
+      sense_id: "{auto}"
+      nuance: "يشير إلى الخط المكاني الذي يحدده التحرك أو الوجهة."
+      mwe: false
+    - lemma: "حَدّ"
+      sense_id: "{auto}"
+      nuance: "يشير إلى الخط الذي يمثل نهاية حيز أو فاصلاً بين حيزين."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خطط","maqayis":"«الْخَاءُ وَالطَّاءُ أَصْلٌ وَاحِدٌ ; وَهُوَ أَثَرٌ يَمْتَدُّ امْتِدَادًا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سير","maqayis":"«السِّينُ وَالْيَاءُ وَالرَّاءُ أَصْلٌ يَدُلُّ عَلَى مُضِيٍّ وَجَرَيَانٍ... وَالسَّيْرُ: الْجِلْدُ... سُمِّيَ بِذَلِكَ لِامْتِدَادِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حدد","maqayis":"«الْحَاءُ وَالدَّالُ أَصْلَانِ: الْأَوَّلُ الْمَنْعُ، وَالثَّاني طَرَفُ الشَّيْءِ. فَالْحَدُّ: الْحَاجِزُ بَيْنَ الشَّيْئَيْنِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ العام والمجرد للأثر الممتد طولاً بلا عرض.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-08610818-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-08610818-n"
+        score: 0.95

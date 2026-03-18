@@ -1,0 +1,219 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'تعبير' بمفردها عامة جداً ولا تدل على المعنى الوراثي الدقيق إلا في سياق مقيد، في حين أن 'تعبير جيني' هي المصطلح العلمي المستعمل."
+      - "التعريف المرفق (عملية التعبير عن الجين) دائري ومعيب من الناحية المعجمية لأنه يستخدم نفس الكلمة المعرفة (التعبير)."
+    observations: "المفهوم يشير إلى ترجمة المعلومات في الجينات إلى بروتينات وغيرها، وهو معروف طبياً بـ 'gene expression'. المصطلحات العربية تستخدم إما التعريب 'جين' أو الترجمة 'مورثة'."
+  blind_candidates:
+    - lemma: "تَعْبِيرٌ جِينِيّ"
+      generation_method: tarkib
+      justification: "ترجمة مسكوكة وشائعة للمصطلح الإنجليزي، تعتمد على إضافة الوصف (جيني) لكلمة تعبير."
+    - lemma: "تَعْبِيرٌ مُوَرِّثِيّ"
+      generation_method: tarkib
+      justification: "بديل عربي فصيح للفظ المعرب 'جين' باستخدام 'مورثة'، بتركيب وصفي."
+    - lemma: "تَعْبِيرُ الْمُوَرِّثَةِ"
+      generation_method: tarkib
+      justification: "تركيب إضافي معتمد في علم الوراثة، وهو أصح دلالياً ونحوياً لترجمة الإضافة المعنوية في الإنجليزية."
+    - lemma: "إِبْرَازٌ جِينِيّ"
+      generation_method: tarkib
+      justification: "محاولة لاستخدام لفظ بديل يعبر عن إظهار الصفة الكامنة، لتجنب الدوران حول كلمة تعبير."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تعبير"
+      contradicts:
+        - text: "وحدة تعبير ونسق لغوي لترميز الأشياء، ككتابة تتحدد بقواعد نحوية وسيميائية."
+          source: "المعجم الموحد لمصطلحات اللسانيات (2002)"
+          conflict: "المعنى هنا عام أو يختص باللسانيات، ولا يدل بمفرده على العملية الوراثية."
+    - lemma: "تعبير جيني"
+      confirm:
+        - text: "تعبير جيني / gene expression"
+          source: "المَكنَز الزراعي متعدد اللغات (موقع ArabTerm)"
+    - lemma: "تَعْبِيرٌ مُوَرِّثِيّ"
+      evidence_status: "no_material_found"
+    - lemma: "تَعْبِيرُ الْمُوَرِّثَةِ"
+      confirm:
+        - text: "تعبير المورثة / gene expression"
+          source: "المعجم الموحد لمصطلحات علم الوراثة (2009)"
+    - lemma: "إِبْرَازٌ جِينِيّ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تعبير"
+      decision: removed
+      decision_reason: "مصطلح عام جداً يُستخدم في مجالات عديدة (كاللغة والفنون)، ولا يدل بذاته على العملية الوراثية إلا إذا قُيّد بإضافة أو نعت."
+      evidence_assessment:
+        case: contradicts_only
+      actions:
+        - command: remove_sense
+          params: {sense_id: "{auto}"}
+    - lemma: "تعبير جيني"
+      decision: confirmed
+      decision_reason: "مصطلح علمي مسكوك وشائع جداً في المراجع العلمية والمجامع، وهو المقابل المباشر المعتاد للمصطلح الإنجليزي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَعْبِيرٌ جِينِيّ"
+    - lemma: "تَعْبِيرٌ مُوَرِّثِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تركيب وصفي صحيح ومستعمل لغوياً لترجمة المفهوم باستخدام الكلمة العربية الأصيلة 'مورثة' بدلاً من اللفظ الدخيل."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "تَعْبِيرٌ مُوَرِّثِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-13499408-n"}
+    - lemma: "تَعْبِيرُ الْمُوَرِّثَةِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح موثق في 'المعجم الموحد لمصطلحات علم الوراثة'، ويمثل التركيب الإضافي الدقيق للمفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "تَعْبِيرُ الْمُوَرِّثَةِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-13499408-n"}
+    - lemma: "إِبْرَازٌ جِينِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "مصطلح غير متداول علمياً، والبدائل المعتمدة والموجودة تفي بالغرض بشكل كامل."
+
+stage4_content:
+  definition:
+    current: "(علم الوراثة) عملية التعبير عن الجين"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي به دور منطقي باستخدام لفظة 'التعبير' في تعريف 'التعبير'، ويفتقر إلى التوضيح العلمي للعملية الحيوية."
+    authored:
+      - type: terminological
+        text: "عملية حيوية تُترجَم فيها المعلومات الوراثية المشفّرة في المورثة لتتحول إلى مواد وظيفية في الخلية، كالبروتينات."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-13499408-n", definition_index: 0, text: "عملية حيوية تُترجَم فيها المعلومات الوراثية المشفّرة في المورثة لتتحول إلى مواد وظيفية في الخلية، كالبروتينات."}
+  examples:
+    per_lemma:
+      - lemma: "تَعْبِيرٌ جِينِيّ"
+        examples:
+          - text: "يُعَدُّ التعبير الجيني خطوة أساسية في تحديد الخصائص الوظيفية للخلية."
+            type: usage
+      - lemma: "تَعْبِيرٌ مُوَرِّثِيّ"
+        examples:
+          - text: "تتدخل عدة عوامل بيئية في تنظيم التعبير المورثي وتوجيهه."
+            type: usage
+      - lemma: "تَعْبِيرُ الْمُوَرِّثَةِ"
+        examples:
+          - text: "تؤدي بعض الطفرات إلى إحداث خلل في تعبير المورثة المسؤولة عن بناء الإنزيمات."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-13499408-n", text: "يُعَدُّ التعبير الجيني خطوة أساسية في تحديد الخصائص الوظيفية للخلية."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تَعْبِيرٌ جِينِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "تعبير"
+          root: "عبر"
+          maqayis_quote: "«(عَبَرَ) الْعَيْنُ وَالْبَاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى النُّفُوذِ وَالْمُضِيِّ فِي الشَّيْءِ.»"
+    - lemma: "تَعْبِيرٌ مُوَرِّثِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "تعبير"
+          root: "عبر"
+          maqayis_quote: "«(عَبَرَ) الْعَيْنُ وَالْبَاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى النُّفُوذِ وَالْمُضِيِّ فِي الشَّيْءِ.»"
+        - word: "مورثي"
+          root: "ورث"
+          maqayis_quote: "«(وَرَثَ) الْوَاوُ وَالرَّاءُ وَالثَّاءُ: كَلِمَةٌ وَاحِدَةٌ، هِيَ الْوِرْثُ... وَهُوَ أَنْ يَكُونَ الشَّيْءُ لِقَوْمٍ ثُمَّ يَصِيرَ إِلَى آخَرِينَ بِنَسَبٍ أَوْ سَبَبٍ.»"
+    - lemma: "تَعْبِيرُ الْمُوَرِّثَةِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "تعبير"
+          root: "عبر"
+          maqayis_quote: "«(عَبَرَ) الْعَيْنُ وَالْبَاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى النُّفُوذِ وَالْمُضِيِّ فِي الشَّيْءِ.»"
+        - word: "المورثة"
+          root: "ورث"
+          maqayis_quote: "«(وَرَثَ) الْوَاوُ وَالرَّاءُ وَالثَّاءُ: كَلِمَةٌ وَاحِدَةٌ، هِيَ الْوِرْثُ... وَهُوَ أَنْ يَكُونَ الشَّيْءُ لِقَوْمٍ ثُمَّ يَصِيرَ إِلَى آخَرِينَ بِنَسَبٍ أَوْ سَبَبٍ.»"
+  per_sense:
+    - lemma: "تَعْبِيرٌ جِينِيّ"
+      sense_id: "{auto}"
+      nuance: "المصطلح الأكثر شيوعاً وتداولاً في الأوساط الطبية والعلمية، يعتمد على اللفظ المعرب الشائع (جين)."
+      mwe: true
+    - lemma: "تَعْبِيرٌ مُوَرِّثِيّ"
+      sense_id: "{auto}"
+      nuance: "بديل عربي فصيح، يستخدم 'مورثة' كترجمة لـ 'جين' في تركيب وصفي."
+      mwe: true
+    - lemma: "تَعْبِيرُ الْمُوَرِّثَةِ"
+      sense_id: "{auto}"
+      nuance: "بديل عربي دقيق يعتمد على التركيب الإضافي لبيان الاختصاص، وهو معتمد في المعاجم العلمية."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"تعبير","root":"عبر","maqayis":"«(عَبَرَ) الْعَيْنُ وَالْبَاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى النُّفُوذِ وَالْمُضِيِّ فِي الشَّيْءِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"تعبير","root":"عبر","maqayis":"«(عَبَرَ) الْعَيْنُ وَالْبَاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى النُّفُوذِ وَالْمُضِيِّ فِي الشَّيْءِ.»"},{"word":"مورثي","root":"ورث","maqayis":"«(وَرَثَ) الْوَاوُ وَالرَّاءُ وَالثَّاءُ: كَلِمَةٌ وَاحِدَةٌ، هِيَ الْوِرْثُ... وَهُوَ أَنْ يَكُونَ الشَّيْءُ لِقَوْمٍ ثُمَّ يَصِيرَ إِلَى آخَرِينَ بِنَسَبٍ أَوْ سَبَبٍ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"تعبير","root":"عبر","maqayis":"«(عَبَرَ) الْعَيْنُ وَالْبَاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى النُّفُوذِ وَالْمُضِيِّ فِي الشَّيْءِ.»"},{"word":"المورثة","root":"ورث","maqayis":"«(وَرَثَ) الْوَاوُ وَالرَّاءُ وَالثَّاءُ: كَلِمَةٌ وَاحِدَةٌ، هِيَ الْوِرْثُ... وَهُوَ أَنْ يَكُونَ الشَّيْءُ لِقَوْمٍ ثُمَّ يَصِيرَ إِلَى آخَرِينَ بِنَسَبٍ أَوْ سَبَبٍ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الأكثر شيوعاً وتداولاً في الأوساط الطبية والعلمية، يعتمد على اللفظ المعرب الشائع (جين).","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"بديل عربي فصيح، يستخدم مورثة كترجمة لجين في تركيب وصفي.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"بديل عربي دقيق يعتمد على التركيب الإضافي لبيان الاختصاص، وهو معتمد في المعاجم العلمية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-13499408-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-13499408-n"
+        score: 0.95

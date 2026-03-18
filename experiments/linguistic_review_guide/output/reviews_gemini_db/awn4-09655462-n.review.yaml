@@ -1,0 +1,159 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "شخص غير ماهر"
+      evidence_status: "no_material_found"
+    - lemma: "عامل غير مدرب"
+      evidence_status: "no_material_found"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "عامل غير ماهر"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«عَامِلٌ غَيْرُ مَاهِرٍ» — المعجم الموحد لمصطلحات الحكامة التربوية (2020)"
+      justification: "تركيب وصفي مسكوك لترجمة unskilled worker وموجود في معاجم المصطلحات."
+  knowledge_candidates:
+    - lemma: "عامل عادي"
+      justification: "مصطلح شائع ومستقر في السياق الوظيفي والقانوني للتعبير عن العامل المفتقر للمهارة المتخصصة (التركيب الوصفي)."
+  generation_notes: "المفهوم مركب بطبيعته ويستدعي تعبيراً اصطلاحياً مسكوكاً."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "شخص غير ماهر"
+      decision: "removed"
+      decision_reason: "تركيب وصفي حر (ليس مصطلحاً مسكوكاً) ومجرد ترجمة حرفية."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "مرفوض لأنه عبارة وصفية غير مسكوكة."
+      actions:
+        - command: "remove_sense"
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "عامل غير مدرب"
+      decision: "removed"
+      decision_reason: "تركيب وصفي حر، وليس وحدة معجمية اصطلاحية ثابتة."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "مرفوض لأنه عبارة حرة."
+      actions:
+        - command: "remove_sense"
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "عامل غير ماهر"
+      source: "step05"
+      decision: "confirmed"
+      decision_reason: "تعبير مركب اصطلاحي مستقر معتمد في المعاجم المتخصصة."
+      step05_citation: "«عَامِلٌ غَيْرُ مَاهِرٍ» — المعجم الموحد لمصطلحات الحكامة التربوية (2020)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "مصطلح معياري دقيق معتمد في مجال الأعمال والاقتصاد."
+      example: "تستعين بعض الشركات بعمال غير مهرة لإنجاز أعمال المناولة والنقل البسيطة."
+      actions:
+        - command: "create_entry"
+          params:
+            lemma: "عامل غير ماهر"
+            pos: "n"
+        - command: "add_sense"
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09655462-n"
+
+    - lemma: "عامل عادي"
+      source: "step05"
+      decision: "confirmed"
+      decision_reason: "تركيب اصطلاحي شائع جداً في قوانين العمل والأدبيات الإدارية."
+      step05_citation: "مصدر: المعرفة اللغوية (الاستعمال المتخصص)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يتميز بشيوعه الكبير في لغة السوق وقوانين العمل مقارنة بالمصطلح الرسمي."
+      example: "تتطلب ورشة البناء عشرات العمال العاديين للقيام بمهام الحفر والتنظيف."
+      actions:
+        - command: "create_entry"
+          params:
+            lemma: "عامل عادي"
+            pos: "n"
+        - command: "add_sense"
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09655462-n"
+
+  synset_flags:
+    definition_review_needed: true
+
+  added_lemmas:
+    - lemma: "عامل غير ماهر"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "create_entry + add_sense"
+    - lemma: "عامل عادي"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "create_entry + add_sense"
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "شخص يفتقر إلى التدريب الفني"
+  assessment:
+    decision: "revise"
+    reason: "التعريف الحالي عام ويمكن تحسينه ليصبح أدق مصطلحياً في سياق العمالة والمهن."
+  authored_definitions:
+    - type: "terminological"
+      text: "عامل يفتقر إلى التأهيل والتدريب الفني المتخصص ويؤدي مهاماً لا تتطلب مهارات معقدة."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: "update_definition"
+      params:
+        synset_id: "awn4-09655462-n"
+        definition_index: 0
+        text: "عامل يفتقر إلى التأهيل والتدريب الفني المتخصص ويؤدي مهاماً لا تتطلب مهارات معقدة."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عَامِل"
+    test_result: "correct"
+  verb_checks:
+    applicable: false
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "عامل غير ماهر"
+      enrichment:
+        root: "ع-م-ل"
+      examples:
+        - text: "يتقاضى العامل غير الماهر أجراً أدنى من نظيره الفني المتخصص."
+          type: "usage"
+          source: "مؤلَّف"
+      pos_check:
+        pos: "noun"
+
+    - lemma: "عامل عادي"
+      enrichment:
+        root: "ع-م-ل"
+      examples:
+        - text: "عمل في بداية حياته عاملاً عادياً في المصنع قبل أن يتلقى تدريباً مهنياً."
+          type: "usage"
+          source: "مؤلَّف"
+      pos_check:
+        pos: "noun"
+
+  cultural_fit:
+    assessment: "native"
+
+  actions:
+    - command: "add_synset_example"
+      params:
+        synset_id: "awn4-09655462-n"
+        text: "يتقاضى العامل غير الماهر أجراً أدنى من نظيره الفني المتخصص."

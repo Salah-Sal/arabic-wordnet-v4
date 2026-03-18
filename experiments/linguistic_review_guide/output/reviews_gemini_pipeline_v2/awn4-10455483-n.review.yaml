@@ -1,0 +1,182 @@
+stage1_review:
+  assessment:
+    concerns: []
+    observations: "المفهوم يشير إلى شخص يتبول بشكل عام (فاعل). اللمة الموجودة 'بَائِل' هي اسم الفاعل القياسي من الفعل (بَالَ) وهي دقيقة وتفي بالغرض. يمكن إضافة اسم الفاعل من الفعل المزيد (تَبَوَّلَ) وهو (مُتَبَوِّل)."
+  blind_candidates:
+    - lemma: "بَائِل"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل الثلاثي (بال)، يدل على من يقوم بالحدث."
+    - lemma: "مُتَبَوِّل"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل الخماسي (تبوّل)، وهو شائع الاستخدام المعاصر."
+    - lemma: "بَوَّال"
+      generation_method: ishtiqaq
+      justification: "صيغة مبالغة على وزن فَعَّال تدل على من يكثر منه هذا الفعل."
+    - lemma: "مُهْرِق_لِلْمَاء"
+      generation_method: majaz
+      justification: "كناية مجازية قديمة (أهرق الماء) لعملية التبول."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "بَائِل"
+      confirm:
+        - text: "«بَوْلاً: أخرج ما في مثانته من ماء. فهو بائل, وبَوَّالٌ»"
+          source: "المعجم الوسيط"
+    - lemma: "مُتَبَوِّل"
+      expands:
+        - text: "«(تبول) بَال»"
+          source: "المعجم الوسيط لمجموعة من المؤلفين"
+          addition: "يثبت الفعل المزيد (تبول) الذي يشتق منه (متبول)."
+    - lemma: "بَوَّال"
+      confirm:
+        - text: "«الكثيرُ البول»"
+          source: "المعجم الكبير"
+      expands:
+        - text: "«داء يكثر منه البول»"
+          source: "المعجم الوسيط"
+          addition: "يستخدم أيضا كاسم لمرض."
+    - lemma: "مُهْرِق_لِلْمَاء"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "بَائِل"
+      decision: confirmed
+      decision_reason: "صيغة فاعل قياسية من الفعل الثلاثي، وقد نصت عليها المعاجم بوضوح (فهو بائل)، ومطابقة تماماً لتعريف المجموعة الترادفية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      nuance: "اسم فاعل مجرد يدل على من يقوم بفعل التبول دون مبالغة، وهو الاستخدام الفصيح المباشر."
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "بَائِل"
+
+    - lemma: "مُتَبَوِّل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اسم فاعل من الفعل المزيد (تبوّل) الشائع في الاستعمال المعاصر والطبي، ويعتبر رديفاً دقيقاً ومناسباً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      nuance: "اسم فاعل من الفعل (تبوّل)، يشيع استخدامه في السياقات المعاصرة والطبية."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُتَبَوِّل"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "بَوَّال"
+      source: stage1
+      decision: removed
+      decision_reason: "صيغة مبالغة تعني (الكثير البول) أو اسماً لداء، وهذا يخرج عن الدلالة المجردة للمجموعة الترادفية."
+
+    - lemma: "مُهْرِق_لِلْمَاء"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير كنائي مهجور ولا يشكل مصطلحاً معجمياً مستقلاً لهذه الدلالة."
+
+stage4_content:
+  definition:
+    current: "شخص يتبول"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يستخدم جملة فعلية مبسطة للغاية. استبداله بتعريف لغوي أكثر دقة على نهج المعاجم يرفع من الجودة."
+    authored:
+      - type: linguistic
+        text: "مَنْ يُخْرِجُ مَا فِي مَثَانَتِهِ مِنْ مَاءٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "مَنْ يُخْرِجُ مَا فِي مَثَانَتِهِ مِنْ مَاءٍ."
+
+  examples:
+    per_lemma:
+      - lemma: "بَائِل"
+        examples:
+          - text: "أَخَذَ الطَّبِيبُ عَيِّنَةً مِنْ دَمِ الْبَائِلِ."
+            type: usage
+      - lemma: "مُتَبَوِّل"
+        examples:
+          - text: "يُطْلَبُ مِنَ الْمُتَبَوِّلِ جَمْعُ الْعَيِّنَةِ فِي وِعَاءٍ مُعَقَّمٍ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "أَخَذَ الطَّبِيبُ عَيِّنَةً مِنْ دَمِ الْبَائِلِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يُطْلَبُ مِنَ الْمُتَبَوِّلِ جَمْعُ الْعَيِّنَةِ فِي وِعَاءٍ مُعَقَّمٍ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "بَائِل"
+      entry_id: "{auto}"
+      root: "بول"
+      maqayis_quote: "«الْبَاءُ وَالْوَاوُ وَاللَّامُ أَصْلَانِ: أَحَدُهُمَا مَاءٌ يَتَحَلَّبُ... فَالْأَوَّلُ الْبَوْلُ، وَهُوَ مَعْرُوفٌ»"
+    - lemma: "مُتَبَوِّل"
+      entry_id: "{auto}"
+      root: "بول"
+      maqayis_quote: "«الْبَاءُ وَالْوَاوُ وَاللَّامُ أَصْلَانِ: أَحَدُهُمَا مَاءٌ يَتَحَلَّبُ... فَالْأَوَّلُ الْبَوْلُ، وَهُوَ مَعْرُوفٌ»"
+  per_sense:
+    - lemma: "بَائِل"
+      sense_id: "{auto}"
+      nuance: "اسم فاعل مجرد يدل على من يقوم بفعل التبول دون مبالغة، وهو الاستخدام الفصيح المباشر."
+      mwe: false
+    - lemma: "مُتَبَوِّل"
+      sense_id: "{auto}"
+      nuance: "اسم فاعل من الفعل (تبوّل)، يشيع استخدامه في السياقات المعاصرة والطبية."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"بول","maqayis":"«الْبَاءُ وَالْوَاوُ وَاللَّامُ أَصْلَانِ: أَحَدُهُمَا مَاءٌ يَتَحَلَّبُ... فَالْأَوَّلُ الْبَوْلُ، وَهُوَ مَعْرُوفٌ»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"بول","maqayis":"«الْبَاءُ وَالْوَاوُ وَاللَّامُ أَصْلَانِ: أَحَدُهُمَا مَاءٌ يَتَحَلَّبُ... فَالْأَوَّلُ الْبَوْلُ، وَهُوَ مَعْرُوفٌ»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اسم فاعل مجرد يدل على من يقوم بفعل التبول دون مبالغة، وهو الاستخدام الفصيح المباشر.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اسم فاعل من الفعل (تبوّل)، يشيع استخدامه في السياقات المعاصرة والطبية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

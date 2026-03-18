@@ -1,0 +1,201 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي يفتقر إلى الجزالة اللغوية (استخدام كلمات مثل 'يقوم باستخدام' و 'شخص يستخدم')."
+      - "اللمّات الحالية غير مشكولة (مستخدم، مستعمل) مما قد يسبب التباساً مع صيغ المبني للمجهول (مُستخدَم، مُستعمَل)."
+    observations: "المفهوم يشير إلى الشخص الذي ينتفع بشيء أو نظام، وهو مفهوم مركزي في السياقات التقنية الحديثة وفي المعاملات العامة."
+  blind_candidates:
+    - lemma: "مُسْتَخْدِم"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من استخدَم، وهو المصطلح الأوسع شيوعاً في السياقات التقنية والأنظمة الحاسوبية."
+    - lemma: "مُسْتَعْمِل"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من استعمَل، وهو مصطلح عام ينطبق على استخدام الأدوات والآلات والأنظمة."
+    - lemma: "مُنْتَفِع"
+      generation_method: ishtiqaq
+      justification: "يشير إلى من يحصل على منفعة من خدمة أو مرفق، وهو شائع في السياقات القانونية والخدماتية."
+    - lemma: "مُتَعَامِل"
+      generation_method: ishtiqaq
+      justification: "يُستخدم غالباً لمن يتعامل مع نظام أو جهة معينة (مثل متعامل مع بنك)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُسْتَخْدِم"
+      confirm:
+        - text: "«شخص أو مجموعة تتفاعل مع نظام أو تستفيد منه»"
+          source: "معجم البيانات والذكاء الاصطناعي (2024)"
+        - text: "«مستخدم» ترجمة لمصطلح «user»"
+          source: "موسوعة الكهرباء (IEC 60050)"
+    - lemma: "مُسْتَعْمِل"
+      confirm:
+        - text: "«هو ذلك الشخص، أو الجهة، الذي يستعمل نظاما ما مقابل الشخص أو الجهة التي طورته و/أو تقوم بصيانته»"
+          source: "المعجم الموحد لمصطلحات تقانة المعلومات (2011)"
+        - text: "«مستعمل» ترجمة لمصطلح «user»"
+          source: "معجم اللسانيات (2002)"
+    - lemma: "مُنْتَفِع"
+      confirm:
+        - text: "«من يحصل على مَنْفَعَة»"
+          source: "المعجم الوسيط (تعريف الفعل انتفع)"
+        - text: "«مُنتفِع» مصطلح قانوني وطبي"
+          source: "المعجم الموحد لمصطلحات القانون والمعجم الطبي الموحد"
+    - lemma: "مُتَعَامِل"
+      expands:
+        - text: "«مُتعامل» يُستخدم في الرياضيات للفلك بمعنى العمودي"
+          source: "المعجم الموحد لمصطلحات الرياضيات"
+          addition: "يُفضل استبعاده تجنباً للاشتراك اللفظي مع المعاني التقنية."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مُستخدِم"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي ودقيق في السياقات الحديثة والتقنية، يؤكده معجم البيانات والذكاء الاصطناعي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُسْتَخْدِم"
+    - lemma: "مُستعمِل"
+      decision: confirmed
+      decision_reason: "المصطلح الأكثر شمولية في اللغة العربية لاستخدام أي أداة أو نظام، ومدعوم بقوة في المعاجم المتخصصة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُسْتَعْمِل"
+    - lemma: "مُنْتَفِع"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف قوي يركز على جانب المنفعة، شائع في السياقات القانونية والخدماتية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُنْتَفِع"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10761247-n"
+
+stage4_content:
+  definition:
+    current: "شخص يقوم باستخدام شيء ما؛ شخص يستخدم أو يوظف شيئاً ما"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط ويكرر الفعل في التعريف؛ يُفضل صياغته بأسلوب المعجم الوسيط (اسم جنس + غرض)."
+    authored:
+      - type: terminological
+        text: "شخصٌ يستعمل أداةً أو آلةً أو نظاماً لقضاءِ مَصْلَحَةٍ أو غرضٍ معين."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-10761247-n"
+          definition_index: 0
+          text: "شخصٌ يستعمل أداةً أو آلةً أو نظاماً لقضاءِ مَصْلَحَةٍ أو غرضٍ معين."
+  examples:
+    per_lemma:
+      - lemma: "مُسْتَخْدِم"
+        examples:
+          - text: "على كل مُسْتَخْدِمٍ للنظام حماية حسابه بكلمة مرور قوية."
+            type: usage
+      - lemma: "مُسْتَعْمِل"
+        examples:
+          - text: "المُسْتَعْمِلُ الحكيمُ هو من يتبع إرشادات التشغيل بدقة."
+            type: usage
+      - lemma: "مُنْتَفِع"
+        examples:
+          - text: "يتمتع كل مُنْتَفِعٍ من الخدمة بحقوق متساوية في الرعاية."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُسْتَخْدِم"
+      entry_id: "{auto}"
+      root: "خدم"
+      maqayis_quote: "«الْخَاءُ وَالدَّالُ وَالْمِيمُ أَصْلٌ وَاحِدٌ مُنْقَاسٌ، وَهُوَ إِطَافَةُ الشَّيْءِ بِالشَّيْءِ. [...] وَالْخَادِمُ يُطِيفُ بِمَخْدُومِهِ.»"
+    - lemma: "مُسْتَعْمِل"
+      entry_id: "{auto}"
+      root: "عمل"
+      maqayis_quote: "«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامٌّ فِي كُلِّ فِعْلٍ يُفْعَلُ.»"
+    - lemma: "مُنْتَفِع"
+      entry_id: "{auto}"
+      root: "نفع"
+      maqayis_quote: "«النُّونُ وَالْفَاءُ وَالْعَيْنُ: كَلِمَةٌ تَدُلُّ عَلَى خِلَافِ الضَّرِّ. وَنَفَعَهُ يَنْفَعُهُ نَفْعًا وَمَنْفَعَةً.»"
+  per_sense:
+    - lemma: "مُسْتَخْدِم"
+      sense_id: "{auto}"
+      nuance: "يركز على التفاعل مع الأنظمة والوسائل التقنية الحديثة."
+      mwe: false
+    - lemma: "مُسْتَعْمِل"
+      sense_id: "{auto}"
+      nuance: "المصطلح الأعم والأشمل، يُطلق على من يستعمل الأدوات المادية أو المعنوية."
+      mwe: false
+    - lemma: "مُنْتَفِع"
+      sense_id: "{auto}"
+      nuance: "يركز على جانب الحصول على فائدة أو خدمة، وغالباً ما يُستخدم في السياقات القانونية والاجتماعية."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خدم","maqayis":"«الْخَاءُ وَالدَّالُ وَالْمِيمُ أَصْلٌ وَاحِدٌ مُنْقَاسٌ، وَهُوَ إِطَافَةُ الشَّيْءِ بِالشَّيْءِ. [...] وَالْخَادِمُ يُطِيفُ بِمَخْدُومِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عمل","maqayis":"«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامٌّ فِي كُلِّ فِعْلٍ يُفْعَلُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نفع","maqayis":"«النُّونُ وَالْفَاءُ وَالْعَيْنُ: كَلِمَةٌ تَدُلُّ عَلَى خِلَافِ الضَّرِّ. وَنَفَعَهُ يَنْفَعُهُ نَفْعًا وَمَنْفَعَةً.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على التفاعل مع الأنظمة والوسائل التقنية الحديثة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الأعم والأشمل، يُطلق على من يستعمل الأدوات المادية أو المعنوية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على جانب الحصول على فائدة أو خدمة، وغالباً ما يُستخدم في السياقات القانونية والاجتماعية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-10761247-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-10761247-n"
+        score: 0.95

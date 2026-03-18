@@ -1,0 +1,173 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "مدين"
+      confirm:
+        - text: "«الشخص الذي يكون ملزما بتنفيذ التزام معين أو تأدية التعويض. وبشكل خاص، هو من كان عليه دين لفائدة شخص الدائن.»"
+          source: "المعجم الموحد لمصطلحات القانون (2017)"
+        - text: "«(1) الآثم (2) المدين؛ المديون.»"
+          source: "المورد الحديث (2008)"
+      expands:
+        - text: "«من (د ي ن) العبد والذي يبيع بدين.»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+          addition: "معنى تاريخي إضافي (العبد)."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "مديون"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«المديون: من عليه دينٌ.» — التعريفات الفقهيّة للبركتي"
+      justification: "اشتقاق: اسم مفعول تام من الفعل الثلاثي (دان)، وهو لغة صحيحة (تميمية) ومستعملة بكثرة في الفقه والاستعمال العام للدلالة على من ركبه الدَّين."
+  knowledge_candidates:
+    - lemma: "مستدين"
+      justification: "اشتقاق: اسم فاعل من السداسي (استدان). يُطلق على من طلب الدَّين والتزمه، ويعبر بدقة عن حالة من يتحمل الالتزام المالي."
+    - lemma: "غارم"
+      justification: "تخصيص: لفظ فقهي يُطلق على المديون الذي يعجز عن سداد دينه، ولا سيما في سياق مصارف الزكاة، ولكنه يشارك المدين في أصل المعنى (من عليه دين)."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "مدين"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح وشائع في لغة القانون والاقتصاد للإشارة إلى من عليه التزام مالي."
+      evidence_assessment:
+        case: "mixed"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "المصطلح الأعم والأكثر رسمية في الاستعمال المعاصر للإشارة لمن عليه التزام مالي."
+      example: "سدَّد المدينُ التزامَهُ الماليَّ في الموعد المحدَّد."
+
+    - lemma: "مديون"
+      source: step05
+      decision: confirmed
+      decision_reason: "فصيحة (لغة بني تميم) ومستعملة على نطاق واسع في لغة الفقه والتراث والاستعمال اليومي."
+      step05_citation: "«المديون: من عليه دينٌ.» — التعريفات الفقهيّة للبركتي"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تُفضّل في السياقات الفقهية والشرعية والعامة، بينما يُفضّل «مدين» في القانون والاقتصاد."
+      example: "يسعى المديونُ لسداد ما عليه من أموال لإبراء ذمته."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مديون"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10017160-n"
+
+    - lemma: "مستدين"
+      source: step05
+      decision: confirmed
+      decision_reason: "اسم فاعل فصيح يدل على من طلب الدَّين وتكلفه."
+      step05_citation: "«الْغَارِم: الْمُعسر المستدين لنَفسِهِ أَو لله.» — معجم مقاليد العلوم للسيوطي"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تؤكد على فعل طلب الدين (الاستدانة)، بينما «مدين» تؤكد على حالة شغل الذمة بالدين."
+      example: "أصبح المستدينُ عاجزاً عن الوفاء بالتزاماته."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مستدين"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10017160-n"
+
+    - lemma: "غارم"
+      source: step05
+      decision: removed
+      decision_reason: "مصطلح أخص من «مدين»، فهو يشير غالباً للمدين المعسر العاجز عن السداد (في الفقه)، ولا يصلح كمرادف تام."
+      step05_citation: "«الذى يلتزم ما ضمنه وتكفَّل به» — المعجم الوسيط"
+      substitution_test:
+        result: "fail"
+
+  synset_flags:
+    definition_review_needed: true
+  added_lemmas:
+    - lemma: "مديون"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+    - lemma: "مستدين"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "شخص مدين لدائن؛ شخص عليه التزام بدفع دين"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي يحتوي على دور (يعرّف «مدين» بكلمة «مدين»)، ويحتاج إلى صياغة لغوية ومصطلحية أدق وأشمل."
+  authored_definitions:
+    - type: terminological
+      text: "شخص لزمته ذمة مالية أو التزام تجاه طرف آخر يُسمَّى الدائن."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+    - type: linguistic
+      text: "مَنْ عليه دَيْنٌ لغيره."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-10017160-n"
+        definition_index: 0
+        text: "شخص لزمته ذمة مالية أو التزام تجاه طرف آخر يُسمَّى الدائن."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عَامِل"
+    test_result: "needs_closer"
+  antonymy:
+    per_lemma:
+      - lemma: "مدين"
+        antonym_found: true
+        antonym: "دائن"
+      - lemma: "مديون"
+        antonym_found: true
+        antonym: "دائن"
+      - lemma: "مستدين"
+        antonym_found: true
+        antonym: "مُقْرِض"
+  verb_checks:
+    applicable: false
+  selectional_restrictions:
+    - lemma: "مدين"
+      constraint: "يقتضي فاعلاً عاقلاً أو شخصية اعتبارية (كالشركات والمؤسسات)."
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "مدين"
+      enrichment:
+        root: "د-ي-ن"
+      examples:
+        - text: "أمهل الدائنُ المدينَ حتى ميسرة."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "مديون"
+      enrichment:
+        root: "د-ي-ن"
+      examples:
+        - text: "تراكمت الديون على المديون فعجز عن السداد."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "مستدين"
+      enrichment:
+        root: "د-ي-ن"
+      examples:
+        - text: "لجأ المستدين إلى المصرف لطلب قرض تجاري."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

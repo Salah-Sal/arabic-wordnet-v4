@@ -1,0 +1,210 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'جالب للنوم' هي عبارة وصفية أو ترجمة حرفية وليست مصطلحاً مسكوكاً."
+    observations: "المفهوم يشير إلى العوامل التي تسبب النعاس أو النوم. 'منوم' مصطلح قياسي وشائع. يمكن إغناء المجموعة بمرادفات تصف إحداث النعاس بشكل خاص أو الإرقاد."
+  blind_candidates:
+    - lemma: "مُنَوِّم"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل 'نوّم'، يدل على ما يُحدث النوم."
+    - lemma: "مُنْعِس"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من 'أنعس'، يدل على ما يسبب النعاس."
+    - lemma: "مُرْقِد"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من 'أرقد'، بمعنى جعل الشخص ينام أو يرقد."
+    - lemma: "عَقَّارٌ مُنَوِّمٌ"
+      generation_method: tarkib
+      justification: "تركيب وصفي يحدد نوع العامل (عقار) وتأثيره (منوم) بدقة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "جالب للنوم"
+      evidence_status: no_material_found
+    - lemma: "منوم"
+      confirm:
+        - text: "«كلُّ عقَّارٍ يُحدث النَّوم»"
+          source: "المعجم الوسيط"
+        - text: "«ما يحدث النوم أو ما يخص التنويم الإيحائي أو دواء يحدث النوم.»"
+          source: "معجم المصطلحات الطبية"
+    - lemma: "منعس"
+      confirm:
+        - text: "«وصف لما يحدث نوماً خفيفاً أو تنويماً مغناطيسياً.»"
+          source: "معجم المصطلحات الطبية"
+    - lemma: "مرقد"
+      confirm:
+        - text: "«المُرْقِدُ: دواءٌ يُرقِد متعاطيه , كالأفيون»"
+          source: "المعجم الوسيط"
+    - lemma: "عقار منوم"
+      expands:
+        - text: "«(1) مُنَوِّم (2) عقّار مُنَوِّم.»"
+          source: "Al-Mawrid Al-Hadeeth"
+          addition: "يؤكد أن التعبير يستعمل كمركب للإشارة إلى هذا المفهوم"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "جالب للنوم"
+      decision: removed
+      decision_reason: "ترجمة حرفية وصفية وليست مصطلحاً مسكوكاً، ويغني عنها المصطلحات المفردة كمنوم ومرقد."
+    - lemma: "منوم"
+      decision: confirmed
+      decision_reason: "مصطلح شائع وفصيح وموثق في المعاجم للإشارة إلى العقار الذي يُحدث النوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُنَوِّم"
+    - lemma: "مُنْعِس"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح طبي دقيق يشير إلى ما يُحدث النعاس، وهو يغطي الجزء الأول من دلالة المجموعة (يحفز النعاس)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُنْعِس"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-14937895-n"
+    - lemma: "مُرْقِد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فصيح وموثق في المعاجم بمعنى الدواء الذي يرقد متعاطيه (ينومه)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُرْقِد"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-14937895-n"
+    - lemma: "عَقَّارٌ مُنَوِّمٌ"
+      source: stage1
+      decision: removed
+      decision_reason: "تركيب وصفي غير ضروري لوجود البدائل المفردة التي تؤدي نفس الغرض الدلالي باختصار."
+
+stage4_content:
+  definition:
+    current: "عامل يحفز النعاس أو النوم"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق وشامل ومصاغ بأسلوب علمي جيد."
+  examples:
+    per_lemma:
+      - lemma: "مُنَوِّم"
+        examples:
+          - text: "تناول المريض مُنَوِّمًا ليتمكن من التغلب على الأرق."
+            type: usage
+      - lemma: "مُنْعِس"
+        examples:
+          - text: "حذّر الطبيب من القيادة بعد تناول هذا الدواء لأن له تأثيرًا مُنْعِسًا."
+            type: usage
+      - lemma: "مُرْقِد"
+        examples:
+          - text: "كان الأطباء قديماً يستخدمون الأفيون مُرْقِدًا للمرضى قبل العمليات الجراحية."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تناول المريض مُنَوِّمًا ليتمكن من التغلب على الأرق."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "حذّر الطبيب من القيادة بعد تناول هذا الدواء لأن له تأثيرًا مُنْعِسًا."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "كان الأطباء قديماً يستخدمون الأفيون مُرْقِدًا للمرضى قبل العمليات الجراحية."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُنَوِّم"
+      entry_id: "{auto}"
+      root: "نوم"
+      maqayis_quote: "«النُّونُ وَالْوَاوُ وَالْمِيمُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى جُمُودٍ وَسُكُونِ حَرَكَةٍ. مِنْهُ النَّوْمُ.»"
+    - lemma: "مُنْعِس"
+      entry_id: "{auto}"
+      root: "نعس"
+      maqayis_quote: "«النُّونُ وَالْعَيْنُ وَالسِّينُ أُصَيْلٌ يَدُلُّ عَلَى وَسَنٍ. وَنَعَسَ يَنْعَُسُ نُعَاسًا.»"
+    - lemma: "مُرْقِد"
+      entry_id: "{auto}"
+      root: "رقد"
+      maqayis_quote: "«الرَّاءُ وَالْقَافُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى النَّوْمِ; وَيُشْتَقُّ مِنْهُ. فَالرُّقَادُ: النَّوْمُ.»"
+  per_sense:
+    - lemma: "مُنَوِّم"
+      sense_id: "{auto}"
+      nuance: "الأكثر شيوعاً وارتباطاً بإحداث النوم المباشر، ويطلق غالباً على العقاقير الطبية."
+      mwe: false
+    - lemma: "مُنْعِس"
+      sense_id: "{auto}"
+      nuance: "يركز على إحداث النعاس والوسن، وهو أخف تأثيراً من المنوم، وقد يكون أثراً جانبياً للدواء."
+      mwe: false
+    - lemma: "مُرْقِد"
+      sense_id: "{auto}"
+      nuance: "تعبير تراثي فصيح يشير إلى إطالة النوم والإرقاد العميق."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نوم","maqayis":"«النُّونُ وَالْوَاوُ وَالْمِيمُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى جُمُودٍ وَسُكُونِ حَرَكَةٍ. مِنْهُ النَّوْمُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نعس","maqayis":"«النُّونُ وَالْعَيْنُ وَالسِّينُ أُصَيْلٌ يَدُلُّ عَلَى وَسَنٍ. وَنَعَسَ يَنْعَُسُ نُعَاسًا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"رقد","maqayis":"«الرَّاءُ وَالْقَافُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى النَّوْمِ; وَيُشْتَقُّ مِنْهُ. فَالرُّقَادُ: النَّوْمُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الأكثر شيوعاً وارتباطاً بإحداث النوم المباشر، ويطلق غالباً على العقاقير الطبية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على إحداث النعاس والوسن، وهو أخف تأثيراً من المنوم، وقد يكون أثراً جانبياً للدواء.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير تراثي فصيح يشير إلى إطالة النوم والإرقاد العميق.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-14937895-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-14937895-n"
+        score: 0.95

@@ -1,0 +1,171 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "دلالة كلمة (صدى) على الشخص تعني الإمعة الذي يردد كلام غيره دون رأي مستقل، وهو عكس دلالة المفهوم الإنجليزي (sounding board) الذي يعطي تقييماً حقيقياً. إدراجها هنا خطأ ناتج على الأرجح عن ترجمة حرفية جزئية."
+      - "العبارة (مستشار لقياس الرأي) هي تركيب وصفي طويل وشبه جملة تفسيرية وليست مصطلحاً معجمياً مسكوكاً."
+    observations: "المفهوم يعبر عن شخص يُلجأ إليه لاختبار الأفكار وسبر ردود الأفعال قبل طرحها للعموم. تفتقر العربية إلى كلمة واحدة دقيقة لهذا المفهوم، لكن تعبير (مجس نبض) استُعير في العربية المعاصرة لأداء هذه الوظيفة بشكل دقيق وطبيعي."
+  blind_candidates:
+    - lemma: "مِجَسّ نَبْض"
+      generation_method: majaz
+      justification: "تعبير مجازي شائع يُستخدم لوصف الأداة أو الشخص الذي تُعرف من خلاله الانطباعات وردود الأفعال."
+    - lemma: "مِقْيَاس رَأْي"
+      generation_method: tarkib
+      justification: "تركيب إضافي يصف الشخص أو الأداة التي تُقاس بها الآراء والتوجهات."
+    - lemma: "مُسْتَطْلَع"
+      generation_method: ishtiqaq
+      justification: "مشتق من استطلاع الرأي، وهو الشخص الذي يقع عليه فعل الاستطلاع ليكون مؤشراً لغيره."
+    - lemma: "مِرْآة"
+      generation_method: majaz
+      justification: "المرآة تعكس الصورة، واستعيرت هنا للشخص الذي يعكس مدى قبول الآخرين للشيء."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "صَدَى"
+      contradicts:
+        - text: "والصَّدَى: الرَّجُلُ الْحَسَنُ الْقِيَامِ عَلَى مَالِهِ، يُقَالُ: هُوَ صَدَى مَالٍ."
+          source: "مقاييس اللغة"
+          conflict: "دلالة الصدى على الشخص في المعجم تعني الملازم لماله وحسن القيام عليه، أو تُستعمل مجازاً بمعنى (الإمعة) الذي يردد ما يقال له، وليس الشخص الذي يُستشار لمعرفة رأيه الأصلي."
+    - lemma: "مُسْتَشَار لِقِيَاس الرَّأْي"
+      evidence_status: "no_material_found"
+    - lemma: "مِجَسّ"
+      expands:
+        - text: "موضع الجَسّ ما يُجَس به"
+          source: "المعجم الوسيط"
+          addition: "يمكن التوسع في دلالة المجس (ما يجس به) لتشمل الشخص الذي يُتخذ وسيلة لسبر آراء الآخرين عبر إضافة كلمة (نبض) لتكوين المركب المجازي المعاصر."
+    - lemma: "مِقْيَاس رَأْي"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "صَدَى"
+      decision: removed
+      decision_reason: "دلالة (الصدى) على الشخص تعني الإمعة الذي يردد ما يقوله الآخرون بلا رأي مستقل، وهذا يتناقض مع وظيفة (sounding board) الذي يُستعان به لتقديم تقييم أصلي. وإذا قُصد به الانعكاس الصوتي فهو ترجمة حرفية خاطئة للتعبير الإنجليزي."
+      evidence_assessment:
+        case: contradicts_only
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "مُسْتَشَار لِقِيَاس الرَّأْي"
+      decision: removed
+      decision_reason: "هذا تعبير وصفي حر (تركيب غير مسكوك) وليس مصطلحاً معجمياً ثابتاً، وإنما صِيغ كترجمة تفسيرية للمفهوم."
+      evidence_assessment:
+        case: no_material
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "مِجَسّ نَبْض"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير مجازي واسع الانتشار في العربية المعاصرة يُستخدم لتقييم ردود الأفعال والآراء، ويُطلق على الشخص أو الإجراء الذي يُتخذ كأداة سبر لمعرفة مدى القبول."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مِجَسّ نَبْض"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "مِقْيَاس رَأْي"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير وصفي أقرب إلى الاصطلاح العام منه إلى مصطلح مسكوك، ويُفضل الاكتفاء بـ(مجس نبض) لشيوعه في هذا السياق."
+      evidence_assessment:
+        case: no_material
+    - lemma: "مُسْتَطْلَع"
+      source: stage1
+      decision: removed
+      decision_reason: "تشير إلى أي شخص خضع للاستطلاع، ولا تحمل بالضرورة دلالة المؤشر المرجعي الفردي الذي تُمتحن عليه الأفكار كما في المجموعة."
+      evidence_assessment:
+        case: no_material
+    - lemma: "مِرْآة"
+      source: stage1
+      decision: removed
+      decision_reason: "مجاز واسع جداً يُستخدم لبيان الانعكاس والمحاكاة، ولا يختص بوظيفة القياس أو الاستشارة المقصودة في المجموعة."
+      evidence_assessment:
+        case: no_material
+
+stage4_content:
+  definition:
+    current: "شخص تُستخدم ردود أفعاله تجاه شيء ما كمؤشر على مدى قبوله"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد ولكنه ركيك الصياغة، يُمكن تحسينه بأسلوب معجمي ليكون أدق في التعبير عن وظيفة سبر الآراء واختبار الأفكار."
+    authored:
+      - type: terminological
+        text: "شخصٌ تُتخذ ردود أفعاله تجاه فكرة أو مقترحٍ ما معياراً أو مؤشراً لمدى تقبل الآخرين له."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "شخصٌ تُتخذ ردود أفعاله تجاه فكرة أو مقترحٍ ما معياراً أو مؤشراً لمدى تقبل الآخرين له."
+  examples:
+    per_lemma:
+      - lemma: "مِجَسّ نَبْض"
+        examples:
+          - text: "عَرَضَ المدير مشروعه الجديد على نائبه ليكون مِجَسَّ نَبْضٍ لتقبل الموظفين له."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "عَرَضَ المدير مشروعه الجديد على نائبه ليكون مِجَسَّ نَبْضٍ لتقبل الموظفين له."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "عَرَضَ المدير مشروعه الجديد على نائبه ليكون مِجَسَّ نَبْضٍ لتقبل الموظفين له."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مِجَسّ نَبْض"
+      entry_id: "{auto}"
+      roots:
+        - word: "مجس"
+          root: "جسس"
+          maqayis_quote: "«الْجِيمُ وَالسِّينُ أَصْلٌ وَاحِدٌ، وَهُوَ تَعَرُّفُ الشَّيْءِ بِمَسٍّ لِطَيْفٍ.»"
+        - word: "نبض"
+          root: "نبض"
+          maqayis_quote: "«النُّونُ وَالْبَاءُ وَالضَّادُ أُصَيْلٌ يَدُلُّ عَلَى حَرَكَةٍ أَوْ تَحْرِيكٍ.»"
+  per_sense:
+    - lemma: "مِجَسّ نَبْض"
+      sense_id: "{auto}"
+      nuance: "يُستخدم كاستعارة معاصرة للدلالة على الشخص الذي يُختبر عليه مدى تقبل الأفكار قبل نشرها."
+      mwe: true
+  synset:
+    cultural_fit: lexical_gap
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مجس","root":"جسس","maqayis":"«الْجِيمُ وَالسِّينُ أَصْلٌ وَاحِدٌ، وَهُوَ تَعَرُّفُ الشَّيْءِ بِمَسٍّ لِطَيْفٍ.»"},{"word":"نبض","root":"نبض","maqayis":"«النُّونُ وَالْبَاءُ وَالضَّادُ أُصَيْلٌ يَدُلُّ عَلَى حَرَكَةٍ أَوْ تَحْرِيكٍ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُستخدم كاستعارة معاصرة للدلالة على الشخص الذي يُختبر عليه مدى تقبل الأفكار قبل نشرها.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"lexical_gap"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.90

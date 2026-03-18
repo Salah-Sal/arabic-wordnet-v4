@@ -1,0 +1,234 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'دافع' تفتقر للتشكيل الكامل في البيانات الحالية."
+      - "التعريف الحالي جيد لكنه قد يستفيد من لغة أكثر شمولاً للجانبين المادي والمعنوي."
+    observations: "المجموعة تعبر عن مفهوم 'المحرك' أو 'الدافع' كعامل مسبب للحركة أو الفعل، وهو مفهوم يشمل المحركات الميكانيكية والدوافع النفسية أو السببية العامة. المصطلحات العربية الموجودة (دافع، محرك) تغطي الجانبين، ولكن يمكن إغناء المجموعة بمصطلحات مثل 'باعث' و'قوة محركة'."
+  blind_candidates:
+    - lemma: "مُحَرِّك"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل 'حرَّك'، وهو اللفظ المباشر المقابل لـ motor/mover."
+    - lemma: "دَافِع"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل 'دفع'، يعبر عن القوة التي تدفع نحو فعل ما، وهو شائع في السياقين النفسي والفيزيائي."
+    - lemma: "بَاعِث"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من 'بعث'، ويستخدم للتعبير عن السبب أو العامل الذي يثير الحركة أو النشاط."
+    - lemma: "حَافِز"
+      generation_method: ishtiqaq
+      justification: "يستخدم للتعبير عن العامل المنبه أو المثير للنشاط والاستجابة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "دَافِع"
+      confirm:
+        - text: "«الداعي، وماله يختار القادرُ الفعلَ. وهو العاملُ الخاصُّ بالإنسانِ والمَوْقِفِ»"
+          source: "المعجم الكبير"
+        - text: "«حالة داخلية جسمية أو نفسية تدفع الفرد نحو سلوك... قوة محركة منشِّطة وموجِّهة»"
+          source: "مسرد التربية (ArabTerm)"
+    - lemma: "مُحَرِّك"
+      confirm:
+        - text: "«الذي يخرج غيره عن سكونه»"
+          source: "موسوعة السلطان قابوس"
+        - text: "«engine: آلةٌ تُحوِّل الطاقة إلى شغل...»"
+          source: "المعجم الكبير"
+        - text: "«جهاز يُحوِّل الطاقة إلى عمل ميكانيكي»"
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة"
+    - lemma: "بَاعِث"
+      confirm:
+        - text: "«المرسل ومن يحمل غيره على فعل الشيء»"
+          source: "موسوعة السلطان قابوس"
+        - text: "«عاملٌ نَفْسِيّ، وهو فِكرة تَنْزِع إلى إحداث عَمَل إراديّ»"
+          source: "المعجم الكبير"
+      expands:
+        - text: "«مُحرك؛ باعث على الحركة»"
+          source: "المورد الحديث"
+          addition: "يربط بين المحرك والباعث كمرادفين لـ motor."
+    - lemma: "قُوَّة مُحَرِّكَة"
+      confirm:
+        - text: "«طاقة؛ قوة محرِّكة» مقابلاً لـ power و motor."
+          source: "المورد الحديث"
+        - text: "«قوة محركة كهربائية» كمصطلح تقني مستخدم."
+          source: "المعجم الموحد لمصطلحات الكيمياء"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "دافع"
+      decision: confirmed
+      decision_reason: "مدعوم بقوة في المعاجم كقوة داخلية أو عامل يدفع للفعل، ويتفق تماماً مع تعريف المجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "دَافِع"
+    - lemma: "مُحَرِّك"
+      decision: confirmed
+      decision_reason: "المصطلح الأساسي والمباشر للمفهوم، سواء في السياق الميكانيكي أو السببي العام."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُحَرِّك"
+    - lemma: "بَاعِث"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف قوي جداً للدوافع والمحركات المعنوية، وورد صراحة في المعاجم كأحد معاني motor."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "بَاعِث", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09382528-n"}
+    - lemma: "قُوَّة مُحَرِّكَة"
+      decision: confirmed
+      decision_reason: "تعبير مركب شائع الاستخدام في الفيزياء والهندسة وعلم النفس للتعبير عن العامل المسبب للحركة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "قُوَّة مُحَرِّكَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09382528-n"}
+
+stage4_content:
+  definition:
+    current: "عامل غير محدد يضفي الحركة أو يدفع للفعل"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكن يمكن تحسين صياغته ليكون أكثر شمولاً ودقة بأسلوب المعاجم العربية."
+    authored:
+      - type: terminological
+        text: "كل عامل أو سبب يبعث على الحركة أو يدفع نحو القيام بفعل ما، سواء أكان في سياق مادي ميكانيكي أم معنوي نفسي."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-09382528-n", definition_index: 0, text: "كل عامل أو سبب يبعث على الحركة أو يدفع نحو القيام بفعل ما، سواء أكان في سياق مادي ميكانيكي أم معنوي نفسي."}
+
+  examples:
+    per_lemma:
+      - lemma: "دَافِع"
+        examples:
+          - text: "لم يكن لديه دافع قوي يجعله يوافق على هذا العرض المغري."
+            type: usage
+      - lemma: "مُحَرِّك"
+        examples:
+          - text: "يعتبر الطموح الشخصي المحرك الرئيسي لنجاح العديد من رواد الأعمال."
+            type: usage
+      - lemma: "بَاعِث"
+        examples:
+          - text: "كان حب الاستطلاع هو الباعث الذي دفعه لاكتشاف أسرار الغابة."
+            type: usage
+      - lemma: "قُوَّة مُحَرِّكَة"
+        examples:
+          - text: "تعتبر الرغبة في التغيير القوة المحركة للنمو الاقتصادي في البلاد."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "لم يكن لديه دافع قوي يجعله يوافق على هذا العرض المغري."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يعتبر الطموح الشخصي المحرك الرئيسي لنجاح العديد من رواد الأعمال."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "دَافِع"
+      entry_id: "{auto}"
+      root: "دفع"
+      maqayis_quote: "«الدَّالُ وَالْفَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ مَشْهُورٌ، يَدُلُّ عَلَى تَنْحِيَةِ الشَّيْءِ. يُقَالُ دَفَعْتُ الشَّيْءَ أَدْفَعُهُ دَفْعًا.»"
+    - lemma: "مُحَرِّك"
+      entry_id: "{auto}"
+      root: "حرك"
+      maqayis_quote: "«الْحَاءُ وَالرَّاءُ وَالْكَافُ أَصْلٌ وَاحِدٌ، فَالْحَرَكَةُ ضِدُّ السُّكُونِ.»"
+    - lemma: "بَاعِث"
+      entry_id: "{auto}"
+      root: "بعث"
+      maqayis_quote: "«الْبَاءُ وَالْعَيْنُ وَالثَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الْإِثَارَةُ. وَيُقَالُ: بَعَثْتُ النَّاقَةَ: إِذَا أَثَرْتَهَا.»"
+    - lemma: "قُوَّة مُحَرِّكَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "قوة"
+          root: "قوي"
+          maqayis_quote: "«الْقَافُ وَالْوَاوُ وَالْيَاءُ أَصْلَانِ مُتَبَايِنَانِ، يَدُلُّ أَحَدُهُمَا عَلَى شِدَّةٍ وَخِلَافِ ضَعْفٍ.»"
+        - word: "محركة"
+          root: "حرك"
+          maqayis_quote: "«الْحَاءُ وَالرَّاءُ وَالْكَافُ أَصْلٌ وَاحِدٌ، فَالْحَرَكَةُ ضِدُّ السُّكُونِ.»"
+
+  per_sense:
+    - lemma: "دَافِع"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب النفسي والداخلي الذي يدفع الفرد للسلوك."
+      mwe: false
+    - lemma: "مُحَرِّك"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام الذي يشمل المسببات المادية (كالمحركات) والمعنوية (كالمحفزات)."
+      mwe: false
+    - lemma: "بَاعِث"
+      sense_id: "{auto}"
+      nuance: "يشير إلى السبب المثير أو النقطة التي انطلق منها الفعل أو الحركة."
+      mwe: false
+    - lemma: "قُوَّة مُحَرِّكَة"
+      sense_id: "{auto}"
+      nuance: "تعبير يصفي الطبيعة الديناميكية للعامل المسبب للحركة، وغالباً ما يستخدم في السياقات العلمية والاجتماعية."
+      mwe: true
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"دفع","maqayis":"«الدَّالُ وَالْفَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ مَشْهُورٌ، يَدُلُّ عَلَى تَنْحِيَةِ الشَّيْءِ. يُقَالُ دَفَعْتُ الشَّيْءَ أَدْفَعُهُ دَفْعًا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حرك","maqayis":"«الْحَاءُ وَالرَّاءُ وَالْكَافُ أَصْلٌ وَاحِدٌ، فَالْحَرَكَةُ ضِدُّ السُّكُونِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"بعث","maqayis":"«الْبَاءُ وَالْعَيْنُ وَالثَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الْإِثَارَةُ. وَيُقَالُ: بَعَثْتُ النَّاقَةَ: إِذَا أَثَرْتَهَا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"قوة","root":"قوي","maqayis":"«الْقَافُ وَالْوَاوُ وَالْيَاءُ أَصْلَانِ مُتَبَايِنَانِ...»"},{"word":"محركة","root":"حرك","maqayis":"«الْحَاءُ وَالرَّاءُ وَالْكَافُ أَصْلٌ وَاحِدٌ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الجانب النفسي والداخلي الذي يدفع الفرد للسلوك.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-09382528-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-09382528-n"
+        score: 0.95

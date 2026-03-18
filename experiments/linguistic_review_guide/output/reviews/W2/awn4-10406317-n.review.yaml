@@ -1,0 +1,217 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة تفتقر إلى التشكيل الكامل."
+      - "المصطلح 'شخص خلوي' قد يُفهم بمعنى 'شخص يعيش في خلية' (بيولوجية) في السياقات الحديثة، مما يستدعي توضيح الدلالة."
+    observations: "المفهوم يعبر عن الشخص الذي يألف الفضاءات المفتوحة (الخلاء). في التراث العربي، ارتبط هذا بالبدو أو أهل البر، لكن في السياق المعاصر، المصطلح يقابل 'outdoorsperson' الذي يشمل هواة التخييم والصيد والتنزه."
+  blind_candidates:
+    - lemma: "خَلَوِيّ"
+      generation_method: ishtiqaq
+      justification: "اسم منسوب إلى 'الخلاء' وهو الفضاء الواسع، ويُستخدم لوصف من يألف البرية."
+    - lemma: "مُحِبُّ الطَّبِيعَةِ"
+      generation_method: tarkib
+      justification: "تعبير مركب مستقر دلالياً لوصف من يقضي وقته في الخارج استمتاعاً بالبيئة."
+    - lemma: "رَجُلُ الْخَلَاءِ"
+      generation_method: tarkib
+      justification: "ترجمة اصطلاحية رصينة لمصطلح 'outdoorsman' تُحاكي البنية الإنجليزية مع الحفاظ على الفصاحة."
+    - lemma: "مُحِبُّ الْهَوَاءِ الطَّلْقِ"
+      generation_method: tarkib
+      justification: "وصف مباشر لمحتوى التعريف العربي الذي يركز على 'الهواء الطلق'."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خَلَوِيّ"
+      confirm:
+        - text: "خَلَوِيّ: بري. نسبة إلى خلاء."
+          source: "تكملة المعاجم العربية لرينهارت دوزي"
+        - text: "سرنا في مكان خَلَوِيّ [فصيحة]... نسبة إلى الخَلاَء وهو المكان الخالي."
+          source: "معجم الصواب اللغوي لأحمد مختار عمر"
+    - lemma: "شَخْص خَلَوِيّ"
+      confirm:
+        - text: "يُستخدم الوصف 'خلوي' للدلالة على المكان أو الشيء المرتبط بالخلاء، ومنه الشخص المنسوب لهذا الفعل."
+          source: "الاستنتاج الصرفي من أدلة 'خلوي'"
+    - lemma: "مُحِبّ لِلْطَبِيعَة"
+      evidence_status: "no_material_found"
+    - lemma: "رَجُلُ الْخَلَاءِ"
+      confirm:
+        - text: "الخلاء: هو الفضاء الواسع."
+          source: "المعجم الوسيط"
+    - lemma: "مُحِبُّ الْهَوَاءِ الطَّلْقِ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "شَخْص خَلَوِيّ"
+      decision: confirmed
+      decision_reason: "تركيب وصفي صحيح لغوياً، والنسبة 'خلوي' إلى الخلاء مؤكدة في المعاجم الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "شَخْصٌ خَلَوِيّ"
+    - lemma: "مُحِبّ لِلْطَبِيعَة"
+      decision: confirmed
+      decision_reason: "تعبير شائع ومستقر في اللغة المعاصرة، ويغطي الجانب العاطفي والاستمتاعي في التعريف."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُحِبُّ لِلطَّبِيعَةِ"
+    - lemma: "خَلَوِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "كلمة واحدة تغني عن التركيب، وهي فصيحة بمعنى المنسوب إلى الخلاء، كما ذكر دوزي ومختار عمر."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "خَلَوِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "رَجُلُ الْخَلَاءِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مركب إضافي رصين يعبر عن المفهوم بدقة اصطلاحية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "رَجُلُ الْخَلَاءِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُحِبُّ الْهَوَاءِ الطَّلْقِ"
+      source: stage1
+      decision: removed
+      decision_reason: "وصف حر أكثر منه مصطلحاً معجمياً مسكوكاً."
+
+stage4_content:
+  definition:
+    current: "شخص يقضي وقتاً في الهواء الطلق (مثل الصيد أو صيد الأسماك)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط؛ يحتاج صياغة أكثر دقة معجمية."
+    authored:
+      - type: terminological
+        text: "مَنْ يَأْلَفُ الْخَلَاءَ وَيَقْضِي جُلَّ وَقْتِهِ فِيهِ لِلتَّنَزُّهِ أَوِ الصَّيْدِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مَنْ يَأْلَفُ الْخَلَاءَ وَيَقْضِي جُلَّ وَقْتِهِ فِيهِ لِلتَّنَزُّهِ أَوِ الصَّيْدِ."}
+  examples:
+    per_lemma:
+      - lemma: "شَخْصٌ خَلَوِيّ"
+        examples:
+          - text: "يُفَضِّلُ بَعْضُ النَّاسِ أَنْ يَكُونُوا أَشْخَاصاً خَلَوِيِّينَ يَسْتَمْتِعُونَ بِالْعَيْشِ فِي الْبَرِّيَّةِ."
+            type: usage
+      - lemma: "مُحِبُّ لِلطَّبِيعَةِ"
+        examples:
+          - text: "نَظَّمَ مُحِبُّو الطَّبِيعَةِ حَمْلَةً لِحِمَايَةِ الْغَابَاتِ مِنَ التَّلَوُّثِ."
+            type: usage
+      - lemma: "خَلَوِيّ"
+        examples:
+          - text: "كَانَ جَدِّي خَلَوِيّاً يَعْرِفُ كُلَّ خَبَايَا الْبَرِّ."
+            type: usage
+      - lemma: "رَجُلُ الْخَلَاءِ"
+        examples:
+          - text: "يَقْضِي رَجُلُ الْخَلَاءِ لَيَالِيَهُ مُتَأَمِّلاً النُّجُومَ بَعِيداً عَنِ الْمُدُنِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يُفَضِّلُ بَعْضُ النَّاسِ أَنْ يَكُونُوا أَشْخَاصاً خَلَوِيِّينَ يَسْتَمْتِعُونَ بِالْعَيْشِ فِي الْبَرِّيَّةِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "نَظَّمَ مُحِبُّو الطَّبِيعَةِ حَمْلَةً لِحِمَايَةِ الْغَابَاتِ مِنَ التَّلَوُّثِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خَلَوِيّ"
+      entry_id: "{auto}"
+      root: "خلو"
+      maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَعَرِّي الشَّيْءِ مِنَ الشَّيْءِ... وَالْمَكَانُ الْخَلَاءُ: الَّذِي لَا شَيْءَ بِهِ.»"
+    - lemma: "شَخْصٌ خَلَوِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "شخص"
+          root: "شخص"
+          maqayis_quote: "«الشِّينُ وَالْخَاءُ وَالصَّادُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى ارْتِفَاعٍ فِي الشَّيْءِ... وَالشَّخْصُ: كُلُّ جِسْمٍ لَهُ ارْتِفَاعٌ وَظُهُورٌ.»"
+        - word: "خلوي"
+          root: "خلو"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَعَرِّي الشَّيْءِ مِنَ الشَّيْءِ...»"
+    - lemma: "مُحِبُّ لِلطَّبِيعَةِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "محب"
+          root: "حبب"
+          maqayis_quote: "«الْحَاءُ وَالْبَاءُ أَصْلَانِ: أَحَدُهُمَا لُزُومُ الشَّيْءِ وَثَبَاتُهُ... وَالْآخَرُ حَبُّ الشَّيْءِ: الْمَعْرُوفُ مِنَ الْمَحَبَّةِ.»"
+        - word: "طبيعة"
+          root: "طبع"
+          maqayis_quote: "«الطَّاءُ وَالْبَاءُ وَالْعَيْنُ أَصْلٌ صَحِيحٌ، وَهُوَ مَثَلٌ عَلَى نِهَايَةٍ يَنْتَهِي إِلَيْهَا الشَّيْءُ حَتَّى يُخْتَمَ عِنْدَهَا، يُقَالُ: طَبَعْتُ عَلَى الشَّيْءِ طَابَعًا. ثُمَّ يُقَالُ عَلَى هَذَا: طَبْعُ الْإِنْسَانِ وَسَجِيَّتُهُ.»"
+    - lemma: "رَجُلُ الْخَلَاءِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "رجل"
+          root: "رجل"
+          maqayis_quote: "«الرَّاءُ وَالْجِيمُ وَاللَّامُ أَصْلَانِ: أَحَدُهُمَا الْقُوَّةُ فِي الشَّيْءِ، وَالْآخَرُ عُضْوٌ مِنَ الْأَعْضَاءِ... وَالرَّجُلُ: نَقِيضُ الْمَرْأَةِ.»"
+        - word: "خلاء"
+          root: "خلو"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَعَرِّي الشَّيْءِ مِنَ الشَّيْءِ...»"
+  per_sense:
+    - lemma: "خَلَوِيّ"
+      sense_id: "{auto}"
+      nuance: "صيغة مفردة مركزة تصف الشخص بصفته الملازمة له."
+      mwe: false
+    - lemma: "شَخْصٌ خَلَوِيّ"
+      sense_id: "{auto}"
+      nuance: "توصيف رسمي يجمع بين الذات والصفة."
+      mwe: true
+    - lemma: "مُحِبُّ لِلطَّبِيعَةِ"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب العاطفي والتقديري للبيئة."
+      mwe: true
+    - lemma: "رَجُلُ الْخَلَاءِ"
+      sense_id: "{auto}"
+      nuance: "مصطلح اصطلاحي يحاكي 'outdoorsman' ويحمل صبغة تراثية."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خلو","maqayis":"«الْخَاءُ وَاللَّامُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَعَرِّي الشَّيْءِ مِنَ الشَّيْءِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"صيغة مفردة مركزة تصف الشخص بصفته الملازمة له.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

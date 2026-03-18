@@ -1,0 +1,211 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'إبطال الفعالية' مركب إضافي يحتاج لضبط دقيق في التشكيل."
+    observations: "التعريف الحالي دقيق وعام، وهو يغطي السياقات العلمية (كيميائية وحيوية) والتقنية (برمجيات)."
+  blind_candidates:
+    - lemma: "تَثْبِيْط"
+      generation_method: ishtiqaq
+      justification: "المصدر القياسي من الجذر 'ثبط' ويعني الإعاقة والمنع، ويستخدم بكثرة في السياقات العلمية للتعبير عن إبطال نشاط الأنزيمات أو الفيروسات."
+    - lemma: "إِبْطَال"
+      generation_method: ishtiqaq
+      justification: "من الجذر 'بطل'، ويعني إزالة مفعول الشيء وجعله باطلاً أو غير نشط."
+    - lemma: "تَعْطِيْل"
+      generation_method: ishtiqaq
+      justification: "من الجذر 'عطل'، ويعني جعل الشيء خالياً من العمل أو النشاط."
+    - lemma: "إِخْمَاد"
+      generation_method: majaz
+      justification: "من الجذر 'خمد' (سكون الحركة)، ويستخدم مجازاً في السياقات التقنية للتعبير عن جعل الشيء (كالحسابات أو البرمجيات) غير نشط."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تَثْبِيْط"
+      confirm:
+        - text: "«تثبيط: inactivation»"
+          source: "المعجم الموحد لمصطلحات علم الصحة وجسم الانسان (1992)"
+        - text: "«تثبيط الأنزيم: enzyme inactivation»"
+          source: "المَكنَز الزراعي متعدد اللغات"
+    - lemma: "إِبْطَال الفَعَالِيَّة"
+      confirm:
+        - text: "«تثبيط، إبطال الفاعلية: معاملة تؤدي إلى إنهاء فاعلية مادة نشيطة مثل الأنزيمات.»"
+          source: "المعجم الموحد لمصطلحات تقانات الأغذية (2004)"
+    - lemma: "تَعْطِيل"
+      confirm:
+        - text: "«إبطال، تعطيل: inactivation»"
+          source: "المعجم الموحد لمصطلحات الطب البيطري (2010)"
+    - lemma: "إِخْمَاد"
+      confirm:
+        - text: "«إخْمَاد: عملية جعل برنامج نشيط غير نشيط (deactivate)»"
+          source: "المعجم الموحد لمصطلحات تقانة المعلومات (2011)"
+    - lemma: "تَخْمِيل"
+      confirm:
+        - text: "«التخميل: inactivation»"
+          source: "المَكنَز الزراعي متعدد اللغات"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تثبيط"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي وشائع جداً في السياقات العلمية والطبية للتعبير عن عملية إبطال النشاط."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَثْبِيْط"
+    - lemma: "إبطال الفعالية"
+      decision: confirmed
+      decision_reason: "مركب وصفي دقيق يشرح المفهوم مباشرة، وموجود في المعاجم المتخصصة بصيغة 'إبطال الفاعلية'."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "إِبْطَال الفَعَالِيَّة"
+    - lemma: "تَعْطِيْل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح عام وشامل يغطي السياقات التقنية والطبية والبيطرية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَعْطِيْل", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَخْمِيل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تقني متخصص يستخدم في الزراعة والكيمياء للتعبير عن الإبطال."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَخْمِيل", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "عملية جعل الشيء غير نشط"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يحتاج لإضافة الجانب الوظيفي (إبطال المفعول) ليكون أكثر شمولاً."
+    authored:
+      - type: terminological
+        text: "عَمَلِيَّةُ جَعْلِ الشيءِ غيرَ نشيطٍ أو إيقافِ فَعَالِيَّتِهِ ومَفْعُولِهِ بأساليبَ ماديّةٍ أو كيميائيّة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "تَثْبِيْط"
+        examples:
+          - text: "أدى تثبيط الأنزيم إلى توقف التفاعلات الحيوية في الخلية."
+            type: usage
+      - lemma: "إِبْطَال الفَعَالِيَّة"
+        examples:
+          - text: "تُستخدم درجات الحرارة العالية في إبطال فعالية الفيروسات الممرضة."
+            type: usage
+      - lemma: "تَعْطِيْل"
+        examples:
+          - text: "قام المهندس بتعطيل الخدمة مؤقتاً لإجراء الصيانة."
+            type: usage
+      - lemma: "تَخْمِيل"
+        examples:
+          - text: "تتضمن عملية التخميل جعل المادة الكيميائية خاملة تجاه التفاعل."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "عَمَلِيَّةُ جَعْلِ الشيءِ غيرَ نشيطٍ أو إيقافِ فَعَالِيَّتِهِ ومَفْعُولِهِ بأساليبَ ماديّةٍ أو كيميائيّة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تَثْبِيْط"
+      entry_id: "{auto}"
+      root: "ثبط"
+      maqayis_quote: "لم يورد ابن فارس مادة ثبط بشكل مستقل في النسخة المتاحة، ولكنها في المعاجم تعني الإعاقة والمنع."
+    - lemma: "إِبْطَال الفَعَالِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "إبطال"
+          root: "بطل"
+          maqayis_quote: "«الْبَاءُ وَالطَّاءُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ ذَهَابُ الشَّيْءِ وَقِلَّةُ مُكْثِهِ وَلُبْثِهِ.»"
+        - word: "فعالية"
+          root: "فعل"
+          maqayis_quote: "«الْفَاءُ وَالْعَيْنُ وَاللَّامُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى إِحْدَاثِ شَيْءٍ مِنَ الْعَمَلِ.»"
+    - lemma: "تَعْطِيْل"
+      entry_id: "{auto}"
+      root: "عطل"
+      maqayis_quote: "«الْعَيْنُ وَالطَّاءُ وَاللَّامُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى خُلُوٍّ وَفَرَاغٍ.»"
+    - lemma: "تَخْمِيل"
+      entry_id: "{auto}"
+      root: "خمل"
+      maqayis_quote: "«الْخَاءُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى انْخِفَاضٍ وَاسْتِرْسَالٍ وَسُقُوطٍ.»"
+  per_sense:
+    - lemma: "تَثْبِيْط"
+      sense_id: "{auto}"
+      nuance: "تستخدم غالباً في السياق البيولوجي والكيميائي (تثبيط الأنزيمات)."
+      mwe: false
+    - lemma: "إِبْطَال الفَعَالِيَّة"
+      sense_id: "{auto}"
+      nuance: "مصطلح وصفي عام يشير إلى إنهاء أثر الفاعل ونشاطه."
+      mwe: true
+    - lemma: "تَعْطِيْل"
+      sense_id: "{auto}"
+      nuance: "تستخدم في سياق الخدمات والآلات والبرمجيات."
+      mwe: false
+    - lemma: "تَخْمِيل"
+      sense_id: "{auto}"
+      nuance: "مصطلح تقني في الكيمياء والزراعة يشير إلى جعل المادة خاملة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ثبط"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"إبطال","root":"بطل","maqayis":"«الْبَاءُ وَالطَّاءُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ ذَهَابُ الشَّيْءِ وَقِلَّةُ مُكْثِهِ وَلُبْثِهِ.»"},{"word":"فعالية","root":"فعل","maqayis":"«الْفَاءُ وَالْعَيْنُ وَاللَّامُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى إِحْدَاثِ شَيْءٍ مِنَ الْعَمَلِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عطل","maqayis":"«الْعَيْنُ وَالطَّاءُ وَاللَّامُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى خُلُوٍّ وَفَرَاغٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خمل","maqayis":"«الْخَاءُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى انْخِفَاضٍ وَاسْتِرْسَالٍ وَسُقُوطٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

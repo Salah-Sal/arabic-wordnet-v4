@@ -1,0 +1,179 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "تلميذ"
+      confirm:
+        - text: "«خادمُ الأستاذ من أهل العِلم أو الفنِّ أو الحِرْفَة طالبُ العِلم , وخَصَّه أهلُ العَصْر بالطالب الصغير»"
+          source: "المعجم الكبير"
+    - lemma: "طالب"
+      confirm:
+        - text: "«المتعلم الذي يسعى إلى تحصيل العلم, ويطلق عرفا على التلميذ في مرحلتي التعليم الثانوية والعالية.»"
+          source: "المعجم الكبير"
+    - lemma: "متعلم"
+      confirm:
+        - text: "«تسمية تطلق على الفرد الذي يتعلم موضوعا معينا أو مهارة معينة أو كيفية القيام بشيء ما.»"
+          source: "المعجم الموحد لمصطلحات الإشراف التربوي (2020)"
+        - text: "«المتعلم؛ التلميذ؛ الطالب المبتدئ.»"
+          source: "المورد الحديث (2008)"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "متمدرس"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«المتمدرس في المدرسة» — المعرفة اللغوية"
+      justification: "اشتقاق: اسم فاعل لمن ينخرط في مدرسة."
+  knowledge_candidates:
+    - lemma: "دارس"
+      justification: "اشتقاق: اسم فاعل على وزن فاعل لمن يقوم بفعل الدراسة، وهو يعبر عن الطالب الذي يدرس علماً أو تخصصاً."
+  generation_notes: "تم التركيز على الاشتقاق للتعبير عن مفهوم المتعلم."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "تلميذ"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح وشائع للدلالة على المتعلم وخاصة في المراحل الأولى."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يغلب إطلاقه على الصغار في مراحل التعليم الأولى، أو على من يتلقى العلم مباشرة من أستاذ فيتبعه."
+      example: "راقب المعلم تلاميذه وهم يؤدون الاختبار بتركيز."
+    - lemma: "طالب"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح ومستقر للدلالة على المتعلم، ويغلب على المراحل المتقدمة."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يغلب إطلاقه على من يسعى لتحصيل العلم في المراحل المتقدمة كالثانوية والجامعة، وفيه معنى السعي والطلب المستقل."
+      example: "تخرج الطالب من الجامعة بتقدير ممتاز."
+    - lemma: "متعلم"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح يعبر عن اكتساب العلم بشكل عام."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "صفة عامة تطلق على كل من يكتسب معرفة أو مهارة بغض النظر عن سنه أو مرحلته الدراسية، أو من نال قسطاً من التعليم مقابل الأمي."
+      example: "يجب على المتعلم أن يوظف ما اكتسبه من معرفة في خدمة مجتمعه."
+    - lemma: "دارس"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح دقيق وفصيح يعبر عن الانخراط في دراسة موضوع أو منهج."
+      step05_citation: "«دارس من الجذر درس» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على فعل الدراسة والتأمل في الكتب أو المناهج المحددة، ويطلق على المنخرط في دراسة موضوع معين."
+      example: "عكف الدارس على مراجعة المصادر التاريخية لإنجاز بحثه."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "دارس"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10271476-n"
+  synset_flags:
+    definition_review_needed: true
+  added_lemmas:
+    - lemma: "دارس"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "شخص (خاصة طفل) يتعلم (كما من معلم) أو يكتسب المعرفة أو المعتقدات"
+  assessment:
+    decision: revise
+    reason: "التعريف الأصلي مترجم بحرفية ('كما من معلم' و'المعتقدات') وتبدو صياغته ركيكة في العربية."
+  authored_definitions:
+    - type: terminological
+      text: "شخص يتلقى العلم ويدرس على يد معلم، أو يسعى بنفسه لتحصيل المعرفة واكتساب المهارات."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-10271476-n"
+        definition_index: 0
+        text: "شخص يتلقى العلم ويدرس على يد معلم، أو يسعى بنفسه لتحصيل المعرفة واكتساب المهارات."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-09786620-n"
+    test_result: "needs_closer"
+  antonymy:
+    per_lemma:
+      - lemma: "تلميذ"
+        antonym_found: true
+        antonym: "معلم"
+      - lemma: "طالب"
+        antonym_found: true
+        antonym: "معلم"
+      - lemma: "متعلم"
+        antonym_found: true
+        antonym: "معلم"
+      - lemma: "دارس"
+        antonym_found: true
+        antonym: "مدرس"
+  verb_checks:
+    applicable: false
+  selectional_restrictions:
+    - lemma: "تلميذ"
+      constraint: "عاقل"
+    - lemma: "طالب"
+      constraint: "عاقل"
+    - lemma: "متعلم"
+      constraint: "عاقل"
+    - lemma: "دارس"
+      constraint: "عاقل"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "تلميذ"
+      enrichment:
+        root: "تلمذ"
+      examples:
+        - text: "راقب المعلم تلاميذه وهم يؤدون الاختبار بتركيز."
+          type: usage
+          source: "مؤلَّف"
+      morphology:
+        broken_plural_link: "تلاميذ"
+      pos_check:
+        pos: noun
+    - lemma: "طالب"
+      enrichment:
+        root: "طلب"
+      examples:
+        - text: "والدَّرْسُ يَجْمَعُنِي بِأَفْـ / ـضَلِ طالِبٍ ومُحَصِّلِ"
+          type: poetry
+          source: "أحمد شوقي"
+      morphology:
+        broken_plural_link: "طلاب"
+      pos_check:
+        pos: noun
+    - lemma: "متعلم"
+      enrichment:
+        root: "علم"
+      examples:
+        - text: "يجب على المتعلم أن يوظف ما اكتسبه من معرفة في خدمة مجتمعه."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "دارس"
+      enrichment:
+        root: "درس"
+      examples:
+        - text: "عكف الدارس على مراجعة المصادر التاريخية لإنجاز بحثه."
+          type: usage
+          source: "مؤلَّف"
+      morphology:
+        broken_plural_link: "دارسون"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

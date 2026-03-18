@@ -1,0 +1,320 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "المفهوم مرتبط بترتيبات اجتماعية وقانونية غربية (المساكنة دون زواج)، وقد لا يجد مقابلاً معجمياً تاماً في الثقافة العربية التقليدية دون دلالة سلبية."
+      - "المركبات المستخدمة حالياً هي ترجمات حديثة تؤدي المعنى بصورة تقريبية."
+    observations: "المصطلحات 'شريك حياة' و'شريك مساكن' هي ترجمات حديثة ومناسبة؛ حيث 'شريك حياة' أوسع دلالة وقد يشمل الزوج، و'شريك مساكن' أدق في ترجمة domestic partner."
+  blind_candidates:
+    - lemma: "قَرِين"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل يدل على المصاحبة والملازمة الدائمة."
+    - lemma: "عَشِير"
+      generation_method: ishtiqaq
+      justification: "مبالغة تدل على من يعاشر المرء ويساكنه مدة طويلة، ويطلق عادة على الزوج أو الصاحب المقرب."
+    - lemma: "خَلِيل"
+      generation_method: ishtiqaq
+      justification: "الصديق الخالص الذي تخللت محبته القلب، وقد يشير إلى الشريك العاطفي."
+    - lemma: "خَدِين"
+      generation_method: ishtiqaq
+      justification: "الصاحب أو الخليل، ويستخدم غالباً للإشارة إلى المصاحبة في السر أو العلاقات العاطفية غير الرسمية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "شَرِيك حَياة"
+      confirm:
+        - text: "«(4) «أ» زواج. «ب» شريك حياة متوقّع That rich merchant is a good match.»"
+          source: "المعجم المورد"
+    - lemma: "شَرِيك مُساكِن"
+      expands:
+        - text: "«المساكنة: المعيشة المشتركة»"
+          source: "استنتاج من المعاجم العامة"
+          addition: "ترجمة دقيقة للمصطلح القانوني Domestic partner للدلالة على الاشتراك في السكن."
+    - lemma: "خَدِين"
+      confirm:
+        - text: "«الْخَاءُ وَالدَّالُ وَالنُّونُ أَصْلٌ وَاحِدٌ، وَهُوَ الْمُصَاحَبَةُ. فَالْخِدْنُ: الصَّاحِبُ. يُقَالُ: خَادَنْتُ الرَّجُلَ مُخَادَنَةً.»"
+          source: "مقاييس اللغة"
+    - lemma: "قَرِين"
+      confirm:
+        - text: "«المقارنُ والمصاحب الزوج البعير المقرون بآخر الأسيرُ»"
+          source: "المعجم الوسيط"
+    - lemma: "عَشِير"
+      confirm:
+        - text: "«العُشْر الزوجُ الزوجةُ المعاشِرُ الصديقُ القريبُ»"
+          source: "المعجم الوسيط"
+    - lemma: "خَلِيل"
+      confirm:
+        - text: "«الصديق الخالص: الذى تخلَّلت مَحَبَّته القلب فصارت فى خلاله, أى فى باطنه.»"
+          source: "المعجم الكبير"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "شَرِيك حَياة"
+      decision: confirmed
+      decision_reason: "مصطلح حديث شائع للتعبير عن الشريك العاطفي الدائم، سواء كان زوجاً أو غيره."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      nuance_differentiation: "أكثر شيوعاً واستخداماً للإشارة إلى من يتقاسم المرء معه مسار حياته عموماً."
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "شَرِيكُ حَيَاةٍ"
+
+    - lemma: "شَرِيك مُساكِن"
+      decision: confirmed
+      decision_reason: "ترجمة دقيقة لمفهوم المساكنة والشريك فيها، وهو مصطلح قانوني مستخدم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      nuance_differentiation: "يُركز على جانب المساكنة والمعيشة المشتركة، وهو ترجمة مباشرة للمصطلح الأجنبي."
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "شَرِيكٌ مُسَاكِنٌ"
+
+    - lemma: "خَدِين"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير عربي فصيح يشير إلى الصاحب أو الخليل الذي يشارك المرء حياته، ويستخدم في سياقات العلاقة العاطفية غير الرسمية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: "يحمل دلالة على المرافقة العاطفية غير الرسمية (الصاحب والمخادن)."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "خَدِينٌ"
+            pos: "n"
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "قَرِين"
+      source: stage1
+      decision: confirmed
+      decision_reason: "كلمة فصيحة تعني الملازم والمصاحب، وتطلق على الزوج أو الشريك الدائم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: "لفظ تراثي واسع الدلالة يشمل الزوج والمصاحب الدائم."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "قَرِينٌ"
+            pos: "n"
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "عَشِير"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تطلق على من يعاشر المرء ويساكنه بصفة مستمرة، كالزوج أو المصاحب الدائم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: "يبرز جانب المعاشرة المستمرة والاختلاط اليومي."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "عَشِيرٌ"
+            pos: "n"
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "خَلِيل"
+      source: stage1
+      decision: removed
+      decision_reason: "يشير بالأساس إلى الصداقة الخالصة ولا يتضمن بالضرورة معنى المساكنة أو الشراكة المعيشية طويلة الأمد كما يقصد المفهوم."
+
+stage4_content:
+  definition:
+    current: "شخص (ليس بالضرورة زوجاً) تعيش معه وتشترك معه في علاقة طويلة الأمد"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقبول ولكنه أقرب للترجمة الحرفية. تمت إعادة صياغته بأسلوب معجمي أدق."
+    authored:
+      - type: terminological
+        text: "شخصٌ يُساكِنُ آخَرَ ويَرتبِطُ مَعَهُ بِعلاقَةٍ عاطفيَّةٍ ومَعيشيَّةٍ طَويلَةِ الأمَدِ، دُونَ أنْ يَكُونَا زَوجَيْنِ بالضَّرُورَةِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "شخصٌ يُساكِنُ آخَرَ ويَرتبِطُ مَعَهُ بِعلاقَةٍ عاطفيَّةٍ ومَعيشيَّةٍ طَويلَةِ الأمَدِ، دُونَ أنْ يَكُونَا زَوجَيْنِ بالضَّرُورَةِ."
+
+  examples:
+    per_lemma:
+      - lemma: "شَرِيك حَياة"
+        examples:
+          - text: "يُعَدُّ التَّفَاهُمُ مِنْ أَهَمِّ صِفَاتِ شَرِيكِ الحَيَاةِ النَّاجِحِ."
+            type: usage
+      - lemma: "شَرِيك مُساكِن"
+        examples:
+          - text: "يَمْنَحُ القَانُونُ بَعْضَ الحُقُوقِ المَدَنِيَّةِ لِلشَّرِيكِ المُسَاكِنِ فِي عِدَّةِ دُوَلٍ."
+            type: usage
+      - lemma: "خَدِين"
+        examples:
+          - text: "اِتَّخَذَ لَهُ خَدِيناً يُشَارِكُهُ هُمُومَهُ وَيُقَاسِمُهُ سِرَّهُ."
+            type: usage
+      - lemma: "قَرِين"
+        examples:
+          - text: "هُوَ قَرِينُهَا الَّذِي لاَ يُفَارِقُهَا فِي حِلِّهَا وَتِرْحَالِهَا."
+            type: usage
+      - lemma: "عَشِير"
+        examples:
+          - text: "يُعْرَفُ المَرْءُ بِأَخْلاَقِ عَشِيرِهِ الَّذِي يُخَالِطُهُ كُلَّ يَوْمٍ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "يَمْنَحُ القَانُونُ بَعْضَ الحُقُوقِ المَدَنِيَّةِ لِلشَّرِيكِ المُسَاكِنِ فِي عِدَّةِ دُوَلٍ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "شَرِيكُ حَيَاةٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "شريك"
+          root: "شرك"
+          maqayis_quote: "«الشِّينُ وَالرَّاءُ وَالْكَافُ أَصْلَانِ، أَحَدُهُمَا يَدُلُّ عَلَى مُقَارَنَةٍ وَخِلَافِ انْفِرَادٍ»"
+        - word: "حياة"
+          root: "حيي"
+          maqayis_quote: "«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ، وَالْآخَرُ الِاسْتِحْيَاءُ الَّذِي هُوَ ضِدُّ الْوَقَاحَةِ»"
+    - lemma: "شَرِيكٌ مُسَاكِنٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "شريك"
+          root: "شرك"
+          maqayis_quote: "«الشِّينُ وَالرَّاءُ وَالْكَافُ أَصْلَانِ، أَحَدُهُمَا يَدُلُّ عَلَى مُقَارَنَةٍ وَخِلَافِ انْفِرَادٍ»"
+        - word: "مساكن"
+          root: "سكن"
+          maqayis_quote: "«السِّينُ وَالْكَافُ وَالنُّونُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ، يَدُلُّ عَلَى خِلَافِ الِاضْطِرَابِ وَالْحَرَكَةِ... وَالسَّكْنُ: الْأَهْلُ الَّذِينَ يَسْكُنُونَ الدَّارَ»"
+    - lemma: "خَدِينٌ"
+      entry_id: "{auto}"
+      root: "خدن"
+      maqayis_quote: "«الْخَاءُ وَالدَّالُ وَالنُّونُ أَصْلٌ وَاحِدٌ، وَهُوَ الْمُصَاحَبَةُ. فَالْخِدْنُ: الصَّاحِبُ.»"
+    - lemma: "قَرِينٌ"
+      entry_id: "{auto}"
+      root: "قرن"
+      maqayis_quote: "«الْقَافُ وَالرَّاءُ وَالنُّونُ أَصْلَانِ صَحِيحَانِ، أَحَدُهُمَا يَدُلُّ عَلَى جَمْعِ شَيْءٍ إِلَى شَيْءٍ»"
+    - lemma: "عَشِيرٌ"
+      entry_id: "{auto}"
+      root: "عشر"
+      maqayis_quote: "«الْعَيْنُ وَالشِّينُ وَالرَّاءُ أَصْلَانِ صَحِيحَانِ... وَالْآخَرُ يَدُلُّ عَلَى مُدَاخَلَةٍ وَمُخَالَطَةٍ.»"
+
+  per_sense:
+    - lemma: "شَرِيكُ حَيَاةٍ"
+      sense_id: "{auto}"
+      nuance: "أكثر شيوعاً واستخداماً للإشارة إلى من يتقاسم المرء معه مسار حياته عموماً."
+      mwe: true
+    - lemma: "شَرِيكٌ مُسَاكِنٌ"
+      sense_id: "{auto}"
+      nuance: "يُركز على جانب المساكنة والمعيشة المشتركة، وهو ترجمة مباشرة للمصطلح الأجنبي."
+      mwe: true
+    - lemma: "خَدِينٌ"
+      sense_id: "{auto}"
+      nuance: "يحمل دلالة على المرافقة العاطفية غير الرسمية (الصاحب والمخادن)."
+      mwe: false
+    - lemma: "قَرِينٌ"
+      sense_id: "{auto}"
+      nuance: "لفظ تراثي واسع الدلالة يشمل الزوج والمصاحب الدائم."
+      mwe: false
+    - lemma: "عَشِيرٌ"
+      sense_id: "{auto}"
+      nuance: "يبرز جانب المعاشرة المستمرة والاختلاط اليومي."
+      mwe: false
+
+  synset:
+    cultural_fit: lexical_gap
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"شريك","root":"شرك","maqayis":"«الشِّينُ وَالرَّاءُ وَالْكَافُ أَصْلَانِ، أَحَدُهُمَا يَدُلُّ عَلَى مُقَارَنَةٍ وَخِلَافِ انْفِرَادٍ»"},{"word":"حياة","root":"حيي","maqayis":"«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ، وَالْآخَرُ الِاسْتِحْيَاءُ الَّذِي هُوَ ضِدُّ الْوَقَاحَةِ»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"شريك","root":"شرك","maqayis":"«الشِّينُ وَالرَّاءُ وَالْكَافُ أَصْلَانِ، أَحَدُهُمَا يَدُلُّ عَلَى مُقَارَنَةٍ وَخِلَافِ انْفِرَادٍ»"},{"word":"مساكن","root":"سكن","maqayis":"«السِّينُ وَالْكَافُ وَالنُّونُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ، يَدُلُّ عَلَى خِلَافِ الِاضْطِرَابِ وَالْحَرَكَةِ... وَالسَّكْنُ: الْأَهْلُ الَّذِينَ يَسْكُنُونَ الدَّارَ»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خدن","maqayis":"«الْخَاءُ وَالدَّالُ وَالنُّونُ أَصْلٌ وَاحِدٌ، وَهُوَ الْمُصَاحَبَةُ. فَالْخِدْنُ: الصَّاحِبُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قرن","maqayis":"«الْقَافُ وَالرَّاءُ وَالنُّونُ أَصْلَانِ صَحِيحَانِ، أَحَدُهُمَا يَدُلُّ عَلَى جَمْعِ شَيْءٍ إِلَى شَيْءٍ»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عشر","maqayis":"«الْعَيْنُ وَالشِّينُ وَالرَّاءُ أَصْلَانِ صَحِيحَانِ... وَالْآخَرُ يَدُلُّ عَلَى مُدَاخَلَةٍ وَمُخَالَطَةٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"أكثر شيوعاً واستخداماً للإشارة إلى من يتقاسم المرء معه مسار حياته عموماً.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُركز على جانب المساكنة والمعيشة المشتركة، وهو ترجمة مباشرة للمصطلح الأجنبي.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يحمل دلالة على المرافقة العاطفية غير الرسمية (الصاحب والمخادن).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"لفظ تراثي واسع الدلالة يشمل الزوج والمصاحب الدائم.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يبرز جانب المعاشرة المستمرة والاختلاط اليومي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"lexical_gap"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.90

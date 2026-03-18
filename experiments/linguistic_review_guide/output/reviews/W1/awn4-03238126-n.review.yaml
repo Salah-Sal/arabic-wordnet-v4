@@ -1,0 +1,110 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "قُرعة"
+      confirm:
+        - text: "«طينة مدورة أو عجينة مدورة مثلا يدرج فيها رقعة يكتب فيها اسم المتنازعين في قسمة شيء ثم سلّم إلى صبي، يعطي كلّ واحد من المتنازعين واحدة منهما» — كشّاف اصطلاحات الفنون والعلوم للتهانوي"
+        - text: "«السهمُ والنصيبُ وإلقاءُ القرعة حيلةٌ يتعيَّن بها سهمُ الإنسان أي نصيبُه» — التعريفات الفقهيّة للبركتي"
+        - text: "«النصيبُ. ويقال: كانت له القُرْعَةُ على أصحابه: غلبَهم بها» — المعجم الوسيط"
+    - lemma: "سَهْم"
+      confirm:
+        - text: "«قِدْح يُقارع به أو يُلعب به في الميسر» — معجم اللغة العربية المعاصرة"
+        - text: "«الحظ والنصيب، والقدح يضرب به في الميسر والمقارعة وواحد النبل» — موسوعة السلطان قابوس لأسماء العرب"
+    - lemma: "قِدْح"
+      confirm:
+        - text: "«قطعة من الخشب تُعرَّض قليلاً وتُسوَّى وتكون في طول الفِتْر أو دونه، تستعمل في الميسر أو الاستقسام» — المعجم الوسيط"
+        - text: "«السهمُ قبل أن يُراشَ ويُنصل» — القاموس المحيط"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "سَهْم"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«الحظ والنصيب، والقدح يضرب به في الميسر والمقارعة» — موسوعة السلطان قابوس لأسماء العرب"
+      justification: "مصطلح تراثي أصيل يعبر عن الأداة المستخدمة في الاقتراع (النبل أو القدح) وعن النصيب الناتج عنه."
+  knowledge_candidates:
+    - lemma: "قِدْح"
+      justification: "القدح هو الأداة الخشبية المخصصة للاستقسام والاقتراع قبل أن يركب لها نصل، وهو أدق لفظياً في وصف 'أي شيء يؤخذ عشوائياً' في السياق التاريخي."
+  generation_notes: "التعريف يركز على الأداة المادية المستخدمة في عملية الاختيار العشوائي، وهو ما تحققه ألفاظ (سهم) و(قدح) بدقة تراثية."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "قُرعة"
+      decision: confirmed
+      decision_reason: "اللفظ الأساسي والمستقر في المعاجم العربية القديمة والحديثة للدلالة على المفهوم."
+      evidence_assessment:
+        case: "confirm_only"
+      nuance_differentiation: "اللفظ العام والشامل لعملية الاقتراع والأداة المستخدمة فيها والنتيجة المترتبة عليها."
+      example: "أُجريت القُرعة لتوزيع الحصص بين الشركاء بعدل."
+
+    - lemma: "سَهْم"
+      source: step05
+      decision: confirmed
+      decision_reason: "مرادف أصيل يستخدم للدلالة على أداة الاقتراع (القدح) وعلى النصيب الناتج، وهو مطابق لتعريف 'أي شيء يختار عشوائياً'."
+      step05_citation: "«قِدْح يُقارع به أو يُلعب به في الميسر» — معجم اللغة العربية المعاصرة"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يُركز على الجانب المادي (كالأداة) والجانب المعنوي (كالحصة) في آن واحد."
+      example: "استهم القومُ فأصاب كل واحد منهم سَهْمَه."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "سَهْم"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-03238126-n"
+
+    - lemma: "قِدْح"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح تقني دقيق للأداة الخشبية (مثل القش أو العيدان) التي تستخدم في الاقتراع."
+      step05_citation: "«قطعة من الخشب تُسوَّى... تستعمل في الميسر أو الاستقسام» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "أكثر تخصيصاً للأداة المادية (الخشبية عادة) المستخدمة في الاقتراع قبل تجهيزها كسهام."
+      example: "ألقى المتنازعون قِداحَهم في الوعاء لفض الخصومة."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "قِدْح"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-03238126-n"
+
+step3_definition:
+  assessment:
+    decision: retain
+    reason: "التعريف الحالي دقيق وواضح ويغطي الجانب المادي والعملي للمفهوم."
+  current_definition: "أي شيء (قش أو حصى وغيرها) يؤخذ أو يختار عشوائياً"
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-00002684-n"
+    test_result: "correct"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "قُرعة"
+      enrichment:
+        root: "ق-ر-ع"
+      examples:
+        - text: "كانت له القُرْعَةُ على أصحابه: غلبَهم بها."
+          source: "المعجم الوسيط"
+    - lemma: "سَهْم"
+      enrichment:
+        root: "س-ه-م"
+      examples:
+        - text: "فَسَاهَمَ فَكَانَ مِنَ الْمُدْحَضِينَ"
+          type: quran
+          source: "الصافات/ 141"
+    - lemma: "قِدْح"
+      enrichment:
+        root: "ق-د-ح"
+      examples:
+        - text: "تَجول بَين مَناقِيها الاقاديِحُ"
+          type: poetry
+          source: "أبو ذؤيب الهذلي"
+  cultural_fit:
+    assessment: native

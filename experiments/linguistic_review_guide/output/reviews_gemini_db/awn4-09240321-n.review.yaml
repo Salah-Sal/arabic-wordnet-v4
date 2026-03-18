@@ -1,0 +1,122 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "واجهة شاطئية"
+      evidence_status: "no_material_found"
+    - lemma: "ساحل"
+      expands:
+        - text: "«شريط من الأرض بين خط الشاطئ وأي تغير ملحوظ في الطبوغرافيا» — المعجم الموحد لمصطلحات الجيولوجيا"
+        - text: "«المنطقة من اليابس التي تجاور بحرا أو مسطحا مائيا كبيرا وتتأثر بأمواجه» — المعجم الوسيط"
+    - lemma: "شاطئ"
+      expands:
+        - text: "«ساحل البحر (في الجغرافيا) Beach (E): منطقة منحدرة من اليابس على حافة البحر ونحوه» — المعجم الكبير"
+    - lemma: "الواجهة المائية"
+      confirm:
+        - text: "«أرض [أو أرض ومبانيها، أو ناحية من المدينة] مواجهة لجسم مائي أو محاذية له» — المورد الحديث"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "واجهة مائية"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«الواجهة المائية: أرض [أو أرض ومبانيها، أو ناحية من المدينة] مواجهة لجسم مائي أو محاذية له» — المورد الحديث"
+      justification: "مرادف دقيق لـ waterfront، وهو المفهوم الأعم للـ beachfront."
+  knowledge_candidates:
+    - lemma: "واجهة بحرية"
+      justification: "المرادف الأكثر شيوعاً واستعمالاً في السياقات العربية للمناطق المطلة على البحر مباشرة (تركيب وصفي)."
+    - lemma: "شريط ساحلي"
+      justification: "تعبير اصطلاحي يصف الامتداد الطولي للأرض المحاذية للساحل، وهو ما ورد في التعريف حرفياً (تركيب وصفي)."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "واجهة شاطئية"
+      decision: confirmed
+      decision_reason: "ترجمة حرفية مقبولة ومستقرة (calque) لمصطلح beachfront."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تختص بالمواجهة المباشرة للشاطئ الرملي (beach) تحديداً."
+      example: "تم بناء فنادق فاخرة على طول الواجهة الشاطئية للمدينة."
+
+    - lemma: "واجهة مائية"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح معجمي ثابت (المورد الحديث) يعبر عن المفهوم العام."
+      step05_citation: "«الواجهة المائية: أرض... مواجهة لجسم مائي» — المورد الحديث"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "أعم من الواجهة الشاطئية، إذ تشمل البحار والأنهار والبحيرات."
+      example: "تطورت الواجهة المائية للميناء لتصبح منطقة سياحية."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "واجهة مائية"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09240321-n"
+
+    - lemma: "واجهة بحرية"
+      source: step05
+      decision: confirmed
+      decision_reason: "المصطلح الأكثر تداولاً في التخطيط العمراني والسياحة العربية."
+      step05_citation: "معرفة لغوية/استعمال شائع"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تركز على الجانب العمراني والجمالي للمنطقة المواجهة للبحر."
+      example: "تتميز مدينة الإسكندرية بواجهة بحرية خلابة تمتد لعدة كيلومترات."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "واجهة بحرية"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09240321-n"
+
+step3_definition:
+  current_definition: "شريط من الأرض يمتد على طول الشاطئ"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وجامع ومانع للمفهوم المقصود."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "أرض، بر، يابسة (awn4-09357302-n)"
+    test_result: "correct"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "واجهة شاطئية"
+      enrichment:
+        root: "و-ج-ه"
+      examples:
+        - text: "تم بناء فنادق فاخرة على طول الواجهة الشاطئية للمدينة."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "واجهة مائية"
+      enrichment:
+        root: "و-ج-ه"
+      examples:
+        - text: "تطورت الواجهة المائية للميناء لتصبح منطقة سياحية."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "واجهة بحرية"
+      enrichment:
+        root: "و-ج-ه"
+      examples:
+        - text: "تتميز مدينة الإسكندرية بواجهة بحرية خلابة تمتد لعدة كيلومترات."
+          type: usage
+          source: "مؤلَّف"
+  cultural_fit:
+    assessment: native

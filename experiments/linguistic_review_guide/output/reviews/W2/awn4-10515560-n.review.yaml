@@ -1,0 +1,270 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الحالية (شخص وديع) عبارة عن مركب وصفي حر وليست مصطلحاً مسكوكاً."
+      - "التعريف الحالي ركيك، وهو ترجمة شبه حرفية، يفتقر إلى الدقة المعجمية."
+    observations: "توجد بدائل عربية فصيحة ومستقرة معجمياً لأداء مفهوم pussycat الإنجليزي (الشخص السهل المقبول)، مثل الصفات المشبهة (سمح، وديع) أو المركبات الإضافية (لين العريكة، سهل القياد) التي تقوم مقام الاسم للدلالة على هذا النوع من الأشخاص."
+  blind_candidates:
+    - lemma: "وَدِيع"
+      generation_method: ishtiqaq
+      justification: "كلمة معجمية مستقرة تدل على الدعة والسكون، وتستعمل اسماً للمرء السهل المسالم."
+    - lemma: "سَمْح"
+      generation_method: ishtiqaq
+      justification: "السمح هو السهل اللين المنقاد والجواد، وهي صفة تقوم مقام الاسم وتطابق المفهوم."
+    - lemma: "لَيِّن الْعَرِيكَة"
+      generation_method: tarkib
+      justification: "تعبير اصطلاحي مركب يكثر استعماله لوصف الشخص سهل الانقياد والمعاشرة."
+    - lemma: "سَهْل الْقِيَاد"
+      generation_method: tarkib
+      justification: "تعبير مسكوك آخر يؤدي معنى الشخص المطاوع المنقاد بسهولة دون تعنت."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "شَخْص وَدِيع"
+      evidence_status: "no_material_found"
+    - lemma: "وَدِيع"
+      confirm:
+        - text: "«(الْوَدِيع) ذُو الدعة وَمن الْخَيل المستريح الصائر إِلَى الدعة والسكون»"
+          source: "المعجم الوسيط"
+        - text: "«وَالْوَدِيعُ: الرَّجُلُ السَّاكِنُ.»"
+          source: "مقاييس اللغة لابن فارس"
+    - lemma: "سَمْح"
+      confirm:
+        - text: "«فلانٌ سَمْحٌ: جواد سخىّ عودٌ سَمْحٌ: مستوٍ ليّنٌ سهلٌ لا عُقَدَ فيه»"
+          source: "المعجم الوسيط"
+        - text: "«(سَمَحَ) السِّينُ وَالْمِيمُ وَالْحَاءُ أَصْلٌ يَدُلُّ عَلَى سَلَاسَةٍ وَسُهُولَةٍ.»"
+          source: "مقاييس اللغة لابن فارس"
+    - lemma: "لَيِّن الْعَرِيكَة"
+      confirm:
+        - text: "«فُلَانٌ لَيِّنُ الْعَرِيكَةِ، إِذَا لَمْ يَكُنْ ذَا إِبَاءٍ، وَكَانَ سَلِسًا.»"
+          source: "مقاييس اللغة لابن فارس"
+        - text: "«لطيف؛ مُياسِر؛ مُجامِل؛ ليِّن العريكة.»"
+          source: "المورد الحديث (2008)"
+    - lemma: "سَهْل الْقِيَاد"
+      confirm:
+        - text: "«سهلُ الخُلُق أو القياد أو المعاملة: ليِّنٌ سَلِسٌ سَمْح.»"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "شَخْص وَدِيع"
+      decision: removed
+      decision_reason: "مركب وصفي حر (شخص + صفة)، وليس مصطلحاً معجمياً مسكوكاً، ويمكن الاستعاضة عنه بالصفات التي تؤدي وظيفة الاسم."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: remove_sense
+          params: {sense_id: "{auto}"}
+
+    - lemma: "وَدِيع"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ فصيح ومستقر يدل على من يتصف بالدعة والسكون والسلم، ويستعمل اسماً لمن هذه حاله."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "وَدِيع", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "سَمْح"
+      source: stage1
+      decision: confirmed
+      decision_reason: "من السلاسة والسهولة والمواتاة، وهو وصف يغلب استعماله اسماً للشخص الهين اللين."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "سَمْح", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "لَيِّن الْعَرِيكَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير عربي مسكوك، أثبتته المعاجم، ويدل بدقة على الشخص السهل الذي تنقاد طبيعته دون عناد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "لَيِّن الْعَرِيكَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "سَهْل الْقِيَاد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير مجازي مسكوك يصف الشخص المطاوع الذي يسهل توجيهه ومعاشرته."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "سَهْل الْقِيَاد", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "شخص يُعتبر هيناً ومقبولاً"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ركيك الترجمة. يستحسن صياغة تعريف معجمي دقيق يجمع بين لين الجانب وسهولة المعاشرة."
+    authored:
+      - type: terminological
+        text: "شخصٌ سَهْلُ الخُلُقِ والمُعامَلَةِ، لَيِّنُ الجَانِبِ والمُعاشَرَةِ، يَميلُ إلَى المُوافَقَةِ وتَجَنُّبِ الخِلافِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "شخصٌ سَهْلُ الخُلُقِ والمُعامَلَةِ، لَيِّنُ الجَانِبِ والمُعاشَرَةِ، يَميلُ إلَى المُوافَقَةِ وتَجَنُّبِ الخِلافِ."}
+
+  examples:
+    per_lemma:
+      - lemma: "وَدِيع"
+        examples:
+          - text: "كانَ صَديقِي وَدِيعاً لا يُحِبُّ الخِصامَ ولا يَميلُ إلَى الجِدالِ."
+            type: usage
+      - lemma: "سَمْح"
+        examples:
+          - text: "رَافَقْتُ رَجُلاً سَمْحاً في سَفَرِي فَكانَ نِعْمَ الرَّفِيقُ."
+            type: usage
+      - lemma: "لَيِّن الْعَرِيكَة"
+        examples:
+          - text: "اخْتَارَ المُديرُ مُساعِداً لَيِّنَ الْعَرِيكَةِ يَسْهُلُ التَّفاهُمُ مَعَهُ."
+            type: usage
+      - lemma: "سَهْل الْقِيَاد"
+        examples:
+          - text: "كانَ العامِلُ سَهْلَ الْقِيَادِ يَتَقَبَّلُ التَّوْجيهاتِ بِصَدْرٍ رَحْبٍ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "كانَ صَديقِي وَدِيعاً لا يُحِبُّ الخِصامَ ولا يَميلُ إلَى الجِدالِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "رَافَقْتُ رَجُلاً سَمْحاً في سَفَرِي فَكانَ نِعْمَ الرَّفِيقُ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "اخْتَارَ المُديرُ مُساعِداً لَيِّنَ الْعَرِيكَةِ يَسْهُلُ التَّفاهُمُ مَعَهُ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "كانَ العامِلُ سَهْلَ الْقِيَادِ يَتَقَبَّلُ التَّوْجيهاتِ بِصَدْرٍ رَحْبٍ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "وَدِيع"
+      entry_id: "{auto}"
+      root: "ودع"
+      maqayis_quote: "«الْوَاوُ وَالدَّالُ وَالْعَيْنُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى التَّرْكِ وَالتَّخْلِيَةِ... وَالْوَدِيعُ: الرَّجُلُ السَّاكِنُ.»"
+    - lemma: "سَمْح"
+      entry_id: "{auto}"
+      root: "سمح"
+      maqayis_quote: "«السِّينُ وَالْمِيمُ وَالْحَاءُ أَصْلٌ يَدُلُّ عَلَى سَلَاسَةٍ وَسُهُولَةٍ.»"
+    - lemma: "لَيِّن الْعَرِيكَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "لين"
+          root: "لين"
+          maqayis_quote: "«اللَّامُ وَالْيَاءُ وَالنُّونُ كَلِمَةٌ وَاحِدَةٌ، وَهِيَ اللِّينُ: ضِدُّ الْخُشُونَةِ.»"
+        - word: "العريكة"
+          root: "عرك"
+          maqayis_quote: "«الْعَيْنُ وَالرَّاءُ وَالْكَافُ أَصْلٌ وَاحِدٌ... فُلَانٌ لَيِّنُ الْعَرِيكَةِ، إِذَا لَمْ يَكُنْ ذَا إِبَاءٍ، وَكَانَ سَلِسًا.»"
+    - lemma: "سَهْل الْقِيَاد"
+      entry_id: "{auto}"
+      roots:
+        - word: "سهل"
+          root: "سهل"
+          maqayis_quote: "«السِّينُ وَالْهَاءُ وَاللَّامُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لِينٍ وَخِلَافِ حُزُونَةٍ.»"
+        - word: "القياد"
+          root: "قود"
+          maqayis_quote: "«الْقَافُ وَالْوَاوُ وَالدَّالُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى امْتِدَادٍ فِي الشَّيْءِ... وَفَرَسٌ قَؤُودٌ: سَلَسٌ مُنْقَادٌ.»"
+  per_sense:
+    - lemma: "وَدِيع"
+      sense_id: "{auto}"
+      nuance: "يركز على غياب الخصومة والعدوانية والطبع المسالم."
+      mwe: false
+    - lemma: "سَمْح"
+      sense_id: "{auto}"
+      nuance: "يبرز معنى السلاسة في المعاملة والكرم والعفو والموافقة."
+      mwe: false
+    - lemma: "لَيِّن الْعَرِيكَة"
+      sense_id: "{auto}"
+      nuance: "تعبير مجازي مشتق من تذليل الإبل، يركز على سلاسة الطبع وعدم التعنت."
+      mwe: true
+    - lemma: "سَهْل الْقِيَاد"
+      sense_id: "{auto}"
+      nuance: "يؤكد على سرعة الانقياد للطرح وتقبل التوجيهات من الآخرين."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ودع","maqayis":"«الْوَاوُ وَالدَّالُ وَالْعَيْنُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى التَّرْكِ وَالتَّخْلِيَةِ... وَالْوَدِيعُ: الرَّجُلُ السَّاكِنُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سمح","maqayis":"«السِّينُ وَالْمِيمُ وَالْحَاءُ أَصْلٌ يَدُلُّ عَلَى سَلَاسَةٍ وَسُهُولَةٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"لين","root":"لين","maqayis":"«اللَّامُ وَالْيَاءُ وَالنُّونُ كَلِمَةٌ وَاحِدَةٌ، وَهِيَ اللِّينُ: ضِدُّ الْخُشُونَةِ.»"},{"word":"العريكة","root":"عرك","maqayis":"«الْعَيْنُ وَالرَّاءُ وَالْكَافُ أَصْلٌ وَاحِدٌ... فُلَانٌ لَيِّنُ الْعَرِيكَةِ، إِذَا لَمْ يَكُنْ ذَا إِبَاءٍ، وَكَانَ سَلِسًا.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"سهل","root":"سهل","maqayis":"«السِّينُ وَالْهَاءُ وَاللَّامُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لِينٍ وَخِلَافِ حُزُونَةٍ.»"},{"word":"القياد","root":"قود","maqayis":"«الْقَافُ وَالْوَاوُ وَالدَّالُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى امْتِدَادٍ فِي الشَّيْءِ... وَفَرَسٌ قَؤُودٌ: سَلَسٌ مُنْقَادٌ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على غياب الخصومة والعدوانية والطبع المسالم.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يبرز معنى السلاسة في المعاملة والكرم والعفو والموافقة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير مجازي مشتق من تذليل الإبل، يركز على سلاسة الطبع وعدم التعنت.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يؤكد على سرعة الانقياد للطرح وتقبل التوجيهات من الآخرين.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

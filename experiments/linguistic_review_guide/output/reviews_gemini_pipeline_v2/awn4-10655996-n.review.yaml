@@ -1,0 +1,284 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الوحيدة الموجودة (روح) تفتقر إلى التشكيل الكامل."
+      - "التعريف الحالي يميل إلى الصياغة العلمية الحديثة بينما المجموعة تحتمل دلالات فلسفية ومعجمية أوسع."
+    observations: "المجموعة تعبر عن المفهوم الجوهري للحياة في الكائنات. كلمة 'روح' هي الأصل، ولكن هناك مصطلحات تقنية وفلسفية مرادفة في التراث والمعاصرة مثل 'نفس' و'مبدأ حيوي'."
+  blind_candidates:
+    - lemma: "نَفْس"
+      generation_method: majaz
+      justification: "تستخدم 'النفس' في المعاجم العربية مرادفاً للروح وأصل الحياة."
+    - lemma: "مَبْدَأٌ حَيَوِيّ"
+      generation_method: tarkib
+      justification: "ترجمة مباشرة ودقيقة للمصطلح العلمي والفلسفي 'vital principle'."
+    - lemma: "قُوَّةٌ حَيَوِيَّة"
+      generation_method: tarkib
+      justification: "ترجمة للمصطلح 'vital force' المستخدم في البيولوجيا القديمة والفلسفة."
+    - lemma: "نَسَمَة"
+      generation_method: ishtiqaq
+      justification: "النسمة في اللغة هي كل ذي روح، وتستخدم للدلالة على أصل الحياة وتنشق النسيم."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "روح"
+      confirm:
+        - text: "«الرُّوحُ، بالضم: ما به حَياةُ الأَنْفُسِ»"
+          source: "القاموس المحيط"
+        - text: "«الرُّوحُ: عين لطيف مُودع فِي القالب أجْرى الله الْعَادة لخلق الْحَيَاة مَا دَامَ هُوَ فِي القالب»"
+          source: "معجم مقاليد العلوم"
+    - lemma: "نَفْس"
+      confirm:
+        - text: "«النَّفْسُ: الروحُ. يقال: خرجت نَفْسُهُ.»"
+          source: "الصحاح في اللغة"
+        - text: "«نفس: الروح الذي به حياة الجسد»"
+          source: "كتاب العين"
+    - lemma: "مَبْدَأٌ حَيَوِيّ"
+      confirm:
+        - text: "«المبدأ الحيوي أو القوة المحركة داخل الكائنات الحية»"
+          source: "AWN Definition (Internal Consistency)"
+    - lemma: "قُوَّةٌ حَيَوِيَّة"
+      confirm:
+        - text: "«الروح... جعل اسما للجزء الذي به تحصل الحياة والتحرك» (مرادف للقوة المحركة)"
+          source: "التوقيف على مهمات التعاريف"
+    - lemma: "نَسَمَة"
+      confirm:
+        - text: "«النَّسَمَةُ: نفسُ الروح، الإنسانُ، كل دابَّة فيها روح.»"
+          source: "التعريفات الفقهية"
+        - text: "«النَّسمَة: كل كَائِن حَيّ فِيهِ روح»"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "رُوح"
+      decision: confirmed
+      decision_reason: "اللفظ الأصيل والأكثر شيوعاً للتعبير عن المبدأ الحيوي في اللغة العربية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "رُوح"
+    - lemma: "نَفْس"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف معجمي ثابت للروح في سياق أصل الحياة، وله دلالة أنطولوجية عميقة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "نَفْس", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مَبْدَأٌ حَيَوِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تقني دقيق يعبر عن الجانب الفلسفي والبيولوجي للمفهوم (Vital Principle)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "مَبْدَأٌ حَيَوِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "قُوَّةٌ حَيَوِيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح اصطلاحي يشير إلى الطاقة المحركة للحياة داخل الكائن (Vital Force)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "قُوَّةٌ حَيَوِيَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "نَسَمَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ تراثي يربط بين التنفس وروح الكائن الحي، ويستخدم للدلالة على الكائن بصفته ذا روح."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "نَسَمَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "المبدأ الحيوي أو القوة المحركة داخل الكائنات الحية"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد ولكنه يفتقر إلى الجزالة اللغوية والعمق الجوهري للمصطلح في العربية."
+    authored:
+      - type: terminological
+        text: "جوهرٌ لطيفٌ يُفترضُ أنه أصلُ الحياةِ ومنشأُ القوى الحيويةِ والمُحركُ الأولُ للكائناتِ الحية."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "رُوح"
+        examples:
+          - text: "آمن الفلاسفةُ القدامى بأن الروحَ هي المحركُ الأولُ للجسدِ ومنبعُ حياته."
+            type: usage
+      - lemma: "نَفْس"
+        examples:
+          - text: "دبّتِ النَّفْسُ في جسدِ المخلوقِ فصار حياً يتحرك."
+            type: usage
+      - lemma: "مَبْدَأٌ حَيَوِيّ"
+        examples:
+          - text: "يعتبرُ المبدأُ الحيويُّ أساسَ التمايزِ بين المادةِ الجامدةِ والكائنِ الحي في الفلسفة الحيوية."
+            type: usage
+      - lemma: "قُوَّةٌ حَيَوِيَّة"
+        examples:
+          - text: "اعتقد الأطباءُ الأوائل بوجود قوةٍ حيويةٍ تسري في العروق وتحفظُ توازنَ الأعضاء."
+            type: usage
+      - lemma: "نَسَمَة"
+        examples:
+          - text: "ما من نسمةٍ على وجهِ الأرضِ إلا وخالقُها يرزقُها."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "جوهرٌ لطيفٌ يُفترضُ أنه أصلُ الحياةِ ومنشأُ القوى الحيويةِ والمُحركُ الأولُ للكائناتِ الحية."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "رُوح"
+      entry_id: "{auto}"
+      root: "روح"
+      maqayis_quote: "«الرَّاءُ وَالْوَاوُ وَالْحَاءُ أَصْلٌ كَبِيرٌ مُطَّرِدٌ، يَدُلُّ عَلَى سَعَةٍ وَفُسْحَةٍ وَاطِّرَادٍ. وَأَصْلُ [ذَلِكَ] كُلِّهِ الرِّيحُ... فَالرُّوحُ رُوحُ الْإِنْسَانِ، وَإِنَّمَا هُوَ مُشْتَقٌّ مِنَ الرِّيحِ.»"
+    - lemma: "نَفْس"
+      entry_id: "{auto}"
+      root: "نفس"
+      maqayis_quote: "«النون والفاء والسين أصل واحد يدل على خروج النسيم كيف كان، من ريح أو غيرها، وإليه يرجع فروعه. منه التنفس: خروج النسيم من الجوف.»"
+    - lemma: "نَسَمَة"
+      entry_id: "{auto}"
+      root: "نسم"
+      maqayis_quote: "«النون والسين والميم كلمةٌ واحدة تدلُّ على رِيحٍ لَيِّنة. والنَّسيم: رِيحٌ لَيِّنة... والنَّسَمَة: نَفَسُ الرُّوح.» (من مادة نسم)"
+    - lemma: "مَبْدَأٌ حَيَوِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مبدأ"
+          root: "بدأ"
+          maqayis_quote: "«الْبَاءُ وَالدَّالُ وَالْهَمْزَةُ مِنِ افْتِتَاحِ الشَّيْءِ...»"
+        - word: "حيوي"
+          root: "حيي"
+          maqayis_quote: "«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ...»"
+    - lemma: "قُوَّةٌ حَيَوِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "قوة"
+          root: "قوي"
+          maqayis_quote: "«الْقَافُ وَالْوَاوُ وَالْيَاءُ أَصْلَانِ مُتَبَايِنَانِ، يَدُلُّ أَحَدُهُمَا عَلَى شِدَّةٍ وَخِلَافِ ضَعْفٍ...»"
+        - word: "حيوية"
+          root: "حيي"
+          maqayis_quote: "«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ...»"
+  per_sense:
+    - lemma: "رُوح"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام والشامل للمبدأ الحيوي، ويرتبط غالباً بالنفخة الإلهية والجانب غير المادي."
+      mwe: false
+    - lemma: "نَفْس"
+      sense_id: "{auto}"
+      nuance: "تشير إلى الذات والكيان الحي بتمامه، وتستخدم في السياقات الفلسفية والنفسية للتعبير عن محرك السلوك."
+      mwe: false
+    - lemma: "مَبْدَأٌ حَيَوِيّ"
+      sense_id: "{auto}"
+      nuance: "مصطلح تقني نظري يفسر ظاهرة الحياة كقاعدة فكرية أو علمية."
+      mwe: true
+    - lemma: "قُوَّةٌ حَيَوِيَّة"
+      sense_id: "{auto}"
+      nuance: "تركز على الجانب الديناميكي والمحرك للطاقة الحيوية داخل الكائن."
+      mwe: true
+    - lemma: "نَسَمَة"
+      sense_id: "{auto}"
+      nuance: "تركز على ارتباط الحياة بالتنفس واللطافة، وتستخدم غالباً للإشارة إلى الفرد بصفته كائناً حياً."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"روح","maqayis":"«الرَّاءُ وَالْوَاوُ وَالْحَاءُ أَصْلٌ كَبِيرٌ مُطَّرِدٌ... فَالرُّوحُ رُوحُ الْإِنْسَانِ، وَإِنَّمَا هُوَ مُشْتَقٌّ مِنَ الرِّيحِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نفس","maqayis":"«النون والفاء والسين أصل واحد يدل على خروج النسيم كيف كان... منه التنفس: خروج النسيم من الجوف.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نسم","maqayis":"«النون والسين والميم كلمة واحدة تدل على ريح لينة... والنسمة: نفس الروح.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مبدأ","root":"بدأ","maqayis":"«الْبَاءُ وَالدَّالُ وَالْهَمْزَةُ مِنِ افْتِتَاحِ الشَّيْءِ...»"},{"word":"حيوي","root":"حيي","maqayis":"«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"قوة","root":"قوي","maqayis":"«الْقَافُ وَالْوَاوُ وَالْيَاءُ أَصْلَانِ مُتَبَايِنَانِ...»"},{"word":"حيوية","root":"حيي","maqayis":"«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ العام والشامل للمبدأ الحيوي، ويرتبط غالباً بالنفخة الإلهية والجانب غير المادي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تشير إلى الذات والكيان الحي بتمامه، وتستخدم في السياقات الفلسفية والنفسية للتعبير عن محرك السلوك.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح تقني نظري يفسر ظاهرة الحياة كقاعدة فكرية أو علمية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركز على الجانب الديناميكي والمحرك للطاقة الحيوية داخل الكائن.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركز على ارتباط الحياة بالتنفس واللطافة، وتستخدم غالباً للإشارة إلى الفرد بصفته كائناً حياً.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

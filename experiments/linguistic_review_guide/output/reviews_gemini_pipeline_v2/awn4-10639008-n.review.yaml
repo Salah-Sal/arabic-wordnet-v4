@@ -1,0 +1,259 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'شخص اجتماعي' هي مركب وصفي وليست مصطلحاً مفرداً، لكنها شائعة جداً وتعد الترجمة الأقرب لمفهوم (socializer)."
+      - "اللمة 'مخالط' تحمل دلالة عامة للمخالطة، وأصبحت تحمل دلالة طبية شائعة حديثاً (مخالط لمريض)، وقد تكون مبهمة بدون سياق إذا قصد بها المعنى الاجتماعي البحت."
+    observations: "المفهوم يعبر عن نزعة سلوكية إنسانية للاقتراب من الناس والمشاركة في أنشطتهم. في العربية يُعبر عن ذلك باستخدام صيغ المبالغة (مثل: ألوف) أو اسم الفاعل (مثل: معاشر، مخالط) من أفعال المشاركة والمخالطة."
+  blind_candidates:
+    - lemma: "مُعَاشِر"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل عاشر، بمعنى من يخالط الناس ويعايشهم، وهو يطابق معنى المشاركة الاجتماعية."
+    - lemma: "أَلُوف"
+      generation_method: ishtiqaq
+      justification: "صيغة مبالغة من الفعل ألف، تدل على من يكثر الألفة والاندماج مع الآخرين."
+    - lemma: "مُخَالِط"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من خالط، لمن يشارك الناس ويدخل في أنشطتهم."
+    - lemma: "إِنْسَان اِجْتِمَاعِيّ"
+      generation_method: tarkib
+      justification: "مركب وصفي يعبر عن الشخص الذي يميل إلى الأنشطة الاجتماعية، وهو شائع الاستخدام."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "شَخْص اجْتِمَاعِيّ"
+      confirm:
+        - text: "رَجُلٌ اجتماعىّ : مُزاولٌ للحَياةِ الاجتماعيَّةِ , كثيرُ المخالطة للناس"
+          source: "المعجم الكبير"
+    - lemma: "مُخَالِط"
+      confirm:
+        - text: "مُعَاشِر: من (ع ش ر) المخالط المعايش."
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+      expands:
+        - text: "رَجُلٌ اجتماعىّ : مُزاولٌ للحَياةِ الاجتماعيَّةِ , كثيرُ المخالطة للناس"
+          source: "المعجم الكبير"
+          addition: "يؤكد أن المخالطة للناس هي جوهر معنى (الاجتماعي)."
+    - lemma: "مُعَاشِر"
+      confirm:
+        - text: "مُعَاشِر: من (ع ش ر) المخالط المعايش."
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+    - lemma: "أَلُوف"
+      confirm:
+        - text: "الشديد الألفة"
+          source: "المعجم الكبير"
+        - text: "الكثير الألفة"
+          source: "المعجم الوسيط"
+    - lemma: "إِنْسَان اِجْتِمَاعِيّ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "شَخْص اجْتِمَاعِيّ"
+      decision: confirmed
+      decision_reason: "تعبير وصفي شائع ودقيق للتعبير عن الشخص الذي يميل للحياة الاجتماعية ومخالطة الناس."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "شَخْص اِجْتِمَاعِيّ"
+
+    - lemma: "مُخَالِط"
+      decision: confirmed
+      decision_reason: "من يخالط الناس ويشاركهم، والمعاجم تربط المخالطة بالنشاط الاجتماعي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُخَالِط"
+
+    - lemma: "مُعَاشِر"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف دقيق فصيح يدل على المعايشة والمخالطة للناس."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُعَاشِر", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-10639008-n"}
+
+    - lemma: "أَلُوف"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صيغة مبالغة فصيحة تدل على كثرة الألفة والاندماج السهل مع الآخرين وتوافق المفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "أَلُوف", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-10639008-n"}
+
+    - lemma: "إِنْسَان اِجْتِمَاعِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "مرادف تام تقريباً لعبارة 'شخص اجتماعي' وشائع بدرجة أقل، فلا حاجة لإدراجه كمدخل منفصل."
+
+stage4_content:
+  definition:
+    current: "شخص يشارك في الأنشطة الاجتماعية"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مفهوم ولكنه أشبه بترجمة حرفية، يمكن صياغته بأسلوب معجمي عربي أمتن وأكثر شمولاً."
+    authored:
+      - type: terminological
+        text: "مَنْ يَمِيلُ إِلَى مُخَالَطَةِ النَّاسِ ويُشَارِكُهُمْ بِفَعَالِيَّةٍ فِي أَنْشِطَتِهِمْ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-10639008-n", definition_index: 0, text: "مَنْ يَمِيلُ إِلَى مُخَالَطَةِ النَّاسِ ويُشَارِكُهُمْ بِفَعَالِيَّةٍ فِي أَنْشِطَتِهِمْ."}
+
+  examples:
+    per_lemma:
+      - lemma: "شَخْص اِجْتِمَاعِيّ"
+        examples:
+          - text: "يتميز بأنه شخص اجتماعي يفضل العمل ضمن فريق بدلاً من الانعزال."
+            type: usage
+      - lemma: "مُخَالِط"
+        examples:
+          - text: "كان الرجل مخالطاً لجيرانه ويشاركهم في أفراحهم وأحزانهم."
+            type: usage
+      - lemma: "مُعَاشِر"
+        examples:
+          - text: "عُرف عنه أنه رجل معاشر يألفه الناس بسرعة."
+            type: usage
+      - lemma: "أَلُوف"
+        examples:
+          - text: "المؤمن يألف ويُؤلف، فهو شخص ألوف بطبعه."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يتميز بأنه شخص اجتماعي يفضل العمل ضمن فريق بدلاً من الانعزال."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "كان الرجل مخالطاً لجيرانه ويشاركهم في أفراحهم وأحزانهم."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "عُرف عنه أنه رجل معاشر يألفه الناس بسرعة."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "المؤمن يألف ويُؤلف، فهو شخص ألوف بطبعه."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "شَخْص اِجْتِمَاعِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "شخص"
+          root: "شخص"
+          maqayis_quote: "الشِّينُ وَالْخَاءُ وَالصَّادُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى ارْتِفَاعٍ فِي شَيْءٍ."
+        - word: "اجتماعي"
+          root: "جمع"
+          maqayis_quote: "الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ."
+    - lemma: "مُخَالِط"
+      entry_id: "{auto}"
+      root: "خلط"
+      maqayis_quote: "الْخَاءُ وَاللَّامُ وَالطَّاءُ أَصْلٌ وَاحِدٌ مُخَالِفٌ لِلْبَابِ الَّذِي قَبْلَهُ، بَلْ هُوَ مُضَادٌّ لَهُ. تَقُولُ: خَلَطْتُ الشَّيْءَ بِغَيْرِهِ فَاخْتَلَطَ."
+    - lemma: "مُعَاشِر"
+      entry_id: "{auto}"
+      root: "عشر"
+      maqayis_quote: "الْعَيْنُ وَالشِّينُ وَالرَّاءُ أَصْلَانِ صَحِيحَانِ: أَحَدُهُمَا فِي عَدَدٍ مَعْلُومٍ ثُمَّ يُحْمَلُ عَلَيْهِ غَيْرُهُ، وَالْآخَرُ يَدُلُّ عَلَى مُدَاخَلَةٍ وَمُخَالَطَةٍ."
+    - lemma: "أَلُوف"
+      entry_id: "{auto}"
+      root: "ألف"
+      maqayis_quote: "الْهَمْزَةُ وَاللَّامُ وَالْفَاءُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى انْضِمَامِ الشَّيْءِ إِلَى الشَّيْءِ، وَالْأَشْيَاءُ الْكَثِيرَةُ أَيْضًا."
+
+  per_sense:
+    - lemma: "شَخْص اِجْتِمَاعِيّ"
+      sense_id: "{auto}"
+      nuance: "تعبير حديث ومباشر يركز على الجانب الاجتماعي بالمفهوم المعاصر."
+      mwe: true
+    - lemma: "مُخَالِط"
+      sense_id: "{auto}"
+      nuance: "يركز على الفعل المادي بالاختلاط والوجود مع الناس."
+      mwe: false
+    - lemma: "مُعَاشِر"
+      sense_id: "{auto}"
+      nuance: "يحمل دلالة أعمق على العشرة والمودة والمشاركة في الحياة اليومية."
+      mwe: false
+    - lemma: "أَلُوف"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب العاطفي والنفسي من حيث سهولة الاندماج وائتلافه مع الآخرين."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"شخص","root":"شخص","maqayis":"الشِّينُ وَالْخَاءُ وَالصَّادُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى ارْتِفَاعٍ فِي شَيْءٍ."},{"word":"اجتماعي","root":"جمع","maqayis":"الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ."}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خلط","maqayis":"الْخَاءُ وَاللَّامُ وَالطَّاءُ أَصْلٌ وَاحِدٌ مُخَالِفٌ لِلْبَابِ الَّذِي قَبْلَهُ، بَلْ هُوَ مُضَادٌّ لَهُ. تَقُولُ: خَلَطْتُ الشَّيْءَ بِغَيْرِهِ فَاخْتَلَطَ."}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عشر","maqayis":"الْعَيْنُ وَالشِّينُ وَالرَّاءُ أَصْلَانِ صَحِيحَانِ: أَحَدُهُمَا فِي عَدَدٍ مَعْلُومٍ ثُمَّ يُحْمَلُ عَلَيْهِ غَيْرُهُ، وَالْآخَرُ يَدُلُّ عَلَى مُدَاخَلَةٍ وَمُخَالَطَةٍ."}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ألف","maqayis":"الْهَمْزَةُ وَاللَّامُ وَالْفَاءُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى انْضِمَامِ الشَّيْءِ إِلَى الشَّيْءِ، وَالْأَشْيَاءُ الْكَثِيرَةُ أَيْضًا."}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير حديث ومباشر يركز على الجانب الاجتماعي بالمفهوم المعاصر.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الفعل المادي بالاختلاط والوجود مع الناس.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يحمل دلالة أعمق على العشرة والمودة والمشاركة في الحياة اليومية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الجانب العاطفي والنفسي من حيث سهولة الاندماج وائتلافه مع الآخرين.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-10639008-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-10639008-n"
+        score: 0.95

@@ -1,0 +1,176 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمّات الحالية تفتقر إلى التشكيل الكامل.
+      - "سائق قطار كهربائي" تعبير عام قد يشمل أنواعاً أخرى من القطارات، لكنه صحيح تقنياً للترام.
+    observations: "الترام (أو الترامواي) وسيلة نقل حضرية تسير على قضبان في الشوارع، ومشغلها يسمى عادة 'سائق ترام'. هناك مصطلح تقني معرب هو 'الموطوري' ورد في المعاجم الحديثة (المورد) كترجمة لـ motorman."
+  blind_candidates:
+    - lemma: "سَائِقُ تَرَام"
+      generation_method: tarkib
+      justification: "التعبير الأكثر شيوعاً ووصفاً للوظيفة، يجمع بين كلمة عربية (سائق) ولفظ معرب مستقر (ترام)."
+    - lemma: "قَائِدُ تَرَام"
+      generation_method: tarkib
+      justification: "بديل رسمي لكلمة سائق، يستخدم في السياقات الإدارية والوظيفية."
+    - lemma: "سَائِقُ تَرَامْوَاي"
+      generation_method: tarkib
+      justification: "استخدام اللفظ المعرب الكامل 'ترامواي' (tramway) المذكور في المعاجم العربية الحديثة."
+    - lemma: "مُشَغِّلُ تَرَام"
+      generation_method: tarkib
+      justification: "مطابقة حرفية للتعريف الإنجليزي (operator) وتناسب الهايبرنيم (مشغل)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "سَائِقُ تَرَام"
+      confirm:
+        - text: "«الموطوري: «أ» سائق الترام. «ب» مشغِّل الموطور.»"
+          source: "المورد الحديث (2008)"
+    - lemma: "سَائِقُ قِطَارٍ كَهْرُبَائِيّ"
+      confirm:
+        - text: "«الترام: مركب عام يسير بالكهرباء على قضبان حديدية في المدن وضواحيها»"
+          source: "المعجم الوسيط"
+          addition: "يؤكد طبيعة المركبة (كهربائية على قضبان)، مما يجعل سائقها 'سائق قطار كهربائي'."
+    - lemma: "الْمُوطُورِيّ"
+      confirm:
+        - text: "«الموطوري: «أ» سائق الترام. «ب» مشغِّل الموطور.»"
+          source: "المورد الحديث (2008)"
+    - lemma: "تَرَام"
+      confirm:
+        - text: "«تَرَام/ تِرام [مفرد]: مركبة عامة تسير بالكهرباء على قضبان حديديّة؛ لنقل الركاب في المدن وضواحيها.»"
+          source: "معجم اللغة العربية المعاصرة"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "سائق ترام"
+      decision: confirmed
+      decision_reason: "تعبير تركيبي شائع ودقيق يصف الوظيفة بوضوح."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "سَائِقُ تَرَام"
+    - lemma: "سائق قطار كهربائي"
+      decision: confirmed
+      decision_reason: "وصف فني دقيق لطبيعة عمل الترام، وإن كان أعم من الترام بحد ذاته."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "سَائِقُ قِطَارٍ كَهْرُبَائِيّ"
+    - lemma: "الْمُوطُورِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تقني مسجل في المعاجم الحديثة كترجمة مباشرة لـ motorman."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "الْمُوطُورِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "سَائِقُ تَرَامْوَاي"
+      source: stage1
+      decision: confirmed
+      decision_reason: "بديل مستخدم يعتمد اللفظ المعرب الكامل 'ترامواي'."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "سَائِقُ تَرَامْوَاي", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "مشغل الترام (عربة الشارع)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط؛ يحتاج إلى صياغة قاموسية توضح طبيعة العمل والمكان."
+    authored:
+      - type: terminological
+        text: "مَنْ يَتَوَلَّى قِيَادَةَ عَرَبَةِ التَّرَامِ (القِطَارِ الكَهْرُبَائِيِّ) فِي طُرُقِ الْمُدُنِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مَنْ يَتَوَلَّى قِيَادَةَ عَرَبَةِ التَّرَامِ (القِطَارِ الكَهْرُبَائِيِّ) فِي طُرُقِ الْمُدُنِ."}
+  examples:
+    per_lemma:
+      - lemma: "سَائِقُ تَرَام"
+        examples:
+          - text: "يَقِظَةُ سَائِقِ التَّرَامِ حَالَتْ دُونَ وُقُوعِ حَادِثٍ عِنْدَ تَقَاطُعِ السِّكَّةِ مَعَ الطَّرِيقِ."
+            type: usage
+      - lemma: "الْمُوطُورِيّ"
+        examples:
+          - text: "أَعْطَى الْمُوطُورِيُّ إِشَارَةَ التَّنْبِيهِ قَبْلَ انْطِلَاقِ التَّرَامِ مِنَ الْمَحَطَّةِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يَقِظَةُ سَائِقِ التَّرَامِ حَالَتْ دُونَ وُقُوعِ حَادِثٍ عِنْدَ تَقَاطُعِ السِّكَّةِ مَعَ الطَّرِيقِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "سَائِقُ تَرَام"
+      entry_id: "{auto}"
+      roots:
+        - word: "سائق"
+          root: "سوق"
+          maqayis_quote: "«السِّينُ وَالْوَاوُ وَالْقَافُ أَصْلٌ وَاحِدٌ، وَهُوَ حَدْوُ الشَّيْءِ. يُقَالُ سَاقَهُ يَسُوقُهُ سَوْقًا.»"
+        - word: "ترام"
+          root: "ترام"
+          maqayis_quote: "لفظ معرب من الإنجليزية (Tram)."
+    - lemma: "الْمُوطُورِيّ"
+      entry_id: "{auto}"
+      root: "موطور"
+      maqayis_quote: "لفظ معرب من الإنجليزية (Motor) بزيادة ياء النسب."
+  per_sense:
+    - lemma: "سَائِقُ تَرَام"
+      sense_id: "{auto}"
+      nuance: "التعبير الشائع والواضح لوصف المهنة."
+      mwe: true
+    - lemma: "الْمُوطُورِيّ"
+      sense_id: "{auto}"
+      nuance: "مصطلح تقني متخصص وغالباً ما يكون قديماً أو رسمياً في بعض المعاجم."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"سائق","root":"سوق","maqayis":"«السِّينُ وَالْوَاوُ وَالْقَافُ أَصْلٌ وَاحِدٌ...»"},{"word":"ترام","root":"ترام","maqayis":"لفظ معرب"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"التعبير الشائع والواضح لوصف المهنة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

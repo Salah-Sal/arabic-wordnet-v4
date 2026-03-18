@@ -1,0 +1,110 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "سلافي"
+      confirm:
+        - text: "«(1) السّلا?يّ: واحد السّلا?يين (2) سلا?يّ. — Slav»"
+          source: "المورد الحديث"
+        - text: "«صَقْلَبِيّ (pl. صَقَاْلِبَة): Sclave, Sclavonian; Sclavonic»"
+          source: "قاموس حبيب سالمون"
+      expands:
+        - text: "«الصقالبة جيل من الناس كانت مساكنهم إلى الشمال من بلاد البلغار وانتشروا الآن في كثير من شرق أوربة؛ وهم المسمون الآن بالسلاف»"
+          source: "المعجم الوسيط"
+    - lemma: "صقلبي"
+      confirm:
+        - text: "«الصَّقَالِبةُ: جيلٌ من الناس كانت مساكنهم إلى الشمال من بلاد البلغار وانتشروا الآن في كثير من شرق أوربة؛ وهم المسمون الآن بالسلاف»"
+          source: "المعجم الوسيط"
+        - text: "«الصَّقالبَةُ: اسمٌ لجماعاتٍ عاشتْ فِى منطقة البلقان وشرقِىِّ أوربا، ثم انتشرتْ شرقًا إلى روسيا»"
+          source: "المعجم الكبير"
+        - text: "«الصقالبة جيل حمر الألوان صهب الشعور يتاخمون بلاد الخزر في أعالي جبال الروم»"
+          source: "معجم البلدان لياقوت الحموي"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "صقلبي"
+      source_section: "step0_evidence"
+      evidence_citation: "«الصقالبة جيل من الناس... وهم المسمون الآن بالسلاف» — المعجم الوسيط"
+      justification: "اللفظ التراثي العربي المقابل للسلاف، وهو مستخدم بكثرة في المصادر التاريخية والمعجمية."
+  knowledge_candidates:
+    - lemma: "سلافي"
+      justification: "اللفظ المعاصر الأكثر شيوعاً، وهو نسبة إلى 'سلاف'."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "سلافي"
+      decision: confirmed
+      decision_reason: "المصطلح الحديث الشائع والمستخدم في المعاجم الحديثة والترجمات."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "اللفظ المعاصر الشائع في السياقات السياسية واللغوية والاجتماعية."
+      example: "يعد الروس أكبر الشعوب السلافية عدداً."
+    - lemma: "صقلبي"
+      source: step05
+      decision: confirmed
+      decision_reason: "المصطلح التراثي الفصيح وهو المرادف الدقيق للسلافي في الأدبيات العربية الكلاسيكية."
+      step05_citation: "«الصقالبة جيل من الناس... وهم المسمون الآن بالسلاف» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يستعمل غالباً في السياقات التاريخية والتراثية للإشارة إلى الشعوب السلافية القديمة."
+      example: "اشتهر الصقالبة في التاريخ الإسلامي كجنود وإداريين في الدولة الأموية والأندلس."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "صقلبي"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09696262-n"
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "أي فرد من شعوب أوروبا الشرقية أو روسيا الآسيوية الذين يتحدثون لغة سلافية"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي ترجمة حرفية ركيكة؛ يفضل صياغته بأسلوب معجمي عربي أمتن."
+  authored_definitions:
+    - type: encyclopedic
+      text: "فرد من الشعوب السلافية التي تقطن شرق أوروبا وشمال آسيا، وتتحدث إحدى اللغات السلافية."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-09696262-n"
+        definition_index: 0
+        text: "فرد من الشعوب السلافية التي تقطن شرق أوروبا وشمال آسيا، وتتحدث إحدى اللغات السلافية."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عَامِل / فَاعِل (awn4-09786620-n)"
+    test_result: "wrong"
+  actions:
+    - command: remove_synset_relation
+      params:
+        source_id: "awn4-09696262-n"
+        relation_type: "hypernym"
+        target_id: "awn4-09786620-n"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "سلافي"
+      enrichment:
+        root: "سلف"
+      examples:
+        - text: "اللغة الروسية هي إحدى اللغات السلافية الشرقية."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "صقلبي"
+      enrichment:
+        root: "صقلب"
+      examples:
+        - text: "الصقالبة جيل من الناس كانت مساكنهم إلى الشمال من بلاد البلغار وانتشروا الآن في كثير من شرق أوربة."
+          type: usage
+          source: "المعجم الوسيط"
+  cultural_fit:
+    assessment: native

@@ -1,0 +1,250 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "خلو المجموعة من الألفاظ المفردة (non-MWEs) رغم توافرها في المعاجم."
+      - "التعريف العربي بسيط جداً ويحتاج إلى صياغة معجمية أدق."
+    observations: "المجموعة تركز على مفهوم 'مستلم النصيحة'. المصطلحات الموجودة عبارة عن مركبات إضافية (طالب المشورة، متلقي النصيحة). المعاجم العربية توفر صيغاً مشتقة دقيقة مثل 'مُسْتَنْصِح' و'مَنْصُوح' و'مُنْتَصِح'."
+  blind_candidates:
+    - lemma: "مُسْتَنْصِح"
+      generation_method: ishtiqaq
+      justification: "على وزن (مستفعل) الذي يفيد الطلب، وهو مَن يطلب النصيحة من غيره."
+    - lemma: "مَنْصُوح"
+      generation_method: ishtiqaq
+      justification: "اسم المفعول من الفعل (نصح)، وهو الشخص الذي وُجِّهت إليه النصيحة."
+    - lemma: "مُنْتَصِح"
+      generation_method: ishtiqaq
+      justification: "على وزن (مفتعل)، وهو مَن يقبل النصيحة ويعمل بها."
+    - lemma: "طَالِب نُصْح"
+      generation_method: tarkib
+      justification: "مركب إضافي يعبر عن الشخص الساعي للحصول على الإرشاد."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "طَالِب الْمَشُورَة"
+      confirm:
+        - text: "«طالب المشورة»"
+          source: "الاستعمال اللغوي المعاصر"
+    - lemma: "مُتَلَقِّي النَّصِيحَة"
+      confirm:
+        - text: "«متلقي النصيحة»"
+          source: "الاستعمال اللغوي المعاصر"
+    - lemma: "مُسْتَنْصِح"
+      confirm:
+        - text: "«استنصح والده: استشاره، طلب منه النصيحة. شاب مستنصح.»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«مستنصح: counselee»"
+          source: "المعجم الطبي الموحد"
+    - lemma: "مَنْصُوح"
+      confirm:
+        - text: "«المنصوح؛ المُرْشَد (تر). translation_en: advisee»"
+          source: "المورد الحديث"
+        - text: "«نصح ولدَه... فهو ناصح ونصوح، والمفعول منصوح.»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "مُنْتَصِح"
+      confirm:
+        - text: "«انتصح الشاب: قبل النصيحة. تلميذ منتصح.»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«ألا رب من تغتشه لك ناصح... ومنتصِح باد عليك غوائله. ومنتصح: تعتده ناصحاً لك.»"
+          source: "تاج العروس"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "طَالِب الْمَشُورَة"
+      decision: confirmed
+      decision_reason: "مركب إضافي شائع الاستعمال يعبر بدقة عن طلب الرأي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "طَالِبُ الْمَشُورَةِ"
+    - lemma: "مُتَلَقِّي النَّصِيحَة"
+      decision: confirmed
+      decision_reason: "تعبير وصفي دقيق ومستخدم في السياقات التعليمية والتربوية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُتَلَقِّي النَّصِيحَةِ"
+    - lemma: "مُسْتَنْصِح"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ مفرد بليغ يدل على طلب النصيحة، وموثق في المعاجم الحديثة والطبية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُسْتَنْصِح", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مَنْصُوح"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اسم مفعول قياسي ومباشر للدلالة على مَن تلقى النصيحة، وموثق كمقابل لمصطلح advisee."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَنْصُوح", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُنْتَصِح"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يدل على مَن قبل النصيحة واعتبرها، وهو أخص من مجرد التلقي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُنْتَصِح", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "شخص يتلقى النصيحة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب جداً، ويفضل استخدام صياغة معجمية أكثر شمولاً."
+    authored:
+      - type: terminological
+        text: "مَن يُبذَلُ له النُّصحُ أو مَن يَسعى في طَلَبِه للإرشادِ إلى ما فيه صَلاحُ أمرِه."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مَن يُبذَلُ له النُّصحُ أو مَن يَسعى في طَلَبِه للإرشادِ إلى ما فيه صَلاحُ أمرِه."}
+  examples:
+    per_lemma:
+      - lemma: "طَالِبُ الْمَشُورَةِ"
+        examples:
+          - text: "رَحَّبَ الخبيرُ بِطَالِبِ الْمَشُورَةِ وَأَسْدَى لَهُ مَا يَنْفَعُه."
+            type: usage
+      - lemma: "مُتَلَقِّي النَّصِيحَةِ"
+        examples:
+          - text: "يَنْبَغِي لِمُتَلَقِّي النَّصِيحَةِ أَنْ يَكُونَ وَاعِيًا لِمَقَاصِدِ النَّاصِحِ."
+            type: usage
+      - lemma: "مُسْتَنْصِح"
+        examples:
+          - text: "كَانَ الْمُسْتَنْصِحُ حَرِيصًا عَلَى الِاسْتِمَاعِ لِتَوْجِيهَاتِ أُسْتَاذِهِ."
+            type: usage
+      - lemma: "مَنْصُوح"
+        examples:
+          - text: "يَجِبُ عَلَى الْمَنْصُوحِ أَنْ يَتَدَبَّرَ قَوْلَ النَّاصِحِ قَبْلَ الْعَمَلِ بِهِ."
+            type: usage
+      - lemma: "مُنْتَصِح"
+        examples:
+          - text: "نِعْمَ التِّلْمِيذُ الْمُنْتَصِحُ بِكَلَامِ مُعَلِّمِيهِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يَحْتَاجُ طَالِبُ الْمَشُورَةِ إِلَى مَنْ يَصْدُقُهُ الْقَوْلَ وَيُخْلِصُ لَهُ النُّصْحَ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "طَالِبُ الْمَشُورَةِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "طالب"
+          root: "طلب"
+          maqayis_quote: "«الطَّاءُ وَاللَّامُ وَالْبَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى ابْتِغَاءِ الشَّيْءِ.»"
+        - word: "المشورة"
+          root: "شور"
+          maqayis_quote: "«الشِّينُ وَالْوَاوُ وَالرَّاءُ أَصْلَانِ مُطَّرِدَانِ، الْأَوَّلُ مِنْهُمَا إِبْدَاءُ شَيْءٍ وَإِظْهَارُهُ وَعَرْضُهُ... وَالثَّانِي أَخْذُ شَيْءٍ كَشَوْرِ الْعَسَلِ.»"
+    - lemma: "مُتَلَقِّي النَّصِيحَةِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "متلقي"
+          root: "لقي"
+          maqayis_quote: "«اللَّامُ وَالْقَافُ وَالْحَرْفُ الْمُعْتَلُّ أُصُولٌ ثَلَاثَةٌ... أَحَدُهَا اللِّقَاءُ: الْمُلَاقَاةُ وَتَوَافِي الِاثْنَيْنِ مُتَقَابِلَيْنِ.»"
+        - word: "النصيحة"
+          root: "نصح"
+          maqayis_quote: "«النُّونُ وَالصَّادُ وَالْحَاءُ أَصْلٌ يَدُلُّ عَلَى مُلَاءَمَةٍ بَيْنَ شَيْئَيْنِ وَإِصْلَاحٍ لَهُمَا. أَصْلُ ذَلِكَ النَّاصِحُ: الْخَيَّاطُ.»"
+    - lemma: "مُسْتَنْصِح"
+      entry_id: "{auto}"
+      root: "نصح"
+      maqayis_quote: "«النُّونُ وَالصَّادُ وَالْحَاءُ أَصْلٌ يَدُلُّ عَلَى مُلَاءَمَةٍ بَيْنَ شَيْئَيْنِ وَإِصْلَاحٍ لَهُمَا.»"
+    - lemma: "مَنْصُوح"
+      entry_id: "{auto}"
+      root: "نصح"
+      maqayis_quote: "«النُّونُ وَالصَّادُ وَالْحَاءُ أَصْلٌ يَدُلُّ عَلَى مُلَاءَمَةٍ بَيْنَ شَيْئَيْنِ وَإِصْلَاحٍ لَهُمَا.»"
+    - lemma: "مُنْتَصِح"
+      entry_id: "{auto}"
+      root: "نصح"
+      maqayis_quote: "«النُّونُ وَالصَّادُ وَالْحَاءُ أَصْلٌ يَدُلُّ عَلَى مُلَاءَمَةٍ بَيْنَ شَيْئَيْنِ وَإِصْلَاحٍ لَهُمَا.»"
+  per_sense:
+    - lemma: "طَالِبُ الْمَشُورَةِ"
+      sense_id: "{auto}"
+      nuance: "يركز على فعل طلب الرأي والاستشارة في أمر ما."
+      mwe: true
+    - lemma: "مُتَلَقِّي النَّصِيحَةِ"
+      sense_id: "{auto}"
+      nuance: "يركز على واقعة استقبال النصح بصرف النظر عن طلبه."
+      mwe: true
+    - lemma: "مُسْتَنْصِح"
+      sense_id: "{auto}"
+      nuance: "لفظ مشتق يدل على الشخص الذي يبادر بطلب النصح."
+      mwe: false
+    - lemma: "مَنْصُوح"
+      sense_id: "{auto}"
+      nuance: "لفظ عام يقع على كل من وُجِّه إليه النصح."
+      mwe: false
+    - lemma: "مُنْتَصِح"
+      sense_id: "{auto}"
+      nuance: "يدل على القبول والامتثال للنصيحة، وهو أبلغ من مجرد التلقي."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"طالب","root":"طلب","maqayis":"«الطَّاءُ وَاللَّامُ وَالْبَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى ابْتِغَاءِ الشَّيْءِ.»"},{"word":"المشورة","root":"شور","maqayis":"«الشِّينُ وَالْوَاوُ وَالرَّاءُ أَصْلَانِ مُطَّرِدَانِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"متلقي","root":"لقي","maqayis":"«اللَّامُ وَالْقَافُ وَالْحَرْفُ الْمُعْتَلُّ... أَحَدُهَا اللِّقَاءُ...»"},{"word":"النصيحة","root":"نصح","maqayis":"«النُّونُ وَالصَّادُ وَالْحَاءُ أَصْلٌ يَدُلُّ عَلَى مُلَاءَمَةٍ بَيْنَ شَيْئَيْنِ وَإِصْلَاحٍ لَهُمَا.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نصح","maqayis":"«النُّونُ وَالصَّادُ وَالْحَاءُ أَصْلٌ يَدُلُّ عَلَى مُلَاءَمَةٍ بَيْنَ شَيْئَيْنِ وَإِصْلَاحٍ لَهُمَا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يدل على القبول والامتثال للنصيحة، وهو أبلغ من مجرد التلقي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

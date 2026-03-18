@@ -1,0 +1,182 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "جون كبير"
+      evidence_status: "no_material_found"
+    - lemma: "مجاز"
+      expands:
+        - text: "«(الْمجَاز) الْمعبر» — المعجم الوسيط لمجموعة من المؤلفين"
+        - text: "«المَجَازُ: بالفتح، وآخره زاي، يقال: جزت الطريق جوازا ومجازا وجوزا، والمجاز: الموضع وكذلك المجازة» — معجم البلدان لياقوت الحموي"
+      contradicts:
+        - text: "«المجاز: اسم لما أريد به غير ما وضع له لمناسبة بينهما كتسمية الشجاع أسدا» — التوقيف على مهمات التعاريف للمناوي"
+          conflict: "مصطلح بلاغي لا علاقة له بالجغرافيا"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "خليج"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«(1) الجُوْن: خليج صغير (2) خليج.» — المورد الحديث (2008)"
+      justification: "ترجمة مباشرة لكلمة bay ومطابقة لتعريف المجموعة الترادفية."
+    - lemma: "خور"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«الخَوْرُ: مَصب المَاء فِي الْبَحْر، وَقيل: هُوَ خَليجٌ من الْبَحْر.» — المحكم والمحيط الأعظم لابن سيده الأندلسي"
+      justification: "مصطلح جغرافي يدل على مدخل من البحر أو خليج، وهو مطابق لمدلول inlet."
+  knowledge_candidates:
+    - lemma: "شرم"
+      justification: "توليد بالتركيب/الاستعارة: مصطلح جغرافي (مجاز/إزاحة دلالية من القطع والشق) يستخدم للدلالة على الخليج أو المدخل البحري العميق."
+  generation_notes: "المصطلحات الجغرافية تتداخل في التعبير عن المداخل البحرية."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "جون كبير"
+      decision: removed
+      decision_reason: "مركب وصفي حر (تركيب نعتي) وليس مصطلحاً مسكوكاً ثابتاً، كما أنه يجمع بين 'جون' (الذي يعني خليجاً صغيراً في بعض المعاجم) و'كبير' مما يشكل تناقضاً أو حشواً غير اصطلاحي."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "مركب وصفي حر لوصف الجون بأنه كبير."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "مجاز"
+      decision: removed
+      decision_reason: "المجاز هو المعبر أو الممر (strait/passage)، وهو يختلف جغرافياً عن الخليج العميق أو المدخل المحيطي المفتوح (bay/inlet)."
+      evidence_assessment:
+        case: "contradicts"
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "المجاز معبر بين مسطحين مائيين، وليس بالضرورة خليجاً أو مدخلاً محيطياً."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "خليج"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح جغرافي دقيق وشائع للتعبير عن bay أو inlet."
+      step05_citation: "«(1) الجُوْن: خليج صغير (2) خليج.» — المورد الحديث (2008)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "الخليج هو مسطح مائي يتوغل في اليابسة، وهو المصطلح الأعم والأشمل."
+      example: "يتميز الساحل بوجود خليج عميق يصلح لرسو السفن."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "خليج"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09463090-n"
+    - lemma: "خور"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح مسكوك ومستخدم جغرافياً للدلالة على المداخل البحرية (inlets)."
+      step05_citation: "«الخَوْرُ: مَصب المَاء فِي الْبَحْر، وَقيل: هُوَ خَليجٌ من الْبَحْر.» — المحكم والمحيط الأعظم لابن سيده الأندلسي"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "الخور عادة ما يكون مدخلاً مائياً أضيق أو متصلاً بمصب نهر مقارنة بالخليج."
+      example: "تمتد المحمية الطبيعية على طول خور مائي تسكنه الطيور المهاجرة."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "خور"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09463090-n"
+    - lemma: "شرم"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح جغرافي فصيح للدلالة على الخليج أو المدخل البحري."
+      step05_citation: "«والشَّرْمُ لُجَّةُ البَحْرِ وقيل هو موضِعٌ فيه» — المحكم والمحيط الأعظم لابن سيده الأندلسي"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "الشرم غالباً ما يشير إلى خليج صغير أو مدخل عميق نسبياً في الساحل."
+      example: "تستقطب الشعب المرجانية في الشرم العديد من هواة الغوص."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "شرم"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09463090-n"
+
+  synset_flags:
+    definition_review_needed: true
+  added_lemmas:
+    - lemma: "خليج"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "create_entry + add_sense"
+    - lemma: "خور"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "create_entry + add_sense"
+    - lemma: "شرم"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "create_entry + add_sense"
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "مدخل محيطي كبير أو خليج عميق"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وواضح ويقابل المفهوم الإنجليزي (large ocean inlet or deep bay) بشكل صحيح."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "مسطح مائي"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "خليج"
+        antonym_found: false
+      - lemma: "خور"
+        antonym_found: false
+      - lemma: "شرم"
+        antonym_found: false
+  verb_checks:
+    applicable: false
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "خليج"
+      enrichment:
+        root: "خلج"
+      examples:
+        - text: "يتميز الساحل بوجود خليج عميق يصلح لرسو السفن."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "خور"
+      enrichment:
+        root: "خور"
+      examples:
+        - text: "تمتد المحمية الطبيعية على طول خور مائي تسكنه الطيور المهاجرة."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "شرم"
+      enrichment:
+        root: "شرم"
+      examples:
+        - text: "تستقطب الشعب المرجانية في الشرم العديد من هواة الغوص."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-09463090-n"
+        text: "يتميز الساحل بوجود خليج عميق يصلح لرسو السفن."

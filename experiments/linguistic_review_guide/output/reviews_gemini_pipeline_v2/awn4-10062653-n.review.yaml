@@ -1,0 +1,202 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمة الحالية تعبير مركب (MWE) بينما توجد بدائل مفردة فصيحة.
+      - التعريف الحالي موجز جداً ويحتاج إلى تدقيق اصطلاحي لبيان طبيعة "الغرابة".
+    observations: "المفهوم يشير إلى الشخصية التي تخرج عن النمط السوي أو المألوف في التصرفات أو التفكير، وهو ما يعبر عنه بالعربية بلفظ 'الشذوذ' (بمعناه اللغوي العام) أو 'الغرابة'. التعبير 'غريب الأطوار' هو الأكثر شيوعاً في المعاجم الحديثة."
+  blind_candidates:
+    - lemma: "شَاذّ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من شذّ، ويطلق على من خرج عن الجماعة أو القاعدة، وهو الوصف المقابل للسوي."
+    - lemma: "مُتَفَرِّد"
+      generation_method: ishtiqaq
+      justification: "من التفرد، ويستخدم لوصف الشخص الذي يتميز بخصائص أو سلوكيات تجعله وحيداً في بابه، وغالباً ما تحمل دلالة الغرابة."
+    - lemma: "غَرِيبُ الأَطْوَارِ"
+      generation_method: tarkib
+      justification: "تعبير اصطلاحي ثابت لوصف الشخص ذي الأطوار (الحالات) غير المألوفة."
+    - lemma: "أَطْوَارِيّ"
+      generation_method: ishtiqaq
+      justification: "نسبة إلى أطوار، وهو مصطلح حديث (سيكولوجي/أدبي) يصف الشخص المتقلب أو غريب الأطوار."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "غَرِيبُ الْأَطْوَار"
+      confirm:
+        - text: "«رَجُل غريب الأطوار: مُتَّسِم بما هو خارج عن المفهوم العامّ، ذو طَبْع يصعُب فهمُه»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«الغريب الأطوار: شخص غريب الأطوار» (ترجمة لـ eccentric)"
+          source: "المورد الحديث"
+      expands:
+        - text: "«في عقله خباط أي شاذ، غريب الأطوار، معتوه، مجنون»"
+          source: "تكملة المعاجم (دوزي)"
+    - lemma: "شَاذّ"
+      confirm:
+        - text: "«الشَّاذُّ: من النَّاسِ: خِلافُ السَّوِيِّ المنفردُ المتقَطِّعُ النظير»"
+          source: "المعجم الكبير"
+        - text: "«الشاذ: المنفرد، أو الخارج عن الجماعة... من الناس: خلاف السويّ»"
+          source: "المعجم الوسيط"
+    - lemma: "شَاذُّ الطِّبَاع"
+      confirm:
+        - text: "«ومنه الشَّاذُّ جنسيًّا, وشاذُّ الطباعِ»"
+          source: "المعجم الكبير"
+    - lemma: "أَطْوَارِيّ"
+      expands:
+        - text: "«حالاتي: حُوَّل، قلَّب، متقلب، متلون، غريب الأطوار»"
+          source: "تكملة المعاجم (دوزي)"
+          addition: "استخدام لفظ 'أطواري' هو المقابل الحديث للفظ 'حالاتي' القديم."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "غَرِيبُ الْأَطْوَار"
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي قياسي ثابت في المعاجم الحديثة والموسوعية لوصف المفهوم بدقة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "غَرِيبُ الأَطْوَارِ"
+    - lemma: "شَاذّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فصيح معتمد في المعاجم العربية (الوسيط والكبير) لوصف الشخص المخالف للسوي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "شَاذّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "شَاذُّ الطِّبَاعِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير مركب ورد صراحة في المعجم الكبير لوصف الشخص ذي الطبائع الغريبة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "شَاذُّ الطِّبَاعِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "أَطْوَارِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اشتقاق حديث مقبول يعبر عن تقلب الحالات والغرابة، وله شواهد استعمالية قوية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "أَطْوَارِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "شخص ذو شخصية غير عادية أو غريبة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط؛ يحتاج إلى صياغة معجمية تبين طبيعة الانفراد والمخالفة للمألوف."
+    authored:
+      - type: terminological
+        text: "شَخْصٌ يَنْفَرِدُ بِسُلُوكٍ أَوْ طِبَاعٍ تَخْرُجُ عَنِ المَأْلُوفِ أَوْ لاَ تَجْرِي عَلَى السَّنَنِ المُعْتَادِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "شَخْصٌ يَنْفَرِدُ بِسُلُوكٍ أَوْ طِبَاعٍ تَخْرُجُ عَنِ المَأْلُوفِ أَوْ لاَ تَجْرِي عَلَى السَّنَنِ المُعْتَادِ."}
+  examples:
+    per_lemma:
+      - lemma: "غَرِيبُ الأَطْوَارِ"
+        examples:
+          - text: "يُعرَفُ ذَلِكَ الرَّسَّامُ بِأَنَّهُ غَرِيبُ الأَطْوَارِ فِي مَلْبَسِهِ وَحَدِيثِهِ."
+            type: usage
+      - lemma: "شَاذّ"
+        examples:
+          - text: "كَانَ سُلُوكُهُ شَاذًّا عَنِ الجَمَاعَةِ فَأَثَارَ الرِّيبَةَ."
+            type: usage
+      - lemma: "أَطْوَارِيّ"
+        examples:
+          - text: "عُرِفَ الفَنَّانُ بِشَخْصِيَّتِهِ الأَطْوَارِيَّةِ الَّتِي تَجْمَعُ بَيْنَ العَبْقَرِيَّةِ وَالغَرَابَةِ."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "غَرِيبُ الأَطْوَارِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "غريب"
+          root: "غرب"
+          maqayis_quote: "«الْغَيْنُ وَالرَّاءُ وَالْبَاءُ أَصْلٌ صَحِيحٌ... وَالْغُرْبَةُ: الْبُعْدُ عَنِ الْوَطَنِ... وَمِنْ هَذَا الْبَابِ: غُرُوبُ الشَّمْسِ، كَأَنَّهُ بُعْدُهَا عَنْ وَجْهِ الْأَرْضِ.»"
+        - word: "الأطوار"
+          root: "طور"
+          maqayis_quote: "«الطَّاءُ وَالْوَاوُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مَعْنًى وَاحِدٍ، وَهُوَ الِامْتِدَادُ فِي شَيْءٍ مِنْ مَكَانٍ أَوْ زَمَانٍ... وَلِذَلِكَ [يُقَالُ] عَدَا طَوْرَهُ، أَيْ جَازَ الْحَدُّ الَّذِي هُوَ لَهُ.»"
+    - lemma: "شَاذّ"
+      entry_id: "{auto}"
+      root: "شذذ"
+      maqayis_quote: "«الشِّينُ وَالذَّالُ يَدُلُّ عَلَى الِانْفِرَادِ وَالْمُفَارَقَةِ. شَذَّ الشَّيْءُ يَشِذُّ شُذُوذًا.»"
+    - lemma: "أَطْوَارِيّ"
+      entry_id: "{auto}"
+      root: "طور"
+      maqayis_quote: "«الطَّاءُ وَالْوَاوُ وَالرَّاءُ أَصْلٌ صَحِيحٌ... وَقَوْلُهُمْ لِلْوَحْشِيِّ مِنَ الطَّيْرِ وَغَيْرِهَا: طُورِيٌّ وَطُورَانِيٌّ، فَهُوَ مِنْ هَذَا، كَأَنَّهُ تَوَحَّشَ فَعَدَا الطَّوْرَ.»"
+  per_sense:
+    - lemma: "غَرِيبُ الأَطْوَارِ"
+      sense_id: "{auto}"
+      nuance: "التعبير الأكثر شيوعاً لوصف الشخصية المضطربة أو العجيبة في تصرفاتها اليومية."
+      mwe: true
+    - lemma: "شَاذّ"
+      sense_id: "{auto}"
+      nuance: "يركز على الخروج عن القاعدة العامة أو النمط السوي للجماعة."
+      mwe: false
+    - lemma: "شَاذُّ الطِّبَاعِ"
+      sense_id: "{auto}"
+      nuance: "يؤكد على أن الغرابة متأصلة في السجية والخُلُق."
+      mwe: true
+    - lemma: "أَطْوَارِيّ"
+      sense_id: "{auto}"
+      nuance: "صيغة مفردة حديثة تستخدم غالباً في السياقات النفسية والأدبية."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"غريب","root":"غرب","maqayis":"«الْغَيْنُ وَالرَّاءُ وَالْبَاءُ أَصْلٌ صَحِيحٌ... وَالْغُرْبَةُ: الْبُعْدُ عَنِ الْوَطَنِ...»"},{"word":"الأطوار","root":"طور","maqayis":"«الطَّاءُ وَالْوَاوُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مَعْنًى وَاحِدٍ، وَهُوَ الِامْتِدَادُ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"شذذ","maqayis":"«الشِّينُ وَالذَّالُ يَدُلُّ عَلَى الِانْفِرَادِ وَالْمُفَارَقَةِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"التعبير الأكثر شيوعاً لوصف الشخصية المضطربة أو العجيبة في تصرفاتها اليومية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

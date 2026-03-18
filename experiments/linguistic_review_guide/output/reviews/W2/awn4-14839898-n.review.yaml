@@ -1,0 +1,275 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الحالية تفتقر إلى التشكيل."
+      - "مصطلح 'عامل تجلط' يُستخدم غالباً في السياق الطبي للدم، في حين أن المفهوم عام (Coagulant)."
+    observations: "المفهوم يشير إلى أي مادة تُحدث التخثر أو التجلط، سواء في الدم، أو في معالجة المياه، أو في صناعة الأغذية. الجذران (خثر) و(جلط) مستخدمان بكثرة للتعبير عن هذه الدلالة، وصيغة (مُفَعِّل) هي القياسية للتعبير عن العامل المحدِث للفعل."
+  blind_candidates:
+    - lemma: "مُخَثِّر"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل (خَثَّرَ)، على وزن (مُفَعِّل) ليدل على المادة التي تُحدث التخثر."
+    - lemma: "مُجَلِّط"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل (جَلَّطَ)، ويشيع استخدامه طبياً وكيميائياً."
+    - lemma: "عَامِلُ تَخَثُّرٍ"
+      generation_method: tarkib
+      justification: "مركب إضافي يصف المادة من خلال وظيفتها بدقة، ويشيع في معالجة المياه."
+    - lemma: "عَامِلُ تَجَلُّطٍ"
+      generation_method: tarkib
+      justification: "مركب إضافي مستخدم في السياق الطبي للدلالة على المواد التي تسبب تجلط الدم."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مخثر"
+      confirm:
+        - text: "مادة تضاف إلى المحاليل الغروية تؤدي إلى ترسب الطور المعلَّق أو تحول السائل إلى هُلام."
+          source: "المعجم الموحد لمصطلحات تقانات الأغذية (2004)"
+        - text: "مادة كيميائية تضاف إلى المياه المعالجة بغرض ضم المواد الغروانية والمستحلبات بعضها إلى بعض لتحسين قابلية الترسيب."
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية (2012)"
+    - lemma: "عامل تجلط"
+      confirm:
+        - text: "coagulant / precipitant"
+          source: "المعجم الموحد لمصطلحات المياه (2000)"
+    - lemma: "مُجَلِّط"
+      confirm:
+        - text: "مادة كيميائية تضاف لزعزعة الاستقرار والتسبب في الركام في البداية مع المواد الغروانية والمستحلبات لتحسين الترشيح."
+          source: "المعجم الموحد لمصطلحات المياه (2000)"
+    - lemma: "عَامِلُ تَخَثُّرٍ"
+      confirm:
+        - text: "coagulant / precipitating agent"
+          source: "المعجم الموحد لمصطلحات المياه (2000)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "عامل تجلط"
+      decision: confirmed
+      decision_reason: "مصطلح مركّب صحيح وشائع، لا سيما في السياقات الطبية والحيوية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عَامِلُ تَجَلُّطٍ"
+
+    - lemma: "مخثر"
+      decision: confirmed
+      decision_reason: "مصطلح قياسي دقيق ومثبت في المعاجم العلمية الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُخَثِّر"
+
+    - lemma: "عَامِلُ تَخَثُّرٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير دقيق ومستخدم في المصطلحات الكيميائية والهندسية لمعالجة المياه."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "عَامِلُ تَخَثُّرٍ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "مُجَلِّط"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف صحيح لمُخَثِّر، وله استخدامات علمية موثقة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُجَلِّط"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "عامل ينتج التخثر"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ركيك ويمثل ترجمة حرفية من الإنجليزية. يجب صياغة تعريف مصطلحي دقيق يشمل طبيعة المادة ووظيفتها."
+    authored:
+      - type: terminological
+        text: "مَادَّةٌ كِيمْيَائِيَّةٌ أَوْ فِيزْيَائِيَّةٌ تُضَافُ إِلَى السَّوَائِلِ أَوِ الْمَحَالِيلِ لِإِحْدَاثِ تَخَثُّرِهَا أَوِ تَجَلُّطِهَا."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "مَادَّةٌ كِيمْيَائِيَّةٌ أَوْ فِيزْيَائِيَّةٌ تُضَافُ إِلَى السَّوَائِلِ أَوِ الْمَحَالِيلِ لِإِحْدَاثِ تَخَثُّرِهَا أَوِ تَجَلُّطِهَا."
+
+  examples:
+    per_lemma:
+      - lemma: "عَامِلُ تَجَلُّطٍ"
+        examples:
+          - text: "يُعَانِي الْمَرِيضُ مِنْ نَقْصٍ فِي أَحَدِ عَوَامِلِ التَّجَلُّطِ فِي الدَّمِ."
+            type: usage
+      - lemma: "مُخَثِّر"
+        examples:
+          - text: "يُضَافُ المُخَثِّرُ إِلَى الْحَلِيبِ فِي صِنَاعَةِ الْجُبْنِ."
+            type: usage
+      - lemma: "عَامِلُ تَخَثُّرٍ"
+        examples:
+          - text: "يُسْتَخْدَمُ الشَّبُّ كَعَامِلِ تَخَثُّرٍ فِي تَنْقِيَةِ الْمِيَاهِ."
+            type: usage
+      - lemma: "مُجَلِّط"
+        examples:
+          - text: "اسْتَخْدَمَ الطَّبِيبُ مَادَّةً مُجَلِّطَةً لِإِيقَافِ النَّزِيفِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يُعَانِي الْمَرِيضُ مِنْ نَقْصٍ فِي أَحَدِ عَوَامِلِ التَّجَلُّطِ فِي الدَّمِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يُضَافُ المُخَثِّرُ إِلَى الْحَلِيبِ فِي صِنَاعَةِ الْجُبْنِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يُسْتَخْدَمُ الشَّبُّ كَعَامِلِ تَخَثُّرٍ فِي تَنْقِيَةِ الْمِيَاهِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "اسْتَخْدَمَ الطَّبِيبُ مَادَّةً مُجَلِّطَةً لِإِيقَافِ النَّزِيفِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "عَامِلُ تَجَلُّطٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "عامل"
+          root: "عمل"
+          maqayis_quote: "«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامٌّ فِي كُلِّ فِعْلٍ يُفْعَلُ.»"
+        - word: "تجلط"
+          root: "جلط"
+          maqayis_quote: "«الْجِيمُ وَاللَّامُ وَالطَّاءُ أَصْلٌ عَلَى قِلَّتِهِ مُطَّرِدُ الْقِيَاسِ، وَهُوَ تَجَرُّدُ الشَّيْءِ.»"
+    - lemma: "مُخَثِّر"
+      entry_id: "{auto}"
+      root: "خثر"
+      maqayis_quote: "«الْخَاءُ وَالثَّاءُ وَالرَّاءُ أَصْلٌ يَدُلُّ عَلَى غِلَظٍ فِي الشَّيْءِ مَعَ اسْتِرْخَاءٍ.»"
+    - lemma: "عَامِلُ تَخَثُّرٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "عامل"
+          root: "عمل"
+          maqayis_quote: "«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامٌّ فِي كُلِّ فِعْلٍ يُفْعَلُ.»"
+        - word: "تخثر"
+          root: "خثر"
+          maqayis_quote: "«الْخَاءُ وَالثَّاءُ وَالرَّاءُ أَصْلٌ يَدُلُّ عَلَى غِلَظٍ فِي الشَّيْءِ مَعَ اسْتِرْخَاءٍ.»"
+    - lemma: "مُجَلِّط"
+      entry_id: "{auto}"
+      root: "جلط"
+      maqayis_quote: "«الْجِيمُ وَاللَّامُ وَالطَّاءُ أَصْلٌ عَلَى قِلَّتِهِ مُطَّرِدُ الْقِيَاسِ، وَهُوَ تَجَرُّدُ الشَّيْءِ.»"
+
+  per_sense:
+    - lemma: "عَامِلُ تَجَلُّطٍ"
+      sense_id: "{auto}"
+      nuance: "يُخَصَّصُ غَالِبًا فِي السِّيَاقِ الطِّبِّيِّ لِلْإِشَارَةِ إِلَى الْعَوَامِلِ الَّتِي تُسَبِّبُ تَجَلُّطَ الدَّمِ."
+      mwe: true
+    - lemma: "مُخَثِّر"
+      sense_id: "{auto}"
+      nuance: "مُصْطَلَحٌ عَامٌّ لِأَيِّ مَادَّةٍ تُسَبِّبُ التَّخَثُّرَ فِي السَّوَائِلِ كَالْحَلِيبِ وَالْمِيَاهِ."
+      mwe: false
+    - lemma: "عَامِلُ تَخَثُّرٍ"
+      sense_id: "{auto}"
+      nuance: "تَعْبِيرٌ مُرَكَّبٌ يُرَادِفُ الْمُخَثِّرَ، وَيَشِيعُ اسْتِخْدَامُهُ فِي الْكِيمْيَاءِ وَمُعَالَجَةِ الْمِيَاهِ."
+      mwe: true
+    - lemma: "مُجَلِّط"
+      sense_id: "{auto}"
+      nuance: "مُرَادِفٌ لِلْمُخَثِّرِ وَيُسْتَخْدَمُ غَالِبًا فِي السِّيَاقَاتِ الطِّبِّيَّةِ أَوِ الْكِيمْيَائِيَّةِ لِوَصْفِ التَّرْسِيبِ."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"عامل","root":"عمل","maqayis":"«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامٌّ فِي كُلِّ فِعْلٍ يُفْعَلُ.»"},{"word":"تجلط","root":"جلط","maqayis":"«الْجِيمُ وَاللَّامُ وَالطَّاءُ أَصْلٌ عَلَى قِلَّتِهِ مُطَّرِدُ الْقِيَاسِ، وَهُوَ تَجَرُّدُ الشَّيْءِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خثر","maqayis":"«الْخَاءُ وَالثَّاءُ وَالرَّاءُ أَصْلٌ يَدُلُّ عَلَى غِلَظٍ فِي الشَّيْءِ مَعَ اسْتِرْخَاءٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"عامل","root":"عمل","maqayis":"«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامٌّ فِي كُلِّ فِعْلٍ يُفْعَلُ.»"},{"word":"تخثر","root":"خثر","maqayis":"«الْخَاءُ وَالثَّاءُ وَالرَّاءُ أَصْلٌ يَدُلُّ عَلَى غِلَظٍ فِي الشَّيْءِ مَعَ اسْتِرْخَاءٍ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جلط","maqayis":"«الْجِيمُ وَاللَّامُ وَالطَّاءُ أَصْلٌ عَلَى قِلَّتِهِ مُطَّرِدُ الْقِيَاسِ، وَهُوَ تَجَرُّدُ الشَّيْءِ.»"}'
+
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُخَصَّصُ غَالِبًا فِي السِّيَاقِ الطِّبِّيِّ لِلْإِشَارَةِ إِلَى الْعَوَامِلِ الَّتِي تُسَبِّبُ تَجَلُّطَ الدَّمِ.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مُصْطَلَحٌ عَامٌّ لِأَيِّ مَادَّةٍ تُسَبِّبُ التَّخَثُّرَ فِي السَّوَائِلِ كَالْحَلِيبِ وَالْمِيَاهِ.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تَعْبِيرٌ مُرَكَّبٌ يُرَادِفُ الْمُخَثِّرَ، وَيَشِيعُ اسْتِخْدَامُهُ فِي الْكِيمْيَاءِ وَمُعَالَجَةِ الْمِيَاهِ.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مُرَادِفٌ لِلْمُخَثِّرِ وَيُسْتَخْدَمُ غَالِبًا فِي السِّيَاقَاتِ الطِّبِّيَّةِ أَوِ الْكِيمْيَائِيَّةِ لِوَصْفِ التَّرْسِيبِ.","mwe":false}'
+
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,202 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "مادة مخمرة: هذا التعبير بصيغة اسم المفعول يعني المادة التي خمرت بالفعل (fermented substance)، بينما تعريف المجموعة والمدلول الإنجليزي يشيران إلى العامل المسبب للتخمير (leaven/ferment). الأنسب استخدام صيغة اسم الفاعل 'مُخَمِّر' أو اللفظة الأصيلة 'خَمِير'."
+    observations: "المجموعة تغطي المادة المسببة للتخمير، وهي في العربية 'الخميرة' بشكل عام، و'الخمير' للعجينة المختمرة المستعملة كبادئ. اللفظ 'مادة مخمرة' يبدو ترجمة حرفية قاصرة."
+  blind_candidates:
+    - lemma: "خَمِيرَة"
+      generation_method: ishtiqaq
+      justification: "اللفظ العربي الأشيع للمادة المسببة للتخمير."
+    - lemma: "خَمِير"
+      generation_method: ishtiqaq
+      justification: "ورد في المعاجم القديمة والحديثة بمعنى ما يجعل في العجين لتخميره."
+    - lemma: "مُخَمِّر"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل خَمَّرَ، يدل على العامل المسبب للعملية."
+    - lemma: "عَامِلُ تَخْمِير"
+      generation_method: tarkib
+      justification: "تعبير اصطلاحي علمي يقابل leavening agent."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خميرة"
+      confirm:
+        - text: "«(الخميرة) ... تستعمل في تخمير العجين وفي تحضير الكحول والفيتامينات»"
+          source: "المعجم الوسيط"
+        - text: "«الخَمِيرَةُ: ما يُجْعَلُ فى العَجِينِ أو الطِّيبِ ونحوهما لتَخْمِيره»"
+          source: "المعجم الكبير"
+        - text: "«خميرة: العامل الذي يسبب عملية التخمير (ferment)»"
+          source: "المعجم الموحد لمصطلحات الكيمياء"
+    - lemma: "مادة مخمرة"
+      evidence_status: "no_material_found"
+    - lemma: "خمير"
+      confirm:
+        - text: "«الخَمِير: ما يُجْعَلُ في العَجِينِ والطِّيبِ ونحوِهما لِتَخْمِيرِه»"
+          source: "المعجم الكبير"
+        - text: "«(الخمير) عجينة مختمرة بها فطر خاص ليولد ثاني أكسيد الكربون»"
+          source: "المعجم الوسيط"
+    - lemma: "مخمر"
+      confirm:
+        - text: "«مُخَمِّر: مادة تخمر مواد أخرى. (ferment)»"
+          source: "معجم المصطلحات الطبية"
+      expands:
+        - text: "«مُخَمِّر: آلة أو وعاء التخمير (fermenter)»"
+          source: "المعجم الموحد لمصطلحات علم الصيدلة"
+          addition: "يدل اللفظ في السياق التقني على الوعاء أو الجهاز."
+    - lemma: "عامل تخمير"
+      confirm:
+        - text: "«عامل نافخ (leavening agent): مادة تسبب إنتاج الغازات في المعجنات للحصول على قوام إسفنجيّ منتفخ»"
+          source: "المعجم الموحد لتقانات الأغذية"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "خميرة"
+      decision: confirmed
+      decision_reason: "اللفظ الأساسي والأكثر شيوعاً ودقة للمادة المسببة للتخمير."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَمِيرَة"
+    - lemma: "مادة مخمرة"
+      decision: removed
+      decision_reason: "تعبير وصفي بصيغة اسم المفعول يشير إلى المادة التي وقع عليها التخمير، وليس المادة المسببة له (الخميرة). وجود 'خميرة' و'خمير' يغني عنه تماماً."
+    - lemma: "خَمِير"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ أصيل مؤصل في المعاجم القديمة والحديثة لذات المعنى."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "خَمِير", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-14958169-n"}
+    - lemma: "مُخَمِّر"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صيغة اسم فاعل تدل على العامل المسبب (ferment) في السياقات العلمية والطبية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُخَمِّر", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-14958169-n"}
+    - lemma: "عَامِلُ تَخْمِير"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تقني دقيق يقابل المصطلح الإنجليزي leavening agent."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "عَامِلُ تَخْمِير", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-14958169-n"}
+
+stage4_content:
+  definition:
+    current: "مادة تستخدم لإحداث التخمير في العجين أو السائل"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق ومطابق للمواصفات المعجمية."
+  examples:
+    per_lemma:
+      - lemma: "خَمِيرَة"
+        examples:
+          - text: "تُضَافُ الخَمِيرَةُ إِلَى الدَّقِيقِ لِيَنْتَفِخَ العَجِينُ قَبْلَ الخَبْزِ."
+            type: usage
+      - lemma: "خَمِير"
+        examples:
+          - text: "اسْتَعْمَلَ الخَبَّازُ خَمِيراً بَائِتاً لِتَحْضِيرِ العَجِينِ الجَدِيدِ."
+            type: usage
+      - lemma: "مُخَمِّر"
+        examples:
+          - text: "يُعَدُّ هَذَا الفِطْرُ مُخَمِّراً قَوِيّاً لِلمَوَادِّ السُّكَّرِيَّةِ."
+            type: usage
+      - lemma: "عَامِلُ تَخْمِير"
+        examples:
+          - text: "يُعْتَبَرُ مَسْحُوقُ الخَبْزِ (البِيكِنْغ بَاوْدَر) عَامِلَ تَخْمِيرٍ كِيمِيَائِيّ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تُضَافُ الخَمِيرَةُ إِلَى الدَّقِيقِ لِيَنْتَفِخَ العَجِينُ قَبْلَ الخَبْزِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خَمِيرَة"
+      entry_id: "{auto}"
+      root: "خمر"
+      maqayis_quote: "«الْخَاءُ وَالْمِيمُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى التَّغْطِيَةِ، وَالْمُخَالَطَةِ فِي سَتْرٍ... وَيُقَالُ خَمَّرْتُ الْعَجِينَ، وَهُوَ أَنْ تَتْرُكَهُ فَلَا تَسْتَعْمِلَهُ حَتَّى يَجُودَ.»"
+    - lemma: "خَمِير"
+      entry_id: "{auto}"
+      root: "خمر"
+      maqayis_quote: "«الْخَاءُ وَالْمِيمُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى التَّغْطِيَةِ، وَالْمُخَالَطَةِ فِي سَتْرٍ...»"
+    - lemma: "مُخَمِّر"
+      entry_id: "{auto}"
+      root: "خمر"
+      maqayis_quote: "«الْخَاءُ وَالْمِيمُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى التَّغْطِيَةِ، وَالْمُخَالَطَةِ فِي سَتْرٍ...»"
+    - lemma: "عَامِلُ تَخْمِير"
+      entry_id: "{auto}"
+      roots:
+        - word: "عامل"
+          root: "عمل"
+          maqayis_quote: "«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامُّ فِي كُلِّ فِعْلٍ يُفْعَلُ.»"
+        - word: "تخمير"
+          root: "خمر"
+          maqayis_quote: "«الْخَاءُ وَالْمِيمُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى التَّغْطِيَةِ...»"
+  per_sense:
+    - lemma: "خَمِيرَة"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام الشامل للفطريات والمواد الكيميائية المسببة للتخمير."
+      mwe: false
+    - lemma: "خَمِير"
+      sense_id: "{auto}"
+      nuance: "يركز على المادة الطبيعية أو العجينة التي تحمل عامل التخمير."
+      mwe: false
+    - lemma: "مُخَمِّر"
+      sense_id: "{auto}"
+      nuance: "لفظ تقني يشير إلى العامل بصفته الوظيفية النشطة."
+      mwe: false
+    - lemma: "عَامِلُ تَخْمِير"
+      sense_id: "{auto}"
+      nuance: "مصطلح تقني حديث يغطي الجوانب الكيميائية والحيوية في الصناعات الغذائية."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خمر","maqayis":"«الْخَاءُ وَالْمِيمُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى التَّغْطِيَةِ، وَالْمُخَالَطَةِ فِي سَتْرٍ... وَيُقَالُ خَمَّرْتُ الْعَجِينَ، وَهُوَ أَنْ تَتْرُكَهُ فَلَا تَسْتَعْمِلَهُ حَتَّى يَجُودَ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ العام الشامل للفطريات والمواد الكيميائية المسببة للتخمير.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-14958169-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-14958169-n"
+        score: 0.95

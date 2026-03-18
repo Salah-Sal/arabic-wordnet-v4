@@ -1,0 +1,288 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمة الحالية "مُقَدِّم رِعَايَة" هي تعبير مركب (MWE) وهو ترجمة حرفية دقيقة للمصطلح الإنجليزي، لكنه يفتقر إلى لمّات مفردة (Single-word lemmas) تعبّر عن المفهوم في السياق العربي التراثي والقانوني.
+    observations: "المفهوم يغطي جانبين: رعاية الأطفال (حضانة) ورعاية البالغين المعالين (قوامة/كفالة). المصطلح الحالي 'مقدم رعاية' شائع جداً في السياقات الطبية والاجتماعية الحديثة."
+  blind_candidates:
+    - lemma: "قَيِّم"
+      generation_method: ishtiqaq
+      justification: "من القوامة؛ وهو الذي يقوم بشأن الشخص ويسوس أمره، وورد في المعاجم بمعنى 'قيم القوم: الذي يقوم بشأنهم'."
+    - lemma: "كَافِل"
+      generation_method: ishtiqaq
+      justification: "من الكفالة؛ وهو الذي يلتزم برعاية إنسان وإعالته، وشائع في التراث العربي (كافل اليتيم)."
+    - lemma: "حَاضِن"
+      generation_method: ishtiqaq
+      justification: "من الحضانة؛ ويُطلق على من يحفظ الصبي ويربيه، ويمكن توسيعه دلالياً ليشمل رعاية العاجزين."
+    - lemma: "رَاعٍ"
+      generation_method: ishtiqaq
+      justification: "بمعنى الحافظ والمسؤول؛ لقوله صلى الله عليه وسلم: 'كلكم راع وكلكم مسؤول عن رعيته'."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُقَدِّم رِعَايَة"
+      confirm:
+        - text: "«مُقَدِّمُ الرِّعايَة: caregiver»"
+          source: "المعجم الطبي الموحد (2009)"
+        - text: "«مقدم رعاية في منظومة المساعدة المعيشية النشطة: AAL caregiver»"
+          source: "موسوعة الكهرباء (IEC 60050)"
+    - lemma: "قَيِّم"
+      confirm:
+        - text: "«قَيِّم القوم: الذى يقوم بشأنهم ويسوس أمرهم»"
+          source: "المعجم الوسيط"
+        - text: "«من يتولَّى أمر المحجور عليه»"
+          source: "المعجم الوسيط"
+        - text: "«حتى يكون لخمسين امرأة قيم واحد: زوجها، لأنه يقوم بأمرها وما تحتاج إليه»"
+          source: "النهاية في غريب الحديث والأثر"
+    - lemma: "كَافِل"
+      confirm:
+        - text: "«الْكَافِلُ: الَّذِي يَكْفُلُ إِنْسَانًا يَعُولُهُ. قَالَ اللَّهُ جَلَّ جَلَالُهُ: {وَكَفَّلَهَا زَكَرِيَّا}»"
+          source: "مقاييس اللغة"
+        - text: "«الكَفِيلُ: المثيل الكافلُ الضامِنُ»"
+          source: "المعجم الوسيط"
+    - lemma: "حَاضِن"
+      confirm:
+        - text: "«المُوَكَّلُ بالصبىِّ يَحْفَظُه ويُرَبِّيه»"
+          source: "المعجم الكبير"
+        - text: "«الحاضنة: هي التي تقوم على الصبي في تربيته»"
+          source: "التعريفات الفقهيّة للبركتي"
+    - lemma: "رَاعٍ"
+      confirm:
+        - text: "«كل من ولي أمراً بالحفظ والسياسة»"
+          source: "المعجم الوسيط"
+        - text: "«مَنْ يَحْفَظُ الماشِيَةَ ونَحْوَها ويَرْعاها... كُلُّ مَنْ وَلِيَ أَمْرَ قومٍ بالحِفْظِ أو السِّياسةِ»"
+          source: "المعجم الكبير"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مُقَدِّم رِعَايَة"
+      decision: confirmed
+      decision_reason: "مصطلح حديث معتمد في المعاجم الطبية والتقنية كترجمة دقيقة لـ caregiver."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُقَدِّم رِعَايَة"
+    - lemma: "قَيِّم"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ أصيل يعبر عن القيام بشؤون الآخرين وتدبير احتياجاتهم، وهو مناسب جداً لرعاية البالغين المعالين."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "قَيِّم", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09915013-n"}
+    - lemma: "كَافِل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يدل على الالتزام بالإعالة والرعاية، وهو مصطلح قانوني واجتماعي عريق."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "كَافِل", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09915013-n"}
+    - lemma: "حَاضِن"
+      source: stage1
+      decision: confirmed
+      decision_reason: "دقيق في سياق رعاية الأطفال، ويمكن استخدامه مجازاً لرعاية العجزة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "حَاضِن", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09915013-n"}
+    - lemma: "رَاعٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "أعمّ المصطلحات وأشملها لكل من يتولى حفظ الآخرين ورعايتهم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "رَاعٍ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09915013-n"}
+
+stage4_content:
+  definition:
+    current: "شخص مسؤول عن تلبية احتياجات طفل أو شخص بالغ معال"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي سليم ولكنه يميل للأسلوب الوصفي؛ يفضل صياغته بأسلوب معجمي يجمع بين الرعاية الجسدية والتدبير المعيشي."
+    authored:
+      - type: terminological
+        text: "شخصٌ يتولَّى القيامَ بشؤون طفلٍ أو عاجزٍ أو مريضٍ وتلبيةَ احتياجاته الماديَّة والمعنويَّة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-09915013-n", definition_index: 0, text: "شخصٌ يتولَّى القيامَ بشؤون طفلٍ أو عاجزٍ أو مريضٍ وتلبيةَ احتياجاته الماديَّة والمعنويَّة."}
+  examples:
+    per_lemma:
+      - lemma: "مُقَدِّم رِعَايَة"
+        examples:
+          - text: "يجب تدريب مقدم الرعاية على كيفية التعامل مع حالات الطوارئ المنزلية."
+            type: usage
+      - lemma: "قَيِّم"
+        examples:
+          - text: "عَيَّن القاضي قيّماً على شؤون العجوز الذي فقد أهليته."
+            type: usage
+      - lemma: "كَافِل"
+        examples:
+          - text: "أثنى الرسول صلى الله عليه وسلم على كافل اليتيم وجعله رفيقه في الجنة."
+            type: hadith
+            source: "صحيح البخاري"
+      - lemma: "حَاضِن"
+        examples:
+          - text: "تعمل الحاضنة على توفير بيئة آمنة ونفسية مستقرة للطفل."
+            type: usage
+      - lemma: "رَاعٍ"
+        examples:
+          - text: "الأب راعٍ في بيته ومسؤول عن رعيته."
+            type: hadith
+            source: "متفق عليه"
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-09915013-n", text: "يقع على عاتق مقدم الرعاية مسؤولية كبيرة في تحسين جودة حياة المريض."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُقَدِّم رِعَايَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "مقدم"
+          root: "قدم"
+          maqayis_quote: "«الْقَافُ وَالدَّالُ وَالْمِيمُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى سَبْقٍ وَرَعْفٍ... وَالْقُدَّامُ: الْمَلِكُ... لِأَنَّ الْمَلِكَ هُوَ الْمُقَدَّمُ.»"
+        - word: "رعاية"
+          root: "رعي"
+          maqayis_quote: "«الرَّاءُ وَالْعَيْنُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا الْمُرَاقَبَةُ وَالْحِفْظُ... وَالرَّاعِي: الْوَالِي.»"
+    - lemma: "قَيِّم"
+      entry_id: "{auto}"
+      root: "قوم"
+      maqayis_quote: "«الْقَافُ وَالْوَاوُ وَالْمِيمُ أَصْلَانِ صَحِيحَانِ... وَالْآخَرُ عَلَى انْتِصَابٍ أَوْ عَزْمٍ... قَامَ بِهَذَا الْأَمْرِ، إِذَا اعْتَنَقَهُ.»"
+    - lemma: "كَافِل"
+      entry_id: "{auto}"
+      root: "كفل"
+      maqayis_quote: "«الْكَافُ وَالْفَاءُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَضَمُّنِ الشَّيْءِ لِلشَّيْءِ... وَالْكَافِلُ: الَّذِي يَكْفُلُ إِنْسَانًا يَعُولُهُ.»"
+    - lemma: "حَاضِن"
+      entry_id: "{auto}"
+      root: "حضن"
+      maqayis_quote: "«الْحَاءُ وَالضَّادُ وَالنُّونُ أَصْلٌ وَاحِدٌ يُقَاسُ، وَهُوَ حِفْظُ الشَّيْءِ وَصِيَانَتُهُ... وَمِنَ الْبَابِ حَضَنَتِ الْمَرْأَةُ وَلَدَهَا.»"
+    - lemma: "رَاعٍ"
+      entry_id: "{auto}"
+      root: "رعي"
+      maqayis_quote: "«الرَّاءُ وَالْعَيْنُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَان: أَحَدُهُمَا الْمُرَاقَبَةُ وَالْحِفْظُ... وَالرَّاعِي: الْوَالِي.»"
+  per_sense:
+    - lemma: "مُقَدِّم رِعَايَة"
+      sense_id: "{auto}"
+      nuance: "المصطلح التقني والحديث الأكثر شيوعاً في السياقات الطبية والاجتماعية."
+      mwe: true
+    - lemma: "قَيِّم"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب الإداري والتدبيري لشؤون الشخص المعال، وغالباً ما يكون بصفة قانونية."
+      mwe: false
+    - lemma: "كَافِل"
+      sense_id: "{auto}"
+      nuance: "يركز على التزام الشخص بالإعالة والنفقة والرعاية الكاملة."
+      mwe: false
+    - lemma: "حَاضِن"
+      sense_id: "{auto}"
+      nuance: "يختص أكثر برعاية الصغار ومن في حكمهم من حيث الحفظ والتربية."
+      mwe: false
+    - lemma: "رَاعٍ"
+      sense_id: "{auto}"
+      nuance: "اللفظ الأعم الذي يشمل كل أنواع الرعاية والمسؤولية عن الآخرين."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مقدم","root":"قدم","maqayis":"«الْقَافُ وَالدَّالُ وَالْمِيمُ...»"},{"word":"رعاية","root":"رعي","maqayis":"«الرَّاءُ وَالْعَيْنُ وَالْحَرْفُ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قوم","maqayis":"«الْقَافُ وَالْوَاوُ وَالْمِيمُ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"كفل","maqayis":"«الْكَافُ وَالْفَاءُ وَاللَّامُ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حضن","maqayis":"«الْحَاءُ وَالضَّادُ وَالنُّونُ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"رعي","maqayis":"«الرَّاءُ وَالْعَيْنُ وَالْحَرْفُ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح التقني والحديث الأكثر شيوعاً...","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الجانب الإداري والتدبيري...","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على التزام الشخص بالإعالة...","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يختص أكثر برعاية الصغار...","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ الأعم الذي يشمل كل أنواع الرعاية...","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-09915013-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-09915013-n"
+        score: 0.95

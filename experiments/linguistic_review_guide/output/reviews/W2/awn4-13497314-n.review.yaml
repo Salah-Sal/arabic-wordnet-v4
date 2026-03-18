@@ -1,0 +1,186 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة غير مشكولة."
+      - "عدم وجود اختصارات أو مرادفات شائعة في المجموعة."
+    observations: "المفهوم طبي وعلمي دقيق (erythropoiesis)، ويعبر عنه في العربية بمركبات إضافية ووصفية واضحة تعتمد على جذور صحيحة."
+  blind_candidates:
+    - lemma: "تَكَوُّنُ الكُرَيَّاتِ الحُمْرِ"
+      generation_method: tarkib
+      justification: "مركب إضافي وصفي يعبر بدقة عن العملية البيولوجية وهو المصطلح الطبي المعتمد."
+    - lemma: "تَكَوُّنُ الحُمْرِ"
+      generation_method: tarkib
+      justification: "اختصار للمصطلح السابق يعتمد على إضمار الموصوف (الكريات) لتسهيل الاستخدام."
+    - lemma: "تَوَلُّدُ الكُرَيَّاتِ الحُمْرِ"
+      generation_method: ishtiqaq
+      justification: "استخدام جذر يدل على التوليد والخلق ليعكس الجانب الحيوي للعملية."
+    - lemma: "إِرِيثْرُوبُويِيزِيس"
+      generation_method: taarib
+      justification: "تعريب مباشر للمصطلح الطبي الأجنبي، كخيار أخير في حال عدم شيوع الترجمة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تكون الكريات الحمر"
+      confirm:
+        - text: "«erythropoiesis»"
+          source: "المعجم الطبي الموحد (2009)"
+        - text: "«erythropoiesis»"
+          source: "المَكنَز الزراعي متعدد اللغات"
+    - lemma: "تكون الحمر"
+      confirm:
+        - text: "«العملية الحيوية التي تشمل المراحل المختلفة لتكوين كرات الدم الحمراء.»"
+          source: "معجم المصطلحات الطبية (ج.2، 2003)"
+    - lemma: "تولد الكريات الحمر"
+      confirm:
+        - text: "«erythrogenesis»"
+          source: "المعجم الطبي الموحد (2009)"
+      contradicts:
+        - text: "«تولد كريات الدم الحمر. / erythrogensis»"
+          source: "معجم المصطلحات الطبية (ج.2، 2003)"
+          conflict: "المصطلح يقابل erythrogenesis أكثر من erythropoiesis، وهما وإن تقاربا إلا أن الأخير أخص."
+    - lemma: "إريثروبوييزيس"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تكون الكريات الحمر"
+      decision: confirmed
+      decision_reason: "هو المصطلح الطبي المعتمد والشائع للتعبير عن عملية erythropoiesis، وقد ورد في عدة معاجم طبية وزراعية معتمدة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَكَوُّنُ الكُرَيَّاتِ الحُمْرِ"
+            
+    - lemma: "تَكَوُّنُ الحُمْرِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اختصار شائع ومقبول للمصطلح السابق، ويدعمه معجم المصطلحات الطبية كمرادف لعملية تكون كرات الدم الحمراء."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "تَكَوُّنُ الحُمْرِ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "تَوَلُّدُ الكُرَيَّاتِ الحُمْرِ"
+      source: stage1
+      decision: removed
+      decision_reason: "مترادف مع (erythrogenesis)، ورغم تقاربه الدلالي إلا أن مصطلح 'تكون' أثبت دقة وشيوعاً للمفهوم المستهدف."
+
+    - lemma: "إِرِيثْرُوبُويِيزِيس"
+      source: stage1
+      decision: removed
+      decision_reason: "تعريب مباشر غير ضروري لوجود مقابلات عربية فصيحة ومستقرة في المعاجم المتخصصة."
+
+stage4_content:
+  definition:
+    current: "عملية إنتاج خلايا الدم الحمراء بواسطة الخلايا الجذعية في نخاع العظم"
+    assessment:
+      decision: retain
+      reason: "التعريف الحالي دقيق وعلمي ويشمل العناصر الأساسية: العملية، الناتج (الخلايا الحمراء)، والمصدر (الخلايا الجذعية في النخاع)."
+  
+  examples:
+    per_lemma:
+      - lemma: "تكون الكريات الحمر"
+        examples:
+          - text: "يحدث تَكَوُّنُ الكُرَيَّاتِ الحُمْرِ بشكل أساسي في نخاع العظم لدى البالغين."
+            type: usage
+      - lemma: "تَكَوُّنُ الحُمْرِ"
+        examples:
+          - text: "يحفز هرمون الإريثروبويتين عملية تَكَوُّنِ الحُمْرِ عند الشعور بنقص الأكسجين في الأنسجة."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "يحدث تَكَوُّنُ الكُرَيَّاتِ الحُمْرِ بشكل أساسي في نخاع العظم لدى البالغين."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تكون الكريات الحمر"
+      entry_id: "{auto}"
+      roots:
+        - word: "تكون"
+          root: "كون"
+          maqayis_quote: "«الْكَافُ وَالْوَاوُ وَالنُّونُ أَصْلٌ يَدُلُّ عَلَى الْإِخْبَارِ عَنْ حُدُوثِ شَيْءٍ، إِمَّا فِي زَمَانٍ مَاضٍ أَوْ زَمَانٍ رَاهِنٍ...»"
+        - word: "الكريات"
+          root: "كري"
+          maqayis_quote: "«الْكَافُ وَالرَّاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى لِينٍ فِي الشَّيْءِ وَسُهُولَةٍ... وَالْكُرَةُ نَاقِصَةٌ، نَقَصَتْ وَاوًا، سُمِّيَتْ بِذَلِكَ لِأَنَّهُ يُكْرَى بِهَا إِذَا رُمِيَ بِهَا.»"
+        - word: "الحمر"
+          root: "حمر"
+          maqayis_quote: "«الْحَاءُ وَالْمِيمُ وَالرَّاءُ أَصْلٌ وَاحِدٌ عِنْدِي، وَهُوَ مِنَ الَّذِي يُعْرَفُ بِالْحُمْرَةِ...»"
+          
+    - lemma: "تَكَوُّنُ الحُمْرِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "تكون"
+          root: "كون"
+          maqayis_quote: "«الْكَافُ وَالْوَاوُ وَالنُّونُ أَصْلٌ يَدُلُّ عَلَى الْإِخْبَارِ عَنْ حُدُوثِ شَيْءٍ، إِمَّا فِي زَمَانٍ مَاضٍ أَوْ زَمَانٍ رَاهِنٍ...»"
+        - word: "الحمر"
+          root: "حمر"
+          maqayis_quote: "«الْحَاءُ وَالْمِيمُ وَالرَّاءُ أَصْلٌ وَاحِدٌ عِنْدِي، وَهُوَ مِنَ الَّذِي يُعْرَفُ بِالْحُمْرَةِ...»"
+
+  per_sense:
+    - lemma: "تكون الكريات الحمر"
+      sense_id: "{auto}"
+      nuance: "المصطلح الطبي الكامل والأكثر دقة لوصف عملية إنتاج خلايا الدم الحمراء."
+      mwe: true
+      
+    - lemma: "تَكَوُّنُ الحُمْرِ"
+      sense_id: "{auto}"
+      nuance: "صيغة مختصرة شائعة الاستخدام في السياقات الطبية بحذف الموصوف المفهوم ضمناً."
+      mwe: true
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"تكون","root":"كون","maqayis":"«الْكَافُ وَالْوَاوُ وَالنُّونُ أَصْلٌ يَدُلُّ عَلَى الْإِخْبَارِ عَنْ حُدُوثِ شَيْءٍ، إِمَّا فِي زَمَانٍ مَاضٍ أَوْ زَمَانٍ رَاهِنٍ...»"},{"word":"الكريات","root":"كري","maqayis":"«الْكَافُ وَالرَّاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى لِينٍ فِي الشَّيْءِ وَسُهُولَةٍ... وَالْكُرَةُ نَاقِصَةٌ، نَقَصَتْ وَاوًا، سُمِّيَتْ بِذَلِكَ لِأَنَّهُ يُكْرَى بِهَا إِذَا رُمِيَ بِهَا.»"},{"word":"الحمر","root":"حمر","maqayis":"«الْحَاءُ وَالْمِيمُ وَالرَّاءُ أَصْلٌ وَاحِدٌ عِنْدِي، وَهُوَ مِنَ الَّذِي يُعْرَفُ بِالْحُمْرَةِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"تكون","root":"كون","maqayis":"«الْكَافُ وَالْوَاوُ وَالنُّونُ أَصْلٌ يَدُلُّ عَلَى الْإِخْبَارِ عَنْ حُدُوثِ شَيْءٍ، إِمَّا فِي زَمَانٍ مَاضٍ أَوْ زَمَانٍ رَاهِنٍ...»"},{"word":"الحمر","root":"حمر","maqayis":"«الْحَاءُ وَالْمِيمُ وَالرَّاءُ أَصْلٌ وَاحِدٌ عِنْدِي، وَهُوَ مِنَ الَّذِي يُعْرَفُ بِالْحُمْرَةِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الطبي الكامل والأكثر دقة لوصف عملية إنتاج خلايا الدم الحمراء.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"صيغة مختصرة شائعة الاستخدام في السياقات الطبية بحذف الموصوف المفهوم ضمناً.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

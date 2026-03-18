@@ -1,0 +1,190 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "قائمة اللمات قصيرة جداً (لمة واحدة فقط)."
+    observations: "اللمة 'مغامر' دقيقة جداً وتتفق مع المعنى الإنجليزي (adventurer). يمكن إثراء المجموعة بمرادفات تعكس جانب 'المخاطرة' و'المجازفة' (risk-taking)."
+  blind_candidates:
+    - lemma: "مُغَامِر"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من 'غامر'، وهو المصطلح القياسي لمن يلقي بنفسه في الشدائد."
+    - lemma: "مُخَاطِر"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من 'خاطر'، يعبر عن الشخص الذي يقدم على أفعال فيها خطر."
+    - lemma: "مُجَازِف"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من 'جازف'، يعبر عن الشخص الذي يركب المخاطر دون رويّة أو طمعاً في كسب."
+    - lemma: "جَسُور"
+      generation_method: ishtiqaq
+      justification: "صيغة مبالغة تدل على شدة الجرأة والإقدام على المخاطر."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُغَامِر"
+      confirm:
+        - text: "«مُغَامِر: من (غ م ر) الذي يرمي بنفسه في الشدائد، والذي لا يبالي الموت.»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+        - text: "«وفلان مُغَامِرٌ: يرمي بنفسه في الأمور.»"
+          source: "مقاييس اللغة"
+        - text: "«المُغامِر: adventurer»"
+          source: "المورد الحديث"
+    - lemma: "مُجَازِف"
+      confirm:
+        - text: "«المجازِف: adventurer»"
+          source: "المورد الحديث"
+        - text: "«جازَفَ بنَفْسِه: خاطر بها.»"
+          source: "المعجم الكبير"
+    - lemma: "مُخَاطِر"
+      confirm:
+        - text: "«المخاطِر: adventurer»"
+          source: "المورد الحديث"
+        - text: "«خاطَرَ به: جازف وأشفاه على خطر.»"
+          source: "المعجم الوسيط"
+    - lemma: "جَسُور"
+      confirm:
+        - text: "«الجسور من الناس: المقدام الشجاع.»"
+          source: "المعجم الكبير"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مغامر"
+      decision: confirmed
+      decision_reason: "اللمة الأساسية والأكثر دقة ومطابقة للتعريف والمعاجم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُغَامِر"
+    - lemma: "مُجَازِف"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف قوي يعبر عن ركوب المخاطر، وشائع الاستخدام كترجمة لـ adventurer."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُجَازِف", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُخَاطِر"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اسم فاعل مشتق من 'خطر' يصف بدقة الشخص الذي يقدم على المخاطر."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُخَاطِر", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "جَسُور"
+      source: stage1
+      decision: removed
+      decision_reason: "تصف صفة الشجاعة (trait) أكثر من فعل المخاطرة (action/enjoyment) المقصود هنا."
+
+stage4_content:
+  definition:
+    current: "شخص يستمتع بالمخاطرة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي بسيط جداً، ويفضل صياغته بأسلوب معجمي يجمع بين المعنى اللغوي والاصطلاحي للمغامرة."
+    authored:
+      - type: terminological
+        text: "مَنْ يرمي بنفسِهِ في الشَّدائدِ والمخاطرِ طَمَعاً في مغامرةٍ أو كَسْبٍ أو اكتشاف."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مَنْ يرمي بنفسِهِ في الشَّدائدِ والمخاطرِ طَمَعاً في مغامرةٍ أو كَسْبٍ أو اكتشاف."}
+  examples:
+    per_lemma:
+      - lemma: "مُغَامِر"
+        examples:
+          - text: "عُرِفَ الرحالةُ الشهيرُ بكونه مُغامِراً يَعْشقُ اكتشافَ المجهولِ رغمَ الأخطارِ."
+            type: usage
+      - lemma: "مُجَازِف"
+        examples:
+          - text: "لا يَنْجحُ في سوقِ الأوراقِ الماليةِ إلا مُجَازِفٌ يَعرفُ متى يركبُ الصِّعابَ."
+            type: usage
+      - lemma: "مُخَاطِر"
+        examples:
+          - text: "يُعَدُّ مُتَسَلِّقُو الجبالِ العاليةِ مُخَاطِرينَ يَبْحثونَ عن الإثارةِ في ذُرَاها."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "كان مُغامِراً لا يَهابُ الموتَ في سبيلِ غايتِهِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُغَامِر"
+      entry_id: "{auto}"
+      root: "غمر"
+      maqayis_quote: "«الْغَيْنُ وَالْمِيمُ وَالرَّاءُ أَصْلٌ صَحِيحٌ، يَدُلُّ عَلَى تَغْطِيَةٍ وَسَتْرٍ فِي بَعْضِ الشِّدَّةِ... وَفُلَانٌ مُغَامِرٌ: يَرْمِي بِنَفْسِهِ فِي الْأُمُورِ، كَأَنَّهُ يَقَعُ فِي أُمُورٍ تَسْتُرُهُ، فَلَا يَهْتَدِي لِوَجْهِ الْمَخْلَصِ مِنْهَا.»"
+    - lemma: "مُخَاطِر"
+      entry_id: "{auto}"
+      root: "خطر"
+      maqayis_quote: "«الْخَاءُ وَالطَّاءُ وَالرَّاءُ أَصْلَانِ: أَحَدُهُمَا الْقَدْرُ وَالْمَكَانَةُ، وَالثَّانِي اضْطِرَابٌ وَحَرَكَةٌ... وَرَجُلٌ خَطَّارٌ بِالرُّمْحِ، أَيْ مَشَّاءٌ بِهِ طَعَّانٌ.»"
+    - lemma: "مُجَازِف"
+      entry_id: "{auto}"
+      root: "جزف"
+      maqayis_quote: "«(الجذر معرب عن الفارسية، لم يذكره ابن فارس في المقاييس)»"
+  per_sense:
+    - lemma: "مُغَامِر"
+      sense_id: "{auto}"
+      nuance: "اللمة الأكثر شيوعاً، وتفيد الارتماء في الشدائد طلباً للاكتشاف أو التجربة."
+      mwe: false
+    - lemma: "مُجَازِف"
+      sense_id: "{auto}"
+      nuance: "تفيد ركوب المخاطرة مع احتمال الخسارة أو الفشل، وغالباً ما ترتبط بالبيع والشراء أو الكلام."
+      mwe: false
+    - lemma: "مُخَاطِر"
+      sense_id: "{auto}"
+      nuance: "تفيد تعريض النفس أو المال للخطر بشكل صريح."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"غمر","maqayis":"«الْغَيْنُ وَالْمِيمُ وَالرَّاءُ أَصْلٌ صَحِيحٌ... وفلان مُغَامِرٌ: يَرْمِي بِنَفْسِهِ فِي الْأُمُورِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خطر","maqayis":"«الْخَاءُ وَالطَّاءُ وَالرَّاءُ أَصْلَانِ: أَحَدُهُمَا الْقَدْرُ وَالْمَكَانَةُ، وَالثَّانِي اضْطِرَابٌ وَحَرَكَةٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جزف","maqayis":"(معرب)"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللمة الأكثر شيوعاً، وتفيد الارتماء في الشدائد طلباً للاكتشاف أو التجربة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

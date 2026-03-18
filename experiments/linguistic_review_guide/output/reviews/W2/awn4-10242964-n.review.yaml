@@ -1,0 +1,214 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'خبير' غير دقيقة لهذا المعنى؛ فهي تدل على المتخصص أو العالم بالشيء (expert) وليس بالضرورة القائم بتشغيله (operator)."
+      - "التعريف الإنجليزي يشير إلى الاستخدام غير الرسمي (informal) لكلمة jockey، بينما اللمات العربية الحالية تميل للرسمية."
+    observations: "المجموعة تغطي مفهوم 'المشغل' بشكل عام للمركبات والآلات. اللمة 'مشغل' هي الأساسية، ويجب إضافة لمات أكثر تخصصاً مثل 'سائق' و'قائد' لتغطية جوانب التعريف (مركبة/آلة)."
+  blind_candidates:
+    - lemma: "مُشَغِّل"
+      generation_method: ishtiqaq
+      justification: "الاسم القياسي لمن يقوم بعملية التشغيل (operator)."
+    - lemma: "سَائِق"
+      generation_method: ishtiqaq
+      justification: "مشغل المركبات (vehicle operator) كما ورد في التعريف."
+    - lemma: "قَائِد"
+      generation_method: ishtiqaq
+      justification: "تُستخدم لمشغلي الآلات المعقدة أو السفن والطائرات."
+    - lemma: "مُتَحَكِّم"
+      generation_method: ishtiqaq
+      justification: "من يتولى التحكم في جهاز أو آلة (apparatus controller)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُشَغِّل"
+      confirm:
+        - text: "«مُشَغِّل: operator»"
+          source: "المعجم الموحد لمصطلحات المياه (2000)"
+        - text: "«(2) السائق؛ القائد؛ المُشَغِّل: jockey»"
+          source: "المورد الحديث (2008)"
+    - lemma: "خبير"
+      contradicts:
+        - text: "«الْخَبِيرُ: الْعَالِمُ بِكُلِّ شَيْءٍ»"
+          source: "مقاييس اللغة"
+          conflict: "المعنى لغوي يتعلق بالعلم والخبرة وليس بالتشغيل الفعلي للآلة."
+    - lemma: "سَائِق"
+      confirm:
+        - text: "«السَّائِقُ: مَنْ يقُودُ السَّيَّارَة والقطارَ وَنَحْوهما»"
+          source: "المعجم الكبير"
+        - text: "«سائق: driver»"
+          source: "مسرد التربية (ArabTerm)"
+    - lemma: "قَائِد"
+      confirm:
+        - text: "«القَائِدُ: مَنْ يَقُودُ الجَيْشَ مَنْ يَقُودُ فِرْقَةً مُوسِيقِيَّةً... (محدثة)»"
+          source: "المعجم الوسيط"
+        - text: "«قَائِد: driver (برمجية تمكن من تشغيل بطاقة)»"
+          source: "المعجم الموحد لمصطلحات تقانة المعلومات"
+    - lemma: "جُوْكي"
+      confirm:
+        - text: "«الجُوْكيّ: فارس يمتهن ركوب الخيل... السائق؛ القائد؛ المُشَغِّل»"
+          source: "المورد الحديث"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مُشَغِّل"
+      decision: confirmed
+      decision_reason: "اللفظ الأدق والأشمل لمفهوم المشغل (operator) في مختلف المجالات التقنية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُشَغِّل"
+    - lemma: "خبير"
+      decision: removed
+      decision_reason: "خروج الدلالة عن المعنى المطلوب؛ فالخبير هو العليم بالشيء وليس مشغله، ولا يصح ترادفها مع 'عامل تشغيل' (Hypernym)."
+      evidence_assessment:
+        case: contradicts_only
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "سَائِق"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تغطية الجانب المتعلق بـ 'المركبات' (vehicles) الوارد في التعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "سَائِق", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "قَائِد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تغطية الجانب المتعلق بتشغيل الآلات المعقدة أو الأنظمة التقنية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "قَائِد", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "جُوْكي"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعريب مباشر للمصطلح الإنجليزي 'jockey' المستخدم في السياقات غير الرسمية أو المتخصصة (مثل DJ)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "جُوْكي", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "مشغل لمركبة أو آلة أو جهاز ما"
+    assessment:
+      decision: revise
+      reason: "لتحسين الصياغة وجعلها أكثر دقة معجمية."
+    authored:
+      - type: terminological
+        text: "شَخْصٌ يَتَوَلَّى تَوْجِيهَ أَوْ تَشْغِيلَ مَرْكَبَةٍ أَوْ آلَةٍ أَوْ جِهَازٍ تِقْنِيٍّ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "شَخْصٌ يَتَوَلَّى تَوْجِيهَ أَوْ تَشْغِيلَ مَرْكَبَةٍ أَوْ آلَةٍ أَوْ جِهَازٍ تِقْنِيٍّ."}
+  examples:
+    per_lemma:
+      - lemma: "مُشَغِّل"
+        examples:
+          - text: "يَعْمَلُ مُشَغِّلُ الرَّافِعَةِ بِدِقَّةٍ عَالِيَةٍ لِتَفَادِي الْحَوَادِثِ."
+            type: usage
+      - lemma: "سَائِق"
+        examples:
+          - text: "يَلْتَزِمُ سَائِقُ الْحَافِلَةِ بِمَوَاعِيدِ الرِّحْلَاتِ الْيَوْمِيَّةِ."
+            type: usage
+      - lemma: "قَائِد"
+        examples:
+          - text: "يَتَمَيَّزُ قَائِدُ الطَّائِرَةِ بِالْهُدُوءِ وَسُرْعَةِ التَّصَرُّفِ فِي الْأَزَمَاتِ."
+            type: usage
+      - lemma: "جُوْكي"
+        examples:
+          - text: "يَتَحَكَّمُ جُوْكي الْأُسْطُوَانَاتِ فِي إِيقَاعِ الْحَفْلِ الْمُوسِيقِيِّ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يَعْمَلُ مُشَغِّلُ الرَّافِعَةِ بِدِقَّةٍ عَالِيَةٍ لِتَفَادِي الْحَوَادِثِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُشَغِّل"
+      entry_id: "{auto}"
+      root: "شغل"
+      maqayis_quote: "«الشِّينُ وَالْغَيْنُ وَاللَّامُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خِلَافِ الْفَرَاغِ.»"
+    - lemma: "سَائِق"
+      entry_id: "{auto}"
+      root: "سوق"
+      maqayis_quote: "«السِّينُ وَالْوَاوُ وَالْقَافُ أَصْلٌ وَاحِدٌ، وَهُوَ حَدْوُ الشَّيْءِ. يُقَالُ سَاقَهُ يَسُوقُهُ سَوْقًا.»"
+    - lemma: "قَائِد"
+      entry_id: "{auto}"
+      root: "قود"
+      maqayis_quote: "«الْقَافُ وَالْوَاوُ وَالدَّالُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى امْتِدَادٍ فِي الشَّيْءِ... قُدْتُ الْفَرَسَ قَوْدًا، وَذَلِكَ أَنْ تَمُدَّهُ إِلَيْكَ.»"
+  per_sense:
+    - lemma: "مُشَغِّل"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام والشامل لعملية التشغيل في مختلف السياقات الصناعية والتقنية."
+      mwe: false
+    - lemma: "سَائِق"
+      sense_id: "{auto}"
+      nuance: "يختص بمشغلي وسائل النقل والتحكم في حركتها على الطريق."
+      mwe: false
+    - lemma: "قَائِد"
+      sense_id: "{auto}"
+      nuance: "يوحي بمستوى عالٍ من التحكم والمسؤولية، ويستخدم غالباً للمركبات الكبيرة أو الآلات المعقدة."
+      mwe: false
+    - lemma: "جُوْكي"
+      sense_id: "{auto}"
+      nuance: "مصطلح معرب يستخدم في سياقات غير رسمية أو فنية محددة كبديل للفظ 'مُشغل'."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"شغل","maqayis":"«الشِّينُ وَالْغَيْنُ وَاللَّامُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خِلَافِ الْفَرَاغِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سوق","maqayis":"«السِّينُ وَالْوَاوُ وَالْقَافُ أَصْلٌ وَاحِدٌ، وَهُوَ حَدْوُ الشَّيْءِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قود","maqayis":"«الْقَافُ وَالْوَاوُ وَالدَّالُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى امْتِدَادٍ فِي الشَّيْءِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

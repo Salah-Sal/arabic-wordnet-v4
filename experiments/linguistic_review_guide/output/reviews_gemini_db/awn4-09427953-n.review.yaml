@@ -1,0 +1,132 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "مراعي"
+      confirm:
+        - text: "«الأرض التي تنمو فيها نباتات مناسبة لرعي الماشية، ولكنها جافة جدا ولا تمكن من زراعة المحاصيل»"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+        - text: "«جمع المرعى بمعنى ما ترعاه الماشية، وموضع الرعي»"
+          source: "موسوعة السلطان قابوس"
+    - lemma: "أرض رعي"
+      confirm:
+        - text: "«حقوق أرض الرعي (Grazing land rights)»"
+          source: "المكنز الزراعي (ArabTerm AGROVOC)"
+      expands:
+        - text: "«نظام الممارسات في الأراضي المستخدمة لتربية الماشية بهدف التحكم في مقدار ونوع الغطاء النباتي والثروة الحيوانية المنتجة (إدارة الأراضي الرعوية)»"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+          addition: "يؤكد وجود مصطلح 'الأراضي الرعوية' كمرادف فني"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "مرعى"
+      source_section: "step0_fts_keyword"
+      evidence_citation: "«المَرْعَى: الرَّعْيُ مَوْضِع الرَّعْي» — المعجم الوسيط"
+      justification: "اللفظ المفرد الأصيل للمفهوم، وهو الأكثر شيوعاً واستعمالاً."
+    - lemma: "مرتع"
+      source_section: "step05_english_bridge"
+      evidence_citation: "«مَرْتَع، مَرْعَى (rangeland)» — المعجم الموحد لمصطلحات الطب البيطري"
+      justification: "مرادف معجمي فصيح يشير إلى مكان الرتع (الأكل الواسع) للماشية."
+  knowledge_candidates:
+    - lemma: "أرض رعوية"
+      justification: "اشتقاق وصفي (أرض + نعت) مستخدم بكثرة في السياقات البيئية والقانونية الحديثة (Mechanism: Composition/Description)."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "مراعي"
+      decision: confirmed
+      decision_reason: "مصطلح تقني مستقر في المعاجم الحديثة (مثل ArabTerm) لتمثيل مفهوم rangeland، وإن ورد بصيغة الجمع للدلالة على السعة."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تدل بصيغة الجمع غالباً على المساحات الشاسعة والمفتوحة (rangelands) المخصصة للرعي."
+      example: "يتم زرع المراعي بالآليات المناسبة إما من الأرض أو من الجو."
+    - lemma: "أرض رعي"
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي (مركب إضافي) مستقر في الأدبيات الزراعية والقانونية."
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تعبير وصفي مباشر يركز على الوظيفة (الرعي) كصفة للأرض."
+      example: "يؤدي النزاع على حقوق أرض الرعي إلى مشاكل اجتماعية في المناطق الريفية."
+    - lemma: "مرعى"
+      source: step05
+      decision: confirmed
+      decision_reason: "الاسم الأصيل والمفرد للمفهوم، وهو حجر الزاوية في المادة المعجمية."
+      step05_citation: "«المرعى: موضع الرعي» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "اللفظ العام والشامل الذي يطلق على أي مكان ترعى فيه الماشية، صغيراً كان أم كبيراً."
+      example: "يرعى الراعي غنمه في مرعى خصيب وفير الكلأ."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مرعى"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09427953-n"
+    - lemma: "مرتع"
+      source: step05
+      decision: confirmed
+      decision_reason: "مرادف فصيح مسجل في المعاجم العلمية الموحدة."
+      step05_citation: "«مرتع، مرعى (rangeland)» — المعجم الموحد لمصطلحات الطب البيطري"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يوحي بالوفرة والاتساع، وغالباً ما يستخدم في السياق الأدبي أو لوصف الماشية التي تأكل في رغد."
+      example: "كانت تلك السهول مرتعاً آمناً لقطعان الماشية طوال فصل الربيع."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مرتع"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09427953-n"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "أرض مناسبة لرعي الماشية"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وموجز ويتطابق مع التعريف الإنجليزي (land suitable for grazing livestock)."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "أرض، تربة"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "مرعى"
+        antonym_found: false
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "مرعى"
+      enrichment:
+        root: "ر-ع-ي"
+      examples:
+        - text: "يرعى ماشيته في مَرْعًى خصيب"
+          type: usage
+          source: "معجم الصواب اللغوي"
+    - lemma: "مراعي"
+      enrichment:
+        root: "ر-ع-ي"
+      examples:
+        - text: "تدهور أراضي المراعي يؤثر سلباً على الأمن الغذائي."
+          type: usage
+          source: "المكنز الزراعي (بتصرف)"
+    - lemma: "مرتع"
+      enrichment:
+        root: "ر-ت-ع"
+      examples:
+        - text: "ترتع الماشية في مرتع خصيب."
+          type: usage
+          source: "مؤلف (على نمط المعاجم)"
+  cultural_fit:
+    assessment: native

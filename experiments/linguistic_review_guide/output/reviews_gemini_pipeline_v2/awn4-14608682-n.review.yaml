@@ -1,0 +1,232 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللفظ 'بيروجين' معرب دخيل، والأولى تقديم البدائل العربية الأصيلة."
+      - "المصطلح 'مولد الحمى' تعبير وصفي واسع، ويمكن استبداله بلفظ مفرد مشتق."
+    observations: "المجموعة تتعلق بمفهوم طبي كيميائي حيوي. المصطلحات الحالية مقبولة تقنياً ولكنها تفتقر إلى التنويع الصرفي بين التعريب والاشتقاق."
+  blind_candidates:
+    - lemma: "مُحِمّ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من (حَمَّ)، وهو ما يسبب الحمى، وهو لفظ فصيح وموجز."
+    - lemma: "مُوَلِّدُ الحُمَّى"
+      generation_method: tarkib
+      justification: "تركيب إضافي يصف الوظيفة الحيوية للمادة بدقة."
+    - lemma: "مَادَّةٌ حُمِّيَّة"
+      generation_method: tarkib
+      justification: "تركيب وصفي ينسب المادة إلى حالة الحمى."
+    - lemma: "بِيرُوجِين"
+      generation_method: taarib
+      justification: "تعريب للمصطلح العالمي (Pyrogen) لضمان التواصل العلمي."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "بيروجين"
+      evidence_status: "no_material_found"
+    - lemma: "مولد الحمى"
+      confirm:
+        - text: "«مُوَلِّدُ الحُمَّى الجُرْثومِيّ ( ذيفان داخِلِيّ)»"
+          source: "المعجم الطبي الموحد"
+        - text: "«مُوَلِّدٌ للحُمَّى: pyrogen»"
+          source: "المعجم الطبي الموحد"
+    - lemma: "مُحِمّ"
+      confirm:
+        - text: "«مُحِمّ: pyrogen»"
+          source: "المعجم الموحد لمصطلحات الكيمياء"
+        - text: "«مُحِمّ: مسبب للحمى. pyrogenic»"
+          source: "المعجم الموحد لمصطلحات علم الصيدلة"
+        - text: "«مُحِمّ: ما يحدث الحمى. febricant»"
+          source: "معجم المصطلحات الطبية"
+    - lemma: "مُحِمَّة"
+      confirm:
+        - text: "«المُحِمّة: مادّة مُوَلِّدةٌ للحُمَّى. pyrogen»"
+          source: "المورد الحديث"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "بِيرُوجِين"
+      decision: confirmed
+      decision_reason: "مصطلح علمي معرب واسع الانتشار في المراجع الطبية المعاصرة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "بِيرُوجِين"
+    - lemma: "مولد الحمى"
+      decision: confirmed
+      decision_reason: "مصطلح مركّب دقيق وشائع الاستخدام في المعاجم الطبية الموحدة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُوَلِّدُ الحُمَّى"
+    - lemma: "مُحِمّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اشتقاق عربي أصيل (اسم فاعل) موثق في المعاجم المتخصصة كبديل دقيق لـ pyrogen."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُحِمّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُحِمَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صيغة مؤنثة موثقة في المعاجم (مثل المورد) للإشارة إلى المادة (مادة محمة)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُحِمَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "أي مادة يمكن أن تسبب ارتفاعاً في درجة حرارة الجسم"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي طويل، والأولى صياغته بأسلوب معجمي يركز على الوظيفة الحيوية."
+    authored:
+      - type: terminological
+        text: "مَادَّةٌ كيميائيَّةٌ أَوْ حيويةٌ تُحْدِثُ الحُمَّى أَوْ تُحَفِّزُ ارْتِفَاعَ دَرَجَةِ حَرَارَةِ الجِسْمِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مَادَّةٌ كيميائيَّةٌ أَوْ حيويةٌ تُحْدِثُ الحُمَّى أَوْ تُحَفِّزُ ارْتِفَاعَ دَرَجَةِ حَرَارَةِ الجِسْمِ."}
+  examples:
+    per_lemma:
+      - lemma: "بِيرُوجِين"
+        examples:
+          - text: "تَخْلُو بَعْضُ الأَدْوِيَةِ الحَقْنِيَّةِ مِنَ البِيرُوجِينِ لِتَفَادِي ارْتِفَاعِ حَرَارَةِ المَرِيضِ."
+            type: usage
+      - lemma: "مُوَلِّدُ الحُمَّى"
+        examples:
+          - text: "يُعَدُّ الذِّيفَانُ الدَّاخِلِيُّ البَكْتِيرِيُّ مِنْ أَهَمِّ مُوَلِّدَاتِ الحُمَّى الخَارِجِيَّةِ."
+            type: usage
+      - lemma: "مُحِمّ"
+        examples:
+          - text: "كَشَفَ الفَحْصُ المِخْبَرِيُّ عَنْ وُجُودِ عَامِلٍ مُحِمٍّ فِي المَصْلِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يُؤَدِّي تَسَرُّبُ مُوَلِّدَاتِ الحُمَّى إِلَى مَجْرَى الدَّمِ إِلَى اسْتِجَابَةٍ مَنَاعِيَّةٍ حَرَارِيَّةٍ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "بِيرُوجِين"
+      entry_id: "{auto}"
+      root: "برجن"
+    - lemma: "مُوَلِّدُ الحُمَّى"
+      entry_id: "{auto}"
+      roots:
+        - word: "مولد"
+          root: "ولد"
+          maqayis_quote: "«الْوَاوُ وَاللَّامُ وَالدَّالُ: أَصْلٌ صَحِيحٌ، وَهُوَ دَلِيلُ النَّجْلِ وَالنَّسْلِ... وَتَوَلَّدَ الشَّيْءُ عَنِ الشَّيْءِ: حَصَلَ عَنْهُ.»"
+        - word: "الحمى"
+          root: "حم"
+          maqayis_quote: "«الْحَاءُ وَالْمِيمُ... أَحَدُ أُصُولِهِ الْحَرَارَةُ... وَمِنْهُ الْحُمَامُ، وَهُوَ حُمَّى الْإِبِلِ.»"
+    - lemma: "مُحِمّ"
+      entry_id: "{auto}"
+      root: "حم"
+      maqayis_quote: "«الْحَاءُ وَالْمِيمُ... أَحَدُ أُصُولِهِ الْحَرَارَةُ... وَمِنْهُ الْحُمَامُ، وَهُوَ حُمَّى الْإِبِلِ.»"
+    - lemma: "مُحِمَّة"
+      entry_id: "{auto}"
+      root: "حم"
+      maqayis_quote: "«الْحَاءُ وَالْمِيمُ... أَحَدُ أُصُولِهِ الْحَرَارَةُ... وَمِنْهُ الْحُمَامُ، وَهُوَ حُمَّى الْإِبِلِ.»"
+  per_sense:
+    - lemma: "بِيرُوجِين"
+      sense_id: "{auto}"
+      nuance: "اللفظ المعرب المستعمل دولياً في السياق العلمي الصرف."
+      mwe: false
+    - lemma: "مُوَلِّدُ الحُمَّى"
+      sense_id: "{auto}"
+      nuance: "تعبير مركب يصف المادة من خلال أثرها (توليد الحرارة)."
+      mwe: true
+    - lemma: "مُحِمّ"
+      sense_id: "{auto}"
+      nuance: "اشتقاق فصيح وموجز يركز على صفة التسبب في الحمى."
+      mwe: false
+    - lemma: "مُحِمَّة"
+      sense_id: "{auto}"
+      nuance: "تأنيث 'مُحِمّ' وغالباً ما يستعمل وصفاً للمادة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"برجن"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مولد","root":"ولد","maqayis":"«الْوَاوُ وَاللَّامُ وَالدَّالُ... حَصَلَ عَنْهُ.»"},{"word":"الحمى","root":"حم","maqayis":"«الْحَاءُ وَالْمِيمُ... حُمَّى الْإِبِلِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حم","maqayis":"«الْحَاءُ وَالْمِيمُ... حُمَّى الْإِبِلِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حم","maqayis":"«الْحَاءُ وَالْمِيمُ... حُمَّى الْإِبِلِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ المعرب المستعمل دولياً في السياق العلمي الصرف.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير مركب يصف المادة من خلال أثرها (توليد الحرارة).","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اشتقاق فصيح وموجز يركز على صفة التسبب في الحمى.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تأنيث \"مُحِمّ\" وغالباً ما يستعمل وصفاً للمادة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,238 @@
+# ═══════════════════════════════════════════════════════════════
+# مراجعة المجموعة الترادفية: خصر الحذاء (awn4-04190706-n)
+# ═══════════════════════════════════════════════════════════════
+
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة وحيدة، وهي تعبير مركب (MWE)، ويُفضل إضافة بدائل مفردة أو مرادفات تقنية أدق."
+    observations: "المفهوم تقني دقيق يتعلق بصناعة الأحذية، والمصطلح العربي 'خصر' مستخدم تاريخياً في هذا السياق لوصف استدقاق النعل."
+  blind_candidates:
+    - lemma: "خَصْرُ الحِذَاء"
+      generation_method: tarkib
+      justification: "ترجمة مباشرة للمصطلح الإنجليزي (waist of the shoe) وتعبر عن الجزء الضيق."
+    - lemma: "خَصْرُ النَّعْل"
+      generation_method: tarkib
+      justification: "أكثر دقة لأن الخصر يقع في النعل تحديداً، وهو مصطلح معجمي قديم."
+    - lemma: "سَاقُ الحِذَاء"
+      generation_method: majaz
+      justification: "ترجمة لمصطلح (shank) الذي يعني الساق، ويستخدم تقنياً للجزء الداعم في خصر الحذاء."
+    - lemma: "مَخْصَر"
+      generation_method: ishtiqaq
+      justification: "اسم مكان من الخصر، يعبر عن موضع الضيق في الحذاء."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خصر الحذاء"
+      confirm:
+        - text: "«خصَّر الثوب أو النعل: دقَّق جانبيه»"
+          source: "المعجم الوسيط"
+        - text: "«نعل مخصَّرة: مستدقَّة الوسط»"
+          source: "القاموس المحيط"
+    - lemma: "خَصْرُ النَّعْل"
+      confirm:
+        - text: "«خَصْر النعل: ما اسْتَدَقَّ من قدّام الأُذنين منها»"
+          source: "المعجم الكبير"
+        - text: "«الخَصْرانِ من النعل مُسْتَدَقُّها»"
+          source: "تاج العروس"
+    - lemma: "سَاقُ الحِذَاء"
+      confirm:
+        - text: "«shank: الجزء الضيّق من الحذاء المُوْصِلُ بين الجزء العريض من النعل وبين كعبهِ»"
+          source: "المورد الحديث"
+    - lemma: "خَصْر"
+      confirm:
+        - text: "«الخصر من النعل: ما استدق في قدام الأذنين منها»"
+          source: "تاج العروس"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "خصر الحذاء"
+      decision: confirmed
+      decision_reason: "مصطلح شائع ومسجل في المعاجم لوصف استدقاق وسط الحذاء."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَصْرُ الحِذَاء"
+    - lemma: "خَصْرُ النَّعْل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "أدق معجمياً في وصف الجزء المحدد من النعل (sole)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "خَصْرُ النَّعْل", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-04190706-n"}
+    - lemma: "سَاق"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تقني حديث مستخدم في ترجمة shank للدلالة على الجزء الداعم الصلب."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "سَاق", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-04190706-n"}
+    - lemma: "خَصْر"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اللفظ المفرد الأصلي الذي اشتق منه المعنى الاصطلاحي في الأحذية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "خَصْر", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-04190706-n"}
+    - lemma: "مَخْصَر"
+      source: stage1
+      decision: removed
+      decision_reason: "رغم صحته اشتقاقياً، إلا أن 'خصر' هو المصطلح المسموع والمعتمد في المعاجم."
+
+stage4_content:
+  definition:
+    current: "الجزء الضيق من الحذاء الذي يربط الكعب بالجزء العريض من النعل"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق وشامل ويطابق المفهوم التقني تماماً."
+  examples:
+    per_lemma:
+      - lemma: "خَصْرُ الحِذَاء"
+        examples:
+          - text: "يجب أن يكون خَصْرُ الحِذَاء مرناً ليسمح بحركة القدم الطبيعية."
+            type: usage
+      - lemma: "خَصْرُ النَّعْل"
+        examples:
+          - text: "قام الإسكافي بتقوية خَصْرِ النَّعْلِ بقطعة من الجلد السميك."
+            type: usage
+      - lemma: "سَاق"
+        examples:
+          - text: "تُصنع السَّاقُ عادة من الفولاذ أو البلاستيك المقوى لدعم قوس القدم."
+            type: usage
+      - lemma: "خَصْر"
+        examples:
+          - text: "كانت نعالهم مخصَّرة، أي أن خَصْرَها مستدق."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خَصْرُ الحِذَاء"
+      entry_id: "{auto}"
+      roots:
+        - word: "خصر"
+          root: "خصر"
+          maqayis_quote: "«الخاء والصاد والراء أصلان: أحدهما البرد، والآخر وسط الشيء.»"
+        - word: "حذاء"
+          root: "حذو"
+          maqayis_quote: "«الحاء والذال والواو أصلٌ واحد، وهو تقدير الشيء بالشيء.»"
+    - lemma: "خَصْرُ النَّعْل"
+      entry_id: "{auto}"
+      roots:
+        - word: "خصر"
+          root: "خصر"
+          maqayis_quote: "«الخاء والصاد والراء أصلان: أحدهما البرد، والآخر وسط الشيء.»"
+        - word: "نعل"
+          root: "نعل"
+          maqayis_quote: "«النون والعين واللام أصلٌ واحد، وهو الشيء يوطأ.»"
+    - lemma: "سَاق"
+      entry_id: "{auto}"
+      root: "سوق"
+      maqayis_quote: "«السين والواو والقاف أصلٌ واحد، وهو حَدْوُ الشيء. والساق للإنسان وغيره، سميت بذلك لأن الماشي ينساق عليها.»"
+    - lemma: "خَصْر"
+      entry_id: "{auto}"
+      root: "خصر"
+      maqayis_quote: "«الخاء والصاد والراء أصلان: أحدهما البرد، والآخر وسط الشيء.»"
+  per_sense:
+    - lemma: "خَصْرُ الحِذَاء"
+      sense_id: "{auto}"
+      nuance: "تعبير عام يصف منطقة الضيق في الحذاء ككل."
+      mwe: true
+    - lemma: "خَصْرُ النَّعْل"
+      sense_id: "{auto}"
+      nuance: "وصف تقني يركز على استدقاق قطعة النعل السفلية."
+      mwe: true
+    - lemma: "سَاق"
+      sense_id: "{auto}"
+      nuance: "يركز على الجزء الهيكلي الصلب (shank) الموجود داخل خصر الحذاء."
+      mwe: false
+    - lemma: "خَصْر"
+      sense_id: "{auto}"
+      nuance: "المصطلح المعجمي المفرد للجزء المستدق."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"خصر","root":"خصر","maqayis":"«الخاء والصاد والراء أصلان...»"},{"word":"حذاء","root":"حذو","maqayis":"«الحاء والذال والواو أصلٌ واحد...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"خصر","root":"خصر","maqayis":"«الخاء والصاد والراء أصلان...»"},{"word":"نعل","root":"نعل","maqayis":"«النون والعين واللام أصلٌ واحد...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سوق","maqayis":"«السين والواو والقاف أصلٌ واحد...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خصر","maqayis":"«الخاء والصاد والراء أصلان...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير عام يصف منطقة الضيق في الحذاء ككل.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"وصف تقني يركز على استدقاق قطعة النعل السفلية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الجزء الهيكلي الصلب (shank) الموجود داخل خصر الحذاء.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح المعجمي المفرد للجزء المستدق.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-04190706-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-04190706-n"
+        score: 0.95

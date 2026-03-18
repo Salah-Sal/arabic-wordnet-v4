@@ -1,0 +1,194 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي ركيك الترجمة ('عملية التحول إلى غائم') ويحتاج إلى صياغة أكثر دقة لتعكس المعنى العلمي لفقدان الشفافية."
+    observations: "المفهوم يعبر عن عملية فقدان الشفافية (Opacification). في السياق الطبي والبصري يُستخدم مصطلح 'إعتام' بشكل واسع، وفي سياق السوائل والأوساط يُستخدم 'تغيم' و'تعتيم'."
+  blind_candidates:
+    - lemma: "إِعْتَام"
+      generation_method: ishtiqaq
+      justification: "مصدر قياسي على وزن إفعال من أعتَمَ، وهو مصطلح معتمد طبياً وعلمياً لفقدان الشفافية."
+    - lemma: "تَعَتُّم"
+      generation_method: ishtiqaq
+      justification: "مصدر قياسي على وزن تفعّل من تَعَتَّمَ، يعبر عن السيرورة الذاتية لفقدان الشفافية."
+    - lemma: "تَغَيُّم"
+      generation_method: ishtiqaq
+      justification: "مصدر يدل على التحول إلى حالة غائمة أو عكرة (clouding)، ويستخدم بكثرة مع السوائل والأوساط."
+    - lemma: "تَعْتِيم"
+      generation_method: ishtiqaq
+      justification: "مصدر يدل على جعل الشيء معتماً (تفعيل)، ويستخدم أيضاً للتعبير عن عملية العتامة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "إِعْتَام"
+      evidence_status: no_material_found
+    - lemma: "تَغَيُّم"
+      confirm:
+        - text: "clouding"
+          source: "المعجم الطبي الموحد (2009)"
+    - lemma: "تَعْتِيم"
+      confirm:
+        - text: "عُتمة، تعتيم - opacification"
+          source: "المعجم الموحد لمصطلحات علم التشريح العياني (2015)"
+    - lemma: "تَعَتُّم"
+      evidence_status: no_material_found
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "إعتام"
+      decision: confirmed
+      decision_reason: "مصطلح شائع ومستقر علمياً وطبياً للتعبير عن فقدان الشفافية (Opacification)، وهو المصدر القياسي للفعل أعتَمَ الذي توسعت دلالته."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "إِعْتَام"
+    - lemma: "تَغَيُّم"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يُستخدم علمياً للتعبير عن تعكر أو تغيم الأوساط الشفافة (clouding)، وهو مقابل دقيق لجانب من معنى المجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَغَيُّم", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَعْتِيم"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح دقيق ورد في المعاجم المتخصصة للدلالة على العملية نفسها (opacification)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَعْتِيم", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَعَتُّم"
+      source: stage1
+      decision: removed
+      decision_reason: "رغم صحة اشتقاقه، إلا أن 'إعتام' و'تعتيم' و'تغيم' أشهر استعمالاً وأثبت معجمياً للمفهوم."
+
+stage4_content:
+  definition:
+    current: "عملية التحول إلى غائم أو معتم"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي صياغته ركيكة وتبدو ترجمة حرفية. الأفضل صياغته بأسلوب عربي سليم يعبر عن فقدان الشفافية."
+    authored:
+      - type: terminological
+        text: "عملية فقدان الشفافية والتحول إلى حالة معتمة أو غائمة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "عملية فقدان الشفافية والتحول إلى حالة معتمة أو غائمة."}
+  examples:
+    per_lemma:
+      - lemma: "إِعْتَام"
+        examples:
+          - text: "أدى التعرض للإشعاع الشديد إلى إعتام عدسة العين."
+            type: usage
+      - lemma: "تَغَيُّم"
+        examples:
+          - text: "يُعد تغيم السوائل دليلاً على وجود شوائب فيها."
+            type: usage
+      - lemma: "تَعْتِيم"
+        examples:
+          - text: "تحدث عملية تعتيم للبلورة عند تفاعلها مع بعض المواد الكيميائية."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "أدى التعرض للإشعاع الشديد إلى إعتام عدسة العين."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يُعد تغيم السوائل دليلاً على وجود شوائب فيها."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تحدث عملية تعتيم للبلورة عند تفاعلها مع بعض المواد الكيميائية."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "إِعْتَام"
+      entry_id: "{auto}"
+      root: "عتم"
+      maqayis_quote: "«الْعَيْنُ وَالتَّاءُ وَالْمِيمُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِبْطَاءٍ فِي الشَّيْءِ أَوْ كَفٍّ عَنْهُ.»"
+    - lemma: "تَغَيُّم"
+      entry_id: "{auto}"
+      root: "غيم"
+      maqayis_quote: "«الْغَيْنُ وَالْيَاءُ وَالْمِيمُ كَلِمَةٌ تَدُلُّ عَلَى سَتْرِ شَيْءٍ لِشَيْءٍ.»"
+    - lemma: "تَعْتِيم"
+      entry_id: "{auto}"
+      root: "عتم"
+      maqayis_quote: "«الْعَيْنُ وَالتَّاءُ وَالْمِيمُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِبْطَاءٍ فِي الشَّيْءِ أَوْ كَفٍّ عَنْهُ.»"
+  per_sense:
+    - lemma: "إِعْتَام"
+      sense_id: "{auto}"
+      nuance: "أكثر استخداماً في السياقات الطبية والبصرية."
+      mwe: false
+    - lemma: "تَغَيُّم"
+      sense_id: "{auto}"
+      nuance: "يُفضل في سياق الأوساط الشفافة والسوائل للإشارة إلى تكدرها."
+      mwe: false
+    - lemma: "تَعْتِيم"
+      sense_id: "{auto}"
+      nuance: "يُشير أحياناً إلى الجانب المفتعل أو المتعدي من العملية."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عتم","maqayis":"«الْعَيْنُ وَالتَّاءُ وَالْمِيمُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِبْطَاءٍ فِي الشَّيْءِ أَوْ كَفٍّ عَنْهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"غيم","maqayis":"«الْغَيْنُ وَالْيَاءُ وَالْمِيمُ كَلِمَةٌ تَدُلُّ عَلَى سَتْرِ شَيْءٍ لِشَيْءٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عتم","maqayis":"«الْعَيْنُ وَالتَّاءُ وَالْمِيمُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِبْطَاءٍ فِي الشَّيْءِ أَوْ كَفٍّ عَنْهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"أكثر استخداماً في السياقات الطبية والبصرية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُفضل في سياق الأوساط الشفافة والسوائل للإشارة إلى تكدرها.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُشير أحياناً إلى الجانب المفتعل أو المتعدي من العملية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

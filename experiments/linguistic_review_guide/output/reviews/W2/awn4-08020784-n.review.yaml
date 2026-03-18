@@ -1,0 +1,181 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي عام جداً ويمكن أن ينطبق على أي حيز مادي، بينما المفهوم هنا رياضي بحت (subspace)."
+      - "عدم إدراج مصطلح «فراغ جزئي» المعتمد في مجامع اللغة العربية."
+    observations: "المصطلح «فضاء جزئي» هو الترجمة الأكاديمية الشائعة لـ subspace في سياق الجبر الخطي والطوبولوجيا. وتتكون اللمة من تركيب وصفي يطابق الدلالة الإنجليزية بدقة."
+  blind_candidates:
+    - lemma: "فَضَاءٌ جُزْئِيّ"
+      generation_method: tarkib
+      justification: "تركيب وصفي مستقر في الرياضيات يعبر عن الفضاء الذي يتفرع أو يشكل جزءاً من فضاء أصلي."
+    - lemma: "فَرَاغٌ جُزْئِيّ"
+      generation_method: tarkib
+      justification: "استخدام «فراغ» كمرادف لـ«فضاء» مع صفة «جزئي» للدلالة على الجزء، وهو مصطلح معتمد معجمياً."
+    - lemma: "فَضَاءٌ فَرْعِيّ"
+      generation_method: tarkib
+      justification: "ترجمة بديلة تعتمد على كون الفضاء متفرعاً من آخر."
+    - lemma: "جُزْءُ الْفَضَاءِ"
+      generation_method: tarkib
+      justification: "تركيب إضافي يصف الجزء المأخوذ من الفضاء الأكبر."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "فضاء جزئي"
+      expands:
+        - text: "«الفضاء: المقصود هو منطقة لها ثلاثة أبعاد...»"
+          source: "المعجم الموحد لمصطلحات النقل (2010)"
+          addition: "يثبت دلالة الفضاء"
+        - text: "«(الجزئي) الْمَنْسُوب إِلَى الْجُزْء... والجزئي الإضافي مَا اندرج تَحت أَعم مِنْهُ»"
+          source: "المعجم الوسيط لمجموعة من المؤلفين"
+          addition: "يوضح معنى الجزئي وأنه ما يندرج تحت كل أعم"
+    - lemma: "فراغ جزئي"
+      confirm:
+        - text: "«فراغ جزئي: subspace»"
+          source: "المعجم الموحد لمصطلحات الرياضيات والفلك (1990)"
+    - lemma: "فضاء فرعي"
+      evidence_status: "no_material_found"
+    - lemma: "جزء الفضاء"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "فضاء جزئي"
+      decision: confirmed
+      decision_reason: "المصطلح الأكثر شيوعاً في المناهج والأدبيات الرياضية العربية للتعبير عن subspace."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "فَضَاءٌ جُزْئِيّ"
+
+    - lemma: "فَرَاغٌ جُزْئِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح معتمد وموثق في المعجم الموحد لمصطلحات الرياضيات والفلك كترجمة دقيقة لمفهوم subspace."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "فَرَاغٌ جُزْئِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "فَضَاءٌ فَرْعِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "مصطلح غير شائع رياضياً ولا يضيف قيمة معجمية مقارنة بـ «فضاء جزئي»."
+
+    - lemma: "جُزْءُ الْفَضَاءِ"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير حر (غير مسكوك) وليس مصطلحاً رياضياً معتمداً."
+
+stage4_content:
+  definition:
+    current: "فضاء محتوى داخل فضاء آخر"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي صحيح ولكنه مقتضب. يجب أن يعكس السياق الرياضي بأن الفضاء الجزئي يحافظ على البنية الرياضية (مسلمات الفضاء) الأصلية."
+    authored:
+      - type: terminological
+        text: "بنية رياضية تكون محتواة كجزء من فضاء رياضي أشمل، وتحتفظ بنفس المسلمات والخصائص الأساسية للفضاء الأصلي."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "بنية رياضية تكون محتواة كجزء من فضاء رياضي أشمل، وتحتفظ بنفس المسلمات والخصائص الأساسية للفضاء الأصلي."}
+
+  examples:
+    per_lemma:
+      - lemma: "فضاء جزئي"
+        examples:
+          - text: "يُعدّ كل مستقيم يمر بنقطة الأصل فضاءً جزئياً من الفضاء المتجهي ثنائي الأبعاد."
+            type: usage
+      - lemma: "فراغ جزئي"
+        examples:
+          - text: "يتقاطع هذان الفراغان الجزئيان في نقطة واحدة هي نقطة الأصل."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يُعدّ كل مستقيم يمر بنقطة الأصل فضاءً جزئياً من الفضاء المتجهي ثنائي الأبعاد."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "فَضَاءٌ جُزْئِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "فضاء"
+          root: "فضي"
+          maqayis_quote: "«الْفَاءُ وَالضَّادُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى انْفِسَاحٍ فِي شَيْءٍ وَاتِّسَاعٍ. مِنْ ذَلِكَ الْفَضَاءُ: الْمَكَانُ الْوَاسِعُ.»"
+        - word: "جزئي"
+          root: "جزا"
+          maqayis_quote: "«الْجِيمُ وَالزَّاءُ وَالْهَمْزَةُ أَصْلٌ وَاحِدٌ، هُوَ الِاكْتِفَاءُ بِالشَّيْءِ... وَالْجُزْءُ: الطَّائِفَةُ مِنَ الشَّيْءِ.»"
+    - lemma: "فَرَاغٌ جُزْئِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "فراغ"
+          root: "فرغ"
+          maqayis_quote: "«الْفَاءُ وَالرَّاءُ وَالْغَيْنُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى خُلُوٍّ [وَسَعَةِ] ذَرْعٍ. مِنْ ذَلِكَ الْفَرَاغُ: خِلَافُ الشُّغْلِ.»"
+        - word: "جزئي"
+          root: "جزا"
+          maqayis_quote: "«الْجِيمُ وَالزَّاءُ وَالْهَمْزَةُ أَصْلٌ وَاحِدٌ، هُوَ الِاكْتِفَاءُ بِالشَّيْءِ... وَالْجُزْءُ: الطَّائِفَةُ مِنَ الشَّيْءِ.»"
+
+  per_sense:
+    - lemma: "فَضَاءٌ جُزْئِيّ"
+      sense_id: "{auto}"
+      nuance: "المصطلح الأكثر استخداماً في أدبيات الرياضيات الحديثة والمناهج الأكاديمية للدلالة على المفهوم."
+      mwe: true
+    - lemma: "فَرَاغٌ جُزْئِيّ"
+      sense_id: "{auto}"
+      nuance: "مرادف معتمد وموثق في معاجم المصطلحات المتخصصة، ويُستخدم كبديل دقيق."
+      mwe: true
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"فضاء","root":"فضي","maqayis":"«الْفَاءُ وَالضَّادُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى انْفِسَاحٍ فِي شَيْءٍ وَاتِّسَاعٍ. مِنْ ذَلِكَ الْفَضَاءُ: الْمَكَانُ الْوَاسِعُ.»"},{"word":"جزئي","root":"جزا","maqayis":"«الْجِيمُ وَالزَّاءُ وَالْهَمْزَةُ أَصْلٌ وَاحِدٌ، هُوَ الِاكْتِفَاءُ بِالشَّيْءِ... وَالْجُزْءُ: الطَّائِفَةُ مِنَ الشَّيْءِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"فراغ","root":"فرغ","maqayis":"«الْفَاءُ وَالرَّاءُ وَالْغَيْنُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى خُلُوٍّ [وَسَعَةِ] ذَرْعٍ. مِنْ ذَلِكَ الْفَرَاغُ: خِلَافُ الشُّغْلِ.»"},{"word":"جزئي","root":"جزا","maqayis":"«الْجِيمُ وَالزَّاءُ وَالْهَمْزَةُ أَصْلٌ وَاحِدٌ، هُوَ الِاكْتِفَاءُ بِالشَّيْءِ... وَالْجُزْءُ: الطَّائِفَةُ مِنَ الشَّيْءِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الأكثر استخداماً في أدبيات الرياضيات الحديثة والمناهج الأكاديمية للدلالة على المفهوم.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مرادف معتمد وموثق في معاجم المصطلحات المتخصصة، ويُستخدم كبديل دقيق.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

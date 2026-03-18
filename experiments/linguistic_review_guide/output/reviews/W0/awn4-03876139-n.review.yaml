@@ -1,0 +1,215 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "مُسَكِّن"
+      confirm:
+        - text: "«(في علم الطب) Analgesic: دواءٌ يُخَفِّفُ الْإحساسَ بالألم أو يُفْقِدُ الْإحساسَ به» — المعجم الكبير"
+          source: "المعجم الكبير"
+      contradicts:
+        - text: "«Analgesic: دواء يخفف الألم» — المعجم الكبير"
+          source: "المعجم الكبير"
+          conflict: "المصطلح طبي يشير للأدوية المسكنة للألم (Analgesics)، بينما المجموعة تشير لأدوات التهدئة (Pacifiers) للأطفال."
+      expands:
+        - text: "«acesodyne (analgesic)» — المعجم الطبي الموحد"
+          source: "المعجم الطبي الموحد"
+          addition: "دلالة طبية محددة بالألم."
+
+    - lemma: "مُهَدِّئ"
+      confirm:
+        - text: "«tranquilizer» — المعجم الموحد لمصطلحات علم الصحة"
+          source: "المعجم الموحد لمصطلحات علم الصحة"
+      contradicts:
+        - text: "«tranquilizer» — المعجم الموحد لمصطلحات علم الصحة"
+          source: "المعجم الموحد لمصطلحات علم الصحة"
+          conflict: "اللفظ يشير للمهدئات النفسية (Tranquilizers)، وليس لأدوات تهدئة الأطفال."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "مُسَكِّتَة"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«المُسَكِّتة: أداة على شكل حَلْمة يُلَهَّى الطفل بمصّها أو العضّ عليها» — المورد الحديث"
+      justification: "مقابل مباشر للمصطلح الإنجليزي pacifier في المعاجم ثنائية اللغة المتخصصة."
+    - lemma: "سَكَّاتَة"
+      source_section: "step0_headword"
+      evidence_citation: "«السّكاتَةُ: ما يُسْكِتُ» — المعجم الكبير"
+      justification: "اسم آلة من الجذر س-ك-ت يدل على ما يُسكت الطفل، وهو مصطلح معاصر مستخدم."
+  knowledge_candidates:
+    - lemma: "مُصَّاصَة"
+      justification: "تسمية شائعة للجهاز نظراً لآلية عمله (المص)، وموثقة في المعاجم الحديثة (المورد) كمرادف للهاية."
+    - lemma: "لَهَّايَة"
+      justification: "آلية: اشتقاق. من الفعل (لهّى) أي سلى وشغل، وهي التسمية الأكثر شيوعاً في الاستعمال المعاصر لهذا المفهوم."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "مُسَكِّن"
+      decision: removed
+      decision_reason: "ترجمة حرفية عمياء (Blind Literal Calque) للمصطلح الإنجليزي؛ في العربية المصطلح مختص بالأدوية المسكنة للألم."
+      evidence_assessment:
+        case: "contradicts"
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "يشير للأدوية (Analgesics) وليس لأدوات الأطفال."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "مُهَدِّئ"
+      decision: removed
+      decision_reason: "ترجمة حرفية عمياء؛ المصطلح يشير للمهدئات النفسية والطبية (Tranquilizers)."
+      evidence_assessment:
+        case: "contradicts"
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "يشير للمواد الكيميائية المهدئة."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "مُسَكِّتَة"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح معجمي دقيق مدعوم من (المورد الحديث) كمرادف لـ pacifier."
+      step05_citation: "«المُسَكِّتة: أداة على شكل حَلْمة يُلَهَّى الطفل بمصّها» — المورد الحديث"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "اسم آلة صريح يدل على وظيفة التسكيت (التهدئة)."
+      example: "تُعطى المُسَكِّتَةُ لِلرَّضِيعِ عِنْدَ البُكاءِ لِتَهْدِئَتِهِ."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُسَكِّتَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-03876139-n"
+
+    - lemma: "سَكَّاتَة"
+      source: step05
+      decision: confirmed
+      decision_reason: "اسم آلة فصيح ومستقر في المعاجم الكبيرة (المعجم الكبير) والاستعمال المعاصر."
+      step05_citation: "«السّكاتَةُ: ما يُسْكِتُ» — المعجم الكبير"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "صيغة مبالغة/آلة تدل على الكثرة في التسكيت."
+      example: "نَسِيَتِ الأُمُّ السَّكَّاتَةَ فِي البَيْتِ فَظَلَّ الرَّضِيعُ يَبْكِي طَوَالَ الطَّرِيقِ."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "سَكَّاتَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-03876139-n"
+
+    - lemma: "مُصَّاصَة"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح حديث (محدثة في الوسيط) وموثق في المورد كمرادف لـ pacifier."
+      step05_citation: "«المَصَّاصَة: أداة على شكل حلمة...» — المورد الحديث"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تركز التسمية على فعل (المص) الذي يقوم به الطفل."
+      example: "يَنْبَغِي تَعْقِيمُ المَصَّاصَةِ جَيِّداً قَبْلَ إِعْطَائِهَا لِلطِّفْلِ."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُصَّاصَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-03876139-n"
+
+    - lemma: "لَهَّايَة"
+      source: step05
+      decision: confirmed
+      decision_reason: "التسمية الأكثر شيوعاً في الاستعمال العربي المعاصر للفصحى (المجلات الطبية والتربوية)."
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "مشتقة من (التلهية) أي شغل الطفل، وهي الأكثر تداولاً."
+      example: "اشْتَرَتِ الأُمُّ لَهَّايَةً جَدِيدَةً مَصْنُوعَةً مِنَ السِّيلِيكُونِ."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "لَهَّايَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-03876139-n"
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "أي شيء يعمل على التهدئة أو التسكين"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي عام جداً وحرفي؛ المجموعة تشير في WordNet (i56874) إلى أدوات الأطفال (Pacifier, teething ring)."
+  authored_definitions:
+    - type: terminological
+      text: "أداةٌ مِنَ المَطَّاطِ أوِ البَلَاسْتِيكِ عَلَى هَيْئَةِ حَلَمَةٍ، تُعْطَى لِلرَّضِيعِ لِيَمُصَّهَا فَتُسَكِّتَهُ وتُهَدِّئَهُ."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-03876139-n"
+        definition_index: 0
+        text: "أداةٌ مِنَ المَطَّاطِ أوِ البَلَاسْتِيكِ عَلَى هَيْئَةِ حَلَمَةٍ، تُعْطَى لِلرَّضِيعِ لِيَمُصَّهَا فَتُسَكِّتَهُ وتُهَدِّئَهُ."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "شيء"
+    test_result: "needs_closer"
+  actions:
+    - command: add_synset_relation
+      params:
+        source_id: "awn4-03876139-n"
+        relation_type: "hypernym"
+        target_id: "awn4-03183080-n"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "مُسَكِّتَة"
+      enrichment:
+        root: "س-ك-ت"
+      examples:
+        - text: "«المُسَكِّتة: أداة على شكل حَلْمة يُلَهَّى الطفل بمصّها أو العضّ عليها»"
+          type: usage
+          source: "المورد الحديث"
+      pos_check:
+        pos: noun
+    - lemma: "سَكَّاتَة"
+      enrichment:
+        root: "س-ك-ت"
+      examples:
+        - text: "«السّكاتَةُ: ما يُسْكِتُ»"
+          type: usage
+          source: "المعجم الكبير"
+      pos_check:
+        pos: noun
+    - lemma: "مُصَّاصَة"
+      enrichment:
+        root: "م-ص-ص"
+      examples:
+        - text: "يُفَضِّلُ الرَّضِيعُ المَصَّاصَةَ عِنْدَ الرَّغْبَةِ فِي النَّوْمِ."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "لَهَّايَة"
+      enrichment:
+        root: "ل-ه-و"
+      examples:
+        - text: "تُسْتَخْدَمُ اللَّهَّايَةُ لِتَهْدِئَةِ الطِّفْلِ إِذَا كَانَ عَصَبِيًّا."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

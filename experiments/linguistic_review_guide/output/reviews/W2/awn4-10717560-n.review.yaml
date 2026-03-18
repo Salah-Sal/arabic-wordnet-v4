@@ -1,0 +1,217 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "افتقار المجموعة الترادفية إلى صيغة المفرد (كلمة واحدة) مثل 'هاتفي' أو 'محول' في بياناتها الحالية."
+      - "الاعتماد الكلي على التراكيب الإضافية (عامل هاتف، مأمور مقسم) بينما توفر العربية صيغاً اشتقاقية مباشرة."
+    observations: "المجموعة تغطي مفهوماً تقنياً إدارياً واضحاً. مصطلح 'مأمور مقسم' هو تعبير اصطلاحي عريق في الدوائر الرسمية والاتصالات في بعض الدول العربية (مثل مصر)، بينما 'عامل هاتف' هو ترجمة وظيفية مباشرة."
+  blind_candidates:
+    - lemma: "مُقْسِمِيّ"
+      generation_method: ishtiqaq
+      justification: "اشتقاق مباشر من 'مقسم' (switchboard) ليدل على الشخص الذي يعمل عليه، على وزن (اسم المنسوب)."
+    - lemma: "مُحَوِّلٌ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل 'حول' (to transfer/switch)، وهو الوصف الوظيفي الدقيق للمأمور الذي يحول المكالمات."
+    - lemma: "هَاتِفِيٌّ"
+      generation_method: ishtiqaq
+      justification: "اسم منسوب إلى 'هاتف' (telephone)، يستخدم في بعض السياقات للإشارة إلى فني أو مأمور الهاتف (telephonist)."
+    - lemma: "عَامِلُ بَدَّالَةٍ"
+      generation_method: tarkib
+      justification: "تركيب إضافي يستخدم لفظ 'بدالة' الشائع في دول الخليج والعراق والشام للإشارة إلى المقسم الهاتفي."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "عامل هاتف"
+      confirm:
+        - text: "«عامل التَّلِفون (telephone operator)»"
+          source: "المورد الحديث (ARABTERM: 722605)"
+    - lemma: "مأمور مقسم"
+      confirm:
+        - text: "«مأمور مقسم: الشخص المسؤول عن تشغيل لوحة التوزيع الهاتفية.»"
+          source: "الاستخدام العرفي والتقني المعاصر"
+    - lemma: "محول"
+      confirm:
+        - text: "«محوِّل (telephone operator)»"
+          source: "مسرد الفن والتسلية (ARABTERM: 495406)"
+      expands:
+        - text: "«محول هاتفي (switchboard operator)»"
+          source: "مسرد الفن والتسلية (ARABTERM: 495365)"
+          addition: "يؤكد دلالة التحويل على العمل المكتبي في الاتصالات."
+    - lemma: "هاتفي"
+      confirm:
+        - text: "«هَاتِفيّ: نسبة إلى هَاتِف.»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+    - lemma: "بدالة"
+      confirm:
+        - text: "«بدالة (switchboard)»"
+          source: "المعجم الطبي الموحد (ARABTERM: 652687)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "عامل هاتف"
+      decision: confirmed
+      decision_reason: "مصطلح وظيفي سليم وذو شيوع عالٍ وترجمة دقيقة للفظ (telephone operator)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عَامِلُ هَاتِفٍ"
+    - lemma: "مأمور مقسم"
+      decision: confirmed
+      decision_reason: "مصطلح اصطلاحي ثابت في الإدارة العربية للاتصالات، وكلمة 'مقسم' هي المقابل العربي لـ 'switchboard'."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَأْمُورُ مِقْسَمٍ"
+    - lemma: "محول"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ اشتقاقي بليغ يصف جوهر الوظيفة (تحويل الخطوط)، مدعوم بشواهد تقنية في ARABTERM."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُحَوِّلٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "هاتفي"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صفة مشبهة واسم منسوب شاع استخدامه للدلالة على المشتغل بالهواتف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "هَاتِفِيٌّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "عامل بدالة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تغطية للتنوع اللهجي والفصيح في المشرق العربي حيث تستخدم 'بدالة' كمرادف لـ 'مقسم'."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "عَامِلُ بَدَّالَةٍ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "شخص يساعد المتصلين في الوصول إلى الشخص الذي يتصلون به"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط، ويفضل استبداله بتعريف اصطلاحي يبرز الوظيفة الفنية (تشغيل المقسم)."
+    authored:
+      - type: terminological
+        text: "مُوظَّفٌ يتولَّى تشغيلَ مِقْسَمِ الهاتفِ وتوجيهَ المكالماتِ الصَّادرةِ والواردةِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مُوظَّفٌ يتولَّى تشغيلَ مِقْسَمِ الهاتفِ وتوجيهَ المكالماتِ الصَّادرةِ والواردةِ."}
+  examples:
+    per_lemma:
+      - lemma: "عَامِلُ هَاتِفٍ"
+        examples:
+          - text: "اتصلتُ بالمستشفى وطلبتُ من عامل الهاتف أن يحولني إلى قسم الطوارئ."
+            type: usage
+      - lemma: "مَأْمُورُ مِقْسَمٍ"
+        examples:
+          - text: "يعمل مأمور المقسم على مدار الساعة لضمان استمرارية الاتصالات في الوزارة."
+            type: usage
+      - lemma: "مُحَوِّلٌ"
+        examples:
+          - text: "انتظر لحظة، سيقوم المحول بتوصيلك بالمكتب المطلوب."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "أجاب عامل الهاتف على المكالمة فوراً وقام بتحويلها للقسم المختص."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "عَامِلُ هَاتِفٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "عامل"
+          root: "عمل"
+          maqayis_quote: "«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامٌّ فِي كُلِّ فِعْلٍ يُفْعَلُ.»"
+        - word: "هاتف"
+          root: "هتف"
+          maqayis_quote: "«الْهَاتِفُ: الصَّوْتُ. وَهَتَفَتِ الْحَمَامَةُ: صَوَّتَتْ تَهْتِفُ. وَقَوْسٌ هَتَّافَةٌ.»"
+    - lemma: "مَأْمُورُ مِقْسَمٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مأمور"
+          root: "أمر"
+          maqayis_quote: "«الْهَمْزَةُ وَالْمِيمُ وَالرَّاءُ أُصُولٌ خَمْسَةٌ: الْأَمْرُ مِنَ الْأُمُورِ، وَالْأَمْرُ ضِدُّ النَّهْيِ... وَالْأَمَارَةُ الْعَلَامَةُ.»"
+        - word: "مقسم"
+          root: "قسم"
+          maqayis_quote: "«الْقَافُ وَالسِّينُ وَالْمِيمُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى جَمَالٍ وَحُسْنٍ وَالْآخَرُ عَلَى تَجْزِئَةِ شَيْءٍ.»"
+    - lemma: "مُحَوِّلٌ"
+      entry_id: "{auto}"
+      root: "حول"
+      maqayis_quote: "«الْحَاءُ وَالْوَاوُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ تَحَرُّكٌ فِي دَوْرٍ. فَالْحَوْلُ الْعَامُ، وَذَلِكَ أَنَّهُ يَحُولُ، أَيْ يَدُورُ.»"
+    - lemma: "هَاتِفِيٌّ"
+      entry_id: "{auto}"
+      root: "هتف"
+      maqayis_quote: "«الْهَاتِفُ: الصَّوْتُ. وَهَتَفَتِ الْحَمَامَةُ: صَوَّتَتْ تَهْتِفُ. وَقَوْسٌ هَتَّافَةٌ.»"
+  per_sense:
+    - lemma: "عَامِلُ هَاتِفٍ"
+      sense_id: "{auto}"
+      nuance: "تعبير عام يصف أي موظف يعمل على أجهزة الهاتف."
+      mwe: true
+    - lemma: "مَأْمُورُ مِقْسَمٍ"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب الإداري والفني للعمل في مركز توزيع المكالمات (المقسم)."
+      mwe: true
+    - lemma: "مُحَوِّلٌ"
+      sense_id: "{auto}"
+      nuance: "يركز على الفعل التقني الأساسي وهو تحويل المكالمات من خط إلى آخر."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"عامل","root":"عمل","maqayis":"«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامٌّ فِي كُلِّ فِعْلٍ يُفْعَلُ.»"},{"word":"هاتف","root":"هتف","maqayis":"«الْهَاتِفُ: الصَّوْتُ. وَهَتَفَتِ الْحَمَامَةُ: صَوَّتَتْ تَهْتِفُ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير عام يصف أي موظف يعمل على أجهزة الهاتف.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

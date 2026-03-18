@@ -1,0 +1,145 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "احتمال"
+      confirm:
+        - text: "«رقم يمثل فرصة حدوث حدث معين.»"
+          source: "معجم البيانات والذكاء الاصطناعي (2024)"
+        - text: "«عدد حقيقي بين 0 و 1 يدل على احتمال حدوث حدث معين من بين حالات أحداث ذات الصلة.»"
+          source: "مسرد المناخ والبيئة وإدارة النفايات الصلبة، المنظمة العربية للتربية والثقافة والعلوم (موقع ArabTerm)"
+        - text: "«أرجحيةُ وقوعِ حادثة، يمكِن تقديرُها رياضياً غالباً.»"
+          source: "معجم مصطلحات المعلوماتية (2000)"
+    - lemma: "فرصة"
+      contradicts:
+        - text: "«الوقت المناسب للقيام بعمل ما»"
+          source: "المعجم الوسيط"
+          conflict: "المعنى المعجمي الأصلي يشير إلى النوبة أو الوقت المناسب وليس إلى المقياس الرياضي للاحتمال."
+      expands:
+        - text: "«فرصة a chance to escape»"
+          source: "المورد الحديث (2008)"
+          addition: "استعمال حديث بمعنى الاحتمال وإمكانية الحدوث."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "احتمالية"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«احتمالية» — المعجم الموحد لمصطلحات الهندسة المدنية (2012)"
+      justification: "اشتقاق: بإضافة لاحقة المصدر الصناعي (ـيّة) إلى 'احتمال' لتجريد المفهوم وجعله أدق في الإشارة إلى القيمة الرياضية."
+    - lemma: "أرجحية"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«احتمال حدوث حدث ما ضمن فئة أو صنف معين.» — معجم البيانات والذكاء الاصطناعي (2024)"
+      justification: "اشتقاق: مصدر صناعي من اسم التفضيل (أرجح) ليدل على غلبة احتمال وقوع الشيء."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "احتمال"
+      decision: confirmed
+      decision_reason: "المصطلح الرياضي الأساسي والأكثر شيوعاً."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "المصطلح الرياضي الأساسي للتعبير عن مقياس وقوع الحدث."
+      example: "بلغ احتمال فوز الفريق في المباراة تسعين بالمائة."
+    - lemma: "فرصة"
+      decision: confirmed
+      decision_reason: "مصطلح شائع ومقبول في الاستعمال العام والتقني للتعبير عن درجة احتمال وقوع شيء."
+      evidence_assessment:
+        case: "mixed"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "لفظ شائع يُستعمل في السياق العام واليومي بمعنى الاحتمال، ولا يقتصر على الاستعمال الرياضي الدقيق."
+      example: "هناك فرصة كبيرة لهطول الأمطار غداً."
+    - lemma: "احتمالية"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح تقني دقيق يشيع استخدامه في الرياضيات والفلسفة."
+      step05_citation: "«احتمالية» — المعجم الموحد لمصطلحات الهندسة المدنية (2012)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "مصدر صناعي يعبر عن المفهوم المجرد للاحتمال أو خاصية كونه محتملاً."
+      example: "يدرس الباحثون احتمالية وقوع الزلزال في هذه المنطقة خلال العقد القادم."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "احتمالية"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-05098974-n"
+    - lemma: "أرجحية"
+      source: step05
+      decision: confirmed
+      decision_reason: "يُستخدم في السياق الإحصائي والمعلوماتي للدلالة على قوة احتمال وقوع الحدث."
+      step05_citation: "«احتمال حدوث حدث ما ضمن فئة أو صنف معين.» — معجم البيانات والذكاء الاصطناعي (2024)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تركز على غلبة الظن والميل إلى وقوع الحدث أكثر من الجانب الرياضي المحض."
+      example: "تشير الإحصاءات إلى أرجحية نجاح هذه العملية الجراحية."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "أرجحية"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-05098974-n"
+  added_lemmas:
+    - lemma: "احتمالية"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+    - lemma: "أرجحية"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق علمياً ويشمل الجانب المفهومي والكمي الرياضي."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "كَمِّيَّة، مِقْدَار"
+    test_result: "correct"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "احتمال"
+      enrichment:
+        root: "ح-م-ل"
+      examples:
+        - text: "بلغ احتمال فوز الفريق في المباراة تسعين بالمائة."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "فرصة"
+      enrichment:
+        root: "ف-ر-ص"
+      examples:
+        - text: "هناك فرصة كبيرة لهطول الأمطار غداً."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "احتمالية"
+      enrichment:
+        root: "ح-م-ل"
+      examples:
+        - text: "يدرس الباحثون احتمالية وقوع الزلزال في هذه المنطقة خلال العقد القادم."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "أرجحية"
+      enrichment:
+        root: "ر-ج-ح"
+      examples:
+        - text: "تشير الإحصاءات إلى أرجحية نجاح هذه العملية الجراحية."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

@@ -1,0 +1,173 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "عاطل"
+      confirm:
+        - text: "«عَاطِل من (ع ط ل) الخالي والباقي بلا عمل وهو قادر عليه»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+        - text: "«العُطُل: المرأة ليس عليها حليّ؛ الخالي من المال والأدب»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«عطِل الرجل: بقي بلا عمل وهو قادر عليه»"
+          source: "المعجم الوسيط"
+          addition: "التأكيد على القدرة مع ترك العمل"
+
+    - lemma: "غير عامل"
+      evidence_status: "no_material_found"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "بَطَّال"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«البَطَّالُ: المشتغل عما يعود بنَفْع دُنْيوِىّ أو أُخْرَوىّ» — المعجم الكبير"
+      justification: "مصطلح عربي أصيل يدل على من يقضي وقته فيما لا ينفع، وهو مطابق لمعنى 'does nothing'."
+    - lemma: "مُتَبَطِّل"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«المتبطِّل؛ المتعطّل؛ الكسلان إلخ.» — المورد الحديث (2008)"
+      justification: "ترجمة معجمية معتمدة لكلمة idler وloafer، وتعني الشخص الذي يعيش بلا عمل."
+  knowledge_candidates:
+    - lemma: "خَامِل"
+      justification: "يدل على الشخص غير النشط أو الذي لا يسعى لعمل شيء."
+    - lemma: "مُتَعَطِّل"
+      justification: "اسم فاعل من تعطل، وهو مرادف شائع لعاطل."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "عاطل"
+      decision: "confirmed"
+      decision_reason: "أدلة معجمية قوية وشيوع في الاستعمال للفئة المقصودة"
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "اللفظ الأكثر شيوعاً للدلالة على من ليس له عمل، مع إيحاء بكونه قادراً عليه."
+      example: "بقي الشاب عاطلاً لشهور قبل أن يجد وظيفة مناسبة."
+
+    - lemma: "غير عامل"
+      decision: "removed"
+      decision_reason: "ترجمة حرفية (calque) لا ترتقي لتكون لمّة معجمية مستقلة في هذا السياق"
+      evidence_assessment:
+        case: "no_material"
+      substitution_test:
+        result: "fail"
+      actions:
+        - command: "remove_sense"
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "بَطَّال"
+      source: "step05"
+      decision: "confirmed"
+      decision_reason: "لفظ تراثي دقيق المعنى لمفهوم من لا يفعل شيئاً نافعاً"
+      step05_citation: "«البَطَّالُ: المشتغل عما يعود بنَفْع دُنْيوِىّ أو أُخْرَوىّ» — المعجم الكبير"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على انعدام النفع والاشتغال بالباطل أو اللهو."
+      example: "رجل بطال يضيع يومه في المقاهي بلا طائل."
+      actions:
+        - command: "create_entry"
+          params:
+            lemma: "بَطَّال"
+            pos: "n"
+        - command: "add_sense"
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09649219-n"
+
+    - lemma: "مُتَبَطِّل"
+      source: "step05"
+      decision: "confirmed"
+      decision_reason: "مصطلح مستقر للدلالة على الشخص الذي يعيش في حالة بطالة أو كسل"
+      step05_citation: "«المتبطِّل؛ المتعطّل؛ الكسلان إلخ.» — المورد الحديث (2008)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يدل على اتخاذ البطالة صفة أو حالاً مستمرة."
+      example: "المتبطّلون في الشوارع يبحثون عن أي وسيلة لتمضية الوقت."
+      actions:
+        - command: "create_entry"
+          params:
+            lemma: "مُتَبَطِّل"
+            pos: "n"
+        - command: "add_sense"
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09649219-n"
+
+  synset_flags:
+    definition_review_needed: true
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "شخص لا يفعل شيئاً"
+  assessment:
+    decision: "revise"
+    reason: "التعريف الحالي بسيط جداً، ويفضل تدقيقه لغوياً ليشمل خلو الشخص من العمل والنشاط."
+  authored_definitions:
+    - type: "terminological"
+      text: "شخص يخلو من العمل أو النشاط المنتج، ويمضي وقته في الفراغ أو البطالة."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: "update_definition"
+      params:
+        synset_id: "awn4-09649219-n"
+        definition_index: 0
+        text: "شخص يخلو من العمل أو النشاط المنتج، ويمضي وقته في الفراغ أو البطالة."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عامل"
+    test_result: "wrong"
+    suggested_hypernym: "شخص"
+  antonymy:
+    per_lemma:
+      - lemma: "عاطل"
+        antonym_found: true
+        antonym: "عامل"
+  actions:
+    - command: "remove_synset_relation"
+      params:
+        source_id: "awn4-09649219-n"
+        relation_type: "hypernym"
+        target_id: "awn4-09786620-n"
+    - command: "add_synset_relation"
+      params:
+        source_id: "awn4-09649219-n"
+        relation_type: "hypernym"
+        target_id: "awn4-00005787-n"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "عاطل"
+      enrichment:
+        root: "ع-ط-ل"
+      examples:
+        - text: "ظل الشاب عاطلاً لشهور قبل أن يجد وظيفة مناسبة."
+          type: "usage"
+          source: "مؤلَّف"
+      pos_check:
+        pos: "noun"
+    - lemma: "بَطَّال"
+      enrichment:
+        root: "ب-ط-ل"
+      examples:
+        - text: "رجل بطال يضيع يومه في المقاهي بلا طائل."
+          type: "usage"
+          source: "مؤلَّف"
+      pos_check:
+        pos: "noun"
+    - lemma: "مُتَبَطِّل"
+      enrichment:
+        root: "ب-ط-ل"
+      examples:
+        - text: "المتبطّلون في الشوارع يبحثون عن أي وسيلة لتمضية الوقت."
+          type: "usage"
+          source: "مؤلَّف"
+      pos_check:
+        pos: "noun"
+  cultural_fit:
+    assessment: "native"
+  reasoning:
+    cultural_fit_reasoning: "مفهوم البطالة والخلو من العمل مفهوم عالمي وله تعبيرات عربية فصيحة ومستقرة."

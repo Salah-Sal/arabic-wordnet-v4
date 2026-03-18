@@ -1,0 +1,195 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "خلو اللمات من التشكيل الكامل."
+    observations: "المفهوم يشير إلى من يحوز الشيء ويمتلكه بصفة دائمة. اللمات الحالية تعبر عن هذا المعنى، فالمقتني هو من يطلب الشيء لنفسه والمكتسب من يناله بجهده."
+  blind_candidates:
+    - lemma: "مُقْتَنٍ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل (اقتنى)، وهو أدلّ الألفاظ على من يتخذ الشيء لنفسه بشكل دائم ولا يقصد به التجارة."
+    - lemma: "مُكْتَسِب"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل (اكتسب)، ويدل على من ينال الشيء ويحصله بسعيه."
+    - lemma: "حَائِز"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من (حاز)، ويدل على من يضم الشيء إلى ملكه وحوزته."
+    - lemma: "مُحَصِّل"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من (حصّل)، ويدل على من يجمع الأشياء وينالها."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مقتنٍ"
+      confirm:
+        - text: "اقْتَناه: إِذا اتَّخذه لنَفْسِه دُونَ البَيْع."
+          source: "النهاية في غريب الحديث والأثر لأبي السعادات ابن الأثير الجزري"
+        - text: "ويقال: قَناه يَقْنُوه واقْتَناه إِذا اتخذه لنفسه دون البيع."
+          source: "لسان العرب لابن منظور"
+    - lemma: "مكتسب"
+      confirm:
+        - text: "(اكْتسب) تصرف واجتهد وَالْمَال ربحه"
+          source: "المعجم الوسيط لمجموعة من المؤلفين"
+        - text: "اكتسب المالَ ونحوَه: جمعه، تحصّل عليه وربحه"
+          source: "معجم اللغة العربية المعاصرة لأحمد مختار عمر"
+    - lemma: "حَائِز"
+      confirm:
+        - text: "حَائِز من (ح و ز) من ينال الشيء ويملكه."
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+        - text: "وَكُلُّ مَنْ ضَمَّ شَيْئًا إِلَى نَفْسِهِ فَقَدْ حَازَهُ حَوْزًا."
+          source: "مقاييس اللغة لابن فارس"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مقتنٍ"
+      decision: confirmed
+      decision_reason: "اللمة دقيقة وتعبر تماماً عن معنى الاكتساب بغرض الاحتفاظ الدائم (للنفس لا للتجارة) كما تشير المعاجم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُقْتَنٍ"
+    - lemma: "مكتسب"
+      decision: confirmed
+      decision_reason: "اللمة فصيحة، وتعبر عن من ينال الشيء بجهده ومساعيه، وهو مرادف قوي ومناسب."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُكْتَسِب"
+    - lemma: "حَائِز"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اللمة صحيحة وفصيحة، وتعبر عن من يضم الشيء إلى ملكه وحوزته، وتستخدم بكثرة في السياقات القانونية والعامة بمعنى المستحوذ والمكتسب."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "حَائِز", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "شخص يكتسب شيئاً (عادة بشكل دائم)"
+    assessment:
+      decision: revise
+      reason: "الصياغة الحالية تبدو مترجمة حرفياً، ويمكن تحسينها لتكون أسبك عربياً وتؤدي الغرض بدقة."
+    authored:
+      - type: linguistic
+        text: "مَنْ يَحْصُلُ عَلَى شَيْءٍ وَيَتَمَلَّكُهُ، غَالِبًا بِقَصْدِ الِاحْتِفَاظِ الدَّائِمِ بِهِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مَنْ يَحْصُلُ عَلَى شَيْءٍ وَيَتَمَلَّكُهُ، غَالِبًا بِقَصْدِ الِاحْتِفَاظِ الدَّائِمِ بِهِ."}
+  examples:
+    per_lemma:
+      - lemma: "مقتنٍ"
+        examples:
+          - text: "يُعَدُّ صَدِيقِي مُقْتَنِياً شَغُوفاً لِلُّوحَاتِ الفَنِّيَّةِ النَّادِرَةِ."
+            type: usage
+      - lemma: "مكتسب"
+        examples:
+          - text: "يُعْتَبَرُ الطِّفْلُ مُكْتَسِباً لِمَهَارَاتِهِ اللُّغَوِيَّةِ مِنْ بِيئَتِهِ المُحِيطَةِ."
+            type: usage
+      - lemma: "حَائِز"
+        examples:
+          - text: "المُشْتَرِي هُوَ الحَائِزُ الجَدِيدُ لِلْعَقَارِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يُعَدُّ صَدِيقِي مُقْتَنِياً شَغُوفاً لِلُّوحَاتِ الفَنِّيَّةِ النَّادِرَةِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يُعْتَبَرُ الطِّفْلُ مُكْتَسِباً لِمَهَارَاتِهِ اللُّغَوِيَّةِ مِنْ بِيئَتِهِ المُحِيطَةِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "المُشْتَرِي هُوَ الحَائِزُ الجَدِيدُ لِلْعَقَارِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مقتنٍ"
+      entry_id: "{auto}"
+      root: "قني"
+      maqayis_quote: "«الْقَافُ وَالنُّونُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ يَدُلُّ أَحَدُهُمَا عَلَى مُلَازَمَةٍ وَمُخَالَطَةٍ، وَالْآخَرُ عَلَى ارْتِفَاعٍ فِي شَيْءٍ... وَمِنَ الْبَابِ: قَنَى الشَّيْءَ وَاقْتَنَاهُ، إِذَا كَانَ ذَلِكَ مُعَدًّا لَهُ لَا لِلتِّجَارَةِ.»"
+    - lemma: "مكتسب"
+      entry_id: "{auto}"
+      root: "كسب"
+      maqayis_quote: "«الْكَافُ وَالسِّينُ وَالْبَاءُ أَصْلٌ صَحِيحٌ، وَهُوَ يَدُلُّ عَلَى ابْتِغَاءٍ وَطَلَبٍ وَإِصَابَةٍ. فَالْكَسْبُ مِنْ ذَلِكَ.»"
+    - lemma: "حَائِز"
+      entry_id: "{auto}"
+      root: "حوز"
+      maqayis_quote: "«الْحَاءُ وَالْوَاوُ وَالزَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الْجَمْعُ وَالتَّجَمُّعُ... وَكُلُّ مَنْ ضَمَّ شَيْئًا إِلَى نَفْسِهِ فَقَدْ حَازَهُ حَوْزًا.»"
+  per_sense:
+    - lemma: "مقتنٍ"
+      sense_id: "{auto}"
+      nuance: "يُركّز على اكتساب الشيء بغرض الاحتفاظ الدائم به وتملّكه لنفسه وليس للتجارة."
+      mwe: false
+    - lemma: "مكتسب"
+      sense_id: "{auto}"
+      nuance: "يُركّز على حصول الشخص على الشيء ونيله إياه بجهده وسعيه."
+      mwe: false
+    - lemma: "حَائِز"
+      sense_id: "{auto}"
+      nuance: "يُركّز على ضمّ الشيء إلى حوزته وسيطرته الفعليّة وملكه."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قني","maqayis":"«الْقَافُ وَالنُّونُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ يَدُلُّ أَحَدُهُمَا عَلَى مُلَازَمَةٍ وَمُخَالَطَةٍ، وَالْآخَرُ عَلَى ارْتِفَاعٍ فِي شَيْءٍ... وَمِنَ الْبَابِ: قَنَى الشَّيْءَ وَاقْتَنَاهُ، إِذَا كَانَ ذَلِكَ مُعَدًّا لَهُ لَا لِلتِّجَارَةِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"كسب","maqayis":"«الْكَافُ وَالسِّينُ وَالْبَاءُ أَصْلٌ صَحِيحٌ، وَهُوَ يَدُلُّ عَلَى ابْتِغَاءٍ وَطَلَبٍ وَإِصَابَةٍ. فَالْكَسْبُ مِنْ ذَلِكَ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حوز","maqayis":"«الْحَاءُ وَالْوَاوُ وَالزَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الْجَمْعُ وَالتَّجَمُّعُ... وَكُلُّ مَنْ ضَمَّ شَيْئًا إِلَى نَفْسِهِ فَقَدْ حَازَهُ حَوْزًا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُركّز على اكتساب الشيء بغرض الاحتفاظ الدائم به وتملّكه لنفسه وليس للتجارة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُركّز على حصول الشخص على الشيء ونيله إياه بجهده وسعيه.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُركّز على ضمّ الشيء إلى حوزته وسيطرته الفعليّة وملكه.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

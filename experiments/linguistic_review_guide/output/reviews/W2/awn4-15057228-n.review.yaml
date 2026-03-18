@@ -1,0 +1,182 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الحالية تفتقر إلى التشكيل الكامل."
+      - "التعريف العربي بسيط جداً ويحتاج إلى تدقيق اصطلاحي."
+    observations: "المفهوم يشير إلى المواد التي تثير رد فعل في الأنسجة الحية عند ملامستها. المصطلح العربي 'مهيج' هو المقابل الدقيق لـ 'irritant'."
+  blind_candidates:
+    - lemma: "مُهَيِّج"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل 'هيّج'، وهو المصطلح القياسي للمواد التي تسبب التهيج."
+    - lemma: "مَادَّة مُهَيِّجَة"
+      generation_method: tarkib
+      justification: "تركيب وصفي يطابق المعنى الوظيفي للمصطلح الإنجليزي 'irritant substance'."
+    - lemma: "مُهَيِّج كِيمْيَائِيّ"
+      generation_method: tarkib
+      justification: "ترجمة دقيقة للمصطلح 'chemical irritant'."
+    - lemma: "مُثِير"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من 'أثار'، يُستخدم أحياناً كمرادف في سياقات أعم، لكنه أقل تخصصاً من 'مهيج'."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُهَيِّج"
+      confirm:
+        - text: "«مادة يمكن أن تسبب تهيج البشرة أو العينين أو الجهاز التنفسي»"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية (2012)"
+        - text: "«irritant ... صفة لما يسبب التهيج ... عامل يثير التهيج»"
+          source: "معجم المصطلحات الطبية (1997)"
+    - lemma: "مَادَّة مُهَيِّجَة"
+      confirm:
+        - text: "«مادَّةٌ مُهَيِّجَة ... irritant substance»"
+          source: "المعجم الطبي الموحد (2009)"
+    - lemma: "مهيج كيميائي"
+      evidence_status: "no_material_found"
+    - lemma: "مثير"
+      expands:
+        - text: "«عصب يؤدي تنبيهه إلى إثارة جزء كبير من الأنسجة التي يغذيها»"
+          source: "معجم المصطلحات الطبية (2003)"
+          addition: "يُستخدم 'مثير' في السياق الطبي للإشارة إلى المنبهات العصبية (excitor) أو المحفزات (stimulant) بشكل عام."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مادة مهيجة"
+      decision: confirmed
+      decision_reason: "مصطلح مركّب شائع في المعاجم الطبية والتقنية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَادَّة مُهَيِّجَة"
+    - lemma: "مهيج كيميائي"
+      decision: confirmed
+      decision_reason: "مطابق للمصطلح الإنجليزي 'chemical irritant' ويُستخدم في التقارير العلمية والتقنية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُهَيِّج كِيمْيَائِيّ"
+    - lemma: "مُهَيِّج"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح المفرد الأكثر دقة واختصاراً، وموثق في المعاجم المتخصصة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُهَيِّج", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-15057228-n"}
+
+stage4_content:
+  definition:
+    current: "مادة تسبب تهيجاً"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط؛ التعديل يجعله أكثر دقة واصطلاحية."
+    authored:
+      - type: terminological
+        text: "مادَّةٌ أَوْ عَامِلٌ كِيمْيَائِيٌّ يُؤَدِّي إِلَى تَهَيُّجِ الْأَنْسِجَةِ الْحَيَّةِ عِنْدَ التَّلامُسِ الْمُبَاشِرِ مَعَهَا."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-15057228-n", definition_index: 0, text: "مادَّةٌ أَوْ عَامِلٌ كِيمْيَائِيٌّ يُؤَدِّي إِلَى تَهَيُّجِ الْأَنْسِجَةِ الْحَيَّةِ عِنْدَ التَّلامُسِ الْمُبَاشِرِ مَعَهَا."}
+  examples:
+    per_lemma:
+      - lemma: "مُهَيِّج"
+        examples:
+          - text: "تُعدُّ بَعضُ المُنظفاتِ المَنزليّةِ مُهَيِّجًا قَويًّا لِلبشرةِ إِذا لَم تُستخدمْ بحذرٍ."
+            type: usage
+      - lemma: "مَادَّة مُهَيِّجَة"
+        examples:
+          - text: "يجبُ ارتداءُ القَفازاتِ الواقيةِ عندَ التعاملِ معَ أيِّ مادةٍ مُهيِّجةٍ لتجنبِ الالتهابِ."
+            type: usage
+      - lemma: "مُهَيِّج كِيمْيَائِيّ"
+        examples:
+          - text: "تُصنفُ غازاتُ الدموعِ ضِمْنَ فِئةِ المُهيِّجاتِ الكيمْيائيَّةِ التي تُستخدمُ لتفريقِ الحشودِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-15057228-n", text: "يؤدي التعرض المستمر للمهيجات إلى حساسية مزمنة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُهَيِّج"
+      entry_id: "{auto}"
+      root: "هيج"
+      maqayis_quote: "«الْهَاءُ وَالْيَاءُ وَالْجِيمُ أَصْلَانِ صَحِيحَانِ: أَحَدُهُمَا يَدُلُّ عَلَى ثَوَرَانِ شَيْءٍ... فَالْأَوَّلُ: هَاجَ الْفَحْلُ هَيْجًا وَهِيَاجًا. وَهَيَّجْتُهُ أَي أثَرْتُه.»"
+    - lemma: "مَادَّة مُهَيِّجَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "مادة"
+          root: "مدد"
+          maqayis_quote: "«الْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ، وَهُوَ أَنْ يُبْسَطَ الشَّيْءُ...»"
+        - word: "مهيجة"
+          root: "هيج"
+          maqayis_quote: "«الْهَاءُ وَالْيَاءُ وَالْجِيمُ أَصْلَانِ صَحِيحَانِ: أَحَدُهُمَا يَدُلُّ عَلَى ثَوَرَانِ شَيْءٍ...»"
+    - lemma: "مُهَيِّج كِيمْيَائِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مهيج"
+          root: "هيج"
+          maqayis_quote: "«الْهَاءُ وَالْيَاءُ وَالْجِيمُ أَصْلَانِ صَحِيحَانِ: أَحَدُهُمَا يَدُلُّ عَلَى ثَوَرَانِ شَيْءٍ...»"
+        - word: "كيميائي"
+          root: "كيمي"
+          maqayis_quote: "لا يوجد في مقاييس اللغة (لفظ معرب حديث)."
+  per_sense:
+    - lemma: "مُهَيِّج"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام والمفرد الذي يصف الخاصية أو المادة."
+      mwe: false
+    - lemma: "مَادَّة مُهَيِّجَة"
+      sense_id: "{auto}"
+      nuance: "وصف رسمي للمادة بكونها تسبب التهيج، شائع في سياق السلامة العامة."
+      mwe: true
+    - lemma: "مُهَيِّج كِيمْيَائِيّ"
+      sense_id: "{auto}"
+      nuance: "يحدد طبيعة المهيج بكونه ناتجاً عن تركيب كيميائي لا ميكانيكي."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"هيج","maqayis":"«الْهَاءُ وَالْيَاءُ وَالْجِيمُ أَصْلَانِ صَحِيحَانِ: أَحَدُهُمَا يَدُلُّ عَلَى ثَوَرَانِ شَيْءٍ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مادة","root":"مدد","maqayis":"«الْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ...»"},{"word":"مهيجة","root":"هيج","maqayis":"«الْهَاءُ وَالْيَاءُ وَالْجِيمُ أَصْلَانِ صَحِيحَانِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العام والمفرد الذي يصف الخاصية أو المادة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-15057228-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params: {entity_type: synset, entity_id: "awn4-15057228-n", score: 0.9}

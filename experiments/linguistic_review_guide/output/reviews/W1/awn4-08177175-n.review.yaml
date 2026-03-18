@@ -1,0 +1,155 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "شعب"
+      confirm:
+        - text: "«والجماعة من الناس تخضع لنظام اجتماعي واحد»"
+          source: "المعجم الوسيط لمجموعة من المؤلفين"
+        - text: "«الجماعة من الناس تعيش فى منطقة واحدة, وتخضع لنظام سياسي واجتماعي واحد»"
+          source: "المعجم الكبير"
+      expands:
+        - text: "«الجماعة الكبيرة ترجع لأب واحد وهو أوسع من القبيلة»"
+          source: "المعجم الوسيط لمجموعة من المؤلفين"
+          addition: "البعد العرقي والقبلي التاريخي"
+    - lemma: "مواطنون"
+      confirm:
+        - text: "«شخص يتمتع بالحقوق المدنية والسياسية في الدولة التي يحمل جنسيتها.»"
+          source: "المعجم الموحد لمصطلحات القانون (2017)"
+      peripheral_observations:
+        - "النص المعجمي للمفرد (مواطن)، واللمة هنا بصيغة الجمع للدلالة على أفراد الشعب."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "أمة"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«أمَّة؛ شعب؛ قوم» — المورد الحديث (2008)"
+      justification: "ترجمة مباشرة للمفهوم من المورد الحديث، وهي مصطلح أصيل يعبر عن الكيان الجامع لمواطني دولة ما (تركيب معنوي)."
+    - lemma: "رعية"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«عامَّة الناس الذين عليهم راعٍ يُدبِّر أمْرَههم ويرعى مصالحهم» — المعجم الوسيط"
+      justification: "استخدام مجازي وعلاقة تراثية متأصلة تعبر عن مجموع المواطنين الخاضعين لسلطة سياسية واحدة (إحياء الألفاظ)."
+  knowledge_candidates:
+    - lemma: "جمهور"
+      justification: "إزاحة دلالية (مجاز): إطلاق الجزء أو الفئة على الكل، ويستخدم حديثاً للتعبير عن عموم المواطنين وسواد الشعب."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "شعب"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح ومطرد وأساسي للتعبير عن هيئة المواطنين الذين يقطنون دولة واحدة."
+      evidence_assessment:
+        case: "mixed"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يدل على الكتلة البشرية ككيان واحد اعتباري متجانس ثقافيا وسياسيا."
+      example: "أثبت الشعب وعيه العميق في مواجهة الأزمات."
+
+    - lemma: "مواطنون"
+      decision: removed
+      decision_reason: "الكلمة جمع للمفرد (مواطن)، وتدل على الأفراد (citizens) المتعددين لا على الهيئة أو الكيان المجرد (citizenry) الذي يجمعهم كاسم جمع. الأنسب في الشبكات الدلالية إدراج المفرد في موقعه، واستخدام أسماء الجمع مثل (شعب) للكيان."
+      evidence_assessment:
+        case: "expands_only"
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "تدل على الأفراد بصفة الجمع، وليس على الهيئة ككيان واحد اعتباري."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "أمة"
+      source: step05
+      decision: confirmed
+      decision_reason: "لفظ فصيح مطرد ومستقر في الاستعمال التخصصي والعام للتعبير عن كيان الشعب الجامع."
+      step05_citation: "«أمَّة؛ شعب؛ قوم» — المورد الحديث (2008)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تحمل ظلاً دلالياً أوسع قد يشمل الروابط الثقافية والتاريخية والدينية التي قد تتجاوز الحدود الجغرافية للدولة الواحدة أحياناً."
+      example: "نهضت الأمة للدفاع عن سيادتها ومكتسباتها التاريخية."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "أمة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-08177175-n"
+
+    - lemma: "رعية"
+      source: step05
+      decision: confirmed
+      decision_reason: "لفظ تراثي فصيح ودقيق للتعبير عن المواطنين باعتبارهم خاضعين لسلطة سياسية ترعاهم."
+      step05_citation: "«عامَّة الناس الذين عليهم راعٍ يُدبِّر أمْرَههم ويرعى مصالحهم» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تركز على علاقة الخضوع للحاكم أو النظام (الراعي والرعية) بخلاف كلمة (شعب) التي تركز على الكيان المستقل."
+      example: "أصدر السلطان قرارات تهدف إلى تحسين أحوال الرعية."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "رعية"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-08177175-n"
+
+    - lemma: "جمهور"
+      source: step05
+      decision: removed
+      decision_reason: "تستخدم غالباً للدلالة على الكثرة غير المنظمة أو المتابعين لحدث معين، وتفتقر للدقة السياسية والقانونية التي تحملها كلمة (شعب) أو (رعية) في هذا السياق."
+      step05_citation: "توليد شخصي"
+
+  added_lemmas:
+    - lemma: "أمة"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "create_entry + add_sense"
+    - lemma: "رعية"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "create_entry + add_sense"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "هيئة مواطني دولة أو بلد"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وواضح ويشمل الجنس القريب (هيئة/مجموعة) والفصل النوعي (مواطني دولة أو بلد)، ويتوافق مع الأدلة المعجمية."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "تَجَمُّع / مَجْمُوعَة"
+    test_result: "correct"
+  verb_checks:
+    applicable: false
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "شعب"
+      enrichment:
+        root: "ش-ع-ب"
+      examples:
+        - text: "أثبت الشعب وعيه العميق في مواجهة الأزمات."
+          type: usage
+          source: "مؤلف"
+      pos_check:
+        pos: noun
+    - lemma: "أمة"
+      enrichment:
+        root: "أ-م-م"
+      examples:
+        - text: "نهضت الأمة للدفاع عن سيادتها ومكتسباتها التاريخية."
+          type: usage
+          source: "مؤلف"
+      pos_check:
+        pos: noun
+    - lemma: "رعية"
+      enrichment:
+        root: "ر-ع-ي"
+      examples:
+        - text: "أصدر السلطان قرارات تهدف إلى تحسين أحوال الرعية."
+          type: usage
+          source: "مؤلف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

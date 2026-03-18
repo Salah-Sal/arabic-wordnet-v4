@@ -1,0 +1,183 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الحالية 'كائن لا وعائي' مكتوبة بمسافة بين 'لا' و'وعائي'، بينما الأرجح في الاصطلاح العلمي الحديث وصلها 'لاوعائي'."
+      - "التعريف الحالي مصاغ بصيغة الجمع 'كائنات...' بينما اللمة والمدلول في WordNet غالباً ما يكونان بصيغة المفرد."
+      - "اللمة الحالية تفتقر للتشكيل الكامل."
+    observations: "المفهوم يشير إلى الكائنات الحية (نباتات أو فطريات أو طحالب) التي تفتقر للأنسجة الوعائية المتخصصة (خشب ولحاء). المصطلح العربي الشائع هو 'لاوعائيات' كفئة، و'كائن لاوعائي' كفرد."
+  blind_candidates:
+    - lemma: "لَاوِعَائِيَّات"
+      generation_method: ishtiqaq
+      justification: "الاسم الجمعي الشائع للفئة العلمية التي تضم النباتات والطحالب عديمة الأوعية."
+    - lemma: "كَائِنٌ لَاوِعَائِيّ"
+      generation_method: tarkib
+      justification: "ترجمة دقيقة ومباشرة للمصطلح الإنجليزي (nonvascular organism)."
+    - lemma: "نَبَاتٌ لَاوِعَائِيّ"
+      generation_method: tarkib
+      justification: "المصطلح الأكثر تداولاً في كتب الأحياء العامة للإشارة لهذه المجموعة، وإن كان أضيق قليلاً من 'كائن'."
+    - lemma: "عُضْوِيَّةٌ لَاوِعَائِيَّة"
+      generation_method: tarkib
+      justification: "استخدام مرادف 'عضوية' (organism) مع الصفة الاصطلاحية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "لاوعائي"
+      confirm:
+        - text: "«لاوِعَائِيّ»"
+          source: "المعجم الموحد لمصطلحات علم التشريح العياني"
+        - text: "«لاوِعائيّ»"
+          source: "المعجم الطبي الموحد"
+    - lemma: "حزازيات"
+      expands:
+        - text: "«نباتات أرضية، عموما خضراء وليست لها دعامات وليست لها أوعية حقيقية لنقل الماء»"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+          addition: "يؤكد صفة عدم وجود الأوعية في هذه الكائنات."
+    - lemma: "طحلب"
+      expands:
+        - text: "«نباتات بسيطة لا زهرية غير مُميزة إلى سوق أو أوراق أو جذور»"
+          source: "المعجم الوسيط"
+          addition: "يصف البنية البسيطة التي تتسم بها الكائنات اللاوعائية."
+    - lemma: "عديم الأوعية"
+      confirm:
+        - text: "«عَديمُ الأَوعِيَة؛ لاوِعَائِيّ»"
+          source: "المعجم الطبي الموحد"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "كائن لا وعائي"
+      decision: confirmed
+      decision_reason: "المصطلح صحيح علمياً ومطابق للمقابل الإنجليزي، لكن يحتاج لتصحيح الرسم (وصل لا) وإضافة التشكيل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "كَائِنٌ لَاوِعَائِيّ"
+    - lemma: "عُضْوِيَّةٌ لَاوِعَائِيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف دقيق يستخدم 'عضوية' كبديل لـ 'كائن'، وهو شائع في النصوص العلمية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "عُضْوِيَّةٌ لَاوِعَائِيَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "لَاوِعَائِيَّات"
+      source: stage1
+      decision: confirmed
+      decision_reason: "الاسم الجمعي للفئة، وهو الأكثر شيوعاً في الاستعمال العربي كعنوان للمجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "لَاوِعَائِيَّات", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "كائنات بدون نسيج وعائي: مثل الطحالب والأشنات والفطريات والحزازيات"
+    assessment:
+      decision: revise
+      reason: "تحويل التعريف للصيغة المفردة ليتطابق مع رأس المدخل، وتحسين الصياغة لتكون أكثر دقة معجمية."
+    authored:
+      - type: terminological
+        text: "كائن حي يفتقر إلى الأنسجة الوعائية المتخصصة (الخشب واللحاء) لنقل الماء والغذاء، ويشمل الطحالب والحزازيات والفطريات."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "كائن حي يفتقر إلى الأنسجة الوعائية المتخصصة (الخشب واللحاء) لنقل الماء والغذاء، ويشمل الطحالب والحزازيات والفطريات."
+  examples:
+    per_lemma:
+      - lemma: "كَائِنٌ لَاوِعَائِيّ"
+        examples:
+          - text: "يُعد الحزاز كائناً لاوعائياً يعتمد على الخاصية الإسموزية لنقل الماء بين خلاياه."
+            type: usage
+      - lemma: "عُضْوِيَّةٌ لَاوِعَائِيَّة"
+        examples:
+          - text: "تتميز كل عضوية لاوعائية ببساطة التركيب وغياب الجذور الحقيقية."
+            type: usage
+      - lemma: "لَاوِعَائِيَّات"
+        examples:
+          - text: "تنمو اللاوعائيات عادة في البيئات الرطبة لضمان الحصول على الماء الكافي."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "تفتقر الكائنات اللاوعائية إلى جهاز وعائي لنقل السوائل."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "كَائِنٌ لَاوِعَائِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "كائن"
+          root: "كون"
+          maqayis_quote: "«الْكَافُ وَالْوَاوُ وَالنُّونُ أَصْلٌ يَدُلُّ عَلَى الْإِخْبَارِ عَنْ حُدُوثِ شَيْءٍ... كَانَ الشَّيْءُ يَكُونُ كَوْنًا، إِذَا وَقَعَ وَحَضَرَ.»"
+        - word: "لاوعائي"
+          root: "وعي"
+          maqayis_quote: "«الْوَاوُ وَالْعَيْنُ وَالْيَاءُ: كَلِمَةٌ تَدُلُّ عَلَى ضَمِّ شَيْءٍ. وَوَعَيْتُ الْعِلْمَ أَعِيهِ وَعْيًا. وَأَوْعَيْتُ الْمَتَاعَ فِي الْوِعَاءِ.»"
+    - lemma: "عُضْوِيَّةٌ لَاوِعَائِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "عضوية"
+          root: "عضو"
+          maqayis_quote: "«الْعَيْنُ وَالضَّادُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَجْزِئَةِ الشَّيْءِ. مِنْ ذَلِكَ الْعِضْوُ وَالْعُضْوُ.»"
+        - word: "لاوعائية"
+          root: "وعي"
+          maqayis_quote: "«الْوَاوُ وَالْعَيْنُ وَالْيَاءُ: كَلِمَةٌ تَدُلُّ عَلَى ضَمِّ شَيْءٍ.»"
+  per_sense:
+    - lemma: "كَائِنٌ لَاوِعَائِيّ"
+      sense_id: "{auto}"
+      nuance: "المصطلح الأساسي المفرد والمطابق للمقابلة الإنجليزية."
+      mwe: true
+    - lemma: "عُضْوِيَّةٌ لَاوِعَائِيَّة"
+      sense_id: "{auto}"
+      nuance: "بديل اصطلاحي يستخدم 'عضوية' للتأكيد على الجانب البيولوجي الوظيفي."
+      mwe: true
+    - lemma: "لَاوِعَائِيَّات"
+      sense_id: "{auto}"
+      nuance: "اسم الفئة العلمية بصيغة الجمع، وهو الأكثر تداولاً في التصنيف الحيوي."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"كائن","root":"كون","maqayis":"«الْكَافُ وَالْوَاوُ وَالنُّونُ أَصْلٌ يَدُلُّ عَلَى الْإِخْبَارِ عَنْ حُدُوثِ شَيْءٍ...»"},{"word":"لاوعائي","root":"وعي","maqayis":"«الْوَاوُ وَالْعَيْنُ وَالْيَاءُ: كَلِمَةٌ تَدُلُّ عَلَى ضَمِّ شَيْءٍ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الأساسي المفرد والمطابق للمقابلة الإنجليزية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

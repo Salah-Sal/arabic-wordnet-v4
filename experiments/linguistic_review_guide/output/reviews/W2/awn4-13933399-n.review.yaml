@@ -1,0 +1,231 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "كلمة 'مساحة' تشير غالباً إلى المقدار الكمي (Area) أو العلم المتعلق به، وليس بالضرورة إلى الخلاء الموجود بين الأشياء."
+      - "نقص كلمات جوهرية تعبر عن الخلاء والفرجة مثل 'فراغ' و'فجوة'."
+    observations: "المجموعة الحالية تركز على المكان والامتداد، لكنها تغفل الجانب الوصفي للخلاء (Emptiness) والفرجة (Gap) التي يركز عليها التعريف."
+  blind_candidates:
+    - lemma: "فَرَاغ"
+      generation_method: ishtiqaq
+      justification: "المصدر المباشر من الجذر (ف ر غ) الذي يدل على الخلو، وهو الأدق لوصف المنطقة الفارغة."
+    - lemma: "خَلاء"
+      generation_method: ishtiqaq
+      justification: "يدل في المعاجم على المكان الواسع الخالي من الأشياء."
+    - lemma: "بَيْنِيَّة"
+      generation_method: ishtiqaq
+      justification: "مصدر صناعي من 'بين' يشير إلى حالة التوسط أو المساحة الفاصلة بين شيئين (استعمال حديث)."
+    - lemma: "فُجْوَة"
+      generation_method: ishtiqaq
+      justification: "تدل على المتسع أو الفرجة بين شيئين، وهو ما يطابق تماماً قيد 'bounded between things'."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "حَيِّز"
+      confirm:
+        - text: "«الحيز: لغة، كل منضم بعضه إلى بعض. وعند المتكلمين: الفراغ المتوهم الذي يشغله شيء ممتد كالجسم»"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+        - text: "«الحيّز: هو في اللغة الفراغ مطلقا، سواء كان مساويا لما يشغله أو زائدا عليه أو ناقصا عنه.»"
+          source: "كشاف اصطلاحات الفنون للتهانوي"
+    - lemma: "فَضَاء"
+      confirm:
+        - text: "«الفضاء: المكان الواسع.»"
+          source: "كتاب العين للخليل بن أحمد"
+        - text: "«(الفضاء) مَا اتَّسع من الأَرْض والخالي من الأَرْض»"
+          source: "المعجم الوسيط"
+    - lemma: "مِسَاحة"
+      confirm:
+        - text: "«(المساحة) علم يبحث فيه عن طرق قياس الخطوط والسطوح والأجسام»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«المساحة: استعلام ما في الكم المتصل القار من أمثال الواحد الخطي كالذراع.»"
+          source: "دستور العلماء للأحمدنكري"
+    - lemma: "فَرَاغ"
+      confirm:
+        - text: "«(الفراغ) الخلو والمكان الخالي»"
+          source: "المعجم الوسيط"
+    - lemma: "فَجْوَة"
+      confirm:
+        - text: "«الفجوة: المتسع بين شيئين.»"
+          source: "مقاييس اللغة لابن فارس"
+        - text: "«فجوة: فتحة، gap»"
+          source: "معجم المصطلحات الطبية"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "حيز"
+      decision: confirmed
+      decision_reason: "مصطلح مركزي في التراث واللغة المعاصرة لوصف الفراغ الذي يشغله الجسم أو يقع فيه."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حَيِّز"
+    - lemma: "فضاء"
+      decision: confirmed
+      decision_reason: "يستخدم لوصف المتسع الخالي من الأرض أو الأماكن المفتوحة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "فَضَاء"
+    - lemma: "مساحة"
+      decision: confirmed
+      decision_reason: "رغم دلالتها الأصلية على القياس، إلا أنها تستخدم بكثرة في السياق المعاصر لوصف الامتداد المكاني الخالي."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مِسَاحة"
+    - lemma: "فَرَاغ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "أدق كلمة عربية تصف حالة الخلو (Emptiness) المطلوبة في التعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "فَرَاغ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-13933399-n"}
+    - lemma: "فَجْوَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تصف بدقة المساحة المحدودة أو المحصورة بين شيئين (bounded between things)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "فَجْوَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-13933399-n"}
+
+stage4_content:
+  definition:
+    current: "منطقة فارغة (محددة عادة بطريقة ما بين الأشياء)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقبول لكن يمكن صياغته بأسلوب معجمي أكثر دقة يجمع بين حقيقة الخلو والوقوع بين الأجسام."
+    authored:
+      - type: terminological
+        text: "حيّز أو مكان خالٍ يقع بين الأشياء أو الأجسام."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "حَيِّز"
+        examples:
+          - text: "تُوضعُ الكتبُ في حَيِّزٍ ضيّقٍ على الرفّ."
+            type: usage
+      - lemma: "فَضَاء"
+        examples:
+          - text: "تَركَ المصممُ فَضاءً واسعاً في وسطِ الغرفة."
+            type: usage
+      - lemma: "مِسَاحة"
+        examples:
+          - text: "تُوجَدُ مِساحةٌ خاليةٌ بَينَ البِناءَيْن."
+            type: usage
+      - lemma: "فَرَاغ"
+        examples:
+          - text: "املأ الفَرَاغَ الموجودَ بينَ الكلمتين."
+            type: usage
+      - lemma: "فَجْوَة"
+        examples:
+          - text: "تَركَ النجارُ فَجوةً صَغيرةً للسماحِ بتمَدُّدِ الخشب."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-13933399-n", definition_index: 0, text: "حيّز أو مكان خالٍ يقع بين الأشياء أو الأجسام."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "حَيِّز"
+      entry_id: "{auto}"
+      root: "حوز"
+      maqayis_quote: "«الْحَاءُ وَالْوَاوُ وَالزَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الْجَمْعُ وَالتَّجَمُّعُ، يُقَالُ لِكُلِّ مَجْمَعٍ وَنَاحِيَةٍ حَوْزٌ وَحَوْزَةٌ.»"
+    - lemma: "فَضَاء"
+      entry_id: "{auto}"
+      root: "فضو"
+      maqayis_quote: "«الْفَاءُ وَالضَّادُ وَالْحَرْفُ الْمُعْتَلُّ يَدُلُّ عَلَى اتِّسَاعٍ فِي شَيْءٍ.»"
+    - lemma: "مِسَاحة"
+      entry_id: "{auto}"
+      root: "مسح"
+      maqayis_quote: "«الْمِيمُ وَالسِّينُ وَالْحَاءُ أَصْلٌ صَحِيحٌ، وَهُوَ إِمْرَارُ الشَّيْءِ عَلَى الشَّيْءِ بَسْطًا.»"
+    - lemma: "فَرَاغ"
+      entry_id: "{auto}"
+      root: "فرغ"
+      maqayis_quote: "«الْفَاءُ وَالرَّاءُ وَالْغَيْنُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى خُلُوٍّ [وَسَعَةِ] ذَرْعٍ.»"
+    - lemma: "فَجْوَة"
+      entry_id: "{auto}"
+      root: "فجو"
+      maqayis_quote: "«الْفَاءُ وَالْجِيمُ وَالْحَرْفُ الْمُعْتَلُّ يَدُلُّ عَلَى اتِّسَاعٍ فِي شَيْءٍ. فَالْفَجْوَةُ: الْمُتَّسَعُ بَيْنَ شَيْئَيْنِ.»"
+  per_sense:
+    - lemma: "حَيِّز"
+      sense_id: "{auto}"
+      nuance: "يركز على المكان من حيث كونه وعاءً أو منطقة محددة يشغلها جسم ما."
+      mwe: false
+    - lemma: "فَضَاء"
+      sense_id: "{auto}"
+      nuance: "يوحي بالسعة والامتداد المفتوح."
+      mwe: false
+    - lemma: "مِسَاحة"
+      sense_id: "{auto}"
+      nuance: "يستخدم لوصف المدى المكاني أو السطح، وغالباً ما يرتبط بالقياس."
+      mwe: false
+    - lemma: "فَرَاغ"
+      sense_id: "{auto}"
+      nuance: "يصف حالة الخلاء التام والعدم المادي في بقعة ما."
+      mwe: false
+    - lemma: "فَجْوَة"
+      sense_id: "{auto}"
+      nuance: "يصف المساحة الفاصلة تحديداً بين جدارين أو جسمين أو حدين."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حوز","maqayis":"«الْحَاءُ وَالْوَاوُ وَالزَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الْجَمْعُ وَالتَّجَمُّعُ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"فضو","maqayis":"«الْفَاءُ وَالضَّادُ وَالْحَرْفُ الْمُعْتَلُّ يَدُلُّ عَلَى اتِّسَاعٍ فِي شَيْءٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يصف حالة الخلاء التام والعدم المادي في بقعة ما.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-13933399-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-13933399-n"
+        score: 0.95

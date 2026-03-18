@@ -1,0 +1,207 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمات الموجودة تفتقر إلى التشكيل الكامل.
+      - المجموعة تغطي سياقات متنوعة (طب، كيمياء، فنون) بينما اللمات الموجودة قد توحي بسياق واحد.
+    observations: "المفهوم يعبر عن المادة 'الحاملة' للمادة الفعالة. في الطب يسمى (سواغ)، وفي الكيمياء (حامل)، وفي الفنون (وسيط)، وفي العلوم العامة (وسط ناقل). التعريف الحالي دقيق لكن يحتاج صياغة معجمية أمتن."
+  blind_candidates:
+    - lemma: "سِوَاغ"
+      generation_method: ishtiqaq
+      justification: "المصطلح الصيدلاني المتخصص للمادة التي تذاب فيها الأدوية، مشتق من سوغ (سهولة المرور في الحلق)."
+    - lemma: "حَامِل"
+      generation_method: majaz
+      justification: "استعارة لوظيفة المادة في 'حمل' المادة الفعالة وإيصالها، وهو شائع في الكيمياء (Carrier)."
+    - lemma: "وَسِيط"
+      generation_method: majaz
+      justification: "المادة التي تعمل كواسطة لنشر المادة الممزوجة بها، ويستخدم خاصة في سياق الأصباغ والألوان (Medium)."
+    - lemma: "مُسَوِّغ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من سوغ، يعبر عن المادة التي تجعل الشيء سائغاً وسهل الاستخدام."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "سواغ"
+      confirm:
+        - text: "«مادة ليس لها تأثير دوائيّ تمزج مع المواد الدوائية الفعالة- لأهداف أخرى مثل إكساب القوام -لإعطاء المستحضر الصيدلانيّ.»"
+          source: "المعجم الموحد لمصطلحات علم الصيدلة"
+        - text: "«مادة غير فعالة تضاف إلى تركيبة دوائية لتجعلها مناسبة للتناول.»"
+          source: "معجم المصطلحات الطبية"
+    - lemma: "وسط ناقل"
+      confirm:
+        - text: "«الناقل؛ الوَسَط: مادة متخلِّلة تعمل عَبْرَها قوةٌ ما أو يُحْدَث أثرٌ ما»"
+          source: "المورد الحديث (ترجمة Medium)"
+    - lemma: "حامل"
+      confirm:
+        - text: "«حامل [في الكيمياء]: Vehicle»"
+          source: "المعجم الموحد لمصطلحات الكيمياء"
+    - lemma: "وسيط"
+      confirm:
+        - text: "«يستخدم لتمييع اللون، كالزيوت والماء والورنيش»"
+          source: "المعجم الموحد لمصطلحات التقنيات التربوية"
+        - text: "«مادة وسيطة تربط بين لونين أو أكثر»"
+          source: "المعجم الموحد لمصطلحات التقنيات التربوية"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "سواغ"
+      decision: confirmed
+      decision_reason: "مصطلح صيدلاني أصيل ودقيق يعبر عن المادة المضافة للدواء لتسهيل استخدامه."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "سِوَاغ"
+    - lemma: "وسط ناقل"
+      decision: confirmed
+      decision_reason: "مصطلح علمي عام يغطي مفهوم الوسط الذي يحمل المادة أو ينقل الأثر."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "وَسَط نَاقِل"
+    - lemma: "حامل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يستخدم بكثرة في الكيمياء والعلوم للتعبير عن المادة التي تحمل المكون الفعال (Carrier/Vehicle)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "حَامِل", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "وسيط"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يستخدم في سياق الأصباغ والرسم للتعبير عن السائل الذي يمزج به اللون (Medium/Vehicle)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "وَسِيط", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "أي مادة تسهل استخدام دواء أو صبغة أو مادة أخرى ممزوجة بها"
+    assessment:
+      decision: revise
+      reason: "الصياغة الحالية وصفية بسيطة، والأفضل استخدام صياغة معجمية تركز على كون المادة 'خاملة' أو 'حاملة'."
+    authored:
+      - type: terminological
+        text: "مادة خاملة تُمزج بها المادة الفعالة (كدواء أو صبغة) لحملها أو تسهيل استعمالها أو إعطائها قواماً معيناً."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مادة خاملة تُمزج بها المادة الفعالة (كدواء أو صبغة) لحملها أو تسهيل استعمالها أو إعطائها قواماً معيناً."}
+  examples:
+    per_lemma:
+      - lemma: "سِوَاغ"
+        examples:
+          - text: "يُضاف السواغ إلى الحبوب الدوائية لربط مكوناتها وتسهيل بلعها."
+            type: usage
+      - lemma: "وَسَط نَاقِل"
+        examples:
+          - text: "يُعد الماء الوسط الناقل للعديد من المواد الكيميائية في المختبر."
+            type: usage
+      - lemma: "حَامِل"
+        examples:
+          - text: "توضع المادة المحفزة على حامل صلب لزيادة مساحة سطح التفاعل."
+            type: usage
+      - lemma: "وَسِيط"
+        examples:
+          - text: "يستخدم زيت الكتان وسيطاً في الرسم الزيتي لتمييع الألوان وزيادة شفافيتها."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يُضاف السواغ إلى الحبوب الدوائية لربط مكوناتها وتسهيل بلعها."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "سِوَاغ"
+      entry_id: "{auto}"
+      root: "سوغ"
+      maqayis_quote: "«السِّينُ وَالْوَاوُ وَالْغَيْنُ أَصْلٌ يَدُلُّ عَلَى سُهُولَةِ الشَّيْءِ وَاسْتِمْرَارِهِ فِي الْحَلْقِ خَاصَّةً، ثُمَّ يُحْمَلُ عَلَى ذَلِكَ.»"
+    - lemma: "وَسَط نَاقِل"
+      entry_id: "{auto}"
+      roots:
+        - word: "وسط"
+          root: "وسط"
+          maqayis_quote: "«الْوَاوُ وَالسِّينُ وَالطَّاءُ: بِنَاءٌ صَحِيحٌ يَدُلُّ عَلَى الْعَدْلِ وَالنِّصْفِ.»"
+        - word: "ناقل"
+          root: "نقل"
+          maqayis_quote: "«النُّونُ وَالْقَافُ وَاللَّامُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَحْوِيلِ شَيْءٍ مِنْ مَكَانٍ إِلَى مَكَانٍ.»"
+    - lemma: "حَامِل"
+      entry_id: "{auto}"
+      root: "حمل"
+      maqayis_quote: "«الْحَاءُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى إِقْلَالِ الشَّيْءِ. يُقَالُ حَمَلْتُ الشَّيْءَ أَحْمِلُهُ حَمْلًا.»"
+    - lemma: "وَسِيط"
+      entry_id: "{auto}"
+      root: "وسط"
+      maqayis_quote: "«الْوَاوُ وَالسِّينُ وَالطَّاءُ: بِنَاءٌ صَحِيحٌ يَدُلُّ عَلَى الْعَدْلِ وَالنِّصْفِ.»"
+  per_sense:
+    - lemma: "سِوَاغ"
+      sense_id: "{auto}"
+      nuance: "يستخدم حصراً في السياق الصيدلاني والطبي."
+      mwe: false
+    - lemma: "وَسَط نَاقِل"
+      sense_id: "{auto}"
+      nuance: "مصطلح علمي عام يصف المادة التي يعمل عبرها أثر فيزيائي أو كيميائي."
+      mwe: true
+    - lemma: "حَامِل"
+      sense_id: "{auto}"
+      nuance: "يركز على وظيفة 'حمل' المادة الفعالة، ويشيع في الكيمياء الصناعية."
+      mwe: false
+    - lemma: "وَسِيط"
+      sense_id: "{auto}"
+      nuance: "يستخدم في سياق الفنون الجميلة والأصباغ (Medium)."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سوغ","maqayis":"«السِّينُ وَالْوَاوُ وَالْغَيْنُ أَصْلٌ يَدُلُّ عَلَى سُهُولَةِ الشَّيْءِ وَاسْتِمْرَارِهِ فِي الْحَلْقِ خَاصَّةً...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"وسط","root":"وسط","maqayis":"«الْوَاوُ وَالسِّينُ وَالطَّاءُ...»"},{"word":"ناقل","root":"نقل","maqayis":"«النُّونُ وَالْقَافُ وَاللَّامُ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يستخدم حصراً في السياق الصيدلاني والطبي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

@@ -1,0 +1,91 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "ارتفاع طبيعي"
+      evidence_status: "no_material_found"
+    - lemma: "مرتفع"
+      confirm:
+        - text: "«elevation»"
+          source: "المعجم الموحد لمصطلحات الجيولوجيا (2000)"
+        - text: "«upland»"
+          source: "مسرد الجغرافيا والتاريخ، المنظمة العربية للتربية والثقافة والعلوم"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "تضريس"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«تضريس: شكل الأرض» — المورد الحديث"
+      justification: "مصطلح جغرافي وجيولوجي مأخوذ من الفحص المعجمي لـ 'تضاريس'."
+  knowledge_candidates:
+    - lemma: "نَجْد"
+      justification: "مجاز/توسيع دلالي: يطلق في العربية على ما ارتفع من الأرض وظهر، وهو يقابل المرتفع العام."
+  generation_notes: "كلمة (مرتفع) هي الأفضل والأكثر دقة لتمثيل المفهوم بشكل مباشر."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "ارتفاع طبيعي"
+      decision: removed
+      decision_reason: "تركيب وصفي حر وترجمة حرفية عمياء (Blind Literal) للمصطلح الإنجليزي (natural elevation). كلمة (ارتفاع) تدل غالباً على المسافة الرأسية أو الحدث وليس على الكيان المادي نفسه، والأنسب هو (مرتفع)."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "تركيب وصفي غير مسكوك يخلط بين القياس والكيان المادي."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "مرتفع"
+      decision: confirmed
+      decision_reason: "مصطلح تقني وجغرافي معتمد وواسع الانتشار للتعبير عن المعالم الجيولوجية العالية."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "المصطلح العام الدال على أي تكوين جيولوجي بارز أو عالٍ مقارنة بما حوله."
+      example: "بنى القلعة على مرتفع صخري ليشرف على الوادي."
+    - lemma: "تضريس"
+      source: step05
+      decision: removed
+      decision_reason: "كلمة (تضاريس) تستعمل عادة في صيغة الجمع للتعبير عن مجمل أشكال سطح الأرض، واستعمال المفرد (تضريس) للدلالة على مرتفع مفرد غير دقيق في هذا السياق مقارنة بـ (مرتفع)."
+      step05_citation: "«تضريس: شكل الأرض» — المورد الحديث"
+    - lemma: "نَجْد"
+      source: step05
+      decision: removed
+      decision_reason: "تدل على نوع خاص من المرتفعات (الهضبة الواسعة) ولا تعبر عن مطلق المرتفع."
+      step05_citation: "اقتراح من المعرفة اللغوية"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "تكوين جيولوجي مرتفع أو بارز"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وواضح ويشمل الجنس (تكوين جيولوجي) والفصل (مرتفع/بارز)."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "تكوين جيولوجي"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "مرتفع"
+        antonym_found: true
+        antonym: "منخفض"
+  verb_checks:
+    applicable: false
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "مرتفع"
+      enrichment:
+        root: "رفع"
+      examples:
+        - text: "بنى القلعة على مرتفع صخري ليشرف على الوادي."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

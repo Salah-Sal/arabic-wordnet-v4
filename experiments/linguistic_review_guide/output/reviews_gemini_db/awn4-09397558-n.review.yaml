@@ -1,0 +1,148 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "بَقِيَّة"
+      confirm:
+        - text: "«ما بقى من الشيء»"
+          source: "المعجم الوسيط"
+    - lemma: "عُقْب"
+      confirm:
+        - text: "«عُقِب: قعر الكأس، قعر الإناء.»"
+          source: "تكملة المعاجم العربية لرينهارت دوزي"
+      expands:
+        - text: "«عُقْبُ سيجارة»"
+          source: "معجم اللغة العربية المعاصرة لأحمد مختار عمر"
+          addition: "استعمال مخصوص للقطعة المتبقية من السيجارة بعد تدخينها."
+        - text: "«آخر كُلِّ شيءٍ وخاتمتُه»"
+          source: "معجم اللغة العربية المعاصرة لأحمد مختار عمر"
+          addition: "البعد الزماني أو المكاني لآخر الشيء ونهايته وليس فقط القطعة المادية."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "فَضْلَة"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«فَضْلة؛ بقيّة؛ أثارة.» — المورد الحديث"
+      justification: "كلمة فصيحة مستعملة للدلالة على ما يفضل ويتبقى من الشيء."
+    - lemma: "جُذْمُور"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«بقية كل شيء مقطوع» — لسان العرب"
+      justification: "مصطلح دقيق يعبر عن القطعة المتبقية من الأغصان أو الأعضاء المقطوعة."
+  knowledge_candidates:
+    - lemma: "قُصَاصَة"
+      justification: "اشتقاق: من الفعل (قصّ) على وزن (فُعَالَة) الذي يطرد في الأشياء المتساقطة أو المتبقية من أصل الشيء بعد قصه أو تقطيعه."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "بَقِيَّة"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي فصيح ودقيق يعبر عن الجزء الذي يتبقى من الشيء."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تعبير عام وشامل لأي جزء يتبقى من الشيء مادياً كان أو معنوياً، بغض النظر عن حجمه."
+      example: "احتفظ بالبقية من طعامه لليوم التالي."
+    
+    - lemma: "عُقْب"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح يطلق غالباً على آخر الشيء وما يتبقى منه."
+      evidence_assessment:
+        case: "expands"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تُطلق غالباً على الجزء المتبقي الصغير من نهاية الأشياء بعد استهلاك معظمها (مثل عُقْب السيجارة)."
+      example: "رمى عُقْب السيجارة في المنفضة."
+
+    - lemma: "فَضْلَة"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح فصيح شائع يعبر بدقة عن الجزء الصغير المتبقي أو الزائد من الشيء."
+      step05_citation: "«فَضْلة؛ بقيّة؛ أثارة.» — المورد الحديث"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تدل تخصيصاً على ما يفضل ويزيد عن الحاجة من الشيء المتبقي، وغالباً ما يُستغنى عنه."
+      example: "باع التاجر فَضْلَةَ القماش بسعر زهيد."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "فَضْلَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09397558-n"
+
+    - lemma: "جُذْمُور"
+      source: step05
+      decision: removed
+      decision_reason: "مصطلح خاص ببقية الشيء المقطوع كالغصن أو اليد، ولا يصح إطلاقه كصفة عامة لأي قطعة صغيرة متبقية."
+      step05_citation: "«بقية كل شيء مقطوع» — لسان العرب"
+
+    - lemma: "قُصَاصَة"
+      source: step05
+      decision: removed
+      decision_reason: "خاصة بما يتبقى بعد عملية القص والتسوية فقط (كالورق والشعر)، وليست دلالة عامة للمجموعة."
+      step05_citation: "اقتراح من المعرفة اللغوية (اشتقاق)."
+
+  added_lemmas:
+    - lemma: "فَضْلَة"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "قطعة صغيرة متبقية"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وموجز ويطابق المفهوم المقصود (nub, stub) بالإنجليزية، ويتوافق مع دلالة اللمات المؤكدة."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "جُزْء"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "بَقِيَّة"
+        antonym_found: false
+      - lemma: "عُقْب"
+        antonym_found: false
+      - lemma: "فَضْلَة"
+        antonym_found: false
+  verb_checks:
+    applicable: false
+  selectional_restrictions:
+    - lemma: "بَقِيَّة"
+      constraint: "تطلق على بقايا الأشياء المادية والمعنوية"
+    - lemma: "عُقْب"
+      constraint: "يغلب إضافتها للأشياء المادية القابلة للاستهلاك"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "بَقِيَّة"
+      enrichment:
+        root: "ب-ق-ي"
+      examples:
+        - text: "احتفظ بالبقية من طعامه لليوم التالي."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "عُقْب"
+      enrichment:
+        root: "ع-ق-ب"
+      examples:
+        - text: "رمى عُقْب السيجارة في المنفضة."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "فَضْلَة"
+      enrichment:
+        root: "ف-ض-ل"
+      examples:
+        - text: "باع التاجر فَضْلَةَ القماش بسعر زهيد."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

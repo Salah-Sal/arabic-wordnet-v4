@@ -1,0 +1,214 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة عبارة عن تعبير مركب (مشغل رافعة) تفتقر للتشكيل التام."
+      - "التعريف العربي (مشغل لآلة الرفع) هو ترجمة لفظية للتعريف الإنجليزي وليس صياغة معجمية."
+    observations: "المفهوم يشير إلى مهنة فنية متخصصة في تشغيل معدات الرفع الثقيلة. في العربية المعاصرة، يُستخدم المصطلح المركب (مشغل) أو (سائق) متبوعاً بنوع الآلة (رافعة، مرفاع، ونش). اللفظ المفرد (رَفَّاع) قديم وأصيل ولكنه ابتعد في الاستعمال المعاصر عن الدلالة التقنية المباشرة لمشغل الآلة."
+  blind_candidates:
+    - lemma: "سَائِقُ رَافِعَةٍ"
+      generation_method: tarkib
+      justification: "الاستعمال الشائع في قطاع الإنشاءات لتعريف الشخص الذي يتحكم في الروافع الكبيرة."
+    - lemma: "عَامِلُ رَافِعَةٍ"
+      generation_method: tarkib
+      justification: "تسمية عامة للمهني المسؤول عن معدات الرفع."
+    - lemma: "رَفَّاعٌ"
+      generation_method: ishtiqaq
+      justification: "صيغة مبالغة على وزن (فَعَّال) للدلالة على الاحتراف، وهي لفظة عربية قديمة لمن يرفع الزرع أو الأثقال."
+    - lemma: "مُشَغِّلُ مِرْفَاعٍ"
+      generation_method: tarkib
+      justification: "صياغة تقنية دقيقة تترجم (hoist operator) باستخدام لفظ (مرفاع) المخصص لآلات الرفع الأصغر أو الصناعية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مشغل رافعة"
+      confirm:
+        - text: "«مُشغّل: operator»"
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة (1996)"
+        - text: "«الرَّافِعَةُ: آلة يُرفَعُ بها الشيءُ»"
+          source: "المعجم الوسيط"
+    - lemma: "سَائِقُ رَافِعَةٍ"
+      evidence_status: "no_material_found"
+    - lemma: "عَامِلُ رَافِعَةٍ"
+      confirm:
+        - text: "«عامل: operator»"
+          source: "المعجم الموحد لمصطلحات تقانة المعلومات (2011)"
+    - lemma: "رَفَّاعٌ"
+      confirm:
+        - text: "«رَفَّاع: من (ر ف ع) معلي الشيء ومطوله»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+      contradicts:
+        - text: "«الرَّفاعُ: رفع الزرع بعد الحصاد إلى الجرن»"
+          source: "المعجم الوسيط"
+          conflict: "الدلالة التراثية محصورة في رفع الزرع يدوياً وليست تشغيل آلة."
+    - lemma: "مُشَغِّلُ مِرْفَاعٍ"
+      confirm:
+        - text: "«المِرْفاعُ: أداةٌ لرفع الأحمال الثقيلة»"
+          source: "المعجم الكبير"
+        - text: "«مرفاع: رافعة تقليدية حيث تتم عملية الحمل عن طريق سلك مرورا بذراع اارافعة»"
+          source: "المعجم الموحد لمصطلحات النقل (2010)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مشغل رافعة"
+      decision: confirmed
+      decision_reason: "المصطلح الأكثر قبولاً في المعجمية التقنية المعاصرة (مشغل + اسم الآلة)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُشَغِّلُ رَافِعَةٍ"
+    - lemma: "سَائِقُ رَافِعَةٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "شائع جداً في الاستعمال المهني للروافع المتحركة والكبيرة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "سَائِقُ رَافِعَةٍ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-10199448-n"}
+    - lemma: "عَامِلُ رَافِعَةٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "استعمال عامي وفني مقبول لوصف المشغل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "عَامِلُ رَافِعَةٍ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-10199448-n"}
+    - lemma: "مُشَغِّلُ مِرْفَاعٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "أكثر دقة في ترجمة (hoist) الذي يقابله (مرفاع) في المعاجم الموحدة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "مُشَغِّلُ مِرْفَاعٍ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-10199448-n"}
+    - lemma: "رَفَّاعٌ"
+      source: stage1
+      decision: removed
+      decision_reason: "على الرغم من أصالته، إلا أنه لا يُستخدم تقنياً لوصف مشغل الآلة في السياق الحديث."
+
+stage4_content:
+  definition:
+    current: "مشغل لآلة الرفع"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب جداً ويشبه الترجمة الحرفية."
+    authored:
+      - type: terminological
+        text: "شَخْصٌ مِهْنِيٌّ يَتَوَلَّى مَسْؤُولِيَّةَ تَشْغِيلِ وَالرَّقَابَةِ عَلَى آلَاتِ الرَّفْعِ الثَّقِيلَةِ لِنَقْلِ الْأَحْمَالِ وَتَحْمِيلِهَا."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-10199448-n", definition_index: 0, text: "شَخْصٌ مِهْنِيٌّ يَتَوَلَّى مَسْؤُولِيَّةَ تَشْغِيلِ وَالرَّقَابَةِ عَلَى آلَاتِ الرَّفْعِ الثَّقِيلَةِ لِنَقْلِ الْأَحْمَالِ وَتَحْمِيلِهَا."}
+  examples:
+    per_lemma:
+      - lemma: "مُشَغِّلُ رَافِعَةٍ"
+        examples:
+          - text: "يَتَوَاصَلُ مُشَغِّلُ الرَّافِعَةِ مَعَ الْعُمَّالِ فِي الْأَرْضِ عَبْرَ أَجْهِزَةِ اللَّاسِلْكِيِّ."
+            type: usage
+      - lemma: "سَائِقُ رَافِعَةٍ"
+        examples:
+          - text: "أَعْلَنَتِ الشَّرِكَةُ عَنْ حَاجَتِهَا لِتَوْظِيفِ سَائِقِ رَافِعَةٍ بَرْجِيَّةٍ ذِي خِبْرَةٍ."
+            type: usage
+      - lemma: "مُشَغِّلُ مِرْفَاعٍ"
+        examples:
+          - text: "يَقُومُ مُشَغِّلُ الْمِرْفَاعِ فِي الْمَصْنَعِ بِرَفْعِ الْقَطَعِ الْمَعْدَنِيَّةِ الْكَبِيرَةِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يَتَوَاصَلُ مُشَغِّلُ الرَّافِعَةِ مَعَ الْعُمَّالِ فِي الْأَرْضِ عَبْرَ أَجْهِزَةِ اللَّاسِلْكِيِّ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُشَغِّلُ رَافِعَةٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مشغل"
+          root: "شغل"
+          maqayis_quote: "«الشِّينُ وَالْغَيْنُ وَاللَّامُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خِلَافِ الْفَرَاغِ»"
+        - word: "رافعة"
+          root: "رفع"
+          maqayis_quote: "«الرَّاءُ وَالْفَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى خِلَافِ الْوَضْعِ»"
+    - lemma: "سَائِقُ رَافِعَةٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "سائق"
+          root: "سوق"
+          maqayis_quote: "«السِّينُ وَالْوَاوُ وَالْقَافُ أَصْلٌ وَاحِدٌ، وَهُوَ حَدْوُ الشَّيْءِ»"
+        - word: "رافعة"
+          root: "رفع"
+          maqayis_quote: "«الرَّاءُ وَالْفَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى خِلَافِ الْوَضْعِ»"
+    - lemma: "عَامِلُ رَافِعَةٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "عامل"
+          root: "عمل"
+          maqayis_quote: "«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ حَرَاكُ كُلِّ شَيْءٍ»"
+        - word: "رافعة"
+          root: "رفع"
+          maqayis_quote: "«الرَّاءُ وَالْفَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى خِلَافِ الْوَضْعِ»"
+    - lemma: "مُشَغِّلُ مِرْفَاعٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مشغل"
+          root: "شغل"
+          maqayis_quote: "«الشِّينُ وَالْغَيْنُ وَاللَّامُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خِلَافِ الْفَرَاغِ»"
+        - word: "مرفاع"
+          root: "رفع"
+          maqayis_quote: "«الرَّاءُ وَالْفَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى خِلَافِ الْوَضْعِ»"
+  per_sense:
+    - lemma: "مُشَغِّلُ رَافِعَةٍ"
+      sense_id: "{auto}"
+      nuance: "المصطلح الرسمي والتقني الأكثر شيوعاً في المعاجم المتخصصة."
+      mwe: true
+    - lemma: "سَائِقُ رَافِعَةٍ"
+      sense_id: "{auto}"
+      nuance: "يُركز على فعل القيادة والتحكم في حركة الرافعة، ويشيع في قطاع البناء."
+      mwe: true
+    - lemma: "عَامِلُ رَافِعَةٍ"
+      sense_id: "{auto}"
+      nuance: "تسمية وظيفية عامة تصف العامل المسؤول عن الآلة."
+      mwe: true
+    - lemma: "مُشَغِّلُ مِرْفَاعٍ"
+      sense_id: "{auto}"
+      nuance: "أكثر دقة لوصف مشغلي آلات الرفع الصناعية (hoists) الأقل حجماً من الروافع البرجية."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-10199448-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-10199448-n"
+        score: 0.9

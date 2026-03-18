@@ -1,0 +1,227 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة (رغوة شوائب) عبارة وصفية حرة وليست مصطلحا مسكوكا مستقرا في المعاجم."
+    observations: "مفهوم المجموعة يدل على الطبقة الرقيقة التي تعلو السائل سواء أكانت رغوة أو شوائب أو نباتات. العربية غنية بالمفردات التي تعبر عن هذا المفهوم كـ (زبد) و(طفاوة) و(غثاء)."
+  blind_candidates:
+    - lemma: "طُفَاوَة"
+      generation_method: ishtiqaq
+      justification: "مشتقة من طفا يطفو، وهي ما يطفو على وجه السائل."
+    - lemma: "غُثَاء"
+      generation_method: majaz
+      justification: "استعارة من غثاء السيل وهو ما يطفو عليه من حطام ونبات."
+    - lemma: "كُشَاطَة"
+      generation_method: ishtiqaq
+      justification: "ما يكشط عن وجه السائل."
+    - lemma: "طُحْلُب"
+      generation_method: majaz
+      justification: "للتعبير عن التجمع النباتي الذي يطفو كطبقة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "زَبَد"
+      confirm:
+        - text: "«زَبَدُ الشَّيْءِ: طُفاوته وقَذاه»"
+          source: "المعجم الكبير"
+        - text: "«الرغوة من الماء والبحر والبعير واللبن وغيرها»"
+          source: "المعجم الوسيط"
+    - lemma: "رغوة شوائب"
+      evidence_status: no_material_found
+    - lemma: "طُفَاوَة"
+      confirm:
+        - text: "«وما طَفا من زَبَدِ القِدْرِ»"
+          source: "القاموس المحيط"
+    - lemma: "غُثَاء"
+      confirm:
+        - text: "«ما هاج من الزبَد والنبات»"
+          source: "مفردات القرآن للفراهي"
+        - text: "«طبقة رقيقة تطفو فوق السائل»"
+          source: "المعجم الطبي الموحد"
+    - lemma: "كُشَاطَة"
+      evidence_status: no_material_found
+    - lemma: "طُحْلُب"
+      evidence_status: no_material_found
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "زَبَد"
+      decision: confirmed
+      decision_reason: "كلمة فصيحة ومستقرة للتعبير عن الرغوة والشوائب التي تعلو السوائل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "زَبَد"
+    - lemma: "رغوة شوائب"
+      decision: removed
+      decision_reason: "تعبير وصفي حر غير مسكوك، والأفضل الاكتفاء بالمفردات المعجمية الدقيقة."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "طُفَاوَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح دقيق يعبر عن كل ما طفا على وجه السائل من شوائب أو غيرها."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "طُفَاوَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-04164764-n"
+    - lemma: "غُثَاء"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مناسبة جدا لتمثيل الشوائب والنباتات المتجمعة التي تطفو كطبقة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "غُثَاء"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-04164764-n"
+    - lemma: "كُشَاطَة"
+      source: stage1
+      decision: removed
+      decision_reason: "لا يوجد دليل معجمي مباشر يربطها بهذا المعنى."
+    - lemma: "طُحْلُب"
+      source: stage1
+      decision: removed
+      decision_reason: "أخص من المطلوب."
+
+stage4_content:
+  definition:
+    current: "طبقة من الشوائب أو النباتات التي يمكن أن تتشكل على سطح السائل"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يحتوي على ترجمة حرفية (التي يمكن أن تتشكل)، والأفضل صياغته بأسلوب عربي أمتن."
+    authored:
+      - type: terminological
+        text: "طَبَقَةٌ رَقِيقَةٌ مِنَ الشَّوَائِبِ أَوِ النَّبَاتَاتِ تَعْلُو سَطْحَ السَّائِلِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-04164764-n"
+          definition_index: 0
+          text: "طَبَقَةٌ رَقِيقَةٌ مِنَ الشَّوَائِبِ أَوِ النَّبَاتَاتِ تَعْلُو سَطْحَ السَّائِلِ."
+  examples:
+    per_lemma:
+      - lemma: "زَبَد"
+        examples:
+          - text: "عَلَا الزَّبَدُ وَجْهَ المَاءِ لَمَّا اشْتَدَّ غَلَيَانُهُ."
+            type: usage
+      - lemma: "طُفَاوَة"
+        examples:
+          - text: "أَزَالَ الطَّبَّاخُ طُفَاوَةَ القِدْرِ بِالمِلْعَقَةِ."
+            type: usage
+      - lemma: "غُثَاء"
+        examples:
+          - text: "غَطَّى غُثَاءُ السَّيْلِ وَجْهَ البُحَيْرَةِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "عَلَا الزَّبَدُ وَجْهَ المَاءِ لَمَّا اشْتَدَّ غَلَيَانُهُ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "أَزَالَ الطَّبَّاخُ طُفَاوَةَ القِدْرِ بِالمِلْعَقَةِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "غَطَّى غُثَاءُ السَّيْلِ وَجْهَ البُحَيْرَةِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "زَبَد"
+      entry_id: "{auto}"
+      root: "زبد"
+      maqayis_quote: "«الزَّاءُ وَالْبَاءُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَوَلُّدِ شَيْءٍ عَنْ شَيْءٍ. مِنْ ذَلِكَ زَبَدُ الْمَاءِ وَغَيْرُهُ.»"
+    - lemma: "طُفَاوَة"
+      entry_id: "{auto}"
+      root: "طفو"
+      maqayis_quote: "«الطَّاءُ وَالْفَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ، وَهُوَ يَدُلُّ عَلَى الشَّيْءِ الْخَفِيفِ يَعْلُو الشَّيْءَ.»"
+    - lemma: "غُثَاء"
+      entry_id: "{auto}"
+      root: "غثي"
+      maqayis_quote: "«الْغَيْنُ وَالثَّاءُ وَالْحَرْفُ الْمُعْتَلُّ كَلِمَةٌ تَدُلُّ عَلَى ارْتِفَاعِ شَيْءٍ دَنِيٍّ فَوْقَ شَيْءٍ.»"
+  per_sense:
+    - lemma: "زَبَد"
+      sense_id: "{auto}"
+      nuance: "تفيد مطلق الرغوة والشوائب التي يفرزها السائل."
+      mwe: false
+    - lemma: "طُفَاوَة"
+      sense_id: "{auto}"
+      nuance: "تؤكد على صفة الطفو والعلو على سطح السائل."
+      mwe: false
+    - lemma: "غُثَاء"
+      sense_id: "{auto}"
+      nuance: "تميل للتعبير عن الشوائب النباتية والحطام الذي يتجمع فوق الماء."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"زبد","maqayis":"«الزَّاءُ وَالْبَاءُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَوَلُّدِ شَيْءٍ عَنْ شَيْءٍ. مِنْ ذَلِكَ زَبَدُ الْمَاءِ وَغَيْرُهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"طفو","maqayis":"«الطَّاءُ وَالْفَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ، وَهُوَ يَدُلُّ عَلَى الشَّيْءِ الْخَفِيفِ يَعْلُو الشَّيْءَ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"غثي","maqayis":"«الْغَيْنُ وَالثَّاءُ وَالْحَرْفُ الْمُعْتَلُّ كَلِمَةٌ تَدُلُّ عَلَى ارْتِفَاعِ شَيْءٍ دَنِيٍّ فَوْقَ شَيْءٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تفيد مطلق الرغوة والشوائب التي يفرزها السائل.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تؤكد على صفة الطفو والعلو على سطح السائل.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تميل للتعبير عن الشوائب النباتية والحطام الذي يتجمع فوق الماء.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-04164764-n"
+        key: note
+        value: '{"cultural_fit":"native"}'

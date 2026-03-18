@@ -1,0 +1,178 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "مبيض"
+      confirm:
+        - text: "«مُبيِّض: مركب أكسدة يتضمن عادة الكلور متحدا مع الكالسيوم أو الصوديوم» — المعجم الموحد لمصطلحات الهندسة المدنية (2012)"
+        - text: "«المبيِّض: مادّة مبيِّضة» — المورد الحديث (2008)"
+        - text: "«(المبيض) من يبيض الْجِدَار أَو النّحاس» — المعجم الوسيط"
+        - text: "«مُبَيِّض: من يجعل الشيء أبيض ومن يطلي الجدار أو الأواني النحاسية» — موسوعة السلطان قابوس لأسماء العرب"
+    - lemma: "عامل تبييض"
+      expands:
+        - text: "«عامل تبيض بصري — optical bleaching agent» — المعجم الموحد للمصطلحات المهنية والتقنية (1996)"
+        - text: "«قاصِر الألوان — bleaching agent» — المعجم الموحد لمصطلحات تقانات الأغذية (2004)"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "مسحوق القصر"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«مسحوق القَصْر: (كم) مسحوق كيماويّ أبيض يستخدم في إزالة الألوان أو تخفيفها من ألياف النَّسيج» — معجم اللغة العربية المعاصرة"
+      justification: "مصطلح كيميائي دقيق يطابق تعريف المجموعة تماماً ويعبر عن شكل المادة."
+    - lemma: "المقصرة"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«المُقَصِّرة: مادة كيميائية تُستخدم في التقصير» — المورد الحديث (2008)"
+      justification: "اسم آلة/مادة على وزن 'مفعلة' للتعبير عن المادة التي تقوم بفعل التقصير (التبييض) بأسلوب معجمي تراثي محدث."
+  knowledge_candidates:
+    - lemma: "قاصر الألوان"
+      justification: "تركيب إضافي تقني (ALECSO) يقابل bleaching agent بدقة في مجالات كيمياء الأغذية والمنسوجات."
+    - lemma: "مادة مبيضة"
+      justification: "تركيب وصفي شائع ومستعمل في المعاجم الحديثة (المورد) كمرادف لـ whitener."
+  generation_notes: "تم التركيز على الجذر (بيض) للجوانب اللونية، والجذر (قصر) للعملية الكيميائية التقليدية."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "مبيض"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي وشائع وموثق في المعاجم المتخصصة والحديثة."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "اللمة الأكثر شيوعاً وعمومية للمفهوم، وتستخدم للمادة والفاعل معاً."
+      example: "يستعمل المبيض في غسل الملابس لضمان بياضها وإزالة البقع."
+    - lemma: "عامل تبييض"
+      decision: confirmed
+      decision_reason: "ترجمة دقيقة لـ bleaching agent، مستقرة في المعاجم التقنية."
+      evidence_assessment:
+        case: "expands_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "صيغة تركيبية رسمية تركز على الدور الوظيفي (العامل) في العملية الكيميائية."
+      example: "تضيف شركات المنسوجات عامل تبييض قوياً للألياف قبل صباغتها."
+    - lemma: "مسحوق القصر"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح كيميائي محدد وموثق بدقة في معجم اللغة العربية المعاصرة."
+      step05_citation: "«مسحوق القَصْر: (كم) مسحوق كيماويّ أبيض يستخدم في إزالة الألوان» — معجم اللغة العربية المعاصرة"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يختص بالشكل المسحوقي للمادة، ويستخدم المصطلح التراثي (القصر) للدلالة على التبييض الكيميائي."
+      example: "يعد الكلور المكون الأساسي في معظم مساحيق القصر المنزلية."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مسحوق القصر"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-14803364-n"
+    - lemma: "المقصرة"
+      source: step05
+      decision: confirmed
+      decision_reason: "اسم آلة قياسي وموثق في المعاجم الحديثة للدلالة على مادة التبييض."
+      step05_citation: "«المُقَصِّرة: مادة كيميائية تُستخدم في التقصير» — المورد الحديث"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "صيغة اشتقاقية تراثية (اسم آلة) تعبر عن مادة التبييض، تضفي غنى معجمياً."
+      example: "كانت المُقَصِّرة قديماً تعتمد على أشعة الشمس والمواد الطبيعية قبل ظهور المبيضات الكيميائية."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "المقصرة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-14803364-n"
+    - lemma: "قاصر الألوان"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح تقني دقيق مستعمل في المعاجم الموحدة (ALECSO)."
+      step05_citation: "«قاصِر الألوان — bleaching agent» — المعجم الموحد لتقانات الأغذية"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "مصطلح تخصصي (تقني) يبرز مفعول المادة في إزالة الألوان (القصر)."
+      example: "يضاف قاصر الألوان إلى الطحين في بعض الصناعات ليجعله ناصع البياض."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "قاصر الألوان"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-14803364-n"
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "عامل يجعل الأشياء بيضاء أو عديمة اللون"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي ترجمة حرفية؛ الأفضل استخدام صياغة معجمية عربية تركز على طبيعة المادة ووظيفتها."
+  authored_definitions:
+    - type: terminological
+      text: "مادّة كيميائيّة تُستعمل لإزالة الألوان أو تبييض المنسوجات والأغذية وغيرها عبر الأكسدة أو الاختزال."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-14803364-n"
+        definition_index: 0
+        text: "مادّة كيميائيّة تُستعمل لإزالة الألوان أو تبييض المنسوجات والأغذية وغيرها."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عَامِل كِيمْيَائِيّ"
+    test_result: "correct"
+  actions: []
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "مبيض"
+      enrichment:
+        root: "ب-ي-ض"
+      examples:
+        - text: "يُستخدم المبيض الكلوري لتطهير المياه وتبييض الملابس."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "عامل تبييض"
+      enrichment:
+        root: "ب-ي-ض"
+      examples:
+        - text: "عامل التبييض البصري يزيد من نصاعة الأقمشة البيضاء."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "مسحوق القصر"
+      enrichment:
+        root: "ق-ص-ر"
+      examples:
+        - text: "يجب الحذر عند خلط مسحوق القصر مع المنظفات الأخرى لتجنب انبعاث غازات سامة."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "المقصرة"
+      enrichment:
+        root: "ق-ص-ر"
+      examples:
+        - text: "تعد المقصرة مادة حيوية في صناعة الورق للحصول على درجات بياض عالية."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "قاصر الألوان"
+      enrichment:
+        root: "ق-ص-ر"
+      examples:
+        - text: "قاصر الألوان مادة كيميائية تضاف لبعض الزيوت النباتية لتحسين مظهرها."
+          type: usage
+          source: "مؤلَّف"
+  cultural_fit:
+    assessment: native
+  actions: []

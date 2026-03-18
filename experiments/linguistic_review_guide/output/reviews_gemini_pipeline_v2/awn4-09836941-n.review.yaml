@@ -1,0 +1,201 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "المجموعة تحتوي على لمّة واحدة فقط وهي عبارة مركبة (MWE)، مع إمكانية وجود لمّات مفردة فصيحة."
+      - "العلاقة مع المجموعة العليا (hypernym) غير دقيقة دلالياً؛ فالمصاب بالربو هو 'شخص' أو 'مريض' وليس بالضرورة 'عامل' أو 'فاعل' بالمعنى المهني أو الإنجازي."
+    observations: "المفهوم يشير إلى حالة مرضية (Asthma) ولها اشتقاقات واضحة في العربية من الجذر (ربو). المصطلح الحالي 'مُصَاب بِالرَّبْو' صحيح وشائع، لكن يمكن إثراء المجموعة بمصطلحات معجمية ومصطلحات طبية حديثة."
+  blind_candidates:
+    - lemma: "مَرْبُوّ"
+      generation_method: ishtiqaq
+      justification: "اسم المفعول من الفعل (رَبَا) بمعنى أصابه الربو، وهو المصطلح المعجمي الأصيل لوصف الشخص."
+    - lemma: "رَبْوِيّ"
+      generation_method: ishtiqaq
+      justification: "اسم منسوب إلى (الرَّبْو)، يُستخدم في السياقات الطبية الحديثة لوصف المريض أو الحالة."
+    - lemma: "مَرِيضُ الرَّبْوِ"
+      generation_method: tarkib
+      justification: "تركيب إضافي مباشر وواضح الدلالة وشائع الاستعمال."
+    - lemma: "مَبْهُور"
+      generation_method: majaz
+      justification: "من (البُهْر) وهو انقطاع النفس أو ضيقه، ويُستخدم لوصف المصاب بالربو في المعاجم القديمة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُصَاب بِالرَّبْو"
+      confirm:
+        - text: "«ضَيّق النَّفس: مربو، مصاب بالربو»"
+          source: "تكملة المعاجم العربية (دوزي)"
+        - text: "«فرس مصاب بالربو» (في تعريف الصافر)"
+          source: "المورد الحديث"
+    - lemma: "مَرْبُوّ"
+      confirm:
+        - text: "«ربا الشخص: أصابه الرَّبْو (داء يصيب الرِّئة)... فهو رابٍ، والمفعول مَرْبُوّ»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«مَرْبُوّ: مُصابٌ بالرَّبْو [صِفةٌ لفَرَس]»"
+          source: "المورد الحديث"
+        - text: "«ضَيّق النَّفس: مربو»"
+          source: "تكملة المعاجم العربية (دوزي)"
+    - lemma: "رَبْوِيّ"
+      confirm:
+        - text: "«رَبْويّ: [في الانكليزية] Asthmatic»"
+          source: "المورد الحديث"
+        - text: "«نَوبَةٌ رَبْوِيَّة، الْتِهابُ القَصَباتِ الرَّبْوِيّ»"
+          source: "المعجم الطبي الموحد"
+    - lemma: "مَرِيضُ الرَّبْوِ"
+      confirm:
+        - text: "«(الرَّبْو) داءٌ نَوْبِيٌّ تضيق فيه شُعَيبات الرِّئة فيعسر التنفس... يُصاب المدخنون بالرَّبْو»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "مَبْهُور"
+      confirm:
+        - text: "«مَبْهُور: الذي انقطع نَفَسه من الإعياء»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+        - text: "«رَبَا الفَرَسُ... وأَخَذَهُ الرَّبْوُ: وَهُوَ الانْبِهَارُ»"
+          source: "تاج العروس"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مُصَاب بِالرَّبْو"
+      decision: confirmed
+      decision_reason: "المصطلح الأكثر شيوعاً ووضوحاً في الاستعمال المعاصر، وموثق في المعاجم الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُصَابٌ بِالرَّبْوِ"
+    - lemma: "مَرْبُوّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح معجمي أصيل يعبر عن المفهوم بكلمة واحدة، وهو اسم مفعول قياسي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَرْبُوّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09836941-n"}
+    - lemma: "رَبْوِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يُستخدم كاسم منسوب لوصف المريض في السياقات الطبية المعاصرة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "رَبْوِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09836941-n"}
+    - lemma: "مَرِيضُ الرَّبْوِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير إضافي شائع ودقيق طبياً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "مَرِيضُ الرَّبْوِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09836941-n"}
+    - lemma: "مَبْهُور"
+      source: stage1
+      decision: removed
+      decision_reason: "رغم صلته بضيق النفس، إلا أنه يشير غالباً إلى الإعياء الطارئ أو الانبهار العام، وليس بالضرورة لمرض الربو المزمن."
+
+stage4_content:
+  definition:
+    current: "شخص يعاني من مرض الربو"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي بسيط جداً، ويفضل إضافة الصفة المميزة للحالة (ضيق التنفس) ليكون تعريفاً جامعاً مانعاً."
+    authored:
+      - type: terminological
+        text: "شَخْصٌ مُصَابٌ بِدَاءٍ نَوْبِيٍّ يُسَمَّى الرَّبْو، يَتَّسِمُ بِتَشَنُّجِ الشُّعَيْبَاتِ الهَوَائِيَّةِ وَصُعُوبَةِ التَّنَفُّسِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-09836941-n", definition_index: 0, text: "شَخْصٌ مُصَابٌ بِدَاءٍ نَوْبِيٍّ يُسَمَّى الرَّبْو، يَتَّسِمُ بِتَشَنُّجِ الشُّعَيْبَاتِ الهَوَائِيَّةِ وَصُعُوبَةِ التَّنَفُّسِ."}
+  examples:
+    per_lemma:
+      - lemma: "مُصَابٌ بِالرَّبْوِ"
+        examples:
+          - text: "يَجِبُ عَلَى كُلِّ مُصَابٍ بِالرَّبْوِ حَمْلُ جِهَازِ الاسْتِنْشَاقِ مَعَهُ فِي كُلِّ حِينٍ."
+            type: usage
+      - lemma: "مَرْبُوّ"
+        examples:
+          - text: "نَصَحَ الأَطِبَّاءُ المَرْبُوَّ بِتَجَنُّبِ المَنَاطِقِ المُلَوَّثَةِ لِتَفَادِي النَّوَبَاتِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-09836941-n", text: "تَزْدَادُ مُعَانَاةُ المَرْبُوِّينَ فِي مَوَاسِمِ الغُبَارِ وَتَفَتُّحِ الأَزْهَارِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَرْبُوّ"
+      entry_id: "{auto}"
+      root: "ربو"
+      maqayis_quote: "«الرَّاءُ وَالْبَاءُ وَالْحَرْفُ الْمُعْتَلُّ... يَدُلُّ عَلَى أَصْلٍ وَاحِدٍ، وَهُوَ الزِّيَادَةُ وَالنَّمَاءُ وَالْعُلُوُّ... وَرَبَا: أَصَابَهُ الرَّبْوُ; وَالرَّبْوُ: عُلُوُّ النَّفَسِ»"
+    - lemma: "رَبْوِيّ"
+      entry_id: "{auto}"
+      root: "ربو"
+      maqayis_quote: "«الرَّاءُ وَالْبَاءُ وَالْحَرْفُ الْمُعْتَلُّ... يَدُلُّ عَلَى أَصْلٍ وَاحِدٍ، وَهُوَ الزِّيَادَةُ وَالنَّمَاءُ وَالْعُلُوُّ... وَرَبَا: أَصَابَهُ الرَّبْوُ; وَالرَّبْوُ: عُلُوُّ النَّفَسِ»"
+    - lemma: "مُرِيضُ الرَّبْوِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مريض"
+          root: "مرض"
+          maqayis_quote: "«المِيمُ وَالرَّاءُ وَالضَّادُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خِلَافِ الصِّحَّةِ»"
+        - word: "الربو"
+          root: "ربو"
+          maqayis_quote: "«الرَّاءُ وَالْبَاءُ وَالْحَرْفُ الْمُعْتَلُّ... يَدُلُّ عَلَى أَصْلٍ وَاحِدٍ، وَهُوَ الزِّيَادَةُ وَالنَّمَاءُ وَالْعُلُوُّ... وَرَبَا: أَصَابَهُ الرَّبْوُ; وَالرَّبْوُ: عُلُوُّ النَّفَسِ»"
+  per_sense:
+    - lemma: "مُصَابٌ بِالرَّبْوِ"
+      sense_id: "{auto}"
+      nuance: "التعبير الوصفي الشائع والأكثر مباشرة في اللغة المعاصرة."
+      mwe: true
+    - lemma: "مَرْبُوّ"
+      sense_id: "{auto}"
+      nuance: "المصطلح المعجمي الأصيل المشتق من فعل الإصابة بالمرض (رَبَا)."
+      mwe: false
+    - lemma: "رَبْوِيّ"
+      sense_id: "{auto}"
+      nuance: "يُستخدم كاسم فاعل/صفة مشبهة في السياق الطبي الحديث."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ربو","maqayis":"«الرَّاءُ وَالْبَاءُ وَالْحَرْفُ الْمُعْتَلُّ... يَدُلُّ عَلَى أَصْلٍ وَاحِدٍ، وَهُوَ الزِّيَادَةُ وَالنَّمَاءُ وَالْعُلُوُّ... وَرَبَا: أَصَابَهُ الرَّبْوُ; وَالرَّبْوُ: عُلُوُّ النَّفَسِ»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح المعجمي الأصيل المشتق من فعل الإصابة بالمرض (رَبَا).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-09836941-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-09836941-n"
+        score: 0.95

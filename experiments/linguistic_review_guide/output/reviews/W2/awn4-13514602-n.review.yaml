@@ -1,0 +1,200 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "خلو اللمة الموجودة من التشكيل."
+    observations: "المفهوم يعبر عن عملية الانتقال البيولوجي للصفات، والمصطلح المستقر هو 'وراثة'، ويمكن التعبير عن العملية بـ 'توارث' أو 'انتقال وراثي'."
+  blind_candidates:
+    - lemma: "وِرَاثَة"
+      generation_method: ishtiqaq
+      justification: "مصدر يدل على ثبوت الانتقال، وهو المصطلح العلمي المعتمد."
+    - lemma: "تَوَارُث"
+      generation_method: ishtiqaq
+      justification: "مصدر على وزن تفاعل يدل على المشاركة والاستمرارية في الانتقال عبر الأجيال."
+    - lemma: "اِنْتِقَالٌ وِرَاثِيّ"
+      generation_method: tarkib
+      justification: "مركب وصفي يشرح الآلية البيولوجية بشكل دقيق."
+    - lemma: "اِنْتِقَالٌ جِينِيّ"
+      generation_method: tarkib
+      justification: "تعبير يركز على الوحدة البيولوجية (الجين) المنتقلة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "وِرَاثَة"
+      confirm:
+        - text: "«(علم الوراثة): العلم الذى يبحث فى انتقال صفات الكائن الحىّ من جيلٍ إلى آخر, وتفسير الظواهر المتعلقة بطريقة هذا الانتقال»"
+          source: "المعجم الوسيط"
+        - text: "«انتقال القدرة على إنتاج خصائص أو صفات مطابقة من جيل إلى آخر.»"
+          source: "المعجم الموحد لمصطلحات علم الوراثة"
+    - lemma: "تَوَارُث"
+      confirm:
+        - text: "«وراثة، توارُث» - translation_en: inheritance"
+          source: "المعجم الموحد لمصطلحات علم الوراثة"
+    - lemma: "اِنْتِقَالٌ وِرَاثِيّ"
+      confirm:
+        - text: "«انْتِقالٌ وِراثِيّ» - translation_en: hereditary transmission"
+          source: "المعجم الطبي الموحد"
+    - lemma: "اِنْتِقَالٌ جِينِيّ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "وِرَاثَة"
+      decision: confirmed
+      decision_reason: "المصطلح العلمي واللغوي الأساسي المعتمد للتعبير عن المفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "وِرَاثَة"
+
+    - lemma: "تَوَارُث"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح دقيق يعبر عن استمرارية وتتابع انتقال الصفات عبر الأجيال، ومثبت معجمياً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَوَارُث", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "اِنْتِقَالٌ وِرَاثِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مركب وصفي دقيق ومثبت في المعاجم الطبية كمقابل لـ hereditary transmission، ويصف العملية المذكورة في التعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "اِنْتِقَالٌ وِرَاثِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "اِنْتِقَالٌ جِينِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "بالرغم من صحته كمركب وصفي، إلا أن 'انتقال وراثي' أعم وأشمل ويطابق المفهوم بشكل أفضل، ولم تثبت له أدلة كافية كمرادف مباشر للاسم المجرد."
+
+stage4_content:
+  definition:
+    current: "العملية البيولوجية التي تنتقل بها العوامل الوراثية من جيل إلى جيل"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق وواضح ويطابق المعنى البيولوجي للمفهوم في المعاجم الحديثة."
+  examples:
+    per_lemma:
+      - lemma: "وِرَاثَة"
+        examples:
+          - text: "تعتمد وراثة الصفات في النباتات على القوانين المندلية."
+            type: usage
+      - lemma: "تَوَارُث"
+        examples:
+          - text: "درس العلماء توارث الخصائص المقاومة للأمراض في هذه السلالة."
+            type: usage
+      - lemma: "اِنْتِقَالٌ وِرَاثِيّ"
+        examples:
+          - text: "يعتبر الانتقال الوراثي للطفرات الجينية سبباً في ظهور أمراض نادرة."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تعتمد وراثة الصفات في النباتات على القوانين المندلية."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "درس العلماء توارث الخصائص المقاومة للأمراض في هذه السلالة."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يعتبر الانتقال الوراثي للطفرات الجينية سبباً في ظهور أمراض نادرة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "وِرَاثَة"
+      entry_id: "{auto}"
+      root: "ورث"
+      maqayis_quote: "«(وَرَثَ) الْوَاوُ وَالرَّاءُ وَالثَّاءُ: كَلِمَةٌ وَاحِدَةٌ، هِيَ الْوِرْثُ. وَالْمِيرَاثُ أَصْلُهُ الْوَاوُ.»"
+    - lemma: "تَوَارُث"
+      entry_id: "{auto}"
+      root: "ورث"
+      maqayis_quote: "«(وَرَثَ) الْوَاوُ وَالرَّاءُ وَالثَّاءُ: كَلِمَةٌ وَاحِدَةٌ، هِيَ الْوِرْثُ. وَالْمِيرَاثُ أَصْلُهُ الْوَاوُ.»"
+    - lemma: "اِنْتِقَالٌ وِرَاثِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "انتقال"
+          root: "نقل"
+          maqayis_quote: "«(نَقَلَ) النُّونُ وَالْقَافُ وَاللَّامُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَحْوِيلِ شَيْءٍ مِنْ مَكَانٍ إِلَى مَكَانٍ، ثُمَّ يُفَرَّعُ ذَلِكَ.»"
+        - word: "وراثي"
+          root: "ورث"
+          maqayis_quote: "«(وَرَثَ) الْوَاوُ وَالرَّاءُ وَالثَّاءُ: كَلِمَةٌ وَاحِدَةٌ، هِيَ الْوِرْثُ.»"
+
+  per_sense:
+    - lemma: "وِرَاثَة"
+      sense_id: "{auto}"
+      nuance: "المصطلح الأساسي والشائع للعملية البيولوجية بكاملها."
+      mwe: false
+    - lemma: "تَوَارُث"
+      sense_id: "{auto}"
+      nuance: "يركز على استمرارية وتتابع انتقال الصفات عبر أجيال متعددة."
+      mwe: false
+    - lemma: "اِنْتِقَالٌ وِرَاثِيّ"
+      sense_id: "{auto}"
+      nuance: "تعبير مركب يصف آلية عبور العوامل البيولوجية (الحدث نفسه)."
+      mwe: true
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ورث","maqayis":"«(وَرَثَ) الْوَاوُ وَالرَّاءُ وَالثَّاءُ: كَلِمَةٌ وَاحِدَةٌ، هِيَ الْوِرْثُ. وَالْمِيرَاثُ أَصْلُهُ الْوَاوُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ورث","maqayis":"«(وَرَثَ) الْوَاوُ وَالرَّاءُ وَالثَّاءُ: كَلِمَةٌ وَاحِدَةٌ، هِيَ الْوِرْثُ. وَالْمِيرَاثُ أَصْلُهُ الْوَاوُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"انتقال","root":"نقل","maqayis":"«(نَقَلَ) النُّونُ وَالْقَافُ وَاللَّامُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَحْوِيلِ شَيْءٍ مِنْ مَكَانٍ إِلَى مَكَانٍ، ثُمَّ يُفَرَّعُ ذَلِكَ.»"},{"word":"وراثي","root":"ورث","maqayis":"«(وَرَثَ) الْوَاوُ وَالرَّاءُ وَالثَّاءُ: كَلِمَةٌ وَاحِدَةٌ، هِيَ الْوِرْثُ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الأساسي والشائع للعملية البيولوجية بكاملها.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على استمرارية وتتابع انتقال الصفات عبر أجيال متعددة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير مركب يصف آلية عبور العوامل البيولوجية (الحدث نفسه).","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

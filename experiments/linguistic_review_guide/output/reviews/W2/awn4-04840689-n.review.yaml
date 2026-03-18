@@ -1,0 +1,292 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي ترجمة حرفية ركيكة (نقص في الكرم) و(التفريط في المال)، ولا يتسق مع الصياغة المعجمية العربية."
+      - "اللمّات تفتقر إلى التشكيل الكامل."
+    observations: "تتعدد في العربية الألفاظ المعبرة عن الامتناع عن الإنفاق ولكل منها فارق دقيق؛ فالبخل هو الأصل، والشح يضيف معنى الحرص الشديد، والتقتير يضيف معنى التضييق في النفقة على العيال، والإمساك هو المنع العام."
+  blind_candidates:
+    - lemma: "شُحّ"
+      generation_method: ishtiqaq
+      justification: "مشتق من الجذر (شحح) للدلالة على البخل مع الحرص الشديد."
+    - lemma: "إِمْسَاك"
+      generation_method: ishtiqaq
+      justification: "مشتق من الجذر (مسك) بمعنى الامتناع عن بذل المال أو الخير."
+    - lemma: "ضَنّ"
+      generation_method: ishtiqaq
+      justification: "مشتق من الجذر (ضنن) بمعنى البخل بالشيء النفيس والاحتفاظ به."
+    - lemma: "إِقْتَار"
+      generation_method: ishtiqaq
+      justification: "مشتق من الجذر (قتر) بمعنى التضييق في النفقة وعدم الإسراف فيها."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "بخل"
+      confirm:
+        - text: "البُخْلُ والبُخُولُ، بضمِهِما، وكجَبَلٍ ونَجْمٍ وعُنُقٍ: ضِدُّ الكَرَمِ."
+          source: "القاموس المحيط"
+        - text: "البخل: إمساك المقتنيات عما لا يحل حبسها عنه وضده الجود."
+          source: "التوقيف على مهمات التعاريف"
+    - lemma: "تقتير"
+      confirm:
+        - text: "التقتير: تقليل النفقة، ويقابله الإسراف، وهما مذمومان."
+          source: "التوقيف على مهمات التعاريف"
+    - lemma: "شح"
+      confirm:
+        - text: "الشُّحُّ، مُثَلَّثَةً: البُخْلُ، والحِرْصُ."
+          source: "القاموس المحيط"
+        - text: "الشح: بخل مع حرص، وذلك فيما كان عادة."
+          source: "التوقيف على مهمات التعاريف"
+    - lemma: "إمساك"
+      confirm:
+        - text: "(الْإِمْسَاك) الْبُخْل يُقَال بفلان إمْسَاك"
+          source: "المعجم الوسيط"
+    - lemma: "ضن"
+      confirm:
+        - text: "الضِّنُّ والضِّنَّةُ والمَضَنِةُ، كلُّ ذلك من الإِمساكِ والبُخْل"
+          source: "كتاب العين"
+    - lemma: "إقتار"
+      confirm:
+        - text: "وَالْإِقْتَارُ: التَّضْيِيقُ. يُقَالُ: قَتَرَ الرَّجُلُ عَلَى أَهْلِهِ يَقْتُرُ، وَأَقْتَرَ وَقَتَّرَ."
+          source: "مقاييس اللغة"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "بخل"
+      decision: confirmed
+      decision_reason: "المصطلح الأساسي والمطابق تماماً للمفهوم، وهو الأصل في التعبير عن الامتناع عن الجود والإنفاق."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "بُخْل"
+    - lemma: "تقتير"
+      decision: confirmed
+      decision_reason: "مصطلح دقيق يعبر عن التضييق في النفقة وعدم التوسعة، وهو مرادف قوي للمفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَقْتِير"
+    - lemma: "شُحّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "أعمق دلالة من البخل حيث يضم البخل مع الحرص الشديد، وهو استخدام بليغ ومتواتر."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "شُحّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "إِمْسَاك"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ فصيح يعبر عن حبس المال والامتناع عن بذله."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "إِمْسَاك", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "ضَنّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف فصيح يعبر عن البخل بالشيء النفيس والتمسك به."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "ضَنّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "إِقْتَار"
+      source: stage1
+      decision: removed
+      decision_reason: "يحمل نفس دلالة (تقتير) الموجودة سلفاً، والأولى أوسع انتشاراً واستعمالاً، فلا حاجة للتكرار."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+
+stage4_content:
+  definition:
+    current: "نقص في الكرم؛ عدم رغبة عامة في التفريط في المال"
+    assessment:
+      decision: revise
+      reason: "ترجمة حرفية ركيكة (نقص في الكرم، التفريط في المال)، الأفضل صياغة تعريف دقيق بأسلوب المعاجم العربية."
+    authored:
+      - type: terminological
+        text: "الحِرْصُ الشَّدِيدُ عَلَى المَالِ والإِمْسَاكُ عَنْ إِنْفَاقِهِ فِي مَوَاضِعِهِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "الحِرْصُ الشَّدِيدُ عَلَى المَالِ والإِمْسَاكُ عَنْ إِنْفَاقِهِ فِي مَوَاضِعِهِ."}
+  examples:
+    per_lemma:
+      - lemma: "بُخْل"
+        examples:
+          - text: "عُرِفَ الرَّجُلُ بِبُخْلِهِ الشَّدِيدِ حَتَّى نَفَرَ مِنْهُ أَصْدِقَاؤُهُ."
+            type: usage
+      - lemma: "تَقْتِير"
+        examples:
+          - text: "يَعِيشُ فِي تَقْتِيرٍ رَغْمَ سَعَةِ ثَرْوَتِهِ."
+            type: usage
+      - lemma: "شُحّ"
+        examples:
+          - text: "وَمَنْ يُوقَ شُحَّ نَفْسِهِ فَأُولَئِكَ هُمُ الْمُفْلِحُونَ"
+            type: quran
+      - lemma: "إِمْسَاك"
+        examples:
+          - text: "بِفُلَانٍ إِمْسَاكٌ عَنِ النَّفَقَةِ فِيمَا يَنْفَعُ."
+            type: usage
+      - lemma: "ضَنّ"
+        examples:
+          - text: "يُعَابُ عَلَيْهِ الضَّنُّ بِمَالِهِ فِي أَوْقَاتِ الْأَزَمَاتِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "عُرِفَ الرَّجُلُ بِبُخْلِهِ الشَّدِيدِ حَتَّى نَفَرَ مِنْهُ أَصْدِقَاؤُهُ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يَعِيشُ فِي تَقْتِيرٍ رَغْمَ سَعَةِ ثَرْوَتِهِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "وَمَنْ يُوقَ شُحَّ نَفْسِهِ فَأُولَئِكَ هُمُ الْمُفْلِحُونَ"}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "بِفُلَانٍ إِمْسَاكٌ عَنِ النَّفَقَةِ فِيمَا يَنْفَعُ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يُعَابُ عَلَيْهِ الضَّنُّ بِمَالِهِ فِي أَوْقَاتِ الْأَزَمَاتِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "بُخْل"
+      entry_id: "{auto}"
+      root: "بخل"
+      maqayis_quote: "«الْبَاءُ وَالْخَاءُ وَاللَّامُ كَلِمَةٌ وَاحِدَةٌ، وَهِيَ: الْبُخْلُ وَالْبَخَلُ.»"
+    - lemma: "تَقْتِير"
+      entry_id: "{auto}"
+      root: "قتر"
+      maqayis_quote: "«الْقَافُ وَالتَّاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَجْمِيعٍ وَتَضْيِيقٍ... وَالْإِقْتَارُ: التَّضْيِيقُ.»"
+    - lemma: "شُحّ"
+      entry_id: "{auto}"
+      root: "شحح"
+      maqayis_quote: "«الشِّينُ وَالْحَاءُ، الْأَصْلُ فِيهِ الْمَنْعُ، ثُمَّ يَكُونُ مَنْعًا مَعَ حِرْصٍ. مِنْ ذَلِكَ الشُّحُّ، وَهُوَ الْبُخْلُ مَعَ حِرْصٍ.»"
+    - lemma: "إِمْسَاك"
+      entry_id: "{auto}"
+      root: "مسك"
+      maqayis_quote: "«الْمِيمُ وَالسِّينُ وَالْكَافُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى حَبْسِ الشَّيْءِ أَوْ تَحَبُّسِهِ. وَالْبَخِيلُ مُمْسِكٌ. وَالْإِمْسَاكُ: الْبُخْلُ»"
+    - lemma: "ضَنّ"
+      entry_id: "{auto}"
+      root: "ضنن"
+      maqayis_quote: "«الضَّادُ وَالنُّونُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى بُخْلٍ بِالشَّيْءِ. يُقَالُ: ضَنِنْتُ بِالشَّيْءِ أَضَنُّ بِهِ ضَنًّا وَضَنَانَةً.»"
+  per_sense:
+    - lemma: "بُخْل"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام والأصل للظاهرة، وهو الامتناع عن الجود."
+      mwe: false
+    - lemma: "تَقْتِير"
+      sense_id: "{auto}"
+      nuance: "يضيف معنى التضييق وتقليل النفقة حتى على النفس والعيال."
+      mwe: false
+    - lemma: "شُحّ"
+      sense_id: "{auto}"
+      nuance: "يضيف معنى الحرص الشديد والجشع مع البخل."
+      mwe: false
+    - lemma: "إِمْسَاك"
+      sense_id: "{auto}"
+      nuance: "يُركز على فعل حبس المال والامتناع عن إعطائه."
+      mwe: false
+    - lemma: "ضَنّ"
+      sense_id: "{auto}"
+      nuance: "يعبر عن البخل بالشيء لنفاسته وقيمته عند صاحبه."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"بخل","maqayis":"«الْبَاءُ وَالْخَاءُ وَاللَّامُ كَلِمَةٌ وَاحِدَةٌ، وَهِيَ: الْبُخْلُ وَالْبَخَلُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قتر","maqayis":"«الْقَافُ وَالتَّاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَجْمِيعٍ وَتَضْيِيقٍ... وَالْإِقْتَارُ: التَّضْيِيقُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"شحح","maqayis":"«الشِّينُ وَالْحَاءُ، الْأَصْلُ فِيهِ الْمَنْعُ، ثُمَّ يَكُونُ مَنْعًا مَعَ حِرْصٍ. مِنْ ذَلِكَ الشُّحُّ، وَهُوَ الْبُخْلُ مَعَ حِرْصٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"مسك","maqayis":"«الْمِيمُ وَالسِّينُ وَالْكَافُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى حَبْسِ الشَّيْءِ أَوْ تَحَبُّسِهِ. وَالْبَخِيلُ مُمْسِكٌ. وَالْإِمْسَاكُ: الْبُخْلُ»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ضنن","maqayis":"«الضَّادُ وَالنُّونُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى بُخْلٍ بِالشَّيْءِ. يُقَالُ: ضَنِنْتُ بِالشَّيْءِ أَضَنُّ بِهِ ضَنًّا وَضَنَانَةً.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العام والأصل للظاهرة، وهو الامتناع عن الجود.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يضيف معنى التضييق وتقليل النفقة حتى على النفس والعيال.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يضيف معنى الحرص الشديد والجشع مع البخل.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُركز على فعل حبس المال والامتناع عن إعطائه.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يعبر عن البخل بالشيء لنفاسته وقيمته عند صاحبه.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

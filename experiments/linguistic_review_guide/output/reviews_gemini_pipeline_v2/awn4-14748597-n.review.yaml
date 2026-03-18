@@ -1,0 +1,216 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات تفتقر إلى التشكيل الكامل اللازم للتمييز الصرفي."
+      - "التعريف الحالي مقتضب جداً ويحتاج إلى تحديد السياق (كيميائي/حيوي)."
+    observations: "المجموعة تشير إلى مفهوم 'المثبط' (inhibitor) وهو مادة كيميائية أو حيوية تعيق نشاطاً ما. اللمات الموجودة صحيحة لكنها تحتاج لضبط."
+  blind_candidates:
+    - lemma: "مُثَبِّط"
+      generation_method: ishtiqaq
+      justification: "اللفظ المعياري في الكيمياء والأحياء للتعبير عن مادة تعيق التفاعل أو النشاط."
+    - lemma: "مَانِع"
+      generation_method: ishtiqaq
+      justification: "لفظ عام وشائع الاستخدام في المجمعات التقنية (مانع تآكل، مانع صدأ)."
+    - lemma: "كَابِح"
+      generation_method: ishtiqaq
+      justification: "يُستخدم في سياق الأدوية والأنزيمات للتعبير عن كبح النشاط."
+    - lemma: "مُؤَخِّر"
+      generation_method: ishtiqaq
+      justification: "من 'أخر'، وهي ترجمة مباشرة لـ 'retard' الواردة في التعريف."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُثَبِّط"
+      confirm:
+        - text: "كل مادة تمنع أو توقف تفاعلا كيميائيا."
+          source: "المعجم الموحد لمصطلحات الكيمياء (1992)"
+        - text: "عامل يقلل أو يثبط النشاط الحركي."
+          source: "معجم المصطلحات الطبية (ج.2، 2003)"
+        - text: "الصّادّ؛ المثبِّط: عاملٌ يُبطّئ النشاط الكيميائي أو يعوقُهُ (ك)."
+          source: "المورد الحديث (2008)"
+    - lemma: "مَانِع"
+      confirm:
+        - text: "المانع أو المثبط، وهو عبارة عن مادة قادرة على التأثير على تفاعل... بحيث تبطئه، أو تعوقه أو تمنعه."
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة (1996)"
+        - text: "مَا يمْنَع من حُصُول الشَّيْء وَهُوَ خلاف الْمُقْتَضى."
+          source: "المعجم الوسيط"
+    - lemma: "كَابِح"
+      confirm:
+        - text: "inhibitory; inhibitor"
+          source: "المعجم الموحد لمصطلحات الطب البيطري (2010)"
+        - text: "مَانِع، كابِح، كابِت (Inhibitor)"
+          source: "المعجم الموحد لمصطلحات النفط (1999)"
+    - lemma: "مُؤَخِّر"
+      contradicts:
+        - text: "نِهَايَة الشَّيْء من الْخلف يُقَال مُؤخر السَّفِينَة ومؤخر الْبناء."
+          source: "المعجم الوسيط"
+          conflict: "المصطلح يشير إلى الموقع المكاني وليس الوظيفة الكيميائية."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مانع"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح وشائع الاستخدام في السياقات التقنية والكيميائية (مانع تآكل)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَانِع"
+    - lemma: "مثبط"
+      decision: confirmed
+      decision_reason: "هو المصطلح العلمي الأدق والأكثر شيوعاً في الكيمياء والطب (inhibitor)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُثَبِّط"
+    - lemma: "كَابِح"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف قوي وموثق في معاجم المصطلحات (الصيدلة، النفط، الطب البيطري) للتعبير عن المادة التي تكبح النشاط."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "كَابِح"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-14748597-n"
+
+stage4_content:
+  definition:
+    current: "مادة تؤخر أو توقف نشاطاً ما"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي عام جداً؛ يفضل إضافة صفة كيميائية أو حيوية وتوسيع النطاق ليشمل تقليل السرعة أو الإعاقة."
+    authored:
+      - type: terminological
+        text: "مادةٌ كيميائيَّةٌ أو حيويَّةٌ تُؤخِّرُ أو تُوقِفُ أو تُقلِّلُ من سُرعةِ نشاطٍ أو تفاعلٍ ما."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-14748597-n"
+          definition_index: 0
+          text: "مادةٌ كيميائيَّةٌ أو حيويَّةٌ تُؤخِّرُ أو تُوقِفُ أو تُقلِّلُ من سُرعةِ نشاطٍ أو تفاعلٍ ما."
+  examples:
+    per_lemma:
+      - lemma: "مُثَبِّط"
+        examples:
+          - text: "يُضافُ المُثَبِّطُ إلى مِحركِ السَّيارةِ لِمَنْعِ تَآكُلِ الأَجْزَاءِ المَعْدِنِيَّةِ."
+            type: usage
+      - lemma: "مَانِع"
+        examples:
+          - text: "اسْتَخْدَمَ الكِيمِيَائِيُّ مَانِعاً لِلتَّأَكْسُدِ لِحِفْظِ الزُّيُوتِ مِنَ التَّزَنُّخِ."
+            type: usage
+      - lemma: "كَابِح"
+        examples:
+          - text: "تَعْمَلُ بَعْضُ الأَدْوِيَةِ كَكَابِحٍ لِنَشَاطِ الأَنْزِيِمَاتِ الضَّارَّةِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يُضافُ المُثَبِّطُ إلى مِحركِ السَّيارةِ لِمَنْعِ تَآكُلِ الأَجْزَاءِ المَعْدِنِيَّةِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "اسْتَخْدَمَ الكِيمِيَائِيُّ مَانِعاً لِلتَّأَكْسُدِ لِحِفْظِ الزُّيُوتِ مِنَ التَّزَنُّخِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تَعْمَلُ بَعْضُ الأَدْوِيَةِ كَكَابِحٍ لِنَشَاطِ الأَنْزِيِمَاتِ الضَّارَّةِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُثَبِّط"
+      entry_id: "{auto}"
+      root: "ثبط"
+      maqayis_quote: "«الثاء والباء والطاء أصلٌ واحد، وهو الترّيث عن الشيء والقعود عنه.»"
+    - lemma: "مَانِع"
+      entry_id: "{auto}"
+      root: "منع"
+      maqayis_quote: "«الْمِيمُ وَالنُّونُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ هُوَ خِلَافُ الْإِعْطَاءِ.»"
+    - lemma: "كَابِح"
+      entry_id: "{auto}"
+      root: "كبح"
+      maqayis_quote: "«الْكَافُ وَالْبَاءُ وَالْحَاءُ كَلِمَةٌ. يُقَالُ: كَبَحْتُ الْفَرَسَ بِلِجَامِهِ أَكْبَحُهُ.»"
+  per_sense:
+    - lemma: "مُثَبِّط"
+      sense_id: "{auto}"
+      nuance: "المصطلح العلمي الأكثر دقة في السياقات الكيميائية والحيوية."
+      mwe: false
+    - lemma: "مَانِع"
+      sense_id: "{auto}"
+      nuance: "أكثر شيوعاً في السياقات الصناعية والتقنية العامة، وغالباً ما يدخل في أسماء المركبات."
+      mwe: false
+    - lemma: "كَابِح"
+      sense_id: "{auto}"
+      nuance: "يشير إلى المنع الفجائي أو القوي للنشاط، وغالباً ما يُستخدم في الصيدلة والطب."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ثبط","maqayis":"«الثاء والباء والطاء أصلٌ واحد، وهو الترّيث عن الشيء والقعود عنه.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"منع","maqayis":"«الْمِيمُ وَالنُّونُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ هُوَ خِلَافُ الْإِعْطَاءِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"كبح","maqayis":"«الْكَافُ وَالْبَاءُ وَالْحَاءُ كَلِمَةٌ. يُقَالُ: كَبَحْتُ الْفَرَسَ بِلِجَامِهِ أَكْبَحُهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العلمي الأكثر دقة في السياقات الكيميائية والحيوية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"أكثر شيوعاً في السياقات الصناعية والتقنية العامة، وغالباً ما يدخل في أسماء المركبات.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يشير إلى المنع الفجائي أو القوي للنشاط، وغالباً ما يُستخدم في الصيدلة والطب.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-14748597-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-14748597-n"
+        score: 0.95

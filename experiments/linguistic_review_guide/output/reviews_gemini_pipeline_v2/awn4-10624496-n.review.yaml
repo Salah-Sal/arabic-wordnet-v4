@@ -1,0 +1,179 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة (مُنْزَلِق) هي اسم فاعل صحيح، إلا أن الكلمة تُستخدم غالباً كصفة أو لوصف مواضع الانزلاق، ولا يوجد مصطلح وحيد مخصص لـ 'الشخص المنزلق' بل يعتمد على السياق."
+    observations: "المجموعة الترادفية تصف الشخص الذي يفقد احتكاكه بالسطح فينزلق. اسم الفاعل 'مُنْزَلِق' من الفعل الخماسي 'انزلق' واسم الفاعل 'زَالِق' من الثلاثي 'زلق' يؤديان المعنى بدقة قياساً على قواعد الصرف العربي."
+  blind_candidates:
+    - lemma: "مُنْزَلِق"
+      generation_method: ishtiqaq
+      justification: "اسم الفاعل من الفعل 'انزلق'، يدل على من وقع منه فعل الانزلاق."
+    - lemma: "مُتَزَحْلِق"
+      generation_method: ishtiqaq
+      justification: "اسم الفاعل من 'تزحلق'، ويستخدم لمن ينزلق على الجليد أو الأسطح الملساء."
+    - lemma: "زَلَّاق"
+      generation_method: ishtiqaq
+      justification: "صيغة مبالغة من 'زلق'، لمن يكثر منه الانزلاق."
+    - lemma: "زَالِق"
+      generation_method: ishtiqaq
+      justification: "اسم الفاعل من الفعل الثلاثي 'زَلِقَ'."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُنْزَلِق"
+      expands:
+        - text: "«انْزَلَقَ: زَلِقَ. ويُقَالُ: زَلَقَه فانْزَلَق»"
+          source: "المعجم الكبير"
+          addition: "يؤكد أن انزلق بمعنى زلق، ومُنْزَلِق هو من يقوم بهذا الفعل."
+    - lemma: "زَالِق"
+      expands:
+        - text: "«زَلِقَتِ الرِّجْلُ: لَمْ تَثْبُت في مكانها. ويقال: زَلِق فلانٌ»"
+          source: "المعجم الكبير"
+          addition: "يؤكد أن الفعل زلق يُسند للشخص، واسم الفاعل منه زالق."
+      contradicts:
+        - text: "«رُسْتَاقٌ كبيْرٌ مِنْ نواحى سِجِسْتَانَ»"
+          source: "المعجم الكبير"
+          conflict: "الكلمة قد ترد كاسم علم لمدينة، وهو استخدام بعيد عن المعنى المطلوب."
+    - lemma: "مُتَزَحْلِق"
+      contradicts:
+        - text: "«التَّزَحْلُقُ على الجليدِ: نَوْعٌ من الرياضَةِ يُمارَسُ بالتزلُّجِ»"
+          source: "المعجم الكبير"
+          conflict: "يدل على فعل إرادي (رياضة) وليس انزلاقاً عفوياً بسبب فقدان الاحتكاك."
+    - lemma: "زَلَّاق"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مُنْزَلِق"
+      decision: confirmed
+      decision_reason: "اسم فاعل صحيح من الفعل 'انزلق'، ويعبر بدقة عن الشخص الذي تنزلق قدمه عفوياً."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُنْزَلِق"
+    - lemma: "زَالِق"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اسم فاعل من الفعل 'زلق'، وهو صحيح فصيح يعبر عن من زلّت قدمه وفقد الاحتكاك."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "زَالِق"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "مُتَزَحْلِق"
+      source: stage1
+      decision: removed
+      decision_reason: "يشير إلى الانزلاق الإرادي كالتزلج، ولا يعبر عن فقدان الاحتكاك العفوي."
+    - lemma: "زَلَّاق"
+      source: stage1
+      decision: removed
+      decision_reason: "صيغة المبالغة تفيد التكرار، ولا تناسب مجرد شخص انزلق بالصدفة، كما تطلق عادة على المواضع الملساء."
+
+stage4_content:
+  definition:
+    current: "شخص ينزلق بسبب فقدان الاحتكاك"
+    assessment:
+      decision: revise
+      reason: "توضيح التعريف ليكون أكثر دقة لغوياً، بحيث يشير إلى زلل القدم أو اختلال التوازن."
+    authored:
+      - type: terminological
+        text: "مَن تَزِلُّ قَدَمُه أو يَخْتَلُّ تَوَازُنُه نَتِيجَةَ فِقْدَانِ الِاحْتِكَاكِ بِالسَّطْحِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "مَن تَزِلُّ قَدَمُه أو يَخْتَلُّ تَوَازُنُه نَتِيجَةَ فِقْدَانِ الِاحْتِكَاكِ بِالسَّطْحِ."
+  examples:
+    per_lemma:
+      - lemma: "مُنْزَلِق"
+        examples:
+          - text: "أُصِيبَ المُنْزَلِقُ بِرُضُوضٍ طَفِيفَةٍ بَعْدَ سُقُوطِهِ عَلَى الأَرْضِيَّةِ المُبَلَّلَةِ."
+            type: usage
+      - lemma: "زَالِق"
+        examples:
+          - text: "سَارَعَ المَارَّةُ لِمُسَاعَدَةِ الزَّالِقِ عَلَى طَبَقَةِ الجَلِيدِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "أُصِيبَ المُنْزَلِقُ بِرُضُوضٍ طَفِيفَةٍ بَعْدَ سُقُوطِهِ عَلَى الأَرْضِيَّةِ المُبَلَّلَةِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "سَارَعَ المَارَّةُ لِمُسَاعَدَةِ الزَّالِقِ عَلَى طَبَقَةِ الجَلِيدِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُنْزَلِق"
+      entry_id: "{auto}"
+      root: "زلق"
+      maqayis_quote: "«الزَّاءُ وَاللَّامُ وَالْقَافُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَزَلُّجِ الشَّيْءِ عَنْ مَقَامِهِ...»"
+    - lemma: "زَالِق"
+      entry_id: "{auto}"
+      root: "زلق"
+      maqayis_quote: "«الزَّاءُ وَاللَّامُ وَالْقَافُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَزَلُّجِ الشَّيْءِ عَنْ مَقَامِهِ...»"
+  per_sense:
+    - lemma: "مُنْزَلِق"
+      sense_id: "{auto}"
+      nuance: "اسم فاعل من الفعل الخماسي 'انزلق'، وهو اللفظ الأكثر شيوعاً في الاستعمال المعاصر لوصف الشخص الذي فقد توازنه."
+      mwe: false
+    - lemma: "زَالِق"
+      sense_id: "{auto}"
+      nuance: "اسم فاعل من الفعل الثلاثي 'زلق'، وهو فصيح يعبر عن نفس المعنى ولكنه أقل دوراناً في الاستعمال اليومي مقارنة بمنزلق."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"زلق","maqayis_quote":"«الزَّاءُ وَاللَّامُ وَالْقَافُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَزَلُّجِ الشَّيْءِ عَنْ مَقَامِهِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"زلق","maqayis_quote":"«الزَّاءُ وَاللَّامُ وَالْقَافُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَزَلُّجِ الشَّيْءِ عَنْ مَقَامِهِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اسم فاعل من الفعل الخماسي (انزلق)، وهو اللفظ الأكثر شيوعاً في الاستعمال المعاصر لوصف الشخص الذي فقد توازنه.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اسم فاعل من الفعل الثلاثي (زلق)، وهو فصيح يعبر عن نفس المعنى ولكنه أقل دوراناً في الاستعمال اليومي مقارنة بمنزلق.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

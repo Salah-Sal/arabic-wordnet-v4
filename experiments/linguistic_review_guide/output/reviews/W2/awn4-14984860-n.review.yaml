@@ -1,0 +1,233 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "خلو اللمات من التشكيل السليم."
+      - "غياب مصطلح (غاز عصبي) الشائع والمثبت معجمياً."
+      - "اللمة (عامل أعصاب) ترجمة حرفية لمصطلح (nerve agent) لكنها مستخدمة تقنياً في المجال العسكري، وهي تتوافق مع فرط المفهوم (عامل كيميائي)."
+    observations: "المفهوم يشير إلى الغازات السامة المؤثرة على الجهاز العصبي، والمصطلحات المتاحة تعكس التركيب الإضافي والوصفي الشائع في التعريب العسكري والطبي."
+  blind_candidates:
+    - lemma: "غَازٌ عَصَبِيّ"
+      generation_method: tarkib
+      justification: "تركيب وصفي يعبر بدقة عن الغاز المؤثر على الأعصاب."
+    - lemma: "غَازُ أَعْصَاب"
+      generation_method: tarkib
+      justification: "تركيب إضافي شائع الاستخدام كترجمة لمصطلح nerve gas."
+    - lemma: "سُمٌّ عَصَبِيّ"
+      generation_method: tarkib
+      justification: "تركيب وصفي للمادة السامة التي تستهدف الجهاز العصبي."
+    - lemma: "مُشِلُّ أَعْصَاب"
+      generation_method: tarkib
+      justification: "تركيب إضافي يركز على الأثر الوظيفي للغاز على الجهاز العصبي."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "غاز الأعصاب"
+      confirm:
+        - text: "«غاز الأعصاب» ترجمة nerve gas"
+          source: "المعجم الموحد لمصطلحات الكيمياء (1992)"
+        - text: "«غازُ الأَعْصاب» ترجمة nerve gas"
+          source: "المعجم الموحد لمصطلحات علم التشريح العياني (2015)"
+        - text: "«غازُ الأَعْصاب» ترجمة nerve gas"
+          source: "المعجم الطبي الموحد (2009)"
+    - lemma: "عامل أعصاب"
+      evidence_status: "no_material_found"
+    - lemma: "غَازٌ عَصَبِيّ"
+      confirm:
+        - text: "«الغاز العصبيّ: غاز حربي يؤثِّر في الجهاز العصبيّ.»"
+          source: "المورد الحديث (2008)"
+    - lemma: "غَازُ أَعْصَاب"
+      confirm:
+        - text: "«غازُ الأَعْصاب» ترجمة nerve gas"
+          source: "المعجم الطبي الموحد (2009)"
+    - lemma: "سُمٌّ عَصَبِيّ"
+      confirm:
+        - text: "«سُمٌّ عَصَبِيّ» ترجمة neurotoxin"
+          source: "المعجم الطبي الموحد (2009)"
+    - lemma: "مُشِلُّ أَعْصَاب"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "عامل أعصاب"
+      decision: confirmed
+      decision_reason: "مصطلح تقني مسكوك يستخدم في المجال العسكري والأمني كترجمة لـ (nerve agent)، وهو يتوافق مع فرط المفهوم (عامل كيميائي)."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عَامِل أَعْصَاب"
+    - lemma: "غاز الأعصاب"
+      decision: confirmed
+      decision_reason: "مصطلح معتمد في المعاجم العلمية (الطبية والكيميائية) ومستعمل بكثرة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "غَاز الأَعْصَاب"
+    - lemma: "غَازٌ عَصَبِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف دقيق ومثبت معجمياً في المورد الحديث، ويتميز بالتركيب الوصفي السليم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "غَاز عَصَبِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "غَازُ أَعْصَاب"
+      source: stage1
+      decision: removed
+      decision_reason: "يكفي وجود اللمة المعرفة المعجمية (غاز الأعصاب)."
+    - lemma: "سُمٌّ عَصَبِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "المفهوم هنا يختص بالغاز (gas) بينما السم العصبي أعم وقد يكون سائلاً أو صلباً أو زعيماً حيوانياً (neurotoxin)."
+    - lemma: "مُشِلُّ أَعْصَاب"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير وصفي غير مسكوك كمصطلح معجمي مستقل لهذا المفهوم بدقة."
+
+stage4_content:
+  definition:
+    current: "غاز سام يتم استنشاقه أو امتصاصه عبر الجلد وله آثار ضارة على الجهاز العصبي والتنفسي"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكن يمكن صياغته بأسلوب معجمي أدق يعكس كونه عاملاً كيميائياً للحروب."
+    authored:
+      - type: terminological
+        text: "غازٌ حَرْبِيٌّ سَامٌّ، يُسْتَنْشَقُ أو يُمْتَصُّ عَبْرَ الجِلْدِ، ويُؤَثِّرُ تَأْثِيراً ضَارّاً ومُدَمِّراً فِي الجِهَازَيْنِ العَصَبِيِّ والتَّنَفُّسِيِّ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "غازٌ حَرْبِيٌّ سَامٌّ، يُسْتَنْشَقُ أو يُمْتَصُّ عَبْرَ الجِلْدِ، ويُؤَثِّرُ تَأْثِيراً ضَارّاً ومُدَمِّراً فِي الجِهَازَيْنِ العَصَبِيِّ والتَّنَفُّسِيِّ."}
+  examples:
+    per_lemma:
+      - lemma: "عامل أعصاب"
+        examples:
+          - text: "حَظَرَتِ المُعَاهَدَاتُ الدَّوْلِيَّةُ اسْتِخْدَامَ أَيِّ عَامِلِ أَعْصَابٍ فِي النِّزَاعَاتِ المُسَلَّحَةِ."
+            type: usage
+      - lemma: "غاز الأعصاب"
+        examples:
+          - text: "يُعَدُّ غَازُ الأَعْصَابِ مِنْ أَخْطَرِ الأَسْلِحَةِ الكِيمْيَائِيَّةِ الَّتِي تَمَّ تَطْوِيرُهَا."
+            type: usage
+      - lemma: "غَازٌ عَصَبِيّ"
+        examples:
+          - text: "تَعَرَّضَتِ المِنْطَقَةُ لِهُجُومٍ بِغَازٍ عَصَبِيٍّ أَسْفَرَ عَنْ حَالَاتِ اخْتِنَاقٍ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يُعَدُّ غَازُ الأَعْصَابِ مِنْ أَخْطَرِ الأَسْلِحَةِ الكِيمْيَائِيَّةِ الَّتِي تَمَّ تَطْوِيرُهَا."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "حَظَرَتِ المُعَاهَدَاتُ الدَّوْلِيَّةُ اسْتِخْدَامَ أَيِّ عَامِلِ أَعْصَابٍ فِي النِّزَاعَاتِ المُسَلَّحَةِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تَعَرَّضَتِ المِنْطَقَةُ لِهُجُومٍ بِغَازٍ عَصَبِيٍّ أَسْفَرَ عَنْ حَالَاتِ اخْتِنَاقٍ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "عامل أعصاب"
+      entry_id: "{auto}"
+      roots:
+        - word: "عامل"
+          root: "عمل"
+          maqayis_quote: "«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامٌّ فِي كُلِّ فِعْلٍ يُفْعَلُ.»"
+        - word: "أعصاب"
+          root: "عصب"
+          maqayis_quote: "«الْعَيْنُ وَالصَّادُ وَالْبَاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى رَبْطِ شَيْءٍ بِشَيْءٍ، مُسْتَطِيلًا أَوْ مُسْتَدِيرًا.»"
+    - lemma: "غاز الأعصاب"
+      entry_id: "{auto}"
+      roots:
+        - word: "غاز"
+          root: "غزو"
+          maqayis_quote: "«الْغَيْنُ وَالزَّاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ صَحِيحَانِ، أَحَدُهُمَا طَلَبُ شَيْءٍ، وَالْآخَرُ فِي بَابِ اللِّقَاحِ.»"
+        - word: "الأعصاب"
+          root: "عصب"
+          maqayis_quote: "«الْعَيْنُ وَالصَّادُ وَالْبَاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى رَبْطِ شَيْءٍ بِشَيْءٍ، مُسْتَطِيلًا أَوْ مُسْتَدِيرًا.»"
+    - lemma: "غَازٌ عَصَبِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "غاز"
+          root: "غزو"
+          maqayis_quote: "«الْغَيْنُ وَالزَّاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ صَحِيحَانِ، أَحَدُهُمَا طَلَبُ شَيْءٍ، وَالْآخَرُ فِي بَابِ اللِّقَاحِ.»"
+        - word: "عصبي"
+          root: "عصب"
+          maqayis_quote: "«الْعَيْنُ وَالصَّادُ وَالْبَاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى رَبْطِ شَيْءٍ بِشَيْءٍ، مُسْتَطِيلًا أَوْ مُسْتَدِيرًا.»"
+  per_sense:
+    - lemma: "عامل أعصاب"
+      sense_id: "{auto}"
+      nuance: "مصطلح تقني وعسكري أكثر شمولاً ويطابق مصطلح (nerve agent)."
+      mwe: true
+    - lemma: "غاز الأعصاب"
+      sense_id: "{auto}"
+      nuance: "التسمية الأكثر شيوعاً في الإعلام والاستخدام العام للتعبير عن هذه المواد."
+      mwe: true
+    - lemma: "غَازٌ عَصَبِيّ"
+      sense_id: "{auto}"
+      nuance: "تنويعة وصفية للمصطلح، تشير إلى الغاز وتنسبه إلى تأثيره على الجهاز العصبي."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"عامل","root":"عمل","maqayis":"«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامٌّ فِي كُلِّ فِعْلٍ يُفْعَلُ.»"},{"word":"أعصاب","root":"عصب","maqayis":"«الْعَيْنُ وَالصَّادُ وَالْبَاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى رَبْطِ شَيْءٍ بِشَيْءٍ، مُسْتَطِيلًا أَوْ مُسْتَدِيرًا.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"غاز","root":"غزو","maqayis":"«الْغَيْنُ وَالزَّاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ صَحِيحَانِ، أَحَدُهُمَا طَلَبُ شَيْءٍ، وَالْآخَرُ فِي بَابِ اللِّقَاحِ.»"},{"word":"الأعصاب","root":"عصب","maqayis":"«الْعَيْنُ وَالصَّادُ وَالْبَاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى رَبْطِ شَيْءٍ بِشَيْءٍ، مُسْتَطِيلًا أَوْ مُسْتَدِيرًا.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"غاز","root":"غزو","maqayis":"«الْغَيْنُ وَالزَّاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ صَحِيحَانِ، أَحَدُهُمَا طَلَبُ شَيْءٍ، وَالْآخَرُ فِي بَابِ اللِّقَاحِ.»"},{"word":"عصبي","root":"عصب","maqayis":"«الْعَيْنُ وَالصَّادُ وَالْبَاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى رَبْطِ شَيْءٍ بِشَيْءٍ، مُسْتَطِيلًا أَوْ مُسْتَدِيرًا.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح تقني وعسكري أكثر شمولاً ويطابق مصطلح (nerve agent).","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"التسمية الأكثر شيوعاً في الإعلام والاستخدام العام للتعبير عن هذه المواد.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تنويعة وصفية للمصطلح، تشير إلى الغاز وتنسبه إلى تأثيره على الجهاز العصبي.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

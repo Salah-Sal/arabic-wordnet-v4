@@ -1,0 +1,84 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "مستخدم حاسوب"
+      evidence_status: "no_material_found"
+
+step05_lemma_generation:
+  evidence_candidates: []
+  knowledge_candidates:
+    - lemma: "مستعمل حاسوب"
+      justification: "توليد بالتركيب الإضافي من 'مستعمل' و 'حاسوب'، شائع في الترجمات والمصطلحات التقنية للإشارة إلى 'user'."
+    - lemma: "مستخدم حاسوب"
+      justification: "توليد بالتركيب الإضافي لمفردتي 'مستخدم' و 'حاسوب'، مألوف ومباشر لترجمة 'computer user'."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "مستخدم حاسوب"
+      decision: confirmed
+      decision_reason: "مصطلح تقني مقبول (مركب إضافي) شائع يعبر بوضوح عن المفهوم ولا يوجد له مقابل مفرد في العربية."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "المركب الأساسي المباشر والأكثر شيوعا للدلالة على الشخص المتعامل مع الحاسوب."
+      example: "يجب على كل مستخدم حاسوب أن يحمي بياناته بكلمة مرور قوية."
+    - lemma: "مستعمل حاسوب"
+      source: step05
+      decision: confirmed
+      decision_reason: "مرادف لـ 'مستخدم حاسوب' مقترن بـ 'مستعمل' كمركب إضافي، يشيع استخدامه في بعض الأدبيات التقنية والمصطلحات الموحدة (مثل معجم تقانة المعلومات)."
+      step05_citation: "«مستعمل: user» — المعجم الموحد لمصطلحات تقانة المعلومات"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "مرادف شائع لمستخدم الحاسوب، يكثر استعماله في السياقات التقنية."
+      example: "توفر الشركة دليلا إرشاديا لكل مستعمل حاسوب جديد."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مستعمل حاسوب"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09970753-n"
+  added_lemmas:
+    - lemma: "مستعمل حاسوب"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "create_entry + add_sense"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شخص يستخدم الحواسيب للعمل أو الترفيه أو التواصل"
+  assessment:
+    decision: retain
+    reason: "التعريف واضح ودقيق ويشمل الجوانب الأساسية لاستخدام الحاسوب المذكورة في المفهوم."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-09786620-n"
+    test_result: "correct"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "مستخدم حاسوب"
+      enrichment:
+        root: "خدم"
+      examples:
+        - text: "يجب على كل مستخدم حاسوب أن يحمي بياناته بكلمة مرور قوية."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "مستعمل حاسوب"
+      enrichment:
+        root: "عمل"
+      examples:
+        - text: "توفر الشركة دليلا إرشاديا لكل مستعمل حاسوب جديد."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

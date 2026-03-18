@@ -1,0 +1,119 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "شخص سيء"
+      evidence_status: "no_material_found"
+    - lemma: "شرير"
+      confirm:
+        - text: "«الكثيرُ الشَّرِّ»"
+          source: "المعجم الوسيط"
+        - text: "«رجلٌ شِرِّير مِثال فِسِّيق، أي كثير الشَّرِّ»"
+          source: "تاج اللغة وصِحاح العربية"
+
+step05_lemma_generation:
+  evidence_candidates: []
+  knowledge_candidates:
+    - lemma: "مُؤْذٍ"
+      justification: "اشتقاق: اسم فاعل من الفعل (آذى)، يدل على من يقوم بفعل الإيذاء، وهو يطابق تماماً تعريف المجموعة الترادفية (شخص يلحق الأذى بالآخرين)."
+    - lemma: "فَاعِل شَرّ"
+      justification: "تركيب إضافي: ترجمة مباشرة للمصطلح الإنجليزي (evildoer) وتعبر بدقة عن دلالة المجموعة."
+  generation_notes: "تم التركيز على الاشتقاق من مادة (أذي) لورودها في التعريف، والتركيب الإضافي المقابل للمفهوم الأجنبي."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "شخص سيء"
+      decision: removed
+      decision_reason: "تركيب وصفي حر (شخص + سيء) وليس مصطلحاً مسكوكاً."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تعبير عام غير مسكوك يفتقر للتخصيص المصطلحي."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "شرير"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح ومستقر في الاستعمال للتعبير عن الشخص الكثير الشر."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تدل على صفة المبالغة في السوء والشر كسمة متأصلة في الشخصية."
+      example: "تجنب مصاحبة الشرير كي لا يصيبك من أذاه."
+      actions: []
+
+    - lemma: "مُؤْذٍ"
+      source: step05
+      decision: confirmed
+      decision_reason: "اسم فاعل فصيح ومطرد، يطابق حرفياً معنى (من يلحق الأذى)."
+      step05_citation: "«المؤذي: من يلحق الأذى بالغير» — توليد ذاتي (اشتقاق)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تركز على الأثر الفعلي والضرر الواقع على الآخرين، بخلاف الشرير التي تركز على طبيعة الشخص."
+      example: "لا خير في صديق مؤذٍ يتلذذ بإيقاع الإخوة في الشقاق."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُؤْذٍ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09851208-n"
+
+  synset_flags:
+    definition_review_needed: false
+  added_lemmas:
+    - lemma: "مُؤْذٍ"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شخص يلحق الأذى بالآخرين"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وواضح ويطابق دلالة اللمات والأدلة المعجمية."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عَامِل، فَاعِل"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "شرير"
+        antonym_found: true
+        antonym: "خَيِّر"
+  verb_checks:
+    applicable: false
+  selectional_restrictions:
+    - lemma: "شرير"
+      constraint: "يطلق على العاقل (الإنسان) غالباً."
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "شرير"
+      enrichment:
+        root: "ش-ر-ر"
+      examples:
+        - text: "ابتعد عن الرجل الشرير الذي يسعى في الأرض فساداً."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "مُؤْذٍ"
+      enrichment:
+        root: "أ-ذ-ي"
+      examples:
+        - text: "طرد الناس ذلك الشخص المؤذي من مجلسهم اتقاء لشره."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

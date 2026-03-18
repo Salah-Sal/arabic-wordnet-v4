@@ -1,0 +1,170 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "طالب"
+      confirm:
+        - text: "«من يهم بتحصيل الشيء أو يلتمسه ويريده» — موسوعة السلطان قابوس لأسماء العرب"
+        - text: "«طالب الوظيفة أو المساعدة» — المورد الحديث (2008)"
+      expands:
+        - text: "«الذي يطلب العلم ويطلق عرفاً على التلميذ في مرحلتي التعليم الثانوية والعالية» — المعجم الوسيط"
+          addition: "المعنى المدرسي/الأكاديمي (Student) وهو الأغلب في الاستعمال"
+    - lemma: "متقدم"
+      confirm:
+        - text: "«متقدم للوظيفة» — مسرد المناخ والبيئة وإدارة النفايات الصلبة، المنظمة العربية للتربية والثقافة والعلوم (موقع ArabTerm)"
+      contradicts:
+        - text: "«المتقدم بالزمان: هو ما له تقدم زماني، كتقدم نوح على إبراهيم» — كتاب التعريفات للشريف الجرجاني"
+          conflict: "الدلالة الفلسفية/المنطقية للسبق والأولية تختلف عن دلالة طلب الوظيفة"
+      expands:
+        - text: "«المتقدم بالشرف: هو الراجح بالشرف على غيره» — كتاب التعريفات للشريف الجرجاني"
+          addition: "معاني الأفضلية والرفعة"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "مقدم طلب"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«مقدم الطلب: كيان يطلب أو يسعى إلى الاعتماد...» — مسرد المناخ والبيئة (ArabTerm)"
+      justification: "المقابل الدقيق والاصطلاحي لكلمة applicant في السياقات الرسمية والإدارية"
+    - lemma: "ملتمس"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«الملتمس: الطالب الشيء، والساعي من أجل تحقيقه» — موسوعة السلطان قابوس لأسماء العرب"
+      justification: "لفظ فصيح يعبر عن السعي والطلب، ويستخدم غالباً في سياق العرائض والالتماسات"
+  knowledge_candidates:
+    - lemma: "مرشح"
+      justification: "يستخدم في سياق التقدم لوظيفة أو منصب (candidate)، وهو مرادف تداولي للمتقدم في كثير من السياقات"
+    - lemma: "راغب"
+      justification: "يدل على الرغبة في الحصول على الشيء، ويستخدم في الإعلانات (مثل: الراغبين في التقدم للوظيفة) كآلية لغوية للتعبير عن مقدم الطلب"
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "طالب"
+      decision: "confirmed"
+      decision_reason: "أدلة مؤكدة للمعنى العام (الطلب) مع وجود معنى متخصص شائع"
+      evidence_assessment:
+        case: "expands"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يدل على مطلق الطلب، لكنه في العرف المعاصر انصرف غالباً لطلب العلم (طالب مدرسي/جامعي)"
+      example: "تجمّع مئات الطلاب أمام بوابة الشركة للتقديم على التدريب الصيفي."
+    - lemma: "متقدم"
+      decision: "confirmed"
+      decision_reason: "مصطلح معاصر مستقر لطلب الوظائف والمنح وإن غاب بمعناه هذا عن المعاجم القديمة"
+      evidence_assessment:
+        case: "mixed"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على فعل المبادرة والتقدم ( submission) للجهة المانحة"
+      example: "سيتم إجراء المقابلات الشخصية مع كل متقدم استوفى شروط الوظيفة."
+    - lemma: "مقدم طلب"
+      source: "step05"
+      decision: "confirmed"
+      decision_reason: "تعبير اصطلاحي دقيق وشائع جداً في المعاملات الرسمية"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تعبير وصفي إداري يحدد الشخص بصفته صاحب الطلب الرسمي"
+      example: "يجب على مقدم الطلب إرفاق نسخة من الهوية الوطنية."
+      actions:
+        - command: "create_entry"
+          params:
+            lemma: "مقدم طلب"
+            pos: "n"
+        - command: "add_sense"
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09630310-n"
+    - lemma: "ملتمس"
+      source: "step05"
+      decision: "confirmed"
+      decision_reason: "لفظ فصيح موثق في المعاجم يعبر بدقة عن السعي والطلب"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يوحي بالتواضع أو الرجاء في الطلب (الالتماس)"
+      example: "رفع الملتمس عريضة إلى الجهات المعنية يشرح فيها حاجته."
+      actions:
+        - command: "create_entry"
+          params:
+            lemma: "ملتمس"
+            pos: "n"
+        - command: "add_sense"
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09630310-n"
+    - lemma: "مرشح"
+      source: "step05"
+      decision: "confirmed"
+      decision_reason: "شائع في سياق التقدم للمناصب والوظائف (candidate)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يستخدم عندما يكون الطلب خاضعاً لعملية اختيار أو مفاضلة بين عدة أشخاص"
+      example: "تم اختيار أفضل ثلاثة مرشحين للمنصب الجديد."
+      actions:
+        - command: "create_entry"
+          params:
+            lemma: "مرشح"
+            pos: "n"
+        - command: "add_sense"
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09630310-n"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شخص يطلب أو يسعى للحصول على شيء مثل المساعدة أو الوظيفة أو القبول"
+  assessment:
+    decision: "retain"
+    reason: "التعريف الحالي دقيق وواضح ويغطي الجوانب الأساسية للمفهوم (المساعدة، الوظيفة، القبول)"
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عَامِل، فَاعِل"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "طالب"
+        antonym_found: true
+        antonym: "مطلوب"
+      - lemma: "متقدم"
+        antonym_found: false
+  actions: []
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "طالب"
+      enrichment:
+        root: "ط-ل-ب"
+      examples:
+        - text: "«طالب الوظيفة أو المساعدة»"
+          type: "usage"
+          source: "المورد الحديث (2008)"
+    - lemma: "متقدم"
+      enrichment:
+        root: "ق-د-م"
+      examples:
+        - text: "«يجب أن يكون المتقدم مواطناً في البلد الذي تقع فيه المنظمة»"
+          type: "usage"
+          source: "مؤلَّف (سياق إداري)"
+    - lemma: "مقدم طلب"
+      enrichment:
+        root: "ق-د-م"
+      examples:
+        - text: "«على مقدم الطلب أن يكون كامل الأهلية القانونية»"
+          type: "usage"
+          source: "مؤلَّف (سياق قانوني)"
+    - lemma: "ملتمس"
+      enrichment:
+        root: "ل-م-س"
+      examples:
+        - text: "«رُفض الطلب لأن الملتمس لم يقدم أدلة كافية»"
+          type: "usage"
+          source: "مؤلَّف"
+    - lemma: "مرشح"
+      enrichment:
+        root: "ر-ش-ح"
+      examples:
+        - text: "«المُرَشَّح [لمنصب إلخ]»"
+          type: "usage"
+          source: "المورد الحديث (2008)"
+  cultural_fit:
+    assessment: "native"
+  actions: []

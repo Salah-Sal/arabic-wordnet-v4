@@ -1,0 +1,111 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "مجموعة"
+      confirm:
+        - text: "«مجموعة: مفهوم رياضي استعمل بكثرة في اللسانيات وهو يدل على عدد من المكونات لها خاصيات متشابهة أو خاصية واحدة. — Set»"
+          source: "المعجم الموحد لمصطلحات اللسانيات"
+        - text: "«مجموعة: Set (Mathematics and Astronomy)»"
+          source: "المعجم الموحد لمصطلحات الرياضيات والفلك"
+        - text: "«مجموعة: لفظ عام يطلق على مجموع عناصر منسجمة تكون وحدة مثل مجموعة المحارف ومجموعة التعليمات وغيرهما»"
+          source: "المعجم الموحد لتقانة المعلومات"
+    - lemma: "مجموعة رياضية"
+      evidence_status: "no_material_found"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "فئة"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«فئة خالية: فئة لا تحتوي على أية عناصر. — empty set» — مسرد التربية (ALECSO)"
+      justification: "تُستخدم 'فئة' كمرادف رياضي لـ 'مجموعة' خاصة في سياق التعليم المدرسي."
+  knowledge_candidates:
+    - lemma: "جميعة"
+      justification: "وردت في تعريف 'اجتماع' في سياق نظرية المجموعات بوصفها مرادفاً نادراً."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "مجموعة"
+      decision: confirmed
+      decision_reason: "المصطلح القياسي والمستقر في جميع المعاجم المتخصصة للرياضيات واللسانيات وتقانة المعلومات."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "المصطلح الأساسي والعام للمفهوم في جميع فروع الرياضيات."
+      example: "تُعتبر مجموعة الأعداد الطبيعية مجموعة غير منتهية."
+
+    - lemma: "مجموعة رياضية"
+      decision: removed
+      decision_reason: "تركيب وصفي حر (Free Phrase) يُستخدم للتوضيح السياقي وليس مصطلحاً معجمياً مسكوكاً بذاته."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "فئة"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح معجمي ثابت يُستخدم بكثرة في المناهج التعليمية العربية (نظرية الفئات) كمرادف لـ 'مجموعة'."
+      step05_citation: "«فئة خالية: فئة لا تحتوي على أية عناصر. — empty set» — مسرد التربية"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تُستخدم 'فئة' غالباً في سياقات التعليم المدرسي، بينما في الرياضيات المتقدمة (مثل نظرية الفئات Category Theory) يُفضّل تجنبها لتمثيل 'Set' منعاً للخلط مع 'Category' أو 'Class'."
+      example: "يُعرّف الطالب في المرحلة الإعدادية الفئة بأنها تجمع من الأشياء المحددة."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "فئة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-08016141-n"
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "تجميع مجرد للأرقام أو الرموز في الرياضيات"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي يحصر المجموعة في الأرقام والرموز، بينما المجموعة الرياضية يمكن أن تضم أي نوع من الكائنات أو العناصر."
+  authored_definitions:
+    - type: terminological
+      text: "تجمع مجرد من العناصر أو الكائنات الرياضية التي تشكل في مجموعها وحدة واحدة."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-08016141-n"
+        definition_index: 0
+        text: "تجمع مجرد من العناصر أو الكائنات الرياضية التي تشكل في مجموعها وحدة واحدة."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "تجريد / كيان مجرد"
+    test_result: "correct"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "مجموعة"
+      enrichment:
+        root: "ج-م-ع"
+      examples:
+        - text: "في نظرية المجموعات، الاتحاد هو عملية تجمع عناصر مجموعتين في مجموعة واحدة."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "فئة"
+      enrichment:
+        root: "ف-ي-أ"
+      examples:
+        - text: "الفئة الخالية هي الفئة التي لا تحتوي على أي عنصر، ويُرمز لها بالرمز Ø."
+          type: usage
+          source: "مسرد التربية (ALECSO)"
+  cultural_fit:
+    assessment: native

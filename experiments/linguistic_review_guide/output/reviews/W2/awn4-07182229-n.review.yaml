@@ -1,0 +1,205 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي ترجمة ركيكة للنص الإنجليزي (شيء يتم تقديمه لحكم الآخرين كما في مسابقة)."
+      - "استخدام المصدر (تقديم) للدلالة على الشيء المقدم غير دقيق، فالتقديم هو الحدث."
+    observations: "المفهوم يشير إلى النتاج المادي أو المعنوي الذي يشترك به الفرد في مسابقة أو تقييم. مصطلح (مشاركة) شائع حديثاً كاسم ذات للعمل المشارك به، و(عمل مقدم) مصطلح دقيق لغوياً."
+  blind_candidates:
+    - lemma: "مُشَارَكَة"
+      generation_method: ishtiqaq
+      justification: "تستخدم مجازاً أو توسعاً دلالياً في العصر الحديث للدلالة على العمل المُشارك به في مسابقة."
+    - lemma: "مُسَاهَمَة"
+      generation_method: ishtiqaq
+      justification: "تدل على الإسهام بجزء أو عمل في حدث ما."
+    - lemma: "عَمَلٌ مُقَدَّم"
+      generation_method: tarkib
+      justification: "تعبير وصفي دقيق يدل على العمل الذي يُقدم لجهة ما."
+    - lemma: "عَرْض"
+      generation_method: majaz
+      justification: "يطلق على ما يُعرض على الناس لتقييمه أو مشاهدته."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تَقْدِيم"
+      confirm: []
+      contradicts:
+        - text: "التَّقْدِيم: مصدر مُتَعَدٍّ وَهُوَ نقل الشَّيْء من مَكَانَهُ إِلَى مَا قبله"
+          source: "دستور العلماء للأحمدنكري"
+          conflict: "اللفظ هو المصدر الدال على فعل التقديم، ولا يدل على الشيء المُقَدَّم نفسه."
+      expands: []
+    - lemma: "عَمَل مُقَدَّم"
+      evidence_status: "no_material_found"
+    - lemma: "مُشَارَكَة"
+      confirm:
+        - text: "مشاركة: participation"
+          source: "المعجم الموحد لمصطلحات القانون (2017)"
+      contradicts: []
+      expands:
+        - text: "مشاركة: عملية تشارك فيها جميع الجهات المعنية في مبادرات التنمية"
+          source: "المعجم الموحد لمصطلحات المياه (2000)"
+          addition: "يؤكد المعنى المصدري للمشاركة، والذي امتد في الاستعمال الحديث ليدل على العمل نفسه."
+    - lemma: "مُسَاهَمَة"
+      confirm: []
+      contradicts:
+        - text: "الْمُسَاهَمَةُ: الإِعانَةُ الماليةُ."
+          source: "المعجم الكبير"
+          conflict: "يغلب على المساهمة معنى الإعانة أو الشراكة بالمال، ولا تختص بالأعمال التنافسية."
+      expands: []
+    - lemma: "عَرْض"
+      confirm: []
+      contradicts:
+        - text: "العَرْضُ: خلافُ الطّولِ... وعَرَضْتُ الشيءَ على البيع، وعلى فلان، ولفلان"
+          source: "المفردات في غريب القرآن للراغب الأصفهاني"
+          conflict: "مصدر يدل على العرض بشكل عام ولا يختص بالأعمال المقدمة للمسابقات."
+      expands: []
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تَقْدِيم"
+      decision: removed
+      decision_reason: "التقديم هو المصدر الدال على الفعل والحدث (act of submission)، ولا يدل على النتاج أو الشيء المُقَدَّم في المسابقات في الاستعمال العربي الفصيح والدقيق."
+      evidence_assessment:
+        case: contradicts_only
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "عَمَل مُقَدَّم"
+      decision: confirmed
+      decision_reason: "تعبير مركب وصفي دقيق ومستعمل بكثرة للإشارة إلى الأعمال والإنتاجات التي تُقَدَّم للتحكيم أو في المسابقات، وهو يطابق المفهوم تماماً."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عَمَل مُقَدَّم"
+
+    - lemma: "مُشَارَكَة"
+      decision: confirmed
+      decision_reason: "يُستعمل المصدر (مشاركة) في العصر الحديث بكثرة للدلالة على العمل أو النتاج المشارَك به (entry) من باب إطلاق المصدر على اسم المفعول."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُشَارَكَة"
+
+    - lemma: "مُسَاهَمَة"
+      source: stage1
+      decision: removed
+      decision_reason: "المساهمة تدل على تقديم مساعدة أو جزء من عمل مشترك، ولا تعبر بدقة عن العمل الفردي المتكامل المقدم للمنافسة."
+
+    - lemma: "عَرْض"
+      source: stage1
+      decision: removed
+      decision_reason: "لفظ عام جداً يدل على إبراز الشيء للناظرين، ولا يحمل دلالة التقديم لغرض التحكيم في المنافسات."
+
+stage4_content:
+  definition:
+    current: "شيء (مخطوطات أو خطط معمارية ونماذج أو تقديرات أو أعمال فنية من جميع الأنواع وما إلى ذلك) يتم تقديمه لحكم الآخرين (كما في مسابقة)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي عبارة عن ترجمة ركيكة وحرفية للنص الإنجليزي وتتخلله عبارات أجنبية مثل (وما إلى ذلك)."
+    authored:
+      - type: terminological
+        text: "عمل أو نتاج يُقَدَّم إلى جهة ما لغرض تحكيمه وتقييمه والمنافسة به، كالمخطوطات والمشاريع والأعمال الفنية."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "عمل أو نتاج يُقَدَّم إلى جهة ما لغرض تحكيمه وتقييمه والمنافسة به، كالمخطوطات والمشاريع والأعمال الفنية."
+
+  examples:
+    per_lemma:
+      - lemma: "عَمَل مُقَدَّم"
+        examples:
+          - text: "أعلنت لجنة التحكيم عن فوز أفضل عمل مُقَدَّم في المسابقة."
+            type: usage
+      - lemma: "مُشَارَكَة"
+        examples:
+          - text: "بلغ عدد المشاركات في مسابقة التصوير الفوتوغرافي مئة مشاركة."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "أعلنت لجنة التحكيم عن فوز أفضل عمل مُقَدَّم في المسابقة."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُشَارَكَة"
+      entry_id: "{auto}"
+      root: "شرك"
+      maqayis_quote: "«الشِّينُ وَالرَّاءُ وَالْكَافُ أَصْلَانِ، أَحَدُهُمَا يَدُلُّ عَلَى مُقَارَنَةٍ وَخِلَافِ انْفِرَادٍ، وَالْآخَرُ يَدُلُّ عَلَى امْتِدَادٍ وَاسْتِقَامَةٍ.»"
+    - lemma: "عَمَل مُقَدَّم"
+      entry_id: "{auto}"
+      roots:
+        - word: "عمل"
+          root: "عمل"
+          maqayis_quote: "«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامٌّ فِي كُلِّ فِعْلٍ يُفْعَلُ.»"
+        - word: "مقدم"
+          root: "قدم"
+          maqayis_quote: "«الْقَافُ وَالدَّالُ وَالْمِيمُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى سَبْقٍ وَرَعْفٍ ثُمَّ يُفَرَّعُ مِنْهُ مَا يُقَارِبُهُ.»"
+
+  per_sense:
+    - lemma: "عَمَل مُقَدَّم"
+      sense_id: "{auto}"
+      nuance: "يشير بصراحة إلى أن الشيء المُقَدَّم هو نتاج أو عمل من صنع إنسان."
+      mwe: true
+    - lemma: "مُشَارَكَة"
+      sense_id: "{auto}"
+      nuance: "يركز على غاية تقديم العمل وهي الدخول في المنافسة والاشتراك فيها."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"شرك","maqayis":"«الشِّينُ وَالرَّاءُ وَالْكَافُ أَصْلَانِ، أَحَدُهُمَا يَدُلُّ عَلَى مُقَارَنَةٍ وَخِلَافِ انْفِرَادٍ، وَالْآخَرُ يَدُلُّ عَلَى امْتِدَادٍ وَاسْتِقَامَةٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"عمل","root":"عمل","maqayis":"«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامٌّ فِي كُلِّ فِعْلٍ يُفْعَلُ.»"},{"word":"مقدم","root":"قدم","maqayis":"«الْقَافُ وَالدَّالُ وَالْمِيمُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى سَبْقٍ وَرَعْفٍ ثُمَّ يُفَرَّعُ مِنْهُ مَا يُقَارِبُهُ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يشير بصراحة إلى أن الشيء المُقَدَّم هو نتاج أو عمل من صنع إنسان.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على غاية تقديم العمل وهي الدخول في المنافسة والاشتراك فيها.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,195 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة تفتقر إلى التشكيل الكامل."
+      - "التعريف الحالي بأسلوب ترجمة آليّة جاف (مشغل مركبة آلية)."
+      - "عدم إدراج صيغة 'سَوَّاق' رغم فصاحتها وشيوعها في الدلالة على الحرفة."
+    observations: "المجموعة تغطي مفهوماً أساسياً في الحياة المعاصرة، والترادف بين 'سائق' و'قائد' واضح في السياقات الرسمية، بينما 'سواق' تخصصت أكثر في الجانب المهني."
+  blind_candidates:
+    - lemma: "سَائِق"
+      generation_method: majaz
+      justification: "اللفظ الأكثر شيوعاً، وهو من سياقة الدواب التي نُقلت للمركبات."
+    - lemma: "قَائِد مَرْكَبَة"
+      generation_method: tarkib
+      justification: "تعبير رسمي مستخدم في قوانين المرور والوثائق الفنية."
+    - lemma: "سَوَّاق"
+      generation_method: ishtiqaq
+      justification: "صيغة مبالغة (فعَّال) تدل على الاحتراف وملازمة الفعل."
+    - lemma: "مُسَيِّر"
+      generation_method: ishtiqaq
+      justification: "من التسيير، وتستخدم في بعض السياقات الرسمية للمركبات الكبيرة أو القطارات."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "سَائِق"
+      confirm:
+        - text: "«من يقود السيارة أو القطار ونحوهما»"
+          source: "المعجم الوسيط"
+        - text: "«مَنْ يقُودُ السَّيَّارَة والقطارَ وَنَحْوهما»"
+          source: "المعجم الكبير"
+    - lemma: "قَائِد مَرْكَبَة"
+      confirm:
+        - text: "«رغبة قائد السيارة: driver command»"
+          source: "مسرد هندسة وتكنولوجيا السيارات (أرب تيرم)"
+        - text: "«هو الباب الذي يصل عبره قائد السيارة إلى مقعد السائق مباشرةً»"
+          source: "مسرد هندسة وتكنولوجيا السيارات (أرب تيرم)"
+    - lemma: "سَوَّاق"
+      confirm:
+        - text: "«السَّوَّاق: السائق... بائعُ السويق صانعُه»"
+          source: "المعجم الوسيط"
+        - text: "«أقرّ مجمع اللغة المصري قياسيّة صيغة «فَعّال» للدلالة على الاحتراف... وردت «السَّوّاق» في المعاجم الحديثة»"
+          source: "معجم الصواب اللغوي"
+    - lemma: "مُسَيِّر"
+      contradicts:
+        - text: "«المُسَيَّر: مَنْ ليس له سلطة أو سيطرة على ما يفعله، عكس المُخَيَّر»"
+          source: "المعجم الكبير"
+          conflict: "اللفظ يدل على معنى فلسفي (الجبر) ولا يستخدم اصطلاحاً للمركبات في الفصحى المعاصرة بهذا المعنى"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "سائق"
+      decision: confirmed
+      decision_reason: "اللفظ الأساسي المتفق عليه معجمياً واستعمالاً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "سَائِق"
+    - lemma: "قائد مركبة"
+      decision: confirmed
+      decision_reason: "مصطلح رسمي وتقني دقيق مستخدم في هندسة السيارات والتشريعات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "قَائِد مَرْكَبَة"
+    - lemma: "سَوَّاق"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صيغة فصيحة مقرة مجمعيّاً تدل على الحرفة والاحتراف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "سَوَّاق"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10054631-n"
+
+stage4_content:
+  definition:
+    current: "مشغل مركبة آلية"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ركيك وينقصه بيان وظيفة القيادة والتوجيه."
+    authored:
+      - type: terminological
+        text: "مَنْ يَتَوَلَّى قِيادَةَ مَرْكَبَةٍ آليَّةٍ وتَوْجيهَهَا."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-10054631-n"
+          definition_index: 0
+          text: "مَنْ يَتَوَلَّى قِيادَةَ مَرْكَبَةٍ آليَّةٍ وتَوْجيهَهَا."
+  examples:
+    per_lemma:
+      - lemma: "سَائِق"
+        examples:
+          - text: "يَجِبُ على السَّائِقِ الالتزامُ بقَواعِدِ المُرورِ لِضَمَانِ السَّلامَةِ."
+            type: usage
+      - lemma: "قَائِد مَرْكَبَة"
+        examples:
+          - text: "أَصْدَرَتِ الإِدارةُ تَعليماتٍ جَديدةً لِقائِدِي المَرْكَباتِ في المَناطِقِ الوَعِرَةِ."
+            type: usage
+      - lemma: "سَوَّاق"
+        examples:
+          - text: "يَعْمَلُ زَيْدٌ سَوَّاقاً لَدَى شَرِكةِ نَقْلٍ دَوْليَّةٍ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "awn4-10054631-n"
+          text: "يَتَطَلَّبُ العَمَلُ كَسائِقٍ مِهنيٍّ صَبْراً وتَرْكيزاً عالِيَيْنِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "سَائِق"
+      entry_id: "{auto}"
+      root: "سوق"
+      maqayis_quote: "«السِّينُ وَالْوَاوُ وَالْقَافُ أَصْلٌ وَاحِدٌ، وَهُوَ حَدْوُ الشَّيْءِ. يُقَالُ سَاقَهُ يَسُوقُهُ سَوْقًا.»"
+    - lemma: "قَائِد مَرْكَبَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "قائد"
+          root: "قود"
+          maqayis_quote: "«الْقَافُ وَالْوَاوُ وَالدَّالُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى امْتِدَادٍ فِي الشَّيْءِ... قُدْتُ الْفَرَسَ قَوْدًا، وَذَلِكَ أَنْ تَمُدَّهُ إِلَيْكَ.»"
+        - word: "مركبة"
+          root: "ركب"
+          maqayis_quote: "«الرَّاءُ وَالْكَافُ وَالْبَاءُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ مُنْقَاسٌ، وَهُوَ عُلُوُّ شَيْءٍ شَيْئًا. يُقَالُ رَكِبَ رُكُوبًا يَرْكَبُ.»"
+    - lemma: "سَوَّاق"
+      entry_id: "{auto}"
+      root: "سوق"
+      maqayis_quote: "«السِّينُ وَالْوَاوُ وَالْقَافُ أَصْلٌ وَاحِدٌ، وَهُوَ حَدْوُ الشَّيْءِ. يُقَالُ سَاقَهُ يَسُوقُهُ سَوْقًا.»"
+  per_sense:
+    - lemma: "سَائِق"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام والأكثر شيوعاً للدلالة على من يقود مركبة."
+      mwe: false
+    - lemma: "قَائِد مَرْكَبَة"
+      sense_id: "{auto}"
+      nuance: "تعبير رسمي وتقني يستخدم غالباً في السياقات القانونية والهندسية."
+      mwe: true
+    - lemma: "سَوَّاق"
+      sense_id: "{auto}"
+      nuance: "يدل على الاحتراف وامتهان السياقة كحرفة (على وزن فعّال)."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سوق","maqayis":"«السِّينُ وَالْوَاوُ وَالْقَافُ أَصْلٌ وَاحِدٌ، وَهُوَ حَدْوُ الشَّيْءِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"قائد","root":"قود","maqayis":"«الْقَافُ وَالْوَاوُ وَالدَّالُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى امْتِدَادٍ فِي الشَّيْءِ...»"},{"word":"مركبة","root":"ركب","maqayis":"«الرَّاءُ وَالْكَافُ وَالْبَاءُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ مُنْقَاسٌ، وَهُوَ عُلُوُّ شَيْءٍ شَيْئًا...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ العام والأكثر شيوعاً للدلالة على من يقود مركبة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-10054631-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-10054631-n"
+        score: 0.95

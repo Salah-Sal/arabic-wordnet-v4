@@ -1,0 +1,251 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "المجموعة الأصلية تقتصر على 'نؤوم' التي تدل على كثرة النوم (sleepyhead)، و'نعسان' التي تدل على الشعور بالنعاس (sleepy)، وهناك مرادفات أخرى أوسع وأدق."
+    observations: "المفهوم يدل على الشخص الذي يغلبه النعاس أو يكثر منه النوم. 'نؤوم' صيغة مبالغة مناسبة جداً لـ sleepyhead، بينما 'نعسان' صفة شائعة لوصف الحالة العارضة."
+  blind_candidates:
+    - lemma: "وَسْنَان"
+      generation_method: ishtiqaq
+      justification: "مشتق من الجذر (وسن) على وزن فعلان، ويدل على من غلبه الوسن وهو النعاس والثقل في الرأس."
+    - lemma: "نَاعِس"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من (نعس)، يدل قياسياً على من فترت حواسه وقارب النوم."
+    - lemma: "مِهْجَاع"
+      generation_method: ishtiqaq
+      justification: "مشتق من الجذر (هجع) على وزن مفعال، للمبالغة فيمن يكثر الهجوع والنوم."
+    - lemma: "غَافٍ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من (غفا)، يدل على من أخذته غفوة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "نَؤُوم"
+      confirm:
+        - text: "«الكثيرُ النَّوْم. يقال: رجلٌ نَؤُومٌ, وامرأةٌ نَؤُومٌ»"
+          source: "المعجم الوسيط"
+    - lemma: "نَعْسَان"
+      confirm:
+        - text: "«نَعْسانُ/ نَعْسانٌ: صفة مشبَّهة تدلّ على الثبوت من نعَسَ. نائم، من أصابه نُعاسٌ شديد»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "وَسْنَان"
+      confirm:
+        - text: "«الْوَسَنُ: النُّعَاسُ، وَكَذَا السِّنَةُ. وَرَجُلٌ وَسْنَانُ»"
+          source: "مقاييس اللغة"
+    - lemma: "نَاعِس"
+      confirm:
+        - text: "«ناعِس: اسم فاعل من نعَسَ»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«النُّعَاسُ، بالضم: الوَسَنُ... نَعَسَ، كمَنَعَ، فهو ناعِسٌ»"
+          source: "القاموس المحيط"
+    - lemma: "مِهْجَاع"
+      evidence_status: "no_material_found"
+    - lemma: "غَافٍ"
+      expands:
+        - text: "«من (غ ف و) النائم نوما خفيفا»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+          addition: "تدل على النوم الخفيف (الغفوة) وليس مجرد الشعور بالنعاس."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "نَؤُوم"
+      decision: confirmed
+      decision_reason: "صيغة مبالغة فصيحة ومناسبة جداً للتعبير عن الشخص الكثير النوم (sleepyhead)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نَؤُوم"
+    - lemma: "نَعْسَان"
+      decision: confirmed
+      decision_reason: "صفة شائعة وفصيحة للتعبير عن الشعور بالنعاس."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نَعْسَان"
+    - lemma: "وَسْنَان"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف فصيح ودقيق لكلمة نعسان، ويدل على من غلبه الوسن (ثقل النعاس)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "وَسْنَان", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "نَاعِس"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اسم فاعل قياسي وشائع للتعبير عن حالة النعاس."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "نَاعِس", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مِهْجَاع"
+      source: stage1
+      decision: removed
+      decision_reason: "لم تثبت دلالتها المباشرة على النعاس في المعاجم المستعرضة، بل وردت بمعنى الأحمق والغافل."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+    - lemma: "غَافٍ"
+      source: stage1
+      decision: removed
+      decision_reason: "تدل على من دخل في النوم الخفيف (أخذته غفوة) وليس من يشعر بالنعاس فقط."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+
+stage4_content:
+  definition:
+    current: "شخص يشعر بالنعاس"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي حرفي وبسيط. التعديل يجعله أقرب لأسلوب المعاجم في وصف الحالة الجسدية المرافقة للنعاس."
+    authored:
+      - type: terminological
+        text: "شخصٌ فترت حواسُّه وقارب النَّومَ أو غلبه النُّعاس."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "شخصٌ فترت حواسُّه وقارب النَّومَ أو غلبه النُّعاس."}
+  examples:
+    per_lemma:
+      - lemma: "نَؤُوم"
+        examples:
+          - text: "كَانَ الطِّفْلُ نَؤُومًا لا يَشْبَعُ مِنَ الرُّقَادِ."
+            type: usage
+      - lemma: "نَعْسَان"
+        examples:
+          - text: "غَالَبَ السَّائِقُ النَّعْسَانُ النَّوْمَ لِيَصِلَ إِلَى وِجْهَتِهِ بِسَلامٍ."
+            type: usage
+      - lemma: "وَسْنَان"
+        examples:
+          - text: "أَيْقَظَ المُنَبِّهُ الرَّجُلَ الوَسْنَانَ مِنْ سِنَتِهِ."
+            type: usage
+      - lemma: "نَاعِس"
+        examples:
+          - text: "تَرَنَّحَ النَّاعِسُ فِي مِشْيَتِهِ بَحْثًا عَنْ فِرَاشِهِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "غَالَبَ السَّائِقُ النَّعْسَانُ النَّوْمَ لِيَصِلَ إِلَى وِجْهَتِهِ بِسَلامٍ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "كَانَ الطِّفْلُ نَؤُومًا لا يَشْبَعُ مِنَ الرُّقَادِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "أَيْقَظَ المُنَبِّهُ الرَّجُلَ الوَسْنَانَ مِنْ سِنَتِهِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تَرَنَّحَ النَّاعِسُ فِي مِشْيَتِهِ بَحْثًا عَنْ فِرَاشِهِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "نَؤُوم"
+      entry_id: "{auto}"
+      root: "نوم"
+      maqayis_quote: "«النُّونُ وَالْوَاوُ وَالْمِيمُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى جُمُودٍ وَسُكُونِ حَرَكَةٍ. مِنْهُ النَّوْمُ.»"
+    - lemma: "نَعْسَان"
+      entry_id: "{auto}"
+      root: "نعس"
+      maqayis_quote: "«النُّونُ وَالْعَيْنُ وَالسِّينُ أُصَيْلٌ يَدُلُّ عَلَى وَسَنٍ.»"
+    - lemma: "وَسْنَان"
+      entry_id: "{auto}"
+      root: "وسن"
+      maqayis_quote: "«الْوَاوُ وَالسِّينُ وَالنُّونُ: كَلِمَتَانِ مُتَقَارِبَتَانِ. الْوَسَنُ: النُّعَاسُ، وَكَذَا السِّنَةُ.»"
+    - lemma: "نَاعِس"
+      entry_id: "{auto}"
+      root: "نعس"
+      maqayis_quote: "«النُّونُ وَالْعَيْنُ وَالسِّينُ أُصَيْلٌ يَدُلُّ عَلَى وَسَنٍ.»"
+  per_sense:
+    - lemma: "نَؤُوم"
+      sense_id: "{auto}"
+      nuance: "صيغة مبالغة تدل على من يكثر منه النوم أو يستغرق فيه طويلاً."
+      mwe: false
+    - lemma: "نَعْسَان"
+      sense_id: "{auto}"
+      nuance: "صفة تدل على من أصابه النعاس الشديد وشعر بالحاجة الماسة إلى النوم."
+      mwe: false
+    - lemma: "وَسْنَان"
+      sense_id: "{auto}"
+      nuance: "تدل على من غلبه الوسن، وهو ثقل النعاس في الرأس."
+      mwe: false
+    - lemma: "نَاعِس"
+      sense_id: "{auto}"
+      nuance: "اسم فاعل يدل على من فترت حواسه وبدأ يشعر بمقدمات النوم."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نوم","maqayis":"«النُّونُ وَالْوَاوُ وَالْمِيمُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى جُمُودٍ وَسُكُونِ حَرَكَةٍ. مِنْهُ النَّوْمُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نعس","maqayis":"«النُّونُ وَالْعَيْنُ وَالسِّينُ أُصَيْلٌ يَدُلُّ عَلَى وَسَنٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"وسن","maqayis":"«الْوَاوُ وَالسِّينُ وَالنُّونُ: كَلِمَتَانِ مُتَقَارِبَتَانِ. الْوَسَنُ: النُّعَاسُ، وَكَذَا السِّنَةُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"صيغة مبالغة تدل على من يكثر منه النوم أو يستغرق فيه طويلاً.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"صفة تدل على من أصابه النعاس الشديد وشعر بالحاجة الماسة إلى النوم.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تدل على من غلبه الوسن، وهو ثقل النعاس في الرأس.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اسم فاعل يدل على من فترت حواسه وبدأ يشعر بمقدمات النوم.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

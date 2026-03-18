@@ -1,0 +1,206 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "خليل"
+      confirm:
+        - text: "«الصديق الخالص الناصح»"
+          source: "المعجم الوسيط"
+        - text: "«الصَّدِيق. الّذِى أصْفَى الموَدَّة وأصَحَّها؛ فليس فى محَبَّتِه خَلَلٌ»"
+          source: "المعجم الكبير"
+      peripheral_observations:
+        - "الضعيف الجسم"
+        - "الفقير المحتاج"
+        - "مدينة الخليل"
+    - lemma: "صاحب"
+      confirm:
+        - text: "«الرفيقُ»"
+          source: "المعجم الكبير"
+        - text: "«الملازم، إنسانا أو حيوانا أو مكانا أو زمانا»"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+      expands:
+        - text: "«مالكُ الشَّيءِ»"
+          source: "المعجم الكبير"
+        - text: "«القائم على الشَّيْء»"
+          source: "المعجم الوسيط"
+    - lemma: "صديق"
+      confirm:
+        - text: "«الصاحب الصادق الودِّ»"
+          source: "المعجم الوسيط"
+        - text: "«الحبيبُ المصادِقُ. الصّاحبُ الخالصُ الوُدِّ»"
+          source: "المعجم الكبير"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "رفيق"
+      source_section: "step0_evidence"
+      evidence_citation: "«الرفيقُ مالكُ الشَّيءِ» — المعجم الكبير"
+      justification: "وردت في تعريف 'صاحب' كمرادف رئيسي، وتدل على من يرافق الشخص ويصاحبه."
+  knowledge_candidates:
+    - lemma: "أنيس"
+      justification: "اشتقاق: من الأنس، وهو من تأنس به وتألفه وتطمئن إليه، وهو يتقاطع مع دلالة المودة والثقة في تعريف المجموعة."
+    - lemma: "نديم"
+      justification: "مجاز: من المنادمة وهي المصاحبة على الشراب، ثم اتسع المجاز ليشمل الجليس الأنيس والمصاحب المقرب."
+  generation_notes: "تم استخراج 'رفيق' من الأدلة السابقة. و'نديم' و'أنيس' من المعرفة المعجمية لتغطية ظلال أخرى للصداقة."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "خليل"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح ومستعمل للدلالة على الصديق الخالص المودة."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تدل على الصديق الذي تخللت محبته القلب، فهي أخص وأعمق من مجرد الصداقة."
+      example: "كان له خليل وفيّ يلجأ إليه في الملمات."
+      actions: []
+
+    - lemma: "صاحب"
+      decision: confirmed
+      decision_reason: "كلمة فصيحة وشائعة الاستعمال بمعنى المرافق والصديق."
+      evidence_assessment:
+        case: "mixed"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تدل على الملازمة والمرافقة، وقد تكون الملازمة من غير مودة قلبية خالصة، فهي أعم."
+      example: "اصطحب معه صاحبه في رحلته الطويلة."
+      actions: []
+
+    - lemma: "صديق"
+      decision: confirmed
+      decision_reason: "هي الكلمة الأساسية والأكثر شيوعاً للتعبير عن هذا المفهوم الدلالي."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تؤكد على صدق الود والمحبة، وتقع منزلتها بين الصاحب (الأعم) والخليل (الأخص)."
+      example: "الصديق وقت الضيق."
+      actions: []
+
+    - lemma: "رفيق"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح فصيح وشائع بمعنى المصاحب والمرافق، ويحمل دلالة الرفق والمودة."
+      step05_citation: "«الرفيقُ» — المعجم الكبير"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تبرز فيها دلالة المرافقة في السفر أو العمل والرفق في المعاملة."
+      example: "اختر الرفيق قبل الطريق."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "رفيق"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10132360-n"
+
+    - lemma: "أنيس"
+      source: step05
+      decision: confirmed
+      decision_reason: "كلمة فصيحة معبرة عن الذي يزيل الوحشة ويؤنس، وهي من مرادفات الصديق."
+      step05_citation: "مؤلف"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تؤكد على الجانب النفسي في إزالة الوحشة والطمأنينة للشخص والمؤانسة بحديثه."
+      example: "كان الكتاب خير أنيس له في وحدته."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "أنيس"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10132360-n"
+
+    - lemma: "نديم"
+      source: step05
+      decision: removed
+      decision_reason: "يغلب عليها الاستعمال في الجليس على الشراب والمؤانسة في مجالس الطرب، ولا تشمل المفهوم العام للصديق بشكل دقيق."
+      step05_citation: "مؤلف"
+
+  added_lemmas:
+    - lemma: "رفيق"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "create_entry + add_sense"
+    - lemma: "أنيس"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "create_entry + add_sense"
+
+step3_definition:
+  assessment:
+    decision: retain
+    reason: "التعريف يغطي المفهوم بشكل واضح وبسيط ومطابق للمعنى المعجمي."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عَامِل، فَاعِل"
+    test_result: "wrong"
+  antonymy:
+    per_lemma:
+      - lemma: "صديق"
+        antonym_found: true
+        antonym: "عدو"
+  actions:
+    - command: remove_synset_relation
+      params:
+        source_id: "awn4-10132360-n"
+        relation_type: "hypernym"
+        target_id: "awn4-09786620-n"
+    - command: add_synset_relation
+      params:
+        source_id: "awn4-10132360-n"
+        relation_type: "hypernym"
+        target_id: "awn4-00007846-n"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "خليل"
+      enrichment:
+        root: "خلل"
+      examples:
+        - text: "وَاتَّخَذَ اللَّهُ إِبْرَاهِيمَ خَلِيلًا"
+          type: "quran"
+          source: "القرآن الكريم"
+      pos_check:
+        pos: noun
+    - lemma: "صاحب"
+      enrichment:
+        root: "صحب"
+      examples:
+        - text: "إِذْ يَقُولُ لِصَاحِبِهِ لَا تَحْزَنْ إِنَّ اللَّهَ مَعَنَا"
+          type: "quran"
+          source: "القرآن الكريم"
+      pos_check:
+        pos: noun
+    - lemma: "صديق"
+      enrichment:
+        root: "صدق"
+      examples:
+        - text: "أَوْ بُيُوتِ خَالَاتِكُمْ أَوْ مَا مَلَكْتُمْ مَفَاتِحَهُ أَوْ صَدِيقِكُمْ"
+          type: "quran"
+          source: "القرآن الكريم"
+      pos_check:
+        pos: noun
+    - lemma: "رفيق"
+      enrichment:
+        root: "رفق"
+      examples:
+        - text: "رافقني في رحلتي رفيقٌ صالح يعينني على مصاعب الطريق."
+          type: "usage"
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "أنيس"
+      enrichment:
+        root: "أنس"
+      examples:
+        - text: "كان جدي يبحث عن أنيس يسامره في ليالي الشتاء الطويلة."
+          type: "usage"
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+
+  cultural_fit:
+    assessment: native

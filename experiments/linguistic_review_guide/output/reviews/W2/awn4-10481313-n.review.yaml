@@ -1,0 +1,272 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الحالية محدودة وتحتاج إلى إثراء بمصطلحات عربية فصيحة تعبّر عن درجات التأثير."
+      - "كلمة 'مؤثر' واسعة الدلالة وقد تُطلق على غير العاقل (كالأدوية أو العوامل)، لذا يفضّل تخصيصها في التعريف أو الأمثلة."
+    observations: "المفهوم يشير إلى الشخص الذي يمتلك سلطة معنوية أو مادية تمكنه من تغيير آراء الآخرين أو أفعالهم. المصطلح الإنجليزي 'influence' يُستخدم في هذا السياق للإشارة إلى الشخص نفسه."
+  blind_candidates:
+    - lemma: "مُؤَثِّر"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من أثّر، وهو المفهوم المباشر لمن يترك أثراً في غيره."
+    - lemma: "نَافِذ"
+      generation_method: ishtiqaq
+      justification: "من نَفَذَ، ويُستخدم في الفصحى لوصف الرجل الماضي في أموره والمطاع الكلمة (نافذ الكلمة)."
+    - lemma: "ذُو نُفُوذٍ"
+      generation_method: tarkib
+      justification: "تعبير إضافي شائع الاستعمال، والنفوذ هو السلطان والقوة."
+    - lemma: "صَاحِبُ سَطْوَةٍ"
+      generation_method: tarkib
+      justification: "السطوة هي القوة والتأثير الغالب، والصاحب هو الملازم لها."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُؤَثِّر"
+      confirm:
+        - text: "«يظهر المؤثر في إطار جرد الأدوار السردية المطالبة بوظيفة تأثير في الآخرين»"
+          source: "المعجم الموحد لمصطلحات اللسانيات"
+    - lemma: "نَافِذ"
+      confirm:
+        - text: "«رجل نافذٌ في أمره: ماضٍ... أمر نافذ: مُطاعٌ»"
+          source: "المعجم الوسيط"
+        - text: "«شخصية نافذة: ذات نفوذ وتأثير ومكانة.»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "صَاحِبُ نُفُوذٍ"
+      confirm:
+        - text: "«فلانٌ ذو نفوذ: ذو سطوة»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«فلانٌ يُستشفع به: إذا كان صاحب نفوذ، أو عالي المَنزلة.»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "ذُو نُفُوذٍ"
+      confirm:
+        - text: "«فلانٌ ذو صَوْلة: ذو نفوذ»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "صَاحِبُ سَطْوَةٍ"
+      confirm:
+        - text: "«السطوة هي القوة والتأثير الغالب»"
+          source: "المعجم الوسيط (مستنتج من تعريف السطوة)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "صاحب نفوذ"
+      decision: confirmed
+      decision_reason: "مصطلح مركّب شائع ومستقر في اللغة المعاصرة وله شواهد في المعاجم الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "صَاحِبُ نُفُوذٍ"
+    - lemma: "مؤثر"
+      decision: confirmed
+      decision_reason: "اسم فاعل فصيح يعبّر بدقة عن المعنى، ويُستخدم في السياقات اللسانية والاجتماعية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُؤَثِّرٌ"
+    - lemma: "نَافِذ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "كلمة أصيلة في اللغة تدل على نفاذ الكلمة والأمر، وهي من أدق الألفاظ العربية لهذا المعنى."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "نَافِذٌ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "ذُو نُفُوذٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير مركّب رديف لـ 'صاحب نفوذ' وله شواهد معجمية صريحة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "ذُو نُفُوذٍ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "من لديه القدرة على التأثير في الآخرين"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي لغوي بسيط، ويحتاج إلى إضافة القيد الذي يوضح سبب التأثير (المكانة أو السلطة) لتمييزه عن التأثير الفيزيائي أو العارض."
+    authored:
+      - type: terminological
+        text: "شخص يتمتع بمكانة أو سلطة تمكنه من توجيه آراء الآخرين أو أفعالهم أو التأثير في قراراتهم."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "شخص يتمتع بمكانة أو سلطة تمكنه من توجيه آراء الآخرين أو أفعالهم أو التأثير في قراراتهم."
+  examples:
+    per_lemma:
+      - lemma: "صَاحِبُ نُفُوذٍ"
+        examples:
+          - text: "استغل صاحب النفوذ علاقاته الواسعة لتسهيل إجراءات المشروع."
+            type: usage
+      - lemma: "مُؤَثِّرٌ"
+        examples:
+          - text: "يُعتبر هذا المفكر مؤثراً كبيراً في صياغة الوعي الثقافي للشباب."
+            type: usage
+      - lemma: "نَافِذٌ"
+        examples:
+          - text: "كان لشيخ القبيلة كلمة نافذة في حل النزاعات بين العشائر."
+            type: usage
+      - lemma: "ذُو نُفُوذٍ"
+        examples:
+          - text: "لجأ التاجر إلى رجل ذي نفوذ ليحمي تجارته من المنافسين غير الشرعيين."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "استغل صاحب النفوذ علاقاته الواسعة لتسهيل إجراءات المشروع."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يُعتبر هذا المفكر مؤثراً كبيراً في صياغة الوعي الثقافي للشباب."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "كان لشيخ القبيلة كلمة نافذة في حل النزاعات بين العشائر."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "لجأ التاجر إلى رجل ذي نفوذ ليحمي تجارته من المنافسين غير الشرعيين."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُؤَثِّرٌ"
+      entry_id: "{auto}"
+      root: "أثر"
+      maqayis_quote: "«الْهَمْزَةُ وَالثَّاءُ وَالرَّاءُ، لَهُ ثَلَاثَةُ أُصُولٍ... والْأَثَرُ بَقِيَّةُ مَا يُرَى مِنْ كُلِّ شَيْءٍ وَمَا لَا يُرَى بَعْدَ أَنْ تَبْقَى فِيهِ عَلَقَةٌ.»"
+    - lemma: "نَافِذٌ"
+      entry_id: "{auto}"
+      root: "نفذ"
+      maqayis_quote: "«النُّونُ وَالْفَاءُ وَالذَّالُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مَضَاءٍ فِي أَمْرٍ وَغَيْرِهِ. وَنَفَذَ السَّهْمُ الرَّمْيَةَ نَفَاذًا. وَأَنْفَذْتُهُ أَنَا. وَهُوَ نَافِذٌ: مَاضٍ فِي أَمْرِهِ.»"
+    - lemma: "صَاحِبُ نُفُوذٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "صاحب"
+          root: "صحب"
+          maqayis_quote: "«الصَّادُ وَالْحَاءُ وَالْبَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُقَارَنَةِ شَيْءٍ وَمُقَارَبَتِهِ.»"
+        - word: "نفوذ"
+          root: "نفذ"
+          maqayis_quote: "«النُّونُ وَالْفَاءُ وَالذَّالُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مَضَاءٍ فِي أَمْرٍ وَغَيْرِهِ.»"
+    - lemma: "ذُو نُفُوذٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "ذو"
+          root: "ذوو"
+          maqayis_quote: "«الذال والواو والواو كلمة واحدة، وهي ذو، ومعناه صاحب.»"
+        - word: "نفوذ"
+          root: "نفذ"
+          maqayis_quote: "«النُّونُ وَالْفَاءُ وَالذَّالُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مَضَاءٍ فِي أَمْرٍ وَغَيْرِهِ.»"
+  per_sense:
+    - lemma: "صَاحِبُ نُفُوذٍ"
+      sense_id: "{auto}"
+      nuance: "تعبير اصطلاحي يشير إلى القوة الاجتماعية أو السياسية المستمدة من العلاقات أو المكانة."
+      mwe: true
+    - lemma: "مُؤَثِّرٌ"
+      sense_id: "{auto}"
+      nuance: "يركز على النتيجة (الأثر) الذي يتركه الشخص في نفوس الآخرين أو أفكارهم، وقد يكون تأثيراً أدبياً أو فكرياً."
+      mwe: false
+    - lemma: "نَافِذٌ"
+      sense_id: "{auto}"
+      nuance: "يؤكد على صفة 'النفاذ' أي مضاء الكلمة وقدرتها على التحقق والامتثال، وغالباً ما يُستخدم مع 'نافذ الكلمة'."
+      mwe: false
+    - lemma: "ذُو نُفُوذٍ"
+      sense_id: "{auto}"
+      nuance: "مرادف لـ 'صاحب نفوذ' مع تأكيد على الاتصاف بالمصدر (النفوذ)."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"أثر","maqayis":"«الْهَمْزَةُ وَالثَّاءُ وَالرَّاءُ، لَهُ ثَلَاثَةُ أُصُولٍ... والْأَثَرُ بَقِيَّةُ مَا يُرَى مِنْ كُلِّ شَيْءٍ وَمَا لَا يُرَى بَعْدَ أَنْ تَبْقَى فِيهِ عَلَقَةٌ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نفذ","maqayis":"«النُّونُ وَالْفَاءُ وَالذَّالُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مَضَاءٍ فِي أَمْرٍ وَغَيْرِهِ... وَهُوَ نَافِذٌ: مَاضٍ فِي أَمْرِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"صاحب","root":"صحب","maqayis":"«الصَّادُ وَالْحَاءُ وَالْبَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُقَارَنَةِ شَيْءٍ وَمُقَارَبَتِهِ.»"},{"word":"نفوذ","root":"نفذ","maqayis":"«النُّونُ وَالْفَاءُ وَالذَّالُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مَضَاءٍ فِي أَمْرٍ وَغَيْرِهِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"ذو","root":"ذوو","maqayis":"«الذال والواو والواو كلمة واحدة، وهي ذو، ومعناه صاحب.»"},{"word":"نفوذ","root":"نفذ","maqayis":"«النُّونُ وَالْفَاءُ وَالذَّالُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مَضَاءٍ فِي أَمْرٍ وَغَيْرِهِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير اصطلاحي يشير إلى القوة الاجتماعية أو السياسية المستمدة من العلاقات أو المكانة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على النتيجة (الأثر) الذي يتركه الشخص في نفوس الآخرين أو أفكارهم، وقد يكون تأثيراً أدبياً أو فكرياً.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يؤكد على صفة النفاذ أي مضاء الكلمة وقدرتها على التحقق والامتثال.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مرادف لصاحب نفوذ مع تأكيد على الاتصاف بالمصدر.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

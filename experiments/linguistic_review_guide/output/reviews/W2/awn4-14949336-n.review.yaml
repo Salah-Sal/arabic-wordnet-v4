@@ -1,0 +1,232 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة «جل» تفتقر إلى التشكيل، وهي تعريب حديث لكلمة (Gel) لم تثبت في المعاجم القديمة بهذا المعنى."
+      - "اللمة «هلام» هي الأدق والأشيع استخداماً في السياقات العلمية والعامة."
+    observations: "المجموعة تدور حول مادة ذات قوام لزج وشبه صلب. المصطلح العربي التراثي «رُبّ» قد يكون مرشحاً جيداً في سياق صناعة الأغذية (Fruit jelly)."
+  blind_candidates:
+    - lemma: "رُبّ"
+      generation_method: majaz
+      justification: "استُخدم قديماً لوصف عصير الفواكه الذي يُطبخ حتى يغلظ قوامه ويصبح كالهلام."
+    - lemma: "جِيلِي"
+      generation_method: taarib
+      justification: "الاسم الشائع للمنتج الغذائي (Jelly) في الاستخدام المعاصر."
+    - lemma: "هُلَامِيَّة"
+      generation_method: ishtiqaq
+      justification: "اسم المصدر من هلام، يُستخدم أحياناً لوصف المادة نفسها."
+    - lemma: "خَاثِر"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من خثر، يصف المادة التي غلظ قوامها واشتدت."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "هُلَام"
+      confirm:
+        - text: "«(الهلام) مرق السكباج المبرد المصفى من الدهن ومادة بروتينية شفافة تستخرج من الأنسجة الحيوانية المختلفة مثل الجلد والعظم والأربطة وتكون جامدة عند جفافها ولكنها تتحول إلى سائل بالرطوبة»"
+          source: "المعجم الوسيط"
+        - text: "«مادة طرية متماسكة، شفافة إلى درجة ما، ترتج إذا ما هزّت.»"
+          source: "معجم المصطلحات الطبية"
+    - lemma: "جِلّ"
+      confirm:
+        - text: "«جَلٌّ: مادة غَرَوانية»"
+          source: "المعجم الموحد لمصطلحات الجيولوجيا"
+        - text: "«تقنية يتم فيها تحويل حمض الكبريتيك المُخفّف إلى جِل، وتُستخدم لتصنيع البطارية الحمضية الرصاصية المُغلقة.»"
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة"
+    - lemma: "رُبّ"
+      confirm:
+        - text: "«(الرُّبُّ) سُلاَفَةُ خُثارَةِ كُلِّ ثَمَرَةٍ بَعْدَ اعْتِصارِها»"
+          source: "القاموس المحيط"
+        - text: "«أن يؤخذ ماء الشيء من النباتات والثمرات بأن يغلى بالماء أو بأن يدق ويعصر، ثم يصفى ويغلظ بالطبخ أو بالشمس»"
+          source: "كشاف اصطلاحات الفنون"
+    - lemma: "جِيلَاتِين"
+      confirm:
+        - text: "«(الجيلاتين) مادة شبه زلالية لينة لزجة غير قابلة للذوبان في الماء تستخرج من عظام الحيوان وأنسجته بإغلائه الطويل في الماء»"
+          source: "المعجم الوسيط"
+    - lemma: "جِيلِي"
+      confirm:
+        - text: "«هُلام، جلي: منتج هلاميّ شبه شفاف يحضر من عصير الفواكه مع أو دون إضافة البكتين.»"
+          source: "المعجم الموحد لمصطلحات تقانات الأغذية"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "هلام"
+      decision: confirmed
+      decision_reason: "المصطلح العربي القياسي والأكثر دقة لوصف المادة ذات هذا القوام."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "هُلَام"
+    - lemma: "جل"
+      decision: confirmed
+      decision_reason: "تعريب مقبول وشائع في السياقات التقنية والكيميائية والتجميلية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "جِلّ"
+    - lemma: "رُبّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تراثي دقيق لوصف الهلام المشتق من الفواكه، وهو وجه من وجوه المعنى المطلوب."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "رُبّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-14949336-n"}
+    - lemma: "جِيلِي"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعريب شائع في السياق الغذائي، ويدعمه المعجم الموحد لتقانات الأغذية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "جِيلِي", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-14949336-n"}
+    - lemma: "جِيلَاتِين"
+      decision: confirmed
+      decision_reason: "المادة البروتينية الأساسية التي تعطي هذا القوام، والتعريف ينص عليها صراحة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "جِيلَاتِين", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-14949336-n"}
+    - lemma: "هُلَامِيَّة"
+      source: stage1
+      decision: removed
+      decision_reason: "تستخدم غالباً كاسم حالة أو صفة، واللمّات الأخرى تغني عنها في تسمية المادة."
+    - lemma: "خَاثِر"
+      source: stage1
+      decision: removed
+      decision_reason: "صفة تدل على الغلظ والتركيز وليست اسماً للمادة ذاتها في هذا السياق."
+
+stage4_content:
+  definition:
+    current: "أي مادة لها قوام الهلام أو الجيلاتين"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دائري إلى حد ما باستخدام كلمات هي نفسها لمّات في المجموعة."
+    authored:
+      - type: terminological
+        text: "مادة شبه صلبة، لينة ولزجة، تنتج عن تبريد المحاليل الغروية أو تكاثف السوائل السكرية أو البروتينية."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "هُلَام"
+        examples:
+          - text: "يُستخدم الهلام في صناعة طلاء الأفلام الحساسة للضوء."
+            type: usage
+      - lemma: "جِلّ"
+        examples:
+          - text: "ثبّت شعره باستخدام جِل مصفف."
+            type: usage
+      - lemma: "رُبّ"
+        examples:
+          - text: "يُصنع رُبُّ الرمان بغلي عصيره حتى يثخن قوامه."
+            type: usage
+      - lemma: "جِيلَاتِين"
+        examples:
+          - text: "تستخرج مادة الجيلاتين من عظام الحيوانات."
+            type: usage
+      - lemma: "جِيلِي"
+        examples:
+          - text: "قدمت الأم طبقاً من الجيلي بالفواكه للأطفال."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-14949336-n", definition_index: 0, text: "مادة شبه صلبة، لينة ولزجة، تنتج عن تبريد المحاليل الغروية أو تكاثف السوائل السكرية أو البروتينية."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "هُلَام"
+      entry_id: "{auto}"
+      root: "هلم"
+      maqayis_quote: "«الْهَاءُ وَاللَّامُ وَالْمِيمُ لَيْسَ فِيهِ إِلَّا قَوْلُهُمْ هَلُمَّ: كَلِمَةُ دَعْوَةٍ إِلَى شَيْءٍ.» (ملاحظة: اللفظ مستعمل حديثاً لوصف المادة)."
+    - lemma: "جِلّ"
+      entry_id: "{auto}"
+      root: "جلل"
+      maqayis_quote: "«الْجِيمُ وَاللَّامُ أُصُولٌ ثَلَاثَةٌ: جَلَّ الشَّيْءُ: عَظُمَ، وَجُلُّ الشَّيْءِ مُعْظَمُهُ...» (ملاحظة: المعنى المعاصر معرب من Gel)."
+    - lemma: "رُبّ"
+      entry_id: "{auto}"
+      root: "ربب"
+      maqayis_quote: "«الرُّبُّ لِلْعِنَبِ وَغَيْرِهِ؛ لِأَنَّهُ يُرَبُّ بِهِ الشَّيْءُ.»"
+    - lemma: "جِيلَاتِين"
+      entry_id: "{auto}"
+      nuance: "مادة بروتينية حيوانية الأصل."
+    - lemma: "جِيلِي"
+      entry_id: "{auto}"
+      nuance: "يطلق غالباً على الهلام الغذائي المصنوع من عصير الفواكه."
+  per_sense:
+    - lemma: "هُلَام"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام والشامل للمادة ذات القوام المرتج."
+      mwe: false
+    - lemma: "جِلّ"
+      sense_id: "{auto}"
+      nuance: "يستخدم غالباً في السياقات الكيميائية والتجميلية (مثل جِل الشعر)."
+      mwe: false
+    - lemma: "رُبّ"
+      sense_id: "{auto}"
+      nuance: "هلام طبيعي كثيف محضر من الفواكه."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"هلم","maqayis":"«الْهَاءُ وَاللَّامُ وَالْمِيمُ لَيْسَ فِيهِ إِلَّا قَوْلُهُمْ هَلُمَّ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جلل","maqayis":"«الْجِيمُ وَاللَّامُ أُصُولٌ ثَلَاثَةٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ربب","maqayis":"«الرُّبُّ لِلْعِنَبِ وَغَيْرِهِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العام والشامل للمادة ذات القوام المرتج.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-14949336-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-14949336-n"
+        score: 0.95

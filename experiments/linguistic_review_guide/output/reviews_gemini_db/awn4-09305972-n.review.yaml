@@ -1,0 +1,171 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "توريق"
+      contradicts:
+        - text: "«توريق: foliation» — المعجم الموحد لمصطلحات علم الأحياء"
+          conflict: "يدل المصطلح على ظاهرة أو عملية التشكل المورق (foliation) وهو مصدر، بينما المفهوم يشير إلى وحدة الطبقة الرقيقة المفردة (folium)."
+    - lemma: "طبقة رقيقة"
+      confirm:
+        - text: "«طبقة (صخرية) رقيقة: طبقة رقيقة مع بنية ورقية، تحتوي أحيانا على طيات، توجد خاصة في الصخور المتحولة.» — مسرد المناخ والبيئة وإدارة النفايات الصلبة"
+        - text: "«طبقة رقيقة: thin seam» — المعجم الموحد لمصطلحات الجيولوجيا"
+        - text: "«طبقة رقيقة: لا تتجاوز سماكتها الميلمترات والتي يتم ملاحظتها في عينة غضارية» — المعجم الموحد لمصطلحات الهندسة المدنية"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "وريقة"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«الوُرَيْقة: طبقة رقيقة (جي).» — المورد الحديث"
+      justification: "استعارة لشكل ورقة النبات لتدل على الطبقة الصخرية الشديدة الرقة، وهو الترجمة المعتمدة لـ folium."
+  knowledge_candidates:
+    - lemma: "صفيحة"
+      justification: "آلية التوليد: المجاز (إطلاق لفظ الصفيحة، أي كل عريض منبسط، على الطبقات الصخرية الرقيقة جداً كصفائح الميكا في الصخور المتحولة)."
+  generation_notes: "تم التركيز على المفردات الدالة على الرقة الشديدة في التكوينات الصخرية."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "طبقة رقيقة"
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي مستقر في الجيولوجيا يدل على الطبقات الرقيقة جداً."
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تعبير وصفي عام ومباشر يركز على سُمك الطبقة الدقيق."
+      example: "عُثر على أحافير دقيقة في طبقة رقيقة من الحجر الجيري."
+      
+    - lemma: "توريق"
+      decision: removed
+      decision_reason: "خلط دلالي: توريق (foliation) هو ترتيب المعادن في مستويات متوازية (الظاهرة الكلية)، والمطلوب هو الطبقة المفردة المكونة لهذا الترتيب (folium)."
+      evidence_assessment:
+        case: "contradicts"
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "يدل على الترتيب والعملية، لا على وحدة الصفيحة أو الطبقة."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "وريقة"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح دقيق وفصيح لترجمة المفهوم جيولوجياً، ويحمل التصور المجازي ذاته في اللفظ الأجنبي."
+      step05_citation: "«الوُرَيْقة: طبقة رقيقة (جي).» — المورد الحديث"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تركز على البنية المورقة للصخر، وتُستخدم بشكل خاص في الصخور المتحولة كالشيست."
+      example: "تنفصل الصخور المتحولة بسهولة على امتداد كل وريقة فيها."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "وريقة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09305972-n"
+
+    - lemma: "صفيحة"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح قياسي في الجيولوجيا للإشارة إلى الطبقات الصخرية المنبسطة والرقيقة (lamina / folium)."
+      step05_citation: "مستمد من الاستعمال الجيولوجي المجازي المدعوم في معاجم العلوم."
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "أشمل قليلاً من 'وريقة'، حيث تعبر عن أي امتداد مستوٍ رقيق سواء كان ورقي الشكل أو لا."
+      example: "يتشكل صخر الميكا من صفيحة رقيقة تتراص فوق بعضها."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "صفيحة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09305972-n"
+
+  synset_flags:
+    definition_review_needed: true
+  added_lemmas:
+    - lemma: "وريقة"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+    - lemma: "صفيحة"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "طبقة رقيقة أو صفائح من الصخور (خاصة المتحولة)"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي يستخدم الجمع 'صفائح' للإشارة للمفرد، وصياغته تحتاج لضبط لتوافق أسلوب المعاجم العربية."
+  authored_definitions:
+    - type: terminological
+      text: "طبقة صخرية رقيقة جداً أو صفيحة، توجد بشكل خاص في الصخور المتحولة."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-09305972-n"
+        definition_index: 0
+        text: "طبقة صخرية رقيقة جداً أو صفيحة، توجد بشكل خاص في الصخور المتحولة."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "تكوين جيولوجي"
+    test_result: "correct"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "طبقة رقيقة"
+      enrichment:
+        root: "طبق"
+      examples:
+        - text: "يتكون المقطع الجيولوجي من طبقة رقيقة من الغضار."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "وريقة"
+      enrichment:
+        root: "ورق"
+        figurative_relation: "metaphor"
+      examples:
+        - text: "تتميز الصخور المتحولة بوجود أكثر من وريقة متوازية تعكس اتجاه الضغط العالي."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "صفيحة"
+      enrichment:
+        root: "صفح"
+        figurative_relation: "metaphor"
+      examples:
+        - text: "تنفصل صفيحة الميكا بسهولة عن بقية المكونات الصخرية نظراً لضعف الروابط بين الطبقات."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-09305972-n"
+        text: "يتكون المقطع الجيولوجي من طبقة رقيقة من الغضار."
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-09305972-n"
+        text: "تتميز الصخور المتحولة بوجود أكثر من وريقة متوازية تعكس اتجاه الضغط العالي."
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-09305972-n"
+        text: "تنفصل صفيحة الميكا بسهولة عن بقية المكونات الصخرية نظراً لضعف الروابط بين الطبقات."

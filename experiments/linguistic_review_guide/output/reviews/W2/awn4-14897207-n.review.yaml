@@ -1,0 +1,226 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّة الحالية (كمادة ساخنة) هي عبارة وصفية (Tarkib Wasfi) وليست لفظاً مفرداً، وهي صحيحة استعمالاً لكنها تفتقر للعمق المعجمي."
+    observations: "المفهوم يشمل 'الكمادة' (Compress) و'اللبخة' (Poultice). اللغة العربية غنية بمصطلحات دقيقة لهذا المفهوم مثل 'نطول' للكمادات السائلة و'لبيخة' أو 'لبخة' للعجينة الطبية."
+  blind_candidates:
+    - lemma: "لَبِيخَة"
+      generation_method: ishtiqaq
+      justification: "لفظ عربي قديم (لَبِيخة أو لَبْخة) يشير إلى عجينة من دقيق أو أعشاب توضع حارة على موضع الألم."
+    - lemma: "نَطُول"
+      generation_method: ishtiqaq
+      justification: "مصطلح طبي كلاسيكي (من النَّطل) يشير إلى السوائل الدافئة التي تصب على العضو أو الخرقة المبللة بها (Fomentation)."
+    - lemma: "كِمَاد"
+      generation_method: ishtiqaq
+      justification: "اسم الآلة الأصلي لما يكمد به العضو، وهو ما يوضع حاراً على موضع الوجع."
+    - lemma: "ضِمَادَة حَارَّة"
+      generation_method: tarkib
+      justification: "تعبير وصفي شائع يشير إلى الضمادة التي تستخدم الحرارة للعلاج."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "كمادة ساخنة"
+      confirm:
+        - text: "«تلك الخرقة الكِماد والكمادَة... التكميد: أن تسخن خرقة فتوضع على العضو الوجع»"
+          source: "لسان العرب"
+    - lemma: "كِمَاد"
+      confirm:
+        - text: "«الكِمَادُ: خِرْقَةٌ تُسَخَّن وتوضع على الوَرَم أو موضع الوَجَع»"
+          source: "المعجم الوسيط"
+        - text: "«الكماد... [في الانكليزية] Hot compress... هو أن يوضع الأدوية على العضو بشرط أن تكون يابسة... وقيل قد يكون رطبا»"
+          source: "كشاف اصطلاحات الفنون للتهانوي"
+    - lemma: "لَبْخَة"
+      confirm:
+        - text: "«اللَّبْخَةُ: دواء كالمرهم يوضع حارًّا أو بارداً فوق العضو عند الألم. (محدثة)»"
+          source: "المعجم الوسيط"
+        - text: "«لَبْخَة: (طب) خِرْقة يُجْعل فيها دواءٌ كالمرهم توضَع حارّة أو باردة على مكان الألم لِتُسَكِّنَه.»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "نَطُول"
+      confirm:
+        - text: "«النطول:[في الانكليزية] Fomentation... هو أن تغلى الأدوية ويصبّ ماؤها على العضو فاترا... وقد يطلق على الصوفة المغموسة في الأدوية التى أغليت إذا وضعت على العضو.»"
+          source: "كشاف اصطلاحات الفنون للتهانوي"
+    - lemma: "كِمَادَة"
+      confirm:
+        - text: "«كِمادة: ما يوضع على موضع الألم لعلاجه بالحرارة والرطوبة.»"
+          source: "معجم المصطلحات الطبية"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "كمادة ساخنة"
+      decision: confirmed
+      decision_reason: "تعبير شائع ومفهوم، وهو الوصف الدقيق لمحتوى المجموعة الترادفية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "كِمَادَة سَاخِنَة"
+    - lemma: "كِمَاد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح الأصلي في المعاجم العربية القديمة والحديثة لهذا المفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "كِمَاد", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "لَبْخَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "الترجمة الدقيقة لمصطلح (poultice)، وهي تشير إلى المادة العجينية المستخدمة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "لَبْخَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "كِمَادَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "الاسم الحديث الشائع، ويشمل الوسيلة والمادة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "كِمَادَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "نَطُول"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تقني دقيق يشير إلى 'الكمادات السائلة' (Fomentation)، وهو يثري المحتوى المعجمي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "نَطُول", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "مادة تستخدم ككمادة طبية رطبة ودافئة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط؛ الأفضل استخدام تعريف يجمع بين الغرض الطبي والتركيب المادي بأسلوب معجمي."
+    authored:
+      - type: terminological
+        text: "عجينة طبية أو خرقة مبللة بماء دافئ توضع على موضع الألم لتسكينه أو علاجه بالحرارة والرطوبة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "عجينة طبية أو خرقة مبللة بماء دافئ توضع على موضع الألم لتسكينه أو علاجه بالحرارة والرطوبة."}
+  examples:
+    per_lemma:
+      - lemma: "كِمَادَة سَاخِنَة"
+        examples:
+          - text: "استخدم المريض كمادة ساخنة لتخفيف ألم العضلات بعد التمرين."
+            type: usage
+      - lemma: "لَبْخَة"
+        examples:
+          - text: "وضعت الأم لبخة من الخردل على صدر الطفل لعلاج السعال."
+            type: usage
+      - lemma: "نَطُول"
+        examples:
+          - text: "نَطَّلَ الطبيبُ رأسَ العليلِ بالنَّطولِ ليخفف عنه الحمى."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يُنصح بوضع كمادة ساخنة على موضع الالتهاب لتنشيط الدورة الدموية."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "كِمَادَة سَاخِنَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "كمادة"
+          root: "كمد"
+          maqayis_quote: "«الكَمْدُ والكُمْدَةُ: تغيرُ اللونِ وذَهابُ صفائه وبقاءُ أَثَرِه.» (لسان العرب)"
+        - word: "ساخنة"
+          root: "سخن"
+          maqayis_quote: "«السين والخاء والنون أصل واحد، وهو خلاف البرد.» (مقاييس اللغة)"
+    - lemma: "لَبْخَة"
+      entry_id: "{auto}"
+      root: "لبخ"
+      maqayis_quote: "«اللام والباء والخاء. يقولون: اللباخية: المرأة التامة الخلق.» (لا علاقة لها بالمعنى الطبي المحدث)"
+    - lemma: "نَطُول"
+      entry_id: "{auto}"
+      root: "نطل"
+      maqayis_quote: "«النون والطاء واللام كلمة واحدة. يقولون: الناطل: مكيال من مكاييل الخمر.»"
+    - lemma: "كِمَاد"
+      entry_id: "{auto}"
+      root: "كمد"
+      maqayis_quote: "«الكَمْدُ والكُمْدَةُ: تغيرُ اللونِ وذَهابُ صفائه وبقاءُ أَثَرِه.»"
+  per_sense:
+    - lemma: "كِمَادَة سَاخِنَة"
+      sense_id: "{auto}"
+      nuance: "التعبير الوصفي العام والشائع في اللغة اليومية."
+      mwe: true
+    - lemma: "لَبْخَة"
+      sense_id: "{auto}"
+      nuance: "تشير تحديداً إلى المادة العجينية (Poultice) التي تفرد على القماش."
+      mwe: false
+    - lemma: "نَطُول"
+      sense_id: "{auto}"
+      nuance: "تشير إلى السوائل الدافئة المطبوخة بالأعشاب التي تصب صبّاً (Fomentation)."
+      mwe: false
+    - lemma: "كِمَاد"
+      sense_id: "{auto}"
+      nuance: "المصطلح التراثي الفصيح للخرقة أو الأداة المسخنة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"كمادة","root":"كمد","maqayis":"«تغير اللون»"},{"word":"ساخنة","root":"سخن","maqayis":"«خلاف البرد»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"لبخ","maqayis":"«اللباخية: المرأة التامة»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نطل","maqayis":"«الناطل: مكيال»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تشير تحديداً إلى المادة العجينية (Poultice)","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

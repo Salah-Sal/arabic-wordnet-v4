@@ -1,0 +1,206 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "جزء مقتطع" هو تركيب وصفي أكثر منه وحدة معجمية مسكوكة، وإن كان دقيقاً دلالياً.
+      - "قُصاصة" ترتبط في الذهن غالباً بالورق (newspaper clipping)، بينما المصطلح الإنجليزي (cutout) قد يشمل أشكالاً خشبية أو نماذج مفرغة.
+    observations: "المفهوم يشير إلى الجزء الناتج عن عملية القص (سواء كان هو المقصود أو الفضلة) أو إلى نموذج مفرغ معد للقص. المصطلح العربي 'قُصاصة' يغطي الجانب المادي الصغير، بينما نحتاج لمصطلحات تغطي الجانب المفاهيمي الأوسع."
+  blind_candidates:
+    - lemma: "قُصَاصَة"
+      generation_method: ishtiqaq
+      justification: "على وزن (فُعالة) للدلالة على البقية أو ما سقط من الشيء المقصوص، وهي مستخدمة بكثرة لقصاصات الورق."
+    - lemma: "مُقْتَطَع"
+      generation_method: ishtiqaq
+      justification: "اسم مفعول من (اقتطع)، ليدل على الجزء الذي عزل عن أصله بالقص أو القطع."
+    - lemma: "مُجْتَزَأ"
+      generation_method: ishtiqaq
+      justification: "اسم مفعول من (اجتزأ)، يعبر عن جزء تم اقتطاعه من الكل."
+    - lemma: "مَقْصُوصَة"
+      generation_method: ishtiqaq
+      justification: "اسم مفعول من (قص)، للدلالة على الشيء الذي وقع عليه فعل القص."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "قُصَاصَة"
+      confirm:
+        - text: "ما قُصَّ من الهُدب والشعر والورق ونحوهما"
+          source: "المعجم الوسيط"
+        - text: "قطعة أو شريط من القماش تضاف إلى الملابس بغرض التزيين."
+          source: "مسرد صناعة النسيج (ArabTerm)"
+    - lemma: "مُقْتَطَع"
+      confirm:
+        - text: "مقطعٌ من برنامج يَحتلّ... جزءاً متلاصقاً من فضاء العنونة"
+          source: "معجم مصطلحات المعلوماتية (ArabTerm)"
+      expands:
+        - text: "يدل على الجزء المعزول أو المأخوذ من أصل."
+          source: "الاستعمال اللغوي الحديث"
+    - lemma: "مَقْصُوصَة"
+      confirm:
+        - text: "الشيء المقطوع بالمقص."
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+      contradicts:
+        - text: "مغرفة مسطحة مثقبة ينشل بها اللحم من القدر"
+          source: "المعجم الوسيط"
+          conflict: "المعنى الأساسي في المعاجم الحديثة هو الأداة (المغرفة) وليس الجزء المقصوص."
+    - lemma: "جزء مقتطع"
+      evidence_status: "no_material_found"
+    - lemma: "مُجْتَزَأ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "قُصَاصَة"
+      decision: confirmed
+      decision_reason: "مدعومة بقوة في المعاجم (الوسيط) وتطابق دلالة الجزء المقصوص من مادة ما."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "قُصَاصَة"
+    - lemma: "جزء مقتطع"
+      decision: confirmed
+      decision_reason: "رغم كونه تركيباً، إلا أنه التعبير الأكثر دقة وشمولاً للمفهوم العام في غياب كلمة واحدة تغطي كل الحالات."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "جُزْءٌ مُقْتَطَعٌ"
+    - lemma: "مُقْتَطَع"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح اصطلاحي مستخدم في مجالات التقنية والإعلام للدلالة على الجزء المعزول من الكل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُقْتَطَع", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُجْتَزَأ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف قوي لمُقتطع، ويستخدم غالباً في سياق النصوص والبيانات المقتبسة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُجْتَزَأ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "جزء تم قصه أو المقصود قصه"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط، ويفضل صياغته بأسلوب معجمي يوضح الغرض من القص."
+    authored:
+      - type: terminological
+        text: "جزءٌ يُقَصُّ من مادةٍ ما (كالورق أو الخشب أو القماش) لِيُشكِّلَ وحدةً مُستقلَّة أو لِيُستخدَم كنموذج."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "جزءٌ يُقَصُّ من مادةٍ ما (كالورق أو الخشب أو القماش) لِيُشكِّلَ وحدةً مُستقلَّة أو لِيُستخدَم كنموذج."}
+  examples:
+    per_lemma:
+      - lemma: "قُصَاصَة"
+        examples:
+          - text: "احتفظ الصحفي بقُصاصةٍ من الجريدة القديمة تضم خبر فوزه بالجائزة."
+            type: usage
+      - lemma: "جُزْءٌ مُقْتَطَعٌ"
+        examples:
+          - text: "أظهر الفحص المخبري أن الجزء المقتطع من النسيج سليم تماماً."
+            type: usage
+      - lemma: "مُقْتَطَع"
+        examples:
+          - text: "عرض المخرج مقتطعاً قصيراً من الفيلم قبل صدوره في السينما."
+            type: usage
+      - lemma: "مُجْتَزَأ"
+        examples:
+          - text: "لا ينبغي الحكم على الرواية من خلال مُجتزأٍ قصير لا يعبر عن روح العمل."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "احتفظ الصحفي بقُصاصةٍ من الجريدة القديمة تضم خبر فوزه بالجائزة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "قُصَاصَة"
+      entry_id: "{auto}"
+      root: "قصص"
+      maqayis_quote: "«الْقَافُ وَالصَّادُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَتَبُّعِ الشَّيْءِ... وَمِنَ الْبَابِ: قَصَصْتُ الشَّعْرَ، وَذَلِكَ أَنَّكَ إِذَا قَصَصْتَهُ فَقَدْ سَوَّيْتَ بَيْنَ كُلِّ شَعْرَةٍ وَأُخْتِهَا.»"
+    - lemma: "جُزْءٌ مُقْتَطَعٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "جزء"
+          root: "جزأ"
+          maqayis_quote: "«الْجِيمُ وَالزَّاءُ وَالْهَمْزَةُ أَصْلٌ وَاحِدٌ، هُوَ الِاكْتِفَاءُ بِالشَّيْءِ... وَالْجُزْءُ: الطَّائِفَةُ مِنَ الشَّيْءِ.»"
+        - word: "مقتطع"
+          root: "قطع"
+          maqayis_quote: "«الْقَافُ وَالطَّاءُ وَالْعَيْنُ أَصْلٌ صَحِيحٌ وَاحِدٌ، يَدُلُّ عَلَى صَرْمٍ وَإِبَانَةِ شَيْءٍ مِنْ شَيْءٍ.»"
+    - lemma: "مُقْتَطَع"
+      entry_id: "{auto}"
+      root: "قطع"
+      maqayis_quote: "«الْقَافُ وَالطَّاءُ وَالْعَيْنُ أَصْلٌ صَحِيحٌ وَاحِدٌ، يَدُلُّ عَلَى صَرْمٍ وَإِبَانَةِ شَيْءٍ مِنْ شَيْءٍ.»"
+    - lemma: "مُجْتَزَأ"
+      entry_id: "{auto}"
+      root: "جزأ"
+      maqayis_quote: "«الْجِيمُ وَالزَّاءُ وَالْهَمْزَةُ أَصْلٌ وَاحِدٌ، هُوَ الِاكْتِفَاءُ بِالشَّيْءِ... وَالْجُزْءُ: الطَّائِفَةُ مِنَ الشَّيْءِ.»"
+  per_sense:
+    - lemma: "قُصَاصَة"
+      sense_id: "{auto}"
+      nuance: "تُستخدم غالباً للمواد الرقيقة كالورق والقماش، وتوحي بأن القطعة صغيرة أو ناتجة عن فضلة."
+      mwe: false
+    - lemma: "جُزْءٌ مُقْتَطَعٌ"
+      sense_id: "{auto}"
+      nuance: "تعبير عام وشامل يغطي أي مادة أو حجم، ويؤكد على عملية الانفصال عن الأصل."
+      mwe: true
+    - lemma: "مُقْتَطَع"
+      sense_id: "{auto}"
+      nuance: "تستخدم في السياقات الفنية والتقنية (مقتطع سينمائي، مقتطع ذاكرة) للدلالة على وحدة معزولة لها وظيفة."
+      mwe: false
+    - lemma: "مُجْتَزَأ"
+      sense_id: "{auto}"
+      nuance: "تشبه المقتطع لكنها تكثر في السياقات الأدبية والفكرية (مجتزأ من نص)."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قصص","maqayis":"«الْقَافُ وَالصَّادُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَتَبُّعِ الشَّيْءِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تُستخدم غالباً للمواد الرقيقة كالورق والقماش، وتوحي بأن القطعة صغيرة أو ناتجة عن فضلة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

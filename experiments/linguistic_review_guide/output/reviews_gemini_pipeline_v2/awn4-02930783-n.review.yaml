@@ -1,0 +1,282 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة (عقب) تفتقر للتشكيل، والصواب (عَقِب)."
+      - "اللمة (فتاتة) تدل على ما يتساقط ويتفتت من الشيء كفتات الخبز، ولا تناسب الدلالة على الجزء المتبقي الثابت كعقب السيجارة أو جذل القلم."
+      - "اللمة (بقية) صحيحة ولكنها عامة جداً."
+    observations: "التعريف يجمع بين المعنى العام (الجزء المتبقي) والمعنى الخاص (عقب السيجارة). مصطلح «عَقِب» هو الأنسب والأكثر شيوعاً للاستخدام الخاص (عقب السيجارة)، في حين أن إضافة مرادفات كـ «جِذْل» و «فُضَالَة» ستثري المجموعة الترادفية وتغطي الجانب المادي والمتبقي من الأشياء."
+  blind_candidates:
+    - lemma: "عَقِب"
+      generation_method: majaz
+      justification: "استعارة من عقب القدم (مؤخرها) للدلالة على أواخر الشيء وما يتبقى منه."
+    - lemma: "جِذْل"
+      generation_method: majaz
+      justification: "استعارة من جذل الشجرة (أصلها المتبقي بعد قطعها) للدلالة على الجزء المتبقي من القلم أو السيجارة."
+    - lemma: "فُضَالَة"
+      generation_method: ishtiqaq
+      justification: "على وزن فُعالة الدال على ما يتساقط أو يتبقى من الشيء، وتدل على ما يفضل ويزيد."
+    - lemma: "أَرُومَة"
+      generation_method: majaz
+      justification: "الأرومة أصل الشجرة، واستعيرت للدلالة على الأصل المتبقي من الشيء."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "عَقِب"
+      confirm:
+        - text: "«(4) «أ» عَقِب الشمعة أو السيكارة «ب» البقيّة: الجزء المتبقّي من كذا»"
+          source: "المورد الحديث (2008)"
+        - text: "«عَقِبُ كل شَيْء، وعَقْبُه، وعاقِبته ... آخِره»"
+          source: "المحكم والمحيط الأعظم لابن سيده الأندلسي"
+    - lemma: "بَقِيَّة"
+      confirm:
+        - text: "«البَقِيَّة: ما بقى من الشيء»"
+          source: "المعجم الوسيط"
+        - text: "«(4) «أ» عَقِب الشمعة أو السيكارة «ب» البقيّة: الجزء المتبقّي من كذا»"
+          source: "المورد الحديث (2008)"
+    - lemma: "فُتَاتَة"
+      contradicts:
+        - text: "«فُتَاتة: ما تبقَّى من الشيء بعد دقه وكسره»"
+          source: "معجم الصواب اللغوي لأحمد مختار عمر"
+          conflict: "تدل على الأجزاء الصغيرة المتكسرة (crumbs) وليس على الجزء الأخير المتبقي المتماسك كعقب السيجارة أو جذل القلم."
+    - lemma: "جِذْل"
+      confirm:
+        - text: "«(1) «أ», الجِذْل: «ب» أصل الشجرة الباقي بعد قطع جِذْعها. ... «هـ» عَقِب قلم الرَّصاص أو الشّمعة أو السيجار إلخ.»"
+          source: "المورد الحديث (2008)"
+    - lemma: "فُضَالَة"
+      confirm:
+        - text: "«الفُضَالَةُ: البقيَّة من الشَّيء»"
+          source: "المعجم الوسيط"
+    - lemma: "أَرُومَة"
+      contradicts:
+        - text: "«الأَرُومة: أصل كل شىء ومجتمعه»"
+          source: "المعجم الكبير"
+          conflict: "تستخدم أكثر للدلالة على الأصل والمنبت (الحسب والنسب) وليس على الجزء المتبقي المستغنى عنه."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "بقية"
+      decision: confirmed
+      decision_reason: "كلمة فصيحة وشائعة ومناسبة كمرادف عام للجزء المتبقي، تحتاج إلى تشكيل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "بَقِيَّة"
+    - lemma: "عقب"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح وهو الأنسب والأكثر شيوعاً واستعمالاً للدلالة على نهاية الشيء وما يتبقى منه (عقب السيجارة)، ويحتاج إلى تشكيل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عَقِب"
+    - lemma: "فُتاتة"
+      decision: removed
+      decision_reason: "الفتاتة تدل على الأجزاء المتكسرة والمفتتة، ولا تناسب الدلالة على عقب الشيء الثابت كعقب السيجارة الذي نقص بالاحتراق أو الاستخدام وليس بالتفتت."
+      evidence_assessment:
+        case: contradicts_only
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "جِذْل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فصيح دقيق للدلالة على الجزء الأخير المتبقي من شيء بعد استهلاكه (كجذل القلم وجذل السيجارة)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "جِذْل"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-02930783-n"
+    - lemma: "فُضَالَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "كلمة فصيحة تدل على ما يفضل ويتبقى من الشيء، وتناسب سياق الجزء المتروك والمستغنى عنه."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "فُضَالَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-02930783-n"
+    - lemma: "أَرُومَة"
+      source: stage1
+      decision: removed
+      decision_reason: "دلالتها تميل أكثر إلى الأصل والأساس الذي ينبت منه الشيء، وليس الجزء المستغنى عنه."
+      evidence_assessment:
+        case: contradicts_only
+
+stage4_content:
+  definition:
+    current: "الجزء الصغير غير المستخدم من شيء ما (خاصة نهاية السيجارة التي تبقى بعد التدخين)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد، لكن يمكن تحسين صياغته لتكون أكثر سلاسة وجرياناً على الأسلوب المعجمي العربي."
+    authored:
+      - type: terminological
+        text: "الجزء الصغير المتبقي من شيء ما بعد استخدامه، كالجزء الباقي من السيجارة بعد تدخينها."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-02930783-n"
+          definition_index: 0
+          text: "الجزء الصغير المتبقي من شيء ما بعد استخدامه، كالجزء الباقي من السيجارة بعد تدخينها."
+  examples:
+    per_lemma:
+      - lemma: "عَقِب"
+        examples:
+          - text: "ألقى عَقِبَ السيجارةِ في المِنْفَضَة."
+            type: usage
+      - lemma: "بَقِيَّة"
+        examples:
+          - text: "استفاد من بَقِيَّةِ الأوراقِ المتاحة في كتابة مسودته."
+            type: usage
+      - lemma: "جِذْل"
+        examples:
+          - text: "لم يَبْقَ من قلمِ الرصاصِ في يده سوى جِذْلٍ صغير."
+            type: usage
+      - lemma: "فُضَالَة"
+        examples:
+          - text: "تخلصوا من فُضالَةِ الطعامِ بعد انتهاء المأدبة."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "ألقى عَقِبَ السيجارةِ في المِنْفَضَة."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "استفاد من بَقِيَّةِ الأوراقِ المتاحة في كتابة مسودته."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "لم يَبْقَ من قلمِ الرصاصِ في يده سوى جِذْلٍ صغير."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تخلصوا من فُضالَةِ الطعامِ بعد انتهاء المأدبة."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "بَقِيَّة"
+      entry_id: "{auto}"
+      root: "بقي"
+      maqayis_quote: "«الْبَاءُ وَالْقَافُ وَالْيَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الدَّوَامُ.»"
+    - lemma: "عَقِب"
+      entry_id: "{auto}"
+      root: "عقب"
+      maqayis_quote: "«الْعَيْنُ وَالْقَافُ وَالْبَاءُ أَصْلَانِ صَحِيحَانِ: أَحَدُهُمَا يَدُلُّ عَلَى تَأْخِيرِ شَيْءٍ وَإِتْيَانِهِ بَعْدَ غَيْرِهِ. وَالْأَصْلُ الْآخَرُ يَدُلُّ عَلَى ارْتِفَاعٍ وَشِدَّةٍ وَصُعُوبَةٍ.»"
+    - lemma: "جِذْل"
+      entry_id: "{auto}"
+      root: "جذل"
+      maqayis_quote: "«الْجِيمُ وَالذَّالُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ أَصْلُ الشَّيْءِ الثَّابِتُ وَالْمُنْتَصِبُ.»"
+    - lemma: "فُضَالَة"
+      entry_id: "{auto}"
+      root: "فضل"
+      maqayis_quote: "«الْفَاءُ وَالضَّادُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى زِيَادَةٍ فِي شَيْءٍ.»"
+  per_sense:
+    - lemma: "عَقِب"
+      sense_id: "{auto}"
+      nuance: "يرتبط غالباً بالجزء الأخير المتبقي بعد الاستخدام التام، ويكثر إطلاقه على عقب السيجارة."
+      mwe: false
+    - lemma: "بَقِيَّة"
+      sense_id: "{auto}"
+      nuance: "لفظ عام يدل على أي جزء يتبقى من الشيء سواء كان مستخدماً أم لا."
+      mwe: false
+    - lemma: "جِذْل"
+      sense_id: "{auto}"
+      nuance: "يدل على الأصل الصلب المتبقي من الشيء بعد استهلاك أطرافه كالقلم والشمعة."
+      mwe: false
+    - lemma: "فُضَالَة"
+      sense_id: "{auto}"
+      nuance: "تشير إلى ما يفضل ويزيد عن الحاجة بعد استهلاك الجزء الأساسي."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"بقي","maqayis":"«الْبَاءُ وَالْقَافُ وَالْيَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الدَّوَامُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عقب","maqayis":"«الْعَيْنُ وَالْقَافُ وَالْبَاءُ أَصْلَانِ صَحِيحَانِ: أَحَدُهُمَا يَدُلُّ عَلَى تَأْخِيرِ شَيْءٍ وَإِتْيَانِهِ بَعْدَ غَيْرِهِ. وَالْأَصْلُ الْآخَرُ يَدُلُّ عَلَى ارْتِفَاعٍ وَشِدَّةٍ وَصُعُوبَةٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جذل","maqayis":"«الْجِيمُ وَالذَّالُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ أَصْلُ الشَّيْءِ الثَّابِتُ وَالْمُنْتَصِبُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"فضل","maqayis":"«الْفَاءُ وَالضَّادُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى زِيَادَةٍ فِي شَيْءٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يرتبط غالباً بالجزء الأخير المتبقي بعد الاستخدام التام، ويكثر إطلاقه على عقب السيجارة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"لفظ عام يدل على أي جزء يتبقى من الشيء سواء كان مستخدماً أم لا.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يدل على الأصل الصلب المتبقي من الشيء بعد استهلاك أطرافه كالقلم والشمعة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تشير إلى ما يفضل ويزيد عن الحاجة بعد استهلاك الجزء الأساسي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-02930783-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-02930783-n"
+        score: 0.95

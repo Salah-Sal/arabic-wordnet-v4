@@ -1,0 +1,217 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي جيد ولكنه يحتاج إلى إعادة صياغة طفيفة ليكون أكثر اصطلاحية (إمداد مادة بدلاً من توفير)."
+    observations: "المفهوم علمي تقني بحت يتعلق بالكيمياء والطب، والمصطلح المعرب 'أكسجة' هو الأكثر شيوعاً ودقة في التعبير عن العملية (oxygenation)، في حين أن 'تأكسج' يعبر عن الحالة أو الانعكاس. وتستخدم تعبيرات مركبة مثل 'إمداد بالأكسجين' أو 'تزويد بالأكسجين' كبدائل وصفية جيدة."
+  blind_candidates:
+    - lemma: "أَكْسَجَة"
+      generation_method: taarib
+      justification: "مصطلح معرب ومقيس على وزن فَعْلَلَة للدلالة على العملية (إضافة الأكسجين)، مشتق من الاسم أكسجين."
+    - lemma: "إِمْدَادٌ بِالأُكْسُجِين"
+      generation_method: tarkib
+      justification: "تركيب وصفي يوضح العملية بدقة ويعتبر ترجمة شائعة في السياقات التقنية."
+    - lemma: "تَزْوِيدٌ بِالأُكْسُجِين"
+      generation_method: tarkib
+      justification: "تركيب يؤدي نفس المعنى الوظيفي للعملية (providing with oxygen)."
+    - lemma: "تَأَكْسُج"
+      generation_method: taarib
+      justification: "مصطلح مشتق للدلالة على الانفعال أو الحالة الناتجة، غير أنه قد يشير إلى النتيجة (oxemia) أكثر من العملية النشطة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "أكسجة"
+      confirm:
+        - text: "أَكْسَجَة : oxygenation"
+          source: "المعجم الطبي الموحد (2009)"
+        - text: "أكسجة : oxygenation"
+          source: "المعجم الموحد لمصطلحات الكيمياء (1992)"
+    - lemma: "تزويد بالأكسجين"
+      confirm:
+        - text: "مِرْوَحة لتزويد الماء بالأكسجين : aerator, gyroscopic / aerator, impeller"
+          source: "المعجم الموحد لمصطلحات المياه (2000)"
+    - lemma: "إمداد بالأكسجين"
+      confirm:
+        - text: "أقصى إمداد بالأكسجين : maximum oxygenation"
+          source: "المعجم الموحد لمصطلحات المياه (2000)"
+        - text: "إمداد نوعيّ بالأكسجين : specific oxygenation"
+          source: "المعجم الموحد لمصطلحات المياه (2000)"
+    - lemma: "تأكسج"
+      expands:
+        - text: "نَقْصُ تَأَكْسُجِ الدَّم : hypoxemia"
+          source: "المعجم الطبي الموحد (2009)"
+          addition: "يستخدم للدلالة على التشبع بالأكسجين أو حالة الانفعال وليس العملية الفاعلة."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "أكسجة"
+      decision: confirmed
+      decision_reason: "هو المصطلح القياسي المعتمد في المعاجم الطبية والكيميائية للتعبير عن (oxygenation)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "أَكْسَجَة"
+    - lemma: "تزويد بالأكسجين"
+      decision: confirmed
+      decision_reason: "تركيب مألوف ومستخدم في المعاجم التقنية لوصف العملية بدقة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَزْوِيدٌ بِالأُكْسُجِين"
+    - lemma: "إِمْدَادٌ بِالأُكْسُجِين"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تركيب دقيق وموثق في معاجم المصطلحات الموحدة (مثل مصطلحات المياه) كمرادف لـ oxygenation."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "إِمْدَادٌ بِالأُكْسُجِين", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-13552352-n"}
+    - lemma: "تَأَكْسُج"
+      source: stage1
+      decision: removed
+      decision_reason: "يميل للدلالة على حالة التشبع (oxemia) وليس العملية الفاعلة للتقديم والمزج (oxygenation)."
+
+stage4_content:
+  definition:
+    current: "عملية توفير الأكسجين أو الاتحاد معه أو المعالجة به"
+    assessment:
+      decision: revise
+      reason: "تعديل طفيف لتحسين الصياغة الاصطلاحية وجعلها أكثر سبكاً علمياً."
+    authored:
+      - type: terminological
+        text: "عملية إمداد مادة بالأكسجين، أو دمجها معه، أو معالجتها به."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-13552352-n", definition_index: 0, text: "عملية إمداد مادة بالأكسجين، أو دمجها معه، أو معالجتها به."}
+
+  examples:
+    per_lemma:
+      - lemma: "أَكْسَجَة"
+        examples:
+          - text: "تتم أكسجة الدم في الرئتين قبل ضخه إلى باقي أنحاء الجسم."
+            type: usage
+      - lemma: "تَزْوِيدٌ بِالأُكْسُجِين"
+        examples:
+          - text: "تستخدم مضخات خاصة لتزويد أحواض تربية الأسماك بالأكسجين."
+            type: usage
+      - lemma: "إِمْدَادٌ بِالأُكْسُجِين"
+        examples:
+          - text: "تتطلب بعض التفاعلات الكيميائية إمداداً مستمراً بالأكسجين لضمان استمرارها."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تتم أكسجة الدم في الرئتين قبل ضخه إلى باقي أنحاء الجسم."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تستخدم مضخات خاصة لتزويد أحواض تربية الأسماك بالأكسجين."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تتطلب بعض التفاعلات الكيميائية إمداداً مستمراً بالأكسجين لضمان استمرارها."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "أَكْسَجَة"
+      entry_id: "{auto}"
+      root: "أكسج"
+      maqayis_quote: "«مصطلح دخيل معرّب لا أصل له في مقاييس اللغة»"
+    - lemma: "تَزْوِيدٌ بِالأُكْسُجِين"
+      entry_id: "{auto}"
+      roots:
+        - word: "تزويد"
+          root: "زود"
+          maqayis_quote: "«الزَّاءُ وَالْوَاوُ وَالدَّالُ أَصْلٌ يَدُلُّ عَلَى انْتِقَالٍ بِخَيْرٍ، مِنْ عَمَلٍ أَوْ كَسْبٍ.»"
+        - word: "أكسجين"
+          root: "أكسج"
+          maqayis_quote: "«مصطلح دخيل معرّب»"
+    - lemma: "إِمْدَادٌ بِالأُكْسُجِين"
+      entry_id: "{auto}"
+      roots:
+        - word: "إمداد"
+          root: "مدد"
+          maqayis_quote: "«الْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى جَرِّ شَيْءٍ فِي طُولٍ، وَاتِّصَالِ شَيْءٍ بِشَيْءٍ فِي اسْتِطَالَةٍ.»"
+        - word: "أكسجين"
+          root: "أكسج"
+          maqayis_quote: "«مصطلح دخيل معرّب»"
+
+  per_sense:
+    - lemma: "أَكْسَجَة"
+      sense_id: "{auto}"
+      nuance: "مصطلح مفرد مقيس يستخدم في السياقات الطبية والكيميائية."
+      mwe: false
+    - lemma: "تَزْوِيدٌ بِالأُكْسُجِين"
+      sense_id: "{auto}"
+      nuance: "تركيب وصفي يركز على توفير وتوصيل الأكسجين في السياقات العامة والهندسية."
+      mwe: true
+    - lemma: "إِمْدَادٌ بِالأُكْسُجِين"
+      sense_id: "{auto}"
+      nuance: "تركيب مرادف يركز على إعطاء الأكسجين بشكل مستمر."
+      mwe: true
+
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"أكسج","maqayis":"«مصطلح دخيل معرّب لا أصل له في مقاييس اللغة»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"تزويد","root":"زود","maqayis":"«الزَّاءُ وَالْوَاوُ وَالدَّالُ أَصْلٌ يَدُلُّ عَلَى انْتِقَالٍ بِخَيْرٍ، مِنْ عَمَلٍ أَوْ كَسْبٍ.»"},{"word":"أكسجين","root":"أكسج","maqayis":"«مصطلح دخيل معرّب»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"إمداد","root":"مدد","maqayis":"«الْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى جَرِّ شَيْءٍ فِي طُولٍ، وَاتِّصَالِ شَيْءٍ بِشَيْءٍ فِي اسْتِطَالَةٍ.»"},{"word":"أكسجين","root":"أكسج","maqayis":"«مصطلح دخيل معرّب»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح مفرد مقيس يستخدم في السياقات الطبية والكيميائية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركيب وصفي يركز على توفير وتوصيل الأكسجين في السياقات العامة والهندسية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركيب مرادف يركز على إعطاء الأكسجين بشكل مستمر.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-13552352-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-13552352-n"
+        score: 0.95

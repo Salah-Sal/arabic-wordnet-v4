@@ -1,0 +1,132 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "مُوَلَّد"
+      expands:
+        - text: "«من الرجال: العَربِيُّ غير المحض مَن وُلِد عند العرب ونشأ مع أولادهم وتأدَّب بآدابهم»"
+          source: "المعجم الوسيط"
+        - text: "«لفظ استخرجه المولّدون من اللغة الأصلية مع شيء من التصرّف... والمولّدون أيضا هم جماعة من العرب أو الأعراب اختلطوا بالأعاجم»"
+          source: "كشّاف اصطلاحات الفنون والعلوم للتهانوي"
+    - lemma: "مِسْتِيزُو"
+      confirm:
+        - text: "«المستيزو؛ الهجين: ولدٌ أو رجُل من أبوين أحدهما أوروبي والآخر هندي أميركي.»"
+          source: "المورد الحديث"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "هَجِين"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«كلُّ شيءٍ يجمع بين عِرقين مختلفين» — المعجم الوسيط"
+      justification: "مصطلح عربي أصيل يعبر عن الاختلاط العرقي كما ورد في المعجم الوسيط، وكما استخدم في المورد الحديث كمرادف لـ (المستيزو)."
+  knowledge_candidates:
+    - lemma: "مُخَلَّط"
+      justification: "اشتقاق على وزن مُفَعَّل (اسم مفعول) للدلالة على من اختلط أصله العرقي، وهو مصطلح مستعمل لوصف ذوي الأصول المختلطة."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "مُوَلَّد"
+      decision: confirmed
+      decision_reason: "مصطلح تراثي ومستقر لوصف من كان أحد أبويه غير عربي، واتسع دلالياً ليشمل ذوي الأصول المختلطة."
+      evidence_assessment:
+        case: "expands"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "مصطلح تراثي استُعمل تاريخياً للإشارة إلى من كان أحد أبويه غير عربي، وغالباً يخص الجانب الثقافي بجانب العرقي."
+      example: "عُرف العديد من الشعراء المُوَلَّدين في العصر العباسي لإجادتهم اللغة العربية رغم أصولهم المختلطة."
+
+    - lemma: "مِسْتِيزُو"
+      decision: confirmed
+      decision_reason: "مصطلح مقترض ومعرب ومستقر في السياقات التاريخية والأنثروبولوجية للدلالة خصيصاً على سكان أمريكا اللاتينية من أصول مختلطة."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "مصطلح دخيل يختص تحديداً بالمتحدرين من تزاوج الأوروبيين بالسكان الأصليين للأمريكيتين."
+      example: "يُمثِّل المِسْتِيزُو النسبة الأكبر من التعداد السكاني في العديد من دول أمريكا اللاتينية."
+
+    - lemma: "هَجِين"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح فصيح ودقيق ومستقر علمياً واجتماعياً للدلالة على من انحدر من سلالتين أو عرقين مختلفين."
+      step05_citation: "«كلُّ شيءٍ يجمع بين عِرقين مختلفين» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "أوسع دلالة؛ يُطلق على كل كائن حي (إنسان، حيوان، نبات) تولد من سلالتين مختلفتين، ويُستخدم بكثرة في السياق العرقي والبيولوجي."
+      example: "أدّى التزاوج بين الشعوب المختلفة في العالم الجديد إلى ظهور أجيال من الهَجِين."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "هَجِين"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10331490-n"
+
+    - lemma: "مُخَلَّط"
+      source: step05
+      decision: removed
+      decision_reason: "كلمة عامة تستخدم كصفة لأشياء مادية كثيرة، والأفضل الاعتماد على 'هجين' و'مولد' في السياق العرقي الإنساني."
+      step05_citation: "اشتقاق مقترح"
+
+  synset_flags:
+    definition_review_needed: false
+    split_needed: false
+  added_lemmas:
+    - lemma: "هَجِين"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "create_entry + add_sense"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شخص من أصل عرقي مختلط (خاصة من أصل أوروبي وأمريكي أصلي مختلط)"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وواضح ويغطي المعنى العام لـ'مولد/هجين' والمعنى الخاص لـ'مستيزو'."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-09786620-n"
+    test_result: "wrong"
+  actions:
+    - command: remove_synset_relation
+      params:
+        source_id: "awn4-10331490-n"
+        relation_type: "hypernym"
+        target_id: "awn4-09786620-n"
+    - command: add_synset_relation
+      params:
+        source_id: "awn4-10331490-n"
+        relation_type: "hypernym"
+        target_id: "awn4-00007846-n"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "مُوَلَّد"
+      enrichment:
+        root: "ولد"
+      examples:
+        - text: "عُرف العديد من الشعراء المُوَلَّدين في العصر العباسي لإجادتهم اللغة العربية رغم أصولهم المختلطة."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "مِسْتِيزُو"
+      enrichment:
+        etymology: "loanword"
+      examples:
+        - text: "يُمثِّل المِسْتِيزُو النسبة الأكبر من التعداد السكاني في العديد من دول أمريكا اللاتينية."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "هَجِين"
+      enrichment:
+        root: "هجن"
+      examples:
+        - text: "أدّى التزاوج بين الشعوب المختلفة في العالم الجديد إلى ظهور أجيال من الهَجِين."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

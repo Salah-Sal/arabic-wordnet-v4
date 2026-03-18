@@ -1,0 +1,233 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "تضمين كلمة (شخص) في اللمات الحالية (شخص راق، شخص محنك) يجعلها مركبات وصفية حرة لا تلبي معايير السك المعجمي ككلمات مفردة."
+      - "اللمة (شخص راق) تركز على الرفعة والأناقة، بينما المفهوم الدلالي للمجموعة يركز على الخبرة الدنيوية والحنكة (worldly-wise)."
+    observations: "المفهوم يشير إلى الشخص الذي صقلته التجارب واكتسب خبرة واسعة في شؤون الحياة. وتزخر المعاجم العربية بألفاظ مفردة دقيقة تعبر عن هذا المعنى مثل (مُحَنَّك) و(مُجَرِّب)."
+  blind_candidates:
+    - lemma: "مُحَنَّك"
+      generation_method: ishtiqaq
+      justification: "اسم مفعول من (حنّكته التجارب)، يعبر عن الشخص الذي اكتسب خبرة ودراية من الحياة."
+    - lemma: "مُجَرِّب"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل (جَرَّبَ)، يعبر عن الشخص الذي خبر الأمور ومارسها."
+    - lemma: "مُحْتَنِك"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من (احْتَنَكَ)، وهو أبلغ من المحنك ويدل على من تناهى عقله واكتملت خبرته."
+    - lemma: "مُتَمَدِّن"
+      generation_method: ishtiqaq
+      justification: "يشير إلى من اكتسب ثقافة حضارية ومعرفة بشؤون العالم المعاصر، ويقارب جزءاً من دلالة sophisticate."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "شخص محنك"
+      contradicts:
+        - text: "لا يوجد كتركيب معجمي مسكوك"
+          source: "قاعدة البيانات"
+          conflict: "تركيب وصفي حر، والأفصح والأنسب معجمياً هو الاكتفاء بالصفة (مُحَنَّك)."
+    - lemma: "شخص راق"
+      contradicts:
+        - text: "لا يوجد كتركيب معجمي مسكوك"
+          source: "قاعدة البيانات"
+          conflict: "تركيب وصفي حر، كما أن دلالة (راق) لا تتطابق بشكل مباشر مع الخبرة الدنيوية (worldly-wise)."
+    - lemma: "مُحَنَّك"
+      expands:
+        - text: "المحنَّك: رجل مجرِّب أو واسع الخبرة بالحياة."
+          source: "المورد الحديث (2008)"
+          addition: "تطابق دقيق مع الترجمة الإنجليزية (man of the world) ومعنى المجموعة."
+    - lemma: "مُجَرِّب"
+      confirm:
+        - text: "مُجَرِّب: رجل عرف الأمور وخبرها"
+          source: "المعجم الكبير"
+    - lemma: "مُحْتَنِك"
+      confirm:
+        - text: "المُحْتَنِكُ: الرَّجُلُ المُتَنَاهِي عَقْلُه وسِنُّه المُجَرِّبُ الذى هذَّبته الأمورُ"
+          source: "المعجم الكبير"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "شخص محنك"
+      decision: removed
+      decision_reason: "مركب وصفي حر وليس مصطلحاً مسكوكاً، وتم استبداله بكلمة 'مُحَنَّك' كاسم مفرد يؤدي المعنى بشكل أدق."
+      evidence_assessment:
+        case: contradicts_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "شخص راق"
+      decision: removed
+      decision_reason: "مركب وصفي حر، وكلمة (راق) تركز على الأناقة والرفعة أكثر من الخبرة الدنيوية المستهدفة في هذه المجموعة."
+      evidence_assessment:
+        case: contradicts_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "مُحَنَّك"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح دقيق وفصيح يعبر عن الشخص الذي هذبته التجارب واكتسب خبرة دنيوية واسعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُحَنَّك", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُحْتَنِك"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صيغة فصيحة بليغة تعبر عن اكتمال العقل والخبرة والحنكة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُحْتَنِك", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُجَرِّب"
+      source: stage1
+      decision: confirmed
+      decision_reason: "كلمة معجمية دقيقة تدل على من خبر الأمور ومارسها عملياً واكتسب دهاءً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُجَرِّب", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُتَمَدِّن"
+      source: stage1
+      decision: removed
+      decision_reason: "يركز على الجانب الحضاري والثقافي ولا يدل بالضرورة على المعرفة العميقة بشؤون الحياة والتجارب الدنيوية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+
+stage4_content:
+  definition:
+    current: "شخص حكيم دنيوياً"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ركيك ويمثل ترجمة شبه حرفية (worldly-wise)، والأفضل صياغة تعريف معجمي يعتمد على اكتساب الخبرة من التجارب."
+    authored:
+      - type: terminological
+        text: "شَخْصٌ صَقَلَتْهُ التَّجَارِبُ، خَبِيرٌ بِشُؤُونِ الْحَيَاةِ وَعَارِفٌ بِبَوَاطِنِ الْأُمُورِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "شَخْصٌ صَقَلَتْهُ التَّجَارِبُ، خَبِيرٌ بِشُؤُونِ الْحَيَاةِ وَعَارِفٌ بِبَوَاطِنِ الْأُمُورِ."}
+  examples:
+    per_lemma:
+      - lemma: "مُحَنَّك"
+        examples:
+          - text: "أَثْبَتَ أَنَّهُ سِيَاسِيٌّ مُحَنَّكٌ فِي تَعَامُلِهِ مَعَ الْأَزْمَةِ."
+            type: usage
+      - lemma: "مُحْتَنِك"
+        examples:
+          - text: "كَانَ شَيْخًا مُحْتَنِكًا لَا تَخْدَعُهُ الْمَظَاهِرُ الْبَرَّاقَةُ."
+            type: usage
+      - lemma: "مُجَرِّب"
+        examples:
+          - text: "لَا غِنَى فِي هَذِهِ الْأُمُورِ عَنْ مَشُورَةِ رَجُلٍ مُجَرِّبٍ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "أَثْبَتَ أَنَّهُ سِيَاسِيٌّ مُحَنَّكٌ فِي تَعَامُلِهِ مَعَ الْأَزْمَةِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "كَانَ شَيْخًا مُحْتَنِكًا لَا تَخْدَعُهُ الْمَظَاهِرُ الْبَرَّاقَةُ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "لَا غِنَى فِي هَذِهِ الْأُمُورِ عَنْ مَشُورَةِ رَجُلٍ مُجَرِّبٍ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُحَنَّك"
+      entry_id: "{auto}"
+      root: "حنك"
+      maqayis_quote: "«الْحَاءُ وَالنُّونُ وَالْكَافُ أَصْلٌ وَاحِدٌ... وَمِنْهُ حَنَّكَتْهُ التَّجَارِبُ، وَاحْتَنَكَتْهُ السِّنُّ احْتِنَاكًا، وَرَجُلٌ مُحْتَنَكٌ... لِأَنَّهُ التَّنَاهِي فِي الْأَمْرِ وَالْبُلُوغُ إِلَى غَايَتِهِ»"
+    - lemma: "مُحْتَنِك"
+      entry_id: "{auto}"
+      root: "حنك"
+      maqayis_quote: "«الْحَاءُ وَالنُّونُ وَالْكَافُ أَصْلٌ وَاحِدٌ... وَمِنْهُ حَنَّكَتْهُ التَّجَارِبُ، وَاحْتَنَكَتْهُ السِّنُّ احْتِنَاكًا، وَرَجُلٌ مُحْتَنَكٌ... لِأَنَّهُ التَّنَاهِي فِي الْأَمْرِ وَالْبُلُوغُ إِلَى غَايَتِهِ»"
+    - lemma: "مُجَرِّب"
+      entry_id: "{auto}"
+      root: "جرب"
+      maqayis_quote: "«الْجِيمُ وَالرَّاءُ وَالْبَاءُ أَصْلَانِ: أَحَدُهُمَا الشَّيْءُ الْبَسِيطُ يَعْلُوهُ كَالنَّبَاتِ مِنْ جِنْسِهِ، وَالْآخَرُ شَيْءٌ يَحْوِي شَيْئًا»"
+  per_sense:
+    - lemma: "مُحَنَّك"
+      sense_id: "{auto}"
+      nuance: "تركز على اكتساب الدهاء والخبرة من خلال التجارب الحياتية الصعبة."
+      mwe: false
+    - lemma: "مُحْتَنِك"
+      sense_id: "{auto}"
+      nuance: "صيغة مبالغة تدل على من تناهى عقله واكتملت حكمته وتجاربه."
+      mwe: false
+    - lemma: "مُجَرِّب"
+      sense_id: "{auto}"
+      nuance: "تركز على المعرفة العملية والممارسة الفعلية للأمور."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حنك","maqayis":"«الْحَاءُ وَالنُّونُ وَالْكَافُ أَصْلٌ وَاحِدٌ... وَمِنْهُ حَنَّكَتْهُ التَّجَارِبُ، وَاحْتَنَكَتْهُ السِّنُّ احْتِنَاكًا، وَرَجُلٌ مُحْتَنَكٌ... لِأَنَّهُ التَّنَاهِي فِي الْأَمْرِ وَالْبُلُوغُ إِلَى غَايَتِهِ»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حنك","maqayis":"«الْحَاءُ وَالنُّونُ وَالْكَافُ أَصْلٌ وَاحِدٌ... وَمِنْهُ حَنَّكَتْهُ التَّجَارِبُ، وَاحْتَنَكَتْهُ السِّنُّ احْتِنَاكًا، وَرَجُلٌ مُحْتَنَكٌ... لِأَنَّهُ التَّنَاهِي فِي الْأَمْرِ وَالْبُلُوغُ إِلَى غَايَتِهِ»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جرب","maqayis":"«الْجِيمُ وَالرَّاءُ وَالْبَاءُ أَصْلَانِ: أَحَدُهُمَا الشَّيْءُ الْبَسِيطُ يَعْلُوهُ كَالنَّبَاتِ مِنْ جِنْسِهِ، وَالْآخَرُ شَيْءٌ يَحْوِي شَيْئًا»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركز على اكتساب الدهاء والخبرة من خلال التجارب الحياتية الصعبة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"صيغة مبالغة تدل على من تناهى عقله واكتملت حكمته وتجاربه.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركز على المعرفة العملية والممارسة الفعلية للأمور.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

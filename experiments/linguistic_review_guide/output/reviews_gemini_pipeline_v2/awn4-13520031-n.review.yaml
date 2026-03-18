@@ -1,0 +1,224 @@
+stage1_review:
+  assessment:
+    concerns:
+      - المصطلحات الحالية جيدة ولكن يمكن إغناؤها بالمصطلحات الاقتصادية الأكثر دقة والكلمات التراثية الشائعة.
+    observations: "المجموعة تعبر عن ظاهرة اقتصادية أساسية. المصطلح 'تضخم' هو المصطلح التقني المعاصر، بينما 'ارتفاع الأسعار' هو الوصف الظاهري المباشر. يوجد مصطلح 'غلاء' وهو المصطلح العربي الأصيل لهذه الحالة."
+  blind_candidates:
+    - lemma: "تَضَخُّمٌ"
+      generation_method: ishtiqaq
+      justification: "المصطلح الاقتصادي القياسي المشتق من الضخامة (الزيادة)."
+    - lemma: "ارْتِفَاعُ الأَسْعَارِ"
+      generation_method: tarkib
+      justification: "تعبير إضافي وصفي مباشر للظاهرة."
+    - lemma: "غَلَاءٌ"
+      generation_method: majaz
+      justification: "لفظ تراثي أصيل يعبر عن تجاوز السعر للقدر المعتاد."
+    - lemma: "تَضَخُّمٌ مَالِيٌّ"
+      generation_method: tarkib
+      justification: "تعبير مركب أكثر تخصصاً في السياق الاقتصادي والنقدي."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تَضَخُّمٌ"
+      confirm:
+        - text: "«(في علم الاقتصاد) Inflation: تناقصُ قيمة العُمْلة الشرائية؛ نتيجةَ الزيادةِ المفرطة في النقد المتداول... الأمرُ الذي يُؤَدِّي إلى ارتفاع أسعار الخدمات والمنتجات»"
+          source: "المعجم الكبير"
+        - text: "«زيادة في المستوى العام للأسعار على مدى فترة من الزمن»"
+          source: "ArabTerm"
+      expands:
+        - text: "«(في الطب) Enlargement: زيادةٌ في حجم عضو، أو نسيج»"
+          source: "المعجم الكبير"
+          addition: "معنى طبي يشترك في اللفظ"
+    - lemma: "ارْتِفَاعُ الأَسْعَارِ"
+      confirm:
+        - text: "«الأمرُ الذي يُؤَدِّي إلى ارتفاع أسعار الخدمات والمنتجات»"
+          source: "المعجم الكبير (ضمن تعريف التضخم)"
+    - lemma: "غَلَاءٌ"
+      confirm:
+        - text: "«ارتفاع السعر»"
+          source: "المعجم الوسيط"
+        - text: "«الغين واللام والحرف المعتل أصل صحيح في الأمر يدل على ارتفاع ومجاوزة قدر. يقال: غلا السعر يغلو غلاءً، وذلك ارتفاعه»"
+          source: "مقاييس اللغة"
+    - lemma: "تَضَخُّمٌ مَالِيٌّ"
+      confirm:
+        - text: "«زيادة في نسبة العملة فيما يخص توافر الأصول والسلع والبضائع والخدمات»"
+          source: "ArabTerm"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تضخم"
+      decision: confirmed
+      decision_reason: "المصطلح العلمي والاقتصادي الدقيق والمعتمد دولياً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَضَخُّمٌ"
+    - lemma: "ارتفاع الأسعار"
+      decision: confirmed
+      decision_reason: "تعبير وصفي شائع جداً ومستعمل في اللغة اليومية والإعلامية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "ارْتِفَاعُ الأَسْعَارِ"
+    - lemma: "غَلَاءٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح التراثي والأصيل الذي يعبر عن المفهوم بوضوح وله شواهد معجمية قوية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "غَلَاءٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-13520031-n"}
+    - lemma: "تَضَخُّمٌ مَالِيٌّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح اقتصادي فني يضيف دقة للمجموعة عند الحديث عن الأسباب النقدية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "تَضَخُّمٌ مَالِيٌّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-13520031-n"}
+
+stage4_content:
+  definition:
+    current: "زيادة عامة ومستمرة في الأسعار"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد كبداية، لكن يفضل إضافة تعريف أكثر دقة يشرح الجانب الاقتصادي للظاهرة لتمييزها عن الارتفاع العارض."
+    authored:
+      - type: terminological
+        text: "حالة اقتصادية تتميز بزيادة مطردة في المستوى العام للأسعار، ناتجة عادة عن اختلال التوازن بين كمية النقد المتداول وحجم السلع والخدمات المعروضة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+      - type: encyclopedic
+        text: "ظاهرة تؤدي إلى انخفاض القوة الشرائية للعملة، حيث تتطلب شراء نفس الكمية من السلع مبالغ نقدية أكبر بمرور الوقت، وقد تكون ناتجة عن زيادة التكاليف أو قوة الطلب."
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-13520031-n", definition_index: 0, text: "زيادة عامة ومستمرة ومطردة في المستوى العام للأسعار تؤدي إلى انخفاض القوة الشرائية للعملة."}
+      - command: add_definition
+        params: {synset_id: "awn4-13520031-n", text: "حالة من الخلل الاقتصادي ناتجة عن زيادة النقد المتداول عن حاجة المعاملات الحقيقية، مما يسبب ارتفاعاً في أثمان الخدمات والمنتجات."}
+
+  examples:
+    per_lemma:
+      - lemma: "تَضَخُّمٌ"
+        examples:
+          - text: "يؤدي التضخم المتسارع إلى تآكل القيمة الشرائية للمدخرات الوطنية."
+            type: usage
+      - lemma: "ارْتِفَاعُ الأَسْعَارِ"
+        examples:
+          - text: "تشتكي الأسر من الارتفاع المستمر في أسعار المواد الغذائية الأساسية."
+            type: usage
+      - lemma: "غَلَاءٌ"
+        examples:
+          - text: "شهدت البلاد موجة غلاء طالت معظم المرافق والسلع."
+            type: usage
+      - lemma: "تَضَخُّمٌ مَالِيٌّ"
+        examples:
+          - text: "اتخذ البنك المركزي إجراءات نقدية صارمة للحد من التضخم المالي."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-13520031-n", text: "يعتبر التضخم أحد أكبر التحديات التي تواجه الاستقرار الاقتصادي في العصر الحديث."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تَضَخُّمٌ"
+      entry_id: "{auto}"
+      root: "ضخم"
+      maqayis_quote: "«الضَّادُ وَالْخَاءُ وَالْمِيمُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى عِظَمٍ فِي الشَّيْءِ. يُقَالُ: هَذَا ضَخْمٌ وَضُخَامٌ.»"
+    - lemma: "غَلَاءٌ"
+      entry_id: "{auto}"
+      root: "غلو"
+      maqayis_quote: "«الْغَيْنُ وَاللَّامُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ فِي الْأَمْرِ يَدُلُّ عَلَى ارْتِفَاعٍ وَمُجَاوَزَةِ قَدْرٍ. يُقَالُ: غَلَا السِّعْرُ يَغْلُو غَلَاءً، وَذَلِكا ارْتِفَاعُهُ.»"
+    - lemma: "ارْتِفَاعُ الأَسْعَارِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "ارتفاع"
+          root: "رفع"
+          maqayis_quote: "«الرَّاءُ وَالْفَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى خِلَافِ الْوَضْعِ. تَقُولُ: رَفَعْتُ الشَّيْءَ رَفْعًا; وَهُوَ خِلَافُ الْخَفْضِ.»"
+        - word: "الأسعار"
+          root: "سعر"
+          maqayis_quote: "«السِّينُ وَالْعَيْنُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى اشْتِعَالِ الشَّيْءِ وَاتِّقَادِهِ وَارْتِفَاعِهِ... فَأَمَّا سِعْرُ الطَّعَامِ فَهُوَ مِنْ هَذَا أَيْضًا ; لِأَنَّهُ يَرْتَفِعُ وَيَعْلُو.»"
+    - lemma: "تَضَخُّمٌ مَالِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "تضخم"
+          root: "ضخم"
+          maqayis_quote: "«الضَّادُ وَالْخَاءُ وَالْمِيمُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى عِظَمٍ فِي الشَّيْءِ.»"
+        - word: "مالي"
+          root: "مول"
+          maqayis_quote: "«الميم والواو واللام كلمةٌ واحدة، وهي المَالُ.»"
+
+  per_sense:
+    - lemma: "تَضَخُّمٌ"
+      sense_id: "{auto}"
+      nuance: "المصطلح الاقتصادي التقني الذي يركز على انخفاض قيمة العملة."
+      mwe: false
+    - lemma: "ارْتِفَاعُ الأَسْعَارِ"
+      sense_id: "{auto}"
+      nuance: "وصف مباشر وظاهري للنتيجة الملموسة للتضخم."
+      mwe: true
+    - lemma: "غَلَاءٌ"
+      sense_id: "{auto}"
+      nuance: "يركز على الحالة الاجتماعية والمعيشية الناتجة عن الارتفاع، وهو لفظ عامي وفصيح في آن واحد."
+      mwe: false
+    - lemma: "تَضَخُّمٌ مَالِيٌّ"
+      sense_id: "{auto}"
+      nuance: "تخصيص للتضخم بكونه متعلقاً بالكتلة النقدية والسياسة المالية."
+      mwe: true
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ضخم","maqayis":"«الضَّادُ وَالْخَاءُ وَالْمِيمُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى عِظَمٍ فِي الشَّيْءِ. يُقَالُ: هَذَا ضَخْمٌ وَضُخَامٌ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"غلو","maqayis":"«الْغَيْنُ وَاللَّامُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ فِي الْأَمْرِ يَدُلُّ عَلَى ارْتِفَاعٍ وَمُجَاوَزَةِ قَدْرٍ. يُقَالُ: غَلَا السِّعْرُ يَغْلُو غَلَاءً، وَذَلِكا ارْتِفَاعُهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الاقتصادي التقني الذي يركز على انخفاض قيمة العملة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-13520031-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-13520031-n"
+        score: 0.95

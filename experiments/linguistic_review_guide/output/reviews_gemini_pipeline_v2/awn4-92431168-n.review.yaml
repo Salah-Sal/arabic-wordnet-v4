@@ -1,0 +1,236 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'حبوب البيرة المستهلكة' تبدو ترجمة حرفية ركيكة للمصطلح الإنجليزي (Spent grain)، والمصطلح العربي الأصيل هو 'التفل' أو 'الثفل'."
+      - "استخدام كلمة 'الهرش' في التعريف العربي غريب، والأرجح أنها تصحيف لكلمة 'الهرس' (Mashing) المستعملة تقنياً في صناعة المشروبات، أو أنها ترجمة صوتية مشوهة."
+      - "اللمة 'كُسب الحبوب' تستخدم عادة لمخلفات استخراج الزيوت، لكنها مقبولة بالتوسع في مخلفات الحبوب عموماً."
+    observations: "المجموعة تدور حول المخلفات الصلبة المتبقية من عملية نقع وهرس الحبوب (خاصة الشعير) في صناعة الجعة. المصطلحات العربية غنية بالألفاظ التي تصف البقايا والرسوبيات مثل 'الثفل' و'الدردي' و'الكسب'."
+  blind_candidates:
+    - lemma: "ثُفْلُ الشَّعِيرِ"
+      generation_method: ishtiqaq
+      justification: "الثفل هو ما رسب من كدر الشيء أو ما بقي بعد استخلاص عصارة المادة، وهو المصطلح الأدق دلالة وتراثية."
+    - lemma: "دِرْدِيُّ الجِعَةِ"
+      generation_method: tarkib
+      justification: "الدردي هو رسوب الزيت والخل والخمر في أسفل الوعاء، والجعة هي شراب الشعير، فيكون المركب وصفاً دقيقاً للمادة."
+    - lemma: "خُثَارَةُ الحُبُوبِ"
+      generation_method: majaz
+      justification: "الخثارة هي ما يبقى في أسفل القدر أو الوعاء من ثخن المادة، وتستخدم للمخلفات الرطبة."
+    - lemma: "حُتَالَةُ الشَّعِيرِ"
+      generation_method: ishtiqaq
+      justification: "الحثالة هي ما رذل من الشيء وبقي بعد أخذ جيده، وتستعمل لمخلفات الحبوب."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تفل الشعير"
+      confirm:
+        - text: "«تفل: مخلفات ليفية تتخلف بعد عصر سيقان قصب السكر أو السرغوم لاستخلاص عصارتها»"
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة"
+      expands:
+        - text: "«التفل شبيه بالبزق... وتفل الشيء تغيرت رائحته»"
+          source: "تاج العروس"
+          addition: "تشير المعاجم التقنية الحديثة إلى استخدامه للمخلفات الليفية (bagasse) وهو ما ينطبق على قشور الشعير المتبقية."
+    - lemma: "كُسب الحبوب"
+      confirm:
+        - text: "«الكسب بالضم: عصارة الدهن... وما يتبقى من بزور القطن والكتان والسمسم وغيرها بعد عصرها»"
+          source: "المعجم الوسيط"
+        - text: "«الذي يخرج من البر بعد التذرية مما ينبغي أن يدق: الكسب»"
+          source: "المحيط في اللغة"
+    - lemma: "ثُفْلُ الشَّعِيرِ"
+      confirm:
+        - text: "«الثفل: ما استقر تحت الشيء من كدورة. وكل ما استخرج عصيره وبقي هو»"
+          source: "تاج العروس"
+        - text: "«الثفل: ما يتبقى من المادة بعد عصيرها أو إغلائها (ثفل الشاي / القهوة)»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "دِرْدِيُّ الجِعَةِ"
+      confirm:
+        - text: "«دردي الزيت وغيره: ما يبقى في أسفل وعائه... الجعة: شراب يتخذ من الشعير يحمر حتى يسكر»"
+          source: "تاج العروس / المعجم الكبير"
+    - lemma: "حبوب البيرة المستهلكة"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تفل الشعير"
+      decision: confirmed
+      decision_reason: "مصطلح تقني حديث مستخدم بكثرة في الصناعات الغذائية والطاقة لوصف المخلفات الليفية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تُفْلُ الشَّعِيرِ"
+    - lemma: "كُسب الحبوب"
+      decision: confirmed
+      decision_reason: "مقبول تقنياً في سياق الأعلاف الحيوانية، حيث تسمى مخلفات الحبوب بعد التصنيع كسباً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "كُسْبُ الحُبُوبِ"
+    - lemma: "حبوب البيرة المستهلكة"
+      decision: removed
+      decision_reason: "ترجمة حرفية ركيكة (Calque) من الإنجليزية 'spent brewer's grain'، ولا تعتبر وحدة معجمية فصيحة."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "ثُفْلُ الشَّعِيرِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح الأصيل والأكثر دقة لوصف الرواسب والمخلفات المتبقية بعد التصفية في اللغة العربية الكلاسيكية والمعاصرة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "ثُفْلُ الشَّعِيرِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-92431168-n"}
+    - lemma: "دِرْدِيُّ الجِعَةِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تخصصي دقيق جداً يجمع بين 'الدردي' (الرواسب السائلة) و'الجعة' (المشروب المعني)، وهو فصيح وتراثي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "دِرْدِيُّ الجِعَةِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-92431168-n"}
+
+stage4_content:
+  definition:
+    current: "بقايا الشعير والحبوب التي تبقى في وعاء الهرش بعد عملية الهرش والتصفية"
+    assessment:
+      decision: revise
+      reason: "كلمة 'الهرش' غير دقيقة تقنياً وهي على الأرجح تصحيف لـ 'الهرس' (Mashing)، كما يحتاج التعريف لبيان الغرض الصناعي (صناعة الجعة)."
+    authored:
+      - type: terminological
+        text: "بقايا الشعير والحبوب التي تتبقى بعد عملية الهرس والتصفية لاستخلاص المادة السكرية في صناعة الجعة، وتُستخدم عادةً علفاً للحيوانات."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-92431168-n"
+          definition_index: 0
+          text: "بقايا الشعير والحبوب التي تتبقى بعد عملية الهرس والتصفية لاستخلاص المادة السكرية في صناعة الجعة، وتُستخدم عادةً علفاً للحيوانات."
+  examples:
+    per_lemma:
+      - lemma: "تُفْلُ الشَّعِيرِ"
+        examples:
+          - text: "يتجمع تفل الشعير في أحواض التصفية بعد انتهاء عملية غلي الحبوب."
+            type: usage
+      - lemma: "كُسْبُ الحُبُوبِ"
+        examples:
+          - text: "يُعد كسب الحبوب الناتج عن مصانع الجعة مكملاً غذائياً ممتازاً لتسمين العجول."
+            type: usage
+      - lemma: "ثُفْلُ الشَّعِيرِ"
+        examples:
+          - text: "يُصنف ثفل الشعير ضمن المخلفات الصناعية العضوية القابلة للتدوير."
+            type: usage
+      - lemma: "دِرْدِيُّ الجِعَةِ"
+        examples:
+          - text: "كانت المعاجم القديمة تصف دردي الجعة بأنه ما يتبقى في أسفل آنية التخمير."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-92431168-n", text: "يُستغل تفل الشعير المتبقي من صناعة الجعة في إنتاج الطاقة الحيوية."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تُفْلُ الشَّعِيرِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "تفل"
+          root: "تفل"
+          maqayis_quote: "«التَّاءُ وَالْفَاءُ وَاللامُ أَصْلٌ وَاحِدٌ، وَهُوَ خُبْثُ الشَّيْءِ وَكَرَاهَتُهُ. فَالتَّفَلُ الرِّيحُ الْخَبِيثَةُ... وَمِنْ هَذَا الْبَابِ تَفَلْتَ بِالشَّيْءِ، إِذَا رَمَيْتَ بِهِ مِنْ فَمِكَ مُتَكَرِّهًا لَهُ.»"
+        - word: "شعير"
+          root: "شعر"
+          maqayis_quote: "«الشِّيْنُ وَالعَيْنُ وَالرَّاءُ أَصْلٌ وَاحِدٌ... وَالشَّعِيْرُ مَعْرُوْفٌ.»"
+    - lemma: "كُسْبُ الحُبُوبِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "كسب"
+          root: "كسب"
+          maqayis_quote: "«الْكَافُ وَالسِّينُ وَالْبَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ طَلَبُ الرِّزْقِ وَأَصْلُهُ الْجَمْعُ.»"
+        - word: "حبوب"
+          root: "حبب"
+          maqayis_quote: "«الحَاءُ وَالبَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ تجمُّعُ الشَّيْء... وَالحَبُّ جَمْعُ حَبَّةٍ.»"
+    - lemma: "ثُفْلُ الشَّعِيرِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "ثفل"
+          root: "ثفل"
+          maqayis_quote: "«الثَّاءُ وَالْفَاءُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ الشَّيْءُ يَسْتَقِرُّ تَحْتَ الشَّيْءِ، يَكُونُ ذَلِكَ مِنَ الْكَدَرِ وَغَيْرِهِ. يُقَالُ هُوَ ثُفْلُ الْقِدْرِ.»"
+        - word: "شعير"
+          root: "شعر"
+          maqayis_quote: "«الشِّيْنُ وَالعَيْنُ وَالرَّاءُ أَصْلٌ وَاحِدٌ... وَالشَّعِيْرُ مَعْرُوْفٌ.»"
+    - lemma: "دِرْدِيُّ الجِعَةِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "دردي"
+          root: "درد"
+          maqayis_quote: "«الدَّالُ وَالرَّاءُ وَالدَّالُ أَصْلٌ وَاحِدٌ... وَالدُّرْدِيُّ خُثَارَةُ الزَّيْتِ.»"
+        - word: "جعة"
+          root: "جعو"
+          maqayis_quote: "«الجِيمُ وَالعَيْنُ وَالوَاوُ... الجِعَةُ نَبِيذُ الشَّعِيْرِ.» (نقلًا عن المعاجم المتأخرة لاعتماده على الجيم والعين)."
+  per_sense:
+    - lemma: "تُفْلُ الشَّعِيرِ"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب المادي والمخلفات الليفية المتبقية بعد العصر أو النقع."
+      mwe: true
+    - lemma: "كُسْبُ الحُبُوبِ"
+      sense_id: "{auto}"
+      nuance: "يستخدم غالباً في سياق صناعة الأعلاف الحيوانية ككتلة صلبة مجففة."
+      mwe: true
+    - lemma: "ثُفْلُ الشَّعِيرِ"
+      sense_id: "{auto}"
+      nuance: "المصطلح العربي الفصيح الذي يصف الرواسب المتبقية في قاع الوعاء بعد تصفية السائل."
+      mwe: true
+    - lemma: "دِرْدِيُّ الجِعَةِ"
+      sense_id: "{auto}"
+      nuance: "أكثر تخصصاً في وصف العكر والرسوبيات الدقيقة في أسفل شراب الشعير."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"تفل","root":"تفل","maqayis":"«...»"},{"word":"شعير","root":"شعر","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الجانب المادي والمخلفات الليفية المتبقية بعد العصر أو النقع.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-92431168-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-92431168-n"
+        score: 0.9

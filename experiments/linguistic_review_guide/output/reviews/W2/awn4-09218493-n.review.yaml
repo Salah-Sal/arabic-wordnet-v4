@@ -1,0 +1,139 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "أمريكا"
+      confirm:
+        - text: "«القارة الكبرى في نصف الكرة الغربي، اكتشفها \" كولمبس \" في القرن الخامس عشر، وأطلق عليها اسم \" العالم الجديد \" تطلق الآن بخاصة على الولايات المتحدة الأمريكية»"
+          source: "المعجم الكبير"
+      expands:
+        - text: "«Americas»"
+          source: "المكنز الزراعي متعدد اللغات"
+          addition: "يشير صراحة إلى صيغة الجمع (Americas) للدلالة على القارتين معا."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "أميركا"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«Americas — أميركا» — المكنز الزراعي متعدد اللغات"
+      justification: "ترجمة مباشرة للمصطلح الإنجليزي الجمع (Americas) الذي يعبر عن المفهوم."
+  knowledge_candidates:
+    - lemma: "الأمريكتان"
+      justification: "الاسم المثنى العربي الشائع للتعبير عن قارتي أمريكا الشمالية والجنوبية معاً، وهو الأدق لوصف 'The Americas'."
+    - lemma: "العالم الجديد"
+      justification: "تسمية تاريخية وكنائية لأمريكا، وردت في تعريف المعجم الكبير."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "أمريكا"
+      decision: confirmed
+      decision_reason: "الاسم الأكثر شيوعاً وعالمية للدلالة على المفهوم الجغرافي."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "الاسم العلم العام الذي يشمل الأجزاء الثلاثة المذكورة في التعريف."
+      example: "تعد أمريكا قارة شاسعة تمتد في نصف الكرة الغربي."
+      actions: []
+
+    - lemma: "أميركا"
+      source: step05
+      decision: confirmed
+      decision_reason: "رسم إملائي بديل واسع الانتشار (بإثبات الياء) ومدعوم بالأدلة المعجمية."
+      step05_citation: "«Americas — أميركا» — المكنز الزراعي متعدد اللغات"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تنوع إملائي لـ 'أمريكا' (بزيادة الياء) شائع في الصحافة والترجمات."
+      example: "نظمت دول أميركا الجنوبية مؤتمراً للتعاون الاقتصادي."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "أميركا"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09218493-n"
+
+    - lemma: "الأمريكتان"
+      source: step05
+      decision: confirmed
+      decision_reason: "المصطلح العربي الفصيح والدقيق للتعبير عن القارتين (الشمالية والجنوبية) وما بينهما، وهو يتطابق تماماً مع المدلول الجمعي (Americas)."
+      step05_citation: "الاستعمال العربي الشائع للمثنى للتعبير عن المجموعات الجغرافية المزدوجة."
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "صيغة المثنى التي تركز على ازدواجية القارة (شمالية وجنوبية)."
+      example: "تربط قناة بنما الممر الملاحي بين الأمريكتين."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "الأمريكتان"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09218493-n"
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "أمريكا الشمالية وأمريكا الجنوبية وأمريكا الوسطى"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي هو مجرد سرد للأجزاء، ويفتقر إلى 'الجنس' (Genus) الذي يحدد ماهية المعرف (قارة)."
+  authored_definitions:
+    - type: encyclopedic
+      text: "قارة شاسعة تقع في نصف الكرة الغربي، تتألف من كتلتين قاريتين هما أمريكا الشمالية وأمريكا الجنوبية، وتصلهما برزخ أمريكا الوسطى."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-09218493-n"
+        definition_index: 0
+        text: "قارة شاسعة تقع في نصف الكرة الغربي، تتألف من أمريكا الشمالية وأمريكا الوسطى وأمريكا الجنوبية."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "أرض، بر، يابسة"
+    test_result: "needs_closer"
+  actions:
+    - command: add_synset_relation
+      params:
+        source_id: "awn4-09218493-n"
+        relation_type: "hypernym"
+        target_id: "awn4-09257692-n"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "أمريكا"
+      enrichment:
+        root: "أمرك"
+        etymology: "loanword"
+      examples:
+        - text: "اكتشف كولومبوس أمريكا في نهاية القرن الخامس عشر."
+          type: usage
+          source: "المعجم الكبير"
+      pos_check:
+        pos: noun
+    - lemma: "أميركا"
+      enrichment:
+        root: "أمرك"
+        etymology: "loanword"
+      examples:
+        - text: "تضم أميركا اللاتينية مجموعة من الدول الناطقة بالإسبانية والبرتغالية."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "الأمريكتان"
+      enrichment:
+        root: "أمرك"
+      examples:
+        - text: "تمتد الأمريكتان من الدائرة القطبية الشمالية حتى القارة القطبية الجنوبية."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

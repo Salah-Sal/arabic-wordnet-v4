@@ -1,0 +1,255 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة (عدم الجدارة بالثقة) عبارة عن ترجمة حرفية ركيكة (untrustworthiness) وليست مصطلحاً معجمياً مستقراً."
+      - "اللمة (خيانة) تعبر عن الفعل أكثر من السمة، لكنها تستخدم في العربية كمقابل لسمة الأمانة."
+    observations: "المفهوم يعبر عن غياب صفة الأمانة أو الثقة في الشخص. العربية تزخر بمفردات تعبر عن هذا المعنى بشكل دقيق مثل (الغدر) ومركبات مثل (انعدام الأمانة)."
+  blind_candidates:
+    - lemma: "غَدْرٌ"
+      generation_method: ishtiqaq
+      justification: "مشتق من الجذر (غ د ر) ويدل على ترك الوفاء بالعهد ونقضه، وهو يعبر عن سمة انعدام الثقة بالشخص."
+    - lemma: "مَكْرٌ"
+      generation_method: ishtiqaq
+      justification: "مشتق من الجذر (م ك ر) بمعنى الخديعة، وهو من سمات من لا يستحق الثقة."
+    - lemma: "انْعِدَامُ الْأَمَانَةِ"
+      generation_method: tarkib
+      justification: "مركب إضافي يعبر بدقة عن غياب صفة الأمانة التي هي أساس استحقاق الثقة."
+    - lemma: "انْعِدَامُ الثِّقَةِ"
+      generation_method: tarkib
+      justification: "مركب إضافي يصف غياب الثقة بشكل مباشر."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خيانة"
+      confirm:
+        - text: "«الخِيانة: مخالفةَ الحق بنقض العهد في السر، ونقيض الخيانة الأمانة»"
+          source: "التعريفات الفقهيّة للبركتي"
+      contradicts: []
+      expands: []
+    - lemma: "عدم الجدارة بالثقة"
+      evidence_status: "no_material_found"
+    - lemma: "غَدْرٌ"
+      confirm:
+        - text: "«الغَدْرُ: ضِدُّ الوَفاءِ، غَدَرَهُ، وـ به، كنَصَرَ وضَرَبَ وسَمِعَ، غَدْراً وغَدَراناً»"
+          source: "القاموس المحيط للفيروزآبادي"
+        - text: "«الْغدر: الْخِيَانَة وَنقض الْعَهْد.»"
+          source: "دستور العلماء للأحمدنكري"
+      contradicts: []
+      expands: []
+    - lemma: "مَكْرٌ"
+      confirm: []
+      contradicts: []
+      expands:
+        - text: "«المَكْرُ: الخَديعَةُ، وهو ماكرٌ ومَكَّارٌ ومَكُورٌ»"
+          source: "القاموس المحيط للفيروزآبادي"
+          addition: "يدل على الخديعة والاحتيال وليس مجرد عدم استحقاق الثقة."
+    - lemma: "انْعِدَامُ الْأَمَانَةِ"
+      evidence_status: "no_material_found"
+    - lemma: "انْعِدَامُ الثِّقَةِ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "خيانة"
+      decision: confirmed
+      decision_reason: "مصطلح أصيل يقابل الأمانة ويعبر عن الخصلة التي تفقد صاحبها الثقة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خِيَانَةٌ"
+
+    - lemma: "عدم الجدارة بالثقة"
+      decision: removed
+      decision_reason: "ترجمة حرفية ركيكة وليست مصطلحاً مألوفاً أو مسكوكاً."
+      evidence_assessment:
+        case: no_material
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "غَدْرٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح دقيق يعبر عن نقيض الوفاء ونقض العهود، وهو ما يترتب عليه عدم استحقاق الثقة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "غَدْرٌ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "مَكْرٌ"
+      source: stage1
+      decision: removed
+      decision_reason: "المكر يدل على الخديعة والاحتيال، وهو مفهوم أخص من مجرد انعدام الثقة."
+      evidence_assessment:
+        case: mixed
+      
+    - lemma: "انْعِدَامُ الْأَمَانَةِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مركب إضافي مفهوم وشائع للتعبير عن انعدام خصلة الأمانة، مما يؤدي إلى عدم الثقة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "انْعِدَامُ الْأَمَانَةِ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "انْعِدَامُ الثِّقَةِ"
+      source: stage1
+      decision: removed
+      decision_reason: "التركيب يدل على عدم وضع الثقة بالآخرين أكثر من دلالته على عدم الاستحقاق للثقة."
+      evidence_assessment:
+        case: no_material
+
+stage4_content:
+  definition:
+    current: "سمة عدم استحقاق الثقة أو الاعتماد"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مترجم حرفياً وتنقصه الدقة المعجمية."
+    authored:
+      - type: terminological
+        text: "خصلة تدل على انعدام الأمانة والوفاء، وتجعل صاحبها غير أهل للثقة أو الاعتماد عليه."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "خصلة تدل على انعدام الأمانة والوفاء، وتجعل صاحبها غير أهل للثقة أو الاعتماد عليه."
+  examples:
+    per_lemma:
+      - lemma: "خِيَانَةٌ"
+        examples:
+          - text: "عُرف الرجل بالخيانة فلم يعد يأتمنه أحد على شيء."
+            type: usage
+      - lemma: "غَدْرٌ"
+        examples:
+          - text: "من شيم المنافق الغدر ونقض العهود."
+            type: usage
+      - lemma: "انْعِدَامُ الْأَمَانَةِ"
+        examples:
+          - text: "أدى انعدام الأمانة لديه إلى خسارة وظيفته ومكانته بين زملائه."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "عُرف الرجل بالخيانة فلم يعد يأتمنه أحد على شيء."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "من شيم المنافق الغدر ونقض العهود."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "أدى انعدام الأمانة لديه إلى خسارة وظيفته ومكانته بين زملائه."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خِيَانَةٌ"
+      entry_id: "{auto}"
+      root: "خون"
+      maqayis_quote: "«الْخَاءُ وَالْوَاوُ وَالنُّونُ أَصْلٌ وَاحِدٌ، وَهُوَ التَّنَقُّصُ. يُقَالُ خَانَهُ يَخُونُهُ خَوْنًا. وَذَلِكَ نُقْصَانُ الْوَفَاءِ.»"
+    - lemma: "غَدْرٌ"
+      entry_id: "{auto}"
+      root: "غدر"
+      maqayis_quote: "«الْغَيْنُ وَالدَّالُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَرْكِ الشَّيْءِ. مِنْ ذَلِكَ الْغَدْرُ: نَقْضُ الْعَهْدِ وَتَرْكُ الْوَفَاءِ بِهِ.»"
+    - lemma: "انْعِدَامُ الْأَمَانَةِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "انعدام"
+          root: "عدم"
+          maqayis_quote: "«الْعَيْنُ وَالدَّالُ وَالْمِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى فُقْدَانِ الشَّيْءِ وَذَهَابِهِ.»"
+        - word: "الأمانة"
+          root: "امن"
+          maqayis_quote: "«الْهَمْزَةُ وَالْمِيمُ وَالنُّونُ أَصْلَانِ مُتَقَارِبَانِ: أَحَدُهُمَا الْأَمَانَةُ الَّتِي هِيَ ضِدُّ الْخِيَانَةِ، وَمَعْنَاهَا سُكُونُ الْقَلْبِ.»"
+  per_sense:
+    - lemma: "خِيَانَةٌ"
+      sense_id: "{auto}"
+      nuance: "تدل على نقض العهد السري وتضييع الأمانة الموكلة للشخص."
+      mwe: false
+    - lemma: "غَدْرٌ"
+      sense_id: "{auto}"
+      nuance: "يدل على ترك الوفاء ونقض العهود بشكل صريح."
+      mwe: false
+    - lemma: "انْعِدَامُ الْأَمَانَةِ"
+      sense_id: "{auto}"
+      nuance: "وصف مباشر لغياب الأمانة كخصلة في الشخص."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خون","maqayis":"«الْخَاءُ وَالْوَاوُ وَالنُّونُ أَصْلٌ وَاحِدٌ، وَهُوَ التَّنَقُّصُ. يُقَالُ خَانَهُ يَخُونُهُ خَوْنًا. وَذَلِكَ نُقْصَانُ الْوَفَاءِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"غدر","maqayis":"«الْغَيْنُ وَالدَّالُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَرْكِ الشَّيْءِ. مِنْ ذَلِكَ الْغَدْرُ: نَقْضُ الْعَهْدِ وَتَرْكُ الْوَفَاءِ بِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"انعدام","root":"عدم","maqayis":"«الْعَيْنُ وَالدَّالُ وَالْمِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى فُقْدَانِ الشَّيْءِ وَذَهَابِهِ.»"},{"word":"الأمانة","root":"امن","maqayis":"«الْهَمْزَةُ وَالْمِيمُ وَالنُّونُ أَصْلَانِ مُتَقَارِبَانِ: أَحَدُهُمَا الْأَمَانَةُ الَّتِي هِيَ ضِدُّ الْخِيَانَةِ، وَمَعْنَاهَا سُكُونُ الْقَلْبِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تدل على نقض العهد السري وتضييع الأمانة الموكلة للشخص.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يدل على ترك الوفاء ونقض العهود بشكل صريح.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"وصف مباشر لغياب الأمانة كخصلة في الشخص.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

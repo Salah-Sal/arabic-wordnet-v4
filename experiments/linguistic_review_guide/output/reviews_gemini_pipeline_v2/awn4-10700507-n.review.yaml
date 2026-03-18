@@ -1,0 +1,195 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'باق على قيد الحياة' تعبير وصفي وشبه حر (تعبير غير مسكوك اصطلاحياً بشكل قاطع) والأفضل الاكتفاء بالكلمات المفردة المعبرة عن المعنى."
+      - "عدم وجود 'باق' ككلمة مفردة رغم أنها الأقرب للمعنى الإنجليزي للمجموعة (في سياقات الورثة)."
+    observations: "المفهوم يدل على من يبقى حيا بعد هلاك الآخرين أو وفاتهم (مثل الكوارث أو الورثة). اللمات المفردة المستعملة هي 'ناجٍ' (للناجي من كارثة) و'باقٍ' لمن يبقى بعد زوال غيره أو هلاكهم."
+  blind_candidates:
+    - lemma: "بَاقٍ"
+      generation_method: ishtiqaq
+      justification: "مشتق من الفعل بقي، ويدل على من يظل حيا أو موجودا بعد هلاك أو وفاة غيره."
+    - lemma: "نَاجٍ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل نجا، أي سلم من الهلاك، وهو ما يناسب من يعيش بعد حادثة مهلكة."
+    - lemma: "حَيّ"
+      generation_method: ishtiqaq
+      justification: "من الحياة، وهو ما بقي متصفا بالحياة بعد أن فقدها غيره."
+    - lemma: "مُعَمِّر"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من عمَّر، ويدل على من يطول عمره أكثر من المعتاد."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "بَاقٍ عَلَى قَيْد الْحَيَاة"
+      evidence_status: "no_material_found"
+    - lemma: "نَاجٍ"
+      confirm:
+        - text: "نَاجِي: من (ن ج و) المتخلص من الأذى وغيره، ومن يُسِّر إلى آخر حديثا ومنه النجوى والمناجاة، والناجي: السريع..."
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+    - lemma: "بَاقٍ"
+      confirm:
+        - text: "(الْبَاقِي) الثَّابِت بعد غَيره"
+          source: "المعجم الوسيط"
+        - text: "باقٍ"
+          source: "المورد الحديث (2008)"
+    - lemma: "حَيّ"
+      confirm:
+        - text: "والحَيُّ من كل شَيْء: نقيض الْمَيِّت"
+          source: "المحكم والمحيط الأعظم"
+    - lemma: "مُعَمِّر"
+      confirm:
+        - text: "مُعَمَّر: من (م ع ر) من طال عمره"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "بَاقٍ عَلَى قَيْد الْحَيَاة"
+      decision: removed
+      decision_reason: "تعبير وصفي حر ومفتوح وليس مصطلحا مسكوكا معجميا في حد ذاته، يمكن الاستعاضة عنه بـ 'بَاقٍ'."
+      evidence_assessment:
+        case: no_material
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    
+    - lemma: "نَاجٍ"
+      decision: confirmed
+      decision_reason: "اسم فاعل صحيح يعبر عن الشخص الذي يسلم من خطر أو موت بعد هلاك الآخرين، وهو مقابل شائع ومستقر."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نَاجٍ"
+
+    - lemma: "بَاقٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اسم فاعل يعبر بدقة عن الثابت بعد زوال أو موت غيره، وهو المعنى الدقيق للتعريف 'من يعيش أطول من غيره' (كالباقي من الورثة)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "بَاقٍ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "حَيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "كلمة عامة جدا تعني نقيض الميت، ولا تحمل دلالة البقاء 'أطول من غيره' كدلالة أساسية مخصصة للترادف هنا."
+      evidence_assessment:
+        case: confirm_only
+
+    - lemma: "مُعَمِّر"
+      source: stage1
+      decision: removed
+      decision_reason: "تدل على من طال عمره بشكل مطلق، وليس بالضرورة مقترنة بمقارنة مع غيره ممن هلك."
+      evidence_assessment:
+        case: confirm_only
+
+stage4_content:
+  definition:
+    current: "من يعيش أطول من غيره"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي صحيح ولكنه يحتاج إلى إعادة صياغة لغوية أتم وأدق ليشمل الناجي من الحوادث أو الباقي من الورثة."
+    authored:
+      - type: linguistic
+        text: "الشخص الذي يبقى حيا بعد وفاة أو هلاك أشخاص آخرين، كالورثة أو رفاق كارثة ما."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "الشخص الذي يبقى حيا بعد وفاة أو هلاك أشخاص آخرين، كالورثة أو رفاق كارثة ما."
+
+  examples:
+    per_lemma:
+      - lemma: "نَاجٍ"
+        examples:
+          - text: "كان هو النَّاجِيَ الوحيد من حادث تحطم الطائرة."
+            type: usage
+      - lemma: "بَاقٍ"
+        examples:
+          - text: "قُسِّمت التركة بين البَاقِينَ من أسرة الفقيد."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "كان هو النَّاجِيَ الوحيد من حادث تحطم الطائرة."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "قُسِّمت التركة بين البَاقِينَ من أسرة الفقيد."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "نَاجٍ"
+      entry_id: "{auto}"
+      root: "نجو"
+      maqayis_quote: "«النُّونُ وَالْجِيمُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ، يَدُلُّ أَحَدُهُمَا عَلَى كَشْطٍ وَكَشْفٍ، وَالْآخَرُ عَلَى سَتْرٍ وَإِخْفَاءٍ... وَنَجَا الْإِنْسَانُ يَنْجُو نَجَاةً، وَنَجَاءً فِي السُّرْعَةِ ; وَهُوَ مَعْنَى الذَّهَابِ وَالِانْكِشَافِ مِنَ الْمَكَانِ.»"
+    - lemma: "بَاقٍ"
+      entry_id: "{auto}"
+      root: "بقي"
+      maqayis_quote: "«الْبَاءُ وَالْقَافُ وَالْيَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الدَّوَامُ. قَالَ الْخَلِيلُ: يُقَالُ: بَقِيَ الشَّيْءُ يَبْقَى بَقَاءً، وَهُوَ ضِدُّ الْفَنَاءِ.»"
+
+  per_sense:
+    - lemma: "نَاجٍ"
+      sense_id: "{auto}"
+      nuance: "يُستخدم غالباً للدلالة على من سَلِم من الهلاك أو نجا من كارثة أهلكت غيره."
+      mwe: false
+    - lemma: "بَاقٍ"
+      sense_id: "{auto}"
+      nuance: "يُستخدم للدلالة على من ظل حياً بعد وفاة غيره من أقاربه أو أقرانه، وهو الأكثر استخداماً في سياقات التركات والامتداد الزمني."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نجو","maqayis":"«النُّونُ وَالْجِيمُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ، يَدُلُّ أَحَدُهُمَا عَلَى كَشْطٍ وَكَشْفٍ، وَالْآخَرُ عَلَى سَتْرٍ وَإِخْفَاءٍ... وَنَجَا الْإِنْسَانُ يَنْجُو نَجَاةً، وَنَجَاءً فِي السُّرْعَةِ ; وَهُوَ مَعْنَى الذَّهَابِ وَالِانْكِشَافِ مِنَ الْمَكَانِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"بقي","maqayis":"«الْبَاءُ وَالْقَافُ وَالْيَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الدَّوَامُ. قَالَ الْخَلِيلُ: يُقَالُ: بَقِيَ الشَّيْءُ يَبْقَى بَقَاءً، وَهُوَ ضِدُّ الْفَنَاءِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُستخدم غالباً للدلالة على من سَلِم من الهلاك أو نجا من كارثة أهلكت غيره.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُستخدم للدلالة على من ظل حياً بعد وفاة غيره من أقاربه أو أقرانه، وهو الأكثر استخداماً في سياقات التركات والامتداد الزمني.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'

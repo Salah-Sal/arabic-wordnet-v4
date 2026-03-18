@@ -1,0 +1,220 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي عام جداً ويمكن تحسينه بإضافة أمثلة توضيحية للأدوات (كمقياس الحرارة)."
+      - "غياب لمة (بصلة) وهي الترجمة الأشهر والأكثر استخداماً لمصطلح (bulb) في السياقات التقنية والعلمية للأدوات."
+    observations: "المفهوم يشير إلى الجزء المنتفخ (المستودع) في طرف أداة أسطوانية، والذي يشبه في شكله البصلة. وقد استخدمت العربية الترجمة المجازية (بصلة) أو (بصيلة) للدلالة على هذا الجزء."
+  blind_candidates:
+    - lemma: "بَصَلَة"
+      generation_method: majaz
+      justification: "استعارة لشكل بصلة النبات للدلالة على الجزء الكروي أو البيضوي المنتفخ في نهاية أداة زجاجية أو مطاطية."
+    - lemma: "بُصَيْلَة"
+      generation_method: ishtiqaq
+      justification: "تصغير (بصلة)، وتستخدم للإشارة إلى المستودعات الصغيرة جداً كما في مقياس الحرارة الطبي."
+    - lemma: "مُسْتَوْدَع"
+      generation_method: majaz
+      justification: "نظراً لأن هذا الجزء غالباً ما يستخدم لتخزين سائل (كالزئبق في ميزان الحرارة)، فيمكن تسميته مستودعاً."
+    - lemma: "عُقْدَة"
+      generation_method: majaz
+      justification: "لأنها تشكل بروزاً أو انتفاخاً في الأداة يشبه العقدة في الخيط."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "انتفاخ"
+      confirm: []
+      contradicts: []
+      expands:
+        - text: "«(انتفاخ) swelling; heaving; turgescence»"
+          source: "عدة معاجم علمية وهندسية"
+          addition: "يؤكد دلالة اللمة على التورم أو البروز في الشيء، وهو ما يتوافق جزئياً مع وصف المفهوم كجزء منتفخ، رغم أنه ليس مصطلحاً دقيقاً كاسم للقطعة."
+    - lemma: "بصيلة"
+      confirm:
+        - text: "«(درجة حرارة البصيلة الرطبة) wet bulb temperature: قراءة درجة الحرارة المأخوذة من ميزان الحرارة مع فتيلة الثرمومتر المبللة حول بصيلتها.»"
+          source: "المعجم الموحد لمصطلحات المياه (2000)"
+        - text: "«(ترمومتر ذو بُصَيْلة رطبة) wet bulb thermometer: مقياس درجة حرارة ذو بُصَيْلة موضوعة في فتيل مبلل.»"
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة (1996)"
+      contradicts: []
+      expands: []
+    - lemma: "بصلة"
+      confirm:
+        - text: "«بصلة: bulb»"
+          source: "المعجم الموحد لمصطلحات الكيمياء (1992)"
+        - text: "«بصلة التسوية، بصلة ميزان التسوية: levelling bulb»"
+          source: "المعجم الموحد لمصطلحات الكيمياء (1992)"
+        - text: "«(بصلة) جزء متضخم يشبه البصلة في نسيج ما. (bulb = bulbus)»"
+          source: "معجم المصطلحات الطبية (ج.1، 1985)"
+      contradicts: []
+      expands: []
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "انتفاخ"
+      decision: confirmed
+      decision_reason: "كلمة وصفية عامة وصحيحة لغوياً للإشارة إلى أي جزء بارز أو منتفخ في أداة زجاجية أو أسطوانية، وقد تستخدم في السياق الوصفي وإن لم تكن المصطلح التقني الأدق."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "اِنْتِفَاخ"
+    - lemma: "بصيلة"
+      decision: confirmed
+      decision_reason: "مصطلح تقني دقيق ومثبت معجمياً في المعاجم المتخصصة (مثل بصيلة مقياس الحرارة) للإشارة إلى الجزء المنتفخ الصغير (bulb)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "بُصَيْلَة"
+    - lemma: "بَصَلَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح الأكثر شيوعاً واعتماداً في المعاجم العلمية لترجمة (bulb) للإشارة إلى الأجزاء الكروية المنتفخة في الأدوات المختلفة (كالكيمياء والطب)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "بَصَلَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "جزء مستدير من أداة أسطوانية (عادة في أحد الطرفين)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دقيق لكنه يفتقر إلى الإشارة لوظيفة الجزء كونه مستودعاً أو جزءاً للضغط، وإضافة أمثلة توضيحية تجعله أكثر جلاءً للقارئ."
+    authored:
+      - type: terminological
+        text: "جُزْءٌ مُنْتَفِخٌ مُسْتَدِيرٌ فِي طَرَفِ أَدَاةٍ أُسْطُوَانِيَّةٍ، كَمُسْتَوْدَعِ الزِّئْبَقِ فِي مِقْيَاسِ الحَرَارَةِ، أَوْ كَالقِطْعَةِ المَطَّاطِيَّةِ القَابِلَةِ لِلضَّغْطِ فِي بَعْضِ المَحَاقِنِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "جُزْءٌ مُنْتَفِخٌ مُسْتَدِيرٌ فِي طَرَفِ أَدَاةٍ أُسْطُوَانِيَّةٍ، كَمُسْتَوْدَعِ الزِّئْبَقِ فِي مِقْيَاسِ الحَرَارَةِ، أَوْ كَالقِطْعَةِ المَطَّاطِيَّةِ القَابِلَةِ لِلضَّغْطِ فِي بَعْضِ المَحَاقِنِ."
+
+  examples:
+    per_lemma:
+      - lemma: "اِنْتِفَاخ"
+        examples:
+          - text: "صُمِّمَ الأُنْبُوبُ الزُّجَاجِيُّ بِحَيْثُ يَنْتَهِي بِاِنْتِفَاخٍ كُرَوِيٍّ صَغِيرٍ."
+            type: usage
+      - lemma: "بُصَيْلَة"
+        examples:
+          - text: "تَحْتَوِي بُصَيْلَةُ مِقْيَاسِ الحَرَارَةِ الطِّبِّيِّ عَلَى مَادَّةِ الزِّئْبَقِ."
+            type: usage
+      - lemma: "بَصَلَة"
+        examples:
+          - text: "يُسْحَبُ السَّائِلُ عَنْ طَرِيقِ الضَّغْطِ عَلَى بَصَلَةِ المِصَاصَةِ المَطَّاطِيَّةِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "صُمِّمَ الأُنْبُوبُ الزُّجَاجِيُّ بِحَيْثُ يَنْتَهِي بِاِنْتِفَاخٍ كُرَوِيٍّ صَغِيرٍ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تَحْتَوِي بُصَيْلَةُ مِقْيَاسِ الحَرَارَةِ الطِّبِّيِّ عَلَى مَادَّةِ الزِّئْبَقِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يُسْحَبُ السَّائِلُ عَنْ طَرِيقِ الضَّغْطِ عَلَى بَصَلَةِ المِصَاصَةِ المَطَّاطِيَّةِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "اِنْتِفَاخ"
+      entry_id: "{auto}"
+      root: "نفخ"
+      maqayis_quote: "«النُّونُ وَالْفَاءُ وَالْخَاءُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى انْتِفَاخٍ وَعُلُوٍّ.»"
+    - lemma: "بُصَيْلَة"
+      entry_id: "{auto}"
+      root: "بصل"
+      maqayis_quote: "«الْبَاءُ وَالصَّادُ وَاللَّامُ أَصْلٌ وَاحِدٌ. وَالْبَصَلُ مَعْرُوفٌ...»"
+    - lemma: "بَصَلَة"
+      entry_id: "{auto}"
+      root: "بصل"
+      maqayis_quote: "«الْبَاءُ وَالصَّادُ وَاللَّامُ أَصْلٌ وَاحِدٌ. وَالْبَصَلُ مَعْرُوفٌ...»"
+
+  per_sense:
+    - lemma: "اِنْتِفَاخ"
+      sense_id: "{auto}"
+      nuance: "لفظ وصفي عام يشير إلى بروز الجزء واستدارته دون أن يكون مصطلحاً تقنياً خاصاً بالمجال."
+      mwe: false
+    - lemma: "بُصَيْلَة"
+      sense_id: "{auto}"
+      nuance: "صيغة تصغير تُستخدم غالباً للإشارة إلى المستودعات الدقيقة الحجم كالموجودة في مقاييس الحرارة الطبية."
+      mwe: false
+    - lemma: "بَصَلَة"
+      sense_id: "{auto}"
+      nuance: "المصطلح الأكثر استخداماً واستقراراً في المعاجم العلمية (كالطبية والكيميائية) للدلالة على الجزء المنتفخ في الأدوات (bulb)."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نفخ","maqayis":"«النُّونُ وَالْفَاءُ وَالْخَاءُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى انْتِفَاخٍ وَعُلُوٍّ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"بصل","maqayis":"«الْبَاءُ وَالصَّادُ وَاللَّامُ أَصْلٌ وَاحِدٌ. وَالْبَصَلُ مَعْرُوفٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"بصل","maqayis":"«الْبَاءُ وَالصَّادُ وَاللَّامُ أَصْلٌ وَاحِدٌ. وَالْبَصَلُ مَعْرُوفٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"لفظ وصفي عام يشير إلى بروز الجزء واستدارته دون أن يكون مصطلحاً تقنياً خاصاً بالمجال.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"صيغة تصغير تُستخدم غالباً للإشارة إلى المستودعات الدقيقة الحجم كالموجودة في مقاييس الحرارة الطبية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الأكثر استخداماً واستقراراً في المعاجم العلمية (كالطبية والكيميائية) للدلالة على الجزء المنتفخ في الأدوات (bulb).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

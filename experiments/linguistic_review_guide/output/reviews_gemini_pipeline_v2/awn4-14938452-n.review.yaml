@@ -1,0 +1,197 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "خافض السكر مصطلح شائع ولكنه يفتقر للتعريف الدقيق في بعض السياقات"
+      - "عامل خافض لسكر الدم هو ترجمة حرفية دقيقة للمصطلح الإنجليزي"
+    observations: "المفهوم يشير إلى فئة من الأدوية المستخدمة لخفض جلوكوز الدم. المصطلحات العربية الموجودة جيدة ولكن يمكن إغناؤها بمصطلحات طبية معيارية من المعاجم المتخصصة."
+  blind_candidates:
+    - lemma: "خَافِضُ السُّكَّر"
+      generation_method: tarkib
+      justification: "تعبير إضافي شائع الاستخدام في الأوساط الطبية والعامة."
+    - lemma: "مُخَفِّضُ السُّكَّر"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من فعل 'خفض' الرباعي (مزيد بالتضعيف) للدلالة على التكرار والاحترافية في الفعل."
+    - lemma: "عَامِلٌ خَافِضٌ لِلسُّكَّر"
+      generation_method: tarkib
+      justification: "تعبير وصفي يطابق الهيكل المفهومي للمصطلح الإنجليزي (agent)."
+    - lemma: "مُخَفِّضُ سُكَّرِ الدَّم"
+      generation_method: tarkib
+      justification: "تعبير إضافي مركب يحدد بدقة مكان خفض السكر (الدم)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خافض السكر"
+      confirm:
+        - text: "«كَرْبُوتَامِيد: دواء خافض للسكر.»"
+          source: "المعجم الموحد لمصطلحات علم الصيدلة (2009)"
+    - lemma: "عامل خافض لسكر الدم"
+      confirm:
+        - text: "«خَافِضٌ لِسُكَّر الدَّم (hypoglycemic)»"
+          source: "المعجم الموحد لمصطلحات علم الصيدلة (2009)"
+        - text: "«خافِضُ سُكَّرِ الدَّم (hypoglycemic agent)»"
+          source: "المعجم الطبي الموحد (2009)"
+    - lemma: "مُضادُّ السُّكَّرِيّ"
+      confirm:
+        - text: "«مُضادُّ السُّكَّرِيّ (antidiabetic)»"
+          source: "المعجم الطبي الموحد (2009)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "خافض السكر"
+      decision: confirmed
+      decision_reason: "مصطلح شائع ومثبت في المعاجم الصيدلانية كفئة علاجية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَافِضُ السُّكَّر"
+    - lemma: "عامل خافض لسكر الدم"
+      decision: confirmed
+      decision_reason: "المصطلح المعياري في المعجم الطبي الموحد لترجمة hypoglycemic agent."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عَامِلٌ خَافِضٌ لِسُكَّرِ الدَّم"
+    - lemma: "مُخَفِّضُ السُّكَّر"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صيغة اشتقاقية صحيحة وشائعة الاستعمال في النشرات الدوائية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "مُخَفِّضُ السُّكَّر", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُضَادُّ السُّكَّرِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح طبي رسمي مرادف لخفض السكر ويستخدم لوصف نفس الفئة العلاجية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "مُضَادُّ السُّكَّرِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "خَافِضُ سُكَّرِ الدَّم"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مطابق تماماً لما ورد في المعجم الطبي الموحد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "خَافِضُ سُكَّرِ الدَّم", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "أي من العوامل المختلفة التي تقلل مستوى الجلوكوز في الدم وتستخدم في علاج داء السكري"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يحتاج إلى صياغة أكثر دقة وموسوعية بأسلوب المعاجم الطبية العربية."
+    authored:
+      - type: terminological
+        text: "مادَّةٌ كِيمْيَائِيَّةٌ تُخَفِّضُ مَسْتَوَى الغلوكوزِ فِي الدَّمِ، تُسْتَعْمَلُ غَالِبًا فِي عِلَاجِ مَرَضِ السُّكَّرِيِّ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مادَّةٌ كِيمْيَائِيَّةٌ تُخَفِّضُ مَسْتَوَى الغلوكوزِ فِي الدَّمِ، تُسْتَعْمَلُ غَالِبًا فِي عِلَاجِ مَرَضِ السُّكَّرِيِّ."}
+  examples:
+    per_lemma:
+      - lemma: "خَافِضُ السُّكَّر"
+        examples:
+          - text: "نَصَحَ الطَّبِيبُ بِتَنَاوُلِ خَافِضِ السُّكَّرِ قَبْلَ الوَجَبَاتِ بِانْتِظَامٍ."
+            type: usage
+      - lemma: "عَامِلٌ خَافِضٌ لِسُكَّرِ الدَّم"
+        examples:
+          - text: "يُعَدُّ الأَنْسُولِينُ أَقْوَى عَامِلٍ خَافِضٍ لِسُكَّرِ الدَّمِ مُتَاحٍ حَالِيًّا."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يُوصَفُ مُضَادُّ السُّكَّرِيِّ الفَمَوِيُّ لِمَرْضَى النَّمَطِ الثَّانِي مِنَ السُّكَّرِيِّ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خَافِضُ السُّكَّر"
+      entry_id: "{auto}"
+      roots:
+        - word: "خافض"
+          root: "خفض"
+          maqayis_quote: "لم يعثر على جذر خفض في هذه النسخة من مقاييس اللغة، ولكن خفض في المعاجم الأخرى تعني النقص والحط من العلو."
+        - word: "السكر"
+          root: "سكر"
+          maqayis_quote: "«السِّينُ وَالْكَافُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى حَيْرَةٍ. مِنْ ذَلِكَ السُّكْرِ مِنَ الشَّرَابِ.»"
+    - lemma: "عَامِلٌ خَافِضٌ لِسُكَّرِ الدَّم"
+      entry_id: "{auto}"
+      roots:
+        - word: "عامل"
+          root: "عمل"
+          maqayis_quote: "«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامٌّ فِي كُلِّ فِعْلٍ يُفْعَلُ.»"
+        - word: "الدم"
+          root: "دمي"
+          maqayis_quote: "لم يعثر على اقتباس دقيق للدم كجذر في مقاييس اللغة تحت هذا الرسم."
+    - lemma: "مُضَادُّ السُّكَّرِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مضاد"
+          root: "ضدد"
+          maqayis_quote: "«الضَّادُ وَالدَّالُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ يَدُلُّ عَلَى خِلَافِ الشَّيْءِ.»"
+  per_sense:
+    - lemma: "خَافِضُ السُّكَّر"
+      sense_id: "{auto}"
+      nuance: "تعبير مقتضب وشائع الاستخدام."
+      mwe: true
+    - lemma: "عَامِلٌ خَافِضٌ لِسُكَّرِ الدَّم"
+      sense_id: "{auto}"
+      nuance: "تعبير طبي رسمي ودقيق يحدد الهدف الدقيق للفعل (سكر الدم)."
+      mwe: true
+    - lemma: "مُضَادُّ السُّكَّرِيّ"
+      sense_id: "{auto}"
+      nuance: "يركز على وظيفة الدواء في مكافحة المرض (السكري) ككل."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"خافض","root":"خفض"},{"word":"السكر","root":"سكر","maqayis":"«السِّينُ وَالْكَافُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى حَيْرَةٍ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير مقتضب وشائع الاستخدام.","mwe":true}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,168 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "عدم شيوع استخدام اسم الفاعل (متبرز/متغوط) كاسم ذات مستقل في المعاجم القديمة، إذ يغلب التعبير عنه بالفعل أو المصدر."
+    observations: "المفهوم في الثقافة العربية يعتمد غالباً على الكناية (البراز: الفضاء من الأرض، الغائط: المكان المنخفض من الأرض) للستر والتأدب، وقد استقرت هذه الكنايات وأصبحت هي الألفاظ الصريحة للمفهوم، وأُخذت منها الأفعال والأسماء."
+  blind_candidates:
+    - lemma: "مُتَغَوِّط"
+      generation_method: ishtiqaq
+      justification: "مشتق (اسم فاعل) من الفعل تغوّط، وهو الكناية الفصيحة الشائعة عن إخراج الفضلات."
+    - lemma: "قَاضِي الْحَاجَةِ"
+      generation_method: tarkib
+      justification: "مركب إضافي يمثل الكناية المهذبة المعتادة في العربية عن الفعل."
+    - lemma: "خَارِئ"
+      generation_method: ishtiqaq
+      justification: "مشتق من الجذر خ ر أ الذي يعبر عن الحدث مباشرة دون كناية."
+    - lemma: "مُحْدِث"
+      generation_method: ishtiqaq
+      justification: "مشتق يعبر عن الحدث من الناحية الفقهية واللغوية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُتَبَرِّز"
+      expands:
+        - text: "خرج إلى البرَاز وتغوط"
+          source: "المعجم الوسيط"
+          addition: "الفعل تبرز معناه التغوط، واسم الفاعل منه مُتَبَرِّز قياسي ويدل على الفاعل."
+    - lemma: "مُتَغَوِّط"
+      expands:
+        - text: "تغوط: تبرز"
+          source: "المعجم الوسيط"
+          addition: "اسم الفاعل مُتَغَوِّط قياسي ويؤدي المعنى المطلوب بدقة."
+    - lemma: "خَارِئ"
+      evidence_status: "no_material_found"
+    - lemma: "قَاضِي الْحَاجَةِ"
+      evidence_status: "no_material_found"
+    - lemma: "مُحْدِث"
+      expands:
+        - text: "مَن سَبَقه الحدثُ الأصغر الموجبُ للوضوء"
+          source: "التعريفات الفقهية للبركتي"
+          addition: "استخدام فقهي أعم، يشمل خروج الغائط والبول والريح."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مُتَبَرِّز"
+      decision: confirmed
+      decision_reason: "مشتق قياسي (اسم فاعل) من الفعل تبرز، وهو شائع ومناسب للمعنى ويستخدم بشكل مستقر للإشارة لفاعل الحدث."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُتَبَرِّز"
+    - lemma: "مُتَغَوِّط"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف دقيق وقياسي، مشتق من الفعل تغوّط الذي يُستخدم كناية أصلية عن الحدث، ويعد من الفصيح الشائع."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُتَغَوِّط"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "خَارِئ"
+      source: stage1
+      decision: removed
+      decision_reason: "لفظ مستهجن ولا يفضل استخدامه كمصطلح معجمي مقارنة بالكنايات الفصيحة المعتمدة، كما أنه غير شائع كاسم فاعل."
+    - lemma: "قَاضِي الْحَاجَةِ"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير وصفي (مركب إضافي) وليس وحدة معجمية مسكوكة تضاف كمرادف للمفردات في هذا السياق."
+    - lemma: "مُحْدِث"
+      source: stage1
+      decision: removed
+      decision_reason: "مصطلح ذو دلالة أعم، ولا يقتصر على التبرز، بل يشمل نواقض الوضوء الأخرى."
+
+stage4_content:
+  definition:
+    current: "شخص يتبرز"
+    assessment:
+      decision: retain
+      reason: "التعريف الحالي واضح ودقيق ومباشر ويعتمد على الفعل المعبر عن المفهوم بلا تعقيد أو زيادة لا طائل منها."
+  examples:
+    per_lemma:
+      - lemma: "مُتَبَرِّز"
+        examples:
+          - text: "أُخِذَتْ عَيِّنَةٌ مِنَ المُتَبَرِّزِ لِفَحْصِهَا فِي المَخْتَبَرِ."
+            type: usage
+      - lemma: "مُتَغَوِّط"
+        examples:
+          - text: "يَجِبُ عَلَى المُتَغَوِّطِ أَنْ يَغْسِلَ يَدَيْهِ جَيِّدًا بَعْدَ قَضَاءِ حَاجَتِهِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "أُخِذَتْ عَيِّنَةٌ مِنَ المُتَبَرِّزِ لِفَحْصِهَا فِي المَخْتَبَرِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يَجِبُ عَلَى المُتَغَوِّطِ أَنْ يَغْسِلَ يَدَيْهِ جَيِّدًا بَعْدَ قَضَاءِ حَاجَتِهِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُتَبَرِّز"
+      entry_id: "{auto}"
+      root: "برز"
+      maqayis_quote: "«(بَرَزَ) الْبَاءُ وَالرَّاءُ وَالزَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ ظُهُورُ الشَّيْءِ وَبُدُوُّهُ... وَالْبَرَازُ الْمُتَّسِعُ مِنَ الْأَرْضِ; لِأَنَّهُ بَادٍ لَيْسَ بِغَائِطٍ وَلَا دَحْلٍ وَلَا هُوَّةٍ.»"
+    - lemma: "مُتَغَوِّط"
+      entry_id: "{auto}"
+      root: "غوط"
+      maqayis_quote: "«(غَوَطَ) الْغَيْنُ وَالْوَاوُ وَالطَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى اطْمِئْنَانٍ وَغَوْرٍ. مِنْ ذَلِكَ الْغَائِطُ: الْمُطْمَئِنُّ مِنَ الْأَرْضِ»"
+  per_sense:
+    - lemma: "مُتَبَرِّز"
+      sense_id: "{auto}"
+      nuance: "كناية فصيحة مأخوذة من الخروج إلى البراز (الفضاء المتسع من الأرض)، شائعة الاستخدام طبيًّا وعامّةً."
+      mwe: false
+    - lemma: "مُتَغَوِّط"
+      sense_id: "{auto}"
+      nuance: "كناية فصيحة مأخوذة من التوجه إلى الغائط (المكان المنخفض من الأرض للاستتار)، تستخدم كمرادف مباشر لمُتبرِّز."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"برز","maqayis":"«(بَرَزَ) الْبَاءُ وَالرَّاءُ وَالزَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ ظُهُورُ الشَّيْءِ وَبُدُوُّهُ... وَالْبَرَازُ الْمُتَّسِعُ مِنَ الْأَرْضِ; لِأَنَّهُ بَادٍ لَيْسَ بِغَائِطٍ وَلَا دَحْلٍ وَلَا هُوَّةٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"غوط","maqayis":"«(غَوَطَ) الْغَيْنُ وَالْوَاوُ وَالطَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى اطْمِئْنَانٍ وَغَوْرٍ. مِنْ ذَلِكَ الْغَائِطُ: الْمُطْمَئِنُّ مِنَ الْأَرْضِ»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"كناية فصيحة مأخوذة من الخروج إلى البراز (الفضاء المتسع من الأرض)، شائعة الاستخدام طبيًّا وعامّةً.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"كناية فصيحة مأخوذة من التوجه إلى الغائط (المكان المنخفض من الأرض للاستتار)، تستخدم كمرادف مباشر لمُتبرِّز.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

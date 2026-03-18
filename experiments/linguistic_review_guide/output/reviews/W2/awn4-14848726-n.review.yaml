@@ -1,0 +1,178 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمة الحالية تعبير مركب وتفتقر للتشكيل الكامل في الجزء الثاني.
+      - المصطلح فني متخصص (تقانات الأغذية والزراعة) ويحتاج لتوثيق دقيق.
+    observations: |
+      المجموعة تشير إلى "كعكة بذور القطن" وهي البقايا الصلبة بعد استخلاص الزيت.
+      المصطلح العربي الفني الشائع هو "الكُسْب" (المعرّب عن الفارسية) وقد ورد في المعاجم الحديثة والتقنية بهذا المعنى.
+  blind_candidates:
+    - lemma: "كُسْب القُطْن"
+      generation_method: tarkib
+      justification: "التركيب الإضافي بين المصطلح الفني (كسب) والمادة الخام (القطن)."
+    - lemma: "كُسْبَة القُطْن"
+      generation_method: tarkib
+      justification: "استخدام صيغة المرة (كسبة) كبديل شائع للمصطلح الفني."
+    - lemma: "ثُفْل القُطْن"
+      generation_method: tarkib
+      justification: "استخدام اللفظ العربي الفصيح (ثفل) الذي يعني ما تبقى من المادة بعد عصيرها."
+    - lemma: "عُصَارَة القُطْن"
+      generation_method: majaz
+      justification: "توسيع دلالة (العصارة) لتشمل النفاية الصلبة المتبقية بعد العصر، كما ورد في بعض المعاجم."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "كُسْب القُطْن"
+      confirm:
+        - text: "«كُسْب القطن: كتلة من بذور القطن المعصورة.»"
+          source: "المورد الحديث (2008)"
+        - text: "«كُسْب: ما يتبقى من بزور القطن والكتان والسمسم وغيرها بعد عصرها، ويستعمل علفًا أو سمادًا.»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«كُسْب: مخلفات البذور الزيتية (التفل المتماسك المتبقي) بعد عصرها.»"
+          source: "المعجم الموحد لمصطلحات تقانات الأغذية (2004)"
+    - lemma: "كُسْبَة القُطْن"
+      confirm:
+        - text: "«كُسَيْبَة... كسبة بمعنى علف للدواب يخرج من بذور القطن بعد عصرها.»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+    - lemma: "ثُفْل القُطْن"
+      confirm:
+        - text: "«الثُّفْلُ... ما يَتَبَقَّى من المادَّةِ بعدَ عَصْرِها.»"
+          source: "المعجم الكبير"
+    - lemma: "عُصَارَة القُطْن"
+      confirm:
+        - text: "«عُصارة... ثُفْل، نُفاية ما يُعصَر.»"
+          source: "معجم اللغة العربية المعاصرة"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "كُسْب القطن"
+      decision: confirmed
+      decision_reason: "المصطلح الفني المعياري في تقانات الأغذية والمعاجم الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "كُسْب القُطْن"
+    - lemma: "كُسْبَة القُطْن"
+      source: stage1
+      decision: confirmed
+      decision_reason: "متغير شائع للمصطلح الفني، موثق في الاستخدامات العلمية والأسماء."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "كُسْبَة القُطْن", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-14848726-n"}
+    - lemma: "ثُفْل القُطْن"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف لغوي فصيح يصف المادة بدقة، وإن كان أقل شيوعاً من المصطلح الفني."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "ثُفْل القُطْن", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-14848726-n"}
+
+stage4_content:
+  definition:
+    current: "المادة الصلبة المتبقية بعد عصر الزيت من بذور القطن"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دقيق لكن يمكن تحسين صياغته ليكون أكثر معجمية وتخصصاً."
+    authored:
+      - type: terminological
+        text: "كُتَلٌ مُتَمَاسِكَةٌ تَتَبَقَّى مِنْ بُذُورِ القُطْنِ بَعْدَ عَصْرِها لِاسْتِخْرَاجِ الزَّيْتِ، تُسْتَعْمَلُ غَالِبًا عَلَفًا لِلْمَاشِيَةِ لِغِنَاهَا بِالبُرُوتِينِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-14848726-n", definition_index: 0, text: "كُتَلٌ مُتَمَاسِكَةٌ تَتَبَقَّى مِنْ بُذُورِ القُطْنِ بَعْدَ عَصْرِها لِاسْتِخْرَاجِ الزَّيْتِ، تُسْتَعْمَلُ غَالِبًا عَلَفًا لِلْمَاشِيَةِ لِغِنَاهَا بِالبُرُوتِينِ."}
+  examples:
+    per_lemma:
+      - lemma: "كُسْب القُطْن"
+        examples:
+          - text: "يُعدُّ كُسْبُ القُطْنِ مَصْدَرًا غَنِيًّا بِالبُرُوتِينِ فِي أَعْلَافِ الحَيَوَانَاتِ بَعْدَ مُعَالَجَتِهِ."
+            type: usage
+      - lemma: "كُسْبَة القُطْن"
+        examples:
+          - text: "تُبَاعُ كُسْبَةُ القُطْنِ فِي المَعَاصِرِ كَنَاتِجٍ ثَانَوِيٍّ بَعْدَ اسْتِخْلَاصِ الزَّيْتِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يُعدُّ كُسْبُ القُطْنِ مَصْدَرًا غَنِيًّا بِالبُرُوتِينِ فِي أَعْلَافِ الحَيَوَانَاتِ بَعْدَ مُعَالَجَتِهِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "كُسْب القُطْن"
+      entry_id: "{auto}"
+      roots:
+        - word: "كسب"
+          root: "كسب"
+          maqayis_quote: "«الْكَافُ وَالسِّينُ وَالْبَاءُ أَصْلٌ صَحِيحٌ، وَهُوَ يَدُلُّ عَلَى ابْتِغَاءٍ وَطَلَبٍ وَإِصَابَةٍ. فَالْكَسْبُ مِنْ ذَلِكَ.»"
+        - word: "القطن"
+          root: "قطن"
+          maqayis_quote: "«الْقَافُ وَالطَّاءُ وَالنُّونُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى اسْتِقْرَارٍ بِمَكَانٍ وَسُكُونٍ... وَالْقُطْنُ عِنْدَنَا مُشْتَقٌّ مِنْ هَذَا لِأَنَّهُ لِأَهْلِ الْمَدَرِ.»"
+    - lemma: "كُسْبَة القُطْن"
+      entry_id: "{auto}"
+      roots:
+        - word: "كسبة"
+          root: "كسب"
+          maqayis_quote: "«الْكَافُ وَالسِّينُ وَالْبَاءُ أَصْلٌ صَحِيحٌ...»"
+        - word: "القطن"
+          root: "قطن"
+          maqayis_quote: "«الْقَافُ وَالطَّاءُ وَالنُّونُ أَصْلٌ صَحِيحٌ...»"
+  per_sense:
+    - lemma: "كُسْب القُطْن"
+      sense_id: "{auto}"
+      nuance: "المصطلح الفني المعياري المستخدم في الصناعة والزراعة."
+      mwe: true
+    - lemma: "كُسْبَة القُطْن"
+      sense_id: "{auto}"
+      nuance: "صيغة المرة من المصطلح الفني، وتستخدم غالباً للإشارة إلى الوحدة أو الكمية المحددة."
+      mwe: true
+    - lemma: "ثُفْل القُطْن"
+      sense_id: "{auto}"
+      nuance: "وصف لغوي عام يركز على كونه نفاية متبقية بعد العصر."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"كسب","root":"كسب","maqayis":"«الْكَافُ وَالسِّينُ وَالْبَاءُ أَصْلٌ صَحِيحٌ...»"},{"word":"القطن","root":"قطن","maqayis":"«الْقَافُ وَالطَّاءُ وَالنُّونُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى اسْتِقْرَارٍ بِمَكَانٍ وَسُكُونٍ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الفني المعياري المستخدم في الصناعة والزراعة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-14848726-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-14848726-n"
+        score: 0.95

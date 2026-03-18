@@ -1,0 +1,300 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "كلمة 'نادرة' قد تلتبس مع معنى 'الطرفة' (anecdote) وهو المعنى الأكثر شيوعاً في الاستعمال المعاصر."
+      - "تعبير 'عملة نادرة' هو استعارة حديثة نسبياً مقارنة بالمصطلحات التراثية."
+    observations: "المجموعة تعبر عن مفهوم الشخص المتفرد. المصطلحات الموجودة جيدة ولكنها تفتقر إلى التعبيرات العربية الكلاسيكية الفصيحة التي تعبر عن هذا المفهوم بدقة أكبر مثل 'نسيج وحده'."
+  blind_candidates:
+    - lemma: "نَسِيجُ وَحْدِهِ"
+      generation_method: tarkib
+      justification: "تعبير عربي أصيل يضرب لمن لا مثل له في الفضل أو الرأي."
+    - lemma: "فَلْتَة"
+      generation_method: majaz
+      justification: "تستخدم للتعبير عن العبقري المتفرد الذي يظهر فجأة ولا يتكرر (فلتة زمانه)."
+    - lemma: "عَدِيمُ النَّظِيرِ"
+      generation_method: tarkib
+      justification: "تركيب وصفي شائع يعبر عن انعدام المماثل."
+    - lemma: "أُعْجُوبَة"
+      generation_method: ishtiqaq
+      justification: "تطلق على الشخص الذي يثير العجب لتفرده وتفوقه."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "عُمْلَة نَادِرَة"
+      confirm:
+        - text: "«طيرٌ نادر... شخص أو شيء عجيب أو استثنائيّ»"
+          source: "المورد الحديث"
+      expands:
+        - text: "«عملة نادرة»"
+          source: "ArabTerm"
+          addition: "وردت في سياق التجارة بمعنى العملة الصعبة، ولكنها استعارة شائعة جداً للأشخاص في اللغة المعاصرة."
+    - lemma: "نَادِرَة"
+      confirm:
+        - text: "«(النادرة) الطرفة من القَوْل وَهُوَ نادرة أزمانه وحيد عصره»"
+          source: "المعجم الوسيط"
+        - text: "«والنادرة: الطرفة من القول، وهو نادرة زمانه أي: وحيد عصره.»"
+          source: "موسوعة السلطان قابوس"
+    - lemma: "نَسِيجُ وَحْدِهِ"
+      confirm:
+        - text: "«هو نَسِيجُ وَحْدِهِ: لا ثاني له، وأصله الثوب الذي لا يسدى على سداه لرقة غيره من الثياب... وهو الذي لا يقارعه في الفضل أحد.»"
+          source: "لسان العرب"
+        - text: "«ومنه في صفة عمر: نسيج وحده، من جلس وحده ورأيته وحده أي منفرداً... وهو مدح.»"
+          source: "مجمع بحار الأنوار"
+    - lemma: "فَرِيد"
+      confirm:
+        - text: "«المنفرد بنفسه ومن لا نظير له.»"
+          source: "موسوعة السلطان قابوس"
+    - lemma: "فَلْتَة"
+      confirm:
+        - text: "«الأمر يحدث من غير روية وإحكام»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«فلتة»"
+          source: "الاستعمال اللغوي"
+          addition: "تستخدم في السياق المدحي بمعنى الشخص الفذ (فلتة زمانه)."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "عُمْلَة نَادِرَة"
+      decision: confirmed
+      decision_reason: "استعارة حديثة مستقرة في اللغة العربية المعاصرة للتعبير عن الشخص الفريد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عُمْلَة نَادِرَة"
+    - lemma: "نَادِرَة"
+      decision: confirmed
+      decision_reason: "مصطلح معجمي فصيح يطلق على وحيد العصر."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نَادِرَة"
+    - lemma: "نَسِيجُ وَحْدِهِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "من أقوى التعبيرات التراثية وأدقها في وصف الشخص المتفرد في فضله أو موهبته."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "نَسِيجُ وَحْدِهِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-10527285-n"}
+    - lemma: "فَرِيد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ أساسي ومباشر في اللغة العربية يعبر عن الوحدة والتفرد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "فَرِيد", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-10527285-n"}
+    - lemma: "فَلْتَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير شائع في السياق الثقافي العربي لوصف العبقرية الاستثنائية التي لا تتكرر."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "فَلْتَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-10527285-n"}
+
+stage4_content:
+  definition:
+    current: "شخص نادر أو فريد من نوعه"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب جداً، يحتاج إلى صياغة معجمية أدق تبرز معنى عدم وجود النظير."
+    authored:
+      - type: terminological
+        text: "شخص لا نظير له في صفاته أو مواهبه، ينفرد بخصائص استثنائية تميزه عن أقرانه."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-10527285-n", definition_index: 0, text: "شخص لا نظير له في صفاته أو مواهبه، ينفرد بخصائص استثنائية تميزه عن أقرانه."}
+  examples:
+    per_lemma:
+      - lemma: "عُمْلَة نَادِرَة"
+        examples:
+          - text: "أصبح الموظف الأمين والمنضبط عُمْلَةً نَادِرَةً في هذا الزمن."
+            type: usage
+      - lemma: "نَادِرَة"
+        examples:
+          - text: "كان الجاحظ نَادِرَةَ عصره في البيان وقوة الحجة."
+            type: usage
+      - lemma: "نَسِيجُ وَحْدِهِ"
+        examples:
+          - text: "كان عمر بن الخطاب رضي الله عنه نَسِيجَ وَحْدِهِ في عدله وحزمه."
+            type: usage
+      - lemma: "فَرِيد"
+        examples:
+          - text: "يتمتع هذا الفنان بأسلوب فَرِيدٍ لا يجاريه فيه أحد."
+            type: usage
+      - lemma: "فَلْتَة"
+        examples:
+          - text: "يُعد المتنبي فَلْتَةً من فَلَتَاتِ الزمان في عبقرية الشعر."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "أصبح الموظف الأمين والمنضبط عُمْلَةً نَادِرَةً في هذا الزمن."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "كان الجاحظ نَادِرَةَ عصره في البيان وقوة الحجة."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "كان عمر بن الخطاب رضي الله عنه نَسِيجَ وَحْدِهِ في عدله وحزمه."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يتمتع هذا الفنان بأسلوب فَرِيدٍ لا يجاريه فيه أحد."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يُعد المتنبي فَلْتَةً من فَلَتَاتِ الزمان في عبقرية الشعر."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "عُمْلَة نَادِرَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "عملة"
+          root: "عمل"
+          maqayis_quote: "«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامٌّ فِي كُلِّ فِعْلٍ يُفْعَلُ.»"
+        - word: "نادرة"
+          root: "ندر"
+          maqayis_quote: "«النُّونُ وَالدَّالُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى سُقُوطِ شَيْءٍ أَوْ إِسْقَاطِهِ. وَنَدَرَ الشَّيْءُ: سَقَطَ.»"
+    - lemma: "نَادِرَة"
+      entry_id: "{auto}"
+      root: "ندر"
+      maqayis_quote: "«النُّونُ وَالدَّالُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى سُقُوطِ شَيْءٍ أَوْ إِسْقَاطِهِ. وَنَدَرَ الشَّيْءُ: سَقَطَ.»"
+    - lemma: "نَسِيجُ وَحْدِهِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "نسيج"
+          root: "نسج"
+          maqayis_quote: "«النُّونُ وَالسِّينُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى وَصْلِ شَيْءٍ بِشَيْءٍ فِي أَدْنَى عَرْضٍ.»"
+        - word: "وحده"
+          root: "وحد"
+          maqayis_quote: "«الْوَاوُ وَالْحَاءُ وَالدَّالُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الِانْفِرَادِ.»"
+    - lemma: "فَرِيد"
+      entry_id: "{auto}"
+      root: "فرد"
+      maqayis_quote: "«الْفَاءُ وَالرَّاءُ وَالدَّالُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى وُحْدَةٍ. مِنْ ذَلِكَ الْفَرْدُ وَهُوَ الْوَتْرُ.»"
+    - lemma: "فَلْتَة"
+      entry_id: "{auto}"
+      root: "فلت"
+      maqayis_quote: "«الْفَاءُ وَاللَّامُ وَالتَّاءُ كَلِمَةٌ صَحِيحَةٌ تَدُلُّ عَلَى تَخَلُّصٍ فِي سُرْعَةٍ.»"
+  per_sense:
+    - lemma: "عُمْلَة نَادِرَة"
+      sense_id: "{auto}"
+      nuance: "استعارة حديثة تركز على ندرة وجود الشخص في الواقع العملي."
+      mwe: true
+    - lemma: "نَادِرَة"
+      sense_id: "{auto}"
+      nuance: "تعبير فصيح يركز على كون الشخص وحيد عصره وأوانه."
+      mwe: false
+    - lemma: "نَسِيجُ وَحْدِهِ"
+      sense_id: "{auto}"
+      nuance: "أقوى تعبير عن التفرد المطلق والنفاسة في الخصال والمهارات."
+      mwe: true
+    - lemma: "فَرِيد"
+      sense_id: "{auto}"
+      nuance: "لفظ عام يصف التفرد والوحدة في الصفات."
+      mwe: false
+    - lemma: "فَلْتَة"
+      sense_id: "{auto}"
+      nuance: "تشير إلى العبقرية المفاجئة أو الاستثنائية التي نادراً ما يجود الزمان بمثلها."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"عملة","root":"عمل","maqayis":"«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامٌّ فِي كُلِّ فِعْلٍ يُفْعَلُ.»"},{"word":"نادرة","root":"ندر","maqayis":"«النُّونُ وَالدَّالُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى سُقُوطِ شَيْءٍ أَوْ إِسْقَاطِهِ. وَنَدَرَ الشَّيْءُ: سَقَطَ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ندر","maqayis":"«النُّونُ وَالدَّالُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى سُقُوطِ شَيْءٍ أَوْ إِسْقَاطِهِ. وَنَدَرَ الشَّيْءُ: سَقَطَ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"نسيج","root":"نسج","maqayis":"«النُّونُ وَالسِّينُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى وَصْلِ شَيْءٍ بِشَيْءٍ فِي أَدْنَى عَرْضٍ.»"},{"word":"وحده","root":"وحد","maqayis":"«الْوَاوُ وَالْحَاءُ وَالدَّالُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الِانْفِرَادِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"فرد","maqayis":"«الْفَاءُ وَالرَّاءُ وَالدَّالُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى وُحْدَةٍ. مِنْ ذَلِكَ الْفَرْدُ وَهُوَ الْوَتْرُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"فلت","maqayis":"«الْفَاءُ وَاللَّامُ وَالتَّاءُ كَلِمَةٌ صَحِيحَةٌ تَدُلُّ عَلَى تَخَلُّصٍ فِي سُرْعَةٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"استعارة حديثة تركز على ندرة وجود الشخص في الواقع العملي.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير فصيح يركز على كون الشخص وحيد عصره وأوانه.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"أقوى تعبير عن التفرد المطلق والنفاسة في الخصال والمهارات.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"لفظ عام يصف التفرد والوحدة في الصفات.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تشير إلى العبقرية المفاجئة أو الاستثنائية التي نادراً ما يجود الزمان بمثلها.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-10527285-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-10527285-n"
+        score: 0.95

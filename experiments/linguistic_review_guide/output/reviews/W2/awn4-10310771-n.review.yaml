@@ -1,0 +1,83 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "مُعَالِج يَدَوِيّ"
+      contradicts:
+        - text: "«من يقوم بالعلاج باليدين.»"
+          source: "معجم المصطلحات الطبية (ج.1، 1985)"
+          conflict: "المصطلح في المعجم الطبي يشير إلى مهنة طبية (chiropractor) يعالج المرضى، بينما تعريف المجموعة يشير إلى شخص يتعامل مع الأشياء المادية يدوياً."
+    - lemma: "مُنَاوِل"
+      contradicts:
+        - text: "«أجهزة تحريك تُدار يدوياً تحت المُراقبة العيانية. تُستخدم على سبيل المثال لدعم وتقوية الأحمال الثقيلة، ونقل المواد الخطيرة...»"
+          source: "مسرد الهندسة الكهربائية، المنظمة العربية للتربية والثقافة والعلوم (موقع ArabTerm)"
+          conflict: "المصطلح في المعجم يشير إلى آلة أو جهاز (manipulator device)، بينما تعريف المجموعة يشير إلى شخص (a person)."
+
+step05_lemma_generation:
+  knowledge_candidates:
+    - lemma: "مُتَنَاوِل"
+      justification: "اشتقاق: اسم فاعل من الفعل «تناول» الذي يعني أخذ الشيء وتعاطاه باليد، وهو يدل على من يتناول الأشياء ويعالجها."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "مُعَالِج يَدَوِيّ"
+      decision: removed
+      decision_reason: "المصطلح مستقر في الاستعمال المعاصر للدلالة على المهنة الطبية (chiropractor) لتقويم العظام، واستعماله هنا هو ترجمة حرفية عمياء تسبب خلطاً دلالياً."
+      evidence_assessment:
+        case: "contradicts_only"
+      substitution_test:
+        result: "fail"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      nuance_differentiation: "تختص بالمعالج الطبي ولا تصلح للدلالة على مناول الأشياء المادية."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    
+    - lemma: "مُنَاوِل"
+      decision: confirmed
+      decision_reason: "على الرغم من أن الدليل المعجمي التخصصي يشير إلى الآلة، إلا أن الكلمة هي اسم فاعل قياسي يدل في الأصل على الشخص الذي يمارس المناولة اليدوية، ويشيع استخدامها كمهنة (مثل: مناول مواد، مناول بضائع)."
+      evidence_assessment:
+        case: "contradicts_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تدل على الشخص الذي يتناول الأشياء ويعالجها بيده في السياقات المهنية واللوجستية."
+      example: "يعمل أخي مُناوِلاً للمواد في المصنع المجاور."
+      
+    - lemma: "مُتَنَاوِل"
+      source: step05
+      decision: removed
+      decision_reason: "مصطلح غير مسكوك مهنياً بهذا المعنى، وتغلب عليه الدلالة العامة أو دلالة تناول الطعام والأدوية."
+      step05_citation: "اشتقاق لغوي."
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "فعل التناول عام ولا يختص بالمعالجة اليدوية للأشياء كمهنة."
+      
+  synset_flags:
+    definition_review_needed: false
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شخص يعالج الأشياء أو يتعامل معها يدوياً"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وواضح ويعبر عن الدلالة المقصودة في الشبكة الدلالية الإنجليزية."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عَامِل"
+    test_result: "correct"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "مُنَاوِل"
+      enrichment:
+        root: "نول"
+      examples:
+        - text: "يعمل أخي مُناوِلاً للمواد في المصنع المجاور."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

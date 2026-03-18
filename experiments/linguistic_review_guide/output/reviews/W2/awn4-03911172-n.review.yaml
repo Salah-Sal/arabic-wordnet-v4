@@ -1,0 +1,180 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة (سن المطرقة، قفا المطرقة) هي أوصاف إضافية صحيحة دلالياً لكنها تفتقر إلى الصفة المصطلحية الرسمية في المعاجم التقنية."
+    observations: "المفهوم يشير إلى الجزء الخلفي من رأس المطرقة الذي يُستخدم للتشكيل أو البرشمة، ويُقابله في الإنجليزية peen. المعاجم التقنية العربية (كالمعجم الموحد للمصطلحات المهنية والتقنية) تستخدم مصطلح 'حد المطرقة' كمرادف دقيق لهذا الجزء."
+  blind_candidates:
+    - lemma: "سِنُّ المِطْرَقَةِ"
+      generation_method: tarkib
+      justification: "تعبير وصفي شائع للجزء المدبب أو الحاد من رأس المطرقة."
+    - lemma: "قَفَا المِطْرَقَةِ"
+      generation_method: tarkib
+      justification: "ترجمة وصفية للجزء الخلفي من المطرقة (back of hammer)."
+    - lemma: "حَدُّ المِطْرَقَةِ"
+      generation_method: majaz
+      justification: "المصطلح التقني المعتمد في معاجم المصطلحات المهنية والتقنية لتمثيل peen."
+    - lemma: "رَأْسُ المِطْرَقَةِ الخَلْفِيُّ"
+      generation_method: tarkib
+      justification: "وصف وظيفي للجزء المقابل لوجه الطرق."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "حَدُّ المِطْرَقَةِ"
+      confirm:
+        - text: "«حَدُّ المطرقة: الجزء الخلفيّ الحادّ أو نصف الكُرَويّ من المِطرقة.»"
+          source: "المورد الحديث (2008)"
+        - text: "«حدّ المطرقة (peen)»"
+          source: "المعجم الموحد للمصطلحات المهنية والتقنية ج. 2"
+    - lemma: "سِنُّ المِطْرَقَةِ"
+      expands:
+        - text: "«السِّنُّ... وشُعْبَةُ المِنْجَلِ... وكلُّ ما يُسَنُّ به، أَو عليه: مِسَنٌّ.»"
+          source: "القاموس المحيط"
+          addition: "يدعم استخدام 'سن' للأجزاء المدببة من الأدوات."
+    - lemma: "قَفَا المِطْرَقَةِ"
+      expands:
+        - text: "«القَفا وراء العنق... وقافية كل شيء: آخره.»"
+          source: "لسان العرب"
+          addition: "يدعم استخدام 'قفا' للدلالة على الجزء الخلفي من الشيء."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "سِنُّ المِطْرَقَةِ"
+      decision: confirmed
+      decision_reason: "تعبير وصفي دقيق ومستخدم، خاصة في حالة المطارق ذات السن المستدق أو المتقاطع (cross/straight peen)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "سِنُّ المِطْرَقَةِ"
+    - lemma: "قَفَا المِطْرَقَةِ"
+      decision: confirmed
+      decision_reason: "تعبير وصفي عام مقبول للجزء الخلفي من رأس المطرقة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "قَفَا المِطْرَقَةِ"
+    - lemma: "حَدُّ المِطْرَقَةِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح التقني الرسمي الموثق في المعاجم المتخصصة والمطابق للمفهوم تماماً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "حَدُّ المِطْرَقَةِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "الجزء من رأس المطرقة المقابل لسطح الطرق المسطح (قد يكون له أشكال مختلفة)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكنه يفتقر إلى التفصيل الوظيفي والأشكال المحددة التي تميز هذا الجزء في سياق الصناعة."
+    authored:
+      - type: terminological
+        text: "الجزء من رأس المطرقة المقابل لوجهها المسطح، يتخذ أشكالاً مختلفة (كروية أو حادة أو مستدقة) ويُستخدم في عمليات التشكيل والبرشمة والكسح."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "حَدُّ المِطْرَقَةِ"
+        examples:
+          - text: "استخدم الحد الكروي للمطرقة لتشكيل الصفيحة المعدنية."
+            type: usage
+      - lemma: "سِنُّ المِطْرَقَةِ"
+        examples:
+          - text: "يُستعمل سن المطرقة المستدق لبرشمة المسامير في الأماكن الضيقة."
+            type: usage
+      - lemma: "قَفَا المِطْرَقَةِ"
+        examples:
+          - text: "يضرب الحداد بقفا المطرقة لتعديل استقامة القضيب."
+            type: usage
+  actions:
+    - command: update_definition
+      params: {synset_id: "{synset_id}", definition_index: 0, text: "الجزء من رأس المطرقة المقابل لوجهها المسطح، يتخذ أشكالاً مختلفة (كروية أو حادة أو مستدقة) ويُستخدم في عمليات التشكيل والبرشمة والكسح."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "سِنُّ المِطْرَقَةِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "سن"
+          root: "سنن"
+          maqayis_quote: "«السِّينُ وَالنُّونُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ، وَهُوَ جَرَيَانُ الشَّيْءِ وَإِطْرَادُهُ فِي سُهُولَةٍ... وَسِنُّ الْإِنْسَانِ وَغَيْرِهِ مُشَبَّهٌ بِسِنَانِ الرُّمْحِ.»"
+        - word: "مطرقة"
+          root: "طرق"
+          maqayis_quote: "«الطَّاءُ وَالرَّاءُ وَالْقَافُ... الْأَصْلُ الثَّانِي: الضَّرْبُ... وَالشَّيْءُ مِطْرَقٌ وَمِطْرَقَةٌ.»"
+    - lemma: "قَفَا المِطْرَقَةِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "قفا"
+          root: "قفو"
+          maqayis_quote: "«القاف والفاء والحرف المعتل أصل صحيح يدل على اتباع الشيء... والقفا: مؤخر العنق.»"
+        - word: "مطرقة"
+          root: "طرق"
+          maqayis_quote: "«الطَّاءُ وَالرَّاءُ وَالْقَافُ... الضَّرْبُ... وَالشَّيْءُ مِطْرَقٌ وَمِطْرَقَةٌ.»"
+    - lemma: "حَدُّ المِطْرَقَةِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "حد"
+          root: "حدد"
+          maqayis_quote: "«الْحَاءُ وَالدَّالُ أَصْلَانِ: الْأَوَّلُ الْمَنْعُ، وَالثَّانِي طَرَفُ الشَّيْءِ. فَالْحَدُّ: الْحَاجِزُ بَيْنَ الشَّيْئَيْنِ.»"
+        - word: "مطرقة"
+          root: "طرق"
+          maqayis_quote: "«الطَّاءُ وَالرَّاءُ وَالْقَافُ... الضَّرْبُ... وَالشَّيْءُ مِطْرَقٌ وَمِطْرَقَةٌ.»"
+  per_sense:
+    - lemma: "حَدُّ المِطْرَقَةِ"
+      sense_id: "{auto}"
+      nuance: "المصطلح التقني الأكثر دقة ورسمية في المعاجم المتخصصة."
+      mwe: true
+    - lemma: "سِنُّ المِطْرَقَةِ"
+      sense_id: "{auto}"
+      nuance: "يُفضل استخدامه عندما يكون هذا الجزء حاداً أو مستدقاً (غير كروي)."
+      mwe: true
+    - lemma: "قَفَا المِطْرَقَةِ"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي عام يشير إلى موقع الجزء من الرأس بغض النظر عن شكله."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"سن","root":"سنن","maqayis":"«السِّينُ وَالنُّونُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ، وَهُوَ جَرَيَانُ الشَّيْءِ وَإِطْرَادُهُ فِي سُهُولَةٍ... وَسِنُّ الْإِنْسَانِ وَغَيْرِهِ مُشَبَّهٌ بِسِنَانِ الرُّمْحِ.»"},{"word":"مطرقة","root":"طرق","maqayis":"«الطَّاءُ وَالرَّاءُ وَالْقَافُ... الضَّرْبُ... وَالشَّيْءُ مِطْرَقٌ وَمِطْرَقَةٌ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح التقني الأكثر دقة ورسمية في المعاجم المتخصصة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

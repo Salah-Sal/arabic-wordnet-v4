@@ -1,0 +1,226 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "كلمة «مُدْرَج» لها دلالات أخرى كالمكان أو ما أدرج في قائمة، وليست مناسبة لتخريج كلمة enrollee كشخص أو طالب."
+    observations: "المفهوم يشير إلى شخص يدرس في دورة أو برنامج دراسي. صيغة اسم الفاعل من أفعال الانضمام والتسجيل هي الأنسب والأكثر استخداماً في هذا السياق الأكاديمي والتدريبي."
+  blind_candidates:
+    - lemma: "مُسَجِّل"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل سجل، يشير إلى الشخص الذي قيد اسمه في سجلات الدورة أو الفصل الدراسي."
+    - lemma: "مُنْخَرِط"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من انخرط، بمعنى انضم وشارك في سلك ما كالدراسة."
+    - lemma: "مُنْتَسِب"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من انتسب، شائعة الاستخدام لوصف المنضمين للجامعات والبرامج."
+    - lemma: "مُقَيَّد"
+      generation_method: ishtiqaq
+      justification: "اسم مفعول من قيد، يستخدم بكثرة في السياق المدرسي والجامعي (طالب مقيد)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مدرج"
+      contradicts:
+        - text: "«(المدرج) مَكَان ذُو مقاعد متدرجة (محدثة)»"
+          source: "المعجم الوسيط"
+          conflict: "دلالة مكانية لا تتعلق بالشخص."
+        - text: "«(فى مصطلح الحديث): أن تُزَادَ لفظة فى متن الحديث من كلام الراوى...»"
+          source: "المعجم الوسيط"
+          conflict: "دلالة اصطلاحية في علم الحديث."
+    - lemma: "ملتحق"
+      expands:
+        - text: "«الْتَحَقَ بِه: أدركه، الْتَصَقَ به وانضمَّ إليه»"
+          source: "المعجم الوسيط"
+          addition: "يدعم الفعل (التحق) المعنى المقصود بالانضمام للبرنامج، واسم الفاعل منه (ملتحق) مستخدم قياساً."
+    - lemma: "مسجل"
+      expands:
+        - text: "«السُّكَّانُ المُسَجَّلُون: enrollee population»"
+          source: "عرب تيرم (Arabterm)"
+          addition: "استخدام اللفظة للتعبير عن فئة المنضمين لبرنامج."
+    - lemma: "منخرط"
+      confirm:
+        - text: "«المُنتسِب إلى؛ المُنخرِط في: enrollee»"
+          source: "عرب تيرم (Arabterm)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مُدْرَج"
+      decision: removed
+      decision_reason: "دلالة الكلمة تشير إلى الشيء المدرج أو المضاف في نص أو قائمة، أو إلى المكان المتدرج، ولا تُستخدم وصفاً للشخص الملتحق ببرنامج دراسي."
+      evidence_assessment:
+        case: contradicts_only
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "مُلْتَحِق"
+      decision: confirmed
+      decision_reason: "لفظ دقيق وشائع قياساً على الفعل (التحق) للدلالة على من انضم إلى برنامج تعليمي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُلْتَحِق"
+    - lemma: "مُسَجِّل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "من أكثر المصطلحات شيوعاً في الدلالة على من أتم تسجيله وانضمامه للدورات التدريبية والفصول الدراسية."
+      evidence_assessment:
+        case: expands
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُسَجِّل"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "مُنْخَرِط"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير دقيق وموثق في المعاجم المصطلحية كمقابل للمصطلح الإنجليزي المعني."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُنْخَرِط"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "شخص يسجل في (أو مسجل في) فصل دراسي أو دورة دراسية"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقبول ولكنه ركيك بسبب الترجمة الحرفية للفعلين المبنيين للمعلوم والمجهول. يمكن إعادة صياغته ليكون أسلوباً عربياً طبيعياً."
+    authored:
+      - type: terminological
+        text: "شخص منضم أو مقيد في دورة تدريبية أو فصل دراسي أو مساق أكاديمي."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "شخص منضم أو مقيد في دورة تدريبية أو فصل دراسي أو مساق أكاديمي."
+  examples:
+    per_lemma:
+      - lemma: "مُلْتَحِق"
+        examples:
+          - text: "تزايد عدد الملتحقين بالدورة التدريبية هذا العام."
+            type: usage
+      - lemma: "مُسَجِّل"
+        examples:
+          - text: "يجب على كل طالب مسجل حضور المحاضرة التمهيدية."
+            type: usage
+      - lemma: "مُنْخَرِط"
+        examples:
+          - text: "أبدى المنخرطون في البرنامج تفاعلاً إيجابياً كبيراً."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تزايد عدد الملتحقين بالدورة التدريبية هذا العام."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يجب على كل طالب مسجل حضور المحاضرة التمهيدية."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "أبدى المنخرطون في البرنامج تفاعلاً إيجابياً كبيراً."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُلْتَحِق"
+      entry_id: "{auto}"
+      root: "لحق"
+      maqayis_quote: "«اللَّامُ وَالْحَاءُ وَالْقَافُ أَصْلٌ يَدُلُّ عَلَى إِدْرَاكِ شَيْءٍ وَبُلُوغِهِ إِلَى غَيْرِهِ. يُقَالُ: لَحِقَ فُلَانٌ فُلَانًا فَهُوَ لَاحِقٌ.»"
+    - lemma: "مُسَجِّل"
+      entry_id: "{auto}"
+      root: "سجل"
+      maqayis_quote: "«السِّينُ وَالْجِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى انْصِبَابِ شَيْءٍ بَعْدَ امْتِلَائِهِ... وَمِنْ ذَلِكَ قَوْلُهُمْ: الْحَرْبُ سِجَالٌ.»"
+    - lemma: "مُنْخَرِط"
+      entry_id: "{auto}"
+      root: "خرط"
+      maqayis_quote: "«الْخَاءُ وَالرَّاءُ وَالطَّاءُ أَصْلٌ وَاحِدٌ مُنْقَاسٌ مُطَّرِدٌ، وَهُوَ مُضِيُّ الشَّيْءِ، وَانْسِلَالُهُ... وَيُقَالُ انْخَرَطَ عَلَيْنَا، إِذَا انْدَرَأَ بِالْقَوْلِ السَّيِّئِ.»"
+  per_sense:
+    - lemma: "مُلْتَحِق"
+      sense_id: "{auto}"
+      nuance: "تدل على الانضمام والقبول في الدورة أو المؤسسة بصفة عامة."
+      mwe: false
+    - lemma: "مُسَجِّل"
+      sense_id: "{auto}"
+      nuance: "تركز على الجانب الإجرائي والشكل الإداري في إتمام القيد وإدراج الاسم."
+      mwe: false
+    - lemma: "مُنْخَرِط"
+      sense_id: "{auto}"
+      nuance: "تشير إلى الاندماج والتفاعل والمشاركة الفعلية بعد الانضمام."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"لحق","maqayis":"«اللَّامُ وَالْحَاءُ وَالْقَافُ أَصْلٌ يَدُلُّ عَلَى إِدْرَاكِ شَيْءٍ وَبُلُوغِهِ إِلَى غَيْرِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سجل","maqayis":"«السِّينُ وَالْجِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى انْصِبَابِ شَيْءٍ بَعْدَ امْتِلَائِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خرط","maqayis":"«الْخَاءُ وَالرَّاءُ وَالطَّاءُ أَصْلٌ وَاحِدٌ مُنْقَاسٌ مُطَّرِدٌ، وَهُوَ مُضِيُّ الشَّيْءِ، وَانْسِلَالُهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تدل على الانضمام والقبول في الدورة أو المؤسسة بصفة عامة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركز على الجانب الإجرائي والشكل الإداري في إتمام القيد وإدراج الاسم.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تشير إلى الاندماج والتفاعل والمشاركة الفعلية بعد الانضمام.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,246 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'عملية التمثيل الغذائي' تتضمن كلمة 'عملية' التي تمثل حشواً غير ضروري في المعاجم، والصواب الاكتفاء بـ 'تمثيل غذائي'."
+      - "اللمتان 'أيض' و'استقلاب' تفتقران إلى التشكيل الكامل."
+    observations: "المفهوم علمي مستقر (Metabolism) وتوجد له مصطلحات عربية فصيحة ومسكوكة في المعاجم الطبية والعلمية، أهمها الأيض والاستقلاب، وهما مترادفان يعبران عن دورة بناء وهدم المواد في الكائن الحي."
+  blind_candidates:
+    - lemma: "أَيْض"
+      generation_method: majaz
+      justification: "من آض يئيض إذا رجع وصار، استعيرت لصيرورة المادة في الجسم إلى شيء آخر."
+    - lemma: "اسْتِقْلَاب"
+      generation_method: ishtiqaq
+      justification: "على وزن استفعال من القلب، للتعبير عن انقلاب وتحول المواد الكيميائية داخل الجسم."
+    - lemma: "تَمْثِيل غِذَائِيّ"
+      generation_method: tarkib
+      justification: "مركب وصفي شاع في الاستخدام العلمي للتعبير عن كيفية تمثل المواد الغذائية في الخلايا."
+    - lemma: "تَحَوُّل حَيَوِيّ"
+      generation_method: tarkib
+      justification: "مركب يعبر عن تحول المواد في الكائنات الحية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "أَيْض"
+      confirm:
+        - text: "«(في علم الأحياء Metabolism) : عمليات التحوّل الغذائي»"
+          source: "المعجم الكبير"
+        - text: "«جميع الأفعال الحيوية التي يقوم بها الكائن الحي فقد تكون بنائية تشمل النمو وبناء خلايا جديدة بالتغذية والتمثل أو هدمية وتكوين المواد الآزوتية...»"
+          source: "المعجم الموحد لمصطلحات علم الأحياء"
+    - lemma: "اسْتِقْلَاب"
+      confirm:
+        - text: "«مجموع التحولات الكيميائية والفيزيوكيميائية التي تحدث في خلايا الجسم وسوائله، وهو نوعان ابتنائيّ وتقويضيّ.»"
+          source: "المعجم الموحد لمصطلحات علم الصيدلة"
+        - text: "«العمليات الكيميائية والفيزيائية للكائنات الحية والتي تتضمن التحويل الحيوي للمواد العضوية إلى مواد خلوية ونواتج غازية ثانوية (المرادف العربي: أيض)»"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية"
+    - lemma: "عملية التمثيل الغذائي"
+      expands:
+        - text: "«لا يوجد مدخل مطابق بهذا التركيب بالضبط مع كلمة (عملية)، ولكن ورد (تمثيل غذائي) كمرادف للأيض.»"
+          source: "البحث المعجمي المباشر"
+          addition: "يجب اختصار اللمة بحذف كلمة (عملية)."
+    - lemma: "تَمْثِيل غِذَائِيّ"
+      confirm:
+        - text: "«أيض / تمثيل غذائي: العمليات الفيزيائية والكيميائية التي تقوم بها الكائنات الحية للحفاظ على الحياة.»"
+          source: "مسرد المناخ والبيئة - ArabTerm"
+    - lemma: "تَحَوُّل حَيَوِيّ"
+      expands:
+        - text: "«تحول حيويّ: تحويل مادة ما إلى مركبات أخرى بواسطة الكائنات الحية؛ وتتضمن التحلل البيولوجي»"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية"
+          addition: "المصطلح أدق في التعبير عن (biotransformation) وليس (metabolism) الشامل."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "أيض"
+      decision: confirmed
+      decision_reason: "المصطلح العربي الأصيل والأكثر شيوعاً ودقة في التعبير عن المفهوم العلمي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "أَيْض"
+            
+    - lemma: "استقلاب"
+      decision: confirmed
+      decision_reason: "مصطلح علمي وطبي معتمد ومستقر، يعبر بوضوح عن الانقلاب الكيميائي للمواد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "اسْتِقْلَاب"
+            
+    - lemma: "عملية التمثيل الغذائي"
+      decision: removed
+      decision_reason: "التركيب يشتمل على حشو (كلمة 'عملية')؛ المصطلح المعتمد والمثبت معجمياً هو 'تمثيل غذائي'."
+      evidence_assessment:
+        case: mixed
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+            
+    - lemma: "تَمْثِيل غِذَائِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير مسكوك ومستقر في كتب التغذية والعلوم كمرادف للأيض."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "تَمْثِيل غِذَائِيّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+            
+    - lemma: "تَحَوُّل حَيَوِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "مصطلح يقابل مفهوماً أخص (biotransformation)."
+      evidence_assessment:
+        case: expands
+
+stage4_content:
+  definition:
+    current: "العمليات العضوية (في الخلية أو الكائن الحي) الضرورية للحياة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقبول لكن يمكن تحسين صياغته ليكون أكثر دقة علمية باحتوائه على الإشارة للبناء والهدم والطبيعة الكيميائية."
+    authored:
+      - type: terminological
+        text: "مجموع العمليات الكيميائية والفيزيائية التي تحدث في خلايا الكائنات الحية للمحافظة على حياتها، وتشمل عمليتي البناء والهدم."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "مجموع العمليات الكيميائية والفيزيائية التي تحدث في خلايا الكائنات الحية للمحافظة على حياتها، وتشمل عمليتي البناء والهدم."
+
+  examples:
+    per_lemma:
+      - lemma: "أَيْض"
+        examples:
+          - text: "يقوم الجسم بضبط معدل الأيض للمحافظة على درجة حرارته في الأجواء الباردة."
+            type: usage
+      - lemma: "اسْتِقْلَاب"
+        examples:
+          - text: "تحدث بعض الأمراض الوراثية بسبب أخطاء في استقلاب الأحماض الأمينية."
+            type: usage
+      - lemma: "تَمْثِيل غِذَائِيّ"
+        examples:
+          - text: "تساعد ممارسة الرياضة على تسريع عملية التمثيل الغذائي في الجسم."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يقوم الجسم بضبط معدل الأيض للمحافظة على درجة حرارته في الأجواء الباردة."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تحدث بعض الأمراض الوراثية بسبب أخطاء في استقلاب الأحماض الأمينية."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تساعد ممارسة الرياضة على تسريع عملية التمثيل الغذائي في الجسم."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "أَيْض"
+      entry_id: "{auto}"
+      root: "ايض"
+      maqayis_quote: "«(أَيَضَ) الْهَمْزَةُ وَالْيَاءُ وَالضَّادُ كَلِمَةٌ وَاحِدَةٌ تَدُلُّ عَلَى الرُّجُوعِ وَالْعَوْدِ، يُقَالُ: آضَ يَئِيضُ: إِذَا رَجَعَ.»"
+    - lemma: "اسْتِقْلَاب"
+      entry_id: "{auto}"
+      root: "قلب"
+      maqayis_quote: "«(قَلَبَ) الْقَافُ وَاللَّامُ وَالْبَاءُ أَصْلَانِ صَحِيحَانِ: أَحَدُهُمَا يَدُلُّ عَلَى خَالِصِ شَيْءٍ وَشَرِيفِهِ، وَالْآخَرُ عَلَى رَدِّ شَيْءٍ مِنْ جِهَةٍ إِلَى جِهَةٍ.»"
+    - lemma: "تَمْثِيل غِذَائِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "تمثيل"
+          root: "مثل"
+          maqayis_quote: "«(مَثَلَ) الْمِيمُ وَالثَّاءُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مُنَاظَرَةِ الشَّيْءِ لِلشَّيْءِ.»"
+        - word: "غذائي"
+          root: "غذو"
+          maqayis_quote: "«(غَذَى) الْغَيْنُ وَالذَّالُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى شَيْءٍ مِنَ الْمَأْكَلِ، وَعَلَى جِنْسٍ مِنَ الْحَرَكَةِ.»"
+
+  per_sense:
+    - lemma: "أَيْض"
+      sense_id: "{auto}"
+      nuance: "المصطلح العلمي الأصيل والأوسع استخداماً في علم الأحياء للإشارة إلى مجمل العمليات الحيوية."
+      mwe: false
+    - lemma: "اسْتِقْلَاب"
+      sense_id: "{auto}"
+      nuance: "يغلب استخدامه في السياقات الطبية والصيدلانية والكيميائية للتركيز على فكرة تحول وانقلاب المواد."
+      mwe: false
+    - lemma: "تَمْثِيل غِذَائِيّ"
+      sense_id: "{auto}"
+      nuance: "تعبير مركب يكثر استخدامه في سياقات التغذية والرياضة والطب الموجه للعامة."
+      mwe: true
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ايض","maqayis":"«(أَيَضَ) الْهَمْزَةُ وَالْيَاءُ وَالضَّادُ كَلِمَةٌ وَاحِدَةٌ تَدُلُّ عَلَى الرُّجُوعِ وَالْعَوْدِ، يُقَالُ: آضَ يَئِيضُ: إِذَا رَجَعَ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قلب","maqayis":"«(قَلَبَ) الْقَافُ وَاللَّامُ وَالْبَاءُ أَصْلَانِ صَحِيحَانِ: أَحَدُهُمَا يَدُلُّ عَلَى خَالِصِ شَيْءٍ وَشَرِيفِهِ، وَالْآخَرُ عَلَى رَدِّ شَيْءٍ مِنْ جِهَةٍ إِلَى جِهَةٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"تمثيل","root":"مثل","maqayis":"«(مَثَلَ) الْمِيمُ وَالثَّاءُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مُنَاظَرَةِ الشَّيْءِ لِلشَّيْءِ.»"},{"word":"غذائي","root":"غذو","maqayis":"«(غَذَى) الْغَيْنُ وَالذَّالُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى شَيْءٍ مِنَ الْمَأْكَلِ، وَعَلَى جِنْسٍ مِنَ الْحَرَكَةِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العلمي الأصيل والأوسع استخداماً في علم الأحياء للإشارة إلى مجمل العمليات الحيوية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يغلب استخدامه في السياقات الطبية والصيدلانية والكيميائية للتركيز على فكرة تحول وانقلاب المواد.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير مركب يكثر استخدامه في سياقات التغذية والرياضة والطب الموجه للعامة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

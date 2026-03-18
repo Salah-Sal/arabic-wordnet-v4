@@ -1,0 +1,175 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الحالية (موقع) وردت غير مشكولة مما قد يؤدي إلى اللبس مع كلمة مَوْقِع (مكان)، ويجب تصحيح تشكيلها إلى مُوَقِّع."
+    observations: "تستعمل كلمة (مُوَقِّع) على نطاق واسع في المعاجم الثنائية الحديثة (كالمورد) لترجمة (signer) و(signatory)، وهي تعبر بدقة عن مفهوم الشخص الذي يضع إمضاءه على وثيقة. التعريف الحالي مقبول دلالياً لكن يمكن صياغته بأسلوب معجمي أدق."
+  blind_candidates:
+    - lemma: "مُوَقِّع"
+      generation_method: ishtiqaq
+      justification: "مشتق من الفعل (وقّع) أي وضع توقيعه، وهو اسم الفاعل الدال على من يقوم بالتوقيع على وثيقة."
+    - lemma: "مُمْضٍ"
+      generation_method: ishtiqaq
+      justification: "مشتق من الفعل (أمضى) الوثيقة أي أقرها بتوقيعه، ويشيع استخدامها كمرادف للمُوَقِّع في نصوص قانونية ورسمية."
+    - lemma: "مُتَعَاهِد"
+      generation_method: ishtiqaq
+      justification: "مشتق من التعاهد، ويركز على الشق الثاني من التعريف وهو الالتزام بما في الوثيقة."
+    - lemma: "طَرَف مُوَقِّع"
+      generation_method: tarkib
+      justification: "مركب وصفي يكثر استعماله في السياقات القانونية والدبلوماسية للدلالة على الجهة أو الشخص الذي يبرم وثيقة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "موقع"
+      confirm:
+        - text: "الْمُوَقِّعُ: الخفيفُ الوطء، كاتبُ التوقيع"
+          source: "المعجم الوسيط"
+        - text: "المُوَقِّع، أو أحد المُوَقِّعين، على وثيقة. وبخاصة: حكومة مشترِكة في التوقيع على معاهدة أو اتفاق. (signatory)"
+          source: "المورد الحديث"
+        - text: "المُوَقِّع: مَنْ يُوَقِّع أو يُمْضي. (signer)"
+          source: "المورد الحديث"
+    - lemma: "مُوَقِّع"
+      evidence_status: "no_material_found"
+    - lemma: "مُمْضٍ"
+      evidence_status: "no_material_found"
+    - lemma: "مُتَعَاهِد"
+      evidence_status: "no_material_found"
+    - lemma: "طَرَف مُوَقِّع"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "موقع"
+      decision: confirmed
+      decision_reason: "الكلمة صحيحة دلالياً ومثبتة في المعاجم ثنائية اللغة بمعنى (signer)، ولكنها تتطلب ضبط التشكيل لمنع اللبس."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُوَقِّع"
+
+    - lemma: "مُوَقِّع"
+      source: stage1
+      decision: removed
+      decision_reason: "هو تصحيح للّمة الموجودة مسبقاً، لذا لا حاجة لإنشاء مدخل جديد."
+
+    - lemma: "مُمْضٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اسم فاعل من الفعل (أمضى)، وهو مرادف فصيح وشائع في الاستخدام الإداري والقانوني (خاصة في المغرب العربي) بمعنى المُوَقِّع."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُمْضٍ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-10616642-n"}
+
+    - lemma: "مُتَعَاهِد"
+      source: stage1
+      decision: removed
+      decision_reason: "التعاهد يشمل دلالات أخرى تتعلق بالالتزام المشترك (contractor / covenanter) ولا يقتصر بالضرورة على فعل التوقيع نفسه."
+
+    - lemma: "طَرَف مُوَقِّع"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير وصفي حر وليس مصطلحاً مسكوكاً مستقلاً (MWE)، ويمكن التعبير عنه بالاكتفاء بكلمة مُوَقِّع."
+
+stage4_content:
+  definition:
+    current: "شخص يوقع على وثيقة ويلتزم بها"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقبول لكن يمكن صياغته بأسلوب معجمي أكثر دقة ورصانة يعكس الإقرار والالتزام."
+    authored:
+      - type: terminological
+        text: "شخص يمهر وثيقة بتوقيعه إقراراً بها والتزاماً بمضمونها."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-10616642-n", definition_index: 0, text: "شخص يمهر وثيقة بتوقيعه إقراراً بها والتزاماً بمضمونها."}
+
+  examples:
+    per_lemma:
+      - lemma: "مُوَقِّع"
+        examples:
+          - text: "يُعَدُّ كلُّ مُوَقِّعٍ على هذه الاتفاقية ملزماً ببنودها."
+            type: usage
+      - lemma: "مُمْضٍ"
+        examples:
+          - text: "أقرَّ المُمْضِي أسفله بصحة البيانات الواردة في العقد."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-10616642-n", text: "يُعَدُّ كلُّ مُوَقِّعٍ على هذه الاتفاقية ملزماً ببنودها."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "أقرَّ المُمْضِي أسفله بصحة البيانات الواردة في العقد."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُوَقِّع"
+      entry_id: "{auto}"
+      root: "وقع"
+      maqayis_quote: "«الْوَاوُ وَالْقَافُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ يَرْجِعُ إِلَيْهِ فُرُوعُهُ، يَدُلُّ عَلَى سُقُوطِ شَيْءٍ... وَمِنْهُ التَّوْقِيعُ: مَا يُلْحَقُ بِالْكِتَابِ بَعْدَ الْفَرَاغِ مِنْهُ.»"
+    - lemma: "مُمْضٍ"
+      entry_id: "{auto}"
+      root: "مضي"
+      maqayis_quote: "«الْمِيمُ وَالضَّادُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى نَفَاذٍ وَمُرُورٍ. وَمَضَى يَمْضِي مُضِيَّا.»"
+
+  per_sense:
+    - lemma: "مُوَقِّع"
+      sense_id: "{auto}"
+      nuance: "المصطلح الأساسي والشائع المستمد من فعل التوقيع."
+      mwe: false
+    - lemma: "مُمْضٍ"
+      sense_id: "{auto}"
+      nuance: "مرادف أكثر رسمية يستخدم غالباً في الوثائق القانونية والإدارية للإشارة إلى من يضع إمضاءه."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"وقع","maqayis":"«الْوَاوُ وَالْقَافُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ يَرْجِعُ إِلَيْهِ فُرُوعُهُ، يَدُلُّ عَلَى سُقُوطِ شَيْءٍ... وَمِنْهُ التَّوْقِيعُ: مَا يُلْحَقُ بِالْكِتَابِ بَعْدَ الْفَرَاغِ مِنْهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"مضي","maqayis":"«الْمِيمُ وَالضَّادُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى نَفَاذٍ وَمُرُورٍ. وَمَضَى يَمْضِي مُضِيَّا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الأساسي والشائع المستمد من فعل التوقيع.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مرادف أكثر رسمية يستخدم غالباً في الوثائق القانونية والإدارية للإشارة إلى من يضع إمضاءه.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-10616642-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-10616642-n"
+        score: 0.95

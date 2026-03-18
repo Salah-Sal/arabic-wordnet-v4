@@ -1,0 +1,182 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة «عامل شركة» واسعة الدلالة جداً وتفقد التخصيص الوظيفي (operator) الوارد في التعريف."
+      - "التعريف الإنجليزي (company operator) غالباً ما يشير إلى موظف المقسم الهاتفي في الشركة، وهو ما لم تعكسه اللمة الحالية بدقة."
+    observations: "المجموعة تدور حول العامل الذي يشغل آلة أو جهازاً (مشغل) ويعمل في سياق مؤسسي (شركة). اللمات المقترحة تركز على دقة المصطلح الوظيفي (مشغل) وعلى التخصيص الأكثر شيوعاً لهذا الدور (عامل البدالة)."
+  blind_candidates:
+    - lemma: "مُشَغِّلُ شَرِكَةٍ"
+      generation_method: tarkib
+      justification: "تركيب إضافي مباشر يعبر عن مشغل (operator) يعمل لصالح شركة، وهو مطابق للتعريف."
+    - lemma: "عَامِلُ بَدَّالَةِ الشَّرِكَةِ"
+      generation_method: tarkib
+      justification: "تخصيص للدور الأكثر شيوعاً لمصطلح (company operator) في السياق الإداري، وهو موظف تحويل المكالمات."
+    - lemma: "مُشَغِّلُ هَاتِفِ الشَّرِكَةِ"
+      generation_method: tarkib
+      justification: "تعبير دقيق عن الوظيفة باستخدام لفظ 'مشغل' المذكور في التعريف مع تحديد الأداة."
+    - lemma: "عَامِلُ مَقْسَمٍ"
+      generation_method: tarkib
+      justification: "استخدام لفظ 'مقسم' كمرادف فصيح لـ'بدالة' أو 'سنترال' مع لفظ 'عامل' الذي يشيع استخدامه في الرتب الوظيفية (مثل عامل الهاتف)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "عامل شركة"
+      evidence_status: "no_material_found"
+    - lemma: "مُشَغِّلُ شَرِكَةٍ"
+      confirm:
+        - text: "«مُشغّل: شركة تتولّى تشغيل مُنشأة تقنية.»"
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة (1996)"
+          addition: "يدل على أن لفظ 'مشغل' مرتبط بالشركات والمنشآت."
+    - lemma: "عَامِلُ بَدَّالَةٍ"
+      confirm:
+        - text: "«المُقَسِّم الهاتفي: لوحة توزيع المخابرات الهاتفيّة وتسلُّمها على الخطوط بواسطة عامل الهاتف في المؤسَّسات الرَّسميّة والخاصَّة.»"
+          source: "معجم اللغة العربية المعاصرة"
+          addition: "يوثق استخدام 'عامل الهاتف' في المؤسسات والشركات."
+    - lemma: "عامل تليفون"
+      confirm:
+        - text: "«عامل التَّلِفون: telephone operator»"
+          source: "المورد الحديث (2008)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "عامل شركة"
+      decision: confirmed
+      decision_reason: "مقبولة كلفظ عام يندرج تحته المشغل، مع ضرورة ضبطها بالشكل وإضافة لمات أكثر دقة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عَامِلُ شَرِكَةٍ"
+    - lemma: "مُشَغِّلُ شَرِكَةٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مطابقة تماماً للتعريف العربي (مشغل يعمل لصالح شركة) وللتعريف الإنجليزي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "مُشَغِّلُ شَرِكَةٍ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "عَامِلُ بَدَّالَةٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح متخصص شائع في البيئة المؤسسية يعبر عن 'مشغل الهاتف' في الشركة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "عَامِلُ بَدَّالَةٍ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "مشغل يعمل لصالح شركة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب جداً، يفضل تفصيله لبيان طبيعة العمل."
+    authored:
+      - type: terminological
+        text: "شخص يتولى تشغيل آلة أو جهاز أو لوحة تحكم (كمقسم الهاتف) داخل شركة أو مؤسسة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "عَامِلُ شَرِكَةٍ"
+        examples:
+          - text: "تَمَّ تَوْظِيفُ عَامِلِ شَرِكَةٍ جَدِيدٍ لِإِدَارَةِ السِّنتِرَالِ."
+            type: usage
+      - lemma: "مُشَغِّلُ شَرِكَةٍ"
+        examples:
+          - text: "يَقُومُ مُشَغِّلُ الشَّرِكَةِ بِتَحْوِيلِ الْمُكَالَمَاتِ إِلَى الْأَقْسَامِ الْمَعْنِيَّةِ."
+            type: usage
+      - lemma: "عَامِلُ بَدَّالَةٍ"
+        examples:
+          - text: "عَامِلُ الْبَدَّالَةِ هُوَ صِلَةُ الْوَصْلِ الْأُولَى بَيْنَ الْعُمَلَاءِ وَالشَّرِكَةِ."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "شخص يتولى تشغيل آلة أو جهاز أو لوحة تحكم (كمقسم الهاتف) داخل شركة أو مؤسسة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "عَامِلُ شَرِكَةٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "عامل"
+          root: "عمل"
+          maqayis_quote: "«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامٌّ فِي كُلِّ فِعْلٍ يُفْعَلُ.»"
+        - word: "شركة"
+          root: "شرك"
+          maqayis_quote: "«الشِّينُ وَالرَّاءُ وَالْكَافُ أَصْلَانِ، أَحَدُهُمَا يَدُلُّ عَلَى مُقَارَنَةٍ وَخِلَافِ انْفِرَادٍ...»"
+    - lemma: "مُشَغِّلُ شَرِكَةٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مشغل"
+          root: "شغل"
+          maqayis_quote: "«الشِّينُ وَالْغَيْنُ وَاللَّامُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خِلَافِ الْفَرَاغِ.»"
+        - word: "شركة"
+          root: "شرك"
+          maqayis_quote: "«الشِّينُ وَالرَّاءُ وَالْكَافُ أَصْلَانِ، أَحَدُهُمَا يَدُلُّ عَلَى مُقَارَنَةٍ وَخِلَافِ انْفِرَادٍ...»"
+    - lemma: "عَامِلُ بَدَّالَةٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "عامل"
+          root: "عمل"
+          maqayis_quote: "«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ...»"
+        - word: "بدالة"
+          root: "بدل"
+          maqayis_quote: "«الْبَاءُ وَالدَّالُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ قِيَامُ الشَّيْءِ مَقَامَ الشَّيْءِ الذَّاهِبِ.»"
+  per_sense:
+    - lemma: "عَامِلُ شَرِكَةٍ"
+      sense_id: "{auto}"
+      nuance: "لفظ عام يركز على التبعية للمؤسسة."
+      mwe: true
+    - lemma: "مُشَغِّلُ شَرِكَةٍ"
+      sense_id: "{auto}"
+      nuance: "أكثر دقة في التعبير عن الوظيفة التقنية (التشغيل)."
+      mwe: true
+    - lemma: "عَامِلُ بَدَّالَةٍ"
+      sense_id: "{auto}"
+      nuance: "يحدد طبيعة الآلة المشغلة (البدالة الهاتفية) وهو المعنى الشائع للمصطلح الإنجليزي."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"عامل","root":"عمل","maqayis":"«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ...»"},{"word":"شركة","root":"شرك","maqayis":"«الشِّينُ وَالرَّاءُ وَالْكَافُ أَصْلَانِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"لفظ عام يركز على التبعية للمؤسسة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-09966053-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-09966053-n"
+        score: 0.9

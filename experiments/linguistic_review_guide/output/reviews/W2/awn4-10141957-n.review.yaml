@@ -1,0 +1,106 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "جَامِع"
+      expands:
+        - text: "«من يضم الأشياء المتناثرة»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+          addition: "يدل على معنى الجمع وضم الأشياء المتفرقة عموماً، وهو يتسع ليشمل جمع الطعام وغيره."
+      peripheral_observations:
+        - "يطلق (الجامع) غالباً على المسجد، وعلى الله سبحانه، وعلى المؤلف للكتب أو الأحاديث."
+
+step05_lemma_generation:
+  evidence_candidates: []
+  knowledge_candidates:
+    - lemma: "مُجْتَنٍ"
+      justification: "اشتقاق — من الفعل اجتنى يجتني، بمعنى من يجمع الثمار أو المحصول، وهو أخص بجمع ما يؤكل من (جامع)."
+    - lemma: "جَامِعُ ثِمَار"
+      justification: "تركيب إضافي — مصطلح متداول في الأنثروبولوجيا للدلالة على المجتمعات البدائية التي تعتمد على جمع الطعام (صيادون وجامعو ثمار)."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "جَامِع"
+      decision: confirmed
+      decision_reason: "مصطلح عربي صحيح ومستعمل، ويؤدي معنى من يقوم بالجمع، وإن كان يحتاج لسياق لتخصيصه بالطعام."
+      evidence_assessment:
+        case: "expands_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "أعم دلالة من غيره، إذ يشمل جمع أي شيء متناثر سواء كان طعاماً أم غير ذلك."
+      example: "كان الإنسان البدائي صياداً وجامعاً يعتمد على ما تجود به الطبيعة."
+      actions: []
+      
+    - lemma: "مُجْتَنٍ"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح فصيح مشتق من مادة (ج ن ي) المخصصة بجمع الثمار والمحاصيل، وهو أدق دلالة على جمع الطعام."
+      step05_citation: "معرفة لغوية (اشتقاق)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يختص بجمع الثمار والمحاصيل الزراعية وما يؤكل، بخلاف (جامع) الذي يعم كل شيء."
+      example: "عاد المُجْتَنِي بغلة وفيرة من ثمار الغابة."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُجْتَنٍ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10141957-n"
+
+    - lemma: "جَامِعُ ثِمَار"
+      source: step05
+      decision: removed
+      decision_reason: "تركيب وصفي حر يخصص المجموع بالثمار، ولا يعد وحدة معجمية مسكوكة مستقلة بذاتها في المعاجم العامة، رغم وروده في الترجمات الأنثروبولوجية."
+      step05_citation: "معرفة لغوية (تركيب)"
+
+  added_lemmas:
+    - lemma: "مُجْتَنٍ"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شخص يقوم بالجمع (خاصة الطعام)"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق ويوضح المقصود باللمة في سياق الجمع بصفة عامة وجمع الطعام بصفة خاصة."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عَامِل"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "جَامِع"
+        antonym_found: false
+      - lemma: "مُجْتَنٍ"
+        antonym_found: false
+  verb_checks:
+    applicable: false
+  selectional_restrictions:
+    - lemma: "جَامِع"
+      constraint: "فاعل عاقل"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "جَامِع"
+      enrichment:
+        root: "جمع"
+      examples:
+        - text: "كان الإنسان القديم جامعاً يقتات على ما يجد في بيئته."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "مُجْتَنٍ"
+      enrichment:
+        root: "جني"
+      examples:
+        - text: "اعتمدت القبيلة على المُجْتَنِي لتوفير الفاكهة البرية."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

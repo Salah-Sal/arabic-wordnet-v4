@@ -1,0 +1,394 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'كوبياء' خطأ مطبعي واضح والصواب 'كبرياء'."
+      - "التعريف الحالي مترجم حرفياً وبشكل ركيك من الإنجليزية (التحفز بكراهية النزول)."
+    observations: "المفهوم يتعلق بالكرامة واحترام الذات والترفع عن الدنايا. الألفاظ العربية التراثية غنية جداً في هذا الحقل الدلالي مثل الأنفة والإباء والعزة، وهي أقدر على نقل الدلالة من الترجمة الحرفية."
+  blind_candidates:
+    - lemma: "أَنَفَة"
+      generation_method: ishtiqaq
+      justification: "مشتقة من الفعل أنف، وتعبر بدقة عن كراهية الإتيان بما يشين والترفع عنه."
+    - lemma: "عِزَّة"
+      generation_method: ishtiqaq
+      justification: "تشير إلى القوة والمنعة النفسية والامتناع عن الذل."
+    - lemma: "إِبَاء"
+      generation_method: ishtiqaq
+      justification: "مشتقة من الفعل أبى، وتعني شدة الامتناع ورفض الضيم."
+    - lemma: "تَرَفُّع"
+      generation_method: ishtiqaq
+      justification: "يعبر عن التنزه والعلو عن الصغائر وما يحط من قدر الإنسان."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "عزة نفس"
+      confirm:
+        - text: "عزة النفس: شرف النفس وكرامتها"
+          source: "تكملة المعاجم العربية لدوزي (عن بوشر)"
+        - text: "شَهَامَة: عزة النفس، أنفة، إباء. وفي محيط المحيط: الشهامة عند المولدين عزة النفس وترفعها عن الخسائس."
+          source: "تكملة المعاجم العربية لدوزي"
+    - lemma: "فخر"
+      confirm:
+        - text: "الْفَخْرُ: التَّمَدُّحُ بالخِصالِ،كالافْتِخارِ... وفَخِرَ، كفَرِحَ: أنِفَ."
+          source: "القاموس المحيط للفيروزآبادي"
+      expands:
+        - text: "الفخر: التطاول على الناس بتعديد المناقب."
+          source: "التوقيف على مهمات التعاريف للمناوي"
+          addition: "يميل عادة إلى معنى المباهاة والاعتزاز الخارجي أكثر من مجرد الكرامة الداخلية."
+    - lemma: "كوبياء"
+      contradicts:
+        - text: ""
+          source: ""
+          conflict: "الكلمة غير موجودة في المعاجم، وهي خطأ إملائي صريح للمة 'كبرياء'."
+    - lemma: "كبرياء"
+      confirm:
+        - text: "(الْكِبْرِيَاء) العظمة والتجبر والترفع عَن الانقياد وَالْملك"
+          source: "المعجم الوسيط"
+    - lemma: "أنفة"
+      confirm:
+        - text: "(الأنفة) الْعِزَّة وَالْحمية"
+          source: "المعجم الوسيط"
+        - text: "أنفة الشيء: ابتداؤه الاستكبار الحمية"
+          source: "المعجم الكبير"
+    - lemma: "إباء"
+      confirm:
+        - text: "الأنفة والامتناع."
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+        - text: "الإباء: شدة الامتناع، وكل أباء امتناع ولا عكس، ورجل أبي: يأبى تحمل الضيم."
+          source: "التوقيف على مهمات التعاريف للمناوي"
+    - lemma: "ترفع"
+      confirm:
+        - text: "(ترفع) ارْتَفع وَعنهُ تنزه"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "عزة نفس"
+      decision: confirmed
+      decision_reason: "تعبير دقيق ومطابق تماماً لمعنى الترفع عن الدنايا واحترام معايير الذات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عِزَّةُ نَفْس"
+    - lemma: "فخر"
+      decision: confirmed
+      decision_reason: "رغم أن دلالتها الأغلب هي المباهاة، إلا أنها تستعمل أيضاً بمعنى الأنفة والاعتزاز القوي بالنفس، وهي الترجمة الشائعة لـ Pride."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "فَخْر"
+    - lemma: "كوبياء"
+      decision: removed
+      decision_reason: "خطأ إملائي صرف، والصواب كبرياء."
+      evidence_assessment:
+        case: contradicts_only
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "كبرياء"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تصحيح للخطأ المطبعي، وتعبر عن الترفع الشديد والعظمة الداخلية ورفض الانقياد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "كِبْرِيَاء"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "أَنَفَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "من أدق الألفاظ العربية في التعبير عن كراهية الإتيان بما يشين والترفع عن الدنايا، مما يطابق التعريف الإنجليزي بدقة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "أَنَفَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "إِبَاء"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف قوي للأنفة، ويركز على قوة الامتناع ورفض التنازل عن المبادئ ورفض الضيم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "إِبَاء"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "تَرَفُّع"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر عن الحالة النفسية للتنزه عن الصغائر، وهو مكون أساسي في مفهوم المجموعة الترادفية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "تَرَفُّع"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "سمة التحفز بكراهية النزول عن معايير المرء"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ركيك جداً ومترجم ترجمة حرفية غير دقيقة. يتطلب صياغة عربية أصيلة تعبر عن الأنفة والترفع بصورة صحيحة."
+    authored:
+      - type: terminological
+        text: "صفة تدفع المرء إلى الترفع عما يحط من قدره، والأنفة من النزول عن مبادئه وكرامته."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+      - type: linguistic
+        text: "شعور بالكرامة واحترام الذات يمنع الإنسان من الإتيان بالدنايا أو قبول المهانة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "صفة تدفع المرء إلى الترفع عما يحط من قدره، والأنفة من النزول عن مبادئه وكرامته."
+      - command: add_definition
+        params:
+          synset_id: "{synset_id}"
+          text: "شعور بالكرامة واحترام الذات يمنع الإنسان من الإتيان بالدنايا أو قبول المهانة."
+
+  examples:
+    per_lemma:
+      - lemma: "عزة نفس"
+        examples:
+          - text: "منعته عزة نفسه من قبول تلك الوظيفة المهينة."
+            type: usage
+      - lemma: "فخر"
+        examples:
+          - text: "يرفض هذه التنازلات من كان في قلبه فخر واعتداد بمبادئه."
+            type: usage
+      - lemma: "كبرياء"
+        examples:
+          - text: "تأبى كبرياؤه أن ينحني أمام الصعاب والتحديات."
+            type: usage
+      - lemma: "أنفة"
+        examples:
+          - text: "رفض العرض المادي المغري بأنفة وترفع حفاظاً على كرامته."
+            type: usage
+      - lemma: "إباء"
+        examples:
+          - text: "عُرف بالإباء ورفض الضيم طوال حياته."
+            type: usage
+      - lemma: "ترفع"
+        examples:
+          - text: "عامله بترفع عن الصغائر ولم ينجرّ إلى مستواه."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "منعته عزة نفسه من قبول تلك الوظيفة المهينة."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يرفض هذه التنازلات من كان في قلبه فخر واعتداد بمبادئه."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تأبى كبرياؤه أن ينحني أمام الصعاب والتحديات."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "رفض العرض المادي المغري بأنفة وترفع حفاظاً على كرامته."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "عُرف بالإباء ورفض الضيم طوال حياته."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "عامله بترفع عن الصغائر ولم ينجرّ إلى مستواه."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "عزة نفس"
+      entry_id: "{auto}"
+      roots:
+        - word: "عزة"
+          root: "عزز"
+          maqayis_quote: "«الْعَيْنُ وَالزَّاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ، يَدُلُّ عَلَى شِدَّةٍ وَقُوَّةٍ وَمَا ضَاهَاهُمَا، مِنْ غَلَبَةٍ وَقَهْرٍ.»"
+        - word: "نفس"
+          root: "نفس"
+          maqayis_quote: "«النُّونُ وَالْفَاءُ وَالسِّينُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خُرُوجِ النَّسِيمِ كَيْفَ كَانَ، مِنْ رِيحٍ أَوْ غَيْرِهَا.»"
+    - lemma: "فخر"
+      entry_id: "{auto}"
+      root: "فخر"
+      maqayis_quote: "«الْفَاءُ وَالْخَاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ، وَهُوَ يَدُلُّ عَلَى عِظَمٍ وَقِدَمٍ.»"
+    - lemma: "كبرياء"
+      entry_id: "{auto}"
+      root: "كبر"
+      maqayis_quote: "«الْكَافُ وَالْبَاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى خِلَافِ الصِّغَرِ.»"
+    - lemma: "أنفة"
+      entry_id: "{auto}"
+      root: "انف"
+      maqayis_quote: "«الْهَمْزَةُ وَالنُّونُ وَالْفَاءُ أَصْلَانِ... الثَّانِي أَنْفُ كُلِّ ذِي أَنْفٍ. وَقِيَاسُهُ التَّحْدِيدُ... وَقَوْلُهُمْ: أَنِفَ مِنْ كَذَا، فَهُوَ مِنَ الْأَنْفِ أَيْضًا، وَهُوَ كَقَوْلِهِمْ لِلْمُتَكَبِّرِ: وَرِمَ أَنْفُهُ.»"
+    - lemma: "إباء"
+      entry_id: "{auto}"
+      root: "ابي"
+      maqayis_quote: "«الْهَمْزَةُ وَالْبَاءُ وَالْيَاءُ يَدُلُّ عَلَى الِامْتِنَاعِ.»"
+    - lemma: "ترفع"
+      entry_id: "{auto}"
+      root: "رفع"
+      maqayis_quote: "«الرَّاءُ وَالْفَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى خِلَافِ الْوَضْعِ.»"
+
+  per_sense:
+    - lemma: "عزة نفس"
+      sense_id: "{auto}"
+      nuance: "تعبير مركب يركز بوضوح على الكرامة الداخلية للفرد وعدم الرضا بالمهانة."
+      mwe: true
+    - lemma: "فخر"
+      sense_id: "{auto}"
+      nuance: "يميل أكثر إلى الاعتداد بالمحاسن والمباهاة بها، وقد يستخدم بمعنى الأنفة."
+      mwe: false
+    - lemma: "كبرياء"
+      sense_id: "{auto}"
+      nuance: "يشير إلى العظمة والترفع الشديد الذي قد يقترب من التعالي والاعتداد القوي بالذات."
+      mwe: false
+    - lemma: "أنفة"
+      sense_id: "{auto}"
+      nuance: "يبرز جانب الكراهية والابتعاد عما يشين ويحط من القدر."
+      mwe: false
+    - lemma: "إباء"
+      sense_id: "{auto}"
+      nuance: "يبرز قوة الامتناع ورفض الضيم والذل بصلابة."
+      mwe: false
+    - lemma: "ترفع"
+      sense_id: "{auto}"
+      nuance: "يركز على العلو والتنزه عن الصغائر والدنايا في السلوك."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"عزة","root":"عزز","maqayis_quote":"«الْعَيْنُ وَالزَّاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ، يَدُلُّ عَلَى شِدَّةٍ وَقُوَّةٍ وَمَا ضَاهَاهُمَا، مِنْ غَلَبَةٍ وَقَهْرٍ.»"},{"word":"نفس","root":"نفس","maqayis_quote":"«النُّونُ وَالْفَاءُ وَالسِّينُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خُرُوجِ النَّسِيمِ كَيْفَ كَانَ، مِنْ رِيحٍ أَوْ غَيْرِهَا.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"فخر","maqayis_quote":"«الْفَاءُ وَالْخَاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ، وَهُوَ يَدُلُّ عَلَى عِظَمٍ وَقِدَمٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"كبر","maqayis_quote":"«الْكَافُ وَالْبَاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى خِلَافِ الصِّغَرِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"انف","maqayis_quote":"«الْهَمْزَةُ وَالنُّونُ وَالْفَاءُ أَصْلَانِ... الثَّانِي أَنْفُ كُلِّ ذِي أَنْفٍ. وَقِيَاسُهُ التَّحْدِيدُ... وَقَوْلُهُمْ: أَنِفَ مِنْ كَذَا، فَهُوَ مِنَ الْأَنْفِ أَيْضًا، وَهُوَ كَقَوْلِهِمْ لِلْمُتَكَبِّرِ: وَرِمَ أَنْفُهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ابي","maqayis_quote":"«الْهَمْزَةُ وَالْبَاءُ وَالْيَاءُ يَدُلُّ عَلَى الِامْتِنَاعِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"رفع","maqayis_quote":"«الرَّاءُ وَالْفَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى خِلَافِ الْوَضْعِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير مركب يركز بوضوح على الكرامة الداخلية للفرد وعدم الرضا بالمهانة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يميل أكثر إلى الاعتداد بالمحاسن والمباهاة بها، وقد يستخدم بمعنى الأنفة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يشير إلى العظمة والترفع الشديد الذي قد يقترب من التعالي والاعتداد القوي بالذات.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يبرز جانب الكراهية والابتعاد عما يشين ويحط من القدر.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يبرز قوة الامتناع ورفض الضيم والذل بصلابة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على العلو والتنزه عن الصغائر والدنايا في السلوك.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

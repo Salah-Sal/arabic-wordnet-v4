@@ -1,0 +1,119 @@
+YOLO mode is enabled. All tool calls will be automatically approved.
+Loaded cached credentials.
+YOLO mode is enabled. All tool calls will be automatically approved.
+Bash command parsing error detected for command: << 'EOF' > /workspace/awn4-13601032-n.review.yaml
+step0_evidence:
+  per_lemma:
+    - lemma: "قياس الخشب بالأكوام"
+      evidence_status: "no_material_found"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "كُرْدِيَّة"
+      source_section: "english_bridge"
+      evidence_citation: "«(2) الكُرْديّة: كمية من الحطب مقيسةٌ بالكُرْدات (را. cord ç).» — المورد الحديث (2008)"
+      justification: "تعريب مباشر للفظ (cordage) بإضافة لاحقة المصدر الصناعي (يّة) للتعبير عن الكمية المقيسة بوحدة الكورد، وهو موثق في معجم المورد كمقابل دقيق."
+  knowledge_candidates:
+    - lemma: "كَمِّيَّة كُرْدِيَّة"
+      justification: "تركيب وصفي يجمع بين الكمية ووحدة القياس (الكورد) لتجنب اللبس مع النسبة إلى العرق الكردي."
+  generation_notes: "وحدة (cord) للخشب تترجم عادة إلى كورد أو كرد، وcordage هي الكمية المقيسة بها."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "قياس الخشب بالأكوام"
+      decision: removed
+      decision_reason: "عبارة وصفية حرة تشرح المفهوم وليست مصطلحاً معجمياً مسكوكاً، كما أن 'الأكوام' لا تعبر بدقة عن وحدة الكورد القياسية."
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "شرح للمفهوم وليست اسماً معجمياً."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "كُرْدِيَّة"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح معرّب مسكوك وموثق في القواميس الحديثة (المورد) للدلالة المباشرة على الكمية المقيسة بوحدة الكورد، وبالرغم من الاشتراك اللفظي الممكن مع النسبة القومية، إلا أن السياق المعجمي المتخصص يزيله."
+      step05_citation: "«(2) الكُرْديّة: كمية من الحطب مقيسةٌ بالكُرْدات (را. cord ç).» — المورد الحديث (2008)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "المصطلح الوحيد الموثق كاسم دال على كمية الخشب المقيسة بوحدة الكورد."
+      example: "تُقَدَّر كُرْدِيَّة الخشب المستخرجة من هذه الغابة بآلاف الأطنان سنوياً."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "كُرْدِيَّة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-13601032-n"
+
+  synset_flags:
+    definition_review_needed: true
+  added_lemmas:
+    - lemma: "كُرْدِيَّة"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "كمية الخشب في منطقة ما مقاسة بالأكوام (الكورد)"
+  assessment:
+    decision: revise
+    reason: "التعريف القديم يخلط بين الأكوام العشوائية ووحدة الكورد القياسية (cord) ويحتوي على أقواس."
+  authored_definitions:
+    - type: terminological
+      text: "كَمِّيَّةُ الخَشَبِ أَو الحَطَبِ فِي مِنْطَقَةٍ مَا، مَقِيسَةً بِوَحْدَةِ الكُورْد."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-13601032-n"
+        definition_index: 0
+        text: "كَمِّيَّةُ الخَشَبِ أَو الحَطَبِ فِي مِنْطَقَةٍ مَا، مَقِيسَةً بِوَحْدَةِ الكُورْد."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-00033914-n"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "كُرْدِيَّة"
+        antonym_found: false
+  verb_checks:
+    applicable: false
+  selectional_restrictions:
+    - lemma: "كُرْدِيَّة"
+      constraint: "للخشب والحطب"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "كُرْدِيَّة"
+      enrichment:
+        root: "ك-ر-د"
+        etymology: "loanword"
+      examples:
+        - text: "تُقَدَّر كُرْدِيَّة الخشب المستخرجة من هذه الغابة بآلاف الأطنان سنوياً."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: lexical_gap
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-13601032-n"
+        text: "تُقَدَّر كُرْدِيَّة الخشب المستخرجة من هذه الغابة بآلاف الأطنان سنوياً."
+EOF Syntax Errors: [ 'Error node: "<" at 0:0' ]

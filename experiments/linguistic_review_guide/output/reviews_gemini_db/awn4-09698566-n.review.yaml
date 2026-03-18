@@ -1,0 +1,135 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "غَيْر الْمُنْتَمِي"
+      evidence_status: "no_material_found"
+    - lemma: "مِنَ الْأَغْيَار"
+      evidence_status: "no_material_found"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "اللَّايَهُودِيّ"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«اللّايهوديّ: شخص من غير اليهود» — المورد الحديث"
+      justification: "الترجمة المعجمية المباشرة لكلمة gentile في السياق اليهودي"
+  knowledge_candidates:
+    - lemma: "أَغْيَار"
+      justification: "كلمة (الأغيار) تُستخدم في الأدبيات العربية المعاصرة كترجمة لمصطلح (Goyim / Gentiles) للإشارة إلى من هم خارج الديانة، وهي جمع ولا مفرد لها يُستخدم بنفس الدلالة."
+  generation_notes: "لا يوجد مقابل عربي مفرد مسكوك يعبر عن (من هو خارج ديانتي) بشكل عام لجميع الأديان، وغالباً ما يُلجأ للتعبيرات الوصفية أو مصطلحات خاصة بكل دين."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "غَيْر الْمُنْتَمِي"
+      decision: removed
+      decision_reason: "تركيب وصفي حر وليس وحدة معجمية مسكوكة"
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "تعبير وصفي عام لا يختص بالديانة"
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "مِنَ الْأَغْيَار"
+      decision: removed
+      decision_reason: "شبه جملة (جار ومجرور) ولا يصح إدراجها كاسم في الشبكة الدلالية"
+      evidence_assessment:
+        case: "no_material"
+      mwe_check:
+        is_mwe: true
+        accepted: false
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "تعبير تركيبي يشير إلى الانتماء للمجموع"
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "اللَّايَهُودِيّ"
+      source: step05
+      decision: removed
+      decision_reason: "مختص بالديانة اليهودية بينما تعريف المجموعة يتحدث عن المورمون والهندوس"
+      step05_citation: "«اللّايهوديّ: شخص من غير اليهود» — المورد الحديث"
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "يختص بغير اليهود فقط"
+
+    - lemma: "أَغْيَار"
+      source: step05
+      decision: confirmed
+      decision_reason: "المصطلح الأكثر استخداماً في الأدبيات لترجمة (Gentiles) ولوصف من هم خارج الجماعة الدينية"
+      step05_citation: "مستنبط من المعرفة اللغوية واستعمال المترجمين"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "صيغة جمع تدل على الغرباء عن الدين أو الجماعة، وتُستخدم اصطلاحياً"
+      example: "يُطلق بعض المتشددين على من يخالفهم في العقيدة مصطلح الأغيار."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "أَغْيَار"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09698566-n"
+
+  synset_flags:
+    definition_review_needed: true
+  added_lemmas:
+    - lemma: "أَغْيَار"
+      reason: "مصدر: الخطوة ٠٫٥ — أفضل بديل عربي متاح"
+      via_command: "create_entry + add_sense"
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "شخص ليس عضواً في ديانتك الخاصة؛ يستخدم بهذا المعنى من قبل المورمون والهندوس"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي ترجمة حرفية ركيكة ('ديانتك الخاصة')"
+  authored_definitions:
+    - type: terminological
+      text: "شخص لا ينتمي إلى ديانة أو جماعة المتحدث، ويُطلق عادةً في سياق ديانات معينة لتمييز أتباعها عن غيرهم."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-09698566-n"
+        definition_index: 0
+        text: "شخص لا ينتمي إلى ديانة أو جماعة المتحدث، ويُطلق عادةً في سياق ديانات معينة لتمييز أتباعها عن غيرهم."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عَامِل"
+    test_result: wrong
+  antonymy:
+    per_lemma:
+      - lemma: "أَغْيَار"
+        antonym_found: false
+  verb_checks:
+    applicable: false
+  selectional_restrictions:
+    - lemma: "أَغْيَار"
+      constraint: "عاقل"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "أَغْيَار"
+      enrichment:
+        root: "غ-ي-ر"
+      examples:
+        - text: "يُحرّم في بعض الشرائع القديمة زواج أبنائها من الأغيار."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: lexical_gap

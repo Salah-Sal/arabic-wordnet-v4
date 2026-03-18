@@ -1,0 +1,279 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي يبدو ترجمة حرفية للتعريف الإنجليزي ويحتوي على عبارة 'وما إلى ذلك'."
+      - "المجموعة الترادفية تفتقر إلى بعض المصطلحات الأساسية الشائعة للتعبير عن هذا المفهوم في السياقات المختلفة مثل 'نظير' و'عديل'."
+    observations: "المفهوم يعبر عن المماثلة والمساواة بين شيئين أو شخصين من حيث القيمة أو الأثر أو المكانة. اللغة العربية غنية بالمفردات التي تعبر عن هذا المفهوم بدقة وتفاوت في الفروق الدقيقة (كالمكافأة في القيمة، والمناظرة في المكانة، والمقابلة في الوظيفة)."
+  blind_candidates:
+    - lemma: "نَظِير"
+      generation_method: ishtiqaq
+      justification: "مشتق من النظر بمعنى المماثلة، ويطلق على من يناظر غيره في المكانة أو القدر."
+    - lemma: "عَدِيل"
+      generation_method: ishtiqaq
+      justification: "مشتق من العدل، وهو ما يعادل الشيء ويساويه في الوزن أو القيمة أو المكانة."
+    - lemma: "مُسَاوٍ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من ساوى، يعبر عن التماثل المباشر."
+    - lemma: "قَرِين"
+      generation_method: majaz
+      justification: "من الاقتران، ويطلق مجازاً على من يماثل الشخص ويصاحبه في نفس المرتبة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُقَابِل"
+      confirm:
+        - text: "opposite"
+          source: "المعجم الموحد لمصطلحات الرياضيات والفلك (1990)"
+        - text: "counterpart funds ; اعتمادات مالية مقابلة"
+          source: "المعجم الموحد لمصطلحات التجارة والمحاسبة (1995)"
+    - lemma: "مُكَافِئ"
+      confirm:
+        - text: "equivalent"
+          source: "المعجم الموحد لمصطلحات الجيولوجيا (2000)"
+        - text: "equivalent ; مُكَافِئ، مُعَادِل"
+          source: "المعجم الموحد لمصطلحات علم الصيدلة (2009)"
+    - lemma: "نَظِير"
+      confirm:
+        - text: "المُناظِر المِثْلُ والمُساوِى"
+          source: "المعجم الوسيط"
+        - text: "النّظير:[في الانكليزية] Peer ،equal ،analogue ،nadir"
+          source: "كشّاف اصطلاحات الفنون والعلوم للتهانوي"
+    - lemma: "عَدِيل"
+      confirm:
+        - text: "المِثْلُ والنظير عَدِيلُ الرَّجُل: زوج أُخت امرأته"
+          source: "المعجم الوسيط"
+    - lemma: "مُسَاوٍ"
+      evidence_status: "no_material_found"
+    - lemma: "قَرِين"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مُقَابِل"
+      decision: confirmed
+      decision_reason: "مصطلح شائع الاستخدام للدلالة على ما يقابل الشيء ويوازيه، خاصة في السياقات المالية (المقابل المادي) أو الوظيفية (counterpart)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُقَابِل"
+
+    - lemma: "مُكَافِئ"
+      decision: confirmed
+      decision_reason: "مصطلح دقيق وشائع للدلالة على المساواة في القيمة أو التأثير أو القدر (equivalent)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُكَافِئ"
+
+    - lemma: "نَظِير"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فصيح وشائع الاستخدام للتعبير عن المماثل والمساوي في المكانة أو الصفات (peer/counterpart)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "نَظِير"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "عَدِيل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "كلمة فصيحة تدل على المثل والنظير وما يعادل الشيء في الوزن والقدر، وهي مناسبة جداً لمفهوم المجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "عَدِيل"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "مُسَاوٍ"
+      source: stage1
+      decision: removed
+      decision_reason: "اسم فاعل عام يدل على مطلق المساواة، والمصطلحات الأخرى (نظير، مكافئ، عديل) أخص وأدق في الدلالة على الاسمية (noun) المطلوبة."
+
+    - lemma: "قَرِين"
+      source: stage1
+      decision: removed
+      decision_reason: "القرين يدل غالباً على المصاحبة والملازمة أكثر من دلالته المباشرة على المساواة في القيمة والتأثير."
+
+stage4_content:
+  definition:
+    current: "شخص أو شيء مساو لآخر في القيمة أو القياس أو القوة أو التأثير أو الأهمية وما إلى ذلك"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يحتوي على ركاكة متمثلة في ترجمة حرفية لعبارة 'وما إلى ذلك'، ويمكن إعادة صياغته بأسلوب عربي معجمي رصين."
+    authored:
+      - type: terminological
+        text: "شخصٌ أو شيءٌ يماثل آخَرَ أو يعادله في القيمة أو القدر أو التأثير أو المكانة ويقومُ مَقامَه."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "شخصٌ أو شيءٌ يماثل آخَرَ أو يعادله في القيمة أو القدر أو التأثير أو المكانة ويقومُ مَقامَه."
+
+  examples:
+    per_lemma:
+      - lemma: "مُقَابِل"
+        examples:
+          - text: "لم تجد الشركة مقابلاً محلياً للمنتج المستورد لتلبية احتياجات السوق."
+            type: usage
+      - lemma: "مُكَافِئ"
+        examples:
+          - text: "قَدَّمَ الباحثُ حلاً رياضياً مكافئاً للحل التقليدي."
+            type: usage
+      - lemma: "نَظِير"
+        examples:
+          - text: "التقى الوزير بنظيره في العاصمة لبحث سبل التعاون المشترك."
+            type: usage
+      - lemma: "عَدِيل"
+        examples:
+          - text: "هذا الرأي لا عديل له في رجاحته وقوته."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "لم تجد الشركة مقابلاً محلياً للمنتج المستورد لتلبية احتياجات السوق."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "قَدَّمَ الباحثُ حلاً رياضياً مكافئاً للحل التقليدي."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "التقى الوزير بنظيره في العاصمة لبحث سبل التعاون المشترك."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "هذا الرأي لا عديل له في رجاحته وقوته."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُقَابِل"
+      entry_id: "{auto}"
+      root: "قبل"
+      maqayis_quote: "«الْقَافُ وَالْبَاءُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ تَدُلُّ كَلِمُهُ كُلُّهَا عَلَى مُوَاجَهَةِ الشَّيْءِ لِلشَّيْءِ»"
+    - lemma: "مُكَافِئ"
+      entry_id: "{auto}"
+      root: "كفأ"
+      maqayis_quote: "«الْكَافُ وَالْفَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى الْحَسْبِ الَّذِي لَا مُسْتَزَادَ فِيهِ»"
+    - lemma: "نَظِير"
+      entry_id: "{auto}"
+      root: "نظر"
+      maqayis_quote: "«النُّونُ وَالظَّاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَرْجِعُ فُرُوعُهُ إِلَى مَعْنًى وَاحِدٍ وَهُوَ تَأَمُّلُ الشَّيْءِ وَمُعَايَنَتُهُ»"
+    - lemma: "عَدِيل"
+      entry_id: "{auto}"
+      root: "عدل"
+      maqayis_quote: "«الْعَيْنُ وَالدَّالُ وَاللَّامُ أَصْلَانِ صَحِيحَانِ، لَكِنَّهُمَا مُتَقَابِلَانِ كَالْمُتَضَادَّيْنِ: أَحَدُهُمَا يَدُلُّ عَلَى اسْتِوَاءٍ، وَالْآخَرُ يَدُلُّ عَلَى اعْوِجَاجٍ»"
+
+  per_sense:
+    - lemma: "مُقَابِل"
+      sense_id: "{auto}"
+      nuance: "يركز على الموازاة والتقابل الوظيفي أو المادي."
+      mwe: false
+    - lemma: "مُكَافِئ"
+      sense_id: "{auto}"
+      nuance: "يركز على المساواة المطلقة في القيمة أو التأثير أو القياس."
+      mwe: false
+    - lemma: "نَظِير"
+      sense_id: "{auto}"
+      nuance: "يُستخدم غالباً للإشارة إلى المماثل في الرتبة أو المكانة أو المنصب."
+      mwe: false
+    - lemma: "عَدِيل"
+      sense_id: "{auto}"
+      nuance: "يشير إلى المعادلة في الوزن والقيمة، ويوحي بوجود كفتين متوازنتين."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قبل","maqayis":"«الْقَافُ وَالْبَاءُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ تَدُلُّ كَلِمُهُ كُلُّهَا عَلَى مُوَاجَهَةِ الشَّيْءِ لِلشَّيْءِ»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"كفأ","maqayis":"«الْكَافُ وَالْفَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى الْحَسْبِ الَّذِي لَا مُسْتَزَادَ فِيهِ»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نظر","maqayis":"«النُّونُ وَالظَّاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَرْجِعُ فُرُوعُهُ إِلَى مَعْنًى وَاحِدٍ وَهُوَ تَأَمُّلُ الشَّيْءِ وَمُعَايَنَتُهُ»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عدل","maqayis":"«الْعَيْنُ وَالدَّالُ وَاللَّامُ أَصْلَانِ صَحِيحَانِ، لَكِنَّهُمَا مُتَقَابِلَانِ كَالْمُتَضَادَّيْنِ: أَحَدُهُمَا يَدُلُّ عَلَى اسْتِوَاءٍ، وَالْآخَرُ يَدُلُّ عَلَى اعْوِجَاجٍ»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الموازاة والتقابل الوظيفي أو المادي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على المساواة المطلقة في القيمة أو التأثير أو القياس.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُستخدم غالباً للإشارة إلى المماثل في الرتبة أو المكانة أو المنصب.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يشير إلى المعادلة في الوزن والقيمة، ويوحي بوجود كفتين متوازنتين.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,229 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمة الوحيدة الموجودة صحيحة ولكنها غير كافية لتغطية الظلال الدلالية للمفهوم.
+      - التعريف الحالي جيد ولكنه يميل للوصف أكثر من التكثيف المعجمي.
+    observations: "المفهوم يشير إلى الشخص الذي يتبنى وضعيات أو سلوكيات مصطنعة (posturer/poseur) لتحقيق غرض اجتماعي أو تضليلي. اللغة العربية غنية بالألفاظ التي تصف هذا السلوك من زوايا مختلفة (التصنع، التكلف، الادعاء، الرئاء)."
+  blind_candidates:
+    - lemma: "مُتَصَنِّع"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من 'تصنّع' الذي يعني إظهار خلاف الباطن أو التكلف في السلوك."
+    - lemma: "مُتَكَلِّف"
+      generation_method: ishtiqaq
+      justification: "من 'تكلّف الشيء' أي أظهره من نفسه وليس هو من طبعه، وهو مرادف دقيق لـ poseur."
+    - lemma: "مُرَائٍ"
+      generation_method: ishtiqaq
+      justification: "من 'الرئاء' وهو إظهار العمل الصالح أو السلوك الحسن ليراه الناس لا عن إخلاص."
+    - lemma: "مُدَّعٍ"
+      generation_method: ishtiqaq
+      justification: "من 'ادعى' ما ليس فيه، ويشمل ادعاء المكانة أو العلم أو غيرهما."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُتَصَنِّع"
+      confirm:
+        - text: "«(2) المتكلف؛ المتصنع.» في ترجمة Poseur."
+          source: "المورد الحديث"
+    - lemma: "مُتَكَلِّف"
+      confirm:
+        - text: "«المُتَكَلِّفُ: الذى يظهر نفسَه على غير حقيقتها»"
+          source: "المعجم الوسيط"
+        - text: "«المُتَكَلِّفُ: العِرِّيضُ لِمَا لَا يَعْنِيهِ.»"
+          source: "مقاييس اللغة"
+    - lemma: "مُرَائٍ"
+      confirm:
+        - text: "«وراءَى فُلَانٌ يُرَائِي. وَفَعَلَ ذَلِكَ رِئَاءَ النَّاسِ، وَهُوَ أَنْ يَفْعَلَ شَيْئًا لِيَرَاهُ النَّاسُ.»"
+          source: "مقاييس اللغة"
+    - lemma: "مُدَّعٍ"
+      confirm:
+        - text: "«المُدَّعِي: من يخالف قوله الظاهر.»"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+        - text: "«الِادِّعَاءُ أَنْ تَدَّعِيَ حَقًّا لَكَ أَوْ لِغَيْرِكَ. تَقُولُ ادَّعَى حَقًّا، أَوْ بَاطِلًا.»"
+          source: "مقاييس اللغة"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مُتَصَنِّع"
+      decision: confirmed
+      decision_reason: "اللمة الأصلية في المجموعة، مدعومة بالترجمة في المعاجم الحديثة وتناسب الوزن الصرفي (تَفَعُّل) للدلالة على المطاوعة والتكلف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُتَصَنِّع"
+    - lemma: "مُتَكَلِّف"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف دقيق من المعجم الوسيط، يصف صراحة إظهار النفس على غير حقيقتها."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُتَكَلِّف", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُرَائٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يغطي الجانب المتعلق بإثارة إعجاب الآخرين (posturing for attention) كما ورد في مقاييس اللغة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُرَائٍ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُدَّعٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يغطي الجانب المتعلق بادعاء صفات غير موجودة، وقد أكد المناوي في تعريفه الفلسفي مخالفة قوله لظاهره."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُدَّعٍ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "شخص يتصرف بطريقة محسوبة لإثارة إعجاب الآخرين أو تضليلهم"
+    assessment:
+      decision: revise
+      reason: "لجعله أكثر تركيزاً بأسلوب المعاجم العربية."
+    authored:
+      - type: terminological
+        text: "مَنْ يُظهر نَفسَه على غير حقيقتها تَكَلُّفاً لجذبِ الانتباهِ أو التَّضليل."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مَنْ يُظهر نَفسَه على غير حقيقتها تَكَلُّفاً لجذبِ الانتباهِ أو التَّضليل."}
+  examples:
+    per_lemma:
+      - lemma: "مُتَصَنِّع"
+        examples:
+          - text: "كان يَبدو مُتَصَنِّعاً في حركاتِه وكلامِه ليَلفتَ أنظارَ الحاضرين."
+            type: usage
+      - lemma: "مُتَكَلِّف"
+        examples:
+          - text: "لا تكن مُتَكَلِّفاً في حوارِك، بل كُنْ على سَجيَّتِك."
+            type: usage
+      - lemma: "مُرَائٍ"
+        examples:
+          - text: "الشخص المُرائي يَفعلُ الخيرَ لا حُبّاً فيه، بل طَمَعاً في ثَناءِ الناس."
+            type: usage
+      - lemma: "مُدَّعٍ"
+        examples:
+          - text: "كشفَه المتخصصون فعرفوا أنه مجردُ مُدَّعٍ لا يملكُ من العلمِ شَيئاً."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُتَصَنِّع"
+      entry_id: "{auto}"
+      root: "صنع"
+      maqayis_quote: "«الصَّادُ وَالنُّونُ وَالْعَيْنُ أَصْلٌ صَحِيحٌ وَاحِدٌ، وَهُوَ عَمَلُ الشَّيْءِ صُنْعًا... وَالتَّصَنُّعُ: حُسْنُ السَّمْتِ.»"
+    - lemma: "مُتَكَلِّف"
+      entry_id: "{auto}"
+      root: "كلف"
+      maqayis_quote: "«الْكَافُ وَاللَّامُ وَالْفَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِيلَاعٍ بِالشَّيْءِ وَتَعَلُّقٍ بِهِ... وَالْمُتَكَلِّفُ: الْعِرِّيضُ لِمَا لَا يَعْنِيهِ.»"
+    - lemma: "مُرَائٍ"
+      entry_id: "{auto}"
+      root: "راي"
+      maqayis_quote: "«الرَّاءُ وَالْهَمْزَةُ وَالْيَاءُ أَصْلٌ يَدُلُّ عَلَى نَظَرٍ وَإِبْصَارٍ... وَرَاءَى فُلَانٌ يُرَائِي... أَنْ يَفْعَلَ شَيْئًا لِيَرَاهُ النَّاسُ.»"
+    - lemma: "مُدَّعٍ"
+      entry_id: "{auto}"
+      root: "دعو"
+      maqayis_quote: "«الدَّالُ وَالْعَيْنُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ... وَالِادِّعَاءُ أَنْ تَدَّعِيَ حَقًّا لَكَ أَوْ لِغَيْرِكَ. تَقُولُ ادَّعَى حَقًّا، أَوْ بَاطِلًا.»"
+  per_sense:
+    - lemma: "مُتَصَنِّع"
+      sense_id: "{auto}"
+      nuance: "يركز على تكلف السلوك العام وحسن السمت الظاهري."
+      mwe: false
+    - lemma: "مُتَكَلِّف"
+      sense_id: "{auto}"
+      nuance: "يركز على مخالفة السلوك للطبيعة والسجية."
+      mwe: false
+    - lemma: "مُرَائٍ"
+      sense_id: "{auto}"
+      nuance: "يركز على القصد من السلوك وهو رؤية الناس والثناء."
+      mwe: false
+    - lemma: "مُدَّعٍ"
+      sense_id: "{auto}"
+      nuance: "يركز على انتحال صفات أو حقوق لا يملكها الشخص."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صنع","maqayis":"«الصَّادُ وَالنُّونُ وَالْعَيْنُ أَصْلٌ صَحِيحٌ وَاحِدٌ... وَالتَّصَنُّعُ: حُسْنُ السَّمْتِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"كلف","maqayis":"«الْكَافُ وَاللَّامُ وَالْفَاءُ أَصْلٌ صَحِيحٌ... وَالْمُتَكَلِّفُ: الْعِرِّيضُ لِمَا لَا يَعْنِيهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"راي","maqayis":"«الرَّاءُ وَالْهَمْزَةُ وَالْيَاءُ أَصْلٌ يَدُلُّ عَلَى نَظَرٍ وَإِبْصَارٍ... وَرَاءَى فُلَانٌ يُرَائِي... أَنْ يَفْعَلَ شَيْئًا لِيَرَاهُ النَّاسُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"دعو","maqayis":"«الدَّالُ وَالْعَيْنُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ... وَالِادِّعَاءُ أَنْ تَدَّعِيَ حَقًّا لَكَ أَوْ لِغَيْرِكَ. تَقُولُ ادَّعَى حَقًّا، أَوْ بَاطِلًا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على تكلف السلوك العام وحسن السمت الظاهري.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على مخالفة السلوك للطبيعة والسجية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على القصد من السلوك وهو رؤية الناس والثناء.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على انتحال صفات أو حقوق لا يملكها الشخص.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

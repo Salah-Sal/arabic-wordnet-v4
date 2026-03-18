@@ -1,0 +1,233 @@
+stage1_review:
+  assessment:
+    concerns:
+      - المجموعة تحتوي على لمّة واحدة فقط هي "عرض".
+      - غياب المصطلحات التجارية واللوجستية الشائعة مثل "توريد" و"إمداد".
+    observations: "المفهوم يشير إلى الركن الثاني من المعادلة الاقتصادية (العرض والطلب). اللمّة الموجودة صحيحة تماماً لكنها وحيدة."
+  blind_candidates:
+    - lemma: "عَرْض"
+      generation_method: majaz
+      justification: "المصطلح الاقتصادي القياسي المقابل للطلب (Demand)."
+    - lemma: "تَوْرِيد"
+      generation_method: ishtiqaq
+      justification: "يُستخدم في السياق التجاري والتعاقدي للإشارة إلى عملية إيصال السلع."
+    - lemma: "إِمْدَاد"
+      generation_method: ishtiqaq
+      justification: "يُستخدم في السياق اللوجستي وتزويد الموارد (طاقة، مياه، مواد خام)."
+    - lemma: "تَمْوِين"
+      generation_method: ishtiqaq
+      justification: "يُستخدم غالباً لتزويد السلع الأساسية والمواد الغذائية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "عَرْض"
+      confirm:
+        - text: "(قص) كميّة يقبل المنتجون والتجّار بيعها من سلعةٍ ما بسعرٍ معيّن ° العَرْضُ والطَّلَبُ: ما يُعْرَض من بضائع للبيع وما يُطلَب شراؤه منها."
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "عَرَضَ الْمَتَاعَ لِلْبَيْعِ: أَظْهَرَهُ لِذَوِي الرَّغْبَةِ لِيَشْتَرُوهُ."
+          source: "المعجم الوسيط"
+    - lemma: "تَوْرِيد"
+      confirm:
+        - text: "عقد توريد: supply contract."
+          source: "المعجم الموحد لمصطلحات التجارة والمحاسبة"
+        - text: "سلسلة توريد الموز: banana supply chain."
+          source: "المكنز الزراعي (AGROVOC)"
+    - lemma: "إِمْدَاد"
+      confirm:
+        - text: "إمداد: supply."
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة"
+        - text: "نظام إمداد بالمياه: water supply system."
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية"
+    - lemma: "تَمْوِين"
+      confirm:
+        - text: "تَمْوين: supply."
+          source: "مسرد الجغرافيا والتاريخ (ArabTerm)"
+        - text: "ضمان التموين، ضمان التزويد: security of supply."
+          source: "المعجم الموحد لمصطلحات التجارة والمحاسبة"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "عرض"
+      decision: confirmed
+      decision_reason: "هو المصطلح الأساسي والتقني في علم الاقتصاد المقابل للطلب."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عَرْض"
+    - lemma: "تَوْرِيد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تجاري وقانوني شائع جداً لعملية توفير السلع والخدمات بموجب عقود."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَوْرِيد", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "إِمْدَاد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يُستخدم في السياقات اللوجستية والتقنية (إمدادات الطاقة والمياه)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "إِمْدَاد", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَمْوِين"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يختص بتوفير الاحتياجات الأساسية والمؤن، وهو مرادف قوي في السياق الخدمي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَمْوِين", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "عرض السلع والخدمات للبيع"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي لغوي بسيط، والأفضل تقديم التعريف الاصطلاحي الاقتصادي لزيادة الدقة."
+    authored:
+      - type: terminological
+        text: "كَمّيَّةُ السِّلَعِ والْخِدْماتِ الَّتِي يَكُونُ الْمُنْتِجُونَ مُسْتَعِدِّينَ لِبَيْعِهَا فِي السُّوقِ عِنْدَ سِعْرٍ مُعَيَّنٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "كَمّيَّةُ السِّلَعِ والْخِدْماتِ الَّتِي يَكُونُ الْمُنْتِجُونَ مُسْتَعِدِّينَ لِبَيْعِهَا فِي السُّوقِ عِنْدَ سِعْرٍ مُعَيَّنٍ."}
+  examples:
+    per_lemma:
+      - lemma: "عَرْض"
+        examples:
+          - text: "أَدَّى ارْتِفَاعُ الْإِنْتَاجِ إِلَى زِيَادَةِ الْعَرْضِ فِي السُّوقِ."
+            type: usage
+      - lemma: "تَوْرِيد"
+        examples:
+          - text: "وَقَّعَتِ الشَّرِكَةُ عَقْدَ تَوْرِيدٍ طَوِيلَ الْأَمَدِ لِتَأْمِينِ احْتِيَاجَاتِهَا مِنَ الْخَامِ."
+            type: usage
+      - lemma: "إِمْدَاد"
+        examples:
+          - text: "تَسْعَى الدَّوْلَةُ لِتَأْمِينِ إِمْدَادَاتِ الْغَازِ الطَّبِيعِيِّ لِلْمَنَاطِقِ الصِّنَاعِيَّةِ."
+            type: usage
+      - lemma: "تَمْوِين"
+        examples:
+          - text: "تَقُومُ وَزَارَةُ التَّمْوِينِ بِمُرَاقَبَةِ تَوْزِيعِ السِّلَعِ الْأَسَاسِيَّةِ."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "عَرْض"
+      entry_id: "{auto}"
+      root: "عرض"
+      maqayis_quote: "«الْعَيْنُ وَالرَّاءُ وَالضَّادُ بِنَاءٌ تَكْثُرُ فُرُوعُهُ... يَرْجِعُ إِلَى أَصْلٍ وَاحِدٍ، وَهُوَ الْعَرْضُ الَّذِي يُخَالِفُ الطُّولَ... وَمِنَ الْبَابِ: عَرَضَ الْمَتَاعَ يَعْرِضُهُ عَرْضًا. وَهُوَ كَأَنَّهُ فِي ذَاكَ قَدْ أَرَاهُ عَرْضَهُ.»"
+    - lemma: "تَوْرِيد"
+      entry_id: "{auto}"
+      root: "ورد"
+      maqayis_quote: "«الْوَاوُ وَالرَّاءُ وَالدَّالُ: أَصْلَانِ، أَحَدُهُمَا الْمُوَافَاةُ إِلَى الشَّيْءِ... فَالْأَوَّلُ الْوِرْدُ: خِلَافُ الصَّدَرِ. وَيُقَالُ: وَرَدَتِ الْإِبِلُ الْمَاءَ تَرِدُهُ وِرْدًا.»"
+    - lemma: "إِمْدَاد"
+      entry_id: "{auto}"
+      root: "مدد"
+      maqayis_quote: "«الْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى جَرِّ شَيْءٍ فِي طُولٍ، وَاتِّصَالِ شَيْءٍ بِشَيْءٍ فِي اسْتِطَالَةٍ... وَأَمَدَّ الْجَيْشَ بِمَدَدٍ.»"
+    - lemma: "تَمْوِين"
+      entry_id: "{auto}"
+      root: "مون"
+      maqayis_quote: "«الْمِيمُ وَالْوَاوُ وَالنُّونُ كَلِمَةٌ وَاحِدَةٌ وَهِيَ الْمَوْنُ: أَنْ تَمُونَ عَيَالَكَ، أَيْ تَقُومَ بِكِفَايَتِهِمْ وَتَتَحَمَّلَ مَؤُونَتَهُمْ.»"
+  per_sense:
+    - lemma: "عَرْض"
+      sense_id: "{auto}"
+      nuance: "المصطلح الاقتصادي العام للكمية المطروحة في السوق."
+      mwe: false
+    - lemma: "تَوْرِيد"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب التعاقدي والتجاري لنقل السلع من المورد إلى المشتري."
+      mwe: false
+    - lemma: "إِمْدَاد"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب اللوجستي والمستمر لتوفير الموارد والمواد."
+      mwe: false
+    - lemma: "تَمْوِين"
+      sense_id: "{auto}"
+      nuance: "يختص غالباً بتوفير الاحتياجات المعيشية الأساسية والمؤن."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عرض","maqayis":"«الْعَيْنُ وَالرَّاءُ وَالضَّادُ بِنَاءٌ تَكْثُرُ فُرُوعُهُ... يَرْجِعُ إِلَى أَصْلٍ وَاحِدٍ، وَهُوَ الْعَرْضُ الَّذِي يُخَالِفُ الطُّولَ... وَمِنَ الْبَابِ: عَرَضَ الْمَتَاعَ يَعْرِضُهُ عَرْضًا. وَهُوَ كَأَنَّهُ فِي ذَاكَ قَدْ أَرَاهُ عَرْضَهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ورد","maqayis":"«الْوَاوُ وَالرَّاءُ وَالدَّالُ: أَصْلَانِ، أَحَدُهُمَا الْمُوَافَاةُ إِلَى الشَّيْءِ... فَالْأَوَّلُ الْوِرْدُ: خِلَافُ الصَّدَرِ. وَيُقَالُ: وَرَدَتِ الْإِبِلُ الْمَاءَ تَرِدُهُ وِرْدًا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"مدد","maqayis":"«الْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى جَرِّ شَيْءٍ فِي طُولٍ، وَاتِّصَالِ شَيْءٍ بِشَيْءٍ فِي اسْتِطَالَةٍ... وَأَمَدَّ الْجَيْشَ بِمَدَدٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"مون","maqayis":"«الْمِيمُ وَالْوَاوُ وَالنُّونُ كَلِمَةٌ وَاحِدَةٌ وَهِيَ الْمَوْنُ: أَنْ تَمُونَ عَيَالَكَ، أَيْ تَقُومَ بِكِفَايَتِهِمْ وَتَتَحَمَّلَ مَؤُونَتَهُمْ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الاقتصادي العام للكمية المطروحة في السوق.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الجانب التعاقدي والتجاري لنقل السلع من المورد إلى المشتري.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الجانب اللوجستي والمستمر لتوفير الموارد والمواد.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يختص غالباً بتوفير الاحتياجات المعيشية الأساسية والمؤن.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

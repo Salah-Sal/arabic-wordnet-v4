@@ -1,0 +1,220 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "استخدام (محدودب الظهر) قد يوحي بالتشوه الخلقي (الأحدب) أكثر من كونه مجرد وضعية وقوف أو مشي متراخية، لكنه شائع في هذا السياق."
+      - "كلمة (متهادل) تعبر عن التراخي والتدلي، لكنها عامة ولا تخصص الجزء المتهادل إلا إذا فُهمت في سياق الجسد."
+    observations: "المفهوم يشير إلى الشخص الذي يتخذ وضعية جسدية تتسم بالتراخي وانحناء الظهر وتهدل الأكتاف (sloucher)، وهو سلوك أو وضعية مؤقتة وليس بالضرورة عيباً خَلقياً. المصطلحات في العربية تعتمد غالباً على التراكيب الوصفية مثل (منحني الظهر) أو مشتقات تصف التراخي مثل (متهادل)."
+  blind_candidates:
+    - lemma: "مُنْحَنِي الظَّهْرِ"
+      generation_method: tarkib
+      justification: "مركب إضافي وصفي يعبر بشكل مباشر وواضح عن حالة انحناء الظهر المميزة لهذه الوضعية."
+    - lemma: "مُتَهَادِل"
+      generation_method: ishtiqaq
+      justification: "مشتق من (تهدل) بمعنى استرخى وتدلى، ويصف حالة الأكتاف والجسد المتراخي في المشي أو الوقوف."
+    - lemma: "أَحْدَب"
+      generation_method: majaz
+      justification: "استخدام لصفة الأحدب (المصاب بعيب خلقي) مجازاً لمن يمشي منحنياً ومتقوس الظهر كأنه أحدب."
+    - lemma: "مُتَقَوِّس"
+      generation_method: ishtiqaq
+      justification: "مشتق من التقوس، ويصف شكل الظهر المنحني أثناء هذه الوقفة المتراخية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُتَهَادِل"
+      confirm:
+        - text: "تَهَدَّلَ الشىءُ: استرخى أو تدلَّى"
+          source: "المعجم الوسيط"
+        - text: "مترهِّل؛ مُتَدلٍّ slouch"
+          source: "المورد الحديث (2008)"
+    - lemma: "مُحْدَوْدِب الظَّهْرِ"
+      confirm:
+        - text: "أحدب؛ مُحْدَوْدِب الظهر."
+          source: "المورد الحديث (2008)"
+    - lemma: "مُنْحَنِي الظَّهْرِ"
+      evidence_status: "no_material_found"
+    - lemma: "أَحْدَب"
+      confirm:
+        - text: "الذي خرج ظهره وارتفع عن الاستواء"
+          source: "المعجم الكبير"
+      contradicts:
+        - text: "gibbous, hunchbacked"
+          source: "المعجم الطبي الموحد (2009)"
+          conflict: "يشير إلى حالة طبية أو تشوه خلقي دائم وليس مجرد وضعية مشي أو وقوف متراخية."
+    - lemma: "مُتَقَوِّس"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مُتَهَادِل"
+      decision: confirmed
+      decision_reason: "كلمة فصيحة تعبر عن استرخاء الجسد وتدليه، وتطابق المعنى المطلوب في وصف التراخي في المشية والوقفة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُتَهَادِل"
+    - lemma: "مُحْدَوْدِب الظَّهْرِ"
+      decision: confirmed
+      decision_reason: "تعبير مستخدم ومعروف لوصف من ينحني ظهره أثناء المشي أو الوقوف بشكل متراخٍ."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُحْدَوْدِب الظَّهْرِ"
+    - lemma: "مُنْحَنِي الظَّهْرِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير دقيق ومباشر وشائع يصف حالة الظهر المنحني بسبب التراخي."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُنْحَنِي الظَّهْرِ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: awn4-10632319-n
+    - lemma: "أَحْدَب"
+      source: stage1
+      decision: removed
+      decision_reason: "يشير في الغالب إلى تشوه خلقي دائم (hunchback)، وهذا لا يطابق مفهوم (sloucher) الذي يصف حالة مؤقتة من التراخي."
+    - lemma: "مُتَقَوِّس"
+      source: stage1
+      decision: removed
+      decision_reason: "أقل دقة من (محدودب الظهر) و(منحني الظهر)، وقد تنصرف إلى معانٍ كثيرة غير الظهر."
+
+stage4_content:
+  definition:
+    current: "شخص يقف أو يمشي بظهر منحنٍ وأكتاف متهدلة"
+    assessment:
+      decision: retain
+      reason: "التعريف الحالي دقيق وواضح ويشرح المفهوم بأسلوب معجمي سليم يتوافق مع الدلالة."
+  examples:
+    per_lemma:
+      - lemma: "مُتَهَادِل"
+        examples:
+          - text: "مَشَى الشَّابُّ مُتَهَادِلًا مِنْ شِدَّةِ التَّعَبِ وَالْإِرْهَاقِ."
+            type: usage
+      - lemma: "مُحْدَوْدِب الظَّهْرِ"
+        examples:
+          - text: "وَقَفَ الرَّجُلُ مُحْدَوْدِبَ الظَّهْرِ يَنْظُرُ إِلَى الْأَرْضِ شَارِدَ الذِّهْنِ."
+            type: usage
+      - lemma: "مُنْحَنِي الظَّهْرِ"
+        examples:
+          - text: "دَخَلَ الرَّجُلُ الْعَجُوزُ مُنْحَنِيَ الظَّهْرِ يَتَوَكَّأُ عَلَى عَصَاهُ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: awn4-10632319-n
+          text: "مَشَى الشَّابُّ مُتَهَادِلًا مِنْ شِدَّةِ التَّعَبِ وَالْإِرْهَاقِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "وَقَفَ الرَّجُلُ مُحْدَوْدِبَ الظَّهْرِ يَنْظُرُ إِلَى الْأَرْضِ شَارِدَ الذِّهْنِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "دَخَلَ الرَّجُلُ الْعَجُوزُ مُنْحَنِيَ الظَّهْرِ يَتَوَكَّأُ عَلَى عَصَاهُ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُتَهَادِل"
+      entry_id: "{auto}"
+      root: "هدل"
+      maqayis_quote: "«الْهَاءُ وَالدَّالُ وَاللَّامُ: أَصْلَانِ صَحِيحَانِ: أَحَدُهُمَا يَدُلُّ عَلَى اسْتِرْخَاءٍ فِي شَيْءٍ»"
+    - lemma: "مُحْدَوْدِب الظَّهْرِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "محدودب"
+          root: "حدب"
+          maqayis_quote: "«الْحَاءُ وَالدَّالُ وَالْبَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ ارْتِفَاعُ الشَّيْءِ... وَالْحَدَبُ فِي الظَّهْرِ»"
+        - word: "الظهر"
+          root: "ظهر"
+          maqayis_quote: "«الظَّاءُ وَالْهَاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى قُوَّةٍ وَبُرُوزٍ»"
+    - lemma: "مُنْحَنِي الظَّهْرِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "منحني"
+          root: "حنو"
+          maqayis_quote: "«الْحَاءُ وَالنُّونُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَعَطُّفٍ وَتَعَوُّجٍ»"
+        - word: "الظهر"
+          root: "ظهر"
+          maqayis_quote: "«الظَّاءُ وَالْهَاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى قُوَّةٍ وَبُرُوزٍ»"
+  per_sense:
+    - lemma: "مُتَهَادِل"
+      sense_id: "{auto}"
+      nuance: "يركز على استرخاء وتدلي الأكتاف والجسد بشكل عام من التعب أو الترهل."
+      mwe: false
+    - lemma: "مُحْدَوْدِب الظَّهْرِ"
+      sense_id: "{auto}"
+      nuance: "يركز على بروز الظهر وتقوسه أثناء الوقوف أو المشي كوضعية متراخية."
+      mwe: true
+    - lemma: "مُنْحَنِي الظَّهْرِ"
+      sense_id: "{auto}"
+      nuance: "تعبير مباشر يركز على حالة الظهر المنحني والمائل إلى الأمام."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"هدل","maqayis":"«الْهَاءُ وَالدَّالُ وَاللَّامُ: أَصْلَانِ صَحِيحَانِ: أَحَدُهُمَا يَدُلُّ عَلَى اسْتِرْخَاءٍ فِي شَيْءٍ»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"محدودب","root":"حدب","maqayis":"«الْحَاءُ وَالدَّالُ وَالْبَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ ارْتِفَاعُ الشَّيْءِ... وَالْحَدَبُ فِي الظَّهْرِ»"},{"word":"الظهر","root":"ظهر","maqayis":"«الظَّاءُ وَالْهَاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى قُوَّةٍ وَبُرُوزٍ»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"منحني","root":"حنو","maqayis":"«الْحَاءُ وَالنُّونُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَعَطُّفٍ وَتَعَوُّجٍ»"},{"word":"الظهر","root":"ظهر","maqayis":"«الظَّاءُ وَالْهَاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى قُوَّةٍ وَبُرُوزٍ»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على استرخاء وتدلي الأكتاف والجسد بشكل عام من التعب أو الترهل.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على بروز الظهر وتقوسه أثناء الوقوف أو المشي كوضعية متراخية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير مباشر يركز على حالة الظهر المنحني والمائل إلى الأمام.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: awn4-10632319-n
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: awn4-10632319-n
+        score: 0.95

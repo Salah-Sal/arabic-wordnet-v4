@@ -1,0 +1,107 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "قارئ"
+      expands:
+        - text: "«شخص يفك رموزا وعلامات لغوية، تمضي من رسوم كتابية إلى إشارات جسدية أو رسوم، حاملة لمعنى ما.»"
+          source: "المعجم الموحد لمصطلحات اللسانيات (2002)"
+      peripheral_observations:
+        - "«المتنسك» — المعجم الوسيط"
+        - "«الذي جمع القرآن حفظاً عن ظهر قلب» — مختصر العبارات لمعجم مصطلحات القراءات للدوسري"
+    - lemma: "متعلم"
+      expands:
+        - text: "«تسمية تطلق على الفرد الذي يتعلم موضوعا معينا أو مهارة معينة أو كيفية القيام بشيء ما.»"
+          source: "المعجم الموحد لمصطلحات الإشراف التربوي (2020)"
+      peripheral_observations:
+        - "يُستعمل في المعاجم الثنائية كترجمة لمصطلح (literate)، مثل: «(7) المتعلِّم؛ غير الأمّي.» — المورد الحديث (2008)"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "غير أمي"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«(7) المتعلِّم؛ غير الأمّي.» — المورد الحديث (2008)"
+      justification: "ترجمة مباشرة لمصطلح (literate) في المعاجم الثنائية، وهو يقابل المفهوم بدقة (مركب وصفي)."
+  knowledge_candidates:
+    - lemma: "يقرأ ويكتب"
+      justification: "تركيب وصفي يعبر عن المفهوم بصورة دقيقة ومباشرة، وشائع الاستعمال لوصف من يعرف القراءة والكتابة."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "قارئ"
+      decision: removed
+      decision_reason: "مصطلح (قارئ) يدل على من يقرأ أو يمارس فعل القراءة (reader)، ولا يشترط قدرته على الكتابة أو محو أميته، وهو أضيق من المفهوم المقصود (literate)."
+      evidence_assessment:
+        case: expands
+      substitution_test:
+        result: fail
+      nuance_differentiation: "القارئ هو ممارس القراءة، في حين أن المفهوم يتطلب امتلاك مهارتي القراءة والكتابة."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "متعلم"
+      decision: confirmed
+      decision_reason: "يُستعمل مصطلح (متعلم) في سياقات التربية والإحصاء كمرادف لمن محيت أميته، وهو المقابل المباشر لكلمة (أمي)."
+      evidence_assessment:
+        case: expands
+      substitution_test:
+        result: pass
+      nuance_differentiation: "يدل على من نال حظاً من التعليم مكّنه من فك الخط وإجادة القراءة والكتابة، وهو النقيض المباشر للأمي."
+      example: "زادت نسبة المتعلمين في البلاد بعد إطلاق حملات محو الأمية."
+    - lemma: "غير أمي"
+      source: step05
+      decision: removed
+      decision_reason: "تركيب نحوي حر يتألف من أداة النفي (غير) والصفة (أمي)، ولا يعد مصطلحاً مسكوكاً مستقلاً بالرغم من شيوعه."
+      step05_citation: "«(7) المتعلِّم؛ غير الأمّي.» — المورد الحديث (2008)"
+      substitution_test:
+        result: pass
+      nuance_differentiation: "نفي صريح للأمية، لكنه تركيب نحوي حر وليس وحدة معجمية."
+    - lemma: "يقرأ ويكتب"
+      source: step05
+      decision: removed
+      decision_reason: "جملة فعلية وصفية وليست وحدة معجمية أو مصطلحاً مسكوكاً."
+      step05_citation: "توليد معرفي"
+      substitution_test:
+        result: pass
+      nuance_differentiation: "تعبير وصفي حر يطابق التعريف لكنه ليس لمّة."
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شخص يستطيع القراءة والكتابة"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وواضح ويقابل المفهوم الإنجليزي ويغطي اللمّة المؤكدة."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عَامِل، فَاعِل"
+    test_result: "needs_closer"
+  antonymy:
+    per_lemma:
+      - lemma: "متعلم"
+        antonym_found: true
+        antonym: "أمي"
+  actions:
+    - command: add_synset_relation
+      params:
+        source_id: "awn4-10286025-n"
+        relation_type: "hypernym"
+        target_id: "awn4-00007846-n"
+    - command: remove_synset_relation
+      params:
+        source_id: "awn4-10286025-n"
+        relation_type: "hypernym"
+        target_id: "awn4-09786620-n"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "متعلم"
+      enrichment:
+        root: "علم"
+      examples:
+        - text: "زادت نسبة المتعلمين في البلاد بعد إطلاق حملات محو الأمية."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

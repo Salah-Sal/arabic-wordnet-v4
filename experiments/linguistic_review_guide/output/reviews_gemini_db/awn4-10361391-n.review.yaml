@@ -1,0 +1,158 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "طافر"
+      confirm:
+        - text: "«طافر: mutant»"
+          source: "المعجم الموحد لمصطلحات علم الأحياء (1993)"
+        - text: "«الطّافر: ثمرة الطَّفرة [سواء أكانت فَرْدًا أم سُلالةً]»"
+          source: "المورد الحديث (2008)"
+      expands:
+        - text: "«أليل طافر: يكبت أو يقاوم عمل الأليل الطبيعيّ»"
+          source: "المعجم الموحد لمصطلحات علم الوراثة (2009)"
+          addition: "استعمال اللفظ كصفة للمكونات الوراثية (الجين/الأليل) بالإضافة إلى الكائن الحي."
+    - lemma: "طفرة"
+      contradicts:
+        - text: "«تغيرات فجائية تؤدي ... إلى ظهور أنواع جديدة»"
+          source: "المعجم الموحد لمصطلحات علم الأحياء (1993)"
+          conflict: "التعريف يشير إلى الحدث أو التغير (mutation)، بينما تعريف المجموعة يشير إلى الكائن الحي (mutant)."
+        - text: "«الطَّفْرَةُ: الوَثْبُ في ارْتِفاعٍ»"
+          source: "القاموس المحيط للفيروزآبادي"
+          conflict: "المعنى اللغوي الأصلي هو الوثب، وهو بعيد عن المفهوم الأحيائي للكائن الحي."
+      expands:
+        - text: "«الطفرة: تحول أو تغير مفاجئ يطرأ على الكروموسومات...»"
+          source: "المورد الحديث (2008)"
+          addition: "يؤكد أن الطفرة هي العملية/الحدث."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "متحول"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«متحول (ة): كائن حي، أو خلية، حصلت له طفرة» — مسرد المناخ والبيئة (ArabTerm)"
+      justification: "مصطلح تقني حديث يصف الكائن الذي خضع لطفرة."
+    - lemma: "شاذ"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«(فى علم الأحياء): كائنٌ حيٌّ يختلفُ فى صفاته عن والديه, ويحدث ذلك عادةً بالطَّفْرَةِ» — المعجم الكبير"
+      justification: "مقابل دقيق لمصطلح sport في علم الأحياء."
+  knowledge_candidates:
+    - lemma: "كائن طافر"
+      justification: "تركيب وصفي مستقر في النصوص العلمية لتمييز الفرد عن عملية الطفرة نفسها."
+  generation_notes: "تم التركيز على التمييز بين 'الطفرة' (العملية) و'الطافر' (الكائن)."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "طافر"
+      decision: confirmed
+      decision_reason: "المصطلح العربي القياسي المقابل لـ mutant، ومدعوم بقوة في المعاجم المتخصصة."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "اللفظ العام والشائع في علم الوراثة لوصف الكائن أو الخلية التي تظهر عليها خصائص الطفرة."
+      example: "تنتج بعض السلالات البكتيرية أفراداً طافرة قادرة على مقاومة المضادات الحيوية."
+    - lemma: "طفرة"
+      decision: removed
+      decision_reason: "خطأ في التصنيف (Category Error)؛ فاللفظ يشير إلى الحدث أو العملية (Mutation) وليس الكائن (Mutant)، ووجوده في هذه المجموعة خلط دلالي."
+      evidence_assessment:
+        case: "contradicts"
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "متحول"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح مستعمل في المعاجم البيئية والأحيائية كمرادف لـ mutant."
+      step05_citation: "«متحول (ة): كائن حي، أو خلية، حصلت له طفرة» — مسرد المناخ والبيئة (ArabTerm)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على حالة الكائن بعد التغيير، وغالباً ما يستخدم في سياق الكائنات الدقيقة والخلية."
+      example: "قام الباحثون بعزل فيروس متحول يمتلك قدرة أعلى على الانتشار."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "متحول"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10361391-n"
+    - lemma: "شاذ"
+      source: step05
+      decision: confirmed
+      decision_reason: "مقابل علمي تراثي/حديث لمصطلح sport في علم الأحياء كما وثقه المعجم الكبير."
+      step05_citation: "«(فى علم الأحياء): كائنٌ حيٌّ يختلفُ فى صفاته عن والديه, ويحدث ذلك عادةً بالطَّفْرَةِ» — المعجم الكبير"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يستخدم غالباً لوصف الحالات التي تظهر فيها صفات مفاجئة وغير مألوفة في أفراد النوع، وهو المقابل الدقيق لـ sport."
+      example: "تظهر في بعض النباتات أزهار شاذة تختلف ألوانها عن بقية أزهار الشجيرة نفسها."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "شاذ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10361391-n"
+  added_lemmas:
+    - lemma: "متحول"
+      reason: "مصدر: الخطوة ٠٫٥ (ArabTerm)"
+      via_command: create_entry + add_sense
+    - lemma: "شاذ"
+      reason: "مصدر: الخطوة ٠٫٥ (المعجم الكبير)"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "(في علم الأحياء) كائن حي له خصائص ناتجة عن تغيير كروموسومي"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق علمياً ومطابق للمفهوم في الشبكة العالمية."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-00004475-n (عُضْوِيَّة, كَائِن حَيّ, مُتَعَضٍّ)"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "طافر"
+        antonym_found: true
+        antonym: "سوي"
+  actions:
+    - command: add_synset_relation
+      params:
+        source_id: "awn4-10361391-n"
+        relation_type: "antonym"
+        target_id: "{auto}"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "طافر"
+      enrichment:
+        root: "ط-ف-ر"
+      examples:
+        - text: "جين طافر يرمز إلى الرنا الناقل المحتوي على مقابلة رامزة تستطيع الاستجابة لرامزة الموقفة."
+          type: usage
+          source: "المعجم الموحد لمصطلحات علم الوراثة (2009)"
+      pos_check:
+        pos: noun
+    - lemma: "متحول"
+      enrichment:
+        root: "ح-و-ل"
+      examples:
+        - text: "كائن حي، أو خلية، حصلت له طفرة."
+          type: usage
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+      pos_check:
+        pos: noun
+    - lemma: "شاذ"
+      enrichment:
+        root: "ش-ذ-ذ"
+      examples:
+        - text: "كائنٌ حيٌّ يختلفُ فى صفاته عن والديه، ويحدث ذلك عادةً بالطَّفْرَةِ."
+          type: usage
+          source: "المعجم الكبير"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

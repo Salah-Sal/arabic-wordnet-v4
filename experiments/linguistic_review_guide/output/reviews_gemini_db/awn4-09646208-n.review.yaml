@@ -1,0 +1,173 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "زَعِيم"
+      confirm:
+        - text: "«(الزَّعِيمُ) الرَّئيس الكفيل»"
+          source: "المعجم الوسيط"
+        - text: "«سَيِّد القَوْمِ ورَئِيسُهم المتكلِّمُ عنهم»"
+          source: "المعجم الكبير"
+        - text: "«الرئيس والكفيل والسيد المتكلم عن قومه»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+
+    - lemma: "قَائِد"
+      confirm:
+        - text: "«مَنْ يَقُودُ الجَيْشَ»"
+          source: "المعجم الوسيط"
+        - text: "«رئيس القوم والقائم على أمرهم»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "رئيس"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«سيد القوم والشريف القدر» — موسوعة السلطان قابوس لأسماء العرب"
+      justification: "الرأس هو السيد والمقدم في القوم، وهو مرادف مباشر لمفهوم القائد في السياقات العامة والرسمية."
+    - lemma: "حاكم"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«صفة تطلق على الحاكم الذي يجمع بين يديه جميع السلطات» — المعجم الموحد لمصطلحات القانون (2017)"
+      justification: "التعريف يتضمن 'شخص يحكم'، والحاكم هو من يمارس سلطة الحكم والقيادة."
+  knowledge_candidates:
+    - lemma: "إمام"
+      justification: "الإمام هو من يؤتم به ويقتدى بقوله أو فعله، وهو يجسد معنى 'الإلهام والإرشاد' الوارد في التعريف، خاصة في السياق الثقافي العربي."
+    - lemma: "سيد"
+      justification: "يستخدم 'سيد القوم' في التراث العربي للدلالة على القائد والمقدم الذي ترجع إليه الأمور."
+  generation_notes: "تم التركيز على اللمّات التي تغطي الجوانب الثلاثة للتعريف: الحكم (حاكم)، الإرشاد (إمام)، والرياسة العامة (رئيس/سيد)."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "زَعِيم"
+      decision: "confirmed"
+      decision_reason: "أدلة معجمية قوية تؤكد المعنى"
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يؤكد على جانب الكفالة والتمثيل (المتحدث باسم القوم)."
+      example: "بَرَزَ كَزَعِيمٍ لِلحَرَكَةِ الوَطَنِيَّةِ فِي تِلْكَ الفَتْرَةِ."
+
+    - lemma: "قَائِد"
+      decision: "confirmed"
+      decision_reason: "أدلة معجمية قوية تؤكد المعنى"
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على التوجيه الميداني والريادة (أصله من قيادة الجيش)."
+      example: "القَائِدُ النَّاجِحُ هُوَ مَنْ يُلْهِمُ فَرِيقَهُ لِتَحْقِيقِ الأَهْدَافِ."
+
+    - lemma: "رئيس"
+      source: "step05"
+      decision: "confirmed"
+      decision_reason: "مرادف أساسي وشائع يتوافق تماماً مع المفهوم"
+      step05_citation: "«سيد القوم والشريف القدر» — موسوعة السلطان قابوس لأسماء العرب"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على كونه على رأس الهرم التنظيمي أو الاجتماعي."
+      example: "انْتَخَبَ أَعْضَاءُ الجَمْعِيَّةِ رَئِيساً جَدِيداً لَهُمْ."
+      actions:
+        - command: "create_entry"
+          params:
+            lemma: "رئيس"
+            pos: "n"
+        - command: "add_sense"
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09646208-n"
+
+    - lemma: "حاكم"
+      source: "step05"
+      decision: "confirmed"
+      decision_reason: "يغطي جانب 'الحكم' المذكور في التعريف"
+      step05_citation: "«الحاكم الذي يجمع بين يديه جميع السلطات» — المعجم الموحد لمصطلحات القانون"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على ممارسة السلطة السياسية أو الإدارية والقدرة على الفصل في الأمور."
+      example: "يَسْهَرُ الحَاكِمُ عَلَى مَصَالِحِ الرَّعِيَّةِ وَتَنْفِيذِ القَوَانِينِ."
+      actions:
+        - command: "create_entry"
+          params:
+            lemma: "حاكم"
+            pos: "n"
+        - command: "add_sense"
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09646208-n"
+
+    - lemma: "إمام"
+      source: "step05"
+      decision: "confirmed"
+      decision_reason: "يغطي جانب 'الإرشاد والإلهام' مع خصوصية ثقافية"
+      step05_citation: "«مَن يؤتم به، أي يقتدى سواء كان إنسانا يقتدى بقوله أو بفعله» — التوقيف للمناوي"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على الجانب الروحي أو الفكري أو القدوة التي تُتبع."
+      example: "كَانَ الغَزَالِيُّ إِمَاماً فِي الفِكْرِ الإِسْلَامِيِّ."
+      actions:
+        - command: "create_entry"
+          params:
+            lemma: "إمام"
+            pos: "n"
+        - command: "add_sense"
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09646208-n"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شخص يحكم أو يُرشِد أو يُلهِم الآخرين"
+  assessment:
+    decision: "retain"
+    reason: "التعريف دقيق وواضح ويغطي الجوانب المختلفة للقيادة."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عَامِل / فَاعِل"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "زَعِيم"
+        antonym_found: true
+        antonym: "تَابِع"
+      - lemma: "قَائِد"
+        antonym_found: true
+        antonym: "مَقُود"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "زَعِيم"
+      enrichment:
+        root: "ز-ع-م"
+      examples:
+        - text: "بَرَزَ كَزَعِيمٍ لِلحَرَكَةِ الوَطَنِيَّةِ فِي تِلْكَ الفَتْرَةِ."
+          type: "usage"
+          source: "مؤلَّف"
+    - lemma: "قَائِد"
+      enrichment:
+        root: "ق-و-د"
+      examples:
+        - text: "يُعَدُّ خَالِدُ بْنُ الوَلِيدِ مِنْ أَعْظَمِ القَادَةِ العَسْكَرِيِّينَ فِي التَّارِيخِ."
+          type: "usage"
+          source: "مؤلَّف"
+    - lemma: "رئيس"
+      enrichment:
+        root: "ر-أ-س"
+      examples:
+        - text: "يَجْتَمِعُ رَئِيسُ الدَّوْلَةِ بِوُزَرَائِهِ لِمُنَاقَشَةِ القَضَايَا الرَّاهِنَةِ."
+          type: "usage"
+          source: "مؤلَّف"
+    - lemma: "حاكم"
+      enrichment:
+        root: "ح-ك-م"
+      examples:
+        - text: "عُرِفَ الحَاكِمُ بِعَدْلِهِ وَحِكْمَتِهِ فِي إِدَارَةِ شُؤُونِ البِلَادِ."
+          type: "usage"
+          source: "مؤلَّف"
+    - lemma: "إمام"
+      enrichment:
+        root: "أ-م-م"
+      examples:
+        - text: "يُقْتَدَى بِالإِمَامِ فِي عِلْمِهِ وَسُلُوكِهِ."
+          type: "usage"
+          source: "مؤلَّف"
+  cultural_fit:
+    assessment: "native"

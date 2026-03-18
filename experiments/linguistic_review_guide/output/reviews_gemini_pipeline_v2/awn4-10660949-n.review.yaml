@@ -1,0 +1,220 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'رَافِض بَازْدِرَاء' عبارة وصفية وترجمة حرفية للتعريف الإنجليزي، وليست وحدة معجمية مسكوكة."
+      - "اللمة 'لَافِظ' تدل على الطرح من الفم، ولا تعبر بدقة عن معنى الرفض باحتقار."
+    observations: "المجموعة الترادفية تعبر عن الشخص الذي يرفض أمراً أو شخصاً باستخفاف واحتقار. في العربية، المشتقات من جذور (ز ر ي) و (ر ف ض) و (ن ب ذ) تؤدي هذه الدلالات بكفاءة."
+  blind_candidates:
+    - lemma: "مُزْدَرٍ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل مشتق من الفعل ازدرى بمعنى احتقر، وهو يتناسب مع معنى الترك باحتقار (spurner)."
+    - lemma: "رَافِض"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل مشتق من الرفض وهو الترك."
+    - lemma: "نَابِذ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل مشتق من النبذ وهو الطرح والإلقاء، ويفيد معنى الرفض بقوة."
+    - lemma: "مُحْتَقِر"
+      generation_method: ishtiqaq
+      justification: "مشتق من الاحتقار والاستخفاف بالمرفوض."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "رَافِض بَازْدِرَاء"
+      evidence_status: "no_material_found"
+    - lemma: "لَافِظ"
+      contradicts:
+        - text: "«اللَّامُ وَالْفَاءُ وَالظَّاءُ كَلِمَةٌ صَحِيحَةٌ تَدُلُّ عَلَى طَرْحِ الشَّيْءِ ; وَغَالِبُ ذَلِكَ أَنْ يَكُونَ مِنَ الْفَمِ... وَاللَّافِظَةُ: الدِّيكُ، وَيُقَالُ الرَّحَى، وَالْبَحْرُ.»"
+          source: "مقاييس اللغة"
+          conflict: "اللفظ يكون من الفم أساساً كالبصق أو النطق، ولا يستخدم كاسم فاعل بمعنى الرفض باحتقار."
+    - lemma: "رَافِض"
+      confirm:
+        - text: "«من (ر ف ض) تارك الشيء، وكاسره»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+    - lemma: "نَابِذ"
+      confirm:
+        - text: "«نَبَذْتُ الشَّيْءَ أَنْبِذُهُ نَبْذًا: أَلْقَيْتُهُ مِنْ يَدِي.»"
+          source: "مقاييس اللغة"
+        - text: "«طرحك الشيء من يدك أمامك أو خلفك»"
+          source: "المعجم الكبير"
+    - lemma: "مُزْدَرٍ"
+      confirm:
+        - text: "«كأَنَّه يَسْتَهين بكُلِّ مَنْ سِواهُ»"
+          source: "المعجم الكبير"
+    - lemma: "مُحْتَقِر"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "رَافِض بَازْدِرَاء"
+      decision: removed
+      decision_reason: "عبارة وصفية غير مسكوكة، وهي ترجمة حرفية لمحتوى التعريف الإنجليزي (rejects with contempt)."
+      evidence_assessment:
+        case: no_material
+      actions:
+        - command: remove_sense
+          params: {sense_id: "{auto}"}
+    - lemma: "لَافِظ"
+      decision: removed
+      decision_reason: "اللفظ يتعلق بخروج الشيء من الفم، ولا يدل مباشرة على معنى 'spurner' أي الرافض باحتقار."
+      evidence_assessment:
+        case: contradicts_only
+      actions:
+        - command: remove_sense
+          params: {sense_id: "{auto}"}
+    - lemma: "مُزْدَرٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يجمع بين معنى الاحتقار والترك، وهو الأنسب والأدق للتعبير عن المفهوم (spurner)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُزْدَرٍ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-10660949-n"}
+    - lemma: "رَافِض"
+      source: stage1
+      decision: confirmed
+      decision_reason: "كلمة فصيحة وشائعة تدل على مطلق الترك والرد، وهي المظلة الأوسع للمفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "رَافِض", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-10660949-n"}
+    - lemma: "نَابِذ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يحمل دلالة الرمي والإلقاء، مما يتوافق مع الرفض القطعي والترك."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "نَابِذ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-10660949-n"}
+
+stage4_content:
+  definition:
+    current: "شخص يرفض (شخصاً أو شيئاً) بازدراء"
+    assessment:
+      decision: revise
+      reason: "إزالة الأقواس المترجمة حرفياً وتحسين صياغة التعريف ليكون أبلغ."
+    authored:
+      - type: terminological
+        text: "شخص يرفض أمراً أو شخصاً بازدراء واحتقار."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-10660949-n", definition_index: 0, text: "شخص يرفض أمراً أو شخصاً بازدراء واحتقار."}
+
+  examples:
+    per_lemma:
+      - lemma: "مُزْدَرٍ"
+        examples:
+          - text: "كان مُزْدَرِياً لكل العروض التي قُدِّمَت له."
+            type: usage
+      - lemma: "رَافِض"
+        examples:
+          - text: "بقي رَافِضاً لمبدأ الاستسلام طول حياته."
+            type: usage
+      - lemma: "نَابِذ"
+        examples:
+          - text: "هو نَابِذٌ لكل العادات الدخيلة على مجتمعه."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "كان مُزْدَرِياً لكل العروض التي قُدِّمَت له."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "بقي رَافِضاً لمبدأ الاستسلام طول حياته."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "هو نَابِذٌ لكل العادات الدخيلة على مجتمعه."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُزْدَرٍ"
+      entry_id: "{auto}"
+      root: "زري"
+      maqayis_quote: "«الزَّاءُ وَالرَّاءُ وَالْحَرْفُ الْمُعْتَلُّ يَدُلُّ عَلَى احْتِقَارِ الشَّيْءِ وَالتَّهَاوُنِ بِهِ.»"
+    - lemma: "رَافِض"
+      entry_id: "{auto}"
+      root: "رفض"
+      maqayis_quote: "«الرَّاءُ وَالْفَاءُ وَالضَّادُ أَصْلٌ وَاحِدٌ، وَهُوَ التَّرْكُ»"
+    - lemma: "نَابِذ"
+      entry_id: "{auto}"
+      root: "نبذ"
+      maqayis_quote: "«النُّونُ وَالْبَاءُ وَالذَّالُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى طَرْحٍ وَإِلْقَاءٍ.»"
+  per_sense:
+    - lemma: "مُزْدَرٍ"
+      sense_id: "{auto}"
+      nuance: "يركز على شدة الاحتقار والاستهانة بالمرفوض."
+      mwe: false
+    - lemma: "رَافِض"
+      sense_id: "{auto}"
+      nuance: "يفيد مطلق الترك والرد دون اشتراط الاحتقار بالضرورة."
+      mwe: false
+    - lemma: "نَابِذ"
+      sense_id: "{auto}"
+      nuance: "يفيد الإلقاء والطرح بقوة وإهمال المرفوض."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"زري","maqayis":"«الزَّاءُ وَالرَّاءُ وَالْحَرْفُ الْمُعْتَلُّ يَدُلُّ عَلَى احْتِقَارِ الشَّيْءِ وَالتَّهَاوُنِ بِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"رفض","maqayis":"«الرَّاءُ وَالْفَاءُ وَالضَّادُ أَصْلٌ وَاحِدٌ، وَهُوَ التَّرْكُ»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نبذ","maqayis":"«النُّونُ وَالْبَاءُ وَالذَّالُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى طَرْحٍ وَإِلْقَاءٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على شدة الاحتقار والاستهانة بالمرفوض.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يفيد مطلق الترك والرد دون اشتراط الاحتقار بالضرورة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يفيد الإلقاء والطرح بقوة وإهمال المرفوض.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-10660949-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-10660949-n"
+        score: 0.90

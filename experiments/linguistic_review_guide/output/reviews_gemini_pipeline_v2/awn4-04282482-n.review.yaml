@@ -1,0 +1,316 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "خلو اللمات الموجودة من التشكيل الكامل."
+      - "غياب الألفاظ التراثية الدقيقة المعبرة عن المفهوم مثل 'هلل' و'شع'."
+    observations: "المفهوم يشير إلى الهيكل النسجي الذي تصنعه العناكب. في العربية يُعبَّر عنه بمركبات إضافية شائعة، إلى جانب وجود ألفاظ مفردة تراثية دقيقة."
+  blind_candidates:
+    - lemma: "نَسِيجُ عَنْكَبُوتٍ"
+      generation_method: tarkib
+      justification: "مركب إضافي يصف طبيعة المادة المصنوعة."
+    - lemma: "هَلَلٌ"
+      generation_method: majaz
+      justification: "لفظ تراثي أصيل يطلق على نسيج العنكبوت، وهو في الأصل مجاز من أول المطر لرقته."
+    - lemma: "شَبَكَةُ عَنْكَبُوتٍ"
+      generation_method: tarkib
+      justification: "مركب إضافي شائع يصف الشكل الهندسي للنسيج."
+    - lemma: "بَيْتُ عَنْكَبُوتٍ"
+      generation_method: tarkib
+      justification: "مركب إضافي ورد في القرآن الكريم ويشير إلى الوظيفة الإيوائية للنسيج."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "شبكة عنكبوت"
+      confirm:
+        - text: "«نَسيجَةُ العَنْكَبوت (شَبَكَةُ العَنْكَبوت)»"
+          source: "المعجم الطبي الموحد (2009)"
+    - lemma: "نسيج عنكبوت"
+      confirm:
+        - text: "«نسيج العنكبوت: cobweb, spider-web»"
+          source: "المعجم الموحد لمصطلحات علم الأحياء (1993)"
+    - lemma: "هَلَلٌ"
+      confirm:
+        - text: "«(الهلل) أول الْمَطَر والأمطار وَاحِدهَا هلة ونسج العنكبوت»"
+          source: "المعجم الوسيط"
+    - lemma: "شُعٌّ"
+      confirm:
+        - text: "«الشُّعُّ: الشُّعاع. يقال: شُعُّ الشَّمْسِ، بَيْتُ العَنْكَبُوتِ»"
+          source: "المعجم الكبير"
+    - lemma: "بَيْتُ عَنْكَبُوتٍ"
+      confirm:
+        - text: "«بَيتُ العَنْكَبوت: cobweb»"
+          source: "المعجم الطبي الموحد (2009)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "شبكة عنكبوت"
+      decision: confirmed
+      decision_reason: "مصطلح شائع ومستقر للتعبير عن المفهوم من حيث بنائه الشبكي، ويحتاج إلى ضبط التشكيل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "شَبَكَةُ عَنْكَبُوتٍ"
+
+    - lemma: "نسيج عنكبوت"
+      decision: confirmed
+      decision_reason: "مصطلح شائع ومستقر للتعبير عن المفهوم من حيث المادة المغزولة، ويحتاج إلى ضبط التشكيل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نَسِيجُ عَنْكَبُوتٍ"
+
+    - lemma: "هَلَلٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ تراثي فصيح ودقيق للتعبير عن نسيج العنكبوت، ومثبت في المعاجم اللغوية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "هَلَلٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "شُعٌّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ تراثي فصيح يطلق على بيت العنكبوت ونسجها."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "شُعٌّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "بَيْتُ عَنْكَبُوتٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مركب إضافي شائع وفصيح، ورد في القرآن الكريم للتعبير عن مأوى العنكبوت ونسجها."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "بَيْتُ عَنْكَبُوتٍ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "شبكة تغزلها العناكب لاصطياد الفرائس من الحشرات"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد ولكنه يفتقر إلى الدقة المعجمية والصياغة المصطلحية السليمة التي تبدأ بالجنس القريب (نسيج رقيق)."
+    authored:
+      - type: terminological
+        text: "نَسِيجٌ رَقِيقٌ تَغْزِلُهُ العَنَاكِبُ وَتَتَّخِذُهُ شَرَكاً لِاصْطِيَادِ الحَشَرَاتِ وَنَحْوِهَا، أَوْ مَأْوًى لَهَا."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "نَسِيجٌ رَقِيقٌ تَغْزِلُهُ العَنَاكِبُ وَتَتَّخِذُهُ شَرَكاً لِاصْطِيَادِ الحَشَرَاتِ وَنَحْوِهَا، أَوْ مَأْوًى لَهَا."
+
+  examples:
+    per_lemma:
+      - lemma: "شَبَكَةُ عَنْكَبُوتٍ"
+        examples:
+          - text: "عَلِقَتِ الذُّبَابَةُ فِي شَبَكَةِ عَنْكَبُوتٍ فِي زَاوِيَةِ الغُرْفَةِ."
+            type: usage
+      - lemma: "نَسِيجُ عَنْكَبُوتٍ"
+        examples:
+          - text: "يَتَمَيَّزُ نَسِيجُ العَنْكَبُوتِ بِمَتَانَةٍ تَفُوقُ مَتَانَةَ الفُولَاذِ بِنَفْسِ السُّمْكِ."
+            type: usage
+      - lemma: "هَلَلٌ"
+        examples:
+          - text: "تَرَاكَمَ الهَلَلُ فِي سَقْفِ البَيْتِ المَهْجُورِ."
+            type: usage
+      - lemma: "شُعٌّ"
+        examples:
+          - text: "نَسَجَتِ العَنْكَبُوتُ شُعَّهَا بَيْنَ أَغْصَانِ الشَّجَرَةِ."
+            type: usage
+      - lemma: "بَيْتُ عَنْكَبُوتٍ"
+        examples:
+          - text: "﴿وَإِنَّ أَوْهَنَ الْبُيُوتِ لَبَيْتُ الْعَنْكَبُوتِ لَوْ كَانُوا يَعْلَمُونَ﴾"
+            type: quran
+            source: "القرآن الكريم، سورة العنكبوت، الآية 41"
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "عَلِقَتِ الذُّبَابَةُ فِي شَبَكَةِ عَنْكَبُوتٍ فِي زَاوِيَةِ الغُرْفَةِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يَتَمَيَّزُ نَسِيجُ العَنْكَبُوتِ بِمَتَانَةٍ تَفُوقُ مَتَانَةَ الفُولَاذِ بِنَفْسِ السُّمْكِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تَرَاكَمَ الهَلَلُ فِي سَقْفِ البَيْتِ المَهْجُورِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "نَسَجَتِ العَنْكَبُوتُ شُعَّهَا بَيْنَ أَغْصَانِ الشَّجَرَةِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "﴿وَإِنَّ أَوْهَنَ الْبُيُوتِ لَبَيْتُ الْعَنْكَبُوتِ لَوْ كَانُوا يَعْلَمُونَ﴾"
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "شَبَكَةُ عَنْكَبُوتٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "شبكة"
+          root: "شبك"
+          maqayis_quote: "«الشِّينُ وَالْبَاءُ وَالْكَافُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَدَاخُلِ الشَّيْءِ.»"
+        - word: "عنكبوت"
+          root: "عنكب"
+          maqayis_quote: "«لم يرد في مقاييس اللغة»"
+    - lemma: "نَسِيجُ عَنْكَبُوتٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "نسيج"
+          root: "نسج"
+          maqayis_quote: "«النُّونُ وَالسِّينُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى وَصْلِ شَيْءٍ بِشَيْءٍ فِي أَدْنَى عَرْضٍ.»"
+        - word: "عنكبوت"
+          root: "عنكب"
+          maqayis_quote: "«لم يرد في مقاييس اللغة»"
+    - lemma: "بَيْتُ عَنْكَبُوتٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "بيت"
+          root: "بيت"
+          maqayis_quote: "«الْبَاءُ وَالْيَاءُ وَالتَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الْمَأْوَى وَالْمَآبُ وَمَجْمَعُ الشَّمْلِ.»"
+        - word: "عنكبوت"
+          root: "عنكب"
+          maqayis_quote: "«لم يرد في مقاييس اللغة»"
+    - lemma: "هَلَلٌ"
+      entry_id: "{auto}"
+      root: "هلل"
+      maqayis_quote: "«الْهَاءُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى رَفْعِ صَوْتٍ...»"
+    - lemma: "شُعٌّ"
+      entry_id: "{auto}"
+      root: "شعع"
+      maqayis_quote: "«الشِّينُ وَالْعَيْنُ فِي الْمُضَاعَفِ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى التَّفَرُّقِ وَالِانْتِشَارِ.»"
+
+  per_sense:
+    - lemma: "شَبَكَةُ عَنْكَبُوتٍ"
+      sense_id: "{auto}"
+      nuance: "تركز على الشكل الهندسي والبنية الشبكية للنسيج."
+      mwe: true
+    - lemma: "نَسِيجُ عَنْكَبُوتٍ"
+      sense_id: "{auto}"
+      nuance: "تركز على طبيعة المادة المصنوعة وطريقة الغزل."
+      mwe: true
+    - lemma: "بَيْتُ عَنْكَبُوتٍ"
+      sense_id: "{auto}"
+      nuance: "تشير إلى الوظيفة الإيوائية، وتستخدم غالبًا لضرب المثل في الوهن والضعف."
+      mwe: true
+    - lemma: "هَلَلٌ"
+      sense_id: "{auto}"
+      nuance: "لفظ تراثي يبرز رقة النسيج وشفافيته."
+      mwe: false
+    - lemma: "شُعٌّ"
+      sense_id: "{auto}"
+      nuance: "لفظ تراثي أصيل يطلق على بيت العنكبوت ونسجها."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"شبكة","root":"شبك","maqayis":"«الشِّينُ وَالْبَاءُ وَالْكَافُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَدَاخُلِ الشَّيْءِ.»"},{"word":"عنكبوت","root":"عنكب","maqayis":"«لم يرد في مقاييس اللغة»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"نسيج","root":"نسج","maqayis":"«النُّونُ وَالسِّينُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى وَصْلِ شَيْءٍ بِشَيْءٍ فِي أَدْنَى عَرْضٍ.»"},{"word":"عنكبوت","root":"عنكب","maqayis":"«لم يرد في مقاييس اللغة»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"بيت","root":"بيت","maqayis":"«الْبَاءُ وَالْيَاءُ وَالتَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الْمَأْوَى وَالْمَآبُ وَمَجْمَعُ الشَّمْلِ.»"},{"word":"عنكبوت","root":"عنكب","maqayis":"«لم يرد في مقاييس اللغة»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"هلل","maqayis":"«الْهَاءُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى رَفْعِ صَوْتٍ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"شعع","maqayis":"«الشِّينُ وَالْعَيْنُ فِي الْمُضَاعَفِ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى التَّفَرُّقِ وَالِانْتِشَارِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركز على الشكل الهندسي والبنية الشبكية للنسيج.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركز على طبيعة المادة المصنوعة وطريقة الغزل.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تشير إلى الوظيفة الإيوائية، وتستخدم غالبًا لضرب المثل في الوهن والضعف.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"لفظ تراثي يبرز رقة النسيج وشفافيته.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"لفظ تراثي أصيل يطلق على بيت العنكبوت ونسجها.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

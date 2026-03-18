@@ -1,0 +1,236 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة تشمل صيغة الجمع (أسنان المفتاح) بينما يفضل المعجم عادة المفرد كواحدة معجمية أساسية."
+      - "التعريف الحالي يستخدم كلمة 'الريش' لوصف أجزاء القفل، وهي كلمة دقيقة تقنياً ولكن قد تحتاج لتوضيح في التعريف لربطها باللمّة."
+    observations: "المفهوم يشير إلى الجزء الوظيفي من المفتاح (bit) الذي يتفاعل مباشرة مع آلية القفل. المصطلحات العربية تتراوح بين المجاز الشكلي (لسان، سن، ريشة) والوصف الوظيفي. التوليد ركز على إحياء المفردات الدقيقة والتمييز بين أنواع الأقفال."
+  blind_candidates:
+    - lemma: "لِسَان الْمِفْتَاح"
+      generation_method: majaz
+      justification: "استعارة قائمة على المشابهة الشكلية للجزء الناتئ الذي يدخل الفتحة."
+    - lemma: "سِنّ الْمِفْتَاح"
+      generation_method: majaz
+      justification: "استعارة شائعة للأجزاء المسننة في مفاتيح الأسطوانة (pin tumbler)."
+    - lemma: "رِيشَة الْمِفْتَاح"
+      generation_method: majaz
+      justification: "مصطلح تقني شائع للمفاتيح ذات النصل المسطح (lever locks)."
+    - lemma: "شُعْبَة الْمِفْتَاح"
+      generation_method: majaz
+      justification: "لفظ تراثي لوصف التفرع أو الجزء الناتئ من الأداة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "لِسَان الْمِفْتَاح"
+      confirm:
+        - text: "«لسان: tenon ... tongue»"
+          source: "المعجم الموحد للمصطلحات المهنية والتقنية"
+        - text: "«لسان المفتاح: سنه»"
+          source: "المورد الحديث"
+    - lemma: "أسنان المفتاح"
+      confirm:
+        - text: "«مفتاح لا يتطلب في عمله أية أسنان مفاتيح لتحرير قفل الإشعال»"
+          source: "مسرد هندسة وتكنولوجيا السيارات (ArabTerm)"
+    - lemma: "سِنّ الْمِفْتَاح"
+      confirm:
+        - text: "«A tooth [or pin] of a key [app. of the kind of wooden lock called ضبة]»"
+          source: "Lane's Lexicon"
+        - text: "«سن أو شقب [شق صغير ضيق] في مفتاح»"
+          source: "المورد الحديث"
+    - lemma: "رِيشَة الْمِفْتَاح"
+      confirm:
+        - text: "«ريشة: blade»"
+          source: "المعجم الموحد للمصطلحات المهنية والتقنية"
+      expands:
+        - text: "«الجزء من المفتاح الذي يدخل القفل ويرفع الريش»"
+          source: "تعريف المجموعة (AWN4)"
+          addition: "يؤكد أن الأجزاء المقابلة في القفل تسمى ريشاً، مما يجعل تسمية الجزء المطابق لها في المفتاح ريشةً تسميةً متسقة."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "لسان المفتاح"
+      decision: confirmed
+      decision_reason: "مصطلح شائع ومستقر في المعاجم الحديثة والموسوعات التقنية لوصف لسان المفتاح."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "لِسَان الْمِفْتَاح"
+    - lemma: "أسنان المفتاح"
+      decision: confirmed
+      decision_reason: "صيغة الجمع شائعة جداً لوصف نتوءات المفتاح، وإن كان يفضل وجود المفرد معها."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "أَسْنَان الْمِفْتَاح"
+    - lemma: "سِنّ الْمِفْتَاح"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المفرد ضروري كواحدة معجمية أساسية، وهو موثق في المعاجم اللغوية والتقنية (Lane, Al-Mawrid)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "سِنّ الْمِفْتَاح"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "رِيشَة الْمِفْتَاح"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تقني دقيق يصف نصل المفتاح في الأقفال ذات الريش (lever locks)، ويتسق مع المصطلحات المستخدمة في تعريف المجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "رِيشَة الْمِفْتَاح"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "الجزء من المفتاح الذي يدخل القفل ويرفع الريش"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي صحيح ولكنه يفتقر إلى الشمول لمختلف أنواع المفاتيح (المسننة والريشية)."
+    authored:
+      - type: terminological
+        text: "الجُزْءُ النَّاتِئُ مِنْ مِفْتَاحِ البَابِ الَّذِي يَدْخُلُ فِي القُفْلِ لِيُحَرِّكَ الرِّيشَ (الأَسْنَانَ الدَّاخِلِيَّةَ) أَوْ لِيَرْفَعَ النَّوَابِضَ لِيَفْتَحَ الغَلْقَ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "الجُزْءُ النَّاتِئُ مِنْ مِفْتَاحِ البَابِ الَّذِي يَدْخُلُ فِي القُفْلِ لِيُحَرِّكَ الرِّيشَ (الأَسْنَانَ الدَّاخِلِيَّةَ) أَوْ لِيَرْفَعَ النَّوَابِضَ لِيَفْتَحَ الغَلْقَ."
+  examples:
+    per_lemma:
+      - lemma: "لِسَان الْمِفْتَاح"
+        examples:
+          - text: "أَدْخَلَ لِسَانَ الْمِفْتَاحِ فِي الثَّقْبِ بِحَذَرٍ لِتَحْرِيرِ القُفْلِ."
+            type: usage
+      - lemma: "أَسْنَان الْمِفْتَاح"
+        examples:
+          - text: "تَتَطَابَقُ أَسْنَانُ الْمِفْتَاحِ مَعَ نُتُوءَاتِ القُفْلِ الدَّاخِلِيَّةِ."
+            type: usage
+      - lemma: "سِنّ الْمِفْتَاح"
+        examples:
+          - text: "انْكَسَرَ سِنُّ الْمِفْتَاحِ دَاخِلَ الأُسْطُوَانَةِ مِمَّا أَدَّى إِلَى تَعَطُّلِ القُفْلِ."
+            type: usage
+      - lemma: "رِيشَة الْمِفْتَاح"
+        examples:
+          - text: "تَمْتَازُ الْمَفَاتِيحُ القَدِيمَةُ بِرِيشَةٍ عَرِيضَةٍ تَرْفَعُ رِيَشَ القُفْلِ الفُولاذِيَّةِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "انْكَسَرَ سِنُّ الْمِفْتَاحِ دَاخِلَ الأُسْطُوَانَةِ مِمَّا أَدَّى إِلَى تَعَطُّلِ القُفْلِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "لِسَان الْمِفْتَاح"
+      entry_id: "{auto}"
+      roots:
+        - word: "لسان"
+          root: "لسن"
+          maqayis_quote: "«اللَّامُ وَالسِّينُ وَالنُّونُ أَصْلٌ صَحِيحٌ وَاحِدٌ، يَدُلُّ عَلَى طُولٍ لَطِيفٍ غَيْرِ بَائِنٍ، فِي عُضْوٍ أَوْ غَيْرِهِ. مِنْ ذَلِكَ اللِّسَانُ»"
+        - word: "مفتاح"
+          root: "فتح"
+          maqayis_quote: "«الْفَاءُ وَالتَّاءُ وَالْحَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى خِلَافِ الْإِغْلَاقِ»"
+    - lemma: "أَسْنَان الْمِفْتَاح"
+      entry_id: "{auto}"
+      roots:
+        - word: "أسنان"
+          root: "سنن"
+          maqayis_quote: "«السِّينُ وَالنُّونُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ، وَهُوَ جَرَيَانُ الشَّيْءِ وَإِطْرَادُهُ فِي سُهُولَةٍ... وَمِنَ الْبَابِ: سِنُّ الْإِنْسَانِ وَغَيْرِهِ مُشَبَّهٌ بِسِنَانِ الرُّمْحِ»"
+        - word: "مفتاح"
+          root: "فتح"
+          maqayis_quote: "«الْفَاءُ وَالتَّاءُ وَالْحَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى خِلَافِ الْإِغْلَاقِ»"
+    - lemma: "سِنّ الْمِفْتَاح"
+      entry_id: "{auto}"
+      roots:
+        - word: "سن"
+          root: "سنن"
+          maqayis_quote: "«السِّينُ وَالنُّونُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ، وَهُوَ جَرَيَانُ الشَّيْءِ وَإِطْرَادُهُ فِي سُهُولَةٍ... وَمِنَ الْبَابِ: سِنُّ الْإِنْسَانِ وَغَيْرِهِ مُشَبَّهٌ بِسِنَانِ الرُّمْحِ»"
+        - word: "مفتاح"
+          root: "فتح"
+          maqayis_quote: "«الْفَاءُ وَالتَّاءُ وَالْحَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى خِلَافِ الْإِغْلَاقِ»"
+    - lemma: "رِيشَة الْمِفْتَاح"
+      entry_id: "{auto}"
+      roots:
+        - word: "ريشة"
+          root: "ريش"
+          maqayis_quote: "«الرَّاءُ وَالْيَاءُ وَالشِّينُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى حُسْنِ الْحَالِ... ثُمَّ اشْتُقَّ مِنْهُ رِيشُ الطَّائِرِ»"
+        - word: "مفتاح"
+          root: "فتح"
+          maqayis_quote: "«الْفَاءُ وَالتَّاءُ وَالْحَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى خِلَافِ الْإِغْلَاقِ»"
+  per_sense:
+    - lemma: "لِسَان الْمِفْتَاح"
+      sense_id: "{auto}"
+      nuance: "تعبير مجازي يركز على استطالة هذا الجزء كأنه لسان يخرج من جسم المفتاح."
+      mwe: true
+    - lemma: "أَسْنَان الْمِفْتَاح"
+      sense_id: "{auto}"
+      nuance: "تستخدم بصيغة الجمع غالباً لوصف النتوءات المتعددة في المفاتيح الحديثة (pin tumbler)."
+      mwe: true
+    - lemma: "سِنّ الْمِفْتَاح"
+      sense_id: "{auto}"
+      nuance: "الوحدة الفردية لكل نتوء، ويستخدم لوصف النتوء الواحد أو الإشارة للكل بالمفرد."
+      mwe: true
+    - lemma: "رِيشَة الْمِفْتَاح"
+      sense_id: "{auto}"
+      nuance: "تستخدم تحديداً للمفاتيح ذات النصل العريض والمسطح الذي يتفاعل مع أقفال الريش (lever locks)."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"لسان","root":"لسن","maqayis":"«اللَّامُ وَالسِّينُ وَالنُّونُ أَصْلٌ صَحِيحٌ وَاحِدٌ...»"},{"word":"مفتاح","root":"فتح","maqayis":"«الْفَاءُ وَالتَّاءُ وَالْحَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى خِلَافِ الْإِغْلَاقِ»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير مجازي يركز على استطالة هذا الجزء كأنه لسان يخرج من جسم المفتاح.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

@@ -1,0 +1,234 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'إلخ' مسجلة كاختصار كتابي، ويفضل إدراج الصيغة الكاملة 'إلى آخره' كمدخل مستقل."
+      - "اللمة 'وما شابه' عبارة وصفية، وهناك تعابير أكثر اصطلاحية مثل 'وهلم جرا'."
+    observations: "المجموعة تعبر عن مفهوم الاستمرارية أو الإضافة غير المحددة في القوائم (etcetera). التعابير العربية في هذا السياق متنوعة بين الاختصارات والعبارات المسكوكة."
+  blind_candidates:
+    - lemma: "إِلَى آخِرِهِ"
+      generation_method: tarkib
+      justification: "الصيغة الكاملة للاختصار الشائع (إلخ)، وهي الأكثر فصاحة في السياق الكتابي."
+    - lemma: "وَهَلُمَّ جَرًّا"
+      generation_method: tarkib
+      justification: "تعبير اصطلاحي فصيح يفيد استدامة الأمر واتصاله على منوال ما سبق."
+    - lemma: "وَنَحْو ذَلِكَ"
+      generation_method: tarkib
+      justification: "تعبير شائع في المعاجم العربية (مثل الوسيط) للإشارة إلى أشباه المذكور."
+    - lemma: "وَغَيْر ذَلِكَ"
+      generation_method: tarkib
+      justification: "تعبير وظيفي يستخدم لختم القوائم للدلالة على وجود عناصر أخرى غير مصرح بها."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "إلخ"
+      confirm:
+        - text: "«إلخ: اختصار كتابي لعبارة \"إلى آخره\" (محدثة)»"
+          source: "المعجم الكبير"
+        - text: "«الخ: تقرأ: إلى آخره، والعامة تقول: ألِّخ (محيط المحيط).»"
+          source: "تكملة المعاجم العربية"
+    - lemma: "وهلم جرا"
+      confirm:
+        - text: "«هلم جرا: تعبير يقال لاستدامة الأمر واتصاله»"
+          source: "المعجم الوسيط"
+        - text: "«يقال: كان عامًا أوَّل كذا وكذا فَهَلُمَّ جَرًّا إلى اليَوْم... أى: امْتَدَّ ذلك إلى اليَوْم»"
+          source: "المعجم الكبير"
+    - lemma: "إلى آخره"
+      confirm:
+        - text: "«إلخ: اختصار كتابي لعبارة \"إلى آخره\"»"
+          source: "المعجم الكبير"
+    - lemma: "ونحو ذلك"
+      confirm:
+        - text: "«اختلف لونه فكانت فيه نقطة حمراء وأخرى سوداء أو غبراء أو نحو ذلك.»"
+          source: "المعجم الوسيط"
+    - lemma: "وغير ذلك"
+      confirm:
+        - text: "«ما لا يحل انتهاكه من ذمة أو حق أو صحبة أو نحو ذلك... وغير ذلك»"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "إلخ"
+      decision: confirmed
+      decision_reason: "اختصار كتابي مستقر ومعترف به في المعاجم الحديثة للدلالة على المفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "إِلَخْ"
+    - lemma: "وما شابه"
+      decision: confirmed
+      decision_reason: "تعبير وظيفي صحيح لغوياً ويؤدي معنى المفهوم (and the like)."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+    - lemma: "إِلَى آخِرِهِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "هو الأصل الفصيح للاختصار (إلخ) وهو الأكثر ملاءمة للسياقات الرسمية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "إِلَى آخِرِهِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "وَهَلُمَّ جَرًّا"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي تراثي فصيح مسجل في المعاجم القديمة والحديثة للدلالة على الاتصال والاستمرار."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: mazji
+      actions:
+        - command: create_entry
+          params: {lemma: "وَهَلُمَّ جَرًّا", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "وَنَحْو ذَلِكَ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صيغة معجمية نمطية تستخدم في التعريفات للإشارة إلى بقية أفراد الجنس."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "وَنَحْو ذَلِكَ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "وَغَيْر ذَلِكَ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير وظيفي واسع الاستخدام في اللغة المعاصرة والتراثية لختم القوائم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "وَغَيْر ذَلِكَ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "أشياء إضافية غير محددة؛ المزيد من الشيء نفسه"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط؛ يفضل صياغته بأسلوب المعجم الوسيط لبيان الوظيفة المعجمية."
+    authored:
+      - type: linguistic
+        text: "مَا يُذْكَرُ تَتِمَّةً لِقَائِمَةٍ أَوْ سِيَاقٍ لِلدَّلَالَةِ عَلَى أَمْثَالِ المَذْكُورِ أَوْ بَقِيَّتِهِ دُونَ حَصْرٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مَا يُذْكَرُ تَتِمَّةً لِقَائِمَةٍ أَوْ سِيَاقٍ لِلدَّلَالَةِ عَلَى أَمْثَالِ المَذْكُورِ أَوْ بَقِيَّتِهِ دُونَ حَصْرٍ."}
+  examples:
+    per_lemma:
+      - lemma: "إِلَخْ"
+        examples:
+          - text: "تضم القائمة الفواكه والخضروات واللحوم إلخ."
+            type: usage
+      - lemma: "إِلَى آخِرِهِ"
+        examples:
+          - text: "ذكر الخطيب فضائل الصدق والأمانة والإخلاص إلى آخره."
+            type: usage
+      - lemma: "وَهَلُمَّ جَرًّا"
+        examples:
+          - text: "بدأ الأمر باجتماع صغير ثم تكرر أسبوعيًا وهلم جرًا."
+            type: usage
+      - lemma: "وَنَحْو ذَلِكَ"
+        examples:
+          - text: "تجنب الأطعمة الغنية بالدهون والسكريات ونحو ذلك."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "إِلَى آخِرِهِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "آخره"
+          root: "أخر"
+          maqayis_quote: "«الْهَمْزَةُ وَالْخَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ إِلَيْهِ تَرْجِعُ فُرُوعُهُ، وَهُوَ خِلَافُ التَّقَدُّمِ.»"
+    - lemma: "وَهَلُمَّ جَرًّا"
+      entry_id: "{auto}"
+      roots:
+        - word: "جرا"
+          root: "جرر"
+          maqayis_quote: "«الْجِيمُ وَالرَّاءُ أَصْلٌ وَاحِدٌ؛ وَهُوَ مَدُّ الشَّيْءِ وَسَحْبُهُ... وَتَقُولُ: كَانَ فِي الزَّمَنِ الْأَوَّلِ كَذَا وَهَلُمَّ جَرًّا إِلَى الْيَوْمِ، أَيْ جُرَّ ذَلِكَ إِلَى الْيَوْمِ لَمْ يَنْقَطِعْ.»"
+    - lemma: "وَنَحْو ذَلِكَ"
+      entry_id: "{auto}"
+      roots:
+        - word: "نحو"
+          root: "نحو"
+          maqayis_quote: "«النُّونُ وَالْحَاءُ وَالْوَاوُ أَصْلٌ وَاحِدٌ، وَهُوَ الْقَصْدُ. نَحَوْتُ نَحْوَ الشَّيْءِ: قَصَدْتُ قَصْدَهُ.»"
+    - lemma: "وَمَا شَابَهَ"
+      entry_id: "{auto}"
+      roots:
+        - word: "شابه"
+          root: "شبه"
+          maqayis_quote: "«الشِّينُ وَالْبَاءُ وَالْهَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَشَابُهِ الشَّيْءِ وَتَشَاكُلِهِ لَوْنًا وَوَصْفًا.»"
+  per_sense:
+    - lemma: "إِلَخْ"
+      sense_id: "{auto}"
+      nuance: "اختصار كتابي شائع يستخدم في القوائم لتوفير الحيز."
+      mwe: false
+    - lemma: "إِلَى آخِرِهِ"
+      sense_id: "{auto}"
+      nuance: "الصيغة الكاملة الفصيحة، تستخدم في الخطاب الرسمي والقراءة."
+      mwe: true
+    - lemma: "وَهَلُمَّ جَرًّا"
+      sense_id: "{auto}"
+      nuance: "تفيد استمرار الأمر على نفس المنوال بصفة ممتدة أو زمنية."
+      mwe: true
+    - lemma: "وَنَحْو ذَلِكَ"
+      sense_id: "{auto}"
+      nuance: "تفيد المماثلة في النوع أو الصفة."
+      mwe: true
+    - lemma: "وَغَيْر ذَلِكَ"
+      sense_id: "{auto}"
+      nuance: "تفيد وجود عناصر أخرى مختلفة ولكنها تنتمي لنفس السياق."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"آخره","root":"أخر","maqayis":"«الْهَمْزَةُ وَالْخَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"جرا","root":"جرر","maqayis":"«الْجِيمُ وَالرَّاءُ أَصْلٌ وَاحِدٌ... وَتَقُولُ: كَانَ فِي الزَّمَنِ الْأَوَّلِ كَذَا وَهَلُمَّ جَرًّا إِلَى الْيَوْمِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

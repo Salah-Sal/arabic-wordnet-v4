@@ -1,0 +1,145 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "نبات"
+      confirm:
+        - text: "«الحَيُّ النَّامى لا يملك فراق مَنْشِئه ويعيش بجذور ممتدَّة في الأرض أو في الماء ما أخرجته الأرض من شجر ونحوه»"
+          source: "المعجم الوسيط"
+        - text: "«النَّبَاتُ: جسم مركب ذُو نمو لَيْسَ لَهُ حس.»"
+          source: "معجم مقاليد العلوم للسيوطي"
+        - text: "«اسمٌ شامل لكل ما تُنبتُه الأرضُ من شجر أو نجم.»"
+          source: "التعريفات الفقهيّة للبركتي"
+    - lemma: "حياة نباتية"
+      confirm:
+        - text: "«النباتات أو الحياة النباتية في منطقة معينة أو في فترة معينة» — ترجمة flora"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية"
+    - lemma: "فلورا"
+      confirm:
+        - text: "«مجموع النباتات المتواجدة في بلد معين أو منطقة، في فصل أو وقت معين.» — مسجل بصيغة فلورة"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "نبت"
+      source_section: "step3_root_family"
+      evidence_citation: "«النَّبْتُ: النَّباتُ، ... كلُّ ما أَنْبَتَ الله في الأَرض، فهو نَبْتٌ» — لسان العرب"
+      justification: "مرادف أصيل ومباشر مستخدم في المعاجم القديمة كبديل لـ 'نبات'."
+  knowledge_candidates:
+    - lemma: "فلورة"
+      justification: "صيغة معربة بديلة لمصطلح Flora تظهر في المعاجم التقنية الحديثة."
+  generation_notes: "تم التركيز على المصطلحات الكلية والبدائل التراثية والمعربة."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "نبات"
+      decision: confirmed
+      decision_reason: "المصطلح العربي الأساسي والشامل للمفهوم، مدعوم بأدلة قوية من المعاجم القديمة والحديثة."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "الاسم العام الذي يطلق على الفرد والجنس."
+      example: "يعتبر القمح من أهم النباتات التي يعتمد عليها الإنسان في غذائه."
+    - lemma: "حياة نباتية"
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي مستقر (MWE) يستخدم غالباً في السياقات البيئية كمرادف لـ flora."
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+        type: "وصفي"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تركز على الجانب البيولوجي ومجموع الكائنات الحية النباتية في وسط ما."
+      example: "تتميز الغابات الاستوائية بتنوع هائل في الحياة النباتية."
+    - lemma: "فلورا"
+      decision: confirmed
+      decision_reason: "مصطلح علمي معرب مقبول وشائع في الدراسات الأكاديمية وكتب علم النبات."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يستخدم حصراً في السياق العلمي للإشارة إلى مجموع النباتات في منطقة جغرافية أو حقبة زمنية محددة."
+      example: "درس الباحثون فلورا جبال الأطلس لتحديد الأنواع المهددة بالانقراض."
+    - lemma: "نبت"
+      source: step05
+      decision: confirmed
+      decision_reason: "مرادف تراثي صحيح ورد في لسان العرب كاسم لما تنبته الأرض."
+      step05_citation: "«النَّبْتُ: النَّباتُ» — لسان العرب"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "غالباً ما يشير إلى النبات الصغير أو أول ما يظهر من الأرض، ويستخدم كاسم جنس جمعي."
+      example: "رعت الماشية نبت الأرض بعد سقوط المطر."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "نبت"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-00017402-n"
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "(علم النبات) كائن حي يفتقر إلى القدرة على الانتقال الحركي"
+  assessment:
+    decision: revise
+    reason: "التعريف الحالي صحيح لكنه يفتقر لصفة 'النمو' التي هي ركيزة أساسية في التعريف العربي المعجمي للنبات."
+  authored_definitions:
+    - type: terminological
+      text: "(علم النبات) كائن حي نامٍ، يتميز بقدرته على صنع غذائه عادةً، ويفتقر إلى القدرة على الانتقال الحركي الإرادي."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-00017402-n"
+        definition_index: 0
+        text: "(علم النبات) كائن حي نامٍ، يتميز بقدرته على صنع غذائه عادةً، ويفتقر إلى القدرة على الانتقال الحركي الإرادي."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عضوية، كائن حي"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "نبات"
+        antonym_found: true
+        antonym: "حيوان"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "نبات"
+      enrichment:
+        root: "ن-ب-ت"
+      examples:
+        - text: "النبات كائن حي يحول الطاقة الشمسية إلى طاقة كيميائية."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "حياة نباتية"
+      enrichment:
+        root: "ح-ي-ي"
+      examples:
+        - text: "تزدهر الحياة النباتية في المناطق ذات التربة الخصبة والمياه الوفيرة."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "فلورا"
+      enrichment:
+        etymology: "loanword"
+      examples:
+        - text: "تضم فلورا الوطن العربي أنواعاً فريدة من النباتات الصحراوية."
+          type: usage
+          source: "مؤلَّف"
+    - lemma: "نبت"
+      enrichment:
+        root: "ن-ب-ت"
+      examples:
+        - text: "رأيت نبت الأرض وقد أخضر بعد الوابل."
+          type: usage
+          source: "مؤلَّف"
+  cultural_fit:
+    assessment: native

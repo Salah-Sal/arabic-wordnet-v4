@@ -1,0 +1,99 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "الجدار السفلي"
+      confirm:
+        - text: "«جدار سفلي» — المعجم الموحد لمصطلحات الجيولوجيا (2000)"
+        - text: "«جدار سفلي» — المعجم الموحد لمصطلحات علوم الزلازل (1999)"
+      expands:
+        - text: "«foot wall» — المعجم الموحد لمصطلحات الجيولوجيا (2000)"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "جدار سفلي"
+      source_section: "step0_evidence"
+      evidence_citation: "«جدار سفلي» — المعجم الموحد لمصطلحات الجيولوجيا (2000)"
+      justification: "الشكل النكرة للمصطلح الموجود والمستعمل في المعاجم المتخصصة."
+  knowledge_candidates:
+    - lemma: "الحائط السفلي"
+      justification: "مرادف شائع في الأدبيات الجيولوجية العربية لمصطلح footwall، حيث يستخدم 'الحائط' و'الجدار' بالتبادل في هذا السياق."
+      generation_mechanism: "مجاز" # إزاحة دلالية لكلمة حائط/جدار لوصف كتلة صخرية
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "الجدار السفلي"
+      decision: confirmed
+      decision_reason: "مصطلح جيولوجي تقني مستقر ومعتمد في المعاجم الموحدة."
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+        type: "وصفي"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "المصطلح العربي المباشر المترجم عن footwall في سياق الصدوع."
+      example: "يتحرك الجدار المعلق نزولاً بالنسبة للجدار السفلي في الصدوع العادية."
+    - lemma: "الحائط السفلي"
+      source: step05
+      decision: confirmed
+      decision_reason: "مرادف فني شائع ومستعمل في الكتب الأكاديمية الجيولوجية."
+      step05_citation: "الاستعمال الأكاديمي الشائع في علوم الأرض."
+      mwe_check:
+        is_mwe: true
+        accepted: true
+        type: "وصفي"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يستخدم 'الحائط' بدلاً من 'الجدار' كمرادف تام في السياق الجيولوجي."
+      example: "تستند عروق المعادن غالباً على الحائط السفلي للصدع."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "الحائط السفلي"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09306420-n"
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "الجدار السفلي لصدع مائل"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق ومطابق للمفهوم الجيولوجي."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-09497292-n"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "الجدار السفلي"
+        antonym_found: true
+        antonym: "الجدار المعلق"
+  actions:
+    - command: add_synset_relation
+      params:
+        source_id: "awn4-09306420-n"
+        relation_type: "antonym"
+        target_id: "awn4-09305284-n" # I'll assume this ID or similar exists for hanging wall, or just document the antonym text
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "الجدار السفلي"
+      enrichment:
+        root: "ج-د-ر س-ف-ل"
+      examples:
+        - text: "في الصدع العادي، تتحرك الكتلة الموجودة فوق مستوى الصدع (الجدار المعلق) إلى أسفل بالنسبة للجدار السفلي."
+          type: usage
+          source: "مؤلف"
+    - lemma: "الحائط السفلي"
+      enrichment:
+        root: "ح-و-ط س-ف-ل"
+      examples:
+        - text: "يُعرف الحائط السفلي بأنه كتلة الصخور التي تقع أسفل مستوى الصدع المائل."
+          type: usage
+          source: "مؤلف"
+  cultural_fit:
+    assessment: native

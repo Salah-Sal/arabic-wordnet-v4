@@ -1,0 +1,197 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي يحتاج لضبط وصياغة معجمية أمتن."
+      - "المصطلح الموجود يفتقر للتشكيل الدقيق."
+    observations: "المفهوم يشير إلى الطبقة الرقيقة أو الأثر الذي يتركه الصابون بعد الغسيل. الترجمة (غشاء صابوني) صحيحة كمركب وصفي، ولكن قد يعبر عنه أيضا بـ(طبقة صابونية)."
+  blind_candidates:
+    - lemma: "غِشَاءٌ صَابُونِيّ"
+      generation_method: tarkib
+      justification: "مركب وصفي يعبر مباشرة عن المعنى (غشاء من الصابون)."
+    - lemma: "طَبَقَةٌ صَابُونِيَّة"
+      generation_method: tarkib
+      justification: "مركب وصفي شائع في الاستعمال للإشارة إلى الأثر المتبقي على السطوح."
+    - lemma: "رُسَابَةُ الصَّابُونِ"
+      generation_method: tarkib
+      justification: "مركب إضافي يشير إلى ما يرسب أو يتبقى من الصابون."
+    - lemma: "بَقَايَا الصَّابُونِ"
+      generation_method: tarkib
+      justification: "مركب إضافي مفهوم ومباشر يعبر عن الأثر المتخلف."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "غشاء صابوني"
+      evidence_status: no_material_found
+    - lemma: "غِشَاءٌ صَابُونِيّ"
+      evidence_status: no_material_found
+    - lemma: "طَبَقَةٌ صَابُونِيَّة"
+      evidence_status: no_material_found
+    - lemma: "رُسَابَةُ الصَّابُونِ"
+      evidence_status: no_material_found
+    - lemma: "بَقَايَا الصَّابُونِ"
+      evidence_status: no_material_found
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "غشاء صابوني"
+      decision: confirmed
+      decision_reason: "مصطلح مناسب ومستعمل علمياً لترجمة (soap film)."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "غِشَاءٌ صَابُونِيّ"
+    - lemma: "غِشَاءٌ صَابُونِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "مكرر؛ تم اعتماده بتعديل اللمة الأصلية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+    - lemma: "طَبَقَةٌ صَابُونِيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف دقيق وطبيعي يعبر عن المفهوم."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "طَبَقَةٌ صَابُونِيَّة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "رُسَابَةُ الصَّابُونِ"
+      source: stage1
+      decision: removed
+      decision_reason: "أقل شيوعاً من غشاء وطبقة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+    - lemma: "بَقَايَا الصَّابُونِ"
+      source: stage1
+      decision: removed
+      decision_reason: "عبارة حرة أكثر من كونها مصطلحاً مستقراً."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+
+stage4_content:
+  definition:
+    current: "غشاء يترك على الأشياء بعد غسلها بالصابون"
+    assessment:
+      decision: revise
+      reason: "تطوير الصياغة لتصبح أدق وأقرب لأسلوب المعاجم."
+    authored:
+      - type: terminological
+        text: "طَبَقَةٌ رَقِيقَةٌ مِنَ الصَّابُونِ تَبْقَى عَالِقَةً عَلَى الْأَشْيَاءِ بَعْدَ غَسْلِهَا."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "طَبَقَةٌ رَقِيقَةٌ مِنَ الصَّابُونِ تَبْقَى عَالِقَةً عَلَى الْأَشْيَاءِ بَعْدَ غَسْلِهَا."
+  examples:
+    per_lemma:
+      - lemma: "غِشَاءٌ صَابُونِيّ"
+        examples:
+          - text: "تَرَكَ الْغَسِيلُ غِشَاءً صَابُونِيًّا عَلَى الزُّجَاجِ بَعْدَ جَفَافِهِ."
+            type: usage
+      - lemma: "طَبَقَةٌ صَابُونِيَّة"
+        examples:
+          - text: "يُفَضَّلُ شَطْفُ الْأَوَانِي جَيِّدًا لِإِزَالَةِ أَيِّ طَبَقَةٍ صَابُونِيَّةٍ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تَرَكَ الْغَسِيلُ غِشَاءً صَابُونِيًّا عَلَى الزُّجَاجِ بَعْدَ جَفَافِهِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يُفَضَّلُ شَطْفُ الْأَوَانِي جَيِّدًا لِإِزَالَةِ أَيِّ طَبَقَةٍ صَابُونِيَّةٍ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "غِشَاءٌ صَابُونِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "غشاء"
+          root: "غشو"
+          maqayis_quote: "«(غَشَى) الْغَيْنُ وَالشِّينُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَغْطِيَةِ شَيْءٍ بِشَيْءٍ...»"
+        - word: "صابوني"
+          root: "صبن"
+          maqayis_quote: ""
+    - lemma: "طَبَقَةٌ صَابُونِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "طبقة"
+          root: "طبق"
+          maqayis_quote: "«(طَبَقَ) الطَّاءُ وَالْبَاءُ وَالْقَافُ أَصْلٌ صَحِيحٌ وَاحِدٌ، وَهُوَ يَدُلُّ عَلَى وَضْعِ شَيْءٍ مَبْسُوطٍ عَلَى مِثْلِهِ حَتَّى يُغَطِّيَهُ...»"
+        - word: "صابونية"
+          root: "صبن"
+          maqayis_quote: ""
+  per_sense:
+    - lemma: "غِشَاءٌ صَابُونِيّ"
+      sense_id: "{auto}"
+      nuance: "ترجمة مباشرة ودقيقة للمفهوم العلمي (soap film)."
+      mwe: true
+    - lemma: "طَبَقَةٌ صَابُونِيَّة"
+      sense_id: "{auto}"
+      nuance: "تعبير مألوف يدل على التغطية الرقيقة من الصابون."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"غشاء","root":"غشو","maqayis":"«(غَشَى) الْغَيْنُ وَالشِّينُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَغْطِيَةِ شَيْءٍ بِشَيْءٍ...»"},{"word":"صابوني","root":"صبن","maqayis":""}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"طبقة","root":"طبق","maqayis":"«(طَبَقَ) الطَّاءُ وَالْبَاءُ وَالْقَافُ أَصْلٌ صَحِيحٌ وَاحِدٌ، وَهُوَ يَدُلُّ عَلَى وَضْعِ شَيْءٍ مَبْسُوطٍ عَلَى مِثْلِهِ حَتَّى يُغَطِّيَهُ...»"},{"word":"صابونية","root":"صبن","maqayis":""}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"ترجمة مباشرة ودقيقة للمفهوم العلمي (soap film).","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير مألوف يدل على التغطية الرقيقة من الصابون.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-04261315-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-04261315-n"
+        score: 0.95

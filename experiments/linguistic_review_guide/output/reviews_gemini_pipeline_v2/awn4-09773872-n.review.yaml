@@ -1,0 +1,147 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'نَاكِث' تعني مَن ينقض عهداً أو يميناً قائماً (Oath-breaker)، في حين أن المفهوم الإنجليزي (Abjurer) يعني مَن يُقسم على التخلي عن شيء (أي يُنشئ قسماً جديداً للترك)، مما يجعل 'نَاكِث' غير دقيقة دلالياً هنا."
+    observations: "المفهوم يشير إلى شخص يتخلى عن شيء (غالباً عقيدة أو انتماء) بموجب قسم رسمي (Abjurer). اللمات الموجودة تشمل 'مُتَبَرِّئ' وهي تعبر بوضوح عن الترك والتخلي، بينما 'نَاكِث' تعني ناقض العهد أو اليمين، وهو معنى مختلف."
+  blind_candidates:
+    - lemma: "مُتَبَرِّئ"
+      generation_method: ishtiqaq
+      justification: "مشتق من الفعل 'تبرأ'، ويعني من يعلن تخليه عن شيء أو براءته منه."
+    - lemma: "نَاكِث"
+      generation_method: ishtiqaq
+      justification: "مشتق من الفعل 'نكث'، ويشير إلى من ينقض عهده أو يمينه."
+    - lemma: "حَانِث"
+      generation_method: ishtiqaq
+      justification: "مشتق من الفعل 'حنث'، وهو من يتراجع عن قسمه أو يحنث فيه."
+    - lemma: "جَاحِد"
+      generation_method: ishtiqaq
+      justification: "مشتق من الفعل 'جحد'، ويعني من ينكر الشيء بعد الإقرار به."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُتَبَرِّئ"
+      confirm:
+        - text: "«بَرِئَ من فلان: تباعد وتخلَّى عنه من الدَّيْن والعيب والتهمة: خَلص وخلا»"
+          source: "المعجم الوسيط"
+    - lemma: "نَاكِث"
+      contradicts:
+        - text: "«نَكَثَ العَهْدَ يَنْكُثُهُ نَكْثًا... نَاقضَ فِي قَوْله مناقضة ونقاضا تكلم بِمَا يُخَالف مَعْنَاهُ»"
+          source: "مقاييس اللغة / المعجم الوسيط"
+          conflict: "الناكث هو من ينقض يميناً، وليس من يتخلى عن شيء بقسم جديد."
+    - lemma: "حَانِث"
+      contradicts:
+        - text: "«الحانث: من لم يَفِ بموجب يمينه فهو حانثٌ.»"
+          source: "التعريفات الفقهيّة للبركتي"
+          conflict: "الحانث هو ناقض اليمين، والمفهوم يخص التخلي والانفصال."
+    - lemma: "جَاحِد"
+      expands:
+        - text: "«جَحَدَ فلانٌ الأمْرَ أو الحقَّ, وبه: أَنْكره. وقيل: أَنْكره مع عِلْمِهِ»"
+          source: "المعجم الوسيط"
+          addition: "يعبر عن الإنكار لا التخلي الرسمي بقسم."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مُتَبَرِّئ"
+      decision: confirmed
+      decision_reason: "تُعبّر اللمة بدقة عن الترك والتخلي والانفصال التام عن الشيء، وتتسع لتشمل التخلي بقسم أو بدونه، وهي الأنسب لتمثيل المفهوم في العربية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: "تدل على الانفصال التام والترك المتعمد للشيء، وغالباً ما تقترن بإعلان صريح أو قسم في السياقات الرسمية."
+      # Actions omitted since the lemma exists and is properly diacritized
+
+    - lemma: "نَاكِث"
+      decision: removed
+      decision_reason: "الناكث هو من ينقض عهداً أبرمه سابقاً (Oath-breaker)، بينما المفهوم يشير إلى التخلي عن شيء مقترن بقسم للإثبات، فالمعنى مختلف."
+      evidence_assessment:
+        case: contradicts_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "حَانِث"
+      source: stage1
+      decision: removed
+      decision_reason: "يعني ناقض اليمين، ولا يطابق مفهوم المتخلي بقسم."
+      evidence_assessment:
+        case: contradicts_only
+      mwe_check:
+        is_mwe: false
+
+    - lemma: "جَاحِد"
+      source: stage1
+      decision: removed
+      decision_reason: "الجاحد هو المنكر للشيء بعد معرفته، ولا يعبر عن التخلي والتبرؤ الرسمي."
+      evidence_assessment:
+        case: contradicts_only
+      mwe_check:
+        is_mwe: false
+
+stage4_content:
+  definition:
+    current: "شخص يتخلى أو يتبرأ من شيء ما (بقسم)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد ولكنه يحتاج إلى إعادة صياغة ليكون بأسلوب معجمي رصين بعيداً عن أسلوب الترجمة الحرفية."
+    authored:
+      - type: terminological
+        text: "مَن يتخلَّى عن عقيدة أو مذهب أو حقّ معلناً ذلك بقَسَم."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "مَن يتخلَّى عن عقيدة أو مذهب أو حقّ معلناً ذلك بقَسَم."
+  
+  examples:
+    per_lemma:
+      - lemma: "مُتَبَرِّئ"
+        examples:
+          - text: "أعلن المتبرِّئ تخلِّيه عن جنسيته السابقة أمام المحكمة المختصة."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "أعلن المتبرِّئ تخلِّيه عن جنسيته السابقة أمام المحكمة المختصة."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُتَبَرِّئ"
+      entry_id: "{auto}"
+      root: "برأ"
+      maqayis_quote: "«فَأَمَّا الْبَاءُ وَالرَّاءُ وَالْهَمْزَةُ فَأَصْلَانِ إِلَيْهِمَا تَرْجِعُ فُرُوعُ الْبَابِ: أَحَدُهُمَا الْخَلْقُ... وَالْأَصْلُ الْآخَرُ: التَّبَاعُدُ مِنَ الشَّيْءِ وَمُزَايَلَتُهُ، مِنْ ذَلِكَ الْبُرْءُ وَهُوَ السَّلَامَةُ مِنَ السُّقْمِ»"
+  per_sense:
+    - lemma: "مُتَبَرِّئ"
+      sense_id: "{auto}"
+      nuance: "تدل على الانفصال التام والترك المتعمد للشيء، وغالباً ما تقترن بإعلان صريح أو قسم في السياقات الرسمية."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"برأ","maqayis":"«فَأَمَّا الْبَاءُ وَالرَّاءُ وَالْهَمْزَةُ فَأَصْلَانِ إِلَيْهِمَا تَرْجِعُ فُرُوعُ الْبَابِ: أَحَدُهُمَا الْخَلْقُ... وَالْأَصْلُ الْآخَرُ: التَّبَاعُدُ مِنَ الشَّيْءِ وَمُزَايَلَتُهُ، مِنْ ذَلِكَ الْبُرْءُ وَهُوَ السَّلَامَةُ مِنَ السُّقْمِ»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تدل على الانفصال التام والترك المتعمد للشيء، وغالباً ما تقترن بإعلان صريح أو قسم في السياقات الرسمية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'

@@ -1,0 +1,210 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة تفتقر إلى التشكيل الكامل."
+    observations: "المفهوم يتعلق بالاستعارة المجازية لأعضاء الكائن الحي (الرقبة/العنق) وتطبيقها على المصنوعات للدلالة على الجزء الضيق أو المستدق. اللغة العربية غنية جداً في هذا الجانب، حيث تُستخدم ألفاظ كالعنق والرقبة والخصر للدلالة على أجزاء من الجمادات (عنق الزجاجة، رقبة الكمان، خصر السهم)."
+  blind_candidates:
+    - lemma: "عُنُق"
+      generation_method: majaz
+      justification: "إزاحة دلالية من عنق الكائن الحي إلى الجزء المستدق من الجمادات كالأوعية والقناني."
+    - lemma: "رَقَبَة"
+      generation_method: majaz
+      justification: "مشابهة شكلية لرقبة الإنسان، تستخدم في الآلات خصوصاً مثل الآلات الموسيقية."
+    - lemma: "خَصْر"
+      generation_method: majaz
+      justification: "تُطلق على وسط الشيء المستدق، كخصر السهم وخصر الساعة الرملية."
+    - lemma: "مَخْنَق"
+      generation_method: ishtiqaq
+      justification: "اسم مكان من خنق للدلالة على الموضع الضيق."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "عنق"
+      confirm:
+        - text: "عنق كلِّ شيء: أوَّله وما استدقّ منه «عنق عظم الفَخِذ- عنق زجاجة: رقبة ضيِّقة بين فوّهتها وجوفها»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "رقبة"
+      confirm:
+        - text: "(فِي الموسيقى من الكمان أَو الْعود) جزؤه الْعلوِي بعد الصندوق (مج)"
+          source: "المعجم الوسيط"
+    - lemma: "خصر"
+      confirm:
+        - text: "من الإنسان والحيوان: وسطُه, وهو المستدق فوق الوركين خصر الرمل: وسطه خصر القدم: باطنها خصر السهم: ما بين الفُوق والريش"
+          source: "المعجم الوسيط"
+        - text: "وسط الشيء المستدق"
+          source: "مقاييس اللغة"
+    - lemma: "مخنق"
+      contradicts:
+        - text: "مرحلة يتعطل فيها تدفق الانتاج عن المستوى المطلوب يعبر عنه في الأدبيات الاقتصادية ب'عنق الزجاجة'"
+          source: "المعجم الموحد لمصطلحات الاقتصاد"
+          conflict: "الاستخدام هنا مجازي اقتصادي للمضيق، وليس للدلالة على جزء فيزيائي من مصنوع."
+        - text: "المضيق"
+          source: "المعجم الوسيط"
+          conflict: "دلالة عامة للمضيق المكاني وليست مخصصة لأجزاء المصنوعات."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "رقبة"
+      decision: confirmed
+      decision_reason: "مصطلح أصيل ومستخدم على نطاق واسع للدلالة على الأجزاء المستدقة من المصنوعات، كرقبة القميص ورقبة الكمان. سيتم تصحيح التشكيل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "رَقَبَة"
+            
+    - lemma: "عنق"
+      decision: confirmed
+      decision_reason: "مصطلح صحيح ومستخدم بكثرة، خاصة في الأوعية مثل عنق الزجاجة. يحتاج إلى إضافة التشكيل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عُنُق"
+            
+    - lemma: "خَصْر"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يتطابق دلالياً مع المفهوم في إطلاقه على الأجزاء المستدقة الوسطى من المصنوعات (كخصر السهم وخصر الآنية)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "خَصْر", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-03819888-n"}
+          
+    - lemma: "مَخْنَق"
+      source: stage1
+      decision: removed
+      decision_reason: "المخنق يدل على المضيق في الأمكنة (كالممرات الجبلية أو البحرية) وليس جزءاً من هيكل مصنوع بشري."
+
+stage4_content:
+  definition:
+    current: "جزء ضيق من مصنوع يشبه الرقبة في الموضع أو الشكل"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد، ولكن يمكن تحسين صياغته لتكون أكثر دقة ومعجمية عبر إضافة سمة الاستدقاق."
+    authored:
+      - type: terminological
+        text: "جُزْءٌ ضَيِّقٌ ومُسْتَدِقٌّ مِنْ مَصْنُوعٍ مَا، يُشْبِهُ رَقَبَةَ الكَائِنِ الحَيِّ فِي مَوْضِعِهِ أَوْ شَكْلِهِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-03819888-n", definition_index: 0, text: "جُزْءٌ ضَيِّقٌ ومُسْتَدِقٌّ مِنْ مَصْنُوعٍ مَا، يُشْبِهُ رَقَبَةَ الكَائِنِ الحَيِّ فِي مَوْضِعِهِ أَوْ شَكْلِهِ."}
+
+  examples:
+    per_lemma:
+      - lemma: "رَقَبَة"
+        examples:
+          - text: "تتميز آلة العود برَقَبَةٍ قصيرة لا تحوي دساتين."
+            type: usage
+      - lemma: "عُنُق"
+        examples:
+          - text: "انكسر عُنُقُ الزُّجاجَةِ فانسكب محتواها."
+            type: usage
+      - lemma: "خَصْر"
+        examples:
+          - text: "أمسك اللاعب السهم من خَصْرِهِ قبل أن يضعه في القوس."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تتميز آلة العود برَقَبَةٍ قصيرة لا تحوي دساتين."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "انكسر عُنُقُ الزُّجاجَةِ فانسكب محتواها."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "أمسك اللاعب السهم من خَصْرِهِ قبل أن يضعه في القوس."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "رَقَبَة"
+      entry_id: "{auto}"
+      root: "رقب"
+      maqayis_quote: "«الرَّاءُ وَالْقَافُ وَالْبَاءُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ، يَدُلُّ عَلَى انْتِصَابٍ لِمُرَاعَاةِ شَيْءٍ... وَمِنْ ذَلِكَ اشْتِقَاقُ الرَّقَبَةِ، لِأَنَّهَا مُنْتَصِبَةٌ»"
+    - lemma: "عُنُق"
+      entry_id: "{auto}"
+      root: "عنق"
+      maqayis_quote: "«الْعَيْنُ وَالنُّونُ وَالْقَافُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى امْتِدَادٍ فِي شَيْءٍ، إِمَّا فِي ارْتِفَاعٍ وَإِمَّا فِي انْسِيَاحٍ.»"
+    - lemma: "خَصْر"
+      entry_id: "{auto}"
+      root: "خصر"
+      maqayis_quote: "«الْخَاءُ وَالصَّادُ وَالرَّاءُ أَصْلَانِ: أَحَدُهُمَا الْبَرْدُ، وَالْآخَرُ وَسَطَ الشَّيْءِ... وَالْخَصْرُ خَصْرُ الْإِنْسَانِ وَغَيْرُهُ، وَهُوَ وَسَطُهُ الْمُسْتَدِقُّ فَوْقَ الْوَرِكَيْنِ.»"
+
+  per_sense:
+    - lemma: "رَقَبَة"
+      sense_id: "{auto}"
+      nuance: "يشيع استخدامها في الآلات ذات الهيكل الطويل كالمعازف الوترية لتدل على الجزء الممتد."
+      mwe: false
+    - lemma: "عُنُق"
+      sense_id: "{auto}"
+      nuance: "أكثر شيوعاً في الدلالة على الجزء الضيق الذي يمثل الفوهة أو المدخل في الأوعية (مثل عنق الزجاجة)."
+      mwe: false
+    - lemma: "خَصْر"
+      sense_id: "{auto}"
+      nuance: "يُطلق على الجزء الأوسط المستدق من الشيء، بخلاف العنق الذي يكون عادةً في الطرف."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"رقب","maqayis":"«الرَّاءُ وَالْقَافُ وَالْبَاءُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ، يَدُلُّ عَلَى انْتِصَابٍ لِمُرَاعَاةِ شَيْءٍ... وَمِنْ ذَلِكَ اشْتِقَاقُ الرَّقَبَةِ، لِأَنَّهَا مُنْتَصِبَةٌ»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عنق","maqayis":"«الْعَيْنُ وَالنُّونُ وَالْقَافُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى امْتِدَادٍ فِي شَيْءٍ، إِمَّا فِي ارْتِفَاعٍ وَإِمَّا فِي انْسِيَاحٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خصر","maqayis":"«الْخَاءُ وَالصَّادُ وَالرَّاءُ أَصْلَانِ: أَحَدُهُمَا الْبَرْدُ، وَالْآخَرُ وَسَطَ الشَّيْءِ... وَالْخَصْرُ خَصْرُ الْإِنْسَانِ وَغَيْرُهُ، وَهُوَ وَسَطُهُ الْمُسْتَدِقُّ فَوْقَ الْوَرِكَيْنِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يشيع استخدامها في الآلات ذات الهيكل الطويل كالمعازف الوترية لتدل على الجزء الممتد.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"أكثر شيوعاً في الدلالة على الجزء الضيق الذي يمثل الفوهة أو المدخل في الأوعية (مثل عنق الزجاجة).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُطلق على الجزء الأوسط المستدق من الشيء، بخلاف العنق الذي يكون عادةً في الطرف.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-03819888-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-03819888-n"
+        score: 0.95

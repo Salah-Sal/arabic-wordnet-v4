@@ -1,0 +1,169 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي يحتوي على حاشية شارحة (ملاحظة حول المصطلحات القديمة والمسيئة) وهذا يخالف شروط صياغة التعريف المعجمي الجوهرية."
+      - "غياب التشكيل عن اللمات في المجموعة الترادفية."
+    observations: "مصطلح 'أسود' هو المعادل المعاصر والأكثر استخداماً وحيادية، بينما 'زنجي' ذو حمولة تاريخية، وقد يحمل دلالات سلبية في بعض السياقات المعاصرة تأثراً باللغات الأوروبية."
+  blind_candidates:
+    - lemma: "أَسْوَد"
+      generation_method: majaz
+      justification: "إطلاق صفة اللون على الشخص من باب المجاز المرسل، وهو الأكثر شيوعاً."
+    - lemma: "زِنْجِيّ"
+      generation_method: ishtiqaq
+      justification: "نسبة إلى 'الزنج' وهم أمة معروفة من سكان إفريقيا قديماً."
+    - lemma: "أَفْرِيقِيّ"
+      generation_method: ishtiqaq
+      justification: "نسبة إلى قارة إفريقيا، الموطن الأصلي لأصحاب البشرة الداكنة."
+    - lemma: "أَفْرُوأَمْرِيكِيّ"
+      generation_method: tarkib
+      justification: "تعريب وتركيب للمصطلح المعاصر (Afro-American)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "أَسْوَد"
+      expands:
+        - text: "«بُعِثْتُ إلى الأحمر والأسود»"
+          source: "الحديث النبوي"
+          addition: "يُستخدم تاريخياً للإشارة إلى غير العرب أو ذوي البشرة الداكنة."
+    - lemma: "زِنْجِيّ"
+      confirm:
+        - text: "«(الزنْجِي) وَاحِد الزنج أَو الزنوج»"
+          source: "المعجم الوسيط"
+        - text: "«(1) الزِّنجيّ (2) زِنجيّ.»"
+          source: "المورد الحديث"
+    - lemma: "أَفْرِيقِيّ"
+      evidence_status: "no_material_found"
+    - lemma: "أَفْرُوأَمْرِيكِيّ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "أسود"
+      decision: confirmed
+      decision_reason: "المصطلح المعاصر والأكثر شيوعاً وحيادية للتعبير عن المفهوم."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "أَسْوَد"
+    - lemma: "زنجي"
+      decision: confirmed
+      decision_reason: "مصطلح معجمي وتاريخي دقيق، ومقابل مباشر لبعض المصطلحات الإنجليزية الموجودة في المجموعة الترادفية الأصلية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "زِنْجِيّ"
+    - lemma: "أَفْرِيقِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "مصطلح عام يشير إلى أي منتمٍ للقارة الإفريقية ولا يقتصر على ذوي البشرة الداكنة."
+    - lemma: "أَفْرُوأَمْرِيكِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "مصطلح خاص بفئة جغرافية محددة ولا يغطي كامل دلالة المفهوم العام."
+
+stage4_content:
+  definition:
+    current: "شخص من أصل أفريقي ذو بشرة داكنة (مصطلحات زنجي وزنجاني قديمة ومسيئة اليوم)"
+    assessment:
+      decision: revise
+      reason: "يجب إزالة الملاحظة الموسوعية من التعريف والاكتفاء بالسمات الدلالية الأساسية."
+    authored:
+      - type: terminological
+        text: "شخص ذو بشرة داكنة ينحدر من أصول إفريقية."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-09659490-n"
+          definition_index: 0
+          text: "شخص ذو بشرة داكنة ينحدر من أصول إفريقية."
+  examples:
+    per_lemma:
+      - lemma: "أَسْوَد"
+        examples:
+          - text: "ناضل المواطنون السُّود طويلاً للحصول على حقوقهم المدنية."
+            type: usage
+      - lemma: "زِنْجِيّ"
+        examples:
+          - text: "تناولت العديد من الروايات التاريخية معاناة الزنوج في حقبة تجارة العبيد."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "awn4-09659490-n"
+          text: "ناضل المواطنون السُّود طويلاً للحصول على حقوقهم المدنية."
+      - command: add_synset_example
+        params:
+          synset_id: "awn4-09659490-n"
+          text: "تناولت العديد من الروايات التاريخية معاناة الزنوج في حقبة تجارة العبيد."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "أَسْوَد"
+      entry_id: "{auto}"
+      root: "سود"
+      maqayis_quote: "«السِّينُ وَالْوَاوُ وَالدَّالُ أَصْلٌ وَاحِدٌ، وَهُوَ خِلَافُ الْبَيَاضِ فِي اللَّوْنِ...»"
+    - lemma: "زِنْجِيّ"
+      entry_id: "{auto}"
+      root: "زنج"
+      maqayis_quote: "«الزَّاءُ وَالنُّونُ وَالْجِيمُ لَيْسَ بِشَيْءٍ. عَلَى أَنَّهُمْ يَقُولُونَ الزَّنَجُ: الْعَطَشُ...»"
+  per_sense:
+    - lemma: "أَسْوَد"
+      sense_id: "{auto}"
+      nuance: "المصطلح المعاصر الأكثر شيوعاً وحيادية."
+      mwe: false
+    - lemma: "زِنْجِيّ"
+      sense_id: "{auto}"
+      nuance: "مصطلح تاريخي يُستخدم غالباً في السياقات التراثية أو كمقابل لترجمة مصطلح (Negro)."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سود","maqayis":"«السِّينُ وَالْوَاوُ وَالدَّالُ أَصْلٌ وَاحِدٌ، وَهُوَ خِلَافُ الْبَيَاضِ فِي اللَّوْنِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"زنج","maqayis":"«الزَّاءُ وَالنُّونُ وَالْجِيمُ لَيْسَ بِشَيْءٍ. عَلَى أَنَّهُمْ يَقُولُونَ الزَّنَجُ: الْعَطَشُ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح المعاصر الأكثر شيوعاً وحيادية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح تاريخي يُستخدم غالباً في السياقات التراثية أو كمقابل لترجمة مصطلح (Negro).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-09659490-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-09659490-n"
+        score: 0.95

@@ -1,0 +1,216 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "عدم وجود تشكيل كامل للمات الموجودة."
+      - "اللبس المحتمل بين 'المحور' (axle) و'صرة المحور' (hub) في الاستعمال العام."
+    observations: "المفهوم تقني دقيق يشير إلى الجزء الذي يتوسط العجلة وتجتمع فيه الأسلاك (spokes) وينفذ منه المحور (axle). المصطلحات العربية التقليدية (الصرة، القب) تغطي هذا المفهوم بدقة عالية."
+  blind_candidates:
+    - lemma: "صُرَّة"
+      generation_method: majaz
+      justification: "استعارة من صرة البطن لمركز الشيء، وهي المصطلح التقني الشائع حالياً لمركز العجلة."
+    - lemma: "صُرَّةُ العَجَلَةِ"
+      generation_method: tarkib
+      justification: "تعبير مركب يحدد تخصص الصرة بالعجلة لمنع اللبس مع المعاني الأخرى."
+    - lemma: "قَبّ"
+      generation_method: majaz
+      justification: "لفظ عربي أصيل يطلق على الثقب في وسط البكرة الذي يجري فيه المحور، وهو مطابق للمفهوم تماماً."
+    - lemma: "مِحْوَرُ العَجَلَةِ"
+      generation_method: tarkib
+      justification: "تعبير شائع في بعض المعاجم الفنية رغم دقته اللغوية المرجوحة (باعتبار المحور هو العمود النافذ لا الجزء المحيط به)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "صُرَّة"
+      confirm:
+        - text: "الصُّرَّة؛ القَبّ: محور العجلة أو المروحة"
+          source: "المورد الحديث"
+        - text: "مركز العضو الدوّار في عنفة الرياح، وهي تعمل على تثبيت الأرياش في مواضعها، وكذلك توصيلها بعمود الدوران."
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة"
+        - text: "صرّة العجلة: wheel hub"
+          source: "مسرد هندسة وتكنولوجيا السيارات (ArabTerm)"
+    - lemma: "مِحْوَرُ العَجَلَةِ"
+      confirm:
+        - text: "مِحوَر العَجَلَة ووصلاتها (wheel hub)"
+          source: "المعجم الموحد لمصطلحات النقل"
+        - text: "الصُّرَّة؛ القَبّ: محور العجلة أو المروحة"
+          source: "المورد الحديث"
+    - lemma: "قَبّ"
+      confirm:
+        - text: "القَبُّ: ... الثَّقْبُ يَجْرِي فيه المِحْوَرُ مِنَ المَحالَةِ، أو الخَرْقُ وَسَطَ البَكَرَةِ"
+          source: "القاموس المحيط"
+        - text: "الْخَرْقُ الذى فى وَسَطِ البكرة فيه أسنانٌ من خشب"
+          source: "المعجم الوسيط"
+        - text: "وقد اشتُقّ هذا المصطلحُ من قَبِّ (محور) الدوران في دولاب."
+          source: "معجم مصطلحات المعلوماتية"
+    - lemma: "صُرَّةُ العَجَلَةِ"
+      confirm:
+        - text: "صُرّة العجلة: wheel hub"
+          source: "مسرد هندسة وتكنولوجيا السيارات (ArabTerm)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "صرة"
+      decision: confirmed
+      decision_reason: "المصطلح الأكثر شيوعاً ودقة في السياقات التقنية الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "صُرَّة"
+    - lemma: "محور العجلة"
+      decision: confirmed
+      decision_reason: "مقبول كونه تعبيراً شائعاً في المعاجم المتخصصة (النقل)، رغم تداخله مع معنى (Axle)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مِحْوَرُ العَجَلَةِ"
+    - lemma: "قَبّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح عربي أصيل ودقيق جداً لوصف الثقب المركزي الذي ينفذ منه المحور."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "قَبّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-03552838-n"}
+    - lemma: "صُرَّةُ العَجَلَةِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تخصيص ضروري في السياقات العلمية لمنع اللبس."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "صُرَّةُ العَجَلَةِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-03552838-n"}
+
+stage4_content:
+  definition:
+    current: "الجزء المركزي لعجلة السيارة (أو المروحة ونحوها) الذي يمر من خلاله العمود أو المحور"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكن يمكن صياغته بأسلوب معجمي أكثر إيجازاً ودقة."
+    authored:
+      - type: terminological
+        text: "جزءُ العجلة أو المروحة المركزيّ المَثقوب الذي يَنفُذُ فيه المحورُ وتجتمع فيه الأسلاكُ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "صُرَّة"
+        examples:
+          - text: "تُثبَّتُ أسلاكُ العجلةِ في صُرَّتِها وتتصل بالإطار الخارجي."
+            type: usage
+      - lemma: "مِحْوَرُ العَجَلَةِ"
+        examples:
+          - text: "يجب تشحيمُ مِحور العجلةِ بانتظام لتقليل الاحتكاك وضمان سلاسة الدوران."
+            type: usage
+      - lemma: "قَبّ"
+        examples:
+          - text: "يَنفُذُ عمودُ الدورانِ في قَبِّ البكرةِ ليُحرِّكَ التروسَ."
+            type: usage
+      - lemma: "صُرَّةُ العَجَلَةِ"
+        examples:
+          - text: "تَعرَّضتْ صُرَّةُ العجلةِ لِشَرخٍ نتيجةَ الصَّدمةِ القوية."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-03552838-n", definition_index: 0, text: "جزءُ العجلة أو المروحة المركزيّ المَثقوب الذي يَنفُذُ فيه المحورُ وتجتمع فيه الأسلاكُ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "صُرَّة"
+      entry_id: "{auto}"
+      root: "صرر"
+      maqayis_quote: "«الصَّادُ وَالرَّاءُ أُصُولٌ: الْأَوَّلُ قَوْلُهُمْ صَرَّ الدَّرَاهِمَ يَصُرُّهَا صَرًّا. وَتِلْكَ الْخِرْقَةُ صُرَّةٌ... وَمِنَ الْبَابِ: الصَّرَّةُ، يُقَالُ لِلْجَمَاعَةِ صَرَّةٌ.»"
+    - lemma: "قَبّ"
+      entry_id: "{auto}"
+      root: "قبب"
+      maqayis_quote: "«الْقَافُ وَالْبَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى جَمْعٍ وَتَجَمُّعٍ. مِنْ ذَلِكَ الْقُبَّةُ... وَالْقَبُّ فِي الْبَكَرَةِ.»"
+    - lemma: "مِحْوَرُ العَجَلَةِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "محور"
+          root: "حور"
+          maqayis_quote: "«الْحَاءُ وَالْوَاوُ وَالرَّاءُ أَصْلَانِ... وَأَمَّا الْمِحْوَرُ فَحَدِيدَةٌ فِي وَسَطِ الْبَكَرَةِ تَدُورُ فِيهَا.»"
+        - word: "عجلة"
+          root: "عجل"
+          maqayis_quote: "«الْعَيْنُ وَالْجَمُّ وَاللَّامُ أَصْلٌ صَحِيحٌ وَاحِدٌ، وَهُوَ جِنْسٌ مِنَ السُّرْعَةِ.»"
+    - lemma: "صُرَّةُ العَجَلَةِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "صرة"
+          root: "صرر"
+          maqayis_quote: "«الصَّادُ وَالرَّاءُ أُصُولٌ: الْأَوَّلُ قَوْلُهُمْ صَرَّ الدَّرَاهِمَ يَصُرُّهَا صَرًّا. وَتِلْكَ الْخِرْقَةُ صُرَّةٌ.»"
+        - word: "عجلة"
+          root: "عجل"
+          maqayis_quote: "«الْعَيْنُ وَالْجَمُّ وَاللَّامُ أَصْلٌ صَحِيحٌ وَاحِدٌ، وَهُوَ جِنْسٌ مِنَ السُّرْعَةِ.»"
+  per_sense:
+    - lemma: "صُرَّة"
+      sense_id: "{auto}"
+      nuance: "المصطلح التقني الحديث الأكثر شمولاً وتداولاً لمركز العجلة."
+      mwe: false
+    - lemma: "قَبّ"
+      sense_id: "{auto}"
+      nuance: "مصطلح كلاسيكي يركز على الفتحة أو المبيت الذي يستقبل العمود."
+      mwe: false
+    - lemma: "مِحْوَرُ العَجَلَةِ"
+      sense_id: "{auto}"
+      nuance: "تسمية وصفية شائعة، قد توحي أحياناً بالعمود نفسه (Axle)."
+      mwe: true
+    - lemma: "صُرَّةُ العَجَلَةِ"
+      sense_id: "{auto}"
+      nuance: "تعبير مركب يزيل الغموض ويخصص الصرة لنوع العجلات الميكانيكية."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صرر","maqayis":"«الصَّادُ وَالرَّاءُ أُصُولٌ: الْأَوَّلُ قَوْلُهُمْ صَرَّ الدَّرَاهِمَ يَصُرُّهَا صَرًّا. وَتِلْكَ الْخِرْقَةُ صُرَّةٌ... وَمِنَ الْبَابِ: الصَّرَّةُ، يُقَالُ لِلْجَمَاعَةِ صَرَّةٌ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قبب","maqayis":"«الْقَافُ وَالْبَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى جَمْعٍ وَتَجَمُّعٍ. مِنْ ذَلِكَ الْقُبَّةُ... وَالْقَبُّ فِي الْبَكَرَةِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح التقني الحديث الأكثر شمولاً وتداولاً لمركز العجلة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-03552838-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-03552838-n"
+        score: 0.95

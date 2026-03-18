@@ -1,0 +1,238 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي مقبول ولكنه يعتمد بوضوح على الترجمة الحرفية لمصطلح (miscellaneous objects) و(too numerous or too small)."
+    observations: "المفهوم يشير إلى مجموعة من الأشياء الصغيرة أو المتفرقة التي لا يجمعها صنف واحد. يُعبّر عنها في العربية بكلمات مثل 'المتفرقات'، 'النثريات' (خصوصاً في المصروفات والأشياء الدقيقة)، و'الأشتات'."
+  blind_candidates:
+    - lemma: "مُتَفَرِّقَات"
+      generation_method: ishtiqaq
+      justification: "جمع 'متفرقة'، وتدل على الأشياء المتباينة التي لا يجمعها صنف أو نوع واحد."
+    - lemma: "أَشْتَات"
+      generation_method: ishtiqaq
+      justification: "جمع 'شَتات'، وهي الأشياء المتفرقة والمختلفة."
+    - lemma: "مُنَوَّعَات"
+      generation_method: ishtiqaq
+      justification: "جمع 'منوعة'، وتستخدم للدلالة على الأشياء من أنواع مختلفة."
+    - lemma: "نَثْرِيَّات"
+      generation_method: ishtiqaq
+      justification: "من 'نثر'، وتستخدم كثيراً في السياقات المحاسبية والتجارية للدلالة على المصروفات أو السلع المتفرقة الدقيقة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "متفرقات"
+      confirm:
+        - text: "«(1) نَثْريّات؛ مُتَفرّقات (2) بقايا؛ فَضَلات.»"
+          source: "المورد الحديث (2008)"
+    - lemma: "أشتات"
+      confirm:
+        - text: "«أشتات؛ نثريات؛ منوَّعات.»"
+          source: "المورد الحديث (2008)"
+        - text: "«أشياء متفرقة»"
+          source: "المعجم الكبير"
+    - lemma: "منوعات"
+      confirm:
+        - text: "«أشتات؛ نثريات؛ منوَّعات.»"
+          source: "المورد الحديث (2008)"
+    - lemma: "نثريات"
+      confirm:
+        - text: "«(1) نَثْريّات؛ مُتَفرّقات (2) بقايا؛ فَضَلات.»"
+          source: "المورد الحديث (2008)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "متفرقات"
+      decision: confirmed
+      decision_reason: "مصطلح شائع ومناسب جداً للمفهوم، ومثبت في المعاجم ثنائية اللغة كترجمة لـ sundries و miscellaneous."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُتَفَرِّقَات"
+
+    - lemma: "أَشْتَات"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فصيح وبليغ يدل على تفرق الأشياء واختلافها، ومثبت كمرادف في المعاجم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "أَشْتَات", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "مُنَوَّعَات"
+      source: stage1
+      decision: confirmed
+      decision_reason: "كلمة معاصرة وشائعة للدلالة على الأشياء أو المواضيع المتنوعة التي لا تصنف تحت بند واحد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُنَوَّعَات", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "نَثْرِيَّات"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير دقيق ومستخدم بكثرة للإشارة إلى الأشياء الدقيقة المتفرقة، خاصة في التجارة (sundries)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "نَثْرِيَّات", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "أشياء متنوعة عديدة جداً أو صغيرة جداً بحيث لا يمكن تحديدها"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يبدو ترجمة حرفية؛ يمكن صياغته بأسلوب عربي أوضح وأقرب للصياغة المعجمية."
+    authored:
+      - type: terminological
+        text: "أشياء أو أغراض مختلفة الأنواع ومتفرقة، لا يجمعها صنف واحد، وتكون عادة كثيرة أو صغيرة بحيث يصعب تفصيلها."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "أشياء أو أغراض مختلفة الأنواع ومتفرقة، لا يجمعها صنف واحد، وتكون عادة كثيرة أو صغيرة بحيث يصعب تفصيلها."}
+  examples:
+    per_lemma:
+      - lemma: "متفرقات"
+        examples:
+          - text: "سجل التاجر في الدفتر بعض المُتَفَرِّقَات التي تم بيعها."
+            type: usage
+      - lemma: "أَشْتَات"
+        examples:
+          - text: "جمعت أَشْتَاتاً من الأشياء القديمة في الصندوق."
+            type: usage
+      - lemma: "مُنَوَّعَات"
+        examples:
+          - text: "اشترى من السوق مُنَوَّعَاتٍ من الهدايا والسلع."
+            type: usage
+      - lemma: "نَثْرِيَّات"
+        examples:
+          - text: "خصصت الشركة مبلغاً من المال للمصروفات والنَّثْرِيَّات."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "سجل التاجر في الدفتر بعض المُتَفَرِّقَات التي تم بيعها."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "جمعت أَشْتَاتاً من الأشياء القديمة في الصندوق."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "اشترى من السوق مُنَوَّعَاتٍ من الهدايا والسلع."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "خصصت الشركة مبلغاً من المال للمصروفات والنَّثْرِيَّات."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُتَفَرِّقَات"
+      entry_id: "{auto}"
+      root: "فرق"
+      maqayis_quote: "«الْفَاءُ وَالرَّاءُ وَالْقَافُ أُصَيْلٌ صَحِيحٌ يَدُلُّ عَلَى تَمْيِيزٍ وَتَزْيِيلٍ بَيْنَ شَيْئَيْنِ.»"
+    - lemma: "أَشْتَات"
+      entry_id: "{auto}"
+      root: "شتت"
+      maqayis_quote: "«الشِّينُ وَالتَّاءُ أَصْلٌ يَدُلُّ عَلَى تَفَرُّقٍ وَتَزَيُّلٍ»"
+    - lemma: "مُنَوَّعَات"
+      entry_id: "{auto}"
+      root: "نوع"
+      maqayis_quote: "«النُّونُ وَالْوَاوُ وَالْعَيْنُ كَلِمَتَانِ، إِحْدَاهُمَا تَدُلُّ عَلَى طَائِفَةٍ مِنَ الشَّيْءِ مُمَاثِلَةٍ لَهُ»"
+    - lemma: "نَثْرِيَّات"
+      entry_id: "{auto}"
+      root: "نثر"
+      maqayis_quote: "«النُّونُ وَالثَّاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِلْقَاءِ شَيْءٍ مُتَفَرِّقٍ.»"
+  per_sense:
+    - lemma: "مُتَفَرِّقَات"
+      sense_id: "{auto}"
+      nuance: "الأكثر شيوعاً وعمومية للدلالة على الأشياء المتباينة التي لا رابط بينها."
+      mwe: false
+    - lemma: "أَشْتَات"
+      sense_id: "{auto}"
+      nuance: "تميل إلى الطابع الأدبي والفصيح للتعبير عن الأشياء المتفرقة والمختلفة جداً."
+      mwe: false
+    - lemma: "مُنَوَّعَات"
+      sense_id: "{auto}"
+      nuance: "تركز على تنوع واختلاف الأنواع ووجود تشكيلة من الأشياء."
+      mwe: false
+    - lemma: "نَثْرِيَّات"
+      sense_id: "{auto}"
+      nuance: "تستخدم أكثر في السياقات المالية والتجارية للأشياء الدقيقة المتفرقة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"فرق","maqayis":"«الْفَاءُ وَالرَّاءُ وَالْقَافُ أُصَيْلٌ صَحِيحٌ يَدُلُّ عَلَى تَمْيِيزٍ وَتَزْيِيلٍ بَيْنَ شَيْئَيْنِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"شتت","maqayis":"«الشِّينُ وَالتَّاءُ أَصْلٌ يَدُلُّ عَلَى تَفَرُّقٍ وَتَزَيُّلٍ»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نوع","maqayis":"«النُّونُ وَالْوَاوُ وَالْعَيْنُ كَلِمَتَانِ، إِحْدَاهُمَا تَدُلُّ عَلَى طَائِفَةٍ مِنَ الشَّيْءِ مُمَاثِلَةٍ لَهُ»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نثر","maqayis":"«النُّونُ وَالثَّاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِلْقَاءِ شَيْءٍ مُتَفَرِّقٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الأكثر شيوعاً وعمومية للدلالة على الأشياء المتباينة التي لا رابط بينها.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تميل إلى الطابع الأدبي والفصيح للتعبير عن الأشياء المتفرقة والمختلفة جداً.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركز على تنوع واختلاف الأنواع ووجود تشكيلة من الأشياء.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تستخدم أكثر في السياقات المالية والتجارية للأشياء الدقيقة المتفرقة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,130 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "مخاضة"
+      confirm:
+        - text: "«موضعُ الخَوْضِ فى الماءِ, كالمَخاضِ ما جازَ فيه النَّاسُ مُشاةً ورُكْبانًا (فى الجغرافيا) Fard: الجُزْءُ الضِّحْلُ من مَجْرَى النَّهْر ــ أو من أىِّ سَطْحٍ مائِيٍّ ــ يُمْكِنُ عُبُورُه بالقَدَمِ»"
+          source: "المعجم الكبير"
+      expands:
+        - text: "«من النهر الكبير: المَخاض»"
+          source: "المعجم الوسيط"
+    - lemma: "معبر"
+      contradicts:
+        - text: "«ما يُعْبَر به النهر من قنطرة أو سفينة الشَّطُّ المهيَّأ للعبور»"
+          source: "المعجم الوسيط"
+          conflict: "المعبر يشير إلى أداة العبور (قنطرة أو سفينة) أو المكان المهيأ مطلقاً، ولا يقتصر على الموضع الضحل الذي يُخاض بالأقدام."
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "مخاض"
+      source_section: "step0_evidence"
+      evidence_citation: "«من النهر الكبير: الموضع القليل الماء الذى يعبر فيه الناسُ النهرَ مُشاةً ورُكباناً» — المعجم الوسيط"
+      justification: "ورد في المعاجم كمرادف مباشر لمعنى المخاضة، مشتق من جذر (خوض) ليدل على مكان الخوض."
+  knowledge_candidates:
+    - lemma: "مجازة"
+      justification: "اسم مكان من (جاز) بمعنى عبر (اشتقاق)، وقد ورد في بعض المعاجم المتخصصة كمرادف، إلا أن (مخاضة) أدق وألصق بالمعنى."
+  generation_notes: "التركيز على الجذر (خوض) لكونه يعبر بدقة عن الحركة في الماء الضحل."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "مخاضة"
+      decision: confirmed
+      decision_reason: "مصطلح دقيق ومستقر جغرافياً ولغوياً للتعبير عن الموضع الضحل من النهر الذي يمكن خوضه."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تدل تحديداً على الموضع الضحل من النهر الذي يُعبر سيراً أو بالدواب (خوضاً)."
+      example: "عبرت القافلة النهر من المخاضة لانخفاض منسوب المياه فيها."
+
+    - lemma: "معبر"
+      decision: removed
+      decision_reason: "مصطلح عام يشير لأي وسيلة أو مكان مهيأ للعبور (جسر، قارب، نفق) ولا يختص بالموضع الضحل المائي."
+      evidence_assessment:
+        case: "contradicts_only"
+      substitution_test:
+        result: "fail"
+      nuance_differentiation: "أعم دلالة، يشمل أي وسيلة أو نقطة عبور ولا يفيد معنى الخوض بالقدم."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "مخاض"
+      source: step05
+      decision: confirmed
+      decision_reason: "مرادف فصيح ومسجل معجمياً يؤدي نفس المعنى الدقيق للمخاضة."
+      step05_citation: "«من النهر الكبير: الموضع القليل الماء الذى يعبر فيه الناسُ النهرَ مُشاةً ورُكباناً» — المعجم الوسيط"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "مذكر (مخاضة) ويحمل الدلالة نفسها على مكان الخوض."
+      example: "تلمس القوم مخاضاً آمناً في النهر ليعبروا منه."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مخاض"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09306529-n"
+
+  synset_flags:
+    definition_review_needed: true
+  added_lemmas:
+    - lemma: "مخاض"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: "create_entry + add_sense"
+
+step3_definition:
+  definition_review_flag: true
+  current_definition: "منطقة ضحلة في جدول يمكن عبورها خوضاً"
+  assessment:
+    decision: revise
+    reason: "توسيع التعريف لعدم حصره في (جدول) بل يشمل النهر وأي مجرى مائي كما ورد في المعاجم."
+  authored_definitions:
+    - type: terminological
+      text: "موضع ضحل من النهر أو المجرى المائي يمكن عبوره خوضاً."
+      quality_check:
+        genus_present: true
+        differentia_present: true
+        circular: false
+        passed: true
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-09306529-n"
+        definition_index: 0
+        text: "موضع ضحل من النهر أو المجرى المائي يمكن عبوره خوضاً."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "جزء من سطح الأرض مغطى بالماء"
+    test_result: "correct"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "مخاضة"
+      enrichment:
+        root: "خ-و-ض"
+      examples:
+        - text: "إذا شالَتِ الجَوْزاءُ والنَّجْمُ طالِعٌ / فكُلُّ مَخاضاتِ الفُراتِ مَعابِرُ"
+          type: poetry
+          source: "عبد الله بن سبرة الحرشي"
+      pos_check:
+        pos: noun
+    - lemma: "مخاض"
+      enrichment:
+        root: "خ-و-ض"
+      examples:
+        - text: "تلمس القوم مخاضاً آمناً في النهر ليعبروا منه."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-09306529-n"
+        text: "إذا شالَتِ الجَوْزاءُ والنَّجْمُ طالِعٌ / فكُلُّ مَخاضاتِ الفُراتِ مَعابِرُ"

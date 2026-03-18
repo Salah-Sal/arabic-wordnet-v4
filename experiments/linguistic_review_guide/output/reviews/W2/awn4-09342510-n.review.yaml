@@ -1,0 +1,110 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "برزخ"
+      confirm:
+        - text: "«(في علم الجغرافية): قطعة أرض ضيقة، محصورة بين بحرين، موصلة بين أرضين»"
+          source: "المعجم الوسيط"
+        - text: "«(في الجغرافيا: isthmus): شريطٌ من اليابس يفصل بين مائَيْن»"
+          source: "المعجم الكبير"
+        - text: "«(جغ) قطعةُ أرضٍ محصورة بين بحرين موصِّلة بين أرضين \"برزخ قناة السويس\"»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«isthmus — Geography and History»"
+          source: "مسرد الجغرافيا والتاريخ (ArabTerm)"
+      expands:
+        - text: "«الحاجز بين شيئين ما بين الموت والبعث»"
+          source: "المعجم الوسيط"
+          addition: "توسع دلالي غيبي (أخروي)"
+        - text: "«(في علم الطب): البرزخ الدرقي جزء منقبض من الغدة الدرقية... ويصل بين الفصين الجانبيين»"
+          source: "المعجم الوسيط"
+          addition: "توسع في علم التشريح لوصف الوصلات الضيقة"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "عنق الأرض"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«neck of land -> برزخ» — المعجم الموحد لمصطلحات الجيولوجيا"
+      justification: "ترجمة مباشرة للمصطلح الإنجليزي المقابل (neck of land) وموثق في المعاجم التقنية."
+  knowledge_candidates:
+    - lemma: "لسان الأرض"
+      justification: "استخدام المجاز (اللسان) لوصف الامتداد الضيق لليابسة، وإن كان يغلب عليه وصف الرؤوس الأرضية."
+    - lemma: "مضيق بري"
+      justification: "توليد بالتركيب الوصفي للمقابلة مع المضيق المائي."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "برزخ"
+      decision: confirmed
+      decision_reason: "مصطلح جغرافي أصيل ومعاصر مستقر في المعاجم العامة والمتخصصة."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "اللفظ التقني الأساسي والأكثر دقة لوصف المفهوم."
+      example: "يصل برزخ السويس بين قارتي أفريقيا وآسيا ويفصل بين البحرين المتوسط والأحمر."
+    
+    - lemma: "عنق الأرض"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح جغرافي مقبول وموثق (ترجمة neck of land)."
+      step05_citation: "«neck of land -> برزخ» — المعجم الموحد لمصطلحات الجيولوجيا"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تعبير تصويري (استعاري) يركز على شكل ضيق اليابسة."
+      example: "يُعد برزخ بنما أشهر عنق للأرض يربط بين الأمريكتين الشمالية والجنوبية."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "عنق الأرض"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09342510-n"
+
+    - lemma: "لسان الأرض"
+      source: step05
+      decision: removed
+      decision_reason: "يغلب استعمال 'اللسان' في الجغرافيا لوصف الرؤوس الأرضية (Capes/Spits) التي تبرز في الماء ولا تصل بين كتلتين يابستين."
+      step05_citation: "«اللسان: شريط ضيق من اليابس يمتد في البحر» — المعجم الوسيط"
+
+    - lemma: "مضيق بري"
+      source: step05
+      decision: removed
+      decision_reason: "تركيب وصفي حر لم يرد كمصطلح مستقر في المعاجم الجغرافية، والبرزخ يغني عنه."
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شريط ضيق نسبياً من اليابسة (يحيط به الماء من الجانبين) يصل بين منطقتين أكبر من اليابسة"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وجامع مانع ومتوافق مع التعريفات المعجمية العربية."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "أرض، بر، يابسة"
+    test_result: "correct"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "برزخ"
+      enrichment:
+        root: "ب-ر-ز-خ"
+      examples:
+        - text: "«(في علم الجغرافية): قطعة أرض ضيقة، محصورة بين بحرين، موصلة بين أرضين»"
+          type: usage
+          source: "المعجم الوسيط"
+      morphology:
+        broken_plural_link: "برازخ"
+      pos_check:
+        pos: noun
+    - lemma: "عنق الأرض"
+      enrichment:
+        root: "ع-ن-ق"
+      examples:
+        - text: "يُعد برزخ بنما أشهر عنق للأرض يربط بين الأمريكتين."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

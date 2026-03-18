@@ -1,0 +1,197 @@
+# Stage 1: Review + Generate
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة صحيحة ولكنها محدودة، وكلمة 'شخص من القدماء' تقترب من كونها وصفاً حراً أكثر منها مصطلحاً معجمياً."
+      - "خلو اللّمات من التشكيل الكامل في البيانات الواردة."
+    observations: "المفهوم يشير إلى 'القدماء' كفئة تاريخية (ancients). اللفظ العربي الأكثر شيوعاً هو 'القدماء' (جمع) ومفرده 'قديم' عند استخدامه كاسم (substantivized adjective). استراتيجية التوليد ستعتمد على إحياء الاستخدام الاسمي للصفات المشتقة."
+  blind_candidates:
+    - lemma: "قَدِيم"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل/صفة مشبهة تُستخدم اسماً للدلالة على من عاش في الماضي، وجمعها 'قدماء'."
+    - lemma: "غَابِر"
+      generation_method: ishtiqaq
+      justification: "من 'غبر' بمعنى مضى، وتستخدم للدلالة على الأزمان والأشخاص الماضين."
+    - lemma: "عَتِيق"
+      generation_method: ishtiqaq
+      justification: "من 'عتق' بمعنى قدم وكرم، وتستخدم للدلالة على كل ما هو قديم ومتقدم في الزمان."
+    - lemma: "مِنَ الْقُدَمَاءِ"
+      generation_method: tarkib
+      justification: "تركيب إضافي وصفي مسكوك يشير إلى الفرد من طبقة القدماء."
+
+# Stage 2: Evidence Gathering
+stage2_evidence:
+  per_lemma:
+    - lemma: "قَدِيم"
+      confirm:
+        - text: "(الْقَدِيم) مَا مضى على وجوده زمن طَوِيل (ج) قدماء وقدامى"
+          source: "المعجم الوسيط"
+        - text: "أحد الكتاب الكلاسيكيين القدامى"
+          source: "المورد الحديث"
+      expands:
+        - text: "القديم: يطلق على الموجود الذي ليس وجوده مسبوقا بالعدم"
+          source: "التوقيف على مهمات التعاريف"
+          addition: "يضيف البعد الفلسفي للكلمة."
+    - lemma: "شَخْص مِنَ الْقُدَمَاء"
+      confirm:
+        - text: "شعوب التاريخ القديم المتمدينة. القدماء (ancients)"
+          source: "المورد الحديث (بالمعنى المقابل)"
+    - lemma: "غَابِر"
+      confirm:
+        - text: "الغابر: الماضي والباقي (ضد)... كان ذلك في الزمن الغابر"
+          source: "المعجم الوسيط"
+      contradicts:
+        - text: "الغابر: الماكث بعد مضي من معه"
+          source: "التوقيف على مهمات التعاريف"
+          conflict: "يدل على البقاء لا القدم التاريخي في هذا السياق."
+    - lemma: "عَتِيق"
+      confirm:
+        - text: "العتيق: المتقدم في الزمان والمكان أو الرتبة"
+          source: "التوقيف على مهمات التعاريف"
+
+# Stage 3: Lemma Analysis
+stage3_analysis:
+  per_lemma:
+    - lemma: "شَخْص مِنَ الْقُدَمَاء"
+      decision: confirmed
+      decision_reason: "مصطلح وصفي مستقر في الشبكة الدلالية العربية ويؤدي المعنى بدقة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "شَخْص مِنَ الْقُدَمَاءِ"
+    - lemma: "قَدِيم"
+      decision: confirmed
+      decision_reason: "صفة مشبهة تُستخدم كاسم (substantivized) للدلالة على الشخص القديم، وهي المقابل المباشر لـ ancient في المعاجم ثنائية اللغة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "قَدِيم"
+    - lemma: "مِنَ الْقُدَمَاءِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير مسكوك وشائع الاستخدام في الأدبيات العربية للإشارة إلى فرد من العصور الغابرة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "مِنَ الْقُدَمَاءِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "غَابِر"
+      source: stage1
+      decision: removed
+      decision_reason: "ارتباط الكلمة بالزمن (الزمن الغابر) أو البقاء (الغابرين) يطغى على استخدامها كاسم للشخص القديم."
+
+# Stage 4: Definitions & Examples
+stage4_content:
+  definition:
+    current: "شخص عاش في العصور القديمة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي بسيط جداً؛ يفضل استخدام صياغة معجمية تحدد الإطار الزمني التاريخي."
+    authored:
+      - type: terminological
+        text: "إنسان عاش في العصور التاريخية الغابرة التي سبقت العصور الوسطى."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "إنسان عاش في العصور التاريخية الغابرة التي سبقت العصور الوسطى."}
+  examples:
+    per_lemma:
+      - lemma: "قَدِيم"
+        examples:
+          - text: "كَانَ القَدِيمُ يَعْتَمِدُ عَلَى الصَّيْدِ لِتَأْمِينِ قُوتِهِ اليومِيِّ."
+            type: usage
+      - lemma: "شَخْص مِنَ الْقُدَمَاءِ"
+        examples:
+          - text: "هَذَا النَّقْشُ تَرَكَهُ شَخْصٌ مِنَ الْقُدَمَاءِ عَلَى جِدَارِ الكَهْفِ."
+            type: usage
+      - lemma: "مِنَ الْقُدَمَاءِ"
+        examples:
+          - text: "يُعَدُّ سُقْرَاطُ مِنْ أَبْرَزِ الفَلَاسِفَةِ الَّذِينَ عُرِفُوا كَوَاحِدٍ مِنَ الْقُدَمَاءِ."
+            type: usage
+
+# Stage 5: Enrichment
+stage5_enrichment:
+  per_entry:
+    - lemma: "قَدِيم"
+      entry_id: "{auto}"
+      root: "قدم"
+      maqayis_quote: "«القاف والدال والميم أصل صحيح يدل على سبق ورعف... القدم خلاف الحدوث.»"
+    - lemma: "شَخْص مِنَ الْقُدَمَاءِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "شخص"
+          root: "شخص"
+          maqayis_quote: "«الشين والخاء والصاد أصل واحد يدل على ارتفاع في شيء. من ذلك الشخص، وهو سواد الإنسان إذا سما لك من بعد.»"
+        - word: "القدماء"
+          root: "قدم"
+          maqayis_quote: "«القاف والدال والميم أصل صحيح يدل على سبق ورعف... القدم خلاف الحدوث.»"
+    - lemma: "مِنَ الْقُدَمَاءِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "القدماء"
+          root: "قدم"
+          maqayis_quote: "«القاف والدال والميم أصل صحيح يدل على سبق ورعف... القدم خلاف الحدوث.»"
+  per_sense:
+    - lemma: "قَدِيم"
+      sense_id: "{auto}"
+      nuance: "تُستخدم كاسم فاعل للدلالة على الفرد من طبقة القدماء بتركيز على طول الزمن."
+      mwe: false
+    - lemma: "شَخْص مِنَ الْقُدَمَاءِ"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي صريح يربط الفرد بفئة تاريخية محددة."
+      mwe: true
+    - lemma: "مِنَ الْقُدَمَاءِ"
+      sense_id: "{auto}"
+      nuance: "صيغة اصطلاحية تُستخدم لإدراج شخص ضمن تصنيف تاريخي عريض."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قدم","maqayis":"«القاف والدال والميم أصل صحيح يدل على سبق ورعف... القدم خلاف الحدوث.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"شخص","root":"شخص","maqayis":"«الشين والخاء والصاد أصل واحد يدل على ارتفاع في شيء...»"},{"word":"القدماء","root":"قدم","maqayis":"«القاف والدال والميم أصل صحيح يدل على سبق ورعف...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تُستخدم كاسم فاعل للدلالة على الفرد من طبقة القدماء بتركيز على طول الزمن.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

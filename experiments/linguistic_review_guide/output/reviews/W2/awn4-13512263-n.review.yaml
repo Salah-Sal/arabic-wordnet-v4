@@ -1,0 +1,234 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "المجموعة الحالية تفتقر إلى مصطلحات فنية دقيقة لبعض جوانب العملية مثل التجمد (بفعل التبريد) والتقسية."
+    observations: "المجموعة تغطي عملية التحول للحالة الصلبة. اللمات الموجودة (تصلب، تصلد) صحيحة ومعبرة، لكن يمكن إثراؤها بمرادفات أكثر تخصيصاً للسياقات الفيزيائية والكيميائية المذكورة في التعريف."
+  blind_candidates:
+    - lemma: "تَصَلُّد"
+      generation_method: ishtiqaq
+      justification: "من الجذر (صلد) وهو مطاوع صلد الشىء إذا اشتد وصلب."
+    - lemma: "تَصَلُّب"
+      generation_method: ishtiqaq
+      justification: "من الجذر (صلب) وهو التحول من الحالة اللينة إلى القاسية."
+    - lemma: "تَجَمُّد"
+      generation_method: ishtiqaq
+      justification: "يصف عملية التحول إلى صلب بفعل التبريد تحديداً، وهو ما ورد في التعريف."
+    - lemma: "تَقْسِيَة"
+      generation_method: ishtiqaq
+      justification: "مصطلح تقني شائع في الهندسة والكيمياء لوصف عملية التصلب (Hardening)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تصلب"
+      confirm:
+        - text: "«تحوُّل المادة من الحالة السائلة إلى الحالة الصلبة.»"
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة"
+        - text: "«(تصلب) تشدد وتقوى وفقد لينه يُقَال تصلب الْعود وتصلب الشريان»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«في علم المياه، هو زيادة عسر المياه... أمّا في مجال تصنيع الفولاذ فيُقصد به تصلّب الفولاذ بواسطة التبريد السريع.»"
+          source: "المعجم الموحد لمصطلحات المياه"
+    - lemma: "تصلد"
+      confirm:
+        - text: "«هو تصلّد غير مرغوب فيه للألواح الصُلب من خلال التسخين والتبريد المفاجئ للمعدن.»"
+          source: "مسرد هندسة وتكنولوجيا السيارات"
+        - text: "«(صلد) الصَّادُ وَاللَّامُ وَالدَّالُ أَصْلٌ وَاحِدٌ صَحِيحٌ، يَدُلُّ عَلَى صَلَابَةٍ وَيُبْسٍ. مِنْ ذَلِكَ الْحَجَرُ الصَّلْدُ، وَهُوَ الصُّلْبُ.»"
+          source: "مقاييس اللغة"
+    - lemma: "تجمد"
+      confirm:
+        - text: "«يتجمد الماء (أو أي سائل آخر)، أي يتحول من الحالة السائلة إلى الحالة الصلبة، عندما تكون درجة حرارة محيطه تحت درجة تجمده.»"
+          source: "مسرد المناخ والبيئة وإدارة النفايات الصلبة"
+        - text: "«(جَمَدَ) الْجِيمُ وَالْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ، وَهُوَ جُمُودُ الشَّيْءِ الْمَائِعِ مِنْ بَرَدٍ أَوْ غَيْرِهِ.»"
+          source: "مقاييس اللغة"
+    - lemma: "تقسية"
+      confirm:
+        - text: "«(تقسية) hardening»"
+          source: "المعجم الموحد لمصطلحات الكيمياء"
+        - text: "«تقسية انفعالية: strain hardening; work hardening»"
+          source: "المعجم الموحد لمصطلحات الفيزياء العامة والنووية"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تَصَلُّب"
+      decision: confirmed
+      decision_reason: "المصطلح الأساسي والأكثر شيوعاً للتعبير عن التحول للحالة الصلبة في مختلف العلوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَصَلُّب"
+    - lemma: "تَصَلُّد"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح يعبر عن اكتساب الصلابة واليبوسة، ويستخدم تقنياً في وصف حالة المعادن والصخور."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَصَلُّد"
+    - lemma: "تَجَمُّد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يصف العملية الناتجة عن التبريد (cooling) المذكورة في التعريف بشكل دقيق."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَجَمُّد", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَقْسِيَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح علمي معتمد في الكيمياء والفيزياء والهندسة كمرادف لـ (Hardening)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَقْسِيَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "عملية التحول إلى صلب أو قاسي عن طريق التبريد أو التجفيف أو التبلور"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكن يمكن تحسين صياغته لتكون أكثر دقة بأسلوب المعاجم العربية الحديثة وإضافة العوامل الكيميائية."
+    authored:
+      - type: terminological
+        text: "تَحَوُّلُ الْمَادَّةِ مِنَ الْحَالَةِ السَّائِلَةِ أَوِ اللَّيِّنَةِ إِلَى الْحَالَةِ الصَّلْبَةِ، سَوَاءٌ كَانَ ذَلِكَ بِالتَّبْرِيدِ أَوِ التَّجْفِيفِ أَوِ التَّبْلُوُرِ أَوْ بِتَفَاعُلٍ كِيمْيَائِيٍّ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "تَحَوُّلُ الْمَادَّةِ مِنَ الْحَالَةِ السَّائِلَةِ أَوِ اللَّيِّنَةِ إِلَى الْحَالَةِ الصَّلْبَةِ، سَوَاءٌ كَانَ ذَلِكَ بِالتَّبْرِيدِ أَوِ التَّجْفِيفِ أَوِ التَّبْلُوُرِ أَوْ بِتَفَاعُلٍ كِيمْيَائِيٍّ."}
+  examples:
+    per_lemma:
+      - lemma: "تَصَلُّب"
+        examples:
+          - text: "يؤدي تبريد الصهارة البركانية إلى تصلبها وتحولها إلى صخور نارية."
+            type: usage
+      - lemma: "تَصَلُّد"
+        examples:
+          - text: "تصلد الطين في الشمس فصار كالفخار."
+            type: usage
+      - lemma: "تَجَمُّد"
+        examples:
+          - text: "لوحظ تجمد مياه البحيرة تماماً في فصل الشتاء القارس."
+            type: usage
+      - lemma: "تَقْسِيَة"
+        examples:
+          - text: "تخضع السبائك المعدنية لعملية تقسيم حرارية لزيادة مقاومتها."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تَصَلُّب"
+      entry_id: "{auto}"
+      root: "صلب"
+      maqayis_quote: "«الصَّادُ وَاللَّامُ وَالْبَاءُ أَصْلَانِ: أَحَدُهُمَا يَدُلُّ عَلَى الشِّدَّةِ وَالْقُوَّةِ... فَالْأَوَّلُ الصُّلْبُ، وَهُوَ الشَّيْءُ الشَّدِيدُ.»"
+    - lemma: "تَصَلُّد"
+      entry_id: "{auto}"
+      root: "صلد"
+      maqayis_quote: "«الصَّادُ وَاللَّامُ وَالدَّالُ أَصْلٌ وَاحِدٌ صَحِيحٌ، يَدُلُّ عَلَى صَلَابَةٍ وَيُبْسٍ. مِنْ ذَلِكَ الْحَجَرُ الصَّلْدُ، وَهُوَ الصُّلْبُ.»"
+    - lemma: "تَجَمُّد"
+      entry_id: "{auto}"
+      root: "جمد"
+      maqayis_quote: "«الْجِيمُ وَالْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ، وَهُوَ جُمُودُ الشَّيْءِ الْمَائِعِ مِنْ بَرَدٍ أَوْ غَيْرِهِ.»"
+    - lemma: "تَقْسِيَة"
+      entry_id: "{auto}"
+      root: "قسو"
+      maqayis_quote: "«الْقَافُ وَالسِّينُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى شِدَّةٍ وَصَلَابَةٍ.»"
+  per_sense:
+    - lemma: "تَصَلُّب"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام والشامل لعملية التحول للحالة الصلبة."
+      mwe: false
+    - lemma: "تَصَلُّد"
+      sense_id: "{auto}"
+      nuance: "يوحي بصلابة شديدة ويبوسة كصلابة الحجر والمعدن."
+      mwe: false
+    - lemma: "تَجَمُّد"
+      sense_id: "{auto}"
+      nuance: "يختص بالتصلب الناتج عن انخفاض درجة الحرارة (التبريد)."
+      mwe: false
+    - lemma: "تَقْسِيَة"
+      sense_id: "{auto}"
+      nuance: "غالباً ما يستخدم في السياقات التقنية والصناعية لوصف عمليات المعالجة التي تزيد الصلابة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صلب","maqayis":"«الصَّادُ وَاللَّامُ وَالْبَاءُ أَصْلَانِ: أَحَدُهُمَا يَدُلُّ عَلَى الشِّدَّةِ وَالْقُوَّةِ... فَالْأَوَّلُ الصُّلْبُ، وَهُوَ الشَّيْءُ الشَّدِيدُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صلد","maqayis":"«الصَّادُ وَاللَّامُ وَالدَّالُ أَصْلٌ وَاحِدٌ صَحِيحٌ، يَدُلُّ عَلَى صَلَابَةٍ وَيُبْسٍ. مِنْ ذَلِكَ الْحَجَرُ الصَّلْدُ، وَهُوَ الصُّلْبُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جمد","maqayis":"«الْجِيمُ وَالْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ، وَهُوَ جُمُودُ الشَّيْءِ الْمَائِعِ مِنْ بَرَدٍ أَوْ غَيْرِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قسو","maqayis":"«الْقَافُ وَالسِّينُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى شِدَّةٍ وَصَلَابَةٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العام والشامل لعملية التحول للحالة الصلبة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يوحي بصلابة شديدة ويبوسة كصلابة الحجر والمعدن.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يختص بالتصلب الناتج عن انخفاض درجة الحرارة (التبريد).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"غالباً ما يستخدم في السياقات التقنية والصناعية لوصف عمليات المعالجة التي تزيد الصلابة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

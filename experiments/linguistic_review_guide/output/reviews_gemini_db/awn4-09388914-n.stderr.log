@@ -1,0 +1,39 @@
+YOLO mode is enabled. All tool calls will be automatically approved.
+Loaded cached credentials.
+YOLO mode is enabled. All tool calls will be automatically approved.
+Bash command parsing error detected for command: << 'EOF' > /workspace/queries.sh
+sqlite3 -json /data/arabic_dict.db "
+SELECT e.id AS entry_id, e.headword, e.headword_norm, e.root, e.definitions_text, e.translation_en, e.domain, d.name_ar, d.source_type
+FROM entries e
+JOIN dictionaries d ON e.dictionary_id = d.id
+WHERE e.headword_norm IN ('منخفض طبيعي', 'المنخفض الطبيعي', 'منخفض', 'المنخفض')
+ORDER BY e.headword_norm, d.source_type;
+" > /workspace/q1_headword.json
+
+sqlite3 -json /data/arabic_dict.db "
+SELECT e.id AS entry_id, e.headword, e.headword_norm, e.root, e.definitions_text, e.translation_en, e.domain, d.name_ar, d.source_type
+FROM entries e
+JOIN dictionaries d ON e.dictionary_id = d.id
+WHERE e.id IN (
+    SELECT rowid FROM entries_translations_fts
+    WHERE entries_translations_fts MATCH 'translation_en:\"natural depression\" OR translation_en:\"depression\" OR translation_en:\"basin\" OR translation_en:\"hollow\" OR translation_en:\"sinkhole\"'
+    ORDER BY bm25(entries_translations_fts, 5.0, 3.0, 1.0)
+    LIMIT 50
+)
+ORDER BY d.source_type, d.name_en;
+" > /workspace/q2_english_bridge.json
+
+sqlite3 -json /data/arabic_dict.db "
+SELECT e.id AS entry_id, e.headword, e.headword_norm, e.root, e.definitions_text, e.translation_en, e.domain, d.name_ar, d.source_type
+FROM entries e
+JOIN dictionaries d ON e.dictionary_id = d.id
+WHERE e.id IN (
+    SELECT rowid FROM entries_fts
+    WHERE entries_fts MATCH '\"تكوين جيولوجي\" OR \"منخفض جيولوجي\" OR \"تكوين غائر\" OR \"غائر\" OR \"وهدة\" OR \"هوة\" OR \"نقر\"'
+    ORDER BY bm25(entries_fts, 10.0, 5.0, 5.0, 3.0, 1.0)
+    LIMIT 50
+)
+ORDER BY d.source_type, d.name_en;
+" > /workspace/q3_fts.json
+
+EOF Syntax Errors: [ 'Error node: "<" at 0:0' ]

@@ -1,0 +1,197 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة 'إنتاج الزوج' تعتبر ترجمة حرفية ركيكة وغير شائعة، وتفتقر إلى الدقة العلمية مقارنة بالمصطلحات المعتمدة مثل 'إنتاج الأزواج' أو 'الإنتاج الزوجي'."
+    observations: "اللمة تعبر عن ظاهرة فيزيائية نووية تتمثل في تحول طاقة فوتون (كأشعة جاما) إلى زوج من الجسيمات (إلكترون وبوزيترون). المعاجم العلمية المعتمدة تفضل تركيب 'إنتاج الأزواج' أو 'إنتاج زوجي'."
+  blind_candidates:
+    - lemma: "إِنْتَاجٌ زَوْجِيٌّ"
+      generation_method: tarkib
+      justification: "وصف الإنتاج بأنه زوجي نسبة إلى تشكل زوج من الجسيمات (إلكترون وبوزيترون)."
+    - lemma: "إِنْتَاجُ الأَزْوَاجِ"
+      generation_method: tarkib
+      justification: "تركيب إضافي يعكس بدقة الترجمة المعتمدة في المعاجم الفيزيائية لمصطلح 'pair production'."
+    - lemma: "تَوَلُّدٌ زَوْجِيٌّ"
+      generation_method: tarkib
+      justification: "التولد يعبر عن الاستحداث الطبيعي للجسيمين من الطاقة."
+    - lemma: "تَخَلُّقٌ زَوْجِيٌّ"
+      generation_method: tarkib
+      justification: "التخلق يعبر عن التشكل والتحول الفيزيائي للجسيمين."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "إنتاج الزوج"
+      evidence_status: "no_material_found"
+    - lemma: "إِنْتَاجُ الأَزْوَاجِ"
+      confirm:
+        - text: "انتاج الأزواج (ن) : translation_en: pair production, domain: Physics"
+          source: "المعجم الموحد لمصطلحات الفيزياء العامة والنووية (1989)"
+        - text: "امتصاص منتج الأزواج : translation_en: pair-production absorption"
+          source: "المعجم الموحد لمصطلحات الفيزياء العامة والنووية (1989)"
+    - lemma: "إِنْتَاجٌ زَوْجِيٌّ"
+      confirm:
+        - text: "انتاج ثنائي (زوجي) : translation_en: pair production"
+          source: "موسوعة الكهرباء (IEC 60050)"
+    - lemma: "تَوَلُّدٌ زَوْجِيٌّ"
+      evidence_status: "no_material_found"
+    - lemma: "تَخَلُّقٌ زَوْجِيٌّ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "إنتاج الزوج"
+      decision: removed
+      decision_reason: "ترجمة حرفية ركيكة لا تُستخدم في المصادر العلمية المعتمدة في الفيزياء."
+      evidence_assessment:
+        case: no_material
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    
+    - lemma: "إِنْتَاجُ الأَزْوَاجِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح الأكثر شيوعاً واعتماداً في المعاجم الفيزيائية الموحدة (مثل معجم الفيزياء العامة والنووية)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "إِنْتَاجُ الأَزْوَاجِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-13552638-n"}
+
+    - lemma: "إِنْتَاجٌ زَوْجِيٌّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح علمي دقيق ومعتمد في بعض الموسوعات التقنية كبديل معبر."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "إِنْتَاجٌ زَوْجِيٌّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-13552638-n"}
+
+    - lemma: "تَوَلُّدٌ زَوْجِيٌّ"
+      source: stage1
+      decision: removed
+      decision_reason: "غياب الدليل المعجمي والمصطلحات الأخرى أكثر دقة وشيوعاً."
+      evidence_assessment:
+        case: no_material
+
+    - lemma: "تَخَلُّقٌ زَوْجِيٌّ"
+      source: stage1
+      decision: removed
+      decision_reason: "غياب الدليل المعجمي والمصطلحات الأخرى أكثر دقة وشيوعاً."
+      evidence_assessment:
+        case: no_material
+
+stage4_content:
+  definition:
+    current: "تحول فوتون أشعة جاما إلى إلكترون وبوزيترون عندما يمر الفوتون بالقرب من نواة ذرية"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دقيق فيزيائياً، لكن يمكن تحسين صياغته لتكون أكثر اتساقاً مع الأسلوب المعجمي (ببدئه بكلمة 'عملية')."
+    authored:
+      - type: terminological
+        text: "عملية فيزيائية يتحول فيها فوتون عالي الطاقة، كفوتون أشعة جاما، إلى زوج من الجسيمات هما إلكترون وبوزيترون، عند مروره بالقرب من نواة ذرية."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-13552638-n", definition_index: 0, text: "عملية فيزيائية يتحول فيها فوتون عالي الطاقة، كفوتون أشعة جاما، إلى زوج من الجسيمات هما إلكترون وبوزيترون، عند مروره بالقرب من نواة ذرية."}
+
+  examples:
+    per_lemma:
+      - lemma: "إِنْتَاجُ الأَزْوَاجِ"
+        examples:
+          - text: "يُعدّ إنتاج الأزواج من أبرز ظواهر التفاعل بين الإشعاع الكهرومغناطيسي والمادة."
+            type: usage
+      - lemma: "إِنْتَاجٌ زَوْجِيٌّ"
+        examples:
+          - text: "يحدث الإنتاج الزوجي عندما تتفاعل أشعة جاما عالية الطاقة مع المجال الكهربائي للنواة."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يُعدّ إنتاج الأزواج من أبرز ظواهر التفاعل بين الإشعاع الكهرومغناطيسي والمادة."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يحدث الإنتاج الزوجي عندما تتفاعل أشعة جاما عالية الطاقة مع المجال الكهربائي للنواة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "إِنْتَاجُ الأَزْوَاجِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "إنتاج"
+          root: "نتج"
+          maqayis_quote: "«النُّونُ وَالتَّاءُ وَالْجِيمُ كَلِمَةٌ وَاحِدَةٌ، هِيَ النِّتَاجُ. وَنُتِجَتِ النَّاقَةُ ; وَنَتَجَهَا أَهْلُهَا.»"
+        - word: "الأزواج"
+          root: "زوج"
+          maqayis_quote: "«الزَّاءُ وَالْوَاوُ وَالْجِيمُ أَصْلٌ يَدُلُّ عَلَى مُقَارَنَةِ شَيْءٍ لِشَيْءٍ.»"
+    - lemma: "إِنْتَاجٌ زَوْجِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "إنتاج"
+          root: "نتج"
+          maqayis_quote: "«النُّونُ وَالتَّاءُ وَالْجِيمُ كَلِمَةٌ وَاحِدَةٌ، هِيَ النِّتَاجُ. وَنُتِجَتِ النَّاقَةُ ; وَنَتَجَهَا أَهْلُهَا.»"
+        - word: "زوجي"
+          root: "زوج"
+          maqayis_quote: "«الزَّاءُ وَالْوَاوُ وَالْجِيمُ أَصْلٌ يَدُلُّ عَلَى مُقَارَنَةِ شَيْءٍ لِشَيْءٍ.»"
+
+  per_sense:
+    - lemma: "إِنْتَاجُ الأَزْوَاجِ"
+      sense_id: "{auto}"
+      nuance: "المصطلح القياسي والأكثر اعتماداً في المعاجم الفيزيائية الموحدة."
+      mwe: true
+    - lemma: "إِنْتَاجٌ زَوْجِيٌّ"
+      sense_id: "{auto}"
+      nuance: "مصطلح وصفي يركز على طبيعة العملية كإنتاج لجسيمين مترافقين."
+      mwe: true
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"إنتاج","root":"نتج","maqayis":"«النُّونُ وَالتَّاءُ وَالْجِيمُ كَلِمَةٌ وَاحِدَةٌ، هِيَ النِّتَاجُ.»"},{"word":"الأزواج","root":"زوج","maqayis":"«الزَّاءُ وَالْوَاوُ وَالْجِيمُ أَصْلٌ يَدُلُّ عَلَى مُقَارَنَةِ شَيْءٍ لِشَيْءٍ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"إنتاج","root":"نتج","maqayis":"«النُّونُ وَالتَّاءُ وَالْجِيمُ كَلِمَةٌ وَاحِدَةٌ، هِيَ النِّتَاجُ.»"},{"word":"زوجي","root":"زوج","maqayis":"«الزَّاءُ وَالْوَاوُ وَالْجِيمُ أَصْلٌ يَدُلُّ عَلَى مُقَارَنَةِ شَيْءٍ لِشَيْءٍ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح القياسي والأكثر اعتماداً في المعاجم الفيزيائية الموحدة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح وصفي يركز على طبيعة العملية كإنتاج لجسيمين مترافقين.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-13552638-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-13552638-n"
+        score: 0.95

@@ -1,0 +1,290 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي مقتضب جداً ولا يعبر عن الطبيعة الكيميائية أو الاستعمال التقني للمادة."
+      - "اللمّات الموجودة عبارة عن مركبات وصفية (MWEs)، بينما توجد مصطلحات مفردة فصيحة في المعاجم المتخصصة مثل 'دافع' و'داسر'."
+    observations: "المجموعة تغطي مفهوم المادة الدافعة (propellant) المستخدمة في الصواريخ والذخائر. اللمّات الحالية صحيحة وشائعة، لكن المجموعة تفتقر إلى الألفاظ المفردة التي أثبتتها المجامع اللغوية والمعاجم الحديثة."
+  blind_candidates:
+    - lemma: "دَافِع"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل 'دفع'، وهو المصطلح المعتمد في العديد من المعاجم العلمية لترجمة propellant."
+    - lemma: "مَادَّة دَافِعَة"
+      generation_method: tarkib
+      justification: "تركيب وصفي مباشر يعبر عن المفهوم، وهو الترجمة الأكثر شيوعاً."
+    - lemma: "وَقُود دَافِع"
+      generation_method: tarkib
+      justification: "تركيب وصفي يخصص المادة بأنها وقود، وهو مستخدم بكثرة في سياق الصواريخ."
+    - lemma: "دَفَّاع"
+      generation_method: ishtiqaq
+      justification: "صيغة مبالغة على وزن 'فعّال' للدلالة على الآلة أو المادة التي تقوم بفعل الدفع بقوة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "دَافِع"
+      confirm:
+        - text: "«دَافِع، دَاسِر: propellant»"
+          source: "المعجم الموحد لمصطلحات الكيمياء (1992)"
+        - text: "«دَافِع، مُسَيِّر: propellant»"
+          source: "المعجم الموحد لمصطلحات علوم البحار (2000)"
+      expands:
+        - text: "«الدَّافِعُ: مِن الشَّاءِ والنُّوقِ: التى تَدْفَعُ اللَّبَنَ...»"
+          source: "المعجم الكبير"
+          addition: "المعنى اللغوي القديم يرتبط بدفع اللبن، بينما المعنى الحديث تقني."
+    - lemma: "دَاسِر"
+      confirm:
+        - text: "«دَافِع، دَاسِر: propellant»"
+          source: "المعجم الموحد لمصطلحات الكيمياء (1992)"
+        - text: "«داسر: يميز في المحركات الإشعاعية جزء من المحرك... بسبب الدفع يتم من خلال دفع الغاز عكس اتجاه الطيران»"
+          source: "المعجم الموحد لمصطلحات النقل (2010)"
+    - lemma: "وَقُود دَفْعِيّ"
+      confirm:
+        - text: "«دافع، داسر: وقود دفعي يتكون من مادة مشتعلة وأخرى مؤكسدة»"
+          source: "المعجم الموحد لمصطلحات الكيمياء (1992)"
+    - lemma: "مَادَّة دَافِعَة"
+      confirm:
+        - text: "«طاقة دافعة: مادة أو مجموعة مواد يُولِّد تفاعلها الكيميائي طاقة تُستعمل في الدفع الذاتي للصواريخ...»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "وَقُود دَافِع"
+      confirm:
+        - text: "«وقود دفعي يتكون من مادة مشتعلة وأخرى مؤكسدة»"
+          source: "المعجم الموحد لمصطلحات الكيمياء (1992)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مادة دافعة"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح شائع الاستخدام في الأوساط العلمية والتقنية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَادَّة دَافِعَة"
+    - lemma: "وقود دافع"
+      decision: confirmed
+      decision_reason: "مصطلح متخصص دقيق لوصف المواد الدافعة التي تعمل كوقود."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "وَقُود دَافِع"
+    - lemma: "دَافِع"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح مفرد معتمد في المعاجم الموحدة للكيمياء وعلوم البحار."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "دَافِع", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-14715983-n"}
+    - lemma: "دَاسِر"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ عربي أصيل (من الدسر بمعنى الدفع الشديد) تم إحياؤه في المعاجم العلمية الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "دَاسِر", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-14715983-n"}
+    - lemma: "وَقُود دَفْعِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مذكور في تعريف المصطلح في معجم الكيمياء الموحد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "وَقُود دَفْعِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-14715983-n"}
+
+stage4_content:
+  definition:
+    current: "أي مادة تقوم بالدفع"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مفرط في البساطة ولا يحدد السياق التقني للمادة."
+    authored:
+      - type: terminological
+        text: "مادة أو مزيج من المواد الكيميائية يُولِّد احتراقُها أو تفاعلها طاقةً أو غازاتٍ تُستخدم في دفع الصواريخ أو القذائف أو المحركات."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-14715983-n", definition_index: 0, text: "مادة أو مزيج من المواد الكيميائية يُولِّد احتراقُها أو تفاعلها طاقةً أو غازاتٍ تُستخدم في دفع الصواريخ أو القذائف أو المحركات."}
+  examples:
+    per_lemma:
+      - lemma: "مَادَّة دَافِعَة"
+        examples:
+          - text: "يُستخدم النيتروجين السائل مادةً دافعة في أنظمة التحكم في وضعية الأقمار الصناعية."
+            type: usage
+      - lemma: "وَقُود دَافِع"
+        examples:
+          - text: "يتطلب الوصول إلى المدار الأرضي وقوداً دافعاً ذا كفاءة عالية وكتلة منخفضة."
+            type: usage
+      - lemma: "دَافِع"
+        examples:
+          - text: "يُعد الأكسجين السائل دافعاً أساسياً في معظم المحركات الصاروخية ذات الوقود السائل."
+            type: usage
+      - lemma: "دَاسِر"
+        examples:
+          - text: "تُصنف الحبيبات الكربونية ضمن الدواسر الصلبة المستخدمة في المحركات التقليدية."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-14715983-n", text: "تعتمد كفاءة الصاروخ بشكل أساسي على نوع المادة الدافعة المستخدمة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَادَّة دَافِعَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "مادة"
+          root: "مدد"
+          maqayis_quote: "«الْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى جَرِّ شَيْءٍ فِي طُولٍ، وَاتِّصَالِ شَيْءٍ بِشَيْءٍ فِي اسْتِطَالَةٍ.»"
+        - word: "دافعة"
+          root: "دفع"
+          maqayis_quote: "«الدَّالُ وَالْفَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ مَشْهُورٌ، يَدُلُّ عَلَى تَنْحِيَةِ الشَّيْءِ.»"
+    - lemma: "وَقُود دَافِع"
+      entry_id: "{auto}"
+      roots:
+        - word: "وقود"
+          root: "وقد"
+          maqayis_quote: "«الْوَاوُ وَالْقَافُ وَالدَّالُ: كَلِمَةٌ تَدُلُّ عَلَى اشْتِعَالِ نَارٍ.»"
+        - word: "دافع"
+          root: "دفع"
+          maqayis_quote: "«الدَّالُ وَالْفَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ مَشْهُورٌ، يَدُلُّ عَلَى تَنْحِيَةِ الشَّيْءِ.»"
+    - lemma: "دَافِع"
+      entry_id: "{auto}"
+      root: "دفع"
+      maqayis_quote: "«الدَّالُ وَالْفَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ مَشْهُورٌ، يَدُلُّ عَلَى تَنْحِيَةِ الشَّيْءِ.»"
+    - lemma: "دَاسِر"
+      entry_id: "{auto}"
+      root: "دسر"
+      maqayis_quote: "«الدَّالُ وَالسِّينُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الدَّفْعِ. يُقَالُ دَسَرْتُ الشَّيْءَ دَسْرًا، إِذَا دَفَعْتَهُ دَفْعًا شَدِيدًا.»"
+    - lemma: "وَقُود دَفْعِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "وقود"
+          root: "وقد"
+          maqayis_quote: "«الْوَاوُ وَالْقَافُ وَالدَّالُ: كَلِمَةٌ تَدُلُّ عَلَى اشْتِعَالِ نَارٍ.»"
+        - word: "دفعي"
+          root: "دفع"
+          maqayis_quote: "«الدَّالُ وَالْفَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ مَشْهُورٌ، يَدُلُّ عَلَى تَنْحِيَةِ الشَّيْءِ.»"
+  per_sense:
+    - lemma: "مَادَّة دَافِعَة"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام والأكثر شمولاً لأي مادة تسبب الدفع."
+      mwe: true
+    - lemma: "وَقُود دَافِع"
+      sense_id: "{auto}"
+      nuance: "يُركز على طبيعة المادة كوقود (مصدر طاقة) في سياق المحركات الاحتراقية."
+      mwe: true
+    - lemma: "دَافِع"
+      sense_id: "{auto}"
+      nuance: "اسم فاعل مفرد يعبر عن الجوهر الفاعل لعملية الدفع."
+      mwe: false
+    - lemma: "دَاسِر"
+      sense_id: "{auto}"
+      nuance: "يؤكد على شدة الدفع وقوته، وهو مصطلح معجمي دقيق مستوحى من وصف السفينة التي تدسر الماء."
+      mwe: false
+    - lemma: "وَقُود دَفْعِيّ"
+      sense_id: "{auto}"
+      nuance: "وصف للمادة بوصفها وقوداً مخصصاً لغرض الدفع (Propulsive fuel)."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مادة","root":"مدد","maqayis_quote":"«الْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى جَرِّ شَيْءٍ فِي طُولٍ، وَاتِّصَالِ شَيْءٍ بِشَيْءٍ فِي اسْتِطَالَةٍ.»"},{"word":"دافعة","root":"دفع","maqayis_quote":"«الدَّالُ وَالْفَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ مَشْهُورٌ، يَدُلُّ عَلَى تَنْحِيَةِ الشَّيْءِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"وقود","root":"وقد","maqayis_quote":"«الْوَاوُ وَالْقَافُ وَالدَّالُ: كَلِمَةٌ تَدُلُّ عَلَى اشْتِعَالِ نَارٍ.»"},{"word":"دافع","root":"دفع","maqayis_quote":"«الدَّالُ وَالْفَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ مَشْهُورٌ، يَدُلُّ عَلَى تَنْحِيَةِ الشَّيْءِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"دفع","maqayis":"«الدَّالُ وَالْفَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ مَشْهُورٌ، يَدُلُّ عَلَى تَنْحِيَةِ الشَّيْءِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"دسر","maqayis":"«الدَّالُ وَالسِّينُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الدَّفْعِ. يُقَالُ دَسَرْتُ الشَّيْءَ دَسْرًا، إِذَا دَفَعْتَهُ دَفْعًا شَدِيدًا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"وقود","root":"وقد","maqayis_quote":"«الْوَاوُ وَالْقَافُ وَالدَّالُ: كَلِمَةٌ تَدُلُّ عَلَى اشْتِعَالِ نَارٍ.»"},{"word":"دفعي","root":"دفع","maqayis_quote":"«الدَّالُ وَالْفَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ مَشْهُورٌ، يَدُلُّ عَلَى تَنْحِيَةِ الشَّيْءِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العام والأكثر شمولاً لأي مادة تسبب الدفع.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُركز على طبيعة المادة كوقود في سياق المحركات الاحتراقية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اسم فاعل مفرد يعبر عن الجوهر الفاعل لعملية الدفع.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يؤكد على شدة الدفع وقوته، وهو مصطلح معجمي دقيق مستوحى من وصف السفينة التي تدسر الماء.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"وصف للمادة بوصفها وقوداً مخصصاً لغرض الدفع.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-14715983-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-14715983-n"
+        score: 0.95

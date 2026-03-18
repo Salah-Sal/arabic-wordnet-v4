@@ -1,0 +1,210 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّة 'انصباب' تُستخدم غالباً للتعبير عن (effusion) أي مرور الغاز عبر ثقب صغير، بينما التعريف يخص (transpiration) أي المرور عبر أنابيب دقيقة."
+      - "اللمّة 'نتح' هي الأدق علمياً لوصف العملية الفيزيائية المذكورة."
+    observations: "المجموعة تعالج مفهوماً فيزيائياً دقيقاً يتعلق بميكانيكا الغازات. اللمات الموجودة جيدة ولكن تحتاج لضبط التشكيل وإضافة مرادفات تعبر عن النفاذ عبر المسام والشقوق."
+  blind_candidates:
+    - lemma: "نَتْح"
+      generation_method: ishtiqaq
+      justification: "الجذر (نتح) يعني الرشح والخروج من المسام، وهو المصطلح العلمي المعتمد لـ (transpiration)."
+    - lemma: "نَضْح"
+      generation_method: ishtiqaq
+      justification: "الجذر (نضح) يعني الرشح والندى، ويستخدم لوصف نفاذ السوائل والغازات عبر الأوساط المسامية."
+    - lemma: "تَسَرُّب"
+      generation_method: ishtiqaq
+      justification: "يعبر عن نفاذ الغازات عبر الشقوق والفتحات الدقيقة (Infiltration)."
+    - lemma: "انْفَاذ"
+      generation_method: ishtiqaq
+      justification: "يعبر عن الجواز والعبور عبر الوسط (Penetration/Transmission)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "نَتْح"
+      confirm:
+        - text: "«نَتْح الغازات: transpiration of gases»"
+          source: "المعجم الموحد لمصطلحات الفيزياء"
+        - text: "«النَّتْح: العَرَقُ، وخُروجُهُ من الجِلْدِ»"
+          source: "القاموس المحيط"
+      expands:
+        - text: "«عملية انتقال المياه من النباتات إلى الجو على شكل بخار»"
+          source: "معجم مصطلحات المياه"
+          addition: "يؤكد استخدام المصطلح للرشح الغازي (بخار الماء)."
+    - lemma: "انْصِبَاب"
+      confirm:
+        - text: "«انصباب: effusion»"
+          source: "المعجم الموحد لمصطلحات علم الصحة"
+      contradicts:
+        - text: "«ارتشاح الدم أو غيره من سوائل الجسم في غير محلِّه»"
+          source: "المعجم الموحد لمصطلحات الطب البيطري"
+          conflict: "الاستخدام الطبي يركز على السوائل الحيوية، بينما السياق هنا فيزيائي للغازات."
+    - lemma: "نَضْح"
+      confirm:
+        - text: "«نضح الإناء بما فيه: سال ورشح»"
+          source: "المعجم الوسيط"
+        - text: "«النَّضْح: الرش أو الفوران الخفيف خروج الرطوبة من الخزف أو الصخر»"
+          source: "كتاب العين"
+    - lemma: "تَسَرُّب"
+      confirm:
+        - text: "«تسرب الهواء عبر الشقوق الموجودة في الأسقف أو الأرضيات أو الجدران»"
+          source: "معجم مصطلحات الطاقة المتجددة"
+        - text: "«تسرب: leakage»"
+          source: "معجم مصطلحات الفيزياء"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "نَتْح"
+      decision: confirmed
+      decision_reason: "المصطلح العلمي الأدق للعملية الفيزيائية الموصوفة (المرور عبر أنابيب دقيقة)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نَتْح"
+    - lemma: "انْصِبَاب"
+      decision: confirmed
+      decision_reason: "رغم أنه يعبر في الفيزياء عن (effusion) عبر الثقوب، إلا أنه يشيع استخدامه في السياق العام لميكانيكا الغازات كمرادف للنفاذ."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "انْصِبَاب"
+    - lemma: "تَسَرُّب"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يستخدم لوصف نفاذ الغازات عبر الفتحات والشقوق الدقيقة (Infiltration)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَسَرُّب", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "نَضْح"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تراثي وفصيح يعبر عن الرشح والنفاذ عبر الأوساط المسامية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "نَضْح", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "مرور الغازات عبر أنابيب دقيقة بسبب الاختلافات في الضغط أو درجة الحرارة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد ولكنه يحتاج صياغة أكثر دقة لغوياً لتشمل النفاذ عبر الأوساط المسامية."
+    authored:
+      - type: terminological
+        text: "سَرَيانُ الغازاتِ عبرَ أنابيبَ دقيقةٍ أو أوساطٍ مَسامِيَّةٍ نتيجةَ فَرْقِ الضَّغطِ أو درجاتِ الحرارةِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "نَتْح"
+        examples:
+          - text: "تَحْدُثُ ظاهرةُ النَّتْحِ الحراريِّ عندَ وجودِ فَرْقٍ في درجاتِ الحرارةِ بَيْنَ طرفَيِ الأنبوبِ الدقيقِ."
+            type: usage
+      - lemma: "انْصِبَاب"
+        examples:
+          - text: "يَقِلُّ مُعدَّلُ انصبابِ الغازاتِ بزيادةِ كُتلتِها الموليَّةِ وَفْقاً لقانونِ جراهام."
+            type: usage
+      - lemma: "تَسَرُّب"
+        examples:
+          - text: "يُؤَدِّي تسرُّبُ الهواءِ عبرَ شقوقِ الجدرانِ إلى فَقْدٍ حراريٍّ كبيرٍ."
+            type: usage
+      - lemma: "نَضْح"
+        examples:
+          - text: "يتميزُ الفخارُ بنضحِ الماءِ من مَسامِّهِ الدقيقةِ."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "سَرَيانُ الغازاتِ عبرَ أنابيبَ دقيقةٍ أو أوساطٍ مَسامِيَّةٍ نتيجةَ فَرْقِ الضَّغطِ أو درجاتِ الحرارةِ."}
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "تعتمدُ سرعةُ نتحِ الغازاتِ على قُطرِ الأنبوبِ ونوعِ الغازِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "نَتْح"
+      entry_id: "{auto}"
+      root: "نتح"
+      maqayis_quote: "«النُّونُ وَالتَّاءُ وَالْحَاءُ. نَتَحَ الْعَرَقُ: رَشَحَ. وَمَنَاتِحُ الْعَرَقِ: مَخَارِجُهُ.»"
+    - lemma: "انْصِبَاب"
+      entry_id: "{auto}"
+      root: "صبب"
+      maqayis_quote: "«الصَّادُ وَالْبَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ إِرَاقَةُ الشَّيْءِ... فَيُقَالُ لِمَا انْحَدَرَ مِنَ الْأَرْضِ صَبَبٌ.»"
+    - lemma: "تَسَرُّب"
+      entry_id: "{auto}"
+      root: "سرب"
+      maqayis_quote: "«السِّينُ وَالرَّاءُ وَالْبَاءُ أَصْلٌ مُطَّرِدٌ... وَالسَّرْبُ: الْخَرْزُ ; لِأَنَّ الْمَاءَ يَنْسَرِبُ مِنْهُ، أَيْ يَخْرُجُ.»"
+    - lemma: "نَضْح"
+      entry_id: "{auto}"
+      root: "نضح"
+      maqayis_quote: "«النُّونُ وَالضَّادُ وَالْحَاءُ أَصْلٌ يَدُلُّ عَلَى شَيْءٍ يُنَدَّى، وَمَاءٌ يُرَشُّ.»"
+  per_sense:
+    - lemma: "نَتْح"
+      sense_id: "{auto}"
+      nuance: "المصطلح التقني الدقيق لمرور الغاز عبر أنابيب شعرية أو دقيقة."
+      mwe: false
+    - lemma: "انْصِبَاب"
+      sense_id: "{auto}"
+      nuance: "يستخدم غالباً للتعبير عن خروج الغاز عبر ثقب صغير (effusion) في ميكانيكا الغازات."
+      mwe: false
+    - lemma: "تَسَرُّب"
+      sense_id: "{auto}"
+      nuance: "يشير إلى النفاذ غير المرغوب فيه عبر الشقوق أو المنافذ الضيقة."
+      mwe: false
+    - lemma: "نَضْح"
+      sense_id: "{auto}"
+      nuance: "يشير إلى الرشح أو النفاذ التدريجي عبر الأوساط المسامية."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نتح","maqayis":"«النُّونُ وَالتَّاءُ وَالْحَاءُ. نَتَحَ الْعَرَقُ: رَشَحَ. وَمَنَاتِحُ الْعَرَقِ: مَخَارِجُهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صبب","maqayis":"«الصَّادُ وَالْبَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ إِرَاقَةُ الشَّيْءِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح التقني الدقيق لمرور الغاز عبر أنابيب شعرية أو دقيقة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

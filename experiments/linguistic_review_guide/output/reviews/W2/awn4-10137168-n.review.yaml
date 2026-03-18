@@ -1,0 +1,160 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "رَابِح"
+      confirm:
+        - text: "«رَابِح من (ر ب ح) صاحب الربح والكاسب والكثير الربح.»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+      peripheral_observations:
+        - "«مالٌ رَابِحٌ: ذو رِبْح. كقولك: لابِنٌ وتامِرٌ يَرُوج ويَرْجِع عليك نَفْعُه» — المعجم الكبير"
+        - "«(الرابح) مَال رابح ذُو ربح» — المعجم الوسيط"
+        - "«الفَصِيلُ, وهو وَلَدُ النَّاقَةِ» — المعجم الكبير"
+    - lemma: "كَاسِب"
+      confirm:
+        - text: "«كَاسِب من (ك س ب) من يطلب الرزق والمعيشة، ومن يربح المال.»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "مُكْتَسِب"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«يُحْرِز؛ يَبلغ؛ يكتسب» — المورد الحديث (2008)"
+      justification: "اشتقاق (اسم فاعل) من الفعل (اكتسب) الوارد في التعريف بمعنى يحرز ويبلغ الميزة."
+  knowledge_candidates:
+    - lemma: "مُسْتَفِيد"
+      justification: "اشتقاق (اسم فاعل على وزن مُسْتَفْعِل) للدلالة على من يجني منفعة أو ميزة من شيء ما، وهو مرادف دقيق للمفهوم."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "رَابِح"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح وأساسي يدل على من يحصل على مكسب، وتؤكده المعاجم."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يدل على من يجني ربحاً في تجارة أو منافسة."
+      example: "كان هو الرابح الأكبر في تلك الصفقة التجارية."
+    - lemma: "كَاسِب"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح وشائع يدل على تحصيل الرزق والمال."
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يدل على من يكتسب ويحصل على فائدة أو مال بعمله وجهده المباشر."
+      example: "عاد الكاسب إلى أهله حاملاً قوت يومهم."
+    - lemma: "مُسْتَفِيد"
+      source: step05
+      decision: confirmed
+      decision_reason: "مصطلح فصيح وشائع يدل على من يجني منفعة أو ميزة، ويتطابق تماماً مع دلالة التعريف (gains an advantage)."
+      step05_citation: "معرفة لغوية عامة"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يركز على جني المنفعة والميزة المعنوية أو المادية (Advantage)، بينما يركز الرابح على الأرباح."
+      example: "كان هو المستفيد الأكبر من التعديلات الجديدة في القانون."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُسْتَفِيد"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10137168-n"
+    - lemma: "مُكْتَسِب"
+      source: step05
+      decision: confirmed
+      decision_reason: "لفظ فصيح يعبر عن جني الفائدة وتحصيلها، وهو اسم فاعل من اكتسب التي تفسر معنى الربح."
+      step05_citation: "«يُحْرِز؛ يَبلغ؛ يكتسب» — المورد الحديث (2008)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يدل على نيل الشيء والحصول عليه بالجهد والمزاولة والتعلم."
+      example: "المكتسب لمهارات جديدة يكون أقدر على تطوير عمله."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُكْتَسِب"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10137168-n"
+  added_lemmas:
+    - lemma: "مُسْتَفِيد"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+    - lemma: "مُكْتَسِب"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "شخص يربح (يكتسب ميزة أو يجني أرباحاً)"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وواضح ويغطي الجانب المادي (يجني أرباحاً) والجانب المعنوي (يكتسب ميزة)."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "awn4-09786620-n"
+    test_result: "correct"
+  antonymy:
+    per_lemma:
+      - lemma: "رَابِح"
+        antonym_found: true
+        antonym: "خَاسِر"
+      - lemma: "كَاسِب"
+        antonym_found: true
+        antonym: "خَاسِر"
+      - lemma: "مُسْتَفِيد"
+        antonym_found: true
+        antonym: "مُتَضَرِّر"
+      - lemma: "مُكْتَسِب"
+        antonym_found: true
+        antonym: "فَاقِد"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "رَابِح"
+      enrichment:
+        root: "ر-ب-ح"
+      examples:
+        - text: "كان هو الرابح الأكبر في تلك الصفقة التجارية."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "كَاسِب"
+      enrichment:
+        root: "ك-س-ب"
+      examples:
+        - text: "عاد الكاسب إلى أهله حاملاً قوت يومهم."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "مُسْتَفِيد"
+      enrichment:
+        root: "ف-ي-د"
+      examples:
+        - text: "كان هو المستفيد الأكبر من التعديلات الجديدة في القانون."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "مُكْتَسِب"
+      enrichment:
+        root: "ك-س-ب"
+      examples:
+        - text: "المكتسب لمهارات جديدة يكون أقدر على تطوير عمله."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native
+  actions:
+    - command: add_synset_example
+      params:
+        synset_id: "awn4-10137168-n"
+        text: "كان هو الرابح الأكبر في تلك الصفقة التجارية."

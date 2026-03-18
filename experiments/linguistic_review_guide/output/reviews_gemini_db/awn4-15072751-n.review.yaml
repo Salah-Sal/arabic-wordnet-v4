@@ -1,0 +1,165 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "عامل إذابة"
+      confirm:
+        - text: "«(2) عاملٌ مُذيب» — المورد الحديث (2008)"
+          source: "المورد الحديث"
+        - text: "«إذابة: solubilization» — المَكنَز الزراعي متعدد اللغات"
+          source: "المكنز الزراعي"
+      expands:
+        - text: "«عميل مذيب: dissolving agent» — المعجم الموحد لمصطلحات الكيمياء (1992)"
+          source: "المعجم الموحد لمصطلحات الكيمياء"
+
+    - lemma: "عامل تذاوب"
+      confirm:
+        - text: "«أيَّة عملية من عمليّات الربط كالتّميُّع أو التذاوب وغيرهما» — معجم اللغة العربية المعاصرة"
+          source: "معجم اللغة العربية المعاصرة"
+      expands:
+        - text: "«النصيب الكمّي لمادةٍ ما متذاوبة في مادةٍ أخرى» — معجم اللغة العربية المعاصرة"
+          source: "معجم اللغة العربية المعاصرة"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "عامل مذيب"
+      source_section: "step0_evidence"
+      evidence_citation: "«(1) مُذِيب (2) عاملٌ مُذيب» — المورد الحديث"
+      justification: "ورد صراحة كمرادف لـ (dissolvent) الذي يتقاطع دلالياً مع (solvating agent)."
+    - lemma: "عميل مذيب"
+      source_section: "step0_evidence"
+      evidence_citation: "«عميل مذيب: dissolving agent» — المعجم الموحد لمصطلحات الكيمياء"
+      justification: "ترجمة اصطلاحية دقيقة لـ (dissolving agent) في سياق الكيمياء."
+  knowledge_candidates:
+    - lemma: "مذيب"
+      justification: "اللفظ الأكثر شيوعاً للمادة التي تقوم بفعل الإذابة والتذاوب."
+  generation_notes: "تم التركيز على المصطلحات التي تجمع بين وصف الوظيفة (عامل/عميل) والعملية الكيميائية (إذابة/تذاوب/إمابة)."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "عامل إذابة"
+      decision: confirmed
+      decision_reason: "مصطلح تركيبي صحيح لغوياً ومستعمل في السياقات التقنية لوصف العوامل المساعدة على الإذابة."
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+        type: "إضافي"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يشير إلى الوظيفة العامة للإذابة (solubilization) وقد يُستخدم لوصف المواد المضافة التي تسهل انحلال المذاب."
+      example: "يُستخدم كحول الإيثانول كعامل إذابة فعال في العديد من التركيبات الدوائية."
+
+    - lemma: "عامل تذاوب"
+      decision: confirmed
+      decision_reason: "المصطلح التقني الأكثر دقة لمقابلة (solvating agent) حيث أن التذاوب هو الترجمة المعتمدة لـ (solvation)."
+      evidence_assessment:
+        case: "confirm_only"
+      mwe_check:
+        is_mwe: true
+        accepted: true
+        type: "إضافي"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "مصطلح كيميائي تخصصي يشير تحديداً إلى عملية إحاطة جزيئات المذيب بجزيئات المذاب (solvation)."
+      example: "يلعب جزيء الماء دور عامل تذاوب قوي بفضل قطبيته العالية."
+
+    - lemma: "عامل مذيب"
+      source: step05
+      decision: confirmed
+      decision_reason: "مرادف معجمي ثابت في المعاجم الحديثة لمصطلح (dissolvent)."
+      mwe_check:
+        is_mwe: true
+        accepted: true
+        type: "وصفي"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تعبير وصفي شائع يركز على الفاعلية في الإذابة."
+      example: "تتم إضافة عامل مذيب عضوي لتنظيف الأسطح من الدهون."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "عامل مذيب"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-15072751-n"
+
+    - lemma: "عميل مذيب"
+      source: step05
+      decision: confirmed
+      decision_reason: "ترجمة اصطلاحية متخصصة وردت في المعاجم الموحدة."
+      mwe_check:
+        is_mwe: true
+        accepted: true
+        type: "وصفي"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "يستخدم كلمة 'عميل' كترجمة لـ 'agent' وهي أقل شيوعاً من 'عامل' لكنها مستقرة في بعض المعاجم الكيميائية."
+      example: "يُصنف هذا المركب كعميل مذيب في التفاعلات الكيميائية غير المائية."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "عميل مذيب"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-15072751-n"
+
+    - lemma: "مذيب"
+      source: step05
+      decision: removed
+      decision_reason: "ينتمي لمجموعة ترادفية مستقلة (solvent) تركز على المادة نفسها لا على دورها كعامل."
+
+  added_lemmas:
+    - lemma: "عامل مذيب"
+      reason: "مصدر: الخطوة 0.5 (المورد الحديث)"
+      via_command: "create_entry + add_sense"
+    - lemma: "عميل مذيب"
+      reason: "مصدر: الخطوة 0.5 (المعجم الموحد للمصطلحات الكيمياء)"
+      via_command: "create_entry + add_sense"
+
+step3_definition:
+  current_definition: "عامل يحول شيئاً ما إلى مركب ذائب"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وبسيط ويغطي المفهوم العلمي لـ (solvating agent) وتكوين الـ (solvate)."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "عامل كيميائي"
+    test_result: "correct"
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "عامل إذابة"
+      enrichment:
+        root: "ع-م-ل / ذ-و-ب"
+      examples:
+        - text: "يُستخدم الإيثانول كعامل إذابة في صناعة العطور."
+          type: usage
+          source: "مؤلف"
+    - lemma: "عامل تذاوب"
+      enrichment:
+        root: "ع-م-ل / ذ-و-ب"
+      examples:
+        - text: "يعمل جزيء الماء كعامل تذاوب فعال في المحاليل المائية."
+          type: usage
+          source: "مؤلف"
+    - lemma: "عامل مذيب"
+      enrichment:
+        root: "ع-م-ل / ذ-و-ب"
+      examples:
+        - text: "تتم إضافة عامل مذيب عضوي لتنظيف الأسطح من الدهون."
+          type: usage
+          source: "مؤلف"
+    - lemma: "عميل مذيب"
+      enrichment:
+        root: "ع-م-ل / ذ-و-ب"
+      examples:
+        - text: "يُصنف هذا المركب كعميل مذيب في التفاعلات الكيميائية."
+          type: usage
+          source: "مؤلف"
+  cultural_fit:
+    assessment: native

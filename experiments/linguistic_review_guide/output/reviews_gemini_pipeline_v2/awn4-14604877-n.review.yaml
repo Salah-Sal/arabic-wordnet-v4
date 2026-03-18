@@ -1,0 +1,254 @@
+# Stage 1: Review + Generate
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي مقتضب جداً ويحتاج إلى توضيح الفرق بين المادة الخام والمادة بشكل عام."
+      - "المجموعة تفتقر إلى بعض المترادفات الأساسية مثل 'عنصر' و'مادة أولية'."
+    observations: "المجموعة تركز على مفهوم 'المادة' من حيث كونها المكون الفيزيائي للأجسام. الكلمتان الموجودتان حالياً (خامة، مادة خام) تشيران إلى المادة في حالتها الأولية، بينما تعريف المجموعة (المنقول عن OEWN) يشمل المادة الملموسة عموماً (Material/Stuff)."
+  blind_candidates:
+    - lemma: "خَامَة"
+      generation_method: majaz
+      justification: "كلمة عربية أصيلة استُعملت قديماً لوصف الغض الرطب من النبات، وتُوسع دلالتها مجازاً لتعني المادة الأولية التي لم تُصنّع بعد."
+    - lemma: "مُكَوِّن"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من 'كوّن'، يعبر عن الشيء الذي يدخل في تركيب الأجسام المادية."
+    - lemma: "عُنْصُر"
+      generation_method: majaz
+      justification: "يُستخدم لوصف الأصول التي تتألف منها الأجسام المختلفة، وهو مصطلح معجمي قديم (الجرجاني والمناوي)."
+    - lemma: "مُقَوِّم"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من 'قوّم'، ويُقصد به ما يرتكز عليه الشيء أو يدخل في قوامه المادي."
+
+# Stage 2: Evidence Gathering
+stage2_evidence:
+  per_lemma:
+    - lemma: "خَامَة"
+      confirm:
+        - text: "«(الخامة) الْمَادَّة الأولية الَّتِي تُوجد على حالتها الطبيعية قبل أَن تعالج أَو تصنع»"
+          source: "المعجم الوسيط"
+        - text: "«مادّة أوليّة لم يجر عليها التشغيل ولم تعالج أو تصنَّع»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "مَادَّة خَام"
+      confirm:
+        - text: "«موارد طبيعية لم تخضع بعد لأي مُعالجة بعد استخراجها من مصدرها الطبيعي... تُستخدم كوسيلة عمل ومادة أوّلية تمر بمراحل مُعالجة أخرى»"
+          source: "المعجم الموحد للمصطلحات (الطاقة المتجددة)"
+    - lemma: "عُنْصُر"
+      confirm:
+        - text: "«العُنْصُرُ: ابْتِدَاء تركيب الشَّيْء.»"
+          source: "معجم مقاليد العلوم"
+        - text: "«المادة التي تدخل في تكون جسم ما كالهيدروجين والأكسجين في تكون الماء»"
+          source: "المعجم الوسيط"
+        - text: "«الأصل الذي تتألف منه الأجسام المختلفة الطباع»"
+          source: "التعريفات للجرجاني"
+    - lemma: "مَادَّة"
+      confirm:
+        - text: "«مَادَّة الشَّيْء: أُصُوله وعناصره الَّتِي مِنْهَا يتكون حسية كَانَت أَو معنوية كمادة الْخشب»"
+          source: "المعجم الوسيط"
+    - lemma: "مَادَّة أَوَّلِيَّة"
+      confirm:
+        - text: "«وهي نوعان: المواد الخام الأولية وهي موارد طبيعية لم تخضع لأية معالجة غير الاستخراج من موقعها الطبيعي.»"
+          source: "المعجم الموحد للمصطلحات (المياه)"
+    - lemma: "مُكَوِّن"
+      confirm:
+        - text: "«عنصر مسؤول عن بعض الوظائف الداخلية... يترابط مع عناصر أخرى للقيام ككل بجميع الوظائف»"
+          source: "المعجم الموحد (تقانة المعلومات)"
+        - text: "«أحد العناصر المكونة لجزء من الجسم»"
+          source: "معجم المصطلحات الطبية"
+
+# Stage 3: Lemma Analysis
+stage3_analysis:
+  per_lemma:
+    - lemma: "خَامَة"
+      decision: confirmed
+      decision_reason: "كلمة معجمية أصيلة ومعاصرة تعبر بدقة عن المادة في حالتها الطبيعية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَامَة"
+    - lemma: "مَادَّة خَام"
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي شائع جداً في العلوم والصناعة، وله إسناد قوي في المعاجم الموحدة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+    - lemma: "عُنْصُر"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح معجمي قديم وحديث يعبر عن الجزء المكون للجسم المادي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "عُنْصُر", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مَادَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "الكلمة الأساسية والأكثر شيوعاً للتعبير عن مفهوم 'Material'."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَادَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مَادَّة أَوَّلِيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف دقيق وواسع الانتشار لـ 'مادة خام'، ورد ذكره في تعريف 'خامة' في المعجم الوسيط."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "مَادَّة أَوَّلِيَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُكَوِّن"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر عن الشيء الذي يدخل في تركيب المجموعات أو الأجسام المادية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُكَوِّن", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+# Stage 4: Content
+stage4_content:
+  definition:
+    current: "المادّة الملموسة التي تدخل في تركيب جسم مادّيّ"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي حرفي، والأفضل استخدام صياغة معجمية تجمع بين الأصول المادية والمواد الأولية."
+    authored:
+      - type: terminological
+        text: "الأصولُ والعناصرُ التي يتكوَّنُ منها الشيءُ الماديُّ؛ كالموادِّ الملموسةِ التي تُستخدمُ في الصِّناعةِ والبناءِ، أو الموادِّ الخامِّ قبلَ مُعالجتِها."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "الأصولُ والعناصرُ التي يتكوَّنُ منها الشيءُ الماديُّ؛ كالموادِّ الملموسةِ التي تُستخدمُ في الصِّناعةِ والبناءِ، أو الموادِّ الخامِّ قبلَ مُعالجتِها."}
+  examples:
+    per_lemma:
+      - lemma: "خَامَة"
+        examples:
+          - text: "تَصْدُرُ الدولُ الناميةُ بَعْضَ خَامَاتِ المَعَادِنِ إلى المصانعِ الكبرى."
+            type: usage
+      - lemma: "مَادَّة خَام"
+        examples:
+          - text: "تحتاجُ هذهِ الصناعةُ إلى مَوَادَّ خَامٍ رخيصةِ التكلفةِ."
+            type: usage
+      - lemma: "عُنْصُر"
+        examples:
+          - text: "الهيدروجينُ والأكسجينُ عُنْصُرَانِ يَدْخُلَانِ في تَكَوُّنِ المَاءِ."
+            type: usage
+      - lemma: "مَادَّة"
+        examples:
+          - text: "يُستخدمُ الخشبُ كمَادَّةٍ أساسيةٍ في صِنَاعةِ الأثاثِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تَصْدُرُ الدولُ الناميةُ بَعْضَ خَامَاتِ المَعَادِنِ إلى المصانعِ الكبرى."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تحتاجُ هذهِ الصناعةُ إلى مَوَادَّ خَامٍ رخيصةِ التكلفةِ."}
+
+# Stage 5: Enrichment
+stage5_enrichment:
+  per_entry:
+    - lemma: "خَامَة"
+      entry_id: "{auto}"
+      root: "خوم"
+      maqayis_quote: "«الخاء والواو والميم: أصل غير مذكور في مقاييس اللغة لابن فارس بهذا المعنى، ولكن المعاجم المتأخرة تثبته في (خوم) أو (خيم) للدلالة على الطراوة أو السجية.»"
+    - lemma: "مَادَّة"
+      entry_id: "{auto}"
+      root: "مدد"
+      maqayis_quote: "«الْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى جَرِّ شَيْءٍ فِي طُولٍ، وَاتِّصَالِ شَيْءٍ بِشَيْءٍ فِي اسْتِطَالَةٍ.»"
+    - lemma: "عُنْصُر"
+      entry_id: "{auto}"
+      root: "عنصر"
+      maqayis_quote: "«العُنْصُرُ: أَصْلُ الْحَسَبِ، وَهُوَ فِي الْأَصْلِ الْعَصَرُ، وَالْعَيْنُ وَالصَّادُ وَالرَّاءُ: دَهْرٌ وَحِينٌ، وَتَعَلُّقٌ بِشَيْءٍ وَامْتِسَاكٌ بِهِ.»"
+    - lemma: "مُكَوِّن"
+      entry_id: "{auto}"
+      root: "كون"
+      maqayis_quote: "«الْكَافُ وَالْوَاوُ وَالنُّونُ أَصْلٌ يَدُلُّ عَلَى الْإِخْبَارِ عَنْ حُدُوثِ شَيْءٍ... كَانَ الشَّيْءُ يَكُونُ كَوْنًا، إِذَا وَقَعَ وَحَضَرَ.»"
+    - lemma: "مَادَّة خَام"
+      entry_id: "{auto}"
+      roots:
+        - word: "مادة"
+          root: "مدد"
+          maqayis_quote: "«الْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى جَرِّ شَيْءٍ فِي طُولٍ.»"
+        - word: "خام"
+          root: "خوم"
+          maqayis_quote: "«أصل يدل على الطراوة أو الشيء في حالته الأولى.»"
+  per_sense:
+    - lemma: "خَامَة"
+      sense_id: "{auto}"
+      nuance: "تُركز على الحالة الطبيعية للمادة قبل أي معالجة."
+      mwe: false
+    - lemma: "مَادَّة خَام"
+      sense_id: "{auto}"
+      nuance: "تعبير اصطلاحي مرادف للخامة، يُستخدم بكثرة في السياقات الاقتصادية والصناعية."
+      mwe: true
+    - lemma: "عُنْصُر"
+      sense_id: "{auto}"
+      nuance: "يشير إلى الجزء المكون الذي لا يمكن تبسيطه أو الذي يمثل جزءاً أصيلاً في المجموع."
+      mwe: false
+    - lemma: "مَادَّة"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام والشامل للمادة سواء كانت في حالتها الطبيعية أو المصنعة."
+      mwe: false
+    - lemma: "مَادَّة أَوَّلِيَّة"
+      sense_id: "{auto}"
+      nuance: "تؤكد على أولوية المادة وترتيبها في سلسلة الإنتاج."
+      mwe: true
+    - lemma: "مُكَوِّن"
+      sense_id: "{auto}"
+      nuance: "يركز على الدور التركيبي للجزء في بناء الكل المادي."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خوم","maqayis":"«الخاء والواو والميم: أصل غير مذكور في مقاييس اللغة لابن فارس بهذا المعنى...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تُركز على الحالة الطبيعية للمادة قبل أي معالجة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

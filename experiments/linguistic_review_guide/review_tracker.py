@@ -50,7 +50,8 @@ REQUIRED_TOP_KEYS = [
     "step5_enrichment",
 ]
 
-REVIEWER_DIR_PATTERN = "reviews_*_db"
+REVIEWER_DIR_PATTERN = "reviews_*_db"   # legacy flat dirs
+WAVE_DIR_PARENT = "reviews"             # new: output/reviews/W*/
 
 # Valid enum values per spec
 DECISION_VALUES = {"confirmed", "removed", "escalated"}
@@ -892,8 +893,19 @@ class ReviewDB:
 # ═══════════════════════════════════════════════════════════════════════════════
 
 def discover_reviewers(output_dir: Path) -> list[tuple[str, Path]]:
-    """Find all output/reviews_*_db/ directories and extract reviewer names."""
+    """Find wave-based dirs (output/reviews/W*/) and legacy dirs (output/reviews_*_db/).
+
+    Wave dirs are discovered first so they take priority in the reviewer list.
+    The reviewer_id for wave dirs is the dir name itself (e.g. "W0", "W1").
+    """
     reviewers = []
+    # Wave-based structure: output/reviews/W*/
+    reviews_root = output_dir / WAVE_DIR_PARENT
+    if reviews_root.is_dir():
+        for d in sorted(reviews_root.iterdir()):
+            if d.is_dir() and d.name.startswith("W"):
+                reviewers.append((d.name, d))
+    # Legacy flat dirs: output/reviews_*_db/
     for d in sorted(output_dir.glob(REVIEWER_DIR_PATTERN)):
         if d.is_dir():
             name = _extract_reviewer_name(d.name)
@@ -1159,7 +1171,7 @@ def main():
     # ── Discover reviewers ──
     reviewers = discover_reviewers(output_dir)
     if not reviewers and not args.json:
-        print(f"No reviewer directories found matching {output_dir}/{REVIEWER_DIR_PATTERN}")
+        print(f"No reviewer directories found matching {output_dir}/{WAVE_DIR_PARENT}/W* or {output_dir}/{REVIEWER_DIR_PATTERN}")
         db.close()
         sys.exit(1)
 

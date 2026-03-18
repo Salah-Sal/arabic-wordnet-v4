@@ -1,0 +1,502 @@
+# ═══════════════════════════════════════════════════════════════
+# مخطط مخرجات المراجعة — Review Pipeline v2.0 Output Template
+# ═══════════════════════════════════════════════════════════════
+#
+# هذا الملف يحدد البنية الكاملة لمخرجات YAML لكل مجموعة ترادفية.
+# This file defines the complete YAML output structure for each synset review.
+#
+# ── اصطلاحات — Conventions ──
+# - Field names: English (snake_case)
+# - Analysis text: Arabic
+# - Decision enums: English lowercase
+# - DRY: omit fields with null/empty/false values
+# - {auto} placeholder IDs: resolved downstream by apply_reviews_v2.py
+# - {synset_id}: replaced by the actual synset ID being reviewed
+# - Command names: exact WordnetEditor method names (English)
+#
+# ═══════════════════════════════════════════════════════════════
+
+# ── المرحلة ١: المراجعة والتوليد (بدون أدلة) ──────────────
+# Stage 1: Review + Generate (no evidence)
+#
+# The reviewer first reads the MASKED synset info (no lemmas visible),
+# then generates 4 fully-diacritized candidate lemmas. Then reads the
+# full synset info and produces an initial linguistic assessment.
+stage1_review:
+  assessment:
+    concerns:                           # list of issues found
+      - "..."
+    observations: "..."                 # free-form Arabic analysis
+  blind_candidates:                     # 4 candidates, NO evidence yet
+    - lemma: "لَمَّة"                   # full tashkeel mandatory
+      generation_method: ishtiqaq       # majaz | ishtiqaq | tarkib | taarib
+      justification: "..."
+    - lemma: "مُرَشَّح٢"
+      generation_method: tarkib
+      justification: "..."
+    - lemma: "مُرَشَّح٣"
+      generation_method: majaz
+      justification: "..."
+    - lemma: "مُرَشَّح٤"
+      generation_method: ishtiqaq
+      justification: "..."
+
+
+# ── المرحلة ٢: جمع الأدلة ────────────────────────────────
+# Stage 2: Evidence Gathering (interactive, in-session)
+#
+# The reviewer queries the Arabic dictionary DB via sqlite3 -json
+# to gather evidence for ALL lemmas (existing + Stage 1 candidates).
+# Target query budget: 5-8 queries total.
+stage2_evidence:
+  per_lemma:                            # covers BOTH existing lemmas AND Stage 1 candidates
+    - lemma: "لَمَّة"
+      confirm:                          # dictionary text supporting this lemma for the synset
+        - text: "«نص المعجم»"
+          source: "اسم المعجم"
+      contradicts:                      # dictionary text contradicting this usage
+        - text: "«نص المعجم»"
+          source: "اسم المعجم"
+          conflict: "سبب التعارض"
+      expands:                          # dictionary text expanding on this meaning
+        - text: "«نص المعجم»"
+          source: "اسم المعجم"
+          addition: "ما يضيفه الدليل"
+      # When ALL three categories are empty, use this instead:
+      # evidence_status: "no_material_found"
+
+
+# ── المرحلة ٣: التحليل اللغوي للّمات ────────────────────
+# Stage 3: Lemma Linguistic Analysis
+#
+# For each lemma (existing + candidates), produce a linguistic analysis
+# with include/exclude decision and generate actions.
+stage3_analysis:
+  per_lemma:
+    # ── existing lemma example ──
+    - lemma: "لَمَّة"                   # exactly as in synset_info
+      decision: confirmed               # confirmed | removed
+      decision_reason: "..."            # Arabic explanation
+      evidence_assessment:
+        case: confirm_only              # confirm_only | mixed | contradicts_only | no_material
+      mwe_check:
+        is_mwe: false
+        # mwe_type: idafi              # idafi | wasfi | mazji (only if is_mwe: true)
+      # nuance_differentiation: "..."  # mandatory if confirmed — how this lemma differs from siblings
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "لَمَّة"
+
+    # ── Stage 1 candidate example ──
+    - lemma: "مُرَشَّح"
+      source: stage1                    # mark Stage 1 candidates
+      decision: confirmed               # confirmed | removed
+      decision_reason: "..."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُرَشَّح", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    # ── removed lemma example (minimal) ──
+    - lemma: "لَمَّة_مَرْفوضة"
+      decision: removed
+      decision_reason: "..."
+      # No actions needed for removed lemmas
+
+  # Synset-level corrections (if needed)
+  # synset_actions:
+  #   - command: update_synset
+  #     params: {synset_id: "{synset_id}", pos: n}
+
+
+# ── المرحلة ٤: التعريف والأمثلة ──────────────────────────
+# Stage 4: Definitions & Examples
+#
+# Assess and enrich the synset's Arabic definition and examples.
+# Only covers CONFIRMED lemmas from Stage 3.
+stage4_content:
+  definition:
+    current: "التعريف الحالي"            # current Arabic definition (from synset_info)
+    assessment:
+      decision: revise                  # retain | revise
+      reason: "..."                     # why revise/retain
+    authored:                           # new/revised definitions (only if revise)
+      - type: terminological            # terminological | linguistic | encyclopedic
+        text: "..."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+      - type: linguistic
+        text: "..."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+      - type: encyclopedic
+        text: "..."
+        # quality_check omitted if not applicable
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "..."}
+      - command: add_definition
+        params: {synset_id: "{synset_id}", text: "..."}
+
+  examples:
+    per_lemma:                          # one example per confirmed lemma
+      - lemma: "لَمَّة"
+        examples:
+          - text: "..."
+            type: usage                 # usage | quran | hadith | poetry | proverb
+            source: "مؤلَّف"            # optional — if from a known source
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "..."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "..."}
+
+
+# ── المرحلة ٥: الإثراء (البيانات الوصفية) ─────────────────
+# Stage 5: Enrichment (metadata)
+#
+# Populate entries, senses, and synset with structured metadata,
+# packed into the WN-LMF `note` key for XML round-trip safety.
+stage5_enrichment:
+  per_entry:
+    # Single-word entry
+    - lemma: "كِيَان"
+      entry_id: "{auto}"
+      root: "كون"
+      maqayis_quote: "«الْكَافُ وَالْوَاوُ وَالنُّونُ أَصْلٌ صَحِيحٌ...»"
+    # MWE entry — per-word roots
+    - lemma: "ذَكَاء اصْطِنَاعِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "ذكاء"
+          root: "ذكو"
+          maqayis_quote: "«الذَّالُ وَالْكَافُ...»"
+        - word: "اصطناعي"
+          root: "صنع"
+          maqayis_quote: "«الصَّادُ وَالنُّونُ...»"
+
+  per_sense:
+    - lemma: "كِيَان"
+      sense_id: "{auto}"
+      nuance: "..."                     # MANDATORY — how this lemma differs from siblings
+      mwe: false                        # true only for MWEs
+
+  synset:
+    cultural_fit: native                # native | lexical_gap | phraset | omission
+
+  actions:
+    # Entry-level note (single-word)
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"كون","maqayis":"«...»"}'
+    # Entry-level note (MWE)
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"ذكاء","root":"ذكو","maqayis":"«...»"},{"word":"اصطناعي","root":"صنع","maqayis":"«...»"}]}'
+    # Sense-level note
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"...","mwe":false}'
+    # Synset-level note
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    # Confidence
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.85
+
+
+# ═══════════════════════════════════════════════════════════════
+# مرجع الحقول — Field Reference
+# ═══════════════════════════════════════════════════════════════
+
+# ── Stage 1 Fields ──────────────────────────────────────────
+#
+# stage1_review.assessment.concerns:
+#   type: list[str]
+#   description: List of issues found during initial assessment
+#
+# stage1_review.assessment.observations:
+#   type: str
+#   description: Free-form Arabic linguistic analysis
+#
+# stage1_review.blind_candidates[].lemma:
+#   type: str
+#   description: Fully diacritized Arabic lemma
+#   required: true
+#
+# stage1_review.blind_candidates[].generation_method:
+#   type: enum
+#   values: [majaz, ishtiqaq, tarkib, taarib]
+#   description: |
+#     majaz     = semantic extension (metaphor/metonymy from existing Arabic word)
+#     ishtiqaq  = derivation from Arabic root on standard pattern
+#     tarkib    = compounding (idafi, wasfi, or mazji)
+#     taarib    = Arabization of foreign term (last resort)
+#
+# stage1_review.blind_candidates[].justification:
+#   type: str
+#   description: Arabic explanation of why this candidate fits the synset
+
+# ── Stage 2 Fields ──────────────────────────────────────────
+#
+# stage2_evidence.per_lemma[].lemma:
+#   type: str
+#   required: true
+#
+# stage2_evidence.per_lemma[].confirm[]:
+#   type: list[{text: str, source: str}]
+#   description: Dictionary quotations supporting this lemma for the synset meaning
+#
+# stage2_evidence.per_lemma[].contradicts[]:
+#   type: list[{text: str, source: str, conflict: str}]
+#   description: Dictionary quotations contradicting this usage
+#
+# stage2_evidence.per_lemma[].expands[]:
+#   type: list[{text: str, source: str, addition: str}]
+#   description: Dictionary quotations expanding on this meaning
+#
+# stage2_evidence.per_lemma[].evidence_status:
+#   type: enum
+#   values: [no_material_found]
+#   description: Only present when all three categories (confirm/contradicts/expands) are empty
+
+# ── Stage 3 Fields ──────────────────────────────────────────
+#
+# stage3_analysis.per_lemma[].lemma:
+#   type: str
+#   required: true
+#
+# stage3_analysis.per_lemma[].source:
+#   type: enum
+#   values: [stage1]
+#   description: Only present for Stage 1 candidates (absent for existing lemmas)
+#
+# stage3_analysis.per_lemma[].decision:
+#   type: enum
+#   values: [confirmed, removed]
+#   required: true
+#
+# stage3_analysis.per_lemma[].decision_reason:
+#   type: str
+#   required: true
+#   description: Arabic explanation of the decision
+#
+# stage3_analysis.per_lemma[].evidence_assessment.case:
+#   type: enum
+#   values: [confirm_only, mixed, contradicts_only, no_material]
+#
+# stage3_analysis.per_lemma[].mwe_check.is_mwe:
+#   type: bool
+#
+# stage3_analysis.per_lemma[].mwe_check.mwe_type:
+#   type: enum
+#   values: [idafi, wasfi, mazji]
+#   description: Only present if is_mwe is true
+#
+# stage3_analysis.per_lemma[].actions[].command:
+#   type: enum
+#   values: [remove_sense, update_lemma, update_entry, add_form, remove_form,
+#            create_entry, add_sense, update_synset,
+#            add_sense_relation, remove_sense_relation]
+#
+# ── Stage 3 Action Parameters ──
+#
+# remove_sense:
+#   sense_id: str        # "{auto}" or explicit sense ID
+#
+# update_lemma:
+#   entry_id: str        # "{auto}" or explicit entry ID
+#   new_lemma: str       # fully diacritized
+#
+# update_entry:
+#   entry_id: str
+#   pos: str             # n | v | a | r | s
+#
+# add_form:
+#   entry_id: str
+#   written_form: str
+#
+# remove_form:
+#   entry_id: str
+#   written_form: str
+#
+# create_entry:
+#   lemma: str           # fully diacritized
+#   pos: str             # n | v | a | r | s
+#
+# add_sense:
+#   entry_id: str        # "{auto}" — resolved from preceding create_entry
+#   synset_id: str       # "{synset_id}"
+#
+# update_synset:
+#   synset_id: str
+#   pos: str
+#
+# add_sense_relation:
+#   source_id: str       # sense ID
+#   relation_type: str   # e.g., "derivation", "also", "similar"
+#   target_id: str       # sense ID
+#
+# remove_sense_relation:
+#   source_id: str
+#   relation_type: str
+#   target_id: str
+
+# ── Stage 4 Fields ──────────────────────────────────────────
+#
+# stage4_content.definition.current:
+#   type: str
+#   description: Current Arabic definition from synset_info
+#
+# stage4_content.definition.assessment.decision:
+#   type: enum
+#   values: [retain, revise]
+#
+# stage4_content.definition.authored[].type:
+#   type: enum
+#   values: [terminological, linguistic, encyclopedic]
+#
+# stage4_content.definition.authored[].text:
+#   type: str
+#   description: The authored definition text in Arabic
+#
+# stage4_content.definition.authored[].quality_check:
+#   type: object
+#   properties:
+#     genus_present: bool
+#     differentia_present: bool
+#     circular: bool
+#
+# stage4_content.examples.per_lemma[].examples[].type:
+#   type: enum
+#   values: [usage, quran, hadith, poetry, proverb]
+#
+# ── Stage 4 Action Parameters ──
+#
+# update_definition:
+#   synset_id: str
+#   definition_index: int  # 0-based
+#   text: str
+#
+# add_definition:
+#   synset_id: str
+#   text: str
+#
+# remove_definition:
+#   synset_id: str
+#   definition_index: int  # 0-based
+#
+# add_synset_example:
+#   synset_id: str
+#   text: str
+#
+# remove_synset_example:
+#   synset_id: str
+#   example_index: int     # 0-based
+#
+# add_sense_example:
+#   sense_id: str          # "{auto}"
+#   text: str
+#
+# remove_sense_example:
+#   sense_id: str
+#   example_index: int     # 0-based
+
+# ── Stage 5 Fields ──────────────────────────────────────────
+#
+# stage5_enrichment.per_entry[].root:
+#   type: str
+#   description: Trilateral (or bi/quadrilateral) root, space-free
+#
+# stage5_enrichment.per_entry[].maqayis_quote:
+#   type: str
+#   description: Verbatim quote from Maqayis al-Lugha (dictionary_id=151)
+#
+# stage5_enrichment.per_entry[].roots:
+#   type: list[{word: str, root: str, maqayis_quote: str}]
+#   description: Per-word roots for MWE entries (replaces root + maqayis_quote)
+#
+# stage5_enrichment.per_sense[].nuance:
+#   type: str
+#   required: true
+#   description: How this lemma differs semantically from siblings in the synset
+#
+# stage5_enrichment.per_sense[].mwe:
+#   type: bool
+#   description: true only for multi-word expressions
+#
+# stage5_enrichment.synset.cultural_fit:
+#   type: enum
+#   values: [native, lexical_gap, phraset, omission]
+#   description: |
+#     native       = concept has natural Arabic lexicalization
+#     lexical_gap  = concept exists in Arabic culture but lacks a dedicated term
+#     phraset      = concept only expressible as a phrase, not a single word
+#     omission     = concept is culturally foreign, needs careful introduction
+#
+# ── Stage 5 Action Parameters ──
+#
+# set_metadata:
+#   entity_type: str     # "entry" | "sense" | "synset"
+#   entity_id: str       # "{auto}" or "{synset_id}"
+#   key: str             # always "note" for enrichment
+#   value: str           # JSON string (note-packed)
+#
+# set_confidence:
+#   entity_type: str     # "synset" | "sense"
+#   entity_id: str
+#   score: float         # 0.0–1.0
+
+# ── Complete Action Type Catalog (19 types) ─────────────────
+#
+# Stage 3 (10 types):
+#   1.  remove_sense         — Lemma rejected
+#   2.  update_lemma         — Diacritics fix, spelling fix
+#   3.  update_entry         — Wrong POS on entry
+#   4.  add_form             — Add variant form
+#   5.  remove_form          — Remove incorrect form
+#   6.  create_entry         — New lemma approved
+#   7.  add_sense            — Link entry to synset
+#   8.  update_synset        — Wrong POS at synset level
+#   9.  add_sense_relation   — Derivation, sense antonymy
+#   10. remove_sense_relation — Wrong sense relation
+#
+# Stage 4 (7 types):
+#   11. update_definition     — Revise existing definition
+#   12. add_definition        — Add encyclopedic/linguistic def
+#   13. remove_definition     — Remove bad/duplicate def
+#   14. add_synset_example    — Add synset-level example
+#   15. remove_synset_example — Remove bad example
+#   16. add_sense_example     — Add sense-level example
+#   17. remove_sense_example  — Remove bad example
+#
+# Stage 5 (2 types):
+#   18. set_metadata          — Note-packed enrichment
+#   19. set_confidence        — Confidence scores

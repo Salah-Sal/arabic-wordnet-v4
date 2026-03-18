@@ -1,0 +1,279 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "وجود عبارة وصفية حرة (مكان محدد) لا ترقى لتكون مصطلحاً معجمياً مستقلاً."
+      - "الافتقار إلى التشكيل الكامل للمدخولات الحالية."
+    observations: "المفهوم يعبر عن حيز مكاني ضيق ومحدود جداً (point/location/spot). المعاجم العربية تزخر بالمفردات التي تعبر عن هذا المفهوم الدقيق، مثل (نقطة) و(موضع) و(موقع) و(بقعة). استخدام (مكان محدد) كمركب وصفي هو تكرار لشرح المعنى وليس مصطلحاً مسكوكاً."
+  blind_candidates:
+    - lemma: "نُقْطَة"
+      generation_method: majaz
+      justification: "إزاحة دلالية من النقطة الهندسية أو العلامة المكتوبة إلى الموقع الجغرافي أو المكاني الدقيق متناهي الصغر."
+    - lemma: "مَوْضِع"
+      generation_method: ishtiqaq
+      justification: "اسم مكان من الفعل (وضع)، يعبر عن الحيز الدقيق الذي يوضع فيه الشيء أو يستقر فيه."
+    - lemma: "مَوْقِع"
+      generation_method: ishtiqaq
+      justification: "اسم مكان من الفعل (وقع)، يعبر عن نقطة الوقوع أو التواجد الفعلي لشيء ما ضمن إطار أوسع."
+    - lemma: "بُقْعَة"
+      generation_method: majaz
+      justification: "إزاحة دلالية من البقعة اللونية إلى المساحة المكانية المحدودة والمتميزة عما يحيط بها."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مَكَان مُحَدَّد"
+      evidence_status: no_material_found
+    - lemma: "مَوْضِع"
+      confirm:
+        - text: "اسْم الْمَكَان وَيُقَال فِي قلبِي مَوضِع فلَان محبته"
+          source: "المعجم الوسيط"
+        - text: "موضع: Place ،spot ،space ... عند الحكماء مرادف للمكان كما في شرح الإشارات."
+          source: "كشاف اصطلاحات الفنون"
+    - lemma: "نُقْطَة"
+      confirm:
+        - text: "من الشَّيْء جُزْء صَغِير ... و (فِي الهندسة) مَا لَيْسَ لَهُ طول وَلَا عرض"
+          source: "المعجم الوسيط"
+        - text: "شَيْء ذُو وضع لَا يقبل الْقِسْمَة لَا عقلا وَلَا وهما وَلَا قطعا وَلَا كسرا"
+          source: "دستور العلماء"
+      expands:
+        - text: "نقطة: point"
+          source: "المعجم الموحد لمصطلحات التقنيات التربوية"
+          addition: "استخدامها كمقابل دقيق للمصطلح الإنجليزي في السياقات الحديثة."
+    - lemma: "مَوْقِع"
+      confirm:
+        - text: "مكانُ الوقوع مواقِعُ القتال: مواضِعُه"
+          source: "المعجم الوسيط"
+        - text: "موقع: location / status / position"
+          source: "المعجم الموحد لمصطلحات المياه"
+    - lemma: "بُقْعَة"
+      confirm:
+        - text: "القطعة من الأرض تتميز عمّا حولها القِطعة من اللون تخالف ما حولها"
+          source: "المعجم الوسيط"
+        - text: "بقعة: spot"
+          source: "المعجم الموحد لمصطلحات علم الصحة"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مكان محدد"
+      decision: removed
+      decision_reason: "مركب وصفي حر (تركيب نعتي) وليس مصطلحاً معجمياً مسكوكاً، حيث يمكن استبدال مكوناته بمرادفات أخرى بسهولة (مثل: موضع معين، حيز محدد) دون الإخلال بالمعنى، مما يفقده شرط التثبيت الاصطلاحي."
+      evidence_assessment:
+        case: no_material
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "موضع"
+      decision: confirmed
+      decision_reason: "مصطلح عربي أصيل ودقيق يعبر عن الحيز المكاني الذي يشغله الشيء أو يوضع فيه."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَوْضِع"
+    - lemma: "نقطة"
+      decision: confirmed
+      decision_reason: "استخدام شائع ومثبت لغوياً واصطلاحياً للتعبير عن الموقع الدقيق (كالنقطة الهندسية التي لا أبعاد لها)، وهو المقابل الأمثل لكلمة Point."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نُقْطَة"
+    - lemma: "مَوْقِع"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اسم مكان قياسي وفصيح شائع الاستعمال للدلالة على المكان الدقيق لتواجد الشيء، ويستخدم بكثرة كمقابل لـ location أو site."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مَوْقِع"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "بُقْعَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تستخدم للدلالة على الحيز المكاني المحدود (spot) المتميز عما يحيط به، وتناسب التعبير عن موقع محدود مكانياً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "بُقْعَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "الموقع الدقيق لشيء ما؛ موقع محدود مكانيًا"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد ولكنه يستخدم إحدى اللمات (موقع) في الشرح المباشر، الأفضل صياغته بأسلوب معجمي أدق يتجنب الدور."
+    authored:
+      - type: terminological
+        text: "الحيز الدقيق والمحدد الذي يشغله أو يوجد فيه شيء ما في الفراغ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "الحيز الدقيق والمحدد الذي يشغله أو يوجد فيه شيء ما في الفراغ."
+
+  examples:
+    per_lemma:
+      - lemma: "مَوْضِع"
+        examples:
+          - text: "حدّد الطبيب مَوْضِع الألم بدقة تامة."
+            type: usage
+      - lemma: "نُقْطَة"
+        examples:
+          - text: "التقى المساران في نُقْطَة واحدة على الخريطة."
+            type: usage
+      - lemma: "مَوْقِع"
+        examples:
+          - text: "يتميز مَوْقِع المنزل بقربه من وسط المدينة."
+            type: usage
+      - lemma: "بُقْعَة"
+        examples:
+          - text: "تركزت أشعة الشمس في بُقْعَة صغيرة على الأرض."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "حدّد الطبيب مَوْضِع الألم بدقة تامة."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "التقى المساران في نُقْطَة واحدة على الخريطة."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يتميز مَوْقِع المنزل بقربه من وسط المدينة."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تركزت أشعة الشمس في بُقْعَة صغيرة على الأرض."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَوْضِع"
+      entry_id: "{auto}"
+      root: "وضع"
+      maqayis_quote: "«الْوَاوُ وَالضَّادُ وَالْعَيْنُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الْخَفْضِ [لِلشَّيْءِ] وَحَطِّهِ.»"
+    - lemma: "نُقْطَة"
+      entry_id: "{auto}"
+      root: "نقط"
+      maqayis_quote: "«النُّونُ وَالْقَافُ وَالطَّاءُ أُصَيْلٌ يَدُلُّ عَلَى نُكْتَةٍ لَطِيفَةٍ فِي الشَّيْءِ.»"
+    - lemma: "مَوْقِع"
+      entry_id: "{auto}"
+      root: "وقع"
+      maqayis_quote: "«الْوَاوُ وَالْقَافُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ يَرْجِعُ إِلَيْهِ فُرُوعُهُ، يَدُلُّ عَلَى سُقُوطِ شَيْءٍ.»"
+    - lemma: "بُقْعَة"
+      entry_id: "{auto}"
+      root: "بقع"
+      maqayis_quote: "«الْبَاءُ وَالْقَافُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ... وَهُوَ مُخَالَفَةُ الْأَلْوَانِ بَعْضِهَا بَعْضًا... الْبُقْعَةُ قِطْعَةٌ مِنَ الْأَرْضِ عَلَى غَيْرِ هَيْئَةِ الَّتِي إِلَى جَنْبِهَا.»"
+
+  per_sense:
+    - lemma: "مَوْضِع"
+      sense_id: "{auto}"
+      nuance: "يركز على الحيز الذي يوضَع فيه الشيء أو يستقر فيه مكانياً."
+      mwe: false
+    - lemma: "نُقْطَة"
+      sense_id: "{auto}"
+      nuance: "تشير إلى الموقع متناهي الصغر أو المحدد هندسياً وجغرافياً بشكل دقيق."
+      mwe: false
+    - lemma: "مَوْقِع"
+      sense_id: "{auto}"
+      nuance: "يركز على مكان وقوع الشيء وتواجده بالنسبة لما يحيط به، وهو الأكثر شيوعاً جغرافياً."
+      mwe: false
+    - lemma: "بُقْعَة"
+      sense_id: "{auto}"
+      nuance: "تشير إلى مساحة أو حيز صغير متميز وواضح الحدود عما يحيط به."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"وضع","maqayis":"«الْوَاوُ وَالضَّادُ وَالْعَيْنُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الْخَفْضِ [لِلشَّيْءِ] وَحَطِّهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نقط","maqayis":"«النُّونُ وَالْقَافُ وَالطَّاءُ أُصَيْلٌ يَدُلُّ عَلَى نُكْتَةٍ لَطِيفَةٍ فِي الشَّيْءِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"وقع","maqayis":"«الْوَاوُ وَالْقَافُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ يَرْجِعُ إِلَيْهِ فُرُوعُهُ، يَدُلُّ عَلَى سُقُوطِ شَيْءٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"بقع","maqayis":"«الْبَاءُ وَالْقَافُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ... وَهُوَ مُخَالَفَةُ الْأَلْوَانِ بَعْضِهَا بَعْضًا... الْبُقْعَةُ قِطْعَةٌ مِنَ الْأَرْضِ عَلَى غَيْرِ هَيْئَةِ الَّتِي إِلَى جَنْبِهَا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الحيز الذي يوضَع فيه الشيء أو يستقر فيه مكانياً.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تشير إلى الموقع متناهي الصغر أو المحدد هندسياً وجغرافياً بشكل دقيق.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على مكان وقوع الشيء وتواجده بالنسبة لما يحيط به، وهو الأكثر شيوعاً جغرافياً.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تشير إلى مساحة أو حيز صغير متميز وواضح الحدود عما يحيط به.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,228 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّة الموجودة 'مادة قابلة للاشتعال' هي عبارة وصفية (phrase) وليست وحدة معجمية بسيطة."
+      - "اللمّة تفتقر إلى التشكيل الكامل."
+      - "المجموعة تفتقر إلى مرادفات اصطلاحية مفردة مثل (وقود، حروق، لهوبة)."
+    observations: "المفهوم يشير إلى أي مادة يمكن أن تشتعل أو تحترق. في المعاجم العربية الحديثة، يتم التمييز بين القابل للاحتراق (combustible) والقابل للالتهاب أو سريع الاشتعال (flammable). المصطلح الإنجليزي pyrogen في هذا السياق (غير الطبي) يشير إلى مولد الحرارة أو النار."
+  blind_candidates:
+    - lemma: "وَقُود"
+      generation_method: majaz
+      justification: "الوقود في اللغة هو ما تُوقد به النار، وهو المصطلح الأعم للمواد القابلة للاحتراق."
+    - lemma: "حَرُوق"
+      generation_method: ishtiqaq
+      justification: "على وزن فَعُول بمعنى مَفْعُول (ما يُحرق)، ويُستخدم اصطلاحاً للمواد القابلة للاحتراق (combustible)."
+    - lemma: "لَهُوبَة"
+      generation_method: ishtiqaq
+      justification: "اسم للمادة سريعة الالتهاب (inflammable)، وهو مصطلح موثق في المعاجم الحديثة مثل المورد الحديث."
+    - lemma: "سَرِيعَة الِاشْتِعَال"
+      generation_method: tarkib
+      justification: "مركب وصفي شائع جداً في التصنيف التقني للمواد الكيميائية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مادة قابلة للاشتعال"
+      confirm:
+        - text: "مادة قابلة للاشتعال: flammable substance"
+          source: "موسوعة الكهرباء (IEC 60050)"
+        - text: "مواد قَابِلَةٌ لِلِاشْتِعَالِ: inflammable materials"
+          source: "المعجم الموحد لمصطلحات النقل"
+    - lemma: "وَقُود"
+      confirm:
+        - text: "الوقود: بالفتح: ما يوقد به النار"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+        - text: "كُلُّ مادَّةٍ تتولَّد باحتراقها طاقة حرارية"
+          source: "المعجم الوسيط"
+        - text: "مواد تحترق بسهولة ويمكن استخدامها لتوليد الطاقة الحرارية."
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة"
+    - lemma: "حَرُوق"
+      confirm:
+        - text: "الحَرُوق: مادة قابلة للاحتراق."
+          source: "المورد الحديث (2008)"
+        - text: "قَابِل للاحْتِرَاق، حَرُوق"
+          source: "المعجم الموحد لمصطلحات علم الصيدلة"
+    - lemma: "لَهُوبَة"
+      confirm:
+        - text: "اللَّهوبة: مادة سريعة الالتهاب."
+          source: "المورد الحديث (2008)"
+        - text: "لَهُوب؛ سريع الالتهاب."
+          source: "المورد الحديث (2008)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مادة قابلة للاشتعال"
+      decision: confirmed
+      decision_reason: "مصطلح تقني شائع وموثق في المعاجم الموحدة، رغم كونه مركباً وصفياً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      nuance_differentiation: "تعبير وصفي عام يغطي كافة المواد التي تقبل الاحتراق أو الالتهاب."
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَادَّةٌ قَابِلَةٌ لِلِاشْتِعَالِ"
+    - lemma: "وَقُود"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح أصيل يعبر عن جوهر المفهوم (ما يوقد به)، وهو مستقر في الاستعمال الحديث للمواد الطاقية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: "يركز على الوظيفة الغائية للمادة (توليد الطاقة أو النار)، وغالباً ما يشير للمواد المستخدمة عمداً للاحتراق."
+      actions:
+        - command: create_entry
+          params: {lemma: "وَقُود", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "حَرُوق"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح معجمي دقيق للمادة القابلة للاحتراق (combustible)، موثق في المعاجم الصيدلانية واللغوية الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: "يصف المادة من حيث قابليتها الكيميائية للاحتراق (Combustible) بغض النظر عن سرعة ذلك."
+      actions:
+        - command: create_entry
+          params: {lemma: "حَرُوق", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "لَهُوبَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اسم مادة يعبر عن سرعة الالتهاب (inflammable)، وهو إضافة مهمة لتدقيق المفاهيم الكيميائية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: "تختص بالمواد التي تشتعل بسرعة فائقة أو تسبب لهباً فورياً (Inflammable)."
+      actions:
+        - command: create_entry
+          params: {lemma: "لَهُوبَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "أي مادة تتميز بقابليتها الشديدة للاشتعال"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط؛ التعديل يضيف الدقة العلمية والأسلوب المعجمي."
+    authored:
+      - type: terminological
+        text: "كل مادة صلبة أو سائلة أو غازية لها خاصية الاحتراق أو الالتهاب عند تعرضها لمصدر حراري أو مادة مؤكسدة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "كل مادة صلبة أو سائلة أو غازية لها خاصية الاحتراق أو الالتهاب عند تعرضها لمصدر حراري أو مادة مؤكسدة."}
+  examples:
+    per_lemma:
+      - lemma: "مَادَّةٌ قَابِلَةٌ لِلِاشْتِعَالِ"
+        examples:
+          - text: "يجب تخزين هذه المادة القابلة للاشتعال في مكان بارد وجاف بعيداً عن مصادر اللهب."
+            type: usage
+      - lemma: "وَقُود"
+        examples:
+          - text: "يُعد الفحم الحجري من أنواع الوقود التقليدية التي استُخدمت في الثورة الصناعية."
+            type: usage
+      - lemma: "حَرُوق"
+        examples:
+          - text: "صُنفت المواد الكيميائية في المختبر إلى مواد حروق ومواد خاملة."
+            type: usage
+      - lemma: "لَهُوبَة"
+        examples:
+          - text: "يُحظر التدخين في مستودعات اللهوبة لتجنب وقوع الحرائق."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يجب تخزين هذه المادة القابلة للاشتعال في مكان بارد وجاف بعيداً عن مصادر اللهب."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "وَقُود"
+      entry_id: "{auto}"
+      root: "وقد"
+      maqayis_quote: "«الْوَاوُ وَالْقَافُ وَالدَّالُ: كَلِمَةٌ تَدُلُّ عَلَى اشْتِعَالِ نَارٍ. وَقَدَتِ النَّارُ تَقِدُ وَاتَّقَدَتْ وَتَوَقَّدَتْ... وَالْوَقُودُ: الْحَطَبُ.»"
+    - lemma: "حَرُوق"
+      entry_id: "{auto}"
+      root: "حرق"
+      maqayis_quote: "«الْحَاءُ وَالرَّاءُ وَالْقَافُ أَصْلَانِ: أَحَدُهُمَا حَكُّ الشَّيْءِ بِالشَّيْءِ مَعَ حَرَارَةٍ وَالْتِهَابٍ... وَالْحَرَقُ: النَّارُ.»"
+    - lemma: "لَهُوبَة"
+      entry_id: "{auto}"
+      root: "لهب"
+      maqayis_quote: "«اللَّامُ وَالْهَاءُ وَالْبَاءُ أَصْلٌ صَحِيحٌ، وَهُوَ ارْتِفَاعُ لِسَانِ النَّارِ... اللَّهَبُ وَاللُّهَابُ: اشْتِعَالُ النَّارِ.»"
+    - lemma: "مَادَّةٌ قَابِلَةٌ لِلِاشْتِعَالِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مادة"
+          root: "مدد"
+          maqayis_quote: "«الميم والدال أصل واحد، وهو الجذب والزيادة.»"
+        - word: "قابلة"
+          root: "قبل"
+          maqayis_quote: "«القاف والباء واللام أصل واحد، وهو الإقبال على الشيء.»"
+        - word: "اشتعال"
+          root: "شعل"
+          maqayis_quote: "«الشِّينُ وَالْعَيْنُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى انْتِشَارٍ وَتَفَرُّقٍ فِي الشَّيْءِ الْوَاحِدِ مِنْ جَوَانِبِهِ. يُقَالُ أَشْعَلْتُ النَّارَ فِي الْحَطَبِ.»"
+  per_sense:
+    - lemma: "مَادَّةٌ قَابِلَةٌ لِلِاشْتِعَالِ"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي عام وشامل."
+      mwe: true
+    - lemma: "وَقُود"
+      sense_id: "{auto}"
+      nuance: "يركز على الاستخدام الوظيفي للمادة كصدر للطاقة."
+      mwe: false
+    - lemma: "حَرُوق"
+      sense_id: "{auto}"
+      nuance: "توصيف كيميائي للمواد القابلة للاحتراق (Combustible)."
+      mwe: false
+    - lemma: "لَهُوبَة"
+      sense_id: "{auto}"
+      nuance: "توصيف لسرعة الالتهاب وتولد اللهب (Inflammable)."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"وقد","maqayis":"«الْوَاوُ وَالْقَافُ وَالدَّالُ: كَلِمَةٌ تَدُلُّ عَلَى اشْتِعَالِ نَارٍ. وَقَدَتِ النَّارُ تَقِدُ وَاتَّقَدَتْ وَتَوَقَّدَتْ... وَالْوَقُودُ: الْحَطَبُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حرق","maqayis":"«الْحَاءُ وَالرَّاءُ وَالْقَافُ أَصْلَانِ: أَحَدُهُمَا حَكُّ الشَّيْءِ بِالشَّيْءِ مَعَ حَرَارَةٍ وَالْتِهَابٍ... وَالْحَرَقُ: النَّارُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"لهب","maqayis":"«اللَّامُ وَالْهَاءُ وَالْبَاءُ أَصْلٌ صَحِيحٌ، وَهُوَ ارْتِفَاعُ لِسَانِ النَّارِ... اللَّهَبُ وَاللُّهَابُ: اشْتِعَالُ النَّارِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير وصفي عام وشامل.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

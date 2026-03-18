@@ -1,0 +1,245 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "كلمة 'جزء' (part) عامة جداً ولا تخصص المفهوم المكاني الممتد إلا بقرينة."
+      - "نقص التشكيل الكامل في اللمات الموجودة."
+    observations: "المفهوم يشير إلى الامتداد المكاني الجغرافي أو الفيزيائي. اللمات 'إقليم' و'منطقة' ملائمة جداً، لكن 'جزء' تحتاج للمراجعة لعموميتها."
+  blind_candidates:
+    - lemma: "مِنْطَقَة"
+      generation_method: ishtiqaq
+      justification: "اسم مكان من الجذر (نطق) شاع استخدامه للمساحة المحددة من الأرض، وهو ترجمة دقيقة لـ region."
+    - lemma: "حَيِّز"
+      generation_method: majaz
+      justification: "يدل في اللغة والاصطلاح الفلسفي على الفراغ الذي يشغله الجسم، وهو ممتد بالضرورة."
+    - lemma: "صُقْع"
+      generation_method: majaz
+      justification: "لفظ تراثي يدل على الناحية أو الجهة من الأرض، ويجمع على أصقاع."
+    - lemma: "نِطَاق"
+      generation_method: ishtiqaq
+      justification: "من الجذر (نطق) ويدل على المدى أو الحزام المكاني الممتد."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "إقليم"
+      confirm:
+        - text: "«إقليم مناخي»"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+      expands:
+        - text: "«المقاييس المكانية... قد تتراوح بين مقياس محلي... عبر مقياس إقليمي»"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+    - lemma: "جزء"
+      confirm:
+        - text: "«الجُزْءُ: البعض»"
+          source: "القاموس المحيط"
+      contradicts:
+        - text: "«الجزء: ما يتركب الشيء عنه وعن غيره»"
+          source: "التوقيف على مهمات التعاريف"
+          conflict: "الدلالة بنيوية عامة وليست مخصصة للمكان الممتد."
+    - lemma: "منطقة"
+      confirm:
+        - text: "«شاع استعمالها حديثًا للتعبير عن المكان المحدد، وقد أجاز مجمع اللغة المصري استعمال المنطقة عن طريق المجاز المرسل في المكان المحدد بالمعنى الجغرافي.»"
+          source: "معجم الصواب اللغوي"
+        - text: "«المنطقة: الجزء المحدود من الأرض، الذي له خصائص مميزة»"
+          source: "معجم الصواب اللغوي"
+    - lemma: "حَيِّز"
+      confirm:
+        - text: "«الحيز: عند المتكلمين هو الفراغ المتوهم الذي يشغله شيء ممتد، كالجسم»"
+          source: "كتاب التعريفات للجرجاني"
+        - text: "«الحيز: المكان... كل ناحية حيز وحيز»"
+          source: "معجم البلدان"
+    - lemma: "صُقْع"
+      confirm:
+        - text: "«الصُّقْع: نَاحيَة الأَرْض وَالْبَيْت... والجمع: أصقاع»"
+          source: "المحكم والمحيط الأعظم"
+        - text: "«ما في ذلك الصقع وفي تلك الأصقاع مثل فلان وهو الناحية»"
+          source: "أساس البلاغة"
+    - lemma: "نِطَاق"
+      confirm:
+        - text: "«اتسع نطاق هذه الفكرة: انتشرت»"
+          source: "المعجم الوسيط"
+        - text: "«النطاق: المساحة التي يحتاجها الحيوان من أجل تلبية احتياجات بقائه»"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "إقليم"
+      decision: confirmed
+      decision_reason: "مصطلح جغرافي مستقر للدلالة على المساحات المكانية الممتدة ذات الخصائص المشتركة."
+      evidence_assessment:
+        case: confirm_only
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "إِقْلِيم"
+    - lemma: "منطقة"
+      decision: confirmed
+      decision_reason: "المصطلح الأكثر شيوعاً في العصر الحديث للدلالة على المكان الممتد والمحدد جغرافيًا."
+      evidence_assessment:
+        case: confirm_only
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مِنْطَقَة"
+    - lemma: "جزء"
+      decision: removed
+      decision_reason: "لفظ عام جداً يشير إلى البعضية البنيوية ولا يتخصص في المكان الممتد إلا بقرينة مضافة، وحذفه يمنع الخلط الدلالي."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "حَيِّز"
+      source: stage1
+      decision: confirmed
+      decision_reason: "دقيق في وصف الفراغ المكاني الذي يشغله الشيء، وهو ممتد بالضرورة لغوياً واصطلاحاً."
+      evidence_assessment:
+        case: confirm_only
+      actions:
+        - command: create_entry
+          params: {lemma: "حَيِّز", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "صُقْع"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ تراثي فصيح مرادف للناحية والجهة من الأرض، وإحياؤه يغني المعجم."
+      evidence_assessment:
+        case: confirm_only
+      actions:
+        - command: create_entry
+          params: {lemma: "صُقْع", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "نِطَاق"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يشير إلى المدى والانتشار المكاني، وهو مستخدم بكثرة في السياقات العلمية."
+      evidence_assessment:
+        case: confirm_only
+      actions:
+        - command: create_entry
+          params: {lemma: "نِطَاق", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "الموقع المكاني الممتد لشيء ما"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مختصر جداً، ويحتاج لإضافة صبغة معجمية توضح ماهية هذا الامتداد."
+    authored:
+      - type: linguistic
+        text: "مساحةٌ أو حيّزٌ من الأرض أو المكان يتميز بخصائص معينة أو يشغله شيءٌ ما."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مساحةٌ أو حيّزٌ من الأرض أو المكان يتميز بخصائص معينة أو يشغله شيءٌ ما."}
+  examples:
+    per_lemma:
+      - lemma: "إِقْلِيم"
+        examples:
+          - text: "يتميز الإقليم المداري بارتفاع درجة الحرارة وغزارة الأمطار صيفاً."
+            type: usage
+      - lemma: "مِنْطَقَة"
+        examples:
+          - text: "تعتبر هذه المنطقة من أقدم المناطق السكنية في المدينة."
+            type: usage
+      - lemma: "حَيِّز"
+        examples:
+          - text: "يشغل الأثاث الجديد حيزاً كبيراً من مساحة الصالة."
+            type: usage
+      - lemma: "صُقْع"
+        examples:
+          - text: "رحل العالم في طلب العلم إلى أصقاع الأرض البعيدة."
+            type: usage
+      - lemma: "نِطَاق"
+        examples:
+          - text: "اتسع نطاق البحث ليشمل كافة الغابات المحيطة بالقرية."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يتميز الإقليم المداري بارتفاع درجة الحرارة وغزارة الأمطار صيفاً."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تعتبر هذه المنطقة من أقدم المناطق السكنية في المدينة."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يشغل الأثاث الجديد حيزاً كبيراً من مساحة الصالة."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "رحل العالم في طلب العلم إلى أصقاع الأرض البعيدة."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "اتسع نطاق البحث ليشمل كافة الغابات المحيطة بالقرية."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "إِقْلِيم"
+      entry_id: "{auto}"
+      root: "قلم"
+      maqayis_quote: "«الْقَافُ وَاللَّامُ وَالْمِيمُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَسْوِيَةِ شَيْءٍ عِنْدَ بَرْيِهِ وَإِصْلَاحِهِ.» (ملاحظة: اللفظ قد يكون معرّباً قديماً)."
+    - lemma: "مِنْطَقَة"
+      entry_id: "{auto}"
+      root: "نطق"
+      maqayis_quote: "«النُّونُ وَالطَّاءُ وَالْقَافُ أَصْلَانِ صَحِيحَانِ: أَحَدُهُمَا كَلَامٌ... وَالْآخَرُ جِنْسٌ مِنَ اللِّبَاسِ.» (من النطاق الذي يشد به الوسط)."
+    - lemma: "حَيِّز"
+      entry_id: "{auto}"
+      root: "حوز"
+      maqayis_quote: "«الْحَاءُ وَالْوَاوُ وَالزَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الْجَمْعُ وَالتَّجَمُّعُ، يُقَالُ لِكُلِّ مَجْمَعٍ وَنَاحِيَةٍ حَوْزٌ وَحَوْزَةٌ.»"
+    - lemma: "صُقْع"
+      entry_id: "{auto}"
+      root: "صقع"
+      maqayis_quote: "«الصَّادُ وَالْقَافُ وَالْعَيْنُ أُصُولٌ ثَلَاثَةٌ... وَبَعْضُهُمْ يرويهِ فِي صُقُعْ... وَمِنْهُ الصُّقْعُ النَّاحِيَةُ.»"
+    - lemma: "نِطَاق"
+      entry_id: "{auto}"
+      root: "نطق"
+      maqayis_quote: "«النُّونُ وَالطَّاءُ وَالْقَافُ... وَالْآخَرُ النِّطَاقُ: إِزَارٌ فِيهِ تِكَّةٌ.»"
+  per_sense:
+    - lemma: "إِقْلِيم"
+      sense_id: "{auto}"
+      nuance: "يشير إلى مساحة جغرافية واسعة تشترك في خصائص طبيعية أو مناخية."
+      mwe: false
+    - lemma: "مِنْطَقَة"
+      sense_id: "{auto}"
+      nuance: "تشير إلى مساحة محددة بحدود (إدارية أو طبيعية) وتستخدم بكثرة في السياق المعاصر."
+      mwe: false
+    - lemma: "حَيِّز"
+      sense_id: "{auto}"
+      nuance: "يشير إلى الفراغ الفيزيائي أو المتوهم الذي يشغله الجسم."
+      mwe: false
+    - lemma: "صُقْع"
+      sense_id: "{auto}"
+      nuance: "لفظ تراثي يدل على الناحية أو الجهة من الأرض، ويغلب استخدامه في سياق السفر والبعد."
+      mwe: false
+    - lemma: "نِطَاق"
+      sense_id: "{auto}"
+      nuance: "يشير إلى المدى المكاني للانتشار أو التأثير."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params: {entity_type: entry, entity_id: "{auto}", key: note, value: '{"root":"قلم","maqayis":"«الْقَافُ وَاللَّامُ وَالْمِيمُ أَصْلٌ صَحِيحٌ...»"}'}
+    - command: set_metadata
+      params: {entity_type: entry, entity_id: "{auto}", key: note, value: '{"root":"نطق","maqayis":"«النُّونُ وَالطَّاءُ وَالْقَافُ...»"}'}
+    - command: set_metadata
+      params: {entity_type: entry, entity_id: "{auto}", key: note, value: '{"root":"حوز","maqayis":"«الْحَاءُ وَالْوَاوُ وَالزَّاءُ أَصْلٌ وَاحِدٌ...»"}'}
+    - command: set_metadata
+      params: {entity_type: entry, entity_id: "{auto}", key: note, value: '{"root":"صقع","maqayis":"«الصَّادُ وَالْقَافُ وَالْعَيْنُ أُصُولٌ ثَلَاثَةٌ...»"}'}
+    - command: set_metadata
+      params: {entity_type: entry, entity_id: "{auto}", key: note, value: '{"root":"نطق","maqayis":"«النُّونُ وَالطَّاءُ وَالْقَافُ...»"}'}
+    - command: set_metadata
+      params: {entity_type: sense, entity_id: "{auto}", key: note, value: '{"nuance":"يشير إلى مساحة جغرافية واسعة تشترك في خصائص طبيعية أو مناخية.","mwe":false}'}
+    - command: set_metadata
+      params: {entity_type: sense, entity_id: "{auto}", key: note, value: '{"nuance":"تشير إلى مساحة محددة بحدود وتستخدم بكثرة في السياق المعاصر.","mwe":false}'}
+    - command: set_metadata
+      params: {entity_type: sense, entity_id: "{auto}", key: note, value: '{"nuance":"يشير إلى الفراغ الفيزيائي أو المتوهم الذي يشغله الجسم.","mwe":false}'}
+    - command: set_metadata
+      params: {entity_type: sense, entity_id: "{auto}", key: note, value: '{"nuance":"لفظ تراثي يدل على الناحية أو الجهة من الأرض.","mwe":false}'}
+    - command: set_metadata
+      params: {entity_type: sense, entity_id: "{auto}", key: note, value: '{"nuance":"يشير إلى المدى المكاني للانتشار أو التأثير.","mwe":false}'}
+    - command: set_metadata
+      params: {entity_type: synset, entity_id: "{synset_id}", key: note, value: '{"cultural_fit":"native"}'}
+    - command: set_confidence
+      params: {entity_type: synset, entity_id: "{synset_id}", score: 0.95}

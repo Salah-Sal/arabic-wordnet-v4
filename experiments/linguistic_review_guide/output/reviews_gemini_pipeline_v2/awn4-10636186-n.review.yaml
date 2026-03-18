@@ -1,0 +1,198 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي عاميّ أو مترجم حرفياً («يشمشم»)."
+      - "اللمتان (شام، مستنشق) صحيحتان صرفياً ولكن لا تمثلان مصطلحاً مستقراً للشخص الذي يقوم بالشم كعادة (مثل تعاطي المخدرات)."
+    observations: "المفهوم الإنجليزي (sniffer) يشير إلى من يشم عموماً، أو من يتعاطى المخدرات بالشم، أو كلب مدرب على شم الممنوعات. في العربية، «شَمَّام» تؤدي معنى المبالغة والاعتياد، وهي مسجلة معجمياً بهذا المعنى."
+  blind_candidates:
+    - lemma: "شَمَّام"
+      generation_method: ishtiqaq
+      justification: "صيغة مبالغة على وزن فَعَّال لمن يكثر الشم، وتُطلق على من يعتاد شم المخدرات."
+    - lemma: "شَامّ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل شَمَّ، يدل على من يقوم بفعل الشم."
+    - lemma: "مُسْتَنْشِق"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من استنشق، يدل على من يتعمد سحب الهواء بأنفه."
+    - lemma: "شَمُوم"
+      generation_method: ishtiqaq
+      justification: "صيغة مبالغة على وزن فَعُول تدل على المبالغة في الشم."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "شَامّ"
+      evidence_status: "no_material_found"
+    - lemma: "مُسْتَنْشِق"
+      evidence_status: "no_material_found"
+    - lemma: "شَمَّام"
+      confirm:
+        - text: "الشَّمَّامُ: الحادُّ الشَّمِّ / مَنْ يتعاطى المخدِّرات"
+          source: "المعجم الكبير"
+    - lemma: "شَمُوم"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "شَامّ"
+      decision: confirmed
+      decision_reason: "كلمة صحيحة صرفياً (اسم فاعل) وتعبر عن المعنى الأصلي للشم."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "شَامّ"
+    - lemma: "مُسْتَنْشِق"
+      decision: confirmed
+      decision_reason: "اسم فاعل صحيح يعبر عن القصد في الشم وسحب الرائحة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُسْتَنْشِق"
+    - lemma: "شَمَّام"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صيغة مبالغة مسجلة معجمياً تعبر بدقة عن الشخص الحاد الشم أو من يعتاد شم المخدرات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "شَمَّام"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10636186-n"
+    - lemma: "شَمُوم"
+      source: stage1
+      decision: removed
+      decision_reason: "غير شائعة الاستعمال بهذا المعنى، و«شمام» تؤدي الغرض وتزيد دقة."
+
+stage4_content:
+  definition:
+    current: "شخص يشمشم"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ركيك (يشمشم). يجب صياغة تعريف دقيق يشمل الجوانب المختلفة للشم (طبيعي، اعتياد، مخدرات)."
+    authored:
+      - type: linguistic
+        text: "شخصٌ يقوم بعملية الشم، وقد يُطلق على من يتعاطى المخدرات بالاستنشاق."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-10636186-n"
+          definition_index: 0
+          text: "شخصٌ يقوم بعملية الشم، وقد يُطلق على من يتعاطى المخدرات بالاستنشاق."
+  examples:
+    per_lemma:
+      - lemma: "شَامّ"
+        examples:
+          - text: "كان الكلبُ شامّاً للأثر ببراعة."
+            type: usage
+      - lemma: "مُسْتَنْشِق"
+        examples:
+          - text: "أُسعف مُسْتَنْشِقُ الغاز السام فور وصوله إلى المستشفى."
+            type: usage
+      - lemma: "شَمَّام"
+        examples:
+          - text: "قبضت الشرطة على شَمَّامٍ للمخدرات في الحي."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "awn4-10636186-n"
+          text: "أُسعف مُسْتَنْشِقُ الغاز السام فور وصوله إلى المستشفى."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "كان الكلبُ شامّاً للأثر ببراعة."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "أُسعف مُسْتَنْشِقُ الغاز السام فور وصوله إلى المستشفى."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "قبضت الشرطة على شَمَّامٍ للمخدرات في الحي."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "شَامّ"
+      entry_id: "{auto}"
+      root: "شمم"
+      maqayis_quote: "«الشِّينُ وَالْمِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الْمُقَارَبَةِ وَالْمُدَانَاةِ. تَقُولُ شَمَمْتُ الشَّيْءَ فَأَنَا أَشُمُّهُ.»"
+    - lemma: "مُسْتَنْشِق"
+      entry_id: "{auto}"
+      root: "نشق"
+      maqayis_quote: "«النُّونُ وَالشِّينُ وَالْقَافُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى نُشُوبِ شَيْءٍ... وَالنَّشُوقُ: اسْمٌ لِكُلِّ دَوَاءٍ يُنْشَقُ. وَمِنْهُ اسْتَنْشَقْتُ الرِّيحَ: تَشَمَّمْتُهَا.»"
+    - lemma: "شَمَّام"
+      entry_id: "{auto}"
+      root: "شمم"
+      maqayis_quote: "«الشِّينُ وَالْمِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الْمُقَارَبَةِ وَالْمُدَانَاةِ. تَقُولُ شَمَمْتُ الشَّيْءَ فَأَنَا أَشُمُّهُ.»"
+  per_sense:
+    - lemma: "شَامّ"
+      sense_id: "{auto}"
+      nuance: "اسم فاعل يدل على مطلق القيام بفعل الشم."
+      mwe: false
+    - lemma: "مُسْتَنْشِق"
+      sense_id: "{auto}"
+      nuance: "يدل على القصد والتعمد في سحب الهواء والرائحة إلى الأنف."
+      mwe: false
+    - lemma: "شَمَّام"
+      sense_id: "{auto}"
+      nuance: "صيغة مبالغة تدل على حِدّة حاسة الشم أو اعتياد شم الممنوعات والمخدرات."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"شمم","maqayis":"«الشِّينُ وَالْمِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الْمُقَارَبَةِ وَالْمُدَانَاةِ. تَقُولُ شَمَمْتُ الشَّيْءَ فَأَنَا أَشُمُّهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نشق","maqayis":"«النُّونُ وَالشِّينُ وَالْقَافُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى نُشُوبِ شَيْءٍ... وَالنَّشُوقُ: اسْمٌ لِكُلِّ دَوَاءٍ يُنْشَقُ. وَمِنْهُ اسْتَنْشَقْتُ الرِّيحَ: تَشَمَّمْتُهَا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اسم فاعل يدل على مطلق القيام بفعل الشم.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يدل على القصد والتعمد في سحب الهواء والرائحة إلى الأنف.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"صيغة مبالغة تدل على حِدّة حاسة الشم أو اعتياد شم الممنوعات والمخدرات.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-10636186-n"
+        key: note
+        value: '{"cultural_fit":"native"}'

@@ -1,0 +1,137 @@
+step0_evidence:
+  per_lemma:
+    - lemma: "شَرِيحَة"
+      confirm:
+        - text: "«القطعة المرققة من اللحم وغيره»"
+          source: "المعجم الوسيط"
+        - text: "«slice»"
+          source: "المعجم الموحد لمصطلحات الجيولوجيا (2000)"
+        - text: "«slice»"
+          source: "المعجم الموحد لمصطلحات علوم الزلازل (1999)"
+      expands:
+        - text: "«رقيقةٌ من الزجاج ونحوه تُخْزَنُ عليها موادُّ تعليمية يمكن فحصها بأجهزة مجهرية لأغراض طبية أو تعليمية»"
+          source: "المعجم الكبير"
+          addition: "تخصيص المعنى للشرائح الزجاجية المجهرية"
+
+step05_lemma_generation:
+  evidence_candidates:
+    - lemma: "رُقَاقَة"
+      source_section: "step5_english_bridge"
+      evidence_citation: "«رُقَاقَةٌ: wafer» — المعجم الطبي الموحد (2009)"
+      justification: "مصطلح شائع يعبر عن القطعة شديدة الرقة، وهو مقابل مناسب لـ wafer و flake. آلية التوليد: اشتقاق (فُعَالَة)."
+    - lemma: "شَرْحَة"
+      source_section: "step4_fts_keyword"
+      evidence_citation: "«القِطْعةُ المُرَقَّقَةُ من اللَّحْمِ ونحوه» — المعجم الكبير"
+      justification: "مرادف قريب جدا من شريحة من نفس الجذر. آلية التوليد: اشتقاق (اسم مرة)."
+  knowledge_candidates:
+    - lemma: "قُشَارَة"
+      justification: "ما ينفصل عن الشيء كالقشرة، وتناسب بعض المعاني مثل flake. آلية التوليد: اشتقاق (فُعَالَة لما يسقط من الشيء)."
+
+step1_lemma_validation:
+  per_lemma:
+    - lemma: "شَرِيحَة"
+      decision: confirmed
+      evidence_assessment:
+        case: "confirm_only"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "المصطلح الأكثر شيوعا واستقرارا للتعبير عن القطعة الرفيعة المقطوعة من شيء ما."
+      example: "قطع الخباز شريحة من الخبز وقدمها للطفل."
+
+    - lemma: "رُقَاقَة"
+      source: step05
+      decision: confirmed
+      step05_citation: "«رُقَاقَةٌ: wafer» — المعجم الطبي الموحد (2009)"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تتميز الرقاقة بكونها أشد رقة من الشريحة، وتكثر في الاستخدامات التقنية والمواد الهشة."
+      example: "استخدم المهندس رقاقة سيليكون لتصنيع الدائرة الكهربائية."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "رُقَاقَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09460145-n"
+
+    - lemma: "شَرْحَة"
+      source: step05
+      decision: confirmed
+      step05_citation: "«القِطْعةُ المُرَقَّقَةُ من اللَّحْمِ ونحوه» — المعجم الكبير"
+      substitution_test:
+        result: "pass"
+      nuance_differentiation: "تستخدم غالبًا للتعبير عن القطعة المرققة من اللحم ونحوه، وهي اسم مرة من الفعل شرح."
+      example: "أضاف الطاهي شرحة من اللحم إلى الشطيرة."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "شَرْحَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09460145-n"
+
+    - lemma: "قُشَارَة"
+      source: step05
+      decision: removed
+      decision_reason: "دلالتها مرتبطة بالسطح الخارجي للشيء (القشرة) أكثر من كونها قطعة مقطوعة من كتلته."
+      step05_citation: "اقتراح مبني على المعرفة اللغوية"
+
+  added_lemmas:
+    - lemma: "رُقَاقَة"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+    - lemma: "شَرْحَة"
+      reason: "مصدر: الخطوة ٠٫٥"
+      via_command: create_entry + add_sense
+
+step3_definition:
+  definition_review_flag: false
+  current_definition: "قطعة رفيعة مسطحة مقطوعة من شيء ما"
+  assessment:
+    decision: retain
+    reason: "التعريف دقيق وواضح ويغطي المعنى المقصود بشكل جيد ومتوافق مع المعاجم العربية."
+
+step4_relations:
+  hypernymy:
+    current_hypernym: "جزء / قطعة"
+    test_result: "correct"
+  verb_checks:
+    applicable: false
+
+step5_enrichment:
+  per_lemma:
+    - lemma: "شَرِيحَة"
+      enrichment:
+        root: "ش-ر-ح"
+      examples:
+        - text: "قطع الخباز شريحة من الخبز وقدمها للطفل."
+          type: usage
+          source: "مؤلَّف"
+      morphology:
+        broken_plural_link: "شَرَائِح"
+      pos_check:
+        pos: noun
+    - lemma: "رُقَاقَة"
+      enrichment:
+        root: "ر-ق-ق"
+      examples:
+        - text: "استخدم المهندس رقاقة سيليكون لتصنيع الدائرة الكهربائية."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+    - lemma: "شَرْحَة"
+      enrichment:
+        root: "ش-ر-ح"
+      examples:
+        - text: "أضاف الطاهي شرحة من اللحم إلى الشطيرة."
+          type: usage
+          source: "مؤلَّف"
+      pos_check:
+        pos: noun
+  cultural_fit:
+    assessment: native

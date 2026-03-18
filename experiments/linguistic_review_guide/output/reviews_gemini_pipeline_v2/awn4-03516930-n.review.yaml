@@ -1,0 +1,164 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمة الحالية "كعب المضرب" تفتقر إلى التشكيل الكامل.
+      - الحاجة لتوثيق مصطلح "عقب المضرب" كمرادف فصيح مستعمل.
+    observations: "المفهوم تقني رياضي (رياضة الغولف)، ويُقصد به الجزء من رأس المضرب الأقرب إلى الساق (العصا). المصطلحات العربية المعتمدة في هذا المجال تتبع النقل الدلالي من الأعضاء البشرية (كعب/عقب) إلى الأجزاء الميكانيكية، وهو مسلك قياسي في التعريب."
+  blind_candidates:
+    - lemma: "كَعْبُ المِضْرَب"
+      generation_method: tarkib
+      justification: "ترجمة اصطلاحية مباشرة لمصطلح (heel of the club)، وهو الجزء القاعدي الخلفي."
+    - lemma: "عَقِبُ المِضْرَب"
+      generation_method: tarkib
+      justification: "العقب هو مؤخر القدم، ويُستخدم دلالياً لوصف الجزء الخلفي من الأدوات."
+    - lemma: "أَصْلُ المِضْرَب"
+      generation_method: tarkib
+      justification: "الأصل هو أسفل الشيء ومنبته، ويصلح لوصف مكان اتصال الرأس بالساق."
+    - lemma: "مَوْصِلُ المِضْرَب"
+      generation_method: tarkib
+      justification: "تسمية وصفية لمكان الاتصال الوظيفي بين جزأي المضرب."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "كَعْبُ المِضْرَب"
+      confirm:
+        - text: "«(2) مِضْرَب غولف.» (في سياق ترجمة الأجزاء)"
+          source: "المورد الحديث"
+        - text: "«كَعْب: الجزء من قاعدة السد أو الجدار الاستنادي...» (يدعم استخدام كعب للأجزاء الميكانيكية)"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية"
+    - lemma: "عَقِبُ المِضْرَب"
+      confirm:
+        - text: "«العَقِب: ... د- كعب الحذاء أو الجورب. هـ- مؤخَّر المركب. و- أسفل الصاري أو السلّم» (يدعم استخدام عقب للأجزاء القاعدية)"
+          source: "المورد الحديث"
+      expands:
+        - text: "«العَقِبُ: مُؤَخَّرُ الْقَدَمِ»"
+          source: "المصباح المنير"
+    - lemma: "كعب"
+      expands:
+        - text: "«الْكَعْبُ: الْعَظْمُ النَّاشِزُ عِنْدَ مُلْتَقَى السَّاقِ وَالْقَدَمِ»"
+          source: "مختار الصحاح"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "كعب المضرب"
+      decision: confirmed
+      decision_reason: "المصطلح موجود بالفعل في المجموعة وهو دقيق تقنياً وشائع الاستخدام في تعريب رياضة الغولف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "كَعْبُ المِضْرَب"
+    - lemma: "عَقِبُ المِضْرَب"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف فصيح لـ (heel) ويُستخدم في السياقات الفنية لوصف الجزء الخلفي أو القاعدي من الأدوات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "عَقِبُ المِضْرَب", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "(الغولف) جزء رأس المضرب حيث يتصل بالعصا"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي صحيح لكنه يحتاج إلى صياغة معجمية أكثر دقة وتحديداً لموقع الجزء."
+    authored:
+      - type: terminological
+        text: "جزء من رأس مضرب الغولف يقع عند نقطة اتصاله بالساق (العصا)، وهو الجزء الأقرب إلى اللاعب عند وضع المضرب خلف الكرة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "كَعْبُ المِضْرَب"
+        examples:
+          - text: "يؤدي ضرب الكرة بكعب المضرب إلى انحراف مسارها بشكل غير متوقع."
+            type: usage
+      - lemma: "عَقِبُ المِضْرَب"
+        examples:
+          - text: "يجب التأكد من متانة منطقة عقب المضرب لضمان ثبات الرأس عند الارتطام القوي."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "جزء من رأس مضرب الغولف يقع عند نقطة اتصاله بالساق (العصا)، وهو الجزء الأقرب إلى اللاعب عند وضع المضرب خلف الكرة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "كَعْبُ المِضْرَب"
+      entry_id: "{auto}"
+      roots:
+        - word: "كعب"
+          root: "كعب"
+          maqayis_quote: "«الْكَافُ وَالْعَيْنُ وَالْبَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى نُتُوٍّ وَارْتِفَاعٍ فِي الشَّيْءِ. مِنْ ذَلِكَ الْكَعْبُ: كَعْبُ الرِّجْلِ، وَهُوَ عَظْمٌ نَاشِزٌ عِنْدَ مُلْتَقَى السَّاقِ وَالْقَدَمِ.»"
+        - word: "المضرب"
+          root: "ضرب"
+          maqayis_quote: "«الضَّادُ وَالرَّاءُ وَالْبَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ إِيقَاعُ شَيْءٍ عَلَى شَيْءٍ.»"
+    - lemma: "عَقِبُ المِضْرَب"
+      entry_id: "{auto}"
+      roots:
+        - word: "عقب"
+          root: "عقب"
+          maqayis_quote: "«الْعَيْنُ وَالْقَافُ وَالْبَاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى تَأْخِيرِ شَيْءٍ وَإِتْيَانِهِ بَعْدَ غَيْرِهِ. مِنْ ذَلِكَ عَقِبُ الْقَدَمِ، وَهُوَ مُؤَخَّرُهَا.»"
+        - word: "المضرب"
+          root: "ضرب"
+          maqayis_quote: "«الضَّادُ وَالرَّاءُ وَالْبَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ إِيقَاعُ شَيْءٍ عَلَى شَيْءٍ.»"
+  per_sense:
+    - lemma: "كَعْبُ المِضْرَب"
+      sense_id: "{auto}"
+      nuance: "المصطلح الأكثر شياعاً وتداولاً في الأدبيات الرياضية المعاصرة للغولف."
+      mwe: true
+    - lemma: "عَقِبُ المِضْرَب"
+      sense_id: "{auto}"
+      nuance: "مرادف فصيح يركز على الموضع الخلفي (المؤخر) للجزء."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"كعب","root":"كعب","maqayis":"«الْكَافُ وَالْعَيْنُ وَالْبَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى نُتُوٍّ وَارْتِفَاعٍ فِي الشَّيْءِ...»"},{"word":"المضرب","root":"ضرب","maqayis":"«الضَّادُ وَالرَّاءُ وَالْبَاءُ أَصْلٌ وَاحِدٌ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"عقب","root":"عقب","maqayis":"«الْعَيْنُ وَالْقَافُ وَالْبَاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى تَأْخِيرِ شَيْءٍ وَإِتْيَانِهِ بَعْدَ غَيْرِهِ...»"},{"word":"المضرب","root":"ضرب","maqayis":"«الضَّادُ وَالرَّاءُ وَالْبَاءُ أَصْلٌ وَاحِدٌ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الأكثر شياعاً وتداولاً في الأدبيات الرياضية المعاصرة للغولف.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مرادف فصيح يركز على الموضع الخلفي (المؤخر) للجزء.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

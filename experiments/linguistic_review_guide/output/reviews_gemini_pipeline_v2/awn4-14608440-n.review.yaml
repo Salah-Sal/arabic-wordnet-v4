@@ -1,0 +1,220 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمات الحالية عبارة عن عبارات وصفية طويلة وغير مشكولة.
+      - يفتقر المدخل إلى المصطلحات التقنية الدقيقة (مثل مستأرج).
+    observations: "المفهوم علمي طبي (allergen)، واللمات الحالية (مادة مسببة للحساسية، مهيج للحساسية) هي أوصاف عامة صحيحة لكنها ليست المصطلحات الوحيدة أو الأكثر دقة في السياق الطبي المتخصص."
+  blind_candidates:
+    - lemma: "مُسْتَأْرِج"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من استأرج (على وزن مستفعل)، وهو المصطلح القياسي في المعاجم الطبية (مثل المعجم الطبي الموحد) للدلالة على مادة تسبب الأرجية."
+    - lemma: "مُؤَرِّج"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من أرج (أرجية)، يعبر عن المادة التي تحدث الاستجابة الأرجية."
+    - lemma: "مُحَسِّس"
+      generation_method: ishtiqaq
+      justification: "من الفعل حسس، يستخدم في السياق البيولوجي للدلالة على المادة التي تزيد من حساسية الجسم."
+    - lemma: "مُسَبِّب حَسَاسِيَّة"
+      generation_method: tarkib
+      justification: "تركيب إضافي شائع الاستخدام لوصف المادة التي تطلق شرارة الحساسية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مادة مسببة للحساسية"
+      confirm:
+        - text: "مسبب للحساسية: يمكن استخدام هذا الوصف بالنسبة لكل مادة تنتج أو تتسبب في حساسية. مستأرج (المرادف العربي)"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+    - lemma: "مهيج للحساسية"
+      evidence_status: "no_material_found"
+    - lemma: "مُسْتَأْرِج"
+      confirm:
+        - text: "مُسْتَأْرِج: allergen"
+          source: "المعجم الطبي الموحد (2009)"
+        - text: "باعث الحساسية، مُسْتأْرِج: allergen"
+          source: "المعجم الموحد لمصطلحات الطب البيطري (2010)"
+    - lemma: "مُؤَرِّج"
+      confirm:
+        - text: "مُؤَرِّج: allergenic"
+          source: "المعجم الطبي الموحد (2009)"
+        - text: "مؤرَّج: صفة للمادة المحدثة للأرجية."
+          source: "معجم المصطلحات الطبية (1985)"
+    - lemma: "مُسَبِّب حَسَاسِيَّة"
+      confirm:
+        - text: "مُسْتَحِسّ: مسبب للحساسية (allergen)"
+          source: "المعجم الموحد لمصطلحات علم الصيدلة (2009)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مادة مسببة للحساسية"
+      decision: confirmed
+      decision_reason: "وصف دقيق وشائع الاستخدام في السياقات العامة والعلمية، وموثق في معاجم المصطلحات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَادَّةٌ مُسَبِّبَةٌ لِلْحَسَاسِيَّة"
+    - lemma: "مهيج للحساسية"
+      decision: confirmed
+      decision_reason: "مقبول كمرادف عام، وإن كان 'المهيج' (irritant) قد يختلف تقنياً عن 'المستأرج' (allergen)."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُهَيِّجٌ لِلْحَسَاسِيَّة"
+    - lemma: "مُسْتَأْرِج"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح التقني الأكثر دقة واختصاراً في المعاجم الطبية العربية المتخصصة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُسْتَأْرِج", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُؤَرِّج"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح مشتق قياسياً من 'الأرجية' (allergy) وموثق في المعاجم الطبية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُؤَرِّج", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُسَبِّبُ الْحَسَاسِيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تركيب إضافي فصيح ومباشر، وهو مرادف للمستأرج في المعاجم التقنية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "مُسَبِّبُ الْحَسَاسِيَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "أي مادة يمكن أن تسبب حساسية"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي بسيط جداً؛ يفضل إضافة تفاصيل علمية توضح طبيعة هذه المادة والاستجابة المناعية."
+    authored:
+      - type: terminological
+        text: "مادة طبيعية أو اصطناعية غريبة عن الجسم، تسبب عند دخولها إليه أو تلامسها معه استجابة مناعية مفرطة تُعرف بالحساسية أو الأرجية."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مادة طبيعية أو اصطناعية غريبة عن الجسم، تسبب عند دخولها إليه أو تلامسها معه استجابة مناعية مفرطة تُعرف بالحساسية أو الأرجية."}
+  examples:
+    per_lemma:
+      - lemma: "مُسْتَأْرِج"
+        examples:
+          - text: "يُعد حبوب اللقاح من أكثر المستأرجات شيوعاً في فصل الربيع."
+            type: usage
+      - lemma: "مَادَّةٌ مُسَبِّبَةٌ لِلْحَسَاسِيَّة"
+        examples:
+          - text: "يجب على المصابين بالربو تجنب المواد المسببة للحساسية مثل الغبار ووبر الحيوانات."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "قد تحتوي بعض الأطعمة على مستأرجات خفية تسبب صدمة تأقية للمصابين بالحساسية."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُسْتَأْرِج"
+      entry_id: "{auto}"
+      root: "أرج"
+      maqayis_quote: "«الْهَمْزَةُ وَالرَّاءُ وَالْجِيمُ كَلِمَةٌ وَاحِدَةٌ وَهِيَ الْأَرَجُ، وَهُوَ وَالْأَرِيجُ رَائِحَةُ الطِّيبِ.»"
+    - lemma: "مُؤَرِّج"
+      entry_id: "{auto}"
+      root: "أرج"
+      maqayis_quote: "«الْهَمْزَةُ وَالرَّاءُ وَالْجِيمُ كَلِمَةٌ وَاحِدَةٌ وَهِيَ الْأَرَجُ، وَهُوَ وَالْأَرِيجُ رَائِحَةُ الطِّيبِ.»"
+    - lemma: "مُسَبِّبُ الْحَسَاسِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "مسبب"
+          root: "سبب"
+          maqayis_quote: "«السِّينُ وَالْبَاءُ... أَصْلُ هَذَا الْبَابِ الْقَطْعُ... وَأَمَّا الْحَبْلُ فَالسَّبَبُ... يَدُلُّ عَلَى طُولٍ وَامْتِدَادٍ.»"
+        - word: "الحساسية"
+          root: "حس"
+          maqayis_quote: "«الْحَاءُ وَالسِّينُ أَصْلَانِ: فَالْأَوَّلُ غَلَبَةُ الشَّيْءِ بِقَتْلٍ أَوْ غَيْرِهِ، وَالثَّانِي حِكَايَةُ صَوْتٍ عِنْدَ تَوَجُّعٍ وَشَبَهِهِ.»"
+    - lemma: "مَادَّةٌ مُسَبِّبَةٌ لِلْحَسَاسِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "مادة"
+          root: "مد"
+          maqayis_quote: "«الْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى جَرِّ شَيْءٍ فِي طُولٍ، وَاتِّصَالِ شَيْءٍ بِشَيْءٍ فِي اسْتِطَالَةٍ.»"
+        - word: "مسببة"
+          root: "سبب"
+          maqayis_quote: "«السِّينُ وَالْبَاءُ... أَصْلُ هَذَا الْبَابِ الْقَطْعُ... وَأَمَّا الْحَبْلُ فَالسَّبَبُ... يَدُلُّ عَلَى طُولٍ وَامْتِدَادٍ.»"
+        - word: "للحساسية"
+          root: "حس"
+          maqayis_quote: "«الْحَاءُ وَالسِّينُ أَصْلَانِ: فَالْأَوَّلُ غَلَبَةُ الشَّيْءِ بِقَتْلٍ أَوْ غَيْرِهِ، وَالثَّانِي حِكَايَةُ صَوْتٍ عِنْدَ تَوَجُّعٍ وَشَبَهِهِ.»"
+  per_sense:
+    - lemma: "مُسْتَأْرِج"
+      sense_id: "{auto}"
+      nuance: "المصطلح العلمي العربي الأدق والأكثر تخصصاً في المعاجم الطبية."
+      mwe: false
+    - lemma: "مُؤَرِّج"
+      sense_id: "{auto}"
+      nuance: "يركز على وظيفة المادة في إحداث الأرجية."
+      mwe: false
+    - lemma: "مَادَّةٌ مُسَبِّبَةٌ لِلْحَسَاسِيَّة"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي واسع الانتشار في السياقات التعليمية والعامة."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"أرج","maqayis":"«الْهَمْزَةُ وَالرَّاءُ وَالْجِيمُ كَلِمَةٌ وَاحِدَةٌ وَهِيَ الْأَرَجُ، وَهُوَ وَالْأَرِيجُ رَائِحَةُ الطِّيبِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مادة","root":"مد","maqayis":"«الْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى جَرِّ شَيْءٍ فِي طُولٍ...»"},{"word":"مسببة","root":"سبب","maqayis":"«السِّينُ وَالْبَاءُ... أَصْلُ هَذَا الْبَابِ الْقَطْعُ...»"},{"word":"للحساسية","root":"حس","maqayis":"«الْحَاءُ وَالسِّينُ أَصْلَانِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العلمي العربي الأدق والأكثر تخصصاً في المعاجم الطبية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

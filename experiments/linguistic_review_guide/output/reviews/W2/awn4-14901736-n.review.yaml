@@ -1,0 +1,119 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الوحيدة الموجودة تفتقر إلى التشكيل الكامل (غاز -> غَاز)."
+      - "الافتقار إلى مرادفات عربية تراثية دقيقة تعبر عن الحالة الفيزيائية العامة للمادة (بخار وهواء أكثر تخصصاً)."
+    observations: "المفهوم علمي حديث (الحالات الثلاث للمادة)، واللفظ المستعمل (غاز) هو تعريب مقبول وشائع في جميع المعاجم الحديثة والمجامع اللغوية."
+  blind_candidates:
+    - lemma: "غَاز"
+      generation_method: taarib
+      justification: "اللفظ المعرب العالمي الأكثر شيوعاً ودقة في التعبير عن الحالة الغازية."
+    - lemma: "بُخَار"
+      generation_method: ishtiqaq
+      justification: "لفظ تراثي استعمل قديماً للتعبير عن المتصاعد من السوائل، ويقارب مفهوم الغاز في الاستعمال العام."
+    - lemma: "هَوَاء"
+      generation_method: majaz
+      justification: "استعمال الموصوف (الهواء) للتعبير عن النوع (الغاز) من باب إطلاق الأخص على الأعم في السياقات غير المتخصصة."
+    - lemma: "مَادَّة غَازِيَّة"
+      generation_method: tarkib
+      justification: "وصف تركيبي دقيق للمادة في هذه الحالة الفيزيائية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "غاز"
+      confirm:
+        - text: "«حالة من حالات المادة الثلاث تكون فى العادة شفافة، تتميز بأنها تشغل كلَّ حيِّز توضع فيه وتتشكل بشكله، كالهواء والأكسجين وثاني أكسيد الكربون...»"
+          source: "المعجم الوسيط"
+        - text: "«إحدى الحالات الثلاث للمادة. ليس له شكل أو حجم محدد وقادر على التمدد على نحو غير محدود»"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية (ArabTerm)"
+        - text: "«حالة من حالات المادّة الثلاث تكون في العادة شفّافة، تتميَّز بأنّها تشغل كلّ حيِّز تُوضع فيه وتشكَّل بشكله...»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "بخار"
+      expands:
+        - text: "«الطور الغازي للمادة»"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية"
+          addition: "يشير إلى الحالة الغازية لمادة تكون عادة سائلة أو صلبة في الظروف العادية."
+    - lemma: "هواء"
+      confirm:
+        - text: "«غاز يغلف الكرة الأرضية ويتكون من الأزوت والأكسجين وغازات قليلة أخرى»"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "غاز"
+      decision: confirmed
+      decision_reason: "هو المصطلح العلمي المعياري الوحيد المقبول في العربية الحديثة للتعبير عن هذه الحالة من حالات المادة، وقد أقرته المجامع اللغوية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "غَاز"
+    - lemma: "بُخَار"
+      source: stage1
+      decision: removed
+      decision_reason: "البخار تقنياً هو حالة خاصة من الغاز (Vapor) لمواد تكون سائلة أو صلبة في درجات الحرارة العادية، ولا يصح كمرادف عام للغاز."
+    - lemma: "هَوَاء"
+      source: stage1
+      decision: removed
+      decision_reason: "الهواء خليط محدد من الغازات، واستخدامه كمرادف للغاز عامة هو استخدام مجازي غير دقيق علمياً."
+    - lemma: "مَادَّة غَازِيَّة"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير وصفي وليس مصطلحاً معجمياً بسيطاً."
+
+stage4_content:
+  definition:
+    current: "مائع في الحالة الغازية ليس له شكل مستقل ولا حجم محدد وقابل للتمدد إلى ما لا نهاية"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق علمياً ويغطي الخصائص الفيزيائية الأساسية للغاز (الميوعة، عدم استقلال الشكل والحجم، القابلية للتمدد)."
+  examples:
+    per_lemma:
+      - lemma: "غَاز"
+        examples:
+          - text: "النيتروجين غاز عديم اللون والرائحة يشكل معظم الغلاف الجوي للأرض."
+            type: usage
+          - text: "يتحول السائل إلى غاز عند وصوله إلى درجة الغليان."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "غَاز"
+      entry_id: "{auto}"
+      root: "غوز"
+      maqayis_quote: "جذر معرب؛ اللفظ ليس عربياً أصيلاً ولا يوجد له أصل في مقاييس اللغة لابن فارس، وقد أدرجه المعجم الوسيط تحت (غوز) كجذر اعتباري للتعريب."
+  per_sense:
+    - lemma: "غَاز"
+      sense_id: "{auto}"
+      nuance: "الكلمة الأساسية والوحيدة للتعبير عن الحالة الفيزيائية العامة (Gas)، وتتميز عن (البخار) بكونها تشمل الغازات الدائمة في الظروف المعيارية."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"غوز","is_taarib":true,"note":"لفظ معرب عن اليونانية/الهولندية (Gas)"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العلمي المعياري للحالة الغازية","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 1.0

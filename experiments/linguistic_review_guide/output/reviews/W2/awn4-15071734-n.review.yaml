@@ -1,0 +1,188 @@
+# ── المرحلة ١: المراجعة والتوليد (بدون أدلة) ──────────────
+stage1_review:
+  assessment:
+    concerns:
+      - اللمة الحالية "جليد جاف" تفتقر إلى التشكيل الكامل.
+      - التعريف العربي الحالي دقيق علمياً ولكنه يفتقر إلى الصياغة المعجمية المتكاملة.
+    observations: "المفهوم علمي تقني، والتعريب المعتمد يعتمد على الوصف الفيزيائي للمادة (جاف) لتمييزها عن الجليد المائي."
+  blind_candidates:
+    - lemma: "جَلِيدٌ جَافٌّ"
+      generation_method: tarkib
+      justification: "الترجمة الاصطلاحية الشائعة للمصطلح الإنجليزي dry ice، وهو تعبير وصفي مسكوك."
+    - lemma: "ثَلْجٌ جَافٌّ"
+      generation_method: tarkib
+      justification: "بديل شائع للمصطلح الأول، يستخدم في السياقات العامة والتقنية البسيطة."
+    - lemma: "ثَانِي أُكْسِيدِ الكَرْبُونِ الثَّلْجِيُّ"
+      generation_method: tarkib
+      justification: "تعبير وصفي دقيق يربط المفهوم بأصله الكيميائي وحالته الفيزيائية."
+    - lemma: "مُبَرِّدٌ كَرْبُونِيٌّ"
+      generation_method: ishtiqaq
+      justification: "توليد يعتمد على الوظيفة (مبرد) والمادة (كربون)."
+
+# ── المرحلة ٢: جمع الأدلة ────────────────────────────────
+stage2_evidence:
+  per_lemma:
+    - lemma: "جليد جاف"
+      confirm:
+        - text: "جليد جاف: drikold; dry ice"
+          source: "المعجم الموحد لمصطلحات الكيمياء (1992)"
+        - text: "الجليد الجافّ: ثاني أكسيد الكربون المجمَّد."
+          source: "المورد الحديث (2008)"
+        - text: "جَليدٌ جاف (جَليدُ ثُنَائِيُّ أوكْسيد الكَرْبون): dry ice"
+          source: "المعجم الطبي الموحد (2009)"
+    - lemma: "ثَلْجٌ جَافٌّ"
+      confirm:
+        - text: "ثلج جاف: dry ice. جليد من ثاني أكسيد الكربون."
+          source: "المعجم الموحد لمصطلحات تقانات الأغذية (2004)"
+        - text: "جليد كربوني، ثلج جاف: dry ice"
+          source: "المعجم الموحد لمصطلحات الكيمياء (1992)"
+    - lemma: "جَلِيدٌ كَرْبُونِيٌّ"
+      confirm:
+        - text: "جليد كربوني، ثلج جاف: dry ice"
+          source: "المعجم الموحد لمصطلحات الكيمياء (1992)"
+
+# ── المرحلة ٣: التحليل اللغوي للّمات ────────────────────
+stage3_analysis:
+  per_lemma:
+    - lemma: "جليد جاف"
+      decision: confirmed
+      decision_reason: "مصطلح تقني معتمد في المعاجم المتخصصة (كيمياء، طب) والمعاجم الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "جَلِيدٌ جَافٌّ"
+    - lemma: "ثَلْجٌ جَافٌّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "بديل معجمي معتمد، مستخدم في تقانات الأغذية والمعاجم الطبية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "ثَلْجٌ جَافٌّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "جَلِيدٌ كَرْبُونِيٌّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح علمي دقيق يربط المادة بهويتها الكيميائية، موثق في معجم الكيمياء."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "جَلِيدٌ كَرْبُونِيٌّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+# ── المرحلة ٤: التعريف والأمثلة ──────────────────────────
+stage4_content:
+  definition:
+    current: "ثاني أكسيد الكربون المتصلب؛ يتسامى عند -78.5 درجة مئوية ويستخدم بشكل رئيسي كمبرد"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد علمياً لكن يمكن صياغته بأسلوب معجمي أكثر دقة يشرح خاصية التسامي وأهمية الاستخدام كمبرد."
+    authored:
+      - type: terminological
+        text: "ثاني أكسيد الكربون في حالته الصلبة، يتميز بتساميه (تحوله من الحالة الصلبة إلى الغازية مباشرة) عند درجة حرارة -78.5 مئوية، ويستخدم في التبريد لقدرته العالية على امتصاص الحرارة دون ترك بقايا سائلة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "ثاني أكسيد الكربون في حالته الصلبة، يتميز بتساميه (تحوله من الحالة الصلبة إلى الغازية مباشرة) عند درجة حرارة -78.5 مئوية، ويستخدم في التبريد لقدرته العالية على امتصاص الحرارة دون ترك بقايا سائلة."}
+  examples:
+    per_lemma:
+      - lemma: "جَلِيدٌ جَافٌّ"
+        examples:
+          - text: "يُستخدم الجليد الجاف في حفظ الأطعمة المجمدة أثناء النقل لمسافات طويلة."
+            type: usage
+      - lemma: "ثَلْجٌ جَافٌّ"
+        examples:
+          - text: "يُنتج الثلج الجاف تأثيراً ضبابياً كثيفاً عند وضعه في الماء، مما يجعله شائعاً في الخدع المسرحية."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يتطلب التعامل مع الجليد الجاف حذراً شديداً بسبب درجة حرارته المنخفضة جداً التي قد تسبب حروقاً جليدية."}
+
+# ── المرحلة ٥: الإثراء (البيانات الوصفية) ─────────────────
+stage5_enrichment:
+  per_entry:
+    - lemma: "جَلِيدٌ جَافٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "جليد"
+          root: "جلد"
+          maqayis_quote: "«الْجِيمُ وَاللَّامُ وَالدَّالُ أَصْلٌ وَاحِدٌ وَهُوَ يَدُلُّ عَلَى قُوَّةٍ وَصَلَابَةٍ. فَالْجِلْدُ مَعْرُوفٌ، وَهُوَ أَقْوَى وَأَصْلَبُ مِمَّا تَحْتَهُ مِنَ اللَّحْمِ.»"
+        - word: "جاف"
+          root: "جفف"
+          maqayis_quote: "«الْجِيمُ وَالْفَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ ذَهَابُ الرُّطُوبَةِ وَالْمَاءِ.»"
+    - lemma: "ثَلْجٌ جَافٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "ثلج"
+          root: "ثلج"
+          maqayis_quote: "«الثَّاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ، وَهُوَ الثَّلْجُ الْمَعْرُوفُ.»"
+        - word: "جاف"
+          root: "جفف"
+          maqayis_quote: "«الْجِيمُ وَالْفَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ ذَهَابُ الرُّطُوبَةِ وَالْمَاءِ.»"
+    - lemma: "جَلِيدٌ كَرْبُونِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "جليد"
+          root: "جلد"
+          maqayis_quote: "«الْجِيمُ وَاللَّامُ وَالدَّالُ أَصْلٌ وَاحِدٌ وَهُوَ يَدُلُّ عَلَى قُوَّةٍ وَصَلَابَةٍ.»"
+        - word: "كربوني"
+          root: "كربون"
+          maqayis_quote: "مُعرب (Carbon)."
+  per_sense:
+    - lemma: "جَلِيدٌ جَافٌّ"
+      sense_id: "{auto}"
+      nuance: "المصطلح العلمي والتقني الأكثر شيوعاً لوصف ثاني أكسيد الكربون المتصلب."
+      mwe: true
+    - lemma: "ثَلْجٌ جَافٌّ"
+      sense_id: "{auto}"
+      nuance: "تسمية شائعة، غالباً ما تستخدم في السياقات غير التخصصية أو التجارية."
+      mwe: true
+    - lemma: "جَلِيدٌ كَرْبُونِيٌّ"
+      sense_id: "{auto}"
+      nuance: "مصطلح تخصصي يبرز التركيب الكيميائي للمادة لتمييزها عن أنواع الجليد الأخرى."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"جليد","root":"جلد","maqayis":"«الْجِيمُ وَاللَّامُ وَالدَّالُ أَصْلٌ وَاحِدٌ...»"},{"word":"جاف","root":"جفف","maqayis":"«الْجِيمُ وَالْفَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ ذَهَابُ الرُّطُوبَةِ وَالْمَاءِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العلمي والتقني الأكثر شيوعاً لوصف ثاني أكسيد الكربون المتصلب.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 1.0

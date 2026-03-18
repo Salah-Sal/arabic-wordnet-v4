@@ -1,0 +1,200 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "العبارة «موافق للجنس» هي شرح وصفي حر وليست مصطلحاً معجمياً أو تعبيراً اصطلاحياً مسكوكاً."
+      - "اللمة «قريب» صحيحة في سياق القرابة التطورية (relative)، لكن المجموعة الترادفية تفتقر إلى المعادل الدقيق لمصطلح congener."
+    observations: "المفهوم يشير إلى الكائنات الحية التي تنتمي إلى نفس الجنس التصنيفي (genus) أو ترتبط بقرابة نسب تطوري. العربية تستعمل الجذور (ج ن س) و(ق ر ب) للتعبير عن هذا."
+  blind_candidates:
+    - lemma: "مُجَانِس"
+      generation_method: ishtiqaq
+      justification: "مشتق من الجذر (ج ن س) ليدل على من يشارك آخر في الانتماء إلى نفس الجنس التصنيفي، وهو المعادل الدقيق لـ congener."
+    - lemma: "نَسِيب"
+      generation_method: majaz
+      justification: "نقل دلالي لمفهوم القرابة في النسب البشري إلى القرابة التطورية بين الكائنات."
+    - lemma: "اِبْنُ جِنْسٍ"
+      generation_method: tarkib
+      justification: "تركيب إضافي يُستعمل في التراث للتعبير عن الأفراد أو الأنواع التي تنتمي لنفس الفئة أو الجنس."
+    - lemma: "قَرِين"
+      generation_method: majaz
+      justification: "المصاحب والمقترن، يمكن استعماله للتعبير عن الأنواع القريبة التي تشارك الكائن في سماته."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "قريب"
+      confirm:
+        - text: "الدَّانِى فى المكان أو الزَّمان أو النسب"
+          source: "المعجم الوسيط"
+    - lemma: "موافق للجنس"
+      evidence_status: "no_material_found"
+    - lemma: "مُجَانِس"
+      confirm:
+        - text: "(1) المُجانِس: حيوان أو نبات من جنس genus حيوان أو نباتٍ آخر"
+          source: "المورد الحديث (2008)"
+    - lemma: "نَسِيب"
+      contradicts:
+        - text: "المُنَاسِب رجلٌ نَسِيب: شريف معروف حسَبُه وأصولُه"
+          source: "المعجم الوسيط"
+          conflict: "تقتصر على الأنساب البشرية ولا تستعمل في علم التصنيف الحيوي."
+    - lemma: "اِبْنُ جِنْسٍ"
+      evidence_status: "no_material_found"
+    - lemma: "قَرِين"
+      contradicts:
+        - text: "المقارنُ والمصاحب الزوج البعير المقرون بآخر الأسيرُ"
+          source: "المعجم الوسيط"
+          conflict: "تفيد المصاحبة والاقتران وليس القرابة التطورية."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "قريب"
+      decision: confirmed
+      decision_reason: "اللمة صحيحة لغوياً وتستخدم في علم الأحياء للتعبير عن الانتماء للأصل المشترك أو القرابة التطورية (relative)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "قَرِيب"
+    - lemma: "موافق للجنس"
+      decision: removed
+      decision_reason: "عبارة وصفية غير مسكوكة، ويمكن الاستغناء عنها بالمصطلح الأدق «مجانس»."
+      evidence_assessment:
+        case: no_material
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "مُجَانِس"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح علمي دقيق وموثق كترجمة لـ congener، ويعبر بدقة عن الانتماء لنفس الجنس التصنيفي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُجَانِس"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "نَسِيب"
+      source: stage1
+      decision: removed
+      decision_reason: "يغلب استعمالها في النسب البشري ولا تشيع في التصنيف الأحيائي."
+      evidence_assessment:
+        case: contradicts_only
+    - lemma: "اِبْنُ جِنْسٍ"
+      source: stage1
+      decision: removed
+      decision_reason: "التركيب صحيح لغوياً لكن اللمة المفردة «مجانس» تفي بالغرض وتعتبر أكثر شيوعاً في الاستخدام المعاصر والمصطلحي."
+      evidence_assessment:
+        case: no_material
+    - lemma: "قَرِين"
+      source: stage1
+      decision: removed
+      decision_reason: "تدل على المصاحبة والاقتران ولا تتضمن معنى القرابة الجينية أو الانتماء التصنيفي كشرط."
+      evidence_assessment:
+        case: contradicts_only
+
+stage4_content:
+  definition:
+    current: "حيوان أو نبات يحمل علاقة بآخر (مرتبط بالنسب المشترك أو بالعضوية في نفس الجنس)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يبدو مترجماً حرفياً («يحمل علاقة»)، ويحتاج إلى صياغة علمية أدق بأسلوب عربي سليم."
+    authored:
+      - type: terminological
+        text: "كائنٌ حيٌّ، نباتاً كان أو حيواناً، يمتُّ بِصِلَةِ قَرَابةٍ تطوُّريَّةٍ لكائنٍ آخر أو يشاركه الانتماءَ إلى نفس الجنس التصنيفيّ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "كائنٌ حيٌّ، نباتاً كان أو حيواناً، يمتُّ بِصِلَةِ قَرَابةٍ تطوُّريَّةٍ لكائنٍ آخر أو يشاركه الانتماءَ إلى نفس الجنس التصنيفيّ."
+  examples:
+    per_lemma:
+      - lemma: "قَرِيب"
+        examples:
+          - text: "تتقاسم هذه الفصيلة خصائص مشتركة مع كل طائرٍ قريبٍ لها."
+            type: usage
+      - lemma: "مُجَانِس"
+        examples:
+          - text: "يُظهر هذا الكائن سماتٍ تُميّزه عن أيّ حيوانٍ مُجَانِسٍ له."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تتقاسم هذه الفصيلة خصائص مشتركة مع كل طائرٍ قريبٍ لها."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يُظهر هذا الكائن سماتٍ تُميّزه عن أيّ حيوانٍ مُجَانِسٍ له."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "قَرِيب"
+      entry_id: "{auto}"
+      root: "قرب"
+      maqayis_quote: "«الْقَافُ وَالرَّاءُ وَالْبَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى خِلَافِ الْبُعْدِ... وَالْقُرْبَةُ وَالْقُرْبَى: الْقَرَابَةُ.»"
+    - lemma: "مُجَانِس"
+      entry_id: "{auto}"
+      root: "جنس"
+      maqayis_quote: "«الْجِيمُ وَالنُّونُ وَالسِّينُ أَصْلٌ وَاحِدٌ وَهُوَ الضَّرْبُ مِنَ الشَّيْءِ... كُلُّ ضَرْبٍ جِنْسٌ، وَهُوَ مِنَ النَّاسِ وَالطَّيْرِ وَالْأَشْيَاءِ جُمْلَةً.»"
+  per_sense:
+    - lemma: "قَرِيب"
+      sense_id: "{auto}"
+      nuance: "تدل على مطلق القرابة التطورية أو الأصل المشترك (relative)."
+      mwe: false
+    - lemma: "مُجَانِس"
+      sense_id: "{auto}"
+      nuance: "أكثر تخصيصاً للانتماء إلى نفس الجنس التصنيفي (genus) في علم التصنيف (congener)."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قرب","maqayis":"«الْقَافُ وَالرَّاءُ وَالْبَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى خِلَافِ الْبُعْدِ... وَالْقُرْبَةُ وَالْقُرْبَى: الْقَرَابَةُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جنس","maqayis":"«الْجِيمُ وَالنُّونُ وَالسِّينُ أَصْلٌ وَاحِدٌ وَهُوَ الضَّرْبُ مِنَ الشَّيْءِ... كُلُّ ضَرْبٍ جِنْسٌ، وَهُوَ مِنَ النَّاسِ وَالطَّيْرِ وَالْأَشْيَاءِ جُمْلَةً.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تدل على مطلق القرابة التطورية أو الأصل المشترك (relative).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"أكثر تخصيصاً للانتماء إلى نفس الجنس التصنيفي (genus) في علم التصنيف (congener).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

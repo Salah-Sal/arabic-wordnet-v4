@@ -1,0 +1,201 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي يحتوي على كلمة 'مائعة' وهو ما يجعله تعريفاً دورياً (circular) بالنسبة للمّة 'مائع'."
+      - "نقص اللمّات الشائعة مثل 'سائل' التي تستخدم غالباً في السياقات العامة لوصف الموائع."
+    observations: "المجموعة تتناول المفهوم الفيزيائي للمادة التي تتدفق، وهي تشمل في العلم السوائل والغازات، إلا أن الاستخدام الشائع يميل لربطها بالسوائل."
+  blind_candidates:
+    - lemma: "سَائِل"
+      generation_method: ishtiqaq
+      justification: "اللفظ الأكثر شيوعاً وتداولاً لوصف المادة في هذه الحالة، وإن كان تقنياً يميل للتخصص بالسوائل."
+    - lemma: "مَائِع"
+      generation_method: ishtiqaq
+      justification: "المصطلح العلمي الدقيق الذي يشمل السوائل والغازات، وهو اللفظ المعتمد في الفيزياء."
+    - lemma: "سَيَّال"
+      generation_method: ishtiqaq
+      justification: "صيغة مبالغة تدل على كثرة السيلان، وتستخدم في سياقات علمية قديمة أو أدبية لوصف الموائع."
+    - lemma: "جِسْم مَائِع"
+      generation_method: tarkib
+      justification: "تعبير اصطلاحي مستخدم في كتب الفيزياء والعلوم لوصف المادة في حالة الميوعة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مَائِع"
+      confirm:
+        - text: "«أي مادة تتدفق أو تتحرك سواء كانت في حالة شبه صلبة أو سائلة أو حمأة أو غاز»"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية"
+        - text: "«يشمل هذا المصطلح السوائل والغازات، أي المواد التي تأخذ شكل الوعاء الموضوعة فيه»"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+      expands:
+        - text: "«المَائِع كُلُّ شَيْءٍ ذَائِبٍ»"
+          source: "مقاييس اللغة لابن فارس"
+    - lemma: "سَائِل"
+      confirm:
+        - text: "«(فى الكيمياء) : حالة من حالات المادة الثلاث , وسط بين الصلابة والغازية»"
+          source: "المعجم الوسيط"
+        - text: "«[في الانكليزية] liquid ،fluid»"
+          source: "كشاف اصطلاحات الفنون للتهانوي"
+    - lemma: "جِسْم مَائِع"
+      confirm:
+        - text: "«يشمل هذا المصطلح السوائل والغازات...»"
+          source: "مسرد المناخ والبيئة (كتعريف للمائع)"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مائع"
+      decision: confirmed
+      decision_reason: "المصطلح العلمي الأساسي والمطابق للتعريف الإنجليزي والموجود حالياً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَائِع"
+    - lemma: "سَائِل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يستخدم كمرادف شائع للمائع في السياقات العامة، ويؤيده كشاف اصطلاحات الفنون كترجمة لـ fluid."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "سَائِل", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "جِسْم مَائِع"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي علمي شائع في المراجع الفيزيائية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "جِسْم مَائِع", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "مادة تكون في حالة مائعة عند درجة حرارة وضغط الغرفة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دوري لاستخدامه كلمة 'مائعة' لوصف المائع، كما أنه يحتاج لمزيد من الدقة العلمية."
+    authored:
+      - type: terminological
+        text: "مادّةٌ تَتَمَيَّزُ بِسُهُولَةِ الجَرَيَانِ وَقَابِلِيَّةِ التَّشَكُّلِ حَسَبَ الوِعَاءِ الذِي يَحْتَوِيهَا، وَتَشْمَلُ السَّوَائِلَ وَالغَازَاتِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مادّةٌ تَتَمَيَّزُ بِسُهُولَةِ الجَرَيَانِ وَقَابِلِيَّةِ التَّشَكُّلِ حَسَبَ الوِعَاءِ الذِي يَحْتَوِيهَا، وَتَشْمَلُ السَّوَائِلَ وَالغَازَاتِ."}
+  examples:
+    per_lemma:
+      - lemma: "مَائِع"
+        examples:
+          - text: "يُعَدُّ الهَوَاءُ مَائِعًا لِقَابِلِيَّتِهِ لِلانْضِغَاطِ وَالجَرَيَانِ."
+            type: usage
+      - lemma: "سَائِل"
+        examples:
+          - text: "يُعَدُّ المَاءُ أَكْثَرَ السَّوَائِلِ شُيُوعًا فِي الطَّبِيعَةِ."
+            type: usage
+      - lemma: "جِسْم مَائِع"
+        examples:
+          - text: "تُؤَثِّرُ القُوَى الخَارِجِيَّةُ عَلَى الجِسْمِ المَائِعِ فَتُغَيِّرُ شَكْلَهُ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يَتَصَرَّفُ الزَّيْتُ كَمَائِعٍ عِنْدَ تَعَرُّضِهِ لِقُوى القَصِّ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَائِع"
+      entry_id: "{auto}"
+      root: "ميع"
+      maqayis_quote: "«الْمِيمُ وَالْيَاءُ وَالْعَيْنُ كَلِمَةٌ صَحِيحَةٌ تَدُلُّ عَلَى جَرَيَانِ شَيْءٍ وَاضْطِرَابِ شَيْءٍ وَحَرَكَتِهِ. وَمَاعَ الشَّيْءُ يَمِيعُ: جَرَى عَلَى وَجْهِ الْأَرْضِ، وَالْمَائِعُ كُلُّ شَيْءٍ ذَائِبٍ.»"
+    - lemma: "سَائِل"
+      entry_id: "{auto}"
+      root: "سيل"
+      maqayis_quote: "«السِّينُ وَالْيَاءُ وَاللَّامُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى جَرَيَانٍ وَامْتِدَادٍ. يُقَالُ الْمَاءُ وَغَيْرُهُ يَسِيلُ سَيْلًا وَسَيَلَانًا.»"
+    - lemma: "جِسْم مَائِع"
+      entry_id: "{auto}"
+      roots:
+        - word: "جسم"
+          root: "جسم"
+          maqayis_quote: "«الْجِيمُ وَالسِّينُ وَالْمِيمُ أَصْلٌ وَاحِدٌ، وَهُوَ تَجَمُّعُ الشَّيْءِ وَعِظَمُهُ. فَالْجِسْمُ لِكُلِّ شَيْءٍ جَمَعَ لَحْمًا وَدَمًا.»"
+        - word: "مائع"
+          root: "ميع"
+          maqayis_quote: "«الْمِيمُ وَالْيَاءُ وَالْعَيْنُ كَلِمَةٌ صَحِيحَةٌ تَدُلُّ عَلَى جَرَيَانِ شَيْءٍ...»"
+  per_sense:
+    - lemma: "مَائِع"
+      sense_id: "{auto}"
+      nuance: "المصطلح التقني الأدق الذي يشمل السوائل والغازات."
+      mwe: false
+    - lemma: "سَائِل"
+      sense_id: "{auto}"
+      nuance: "المصطلح الأكثر شُيوعاً في اللغة اليومية، ويُطلق غالباً على السوائل وحدها."
+      mwe: false
+    - lemma: "جِسْم مَائِع"
+      sense_id: "{auto}"
+      nuance: "تعبير اصطلاحي يُستخدم في الفيزياء للتأكيد على الحالة الفيزيائية للمادة."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ميع","maqayis":"«الْمِيمُ وَالْيَاءُ وَالْعَيْنُ كَلِمَةٌ صَحِيحَةٌ تَدُلُّ عَلَى جَرَيَانِ شَيْءٍ وَاضْطِرَابِ شَيْءٍ وَحَرَكَتِهِ. وَمَاعَ الشَّيْءُ يَمِيعُ: جَرَى عَلَى وَجْهِ الْأَرْضِ، وَالْمَائِعُ كُلُّ شَيْءٍ ذَائِبٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سيل","maqayis":"«السِّينُ وَالْيَاءُ وَاللَّامُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى جَرَيَانٍ وَامْتِدَادٍ. يُقَالُ الْمَاءُ وَغَيْرُهُ يَسِيلُ سَيْلًا وَسَيَلَانًا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"جسم","root":"جسم","maqayis":"«الْجِيمُ وَالسِّينُ وَالْمِيمُ أَصْلٌ وَاحِدٌ، وَهُوَ تَجَمُّعُ الشَّيْءِ وَعِظَمُهُ. فَالْجِسْمُ لِكُلِّ شَيْءٍ جَمَعَ لَحْمًا وَدَمًا.»"},{"word":"مائع","root":"ميع","maqayis":"«الْمِيمُ وَالْيَاءُ وَالْعَيْنُ كَلِمَةٌ صَحِيحَةٌ تَدُلُّ عَلَى جَرَيَانِ شَيْءٍ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح التقني الأدق الذي يشمل السوائل والغازات.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الأكثر شُيوعاً في اللغة اليومية، ويُطلق غالباً على السوائل وحدها.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير اصطلاحي يُستخدم في الفيزياء للتأكيد على الحالة الفيزيائية للمادة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95
