@@ -15,6 +15,16 @@
 #   2. Docker installed
 #   3. Arabic dictionary DB accessible
 #
+# Environment variables (set by orchestrator or manually):
+#   MODEL              Claude model name (default: sonnet)
+#   OUTPUT_DIR          Review output directory (orchestrator sets per-wave)
+#   BATCH_DB_NAME       SQLite status DB filename (orchestrator sets per-model
+#                       to avoid contention, e.g. .batch_status.claude-sonnet.db)
+#   BATCH_SUMMARY_NAME  JSON summary filename (orchestrator sets per-model,
+#                       e.g. .batch_summary.claude-sonnet.json)
+#   PREPARED_DIR        Prepared synset data directory
+#   ARABIC_DICT_DB      Path to Arabic dictionary SQLite DB
+#
 # Usage:
 #   ./run_batch.sh                              # All synsets, 4 workers
 #   ./run_batch.sh --workers 8                  # All synsets, 8 workers
@@ -114,6 +124,8 @@ docker run --rm \
     -e MODEL="$MODEL" \
     -e SKIP_PERMISSIONS=1 \
     -e OUTPUT_DIR=/output \
+    -e BATCH_DB_NAME="${BATCH_DB_NAME:-.batch_status.db}" \
+    -e BATCH_SUMMARY_NAME="${BATCH_SUMMARY_NAME:-.batch_summary.json}" \
     -e PREPARED_DIR=/workspace/prepared \
     -e SPEC_DIR=/workspace/spec \
     -e ARABIC_DICT_DB=/data/arabic_dict.db \

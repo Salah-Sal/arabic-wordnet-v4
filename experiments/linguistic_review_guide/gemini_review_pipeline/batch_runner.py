@@ -8,6 +8,9 @@ Orchestrates parallel run_review.sh invocations with:
 - SIGINT/SIGTERM graceful shutdown
 - Progress reporting with tree %, throughput, ETA
 - Model fallback chain (flash → pro → stop)
+- JIT dedup (skips synsets completed by parallel containers)
+- Per-model DB/summary isolation via BATCH_DB_NAME/BATCH_SUMMARY_NAME env vars
+- BATCH_EXIT_SUMMARY stdout line for orchestrator integration
 
 Usage:
     python3 batch_runner.py awn4-02592253-n awn4-06731387-n --workers 4
@@ -326,6 +329,18 @@ class BatchRunner:
         adaptive: bool = False,
         tree_size: int | None = None,
     ):
+        """Initialize the batch runner.
+
+        Environment variable overrides (set by the orchestrator when running
+        inside Docker, ignored in standalone mode):
+            OUTPUT_DIR: Review output directory. Default for standalone use
+                is ``output/reviews_gemini_pipeline_v2``; the orchestrator
+                overrides this per-wave (e.g., ``output/reviews/W2``).
+            BATCH_DB_NAME: SQLite status DB filename (default: ``.batch_status.db``).
+                The orchestrator sets a per-model name to avoid contention.
+            BATCH_SUMMARY_NAME: JSON summary filename (default:
+                ``.batch_summary.json``). Per-model when orchestrated.
+        """
         self.synset_ids = synset_ids
         self.workers = min(workers, MAX_WORKERS)
         self.max_retries = max_retries
@@ -339,6 +354,7 @@ class BatchRunner:
         self.script_dir = Path(__file__).resolve().parent
         self.run_review_sh = self.script_dir / "run_review.sh"
         guide_dir = self.script_dir.parent
+        # Standalone default; the orchestrator overrides OUTPUT_DIR per-wave
         self.output_dir = Path(
             os.environ.get("OUTPUT_DIR", str(guide_dir / "output" / "reviews_gemini_pipeline_v2"))
         )
@@ -348,7 +364,8 @@ class BatchRunner:
 
         # Status DB
         self.output_dir.mkdir(parents=True, exist_ok=True)
-        self.db = BatchStatusDB(self.output_dir / ".batch_status.db")
+        db_name = os.environ.get("BATCH_DB_NAME", ".batch_status.db")
+        self.db = BatchStatusDB(self.output_dir / db_name)
 
         # Concurrency control (adaptive AIMD or static semaphore)
         if adaptive:
@@ -414,8 +431,20 @@ class BatchRunner:
         status = "interrupted" if self.shutdown_event.is_set() else "completed"
         self.db.finish_run(self.run_id, status)
         self._print_summary()
+        self._export_summary_json()
 
+        # Structured summary for orchestrator parsing
         stats = self.db.get_stats(self.run_id)
+        total = stats["success"] + stats["failed"]
+        summary = {
+            "success": stats["success"],
+            "failed": stats["failed"],
+            "failure_rate": round(stats["failed"] / total, 4) if total > 0 else 0.0,
+            "circuit_breaker_tripped": False,
+            "circuit_breaker_reason": None,
+        }
+        print(f"BATCH_EXIT_SUMMARY:{json.dumps(summary)}")
+
         return 0 if stats["failed"] == 0 else 1
 
     def _build_work_queue(self) -> list[tuple[str, int]]:
@@ -470,6 +499,12 @@ class BatchRunner:
 
     async def _run_single(self, synset_id: str, attempt: int) -> bool:
         """Execute run_review.sh for one synset. Returns True on success."""
+        # JIT dedup: another container may have completed this synset
+        review_path = self.output_dir / f"{synset_id}.review.yaml"
+        if review_path.exists():
+            self.db.mark_skipped(synset_id, self.run_id)
+            logger.info(f"[{synset_id}] Already reviewed (JIT dedup), skipping")
+            return True
         self.db.mark_running(synset_id, self.run_id, attempt)
         t0 = time.monotonic()
 
@@ -687,6 +722,29 @@ class BatchRunner:
             logger.info(f"  Resume:   python3 {__file__} --resume {resume_flags}--workers {self.workers}")
         logger.info("=" * 60)
 
+    def _export_summary_json(self):
+        """Write .batch_summary.json for host-side tools to read safely."""
+        stats = self.db.get_stats(self.run_id)
+        from datetime import datetime, timezone
+        summary_data = {
+            "run_id": self.run_id,
+            "model": self.model,
+            "success": stats["success"],
+            "failed": stats["failed"],
+            "skipped": stats["skipped"],
+            "pending": stats["pending"],
+            "total_cost": stats["total_cost"],
+            "finished_at": datetime.now(timezone.utc).isoformat(),
+        }
+        summary_name = os.environ.get("BATCH_SUMMARY_NAME", ".batch_summary.json")
+        summary_path = self.output_dir / summary_name
+        tmp = summary_path.with_suffix(".tmp")
+        try:
+            tmp.write_text(json.dumps(summary_data, indent=2))
+            tmp.rename(summary_path)
+        except OSError as e:
+            logger.warning(f"Failed to write batch summary JSON: {e}")
+
 
 # ── CLI ──
 
@@ -751,7 +809,8 @@ examples:
     resume_items = None
     if args.resume or args.run_id:
         output_dir.mkdir(parents=True, exist_ok=True)
-        db = BatchStatusDB(output_dir / ".batch_status.db")
+        db_name = os.environ.get("BATCH_DB_NAME", ".batch_status.db")
+        db = BatchStatusDB(output_dir / db_name)
         rid = args.run_id or db.get_latest_run_id()
         if not rid:
             logger.error("No previous run found. Start a new run without --resume.")

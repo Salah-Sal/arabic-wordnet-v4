@@ -20,12 +20,18 @@ legacy_output_dirs:
 # Prepared synset data (shared between pipelines via symlink)
 prepared_dir: claude_code_db/prepared
 
+# Each model's `id` automatically derives per-model DB/summary filenames:
+#   BATCH_DB_NAME = .batch_status.<id>.db
+#   BATCH_SUMMARY_NAME = .batch_summary.<id>.json
+# This prevents SQLite write contention when multiple models share one OUTPUT_DIR.
 models:
   - id: gemini-flash
     run_batch_sh: gemini_review_pipeline/docker/run_batch.sh
     # output_dir: set dynamically per-wave by orchestrator (OUTPUT_DIR env var)
     model_env: gemini-3-flash-preview
-    workers: 2
+    # `workers` sets initial concurrency; with --adaptive (always passed by
+    # the orchestrator), AIMD tunes this up/down based on rate-limit feedback.
+    workers: 15
     quota_type: free
     quota_probe: "gemini -m gemini-3-flash-preview -p hi"
 
@@ -44,6 +50,13 @@ models:
     workers: 2
     quota_type: paid
 
+  - id: claude-opus
+    run_batch_sh: review_pipeline/docker/run_batch.sh
+    # output_dir: set dynamically per-wave by orchestrator (OUTPUT_DIR env var)
+    model_env: opus
+    workers: 4
+    quota_type: paid
+
 circuit_breaker:
   consecutive_failure_threshold: 5   # trips after N consecutive same-class failures
   max_backoff_s: 1800                # max orchestrator backoff delay (30 min)
@@ -51,4 +64,8 @@ circuit_breaker:
 polling:
   quota_check_interval_s: 300    # check Gemini quotas every 5 min
   progress_interval_s: 60       # dashboard refresh
+  # Orchestrator-level dedup: rescans wave + legacy dirs to update the
+  # completed-synset set. This is coarse-grained (every 2 min). Each batch
+  # runner also does JIT dedup (per-synset file check) right before
+  # processing, which catches residual races within the same scan interval.
   dedup_scan_interval_s: 120    # rescan output dirs for new reviews
