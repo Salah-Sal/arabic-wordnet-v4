@@ -274,8 +274,13 @@ def cmd_sync(args):
 
     db = open_db(args.db)
 
-    # 1. Scan for existing .review.yaml files
-    review_files = list(output_dir.glob("*.review.yaml"))
+    # 1. Scan for existing .review.yaml files (wave subdirs + flat fallback)
+    review_files = []
+    for wave_dir in sorted(output_dir.iterdir()) if output_dir.exists() else []:
+        if wave_dir.is_dir() and wave_dir.name.startswith("W"):
+            review_files.extend(wave_dir.glob("*.review.yaml"))
+    # Also check flat layout (legacy or transition period)
+    review_files.extend(output_dir.glob("*.review.yaml"))
     reviewed_ids = {f.stem.replace(".review", "") for f in review_files}
     print(f"Found {len(reviewed_ids)} review files in {output_dir}")
 
@@ -322,33 +327,40 @@ def cmd_sync(args):
 
     # 5. Pull cost/failure data from .batch_status.db if it exists
     if batch_status_db.exists():
-        bsdb = sqlite3.connect(str(batch_status_db))
-        # Sum costs across all runs
-        total_cost = bsdb.execute(
-            "SELECT COALESCE(SUM(total_cost_usd), 0) FROM batch_runs"
-        ).fetchone()[0]
+        try:
+            bsdb = sqlite3.connect(str(batch_status_db))
+            bsdb.execute("PRAGMA integrity_check")
+            # Sum costs across all runs
+            total_cost = bsdb.execute(
+                "SELECT COALESCE(SUM(total_cost_usd), 0) FROM batch_runs"
+            ).fetchone()[0]
 
-        # Count failures per synset (across all runs, take worst status)
-        failed_ids = set()
-        for sid, in bsdb.execute(
-            "SELECT DISTINCT synset_id FROM synset_status WHERE status = 'failed'"
-        ):
-            # Only count as failed if NOT also succeeded in another run
-            succeeded = bsdb.execute(
-                "SELECT 1 FROM synset_status WHERE synset_id = ? AND status = 'success'",
-                (sid,)
-            ).fetchone()
-            if not succeeded:
-                failed_ids.add(sid)
+            # Count failures per synset (across all runs, take worst status)
+            failed_ids = set()
+            for sid, in bsdb.execute(
+                "SELECT DISTINCT synset_id FROM synset_status WHERE status = 'failed'"
+            ):
+                # Only count as failed if NOT also succeeded in another run
+                succeeded = bsdb.execute(
+                    "SELECT 1 FROM synset_status WHERE synset_id = ? AND status = 'success'",
+                    (sid,)
+                ).fetchone()
+                if not succeeded:
+                    failed_ids.add(sid)
 
-        # Per-synset costs (sum across all runs for each synset)
-        synset_costs = {}
-        for sid, cost in bsdb.execute(
-            "SELECT synset_id, COALESCE(SUM(cost_usd), 0) FROM synset_status GROUP BY synset_id"
-        ):
-            synset_costs[sid] = cost
+            # Per-synset costs (sum across all runs for each synset)
+            synset_costs = {}
+            for sid, cost in bsdb.execute(
+                "SELECT synset_id, COALESCE(SUM(cost_usd), 0) FROM synset_status GROUP BY synset_id"
+            ):
+                synset_costs[sid] = cost
 
-        bsdb.close()
+            bsdb.close()
+        except sqlite3.DatabaseError as e:
+            print(f"WARNING: .batch_status.db is corrupted ({e}), skipping cost/failure data")
+            total_cost = 0
+            failed_ids = set()
+            synset_costs = {}
 
         # Distribute costs and failures into waves
         for wave_id, in db.execute("SELECT wave_id FROM waves"):

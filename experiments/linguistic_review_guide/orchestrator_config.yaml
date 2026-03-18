@@ -1,0 +1,54 @@
+# AWN4 Unified Review Orchestrator — Configuration
+#
+# Used by: orchestrator.py
+# Docs:    See plan in MEMORY.md or orchestrator.py --help
+
+campaign:
+  waves_dir: gemini_code_db/waves    # W0.txt .. W6.txt
+  tree_size: 84956
+
+# Unified wave-based review output tree (output/reviews/W0/, W1/, ...)
+output_root: output/reviews
+
+# Legacy directories — scanned during transition period (remove after validation)
+legacy_output_dirs:
+  - output/reviews_pipeline_v2
+  - output/reviews_gemini_pipeline_v2
+  - output/reviews_claude_db
+  - output/reviews_gemini_db
+
+# Prepared synset data (shared between pipelines via symlink)
+prepared_dir: claude_code_db/prepared
+
+models:
+  - id: gemini-flash
+    run_batch_sh: gemini_review_pipeline/docker/run_batch.sh
+    # output_dir: set dynamically per-wave by orchestrator (OUTPUT_DIR env var)
+    model_env: gemini-3-flash-preview
+    workers: 2
+    quota_type: free
+    quota_probe: "gemini -m gemini-3-flash-preview -p hi"
+
+  - id: gemini-pro
+    run_batch_sh: gemini_review_pipeline/docker/run_batch.sh
+    # output_dir: set dynamically per-wave by orchestrator (OUTPUT_DIR env var)
+    model_env: gemini-3.1-pro-preview
+    workers: 2
+    quota_type: free
+    quota_probe: "gemini -m gemini-3.1-pro-preview -p hi"
+
+  - id: claude-sonnet
+    run_batch_sh: review_pipeline/docker/run_batch.sh
+    # output_dir: set dynamically per-wave by orchestrator (OUTPUT_DIR env var)
+    model_env: sonnet
+    workers: 2
+    quota_type: paid
+
+circuit_breaker:
+  consecutive_failure_threshold: 5   # trips after N consecutive same-class failures
+  max_backoff_s: 1800                # max orchestrator backoff delay (30 min)
+
+polling:
+  quota_check_interval_s: 300    # check Gemini quotas every 5 min
+  progress_interval_s: 60       # dashboard refresh
+  dedup_scan_interval_s: 120    # rescan output dirs for new reviews

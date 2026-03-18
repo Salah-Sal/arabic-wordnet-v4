@@ -184,11 +184,15 @@ Write the complete review YAML to: ${REVIEW_PATH}"
     # ── Build Gemini CLI args ──
     # Note: Gemini's -p/--prompt takes the prompt as its string value (not stdin).
     #       --yolo is the CLI shorthand for --approval-mode yolo.
+    #       --include-directories adds the resolved prepared/ symlink target
+    #       to the workspace so read_file works (prepared/ → ../claude_code_db/prepared).
+    RESOLVED_PREPARED="$(cd "$PREPARED_DIR" 2>/dev/null && pwd)"
     GEMINI_ARGS=(
         gemini
         --output-format stream-json
         -m "$MODEL"
         --yolo
+        --include-directories "$RESOLVED_PREPARED"
     )
 
     # Run Gemini CLI — stream-json to trajectory file
