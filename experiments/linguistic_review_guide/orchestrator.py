@@ -4,6 +4,19 @@
 Coordinates multiple review engines (Claude, Gemini) across BFS-depth waves,
 manages quotas, prevents duplicate work, and auto-restarts on quota resets.
 
+Parallel multi-model execution is achieved through three layers:
+- Per-model SQLite DBs (BATCH_DB_NAME env var) — eliminates DB contention
+  when multiple containers write to the same wave output directory
+- In-flight synset tracking with fair-share partitioning — prevents assigning
+  the same synsets to concurrently running containers
+- JIT dedup in batch runners — catches residual race conditions where a
+  parallel container completes a synset between batch assignment and processing
+
+Each model's container receives isolated DB/summary filenames derived from
+its ``id`` field (e.g., ``.batch_status.gemini-flash.db``), set automatically
+by ContainerManager.launch via the BATCH_DB_NAME and BATCH_SUMMARY_NAME
+environment variables.
+
 Usage:
     python3 orchestrator.py status
     python3 orchestrator.py remaining [--wave W2] [--output /tmp/remaining.txt]
@@ -318,6 +331,13 @@ class ContainerManager:
 
         wave_output_dir is exported as OUTPUT_DIR so run_batch.sh writes
         reviews into the correct wave subdirectory.
+
+        Per-model env vars set automatically:
+            BATCH_DB_NAME = ``.batch_status.<model_id>.db`` — isolates
+                each model's SQLite status DB to prevent write contention
+                when multiple containers share the same OUTPUT_DIR.
+            BATCH_SUMMARY_NAME = ``.batch_summary.<model_id>.json`` —
+                per-model summary file for orchestrator post-run parsing.
         """
         model_id = model_cfg["id"]
         run_batch = self.guide_dir / model_cfg["run_batch_sh"]
@@ -326,6 +346,9 @@ class ContainerManager:
         env = os.environ.copy()
         env["MODEL"] = model_cfg["model_env"]
         env["OUTPUT_DIR"] = str(wave_output_dir)
+        # Per-model DB/summary filenames to avoid SQLite contention
+        env["BATCH_DB_NAME"] = f".batch_status.{model_id}.db"
+        env["BATCH_SUMMARY_NAME"] = f".batch_summary.{model_id}.json"
 
         cmd = [
             "bash",
@@ -577,6 +600,25 @@ class Orchestrator:
         force_wave: Optional[str] = None,
         dry_run: bool = False,
     ):
+        """Initialize the orchestrator.
+
+        Sets up wave/work-queue/quota/container managers and per-model state.
+
+        Key state:
+            model_states: Per-model dict tracking status (idle/running/
+                backoff/quota_exhausted/auth_failed), quota reset times,
+                and cumulative review counts.
+            _in_flight: ``{model_id: set(synset_ids)}`` — synsets currently
+                assigned to a running container. Used by ``_schedule_once``
+                to exclude already-assigned synsets when launching a new
+                container for a different model.
+            _consecutive_failures: Per-model failure counter driving
+                exponential backoff (reset on success or quota events).
+
+        Per-model env var scheme (set in ContainerManager.launch):
+            BATCH_DB_NAME = ``.batch_status.<model_id>.db``
+            BATCH_SUMMARY_NAME = ``.batch_summary.<model_id>.json``
+        """
         self.config = config
         self.dry_run = dry_run
         self.force_wave = force_wave
@@ -614,6 +656,10 @@ class Orchestrator:
                 "quota_resets_at": None,
                 "total_reviewed": 0,
             }
+
+        # In-flight synset tracking: model_id → set of synset IDs currently
+        # assigned to its running container (enables parallel execution)
+        self._in_flight: dict[str, set[str]] = {}
 
         # Failure tracking for backoff logic
         self._consecutive_failures: dict[str, int] = {}
@@ -729,6 +775,18 @@ class Orchestrator:
                 pass
 
     async def _schedule_once(self):
+        """Run one scheduling pass for all selected models.
+
+        Decision tree per model:
+        1. Skip if container already running for this model
+        2. Skip if auth_failed (permanent until manual restart)
+        3. Skip if in backoff (exponential delay not yet elapsed)
+        4. Skip/retry if quota_exhausted (probe again after reset time)
+        5. Exclude synsets currently in-flight by other models' containers
+        6. Fair-share partition: if other models are idle, take only a
+           proportional share of available synsets so they get work too
+        7. Launch container with per-model DB/summary env vars
+        """
         # Refresh completed set
         self.work_queue.refresh()
 
@@ -810,9 +868,39 @@ class Orchestrator:
                 ms["status"] = "idle"
                 self.quota_mgr.clear_reset(mid)
 
+            # Exclude synsets currently assigned to other running containers
+            in_flight = set()
+            for other_mid, sids in self._in_flight.items():
+                if other_mid != mid and self.container_mgr.is_running(other_mid):
+                    in_flight |= sids
+            available = [s for s in remaining if s not in in_flight]
+
+            if not available:
+                logger.debug(f"[{mid}] No available synsets (all in-flight by other models)")
+                all_exhausted = False
+                continue
+
+            # Fair-share: if other idle models may also need synsets,
+            # only take a proportional share so they get work too
+            other_idle = sum(
+                1 for m in self.model_cfgs
+                if m["id"] != mid
+                and not self.container_mgr.is_running(m["id"])
+                and self.model_states[m["id"]]["status"] not in ("auth_failed",)
+            )
+            if other_idle > 0:
+                pool_size = len(available)
+                share = max(1, pool_size // (other_idle + 1))
+                available = available[:share]
+                logger.info(
+                    f"[{mid}] Fair-share: taking {share}/{pool_size} "
+                    f"synsets ({other_idle} other idle model(s))"
+                )
+
             # Launch container
             run_id = str(uuid.uuid4())[:8]
-            batch_file = self.work_queue.write_batch_file(remaining, mid, run_id)
+            self._in_flight[mid] = set(available)
+            batch_file = self.work_queue.write_batch_file(available, mid, run_id)
 
             ms["status"] = "running"
             ms["last_launched"] = datetime.now(timezone.utc).isoformat()
@@ -823,7 +911,7 @@ class Orchestrator:
                 "INSERT OR REPLACE INTO container_runs "
                 "(run_id, model_id, wave_id, batch_file, synset_count, started_at, status) "
                 "VALUES (?, ?, ?, ?, ?, ?, 'running')",
-                (run_id, mid, active_wave, str(batch_file), len(remaining),
+                (run_id, mid, active_wave, str(batch_file), len(available),
                  datetime.now(timezone.utc).isoformat()),
             )
             self.db.commit()
@@ -879,7 +967,7 @@ class Orchestrator:
         self.work_queue.refresh()
         ms = self.model_states[mid]
 
-        # Parse structured batch summary (if available from new batch_runner)
+        # Parse structured batch summary (all batch runners emit this)
         batch_summary = self.container_mgr.parse_batch_summary(output_text)
 
         # Detect auth error (highest priority — unrecoverable)
@@ -961,6 +1049,7 @@ class Orchestrator:
         self.db.commit()
 
         # Release resources
+        self._in_flight.pop(mid, None)
         self.container_mgr.release(mid)
 
         # Cleanup batch file
