@@ -1,0 +1,212 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي 'مجتمع الأشخاص المهتمين بالفنون' ضيق نوعاً ما؛ إذ لا يقتصر الوسط الفني على المهتمين بل يشمل بالدرجة الأولى المحترفين والعاملين والمؤسسات."
+    observations: "اللمّات الموجودة (الوسط الفني، عالم الفن) دقيقة وشائعة جداً في الاستعمال المعاصر. مفهوم 'الوسط' هنا يعبر عن البيئة الاجتماعية والمهنية المحيطة بنشاط معين."
+  blind_candidates:
+    - lemma: "عَالَمُ الْفَنِّ"
+      generation_method: tarkib
+      justification: "تعبير إضافي شائع جداً يشير إلى النطاق الكلي للنشاط الفني والأشخاص المرتبطين به."
+    - lemma: "الْوَسَطُ الْفَنِّيُّ"
+      generation_method: tarkib
+      justification: "تعبير وصفي اصطلاحي يشير إلى المجتمع المهني والاجتماعي للفنانين."
+    - lemma: "مُجْتَمَعُ الْفَنِّ"
+      generation_method: tarkib
+      justification: "اشتقاق تركيبي مباشر من التعريف (مجتمع + الفن)."
+    - lemma: "الْمَشْهَدُ الْفَنِّيُّ"
+      generation_method: majaz
+      justification: "استعارة بصرية (المشهد) للدلالة على مجموع الأنشطة والفاعلين في حقل الفنون."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "الْوَسَطُ الْفَنِّيُّ"
+      confirm:
+        - text: "«الوسط الفنّيّ: مجتمع الفنَّانين»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "عَالَمُ الْفَنِّ"
+      expands:
+        - text: "«المصطلحات الفنِّيَّة: مجموع الكلمات والعبارات الاصطلاحيّة المتَّصلة بفرع من فروع المعرفة أو بفنّ ما، أو الخاصّة بعالم معيَّن...»"
+          source: "معجم اللغة العربية المعاصرة"
+          addition: "يدعم استخدام كلمة 'عالم' للإشارة إلى النطاق الخاص بمجال معين."
+    - lemma: "أَهْلُ الْفَنِّ"
+      confirm:
+        - text: "«وأن يقول من الفنون وفقا لمصطلحات أهل الفنّ.»"
+          source: "كشاف اصطلاحات الفنون للتهانوي"
+        - text: "«ثم أخذ كثير من أهل الفن في شرحه وتفسيره»"
+          source: "كشف الظنون"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "الوسط الفني"
+      decision: confirmed
+      decision_reason: "مصطلح مركزي وموثق في المعاجم الحديثة للدلالة على مجتمع الفنانين."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "الْوَسَطُ الْفَنِّيُّ"
+    - lemma: "عالم الفن"
+      decision: confirmed
+      decision_reason: "تعبير شائع جداً وشامل للنطاق الفني بأكمله."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عَالَمُ الْفَنِّ"
+    - lemma: "أَهْلُ الْفَنِّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير أصيل وموثق في المصادر التراثية (التهانوي، حاجي خليفة) للدلالة على المختصين والمشتغلين بالفن."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "أَهْلُ الْفَنِّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "الْمَشْهَدُ الْفَنِّيُّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح معاصر شائع جداً في الصحافة والنقد الفني، يقابل 'art scene'."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "الْمَشْهَدُ الْفَنِّيُّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "مجتمع الأشخاص المهتمين بالفنون"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي قاصر؛ فالوسط الفني لا يشمل المهتمين فقط، بل المشتغلين والمؤسسات والنشاط ككل."
+    authored:
+      - type: terminological
+        text: "مجتمع الأشخاص العاملين في مجالات الفنون المختلفة أو المرتبطين بها، بما يشمل المبدعين والنقاد والمؤسسات والجمهور."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "الْوَسَطُ الْفَنِّيُّ"
+        examples:
+          - text: "سادت حالة من الحزن في الوسط الفني بعد رحيل أحد كبار الممثلين."
+            type: usage
+      - lemma: "عَالَمُ الْفَنِّ"
+        examples:
+          - text: "يتطلب النجاح في عالم الفن موهبة استثنائية وجرأة في الطرح."
+            type: usage
+      - lemma: "أَهْلُ الْفَنِّ"
+        examples:
+          - text: "اجتمع أهل الفن لمناقشة التحديات التي تواجه صناعة السينما."
+            type: usage
+      - lemma: "الْمَشْهَدُ الْفَنِّيُّ"
+        examples:
+          - text: "يتميز المشهد الفني المعاصر بالتنوع الكبير في الأساليب والوسائط."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مجتمع الأشخاص العاملين في مجالات الفنون المختلفة أو المرتبطين بها، بما يشمل المبدعين والنقاد والمؤسسات والجمهور."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "سادت حالة من الحزن في الوسط الفني بعد رحيل أحد كبار الممثلين."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "الْوَسَطُ الْفَنِّيُّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "الوسط"
+          root: "وسط"
+          maqayis_quote: "«الْوَاوُ وَالسِّينُ وَالطَّاءُ: بِنَاءٌ صَحِيحٌ يَدُلُّ عَلَى الْعَدْلِ وَالنِّصْفِ.»"
+        - word: "الفني"
+          root: "فنن"
+          maqayis_quote: "«الْفَاءُ وَالنُّونُ أَصْلَانِ صَحِيحَانِ... أَحَدُهُمَا عَلَى تَعْنِيَةٍ، وَالْآخَرُ عَلَى ضَرْبٍ مِنَ الضُّرُوبِ فِي الْأَشْيَاءِ كُلِّهَا.»"
+    - lemma: "عَالَمُ الْفَنِّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "عالم"
+          root: "علم"
+          maqayis_quote: "«الْعَيْنُ وَاللَّامُ وَالْمِيمُ أَصْلٌ صَحِيحٌ وَاحِدٌ، يَدُلُّ عَلَى أَثَرٍ بِالشَّيْءِ يَتَمَيَّزُ بِهِ عَنْ غَيْرِهِ.»"
+        - word: "الفن"
+          root: "فنن"
+          maqayis_quote: "«الْفَاءُ وَالنُّونُ أَصْلَانِ صَحِيحَانِ... أَحَدُهُمَا عَلَى تَعْنِيَةٍ، وَالْآخَرُ عَلَى ضَرْبٍ مِنَ الضُّرُوبِ فِي الْأَشْيَاءِ كُلِّهَا.»"
+    - lemma: "أَهْلُ الْفَنِّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "أهل"
+          root: "أهل"
+          maqayis_quote: "«الْهَمْزَةُ وَالْهَاءُ وَاللَّامُ أَصْلَانِ مُتَبَاعِدَانِ، أَحَدُهُمَا الْأَهْلُ... وَأَهْلُ الرَّجُلِ أَخَصُّ النَّاسِ بِهِ.»"
+        - word: "الفن"
+          root: "فنن"
+          maqayis_quote: "«الْفَاءُ وَالنُّونُ أَصْلَانِ صَحِيحَانِ... أَحَدُهُمَا عَلَى تَعْنِيَةٍ، وَالْآخَرُ عَلَى ضَرْبٍ مِنَ الضُّرُوبِ فِي الْأَشْيَاءِ كُلِّهَا.»"
+    - lemma: "الْمَشْهَدُ الْفَنِّيُّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "المشهد"
+          root: "شهد"
+          maqayis_quote: "«الشِّينُ وَالْهَاءُ وَالدَّالُ أَصْلٌ يَدُلُّ عَلَى حُضُورٍ وَعِلْمٍ وَإِعْلَامٍ... وَالْمَشْهَدُ: مَحْضَرُ النَّاسِ.»"
+        - word: "الفني"
+          root: "فنن"
+          maqayis_quote: "«الْفَاءُ وَالنُّونُ أَصْلَانِ صَحِيحَانِ... أَحَدُهُمَا عَلَى تَعْنِيَةٍ، وَالْآخَرُ عَلَى ضَرْبٍ مِنَ الضُّرُوبِ فِي الْأَشْيَاءِ كُلِّهَا.»"
+  per_sense:
+    - lemma: "الْوَسَطُ الْفَنِّيُّ"
+      sense_id: "{auto}"
+      nuance: "يركز على المجتمع الاجتماعي والمهني المباشر للفنانين."
+      mwe: true
+    - lemma: "عَالَمُ الْفَنِّ"
+      sense_id: "{auto}"
+      nuance: "مصطلح أعم يشمل النطاق الكوني أو التجريدي للفن بكل مكوناته."
+      mwe: true
+    - lemma: "أَهْلُ الْفَنِّ"
+      sense_id: "{auto}"
+      nuance: "يشير بوضوح إلى الأشخاص (الذوات) الذين يمتلكون الخبرة أو يمارسون المهنة."
+      mwe: true
+    - lemma: "الْمَشْهَدُ الْفَنِّيُّ"
+      sense_id: "{auto}"
+      nuance: "يركز على الحالة الراهنة للأنشطة والإنتاج الفني والفاعلين فيها بمنظور عرضي."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"الوسط","root":"وسط","maqayis":"«الْوَاوُ وَالسِّينُ وَالطَّاءُ: بِنَاءٌ صَحِيحٌ يَدُلُّ عَلَى الْعَدْلِ وَالنِّصْفِ.»"},{"word":"الفني","root":"فنن","maqayis":"«الْفَاءُ وَالنُّونُ أَصْلَانِ صَحِيحَانِ... أَحَدُهُمَا عَلَى تَعْنِيَةٍ، وَالْآخَرُ عَلَى ضَرْبٍ مِنَ الضُّرُوبِ فِي الْأَشْيَاءِ كُلِّهَا.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على المجتمع الاجتماعي والمهني المباشر للفنانين.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

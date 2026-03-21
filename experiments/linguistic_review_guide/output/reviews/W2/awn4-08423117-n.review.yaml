@@ -1,0 +1,158 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللفظ الحالي 'معرض المجرمين' ترجمة حرفية للفظ الإنجليزي 'gallery' وقد لا يعكس المصطلح التقني الدقيق المستخدم في الدوائر الأمنية العربية."
+    observations: "المفهوم يشير إلى مجموعة صور المحكومين أو المشتبه بهم التي تحتفظ بها الشرطة. المصطلح الأكثر شيوعاً وتقنية في العربية هو 'سجل المجرمين' أو 'سجل السوابق المصور'."
+  blind_candidates:
+    - lemma: "سِجِلُّ المُجْرِمِين"
+      generation_method: tarkib
+      justification: "التركيب الإضافي الأكثر دقة لتمثيل السجل الرسمي الذي يضم صور الجناة."
+    - lemma: "أَلْبُومُ المُجْرِمِين"
+      generation_method: tarkib
+      justification: "استخدام 'ألبوم' للدلالة على مجموعة الصور المرتبة، وهو شائع في اللغة المعاصرة."
+    - lemma: "مَعْرِضُ الجُنَاةِ"
+      generation_method: tarkib
+      justification: "بديل للفظ 'المجرمين' باستخدام 'الجناة' مع الحفاظ على بنية 'معرض' كترجمة لـ gallery."
+    - lemma: "سِجِلُّ الصُّوَرِ الجِنَائِيَّةِ"
+      generation_method: tarkib
+      justification: "مصطلح تقني يصف المحتوى (صور جنائية) والوعاء (سجل)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "سِجِلُّ المُجْرِمِين"
+      confirm:
+        - text: "«سجلّ المجرمين: مجموعة من صور المجرمين المعروفين المشتبه بهم تُحفظ في ملفات الشرطة»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«rogues' gallery: سِجلّ المجرمين: مجموعة من صُوَر المجرمين [في إدارة الشرطة]»"
+          source: "المورد الحديث"
+    - lemma: "مَعْرِضُ المُجْرِمِين"
+      expands:
+        - text: "«مَعْرِض الصُّوَر أو الرسوم: picture gallery»"
+          source: "المورد الحديث"
+          addition: "يدعم استخدام 'معرض' كترجمة لـ gallery في سياق الصور، وإن لم يذكر 'المجرمين' تحديداً."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "معرض المجرمين"
+      decision: confirmed
+      decision_reason: "ترجمة مقبولة ومستخدمة في السياقات العامة، وتدعمها المعاجم الثنائية كترجمة لـ gallery."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَعْرِضُ المُجْرِمِين"
+    - lemma: "سِجِلُّ المُجْرِمِين"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح التقني الأدق والموثق في المعاجم العربية المعاصرة والمعاجم الثنائية المتخصصة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "سِجِلُّ المُجْرِمِين", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "مجموعة من صور المجرمين"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب جداً، يحتاج لإضافة السياق المؤسسي (الشرطة) والغرض من هذه المجموعة."
+    authored:
+      - type: terminological
+        text: "سِجِلٌّ يَحْتَوِي عَلَى صُوَرِ المُجْرِمِين، يُحْفَظُ لَدَى أَوْسَاطِ الشُّرْطَةِ لِأَغْرَاضِ التَّعَرُّفِ عَلَيْهِمْ وَمُلَاحَقَتِهِمْ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "سِجِلٌّ يَحْتَوِي عَلَى صُوَرِ المُجْرِمِين، يُحْفَظُ لَدَى أَوْسَاطِ الشُّرْطَةِ لِأَغْرَاضِ التَّعَرُّفِ عَلَيْهِمْ وَمُلَاحَقَتِهِمْ."}
+
+  examples:
+    per_lemma:
+      - lemma: "سِجِلُّ المُجْرِمِين"
+        examples:
+          - text: "رَاجَعَ المُحَقِّقُ سِجِلَّ المُجْرِمِين لِلتَّعَرُّفِ عَلَى المَشْبُوهِ الَّذِي شَاهَدَهُ الشُّهُودُ."
+            type: usage
+      - lemma: "مَعْرِضُ المُجْرِمِين"
+        examples:
+          - text: "يُعَدُّ مَعْرِضُ المُجْرِمِين أَدَاةً حَيَوِيَّةً فِي التَّعَرُّفِ البَصَرِيِّ عَلَى ذَوِي السَّوَابِقِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "رَاجَعَ المُحَقِّقُ سِجِلَّ المُجْرِمِين لِلتَّعَرُّفِ عَلَى المَشْبُوهِ الَّذِي شَاهَدَهُ الشُّهُودُ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "سِجِلُّ المُجْرِمِين"
+      entry_id: "{auto}"
+      roots:
+        - word: "سجل"
+          root: "سجل"
+          maqayis_quote: "«السِّينُ وَالْجِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى انْصِبَابِ شَيْءٍ بَعْدَ امْتِلَائِهِ... السِّجِلُّ: كِتَابٌ يَجْمَعُ كُتُبًا وَمَعَانِيَ.»"
+        - word: "المجرمين"
+          root: "جرم"
+          maqayis_quote: "«الْجِيمُ وَالرَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ... وَالْجُرْمُ وَالْجَرِيمَةُ: الذَّنْبُ وَهُوَ مِنَ الْأَوَّلِ؛ لِأَنَّهُ كَسْبٌ، وَالْكَسْبُ اقْتِطَاعٌ.»"
+    - lemma: "مَعْرِضُ المُجْرِمِين"
+      entry_id: "{auto}"
+      roots:
+        - word: "معرض"
+          root: "عرض"
+          maqayis_quote: "«الْعَيْنُ وَالرَّاءُ وَالضَّادُ بِنَاءٌ تَكْثُرُ فُرُوعُهُ... عَرْضُ الْجُنْدِ: أَنْ تُمِرَّهُمْ عَلَيْكَ، وَذَلِكَ كأَنَّكَ نَظَرْتَ إِلَى الْعَارِضِ مِنْ حَالِهِمْ.»"
+        - word: "المجرمين"
+          root: "جرم"
+          maqayis_quote: "«الْجِيمُ وَالرَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ... وَالْجُرْمُ وَالْجَرِيمَةُ: الذَّنْبُ.»"
+
+  per_sense:
+    - lemma: "سِجِلُّ المُجْرِمِين"
+      sense_id: "{auto}"
+      nuance: "المصطلح الفني والأكثر دقة في السياق الأمني والقانوني."
+      mwe: true
+    - lemma: "مَعْرِضُ المُجْرِمِين"
+      sense_id: "{auto}"
+      nuance: "ترجمة بصرية للمفهوم، تشير إلى الجانب 'العرضي' أو التجميعي للصور."
+      mwe: true
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"سجل","root":"سجل","maqayis":"«السِّينُ وَالْجِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى انْصِبَابِ شَيْءٍ بَعْدَ امْتِلَائِهِ... السِّجِلُّ: كِتَابٌ يَجْمَعُ كُتُبًا وَمَعَانِيَ.»"},{"word":"المجرمين","root":"جرم","maqayis":"«الْجِيمُ وَالرَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ... وَالْجُرْمُ وَالْجَرِيمَةُ: الذَّنْبُ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"معرض","root":"عرض","maqayis":"«الْعَيْنُ وَالرَّاءُ وَالضَّادُ... عَرْضُ الْجُنْدِ: أَنْ تُمِرَّهُمْ عَلَيْكَ.»"},{"word":"المجرمين","root":"جرم","maqayis":"«الْجِيمُ وَالرَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ... وَالْجُرْمُ وَالْجَرِيمَةُ: الذَّنْبُ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الفني والأكثر دقة في السياق الأمني والقانوني.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

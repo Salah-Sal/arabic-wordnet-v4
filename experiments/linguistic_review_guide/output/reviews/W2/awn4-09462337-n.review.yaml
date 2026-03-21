@@ -1,0 +1,208 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمات الحالية صحيحة وشائعة، لكن تحتاج إلى ضبط تام بالشكل.
+      - التعريف الحالي دقيق علمياً لكنه يفتقر إلى الصياغة المعجمية الموسوعية التي تذكر المكونات الأساسية (كالكواكب).
+    observations: "المصطلح علمي فلكي، وهو عبارة عن مركب وصفي ثابت (MWE). الكلمات المستخدمة (مجموعة، نظام، منظومة) كلها تعبر عن مفهوم الـ system الإنجليزي في سياقات مختلفة."
+  blind_candidates:
+    - lemma: "المَنْظُومَةُ الشَّمْسِيَّةُ"
+      generation_method: tarkib
+      justification: "استخدام 'منظومة' كمرادف لـ system في السياق العلمي الفلكي."
+    - lemma: "النِّظَامُ الشَّمْسِيُّ"
+      generation_method: tarkib
+      justification: "ترجمة مباشرة ودقيقة للمصطلح الإنجليزي Solar System، وشائع جداً في الكتب العلمية."
+    - lemma: "المَجْمُوعَةُ الشَّمْسِيَّةُ"
+      generation_method: tarkib
+      justification: "المصطلح الأكثر شيوعاً في المناهج التعليمية واللغة العامة."
+    - lemma: "عَالَمُ الشَّمْسِ"
+      generation_method: tarkib
+      justification: "تركيب إضافي وصفي مستبعد علمياً لكنه ممكن لغوياً لوصف حيز نفوذ الشمس."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "المَجْمُوعَةُ الشَّمْسِيَّةُ"
+      confirm:
+        - text: "«النظامُ الكوكبىُّ الذى يتكونُ من الشمس وجميع ما يدور حولها من أجرام بما فى ذلك الأرض والكواكب الأخرى»"
+          source: "المعجم الكبير"
+        - text: "«الشمس: النجم الرئيس الذي تدور حوله الأرض، وسائر كواكب المجموعة الشمسية»"
+          source: "المعجم الوسيط"
+    - lemma: "النِّظَامُ الشَّمْسِيُّ"
+      confirm:
+        - text: "«النظام الشمسي: solar system»"
+          source: "المكنز الزراعي (ArabTerm)"
+        - text: "«أبعد الكواكب السيارة في النظام الشمسي»"
+          source: "المعجم الوسيط (في تعريف زحل)"
+    - lemma: "المَنْظُومَةُ الشَّمْسِيَّةُ"
+      confirm:
+        - text: "«النِّظام الشَّمسيّ؛ المنظومة الشَّمسيّة (فل). solar system»"
+          source: "المورد الحديث"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "المجموعة الشمسية"
+      decision: confirmed
+      decision_reason: "المصطلح الأكثر ذيوعاً واستقراراً في المعاجم الحديثة والمناهج التعليمية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "المَجْمُوعَةُ الشَّمْسِيَّةُ"
+    - lemma: "النظام الشمسي"
+      decision: confirmed
+      decision_reason: "مصطلح علمي دقيق وشائع في الفيزياء والفلك، وموثق في المعاجم الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "النِّظَامُ الشَّمْسِيُّ"
+    - lemma: "المَنْظُومَةُ الشَّمْسِيَّةُ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف فصيح موثق في المعاجم الحديثة (مثل المورد) كبديل لـ 'النظام الشمسي'."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "المَنْظُومَةُ الشَّمْسِيَّةُ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "الشمس مع الأجرام السماوية التي تدور حولها في مجال جاذبيتها"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي صحيح لكنه مقتضب؛ يفضل صياغته بأسلوب يجمع بين الدقة اللغوية والتفصيل العلمي كما في المعجم الكبير."
+    authored:
+      - type: encyclopedic
+        text: "نظام كوكبي يتكون من الشمس وما يدور حولها من أجرام سماوية، تشمل الكواكب الثمانية وأقمارها، والكويكبات، والمذنبات، والنيازك، المرتبطة بها بفعل الجاذبية."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "نظام كوكبي يتكون من الشمس وما يدور حولها من أجرام سماوية، تشمل الكواكب الثمانية وأقمارها، والكويكبات والمذنبات، المرتبطة بها بفعل الجاذبية."}
+  examples:
+    per_lemma:
+      - lemma: "المَجْمُوعَةُ الشَّمْسِيَّةُ"
+        examples:
+          - text: "يعد كوكب المشتري أضخم كواكب المجموعة الشمسية."
+            type: usage
+      - lemma: "النِّظَامُ الشَّمْسِيُّ"
+        examples:
+          - text: "تقع الشمس في مركز النظام الشمسي وتسيطر بجاذبيتها على حركة جميع الأجرام فيه."
+            type: usage
+      - lemma: "المَنْظُومَةُ الشَّمْسِيَّةُ"
+        examples:
+          - text: "تكونت المنظومة الشمسية منذ نحو أربعة مليارات ونصف المليار سنة."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يضم النظام الشمسي ثمانية كواكب سيارة، أكبرها المشتري وأصغرها عطارد."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "المَجْمُوعَةُ الشَّمْسِيَّةُ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مجموعة"
+          root: "جمع"
+          maqayis_quote: "«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ. يُقَالُ جَمَعْتُ الشَّيْءَ جَمْعًا.»"
+        - word: "شمسية"
+          root: "شمس"
+          maqayis_quote: "«الشِّينُ وَالْمِيمُ وَالسِّينُ أَصْلٌ يَدُلُّ عَلَى تَلَوُّنٍ وَقِلَّةِ اسْتِقْرَارٍ. فَالشَّمْسُ مَعْرُوفَةٌ.»"
+    - lemma: "النِّظَامُ الشَّمْسِيُّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "نظام"
+          root: "نظم"
+          maqayis_quote: "«النُّونُ وَالظَّاءُ وَالْمِيمُ: أَصْلٌ يَدُلُّ عَلَى تَأْلِيفِ شَيْءٍ وَتَأْلِيفِهِ... وَالنِّظَامُ: الْخَيْطُ يَجْمَعُ الْخَرَزَ.»"
+        - word: "شمسي"
+          root: "شمس"
+          maqayis_quote: "«الشِّينُ وَالْمِيمُ وَالسِّينُ أَصْلٌ يَدُلُّ عَلَى تَلَوُّنٍ وَقِلَّةِ اسْتِقْرَارٍ. فَالشَّمْسُ مَعْرُوفَةٌ.»"
+    - lemma: "المَنْظُومَةُ الشَّمْسِيَّةُ"
+      entry_id: "{auto}"
+      roots:
+        - word: "منظومة"
+          root: "نظم"
+          maqayis_quote: "«النُّونُ وَالظَّاءُ وَالْمِيمُ: أَصْلٌ يَدُلُّ عَلَى تَأْلِيفِ شَيْءٍ وَتَأْلِيفِهِ... وَالنِّظَامُ: الْخَيْطُ يَجْمَعُ الْخَرَزَ.»"
+        - word: "شمسية"
+          root: "شمس"
+          maqayis_quote: "«الشِّينُ وَالْمِيمُ وَالسِّينُ أَصْلٌ يَدُلُّ عَلَى تَلَوُّنٍ وَقِلَّةِ اسْتِقْرَارٍ. فَالشَّمْسُ مَعْرُوفَةٌ.»"
+  per_sense:
+    - lemma: "المَجْمُوعَةُ الشَّمْسِيَّةُ"
+      sense_id: "{auto}"
+      nuance: "المصطلح الأكثر شيوعاً في الاستخدام التربوي والعام."
+      mwe: true
+    - lemma: "النِّظَامُ الشَّمْسِيُّ"
+      sense_id: "{auto}"
+      nuance: "يؤكد على الجانب الحركي والقوانين الفيزيائية (المنظومة المحكومة بقوانين الجاذبية)."
+      mwe: true
+    - lemma: "المَنْظُومَةُ الشَّمْسِيَّةُ"
+      sense_id: "{auto}"
+      nuance: "مرادف فصيح ورسمي لـ 'النظام الشمسي'."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مجموعة","root":"جمع","maqayis":"«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ...»"},{"word":"شمسية","root":"شمس","maqayis":"«الشِّينُ وَالْمِيمُ وَالسِّينُ أَصْلٌ يَدُلُّ عَلَى تَلَوُّنٍ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"نظام","root":"نظم","maqayis":"«النُّونُ وَالظَّاءُ وَالْمِيمُ: أَصْلٌ يَدُلُّ عَلَى تَأْلِيفِ شَيْءٍ...»"},{"word":"شمسي","root":"شمس","maqayis":"«الشِّينُ وَالْمِيمُ وَالسِّينُ أَصْلٌ يَدُلُّ عَلَى تَلَوُّنٍ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"منظومة","root":"نظم","maqayis":"«النُّونُ وَالظَّاءُ وَالْمِيمُ: أَصْلٌ يَدُلُّ عَلَى تَأْلِيفِ شَيْءٍ...»"},{"word":"شمسية","root":"شمس","maqayis":"«الشِّينُ وَالْمِيمُ وَالسِّينُ أَصْلٌ يَدُلُّ عَلَى تَلَوُّنٍ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الأكثر شيوعاً في الاستخدام التربوي والعام.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يؤكد على الجانب الحركي والقوانين الفيزيائية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مرادف فصيح ورسمي.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 1.0

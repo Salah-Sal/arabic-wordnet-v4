@@ -1,0 +1,189 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الحالية تفتقر إلى التشكيل الكامل."
+      - "التعريف الحالي فيه نوع من الدور المنطقي (استخدام كلمة التسبب لتعريف التسبب)."
+    observations: "المجموعة تعبّر عن فعل إيجاد الأثر أو إيقاع الشيء، واللفظان 'إحداث' و'تسبيب' هما الأكثر دقة وشيوعاً في التعبير عن هذا المفهوم في السياقات المنطقية والقانونية والعامة."
+  blind_candidates:
+    - lemma: "تَسْبِيبٌ"
+      generation_method: ishtiqaq
+      justification: "المصدر من الفعل (سبّب) أي جعل الشيء سبباً لوقوع غيره، وهو المقابل المباشر لكلمة Causation."
+    - lemma: "إِحْدَاثٌ"
+      generation_method: ishtiqaq
+      justification: "المصدر من الفعل (أحدث) أي أوجد الشيء بعد أن لم يكن، وهو يعبر عن إيقاع الحدث."
+    - lemma: "سَبَبِيَّةٌ"
+      generation_method: ishtiqaq
+      justification: "اسم مجرد يعبر عن مفهوم السببية أو العلاقة بين السبب والمسبب."
+    - lemma: "تَوْلِيدٌ"
+      generation_method: majaz
+      justification: "يُستخدم في المنطق والفيزياء للتعبير عن حصول فعل عن فاعل بواسطة فعل آخر، وهو مظهر من مظاهر التسبيب."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "إِحْدَاث"
+      confirm:
+        - text: "«الإحداث: إيجاد شيء مسبوق بالزمان.»"
+          source: "كتاب التعريفات للشريف الجرجاني"
+        - text: "«الإحداث: [في الانكليزية] Creation ،generation [ في الفرنسية] Creation ،generation بكسر الألف هو مرادف للتكوين»"
+          source: "كشّاف اصطلاحات الفنون والعلوم للتهانوي"
+    - lemma: "تَسْبِيب"
+      confirm:
+        - text: "«(1) «أ» تسبيب. «ب» سَبَبٌ ... في ترجمة Causation»"
+          source: "المورد الحديث (2008)"
+        - text: "«تَسْبيب: causation»"
+          source: "المعجم الطبي الموحد (2009)"
+    - lemma: "تَوْلِيد"
+      confirm:
+        - text: "«التوليد: حصول الفعل عن فاعله بتوسط فعل آخر.»"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+        - text: "«التوليد: هو أن يحصل الفعل عن فاعله بتوسط فعل آخر، كحركة المفتاح في حركة اليد.»"
+          source: "كتاب التعريفات للشريف الجرجاني"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "إحداث"
+      decision: confirmed
+      decision_reason: "مصطلح دقيق يعبر عن فعل إيجاد الحدث أو الأثر، وهو مدعوم في المعاجم الاصطلاحية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "إِحْدَاثٌ"
+    - lemma: "تسبيب"
+      decision: confirmed
+      decision_reason: "هو المصطلح المعياري للتعبير عن فعل جعل الشيء سبباً لغيره، ويُستخدم بكثرة في السياقات القانونية والعلمية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَسْبِيبٌ"
+    - lemma: "تَوْلِيدٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح اصطلاحي رصين يعبر عن التسبيب غير المباشر أو توليد النتائج من مقدماتها أو أفعالها."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَوْلِيدٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "فعل التسبب في حدوث شيء ما"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دائري نوعاً ما؛ فكلمة 'التسبب' مشتقة من المفهوم المراد تعريفه."
+    authored:
+      - type: terminological
+        text: "إِيجَادُ الشَّيْءِ أَوْ جَعْلُهُ يَقَعُ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "إِيجَادُ الشَّيْءِ أَوْ جَعْلُهُ يَقَعُ."}
+  examples:
+    per_lemma:
+      - lemma: "إِحْدَاثٌ"
+        examples:
+          - text: "سَعَى العَالِمُ إِلَى إِحْدَاثِ تَغْيِيرٍ جَذْرِيٍّ فِي النَّظَرِيَّةِ بَعْدَ تَجَارِبَ مُكثَّفَةٍ."
+            type: usage
+      - lemma: "تَسْبِيبٌ"
+        examples:
+          - text: "يُحَاسِبُ القَانُونُ عَلَى التَّسْبِيبِ العَمْدِيِّ لِلأَذَى الجَسَدِيِّ."
+            type: usage
+      - lemma: "تَوْلِيدٌ"
+        examples:
+          - text: "يَهْدِفُ هَذَا المَشْرُوعُ إِلَى تَوْلِيدِ فُرَصِ عَمَلٍ جَدِيدَةٍ لِلشَّبَابِ."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "إِحْدَاثٌ"
+      entry_id: "{auto}"
+      root: "حدث"
+      maqayis_quote: "«الْحَاءُ وَالدَّالُ وَالثَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ كَوْنُ الشَّيْءِ لَمْ يَكُنْ. يُقَالُ حَدَثَ أَمْرٌ بَعْدَ أَنْ لَمْ يَكُنْ.»"
+    - lemma: "تَسْبِيبٌ"
+      entry_id: "{auto}"
+      root: "سبب"
+      maqayis_quote: "«وَأَمَّا الْحَبْلُ فَالسَّبَبُ... وَيُمْكِنُ أَنْ يُقَالَ إِنَّهُ أَصْلٌ آخَرُ يَدُلُّ عَلَى طُولٍ وَامْتِدَادٍ.» (ومنه السبب الذي يُتوصّل به إلى الشيء)."
+    - lemma: "تَوْلِيدٌ"
+      entry_id: "{auto}"
+      root: "ولد"
+      maqayis_quote: "«الْوَاوُ وَاللَّامُ وَالدَّالُ: أَصْلٌ صَحِيحٌ، وَهُوَ دَلِيلُ النَّجْلِ وَالنَّسْلِ... وَتَوَلَّدَ الشَّيْءُ عَنِ الشَّيْءِ: حَصَلَ عَنْهُ.»"
+  per_sense:
+    - lemma: "إِحْدَاثٌ"
+      sense_id: "{auto}"
+      nuance: "يركز على فعل الإيجاد من العدم أو وقوع الحدث لأول مرة."
+      mwe: false
+    - lemma: "تَسْبِيبٌ"
+      sense_id: "{auto}"
+      nuance: "يركز على الدور السببي الفاعل في وقوع النتيجة، وغالباً ما يُستخدم في السياقات الفنية والقانونية."
+      mwe: false
+    - lemma: "تَوْلِيدٌ"
+      sense_id: "{auto}"
+      nuance: "يركز على النتيجة الحاصلة عن فعل أو عملية ما، كحصول فعل بتوسط فعل آخر."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حدث","maqayis":"«الْحَاءُ وَالدَّالُ وَالثَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ كَوْنُ الشَّيْءِ لَمْ يَكُنْ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سبب","maqayis":"«وَأَمَّا الْحَبْلُ فَالسَّبَبُ... يَدُلُّ عَلَى طُولٍ وَامْتِدَادٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ولد","maqayis":"«الْوَاوُ وَاللَّامُ وَالدَّالُ: أَصْلٌ صَحِيحٌ... وَتَوَلَّدَ الشَّيْءُ عَنِ الشَّيْءِ: حَصَلَ عَنْهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على فعل الإيجاد من العدم أو وقوع الحدث لأول مرة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الدور السببي الفاعل في وقوع النتيجة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على النتيجة الحاصلة عن فعل أو عملية ما.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

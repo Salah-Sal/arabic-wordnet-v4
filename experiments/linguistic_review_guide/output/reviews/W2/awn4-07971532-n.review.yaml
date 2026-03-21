@@ -1,0 +1,203 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'تجميع فني' تترجم المعنى الفني لكلمة collage الإنجليزية، بينما المجموعة الترادفية تعبر عن المعنى العام (أي مجموعة من أشياء متنوعة)."
+      - "اللمة 'كولاج' هي اقتراض لفظي يقتصر استخدامه في العربية على الفنون التشكيلية، ولا يصح استخدامها للدلالة على مجرد مجموعة أشياء متنوعة."
+      - "عدم وجود تشكيل للمة 'خليط'."
+    observations: "المعنى المستهدف هو التجمع المتنوع من الأشياء. اللمة 'خليط' تؤدي الغرض جزئياً، لكن 'تشكيلة' أدق وأشيع في التعبير عن المجموعة المتنوعة من الأشياء."
+  blind_candidates:
+    - lemma: تَشْكِيلَة
+      generation_method: ishtiqaq
+      justification: "مشتقة من الفعل (شكل) لتدل على التنوع والاختلاف في مجموعة من الأشياء، وهو تعبير شائع للمجموعات المتنوعة."
+    - lemma: خَلِيط
+      generation_method: ishtiqaq
+      justification: "مشتقة من الجذر (خلط) لتعبر عن ما اجتمع واختلط من أصناف وأشياء مختلفة في مجموعة واحدة."
+    - lemma: كُشْكُول
+      generation_method: majaz
+      justification: "تستخدم مجازاً للدلالة على المجموعة المتنوعة من الأشياء المختلفة التي لا رابط بينها إلا جمعها معاً."
+    - lemma: مَزِيج
+      generation_method: ishtiqaq
+      justification: "تستخدم للتعبير عن مجموعة من الأشياء المختلفة التي مزجت أو جمعت معاً."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: خليط
+      confirm:
+        - text: "ما اختلَط من صنفين أو أصناف المخالِط. (للواحد والجمع) يُطلق على الشريك, والصاحب, والجار المصافي, والزوج, وابن العمّ"
+          source: "المعجم الوسيط"
+    - lemma: كولاج
+      contradicts:
+        - text: "طريقة في التصوير تلصق فيها أشياء على اللوحة أوجدها براك وبيكامو عام 1910"
+          source: "المعجم الموحد لمصطلحات التقنيات التربوية (1999)"
+          conflict: "تقتصر دلالة الكلمة في العربية على الفن التشكيلي، ولا تدل على مجرد تشكيلة أو مجموعة متنوعة من الأشياء."
+    - lemma: تجميع فني
+      evidence_status: no_material_found
+    - lemma: تَشْكِيلَة
+      confirm:
+        - text: "التعليق: كلمة «تَشْكيلة» اسم مرة مأخوذ من الفعل «شَكَّلَ» بمعنى صوَّر أشكالاً، وقد جاء في الأساسي أن التشكيلة هي عدد متنوع من شيء ما."
+          source: "معجم الصواب اللغوي لأحمد مختار عمر"
+    - lemma: كُشْكُول
+      contradicts:
+        - text: "ج كشاكِيلُ: دفتر التلميذ، مجموعة من الأوراق البيضاء أو المسطّرة مغلَّفة بورقٍ مُقوَّى"
+          source: "معجم اللغة العربية المعاصرة لأحمد مختار عمر"
+          conflict: "تشير أساساً إلى الدفتر أو مجموعة الأوراق، والمجاز فيها لا يطرد كلياً ليشمل أي أشياء مادية متنوعة."
+    - lemma: مَزِيج
+      expands:
+        - text: "يتكون من شيئين أو أكثر ممتزجين"
+          source: "المعجم الوسيط"
+          addition: "يستخدم للأشياء الممتزجة كالسوائل والمواد بشكل أكبر من مجرد التجميع والتصنيف للأشياء المتنوعة."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: تجميع فني
+      decision: removed
+      decision_reason: "ترجمة حرفية ومقيدة بالمعنى الفني الذي لا يطابق تعريف المجموعة المخصص لأي مجموعة من أشياء متنوعة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: كولاج
+      decision: removed
+      decision_reason: "كلمة دخيلة تستخدم في العربية حصراً للإشارة إلى فن الملصقات التشكيلي، وليس لها دلالة عامة للمجموعة المتنوعة."
+      evidence_assessment:
+        case: contradicts_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: خليط
+      decision: confirmed
+      decision_reason: "كلمة فصيحة وشائعة تعبر بدقة عن اجتماع أشياء من أصناف مختلفة واختلاطها."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: خَلِيط
+
+    - lemma: تَشْكِيلَة
+      source: stage1
+      decision: confirmed
+      decision_reason: "كلمة شائعة جداً في الاستعمال المعاصر للدلالة على المجموعة المتنوعة من الأشياء."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: تَشْكِيلَة
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: awn4-07971532-n
+
+    - lemma: كُشْكُول
+      source: stage1
+      decision: removed
+      decision_reason: "المعنى الأساسي يقتصر على الدفاتر والأوراق، واستخدامها للأشياء المتنوعة عموماً فيه تجاوز غير دقيق."
+      evidence_assessment:
+        case: contradicts_only
+      mwe_check:
+        is_mwe: false
+
+    - lemma: مَزِيج
+      source: stage1
+      decision: removed
+      decision_reason: "كلمتا 'خليط' و'تشكيلة' أدق وأشمل في التعبير عن مجرد تجميع الأشياء المتنوعة دون اشتراط امتزاجها كالمزيج."
+      evidence_assessment:
+        case: expands
+      mwe_check:
+        is_mwe: false
+
+stage4_content:
+  definition:
+    current: "أي مجموعة من أشياء متنوعة"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق وواضح ويعكس المعنى العام للمجموعة الترادفية بنجاح، ويطابق التعريف الإنجليزي."
+  examples:
+    per_lemma:
+      - lemma: خَلِيط
+        examples:
+          - text: "يَتَأَلَّفُ الْمَجْلِسُ مِنْ خَلِيطٍ مِنَ الْخُبَرَاءِ وَالْمُوَظَّفِينَ."
+            type: usage
+      - lemma: تَشْكِيلَة
+        examples:
+          - text: "عَرَضَ الْمَتْجَرُ تَشْكِيلَةً جَدِيدَةً مِنَ الْمَلَابِسِ الصَّيْفِيَّةِ."
+            type: usage
+  actions:
+    - command: add_sense_example
+      params:
+        sense_id: "{auto_sense_خَلِيط}"
+        text: "يَتَأَلَّفُ الْمَجْلِسُ مِنْ خَلِيطٍ مِنَ الْخُبَرَاءِ وَالْمُوَظَّفِينَ."
+    - command: add_sense_example
+      params:
+        sense_id: "{auto_sense_تَشْكِيلَة}"
+        text: "عَرَضَ الْمَتْجَرُ تَشْكِيلَةً جَدِيدَةً مِنَ الْمَلَابِسِ الصَّيْفِيَّةِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: خَلِيط
+      entry_id: "{auto}"
+      root: خلط
+      maqayis_quote: "الْخَاءُ وَاللَّامُ وَالطَّاءُ أَصْلٌ وَاحِدٌ مُخَالِفٌ لِلْبَابِ الَّذِي قَبْلَهُ، بَلْ هُوَ مُضَادٌّ لَهُ. تَقُولُ: خَلَطْتُ الشَّيْءَ بِغَيْرِهِ فَاخْتَلَطَ."
+    - lemma: تَشْكِيلَة
+      entry_id: "{auto}"
+      root: شكل
+      maqayis_quote: "الشِّينُ وَالْكَافُ وَاللَّامُ مُعْظَمُ بَابِهِ الْمُمَاثَلَةُ. تَقُولُ: هَذَا شَِكْلُ هَذَا، أَيْ مِثْلُهُ."
+  per_sense:
+    - lemma: خَلِيط
+      sense_id: "{auto}"
+      nuance: "تفيد معنى التجمع من أصناف مختلفة مع احتمالية الاختلاط العشوائي."
+      mwe: false
+    - lemma: تَشْكِيلَة
+      sense_id: "{auto}"
+      nuance: "تفيد معنى التنوع والانتقاء من الأشياء المختلفة بحيث يبرز كل جزء بمفرده كعنصر من المجموعة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto_entry_خَلِيط}"
+        key: note
+        value: '{"root":"خلط","maqayis_quote":"الْخَاءُ وَاللَّامُ وَالطَّاءُ أَصْلٌ وَاحِدٌ مُخَالِفٌ لِلْبَابِ الَّذِي قَبْلَهُ، بَلْ هُوَ مُضَادٌّ لَهُ. تَقُولُ: خَلَطْتُ الشَّيْءَ بِغَيْرِهِ فَاخْتَلَطَ."}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto_entry_تَشْكِيلَة}"
+        key: note
+        value: '{"root":"شكل","maqayis_quote":"الشِّينُ وَالْكَافُ وَاللَّامُ مُعْظَمُ بَابِهِ الْمُمَاثَلَةُ. تَقُولُ: هَذَا شَِكْلُ هَذَا، أَيْ مِثْلُهُ."}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto_sense_خَلِيط}"
+        key: note
+        value: '{"nuance":"تفيد معنى التجمع من أصناف مختلفة مع احتمالية الاختلاط العشوائي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto_sense_تَشْكِيلَة}"
+        key: note
+        value: '{"nuance":"تفيد معنى التنوع والانتقاء من الأشياء المختلفة بحيث يبرز كل جزء بمفرده كعنصر من المجموعة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: awn4-07971532-n
+        key: note
+        value: '{"cultural_fit":"native"}'

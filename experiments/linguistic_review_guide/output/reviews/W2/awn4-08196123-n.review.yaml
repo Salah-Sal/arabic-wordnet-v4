@@ -1,0 +1,211 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة (فقراء) غير مشكّلة."
+      - "تفتقر المجموعة إلى اللمات الأخرى الشائعة التي تعبر عن طبقات المحتاجين المادية."
+    observations: "المفهوم مرتبط بالثقافة والتراث العربي بشكل وثيق؛ حيث تزخر اللغة بمستويات وتدرجات للفقر مثل الفقر والمسكنة والعدم."
+  blind_candidates:
+    - lemma: "مُعْوِزُونَ"
+      generation_method: ishtiqaq
+      justification: "جمع مُعْوِز، وهو اسم فاعل من أعوز بمعنى احتاج وافتقر."
+    - lemma: "مُعْدَمُونَ"
+      generation_method: ishtiqaq
+      justification: "جمع مُعْدَم، وهو من انعدم ماله وأصبح لا يملك شيئاً."
+    - lemma: "مَسَاكِينُ"
+      generation_method: ishtiqaq
+      justification: "جمع مِسْكِين، وهو من أسكنه الفقر وقلّل من حركته."
+    - lemma: "صَعَالِيكُ"
+      generation_method: majaz
+      justification: "جمع صُعْلُوك، وهو الفقير الذي لا مال له، واستخدمت مجازاً للمحتاجين المتمردين."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "فقراء"
+      confirm:
+        - text: "من لا يملك إلَّا أقل القوت الواحد ممن يسمون بالدراويش"
+          source: "المعجم الوسيط"
+    - lemma: "مساكين"
+      confirm:
+        - text: "من ليس عنده ما يكفى عياله, أو الفقير."
+          source: "المعجم الوسيط"
+      expands:
+        - text: "مَنْ لا شيءَ له. (يستوي فِيه المذكر والمؤنث). مَن لَيْسَ عِنْده ما يَكْفِي عِيالَه. الفَقِيرُ الذي قَلَّلَ الفَقْرُ حركتَه وأَذَلَّه."
+          source: "المعجم الكبير"
+          addition: "يوضح أن المسكين أسوأ حالاً من الفقير لأن الفقر أذله وأسكن حركته."
+    - lemma: "معدمون"
+      confirm:
+        - text: "أَعْدَم الرجلُ: افتقر؛ وبذا يكون الوصف منه بصيغة اسم الفاعل"
+          source: "معجم الصواب اللغوي لأحمد مختار عمر"
+    - lemma: "معوزون"
+      contradicts:
+        - text: "الثوب البالى خِرْقة يُلَفُّ بها الطفل"
+          source: "المعجم الوسيط"
+          conflict: "المعنى المعجمي القديم في الوسيط للمفرد (المعوز) يشير إلى الثوب البالي وليس إلى الشخص الفقير."
+    - lemma: "صعاليك"
+      confirm:
+        - text: "الفقيرُ الذي لا مال له ولا اعتماد"
+          source: "المعجم الكبير"
+      expands:
+        - text: "مَنْ سَلَكَ مَسْلَكَ الصَّعاليكِ فَنَبَذَتْهُ قبيلتُهُ, ومنهم حاجز الأسديُّ, والسُّليْكُ بن السُّلَكة, وتأبَّط شرًّا, والشَّنْفَرى"
+          source: "المعجم الكبير"
+          addition: "يضيف دلالة تاريخية واجتماعية تتمثل في النبذ والتمرد، مما يجعله غير مناسب كمرادف عام."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "فقراء"
+      decision: confirmed
+      decision_reason: "الكلمة صحيحة وشائعة الاستخدام للتعبير عن الأشخاص المحتاجين للمال، وهي الجمع القياسي لفقير."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "فُقَرَاء"
+    - lemma: "مساكين"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف دقيق يعبر عن المحتاجين، ويفيد شدة الفقر الذي يقعد الشخص عن الحركة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَسَاكِين", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "معدمون"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبر عن أقصى درجات الفقر وغياب الممتلكات تماماً، وتتناسب مع المفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُعْدَمُون", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "معوزون"
+      source: stage1
+      decision: removed
+      decision_reason: "دلالتها المعجمية الأصلية قد تسبب التباساً مع الثوب البالي، مما يجعل غيرها من المترادفات أولى بالاستخدام هنا."
+    - lemma: "صعاليك"
+      source: stage1
+      decision: removed
+      decision_reason: "تحمل دلالة تاريخية واجتماعية تخص فئة متمردة ومنبوذة، ولا تقتصر على الفقر المادي فقط."
+
+stage4_content:
+  definition:
+    current: "الناس الذين ليس لديهم ممتلكات أو ثروة (يُعتبرون كمجموعة)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يبدو مترجماً حرفياً وتنقصه الرصانة المعجمية. صياغة تعريف بأسلوب عربي أدق أفضل."
+    authored:
+      - type: terminological
+        text: "أشخاص لا يملكون مالاً أو متاعاً يكفيهم لسد حاجاتهم الأساسية، ويُنظر إليهم كطبقة اجتماعية."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "أشخاص لا يملكون مالاً أو متاعاً يكفيهم لسد حاجاتهم الأساسية، ويُنظر إليهم كطبقة اجتماعية."}
+  examples:
+    per_lemma:
+      - lemma: "فُقَرَاء"
+        examples:
+          - text: "تُقَدَّمُ الْمُسَاعَدَاتُ الْمَالِيَّةُ لِلْفُقَرَاءِ فِي الْمُجْتَمَعِ لِسَدِّ حَاجَاتِهِمْ."
+            type: usage
+      - lemma: "مَسَاكِين"
+        examples:
+          - text: "تَضَرَّرَ الْمَسَاكِينُ كَثِيراً مِنْ غَلَاءِ الْمَعِيشَةِ وَارْتِفَاعِ الأَسْعَارِ."
+            type: usage
+      - lemma: "مُعْدَمُون"
+        examples:
+          - text: "يَعِيشُ الْمُعْدَمُونَ فِي ظُرُوفٍ قَاسِيَةٍ تَفْتَقِرُ لأَدْنَى مُقَوِّمَاتِ الْحَيَاةِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تُقَدَّمُ الْمُسَاعَدَاتُ الْمَالِيَّةُ لِلْفُقَرَاءِ فِي الْمُجْتَمَعِ لِسَدِّ حَاجَاتِهِمْ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تَضَرَّرَ الْمَسَاكِينُ كَثِيراً مِنْ غَلَاءِ الْمَعِيشَةِ وَارْتِفَاعِ الأَسْعَارِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يَعِيشُ الْمُعْدَمُونَ فِي ظُرُوفٍ قَاسِيَةٍ تَفْتَقِرُ لأَدْنَى مُقَوِّمَاتِ الْحَيَاةِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "فُقَرَاء"
+      entry_id: "{auto}"
+      root: "فقر"
+      maqayis_quote: "«الْفَاءُ وَالْقَافُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى انْفِرَاجٍ فِي شَيْءٍ، مِنْ عُضْوٍ أَوْ غَيْرِ ذَلِكَ.»"
+    - lemma: "مَسَاكِين"
+      entry_id: "{auto}"
+      root: "سكن"
+      maqayis_quote: "«السِّينُ وَالْكَافُ وَالنُّونُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ، يَدُلُّ عَلَى خِلَافِ الِاضْطِرَابِ وَالْحَرَكَةِ.»"
+    - lemma: "مُعْدَمُون"
+      entry_id: "{auto}"
+      root: "عدم"
+      maqayis_quote: "«الْعَيْنُ وَالدَّالُ وَالْمِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى فُقْدَانِ الشَّيْءِ وَذَهَابِهِ.»"
+  per_sense:
+    - lemma: "فُقَرَاء"
+      sense_id: "{auto}"
+      nuance: "اللفظ الأعم والأكثر شيوعاً للدلالة على من لا يملك ما يكفيه من المال."
+      mwe: false
+    - lemma: "مَسَاكِين"
+      sense_id: "{auto}"
+      nuance: "يشير إلى من أسكنه الفقر وعجز عن الحركة والتكسب، وهو غالباً أسوأ حالاً من الفقير."
+      mwe: false
+    - lemma: "مُعْدَمُون"
+      sense_id: "{auto}"
+      nuance: "يدل على الفقر المدقع وانعدام أي ممتلكات أو ثروة تماماً."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"فقر","maqayis":"«الْفَاءُ وَالْقَافُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى انْفِرَاجٍ فِي شَيْءٍ، مِنْ عُضْوٍ أَوْ غَيْرِ ذَلِكَ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سكن","maqayis":"«السِّينُ وَالْكَافُ وَالنُّونُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ، يَدُلُّ عَلَى خِلَافِ الِاضْطِرَابِ وَالْحَرَكَةِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عدم","maqayis":"«الْعَيْنُ وَالدَّالُ وَالْمِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى فُقْدَانِ الشَّيْءِ وَذَهَابِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ الأعم والأكثر شيوعاً للدلالة على من لا يملك ما يكفيه من المال.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يشير إلى من أسكنه الفقر وعجز عن الحركة والتكسب، وهو غالباً أسوأ حالاً من الفقير.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يدل على الفقر المدقع وانعدام أي ممتلكات أو ثروة تماماً.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'

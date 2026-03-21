@@ -1,0 +1,185 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "آسيا هو في الأصل اسم علم للمكان (القارة)، واستخدامه للدلالة على الدول مجتمعة هو مجاز مرسل (علاقة محلية)."
+    observations: "في العربية، يُستخدم اسم القارة غالباً لتمثيل مجموع دولها في السياقات السياسية والاقتصادية والرياضية. المفهوم واضح دلالياً."
+  blind_candidates:
+    - lemma: "آسِيَا"
+      generation_method: taarib
+      justification: "الاسم المعرّب للقارة، ويُستخدم دلالياً لتمثيل دولها مجتمعة."
+    - lemma: "الدُّوَلُ الآسِيَوِيَّةُ"
+      generation_method: tarkib
+      justification: "مركب وصفي يعبر بدقة عن 'الدول الآسيوية' كمجموعة."
+    - lemma: "الْبُلْدَانُ الآسِيَوِيَّةُ"
+      generation_method: tarkib
+      justification: "مركب وصفي مرادف لـ 'الدول الآسيوية'."
+    - lemma: "الْمَجْمُوعَةُ الآسِيَوِيَّةُ"
+      generation_method: tarkib
+      justification: "اصطلاح يُستخدم لوصف دول القارة ككتلة واحدة في المحافل الدولية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "آسِيَا"
+      confirm:
+        - text: "«آسيا: أكبر قارات العالم مساحة...»"
+          source: "المعجم الكبير"
+        - text: "«آسِيَا: ... كلمة يونانية. ... وما استقبل هاتين القطعتين من المشرق يسمّى آسيا، ووصف بالكبرى...»"
+          source: "معجم البلدان لياقوت الحموي"
+      expands:
+        - text: "«... ويعيش فيها نحو نصف سكان العالم.»"
+          source: "المعجم الوسيط"
+          addition: "يشير إلى الجانب السكاني (البشري) الذي يمهد لاستخدام اللفظ دلالةً على الدول والشعوب مجتمعة."
+    - lemma: "الدُّوَلُ الآسِيَوِيَّةُ"
+      confirm:
+        - text: "«منتدى التعاون الاقتصادي لدول آسيا والمحيط الهادئ (APEC)»"
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة"
+    - lemma: "الْبُلْدَانُ الآسِيَوِيَّةُ"
+      confirm:
+        - text: "«خان؛ نُزُل؛ فندق [في بعض البلدان الآسيوية].»"
+          source: "المورد الحديث (2008)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "آسيا"
+      decision: confirmed
+      decision_reason: "الاسم الأساسي للقارة، ويُستخدم في العربية كاسم جمعي للدول الأعضاء في القارة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "آسِيَا"
+    - lemma: "الدُّوَلُ الآسِيَوِيَّةُ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي مركب يعبر بدقة عن مجموع دول القارة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "الدُّوَلُ الآسِيَوِيَّةُ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "الْبُلْدَانُ الآسِيَوِيَّةُ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي مرادف وشائع الاستخدام لوصف مجموعة دول القارة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "الْبُلْدَانُ الآسِيَوِيَّةُ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "الْمَجْمُوعَةُ الآسِيَوِيَّةُ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح سياسي واقتصادي يُستخدم للإشارة إلى دول آسيا ككتلة واحدة في المنظمات الدولية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "الْمَجْمُوعَةُ الآسِيَوِيَّةُ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "دول القارة الآسيوية مجتمعة"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق ومباشر ومطابق للتعريف العالمي للمجموعة."
+  examples:
+    per_lemma:
+      - lemma: "آسِيَا"
+        examples:
+          - text: "تسعى آسيا إلى تعزيز التكامل الاقتصادي بين دولها."
+            type: usage
+      - lemma: "الدُّوَلُ الآسِيَوِيَّةُ"
+        examples:
+          - text: "اجتمعت الدول الآسيوية لمناقشة قضايا الأمن الإقليمي."
+            type: usage
+      - lemma: "الْبُلْدَانُ الآسِيَوِيَّةُ"
+        examples:
+          - text: "تشهد البلدان الآسيوية نمواً اقتصادياً متسارعاً."
+            type: usage
+      - lemma: "الْمَجْمُوعَةُ الآسِيَوِيَّةُ"
+        examples:
+          - text: "قدمت المجموعة الآسيوية طلباً رسمياً في الأمم المتحدة."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "آسِيَا"
+      entry_id: "{auto}"
+      root: null
+      note: "{\"origin\":\"Greek\",\"etymology\":\"Asia\"}"
+    - lemma: "الدُّوَلُ الآسِيَوِيَّةُ"
+      entry_id: "{auto}"
+      roots:
+        - word: "الدول"
+          root: "دول"
+          maqayis_quote: "«الدال والواو واللام أصلان: أحدهما يَدُلُّ على تغيّر الشيء، والآخر يدلُّ على ضَعفٍ... فأمّا الأول فالدُّولة والدَّولة، هما لغتان...»"
+        - word: "الآسيوية"
+          root: null
+  per_sense:
+    - lemma: "آسِيَا"
+      sense_id: "{auto}"
+      nuance: "استخدام اسم المكان (القارة) للدلالة على الكيان السياسي أو الاقتصادي لدولها (مجاز مرسل)."
+      mwe: false
+    - lemma: "الدُّوَلُ الآسِيَوِيَّةُ"
+      sense_id: "{auto}"
+      nuance: "توصيف صريح ومباشر للكيانات السياسية (الدول) في القارة."
+      mwe: true
+    - lemma: "الْبُلْدَانُ الآسِيَوِيَّةُ"
+      sense_id: "{auto}"
+      nuance: "يؤكد على الجانب الجغرافي والسكاني للكيانات (البلدان) أكثر من الجانب السياسي المحض."
+      mwe: true
+    - lemma: "الْمَجْمُوعَةُ الآسِيَوِيَّةُ"
+      sense_id: "{auto}"
+      nuance: "يُركز على الصفة التنظيمية والائتلافية لدول القارة في المحافل الدولية."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"origin":"Greek"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"الدول","root":"دول","maqayis":"«...»"},{"word":"الآسيوية","root":null}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"استخدام اسم القارة ككيان جمعي للدول.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

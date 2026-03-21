@@ -1,0 +1,214 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'خطأ' عامة جداً وتحتاج لتحديد دلالي أو تقييد سياقي."
+      - "استخدام كلمة 'الكمبيوتر' في التعريف العربي الحالي غير مستساغ في المعجمية العربية الرسمية، والأفضل 'الحاسوب'."
+    observations: "المجموعة تتعلق بمفهوم تقني محدد (error/bug/glitch). اللمات الموجودة مقبولة ولكن ينقصها التشكيل الكامل وبعض المترادفات الاصطلاحية الأكثر دقة في مجال الحاسوب مثل 'غلط' و'خلل'."
+  blind_candidates:
+    - lemma: "خَلَل حَاسُوبِيّ"
+      generation_method: tarkib
+      justification: "تركيب وصفي يجمع بين 'الخلل' (فساد الجريان) و'الحاسوب' لتحديد المجال."
+    - lemma: "زَلَل"
+      generation_method: majaz
+      justification: "إحياء للفظ تراثي يعبر عن السقوط والخطأ، ويمكن استخدامه للدلالة على هفوات النظام."
+    - lemma: "عِلَّة بَرْمَجِيَّة"
+      generation_method: tarkib
+      justification: "العلة في العربية هي المرض أو الفساد الطارئ، وهو ما يناسب دلالة 'bug'."
+    - lemma: "غَلَط"
+      generation_method: ishtiqaq
+      justification: "الغلط هو خلاف الإصابة في الحساب والمنطق، وهو مستخدم بكثرة في معجمات تقانة المعلومات."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خَطَأ"
+      confirm:
+        - text: "«(فى الرِّياضيات) (error): الفَرْقُ الموجَبُ أو السالِبُ بين القِيمَةِ المحسوبة - أو المَقِيسةِ - لِكَمِّيَّةٍ ما, وبينَ قِيمَتِها الحقِيقِيَّة»"
+          source: "المعجم الكبير"
+        - text: "«ما لم يُتعمد من الفعل ضد الصواب»"
+          source: "المعجم الوسيط"
+    - lemma: "غَلَط"
+      confirm:
+        - text: "«يشير عادة إلى كل أنواع الأخطاء والمشاكل التي تحول دون الاشتغال الطبيعي لنظام أو جهاز أو برمجية»"
+          source: "المعجم الموحد لمصطلحات تقانة (تكنولوجيا) المعلومات"
+        - text: "«أن تَعْيا بالشيء فلا تَعْرِفَ وجْهَ الصوابِ فيه... في الحِسابِ وغيرِه»"
+          source: "القاموس المحيط"
+    - lemma: "خَلَل"
+      confirm:
+        - text: "«مشكلةٌ، غالباً ما تكون صغيرة (glitch)»"
+          source: "معجم مصطلحات المعلوماتية"
+        - text: "«خلل؛ علة (bug)»"
+          source: "المورد الحديث"
+    - lemma: "خَطَأ حَاسُوبِيّ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "خطأ"
+      decision: confirmed
+      decision_reason: "المصطلح الأساسي والأكثر شيوعاً، ويغطي الجانب الرياضي والمنطقي للخطأ الناتج عن الحاسوب."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَطَأ"
+    - lemma: "خطأ حاسوبي"
+      decision: confirmed
+      decision_reason: "مركب تقني دقيق يحدد مصدر الخطأ (الحاسوب)، وهو مستعمل في الأدبيات التقنية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَطَأ حَاسُوبِيّ"
+    - lemma: "غَلَط"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تقني مؤكد في المعجم الموحد لتقانة المعلومات للدلالة على أخطاء البرمجيات (Error/Bug)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "غَلَط", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "خَلَل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يستخدم في السياق التقني للتعبير عن 'Glitch' أو 'Bug' العارض الذي يؤدي لنتائج غير متوقعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "خَلَل", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "(في علوم الحاسوب) حدوث نتيجة غير صحيحة ناتجة عن الكمبيوتر"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يستخدم كلمة 'الكمبيوتر' والأفضل 'الحاسوب'، كما يحتاج لصياغة أكثر دقة ومصطلحية."
+    authored:
+      - type: terminological
+        text: "انحرافٌ في مخرجات الحاسوب عن القيمة الصحيحة أو النتيجة المتوقعة، ناتجٌ عن عيبٍ في البرمجة أو خللٍ في العتاد."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "انحرافٌ في مخرجات الحاسوب عن القيمة الصحيحة أو النتيجة المتوقعة، ناتجٌ عن عيبٍ في البرمجة أو خللٍ في العتاد."}
+  examples:
+    per_lemma:
+      - lemma: "خَطَأ"
+        examples:
+          - text: "يحدث هذا الخطأ عادةً عند محاولة تقسيم رقم على صفر في البرمجية."
+            type: usage
+      - lemma: "خَطَأ حَاسُوبِيّ"
+        examples:
+          - text: "عزت وكالة الفضاء فشل إطلاق القمر الصناعي إلى خطأ حاسوبي في نظام الملاحة."
+            type: usage
+      - lemma: "غَلَط"
+        examples:
+          - text: "صحح المبرمج الغلط الذي كان يسبب ظهور ألوان غير صحيحة في اللعبة."
+            type: usage
+      - lemma: "خَلَل"
+        examples:
+          - text: "أدى خللٌ تقني عارض في الخادم إلى توقف الخدمة عن آلاف المستخدمين."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يحدث هذا الخطأ عادةً عند محاولة تقسيم رقم على صفر في البرمجية."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خَطَأ"
+      entry_id: "{auto}"
+      root: "خطأ"
+      maqayis_quote: "«الخاء والطاء والحرف المعتل والمهموز، يدل على تعدي الشيء، والذهاب عنه... والخطاء من هذا ; لأنه مجاوزة حد الصواب.»"
+    - lemma: "غَلَط"
+      entry_id: "{auto}"
+      root: "غلط"
+      maqayis_quote: "«الغين واللام والطاء كلمة واحدة، وهي الغلط: خلاف الإصابة.»"
+    - lemma: "خَلَل"
+      entry_id: "{auto}"
+      root: "خلل"
+      maqayis_quote: "«الخاء واللام أصل واحد... فرجه بَيْنَ الشَّيْئَيْنِ.»"
+    - lemma: "خَطَأ حَاسُوبِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "خطأ"
+          root: "خطأ"
+          maqayis_quote: "«الخاء والطاء والحرف المعتل والمهموز، يدل على تعدي الشيء، والذهاب عنه... والخطاء من هذا ; لأنه مجاوزة حد الصواب.»"
+        - word: "حاسوبي"
+          root: "حسب"
+          maqayis_quote: "«الحاء والسين والباء أصول أربعة، فالأول: العد.»"
+  per_sense:
+    - lemma: "خَطَأ"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام والشامل لأي انحراف عن الصواب في النتائج."
+      mwe: false
+    - lemma: "خَطَأ حَاسُوبِيّ"
+      sense_id: "{auto}"
+      nuance: "يركز على تقييد الخطأ بمجال الحوسبة وآلاتها."
+      mwe: true
+    - lemma: "غَلَط"
+      sense_id: "{auto}"
+      nuance: "غالباً ما يستخدم في السياق التقني للإشارة إلى الأخطاء البرمجية (Bug) أو الأخطاء التي تجعل النظام يعمل بشكل غير طبيعي."
+      mwe: false
+    - lemma: "خَلَل"
+      sense_id: "{auto}"
+      nuance: "يشير إلى اضطراب أو فساد عارض في نظام التشغيل أو حالة العتاد (Glitch)."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خطأ","maqayis":"«الخاء والطاء والحرف المعتل والمهموز، يدل على تعدي الشيء، والذهاب عنه... والخطاء من هذا ; لأنه مجاوزة حد الصواب.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"غلط","maqayis":"«الغين واللام والطاء كلمة واحدة، وهي الغلط: خلاف الإصابة.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خلل","maqayis":"«الخاء واللام أصل واحد... فرجه بَيْنَ الشَّيْئَيْنِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"خطأ","root":"خطأ","maqayis":"«...»"},{"word":"حاسوبي","root":"حسب","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العام والشامل لأي انحراف عن الصواب في النتائج.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'

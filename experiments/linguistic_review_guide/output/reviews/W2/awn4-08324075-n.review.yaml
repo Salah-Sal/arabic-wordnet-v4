@@ -1,0 +1,196 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمات الموجودة تفتقر إلى التشكيل الكامل بالرغم من كونها أعجمية معربة.
+      - التعريف الحالي موجز جداً ويحتاج إلى تفصيل يربطه بالنظام الطبقي الهندوسي (الفارنا).
+    observations: "المجموعة تتعلق بالمفهوم الهندوسي للطبقات (الفارنا)، وتحديداً الطبقة الثانية (النبلاء والمحاربون). المصطلحات المستخدمة هي تعريبات مباشرة من السنسكريتية (كشاتريا وراجانيا)، بالإضافة إلى تعابير وصفية عربية شائعة في الكتب المتخصصة."
+  blind_candidates:
+    - lemma: "كْشَاتْرِيَا"
+      generation_method: taarib
+      justification: "التعريب القياسي لمصطلح (Kshatriya) السنسكريتي في المراجع العربية الأكاديمية."
+    - lemma: "رَاجَانْيَا"
+      generation_method: taarib
+      justification: "التعريب القياسي لمصطلح (Rajanya) الذي ورد في النصوص الفيدية المبكرة للإشارة إلى نفس الطبقة."
+    - lemma: "طَبَقَةُ النُّبَلَاءِ"
+      generation_method: tarkib
+      justification: "تعبير وصفي مستخدم في المعاجم العربية الكبرى (كالمعجم الكبير) لوصف هذه الفئة في سياق الحديث عن البراهمة."
+    - lemma: "طَبَقَةُ الْمُحَارِبِينَ"
+      generation_method: tarkib
+      justification: "تعبير وصفي وظيفي يشيع استخدامه في كتب التاريخ والأديان لتعريف هذه الطبقة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "كشاتريا"
+      evidence_status: "no_material_found"
+    - lemma: "راجانيا"
+      evidence_status: "no_material_found"
+    - lemma: "طَبَقَةُ النُّبَلَاءِ"
+      confirm:
+        - text: "«إحدى طوائف المجتمع الهندىّ الأَرْبعة (البراهمة, والنبلاء, والبرجوازيون, والحِرَفِيُّون).»"
+          source: "المعجم الكبير (مجمع اللغة العربية)"
+    - lemma: "طَبَقَةُ الْمُحَارِبِينَ"
+      confirm:
+        - text: "«ثاني أعلى الطبقات الأربع: فئة النبلاء أو المحاربين»"
+          source: "التعريف الحالي للمجموعة (AWN)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "كشاتريا"
+      decision: confirmed
+      decision_reason: "المصطلح المعرب الأكثر شيوعاً ودقة للإشارة إلى هذه الطبقة في السياق الهندوسي."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "كْشَاتْرِيَا"
+    - lemma: "راجانيا"
+      decision: confirmed
+      decision_reason: "مصطلح فيدي أصيل ورد في (ريج فيدا) للإشارة إلى النبلاء، وهو مرادف للـ (كشاتريا) في السياق التاريخي."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "رَاجَانْيَا"
+    - lemma: "طَبَقَةُ النُّبَلَاءِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير مركب مستخدم في المعاجم العربية المعتبرة (المعجم الكبير) لوصف هذه الطبقة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "طَبَقَةُ النُّبَلَاءِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "طَبَقَةُ الْمُحَارِبِينَ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير وصفي وظيفي دقيق وشائع الاستخدام في المؤلفات العربية التي تتناول الهند."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "طَبَقَةُ الْمُحَارِبِينَ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "ثاني أعلى الطبقات الأربع: فئة النبلاء أو المحاربين"
+    assessment:
+      decision: revise
+      reason: "يحتاج التعريف إلى ذكر المرجعية الدينية (الهندوسية) وترتيب الطبقة ضمن نظام (الفارنا) ليكون أكثر دقة وموسوعية."
+    authored:
+      - type: encyclopedic
+        text: "في الهندوسية: ثاني طبقات (الفارنا) الأربع، وهي طبقة الحكام والنبلاء والمحاربين، وتلي طبقة البراهمة في الهرم الاجتماعي."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "كْشَاتْرِيَا"
+        examples:
+          - text: "يَنْتَمِي الْمُحَارِبُونَ فِي الْمُجْتَمَعِ الْهِنْدِيِّ الْقَدِيمِ إِلَى طَبَقَةِ الْكْشَاتْرِيَا."
+            type: usage
+      - lemma: "رَاجَانْيَا"
+        examples:
+          - text: "تُشِيرُ النُّصُوصُ الْفِيدِيَّةُ الْقَدِيمَةُ إِلَى النُّبَلَاءِ وَالْحُكَّامِ بِاسْمِ الرَّاجَانْيَا."
+            type: usage
+      - lemma: "طَبَقَةُ النُّبَلَاءِ"
+        examples:
+          - text: "كَانَتْ طَبَقَةُ النُّبَلَاءِ فِي الْهِنْدِ تَتَوَلَّى مَهَامَّ الْحُكْمِ وَالْحِمَايَةِ."
+            type: usage
+      - lemma: "طَبَقَةُ الْمُحَارِبِينَ"
+        examples:
+          - text: "تُعَدُّ طَبَقَةُ الْمُحَارِبِينَ الرُّكْنَ الْأَسَاسِيَّ فِي حِمَايَةِ الْمَمَالِكِ الْهِنْدِيَّةِ الْقَدِيمَةِ."
+            type: usage
+  actions:
+    - command: update_definition
+      params: {synset_id: "{synset_id}", definition_index: 0, text: "في الهندوسية: ثاني طبقات (الفارنا) الأربع، وهي طبقة الحكام والنبلاء والمحاربين، وتلي طبقة البراهمة في الهرم الاجتماعي."}
+    - command: add_sense_example
+      params: {sense_id: "{auto}", text: "يَنْتَمِي الْمُحَارِبُونَ فِي الْمُجْتَمَعِ الْهِنْدِيِّ الْقَدِيمِ إِلَى طَبَقَةِ الْكْشَاتْرِيَا."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "كْشَاتْرِيَا"
+      entry_id: "{auto}"
+      note: "{\"origin\":\"Sanskrit\",\"transliteration\":\"Kshatriya\",\"context\":\"Hinduism\"}"
+    - lemma: "رَاجَانْيَا"
+      entry_id: "{auto}"
+      note: "{\"origin\":\"Sanskrit\",\"transliteration\":\"Rajanya\",\"context\":\"Vedic Hinduism\"}"
+    - lemma: "طَبَقَةُ النُّبَلَاءِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "طبقة"
+          root: "طبق"
+          maqayis_quote: "«الطَّاءُ وَالْبَاءُ وَالْقَافُ أَصْلٌ صَحِيحٌ وَاحِدٌ، وَهُوَ يَدُلُّ عَلَى وَضْعِ شَيْءٍ مَبْسُوطٍ عَلَى مِثْلِهِ حَتَّى يُغَطِّيَهُ.»"
+        - word: "النبلاء"
+          root: "نبل"
+          maqayis_quote: "«النُّونُ وَالْبَاءُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى فَضْلٍ وَكِبَرٍ.»"
+    - lemma: "طَبَقَةُ الْمُحَارِبِينَ"
+      entry_id: "{auto}"
+      roots:
+        - word: "طبقة"
+          root: "طبق"
+          maqayis_quote: "«الطَّاءُ وَالْبَاءُ وَالْقَافُ أَصْلٌ صَحِيحٌ وَاحِدٌ، وَهُوَ يَدُلُّ عَلَى وَضْعِ شَيْءٍ مَبْسُوطٍ عَلَى مِثْلِهِ حَتَّى يُغَطِّيَهُ.»"
+        - word: "المحاربين"
+          root: "حرب"
+          maqayis_quote: "«الْحَاءُ وَالرَّاءُ وَالْبَاءُ أُصُولٌ ثَلَاثَةٌ: أَحَدُهَا السَّلْبُ، وَالْآخَرُ دُوَيْبَّةٌ، وَالثَّالِثُ بَعْضُ الْمَجَالِسِ. فَالْأَوَّلُ: الْحَرْبُ.»"
+  per_sense:
+    - lemma: "كْشَاتْرِيَا"
+      sense_id: "{auto}"
+      nuance: "المصطلح العلمي والأكثر شيوعاً للطبقة الثانية في النظام الهندوسي الكلاسيكي."
+      mwe: false
+    - lemma: "رَاجَانْيَا"
+      sense_id: "{auto}"
+      nuance: "مصطلح تاريخي فيدي قديم، يركز على الجانب الملكي والسيادي."
+      mwe: false
+    - lemma: "طَبَقَةُ النُّبَلَاءِ"
+      sense_id: "{auto}"
+      nuance: "تسمية عربية تقليدية تركز على المكانة الاجتماعية الرفيعة."
+      mwe: true
+    - lemma: "طَبَقَةُ الْمُحَارِبِينَ"
+      sense_id: "{auto}"
+      nuance: "تسمية وظيفية تركز على الدور العسكري لأفراد هذه الطبقة."
+      mwe: true
+  synset:
+    cultural_fit: omission
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: "{\"origin\":\"Sanskrit\",\"transliteration\":\"Kshatriya\"}"
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: "{\"nuance\":\"المصطلح العلمي والأكثر شيوعاً\",\"mwe\":false}"
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: "{\"cultural_fit\":\"omission\"}"
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,242 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'مجموعة كلية' عبارة وصفية فضفاضة وليست مصطلحاً معجمياً مسكوكاً."
+      - "التعريف الحالي يقتصر على 'تجميع' بينما المفهوم يشمل 'الأثر الكلي' و'الانسجام' (tout ensemble)."
+    observations: "المجموعة تغطي مفهوم الـ (Ensemble) الذي يتراوح بين المجموعة البشرية (فرقة) والمجموعة المادية (طاقم/طقم) والأثر الفني الموحد (توليفة). اللمات الحالية تغطي الجوانب المادية والبشرية لكنها تفتقر للمصطلحات التي تعبر عن الكل العضوي المترابط."
+  blind_candidates:
+    - lemma: "تَوْلِيفة"
+      generation_method: ishtiqaq
+      justification: "من الجذر (ولف) بمعنى الضم والجمع، وتُستخدم حديثاً للأثر الفني الموحد الناتج عن تجميع عناصر مختلفة."
+    - lemma: "مَنْظُومة"
+      generation_method: ishtiqaq
+      justification: "من الجذر (نظم)، وتُشير إلى مجموعة تؤلف كلاً عضوياً واحداً أو تُحدث أثراً منفرداً."
+    - lemma: "تَجْمِيع"
+      generation_method: ishtiqaq
+      justification: "المصدر الصريح لعملية ضم الأجزاء لتكوين كل واحد، وهو ترجمة دقيقة لـ (assemblage)."
+    - lemma: "ائْتِلَاف"
+      generation_method: ishtiqaq
+      justification: "يُعبر عن الانسجام والاتحاد بين الأجزاء المختلفة في العمل الفني."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "طَاقَم"
+      confirm:
+        - text: "«طاقم أوانٍ أو أدواتٍ... ثوب مؤلف من عدة أجزاء متناسقة أو متتامّة.»"
+          source: "المورد الحديث"
+        - text: "«مجموعة متكاملة من الأفراد مكلفة بعمل معين.»"
+          source: "المعجم الكبير"
+    - lemma: "فِرْقَة"
+      confirm:
+        - text: "«فرقة التمثل وفرقة الألعاب وفرقة المطافئ.»"
+          source: "المعجم الوسيط"
+        - text: "«أداء موحَّد من قِبَل مجموعة تامة من المغنّين والموسيقيين.»"
+          source: "المورد الحديث"
+    - lemma: "تَوْلِيفة"
+      confirm:
+        - text: "«بذلة نسائية: هي توليفة مكونة جزأين فأكثر وتكون متوافقة...»"
+          source: "مسرد صناعة النسيج (ArabTerm)"
+        - text: "«شاعت في لغة العصر الحديث للأشياء التي تتألف من جملة عناصر أو أفراد.»"
+          source: "معجم الصواب اللغوي"
+    - lemma: "مَنْظُومة"
+      confirm:
+        - text: "«المنظومة؛ الطاقم: مجموعة تؤلف كُلا عضويًا واحدًا أو تُحدث أثرًا مُفْرَدًا.»"
+          source: "المورد الحديث"
+    - lemma: "تَجْمِيع"
+      confirm:
+        - text: "«تجميع النماذج: طريقة للجمع بين تنبؤات نماذج متعددة للحصول على أداء تنبؤي أفضل.»"
+          source: "معجم البيانات والذكاء الاصطناعي"
+    - lemma: "مجموعة كلية"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "طَاقَم"
+      decision: confirmed
+      decision_reason: "مصطلح أصيل (وإن كان معرباً) يُستخدم للدلالة على المجموعة المادية أو البشرية المترابطة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "طَاقَم"
+    - lemma: "فِرْقَة"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح ومستقر للدلالة على مجموعة الأشخاص (ensemble) في السياقات الفنية والعسكرية وغيرها."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "فِرْقَة"
+    - lemma: "مجموعة كلية"
+      decision: removed
+      decision_reason: "عبارة وصفية غير معجمية، وتغني عنها المصطلحات المفردة مثل 'توليفة' أو 'منظومة'."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "تَوْلِيفة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح حديث شائع يعبر بدقة عن تمازج العناصر الفنية لتكوين أثر كلي موحد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَوْلِيفة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مَنْظُومة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تُعبر عن الكل العضوي المترابط، وهي من مرادفات (ensemble) في المعاجم الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَنْظُومة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَجْمِيع"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح التقني المقابل لـ (assemblage) و (ensemble) في مجالات الذكاء الاصطناعي والإحصاء."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَجْمِيع", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "تجميع لأجزاء أو تفاصيل (كما في عمل فني) تُعتبر كأنها تشكل كلاً واحداً"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط؛ يُفضل صياغته بأسلوب معجمي يبرز الأثر الموحد والتنسيق بين الأجزاء."
+    authored:
+      - type: terminological
+        text: "مَجْمُوعةٌ مِنَ العناصِرِ أو الأجزاءِ المُنَسَّقَةِ التي تُؤلِّفُ كُلًّا عُضْويًّا واحداً أو تُحدثُ أَثَراً موحَّداً، كما في العملِ الفنِّيِّ أو الفِرَقِ الموسيقيَّةِ أو أطْقُمِ المَلابِسِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مَجْمُوعةٌ مِنَ العناصِرِ أو الأجزاءِ المُنَسَّقَةِ التي تُؤلِّفُ كُلًّا عُضْويًّا واحداً أو تُحدثُ أَثَراً موحَّداً، كما في العملِ الفنِّيِّ أو الفِرَقِ الموسيقيَّةِ أو أطْقُمِ المَلابِسِ."}
+
+  examples:
+    per_lemma:
+      - lemma: "طَاقَم"
+        examples:
+          - text: "اشتريتُ طَاقَماً من الأواني الفخاريَّة المزخرفة."
+            type: usage
+      - lemma: "فِرْقَة"
+        examples:
+          - text: "قدَّمت الفِرْقَةُ الموسيقيَّة أداءً متناغماً أبهر الحضور."
+            type: usage
+      - lemma: "تَوْلِيفة"
+        examples:
+          - text: "يمتازُ هذا الفيلم بتَوْلِيفةٍ رائعة من الموسيقى والإضاءة."
+            type: usage
+      - lemma: "مَنْظُومة"
+        examples:
+          - text: "تُشكِّلُ هذه العناصرُ الفنيَّة مَنْظُومةً جماليَّة متكاملة."
+            type: usage
+      - lemma: "تَجْمِيع"
+        examples:
+          - text: "يُعتمَدُ تَجْمِيعُ النماذجِ في الذكاء الاصطناعي لتحسين دقة التنبؤ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يمتازُ هذا الفيلم بتَوْلِيفةٍ رائعة من الموسيقى والإضاءة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "طَاقَم"
+      entry_id: "{auto}"
+      root: "طقم"
+      maqayis_quote: "«كلمة معربة لم ترد في مقاييس اللغة، والجذر ط-ق-م مستعمل حديثاً للدلالة على الهيئة والمجموعة.»"
+    - lemma: "فِرْقَة"
+      entry_id: "{auto}"
+      root: "فرق"
+      maqayis_quote: "«الْفَاءُ وَالرَّاءُ وَالْقَافُ أُصَيْلٌ صَحِيحٌ يَدُلُّ عَلَى تَمْيِيزٍ وَتَزْيِيلٍ بَيْنَ شَيْئَيْنِ. مِنْ ذَلِكَ الْفَرْقُ... وَالْفِرْقُ: الْقَطِيعُ مِنَ الْغَنَمِ.»"
+    - lemma: "تَوْلِيفة"
+      entry_id: "{auto}"
+      root: "ولف"
+      maqayis_quote: "«الْوَاوُ وَاللَّامُ وَالْفَاءُ: أَصْلٌ يَدُلُّ عَلَى ضَمِّ شَيْءٍ إِلَى شَيْءٍ.»"
+    - lemma: "مَنْظُومة"
+      entry_id: "{auto}"
+      root: "نظم"
+      maqayis_quote: "«النُّونُ وَالظَّاءُ وَالْمِيمُ: أَصْلٌ يَدُلُّ عَلَى تَأْلِيفِ شَيْءٍ وَتَأْلِيفِهِ.»"
+    - lemma: "تَجْمِيع"
+      entry_id: "{auto}"
+      root: "جمع"
+      maqayis_quote: "«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ.»"
+  per_sense:
+    - lemma: "طَاقَم"
+      sense_id: "{auto}"
+      nuance: "يُستخدم غالباً للأطقم المادية (أدوات، ملابس) أو الطواقم البشرية المكلفة بعمل."
+      mwe: false
+    - lemma: "فِرْقَة"
+      sense_id: "{auto}"
+      nuance: "تُطلق على الجماعات البشرية، لا سيما في الفنون والتمثيل والموسيقى."
+      mwe: false
+    - lemma: "تَوْلِيفة"
+      sense_id: "{auto}"
+      nuance: "تُبرز التناغم والانسجام الفني بين عناصر متنوعة لتكوين أثر كلي."
+      mwe: false
+    - lemma: "مَنْظُومة"
+      sense_id: "{auto}"
+      nuance: "تُشير إلى الكل العضوي الذي تترابط أجزاؤه وظيفياً وبنيوياً."
+      mwe: false
+    - lemma: "تَجْمِيع"
+      sense_id: "{auto}"
+      nuance: "تُركز على عملية الجمع المادي أو الإجرائي للعناصر (كما في التكنولوجيا)."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"طقم","maqayis":"«كلمة معربة...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"فرق","maqayis":"«الْفَاءُ وَالرَّاءُ وَالْقَافُ أُصَيْلٌ صَحِيحٌ يَدُلُّ عَلَى تَمْيِيزٍ وَتَزْيِيلٍ بَيْنَ شَيْئَيْنِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تُطلق على الجماعات البشرية، لا سيما في الفنون والتمثيل والموسيقى.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

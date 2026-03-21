@@ -1,0 +1,228 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي يحتوي على كلمة 'الافتراض' مما يجعله تعريفاً دورياً."
+      - "الاقتصار على كلمة 'افتراض' يغفل جوانب أخرى من المفهوم كالتسليم الجدلي أو التخمين الحدسي."
+    observations: "المفهوم يعبر عن العملية الذهنية لاعتبار شيء ما صحيحاً كقاعدة للانطلاق منها، سواء كان ذلك في العلم (فرضية) أو الجدل (تسليم) أو الحياة اليومية (تخمين)."
+  blind_candidates:
+    - lemma: "افْتِرَاض"
+      generation_method: ishtiqaq
+      justification: "المصدر القياسي للفعل افتَرَضَ، وهو الأكثر شيوعاً في سياق الفرضيات العلمية."
+    - lemma: "تَسْلِيم"
+      generation_method: majaz
+      justification: "قبول مقدمة ما كقاعدة للبحث أو الجدل دون برهان حالي، وهو ما ورد في التعريف الأصلي."
+    - lemma: "تَخْمِين"
+      generation_method: ishtiqaq
+      justification: "الافتراض المبني على الحدس والظن عند فقدان اليقين."
+    - lemma: "حُسْبَان"
+      generation_method: ishtiqaq
+      justification: "من الفعل حَسِبَ بمعنى ظن أو افترض وقوع الشيء."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "افتراض"
+      confirm:
+        - text: "الافتراض هو عند المنطقيين طريق من طرق بيان عكوس القضايا، وهو فرض ذات الموضوع شيئا معينا."
+          source: "كشاف اصطلاحات الفنون والعلوم للتهانوي"
+        - text: "مضمون جملة عبر استمرارها... لكونه افتراضا للبساطة والازدواجية."
+          source: "المعجم الموحد لمصطلحات اللسانيات"
+    - lemma: "تسليم"
+      confirm:
+        - text: "التسليم هو في علم الجدل أن يفرض المحال... ثم يسلم وقوع ذلك تسليما جدليا."
+          source: "كشاف اصطلاحات الفنون والعلوم للتهانوي"
+        - text: "التسليم في اللغة (كردن نهادن وقبول كردن). أي الانقياد الظاهري من غير انقياد الباطن."
+          source: "دستور العلماء للأحمدنكري"
+    - lemma: "تخمين"
+      confirm:
+        - text: "خَمَنَ الشيءَ: قال فيه بالحَدْس أو الوهم."
+          source: "المعجم الوسيط"
+        - text: "التَّخْمِينُ: القولُ بالحَدْسِ والظَّنِّ."
+          source: "تاج العروس"
+    - lemma: "زعم"
+      confirm:
+        - text: "الزَّعْمُ: القول من غير صحة ولا يقين."
+          source: "مقاييس اللغة"
+        - text: "الزَّعْمُ: حكاية قول يكون مظنة للكذب."
+          source: "المفردات في غريب القرآن"
+    - lemma: "فرض"
+      confirm:
+        - text: "الفَرْضُ: شيء معلوم يبين كالأثر في الشيء."
+          source: "مقاييس اللغة"
+        - text: "فَرْضٌ [assumption]"
+          source: "المعجم الموحد لمصطلحات الرياضيات والفلك"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "افتراض"
+      decision: confirmed
+      decision_reason: "المصطلح المركزي للمفهوم، مؤيد بالمعاجم الاصطلاحية واللغوية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "افْتِرَاض"
+    - lemma: "تَسْلِيم"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر عن الجانب الجدلي من المفهوم (قبول المقدمات)، وهو ما ورد في صلب التعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَسْلِيم", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَخْمِين"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر عن الافتراض القائم على الحدس والتقدير التقريبي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَخْمِين", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "فَرْض"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يُستخدم كمرادف للافتراض في العلوم الأساسية (كالرياضيات) وكأصل للفعل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "فَرْض", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "زَعْم"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر عن ادعاء أو افتراض يفتقر إلى الدليل القاطع، وغالباً ما يحمل صبغة الارتياب."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "زَعْم", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "فعل الافتراض أو التسليم بجدلية أمر ما"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دوري وغير جامع لأبعاد المفهوم (الحدسية والرياضية)."
+    authored:
+      - type: terminological
+        text: "تَقْدِيرُ صِحَّةِ قَضِيَّةٍ أَوْ أَمْرٍ مَا دُونَ بُرْهَانٍ قَاطِعٍ، إِمَّا كَقَاعِدَةٍ لِلِاسْتِدْلَالِ أَوِ التَّدْبِيرِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "تَقْدِيرُ صِحَّةِ قَضِيَّةٍ أَوْ أَمْرٍ مَا دُونَ بُرْهَانٍ قَاطِعٍ، إِمَّا كَقَاعِدَةٍ لِلِاسْتِدْلَالِ أَوِ التَّدْبِيرِ."}
+  examples:
+    per_lemma:
+      - lemma: "افْتِرَاض"
+        examples:
+          - text: "بُنِيَتِ النَّظَرِيَّةُ عَلَى افْتِرَاضِ أَنَّ المَادَّةَ تَتَكَوَّنُ مِنْ ذَرَّاتٍ."
+            type: usage
+      - lemma: "تَسْلِيم"
+        examples:
+          - text: "قَبِلَ الخَصْمُ بِالتَّسْلِيمِ الجَدَلِيِّ لِيُبَيِّنَ تَنَاقُضَ الحُجَّةِ."
+            type: usage
+      - lemma: "تَخْمِين"
+        examples:
+          - text: "لَمْ يَكُنْ لَدَيْهِ مَعْلُومَاتٌ دَقِيقَةٌ، فَاعْتَمَدَ عَلَى التَّخْمِينِ."
+            type: usage
+      - lemma: "فَرْض"
+        examples:
+          - text: "عَلَى فَرْضِ صِحَّةِ هَذِهِ الأَرْقَامِ، فَإِنَّ النَّتِيجَةَ سَتَكُونُ مذهلة."
+            type: usage
+      - lemma: "زَعْم"
+        examples:
+          - text: "فَنَّدَ العَالِمُ زَعْمَ مَنْ يَقُولُ بِأَنَّ الأَرْضَ مُسَطَّحَةٌ."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "افْتِرَاض"
+      entry_id: "{auto}"
+      root: "فرض"
+      maqayis_quote: "«الْفَاءُ وَالرَّاءُ وَالضَّادُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَأْثِيرٍ فِي شَيْءٍ مِنْ حَزٍّ أَوْ غَيْرِهِ... وَمِنَ الْبَابِ مَا يَفْرِضُهُ الْحَاكِمُ... لِأَنَّهُ شَيْءٌ مَعْلُومٌ يَبِينُ كَالْأَثَرِ فِي الشَّيْءِ.»"
+    - lemma: "تَسْلِيم"
+      entry_id: "{auto}"
+      root: "سلم"
+      maqayis_quote: "«السِّينُ وَاللَّامُ وَالْمِيمُ مُعْظَمُ بَابِهِ مِنَ الصِّحَّةِ وَالْعَافِيَةِ... وَمِنَ الْبَابِ أَيْضًا الْإِسْلَامُ، وَهُوَ الِانْقِيَادُ؛ لِأَنَّهُ يَسْلَمُ مِنَ الْإِبَاءِ وَالِامْتِنَاعِ.»"
+    - lemma: "تَخْمِين"
+      entry_id: "{auto}"
+      root: "خمن"
+      maqayis_quote: "«هذه الكلمة أصلها فارسية عرّبت، وأصلها من قولهم خُمَاناً على الظَّنِّ والحَدْس.» (عن تاج العروس لعدم ورودها في المقاييس)"
+    - lemma: "زَعْم"
+      entry_id: "{auto}"
+      root: "زعم"
+      maqayis_quote: "«الزَّاءُ وَالْعَيْنُ وَالْمِيمُ أَصْلَانِ: أَحَدُهُمَا الْقَوْلُ مِنْ غَيْرِ صِحَّةٍ وَلَا يَقِينٍ، وَالْآخَرُ التَّكَفُّلُ بِالشَّيْءِ.»"
+    - lemma: "فَرْض"
+      entry_id: "{auto}"
+      root: "فرض"
+      maqayis_quote: "«الْفَاءُ وَالرَّاءُ وَالضَّادُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَأْثِيرٍ فِي شَيْءٍ مِنْ حَزٍّ أَوْ غَيْرِهِ.»"
+  per_sense:
+    - lemma: "افْتِرَاض"
+      sense_id: "{auto}"
+      nuance: "المصطلح العلمي العام والأساسي للفعل الذهني."
+      mwe: false
+    - lemma: "تَسْلِيم"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب الإذعاني والقبول بمقدمات الخصم في الجدل."
+      mwe: false
+    - lemma: "تَخْمِين"
+      sense_id: "{auto}"
+      nuance: "افتراض قائم على الحدس والظن في غياب الدليل."
+      mwe: false
+    - lemma: "فَرْض"
+      sense_id: "{auto}"
+      nuance: "يُستخدم في السياق الرياضي والمنطقي كقاعدة انطلاق."
+      mwe: false
+    - lemma: "زَعْم"
+      sense_id: "{auto}"
+      nuance: "افتراض مشكوك فيه أو يفتقر للصدقية."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"فرض","maqayis":"«الْفَاءُ وَالرَّاءُ وَالضَّادُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَأْثِيرٍ فِي شَيْءٍ مِنْ حَزٍّ أَوْ غَيْرِهِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العلمي العام والأساسي للفعل الذهني.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

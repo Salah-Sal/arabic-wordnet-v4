@@ -1,0 +1,207 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اقتصار المجموعة على لمة واحدة (أعجوبة) رغم ثراء الحقل الدلالي العربي للمفهوم."
+      - "خلو اللمة الموجودة من التشكيل الكامل."
+      - "التعريف العربي بسيط جداً ولا يعبر عن الطبيعة الاستثنائية للشيء (الخوارق/الغرائب)."
+    observations: "المفهوم يعبر عن الشيء الذي يثير العجب، وهو حقل دلالي غني في العربية بمشتقات جذر (عجب) وغيرها. المراجعة ستركز على إضافة المترادفات المسجلة في المعاجم وتدقيق التعريف."
+  blind_candidates:
+    - lemma: "أُعْجُوبَة"
+      generation_method: ishtiqaq
+      justification: "الاسم القياسي لما يُتعجب منه على وزن أفعولة."
+    - lemma: "عَجِيبَة"
+      generation_method: ishtiqaq
+      justification: "اسم لما يثير العجب، وشائع جداً في الاستعمال (عجائب الدنيا)."
+    - lemma: "عُجَاب"
+      generation_method: ishtiqaq
+      justification: "صيغة مبالغة لما جاوز حد العجب، وردت في القرآن الكريم."
+    - lemma: "آيَة"
+      generation_method: majaz
+      justification: "تستخدم بمعنى المعجزة أو العلامة الباهرة التي تثير العجب والاعتبار."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "أُعْجُوبَة"
+      confirm:
+        - text: "(الأعجوبة) مَا يَدْعُو إِلَى الْعجب"
+          source: "المعجم الوسيط"
+        - text: "والاسم: العجيبة، والأعجوبة."
+          source: "المحكم والمحيط الأعظم"
+    - lemma: "عَجِيبَة"
+      confirm:
+        - text: "عجيبة [والجمع: عجائب]: شيء خارق غير معتاد"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "والعجيبة: الأمر يتعجب منه."
+          source: "تاج العروس"
+    - lemma: "عُجَاب"
+      confirm:
+        - text: "(العجاب) مَا يَدْعُو إِلَى الْعجب... وعجب عجاب شديد (للمبالغة)"
+          source: "المعجم الوسيط"
+        - text: "أما العجاب فالذي تجاوز حد العجب."
+          source: "كتاب العين"
+    - lemma: "آيَة"
+      confirm:
+        - text: "الآية: العلامة والإمارة والعبرة... والمعجزة"
+          source: "المعجم الوسيط"
+        - text: "والآية: العلامة الظاهرة، وحقيقته كل شيء ظاهر هو ملازم لشيء لا يظهر"
+          source: "التوقيف على مهمات التعاريف"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "أعجوبة"
+      decision: confirmed
+      decision_reason: "اللمة الأساسية والمباشرة للمفهوم، مدعومة بقوة في المعاجم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "أُعْجُوبَة"
+    - lemma: "عَجِيبَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف تام وشائع جداً، ويتميز باستخدام جمعه (عجائب) في السياقات العالمية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "عَجِيبَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "عُجَاب"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صيغة مبالغة قوية تعبر عن الدرجة القصوى من العجب (Marvel)، مدعومة قرآنياً ومعجمياً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "عُجَاب", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "آيَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تستخدم للتعبير عن العجب المرتبط بالدلالة والاعتبار، وهي فصيحة جداً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "آيَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "شيء يسبب مشاعر التعجب"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي فقير لغوياً؛ نحتاج لتعريف يبرز صفة الندرة والاستثناء."
+    authored:
+      - type: terminological
+        text: "أَمْرٌ نَادِرٌ أَوْ خَارِقٌ لِلْعَادَةِ يُثِيرُ الدَّهْشَةَ وَالِاسْتِعْظَامَ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "أَمْرٌ نَادِرٌ أَوْ خَارِقٌ لِلْعَادَةِ يُثِيرُ الدَّهْشَةَ وَالِاسْتِعْظَامَ."}
+  examples:
+    per_lemma:
+      - lemma: "أُعْجُوبَة"
+        examples:
+          - text: "تُعَدُّ الأَهْرَامَاتُ أُعْجُوبَةً هَنْدَسِيَّةً صَمَدَتْ عَبْرَ العُصُورِ."
+            type: usage
+      - lemma: "عَجِيبَة"
+        examples:
+          - text: "بَنَى المَلِكُ قَصْرًا كَانَ يُعَدُّ عَجِيبَةً مِنْ عَجَائِبِ زَمَانِهِ."
+            type: usage
+      - lemma: "عُجَاب"
+        examples:
+          - text: "رَأَى المُسَافِرُونَ فِي تِلْكَ البِلَادِ شَيْئًا عُجَابًا لَمْ يَعْهَدُوهُ مِنْ قَبْلُ."
+            type: usage
+      - lemma: "آيَة"
+        examples:
+          - text: "إِنَّ نُطْقَ الطِّفْلِ بِتِلْكا الحِكْمَةِ لَهُوَ آيَةٌ فِي الذَّكَاءِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تُعَدُّ الأَهْرَامَاتُ أُعْجُوبَةً هَنْدَسِيَّةً صَمَدَتْ عَبْرَ العُصُورِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "بَنَى المَلِكُ قَصْرًا كَانَ يُعَدُّ عَجِيبَةً مِنْ عَجَائِبِ زَمَانِهِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "رَأَى المُسَافِرُونَ فِي تِلْكَ البِلَادِ شَيْئًا عُجَابًا لَمْ يَعْهَدُوهُ مِنْ قَبْلُ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "إِنَّ نُطْقَ الطِّفْلِ بِتِلْكا الحِكْمَةِ لَهُوَ آيَةٌ فِي الذَّكَاءِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "أُعْجُوبَة"
+      entry_id: "{auto}"
+      root: "عجب"
+      maqayis_quote: "«الْعَيْنُ وَالْجِيمُ وَالْبَاءُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى كِبْرٍ وَاسْتِكْبَارٍ لِلشَّيْءِ، وَالْآخَرُ خِلْقَةٌ مِنْ خِلَقِ الْحَيَوَانِ. فَالْأَوَّلُ الْعُجْبُ... وَذَلِكَ إِذَا اسْتُكْبِرَ وَاسْتُعْظِمَ.»"
+    - lemma: "عَجِيبَة"
+      entry_id: "{auto}"
+      root: "عجب"
+      maqayis_quote: "«الْعَيْنُ وَالْجِيمُ وَالْبَاءُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى كِبْرٍ وَاسْتِكْبَارٍ لِلشَّيْءِ...»"
+    - lemma: "عُجَاب"
+      entry_id: "{auto}"
+      root: "عجب"
+      maqayis_quote: "«الْعَيْنُ وَالْجِيمُ وَالْبَاءُ أَصْلَانِ صَحِيحَانِ... وَزَعَمَ الْخَلِيلُ أَنَّ بَيْنَ الْعَجِيبِ وَالْعُجَابِ فَرْقًا... فَالْعُجَابُ فَالَّذِي يُجَاوِزُ حَدَّ الْعَجِيبِ.»"
+    - lemma: "آيَة"
+      entry_id: "{auto}"
+      root: "أيي"
+      maqayis_quote: "«الْهَمْزَةُ وَالْيَاءُ وَالْيَاءُ أَصْلٌ وَاحِدٌ... وَقَالُوا: الْآيَةُ الْعَلَامَةُ... وَمِنْهُ آيَةُ الْقُرْآنِ، لِأَنَّهَا جَمَاعَةُ حُرُوفٍ.»"
+  per_sense:
+    - lemma: "أُعْجُوبَة"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام والأكثر شيوعاً للتعبير عن الشيء المفرد الذي يثير العجب."
+      mwe: false
+    - lemma: "عَجِيبَة"
+      sense_id: "{auto}"
+      nuance: "ترادف أعجوبة، وتبرز في سياق الجمع (عجائب) للتعبير عن المفاخر العمرانية أو الطبيعية."
+      mwe: false
+    - lemma: "عُجَاب"
+      sense_id: "{auto}"
+      nuance: "صيغة مبالغة تستخدم لما تجاوز الحد المألوف من العجب والغرابة."
+      mwe: false
+    - lemma: "آيَة"
+      sense_id: "{auto}"
+      nuance: "تعبر عن العجب من منظور العلامة الدالة على قدرة أو حكمة، وغالباً ما ترتبط بالاعتبار."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عجب","maqayis":"«الْعَيْنُ وَالْجِيمُ وَالْبَاءُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى كِبْرٍ وَاسْتِكْبَارٍ لِلشَّيْءِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ العام والأكثر شيوعاً للتعبير عن الشيء المفرد الذي يثير العجب.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,242 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمات الموجودة تفتقر للتشكيل الكامل.
+      - التعريف الحالي حرفي نوعاً ما ومبني على البنية الإنجليزية.
+    observations: "اللمتان (فرار، هروب) صحيحتان تماماً للمفهوم، لكن اللغة العربية تملك ألفاظاً أكثر دقة لوصف أنواع معينة من هذا الفعل، مثل 'الإباق' لمن كان تحت سلطة أو التزام، و'التسلل' لمن يخرج خفية."
+  blind_candidates:
+    - lemma: "هُرُوب"
+      generation_method: ishtiqaq
+      justification: "المصدر العام للفعل (هرب)، وهو اللفظ الأكثر شيوعاً للتعبير عن ترك المكان بغير إذن."
+    - lemma: "فِرَار"
+      generation_method: ishtiqaq
+      justification: "مصدر (فرّ)، ويحمل دلالة السرعة أو التخلص من ملاحقة أو خطر."
+    - lemma: "إِبَاق"
+      generation_method: ishtiqaq
+      justification: "مصدر (أبَق)، وهو مصطلح دقيق جداً في العربية للتعبير عن مغادرة من هو تحت عهدة أو التزام لمكانه بغير إذن (كالعبد أو الأجير)."
+    - lemma: "تَسَلُّل"
+      generation_method: ishtiqaq
+      justification: "مصدر (تسلل)، ويعبر عن المغادرة أو الدخول خفية واستتاراً."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "هُرُوب"
+      confirm:
+        - text: "حالة فرار أمام الواقع في محاولة عدم المجابهة الصادمة"
+          source: "المعجم الموحد لمصطلحات اللسانيات"
+        - text: "«هروب: escape»"
+          source: "مسرد الفلسفة وعلم النفس"
+    - lemma: "فِرَار"
+      confirm:
+        - text: "«ذكرت المعاجم الفِرار بهذا المعنى بالكسر مصدرًا للفعل فَرَّ... المعنى: بالهروب»"
+          source: "معجم الصواب اللغوي"
+        - text: "«الفِرَارُ، وَهُوَ الِانْكِشَافُ، يُقَالُ فَرَّ يَفِرُّ»"
+          source: "مقاييس اللغة"
+    - lemma: "إِبَاق"
+      confirm:
+        - text: "«الإباقُ: هرَبُ العبيد وذَهابهم من غير خوف ولا كدِّ عمل»"
+          source: "لسان العرب"
+        - text: "«الآبق: هو المملوك الذي يفر من مالكه قصدًا»"
+          source: "كتاب التعريفات للجرجاني"
+    - lemma: "تَسَلُّل"
+      confirm:
+        - text: "«التسلل هو الانسلال أو الخروج في خفية، ومثل بقولهم: تسلل في الظلام»"
+          source: "معجم الصواب اللغوي"
+        - text: "«تَسَلَّلَ فلانٌ وغَيْرُه: انْسَلَّ من بَيْنِهم»"
+          source: "المعجم الكبير"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "فرار"
+      decision: confirmed
+      decision_reason: "لفظ أصيل وصحيح، يحتاج فقط لتصحيح التشكيل إلى (فِرَار)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "فِرَار"
+    - lemma: "هروب"
+      decision: confirmed
+      decision_reason: "اللفظ الأكثر شيوعاً واستعمالاً في العربية المعاصرة لهذا المفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "هُرُوب"
+    - lemma: "إِبَاق"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح عربي تراثي دقيق جداً لوصف المغادرة بغير إذن لمن هم تحت الالتزام أو السلطة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "إِبَاق", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَسَلُّل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يصف حالة المغادرة خفية (بدون إذن) وهو جانب هام من مفهوم الهروب."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَسَلُّل", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "فعل المغادرة (بدون إذن) للمكان الذي من المتوقع أن تكون فيه"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي حرفي، والأفضل صياغته بأسلوب معجمي يوضح الغاية والوسيلة."
+    authored:
+      - type: terminological
+        text: "الخروج أو الابتعاد عن مكان -غالباً خفيةً أو بغير إذن- للتخلص من قيد أو ملاحقة أو مسؤولية."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "الخروج أو الابتعاد عن مكان -غالباً خفيةً أو بغير إذن- للتخلص من قيد أو ملاحقة أو مسؤولية."}
+  examples:
+    per_lemma:
+      - lemma: "هُرُوب"
+        examples:
+          - text: "تمكن السجين من الهروب في غفلة من الحراس."
+            type: usage
+      - lemma: "فِرَار"
+        examples:
+          - text: "لاذ اللص بالفرار قبل وصول رجال الشرطة."
+            type: usage
+      - lemma: "إِبَاق"
+        examples:
+          - text: "كان يُرَدُّ العبدُ من الإباقِ الباتِّ."
+            type: hadith
+            source: "حديث شريح"
+      - lemma: "تَسَلُّل"
+        examples:
+          - text: "أحبط حرس الحدود محاولة تسلل عبر المنطقة الجبلية."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تمكن السجين من الهروب في غفلة من الحراس."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "لاذ اللص بالفرار قبل وصول رجال الشرطة."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "كان يُرَدُّ العبدُ من الإباقِ الباتِّ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "أحبط حرس الحدود محاولة تسلل عبر المنطقة الجبلية."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "فِرَار"
+      entry_id: "{auto}"
+      root: "فرر"
+      maqayis_quote: "«الْفِرَارُ، وَهُوَ الِانْكِشَافُ، يُقَالُ فَرَّ يَفِرُّ، وَالْمَفَرُّ الْمَصْدَرُ.»"
+    - lemma: "هُرُوب"
+      entry_id: "{auto}"
+      root: "هرب"
+      maqayis_quote: "«الْهَاءُ وَالرَّاءُ وَالْبَاءُ كَلِمَةٌ وَاحِدَةٌ، هِيَ هَرَبَ، إِذَا فَرَّ.»"
+    - lemma: "إِبَاق"
+      entry_id: "{auto}"
+      root: "أبق"
+      maqayis_quote: "«أَبَقَ الْعَبْدُ يَأْبِقُ أَبْقًا وَأَبَقًا... يَدُلُّ عَلَى إِبَاقِ الْعَبْدِ، وَالتَّشَدُّدِ فِي الْأَمْرِ.»"
+    - lemma: "تَسَلُّل"
+      entry_id: "{auto}"
+      root: "سلل"
+      maqayis_quote: "«السِّينُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ مَدُّ الشَّيْءِ فِي رِفْقٍ وَخَفَاءٍ... وَالسَّلَّةُ وَالْإِسْلَالُ: السَّرِقَةُ.»"
+  per_sense:
+    - lemma: "فِرَار"
+      sense_id: "{auto}"
+      nuance: "يوحي بالسرعة والانكشاف والتخلص من ملاحقة فورية أو خطر داهم."
+      mwe: false
+    - lemma: "هُرُوب"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام الشامل لكل حالات المغادرة بغير إذن، سواء كان أمام ملاحقة أو واقع أو مسؤولية."
+      mwe: false
+    - lemma: "إِبَاق"
+      sense_id: "{auto}"
+      nuance: "مخصص لمن يترك مكانه وهو تحت سلطة أو تعاقد أو التزام قانوني أو أخلاقي (كالأجير أو العبد)."
+      mwe: false
+    - lemma: "تَسَلُّل"
+      sense_id: "{auto}"
+      nuance: "يركز على كيفية الفعل، وهي المغادرة بخفية واستتار لئلا يُكتشف أمره."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"فرر","maqayis":"«الْفِرَارُ، وَهُوَ الِانْكِشَافُ، يُقَالُ فَرَّ يَفِرُّ، وَالْمَفَرُّ الْمَصْدَرُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"هرب","maqayis":"«الْهَاءُ وَالرَّاءُ وَالْبَاءُ كَلِمَةٌ وَاحِدَةٌ، هِيَ هَرَبَ، إِذَا فَرَّ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"أبق","maqayis":"«أَبَقَ الْعَبْدُ يَأْبِقُ أَبْقًا وَأَبَقًا... يَدُلُّ عَلَى إِبَاقِ الْعَبْدِ، وَالتَّشَدُّدِ فِي الْأَمْرِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سلل","maqayis":"«السِّينُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ مَدُّ الشَّيْءِ فِي رِفْقٍ وَخَفَاءٍ... وَالسَّلَّةُ وَالْإِسْلَالُ: السَّرِقَةُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يوحي بالسرعة والانكشاف والتخلص من ملاحقة فورية أو خطر داهم.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ العام الشامل لكل حالات المغادرة بغير إذن، سواء كان أمام ملاحقة أو واقع أو مسؤولية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مخصص لمن يترك مكانه وهو تحت سلطة أو تعاقد أو التزام قانوني أو أخلاقي (كالأجير أو العبد).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على كيفية الفعل، وهي المغادرة بخفية واستتار لئلا يُكتشف أمره.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

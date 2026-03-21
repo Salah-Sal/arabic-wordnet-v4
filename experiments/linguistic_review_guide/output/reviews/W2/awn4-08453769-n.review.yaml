@@ -1,0 +1,266 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'غطاء نباتي' غير مشكّلة."
+      - "اللمة 'فلورا' مصطلح معرّب (دخيل)، رغم شيوعه الاستعمالي في السياقات البيولوجية، والأفضل إدراج بدائل عربية فصيحة إلى جانبه."
+    observations: "المفهوم يشير إلى المجموع الكلي للنباتات في منطقة ما. التعبير الأشيع عربياً هو 'الغطاء النباتي' من الناحية البيئية، و'المجموعة النباتية' أو 'الحياة النباتية' من الناحية التصنيفية البيولوجية. أما 'فلورا' فهو مستخدم بكثرة كمرادف لـ Flora جنباً إلى جنب مع 'فونا' للحيوانات."
+  blind_candidates:
+    - lemma: "نَبَاتِيَّة"
+      generation_method: ishtiqaq
+      justification: "مصدر صناعي من (نبات)، يدل على الخصيصة أو المجموع النباتي."
+    - lemma: "غِطَاءٌ نَبَاتِيّ"
+      generation_method: tarkib
+      justification: "مركب وصفي يعبر عن طبقة النباتات التي تكسو الأرض."
+    - lemma: "مَجْمُوعَةٌ نَبَاتِيَّة"
+      generation_method: tarkib
+      justification: "مركب وصفي يدل على تجمع الأنواع النباتية في بيئة أو فترة محددة."
+    - lemma: "كِسَاءٌ نَبَاتِيّ"
+      generation_method: tarkib
+      justification: "مركب وصفي استعاري يشبه النبات بالكساء الذي يغطي وجه الأرض."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "غطاء نباتي"
+      confirm:
+        - text: "أنواع وكثافة النباتات التي تغطي منطقة معينة."
+          source: "مسرد المناخ والبيئة وإدارة النفايات الصلبة، المنظمة العربية للتربية والثقافة والعلوم"
+        - text: "plant cover / vegetation cover"
+          source: "المعجم الموحد لمصطلحات علم الأحياء"
+    - lemma: "فلورا"
+      confirm:
+        - text: "في علم الأحياء: مجموع النباتات المتواجدة في بلد معين أو منطقة، في فصل أو وقت معين."
+          source: "مسرد المناخ والبيئة وإدارة النفايات الصلبة (تحت مدخل فلورة)"
+    - lemma: "مجموعة نباتية"
+      confirm:
+        - text: "مجموعة نباتية تعيش في زمان ومكان"
+          source: "المعجم الموحد لمصطلحات الجيولوجيا"
+    - lemma: "كساء نباتي"
+      confirm:
+        - text: "مجمل النباتات التي تنمو في منطقة معينة... (مرادف لـ غطاء نباتي)"
+          source: "مسرد المناخ والبيئة وإدارة النفايات الصلبة (تحت مدخل كساء خضري / كساء نباتي)"
+    - lemma: "نباتية"
+      contradicts:
+        - text: "vegetality"
+          source: "المعجم الطبي الموحد"
+          conflict: "تدل على الحالة أو الخصيصة النباتية وليس على مجموع النباتات في منطقة."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "غطاء نباتي"
+      decision: confirmed
+      decision_reason: "مركب عربي فصيح وشائع جداً في الاستخدام البيئي للدلالة على مجموع النباتات في منطقة ما."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "غِطَاء نَبَاتِيّ"
+
+    - lemma: "فلورا"
+      decision: confirmed
+      decision_reason: "مصطلح علمي معرب وشائع الاستخدام في التخصصات الأحيائية كمقابل عالمي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "فُلُورَا"
+        - command: add_form
+          params:
+            entry_id: "{auto}"
+            written_form: "فُلُورَة"
+
+    - lemma: "مَجْمُوعَة نَبَاتِيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير دقيق ومستخدم في القواميس المعتمدة لترجمة (flora) من منظور التصنيف الجغرافي النباتي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مَجْمُوعَة نَبَاتِيَّة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "كِسَاء نَبَاتِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف فصيح ومستعمل للغطاء النباتي ومثبت في المعاجم المتخصصة كترجمة لـ vegetation."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "كِسَاء نَبَاتِيّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "نَبَاتِيَّة"
+      source: stage1
+      decision: removed
+      decision_reason: "المعنى المستعمل للكلمة منفردة ينصرف للخصيصة النباتية وليس للمجموع."
+
+stage4_content:
+  definition:
+    current: "جميع الحياة النباتية في منطقة أو فترة معينة"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق وواضح ويغطي الجانبين الجغرافي والزماني للمفهوم كما هو في الأدلة."
+  examples:
+    per_lemma:
+      - lemma: "غِطَاء نَبَاتِيّ"
+        examples:
+          - text: "يُسَاهِمُ الغِطَاءُ النَّبَاتِيُّ فِي تَنْقِيَةِ الهَوَاءِ وَمَنْعِ التَّصَحُّرِ فِي المَنَاطِقِ الجَافَّةِ."
+            type: usage
+      - lemma: "فُلُورَا"
+        examples:
+          - text: "تُشَكِّلُ فُلُورَا المَنَاطِقِ الرَّطْبَةِ مَوْطِناً هَاماً لِلتَّنَوُّعِ البِيُولُوجِيِّ."
+            type: usage
+      - lemma: "مَجْمُوعَة نَبَاتِيَّة"
+        examples:
+          - text: "دَرَسَ عُلَمَاءُ البِيئَةِ المَجْمُوعَةَ النَّبَاتِيَّةَ المُمَيِّزَةَ لِهَذِهِ الصَّحْرَاءِ قَبْلَ إِعْلَانِهَا مَحْمِيَّةً."
+            type: usage
+      - lemma: "كِسَاء نَبَاتِيّ"
+        examples:
+          - text: "أَدَّى الرَّعْيُ الجَائِرُ إِلَى تَدَهْوُرِ الكِسَاءِ النَّبَاتِيِّ فِي السُّهُولِ المَحَلِّيَّةِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يُسَاهِمُ الغِطَاءُ النَّبَاتِيُّ فِي تَنْقِيَةِ الهَوَاءِ وَمَنْعِ التَّصَحُّرِ فِي المَنَاطِقِ الجَافَّةِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تُشَكِّلُ فُلُورَا المَنَاطِقِ الرَّطْبَةِ مَوْطِناً هَاماً لِلتَّنَوُّعِ البِيُولُوجِيِّ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "دَرَسَ عُلَمَاءُ البِيئَةِ المَجْمُوعَةَ النَّبَاتِيَّةَ المُمَيِّزَةَ لِهَذِهِ الصَّحْرَاءِ قَبْلَ إِعْلَانِهَا مَحْمِيَّةً."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "أَدَّى الرَّعْيُ الجَائِرُ إِلَى تَدَهْوُرِ الكِسَاءِ النَّبَاتِيِّ فِي السُّهُولِ المَحَلِّيَّةِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "غِطَاء نَبَاتِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "غطاء"
+          root: "غطو"
+          maqayis_quote: "الْغَيْنُ وَالطَّاءُ وَالْحَرْفُ الْمُعْتَلُّ يَدُلُّ عَلَى الْغِشَاءِ وَالسَّتْرِ."
+        - word: "نباتي"
+          root: "نبت"
+          maqayis_quote: "النُّونُ وَالْبَاءُ وَالتَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى نَمَاءٍ فِي مَزْرُوعٍ."
+    - lemma: "مَجْمُوعَة نَبَاتِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "مجموعة"
+          root: "جمع"
+          maqayis_quote: "الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ."
+        - word: "نباتية"
+          root: "نبت"
+          maqayis_quote: "النُّونُ وَالْبَاءُ وَالتَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى نَمَاءٍ فِي مَزْرُوعٍ."
+    - lemma: "كِسَاء نَبَاتِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "كساء"
+          root: "كسو"
+          maqayis_quote: "الْكَافُ وَالسِّينُ وَالْحَرْفُ الْمُعْتَلُّ... مِنْهُ الْكُسْوَةُ وَالْكِسَاءُ مَعْرُوفٌ."
+        - word: "نباتي"
+          root: "نبت"
+          maqayis_quote: "النُّونُ وَالْبَاءُ وَالتَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى نَمَاءٍ فِي مَزْرُوعٍ."
+  per_sense:
+    - lemma: "غِطَاء نَبَاتِيّ"
+      sense_id: "{auto}"
+      nuance: "يركز على الوظيفة الجغرافية والبيئية للنباتات في تغطية سطح الأرض وحمايته."
+      mwe: true
+    - lemma: "فُلُورَا"
+      sense_id: "{auto}"
+      nuance: "مصطلح علمي معرب يُستخدم غالباً في التصنيفات الأحيائية للدلالة على المجموعات النباتية لمنطقة ما، وعادة ما يقترن بالـ(فونا)."
+      mwe: false
+    - lemma: "مَجْمُوعَة نَبَاتِيَّة"
+      sense_id: "{auto}"
+      nuance: "تعبير تحليلي يركز على تنوع الأنواع النباتية وتصنيفها في وحدة زمانية أو مكانية."
+      mwe: true
+    - lemma: "كِسَاء نَبَاتِيّ"
+      sense_id: "{auto}"
+      nuance: "مرادف للغطاء النباتي بتعبير مجازي يشبه تجمعات النباتات بالكسوة التي تلبس الأرض."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"غطاء","root":"غطو","maqayis":"الْغَيْنُ وَالطَّاءُ وَالْحَرْفُ الْمُعْتَلُّ يَدُلُّ عَلَى الْغِشَاءِ وَالسَّتْرِ."},{"word":"نباتي","root":"نبت","maqayis":"النُّونُ وَالْبَاءُ وَالتَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى نَمَاءٍ فِي مَزْرُوعٍ."}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مجموعة","root":"جمع","maqayis":"الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ."},{"word":"نباتية","root":"نبت","maqayis":"النُّونُ وَالْبَاءُ وَالتَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى نَمَاءٍ فِي مَزْرُوعٍ."}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"كساء","root":"كسو","maqayis":"الْكَافُ وَالسِّينُ وَالْحَرْفُ الْمُعْتَلُّ... مِنْهُ الْكُسْوَةُ وَالْكِسَاءُ مَعْرُوفٌ."},{"word":"نباتي","root":"نبت","maqayis":"النُّونُ وَالْبَاءُ وَالتَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى نَمَاءٍ فِي مَزْرُوعٍ."}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الوظيفة الجغرافية والبيئية للنباتات في تغطية سطح الأرض وحمايته.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح علمي معرب يُستخدم غالباً في التصنيفات الأحيائية للدلالة على المجموعات النباتية لمنطقة ما، وعادة ما يقترن بالـ(فونا).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير تحليلي يركز على تنوع الأنواع النباتية وتصنيفها في وحدة زمانية أو مكانية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مرادف للغطاء النباتي بتعبير مجازي يشبه تجمعات النباتات بالكسوة التي تلبس الأرض.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-08453769-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-08453769-n"
+        score: 0.95

@@ -1,0 +1,200 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي دائري (فعل استئجار...)"
+      - "نقص اللمات التي تغطي جانب توظيف الأشخاص (Hiring someone)"
+    observations: "المجموعة الترادفية تغطي مفهوم الاستئجار (للأشياء) والتوظيف (للأشخاص). اللمات الموجودة صحيحة ولكنها تحتاج إلى ضبط وتوسيع لتشمل المترادفات الفقهية والإقليمية."
+  blind_candidates:
+    - lemma: "اِسْتِئْجَار"
+      generation_method: ishtiqaq
+      justification: "المصدر الصريح للفعل استأجر، وهو الأنسب للمفهوم."
+    - lemma: "تَأْجِير"
+      generation_method: ishtiqaq
+      justification: "يستخدم لوصف عملية الكراء والتوظيف المأجور عموماً."
+    - lemma: "تَوْظِيف"
+      generation_method: ishtiqaq
+      justification: "خاص بتعيين الأشخاص (Hiring someone)."
+    - lemma: "اِكْتِرَاء"
+      generation_method: ishtiqaq
+      justification: "مرادف فصيح وقانوني شائع في المغرب العربي والكتب الفقهية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "استئجار"
+      confirm:
+        - text: "«الاكتراء: الاستئجار والاستكراء والتكاري كذلك.»"
+          source: "التعريفات الفقهيّة للبركتي"
+        - text: "«يستأجر to hire a car»"
+          source: "المورد الحديث"
+    - lemma: "تأجير"
+      confirm:
+        - text: "«للتأجير؛ برسم التأجير. for hire»"
+          source: "المورد الحديث"
+      expands:
+        - text: "«تأليف مأجور: تأليف بأُجْرة مع تنازل عن حقوق التأليف»"
+          source: "مسرد الإعلام والتواصل (ArabTerm)"
+          addition: "يستخدم في سياق العمل المأجور"
+    - lemma: "تَوْظِيف"
+      confirm:
+        - text: "«التوظيف تعيين الوظيفة... بمعنى إسناد وظيفة إليهم»"
+          source: "معجم الصواب اللغوي"
+        - text: "«يستخدم hire a clerk»"
+          source: "المورد الحديث"
+    - lemma: "اِكْتِرَاء"
+      confirm:
+        - text: "«الاكتراء: الاستئجار والاستكراء والتكاري كذلك.»"
+          source: "التعريفات الفقهيّة للبركتي"
+        - text: "«المكاري الذي يكري الجمال وغيرها... ثم اتسعوا في ذلك فسموا الأجر كراء»"
+          source: "مقاييس اللغة"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "استئجار"
+      decision: confirmed
+      decision_reason: "اللمة الأساسية والمباشرة للمفهوم، تغطي الأشياء والأشخاص."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "اِسْتِئْجَار"
+    - lemma: "تأجير"
+      decision: confirmed
+      decision_reason: "مقبولة وشائعة الاستخدام في سياق عرض الخدمات والأشياء للمقابل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَأْجِير"
+    - lemma: "تَوْظِيف"
+      source: stage1
+      decision: confirmed
+      decision_reason: "ضرورية لتغطية جانب (hiring someone) الذي نص عليه التعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَوْظِيف", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "اِكْتِرَاء"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف فصيح وقانوني يعزز الشمولية اللغوية للمجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "اِكْتِرَاء", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "فعل استئجار شيء أو شخص ما"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دائري ويفتقر للوضوح المصطلحي."
+    authored:
+      - type: terminological
+        text: "التعاقد على الانتفاع بخدمة شخص أو استعمال شيء لفترة معلومة مقابل أجر مادي."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "اِسْتِئْجَار"
+        examples:
+          - text: "قَامَتِ الشَّرِكَةُ بِاسْتِئْجَارِ حَافِلَةٍ لِنَقْلِ الْمُوَظَّفِينَ."
+            type: usage
+      - lemma: "تَأْجِير"
+        examples:
+          - text: "تَخَصَّصَ الْمَكْتَبُ فِي تَأْجِيرِ الْعَقَارَاتِ وَالْمَحَلَّاتِ."
+            type: usage
+      - lemma: "تَوْظِيف"
+        examples:
+          - text: "أَعْلَنَتِ الْوِزَارَةُ عَنْ تَوْظِيفِ مِائَةِ مُهَنْدِسٍ جَدِيدٍ."
+            type: usage
+      - lemma: "اِكْتِرَاء"
+        examples:
+          - text: "تَمَّ الِاتِّفَاقُ عَلَى اِكْتِرَاءِ مَخْزَنٍ لِلْبِضَاعَةِ."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "التعاقد على الانتفاع بخدمة شخص أو استعمال شيء لفترة معلومة مقابل أجر مادي."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "قَامَتِ الشَّرِكَةُ بِاسْتِئْجَارِ حَافِلَةٍ لِنَقْلِ الْمُوَظَّفِينَ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "اِسْتِئْجَار"
+      entry_id: "{auto}"
+      root: "أجر"
+      maqayis_quote: "«الْهَمْزَةُ وَالْجِيمُ وَالرَّاءُ أَصْلَانِ... فَالْأَوَّلُ الْكِرَاءُ عَلَى الْعَمَلِ... الْأَجْرُ جَزَاءُ الْعَمَلِ»"
+    - lemma: "تَأْجِير"
+      entry_id: "{auto}"
+      root: "أجر"
+      maqayis_quote: "«الْهَمْزَةُ وَالْجِيمُ وَالرَّاءُ أَصْلَانِ... فَالْأَوَّلُ الْكِرَاءُ عَلَى الْعَمَلِ... الْأَجْرُ جَزَاءُ الْعَمَلِ»"
+    - lemma: "تَوْظِيف"
+      entry_id: "{auto}"
+      root: "وظف"
+      maqayis_quote: "«الْوَاوُ وَالظَّاءُ وَالْفَاءُ: كَلِمَةٌ تَدُلُّ عَلَى تَقْدِيرِ شَيْءٍ. يُقَالُ: وَظَّفْتَ لَهُ، إِذَا قَدَّرْتَ لَهُ كُلَّ حِينٍ شَيْئًا مِنْ رِزْقٍ أَوْ طَعَامٍ.»"
+    - lemma: "اِكْتِرَاء"
+      entry_id: "{auto}"
+      root: "كري"
+      maqayis_quote: "«الْكَافُ وَالرَّاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ... ثُمَّ اتْسَعُوا فِي ذَلِكَ فَسَمَّوُا الْأَجْرَ كِرَاءً»"
+  per_sense:
+    - lemma: "اِسْتِئْجَار"
+      sense_id: "{auto}"
+      nuance: "يركز على فعل 'الأخذ' والانتفاع من جهة المستأجر."
+      mwe: false
+    - lemma: "تَأْجِير"
+      sense_id: "{auto}"
+      nuance: "غالباً ما يشير إلى عملية عرض الشيء أو الخدمة للغير مقابل أجر."
+      mwe: false
+    - lemma: "تَوْظِيف"
+      sense_id: "{auto}"
+      nuance: "يختص بالتعاقد مع الأشخاص لإشغال وظائف أو مهام."
+      mwe: false
+    - lemma: "اِكْتِرَاء"
+      sense_id: "{auto}"
+      nuance: "صيغة فقهية وقانونية تستخدم غالباً في تأجير الأعيان (المنقولات والعقارات)."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"أجر","maqayis":"«الْهَمْزَةُ وَالْجِيمُ وَالرَّاءُ أَصْلَانِ... فَالْأَوَّلُ الْكِرَاءُ عَلَى الْعَمَلِ... الْأَجْرُ جَزَاءُ الْعَمَلِ»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على فعل الأخذ والانتفاع من جهة المستأجر","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

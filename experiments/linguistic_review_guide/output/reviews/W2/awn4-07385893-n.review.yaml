@@ -1,0 +1,184 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي هو ترجمة حرفية للتعريف الإنجليزي (الحدوث المفاجئ لحدث مسموع)، وهو أسلوب غير معجمي."
+      - "اللمة الموجودة (صوت) غير مشكولة."
+    observations: "المفهوم يشير إلى 'الحدث السمعي' بصفته واقعة تقع في زمن ما، وليس كظاهرة فيزيائية مستمرة. في العربية، لفظ 'صوت' يشمل المعنيين، ولكن هناك ألفاظاً أكثر دقة لوصف وقوع الحدث المفاجئ مثل 'نبأة'."
+  blind_candidates:
+    - lemma: "صَوْت"
+      generation_method: majaz
+      justification: "اللفظ العام والشائع للإشارة إلى أي حدث مسموع يقع بغير توقع."
+    - lemma: "نَبْأَة"
+      generation_method: ishtiqaq
+      justification: "لفظ معجمي دقيق يعني الصوت الخفي أو أول ما يُسمع من الصوت، ويناسب تماماً 'وقوع حدث مسموع'."
+    - lemma: "دَوِيّ"
+      generation_method: majaz
+      justification: "يُستخدم للإشارة إلى الصوت العالي المفاجئ مثل صوت الرعد أو الانفجار."
+    - lemma: "جَلَبَة"
+      generation_method: majaz
+      justification: "تشير إلى اختلاط الأصوات ووقوع الصياح أو الضجيج فجأة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "صَوْت"
+      confirm:
+        - text: "«الصوت: جنس لكل ما وقر في أذن السامع»"
+          source: "مقاييس اللغة"
+        - text: "«الصوت: كل ما يسمع»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«الصوت: هواء متموج بتصادم جسمين»"
+          source: "دستور العلماء"
+          addition: "يشرح الآلية الفيزيائية للحدث."
+    - lemma: "نَبْأَة"
+      confirm:
+        - text: "«النبأة: الصوت ليس بالشديد ولا بالمسترسل؛ يقال سمعت نبأة»"
+          source: "المعجم الوسيط"
+        - text: "«النبأة: الصوت... وقد توحس ركزاً مقفر ندس بنبأة الصوت ما في سمعه كذب»"
+          source: "مقاييس اللغة"
+    - lemma: "دَوِيّ"
+      confirm:
+        - text: "«الدوي: صَوت الرَّعْد وَصَوت لَيْسَ بالعالي كصوت النَّحْل وَنَحْوه وَالصَّوْت»"
+          source: "المعجم الوسيط"
+      contradicts:
+        - text: "«الدوي... هو الصوت الذي لا يفهم منه شيء من الذباب والنحل»"
+          source: "كشاف اصطلاحات الفنون"
+          conflict: "يشير غالباً إلى أصوات مستمرة أو طنين الأذن لا حدثاً مفاجئاً."
+    - lemma: "جَلَبَة"
+      confirm:
+        - text: "«الجلبة: الصياح والصخب»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«ما هذه الصوت؟ فإنما أنثه لأنه أراد الضوضاء والجلبة»"
+          source: "تاج العروس"
+          addition: "يؤكد استخدامها في سياق الحدث المسموع المفاجئ."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "صوت"
+      decision: confirmed
+      decision_reason: "اللفظ الأساسي والمباشر للمفهوم، ويحتاج فقط لتصحيح التشكيل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "صَوْت"
+    - lemma: "نَبْأَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فصيح ودقيق جداً لوصف 'وقوع الصوت' أو 'الإحساس بالصوت' لأول مرة، وهو ما يطابق التعريف بدقة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "نَبْأَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "دَوِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "غالباً ما يشير إلى أصوات مستمرة (طنين، حفيف) أو أنواع خاصة من الأصوات (رعد)، وليس المفهوم العام للحدث السمعي."
+    - lemma: "جَلَبَة"
+      source: stage1
+      decision: removed
+      decision_reason: "تشير إلى اختلاط الأصوات والصخب، ولها سياق دلالي مختلف يتعلق بالضجيج."
+
+stage4_content:
+  definition:
+    current: "الحدوث المفاجئ لحدث مسموع"
+    assessment:
+      decision: revise
+      reason: "الصياغة الحالية ركيكة ومعماة (الحدوث لحدث). الأفضل استخدام صياغة معجمية مباشرة."
+    authored:
+      - type: linguistic
+        text: "صَوْتٌ أَوْ نَبْأَةٌ تُسْمَعُ فَجْأَةً."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+      - type: terminological
+        text: "أَيُّ حَدَثٍ مَسْمُوعٍ يَقَعُ بَغْتَةً."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "صَوْتٌ أَوْ نَبْأَةٌ تُسْمَعُ فَجْأَةً."}
+  examples:
+    per_lemma:
+      - lemma: "صَوْت"
+        examples:
+          - text: "أَفْزَعَهُ سَمَاعُ صَوْتٍ غَرِيبٍ فِي آخِرِ اللَّيْلِ."
+            type: usage
+      - lemma: "نَبْأَة"
+        examples:
+          - text: "تَرَبَّصَ الصَّيَّادُ حَتَّى سَمِعَ نَبْأَةً بَيْنَ الْأَشْجَارِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "سَمِعَ الرَّجُلُ صَوْتاً بَغْتَةً فَانْتَبَهَ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "صَوْت"
+      entry_id: "{auto}"
+      root: "صوت"
+      maqayis_quote: "«الصَّادُ وَالْوَاوُ وَالتَّاءُ أَصْلٌ صَحِيحٌ، وَهُوَ الصَّوْتُ، وَهُوَ جِنْسٌ لِكُلِّ مَا وَقَرَ فِي أُذُنِ السَّامِعِ.»"
+    - lemma: "نَبْأَة"
+      entry_id: "{auto}"
+      root: "نبأ"
+      maqayis_quote: "«النُّونُ وَالْبَاءُ وَالْهَمْزَةُ... وَالنَّبْأَةُ: الصَّوْتُ. وَهَذَا هُوَ الْقِيَاسُ، لِأَنَّ الصَّوْتَ يَجِيءُ مِنْ مَكَانٍ إِلَى مَكَانٍ.»"
+  per_sense:
+    - lemma: "صَوْت"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام الذي يُطلق على أي مسموع."
+      mwe: false
+    - lemma: "نَبْأَة"
+      sense_id: "{auto}"
+      nuance: "تُستخدم غالباً للصوت المفاجئ أو أول ما يُحس من الصوت، وعادة ما يكون خفياً أو غير مسترسل."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صوت","maqayis":"«الصَّادُ وَالْوَاوُ وَالتَّاءُ أَصْلٌ صَحِيحٌ، وَهُوَ الصَّوْتُ، وَهُوَ جِنْسٌ لِكُلِّ مَا وَقَرَ فِي أُذُنِ السَّامِعِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نبأ","maqayis":"«النُّونُ وَالْبَاءُ وَالْهَمْزَةُ... وَالنَّبْأَةُ: الصَّوْتُ. وَهَذَا هُوَ الْقِيَاسُ، لِأَنَّ الصَّوْتَ يَجِيءُ مِنْ مَكَانٍ إِلَى مَكَانٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ العام الذي يُطلق على أي مسموع.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تُستخدم غالباً للصوت المفاجئ أو أول ما يُحس من الصوت، وعادة ما يكون خفياً أو غير مسترسل.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

@@ -1,0 +1,216 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللفظ 'تشريع' المستخدم حالياً يشير في الغالب إلى سن القوانين (Legislation) وليس إلى جعل الشخص شرعياً (Legitimation)."
+      - "التعريف العربي الحالي وصف حرفي للتعريف الإنجليزي ويفتقر إلى المصطلحات القانونية الدقيقة."
+    observations: "المفهوم يتعلق بالعمل الإجرائي أو القانوني الذي يمنح الفرد (غالباً الطفل) مكانة شرعية قانونية، وهو ما يعرف في القانون بـ 'إقرار البنوة' أو 'تصحيح النسب'."
+  blind_candidates:
+    - lemma: "إِقْرَارُ البُنُوَّةِ"
+      generation_method: tarkib
+      justification: "المصطلح القانوني الدقيق للاعتراف بالولد وجعله شرعياً."
+    - lemma: "تَصْحِيحُ النَّسَبِ"
+      generation_method: tarkib
+      justification: "الإجراء القانوني المتبع لتثبيت شرعية النسب."
+    - lemma: "تَشْرِيعُ الوَضْعِ"
+      generation_method: tarkib
+      justification: "استخدام 'تشريع' كمصدر للفعل 'شرّع' بمعنى جعل الشيء مشروعاً، مع تخصيصه بالوضع."
+    - lemma: "اسْتِلْحَاق"
+      generation_method: ishtiqaq
+      justification: "مصطلح فقهي وقانوني قديم يشير إلى إلحاق الولد بنسب أبيه."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تشريع"
+      contradicts:
+        - text: "«التشريع: سنّ القوانين»"
+          source: "المعجم الوسيط"
+          conflict: "الدلالة تنصرف إلى العملية التشريعية العامة وليس تقنين وضع الأفراد."
+    - lemma: "إضفاء الشرعية"
+      confirm:
+        - text: "«الشرعيّة: كون الشيء قائمًا على أساس شرعي»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "إقرار البنوة"
+      confirm:
+        - text: "«تعيين البنوة: تحديد أبوة ولد مجهول الأب (ق)»"
+          source: "المورد الحديث"
+    - lemma: "استلحاق"
+      confirm:
+        - text: "«وألحقه بالنسب أي اعترف بالولد... استلحق: يقال (استلحق) حين يضم إلى الخدمة...»"
+          source: "تكملة المعاجم العربية (دوزي)"
+          addition: "يؤكد استخدام 'ألحقه بالنسب' كفعل، والمصدر 'استلحاق' أو 'إلحاق'."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "إضفاء الشرعية"
+      decision: confirmed
+      decision_reason: "مصطلح عام مقبول لغوياً للدلالة على عملية منح الصفة الشرعية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "إِضْفَاءُ الشَّرْعِيَّةِ"
+    - lemma: "تشريع"
+      decision: removed
+      decision_reason: "اللفظ غامض ويُفهم منه 'سن القوانين' في السياق الحديث، مما يجعله غير مناسب للمجموعة التي تخص 'الأشخاص'."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "تَصْحِيحُ النَّسَبِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح الأكثر شيوعاً في المحاكم العربية المعاصرة لهذا الإجراء."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "تَصْحِيحُ النَّسَبِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "إِقْرَارُ البُنُوَّةِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح قانوني فني دقيق يصف فعل جعل الشخص شرعياً عبر الإقرار."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "إِقْرَارُ البُنُوَّةِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "اسْتِلْحَاق"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فقهي أصيل يعبر عن جوهر المفهوم في التراث القانوني العربي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "اسْتِلْحَاق", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "فعل جعل الشخص شرعياً (قانونياً)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ركيك ويحتاج إلى صياغة معجمية رصينة تعبر عن الجانب الإجرائي."
+    authored:
+      - type: terminological
+        text: "العمل القانوني أو الإجرائي الذي يُمنح بموجبه الشخص (ولا سيما الولد) صفة الشرعية أو يُثبَت به نسبه."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "إِضْفَاءُ الشَّرْعِيَّةِ"
+        examples:
+          - text: "يؤدي الزواج اللاحق للوالدين إلى إضفاء الشرعية على الأبناء المولودين قبله في بعض القوانين."
+            type: usage
+      - lemma: "تَصْحِيحُ النَّسَبِ"
+        examples:
+          - text: "رفعت الأم دعوى تصحيح نسب لتثبيت حقوق طفلها القانونية."
+            type: usage
+      - lemma: "إِقْرَارُ البُنُوَّةِ"
+        examples:
+          - text: "يعد إقرار البنوة أمام القاضي دليلاً قاطعاً على شرعية الولد."
+            type: usage
+      - lemma: "اسْتِلْحَاق"
+        examples:
+          - text: "الاستلحاق في الفقه هو استلحاق الرجل ولداً مجهول النسب بنسبه."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "العمل القانوني أو الإجرائي الذي يُمنح بموجبه الشخص (ولا سيما الولد) صفة الشرعية أو يُثبَت به نسبه."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "إِضْفَاءُ الشَّرْعِيَّةِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "إضفاء"
+          root: "ضفو"
+          maqayis_quote: "«الضَّادُ وَالْفَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى سُبُوغٍ وَتَمَامٍ. يُقَالُ: ثَوْبٌ ضَافٍ...»"
+        - word: "الشرعية"
+          root: "شرع"
+          maqayis_quote: "«الشِّينُ وَالرَّاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، وَهُوَ شَيْءٌ يُفْتَحُ فِي امْتِدَادٍ يَكُونُ فِيهِ. مِنْ ذَلِكَ الشَّرِيعَةُ، وَهِيَ مَوْرِدُ الشَّارِبَةِ الْمَاءَ.»"
+    - lemma: "تَصْحِيحُ النَّسَبِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "تصحيح"
+          root: "صحح"
+          maqayis_quote: "«الصَّادُ وَالْحَاءُ أَصْلٌ يَدُلُّ عَلَى الْبَرَاءَةِ مِنَ الْمَرَضِ وَالْعَيْبِ، وَعَلَى الِاسْتِوَاءِ.»"
+        - word: "النسب"
+          root: "نسب"
+          maqayis_quote: "«النُّونُ وَالسِّينُ وَالْبَاءُ كَلِمَةٌ وَاحِدَةٌ قِيَاسُهَا اتِّصَالُ شَيْءٍ بِشَيْءٍ. مِنْهُ النَّسَبُ، سُمِّيَ لِاتِّصَالِهِ وَلِلِاتِّصَالِ بِهِ.»"
+    - lemma: "إِقْرَارُ البُنُوَّةِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "إقرار"
+          root: "قرر"
+          maqayis_quote: "«الْقَافُ وَالرَّاءُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدَهُمَا عَلَى بَرْدٍ، وَالْآخَرُ عَلَى تَمَكُّنٍ... الْإِقْرَارُ: ضِدُّ الْجُحُودِ، وَذَلِكَ أَنَّهُ إِذَا أَقَرَّ بِحَقٍّ فَقَدْ أَقَرَّهُ قَرَارَهُ.»"
+        - word: "البنوة"
+          root: "بنو"
+          maqayis_quote: "«الْبَاءُ وَالنُّونُ وَالْوَاوُ كَلِمَةٌ وَاحِدَةٌ، وَهُوَ الشَّيْءُ يَتَوَلَّدُ عَنِ الشَّيْءِ، كَابْنِ الْإِنْسَانِ وَغَيْرِهِ.»"
+    - lemma: "اسْتِلْحَاق"
+      entry_id: "{auto}"
+      root: "لحق"
+      maqayis_quote: "«اللَّامُ وَالْحَاءُ وَالْقَافُ كَلِمَةٌ وَاحِدَةٌ تَدُلُّ عَلَى وُصُولِ شَيْءٍ بِشَيْءٍ حَتَّى يَتَّحِدَا.»"
+  per_sense:
+    - lemma: "إِضْفَاءُ الشَّرْعِيَّةِ"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام الذي يشمل إعطاء الصفة القانونية لأي وضع أو شخص."
+      mwe: true
+    - lemma: "تَصْحِيحُ النَّسَبِ"
+      sense_id: "{auto}"
+      nuance: "يستخدم غالباً في السياق القضائي لتعديل أو إثبات واقعة نسب غير مسجلة."
+      mwe: true
+    - lemma: "إِقْرَارُ البُنُوَّةِ"
+      sense_id: "{auto}"
+      nuance: "فعل قانوني صادر من الأب طوعاً بالاعتراف ببنوه طفل له."
+      mwe: true
+    - lemma: "اسْتِلْحَاق"
+      sense_id: "{auto}"
+      nuance: "مصطلح فقهي يعبر عن طلب إلحاق الشخص بنسب معين."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"إضفاء","root":"ضفو","maqayis":"«الضَّادُ وَالْفَاءُ...»"},{"word":"الشرعية","root":"شرع","maqayis":"«الشِّينُ وَالرَّاءُ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العام الذي يشمل إعطاء الصفة القانونية لأي وضع أو شخص.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

@@ -1,0 +1,193 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة غير مشكولة (أسماء الأماكن)."
+      - "اللمات الإنجليزية المذكورة (troponymy, troponomy) بها خطأ إملائي أو خلط؛ والصواب هو (toponymy) لأن التعريف يتعلق بأسماء الأماكن وليس بدلالة الأفعال (troponymy)."
+    observations: "المفهوم يعبر عن مجموع أسماء المواقع الجغرافية في حيز ما، وهو مفهوم قديم في التراث الجغرافي العربي (كما في كتب المسالك والممالك ومعجم البلدان)، ولكنه كمصطلح علمي حديث يُعرف بـ'الطوبونيميا'."
+  blind_candidates:
+    - lemma: "طُوبُونِيمِيَا"
+      generation_method: taarib
+      justification: "المصطلح العلمي العالمي المعرب للدلالة على أسماء الأماكن ودراستها."
+    - lemma: "أَسْمَاءُ المَوَاضِعِ"
+      generation_method: tarkib
+      justification: "تعبير تراثي فصيح شاع في كتب الجغرافيين العرب القدامى (مثل ياقوت الحموي)."
+    - lemma: "أَسْمَاءُ الأَعْلَامِ الجُغْرَافِيَّةِ"
+      generation_method: tarkib
+      justification: "مصطلح تقني حديث تستخدمه الهيئات المساحية ومنظمات الأمم المتحدة (UNGEGN)."
+    - lemma: "الأَسْمَاءُ المَكَانِيَّةُ"
+      generation_method: tarkib
+      justification: "تعبير وصفي بسيط وشائع في السياقات العامة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "أسماء الأماكن"
+      confirm:
+        - text: "«أسماء الأماكن للشيخ، أبي محمد: الحسن ابن أحمد النسابة. ألفه: سنة ثمان وعشرين وأربعمائة.»"
+          source: "كشف الظنون"
+        - text: "«الطوبونيما: «أ» أسماء الأماكن في منطقة ما أو لُغة ما.»"
+          source: "المورد الحديث"
+    - lemma: "طُوبُونِيمِيَا"
+      confirm:
+        - text: "«الطوبونيما: «أ» أسماء الأماكن في منطقة ما أو لُغة ما. «ب» دراسة هذه الأسماء.»"
+          source: "المورد الحديث (بصيغة طوبونيما)"
+    - lemma: "أَسْمَاءُ المَوَاضِعِ"
+      confirm:
+        - text: "«تسمية موضعية [تشريح] - toponymy»"
+          source: "المعجم الطبي الموحد (استخدام في تخصص آخر)"
+      expands:
+        - text: "«سُوَيْقَة: تصغير ساق ... وبهذا يجب تفسير أسماء الأماكن التي تطلق عليها هذه الكلمة والتي توجد في الصحراء»"
+          source: "المستشرق دوزي (يشير إلى شيوع إطلاق المصطلح على تسميات المواقع)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "أسماء الأماكن"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح ومباشر يطابق التعريف تماماً، وهو الأكثر شيوعاً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "أَسْمَاءُ الأَمَاكِنِ"
+    - lemma: "طُوبُونِيمِيَا"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح العلمي المعياري في الدراسات اللغوية والجغرافية الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "طُوبُونِيمِيَا", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "طُوبُونِيمَا"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صيغة معربة بديلة وثقها معجم المورد الحديث."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "طُوبُونِيمَا", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "أَسْمَاءُ المَوَاضِعِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير تراثي أصيل يستخدم بكثافة في الأدبيات الجغرافية الكلاسيكية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "أَسْمَاءُ المَوَاضِعِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "أسماء الأماكن في منطقة أو لغة تعتبر مجتمعة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي صحيح ولكنه يحتاج إلى صياغة أكثر دقة وموسوعية."
+    authored:
+      - type: terminological
+        text: "مَجْموعُ أَسْمَاءِ الأَمَاكِنِ وَالمَوَاقِعِ الجُغْرَافِيَّةِ فِي مِنْطَقَةٍ أَوْ لُغَةٍ مُعَيَّنَةٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "أَسْمَاءُ الأَمَاكِنِ"
+        examples:
+          - text: "تَزْخَرُ المَمْلَكَةُ العَرَبِيَّةُ السُّعُودِيَّةُ بِتَنَوُّعٍ كَبِيرٍ فِي أَسْمَاءِ الأَمَاكِنِ ذَاتِ الدَّلَالَاتِ التَّارِيخِيَّةِ."
+            type: usage
+      - lemma: "طُوبُونِيمِيَا"
+        examples:
+          - text: "تُسَاعِدُ الطُّوبُونِيمِيَا البَاحِثِينَ عَلَى تَتَبُّعِ الهِجْرَاتِ البَشَرِيَّةِ القَدِيمَةِ."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مَجْموعُ أَسْمَاءِ الأَمَاكِنِ وَالمَوَاقِعِ الجُغْرَافِيَّةِ فِي مِنْطَقَةٍ أَوْ لُغَةٍ مُعَيَّنَةٍ."}
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يَهْتَمُّ عُلَمَاءُ اللُّغَةِ بِتَحْلِيلِ أَسْمَاءِ المَوَاضِعِ لِمَعْرِفَةِ أَصْلِ السُّكَّانِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "أَسْمَاءُ الأَمَاكِنِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "أسماء"
+          root: "سمو"
+          maqayis_quote: "«السِّينُ وَالْمِيمُ وَالْوَاوُ أَصْلٌ يَدُلُّ عَلَى الْعُلُوِّ... وَيُقَالُ إِنَّ أَصْلَ \" اسْمٍ \" سِمْوٌ، وَهُوَ مِنَ الْعُلُوِّ، لِأَنَّهُ تَنْوِيهٌ وَدَلَالَةٌ عَلَى الْمَعْنَى.»"
+        - word: "الأماكن"
+          root: "كون"
+          maqayis_quote: "«الْكَافُ وَالْوَاوُ وَالنُّونُ أَصْلٌ يَدُلُّ عَلَى الْإِخْبَارِ عَنْ حُدُوثِ شَيْءٍ... وَقَالَ قَوْمٌ: الْمَكَانُ اشْتِقَاقُهُ مِنْ كَانَ يَكُونُ.»"
+    - lemma: "طُوبُونِيمِيَا"
+      entry_id: "{auto}"
+      note: '{"origin":"Greek", "etymology":"topos (place) + onoma (name)"}'
+    - lemma: "أَسْمَاءُ المَوَاضِعِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "أسماء"
+          root: "سمو"
+          maqayis_quote: "«السِّينُ وَالْمِيمُ وَالْوَاوُ أَصْلٌ يَدُلُّ عَلَى الْعُلُوِّ...»"
+        - word: "المواضع"
+          root: "وضع"
+          maqayis_quote: "«الْوَاوُ وَالضَّادُ وَالْعَيْنُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الْخَفْضِ [لِلشَّيْءِ] وَحَطِّهِ.»"
+  per_sense:
+    - lemma: "أَسْمَاءُ الأَمَاكِنِ"
+      sense_id: "{auto}"
+      nuance: "التعبير العام والشائع لوصف مجموعة المسميات الجغرافية."
+      mwe: true
+    - lemma: "طُوبُونِيمِيَا"
+      sense_id: "{auto}"
+      nuance: "المصطلح العلمي المتخصص المستخدم في الأكاديميا."
+      mwe: false
+    - lemma: "أَسْمَاءُ المَوَاضِعِ"
+      sense_id: "{auto}"
+      nuance: "تعبير يميل للسياق التراثي والجغرافي الكلاسيكي."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"أسماء","root":"سمو","maqayis":"«السِّينُ وَالْمِيمُ وَالْوَاوُ أَصْلٌ يَدُلُّ عَلَى الْعُلُوِّ...»"},{"word":"الأماكن","root":"كون","maqayis":"«الْكَافُ وَالْوَاوُ وَالنُّونُ أَصْلٌ يَدُلُّ عَلَى الْإِخْبَارِ عَنْ حُدُوثِ شَيْءٍ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"أسماء","root":"سمو","maqayis":"«السِّينُ وَالْمِيمُ وَالْوَاوُ أَصْلٌ يَدُلُّ عَلَى الْعُلُوِّ...»"},{"word":"المواضع","root":"وضع","maqayis":"«الْوَاوُ وَالضَّادُ وَالْعَيْنُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الْخَفْضِ [لِلشَّيْءِ] وَحَطِّهِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"التعبير العام والشائع لوصف مجموعة المسميات الجغرافية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,209 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمات الحالية وصفية (phrasal) وليست مصطلحات مسكوكة بالضرورة.
+      - المصطلح الإنجليزي (rill) تقني جداً ويتطلب مقابلاً عربياً أصيلاً.
+    observations: "المفهوم يشير إلى الأخاديد الدقيقة التي يحفرها الماء في التربة، وهناك فرق دلالي بين القناة (channel) الكبيرة والخد (rill) الصغير."
+  blind_candidates:
+    - lemma: "خَدّ"
+      generation_method: majaz
+      justification: "استعارة 'الخد' للشق المستطيل في الأرض، وهو مصطلح معجمي قديم استعمله الجيومورفولوجيون كترجمة لـ rill."
+    - lemma: "أُخْدُود"
+      generation_method: majaz
+      justification: "الشق المستطيل الغائر في الأرض، ويناسب تماماً الوصف الجيولوجي لـ rill."
+    - lemma: "جُدَيْوِل"
+      generation_method: ishtiqaq
+      justification: "تصغير 'جدول'، وورد في المعاجم المتخصصة كترجمة دقيقة لـ rill."
+    - lemma: "مَسِيلٌ دَقِيق"
+      generation_method: tarkib
+      justification: "مركب وصفي يعبر عن المجرى المائي الصغير جداً الناتج عن التعرية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "قناة صغيرة"
+      evidence_status: "no_material_found"
+    - lemma: "مجرى صغير"
+      confirm:
+        - text: "الجَدْوَل: مجرى صغير يُشَقُّ في الأرض للسُّقيا"
+          source: "المعجم الوسيط"
+    - lemma: "خَدّ"
+      confirm:
+        - text: "الخَدُّ: الأُخْدُود والجدول والطريق"
+          source: "المعجم الوسيط"
+        - text: "خَدَّ السَّيْلُ الأرضَ: حفرَها"
+          source: "المعجم الكبير"
+    - lemma: "أُخْدُود"
+      confirm:
+        - text: "الأُخْدُود: الشَّقُّ المستطيل في الأرض"
+          source: "المعجم الوسيط"
+        - text: "الأُخدود: أحد الأودية الطويلة الضيّقة على سطح القمر"
+          source: "المورد الحديث (ترجمة rill)"
+    - lemma: "جُدَيْوِل"
+      confirm:
+        - text: "rill -> جدول صغير، جُدَيْوِل"
+          source: "المعجم الموحد لمصطلحات الجيولوجيا"
+    - lemma: "مَسِيل"
+      confirm:
+        - text: "المسيل: مجرى الماء وغيره"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "قناة صغيرة"
+      decision: confirmed
+      decision_reason: "وصف شارح وشائع الاستخدام في الشبكة، وإن كان أقل دقة من المصطلح التقني."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      nuance_differentiation: "تعبير عام يغطي أي قناة بحجم صغير."
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "قَنَاةٌ صَغِيرَة"
+    - lemma: "مجرى صغير"
+      decision: confirmed
+      decision_reason: "وصف دقيق للماهية المادية لـ rill."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      nuance_differentiation: "يركز على وظيفة الجريان المائي."
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَجْرًى صَغِير"
+    - lemma: "خَدّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح عربي أصيل يعبر عن الشق في الأرض، ويستخدم تقنياً لمقابلة rill."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: "يشير إلى الأثر المحفور في التربة (الخدد)."
+      actions:
+        - command: create_entry
+          params: {lemma: "خَدّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "أُخْدُود"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تقني دقيق للشقوق المستطيلة الناتجة عن التعرية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: "يوحي بعمق نسبي واستطالة في الشق الأرضي."
+      actions:
+        - command: create_entry
+          params: {lemma: "أُخْدُود", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "جُدَيْوِل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تصغير قياسي لـ 'جدول' وموثق في معاجم المصطلحات الجيولوجية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: "يؤكد على صغر حجم المجرى المائي مقارنة بالجدول العادي."
+      actions:
+        - command: create_entry
+          params: {lemma: "جُدَيْوِل", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "قناة صغيرة (كتلك التي تكونت بفعل تعرية التربة)"
+    assessment:
+      decision: revise
+      reason: "الصياغة الحالية أقرب للترجمة الوصفية منها للتعريف المعجمي المحكم."
+    authored:
+      - type: terminological
+        text: "أخدودٌ أو مَجْرًى مائِيٌّ دقيقٌ تَحفرهُ مياهُ الأمطارِ أو السيولُ في التربةِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "أخدودٌ أو مَجْرًى مائِيٌّ دقيقٌ تَحفرهُ مياهُ الأمطارِ أو السيولُ في التربةِ."}
+  examples:
+    per_lemma:
+      - lemma: "خَدّ"
+        examples:
+          - text: "تَنتشرُ الخُدودُ التعرَوِيّةُ في المُنحدراتِ الجبليةِ عقبَ العواصفِ المطريةِ."
+            type: usage
+      - lemma: "أُخْدُود"
+        examples:
+          - text: "يؤدي الانجرافُ الأخدوديُّ إلى فقدانِ الطبقةِ السطحيةِ الخصبةِ من التربةِ."
+            type: usage
+      - lemma: "جُدَيْوِل"
+        examples:
+          - text: "رأيتُ الجُدَيْوِلاتِ تَتفرعُ بَينَ صُخورِ الجبلِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تَنتشرُ الخُدودُ التعرَوِيّةُ في المُنحدراتِ الجبليةِ عقبَ العواصفِ المطريةِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خَدّ"
+      entry_id: "{auto}"
+      root: "خدد"
+      maqayis_quote: "«الْخَاءُ وَالدَّالُ أَصْلٌ وَاحِدٌ، وَهُوَ تَأَسُّلُ الشَّيْءِ وَامْتِدَادُهُ إِلَى السُّفْلِ. فَمِنْ ذَلِكَ الْخَدِّ خَدُّ الْإِنْسَانِ... وَالْخَدُّ: الشَّقُّ. وَالْأَخَادِيدُ: الشُّقُوقُ فِي الْأَرْضِ.»"
+    - lemma: "أُخْدُود"
+      entry_id: "{auto}"
+      root: "خدد"
+      maqayis_quote: "«الْخَاءُ وَالدَّالُ أَصْلٌ وَاحِدٌ... وَالْأَخَادِيدُ: الشُّقُوقُ فِي الْأَرْضِ.»"
+    - lemma: "جُدَيْوِل"
+      entry_id: "{auto}"
+      root: "جدل"
+      maqayis_quote: "«الْجِيمُ وَالدَّالُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ مِنْ بَابِ اسْتِحْكَامِ الشَّيْءِ فِي اسْتِرْسَالٍ يَكُونُ فِيهِ... وَالْجَدْوَلُ: نَهْرٌ صَغِيرٌ، وَهُوَ مُمْتَدٌّ.»"
+  per_sense:
+    - lemma: "خَدّ"
+      sense_id: "{auto}"
+      nuance: "يركز على الأثر المادي للشق في وجه الأرض."
+      mwe: false
+    - lemma: "أُخْدُود"
+      sense_id: "{auto}"
+      nuance: "يوحي بشق أكثر عمقاً واستطالة."
+      mwe: false
+    - lemma: "جُدَيْوِل"
+      sense_id: "{auto}"
+      nuance: "تصغير للجدول يركز على صغر المجرى المائي."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خدد","maqayis":"«الْخَاءُ وَالدَّالُ أَصْلٌ وَاحِدٌ، وَهُوَ تَأَسُّلُ الشَّيْءِ وَامْتِدَادُهُ إِلَى السُّفْلِ... وَالْخَدُّ: الشَّقُّ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الأثر المادي للشق في وجه الأرض.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

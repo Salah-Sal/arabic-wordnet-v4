@@ -1,0 +1,262 @@
+# ── المرحلة ١: المراجعة والتوليد (بدون أدلة) ──────────────
+stage1_review:
+  assessment:
+    concerns:
+      - "الاقتصار على لمة واحدة (حاضر) في المجموعة الحالية."
+      - "الحاجة لإدراج المصطلحات المركبة الشائعة في الاستعمال الحديث مثل (الوقت الراهن)."
+    observations: "المفهوم يعبر عن الزمن الحاضر أو اللحظة الراهنة، وهو مفهوم أصيل في اللغة العربية له تعبيرات متنوعة تراوح بين الكلمات المفردة والمركبات الوصفية."
+  blind_candidates:
+    - lemma: "الحَاضِر"
+      generation_method: ishtiqaq
+      justification: "الاسم القياسي للزمن الذي يقع فيه الكلام."
+    - lemma: "الْآن"
+      generation_method: ishtiqaq
+      justification: "ظرف الزمان الذي استُعمل اسماً للدلالة على الوقت الحاضر."
+    - lemma: "الرَّاهِن"
+      generation_method: ishtiqaq
+      justification: "بمعنى الثابت والدائم، ويُطلق على الوقت الحاضر لاتصاله بالمشاهدة."
+    - lemma: "الوَقْتُ الرَّاهِنُ"
+      generation_method: tarkib
+      justification: "مركب وصفي شاع في العصر الحديث للدلالة على الفترة الحالية."
+
+# ── المرحلة ٢: جمع الأدلة ────────────────────────────────
+stage2_evidence:
+  per_lemma:
+    - lemma: "حاضر"
+      confirm:
+        - text: "«(الْحَاضِر)... والزمن بَين الْمَاضِي والمستقبل»"
+          source: "المعجم الوسيط"
+    - lemma: "الآن"
+      confirm:
+        - text: "«(الآن) ظرف للوقت الحاضر»"
+          source: "المعجم الوسيط"
+        - text: "«الآن: الزمن الكائن الفاصل بين الماضي والآتي... إشارة إلى الحاضر.»"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+    - lemma: "الراهن"
+      confirm:
+        - text: "«الرَّاهِنُ... الوقتُ الرَّاهِنُ: الحاضر أو الحالى»"
+          source: "المعجم الكبير"
+        - text: "«الشَّيْءُ الرَّاهِنُ: الثَّابِتُ الدَّائِمُ.»"
+          source: "مقاييس اللغة"
+    - lemma: "اليوم"
+      confirm:
+        - text: "«قالوا: أَنا اليومَ أَفعلُ كذا، لا يريدون يوماً بعينه ولكنهم يريدون الوقتَ الحاضرَ؛ حكاه سيبويه»"
+          source: "لسان العرب"
+        - text: "«يَوْم... وقت حاضر {الْيَوْمَ أَكْمَلْتُ لَكُمْ دِينَكُمْ}»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "الوَقْتُ الرَّاهِنُ"
+      confirm:
+        - text: "«الوقتُ الرَّاهِنُ: الحاضر أو الحالى»"
+          source: "المعجم الكبير"
+
+# ── المرحلة ٣: التحليل اللغوي للّمات ────────────────────
+stage3_analysis:
+  per_lemma:
+    - lemma: "حاضر"
+      decision: confirmed
+      decision_reason: "اللفظ الأصيل والأكثر دقة للتعبير عن المفهوم كفئة زمنية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حَاضِر"
+    - lemma: "الْآن"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مستعمل بكثرة كاسم للزمن الحاضر في الفلسفة واللغة، وله جذور معجمية تؤكد ظرفيته للحاضر."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "الْآن", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-15144478-n"}
+    - lemma: "الرَّاهِن"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يُستعمل لوصف الحالة أو الوقت القائم، وهو مدعوم في المعاجم الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "الرَّاهِن", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-15144478-n"}
+    - lemma: "الوَقْتُ الرَّاهِنُ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مركب وصفي ثابت في الاستعمال المعاصر للدلالة على الفترة الزمنية الحالية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "الوَقْتُ الرَّاهِنُ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-15144478-n"}
+    - lemma: "اليَوْم"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يُستخدم مجازاً للدلالة على العصر الحالي أو الوقت الحاضر، وهو ما يقابل (nowadays)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "اليَوْم", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-15144478-n"}
+
+# ── المرحلة ٤: التعريف والأمثلة ──────────────────────────
+stage4_content:
+  definition:
+    current: "الفترة الزمنية التي تحدث الآن؛ أي امتداد مستمر للزمن يشمل لحظة الكلام"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكن يمكن صياغته بأسلوب معجمي أكثر رصانة."
+    authored:
+      - type: terminological
+        text: "الزَّمَنُ الفَاصِلُ بَيْنَ المَاضِي وَالمُسْتَقْبَلِ؛ وَهُوَ الوَقْتُ الذِي تَقَعُ فِيهِ الأَحْدَاثُ حَالِيّاً."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-15144478-n", definition_index: 0, text: "الزَّمَنُ الفَاصِلُ بَيْنَ المَاضِي وَالمُسْتَقْبَلِ؛ وَهُوَ الوَقْتُ الذِي تَقَعُ فِيهِ الأَحْدَاثُ حَالِيّاً."}
+  examples:
+    per_lemma:
+      - lemma: "حَاضِر"
+        examples:
+          - text: "يَجِبُ عَلَى المَرْءِ أَنْ يَعِيشَ فِي الحَاضِرِ دُونَ الغَرَقِ فِي ذِكْرَيَاتِ المَاضِي."
+            type: usage
+      - lemma: "الْآن"
+        examples:
+          - text: "مِنَ الآنَ فَصَاعِدًا، سَنَعْتَمِدُ سِيَاسَةً جَدِيدَةً فِي التَّعَامُلِ مَعَ الأَزَمَاتِ."
+            type: usage
+      - lemma: "الرَّاهِن"
+        examples:
+          - text: "تَتَطَلَّبُ الظُّرُوفُ فِي الرَّاهِنِ تَضَافُرَ الجُهُودِ لِمُوَاجَهَةِ التَّحَدِّيَاتِ."
+            type: usage
+      - lemma: "الوَقْتُ الرَّاهِنُ"
+        examples:
+          - text: "يُعَانِي العَالَمُ فِي الوَقْتِ الرَّاهِنِ مِنْ تَقَلُّبَاتٍ اقْتِصَادِيَّةٍ حَادَّةٍ."
+            type: usage
+      - lemma: "اليَوْم"
+        examples:
+          - text: "إِنَّ تَكْنُولُوجِيَا المَعْلُومَاتِ تُهَيْمِنُ عَلَى حَيَاتِنَا فِي عَالَمِ اليَوْمِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-15144478-n", text: "نَحْنُ نَعِيشُ فِي الحَاضِرِ وَنَتَطَلَّعُ إِلَى المُسْتَقْبَلِ."}
+
+# ── المرحلة ٥: الإثراء (البيانات الوصفية) ─────────────────
+stage5_enrichment:
+  per_entry:
+    - lemma: "حَاضِر"
+      entry_id: "{auto}"
+      root: "حضر"
+      maqayis_quote: "«الحاء والضاد والراء إيراد الشيء، ووروده ومشاهدته. فالحضر خلاف البدو.»"
+    - lemma: "الْآن"
+      entry_id: "{auto}"
+      root: "أين"
+      maqayis_quote: "«الهمزة والياء والنون... آن لك يئين أينا أي قرب.»"
+    - lemma: "الرَّاهِن"
+      entry_id: "{auto}"
+      root: "رهن"
+      maqayis_quote: "«الراء والهاء والنون أصل يدل على ثبات شيء يمسك بحق أو غيره. والشيء الراهن: الثابت الدائم.»"
+    - lemma: "اليَوْم"
+      entry_id: "{auto}"
+      root: "يوم"
+      maqayis_quote: "«الياء والواو والميم: كلمة واحدة، هي اليوم: الواحد من الأيام.»"
+    - lemma: "الوَقْتُ الرَّاهِنُ"
+      entry_id: "{auto}"
+      roots:
+        - word: "الوقت"
+          root: "وقت"
+          maqayis_quote: "«الواو والقاف والتاء كلمة واحدة تدل على حد الشيء من الزمان.»"
+        - word: "الراهن"
+          root: "رهن"
+          maqayis_quote: "«الراء والهاء والنون... والشيء الراهن: الثابت الدائم.»"
+  per_sense:
+    - lemma: "حَاضِر"
+      sense_id: "{auto}"
+      nuance: "الاسم العام والمجرد للزمن الذي يشمل لحظة النطق."
+      mwe: false
+    - lemma: "الْآن"
+      sense_id: "{auto}"
+      nuance: "يؤكد على اللحظة اللحظية المباشرة (nowness)."
+      mwe: false
+    - lemma: "الرَّاهِن"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب القائم والموجود فعلاً من الزمن أو الحالة."
+      mwe: false
+    - lemma: "الوَقْتُ الرَّاهِنُ"
+      sense_id: "{auto}"
+      nuance: "تعبير اصطلاحي رسمي للفترة الزمنية الحالية."
+      mwe: true
+    - lemma: "اليَوْم"
+      sense_id: "{auto}"
+      nuance: "يُستخدم للدلالة على العصر أو الزمن المعاصر في سياق المقارنة بالماضي (nowadays)."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حضر","maqayis":"«الحاء والضاد والراء إيراد الشيء، ووروده ومشاهدته. فالحضر خلاف البدو.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"أين","maqayis":"«الهمزة والياء والنون... آن لك يئين أينا أي قرب.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"رهن","maqayis":"«الراء والهاء والنون أصل يدل على ثبات شيء يمسك بحق أو غيره. والشيء الراهن: الثابت الدائم.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"يوم","maqayis":"«الياء والواو والميم: كلمة واحدة، هي اليوم: الواحد من الأيام.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"الوقت","root":"وقت","maqayis":"«الواو والقاف والتاء كلمة واحدة تدل على حد الشيء من الزمان.»"},{"word":"الراهن","root":"رهن","maqayis":"«الراء والهاء والنون... والشيء الراهن: الثابت الدائم.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم العام والمجرد للزمن الذي يشمل لحظة النطق.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-15144478-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-15144478-n"
+        score: 0.95

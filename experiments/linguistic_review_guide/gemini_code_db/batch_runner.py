@@ -118,11 +118,8 @@ class CircuitBreaker:
                 return True
             return False
 
-# Gemini model fallback chain: flash → pro → stop
-MODEL_FALLBACK_CHAIN = [
-    "gemini-3-flash-preview",
-    "gemini-3.1-pro-preview",
-]
+# No fallback chain — if the requested model is rate-limited, stop the batch.
+MODEL_FALLBACK_CHAIN = []
 
 # Aliases for CLI convenience
 MODEL_ALIASES = {
@@ -225,20 +222,13 @@ class ModelFallbackChain:
                 short_fb = fallback.replace("gemini-", "").replace("-preview", "")
                 logger.warning(f"[fallback] Switching to {short_fb}")
             elif self.all_rate_limited:
-                # Find the earliest cooldown expiry across all models
                 earliest = min(self._cooldowns.get(m, 0) for m in self._chain)
                 wait_s = earliest - time.time()
-                if wait_s > 300:  # > 5 minutes: stop the batch
-                    logger.error(
-                        f"[fallback] All models rate-limited, earliest reset in "
-                        f"{wait_s:.0f}s — stopping batch"
-                    )
-                    self._shutdown_event.set()
-                else:
-                    logger.warning(
-                        f"[fallback] All models rate-limited, waiting {wait_s:.0f}s "
-                        f"for earliest reset"
-                    )
+                logger.error(
+                    f"[fallback] Model rate-limited (resets in {wait_s:.0f}s) "
+                    f"— stopping batch"
+                )
+                self._shutdown_event.set()
 
     async def wait_if_limited(self):
         """Block until the active model is available. No-op if one is ready."""
@@ -606,6 +596,7 @@ class BatchRunner:
                 await proc.wait()
                 dur = time.monotonic() - t0
                 self.db.mark_failed(synset_id, self.run_id, -9, f"Timeout after {self.timeout_s}s", dur)
+                await self.circuit_breaker.record_failure("timeout")
                 return False
             finally:
                 self.active_procs.pop(synset_id, None)
@@ -613,27 +604,31 @@ class BatchRunner:
             dur = time.monotonic() - t0
             rc = proc.returncode
 
-            review_path = self.output_dir / f"{synset_id}.review.yaml"
             model_short = active_model.replace("gemini-", "").replace("-preview", "")
-            if rc == 0 and review_path.exists():
-                traj_info = self._parse_trajectory(synset_id)
-                self.db.mark_success(synset_id, self.run_id, traj_info.cost, dur)
-                logger.info(f"[{synset_id}] OK {dur:.0f}s ~${traj_info.cost:.4f} ({model_short})")
+            if review_path.exists():
+                try:
+                    traj_info = self._parse_trajectory(synset_id)
+                    cost = traj_info.cost
+                except Exception:
+                    cost = 0.0
+                self.db.mark_success(synset_id, self.run_id, cost, dur)
+                if rc != 0:
+                    logger.info(f"[{synset_id}] OK {dur:.0f}s (exit={rc}, review written) ({model_short})")
+                else:
+                    logger.info(f"[{synset_id}] OK {dur:.0f}s ~${cost:.4f} ({model_short})")
                 await self.circuit_breaker.record_success()
                 if self.controller:
                     self.controller.on_success()
                 return True
 
-            # Capture error from both stdout and stderr (run_review.sh prints
-            # errors to stdout via echo, not stderr)
+            # Failure path — only reached when review file does NOT exist
             out_text = stdout.decode("utf-8", errors="replace")[-1000:] if stdout else ""
             err_text = stderr.decode("utf-8", errors="replace")[-500:] if stderr else ""
             combined = out_text + err_text
 
-            if rc == 0 and not review_path.exists():
-                err_msg = "Gemini completed but no review file written"
+            if rc == 0:
+                err_msg = "Model completed but no review file written"
             else:
-                # Prefer stdout (where run_review.sh echo errors go), fall back to stderr
                 err_msg = out_text.strip() or err_text.strip() or f"exit code {rc}"
             self.db.mark_failed(synset_id, self.run_id, rc or 2, err_msg, dur)
             logger.warning(f"[{synset_id}] FAIL exit={rc} {dur:.0f}s ({model_short}) | {err_msg[:200]}")
@@ -670,6 +665,7 @@ class BatchRunner:
             dur = time.monotonic() - t0
             self.db.mark_failed(synset_id, self.run_id, -1, str(e), dur)
             logger.error(f"[{synset_id}] Exception: {e}")
+            await self.circuit_breaker.record_failure("unknown")
             if self.controller:
                 self.controller.on_failure()
             return False
@@ -688,7 +684,7 @@ class BatchRunner:
         if not traj.exists():
             return info
         try:
-            with open(traj) as f:
+            with open(traj, encoding="utf-8", errors="replace") as f:
                 for line in f:
                     try:
                         if '"type":"result"' not in line and '"type": "result"' not in line:

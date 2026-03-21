@@ -1,0 +1,232 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "كلمة مَسَاحَة تشير في الأصل إلى القياس أو السطح المستوي، ولكنها تُستخدم حديثاً للدلالة على الحيز."
+      - "التعريف الحالي 'حيز للحركة' مقتضب جداً وقد يؤدي للدوران إذا استُخدمت كلمة حيز كَلَمّة."
+    observations: "المجموعة تعبر عن المفهوم المكاني الذي يسمح بالنشاط البدني أو الحركة. اللمات الموجودة تغطي الجوانب الوظيفية (مجال) والسعة (متسع) والامتداد (مساحة)."
+  blind_candidates:
+    - lemma: "فُسْحَة"
+      generation_method: ishtiqaq
+      justification: "من الجذر (ف س ح) الذي يدل على السعة، وتستخدم للدلالة على المجال المتاح للحركة والراحة."
+    - lemma: "مُتَّسَع"
+      generation_method: ishtiqaq
+      justification: "اسم مكان من الاتساع، يعبر عن وجود فراغ كافٍ للقيام بفعل ما."
+    - lemma: "فَضَاء"
+      generation_method: ishtiqaq
+      justification: "يدل على المكان الواسع الخالي، وهو مرادف قوي لـ space."
+    - lemma: "مَجَال"
+      generation_method: ishtiqaq
+      justification: "من الجولان، وهو الأصل في العربية للدلالة على موضع الحركة والتردد."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مَجَال"
+      confirm:
+        - text: "«المَجالُ: مَوْضِعُ الجَوَلان... (في الاستعمال المُعاصر): ما يَدُورُ فيه الشيءُ أو يتَّصل به»"
+          source: "المعجم الكبير"
+        - text: "«المجال: موضع الجولان، وهو التردد في المكان.»"
+          source: "التوقيف على مهمات التعاريف"
+    - lemma: "مُتَّسَع"
+      confirm:
+        - text: "«(1) مُتَّسَع؛ حيِّز؛ مكان» كترجمة لـ room"
+          source: "المورد الحديث"
+      expands:
+        - text: "«يُقَال مَا لِي عَنْ ذَلِكَ مُتَّسَعٌ: مَصْرِفٌ»"
+          source: "المعجم الوسيط"
+          addition: "يشير إلى المخرج أو البديل، وهو وجه دلالي آخر لـ space/room."
+    - lemma: "مَسَاحَة"
+      confirm:
+        - text: "«Area ،space [ في الفرنسية] SuperFicie ،etendue»"
+          source: "كشاف اصطلاحات الفنون"
+      contradicts:
+        - text: "«المِساحة: ذرع الأرض»"
+          source: "لسان العرب"
+          conflict: "الدلالة الأصلية هي عملية القياس لا الحيز نفسه."
+    - lemma: "فُسْحَة"
+      confirm:
+        - text: "«الفُسْحَةُ: السَّعَةُ... وفَسُحَ المكانُ: اتسع.»"
+          source: "القاموس المحيط"
+        - text: "«يُقَال فِي هَذَا الْأَمر فسحة أَي سَعَة»"
+          source: "المعجم الوسيط"
+    - lemma: "حَيِّز"
+      confirm:
+        - text: "«الحركة: هي شغل حيز بعد أن كان في حيز آخر»"
+          source: "كتاب التعريفات للجرجاني"
+        - text: "«(1) مُتَّسَع؛ حيِّز؛ مكان»"
+          source: "المورد الحديث"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مَجَال"
+      decision: confirmed
+      decision_reason: "أدق كلمة للتعبير عن موضع الحركة (الجولان) ومطابقة للتعريف تماماً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَجَال"
+    - lemma: "مُتَّسَع"
+      decision: confirmed
+      decision_reason: "يعبر عن توفر المساحة الكافية (Ample room) وهو شائع الاستعمال."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُتَّسَع"
+    - lemma: "مَسَاحَة"
+      decision: confirmed
+      decision_reason: "رغم أصلها المرتبط بالقياس، إلا أنها اللفظ الأكثر شيوعاً حالياً للدلالة على الامتداد المكاني."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَسَاحَة"
+    - lemma: "فُسْحَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ فصيح يعطي دلالة السعة والراحة في الحركة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "فُسْحَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "حَيِّز"
+      decision: confirmed
+      decision_reason: "مصطلح تقني دقيق لوصف المكان الذي تشغله الحركة، مدعوم بتعريفات الجرجاني."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "حَيِّز", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "حيز للحركة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب ويستخدم كلمة 'حيز' التي أصبحت لَمّة في المجموعة."
+    authored:
+      - type: terminological
+        text: "فراغٌ أو سعةٌ مكانية تسمح بالتحرك أو التنقل أو القيام بنشاط ما."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "فراغٌ أو سعةٌ مكانية تسمح بالتحرك أو التنقل أو القيام بنشاط ما."}
+  examples:
+    per_lemma:
+      - lemma: "مَجَال"
+        examples:
+          - text: "لم يترك له الزحام مَجَالاً للحركة."
+            type: usage
+      - lemma: "مُتَّسَع"
+        examples:
+          - text: "في القاعة مُتَّسَعٌ لعدد أكبر من الحضور."
+            type: usage
+      - lemma: "مَسَاحَة"
+        examples:
+          - text: "يجب تخصيص مَسَاحَةٍ كافية للعب الأطفال."
+            type: usage
+      - lemma: "فُسْحَة"
+        examples:
+          - text: "لا بد من فُسْحَةٍ بين المقاعد لمرور الركاب."
+            type: usage
+      - lemma: "حَيِّز"
+        examples:
+          - text: "تحرك اللاعب في حَيِّزٍ ضيقٍ لصعوبة المراقبة."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "وفرت الحديقة العامة مجالاً واسعاً لممارسة الرياضة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَجَال"
+      entry_id: "{auto}"
+      root: "جول"
+      maqayis_quote: "«الْجِيمُ وَالْوَاوُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ الدَّوَرَانُ. يُقَالُ جَالَ يَجُولُ [جَوْلًا] وَجَوَلًانًا... وَالْمِجْوَلُ: قَمِيصٌ يَجُولُ فِيهِ لَابِسُهُ.»"
+    - lemma: "مُتَّسَع"
+      entry_id: "{auto}"
+      root: "وسع"
+      maqayis_quote: "«الْوَاوُ وَالسِّينُ وَالْعَيْنُ: كَلِمَةٌ تَدُلُّ عَلَى خِلَافِ الضِّيقِ وَالْعُسْرِ. يُقَالُ وَسُعَ الشَّيْءُ وَاتَّسَعَ.»"
+    - lemma: "مَسَاحَة"
+      entry_id: "{auto}"
+      root: "مسح"
+      maqayis_quote: "«الْمِيمُ وَالسِّينُ وَالْحَاءُ أَصْلٌ صَحِيحٌ، وَهُوَ إِمْرَارُ الشَّيْءِ عَلَى الشَّيْءِ بَسْطًا... وَالْأَمْسَحُ: الْمَكَانُ الْمُسْتَوِي كَأَنَّهُ قَدْ مُسِحَ.»"
+    - lemma: "فُسْحَة"
+      entry_id: "{auto}"
+      root: "فسح"
+      maqayis_quote: "«الْفَاءُ وَالسِّينُ وَالْحَاءُ كَلِمَةٌ وَاحِدَةٌ تَدُلُّ عَلَى سَعَةٍ وَاتِّسَاعٍ. مِنْ ذَلِكَ الْفَسِيحُ: الْوَاسِعُ.»"
+    - lemma: "حَيِّز"
+      entry_id: "{auto}"
+      root: "حوز"
+      maqayis_quote: "«الْحَاءُ وَالْوَاوُ وَالزَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الْجَمْعُ وَالتَّجَمُّعُ، يُقَالُ لِكُلِّ مَجْمَعٍ وَنَاحِيَةٍ حَوْزٌ وَحَوْزَةٌ.»"
+  per_sense:
+    - lemma: "مَجَال"
+      sense_id: "{auto}"
+      nuance: "يشير إلى النطاق الوظيفي الذي يتحرك فيه الشيء أو يدور فيه."
+      mwe: false
+    - lemma: "مُتَّسَع"
+      sense_id: "{auto}"
+      nuance: "يؤكد على توفر الحجم أو السعة الكافية لتجنب الضيق."
+      mwe: false
+    - lemma: "مَسَاحَة"
+      sense_id: "{auto}"
+      nuance: "يشير إلى الامتداد المكاني أو السعة السطحية المتاحة."
+      mwe: false
+    - lemma: "فُسْحَة"
+      sense_id: "{auto}"
+      nuance: "تعطي إيحاءً بالتحرر من القيود وتوفر مكان مريح للحركة."
+      mwe: false
+    - lemma: "حَيِّز"
+      sense_id: "{auto}"
+      nuance: "مصطلح بنيوي يشير إلى الموضع المكاني المحدد أو الإطار الذي تتم فيه الحركة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جول","maqayis":"«الْجِيمُ وَالْوَاوُ وَاللَّامُ أَصْلٌ وَاحِدٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يشير إلى النطاق الوظيفي الذي يتحرك فيه الشيء أو يدور فيه.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

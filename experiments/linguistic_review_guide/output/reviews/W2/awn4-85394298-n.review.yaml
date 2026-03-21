@@ -1,0 +1,247 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللفظ 'زنوج' هو جمع تكسير لـ 'زنجي'، بينما يفضل في تعريف الأعراق استخدام اسم الجنس الجمعي (مثل الزنج) أو المصطلحات الوصفية المركبة."
+      - "التعريف الحالي 'عرق ذو بشرة داكنة' مقتضب جداً ويحتاج إلى تفصيل أنثروبولوجي وجغرافي لتمييزه."
+    observations: "تتراوح المصطلحات بين الألفاظ التراثية التي كانت تشير إلى جغرافيا محددة (الزنج، السودان) والمصطلحات الحديثة الوصفية (الجنس الأسود، العرق الأسود)."
+  blind_candidates:
+    - lemma: "الزِّنْجُ"
+      generation_method: majaz
+      justification: "اسم جنس جمعي تراثي يشير إلى الشعوب ذات البشرة السوداء في أفريقيا."
+    - lemma: "الجِنْسُ الأَسْوَدُ"
+      generation_method: tarkib
+      justification: "تعبير وصفي حديث يستخدم في الدراسات الأنثروبولوجية والاجتماعية."
+    - lemma: "السُّودَانُ"
+      generation_method: ishtiqaq
+      justification: "جمع 'أسود' في العربية، واستخدم تاريخياً كاسم جنس لهذه الطائفة من البشر."
+    - lemma: "السُّلَالَةُ السَّوْدَاءُ"
+      generation_method: tarkib
+      justification: "مصطلح علمي دقيق يربط اللون بالمفهوم الجيني (السلالة)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "العِرْقُ الأَسْوَدُ"
+      confirm:
+        - text: "«النزعة الاستعبادية للجنس الأبيض في إخضاع الجنس الأسود... الرقيق الأبيض مصطلح يطلق على الأشخاص من غير الجنس الأسود»"
+        - source: "معجم اللغة العربية المعاصرة"
+    - lemma: "زُنُوجٌ"
+      confirm:
+        - text: "«الزِّنْجُ، ويُكْسَرُ، والمَزْنَجَةُ والزُّنوجُ: جِيلٌ من السُّودانِ»"
+        - source: "القاموس المحيط"
+        - text: "«الزنج: جيل من السودان، وهم الزنوج»"
+        - source: "الصحاح في اللغة"
+    - lemma: "الزِّنْجُ"
+      confirm:
+        - text: "«جيل من السودان يتميز بالجلد الأسود، والشعر الجعد، والشفة الغليظة، والأنف الأفطس»"
+        - source: "المعجم الوسيط"
+        - text: "«طائفة من السودان تسكن تحت خط الاستواء وجنوبيه»"
+        - source: "المصباح المنير"
+    - lemma: "الجِنْسُ الأَسْوَدُ"
+      confirm:
+        - text: "«نوع من الجلاد تغلظ فيه الأنسجة القرنية الزهمية ويكثر بين أفراد الجنس الأسود»"
+        - source: "معجم المصطلحات الطبية"
+    - lemma: "السُّودَانُ"
+      confirm:
+        - text: "«جمع أسود، جيل من الناس سود البشرة. والنسبة إليه: سوداني»"
+        - source: "المعجم الوسيط"
+    - lemma: "السُّلَالَةُ السَّوْدَاءُ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "العِرْقُ الأَسْوَدُ"
+      decision: confirmed
+      decision_reason: "مصطلح وصفي حديث دقيق يتناسب مع تعريف المجموعة والترجمة العلمية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "العِرْقُ الأَسْوَدُ"
+    - lemma: "زُنُوجٌ"
+      decision: confirmed
+      decision_reason: "الجمع الشائع الاستعمال في العربية الحديثة لتمثيل أفراد هذا العرق، وهو مثبت في المعاجم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "زُنُوجٌ"
+    - lemma: "الزِّنْجُ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اسم الجنس الجمعي التراثي الأصيل في اللغة العربية، والأكثر دقة من حيث الماهية اللغوية لتمثيل العرق."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "الزِّنْجُ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "الجِنْسُ الأَسْوَدُ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح حديث شائع في الأدبيات العلمية والطبية والاجتماعية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "الجِنْسُ الأَسْوَدُ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "السُّودَانُ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ تراثي واسع الانتشار تاريخياً للدلالة على هذا العرق، ويميزه عن الدولة الحديثة سياق الاستخدام."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "السُّودَانُ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "عرق ذو بشرة داكنة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي فقير لغوياً، ويفضل تضمين الخصائص الأنثروبولوجية التي ذكرتها المعاجم العربية (كالوسيط) ليكون التعريف جامعاً مانعاً."
+    authored:
+      - type: encyclopedic
+        text: "سلالة بشرية تتميز تاريخياً ببشرة داكنة وشعر جعد وأنف أفطس وشفاه غليظة، تستوطن أصلاً مناطق جنوب الصحراء الكبرى في القارة الإفريقية."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "سلالة بشرية تتميز تاريخياً ببشرة داكنة وشعر جعد وأنف أفطس وشفاه غليظة، تستوطن أصلاً مناطق جنوب الصحراء الكبرى في القارة الإفريقية."}
+  examples:
+    per_lemma:
+      - lemma: "العِرْقُ الأَسْوَدُ"
+        examples:
+          - text: "ساهمت هجرة العرق الأسود إلى الأمريكتين في تشكيل ثقافات هجينة فريدة."
+            type: usage
+      - lemma: "زُنُوجٌ"
+        examples:
+          - text: "قاد مارتن لوثر كينغ نضال الزنوج في أمريكا للحصول على حقوقهم المدنية."
+            type: usage
+      - lemma: "الزِّنْجُ"
+        examples:
+          - text: "ذكر المسعودي في مروج الذهب تفاصيل عن بلاد الزنج وعاداتهم."
+            type: usage
+      - lemma: "الجِنْسُ الأَسْوَدُ"
+        examples:
+          - text: "تدرس الأنثروبولوجيا التطور الجيني للجنس الأسود وتوزعه الجغرافي."
+            type: usage
+      - lemma: "السُّودَانُ"
+        examples:
+          - text: "كان يطلق لفظ السودان قديماً على كافة الشعوب القاطنة جنوب الصحراء الإفريقية."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "ساهمت هجرة العرق الأسود إلى الأمريكتين في تشكيل ثقافات هجينة فريدة."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "قاد مارتن لوثر كينغ نضال الزنوج في أمريكا للحصول على حقوقهم المدنية."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "ذكر المسعودي في مروج الذهب تفاصيل عن بلاد الزنج وعاداتهم."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تدرس الأنثروبولوجيا التطور الجيني للجنس الأسود وتوزعه الجغرافي."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "كان يطلق لفظ السودان قديماً على كافة الشعوب القاطنة جنوب الصحراء الإفريقية."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "العِرْقُ الأَسْوَدُ"
+      entry_id: "{auto}"
+      roots:
+        - word: "العرق"
+          root: "عرق"
+          maqayis_quote: "«الْعَيْنُ وَالرَّاءُ وَالْقَافُ أَرْبَعَةُ أُصُولٍ صَحِيحَةٌ... الثَّانِي السِّنْخُ الْمُتَشَعِّبُ. مِنْ ذَلِكَ الْعِرْقُ عِرْقُ الشَّجَرَةِ.»"
+        - word: "الأسود"
+          root: "سود"
+          maqayis_quote: "«السِّينُ وَالْوَاوُ وَالدَّالُ أَصْلٌ وَاحِدٌ، وَهُوَ خِلَافُ الْبَيَاضِ فِي اللَّوْنِ.»"
+    - lemma: "زُنُوجٌ"
+      entry_id: "{auto}"
+      root: "زنج"
+      maqayis_quote: "«الزَّاءُ وَالنُّونُ وَالْجِيمُ لَيْسَ بِشَيْءٍ. عَلَى أَنَّهُمْ يَقُولُونَ الزَّنَجُ: الْعَطَشُ.»"
+    - lemma: "الزِّنْجُ"
+      entry_id: "{auto}"
+      root: "زنج"
+      maqayis_quote: "«الزَّاءُ وَالنُّونُ وَالْجِيمُ لَيْسَ بِشَيْءٍ. عَلَى أَنَّهُمْ يَقُولُونَ الزَّنَجُ: الْعَطَشُ.»"
+    - lemma: "الجِنْسُ الأَسْوَدُ"
+      entry_id: "{auto}"
+      roots:
+        - word: "الجنس"
+          root: "جنس"
+          maqayis_quote: "«الْجِيمُ وَالنُّونُ وَالسِّينُ كَلِمَةٌ وَاحِدَةٌ، وَهُوَ الْجِنْسُ لِكُلِّ شَيْءٍ. وَلَيْسَ هُوَ عِنْدِي مِنْ مَحْضِ الْكَلَامِ، وَلَكِنَّهُ لَفْظٌ وُضِعَ.»"
+        - word: "الأسود"
+          root: "سود"
+          maqayis_quote: "«السِّينُ وَالْوَاوُ وَالدَّالُ أَصْلٌ وَاحِدٌ، وَهُوَ خِلَافُ الْبَيَاضِ فِي اللَّوْنِ.»"
+    - lemma: "السُّودَانُ"
+      entry_id: "{auto}"
+      root: "سود"
+      maqayis_quote: "«السِّينُ وَالْوَاوُ وَالدَّالُ أَصْلٌ وَاحِدٌ، وَهُوَ خِلَافُ الْبَيَاضِ فِي اللَّوْنِ.»"
+  per_sense:
+    - lemma: "العِرْقُ الأَسْوَدُ"
+      sense_id: "{auto}"
+      nuance: "مصطلح وصفي حديث يُستخدم في السياقات الأنثروبولوجية والعلمية الرسمية."
+      mwe: true
+    - lemma: "زُنُوجٌ"
+      sense_id: "{auto}"
+      nuance: "جمع 'زنجي'، وهو اللفظ الأكثر تداولاً في الاستخدام العام الحديث لوصف الأفراد المنتمين لهذا العرق."
+      mwe: false
+    - lemma: "الزِّنْجُ"
+      sense_id: "{auto}"
+      nuance: "اسم جنس جمعي تراثي، يمثل الوحدة المعجمية الأصيلة في اللغة لوصف العرق ككل."
+      mwe: false
+    - lemma: "الجِنْسُ الأَسْوَدُ"
+      sense_id: "{auto}"
+      nuance: "مصطلح حديث يركز على التصنيف البيولوجي والعرقي ضمن السلالات البشرية."
+      mwe: true
+    - lemma: "السُّودَانُ"
+      sense_id: "{auto}"
+      nuance: "لفظ تراثي جمع 'أسود'، استخدم تاريخياً كاسم علم جغرافي وبشري للمناطق والشعوب ذات البشرة السوداء."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params: {entity_type: entry, entity_id: "{auto}", key: note, value: '{"roots":[{"word":"العرق","root":"عرق","maqayis":"«...»"},{"word":"الأسود","root":"سود","maqayis":"«...»"}]}'}
+    - command: set_metadata
+      params: {entity_type: entry, entity_id: "{auto}", key: note, value: '{"root":"زنج","maqayis":"«...»"}'}
+    - command: set_metadata
+      params: {entity_type: entry, entity_id: "{auto}", key: note, value: '{"root":"زنج","maqayis":"«...»"}'}
+    - command: set_metadata
+      params: {entity_type: entry, entity_id: "{auto}", key: note, value: '{"roots":[{"word":"الجنس","root":"جنس","maqayis":"«...»"},{"word":"الأسود","root":"سود","maqayis":"«...»"}]}'}
+    - command: set_metadata
+      params: {entity_type: entry, entity_id: "{auto}", key: note, value: '{"root":"سود","maqayis":"«...»"}'}
+    - command: set_metadata
+      params: {entity_type: sense, entity_id: "{auto}", key: note, value: '{"nuance":"مصطلح وصفي حديث يُستخدم في السياقات الأنثروبولوجية والعلمية الرسمية.","mwe":true}'}
+    - command: set_metadata
+      params: {entity_type: sense, entity_id: "{auto}", key: note, value: '{"nuance":"جمع ''زنجي''، وهو اللفظ الأكثر تداولاً في الاستخدام العام الحديث لوصف الأفراد المنتمين لهذا العرق.","mwe":false}'}
+    - command: set_metadata
+      params: {entity_type: sense, entity_id: "{auto}", key: note, value: '{"nuance":"اسم جنس جمعي تراثي، يمثل الوحدة المعجمية الأصيلة في اللغة لوصف العرق ككل.","mwe":false}'}
+    - command: set_metadata
+      params: {entity_type: sense, entity_id: "{auto}", key: note, value: '{"nuance":"مصطلح حديث يركز على التصنيف البيولوجي والعرقي ضمن السلالات البشرية.","mwe":true}'}
+    - command: set_metadata
+      params: {entity_type: sense, entity_id: "{auto}", key: note, value: '{"nuance":"لفظ تراثي جمع ''أسود''، استخدم تاريخياً كاسم علم جغرافي وبشري للمناطق والشعوب ذات البشرة السوداء.","mwe":false}'}
+    - command: set_metadata
+      params: {entity_type: synset, entity_id: "{synset_id}", key: note, value: '{"cultural_fit":"native"}'}
+    - command: set_confidence
+      params: {entity_type: synset, entity_id: "{synset_id}", score: 0.95}

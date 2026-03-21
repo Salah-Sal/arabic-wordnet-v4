@@ -1,0 +1,191 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمة الوحيدة الموجودة "زمن جيولوجي" تفتقر إلى التشكيل الكامل.
+      - المجموعة تفتقر إلى المترادفات الشائعة الأخرى في السياق العلمي العربي مثل "عصر جيولوجي".
+    observations: "المفهوم علمي تخصصي يرتبط بعلوم الأرض، والترجمة العربية الحالية دقيقة لكنها تحتاج لتعزيز ببدائل معجمية مستخدمة في الأدبيات الجيولوجية العربية."
+  blind_candidates:
+    - lemma: "زَمَنٌ جِيُولُوجِيّ"
+      generation_method: tarkib
+      justification: "الترجمة المباشرة والأكثر شيوعاً للمصطلح الإنجليزي (geological time)."
+    - lemma: "عَصْرٌ جِيُولُوجِيّ"
+      generation_method: tarkib
+      justification: "تعبير شائع الاستخدام للدلالة على الآماد الزمنية الطويلة المرتبطة بتاريخ الأرض."
+    - lemma: "تَارِيخُ الْأَرْض"
+      generation_method: tarkib
+      justification: "تعبير وصفي اصطلاحي يغطي دلالة التكوين والتطور المادي للأرض."
+    - lemma: "دَهْرٌ"
+      generation_method: majaz
+      justification: "لفظ عربي أصيل يدل على الأمد الممدود، ويستخدم في الجيولوجيا للدلالة على أكبر وحدات الزمن الجيولوجي (Eon)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "زمن جيولوجي"
+      confirm:
+        - text: "مقياس الزمن الجيولوجي: تسلسل زمني للأحداث الجيولوجية تُمَثَّلُ عادة في شكل رسم بياني..."
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+        - text: "الزمن الجيولوجي (Geological time)"
+          source: "المكنز الزراعي (AGROVOC)"
+    - lemma: "عصر جيولوجي"
+      confirm:
+        - text: "عصر جيولوجي انطلق منذ حوالي 360 مليون سنة..."
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+        - text: "عصر جيولوجي يتضمن فترات الترياسي، والجوراسي..."
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+    - lemma: "تاريخ الأرض"
+      confirm:
+        - text: "زمن (ال..) الرابع: ويمثل الفترة الأخيرة من تاريخ الأرض في مقياس الزمن الجيولوجي..."
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+        - text: "الزمن الجيولوجي من بداية تاريخ الأرض إلى 570 مليون سنة قبل الحاضر."
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+    - lemma: "دهر"
+      expands:
+        - text: "الزمن الجيولوجي المطلق أو النسبي الذي يرجع إليه وقت تكون صخر ما"
+          source: "المعجم الموحد لمصطلحات الجيولوجيا (تحت مدخل عُمر/Eon)"
+        - text: "الدَّهْرُ: الزَّمانُ الطَّوِيلُ، والأَمَدُ المَمْدُودُ"
+          source: "القاموس المحيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "زمن جيولوجي"
+      decision: confirmed
+      decision_reason: "المصطلح الأساسي والمعتمد في المعاجم العلمية والموحدة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "زَمَنٌ جِيُولُوجِيّ"
+    - lemma: "عصر جيولوجي"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي مستقر في الأدبيات الجيولوجية العربية، ويستخدم كمرادف للزمن الجيولوجي في السياقات العامة والتخصصية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "عَصْرٌ جِيُولُوجِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تاريخ الأرض"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير مركّب يعبر عن الجانب التطوري والتتابعي الوارد في التعريف، وهو مستخدم بكثرة كمرادف موضوعي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "تَارِيخُ الْأَرْض", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "دهر"
+      source: stage1
+      decision: removed
+      decision_reason: "على الرغم من دلالته اللغوية على الزمن الطويل، إلا أنه في الاصطلاح الجيولوجي يمثل وحدة زمنية محددة (Eon) وليس مفهوم الزمن الجيولوجي العام."
+
+stage4_content:
+  definition:
+    current: "زمن التكوين المادي وتطور الأرض (خاصة قبل التاريخ البشري)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقبول لكنه يحتاج لأسلوب معجمي أكثر ضبطاً يبرز المدى الزمني الطويل والوظيفة التأريخية."
+    authored:
+      - type: terminological
+        text: "مُدَّةُ تَكَوُّنِ كَوْكَبِ الْأَرْضِ مَادِيًّا وَتَطَوُّرِهِ عَبْرَ مَلَايِينِ السِّنِينَ، وَيُؤَرَّخُ بِهَا لِلْأَحْدَاثِ الْكُبْرَى قَبْلَ ظُهُورِ الْإِنْسَانِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مُدَّةُ تَكَوُّنِ كَوْكَبِ الْأَرْضِ مَادِيًّا وَتَطَوُّرِهِ عَبْرَ مَلَايِينِ السِّنِينَ، وَيُؤَرَّخُ بِهَا لِلْأَحْدَاثِ الْكُبْرَى قَبْلَ ظُهُورِ الْإِنْسَانِ."}
+  examples:
+    per_lemma:
+      - lemma: "زَمَنٌ جِيُولُوجِيّ"
+        examples:
+          - text: "يُقسّم العلماء الزمن الجيولوجي إلى دهور وأحقاب وعصور لسهولة دراسة تاريخ كوكبنا."
+            type: usage
+      - lemma: "عَصْرٌ جِيُولُوجِيّ"
+        examples:
+          - text: "شهد كل عصر جيولوجي تغيرات مناخية كبرى أثرت على تنوع الكائنات الحية."
+            type: usage
+      - lemma: "تَارِيخُ الْأَرْض"
+        examples:
+          - text: "تعد دراسة الصخور الرسوبية الوسيلة الأساسية لفهم تاريخ الأرض وتطور قشرتها."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يُقاس الزمن الجيولوجي بملايين السنين، وهو يغطي الأحداث منذ نشأة الأرض حتى العصور الحديثة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "زَمَنٌ جِيُولُوجِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "زمن"
+          root: "زمن"
+          maqayis_quote: "«الزَّاءُ وَالْمِيمُ وَالنُّونُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى وَقْتٍ مِنَ الْوَقْتِ.»"
+        - word: "جيولوجي"
+          root: "جيولوجيا"
+          maqayis_quote: "«(لفظ معرّب)»"
+    - lemma: "عَصْرٌ جِيُولُوجِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "عصر"
+          root: "عصر"
+          maqayis_quote: "«الْعَيْنُ وَالصَّادُ وَالرَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ مِثْلُ الدَّهْرِ وَالْحِينِ.»"
+    - lemma: "تَارِيخُ الْأَرْض"
+      entry_id: "{auto}"
+      roots:
+        - word: "تاريخ"
+          root: "أرخ"
+          maqayis_quote: "«الْهَمْزَةُ وَالرَّاءُ وَالْخَاءُ أصل لَيْسَ بِالْعَرَبِيِّ الْخَالِصِ، وَقَدْ أَرَّخْتُ الْكِتَابَ.»"
+  per_sense:
+    - lemma: "زَمَنٌ جِيُولُوجِيّ"
+      sense_id: "{auto}"
+      nuance: "المصطلح العلمي الأكثر شمولاً وتجريداً لوصف البعد الزمني للأرض."
+      mwe: true
+    - lemma: "عَصْرٌ جِيُولُوجِيّ"
+      sense_id: "{auto}"
+      nuance: "يركز على تقسيم الزمن إلى فترات متميزة جيولوجياً أو حيوياً."
+      mwe: true
+    - lemma: "تَارِيخُ الْأَرْض"
+      sense_id: "{auto}"
+      nuance: "يؤكد على الجانب السردي والتتابعي للأحداث والتحولات التي مرت بها الأرض."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"زمن","root":"زمن","maqayis":"«الزَّاءُ وَالْمِيمُ وَالنُّونُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى وَقْتٍ مِنَ الْوَقْتِ.»"},{"word":"جيولوجي","root":"جيولوجيا","maqayis":"(معرب)"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العلمي الأكثر شمولاً وتجريداً لوصف البعد الزمني للأرض.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

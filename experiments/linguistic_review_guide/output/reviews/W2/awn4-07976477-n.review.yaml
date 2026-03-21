@@ -1,0 +1,210 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة «مجموعة حيل» هي عبارة وصفية حرة (free phrase) وليست وحدة معجمية مسكوكة."
+      - "نقص التشكيل في اللمات الموجودة."
+    observations: "المجموعة تعبر عن مفهوم «gimmickry» وهو استخدام الحيل الجاذبة للانتباه، خاصة في السياق الدعائي. اللمة «حيل دعائية» مناسبة جداً، ولكن المفهوم أوسع من مجرد الدعاية."
+  blind_candidates:
+    - lemma: "بَهْرَجَةٌ"
+      generation_method: ishtiqaq
+      justification: "تعبر عن الجانب الاستعراضي والجذب السطحي للانتباه الذي تتسم به الحيل الدعائية."
+    - lemma: "حِيَلٌ تَرْوِيجِيَّةٌ"
+      generation_method: tarkib
+      justification: "مرادف مهني دقيق للحيل المستخدمة في التسويق والجذب."
+    - lemma: "أَلَاعِيبُ"
+      generation_method: ishtiqaq
+      justification: "تستخدم غالباً للتعبير عن الحيل الذكية أو الخداعية المتبعة لتحقيق غرض ما (gimmicks)."
+    - lemma: "وَسَائِلُ تَحَايُلٍ"
+      generation_method: tarkib
+      justification: "ترجمة دقيقية لمصطلح gimmickry كما ورد في المعاجم الحديثة (المورد)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "حيل دعائية"
+      confirm:
+        - text: "«وسيلة جديدة أو فكرة بارعة لحلّ مشكلة أو تحقيق هدف» (تحت مادة gimmick)"
+          source: "المورد الحديث (2008)"
+    - lemma: "مجموعة حيل"
+      evidence_status: "no_material_found"
+    - lemma: "بَهْرَجَةٌ"
+      confirm:
+        - text: "«البَهْرَجة: أن يُعْدَل بالشيء عن الجادة القاصدة إلى غيرها»"
+          source: "تاج العروس"
+        - text: "«لا داعي لهذه البَهْرَجة: الخروج عن الحد المألوف [فصيحة]»"
+          source: "معجم الصواب اللغوي"
+    - lemma: "أَلَاعِيبُ"
+      confirm:
+        - text: "«الأُلْعوبةُ: اللَّعِبُ. وبينهم أُلْعُوبة، مِن اللَّعِبِ»"
+          source: "لسان العرب"
+    - lemma: "حِيَلٌ تَرْوِيجِيَّةٌ"
+      confirm:
+        - text: "«وسائل تحايُل (ترجمة gimmickry)»"
+          source: "المورد الحديث (2008)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "حيل دعائية"
+      decision: confirmed
+      decision_reason: "مصطلح شائع ومستقر للتعبير عن الحيل المستخدمة في الدعاية والجذب."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حِيَلٌ دِعَائِيَّةٌ"
+    - lemma: "مجموعة حيل"
+      decision: removed
+      decision_reason: "عبارة وصفية حرة وليست مصطلحاً معجمياً."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "بَهْرَجَةٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبر عن الجانب الاستعراضي من المفهوم (flashy gimmickry)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "بَهْرَجَةٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "أَلَاعِيبُ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تستخدم في السياقات المعاصرة للتعبير عن الحيل المبتكرة (gimmicks)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "أَلَاعِيبُ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "حِيَلٌ تَرْوِيجِيَّةٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف مهني دقيق ومستخدم في مجالات التسويق."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "حِيَلٌ تَرْوِيجِيَّةٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "مجموعة من الحيل أو الوسائل المبتكرة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي بسيط ويحتاج لبيان الغرض من هذه الحيل (الجذب أو الترويج)."
+    authored:
+      - type: terminological
+        text: "مَجْموعَةٌ مِنَ الوَسائِلِ المَبْنِيَّةِ عَلى الحِيَلِ أَوِ الِابْتِكارِ لِجَذْبِ الِانْتِباهِ أَوِ التَّرْويجِ لِشَيْءٍ ما."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مَجْموعَةٌ مِنَ الوَسائِلِ المَبْنِيَّةِ عَلى الحِيَلِ أَوِ الِابْتِكارِ لِجَذْبِ الِانْتِباهِ أَوِ التَّرْويجِ لِشَيْءٍ ما."}
+
+  examples:
+    per_lemma:
+      - lemma: "حِيَلٌ دِعَائِيَّةٌ"
+        examples:
+          - text: "تَعْتَمِدُ الشَّرِكَةُ عَلى حِيَلٍ دِعَائِيَّةٍ مُبْتَكَرَةٍ لِجَذْبِ الزَّبائِنِ."
+            type: usage
+      - lemma: "بَهْرَجَةٌ"
+        examples:
+          - text: "لَمْ يَكُنِ المُنْتَجُ جَيِّداً رَغْمَ كُلِّ هذه البَهْرَجَةِ الَّتي صاحَبَتْ إِطْلاقَهُ."
+            type: usage
+      - lemma: "أَلَاعِيبُ"
+        examples:
+          - text: "كَشَفَ الصَّحَفِيُّ الأَلَاعِيبَ الَّتي اسْتُخْدِمَتْ لِتَضْليلِ الرَّأْيِ العامِّ."
+            type: usage
+      - lemma: "حِيَلٌ تَرْوِيجِيَّةٌ"
+        examples:
+          - text: "تَسْتَخْدِمُ المَتاجرُ الكُبْرى حِيَلًا تَرْوِيجِيَّةً في مَواسِمِ التَّخْفيضاتِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تَعْتَمِدُ الشَّرِكَةُ عَلى حِيَلٍ دِعَائِيَّةٍ مُبْتَكَرَةٍ لِجَذْبِ الزَّبائِنِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "حِيَلٌ دِعَائِيَّةٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "حيل"
+          root: "حول"
+          maqayis_quote: "«الْحَاءُ وَالْوَاوُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ تَحَرُّكٌ فِي دَوْرٍ... وَالْحِيلَةُ وَالْحَوِيلُ وَالْمُحَاوَلَةُ مِنْ طَرِيقٍ وَاحِدٍ... لِأَنَّهُ يَدُورُ حَوَالَيِ الشَّيْءِ لِيُدْرِكَهُ.»"
+        - word: "دعائية"
+          root: "دعو"
+          maqayis_quote: "«الدَّالُ وَالْعَيْنُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ، وَهُوَ أَنْ تُمِيلَ الشَّيْءَ إِلَيْكَ بِصَوْتٍ وَكَلَامٍ يَكُونُ مِنْكَ.»"
+    - lemma: "بَهْرَجَةٌ"
+      entry_id: "{auto}"
+      root: "بهرج"
+      maqayis_quote: "«جذر رباعي يعبر عن العدول عن الجادة أو الزخرفة الزائدة.»"
+    - lemma: "أَلَاعِيبُ"
+      entry_id: "{auto}"
+      root: "لعب"
+      maqayis_quote: "«اللَّامُ وَالْعَيْنُ وَالْبَاءُ كَلِمَتَانِ... إِحْدَاهُمَا اللَّعِبُ مَعْرُوفٌ... وَقِيلَ: إِنَّ أَصْلَ الْبَابِ هُوَ الذَّهَابُ عَلَى غَيْرِ اسْتِقَامَةٍ.»"
+  per_sense:
+    - lemma: "حِيَلٌ دِعَائِيَّةٌ"
+      sense_id: "{auto}"
+      nuance: "تحدد السياق الإعلاني والتسويقي للحيلة."
+      mwe: true
+    - lemma: "بَهْرَجَةٌ"
+      sense_id: "{auto}"
+      nuance: "تركز على الجانب الشكلي والاستعراضي الفارغ من المضمون."
+      mwe: false
+    - lemma: "أَلَاعِيبُ"
+      sense_id: "{auto}"
+      nuance: "توحي بالمكر والدهاء والمهارة في تنفيذ الحيلة."
+      mwe: false
+    - lemma: "حِيَلٌ تَرْوِيجِيَّةٌ"
+      sense_id: "{auto}"
+      nuance: "تعبير مهني رسمي يستخدم في سياق تنشيط المبيعات."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"حيل","root":"حول","maqayis":"«...»"},{"word":"دعائية","root":"دعو","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"بهرج","maqayis":"«...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تحدد السياق الإعلاني والتسويقي للحيلة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params: {entity_type: synset, entity_id: "{synset_id}", score: 0.9}

@@ -1,0 +1,243 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّة (تحية) قد توحي في الاستعمال الغالب بالسلام، إلا أنها في سياق (تحية لـ) تعني التقدير والإجلال."
+    observations: "المجموعة تغطي مفاهيم المدح والتقدير العلني. اللمّات الموجودة (إشادة، تحية، تنويه) دقيقة، ولكنها تفتقر لمصطلحات جوهرية مثل (ثناء) و(تكريم) و(تقدير)."
+  blind_candidates:
+    - lemma: "إِشَادَة"
+      generation_method: ishtiqaq
+      justification: "مصدر (أشاد بـ) وهو المصطلح الأكثر شيوعاً للتعبير عن المدح والتقدير العلني."
+    - lemma: "تَقْدِير"
+      generation_method: ishtiqaq
+      justification: "يعبر عن الاعتراف بقيمة الشخص وفضله، وهو جزء أصيل من تعريف المجموعة."
+    - lemma: "ثَنَاء"
+      generation_method: ishtiqaq
+      justification: "لفظ تراثي فصيح يعني ذكر المحامد والمناقب تعظيماً للشخص."
+    - lemma: "تَكْرِيم"
+      generation_method: ishtiqaq
+      justification: "يشير إلى الفعل الرسمي أو الاحتفالي للاعتراف بفضل الشخص."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "إِشَادَة"
+      confirm:
+        - text: "«أشاد ذكرَه/ أشاد بذكره: أثنى عليه بعباراتٍ تقريظيَّة، مدَحه، رفعه بالثناء عليه»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«والإشادة: رفع الصوت والتنويه»"
+          source: "مقاييس اللغة"
+    - lemma: "تَحِيَّة"
+      confirm:
+        - text: "«التَّحيَّةُ: الإكرامُ والإحسانُ والتَّفَضُّلُ»"
+          source: "المعجم الكبير"
+      expands:
+        - text: "«(4) pl.: تحيّات؛ تمنّيات (synonym to praise/commendation)»"
+          source: "المورد الحديث"
+    - lemma: "تَنْوِيه"
+      confirm:
+        - text: "«التنويه: رفع ذكر الشيء وتعظيمه»"
+          source: "التوقيف على مهمات التعاريف"
+        - text: "«تنويهٌ أو إشادة ببطولة [جنديّ] أو تفوُّق [خرِّيج من جامعة]»"
+          source: "المورد الحديث"
+    - lemma: "تَقْدِير"
+      confirm:
+        - text: "«التقدير: إبداء الاحترام لشخص ما اعتبارا لفضله أو مجهوده»"
+          source: "مسرد الإعلام والتواصل (ArabTerm)"
+    - lemma: "ثَنَاء"
+      confirm:
+        - text: "«الثناء للشيء: فعل ما يشعر بتعظيمه»"
+          source: "كتاب التعريفات للجرجاني"
+        - text: "«الثَّنَاء: ذكر الْخَيْر بِاللِّسَانِ»"
+          source: "دستور العلماء"
+    - lemma: "تَكْرِيم"
+      confirm:
+        - text: "«مَدْح؛ إطراء؛ ثناء ... تكريم»"
+          source: "المورد الحديث"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "إشادة"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي يعبر بدقة عن المدح العلني والرفع من شأن الشخص."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "إِشَادَة"
+    - lemma: "تحية"
+      decision: confirmed
+      decision_reason: "تُستخدم بمعنى (Homage/Tribute) في السياقات الرسمية والاحتفالية للتقدير."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَحِيَّة"
+    - lemma: "تنويه"
+      decision: confirmed
+      decision_reason: "يعني رفع ذكر الشخص وإظهار فضله علناً، وهو مطابق لتعريف المجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَنْوِيه"
+    - lemma: "تقدير"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ جوهري للاعتراف بالفضل والقيمة، ويُستخدم كثيراً في شهادات التقدير الرسمية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَقْدِير", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "ثناء"
+      source: stage1
+      decision: confirmed
+      decision_reason: "أحد أدق الألفاظ العربية للتعبير عن ذكر المحامد والتعظيم باللسان."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "ثَنَاء", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تكريم"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر عن الجانب الإجرائي والاحتفالي من التقدير العلني."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَكْرِيم", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "فعل التقدير أو الاعتراف بفضل شخص ما علناً"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وظيفي لكنه يفتقر إلى الجزالة اللغوية والشمول لمفاهيم الإطراء والتعظيم."
+    authored:
+      - type: terminological
+        text: "الإطراءُ على الشخص والاعترافُ بفضله ورفعُ ذكره بين الناس تعبيراً عن التقدير والاحترام."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "إِشَادَة"
+        examples:
+          - text: "تلقى العالمُ إشادةً واسعةً من الأوساط الأكاديمية لاكتشافه الجديد."
+            type: usage
+      - lemma: "تَحِيَّة"
+        examples:
+          - text: "وقف الحضورُ دقيقةَ صمتٍ تحيةً لأرواح الشهداء."
+            type: usage
+      - lemma: "تَنْوِيه"
+        examples:
+          - text: "حصل الباحثُ على تنويهٍ خاصٍّ من لجنة التحكيم لتميز أسلوبه."
+            type: usage
+      - lemma: "تَقْدِير"
+        examples:
+          - text: "نال الموظفُ المثاليُّ شهادةَ تقديرٍ لجهوده المخلصة."
+            type: usage
+      - lemma: "ثَنَاء"
+        examples:
+          - text: "انهال الثناءُ على القائد الشجاع بعد نجاح العملية."
+            type: usage
+      - lemma: "تَكْرِيم"
+        examples:
+          - text: "أقيم حفلُ تكريمٍ كبيرٍ للأدباء المتميزين في نهاية المهرجان."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "الإطراءُ على الشخص والاعترافُ بفضله ورفعُ ذكره بين الناس تعبيراً عن التقدير والاحترام."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تلقى العالمُ إشادةً واسعةً من الأوساط الأكاديمية لاكتشافه الجديد."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "إِشَادَة"
+      entry_id: "{auto}"
+      root: "شيد"
+      maqayis_quote: "«الشِّينُ وَالْيَاءُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُ عَلَى رَفْعِ الشَّيْءِ... وَالْإِشَادَةُ: رَفْعُ الصَّوْتِ وَالتَّنْوِيهُ.»"
+    - lemma: "تَحِيَّة"
+      entry_id: "{auto}"
+      root: "حيي"
+      maqayis_quote: "«الْحَاءُ وَالْيَاءُ وَالْوَاوُ أَصْلٌ وَاحِدٌ، وَهُوَ خِلَافُ الْمَوْتِ... وَالتَّحِيَّةُ: الْمُلْكُ، وَقِيلَ الْبَقَاءُ.»"
+    - lemma: "تَنْوِيه"
+      entry_id: "{auto}"
+      root: "نوه"
+      maqayis_quote: "«النُّونُ وَالْوَاوُ وَالْهَاءُ كَلِمَةٌ تَدُلُّ عَلَى سُمُوٍّ وَارْتِفَاعٍ... وَنَوَّهْتُ: رَفَعْتُ ذِكْرَهُ.»"
+    - lemma: "تَقْدِير"
+      entry_id: "{auto}"
+      root: "قدر"
+      maqayis_quote: "«الْقَافُ وَالدَّالُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مَبْلَغِ الشَّيْءِ وَكُنْهِهِ وَنِهَايَتِهِ.»"
+    - lemma: "ثَنَاء"
+      entry_id: "{auto}"
+      root: "ثني"
+      maqayis_quote: "«الثَّاءُ وَالنُّونُ وَالْيَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ تَكْرِيرُ الشَّيْءِ مَرَّتَيْنِ... وَالثَّنَاءُ لِعَطْفِ الْمَنَاقِبِ فِي الْمَدْحِ.»"
+    - lemma: "تَكْرِيم"
+      entry_id: "{auto}"
+      root: "كرم"
+      maqayis_quote: "«الْكَافُ وَالرَّاءُ وَالْمِيمُ أَصْلٌ صَحِيحٌ... شَرَفٌ فِي الشَّيْءِ فِي نَفْسِهِ أَوْ شَرَفٌ فِي خُلُقٍ مِنَ الْأَخْلَاقِ.»"
+  per_sense:
+    - lemma: "إِشَادَة"
+      sense_id: "{auto}"
+      nuance: "تركز على الجهر بالمدح ورفع الصوت به ليعلمه الجميع."
+      mwe: false
+    - lemma: "تَحِيَّة"
+      sense_id: "{auto}"
+      nuance: "تقدير يتخذ شكل لفتة احترام أو إجلال رسمي (Homage)."
+      mwe: false
+    - lemma: "تَنْوِيه"
+      sense_id: "{auto}"
+      nuance: "إبراز الفضل وذكره بخصوصية لتمييزه عن غيره."
+      mwe: false
+    - lemma: "تَقْدِير"
+      sense_id: "{auto}"
+      nuance: "اعتراف بالقيمة المعنوية أو العملية للشخص وجهوده."
+      mwe: false
+    - lemma: "ثَنَاء"
+      sense_id: "{auto}"
+      nuance: "تعداد المحامد والصفات الحسنة تكراراً وتعظيماً."
+      mwe: false
+    - lemma: "تَكْرِيم"
+      sense_id: "{auto}"
+      nuance: "التقدير الذي يترجم إلى فعل أو حفل أو جائزة رسمية."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

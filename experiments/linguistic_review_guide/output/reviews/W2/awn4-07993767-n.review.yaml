@@ -1,0 +1,269 @@
+stage1_review:
+  assessment:
+    concerns: []
+    observations: "التعريف الموجود دقيق ومناسب جداً لمفهوم (kludge) في سياق تجميع الأجزاء. اللمة الحالية (تجميعة ملفقة) تعبر عن المعنى بشكل ممتاز كمركب وصفي. يمكن إضافة كلمات مفردة مثل (تلفيقة) و(ترقيعة) التي تحمل نفس الدلالة في السياق التقني والعام."
+  blind_candidates:
+    - lemma: "تَلْفِيقَة"
+      generation_method: ishtiqaq
+      justification: "اسم مرة من الفعل (لفّق) يدل على الشيء الذي تم جمعه وتركيبه على عجل وبغير إتقان لسد الحاجة."
+    - lemma: "تَرْقِيعَة"
+      generation_method: ishtiqaq
+      justification: "اسم مرة من الفعل (رقّع) يستخدم مجازاً للدلالة على الحل المرتجل أو التجميعة المؤقتة لمعالجة خلل ما."
+    - lemma: "تَجْمِيعَة مُلَفَّقَة"
+      generation_method: tarkib
+      justification: "وصف مباشر لمجموعة تم تجميعها بأسلوب التلفيق (الجمع السريع غير المتقن)."
+    - lemma: "حَلّ تَرْقِيعِيّ"
+      generation_method: tarkib
+      justification: "تعبير اصطلاحي شائع يشير إلى الحلول المؤقتة والمجمعة على عجل (workaround/kludge)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تجميعة ملفقة"
+      evidence_status: "no_material_found"
+    - lemma: "تلفيقة"
+      confirm:
+        - text: "لَفَّقَ الحديثَ: زخرفه ومَوَّهه بالباطل, فهو ملفَّق."
+          source: "المعجم الوسيط"
+        - text: "اللَّامُ وَالْفَاءُ وَالْقَافُ أُصَيْلٌ يَدُلُّ عَلَى مُلَاءَمَةِ الْأَمْرِ. يُقَالُ: لَفَقْتُ الثَّوْبَ بِالثَّوْبِ لَفْقًا."
+          source: "مقاييس اللغة"
+    - lemma: "ترقيعة"
+      confirm:
+        - text: "الرُّقْعَةُ: ما يُرقع به الخرْق أو القطع."
+          source: "المعجم الوسيط"
+        - text: "الرَّاءُ وَالْقَافُ وَالْعَيْنُ أَصْلٌ يَدُلُّ عَلَى سَدِّ خَلَلٍ بِشَيْءٍ. يُقَالُ رَقَعْتُ الثَّوْبَ رَقْعًا."
+          source: "مقاييس اللغة"
+    - lemma: "حل ترقيعي"
+      expands:
+        - text: "ترقيعيَّة: مصدر صناعيّ من ترقيع: معالجة الأمور معالجةً سطحيَّةً مؤقَّتةً بدون عناية كافية (حلول/ إجراءات ترقيعيّة)."
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "عمل مرتجل"
+      confirm:
+        - text: "kludge: 1- تشكيلٌ أو بناءٌ عتاديٌّ مؤقّت أو قصير الأمد. 2- برنامجٌ مُميَّزٌ بقصورٍ في التصميم أو التصور القبليّ، كأنْ يُكتَبَ على عجلة ليسُدَّ حاجة آنية."
+          source: "معجم مصطلحات المعلوماتية (2000)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تجميعة ملفقة"
+      decision: confirmed
+      decision_reason: "اللمة الحالية تعبر بدقة تامة عن المعنى الوارد في التعريف، وهي مركب وصفي سليم يترجم المفهوم."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَجْمِيعَة مُلَفَّقَة"
+    - lemma: "تَلْفِيقَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "كلمة مفردة فصيحة ومستعملة تؤدي المعنى المقصود (شيء لُفّق وصُنع على عجل)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "تَلْفِيقَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "تَرْقِيعَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تستخدم مجازاً بكثرة في السياقات التقنية والعامة للدلالة على الحل أو التجميعة المرتجلة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "تَرْقِيعَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "حَلّ تَرْقِيعِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "على الرغم من شيوعها، إلا أنها أقرب لمفهوم (workaround) من مفهوم (kludge) الذي يركز على تجميع المكونات، وتكفي اللمات الأخرى."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+    - lemma: "عَمَل مُرْتَجَل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مثبتة معجمياً كمقابل مباشر لمصطلح (kludge)، وتفيد معنى التجميع السريع لسد الحاجة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "عَمَل مُرْتَجَل"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "مجموعة أجزاء مجمعة بشكل سيء وعلى عجل لخدمة غرض معين"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق ومصاغ بلغة عربية فصيحة وواضحة، ويطابق التعريف الإنجليزي تماماً."
+  examples:
+    per_lemma:
+      - lemma: "تجميعة ملفقة"
+        examples:
+          - text: "اضطر المهندس إلى بناء تجميعة ملفقة من القطع القديمة لتشغيل الجهاز مؤقتاً."
+            type: usage
+      - lemma: "تَلْفِيقَة"
+        examples:
+          - text: "يبدو هذا البرنامج مجرد تلفيقة لا ترقى لمستوى البرمجيات الاحترافية."
+            type: usage
+      - lemma: "تَرْقِيعَة"
+        examples:
+          - text: "استخدم الفني ترقيعة سريعة لإيقاف تسرب المياه ريثما يتم استبدال الأنبوب."
+            type: usage
+      - lemma: "عَمَل مُرْتَجَل"
+        examples:
+          - text: "كان المشروع مجرد عمل مرتجل غير مبني على أسس هندسية سليمة."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "اضطر المهندس إلى بناء تجميعة ملفقة من القطع القديمة لتشغيل الجهاز مؤقتاً."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يبدو هذا البرنامج مجرد تلفيقة لا ترقى لمستوى البرمجيات الاحترافية."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "استخدم الفني ترقيعة سريعة لإيقاف تسرب المياه ريثما يتم استبدال الأنبوب."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "كان المشروع مجرد عمل مرتجل غير مبني على أسس هندسية سليمة."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تجميعة ملفقة"
+      entry_id: "{auto}"
+      roots:
+        - word: "تجميعة"
+          root: "جمع"
+          maqayis_quote: "«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ.»"
+        - word: "ملفقة"
+          root: "لفق"
+          maqayis_quote: "«اللَّامُ وَالْفَاءُ وَالْقَافُ أُصَيْلٌ يَدُلُّ عَلَى مُلَاءَمَةِ الْأَمْرِ. يُقَالُ: لَفَقْتُ الثَّوْبَ بِالثَّوْبِ لَفْقًا.»"
+    - lemma: "تَلْفِيقَة"
+      entry_id: "{auto}"
+      root: "لفق"
+      maqayis_quote: "«اللَّامُ وَالْفَاءُ وَالْقَافُ أُصَيْلٌ يَدُلُّ عَلَى مُلَاءَمَةِ الْأَمْرِ. يُقَالُ: لَفَقْتُ الثَّوْبَ بِالثَّوْبِ لَفْقًا.»"
+    - lemma: "تَرْقِيعَة"
+      entry_id: "{auto}"
+      root: "رقع"
+      maqayis_quote: "«الرَّاءُ وَالْقَافُ وَالْعَيْنُ أَصْلٌ يَدُلُّ عَلَى سَدِّ خَلَلٍ بِشَيْءٍ. يُقَالُ رَقَعْتُ الثَّوْبَ رَقْعًا.»"
+    - lemma: "عَمَل مُرْتَجَل"
+      entry_id: "{auto}"
+      roots:
+        - word: "عمل"
+          root: "عمل"
+          maqayis_quote: "«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامٌّ فِي كُلِّ فِعْلٍ يُفْعَلُ.»"
+        - word: "مرتجل"
+          root: "رجل"
+          maqayis_quote: "«الرَّاءُ وَالْجِيمُ وَاللَّامُ مُعْظَمُ بَابِهِ يَدُلُّ عَلَى الْعُضْوِ الَّذِي هُوَ رِجْلُ كُلِّ ذِي رِجْلٍ.»"
+  per_sense:
+    - lemma: "تجميعة ملفقة"
+      sense_id: "{auto}"
+      nuance: "تعبير مركب يصف بدقة طبيعة الأشياء المجمعة بشكل غير متقن."
+      mwe: true
+    - lemma: "تَلْفِيقَة"
+      sense_id: "{auto}"
+      nuance: "كلمة مفردة تستخدم للإشارة إلى التجميع والتركيب السريع غير المعتمد على أصول."
+      mwe: false
+    - lemma: "تَرْقِيعَة"
+      sense_id: "{auto}"
+      nuance: "تركز على الجانب العلاجي أو الإصلاحي السريع والمؤقت الذي يفتقر للإتقان."
+      mwe: false
+    - lemma: "عَمَل مُرْتَجَل"
+      sense_id: "{auto}"
+      nuance: "تعبير يركز على العشوائية والارتجال في الإنجاز دون تخطيط مسبق."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"تجميعة","root":"جمع","maqayis":"«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ.»"},{"word":"ملفقة","root":"لفق","maqayis":"«اللَّامُ وَالْفَاءُ وَالْقَافُ أُصَيْلٌ يَدُلُّ عَلَى مُلَاءَمَةِ الْأَمْرِ. يُقَالُ: لَفَقْتُ الثَّوْبَ بِالثَّوْبِ لَفْقًا.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"لفق","maqayis":"«اللَّامُ وَالْفَاءُ وَالْقَافُ أُصَيْلٌ يَدُلُّ عَلَى مُلَاءَمَةِ الْأَمْرِ. يُقَالُ: لَفَقْتُ الثَّوْبَ بِالثَّوْبِ لَفْقًا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"رقع","maqayis":"«الرَّاءُ وَالْقَافُ وَالْعَيْنُ أَصْلٌ يَدُلُّ عَلَى سَدِّ خَلَلٍ بِشَيْءٍ. يُقَالُ رَقَعْتُ الثَّوْبَ رَقْعًا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"عمل","root":"عمل","maqayis":"«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامٌّ فِي كُلِّ فِعْلٍ يُفْعَلُ.»"},{"word":"مرتجل","root":"رجل","maqayis":"«الرَّاءُ وَالْجِيمُ وَاللَّامُ مُعْظَمُ بَابِهِ يَدُلُّ عَلَى الْعُضْوِ الَّذِي هُوَ رِجْلُ كُلِّ ذِي رِجْلٍ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير مركب يصف بدقة طبيعة الأشياء المجمعة بشكل غير متقن.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"كلمة مفردة تستخدم للإشارة إلى التجميع والتركيب السريع غير المعتمد على أصول.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركز على الجانب العلاجي أو الإصلاحي السريع والمؤقت الذي يفتقر للإتقان.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير يركز على العشوائية والارتجال في الإنجاز دون تخطيط مسبق.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

@@ -1,0 +1,161 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة تفتقر إلى التشكيل الكامل."
+      - "عدم وجود الاسم المفرد (شيلان) كلمّة مستقلة في المجموعة رغم شيوعه."
+    observations: "المجموعة تخص معلماً جغرافياً محدداً (بحيرة في الولايات المتحدة)، والترجمة العربية المعتمدة تتبع نظام التعريب الصوتي لاسم العلم 'Chelan' مسبوقاً بكلمة 'بحيرة'."
+  blind_candidates:
+    - lemma: "بُحَيْرَةُ شِيلَان"
+      generation_method: tarkib
+      justification: "التركيب الإضافي المعتاد في تسمية البحيرات الأجنبية (بحيرة + اسم العلم)."
+    - lemma: "بُحَيْرَةُ تَشِيلَان"
+      generation_method: tarkib
+      justification: "صيغة بديلة للتعريب الصوتي لاسم (Chelan) حيث يُقلب صوت (Ch) أحياناً إلى (تش)."
+    - lemma: "بُحَيْرَةُ شِلَان"
+      generation_method: tarkib
+      justification: "رسم بديل بحذف الياء الزائدة في التعريب."
+    - lemma: "شِيلَان"
+      generation_method: majaz
+      justification: "اسم العلم المفرد الذي يطلق على البحيرة والمقاطعة المحيطة بها."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "بحيرة شيلان"
+      evidence_status: "no_material_found"
+    - lemma: "شيلان"
+      expands:
+        - text: "«شيلان: ... وجمعه شيلان (بوشر) ... واسم شيلان في أسماء سمك النيل»"
+          source: "تكملة المعاجم العربية لرينهارت دوزي"
+          addition: "يوجد اللفظ في العربية كجمع لـ 'شال' أو اسم لسمك نيللي، لكنه يُستخدم هنا كتعريب لاسم علم جغرافي."
+    - lemma: "واشنطن"
+      confirm:
+        - text: "«واشنطن»"
+          source: "المكنز الزراعي متعدد اللغات"
+    - lemma: "كاسكيد"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "بحيرة شيلان"
+      decision: confirmed
+      decision_reason: "هي التسمية العربية الأكثر شيوعاً ودقة لهذا المعلم الجغرافي، وتتبع القواعد القياسية في تعريب أسماء الأعلام الأجنبية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "بُحَيْرَةُ شِيلَان"
+    - lemma: "شِيلَان"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اسم العلم المجرد للبحيرة، ويستخدم بكثرة في السياقات الجغرافية والخرائط."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "شِيلَان", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09265862-n"}
+    - lemma: "بُحَيْرَةُ تَشِيلَان"
+      source: stage1
+      decision: removed
+      decision_reason: "صيغة أقل شيوعاً في الاستخدام المعاصر مقارنة بـ 'شيلان'."
+    - lemma: "بُحَيْرَةُ شِلَان"
+      source: stage1
+      decision: removed
+      decision_reason: "الرسم بالياء (شيلان) هو المعتمد صوتياً لتمثيل المد في الاسم الإنجليزي."
+
+stage4_content:
+  definition:
+    current: "بحيرة ضيقة وعميقة جداً في وسط واشنطن في سلسلة جبال كاسكيد"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق ومختصر ويؤدي الغرض الوصفي الجغرافي."
+    authored:
+      - type: encyclopedic
+        text: "بحيرة طبيعية ضيقة وطويلة تقع في مقاطعة شيلان بوسط ولاية واشنطن الأمريكية، وتُعدّ من أعمق البحيرات في الولايات المتحدة، حيث تقع في قلب سلسلة جبال كاسكيد."
+    actions:
+      - command: add_definition
+        params: {synset_id: "awn4-09265862-n", text: "بحيرة طبيعية ضيقة وطويلة تقع في مقاطعة شيلان بوسط ولاية واشنطن الأمريكية، وتُعدّ من أعمق البحيرات في الولايات المتحدة، حيث تقع في قلب سلسلة جبال كاسكيد."}
+  examples:
+    per_lemma:
+      - lemma: "بُحَيْرَةُ شِيلَان"
+        examples:
+          - text: "تُعدّ بحيرة شيلان وجهة سياحية شهيرة لهواة القوارب والصيد في ولاية واشنطن."
+            type: usage
+      - lemma: "شِيلَان"
+        examples:
+          - text: "تمتاز شيلان بعمقها السحيق ومياهها الصافية التي تنحدر من جبال كاسكيد."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تُعدّ بحيرة شيلان وجهة سياحية شهيرة لهواة القوارب والصيد في ولاية واشنطن."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تمتاز شيلان بعمقها السحيق ومياهها الصافية التي تنحدر من جبال كاسكيد."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "بُحَيْرَةُ شِيلَان"
+      entry_id: "{auto}"
+      roots:
+        - word: "بحيرة"
+          root: "بحر"
+          maqayis_quote: "«الْبَاءُ وَالْحَاءُ وَالرَّاءُ: أَصْلٌ وَاحِدٌ، وَهُوَ مِنَ الِاتِّسَاعِ فِيمَا هُوَ مِنْ جِنْسِهِ، مِنْ ذَلِكَ الْبَحْرُ: الْمَاءُ الْكَثِيرُ.»"
+        - word: "شيلان"
+          root: null
+    - lemma: "شِيلَان"
+      entry_id: "{auto}"
+      root: null
+  per_sense:
+    - lemma: "بُحَيْرَةُ شِيلَان"
+      sense_id: "{auto}"
+      nuance: "الاسم الكامل والرسمي للمعلم الجغرافي."
+      mwe: true
+    - lemma: "شِيلَان"
+      sense_id: "{auto}"
+      nuance: "اسم العلم المجرد، يستخدم غالباً كاختصار في السياق الجغرافي."
+      mwe: false
+  synset:
+    cultural_fit: omission
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"بحيرة","root":"بحر","maqayis":"«الْبَاءُ وَالْحَاءُ وَالرَّاءُ: أَصْلٌ وَاحِدٌ...»"},{"word":"شيلان","root":null}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":null}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الكامل والرسمي للمعلم الجغرافي.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اسم العلم المجرد، يستخدم غالباً كاختصار في السياق الجغرافي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-09265862-n"
+        key: note
+        value: '{"cultural_fit":"omission"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-09265862-n"
+        score: 0.9

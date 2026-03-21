@@ -1,0 +1,257 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة «زوايا» تعبر عن أجزاء الشكل (الجمع) وليس عن المفهوم الكلي للشكل الزاوي أو صفة الانزواء."
+      - "اللمة «شكل زاوي» تفتقر للتشكيل الكامل."
+    observations: "المجموعة تغطي مفهوم «الشكل الزاوي» (angular shape) وحالة «الانزواء» (angularity). المصطلحات العربية المتوفرة في المعاجم تميز بين الوصف (زاوي) والاسم (تزوي، زاوية)."
+  blind_candidates:
+    - lemma: "شَكْلٌ زَاوِيّ"
+      generation_method: tarkib
+      justification: "تعبير وصفي مباشر لمفهوم (angular shape) وشائع الاستخدام في الهندسة."
+    - lemma: "تَزَوٍّ"
+      generation_method: ishtiqaq
+      justification: "مصدر للفعل (تزوّى) ويعبر عن حالة كونه ذا زوايا (angularity) كما ورد في المعاجم التقنية."
+    - lemma: "مُضَلَّع"
+      generation_method: ishtiqaq
+      justification: "الشكل المضلع هو الشكل الذي تحده زوايا، وهو مرادف قريب في السياق الهندسي."
+    - lemma: "زَاوِيّ"
+      generation_method: ishtiqaq
+      justification: "اسم وضع في المعاجم العربية (الوسيط) ليدل على الشكل ذي الزاوية أو الزوايا."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "زوايا"
+      contradicts:
+        - text: "«(فى علم الهندسة): الفُرْجَةُ المحصورة بين خطين متقاطعين يسمَّيان الضلعين...»"
+          source: "المعجم الوسيط"
+          conflict: "الدليل يؤكد أن زاوية (وجمعها زوايا) هي الفتحة بين الخطين، وليست شكلاً هندسياً بحد ذاته كما يوحي تعريف المجموعة."
+    - lemma: "شكل زاوي"
+      confirm:
+        - text: "«الزاوِيُّ: شكل ذو زاوية أو زوايا»"
+          source: "المعجم الوسيط"
+    - lemma: "شَكْلٌ زَاوِيّ"
+      confirm:
+        - text: "«(الزاوي) شكل ذُو زَاوِيَة أَو زَوَايَا»"
+          source: "المعجم الوسيط"
+    - lemma: "تَزَوٍّ"
+      confirm:
+        - text: "«تزوٍّ: ميزة هندسية للحبابات مرتبطة بوجود حروف حادّة وتسمح بالحصول على زاوية احتكاك مرتفع»"
+          source: "المعجم الموحد لمصطلحات النقل"
+      expands:
+        - text: "«التزوي: angularity»"
+          source: "موسوعة الكهرباء"
+    - lemma: "زَاوِيّ"
+      confirm:
+        - text: "«الزاوِيُّ: شكل ذو زاوية أو زوايا»"
+          source: "المعجم الوسيط"
+    - lemma: "زَاوِيَّة"
+      confirm:
+        - text: "«الزاوِيّة: كونُ الشيء زاويًّا»"
+          source: "المورد الحديث"
+    - lemma: "مُضَلَّع"
+      confirm:
+        - text: "«المُضَلَّعُ: شكلٌ هندسىٌّ مُسْتَوٍ، يحدُّهُ عددٌ من المستقيماتِ المُتلاقيةِ في عَدَدِها من الزوايا»"
+          source: "المعجم الكبير"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "زوايا"
+      decision: removed
+      decision_reason: "الكلمة جمع «زاوية» وهي تدل على العناصر المكونة للشكل لا على الشكل نفسه."
+      evidence_assessment:
+        case: contradicts_only
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "شكل زاوي"
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي صحيح ومستخدم، ويحتاج فقط للتشكيل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "شَكْلٌ زَاوِيّ"
+    - lemma: "زَاوِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح معجمي أصيل أورده المعجم الوسيط كاسم يدل على المفهوم بدقة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "زَاوِيّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "تَزَوٍّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تقني يعبر عن مفهوم (angularity) بدقة في السياقات الهندسية والفيزيائية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "تَزَوٍّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "زَاوِيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تستخدم كاسم معنى للتعبير عن صفة كون الشيء زاويّاً (angularity)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "زَاوِيَّة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "شكل له زاوية حادة واحدة أو أكثر"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يقصر المفهوم على الزوايا «الحادة» (acute)، بينما المفهوم الإنجليزي (angularity) والتعريفات المعجمية العربية تشمل أي زاوية بارزة أو حادة بالمعنى الوصفي (sharp/pointed)."
+    authored:
+      - type: terminological
+        text: "شكلٌ هَنْدَسِيٌّ ذو زاويةٍ أو زوايا."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+      - type: linguistic
+        text: "هيئةُ الشيءِ أو كيفيَّتُهُ من حيثُ كَوْنُهُ ذا زوايا بارزةٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "شكلٌ هَنْدَسِيٌّ ذو زاويةٍ أو زوايا."
+      - command: add_definition
+        params:
+          synset_id: "{synset_id}"
+          text: "هيئةُ الشيءِ أو كيفيَّتُهُ من حيثُ كَوْنُهُ ذا زوايا بارزةٍ."
+
+  examples:
+    per_lemma:
+      - lemma: "شَكْلٌ زَاوِيّ"
+        examples:
+          - text: "يُفضل المصممون استخدام الشكل الزاوي في واجهات المباني الحديثة لإعطائها طابعاً حاداً."
+            type: usage
+      - lemma: "زَاوِيّ"
+        examples:
+          - text: "الزَّاوِيُّ في الهندسة هو كل شكل يحده عدد من الزوايا."
+            type: usage
+      - lemma: "تَزَوٍّ"
+        examples:
+          - text: "تتميز هذه الحبيبات الصخرية بتزوٍّ عالٍ مما يزيد من تماسك التربة."
+            type: usage
+      - lemma: "زَاوِيَّة"
+        examples:
+          - text: "تؤثر زاوِيّة الجزيئات على خصائص المادة الكيميائية."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يُفضل المصممون استخدام الشكل الزاوي في واجهات المباني الحديثة لإعطائها طابعاً حاداً."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "زَاوِيّ"
+      entry_id: "{auto}"
+      root: "زوي"
+      maqayis_quote: "«الزَّاءُ وَالْوَاوُ وَالْيَاءُ أَصْلٌ يَدُلُّ عَلَى انْضِمَامٍ وَتَجَمُّعٍ... وَزَاوِيَةُ الْبَيْتِ لِاجْتِمَاعِ الْحَائِطَيْنِ.»"
+    - lemma: "تَزَوٍّ"
+      entry_id: "{auto}"
+      root: "زوي"
+      maqayis_quote: "«الزَّاءُ وَالْوَاوُ وَالْيَاءُ أَصْلٌ يَدُلُّ عَلَى انْضِمَامٍ وَتَجَمُّعٍ...»"
+    - lemma: "زَاوِيَّة"
+      entry_id: "{auto}"
+      root: "زوي"
+      maqayis_quote: "«الزَّاءُ وَالْوَاوُ وَالْيَاءُ أَصْلٌ يَدُلُّ عَلَى انْضِمَامٍ وَتَجَمُّعٍ... وَزَاوِيَةُ الْبَيْتِ لِاجْتِمَاعِ الْحَائِطَيْنِ.»"
+    - lemma: "شَكْلٌ زَاوِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "شكل"
+          root: "شكل"
+          maqayis_quote: "«الشِّينُ وَالْكَافُ وَاللَّامُ مُعْظَمُ بَابِهِ الْمُمَاثَلَةُ.»"
+        - word: "زاوي"
+          root: "زوي"
+          maqayis_quote: "«الزَّاءُ وَالْوَاوُ وَالْيَاءُ أَصْلٌ يَدُلُّ عَلَى انْضِمَامٍ وَتَجَمُّعٍ.»"
+  per_sense:
+    - lemma: "شَكْلٌ زَاوِيّ"
+      sense_id: "{auto}"
+      nuance: "الوصف العام المباشر للشكل الهندسي."
+      mwe: true
+    - lemma: "زَاوِيّ"
+      sense_id: "{auto}"
+      nuance: "اسم جامع لكل شكل ذي زوايا، وهو أكثر اصطلاحية معجمية."
+      mwe: false
+    - lemma: "تَزَوٍّ"
+      sense_id: "{auto}"
+      nuance: "يعبر عن الخاصية الهندسية أو حالة الانزواء (angularity) في السياق التقني."
+      mwe: false
+    - lemma: "زَاوِيَّة"
+      sense_id: "{auto}"
+      nuance: "تعبر عن الكيفية أو الهيئة العارضة للشيء من حيث كونه ذا زوايا."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"زوي","maqayis":"«الزَّاءُ وَالْوَاوُ وَالْيَاءُ أَصْلٌ يَدُلُّ عَلَى انْضِمَامٍ وَتَجَمُّعٍ... وَزَاوِيَةُ الْبَيْتِ لِاجْتِمَاعِ الْحَائِطَيْنِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"شكل","root":"شكل","maqayis":"«الشِّينُ وَالْكَافُ وَاللَّامُ مُعْظَمُ بَابِهِ الْمُمَاثَلَةُ.»"},{"word":"زاوي","root":"زوي","maqayis":"«الزَّاءُ وَالْوَاوُ وَالْيَاءُ أَصْلٌ يَدُلُّ عَلَى انْضِمَامٍ وَتَجَمُّعٍ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الوصف العام المباشر للشكل الهندسي.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-13887384-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-13887384-n"
+        score: 0.9

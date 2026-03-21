@@ -1,0 +1,297 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة 'باقة ورد' مقبولة وشائعة، لكنها تخصص المفهوم بالورد فقط، بينما التعريف الإنجليزي والأصل الدلالي يشمل الزهور عامة (flowers)."
+      - "التعريف الحالي ركيك ويميل إلى الترجمة الحرفية من الإنجليزية (ترتيب للزهور يُعطى عادة كهدية)."
+    observations: "تاريخياً، استُخدمت كلمة 'طاقة' للتعبير عن حزمة الريحان أو الزهر، بينما كانت 'باقة' تُطلق على حزمة البقل. في العصر الحديث، اتسع دلالة 'باقة' مجازياً لتشمل الزهور والورود، وأقر مجمع اللغة العربية بالقاهرة هذا الاستعمال. يمكن التعبير عن المفهوم بكلمة مفردة (باقة) أو مركبة (باقة زهور، طاقة ورد)."
+  blind_candidates:
+    - lemma: "طَاقَةُ زَهْرٍ"
+      generation_method: majaz
+      justification: "استعمال فصيح قديم؛ فالطاقة هي الشعبة أو الحزمة من الريحان أو الزهر."
+    - lemma: "بَاقَةُ زُهُورٍ"
+      generation_method: tarkib
+      justification: "تركيب إضافي شائع ومناسب يشمل مختلف أنواع الأزهار، وهو أدق من تخصيصه بالورد."
+    - lemma: "بَاقَة"
+      generation_method: majaz
+      justification: "اتساع دلالي حديث لكلمة باقة (حزمة البقل) لتصبح مصطلحاً مستقلاً يعني حزمة الزهور المنسقة."
+    - lemma: "ضِمَامَة"
+      generation_method: ishtiqaq
+      justification: "الضمامة هي ما يُضَمُّ ويُجْمَع، وتصلح للدلالة على حزمة الزهور المضمومة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "باقة ورد"
+      confirm:
+        - text: "«الصواب والرتبة: -طاقة ورد [فصيحة]-باقة ورد [صحيحة] التعليق: ورد في التاج: «الباقة: الحزمة من البقل» والبقل نبات كالريحان والورد وعليه فيجوز استعمال الباقة مع الورود ويكون الاستعمال مجازيًّا لعلاقة المشابهة وقد أجاز مجمع اللغة المصري استعمال الكلمتين «طاقة وباقة» وإن كان يفضل الأولى.»"
+          source: "معجم الصواب اللغوي لأحمد مختار عمر"
+    - lemma: "باقة زهور"
+      confirm:
+        - text: "«الصِّدارية: باقة زهر صغيرة تزيِّن بها المرأة كتِفها أو خَصْرها.»"
+          source: "المورد الحديث"
+    - lemma: "باقة"
+      confirm:
+        - text: "«باقة [مفرد]: ج باقات: حزمة من البقل، ويُطلقها المحدثون على الضميمة من الزّهر وعلى الحزمة من كلّ شيء»"
+          source: "معجم اللغة العربية المعاصرة لأحمد مختار عمر"
+        - text: "«بَاقَة: bouquet»"
+          source: "المعجم الطبي الموحد (2009)"
+    - lemma: "طاقة ورد"
+      confirm:
+        - text: "«الصواب والرتبة: -طاقة ورد [فصيحة]»"
+          source: "معجم الصواب اللغوي لأحمد مختار عمر"
+    - lemma: "طاقة"
+      confirm:
+        - text: "«الطَّاقةُ: شعبةٌ أو حزمةٌ من ريحان, أو زهر, أو شعر, أو عيدان, أو خيوط, أو حبال»"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "بَاقَةُ وَرْدٍ"
+      decision: confirmed
+      decision_reason: "مصطلح شائع ومجاز مقبول أقره مجمع اللغة العربية، وإن كان يخص نوعاً معيناً من الأزهار (الورد)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "بَاقَةُ وَرْدٍ"
+    - lemma: "بَاقَةُ زُهُورٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تركيب أدق دلالياً من باقة ورد، لأنه يشمل جميع أنواع الأزهار المطابقة للتعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "بَاقَةُ زُهُورٍ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "بَاقَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "استعمال حديث شائع للمفردة للتعبير عن حزمة الزهور المنسقة، وهو موثق في المعاجم المعاصرة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "بَاقَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "طَاقَةُ وَرْدٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "التعبير الفصيح التراثي الأصيل لحزمة الزهر المضمومة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "طَاقَةُ وَرْدٍ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "ضِمَامَة"
+      source: stage1
+      decision: removed
+      decision_reason: "كلمة صحيحة لغوياً بمعنى الإضمامة أو الحزمة، لكنها غير شائعة الاستعمال في سياق الزهور مقارنة بباقة وطاقة."
+      evidence_assessment:
+        case: mixed
+    - lemma: "طَاقَةُ زَهْرٍ"
+      source: stage1
+      decision: removed
+      decision_reason: "تم الاستعاضة عنها بـ 'طاقة ورد' الأكثر تداولاً فصاحةً وشيوعاً حسب المعاجم، ولتجنب تكديس المرادفات المتقاربة جداً."
+      evidence_assessment:
+        case: no_material
+
+stage4_content:
+  definition:
+    current: "ترتيب للزهور يُعطى عادة كهدية"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي عبارة عن ترجمة حرفية ركيكة (ترتيب للزهور). التعريف المعجمي يجب أن يبين الجنس (حزمة/ضميمة) والغرض."
+    authored:
+      - type: terminological
+        text: "حُزْمَةٌ مِنَ الزُّهُورِ تُنَسَّقُ بِمَهَارَةٍ لِتُقَدَّمَ هَدِيَّةً أَو تُسْتَعْمَلَ لِلزِّينَةِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "حُزْمَةٌ مِنَ الزُّهُورِ تُنَسَّقُ بِمَهَارَةٍ لِتُقَدَّمَ هَدِيَّةً أَو تُسْتَعْمَلَ لِلزِّينَةِ."
+
+  examples:
+    per_lemma:
+      - lemma: "بَاقَةُ وَرْدٍ"
+        examples:
+          - text: "قَدَّمَ لَهَا بَاقَةَ وَرْدٍ جَمِيلَةً تَعْبِيرًا عَنْ مَحَبَّتِهِ."
+            type: usage
+      - lemma: "بَاقَةُ زُهُورٍ"
+        examples:
+          - text: "أَمْسَكَتِ الْعَرُوسُ بِبَاقَةِ زُهُورٍ بَيْضَاءَ فِي حَفْلِ زِفَافِهَا."
+            type: usage
+      - lemma: "بَاقَة"
+        examples:
+          - text: "اشْتَرَى بَاقَةً مُلَوَّنَةً مِنَ الْمَشْتَلِ."
+            type: usage
+      - lemma: "طَاقَةُ وَرْدٍ"
+        examples:
+          - text: "أَهْدَاهُ طَاقَةَ وَرْدٍ بِمُنَاسَبَةِ عَوْدَتِهِ سَالِمًا."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "قَدَّمَ لَهَا بَاقَةَ وَرْدٍ جَمِيلَةً تَعْبِيرًا عَنْ مَحَبَّتِهِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "أَمْسَكَتِ الْعَرُوسُ بِبَاقَةِ زُهُورٍ بَيْضَاءَ فِي حَفْلِ زِفَافِهَا."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "اشْتَرَى بَاقَةً مُلَوَّنَةً مِنَ الْمَشْتَلِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "أَهْدَاهُ طَاقَةَ وَرْدٍ بِمُنَاسَبَةِ عَوْدَتِهِ سَالِمًا."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "بَاقَة"
+      entry_id: "{auto}"
+      root: "بوق"
+      maqayis_quote: "«الْبَاءُ وَالْوَاوُ وَالْقَافُ لَيْسَ بِأَصْلٍ مُعَوَّلٍ عَلَيْهِ، وَلَا فِيهِ عِنْدِي كَلِمَةٌ صَحِيحَةٌ...»"
+    - lemma: "بَاقَةُ وَرْدٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "باقة"
+          root: "بوق"
+          maqayis_quote: "«الْبَاءُ وَالْوَاوُ وَالْقَافُ لَيْسَ بِأَصْلٍ مُعَوَّلٍ عَلَيْهِ...»"
+        - word: "ورد"
+          root: "ورد"
+          maqayis_quote: "«الْوَاوُ وَالرَّاءُ وَالدَّالُ: أَصْلَانِ، أَحَدُهُمَا الْمُوَافَاةُ إِلَى الشَّيْءِ، وَالثَّانِي لَوْنٌ مِنَ الْأَلْوَانِ.»"
+    - lemma: "بَاقَةُ زُهُورٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "باقة"
+          root: "بوق"
+          maqayis_quote: "«الْبَاءُ وَالْوَاوُ وَالْقَافُ لَيْسَ بِأَصْلٍ مُعَوَّلٍ عَلَيْهِ...»"
+        - word: "زهور"
+          root: "زهر"
+          maqayis_quote: "«الزَّاءُ وَالْهَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى حُسْنٍ وَضِيَاءٍ وَصَفَاءٍ. مِنْ ذَلِكَ الزُّهَرَةُ: النَّجْمُ. وَمِنْهُ الزَّهْرُ، وَهُوَ نَوْرُ كُلِّ نَبَاتٍ»"
+    - lemma: "طَاقَةُ وَرْدٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "طاقة"
+          root: "طوق"
+          maqayis_quote: "«الطَّاءُ وَالْوَاوُ وَالْقَافُ أَصْلٌ صَحِيحٌ... فَكُلُّ مَا اسْتَدَارَ بِشَيْءٍ فَهُوَ طَوْقٌ.»"
+        - word: "ورد"
+          root: "ورد"
+          maqayis_quote: "«الْوَاوُ وَالرَّاءُ وَالدَّالُ: أَصْلَانِ...»"
+
+  per_sense:
+    - lemma: "بَاقَةُ وَرْدٍ"
+      sense_id: "{auto}"
+      nuance: "العبارة الأكثر شيوعاً في الاستعمال المعاصر رغم تخصيصها بالورد دون بقية الأزهار."
+      mwe: true
+    - lemma: "بَاقَةُ زُهُورٍ"
+      sense_id: "{auto}"
+      nuance: "العبارة الأكثر دقة وشمولاً دلالياً لوصف أي حزمة منسقة من الزهور المختلفة."
+      mwe: true
+    - lemma: "بَاقَة"
+      sense_id: "{auto}"
+      nuance: "اللفظة المفردة الحديثة التي صارت تدل بمفردها على حزمة الزهور."
+      mwe: false
+    - lemma: "طَاقَةُ وَرْدٍ"
+      sense_id: "{auto}"
+      nuance: "التعبير الفصيح التراثي والمفضل لدى مجامع اللغة."
+      mwe: true
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"باقة","root":"بوق","maqayis":"«الْبَاءُ وَالْوَاوُ وَالْقَافُ لَيْسَ بِأَصْلٍ مُعَوَّلٍ عَلَيْهِ...»"},{"word":"ورد","root":"ورد","maqayis":"«الْوَاوُ وَالرَّاءُ وَالدَّالُ: أَصْلَانِ، أَحَدُهُمَا الْمُوَافَاةُ إِلَى الشَّيْءِ، وَالثَّانِي لَوْنٌ مِنَ الْأَلْوَانِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"باقة","root":"بوق","maqayis":"«الْبَاءُ وَالْوَاوُ وَالْقَافُ لَيْسَ بِأَصْلٍ مُعَوَّلٍ عَلَيْهِ...»"},{"word":"زهور","root":"زهر","maqayis":"«الزَّاءُ وَالْهَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى حُسْنٍ وَضِيَاءٍ وَصَفَاءٍ. مِنْ ذَلِكَ الزُّهَرَةُ: النَّجْمُ. وَمِنْهُ الزَّهْرُ، وَهُوَ نَوْرُ كُلِّ نَبَاتٍ»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"بوق","maqayis":"«الْبَاءُ وَالْوَاوُ وَالْقَافُ لَيْسَ بِأَصْلٍ مُعَوَّلٍ عَلَيْهِ، وَلَا فِيهِ عِنْدِي كَلِمَةٌ صَحِيحَةٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"طاقة","root":"طوق","maqayis":"«الطَّاءُ وَالْوَاوُ وَالْقَافُ أَصْلٌ صَحِيحٌ... فَكُلُّ مَا اسْتَدَارَ بِشَيْءٍ فَهُوَ طَوْقٌ.»"},{"word":"ورد","root":"ورد","maqayis":"«الْوَاوُ وَالرَّاءُ وَالدَّالُ: أَصْلَانِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"العبارة الأكثر شيوعاً في الاستعمال المعاصر رغم تخصيصها بالورد دون بقية الأزهار.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"العبارة الأكثر دقة وشمولاً دلالياً لوصف أي حزمة منسقة من الزهور المختلفة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظة المفردة الحديثة التي صارت تدل بمفردها على حزمة الزهور.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"التعبير الفصيح التراثي والمفضل لدى مجامع اللغة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

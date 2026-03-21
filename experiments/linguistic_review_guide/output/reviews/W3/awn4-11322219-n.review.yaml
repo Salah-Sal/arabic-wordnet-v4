@@ -1,0 +1,281 @@
+# ═══════════════════════════════════════════════════════════════
+# مراجعة المجموعة الترادفية — AWN4 Review Pipeline v2 (5-Stage)
+# Synset: awn4-11322219-n | ILI: i96927 | POS: n
+# الموضوع: السير كلايف مارلز سنكلير — مهندس كهربائي إنجليزي
+# ═══════════════════════════════════════════════════════════════
+
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّتان الموجودتان (سنكلير، كلايف سنكلير) بدون تشكيل"
+      - "المجموعة الإنجليزية (OEWN) تضم ثلاث لمّات (Sinclair / Clive Sinclair / Sir Clive Marles Sinclair)، بينما AWN يملك لمّتين فقط — اللمّة الثالثة غائبة"
+      - "التعريف يُشير إلى المولد عام 1940 دون ذكر الوفاة (توفي سبتمبر 2021)"
+      - "التعريف لا يذكر اسم الشركة ولا أبرز منتجاته، مما يجعله عاماً بلا تمييز كافٍ"
+    observations: >
+      هذه المجموعة الترادفية خاصة بشخص علَم محدد هو السير كلايف مارلز سنكلير (1940-2021)،
+      المهندس الكهربائي الإنجليزي مؤسس شركة Sinclair Research، الشهير بحاسوب ZX Spectrum
+      وأجهزة الجيب الإلكترونية. لمّات هذه المجموعة هي حصراً تعريبات لاسمه العلَم، إذ لا
+      يوجد مقابل عربي أصيل لاسم شخص أجنبي. الأولوية في التوليد: التعريب (تاعريب) وحده
+      ينطبق هنا، لأن مناهج المجاز والاشتقاق والتركيب لا تصلح للأسماء الأعلام الأجنبية.
+  blind_candidates:
+    - lemma: "سِنكلِير"
+      generation_method: taarib
+      justification: >
+        تعريب اسم العائلة الإنجليزي Sinclair؛ وهو الشكل الأكثر شيوعاً في المصادر العربية
+        للإشارة إلى هذا المهندس ومنتجاته. يقبل لام التعريف (السِّنكلير) والنسبة (سِنكلِيرِيّ).
+    - lemma: "كلَايف سِنكلِير"
+      generation_method: taarib
+      justification: >
+        تعريب مركب للاسم الشخصي والعائلي Clive Sinclair؛ يُميّز الشخص عن حاملي اللقب ذاته.
+        يُستخدم على نطاق واسع في الصحافة التقنية العربية.
+    - lemma: "سِير كلَايف سِنكلِير"
+      generation_method: taarib
+      justification: >
+        تعريب الاسم الرسمي مع لقبه الفخري Sir (= سِير) الذي مُنح له عام 1983. يرد هذا الشكل
+        في الموسوعات العربية والمصادر الرسمية ويقابل اللمّة الثالثة في OEWN
+        (Sir Clive Marles Sinclair).
+    - lemma: "كلَايف مَارلز سِنكلِير"
+      generation_method: taarib
+      justification: >
+        تعريب الاسم الثلاثي الكامل Clive Marles Sinclair بالاسم الأوسط؛ يقابل
+        الصياغة الكاملة في OEWN. الاسم الأوسط غير شائع في الكتابة العربية.
+
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "سنكلير"
+      expands:
+        - text: "«سنكلير — عن الفرنسية بمعنى شخص من مدينة القديسة كلير أو نورماندي. يُستخدم للذكور.»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+          addition: "يُثبت أن سنكلير اسم علَم مُعرَّب متداول، وأصله الفرنسي Saint-Clair مشتق من اسم المدينة؛ وجوده في معجم الأسماء العربية يؤكد تعريبه المقبول رغم عدم تصنيفه في المعاجم العلمية المتخصصة."
+
+    - lemma: "كلايف سنكلير"
+      evidence_status: "no_material_found"
+
+    - lemma: "سِير كلَايف سِنكلِير"
+      source: stage1
+      evidence_status: "no_material_found"
+
+    - lemma: "كلَايف مَارلز سِنكلِير"
+      source: stage1
+      evidence_status: "no_material_found"
+
+
+stage3_analysis:
+  per_lemma:
+
+    - lemma: "سنكلير"
+      decision: confirmed
+      decision_reason: >
+        اسم علَم مُعرَّب مؤكد، موثّق في موسوعة السلطان قابوس لأسماء العرب. يمثّل الشكل
+        المختصر الأكثر شيوعاً في الإشارة إلى المهندس وشركته ومنتجاته. يحتاج إضافة تشكيل كامل.
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: >
+        الشكل المختصر (اسم العائلة وحده) يُستخدم في السياقات غير الرسمية والتقنية للإشارة
+        إلى الشخص أو منتجاته (حاسوب سنكلير، شركة سنكلير)؛ لا يُميّز الشخص عن أفراد آخرين
+        في العائلة.
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "سِنكلِير"
+
+    - lemma: "كلايف سنكلير"
+      decision: confirmed
+      decision_reason: >
+        الاسم الثنائي (الشخصي + العائلي) هو الشكل الأكثر تداولاً في الإعلام العربي التقني
+        للإشارة إلى الشخص بعينه. يُميّزه عن أفراد عائلة سنكلير الآخرين. يحتاج تشكيلاً.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      nuance_differentiation: >
+        الشكل الثنائي المعتمد في الصحافة العربية التقنية والموسوعية؛ يُعيّن الشخص بدقة
+        كافية للسياقات الأكاديمية والصحفية دون الحاجة إلى اللقب الفخري.
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "كلَايف سِنكلِير"
+
+    - lemma: "سِير كلَايف سِنكلِير"
+      source: stage1
+      decision: confirmed
+      decision_reason: >
+        يُقابل اللمّة الثالثة في OEWN (Sir Clive Marles Sinclair) ويُعبّر عن الاسم الرسمي
+        الكامل مع اللقب الفخري البريطاني sir. تعريب "سِير" لـ Sir راسخ في الصحافة العربية
+        (سير ونستون تشرشل، سير إسحاق نيوتن). إدراجه يكمل تغطية AWN لتعادل OEWN.
+        اختبار السكّ: الوحدة ثابتة، لا يمكن إبدال "كلَايف" بمرادف ويبقى المصطلح صالحاً.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      nuance_differentiation: >
+        الشكل الرسمي الكامل مع اللقب الفخري؛ يُستخدم في الوثائق الرسمية والمراجع
+        الموسوعية والسياقات التي تستوجب الدقة التوثيقية. أكثر رسمية من "كلَايف سِنكلِير".
+      actions:
+        - command: create_entry
+          params:
+            lemma: "سِير كلَايف سِنكلِير"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "كلَايف مَارلز سِنكلِير"
+      source: stage1
+      decision: removed
+      decision_reason: >
+        الاسم الأوسط "مَارلز" نادر في الكتابة العربية؛ لا يرد في مصادر إعلامية أو
+        موسوعية عربية مُعتمدة. المجموعة مُكتملة بإضافة "سِير كلَايف سِنكلِير" الذي يُغطي
+        الاسم الرسمي. إدراج شكل بالاسم الأوسط دون لقبه (Sir) يُشوّه الصورة المعجمية.
+
+
+stage4_content:
+  definition:
+    current: "مهندس كهربائي إنجليزي أسس شركة قدمت العديد من المنتجات المبتكرة (ولد عام 1940)"
+    assessment:
+      decision: revise
+      reason: >
+        التعريف الحالي منقوص من ثلاثة أوجه: (١) يذكر المولد دون الوفاة (توفي 2021) —
+        الشكل المثبَّت في المعاجم الموسوعية يشمل القوسين الزمنيين. (٢) لا يذكر اسم
+        الشركة (Sinclair Research) ولا أبرز منتجاته (ZX Spectrum) مما يُفقده التمييز.
+        (٣) عبارة "شركة قدمت العديد من المنتجات المبتكرة" شائعة وغير كافية للتعريف
+        بشخص بعينه. التعريف الموسوعي الأنسب لاسم العلَم.
+    authored:
+      - type: encyclopedic
+        text: >
+          مهندس كهربائي إنجليزي (1940-2021)، مؤسس شركة سِنكلِير للأبحاث (Sinclair Research)؛
+          اشتُهر بتصميم حاسوب ZX Spectrum وطائفة من الأجهزة الإلكترونية الشخصية المبتكرة
+          التي أسهمت في انتشار الحوسبة المنزلية في بريطانيا، وقد نال لقب "سير" الفخري
+          تقديراً لإسهاماته عام 1983.
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "مهندس كهربائي إنجليزي (1940-2021)، مؤسس شركة سِنكلِير للأبحاث (Sinclair Research)؛ اشتُهر بتصميم حاسوب ZX Spectrum وطائفة من الأجهزة الإلكترونية الشخصية المبتكرة التي أسهمت في انتشار الحوسبة المنزلية في بريطانيا، وقد نال لقب «سير» الفخري تقديراً لإسهاماته عام 1983."
+
+  examples:
+    per_lemma:
+      - lemma: "سِنكلِير"
+        examples:
+          - text: "أطلق سِنكلِير عام 1982 حاسوبه الشهير ZX Spectrum الذي غيّر وجه الحوسبة الشخصية في أوروبا."
+            type: usage
+      - lemma: "كلَايف سِنكلِير"
+        examples:
+          - text: "يُعدّ كلَايف سِنكلِير من أبرز رواد صناعة الإلكترونيات الاستهلاكية في المملكة المتحدة خلال القرن العشرين."
+            type: usage
+      - lemma: "سِير كلَايف سِنكلِير"
+        examples:
+          - text: "مُنح سِير كلَايف سِنكلِير وسام الفروسية تقديراً لدوره الريادي في تطوير الحاسوب الشخصي بأسعار في متناول العموم."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "أطلق سِنكلِير عام 1982 حاسوبه الشهير ZX Spectrum الذي غيّر وجه الحوسبة الشخصية في أوروبا."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يُعدّ كلَايف سِنكلِير من أبرز رواد صناعة الإلكترونيات الاستهلاكية في المملكة المتحدة خلال القرن العشرين."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "مُنح سِير كلَايف سِنكلِير وسام الفروسية تقديراً لدوره الريادي في تطوير الحاسوب الشخصي بأسعار في متناول العموم."
+
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "سِنكلِير"
+      entry_id: "{auto}"
+      note: "اسم علَم أجنبي مُعرَّب — لا جذر عربي، لا تنطبق عليه مقاييس اللغة"
+
+    - lemma: "كلَايف سِنكلِير"
+      entry_id: "{auto}"
+      note: "مركب إضافي من اسمين علَمين أجنبيين مُعرَّبَين — لا جذر عربي"
+
+    - lemma: "سِير كلَايف سِنكلِير"
+      entry_id: "{auto}"
+      note: "مركب إضافي من لقب فخري واسم علَم أجنبي مُعرَّب — لا جذر عربي"
+
+  per_sense:
+    - lemma: "سِنكلِير"
+      sense_id: "{auto}"
+      nuance: "الشكل المختصر (اسم العائلة) — يُستخدم في السياقات غير الرسمية والتقنية، وفي التسمية التجارية لمنتجاته وشركاته"
+      mwe: false
+
+    - lemma: "كلَايف سِنكلِير"
+      sense_id: "{auto}"
+      nuance: "الاسم الثنائي (الشخصي + العائلي) — الشكل المعتمد في الصحافة والموسوعات العربية لتعيين الشخص دون الحاجة إلى لقبه الفخري"
+      mwe: true
+
+    - lemma: "سِير كلَايف سِنكلِير"
+      sense_id: "{auto}"
+      nuance: "الاسم الرسمي مع اللقب الفخري البريطاني — يُستخدم في الوثائق الرسمية والسياقات التي تستوجب الإشارة إلى مكانته الشرفية"
+      mwe: true
+
+  synset:
+    cultural_fit: omission
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"foreign_proper_noun":true,"original":"Sinclair","language":"en"}'
+
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"foreign_proper_noun":true,"original":"Clive Sinclair","language":"en","mwe":true}'
+
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"foreign_proper_noun":true,"original":"Sir Clive Sinclair","language":"en","mwe":true,"honorific":"Sir"}'
+
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الشكل المختصر (اسم العائلة)، يُستخدم في السياقات التقنية غير الرسمية","mwe":false}'
+
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الثنائي المعتمد صحفياً وموسوعياً","mwe":true}'
+
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الرسمي مع اللقب الفخري، للسياقات الرسمية والتوثيقية","mwe":true}'
+
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"omission","person_born":1940,"person_died":2021,"nationality":"British","field":"electrical_engineering"}'
+
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.82

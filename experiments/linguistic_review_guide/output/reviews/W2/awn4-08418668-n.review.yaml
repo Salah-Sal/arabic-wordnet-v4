@@ -1,0 +1,286 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة (عامة الأعضاء) خالية من التشكيل، وهي تركيب إضافي وصفي."
+      - "اللمة (القواعد) هي جمع (قاعدة)، وتحتاج إلى التشكيل. الاستخدام هنا مجازي يشير إلى قاعدة الهرم التنظيمي."
+    observations: "المفهوم يشير إلى (Rank and file)، أي القاعدة العريضة والأفراد العاديين المنتمين إلى تنظيم أو حزب أو مجموعة، تمييزاً لهم عن القادة والمسؤولين. العربية تزخر بتعابير تصف هذا المعنى مثل (الجمهور) و(السواد الأعظم) و(القاعدة)."
+  blind_candidates:
+    - lemma: "السَّوَادُ الأَعْظَمُ"
+      generation_method: majaz
+      justification: "استعارة من السواد (الكثرة والشخص) للدلالة على الكتلة الأكبر والأغلبية العظمى من الناس في مجموعة ما."
+    - lemma: "عَامَّةُ النَّاسِ"
+      generation_method: tarkib
+      justification: "تركيب إضافي يعبر عن الأفراد العاديين خلافاً للخاصة أو النخبة."
+    - lemma: "الجُمْهُورُ"
+      generation_method: ishtiqaq
+      justification: "كلمة أصيلة تعني جُلّ الناس ومعظمهم."
+    - lemma: "الأَغْلَبِيَّةُ"
+      generation_method: ishtiqaq
+      justification: "مصدر صناعي يدل على الكثرة التي تمثل الجزء الأكبر من المجموعة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "القواعد"
+      confirm:
+        - text: "(2) القاعدة: جمهور أفراد المؤسسة أو الدولة [تمييزًا لهم عن القادة والزعماء]."
+          source: "المورد الحديث (2008)"
+    - lemma: "عامة الأعضاء"
+      expands:
+        - text: "من الناس: خلاف الخاصة"
+          source: "المعجم الوسيط"
+          addition: "يدعم استخدام (عامة) مضافة إلى (الأعضاء) للدلالة على الأفراد العاديين في التنظيم."
+    - lemma: "السَّوَادُ الأَعْظَمُ"
+      confirm:
+        - text: "من الناس: عامتهم, وهم الجمهور الأعظم. يقال: رأيت سواد القوم. ويقال: عليكم بالسواد الأعظم."
+          source: "المعجم الكبير"
+    - lemma: "الجُمْهُورُ"
+      confirm:
+        - text: "من النَّاس: جُلُّهم"
+          source: "المعجم الوسيط"
+    - lemma: "عَامَّةُ النَّاسِ"
+      expands:
+        - text: "من الناس: خلاف الخاصة"
+          source: "المعجم الوسيط"
+          addition: "تعبير عام يشمل المجتمع بأسره."
+    - lemma: "الأَغْلَبِيَّةُ"
+      contradicts:
+        - text: "الكثرة الأغلبية المُطْلَقَةُ (فى الانتخاب أو الاقتراع): أصوات نصف الحاضرين بزيادة واحد"
+          source: "المعجم الوسيط"
+          conflict: "تدل على الكثرة العددية في التصويت، ولا تقتصر على معنى الأفراد العاديين."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "القواعد"
+      decision: confirmed
+      decision_reason: "مصطلح شائع ومثبت معجمياً (في صيغة المفرد والجمع) للإشارة إلى الأفراد العاديين المكونين لأساس مؤسسة أو حزب، تمييزاً لهم عن القيادات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "القَوَاعِد"
+    - lemma: "عامة الأعضاء"
+      decision: confirmed
+      decision_reason: "تركيب إضافي واضح وشائع الاستخدام كترجمة لـ (rank and file)، يعبر بدقة عن الأفراد المنتمين للهيئة باستثناء النخبة."
+      evidence_assessment:
+        case: expands_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عَامَّةُ الأَعْضَاءِ"
+    - lemma: "السَّوَادُ الأَعْظَمُ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير مجازي وتراثي فصيح يقصد به الكتلة الأكبر من الناس والجسم الرئيسي للجماعة، وهو مرادف ممتاز للمفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "السَّوَادُ الأَعْظَمُ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "الجُمْهُورُ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "الجمهور من الشيء معظمه، ومن الناس جُلّهم، مما يتطابق مع دلالة الجسم الرئيسي للمجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "الجُمْهُورُ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "عَامَّةُ النَّاسِ"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير فضفاض يشير إلى عوام المجتمع بأسره ولا يختص بأعضاء مجموعة أو كيان تنظيمي بعينه."
+    - lemma: "الأَغْلَبِيَّةُ"
+      source: stage1
+      decision: removed
+      decision_reason: "مصطلح يشير إلى الكثرة العددية (Majority) في الرأي أو التصويت، وليس بالضرورة إلى الأعضاء العاديين المنضوين في جسم المجموعة (Rank and file)."
+
+stage4_content:
+  definition:
+    current: "الناس الذين يشكلون الجسم الرئيسي لأي مجموعة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي حرفي وركيك. يجب صياغة تعريف مصطلحي دقيق يبرز التمييز بين الأفراد العاديين في القاعدة والهيئة القيادية، وهو المعنى الدقيق لـ (Rank and file)."
+    authored:
+      - type: terminological
+        text: "الأفراد العاديون الذين يمثِّلون الكُتلة الأكبر والجسم الأساسي لأيِّ جماعة أو مؤسسة، تمييزاً لهم عن النُّخبة أو القادة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "الأفراد العاديون الذين يمثِّلون الكُتلة الأكبر والجسم الأساسي لأيِّ جماعة أو مؤسسة، تمييزاً لهم عن النُّخبة أو القادة."
+  
+  examples:
+    per_lemma:
+      - lemma: "القواعد"
+        examples:
+          - text: "استجابت قيادة الحزب لمطالب القَوَاعِد الشعبية الغاضبة."
+            type: usage
+      - lemma: "عامة الأعضاء"
+        examples:
+          - text: "وافق عَامَّةُ الأَعْضَاءِ على القرارات الجديدة في الجمعية العمومية."
+            type: usage
+      - lemma: "السَّوَادُ الأَعْظَمُ"
+        examples:
+          - text: "تشكّل الطبقة العاملة السَّوَادَ الأَعْظَمَ من سكان المدينة الصناعية."
+            type: usage
+      - lemma: "الجُمْهُورُ"
+        examples:
+          - text: "تحدث رئيس النادي إلى جُمْهُورِ الأعضاء لاطلاعهم على آخر المستجدات التنظيمية."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "استجابت قيادة الحزب لمطالب القَوَاعِد الشعبية الغاضبة."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "وافق عَامَّةُ الأَعْضَاءِ على القرارات الجديدة في الجمعية العمومية."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تشكّل الطبقة العاملة السَّوَادَ الأَعْظَمَ من سكان المدينة الصناعية."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تحدث رئيس النادي إلى جُمْهُورِ الأعضاء لاطلاعهم على آخر المستجدات التنظيمية."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "القواعد"
+      entry_id: "{auto}"
+      root: "قعد"
+      maqayis_quote: "«الْقَافُ وَالْعَيْنُ وَالدَّالُ أَصْلٌ مُطَّرِدٌ مُنْقَاسٌ لَا يُخْلَفُ، وَهُوَ يُضَاهِي الْجُلُوسَ...»"
+    - lemma: "عامة الأعضاء"
+      entry_id: "{auto}"
+      roots:
+        - word: "عامة"
+          root: "عمم"
+          maqayis_quote: "«الْعَيْنُ وَالْمِيمُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى الطُّولِ وَالْكَثْرَةِ وَالْعُلُوِّ...»"
+        - word: "الأعضاء"
+          root: "عضو"
+          maqayis_quote: "«الْعَيْنُ وَالضَّادُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ وَاحِدٌ، يَدُلُّ عَلَى تَجْزِئَةِ الشَّيْءِ، فَالْعُضْوُ كُلُّ قِطْعَةٍ مِنْ جَسَدِ الْحَيَوَانِ...»"
+    - lemma: "السَّوَادُ الأَعْظَمُ"
+      entry_id: "{auto}"
+      roots:
+        - word: "السواد"
+          root: "سود"
+          maqayis_quote: "«السِّينُ وَالْوَاوُ وَالدَّالُ أَصْلٌ وَاحِدٌ، وَهُوَ خِلَافُ الْبَيَاضِ فِي اللَّوْنِ... وَسَوَادُ كُلِّ شَيْءٍ: شَخْصُهُ... وَالسَّوَادُ: الْعَدَدُ الْكَثِيرُ»"
+        - word: "الأعظم"
+          root: "عظم"
+          maqayis_quote: "«الْعَيْنُ وَالظَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الْكِبَرِ وَالْقُوَّةِ وَالشِّدَّةِ...»"
+    - lemma: "الجُمْهُورُ"
+      entry_id: "{auto}"
+      root: "جمهر"
+      
+  per_sense:
+    - lemma: "القواعد"
+      sense_id: "{auto}"
+      nuance: "تُستخدم غالباً في السياقات السياسية والتنظيمية (القواعد الحزبية، القواعد الشعبية) لتمييز الأفراد العاديين عن القيادة."
+      mwe: false
+    - lemma: "عامة الأعضاء"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي مباشر ومحايد يشير إلى إجمالي الأعضاء المنخرطين في نقابة أو جمعية ما."
+      mwe: true
+    - lemma: "السَّوَادُ الأَعْظَمُ"
+      sense_id: "{auto}"
+      nuance: "تعبير بلاغي تراثي يركز على الكثرة الغالبة والكتلة البشرية الضخمة مقارنة بغيرها."
+      mwe: true
+    - lemma: "الجُمْهُورُ"
+      sense_id: "{auto}"
+      nuance: "يشير إلى معظم الناس وجُلّهم ككتلة واحدة غير متمايزة."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قعد","maqayis":"«الْقَافُ وَالْعَيْنُ وَالدَّالُ أَصْلٌ مُطَّرِدٌ مُنْقَاسٌ لَا يُخْلَفُ، وَهُوَ يُضَاهِي الْجُلُوسَ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"عامة","root":"عمم","maqayis":"«الْعَيْنُ وَالْمِيمُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى الطُّولِ وَالْكَثْرَةِ وَالْعُلُوِّ...»"},{"word":"الأعضاء","root":"عضو","maqayis":"«الْعَيْنُ وَالضَّادُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ وَاحِدٌ، يَدُلُّ عَلَى تَجْزِئَةِ الشَّيْءِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"السواد","root":"سود","maqayis":"«السِّينُ وَالْوَاوُ وَالدَّالُ أَصْلٌ وَاحِدٌ، وَهُوَ خِلَافُ الْبَيَاضِ فِي اللَّوْنِ... وَسَوَادُ كُلِّ شَيْءٍ: شَخْصُهُ... وَالسَّوَادُ: الْعَدَدُ الْكَثِيرُ»"},{"word":"الأعظم","root":"عظم","maqayis":"«الْعَيْنُ وَالظَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الْكِبَرِ وَالْقُوَّةِ وَالشِّدَّةِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جمهر"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تُستخدم غالباً في السياقات السياسية والتنظيمية (القواعد الحزبية، القواعد الشعبية) لتمييز الأفراد العاديين عن القيادة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير وصفي مباشر ومحايد يشير إلى إجمالي الأعضاء المنخرطين في نقابة أو جمعية ما.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير بلاغي تراثي يركز على الكثرة الغالبة والكتلة البشرية الضخمة مقارنة بغيرها.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يشير إلى معظم الناس وجُلّهم ككتلة واحدة غير متمايزة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

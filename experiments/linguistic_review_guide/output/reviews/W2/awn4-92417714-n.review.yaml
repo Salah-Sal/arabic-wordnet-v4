@@ -1,0 +1,184 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللفظ الموجود "تريبتون" هو تعريب مباشر (Transliteration) قد يختلط مع "Tryptone" (ناتج تحلل بروتيني).
+      - التعريف الحالي يحصر المادة في "غير العضوية" بينما الاصطلاح العلمي للتريبتون (Tripton) يشمل كل ما هو غير حي (بقايا عضوية ومواد معدنية).
+    observations: "المفهوم ينتمي لعلوم المسطحات المائية (Limnology) ويشير إلى الشق غير الحي من السستون (Seston). المصطلح العربي الأكثر شيوعاً هو الوصفي 'العوالق غير الحية' أو 'المواد العالقة غير الحية'."
+  blind_candidates:
+    - lemma: "تِرِيبْتُون"
+      generation_method: taarib
+      justification: "التعريب العلمي القياسي للمصطلح العالمي (Tripton) المستخدم في المتون التخصصية."
+    - lemma: "عَوَالِق مَيِّتَة"
+      generation_method: tarkib
+      justification: "مصطلح وصفي يقابل (Dead seston) ويستخدم للتمييز عن العوالق الحية (Plankton)."
+    - lemma: "أَبِيُوسِسْتُون"
+      generation_method: taarib
+      justification: "المرادف العلمي اليوناني الأصل (Abioseston) الذي يعني السستون اللاحيوي."
+    - lemma: "عَوَالِق غَيْر حَيَّة"
+      generation_method: tarkib
+      justification: "تعبير اصطلاحي دقيق يصف المادة بطبيعتها الفيزيائية وعلاقتها بالحياة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تريبتون"
+      expands:
+        - text: "تريبتون (ناتج عن حل التريبسين للببتيد)"
+          source: "المعجم الطبي الموحد (2009)"
+          addition: "يظهر اشتراكاً لفظياً مع مصطلح كيميائي حيوي (Tryptone)، مما يستوجب دقة التشكيل والسياق."
+    - lemma: "سستون"
+      confirm:
+        - text: "سستون (Seston)"
+          source: "المكنز الزراعي متعدد اللغات"
+    - lemma: "مواد صلبة عالقة"
+      confirm:
+        - text: "تتكون الجسيمات أو المواد العالقة في الماء أو في الهواء من مواد معدنية أو عضوية صلبة التي لا تذوب في الوسط... تظل عالقة."
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة (1996)"
+    - lemma: "جسيمات"
+      confirm:
+        - text: "الجسيمات الدقيقة مثل الغبار، والدُخان، الضباب... جسيمات ملوثة."
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تريبتون"
+      decision: confirmed
+      decision_reason: "مصطلح علمي معرّب ثابت في علم البحيرات والبحار لتمثيل المكونات غير الحية العالقة."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تِرِيبْتُون"
+    - lemma: "عَوَالِق مَيِّتَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف وصفي شائع الاستخدام في الدراسات البيولوجية المائية للتمييز عن العوالق الحية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "عَوَالِق مَيِّتَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "عَوَالِق غَيْر حَيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي دقيق يغطي الجانبين العضوي والمعدني للمواد العالقة غير الحية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "عَوَالِق غَيْر حَيَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "أَبِيُوسِسْتُون"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف تقني دقيق (Abioseston) يستخدم كبديل دولي لـ Tripton."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "أَبِيُوسِسْتُون", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "المواد الجسيمية غير العضوية العالقة في المسطحات المائية مثل البحيرات والبحار"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يقصر المادة على 'غير العضوية' بينما المصطلح العلمي يشمل كل المواد غير الحية (عضوية ومعدنية)، كما يفتقر للإشارة إلى موقعه من 'السستون'."
+    authored:
+      - type: terminological
+        text: "مجموعة الجسيمات غير الحية (العضوية والمعدنية) العالقة في الأوساط المائية، وتمثل الشق اللاحيوي من السستون."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "تِرِيبْتُون"
+        examples:
+          - text: "يؤدي تراكم التريبتون في قاع البحيرة إلى تغيير طبيعة الرسوبيات وتأثر نفاذية الضوء."
+            type: usage
+      - lemma: "عَوَالِق مَيِّتَة"
+        examples:
+          - text: "تعتبر العوالق الميتة مصدراً غذائياً هاماً لبعض الكائنات المجهرية في النظم البيئية المائية."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مجموعة الجسيمات غير الحية (العضوية والمعدنية) العالقة في الأوساط المائية، وتمثل الشق اللاحيوي من السستون."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تِرِيبْتُون"
+      entry_id: "{auto}"
+    - lemma: "عَوَالِق مَيِّتَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "عوالق"
+          root: "علق"
+          maqayis_quote: "«الْعَيْنُ وَاللَّامُ وَالْقَافُ أَصْلٌ كَبِيرٌ صَحِيحٌ يَرْجِعُ إِلَى مَعْنًى وَاحِدٍ، وَهُوَ أَنْ يُنَاطَ الشَّيْءُ بِالشَّيْءِ الْعَالِي.»"
+        - word: "ميتة"
+          root: "موت"
+          maqayis_quote: "«الْمِيمُ وَالْوَاوُ وَالتَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى ذَهَابِ الْقُوَّةِ مِنَ الشَّيْءِ.»"
+    - lemma: "عَوَالِق غَيْر حَيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "عوالق"
+          root: "علق"
+          maqayis_quote: "«الْعَيْنُ وَاللَّامُ وَالْقَافُ أَصْلٌ كَبِيرٌ صَحِيحٌ يَرْجِعُ إِلَى مَعْنًى وَاحِدٍ، وَهُوَ أَنْ يُنَاطَ الشَّيْءُ بِالشَّيْءِ الْعَالِي.»"
+        - word: "حية"
+          root: "حيي"
+          maqayis_quote: "«الْحَاءُ وَالْيَاءُ وَالْوَاوُ أَصْلٌ وَاحِدٌ، وَهُوَ ضِدُّ الْمَوْتِ.»"
+  per_sense:
+    - lemma: "تِرِيبْتُون"
+      sense_id: "{auto}"
+      nuance: "المصطلح العلمي الدولي المعرّب والأكثر دقة في السياقات التخصصية."
+      mwe: false
+    - lemma: "عَوَالِق مَيِّتَة"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي يركز على الحالة البيولوجية للمواد العالقة."
+      mwe: true
+    - lemma: "عَوَالِق غَيْر حَيَّة"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي واسع يشمل المواد العضوية المتحللة والمعادن العالقة."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"عوالق","root":"علق","maqayis":"«...»"},{"word":"ميتة","root":"موت","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العلمي الدولي المعرّب والأكثر دقة في السياقات التخصصية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

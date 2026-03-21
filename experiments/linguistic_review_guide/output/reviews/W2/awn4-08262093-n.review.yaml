@@ -1,0 +1,225 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "المصطلح 'جريمة منظمة' يشير غالباً إلى الظاهرة الإجرامية (phenomenon)، بينما التعريف يركز على الكيانات (organizations)."
+      - "المصطلح 'عالم العصابات' ترجمة حرفية لـ (gangland)، والأكثر شيوعاً في العربية هو 'عالم الجريمة'."
+    observations: "المجموعة تغطي كلاً من المنظمات الإجرامية والوسط الاجتماعي أو المكاني الذي تنشط فيه (gangland). تم توليد مرشحات تغطي الجانب المؤسسي (منظمة، عصابة) والجانب السياقي (عالم الجريمة)."
+  blind_candidates:
+    - lemma: "مُنَظَّمَة إِجْرَامِيَّة"
+      generation_method: tarkib
+      justification: "الترجمة المباشرة والدقيقة لـ (underworld organization) في السياق القانوني والأمني."
+    - lemma: "عِصَابَة مُنَظَّمَة"
+      generation_method: tarkib
+      justification: "وصف شائع للمجموعات الإجرامية التي تعمل وفق هيكل تنظيمي، ورد ذكره في تعريفات المعاجم للظاهرة."
+    - lemma: "عَالَمُ الجَرِيمَة"
+      generation_method: tarkib
+      justification: "المصطلح العربي الشائع والمثبت في المعاجم الحديثة (مثل المورد) كترجمة لـ (gangland)."
+    - lemma: "المَافْيَا"
+      generation_method: taarib
+      justification: "لفظ معرب مستقر في اللغة العربية المعاصرة للدلالة على المنظمات الإجرامية السرية الكبيرة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "جريمة منظمة"
+      confirm:
+        - text: "«ظاهرة إجرامية يتم ارتكابها بواسطة عصابات إجرامية منظمة، تقوم بنشاط إجرامي سري بهدف تحقيق الربح.»"
+          source: "المعجم الموحد لمصطلحات القانون (2017)"
+    - lemma: "عالم العصابات"
+      evidence_status: "no_material_found"
+    - lemma: "عَالَمُ الجَرِيمَة"
+      confirm:
+        - text: "«عالَمُ الجريمة: gangland»"
+          source: "المورد الحديث (2008)"
+    - lemma: "المَافْيَا"
+      confirm:
+        - text: "«منظمة إرهابيّة سرِّيَّة، مقرّها جزيرة صقلية تعمل منذ أوائل القرن التاسع عشر ضدّ السلطة الشرعيّة.»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "مُنَظَّمَة إِجْرَامِيَّة"
+      confirm:
+        - text: "«يتم ارتكابها بواسطة عصابات إجرامية منظمة» (ورد ذكر عصابات إجرامية منظمة كمرادف وظيفي)"
+          source: "المعجم الموحد لمصطلحات القانون"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "جريمة منظمة"
+      decision: confirmed
+      decision_reason: "المصطلح الأكثر شيوعاً واستقراراً، ويستخدم دلالياً للإشارة إلى المنظمات نفسها (مجاز مرسل علاقته الحالية)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "جَرِيمَة مُنَظَّمَة"
+    - lemma: "عالم العصابات"
+      decision: confirmed
+      decision_reason: "ترجمة صحيحة لـ (gangland) وإن كانت أقل شيوعاً من 'عالم الجريمة'."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عَالَم العِصَابَات"
+    - lemma: "مُنَظَّمَة إِجْرَامِيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يطابق التعريف الإنجليزي (underworld organizations) بدقة وصحة لغوية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "مُنَظَّمَة إِجْرَامِيَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "عَالَم الجَرِيمَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح العربي الأكثر دقة وشيوعاً لترجمة (gangland/underworld) وموثق في المعاجم الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "عَالَم الجَرِيمَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "عِصَابَة مُنَظَّمَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح مركزي في تعريف الجريمة المنظمة، ويشير مباشرة إلى الكيان الإجرامي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "عِصَابَة مُنَظَّمَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "منظمات العالم السفلي"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب جداً ويستخدم مصطلحاً (العالم السفلي) قد يحتاج هو نفسه لتعريف."
+    authored:
+      - type: terminological
+        text: "جماعة إجرامية ذات هيكل تنظيمي مستقر، تمارس أنشطة غير قانونية (كالمتاجرة بالممنوعات أو الابتزاز) على نطاق واسع ومنسق، تهدف غالباً إلى الربح المادي والنفوذ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "جماعة إجرامية ذات هيكل تنظيمي مستقر، تمارس أنشطة غير قانونية على نطاق واسع ومنسق، تهدف غالباً إلى الربح المادي والنفوذ."}
+  examples:
+    per_lemma:
+      - lemma: "جَرِيمَة مُنَظَّمَة"
+        examples:
+          - text: "تكاتفت الدول لمكافحة الجريمة المنظمة العابرة للحدود."
+            type: usage
+      - lemma: "عَالَم الجَرِيمَة"
+        examples:
+          - text: "انغمس الشاب في عالم الجريمة بعد مصاحبته لرفقاء السوء."
+            type: usage
+      - lemma: "مُنَظَّمَة إِجْرَامِيَّة"
+        examples:
+          - text: "تمكنت الشرطة من تفكيك أخطر منظمة إجرامية في المدينة."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "تعد المافيا من أشهر أمثلة الجريمة المنظمة في العالم."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "جَرِيمَة مُنَظَّمَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "جريمة"
+          root: "جرم"
+          maqayis_quote: "«الْجِيمُ وَالرَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ يَرْجِعُ إِلَيْهِ الْفُرُوعُ. فَالْجِرْمُ الْقَطْعُ... وَالْجُرْمُ وَالْجَرِيمَةُ: الذَّنْبُ وَهُوَ مِنَ الْأَوَّلِ ; لِأَنَّهُ كَسْبٌ، وَالْكَسْبُ اقْتِطَاعٌ.»"
+        - word: "منظمة"
+          root: "نظم"
+          maqayis_quote: "«النُّونُ وَالظَّاءُ وَالْمِيمُ: أَصْلٌ يَدُلُّ عَلَى تَأْلِيفِ شَيْءٍ وَتَأْلِيفِهِ، وَنَظَمْتُ الْخَرَزَ نَظْمًا.»"
+    - lemma: "عَالَم الجَرِيمَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "عالم"
+          root: "علم"
+          maqayis_quote: "«الْعَيْنُ وَاللَّامُ وَالْمِيمُ أَصْلٌ صَحِيحٌ وَاحِدٌ، يَدُلُّ عَلَى أَثَرٍ بِالشَّيْءِ يَتَمَيَّزُ بِهِ عَنْ غَيْرِهِ.»"
+        - word: "الجريمة"
+          root: "جرم"
+          maqayis_quote: "«الْجِيمُ وَالرَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ... وَالْجُرْمُ وَالْجَرِيمَةُ: الذَّنْبُ.»"
+    - lemma: "عِصَابَة مُنَظَّمَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "عصابة"
+          root: "عصب"
+          maqayis_quote: "«الْعَيْنُ وَالصَّادُ وَالْبَاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى رَبْطِ شَيْءٍ بِشَيْءٍ... وَالْعُصْبَةُ وَالْعِصَابَةُ مِنَ النَّاسِ.»"
+        - word: "منظمة"
+          root: "نظم"
+          maqayis_quote: "«النُّونُ وَالظَّاءُ وَالْمِيمُ: أَصْلٌ يَدُلُّ عَلَى تَأْلِيفِ شَيْءٍ وَتَأْلِيفِهِ.»"
+
+  per_sense:
+    - lemma: "جَرِيمَة مُنَظَّمَة"
+      sense_id: "{auto}"
+      nuance: "تشير إلى الظاهرة الإجرامية بصورتها الكلية، وتستخدم مجازاً للدلالة على المنظمات القائمة بها."
+      mwe: true
+    - lemma: "عَالَم العِصَابَات"
+      sense_id: "{auto}"
+      nuance: "تشير إلى الوسط أو المجتمع الإجرامي (gangland)، مع التركيز على المجموعات (Gangs)."
+      mwe: true
+    - lemma: "عَالَم الجَرِيمَة"
+      sense_id: "{auto}"
+      nuance: "أكثر شمولاً وشيوعاً من 'عالم العصابات'، تصف الوسط الإجرامي بمجمله."
+      mwe: true
+    - lemma: "مُنَظَّمَة إِجْرَامِيَّة"
+      sense_id: "{auto}"
+      nuance: "المصطلح الرسمي لوصف الكيان القانوني أو التنظيمي للإجرام الجماعي."
+      mwe: true
+    - lemma: "عِصَابَة مُنَظَّمَة"
+      sense_id: "{auto}"
+      nuance: "تركز على فكرة الجماعة المسلحة أو المنظمة (Gang) التي تمارس الإجرام."
+      mwe: true
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"جريمة","root":"جرم","maqayis":"«...»"},{"word":"منظمة","root":"نظم","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تشير إلى الظاهرة الإجرامية بصورتها الكلية، وتستخدم مجازاً للدلالة على المنظمات القائمة بها.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

@@ -1,0 +1,213 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "الحاجة إلى تمييز دقيق بين المعنى اللغوي العام لكلمة (syntax) والمعنى الاصطلاحي في علم اللسانيات."
+      - "التعريف الحالي مقتضب ويفتقر إلى الصياغة المعجمية الرصينة."
+    observations: "المجموعة الترادفية تعبر عن المفهوم العام للترتيب المنظم (Arrangement) وليس بالضرورة المفهوم اللساني المحض (نحو)، مما يستدعي توفير لمات تغطي الجانب الهيكلي والجمالي للترتيب."
+  blind_candidates:
+    - lemma: "نَسَق"
+      generation_method: ishtiqaq
+      justification: "النسق في اللغة هو ما كان على طريقة نظام واحد، وهو من أدق الألفاظ العربية للتعبير عن الترتيب المنظم."
+    - lemma: "مَنْظُومَة"
+      generation_method: ishtiqaq
+      justification: "تعبر عن مجموعة العناصر المرتبة والمؤلفة التي تشكل كلاً واحداً."
+    - lemma: "تَرْتِيب"
+      generation_method: ishtiqaq
+      justification: "اللفظ الأساسي والمباشر في اللغة العربية للتعبير عن وضع الأشياء في مراتبها."
+    - lemma: "تَنْسِيق"
+      generation_method: ishtiqaq
+      justification: "يضيف معنى التناغم والانسجام إلى الترتيب."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "نسق"
+      confirm:
+        - text: "النَّسَقُ من كل شيء: ما كان على طريقة نِظامِ واحد، عامٌّ في الأشياء"
+          source: "لسان العرب"
+        - text: "النَّسَقُ: ما جاء من الكلام على نِظام واحد"
+          source: "تاج العروس"
+    - lemma: "نظام"
+      confirm:
+        - text: "الترتيب والاتساق... الطريقة والسيرة"
+          source: "موسوعة السلطان قابوس"
+        - text: "نِظامُ كل أَمر: مِلاكُه، والجمع أَنْظِمة وأَناظيمُ ونُظُمٌ"
+          source: "لسان العرب"
+    - lemma: "ترتيب"
+      confirm:
+        - text: "جعل الأشياء الكثيرة بحيث يطلق عليها اسم الواحد ويكون لبعض أجزائه نسبة إلى بعضها بالتقدم والتأخر"
+          source: "التوقيف على مهمات التعاريف"
+    - lemma: "تنسيق"
+      confirm:
+        - text: "التنسيق: من النسق بِسُكُون السِّين الْمُهْملَة التَّرْتِيب وإجراء الْكَلَام على سِيَاق وَاحِد ونظام وَاحِد"
+          source: "دستور العلماء"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "نَسَق"
+      decision: confirmed
+      decision_reason: "دقيق جداً في الدلالة على الترتيب المتسق والمنظم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نَسَق"
+    - lemma: "نِظَام"
+      decision: confirmed
+      decision_reason: "لفظ شامل يعبر عن الهيكل والقواعد التي تضبط الترتيب."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نِظَام"
+    - lemma: "تَرْتِيب"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اللفظ الأكثر شيوعاً ومباشرة للتعبير عن مفهوم Arrangement."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَرْتِيب", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَنْسِيق"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر عن الجانب الجمالي والتنسيقي للترتيب."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَنْسِيق", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "ترتيب منهجي منظم"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب، والمفهوم يتطلب تحديداً يربط الأجزاء بالكل المنظم."
+    authored:
+      - type: terminological
+        text: "تَرْتِيبٌ مَنْهَجِيٌّ مُنَظَّمٌ لِلأَجْزَاءِ وَتَآلُفُها في بِنَاءٍ كُلِّيٍّ وَفْقَ قَوَاعِدَ أَوْ مَبَادِئَ مُعَيَّنَةٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "تَرْتِيبٌ مَنْهَجِيٌّ مُنَظَّمٌ لِلأَجْزَاءِ وَتَآلُفُها في بِنَاءٍ كُلِّيٍّ وَفْقَ قَوَاعِدَ أَوْ مَبَادِئَ مُعَيَّنَةٍ."}
+  examples:
+    per_lemma:
+      - lemma: "نَسَق"
+        examples:
+          - text: "يَتَّبِعُ الرِّوَائِيُّ نَسَقاً مَنْطِقِيّاً في عَرْضِ أَحْدَاثِ قِصَّتِهِ."
+            type: usage
+      - lemma: "نِظَام"
+        examples:
+          - text: "تَمَّ تَصْمِيمُ البَرْنَامَجِ وَفْقَ نِظَامٍ صَارِمٍ مِنَ القَوَاعِدِ التَّقْنِيَّةِ."
+            type: usage
+      - lemma: "تَرْتِيب"
+        examples:
+          - text: "أَعَادَ أَمِينُ المَكْتَبَةِ تَرْتِيبَ المَرَاجِعِ بِحَسَبِ المَوْضُوعَاتِ."
+            type: usage
+      - lemma: "تَنْسِيق"
+        examples:
+          - text: "يَبْرُزُ تَنْسِيقُ الأَلْوَانِ في هَذِهِ اللَّوْحَةِ حِسَّ الفَنَّانِ المُرْهَفَ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يَتَّبِعُ الرِّوَائِيُّ نَسَقاً مَنْطِقِيّاً في عَرْضِ أَحْدَاثِ قِصَّتِهِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تَمَّ تَصْمِيمُ البَرْنَامَجِ وَفْقَ نِظَامٍ صَارِمٍ مِنَ القَوَاعِدِ التَّقْنِيَّةِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "أَعَادَ أَمِينُ المَكْتَبَةِ تَرْتِيبَ المَرَاجِعِ بِحَسَبِ المَوْضُوعَاتِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يَبْرُزُ تَنْسِيقُ الأَلْوَانِ في هَذِهِ اللَّوْحَةِ حِسَّ الفَنَّانِ المُرْهَفَ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "نَسَق"
+      entry_id: "{auto}"
+      root: "نسق"
+      maqayis_quote: "«النُّونُ وَالسِّينُ وَالْقَافُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَتَابُعٍ فِي الشَّيْءِ.»"
+    - lemma: "نِظَام"
+      entry_id: "{auto}"
+      root: "نظم"
+      maqayis_quote: "«النُّونُ وَالظَّاءُ وَالْمِيمُ: أَصْلٌ يَدُلُّ عَلَى تَأْلِيفِ شَيْءٍ وَتَأْلِيفِهِ.»"
+    - lemma: "تَرْتِيب"
+      entry_id: "{auto}"
+      root: "رتب"
+      maqayis_quote: "«أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى ثَبَاتٍ وَاسْتِقْرَارٍ.»"
+    - lemma: "تَنْسِيق"
+      entry_id: "{auto}"
+      root: "نسق"
+      maqayis_quote: "«النُّونُ وَالسِّينُ وَالْقَافُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَتَابُعٍ فِي الشَّيْءِ.»"
+  per_sense:
+    - lemma: "نَسَق"
+      sense_id: "{auto}"
+      nuance: "يركز على التتابع المنسجم والاستواء في الترتيب."
+      mwe: false
+    - lemma: "نِظَام"
+      sense_id: "{auto}"
+      nuance: "يركز على القواعد والمبادئ التي تحكم الهيكل الكلي."
+      mwe: false
+    - lemma: "تَرْتِيب"
+      sense_id: "{auto}"
+      nuance: "يركز على وضع كل شيء في مرتبته الصحيحة."
+      mwe: false
+    - lemma: "تَنْسِيق"
+      sense_id: "{auto}"
+      nuance: "يركز على التناغم والجمالية في توزيع العناصر."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نسق","maqayis":"«النُّونُ وَالسِّينُ وَالْقَافُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَتَابُعٍ فِي الشَّيْءِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نظم","maqayis":"«النُّونُ وَالظَّاءُ وَالْمِيمُ: أَصْلٌ يَدُلُّ عَلَى تَأْلِيفِ شَيْءٍ وَتَأْلِيفِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"رتب","maqayis":"«أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى ثَبَاتٍ وَاسْتِقْرَارٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على التتابع المنسجم والاستواء في الترتيب.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

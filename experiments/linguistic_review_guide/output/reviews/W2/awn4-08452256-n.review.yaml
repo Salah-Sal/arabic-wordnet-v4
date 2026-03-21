@@ -1,0 +1,198 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمة الحالية "نظام غير خطي" تفتقر إلى التشكيل الكامل، وهو أمر ضروري في المصطلحات العلمية لضمان النطق الصحيح (خَطِّيّ vs خُطِّيّ).
+    observations: "المصطلح يشير إلى مفهوم رياضي وهندسي دقيق. في العربية، يُعبر عن 'non-linear' بتركيبين شائعين: 'غير خطي' و'لاخطي'. كلاهما مستخدم في الأدبيات العلمية العربية المعاصرة، وإن كان 'لاخطي' يميل للظهور أكثر في التخصصات الدقيقة كالهندسة الكهربائية والفيزياء."
+  blind_candidates:
+    - lemma: "نِظَامٌ غَيْرُ خَطِّيّ"
+      generation_method: tarkib
+      justification: "الترجمة الأكثر شيوعاً ومباشرة لمصطلح nonlinear system."
+    - lemma: "نِظَامٌ لَاخَطِّيّ"
+      generation_method: tarkib
+      justification: "استخدام السابقة 'لا' لنفي الصفة (non-) شائع جداً في المصطلحات العلمية الحديثة، وهو أكثر إيجازاً."
+    - lemma: "مَنْظُومَةٌ غَيْرُ خَطِّيَّةٍ"
+      generation_method: tarkib
+      justification: "استخدام 'منظومة' كبديل لـ 'نظام' شائع في سياق النظم المعقدة."
+    - lemma: "مَنْظُومَةٌ لَاخَطِّيَّةٌ"
+      generation_method: tarkib
+      justification: "صيغة اصطلاحية علمية دقيقة تجمع بين 'منظومة' والصفة المنفية 'لاخطية'."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "نظام غير خطي"
+      confirm:
+        - text: "«معادلات خطية: معادلات من الدرجة الأولى»"
+          source: "المعجم الموحد لمصطلحات النفط (1999)"
+      expands:
+        - text: "«علاقة غير خطية: non-linear relationship»"
+          source: "المعجم الموحد لمصطلحات النفط (1999)"
+    - lemma: "نظام لاخطي"
+      confirm:
+        - text: "«ضبط لاخطي: Nonlinear control Non-linear control. عملية ضبط لا يسري عليها مبدأ التراكب...»"
+          source: "مسرد الهندسة الكهربائية (ArabTerm)"
+        - text: "«عنصر تحويل لاخطي: Nonlinear transfer element»"
+          source: "مسرد الهندسة الكهربائية (ArabTerm)"
+    - lemma: "منظومة غير خطية"
+      confirm:
+        - text: "«شبكة لاخطية: non-linear network. شبكة تقوم عناصرها بتغيير قيمتها مع تغيّر الزمن والجهد... كما أن قانون التراكب لا تنطبق عليه المعادلات الرياضية الخاصة بالشبكات اللاخطية.»"
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة (1996)"
+    - lemma: "منظومة لاخطية"
+      confirm:
+        - text: "«برمجة لاخطية: nonlinear programming. في بحوث العمليات: إجراءٌ لتحديدِ موضعِ القيمةِ العظمى... وتكون الدالّةُ، أو القيود، أو كلتاهما، لاخطّيّة.»"
+          source: "معجم مصطلحات المعلوماتية (2000)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "نظام غير خطي"
+      decision: confirmed
+      decision_reason: "المصطلح الأساسي والمستخدم بكثرة في المناهج التعليمية والترجمات العلمية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نِظَامٌ غَيْرُ خَطِّيّ"
+    - lemma: "نِظَامٌ لَاخَطِّيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح علمي موجز ودقيق، يشيع استخدامه في الفيزياء والهندسة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "نِظَامٌ لَاخَطِّيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مَنْظُومَةٌ غَيْرُ خَطِّيَّةٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "استخدام 'منظومة' يعطي دلالة أقوى على ترابط المكونات، وهو مرادف قوي لـ 'نظام'."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "مَنْظُومَةٌ غَيْرُ خَطِّيَّةٍ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مَنْظُومَةٌ لَاخَطِّيَّةٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صيغة علمية مركبة سليمة وشائعة في الأبحاث التخصصية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "مَنْظُومَةٌ لَاخَطِّيَّةٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "نظام لا يمكن وصف أدائه بمعادلات من الدرجة الأولى"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق علمياً ويربط المفهوم بأساسه الرياضي (معادلات الدرجة الأولى)."
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "نِظَامٌ لا يُمْكِنُ وَصْفُ أَدَائِهِ بِمُعَادَلَاتٍ مِنَ الدَّرَجَةِ الأُولَى."
+  examples:
+    per_lemma:
+      - lemma: "نِظَامٌ غَيْرُ خَطِّيّ"
+        examples:
+          - text: "تُعدُّ حركةُ البندولِ البسيطِ في الزوايا الكبيرةِ مِثالاً على نظامٍ غيرِ خطيٍّ."
+            type: usage
+      - lemma: "نِظَامٌ لَاخَطِّيّ"
+        examples:
+          - text: "تَتطلبُ دراسةُ أيِّ نظامٍ لاخطيٍّ أدواتٍ رياضيةً متقدمةً تختلفُ عن تلك المستخدمةِ في الأنظمةِ الخطيةِ."
+            type: usage
+      - lemma: "مَنْظُومَةٌ غَيْرُ خَطِّيَّةٍ"
+        examples:
+          - text: "يُشكّلُ الغلافُ الجويُّ للأرضِ منظومةً غيرَ خطيّةٍ بالغةَ التعقيدِ."
+            type: usage
+      - lemma: "مَنْظُومَةٌ لَاخَطِّيَّةٌ"
+        examples:
+          - text: "يؤدي التغذيةُ الراجعةُ في هذه المنظومةِ اللاخطيّةِ إلى ظهورِ سلوكياتٍ غيرِ متوقعةٍ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "تتميزُ الأنظمةُ غيرُ الخطيّةِ بأنَّ استجابتَها لا تتناسبُ طردياً مع المدخلاتِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "نِظَامٌ غَيْرُ خَطِّيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "نظام"
+          root: "نظم"
+          maqayis_quote: "«النُّونُ وَالظَّاءُ وَالْمِيمُ: أَصْلٌ يَدُلُّ عَلَى تَأْلِيفِ شَيْءٍ وَتَأْلِيفِهِ... وَالنِّظَامُ: الْخَيْطُ يَجْمَعُ الْخَرَزَ.»"
+        - word: "خطي"
+          root: "خط"
+          maqayis_quote: "«الْخَاءُ وَالطَّاءُ أَصْلٌ وَاحِدٌ ; وَهُوَ أَثَرٌ يَمْتَدُّ امْتِدَادًا. فَمِنْ ذَلِكَ الْخَطُّ الَّذِي يَخُطُّهُ الْكَاتِبُ.»"
+    - lemma: "نِظَامٌ لَاخَطِّيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "نظام"
+          root: "نظم"
+          maqayis_quote: "«النُّونُ وَالظَّاءُ وَالْمِيمُ: أَصْلٌ يَدُلُّ عَلَى تَأْلِيفِ شَيْءٍ وَتَأْلِيفِهِ...»"
+        - word: "لاخطي"
+          root: "خط"
+          maqayis_quote: "«الْخَاءُ وَالطَّاءُ أَصْلٌ وَاحِدٌ ; وَهُوَ أَثَرٌ يَمْتَدُّ امْتِدَادًا.»"
+  per_sense:
+    - lemma: "نِظَامٌ غَيْرُ خَطِّيّ"
+      sense_id: "{auto}"
+      nuance: "المصطلح الأكثر شيوعاً وعمومية في السياقات التعليمية والتقنية."
+      mwe: true
+    - lemma: "نِظَامٌ لَاخَطِّيّ"
+      sense_id: "{auto}"
+      nuance: "أكثر إيجازاً وتخصصاً، ويشيع في الأدبيات الهندسية والفيزيائية الحديثة."
+      mwe: true
+    - lemma: "مَنْظُومَةٌ غَيْرُ خَطِّيَّةٍ"
+      sense_id: "{auto}"
+      nuance: "تستخدم 'منظومة' للتركيز على الجانب التكاملي والترابطي لمكونات النظام."
+      mwe: true
+    - lemma: "مَنْظُومَةٌ لَاخَطِّيَّةٌ"
+      sense_id: "{auto}"
+      nuance: "تجمع بين دقة 'منظومة' وإيجاز 'لاخطية'."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"نظام","root":"نظم","maqayis":"«النُّونُ وَالظَّاءُ وَالْمِيمُ...»"},{"word":"خطي","root":"خط","maqayis":"«الْخَاءُ وَالطَّاءُ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الأكثر شيوعاً","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 1.0

@@ -1,0 +1,195 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمة الحالية تفتقر إلى التشكيل الكامل.
+      - الاكتفاء بلمة واحدة لمفهوم علمي له مرادفات اصطلاحية أخرى.
+      - التداخل بين مصطلح "عنصر" و"مجموعة" في بعض المراجع، رغم أن التعريف يحدد المجموعة.
+    observations: "المجموعة تشير إلى تصنيف كيميائي فرعي ضمن اللانثانيدات، ويُعرف اصطلاحاً بمجموعة التيربيوم أو الأرضيات التيربيومية. المصطلح تقني دولي معرّب في جزئه الخاص بالعنصر ومترجم في جزئه الخاص بالتصنيف."
+  blind_candidates:
+    - lemma: "مَجْمُوعَةُ التِّيرْبِيُوم"
+      generation_method: tarkib
+      justification: "الترجمة المباشرة والأكثر شيوعاً للمصطلح العلمي (Terbium group)."
+    - lemma: "زُمْرَةُ التِّيرْبِيُوم"
+      generation_method: tarkib
+      justification: "استخدام 'زمرة' كبديل لـ 'مجموعة' في الاصطلاح الكيميائي الخاص بجدول العناصر."
+    - lemma: "الأَرْضِيَّاتُ التِّيرْبِيُومِيَّة"
+      generation_method: tarkib
+      justification: "مصطلح تاريخي وعلمي دقيق يشير إلى أكاسيد هذه العناصر (Terbium earths) ويُطلق على المجموعة نفسها."
+    - lemma: "فِئَةُ التِّيرْبِيُوم"
+      generation_method: tarkib
+      justification: "استخدام 'فئة' كمرادف تنظيمي للمجموعة الكيميائية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مجموعة التيربيوم"
+      confirm:
+        - text: "«مجموعة: تطلق في الكيمياء على عدد من الذرات تدخل في التفاعلات الكيميائية دون انفصام بينها...»"
+          source: "المعجم الموحد لمصطلحات الكيمياء"
+    - lemma: "تيربيوم"
+      confirm:
+        - text: "«التِّيربيوم (العنصر الخامس والستون)»"
+          source: "المعجم الطبي الموحد"
+        - text: "«التَّرْبِيوم: عنصرٌ فِلِزّيّ ليّن (ك).»"
+          source: "المورد الحديث"
+    - lemma: "زمرة"
+      confirm:
+        - text: "«زمرة: [في الكيمياء والفيزياء]»"
+          source: "المعجم الموحد لمصطلحات الفيزياء"
+    - lemma: "الأرضيات"
+      confirm:
+        - text: "«عنصر أرضي نادر: أي عنصر من سلسلة اللانثانيدات...»"
+          source: "تعريف المجموعة العليا في AWN"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مجموعة التيربيوم"
+      decision: confirmed
+      decision_reason: "المصطلح العربي القياسي للمفهوم العلمي، متسق مع المعاجم التقنية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَجْمُوعَةُ التِّيرْبِيُوم"
+        - command: add_form
+          params:
+            entry_id: "{auto}"
+            written_form: "مَجْمُوعَةُ التَّرْبِيُوم"
+
+    - lemma: "زُمْرَةُ التِّيرْبِيُوم"
+      source: stage1
+      decision: confirmed
+      decision_reason: "استخدام 'زمرة' دقيق علمياً وشائع في الأدبيات الكيميائية العربية لوصف مجموعات العناصر."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "زُمْرَةُ التِّيرْبِيُوم", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "الأَرْضِيَّاتُ التِّيرْبِيُومِيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح علمي تراثي ومعاصر دقيق (Terbium earths) يشير تحديداً لهذا التقسيم ضمن اللانثانيدات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "الأَرْضِيَّاتُ التِّيرْبِيُومِيَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "مجموعة منفصلة من اللانثانيدات ذات الصلة، بما في ذلك التيربيوم واليوروبيوم والغادولينيوم وأحياناً الديسبروسيوم"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكن يمكن صياغته بأسلوب معجمي أدق يبرز الطبيعة الفلزية والعلاقة التصنيفية."
+    authored:
+      - type: terminological
+        text: "مَجْمُوعَةٌ مِنَ الفِلِزَّاتِ الأَرْضِيَّةِ النَّادِرَةِ تَنْتَمِي إِلَى سِلْسِلَةِ اللانثانيداتِ، تَضُمُّ عَنَاصِرَ التِّيرْبِيُومِ وَاليُورُوبْيُومِ وَالغَادُولِينْيُومِ، وَتَتَمَيَّزُ بِتَشَابُهِ خَوَاصِّهَا الكِيمْيَائِيَّةِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "مَجْمُوعَةٌ مِنَ الفِلِزَّاتِ الأَرْضِيَّةِ النَّادِرَةِ تَنْتَمِي إِلَى سِلْسِلَةِ اللانثانيداتِ، تَضُمُّ عَنَاصِرَ التِّيرْبِيُومِ وَاليُورُوبْيُومِ وَالغَادُولِينْيُومِ، وَتَتَمَيَّزُ بِتَشَابُهِ خَوَاصِّهَا الكِيمْيَائِيَّةِ."
+
+  examples:
+    per_lemma:
+      - lemma: "مَجْمُوعَةُ التِّيرْبِيُوم"
+        examples:
+          - text: "تُصَنَّفُ اللانثانيداتُ الثَّقِيلَةُ ضِمْنَ مَجْمُوعَةِ التِّيرْبِيُومِ فِي بَعْضِ التَّقْسِيمَاتِ الكِيمْيَائِيَّةِ."
+            type: usage
+      - lemma: "زُمْرَةُ التِّيرْبِيُوم"
+        examples:
+          - text: "تَمْتَازُ عَنَاصِرُ زُمْرَةِ التِّيرْبِيُومِ بِقُدْرَتِهَا عَلَى تَكْوِينِ مَرْكَبَاتٍ مِغْنَاطِيسِيَّةٍ قَوِيَّةٍ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تُصَنَّفُ اللانثانيداتُ الثَّقِيلَةُ ضِمْنَ مَجْمُوعَةِ التِّيرْبِيُومِ فِي بَعْضِ التَّقْسِيمَاتِ الكِيمْيَائِيَّةِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَجْمُوعَةُ التِّيرْبِيُوم"
+      entry_id: "{auto}"
+      roots:
+        - word: "مجموعة"
+          root: "جمع"
+          maqayis_quote: "«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ. يُقَالُ جَمَعْتُ الشَّيْءَ جَمْعًا.»"
+        - word: "التيربيوم"
+          root: null
+          maqayis_quote: "عنصر معرب من اللاتينية (Terbium)."
+    - lemma: "زُمْرَةُ التِّيرْبِيُوم"
+      entry_id: "{auto}"
+      roots:
+        - word: "زمرة"
+          root: "زمر"
+          maqayis_quote: "«الزَّاءُ وَالْمِيمُ وَالرَّاءُ... الزُّمْرَةُ فَالْجَمَاعَةُ، وَهِيَ مُشْتَقَّةٌ مِنْ هَذَا لِأَنَّهَا إِذَا اجْتَمَعَتْ كَانَتْ لَهَا جَلَبَةٌ.»"
+        - word: "التيربيوم"
+          root: null
+    - lemma: "الأَرْضِيَّاتُ التِّيرْبِيُومِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "الأرضيات"
+          root: "أرض"
+          maqayis_quote: "«الْهَمْزَةُ وَالرَّاءُ وَالضَّادُ... الْأَرْضُ: الَّتِي نَحْنُ عَلَيْهَا... أَرْضٌ أَرِيضَةٌ، وَذَلِكَ إِذَا كَانَتْ لَيِّنَةً طَيِّبَةً.»"
+        - word: "التيربيومية"
+          root: null
+
+  per_sense:
+    - lemma: "مَجْمُوعَةُ التِّيرْبِيُوم"
+      sense_id: "{auto}"
+      nuance: "المصطلح القياسي الأكثر شيوعاً في المناهج والمراجع العلمية العربية."
+      mwe: true
+    - lemma: "زُمْرَةُ التِّيرْبِيُوم"
+      sense_id: "{auto}"
+      nuance: "يُركز على مكانة هذه العناصر كفئة تنظيمية في الجدول الدوري أو تصنيفاته الفرعية."
+      mwe: true
+    - lemma: "الأَرْضِيَّاتُ التِّيرْبِيُومِيَّة"
+      sense_id: "{auto}"
+      nuance: "مصطلح تقني متخصص يشير إلى المجموعة من منظور تاريخي كأكاسيد (earths) أو عناصر أرضية."
+      mwe: true
+
+  synset:
+    cultural_fit: lexical_gap
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مجموعة","root":"جمع","maqayis":"«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ...»"},{"word":"التيربيوم","root":null,"maqayis":"عنصر معرب"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح القياسي الأكثر شيوعاً","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"lexical_gap"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

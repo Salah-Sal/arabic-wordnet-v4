@@ -1,0 +1,212 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الحالية (امتلاء، انتفاخ) صحيحة ولكنها تفتقر إلى الاصطلاح العلمي الدقيق لمفهوم (Turgor) في علم الأحياء، وهو 'التوتر' الناتج عن الضغط الأسموزي."
+      - "كلمة 'امتلاء' عامة جداً وقد لا تحيل مباشرة إلى المفهوم البيولوجي دون سياق."
+    observations: "المفهوم يتعلق بحالة فيزيولوجية طبيعية في الخلايا النباتية والأوعية، حيث يؤدي ضغط السوائل (المحتويات) على الجدران الخلوية إلى جعلها مشدودة (قاسية). المصطلح العربي المقابل الأكثر دقة في السياق العلمي هو 'انتفاخ' (Turgidity) و'توتر' (Turgor)."
+  blind_candidates:
+    - lemma: "تَوَتُّرٌ"
+      generation_method: ishtiqaq
+      justification: "يعبر عن الحالة الانفعالية أو الشد (Tension/Turgor) الناجم عن ضغط المحتويات، وهو مصطلح معتمد في الفيزياء وعلم وظائف الأعضاء."
+    - lemma: "تَنَفُّخٌ"
+      generation_method: ishtiqaq
+      justification: "مرادف دقيق لانتفاخ (Turgescence) ويستخدم في تقنيات الأغذية وعلم النبات للدلالة على تغلظ الأنسجة بالماء."
+    - lemma: "اكْتِنَازٌ"
+      generation_method: majaz
+      justification: "يستخدم في المعاجم الزراعية (مثل مكنز Agrovoc) للدلالة على امتلاء الأنسجة واكتنازها بالسوائل."
+    - lemma: "تَضَلُّعٌ"
+      generation_method: ishtiqaq
+      justification: "اشتقاق من (الضلع) للدلالة على الامتلاء الشديد حتى تصل المحتويات إلى الجدران (الضلوع)، وهو مجاز عربي قديم للامتلاء."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "امْتِلَاءٌ"
+      confirm:
+        - text: "«الامتلاء... هو أن يمتلئ البدن من خلط من الأخلاط الأربعة ويشرف الإنسان على العلّة»"
+          source: "كشاف اصطلاحات الفنون"
+    - lemma: "انْتِفَاخٌ"
+      confirm:
+        - text: "«انتفاخ: turgidity (في علم الأحياء)»"
+          source: "المعجم الموحد لمصطلحات علم الأحياء"
+        - text: "«الانتفاخ، التنفخ: التوتر الناتج عن زيادة ضغط السائل داخل الخضراوات أو الثمار (Turgor)»"
+          source: "المعجم الموحد لمصطلحات تقانات الأغذية"
+    - lemma: "تَوَتُّرٌ"
+      confirm:
+        - text: "«التوتر: (في الميكانيكا) الحالة الانفعالية لجسم مشدود من طرفيه»"
+          source: "المعجم الوسيط"
+        - text: "«التوتر: Tension / Tonus (في الطب والطب البيطري)»"
+          source: "المعجم الطبي الموحد"
+    - lemma: "اكْتِنَازٌ"
+      confirm:
+        - text: "«إكتناز: turgor»"
+          source: "المكنز الزراعي (Agrovoc)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "امْتِلَاءٌ"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي يعبر عن جوهر المفهوم (Fullness) وهو مستخدم في التعريف العربي الأصلي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "امْتِلَاءٌ"
+    - lemma: "انْتِفَاخٌ"
+      decision: confirmed
+      decision_reason: "المصطلح العلمي الأكثر شيوعاً ومطابقة لـ (Turgidity) في علوم الأحياء والنبات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "انْتِفَاخٌ"
+    - lemma: "تَوَتُّرٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر بدقة عن الحالة (Turgor) الناتجة عن الضغط، ويستخدم لوصف 'الحالة الصلبة' المذكورة في التعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَوَتُّرٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَنَفُّخٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف اصطلاحي لانتفاخ ورد في المعاجم الموحدة لتقانات الأغذية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَنَفُّخٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "اكْتِنَازٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تقني مستخدم في السياق الزراعي والبيولوجي للدلالة على امتلاء الأنسجة وتماسكها."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "اكْتِنَازٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "(أحياء) الحالة الصلبة الطبيعية لامتلاء خلية أو وعاء دموي أو شعيرة دموية ناتجة عن ضغط المحتويات ضد الجدار أو الغشاء"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكن يمكن صياغته بأسلوب معجمي أكثر إحكاماً يبرز مفهوم 'التوتر' الناتج عن الضغط السائل."
+    authored:
+      - type: terminological
+        text: "(في الأحياء) حالة التوتر والصلابة التي تعتري الخلية أو الوعاء الحيوي نتيجة ضغط السوائل الداخلية على جدرانها أو أغشيتها المحيطة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "(في الأحياء) حالة التوتر والصلابة التي تعتري الخلية أو الوعاء الحيوي نتيجة ضغط السوائل الداخلية على جدرانها أو أغشيتها المحيطة."}
+
+  examples:
+    per_lemma:
+      - lemma: "انْتِفَاخٌ"
+        examples:
+          - text: "يؤدي انتفاخ الخلايا النباتية إلى بقاء الساق منتصبة والأوراق منبسطة."
+            type: usage
+      - lemma: "تَوَتُّرٌ"
+        examples:
+          - text: "يحافظ ضغط التوتر على شكل الخلية ويمنعها من الذبول."
+            type: usage
+      - lemma: "اكْتِنَازٌ"
+        examples:
+          - text: "تتميز الثمار الناضجة باكتناز أنسجتها وقوتها الميكانيكية."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يؤدي انتفاخ الخلايا النباتية إلى بقاء الساق منتصبة والأوراق منبسطة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "امْتِلَاءٌ"
+      entry_id: "{auto}"
+      root: "ملأ"
+      maqayis_quote: "«الميم واللام والهمزة أصلٌ صحيح يدلُّ على خلاف الخلاء.»"
+    - lemma: "انْتِفَاخٌ"
+      entry_id: "{auto}"
+      root: "نفخ"
+      maqayis_quote: "«النون والفاء والخاء: أَصلٌ صحيح يدلُّ على انتفاخٍ وعلوِّ شيء.»"
+    - lemma: "تَوَتُّرٌ"
+      entry_id: "{auto}"
+      root: "وتر"
+      maqayis_quote: "«الواو والتاء والراء: بابٌ... ووَتَرُ القوسِ معروفٌ. يقال وترتُها وأوترتُها.» (دلالة المَد والشد)."
+    - lemma: "تَنَفُّخٌ"
+      entry_id: "{auto}"
+      root: "نفخ"
+      maqayis_quote: "«النون والفاء والخاء: أَصلٌ صحيح يدلُّ على انتفاخٍ وعلوِّ شيء.»"
+    - lemma: "اكْتِنَازٌ"
+      entry_id: "{auto}"
+      root: "كنز"
+      maqayis_quote: "«الكاف والنون والزاي أُصيْلٌ صحيحٌ يدلُّ على تجمُّعٍ في شيء. من ذلك ناقةٌ كِنازُ اللحم، أي مجتمعة.»"
+
+  per_sense:
+    - lemma: "امْتِلَاءٌ"
+      sense_id: "{auto}"
+      nuance: "أعم المصطلحات، يصف مجرد وجود مادة تشغل الحيز بالكامل."
+      mwe: false
+    - lemma: "انْتِفَاخٌ"
+      sense_id: "{auto}"
+      nuance: "يركز على زيادة الحجم الناتجة عن الامتلاء (Turgidity)."
+      mwe: false
+    - lemma: "تَوَتُّرٌ"
+      sense_id: "{auto}"
+      nuance: "يركز على الحالة الميكانيكية والضغط (Turgor Pressure) والقساوة الناتجة."
+      mwe: false
+    - lemma: "اكْتِنَازٌ"
+      sense_id: "{auto}"
+      nuance: "يركز على تماسك النسيج وامتلاء خلاياه بالسوائل أو اللحم."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ملأ","maqayis":"«الميم واللام والهمزة أصلٌ صحيح يدلُّ على خلاف الخلاء.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على زيادة الحجم الناتجة عن الامتلاء (Turgidity)","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

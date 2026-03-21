@@ -1,0 +1,217 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمات الحالية صحيحة لكنها تحتاج لتدقيق في التشكيل وإضافة مرادفات تعبر عن الجوانب المختلفة لانبعاث الطاقة (كالإشعاع والتدفق المفاجئ).
+    observations: "المفهوم يتعلق بالانتقال المفاجئ للطاقة من حالة مخزنة أو كامنة إلى حالة حرة أو منطلقة. اللمات المقترحة تغطي الجوانب الفيزيائية (تفريغ، انبعاث) والوصفية (إطلاق، دفقة)."
+  blind_candidates:
+    - lemma: "انْبِعَاثٌ"
+      generation_method: ishtiqaq
+      justification: "المصطلح العلمي القياسي لانطلاق الطاقة (كالإشعاع والحرارة) من مصدرها."
+    - lemma: "إِطْلَاقٌ"
+      generation_method: ishtiqaq
+      justification: "يعبر عن عملية التحرير أو الإرسال المفاجئ (Release)."
+    - lemma: "تَفْرِيغٌ"
+      generation_method: ishtiqaq
+      justification: "يستخدم خصيصاً في سياق الطاقة المخزنة (الكهربائية مثلاً) عند تحررها المفاجئ."
+    - lemma: "دَفْقَةٌ"
+      generation_method: majaz
+      justification: "تعبر عن الطبيعة المفاجئة والدفعية لانطلاق الطاقة (Burst/Surge)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "إِطْلَاقٌ"
+      confirm:
+        - text: "«إطلاق المواد (الغازات والغبار) أو الطاقة (الإشعاع والحرارة والضوضاء) في البيئة»"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+    - lemma: "تَفْرِيغٌ"
+      confirm:
+        - text: "«تفريغ: discharge»"
+          source: "المعجم الموحد لمصطلحات الفيزياء العامة والنووية"
+        - text: "«عملية تفريغ شحنة من... بطارية...»"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+    - lemma: "انْبِعَاثٌ"
+      confirm:
+        - text: "«إطلاق الحرارة والأشعة والضجيج والروائح يُعتبر من أنواع الانبعاثات.»"
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة"
+        - text: "«عملية انبعاث أشعة كهرمغنطيسية من جسم ما نتيجة لدرجة حرارته»"
+          source: "المعجم الموحد لمصطلحات الاستشعار عن بعد"
+    - lemma: "دَفْقَةٌ"
+      confirm:
+        - text: "«(الدفقة) يُقَال جَاءُوا دفقة وَاحِدَة دفْعَة وَاحِدَة»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«الدَّالُ وَالْفَاءُ وَالْقَافُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ قِيَاسُهُ، وَهُوَ دَفْعُ الشَّيْءِ قُدُمًا.»"
+          source: "مقاييس اللغة"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "إِطْلَاقٌ"
+      decision: confirmed
+      decision_reason: "مصطلح عام وشامل يصف عملية تحرير الطاقة من قيودها أو انطلاقها من مصدرها."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "إِطْلَاقٌ"
+    - lemma: "تَفْرِيغٌ"
+      decision: confirmed
+      decision_reason: "مصطلح فيزيائي دقيق يعبر عن التخلص من الطاقة المخزنة (discharge) خاصة الكهربائية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَفْرِيغٌ"
+    - lemma: "انْبِعَاثٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح العلمي الأكثر شيوعاً لوصف خروج الطاقة (كالإشعاع والحرارة) في الوسط المحيط."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "انْبِعَاثٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "دَفْقَةٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبر بدقة عن صفة 'المفاجئ' الواردة في التعريف، وتستخدم لوصف الهبات المفاجئة من الطاقة (Surge)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "دَفْقَةٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "الإطلاق المفاجئ للطاقة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ترجمة حرفية، ويفضل صياغته بأسلوب معجمي يجمع بين جوانب التحرر والانبعاث."
+    authored:
+      - type: terminological
+        text: "انْبِعَاثُ الطَّاقَةِ أَوْ خُرُوجُهَا بِصُورَةٍ مُفَاجِئَةٍ، كَمَا فِي التَّفْرِيغِ الكَهْرَبَائِيِّ أَوْ صُدُورِ الإِشْعَاعِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "انْبِعَاثُ الطَّاقَةِ أَوْ خُرُوجُهَا بِصُورَةٍ مُفَاجِئَةٍ، كَمَا فِي التَّفْرِيغِ الكَهْرَبَائِيِّ أَوْ صُدُورِ الإِشْعَاعِ."}
+  examples:
+    per_lemma:
+      - lemma: "إِطْلَاقٌ"
+        examples:
+          - text: "أدى إطلاق الطاقة من المحرك إلى زيادة مفاجئة في السرعة."
+            type: usage
+      - lemma: "تَفْرِيغٌ"
+        examples:
+          - text: "يحدث البرق نتيجة تفريغ كهربائي هائل في السحب."
+            type: usage
+      - lemma: "انْبِعَاثٌ"
+        examples:
+          - text: "يصاحب التفاعل الكيميائي انبعاث كمية كبيرة من الطاقة الحرارية."
+            type: usage
+      - lemma: "دَفْقَةٌ"
+        examples:
+          - text: "استقبلت المجسات دفقة من الطاقة الإشعاعية المنبعثة من النجم."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يحدث البرق نتيجة تفريغ كهربائي هائل في السحب."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يصاحب التفاعل الكيميائي انبعاث كمية كبيرة من الطاقة الحرارية."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "إِطْلَاقٌ"
+      entry_id: "{auto}"
+      root: "طلق"
+      maqayis_quote: "«الطَّاءُ وَاللَّامُ وَالْقَافُ أَصْلٌ صَحِيحٌ مُطَّرِدٌ وَاحِدٌ، وَهُوَ يَدُلُّ عَلَى التَّخْلِيَةِ وَالْإِرْسَالِ.»"
+    - lemma: "تَفْرِيغٌ"
+      entry_id: "{auto}"
+      root: "فرغ"
+      maqayis_quote: "«الْفَاءُ وَالرَّاءُ وَالْغَيْنُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى خُلُوٍّ [وَسَعَةِ] ذَرْعٍ... وَأَفْرَغْتَ الْمَاءَ: صَبَبْتُهُ.»"
+    - lemma: "انْبِعَاثٌ"
+      entry_id: "{auto}"
+      root: "بعث"
+      maqayis_quote: "«الْبَاءُ وَالْعَيْنُ وَالثَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الْإِثَارَةُ.»"
+    - lemma: "دَفْقَةٌ"
+      entry_id: "{auto}"
+      root: "دفق"
+      maqayis_quote: "«الدَّالُ وَالْفَاءُ وَالْقَافُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ قِيَاسُهُ، وَهُوَ دَفْعُ الشَّيْءِ قُدُمًا... وَهَذِهِ دُفْقَةٌ مِنْ مَاءٍ.»"
+  per_sense:
+    - lemma: "إِطْلَاقٌ"
+      sense_id: "{auto}"
+      nuance: "المصطلح الأعم لعملية تحرير الطاقة."
+      mwe: false
+    - lemma: "تَفْرِيغٌ"
+      sense_id: "{auto}"
+      nuance: "يختص بتحرر الطاقة المخزنة أو الشحنات الكهربائية."
+      mwe: false
+    - lemma: "انْبِعَاثٌ"
+      sense_id: "{auto}"
+      nuance: "يركز على انتشار الطاقة (كالإشعاع) في الوسط المحيط."
+      mwe: false
+    - lemma: "دَفْقَةٌ"
+      sense_id: "{auto}"
+      nuance: "يؤكد على الطبيعة الاندفاعية واللحظية للانطلاق."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"طلق","maqayis":"«الطَّاءُ وَاللَّامُ وَالْقَافُ أَصْلٌ صَحِيحٌ مُطَّرِدٌ وَاحِدٌ، وَهُوَ يَدُلُّ عَلَى التَّخْلِيَةِ وَالْإِرْسَالِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"فرغ","maqayis":"«الْفَاءُ وَالرَّاءُ وَالْغَيْنُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى خُلُوٍّ [وَسَعَةِ] ذَرْعٍ... وَأَفْرَغْتَ الْمَاءَ: صَبَبْتُهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"بعث","maqayis":"«الْبَاءُ وَالْعَيْنُ وَالثَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الْإِثَارَةُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"دفق","maqayis":"«الدَّالُ وَالْفَاءُ وَالْقَافُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ قِيَاسُهُ، وَهُوَ دَفْعُ الشَّيْءِ قُدُمًا... وَهَذِهِ دُفْقَةٌ مِنْ مَاءٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الأعم لعملية تحرير الطاقة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

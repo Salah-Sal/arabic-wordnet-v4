@@ -1,0 +1,175 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'أوراق اللاعب' عبارة وصفية حرة وليست مصطلحاً مسكوكاً."
+      - "التعريف الحالي يميل إلى الترجمة الحرفية (the cards held... -> البطاقات التي يحملها...)."
+    observations: "المفهوم يشير إلى مجموعة البطاقات التي يحوزها اللاعب في دورة معينة (hand/deal). التعبير بكلمة 'يد' شائع جداً في هذا السياق كاستعارة (مجاز مرسل أو اقتراض دلالي) لتعني ما يقبض عليه اللاعب."
+  blind_candidates:
+    - lemma: "تَوْزِيعَة"
+      generation_method: ishtiqaq
+      justification: "اسم مرة من التوزيع، يشير إلى حصة اللاعب من أوراق اللعب في الدورة الواحدة."
+    - lemma: "حِصَّة"
+      generation_method: majaz
+      justification: "استعارة من النصيب المادي للدلالة على نصيب اللاعب من البطاقات الموزعة."
+    - lemma: "دَوْرَة"
+      generation_method: majaz
+      justification: "انتقال الدلالة من الوقت أو الدور الزمني إلى الأوراق المقترنة بذلك الدور."
+    - lemma: "رَصِيد"
+      generation_method: majaz
+      justification: "استعارة من الرصيد المالي للدلالة على ما يملكه اللاعب من أوراق في لحظة معينة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "أوراق اللاعب"
+      evidence_status: no_material_found
+    - lemma: "يد"
+      confirm:
+        - text: "hand: ... (10) «أ» لاعب [في لعبة ورق]. «ب» الأوراق في يد اللاعب. «ج» دورة أو «دَقّ» [في لعب الورق]."
+          source: "المورد الحديث"
+    - lemma: "تَوْزِيعَة"
+      confirm:
+        - text: "deal: ... (12) «أ» توزيع ورق اللعب على اللاعبين. «ب» مجموعة الأوراق في يد اللاعب."
+          source: "المورد الحديث"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "أوراق اللاعب"
+      decision: removed
+      decision_reason: "تعبير وصفي حر يتركب من مضاف ومضاف إليه ولا يشكل مصطلحاً مسكوكاً ثابتاً، إذ يمكن استبدال 'أوراق' بـ 'بطاقات' وبقاء المعنى الوصفي صالحاً."
+      evidence_assessment:
+        case: no_material
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+            
+    - lemma: "يد"
+      decision: confirmed
+      decision_reason: "مصطلح شائع في ألعاب الورق يشير إلى الدورة (دق) أو ما يحمله اللاعب من أوراق، وهو اقتراض مفهومي مقبول ومستقر في الاستعمال المعاصر."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "يَد"
+
+    - lemma: "تَوْزِيعَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح اشتقاقي (اسم مرة من التوزيع) يعبر بدقة عن حصة الأوراق التي تُوزع على اللاعب في الدورة الواحدة ويقابل المفهوم الإنجليزي (deal)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "تَوْزِيعَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "البطاقات التي يحملها لاعب معين في لعبة ورق في وقت معين"
+    assessment:
+      decision: revise
+      reason: "تعديل لصياغة تعريف أمتن بأسلوب معجمي بدلاً من الترجمة الحرفية."
+    authored:
+      - type: terminological
+        text: "حصة اللاعب من أوراق اللعب التي تُوزع عليه ويقبضها في دورة لعب واحدة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "حصة اللاعب من أوراق اللعب التي تُوزع عليه ويقبضها في دورة لعب واحدة."
+  examples:
+    per_lemma:
+      - lemma: "يَد"
+        examples:
+          - text: "انسحب اللاعب من الجولة لأن اليد التي معه كانت ضعيفة."
+            type: usage
+      - lemma: "تَوْزِيعَة"
+        examples:
+          - text: "حصل اللاعب على توزيعة أوراق ممتازة مكنته من الفوز باللعبة."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "انسحب اللاعب من الجولة لأن اليد التي معه كانت ضعيفة."
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "حصل اللاعب على توزيعة أوراق ممتازة مكنته من الفوز باللعبة."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "يَد"
+      entry_id: "{auto}"
+      root: "يدي"
+      maqayis_quote: "«الْيَاءُ وَالدَّالُ: أَصْلُ بِنَاءِ الْيَدِ لِلْإِنْسَانِ وَغَيْرِهِ، وَيُسْتَعَارُ فِي الْمِنَّةِ...»"
+    - lemma: "تَوْزِيعَة"
+      entry_id: "{auto}"
+      root: "وزع"
+      maqayis_quote: "«الْوَاوُ وَالزَّاءُ وَالْعَيْنُ: بِنَاءٌ مَوْضُوعٌ عَلَى غَيْرِ قِيَاسٍ. وَوَزَعْتُهُ عَنِ الْأَمْرِ: كَفَفْتُهُ...»"
+  
+  per_sense:
+    - lemma: "يَد"
+      sense_id: "{auto}"
+      nuance: "تستخدم مجازاً للتركيز على الأوراق المقبوضة فعلياً أثناء اللعب (hand)."
+      mwe: false
+    - lemma: "تَوْزِيعَة"
+      sense_id: "{auto}"
+      nuance: "تركز على الأوراق من حيث كونها ناتجة عن عملية القسمة والتفريق على اللاعبين (deal)."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"يدي","maqayis":"«الْيَاءُ وَالدَّالُ: أَصْلُ بِنَاءِ الْيَدِ لِلْإِنْسَانِ وَغَيْرِهِ، وَيُسْتَعَارُ فِي الْمِنَّةِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"وزع","maqayis":"«الْوَاوُ وَالزَّاءُ وَالْعَيْنُ: بِنَاءٌ مَوْضُوعٌ عَلَى غَيْرِ قِيَاسٍ. وَوَزَعْتُهُ عَنِ الْأَمْرِ: كَفَفْتُهُ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تستخدم مجازاً للتركيز على الأوراق المقبوضة فعلياً أثناء اللعب (hand).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركز على الأوراق من حيث كونها ناتجة عن عملية القسمة والتفريق على اللاعبين (deal).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.90

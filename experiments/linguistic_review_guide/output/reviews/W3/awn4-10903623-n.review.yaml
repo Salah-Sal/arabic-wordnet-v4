@@ -1,0 +1,288 @@
+# ══════════════════════════════════════════════════════════════
+# مراجعة المجموعة الترادفية — AWN4 Review Pipeline v2
+# Synset: awn4-10903623-n  |  ILI: i94653
+# الموضوع: جون ميرفين كارير — معماري أمريكي (1858-1911)
+# ══════════════════════════════════════════════════════════════
+
+
+# ── المرحلة ١: المراجعة والتوليد ──────────────────────────────
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمتان الحاليتان مكتوبتان بدون تشكيل كامل"
+      - "المجموعة تمثّل علماً شخصياً أجنبياً، ولذا تقتصر الأدوات المتاحة على التعريب (taarib) دون سائر المناهج"
+      - "كارير بمفرده قد يلتبس بألقاب أخرى؛ الشكل الكامل أدق توثيقاً"
+    observations: >
+      هذه المجموعة الترادفية مخصَّصة لشخصية تاريخية بعينها هي المهندس المعماري الأمريكي جون ميرفين كارير
+      (1858-1911)، المعروف بشراكته مع توماس هاستينغز في تصميم عدد من أبرز المباني العامة الأمريكية.
+      لمّا كانت المجموعة تُعرِّف علماً شخصياً أجنبياً، فإن الطريقة المصطلحية الوحيدة المنطبقة هي
+      التعريب (نقل الاسم الأجنبي بحروف عربية). لا يصحّ اشتقاق أو مجاز أو تركيب في هذا السياق.
+      الشكل الأنسب هو الاسم الثلاثي الكامل للتوثيق، مع الإبقاء على اللقب المفرد للإحالة المختصرة.
+
+  blind_candidates:
+    - lemma: "كَارِير"
+      generation_method: taarib
+      justification: "تعريب اللقب الأجنبي «Carrere» بحروف عربية على الشكل القياسي للنقل الصوتي"
+    - lemma: "جُون مِيرْفِين كَارِير"
+      generation_method: taarib
+      justification: "تعريب الاسم الثلاثي الكامل «John Merven Carrere» — الصيغة الرسمية الأكثر دقةً وأقلّها التباساً"
+    - lemma: "جُون كَارِير"
+      generation_method: taarib
+      justification: "تعريب الصيغة الثنائية الشائعة (الاسم الأول + اللقب) المستخدمة في المراجع العامة والصحفية"
+    - lemma: "كَارِيرِي"
+      generation_method: taarib
+      justification: >
+        اختبار النسبة الصرفية من اللقب المعرَّب — غير مرجَّحة؛ النسبة من اسم شخص لا تُعرِّف
+        الشخصَ ذاتها بل تدلّ على الانتساب إليه أو على ما يتعلق به
+
+
+# ── المرحلة ٢: جمع الأدلة ────────────────────────────────────
+# الاستعلامات المنفَّذة:
+#   ١. مطابقة دفعية لجميع اللمّات والمرشحات (لم تُسفر عن نتائج — أسماء أجنبية)
+#   ٢. جسر إنجليزي: Carrere / John Carrere / Hastings / architect (لم تُسفر عن نتائج للاسم)
+#   ٣. FTS بالكلمات المفتاحية: معماري / مهندس معماري / مباني عامة (أسفرت عن مداخل عامة لا خاصة)
+stage2_evidence:
+  per_lemma:
+    - lemma: "جون ميرفين كارير"
+      evidence_status: "no_material_found"
+
+    - lemma: "كارير"
+      evidence_status: "no_material_found"
+
+    - lemma: "كَارِير"
+      evidence_status: "no_material_found"
+
+    - lemma: "جُون مِيرْفِين كَارِير"
+      evidence_status: "no_material_found"
+
+    - lemma: "جُون كَارِير"
+      evidence_status: "no_material_found"
+
+    - lemma: "كَارِيرِي"
+      evidence_status: "no_material_found"
+
+
+# ── المرحلة ٣: التحليل اللغوي للمّات ────────────────────────
+stage3_analysis:
+  per_lemma:
+
+    # ── لمّة موجودة ١ ──
+    - lemma: "جون ميرفين كارير"
+      decision: confirmed
+      decision_reason: >
+        الاسم الثلاثي الكامل للشخصية هو الصيغة الأكثر دقةً وأقلّها التباساً في المراجع العلمية
+        والتاريخية؛ يُعدّ الشكل الأساسي لهذه المجموعة. يحتاج إلى تشكيل كامل.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      nuance_differentiation: >
+        الاسم الرسمي الكامل (اسم أول + اسم وسطي + لقب)؛ يُستخدم في السياقات الأكاديمية
+        والتوثيقية وعند الذكر الأول في النص
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "جُون مِيرْفِين كَارِير"
+
+    # ── لمّة موجودة ٢ ──
+    - lemma: "كارير"
+      decision: confirmed
+      decision_reason: >
+        اللقب المفرد صيغة مشروعة للإحالة المختصرة؛ يُستخدم في النصوص المعمارية والتاريخية
+        بعد سبق ذكر الاسم الكامل. يحتاج إلى تشكيل كامل.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: >
+        اللقب المجرد وحده؛ يُستخدم للإحالة السريعة والمختصرة في السياقات التي وردت فيها
+        الشخصية مسبقاً بالاسم الكامل
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "كَارِير"
+
+    # ── مرشح المرحلة ١ أ ──
+    - lemma: "كَارِير"
+      source: stage1
+      decision: removed
+      decision_reason: >
+        مطابق تماماً للمّة الموجودة "كارير" بعد إضافة التشكيل؛ التعديل يُعالَج بأمر update_lemma
+        على المدخل الحالي، ولا حاجة لمدخل جديد
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+
+    # ── مرشح المرحلة ١ ب ──
+    - lemma: "جُون مِيرْفِين كَارِير"
+      source: stage1
+      decision: removed
+      decision_reason: >
+        مطابق للمّة الموجودة "جون ميرفين كارير" بعد إضافة التشكيل؛ التعديل يُعالَج بأمر
+        update_lemma على المدخل الحالي
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+
+    # ── مرشح المرحلة ١ ج ──
+    - lemma: "جُون كَارِير"
+      source: stage1
+      decision: removed
+      decision_reason: >
+        صيغة ثنائية غير مثبَّتة معجمياً ومتداخلة مع الشكلَين الموجودَين؛ إضافتها تُحدث تكراراً
+        دون قيمة دلالية مضافة، ولا شاهد على استخدامها في المصادر العربية الموثوقة
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+
+    # ── مرشح المرحلة ١ د ──
+    - lemma: "كَارِيرِي"
+      source: stage1
+      decision: removed
+      decision_reason: >
+        النسبة الصرفية من الاسم الأجنبي المعرَّب غير مناسبة لتعريف الشخص ذاته؛ فـ"كاريري"
+        تعني "المنسوب إلى كارير" وليست اسماً للشخص. علاوة على ذلك، قد تلتبس بنسبة جغرافية.
+        لم يرِد هذا الشكل في أي مصدر عربي.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+
+
+# ── المرحلة ٤: التعريف والأمثلة ─────────────────────────────
+stage4_content:
+  definition:
+    current: "معماري أمريكي صمم مع شريكه توماس هاستينغز العديد من المباني العامة المهمة (1858-1911)"
+    assessment:
+      decision: revise
+      reason: >
+        التعريف الحالي صحيح المعنى لكنه يحتاج إلى تحسينات أسلوبية معجمية:
+        (أ) "معماري" صفة نسبية وليست اسماً دالاً على المهنة؛ الأدق "مهندس معماري".
+        (ب) تاريخا الميلاد والوفاة بين قوسين في نهاية الجملة يُخلّان بانسيابية التعريف؛
+        الأفضل نقلهما إلى موضع أكثر وضوحاً عقب ذكر الجنس القريب.
+        (ج) "العديد" غير دقيقة مقارنةً بـ"عدد من أبرز"؛ الأخيرة أكثر تعبيراً عن المقام.
+    authored:
+      - type: encyclopedic
+        text: >
+          مهندس معماري أمريكي (1858-1911)، اشتُهر بشراكته مع توماس هاستينغز، وأسهما معاً
+          في تصميم عدد من أبرز المباني العامة في الولايات المتحدة الأمريكية
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "مهندس معماري أمريكي (1858-1911)، اشتُهر بشراكته مع توماس هاستينغز، وأسهما معاً في تصميم عدد من أبرز المباني العامة في الولايات المتحدة الأمريكية"
+
+  examples:
+    per_lemma:
+      - lemma: "جُون مِيرْفِين كَارِير"
+        examples:
+          - text: >
+              صمَّم جُون مِيرْفِين كَارِير مع شريكه توماس هاستينغز مكتبةَ نيويورك العامة،
+              التي باتت من أيقونات طراز الفنون الجميلة في العمارة الأمريكية.
+            type: usage
+      - lemma: "كَارِير"
+        examples:
+          - text: >
+              تُعدّ أعمال كَارِير وهاستينغز نماذجَ راسخةً للطراز البوزار الذي ازدهر في
+              الولايات المتحدة مطلعَ القرن العشرين.
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "صمَّم جُون مِيرْفِين كَارِير مع شريكه توماس هاستينغز مكتبةَ نيويورك العامة، التي باتت من أيقونات طراز الفنون الجميلة في العمارة الأمريكية."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تُعدّ أعمال كَارِير وهاستينغز نماذجَ راسخةً للطراز البوزار الذي ازدهر في الولايات المتحدة مطلعَ القرن العشرين."
+
+
+# ── المرحلة ٥: الإثراء (البيانات الوصفية) ──────────────────
+stage5_enrichment:
+  per_entry:
+    # أسماء أجنبية معرَّبة — لا جذر عربي مطبَّق ولا شاهد في مقاييس اللغة
+    - lemma: "جُون مِيرْفِين كَارِير"
+      entry_id: "{auto}"
+      # لا جذر عربي — التعريب من "John Merven Carrere" (إنجليزية)
+
+    - lemma: "كَارِير"
+      entry_id: "{auto}"
+      # لا جذر عربي — التعريب من "Carrere" (إنجليزية)
+
+  per_sense:
+    - lemma: "جُون مِيرْفِين كَارِير"
+      sense_id: "{auto}"
+      nuance: >
+        الاسم الرسمي الكامل (اسم أول + اسم وسطي + لقب)؛ يُستخدم في السياقات الأكاديمية
+        والتوثيقية وفي الذكر الأول داخل النص، وهو الشكل المعتمد في المراجع المتخصصة
+      mwe: true
+
+    - lemma: "كَارِير"
+      sense_id: "{auto}"
+      nuance: >
+        اللقب المفرد وحده؛ يُستخدم للإحالة المختصرة في النصوص المعمارية والتاريخية بعد
+        سبق ذكر الاسم الكامل، ويشيع في أسلوب الكتابة العلمية العربية عند تكرار الإحالة
+
+  synset:
+    cultural_fit: omission
+
+  actions:
+    # بيانات المدخل — جون ميرفين كارير (MWE)
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"transliteration_of":"John Merven Carrere","lang_source":"en","mwe":true,"pos_note":"proper_noun"}'
+
+    # بيانات المدخل — كارير (مفرد)
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"transliteration_of":"Carrere","lang_source":"en","mwe":false,"pos_note":"proper_noun"}'
+
+    # بيانات المعنى — جون ميرفين كارير
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الرسمي الكامل (ثلاثي)؛ للسياقات الأكاديمية والتوثيقية والذكر الأول","mwe":true}'
+
+    # بيانات المعنى — كارير
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللقب المفرد؛ للإحالة المختصرة بعد سبق ذكر الاسم الكامل","mwe":false}'
+
+    # بيانات المجموعة
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"omission","note":"شخصية تاريخية أجنبية — لا مقابل عربي أصيل"}'
+
+    # درجة الثقة
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.85

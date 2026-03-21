@@ -1,0 +1,228 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'نيوتيني' هي صفة (اسم منسوب)، بينما وسم المجموعة هو اسم (noun)، مما يخالف الاتساق في الأقسام الكلامية."
+      - "اللمة 'استدامة المرحلة اليرقية' عبارة وصفية طويلة، ولكنها معتمدة كمصطلح علمي في المعاجم المتخصصة."
+    observations: "المفهوم يشير إلى ظاهرة بيولوجية محددة هي 'الاحتفاظ بالسمات اليرقية'، وهو مفهوم تقني يتطلب دقة في الاصطلاح بين التعريب والترجمة والاشتقاق."
+  blind_candidates:
+    - lemma: "اسْتِدَامَةُ الصِّغَرِ"
+      generation_method: tarkib
+      justification: "ترجمة دلالية مباشرة لمفهوم الاستمرار في حالة الصغر."
+    - lemma: "نِيُوتِينِيَّة"
+      generation_method: taarib
+      justification: "التعريب المباشر للمصطلح اللاتيني Neoteny، وهو واسع الانتشار في الكتب العلمية."
+    - lemma: "اسْتِبْقَاءُ الخَصَائِصِ الطُّفُولِيَّةِ"
+      generation_method: tarkib
+      justification: "تعبير وصفي دقيق يشرح الحالة البيولوجية المحتفظ بها."
+    - lemma: "تَصَابٍ بَيُولُوجِيّ"
+      generation_method: majaz
+      justification: "استخدام لفظ 'التصابي' (بمعنى التظاهر بالشباب) وإزاحته دلالياً للمجال البيولوجي."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "استدامة المرحلة اليرقية"
+      confirm:
+        - text: "اسْتِدامَةُ المَرْحَلَةِ اليَرَقِيَّة: neoteny"
+          source: "المعجم الطبي الموحد (2009)"
+        - text: "استدامة المرحلة اليرقية: الحيوانات التي تحتفظ بخصائص اليرقات طوال دورة حياتها. استدامة المرحلة اليرقية أمر شائع في البرمائيات."
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+    - lemma: "نيوتيني"
+      confirm:
+        - text: "استدامة المرحلة اليرقية: neotenic"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+      contradicts:
+        - text: "neotenic"
+          source: "ArabTerm"
+          conflict: "المصطلح يشير إلى الصفة (adjective) وليس الحالة أو الاسم، مما يجعله غير مناسب لمجموعة ترادفية اسمية."
+    - lemma: "نِيُوتِينِيَّة"
+      confirm:
+        - text: "neoteny"
+          source: "The Unified Medical Dictionary"
+    - lemma: "امْتِدَادُ الطُّفُولَةِ"
+      confirm:
+        - text: "امتداد الطفولة: neoteny: في التحول بقاء دور اليرقانة وقتا أطول من المألوف أو ظهور بعض صفات الحيوان البالغ في هذا الدور"
+          source: "المعجم الموحد لمصطلحات علم الأحياء (1993)"
+    - lemma: "التَّدَعْمُص"
+      confirm:
+        - text: "التُّدَعْمُص: neoteny"
+          source: "المَكنَز الزراعي متعدد اللغات (AgroVoc)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "استدامة المرحلة اليرقية"
+      decision: confirmed
+      decision_reason: "مصطلح علمي معتمد وموثق في المعجم الطبي الموحد ومعاجم البيئة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "اسْتِدَامَةُ المَرْحَلَةِ اليَرَقِيَّةِ"
+    - lemma: "نيوتيني"
+      decision: removed
+      decision_reason: "اللفظ صفة (adjective) لمفهوم Neotenic، ولا يتناسب مع وسم المجموعة كاسم (noun)."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "نِيُوتِينِيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "الاسم المعرب الصحيح لمفهوم Neoteny، وهو الأكثر تداولاً في الأبحاث العلمية المترجمة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "نِيُوتِينِيَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-14593264-n"}
+    - lemma: "امْتِدَادُ الطُّفُولَةِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح معتمد في المعجم الموحد لمصطلحات علم الأحياء، يقدم تعبيراً عربياً فصيحاً للمفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "امْتِدَادُ الطُّفُولَةِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-14593264-n"}
+    - lemma: "التَّدَعْمُص"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح اشتقاقي أصيل موثق في المكنز الزراعي، يربط المفهوم بجذر 'دعمص' (يرقة الضفدع)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "التَّدَعْمُص", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-14593264-n"}
+
+stage4_content:
+  definition:
+    current: "الحالة الناتجة عند الاحتفاظ بخصائص الصغر (الأحداث) من قبل البالغين من النوع"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط؛ يحتاج إلى دقة علمية لتمييزه كظاهرة بيولوجية مرتبطة بالبلوغ الجنسي."
+    authored:
+      - type: terminological
+        text: "ظاهرة بيولوجية تتمثل في احتفاظ الكائن الحي بخصائص مرحلة اليرقة أو الصبا بعد وصوله إلى مرحلة البلوغ الجنسي."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "اسْتِدَامَةُ المَرْحَلَةِ اليَرَقِيَّةِ"
+        examples:
+          - text: "تعتبر سمندل المكسيك (أكسولوتل) من أشهر الأمثلة الحية على استدامة المرحلة اليرقية."
+            type: usage
+      - lemma: "نِيُوتِينِيَّة"
+        examples:
+          - text: "تساهم النيوتينية في التطور البيولوجي لبعض الأنواع عبر تأخير نضج الأنسجة الجسمية."
+            type: usage
+      - lemma: "امْتِدَادُ الطُّفُولَةِ"
+        examples:
+          - text: "يرى بعض العلماء أن التطور البشري اتسم بنوع من امتداد الطفولة مقارنة بالرئيسيات الأخرى."
+            type: usage
+      - lemma: "التَّدَعْمُص"
+        examples:
+          - text: "يحدث التدعمص في بعض أنواع السلمندر التي تبقى محتفظة بخياشيمها اليرقية طوال حياتها."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-14593264-n", definition_index: 0, text: "ظاهرة بيولوجية تتمثل في احتفاظ الكائن الحي بخصائص مرحلة اليرقة أو الصبا بعد وصوله إلى مرحلة البلوغ الجنسي."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تعتبر سمندل المكسيك (أكسولوتل) من أشهر الأمثلة الحية على استدامة المرحلة اليرقية."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "اسْتِدَامَةُ المَرْحَلَةِ اليَرَقِيَّةِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "استدامة"
+          root: "دوم"
+          maqayis_quote: "«الدَّالُ وَالْوَاوُ وَالْمِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى السُّكُونِ وَاللُّزُومِ.»"
+        - word: "يرقية"
+          root: "يرق"
+    - lemma: "نِيُوتِينِيَّة"
+      entry_id: "{auto}"
+    - lemma: "امْتِدَادُ الطُّفُولَةِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "امتداد"
+          root: "مدد"
+          maqayis_quote: "«الميم والدال أصل واحد، وهو الجذب والطول...»"
+        - word: "طفولة"
+          root: "طفل"
+          maqayis_quote: "«الطَّاءُ وَالْفَاءُ وَاللَّامُ أَصْلٌ صَحِيحٌ مُطَّرِدٌ... وَالْأَصْلُ: الْمَوْلُودُ الصَّغِيرُ.»"
+    - lemma: "التَّدَعْمُص"
+      entry_id: "{auto}"
+      root: "دعمص"
+  per_sense:
+    - lemma: "اسْتِدَامَةُ المَرْحَلَةِ اليَرَقِيَّةِ"
+      sense_id: "{auto}"
+      nuance: "المصطلح العلمي الأكثر رسمية في معاجم الطب والبيئة."
+      mwe: true
+    - lemma: "نِيُوتِينِيَّة"
+      sense_id: "{auto}"
+      nuance: "التعريب المباشر المستخدم في السياقات الأكاديمية التخصصية."
+      mwe: false
+    - lemma: "امْتِدَادُ الطُّفُولَةِ"
+      sense_id: "{auto}"
+      nuance: "تعبير عربي يشرح المفهوم بوضوح ويفضل في السياقات التعليمية والبيولوجية العامة."
+      mwe: true
+    - lemma: "التَّدَعْمُص"
+      sense_id: "{auto}"
+      nuance: "مصطلح اشتقاقي متخصص جداً يربط الظاهرة بيرقات البرمائيات (الدعاميص)."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"استدامة","root":"دوم","maqayis":"«...»"},{"word":"يرقية","root":"يرق"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"امتداد","root":"مدد","maqayis":"«...»"},{"word":"طفولة","root":"طفل","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"دعمص"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العلمي الأكثر رسمية في معاجم الطب والبيئة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-14593264-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-14593264-n"
+        score: 0.95

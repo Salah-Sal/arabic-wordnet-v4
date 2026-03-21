@@ -1,0 +1,231 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الحالية (كنز مكتشف) هي تركيب وصفي بسيط وليست مصطلحاً معجمياً مكثفاً."
+      - "اللمة الحالية غير مشكولة."
+    observations: "المجموعة تشير إلى مفهوم 'Treasure trove'، والذي يمتلك في العربية الكلاسيكية مقابلاً دقيقاً هو 'الركاز' أو 'اللقية'. المصطلح الحالي صحيح لكنه يفتقر إلى الرصانة المعجمية."
+  blind_candidates:
+    - lemma: "رِكَازٌ"
+      generation_method: majaz
+      justification: "مصطلح فقهي ولغوي قديم يشير إلى ما وجد مدفوناً من قطع الذهب والفضة وغيرها مما له قيمة."
+    - lemma: "لُقْيَةٌ"
+      generation_method: ishtiqaq
+      justification: "اسم لما يُعثر عليه ويُكتشف، على وزن فُعْلة (للمرة أو الهيئة أو الشيء)."
+    - lemma: "مَعْثُورَاتٌ"
+      generation_method: ishtiqaq
+      justification: "اسم مفعول مجموع يشير إلى الأشياء التي عُثر عليها."
+    - lemma: "ذَخِيرَةٌ"
+      generation_method: majaz
+      justification: "ما يُدخر من المال والأشياء الثمينة، وتُستخدم دلالياً لوصف الكنز المكتشف."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "كَنْزٌ مُكْتَشَفٌ"
+      confirm:
+        - text: "«كَنْز دفين [يُعثر عليه]... اكتشاف؛ لُقية.»"
+          source: "المورد الحديث (2008)"
+    - lemma: "رِكَازٌ"
+      confirm:
+        - text: "«الرِّكَاز: المَال المركوز فِي الأَرْض مخلوقا كَانَ أَو مَوْضُوعا فِيهَا فَهُوَ أَعم من الْمَعْدن والكنز.»"
+          source: "دستور العلماء"
+        - text: "«الرِّكَاز: مَا ركزه الله تَعَالَى فِي الأَرْض من الْمَعَادِن فِي حالتها الطبيعية والكنز وَالْمَال المدفون قبل الْإِسْلَام.»"
+          source: "المعجم الوسيط"
+    - lemma: "لُقْيَةٌ"
+      confirm:
+        - text: "«(2) اكتشاف؛ لُقية.»"
+          source: "المورد الحديث (2008) في ترجمة treasure trove"
+        - text: "«اللُّقْيَةُ فُعْلَةٌ مِنَ اللِّقَاءِ، وَالْجَمْعُ لُقًى.»"
+          source: "مقاييس اللغة"
+    - lemma: "كَنْزٌ دَفِينٌ"
+      confirm:
+        - text: "«كَنْز دفين [يُعثر عليه]»"
+          source: "المورد الحديث (2008)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "كنز مكتشف"
+      decision: confirmed
+      decision_reason: "صحيح دلالياً ويطابق التعريف، وتم تثبيته مع إضافة التشكيل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "كَنْزٌ مُكْتَشَفٌ"
+    - lemma: "رِكَازٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح عربي أصيل ودقيق لوصف الكنوز المدفونة المكتشفة، وهو المقابل الفني الأمثل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "رِكَازٌ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-08481109-n"
+    - lemma: "لُقْيَةٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ عربي يشير إلى الشيء الذي يتم العثور عليه، ويستخدم حديثاً لترجمة Treasure trove."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "لُقْيَةٌ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-08481109-n"
+    - lemma: "كَنْزٌ دَفِينٌ"
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي شائع جداً في العربية المعاصرة لوصف الكنوز المكتشفة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "كَنْزٌ دَفِينٌ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-08481109-n"
+
+stage4_content:
+  definition:
+    current: "أي مجموعة من الأشياء الثمينة التي يتم اكتشافها"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط، ويفضل صياغته بأسلوب معجمي يبرز طبيعة هذه الأشياء وكونها كانت مخبوءة."
+    authored:
+      - type: terminological
+        text: "مجموعةٌ مِنَ الأَشْياءِ الثَّمِينَةِ أَوِ المَقْتَنَيَاتِ النَّفِيسَةِ التِي يُعْثَرُ عَلَيْهَا بَعْدَ أَنْ كَانَتْ مَخْبُوءَةً أَوْ ضَائِعَةً."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-08481109-n"
+          definition_index: 0
+          text: "مجموعةٌ مِنَ الأَشْياءِ الثَّمِينَةِ أَوِ المَقْتَنَيَاتِ النَّفِيسَةِ التِي يُعْثَرُ عَلَيْهَا بَعْدَ أَنْ كَانَتْ مَخْبُوءَةً أَوْ ضَائِعَةً."
+  examples:
+    per_lemma:
+      - lemma: "كَنْزٌ مُكْتَشَفٌ"
+        examples:
+          - text: "أعلنت وزارة الآثار عن كنز مكتشف يضم مئات العملات الذهبية."
+            type: usage
+      - lemma: "رِكَازٌ"
+        examples:
+          - text: "وَجَدَ الفَلَّاحُ رِكَازاً مِنَ العَهْدِ الرُّومَانِيِّ فِي أَرْضِهِ."
+            type: usage
+      - lemma: "لُقْيَةٌ"
+        examples:
+          - text: "تُعَدُّ هَذِهِ الجِرَارُ الفَخَّارِيَّةُ لُقْيَةً أَثَرِيَّةً هَامَّةً."
+            type: usage
+      - lemma: "كَنْزٌ دَفِينٌ"
+        examples:
+          - text: "ظَلَّ السِّرُّ مَخْبُوءاً كَأَنَّهُ كَنْزٌ دَفِينٌ لَا يَعْلَمُهُ أَحَدٌ."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "رِكَازٌ"
+      entry_id: "{auto}"
+      root: "ركز"
+      maqayis_quote: "«(رَكَزَ) الرَّاءُ وَالْكَافُ وَالزَّاءُ أَصْلَانِ: أَحَدُهُمَا إِثْبَاتُ شَيْءٍ فِي شَيْءٍ يَذْهَبُ سُفْلًا... وَمِنَ الْبَابِ: الرِّكَازُ، وَهُوَ الْمَالُ الْمَدْفُونُ فِي الْجَاهِلِيَّةِ، وَهُوَ مِنْ قِيَاسِهِ; لِأَنَّ صَاحِبَهُ رَكَزَهُ.»"
+    - lemma: "لُقْيَةٌ"
+      entry_id: "{auto}"
+      root: "لقي"
+      maqayis_quote: "«(لَقِيَ)... اللَّامُ وَالْقَافُ وَالْحَرْفُ الْمُعْتَلُّ... وَالْآخَرُ عَلَى تَوَافِي شَيْئَيْنِ... وَاللُّقْيَةُ فُعْلَةٌ مِنَ اللِّقَاءِ.»"
+    - lemma: "كَنْزٌ مُكْتَشَفٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "كنز"
+          root: "كنز"
+          maqayis_quote: "«(كَنَزَ) الْكَافُ وَالنُّونُ وَالزَّاءُ أُصَيْلٌ صَحِيحٌ يَدُلُّ عَلَى تَجَمُّعٍ فِي شَيْءٍ.»"
+        - word: "مكتشف"
+          root: "كشف"
+          maqayis_quote: "«(كَشَفَ) الْكَافُ وَالشِّينُ وَالْفَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى بَيَانِ الشَّيْءِ وَإِيضَاحِهِ.»"
+    - lemma: "كَنْزٌ دَفِينٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "كنز"
+          root: "كنز"
+          maqayis_quote: "«(كَنَزَ) الْكَافُ وَالنُّونُ وَالزَّاءُ أُصَيْلٌ صَحِيحٌ يَدُلُّ عَلَى تَجَمُّعٍ فِي شَيْءٍ.»"
+        - word: "دفين"
+          root: "دفن"
+          maqayis_quote: "«(دَفَنَ) الدَّالُ وَالْفَاءُ وَالنُّونُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى اسْتِخْفَاءٍ وَغُمُوضٍ.»"
+  per_sense:
+    - lemma: "كَنْزٌ مُكْتَشَفٌ"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي مباشر للمفهوم يركز على فعل الاكتشاف."
+      mwe: true
+    - lemma: "رِكَازٌ"
+      sense_id: "{auto}"
+      nuance: "مصطلح فقهي ولغوي متخصص يشير تحديداً إلى ما وجد مدفوناً في الأرض من مال الجاهلية."
+      mwe: false
+    - lemma: "لُقْيَةٌ"
+      sense_id: "{auto}"
+      nuance: "تشير إلى الشيء الذي يتم العثور عليه صدفة أو بعد بحث، وتستخدم في سياق المكتشفات الأثرية."
+      mwe: false
+    - lemma: "كَنْزٌ دَفِينٌ"
+      sense_id: "{auto}"
+      nuance: "تعبير اصطلاحي يركز على حالة الكنز قبل اكتشافه (كونه مدفوناً)."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ركز","maqayis":"«(رَكَزَ)... وَمِنَ الْبَابِ: الرِّكَازُ، وَهُوَ الْمَالُ الْمَدْفُونُ فِي الْجَاهِلِيَّةِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"لقي","maqayis":"«(لَقِيَ)... وَاللُّقْيَةُ فُعْلَةٌ مِنَ اللِّقَاءِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير وصفي مباشر للمفهوم يركز على فعل الاكتشاف.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح فقهي ولغوي متخصص يشير تحديداً إلى ما وجد مدفوناً في الأرض من مال الجاهلية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-08481109-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-08481109-n"
+        score: 0.95

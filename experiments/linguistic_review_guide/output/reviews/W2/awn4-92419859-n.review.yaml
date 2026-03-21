@@ -1,0 +1,266 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة تميل إلى الصياغة التعبيرية (phrasal) أكثر من المصطلحية المسكوكة."
+      - "غياب المصطلحات الفنية المستخدمة في علم الوبائيات (Epidemiology) والعلوم الاجتماعية."
+    observations: "المجموعة تعبّر عن مفهوم 'Risk Group' أو 'Vulnerable Group'. المصطلحات الحالية مقبولة كترجمات وصفية، لكن اللغة العربية تملك بدائل أكثر تكثيفاً ودقة مصطلحية."
+  blind_candidates:
+    - lemma: "مَعْرُوضُونَ"
+      generation_method: ishtiqaq
+      justification: "اسم مفعول من (عرض)، يستخدم في السياقات العلمية لوصف الفئات التي تعرضت لمؤثر ما."
+    - lemma: "فِئَةٌ هَشَّة"
+      generation_method: tarkib
+      justification: "ترجمة اصطلاحية مستقرة لمفهوم 'Vulnerable group' في السياقات الاجتماعية والاقتصادية."
+    - lemma: "عُرْضَة"
+      generation_method: majaz
+      justification: "لفظ عربي فصيح يعني الهدف أو من نُصب للشيء، ويستخدم للتعبير عن القابلية الشديدة للتأثر."
+    - lemma: "فِئَةُ اخْتِطَار"
+      generation_method: ishtiqaq
+      justification: "مصطلح فني متخصص في الوبائيات (Epidemiology) للتعبير عن المجموعات ذات الاحتمالية العالية للإصابة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "فئة معرضة للخطر"
+      confirm:
+        - text: "«أنواع معرضة للخطر: vulnerable species»"
+          source: "المكنز الزراعي متعدد اللغات"
+    - lemma: "مجموعة الخطر"
+      evidence_status: "no_material_found"
+    - lemma: "فئة هشة"
+      confirm:
+        - text: "«مجموعات هشة: vulnerable groups ... يشكل المشردون واللاجئون فئة هشة هامة.»"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+    - lemma: "عرضة"
+      confirm:
+        - text: "«(العرضة) جعله عرضة لكذا نَصبه لَهُ هدفا وَهُوَ عرضة للشر قوي عَلَيْهِ»"
+          source: "المعجم الوسيط"
+    - lemma: "فئة الاختطار"
+      expands:
+        - text: "«عوامل الخطر: risk factors»"
+          source: "المعجم الموحد لمصطلحات التجارة"
+          addition: "استخدام جذر (خطر) في سياق الوبائيات والبحث العلمي شائع جداً."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "فئة معرضة للخطر"
+      decision: confirmed
+      decision_reason: "تعبير وصفي واسع الانتشار ودقيق دلالياً وإن كان يميل للصيغة التعبيرية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "فِئَةٌ مُعَرَّضَةٌ لِلْخَطَرِ"
+    - lemma: "مجموعة الخطر"
+      decision: confirmed
+      decision_reason: "ترجمة مباشرة للمصطلح الإنجليزي 'risk group' ومستعملة في النصوص المترجمة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَجْمُوعَةُ الخَطَرِ"
+    - lemma: "فِئَةٌ هَشَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح سوسيولوجي وطبي مستقر يعبر عن الفئات الضعيفة أو القابلة للتأثر بسهولة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "فِئَةٌ هَشَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "فِئَةُ اخْتِطَار"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فني دقيق مستخدم في منظمة الصحة العالمية والبحوث الطبية (Risk group)."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "فِئَةُ اخْتِطَار", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "عُرْضَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "كلمة واحدة تعبر عن جوهر المفهوم (المعرض للشيء/الهدف) وتستخدم كاسم جنس للفئة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "عُرْضَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "مجموعة من الأشخاص يشتركون في احتمالية التأثر بحدث معين (مثل الإصابة بمرض، أو فرصة الشفاء، إلخ)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكنه يحتاج إلى صياغة أكثر جزالة وشمولاً للسياقات المختلفة (اجتماعية، وبائية، بيئية)."
+    authored:
+      - type: terminological
+        text: "جماعة من الناس يجمعها عامل مشترك يجعلها أكثر عرضة للتأثر بظاهرة أو حدث معين، كالإصابة بمرض أو التأثر بكارثة طبيعية أو أزمة اجتماعية."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "جماعة من الناس يجمعها عامل مشترك يجعلها أكثر عرضة للتأثر بظاهرة أو حدث معين، كالإصابة بمرض أو التأثر بكارثة طبيعية أو أزمة اجتماعية."}
+
+  examples:
+    per_lemma:
+      - lemma: "فِئَةٌ مُعَرَّضَةٌ لِلْخَطَرِ"
+        examples:
+          - text: "الأطفال وكبار السن هم الفئة الأكثر عرضة للخطر خلال موجات الحر الشديد."
+            type: usage
+      - lemma: "فِئَةٌ هَشَّة"
+        examples:
+          - text: "تسعى الدولة لتوفير الحماية الاجتماعية للفئات الهشة والمتضررة من الأزمات الاقتصادية."
+            type: usage
+      - lemma: "فِئَةُ اخْتِطَار"
+        examples:
+          - text: "تم تحديد المدخنين كفئة اختطار عالية بالنسبة للأمراض التنفسية المزمنة."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يجب تحديد المجموعات المعرضة للخطر وتوجيه المساعدات الإغاثية إليها بشكل عاجل."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "فِئَةٌ مُعَرَّضَةٌ لِلْخَطَرِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "فئة"
+          root: "فيأ"
+          maqayis_quote: "«الْفَاءُ وَالْيَاءُ وَالْهَمْزَةُ... الْفِئَةُ: الْجَمَاعَةُ مِنَ النَّاسِ»"
+        - word: "معرضة"
+          root: "عرض"
+          maqayis_quote: "«الْعَيْنُ وَالرَّاءُ وَالضَّادُ بِنَاءٌ تَكْثُرُ فُرُوعُهُ... تَرْجِعُ إِلَى أَصْلٍ وَاحِدٍ، وَهُوَ الْعَرْضُ الَّذِي يُخَالِفُ الطُّولَ... وَمِنْهُ عَرَضَ لَهُ الشَّيْءُ إِذَا ظَهَرَ لَهُ وَبَدَا»"
+    - lemma: "فِئَةُ اخْتِطَار"
+      entry_id: "{auto}"
+      roots:
+        - word: "فئة"
+          root: "فيأ"
+          maqayis_quote: "«الْفَاءُ وَالْيَاءُ وَالْهَمْزَةُ... الْفِئَةُ: الْجَمَاعَةُ مِنَ النَّاسِ»"
+        - word: "اختطار"
+          root: "خطر"
+          maqayis_quote: "«الْخَاءُ وَالطَّاءُ وَالرَّاءُ أَصْلَانِ: أَحَدُهُمَا الْقَدْرُ وَالْمَكَانَةُ، وَالثَّانِي اضْطِرَابٌ وَحَرَكَةٌ»"
+    - lemma: "فِئَةٌ هَشَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "فئة"
+          root: "فيأ"
+          maqayis_quote: "«الْفَاءُ وَالْيَاءُ وَالْهَمْزَةُ... الْفِئَةُ: الْجَمَاعَةُ مِنَ النَّاسِ»"
+        - word: "هشة"
+          root: "هش"
+          maqayis_quote: "«الْهَاءُ وَالشِّينُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى رَخَاوَةٍ وَلِينٍ»"
+    - lemma: "عُرْضَة"
+      entry_id: "{auto}"
+      root: "عرض"
+      maqayis_quote: "«الْعَيْنُ وَالرَّاءُ وَالضَّادُ... فُلَانٌ عُرْضَةٌ لِلنَّاسِ: لَا يَزَالُونَ يَقَعُونَ فِيهِ. وَمَعْنَى ذَلِكَ أَنَّهُمْ يَعْتَرِضُونَ عُرْضَهُ»"
+
+  per_sense:
+    - lemma: "فِئَةٌ مُعَرَّضَةٌ لِلْخَطَرِ"
+      sense_id: "{auto}"
+      nuance: "تعبير عام يصف الجماعة التي تواجه تهديداً مباشراً."
+      mwe: true
+    - lemma: "مَجْمُوعَةُ الخَطَرِ"
+      sense_id: "{auto}"
+      nuance: "ترجمة اصطلاحية شائعة في السياقات الإدارية والطبية العامة."
+      mwe: true
+    - lemma: "فِئَةٌ هَشَّة"
+      sense_id: "{auto}"
+      nuance: "تركز على الضعف البنيوي أو الاجتماعي للفئة (Vulnerability)."
+      mwe: true
+    - lemma: "فِئَةُ اخْتِطَار"
+      sense_id: "{auto}"
+      nuance: "مصطلح تقني وبائي يركز على احتمالية وقوع المرض أو الحدث (Risk group)."
+      mwe: true
+    - lemma: "عُرْضَة"
+      sense_id: "{auto}"
+      nuance: "لفظ تراثي مكثف يعبر عن الفئة كـ 'هدف' للمكروه."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"فئة","root":"فيأ","maqayis":"«الْفَاءُ وَالْيَاءُ وَالْهَمْزَةُ... الْفِئَةُ: الْجَمَاعَةُ مِنَ النَّاسِ»"},{"word":"معرضة","root":"عرض","maqayis":"«الْعَيْنُ وَالرَّاءُ وَالضَّادُ... تَرْجِعُ إِلَى أَصْلٍ وَاحِدٍ، وَهُوَ الْعَرْضُ الَّذِي يُخَالِفُ الطُّولَ»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"فئة","root":"فيأ","maqayis":"«الْفَاءُ وَالْيَاءُ وَالْهَمْزَةُ... الْفِئَةُ: الْجَمَاعَةُ مِنَ النَّاسِ»"},{"word":"هشة","root":"هش","maqayis":"«الْهَاءُ وَالشِّينُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى رَخَاوَةٍ وَلِينٍ»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"فئة","root":"فيأ","maqayis":"«الْفَاءُ وَالْيَاءُ وَالْهَمْزَةُ... الْفِئَةُ: الْجَمَاعَةُ مِنَ النَّاسِ»"},{"word":"اختطار","root":"خطر","maqayis":"«الْخَاءُ وَالطَّاءُ وَالرَّاءُ أَصْلَانِ: أَحَدُهُمَا الْقَدْرُ وَالْمَكَانَةُ، وَالثَّانِي اضْطِرَابٌ وَحَرَكَةٌ»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عرض","maqayis":"«فُلَانٌ عُرْضَةٌ لِلنَّاسِ... مَعْنَى ذَلِكَ أَنَّهُمْ يَعْتَرِضُونَ عُرْضَهُ»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير عام يصف الجماعة التي تواجه تهديداً مباشراً.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركز على الضعف البنيوي أو الاجتماعي للفئة (Vulnerability).","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح تقني وبائي يركز على احتمالية وقوع المرض أو الحدث (Risk group).","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"لفظ تراثي مكثف يعبر عن الفئة كـ هدف للمكروه.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

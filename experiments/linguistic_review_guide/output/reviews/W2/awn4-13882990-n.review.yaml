@@ -1,0 +1,245 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمات الحالية تفتقر إلى التشكيل الكامل.
+      - المفهوم يجمع بين المعنى الفيزيائي العام والمعنى الهندسي المتخصص، واللمات الحالية تغطي ذلك لكن يمكن إثراؤها بمصطلحات أكثر دقة مثل "الجسم الجاسئ".
+    observations: "المجموعة تعبر عن المفهوم الفيزيائي والهندسي لـ (solid object). اللمات الموجودة (جسم صلب، مجسم) صحيحة تماماً. المصطلح (مجسم) هندسي بامتياز، و(جسم صلب) فيزيائي عام. سأضيف (جسم جاسئ) للدلالة على مقاومة التشوه المذكورة في التعريف، و(جرم) كمرادف تراثي وفصيح للجسد المادي."
+  blind_candidates:
+    - lemma: "جِسْمٌ صَلْبٌ"
+      generation_method: tarkib
+      justification: "التركيب الوصفي القياسي المقابل لـ solid body في الفيزياء."
+    - lemma: "مُجَسَّمٌ"
+      generation_method: ishtiqaq
+      justification: "اسم مفعول من (جسم)، يدل على ما له جرم وأبعاد ثلاثة، وهو المصطلح الهندسي لـ 3D object."
+    - lemma: "جِرْمٌ"
+      generation_method: majaz
+      justification: "لفظ عربي قديم يدل على الجسد والكيان المادي، ويُحيى هنا كمرادف للجسم الصلب ذي الحجم."
+    - lemma: "جِسْمٌ جَاسِئٌ"
+      generation_method: tarkib
+      justification: "المصطلح الفيزيائي الدقيق لـ Rigid body، وهو ما يقاوم التغير في الشكل كما ورد في التعريف."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "جِسْمٌ صَلْبٌ"
+      confirm:
+        - text: "«جسم صلب: solid body»"
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة"
+    - lemma: "مُجَسَّمٌ"
+      confirm:
+        - text: "«المجسم: ما له طول وعرض وسمك»"
+          source: "المعجم الوسيط"
+        - text: "«عند المهندسين يطلق على شكل يحيط به سطح واحد أو أكثر... ماله طول وعرض وسمك أي عمق وحاصله الجسم التعليمي»"
+          source: "كشاف اصطلاحات الفنون والعلوم"
+    - lemma: "جِرْمٌ"
+      confirm:
+        - text: "«الجِرْم: الجِسْمُ. يقالُ: فلانٌ حَسَنُ الجِرْمِ ألواحُ الجَسدِ وجُثْمانُه»"
+          source: "المعجم الكبير"
+        - text: "«الجرم هو الجسم، إلّا أنّ أكثر استعماله في الأجسام الفلكية»"
+          source: "كشاف اصطلاحات الفنون والعلوم"
+    - lemma: "جِسْمٌ جَاسِئٌ"
+      confirm:
+        - text: "«جسا الشيءُ: إذا اشتدَّ... وجسأت يده إذا صلبت»"
+          source: "مقاييس اللغة (للجذر)"
+        - text: "«الجسوء: الشدة واليبس»"
+          source: "المعجم الوسيط (للجذر)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "جسم صلب"
+      decision: confirmed
+      decision_reason: "المصطلح العلمي العربي الأكثر شيوعاً ودقة للمفهوم الفيزيائي العام."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "جِسْمٌ صَلْبٌ"
+    - lemma: "مجسم"
+      decision: confirmed
+      decision_reason: "مصطلح هندسي ورياضي دقيق يعبر عن الكيانات ثلاثية الأبعاد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُجَسَّمٌ"
+    - lemma: "جِرْمٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف فصيح وتراثي للجسم والجسد المادي، ويناسب سياق الكيانات الصلبة المشخصة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "جِرْمٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "جِسْمٌ جَاسِئٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح الفيزيائي الدقيق المقابل لـ (Rigid body)، وهو ما يقاوم التغير في الشكل تماماً كما وصف التعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "جِسْمٌ جَاسِئٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "جسم ثلاثي الأبعاد، صلب هيكلياً، وعادة ما يقاوم التغيرات في الشكل أو الحجم"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يحتاج إلى صياغة معجمية رصينة تبتعد عن أسلوب الترجمة الحرفية."
+    authored:
+      - type: terminological
+        text: "ما له أبعادٌ ثلاثة (طولٌ وعرضٌ وسُمْكٌ)، يتميز بتماسك أجزائه ومقاومته للتشوه أو التغير في الحجم بفعل القوى الخارجية."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "ما له أبعادٌ ثلاثة (طولٌ وعرضٌ وسُمْكٌ)، يتميز بتماسك أجزائه ومقاومته للتشوه أو التغير في الحجم بفعل القوى الخارجية."}
+  examples:
+    per_lemma:
+      - lemma: "جِسْمٌ صَلْبٌ"
+        examples:
+          - text: "تتميز الجسيمات في الجسم الصلب بالاهتزاز حول مواضع ثابتة بسبب قوة التماسك."
+            type: usage
+      - lemma: "مُجَسَّمٌ"
+        examples:
+          - text: "درس الطلاب خصائص الهرم بصفته مجسماً هندسياً ثلاثي الأبعاد."
+            type: usage
+      - lemma: "جِرْمٌ"
+        examples:
+          - text: "تتحرك الأجرام السماوية في مدارات ثابتة بفعل الجاذبية."
+            type: usage
+      - lemma: "جِسْمٌ جَاسِئٌ"
+        examples:
+          - text: "يُفترض في الميكانيكا الكلاسيكية أن الجسم الجاسئ لا تتغير المسافة بين أي نقطتين فيه مهما كانت القوى المؤثرة."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يتعامل المهندسون مع القطع المعدنية بوصفها أجساماً صلبة ذات أبعاد محددة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "جِسْمٌ صَلْبٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "جسم"
+          root: "جسم"
+          maqayis_quote: "«الجيم والسين والميم يدل على تجمع الشيء. فالجسم كل شخص مدرك.»"
+        - word: "صلب"
+          root: "صلب"
+          maqayis_quote: "«الصاد واللام والباء أصلان: أحدهما يدل على الشدة والقوة، والآخر جنس من الودك.»"
+    - lemma: "مُجَسَّمٌ"
+      entry_id: "{auto}"
+      root: "جسم"
+      maqayis_quote: "«الجيم والسين والميم يدل على تجمع الشيء. فالجسم كل شخص مدرك.»"
+    - lemma: "جِرْمٌ"
+      entry_id: "{auto}"
+      root: "جرم"
+      maqayis_quote: "«الجيم والراء والميم أصل واحد يرجع إليه الفروع. فالجرم القطع... والجسد جرم، لأن له قدرا وتقطيعا.»"
+    - lemma: "جِسْمٌ جَاسِئٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "جسم"
+          root: "جسم"
+          maqayis_quote: "«الجيم والسين والميم يدل على تجمع الشيء.»"
+        - word: "جاسئ"
+          root: "جسأ"
+          maqayis_quote: "«الجيم والسين والهمزة يدل على صلابة وشدة. يقال جسأ الشيء، إذا اشتد.»"
+  per_sense:
+    - lemma: "جِسْمٌ صَلْبٌ"
+      sense_id: "{auto}"
+      nuance: "المصطلح الفيزيائي العام لوصف المادة في حالتها المتماسكة."
+      mwe: true
+    - lemma: "مُجَسَّمٌ"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب الهندسي والأبعاد الثلاثية (3D)."
+      mwe: false
+    - lemma: "جِرْمٌ"
+      sense_id: "{auto}"
+      nuance: "يركز على الكيان المادي والجسد، ويشيع استخدامه للأجسام الفلكية."
+      mwe: false
+    - lemma: "جِسْمٌ جَاسِئٌ"
+      sense_id: "{auto}"
+      nuance: "مصطلح ميكانيكي متخصص للأجسام التي لا تتشوه أشكالها بفعل القوة."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"جسم","root":"جسم","maqayis":"«الجيم والسين والميم يدل على تجمع الشيء.»"},{"word":"صلب","root":"صلب","maqayis":"«الصاد واللام والباء يدل على الشدة والقوة.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جسم","maqayis":"«الجيم والسين والميم يدل على تجمع الشيء.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جرم","maqayis":"«الجيم والراء والميم أصل واحد... والجسد جرم، لأن له قدرا وتقطيعا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"جسم","root":"جسم","maqayis":"«الجيم والسين والميم يدل على تجمع الشيء.»"},{"word":"جاسئ","root":"جسأ","maqayis":"«الجيم والسين والهمزة يدل على صلابة وشدة.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الفيزيائي العام لوصف المادة في حالتها المتماسكة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الجانب الهندسي والأبعاد الثلاثية (3D).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الكيان المادي والجسد، ويشيع استخدامه للأجسام الفلكية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح ميكانيكي متخصص للأجسام التي لا تتشوه أشكالها بفعل القوة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

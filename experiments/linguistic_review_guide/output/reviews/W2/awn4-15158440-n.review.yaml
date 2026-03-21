@@ -1,0 +1,265 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "كلمة 'مدة' غالباً ما تشير إلى المقدار الزمني (interval) أكثر من خاصية البقاء (property)."
+      - "كلمة 'استمرار' هي مصدر للفعل، بينما 'استمرارية' تعبر بشكل أدق عن 'الخاصية' (property) المطلوبة في التعريف."
+    observations: "التعريف يركز على 'الخاصية' (property) وعلى 'البقاء في الزمن'. المصطلحات المرشحة يجب أن تغطي جانبي الدوام (endurance) والامتداد الزمني (duration)."
+  blind_candidates:
+    - lemma: "دَيْمُومَة"
+      generation_method: ishtiqaq
+      justification: "من الفعل 'دام'، وتعبر عن صفة الثبات والدوام والاستمرار في الزمن."
+    - lemma: "بَقَاء"
+      generation_method: ishtiqaq
+      justification: "المصدر المباشر للفعل 'بقي'، ويعبر عن خاصية الصمود والوجود في الزمن وعدم الفناء."
+    - lemma: "اسْتِمْرَارِيَّة"
+      generation_method: ishtiqaq
+      justification: "مصدر صناعي يعبر عن 'خاصية' الاستمرار، وهو أدق من المصدر المجرد 'استمرار' في سياق التعريف."
+    - lemma: "أَمَد"
+      generation_method: ishtiqaq
+      justification: "كلمة تدل على الغاية والمدة الزمنية، وتستخدم بكثرة في سياق الامتداد الزمني (long duration)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "اسْتِمْرَار"
+      confirm:
+        - text: "«عدد الأجيال التي يبقى فيها أليل ما في جماعة قبل أن يفقد.»"
+          source: "المعجم الموحد لمصطلحات علم الوراثة"
+    - lemma: "مُدَّة"
+      confirm:
+        - text: "«(الْمِدَّة) مِقْدَار من الزَّمَان يَقع على الْقَلِيل وَالْكثير.»"
+          source: "المعجم الوسيط"
+        - text: "«مدة أو كمية الصوت أو انتشاره في الزمن، أو المدة التي يستمر فيها الصوت منذ إحداثه.»"
+          source: "مسرد الإعلام والتواصل"
+    - lemma: "دَيْمُومَة"
+      confirm:
+        - text: "«الديمومة: الدوام والثبات.»"
+          source: "المعجم الكبير"
+        - text: "«duration: ديمومة»"
+          source: "مسرد الفلسفة وعلم النفس"
+    - lemma: "بَقَاء"
+      confirm:
+        - text: "«البقاء: ثبات الشيء على الحالة الأولى ويضاده الفناء.»"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+        - text: "«duration: بقاء»"
+          source: "المعجم الموحد لمصطلحات علم الأحياء"
+    - lemma: "اسْتِمْرَارِيَّة"
+      confirm:
+        - text: "«continuance: استمرارية»"
+          source: "المورد الحديث"
+        - text: "«continuance: استمرارية»"
+          source: "المعجم الطبي الموحد"
+    - lemma: "أَمَد"
+      confirm:
+        - text: "«duration: أمد»"
+          source: "المكنز الزراعي"
+        - text: "«duration: أمد»"
+          source: "المعجم الموحد لمصطلحات الرياضيات والفلك"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "اسْتِمْرَار"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي يعبر عن عملية المواصلة في الزمن."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "اسْتِمْرَار"
+    - lemma: "مُدَّة"
+      decision: confirmed
+      decision_reason: "المصطلح الأكثر شيوعاً للتعبير عن الامتداد الزمني (duration)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُدَّة"
+    - lemma: "دَيْمُومَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبر بدقة عن 'خاصية' الدوام والثبات في الزمن كما ورد في التعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "دَيْمُومَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "بَقَاء"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح مركزي يعبر عن الصمود والوجود (endurance) في الزمن."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "بَقَاء", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "اسْتِمْرارِيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصدر صناعي يعبر عن المفهوم المجرد لخاصية الاستمرار (continuance)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "اسْتِمْرَارِيَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "أَمَد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مدعوم بقوة في المعاجم التقنية كمرادف لـ duration."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "أَمَد", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "خاصية البقاء أو الاستمرار في الزمن"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكنه يحتاج لشمول معنى 'المدى الزمني' المستغرق."
+    authored:
+      - type: terminological
+        text: "خاصية البقاء أو الاستمرار في الزمن، أو المدى الزمني الذي يستغرقه وجود شيء أو حدوثه."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "خاصية البقاء أو الاستمرار في الزمن، أو المدى الزمني الذي يستغرقه وجود شيء أو حدوثه."}
+  examples:
+    per_lemma:
+      - lemma: "اسْتِمْرَار"
+        examples:
+          - text: "نؤكد على استمرار التعاون المشترك بين البلدين."
+            type: usage
+      - lemma: "مُدَّة"
+        examples:
+          - text: "استغرقت الرحلة مدة قصيرة لم تتجاوز الساعة."
+            type: usage
+      - lemma: "دَيْمُومَة"
+        examples:
+          - text: "الديمومة هي سر نجاح واستقرار المؤسسات الكبرى."
+            type: usage
+      - lemma: "بَقَاء"
+        examples:
+          - text: "تصارع الكائنات الحية في الغابة من أجل البقاء."
+            type: usage
+      - lemma: "اسْتِمْرَارِيَّة"
+        examples:
+          - text: "نهدف إلى تحقيق استمرارية الإنتاج رغم التحديات."
+            type: usage
+      - lemma: "أَمَد"
+        examples:
+          - text: "وضعت الحكومة خطة تنموية طويلة الأمد."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "تختلف ديمومة الأثر الفني باختلاف المواد المستخدمة في صنعه."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "اسْتِمْرَار"
+      entry_id: "{auto}"
+      root: "مرر"
+      maqayis_quote: "«الْمِيمُ وَالرَّاءُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى مُضِيِّ شَيْءٍ... فَالْأَوَّلُ مَرَّ الشَّيْءُ يَمُرُّ، إِذَا مَضَى.»"
+    - lemma: "مُدَّة"
+      entry_id: "{auto}"
+      root: "مدد"
+      maqayis_quote: "«الْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى جَرِّ شَيْءٍ فِي طُولٍ، وَاتِّصَالِ شَيْءٍ بِشَيْءٍ فِي اسْتِطَالَةٍ.»"
+    - lemma: "دَيْمُومَة"
+      entry_id: "{auto}"
+      root: "دوم"
+      maqayis_quote: "«الدَّالُ وَالْوَاوُ وَالْمِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى السُّكُونِ وَاللُّزُومِ. يُقَالُ دَامَ الشَّيْءُ يَدُومُ، إِذَا سَكَنَ.»"
+    - lemma: "بَقَاء"
+      entry_id: "{auto}"
+      root: "بقي"
+      maqayis_quote: "«الْبَاءُ وَالْقَافُ وَالْيَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الدَّوَامُ. قَالَ الْخَلِيلُ: يُقَالُ: بَقِيَ الشَّيْءُ يَبْقَى بَقَاءً، وَهُوَ ضِدُّ الْفَنَاءِ.»"
+    - lemma: "اسْتِمْرَارِيَّة"
+      entry_id: "{auto}"
+      root: "مرر"
+      maqayis_quote: "«الْمِيمُ وَالرَّاءُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى مُضِيِّ شَيْءٍ...»"
+    - lemma: "أَمَد"
+      entry_id: "{auto}"
+      root: "أمد"
+      maqayis_quote: "«الْهَمْزَةُ وَالْمِيمُ وَالدَّالُ، الْأَمَدُ: الْغَايَةُ. كَلِمَةٌ وَاحِدَةٌ لَا يُقَاسُ عَلَيْهَا.»"
+  per_sense:
+    - lemma: "دَيْمُومَة"
+      sense_id: "{auto}"
+      nuance: "تركز على طبيعة الشيء المستقرة والثابتة التي لا تحول."
+      mwe: false
+    - lemma: "اسْتِمْرَارِيَّة"
+      sense_id: "{auto}"
+      nuance: "تركز على 'خاصية' تواصل الشيء وعدم انقطاعه."
+      mwe: false
+    - lemma: "بَقَاء"
+      sense_id: "{auto}"
+      nuance: "تركز على استدامة الوجود في مواجهة عوامل الفناء أو التلاشي."
+      mwe: false
+    - lemma: "مُدَّة"
+      sense_id: "{auto}"
+      nuance: "تعبر عن الكمية الزمنية أو المقدار الفاصل بين نقطتين زمنيتين."
+      mwe: false
+    - lemma: "أَمَد"
+      sense_id: "{auto}"
+      nuance: "غالباً ما تستخدم للتعبير عن النطاق الزمني البعيد أو الغاية الزمنية."
+      mwe: false
+    - lemma: "اسْتِمْرَار"
+      sense_id: "{auto}"
+      nuance: "تدل على فعل المضي والمواصلة كحدث أو حالة قائمة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"مرر","maqayis":"«الْمِيمُ وَالرَّاءُ أَصْلَانِ صَحِيحَانِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"مدد","maqayis":"«الْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى جَرِّ شَيْءٍ فِي طُولٍ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركز على طبيعة الشيء المستقرة والثابتة التي لا تحول","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,379 @@
+# ═══════════════════════════════════════════════════════════════
+# مراجعة المجموعة الترادفية — AWN4 Review Pipeline v2 (5-Stage)
+# Synset: awn4-11361755-n  |  ILI: i97159
+# ═══════════════════════════════════════════════════════════════
+
+# ── المرحلة ١: المراجعة والتوليد ──────────────────────────────
+stage1_review:
+  assessment:
+    concerns:
+      - "صنف الكلمة (pos) مسجَّل كـ n (اسم عام) بينما المجموعة تخصّ علمًا بشريًا (اسم خاص)؛ يجب أن يكون proper_noun"
+      - "اللمّتان الحاليتان 'ثربر' و'جيمس ثربر' مجردتان من الضبط الحركي تمامًا"
+      - "اللمّة 'ثربر' (الكنية منفردةً) غير كافية ومبهمة دون ذكر الاسم الأول — عدة أشخاص يحملون هذه الكنية"
+    observations: >
+      هذه المجموعة علمٌ بشري خاص يُحيل إلى الأديب والرسّام الأمريكي جيمس ثَرْبِر (1894-1961).
+      التعريف العربي الحالي دقيق في مضمونه، غير أنه يُحتاج إلى صياغة أكثر إحكامًا بأسلوب المعجم
+      الموسوعي. التحديات اللغوية في هذه المجموعة ذات طبيعة خاصة: إذ إن الأعلام الشخصية الأجنبية
+      تُعرَّب بالنقحرة لا بالاشتقاق، ومن ثَمَّ تكون مسألة الضبط الحركي وتوحيد الصيغة هي المسألة
+      الجوهرية هنا. جميع المرشحات ستكون بالضرورة من طريق التعريب (تعريب).
+  blind_candidates:
+    - lemma: "جيمس ثَرْبِر"
+      generation_method: taarib
+      justification: >
+        نقحرة معيارية للاسم الإنجليزي James Thurber — أشهر كاتب فكاهي أمريكي ورسّام كاريكاتير
+        تتطابق سنتا ميلاده (1894) ووفاته (1961) مع المعلومات الواردة في التعريف تطابقًا تامًا.
+        الاسم مؤلَّف من المقطعين «جيمس» (James) و«ثَرْبِر» (Thurber)، وهو الصيغة الأشيع
+        في المراجع العربية المعاصرة.
+    - lemma: "ثَرْبِر"
+      generation_method: taarib
+      justification: >
+        نقحرة الكنية (اللقب) وحدها — Thurber — للإحالة المختصرة المعتادة في النصوص الأدبية
+        والمعجمية التي سبق ذكر الاسم الكامل فيها. تُكتسب هذه الصيغة المختصرة شرعيتها من
+        السياق التعريفي التكراري.
+    - lemma: "جيمس غرُوفِر ثَرْبِر"
+      generation_method: taarib
+      justification: >
+        نقحرة الاسم الكامل ثلاثي المقاطع: James Grover Thurber — يُستعمل في المقامات
+        الرسمية والتراجم الموسوعية المتكاملة. «غرُوفِر» نقحرة لـ Grover وهو الاسم الأوسط.
+    - lemma: "ثَرْبِير"
+      generation_method: taarib
+      justification: >
+        صيغة بديلة في النقحرة تُطيل حرف الياء في النهاية لمحاكاة الصوت الإنجليزي «er»
+        المطوَّل. بعض المراجع العربية القديمة تعتمد هذه الطريقة في كتابة الكُنى الإنجليزية
+        المنتهية بـ -er/-or.
+
+
+# ── المرحلة ٢: جمع الأدلة ────────────────────────────────────
+stage2_evidence:
+  query_log:
+    - query_id: 1
+      type: batch_headword
+      note: "بحث في headword_norm عن: ثربر، جيمس ثربر، ثربير، جيمس غروفر ثربر — لم تُسفر عن نتيجة"
+    - query_id: 2
+      type: english_bridge
+      note: "بحث FTS عبر translation_en: Thurber / James Thurber / humorist / cartoonist"
+    - query_id: 3
+      type: arabic_fts
+      note: "بحث FTS بكلمات: فكاهي / كاريكاتير / رسام / كاتب فكاهي"
+
+  per_lemma:
+    - lemma: "ثَرْبِر"
+      evidence_status: "no_material_found"
+
+    - lemma: "جيمس ثَرْبِر"
+      evidence_status: "no_material_found"
+
+    - lemma: "جيمس ثَرْبِر (مرشح)"
+      evidence_status: "no_material_found"
+
+    - lemma: "ثَرْبِر (مرشح)"
+      evidence_status: "no_material_found"
+
+    - lemma: "جيمس غرُوفِر ثَرْبِر (مرشح)"
+      evidence_status: "no_material_found"
+
+    - lemma: "ثَرْبِير (مرشح)"
+      evidence_status: "no_material_found"
+
+  contextual_evidence:
+    note: >
+      رغم غياب الأدلة المباشرة على الأعلام، أسفرت استعلامات الجسر الإنجليزي عن أدلة
+      تدعم المفردات المصنِّفة للمجموعة (الجنس القريب):
+    findings:
+      - term: "humorist"
+        arabic_equivalent: "الظريف: شخص منصرفٌ إلى الفكاهة أو معروفٌ بها"
+        source: "المورد الحديث (2008)"
+      - term: "cartoonist"
+        arabic_equivalent: "الرسّام الكاريكاتوريّ"
+        source: "المورد الحديث (2008)"
+      - term: "cartoonist"
+        arabic_equivalent: "رَسَّام كاريكاتير"
+        source: "مسرد الإعلام والتواصل — أليكسو"
+
+
+# ── المرحلة ٣: التحليل اللغوي للّمات ────────────────────────
+stage3_analysis:
+  per_lemma:
+    # ── اللمّات الموجودة ──
+    - lemma: "ثربر"
+      decision: confirmed
+      decision_reason: >
+        الكنية (Thurber) هي المدخل المعجمي الأساسي والأكثر تداولًا في المراجع العربية
+        للإشارة إلى هذا الأديب. مقبولة بشرط تصحيح الضبط الحركي وتحديث صنف الكلمة.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      borrowing_check:
+        type: taarib
+        verdict: مقبول
+        note: نقحرة ثابتة للكنية الإنجليزية Thurber — تقبل لام التعريف (الثَّرْبِر) والنسبة (الثَّرْبِري)
+      morphological_fit:
+        verdict: مقبول
+        note: >
+          الاسم الأعجمي المعرَّب يُعفى من اشتراطات الوزن الصرفي العربي؛
+          الهيئة الصوتية (ثَرْبِر) منسجمة مع أنماط النقحرة العربية المعتمدة
+      nuance_differentiation: >
+        يُستعمل للإشارة المختصرة بعد التقديم الكامل في النصوص الأدبية والنقدية
+        («أسهم ثَرْبِر في إرساء أسلوب النثر الفكاهي الأمريكي»)
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "ثَرْبِر"
+        - command: update_entry
+          params:
+            entry_id: "{auto}"
+            pos: proper_noun
+
+    - lemma: "جيمس ثربر"
+      decision: confirmed
+      decision_reason: >
+        الاسم الثنائي (الاسم + الكنية) هو الصيغة الموسوعية المعيارية المعتمدة في التعريف
+        بالأشخاص. يُشكّل اللمّة الرئيسية التي يُبحث عنها في الموسوعات والقواميس الموسوعية.
+        مقبول بشرط ضبط التشكيل.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+        mwe_note: >
+          تعبير إضافي: «جيمس» اسم أوّل + «ثَرْبِر» كنية — وحدة معجمية ثابتة
+          مسجَّلة بوصفها اسمًا علمًا كاملًا
+      borrowing_check:
+        type: taarib
+        verdict: مقبول
+        note: نقحرتا «جيمس» (James) و«ثَرْبِر» (Thurber) كلتاهما ثابتتان وشائعتان
+      nuance_differentiation: >
+        يُستعمل في السياقات الموسوعية والتعريفية الرسمية حيث يُقدَّم الشخص لأول مرة،
+        أو في التوثيق الأكاديمي الذي يستلزم التعريف الكامل
+        («يُعدّ جيمس ثَرْبِر من أبرز أدباء القرن العشرين في الأدب الأمريكي»)
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "جيمس ثَرْبِر"
+        - command: update_entry
+          params:
+            entry_id: "{auto}"
+            pos: proper_noun
+
+    # ── مرشحات المرحلة ١ ──
+    - lemma: "جيمس غرُوفِر ثَرْبِر"
+      source: stage1
+      decision: confirmed
+      decision_reason: >
+        الاسم الثلاثي الكامل (James Grover Thurber) ضروري في المجموعة لاستيفاء التوثيق
+        الموسوعي المتكامل، وهو مطابق للمدخل الإنجليزي في OEWN (James Grover Thurber).
+        غيابه يُشكّل فجوة في التوثيق.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      borrowing_check:
+        type: taarib
+        verdict: مقبول
+      nuance_differentiation: >
+        يُستعمل حصرًا في السياقات الرسمية التوثيقية التي تستوجب التعريف الكامل الأحادي
+        بلا لَبْس (المراجع الببليوغرافية، التراجم الكاملة، قواعد البيانات الأكاديمية)
+      actions:
+        - command: create_entry
+          params:
+            lemma: "جيمس غرُوفِر ثَرْبِر"
+            pos: proper_noun
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "ثَرْبِير"
+      source: stage1
+      decision: removed
+      decision_reason: >
+        هذه الصيغة غير مستعملة في الكتابة العربية المعاصرة؛ النقحرة الشائعة في المراجع
+        العربية هي «ثَرْبِر» لا «ثَرْبِير». التطويل بالياء للمقطع الأخير لا يعكس النطق
+        الأمريكي الفعلي لـ Thurber بدقة أكبر، وقد يوهم بكونه لفظ عربي مشتق.
+        لا داعي لإضافة صيغة غير معتمدة في المدونة العربية.
+
+  synset_actions:
+    - command: update_synset
+      params:
+        synset_id: "{synset_id}"
+        pos: proper_noun
+
+
+# ── المرحلة ٤: التعريف والأمثلة ──────────────────────────────
+stage4_content:
+  definition:
+    current: "كاتب فكاهي ورسام كاريكاتير أمريكي نشر مجموعات من المقالات والقصص (1894-1961)"
+    assessment:
+      decision: revise
+      reason: >
+        التعريف الحالي صحيح في مضمونه لكنه يفتقر إلى الصياغة الموسوعية المحكمة:
+        (١) لا يُذكر الاسم الكامل للمترجَم له صراحةً في صدر التعريف،
+        (٢) ليس فيه ذكر لأشهر أعماله أو مساهماته التي تُميّزه عن سائر الفكاهيين،
+        (٣) التعريف وصفيٌّ مجرد دون إضافة معلوماتية تُثري القارئ.
+    authored:
+      - type: encyclopedic
+        text: >
+          جيمس غرُوفِر ثَرْبِر (1894-1961): أديبٌ وفكاهيٌّ أمريكي ورسّامٌ كاريكاتيري بارز،
+          اشتُهر بأسلوبه الساخر الرفيع في كتابة المقالات والقصص القصيرة؛ نشر معظم أعماله في
+          مجلة «نيويوركر» وأصدر مجموعاتٍ عديدة، من أبرزها «حياتي والأوقات الصعبة» (1933)
+          و«حيوانات ثَرْبِر» (1943). يُعدّ من أبرز أعلام الأدب الفكاهي الأمريكي في القرن العشرين.
+
+  examples:
+    per_lemma:
+      - lemma: "ثَرْبِر"
+        examples:
+          - text: "تتميّز رسوماتُ ثَرْبِر الكاريكاتيرية بخطوطها البسيطة وتعليقاتها الحادّة التي تكشف عن تناقضات الطبيعة البشرية."
+            type: usage
+      - lemma: "جيمس ثَرْبِر"
+        examples:
+          - text: "كرَّس جيمس ثَرْبِر قلمَه ورَيشتَه لنقد المجتمع الأمريكي بأسلوب فكاهي لاذع خلَّفَ بصمةً راسخة في تاريخ الأدب الأمريكي."
+            type: usage
+      - lemma: "جيمس غرُوفِر ثَرْبِر"
+        examples:
+          - text: "وُلِدَ جيمس غرُوفِر ثَرْبِر في مدينة كولومبوس بولاية أوهايو عام 1894، وأمضى معظم سنوات عطائه الأدبي محرِّرًا ورسَّامًا في مجلة «نيويوركر»."
+            type: usage
+
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "جيمس غرُوفِر ثَرْبِر (1894-1961): أديبٌ وفكاهيٌّ أمريكي ورسّامٌ كاريكاتيري بارز، اشتُهر بأسلوبه الساخر الرفيع في كتابة المقالات والقصص القصيرة؛ نشر معظم أعماله في مجلة «نيويوركر» وأصدر مجموعاتٍ عديدة، من أبرزها «حياتي والأوقات الصعبة» (1933) و«حيوانات ثَرْبِر» (1943). يُعدّ من أبرز أعلام الأدب الفكاهي الأمريكي في القرن العشرين."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تتميّز رسوماتُ ثَرْبِر الكاريكاتيرية بخطوطها البسيطة وتعليقاتها الحادّة التي تكشف عن تناقضات الطبيعة البشرية."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "كرَّس جيمس ثَرْبِر قلمَه ورَيشتَه لنقد المجتمع الأمريكي بأسلوب فكاهي لاذع خلَّفَ بصمةً راسخة في تاريخ الأدب الأمريكي."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "وُلِدَ جيمس غرُوفِر ثَرْبِر في مدينة كولومبوس بولاية أوهايو عام 1894، وأمضى معظم سنوات عطائه الأدبي محرِّرًا ورسَّامًا في مجلة «نيويوركر»."
+
+
+# ── المرحلة ٥: الإثراء (البيانات الوصفية) ──────────────────
+stage5_enrichment:
+  per_entry:
+    - lemma: "ثَرْبِر"
+      entry_id: "{auto}"
+      note: >
+        علمٌ أعجمي معرَّب — لا جذر عربي ولا مقاييس؛ نقحرة الكنية الإنجليزية Thurber.
+        يقبل التعريف: الثَّرْبِر، والنسب: الثَّرْبِري.
+
+    - lemma: "جيمس ثَرْبِر"
+      entry_id: "{auto}"
+      roots:
+        - word: "جيمس"
+          root: null
+          note: "علم أعجمي — نقحرة James — لا جذر عربي"
+        - word: "ثَرْبِر"
+          root: null
+          note: "علم أعجمي — نقحرة Thurber — لا جذر عربي"
+
+    - lemma: "جيمس غرُوفِر ثَرْبِر"
+      entry_id: "{auto}"
+      roots:
+        - word: "جيمس"
+          root: null
+          note: "علم أعجمي — نقحرة James"
+        - word: "غرُوفِر"
+          root: null
+          note: "علم أعجمي — نقحرة Grover"
+        - word: "ثَرْبِر"
+          root: null
+          note: "علم أعجمي — نقحرة Thurber"
+
+  per_sense:
+    - lemma: "ثَرْبِر"
+      sense_id: "{auto}"
+      nuance: >
+        الكنية المفردة — تُستعمل للإشارة المختصرة في السياقات التي سبق فيها تقديم
+        الاسم الكامل؛ شائعة في النقد الأدبي والمقالات التحليلية
+      mwe: false
+
+    - lemma: "جيمس ثَرْبِر"
+      sense_id: "{auto}"
+      nuance: >
+        الاسم الثنائي المعياري — الصيغة الأكثر شيوعًا في الموسوعات والمراجع العربية
+        لتعريف الشخصية؛ يجمع بين الاسم الأول والكنية دون الاسم الأوسط
+      mwe: true
+
+    - lemma: "جيمس غرُوفِر ثَرْبِر"
+      sense_id: "{auto}"
+      nuance: >
+        الاسم الكامل الثلاثي — يُستعمل في التوثيق الأكاديمي الرسمي والتراجم الموسوعية
+        المتكاملة؛ يُرفع اللَّبس عن أي شخص آخر يحمل الاسم نفسه جزئيًا
+      mwe: true
+
+  synset:
+    cultural_fit: omission
+
+  actions:
+    # تحديث لمّة ثَرْبِر (entry-level note)
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"foreign_name":true,"transliteration":"Thurber","accepts_al":true,"accepts_nisba":"الثَّرْبِري"}'
+
+    # تحديث لمّة جيمس ثَرْبِر (entry-level note)
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"foreign_name":true,"transliteration":"James Thurber","mwe":true,"mwe_type":"idafi"}'
+
+    # لمّة جيمس غرُوفِر ثَرْبِر (entry-level note)
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"foreign_name":true,"transliteration":"James Grover Thurber","mwe":true,"mwe_type":"idafi","full_name":true}'
+
+    # sense note — ثَرْبِر
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الكنية المفردة — للإشارة المختصرة في السياق التحليلي والنقدي","mwe":false}'
+
+    # sense note — جيمس ثَرْبِر
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الثنائي المعياري — الصيغة الأشيع في الموسوعات والمراجع العربية","mwe":true}'
+
+    # sense note — جيمس غرُوفِر ثَرْبِر
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الكامل الثلاثي — للتوثيق الأكاديمي الرسمي","mwe":true}'
+
+    # synset note
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"omission","pos_correction":"proper_noun","entity_type":"person"}'
+
+    # درجة الثقة
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.88

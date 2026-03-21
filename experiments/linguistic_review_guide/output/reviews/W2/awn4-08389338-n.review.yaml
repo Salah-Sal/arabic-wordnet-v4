@@ -1,0 +1,232 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة تفتقر إلى التشكيل الكامل."
+      - "التعريف العربي الحالي موجز جداً ويحتاج إلى تدقيق اصطلاحي."
+    observations: "المجموعة تعبّر عن مفهوم 'القبيلة' وهو مفهوم مركزي في الثقافة والأنثروبولوجيا العربية، لذا يجب توفير المرادفات التي تغطي المستويات المختلفة لهذا التقسيم الاجتماعي."
+  blind_candidates:
+    - lemma: "قَبِيلَةٌ"
+      generation_method: ishtiqaq
+      justification: "اللفظ الأشهر والأكثر دقة للتعبير عن الجماعة التي تنتسب لجد واحد."
+    - lemma: "عَشِيرَةٌ"
+      generation_method: ishtiqaq
+      justification: "لفظ مرادف شائع يشير إلى الأقارب الأدنين أو قبيلة صغيرة."
+    - lemma: "بَطْنٌ"
+      generation_method: majaz
+      justification: "استعارة دلالية شائعة في التراث العربي للتعبير عن فرع من فروع القبيلة."
+    - lemma: "حَيٌّ"
+      generation_method: majaz
+      justification: "تعبير تراثي يطلق على القبيلة أو الجماعة النازلة في مكان واحد."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "قَبِيلَة"
+      confirm:
+        - text: "«الجماعة من الناس تنتسب إلى أب أو جد واحد.»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+        - text: "«قَبِيلَة (مجموعة تصنيفية فوق الجنس وتحت الفصيلة) [ج:قبائل]»"
+          source: "المعجم الطبي الموحد"
+    - lemma: "عَشِيرَة"
+      confirm:
+        - text: "«عَشِيرَة: بمعنى القبيلة.»"
+          source: "معجم البلدان لياقوت الحموي"
+        - text: "«مجموعة من البشر ينتمي كل منهم، وراثيا أو عن طريق التزاوج، إلى كل عضو آخر في المجموعة.»"
+          source: "المعجم الموحد لمصطلحات علم الوراثة"
+    - lemma: "سِبْط"
+      confirm:
+        - text: "«السِّبْطُ من اليَهُودِ كَالقَبِيلَةِ مِنَ العَرَبِ.»"
+          source: "المحكم والمحيط الأعظم"
+        - text: "«الاسباط من بنى إسرائيل كالقبائل من العرب.»"
+          source: "تاج اللغة وصِحاح العربية"
+    - lemma: "حَيّ"
+      confirm:
+        - text: "«والْحَيُّ: البَطْنُ من بُطُونِهِمْ ج: أحْياءٌ.»"
+          source: "القاموس المحيط"
+        - text: "«الحاء والياء والواو أصل واحد... منه الحي البطن من بطونهم.»"
+          source: "مقاييس اللغة"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "عشيرة"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي معتمد في المعاجم القديمة والحديثة لوصف الجماعة الاجتماعية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عَشِيرَةٌ"
+    - lemma: "قبيلة"
+      decision: confirmed
+      decision_reason: "اللفظ النموذجي والمقابل الدقيق لـ (tribe) في العربية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "قَبِيلَةٌ"
+    - lemma: "سِبْطٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يضيف بعداً تاريخياً ودينياً مهماً لمصطلح القبيلة، خاصة في سياق بني إسرائيل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "سِبْطٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "حَيٌّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تراثي فصيح يشير إلى الجماعة الاجتماعية المقيمة، وهو مستخدم بكثرة في الأدب العربي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "حَيٌّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "قِسم اجتماعي من الناس (عادة ما يكون بدائياً أو قبل عصر الكتابة)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي أكثر من كونه جامعاً مانعاً، ويفتقر إلى الإشارة لعنصر النسب المشترك."
+    authored:
+      - type: terminological
+        text: "جَمَاعَةٌ مِنَ النَّاسِ تَنْتَسِبُ إِلَى جَدٍّ وَاحِدٍ، تَعِيشُ وَفْقَ نِظَامٍ اجْتِمَاعِيٍّ وَثَقَافِيٍّ تَقْلِيدِيٍّ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "قَبِيلَةٌ"
+        examples:
+          - text: "تَعْتَزُّ القَبِيلَةُ بِنَسَبِهَا وَتَقَالِيدِهَا المَوْرُوثَةِ عَنِ الأَجْدَادِ."
+            type: usage
+      - lemma: "عَشِيرَةٌ"
+        examples:
+          - text: "اجْتَمَعَتِ العَشِيرَةُ لِحَلِّ النِّزَاعِ بَيْنَ بَعْضِ أَفْرَادِهَا."
+            type: usage
+      - lemma: "سِبْطٌ"
+        examples:
+          - text: "كَانَتْ لِكُلِّ سِبْطٍ مِنْ أَسْبَاطِ بَنِي إِسْرَائِيلَ رَايَةٌ تُمَيِّزُهُ."
+            type: usage
+      - lemma: "حَيٌّ"
+        examples:
+          - text: "نَزَلَ الحَيُّ فِي وَادٍ خَصِيبٍ بَحْثًا عَنِ المَرْعَى."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "جَمَاعَةٌ مِنَ النَّاسِ تَنْتَسِبُ إِلَى جَدٍّ وَاحِدٍ، تَعِيشُ وَفْقَ نِظَامٍ اجْتِمَاعِيٍّ وَثَقَافِيٍّ تَقْلِيدِيٍّ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "قَبِيلَةٌ"
+      entry_id: "{auto}"
+      root: "قبل"
+      maqayis_quote: "«الْقَافُ وَالْبَاءُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ تَدُلُّ كَلِمُهُ كُلُّهَا عَلَى مُوَاجَهَةِ الشَّيْءِ لِلشَّيْءِ... وَبِذَلِكَ سُمِّيَتْ قَبَائِلُ الْعَرَبِ.»"
+    - lemma: "عَشِيرَةٌ"
+      entry_id: "{auto}"
+      root: "عشر"
+      maqayis_quote: "«الْعَيْنُ وَالشِّينُ وَالرَّاءُ أَصْلَانِ صَحِيحَانِ... وَالْآخَرُ يَدُلُّ عَلَى مُدَاخَلَةٍ وَمُخَالَطَةٍ... وَإِنَّمَا سُمِّيَتْ عَشِيرَةُ الرَّجُلِ لِمُعَاشَرَةِ بَعْضِهِمْ بَعْضًا.»"
+    - lemma: "سِبْطٌ"
+      entry_id: "{auto}"
+      root: "سبط"
+      maqayis_quote: "«السِّينُ وَالْبَاءُ وَالطَّاءُ أَصْلٌ يَدُلُّ عَلَى امْتِدَادِ شَيْءٍ... وَالسِّبْطُ: وَاحِدُ الْأَسْبَاطِ، وَهُمْ وَلَدُ الْوَلَدِ.»"
+    - lemma: "حَيٌّ"
+      entry_id: "{auto}"
+      root: "حيي"
+      maqayis_quote: "«الْحَاءُ وَالْيَاءُ وَالْوَاوُ أَصْلٌ وَاحِدٌ... وَالْحَيُّ: البَطْنُ مِنْ بُطُونِهِمْ.»"
+  per_sense:
+    - lemma: "قَبِيلَةٌ"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام والأشمل للجماعة الاجتماعية ذات الأصل الواحد."
+      mwe: false
+    - lemma: "عَشِيرَةٌ"
+      sense_id: "{auto}"
+      nuance: "تستخدم غالباً للدلالة على الأقربين أو التقسيم الأصغر داخل القبيلة الكبيرة."
+      mwe: false
+    - lemma: "سِبْطٌ"
+      sense_id: "{auto}"
+      nuance: "يستخدم حصراً في السياق التاريخي والديني لوصف قبائل بني إسرائيل أو أحفاد الشخص."
+      mwe: false
+    - lemma: "حَيٌّ"
+      sense_id: "{auto}"
+      nuance: "تعبير تراثي يركز على جانب الإقامة والحياة المشتركة في مكان واحد."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قبل","maqayis":"«الْقَافُ وَالْبَاءُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ تَدُلُّ كَلِمُهُ كُلُّهَا عَلَى مُوَاجَهَةِ الشَّيْءِ لِلشَّيْءِ... وَبِذَلِكَ سُمِّيَتْ قَبَائِلُ الْعَرَبِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عشر","maqayis":"«الْعَيْنُ وَالشِّينُ وَالرَّاءُ أَصْلَانِ صَحِيحَانِ... وَالْآخَرُ يَدُلُّ عَلَى مُدَاخَلَةٍ وَمُخَالَطَةٍ... وَإِنَّمَا سُمِّيَتْ عَشِيرَةُ الرَّجُلِ لِمُعَاشَرَةِ بَعْضِهِمْ بَعْضًا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سبط","maqayis":"«السِّينُ وَالْبَاءُ وَالطَّاءُ أَصْلٌ يَدُلُّ عَلَى امْتِدَادِ شَيْءٍ... وَالسِّبْطُ: وَاحِدُ الْأَسْبَاطِ، وَهُمْ وَلَدُ الْوَلَدِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حيي","maqayis":"«الْحَاءُ وَالْيَاءُ وَالْوَاوُ أَصْلٌ وَاحِدٌ... وَالْحَيُّ: البَطْنُ مِنْ بُطُونِهِمْ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العام والأشمل للجماعة الاجتماعية ذات الأصل الواحد.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تستخدم غالباً للدلالة على الأقربين أو التقسيم الأصغر داخل القبيلة الكبيرة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يستخدم حصراً في السياق التاريخي والديني لوصف قبائل بني إسرائيل أو أحفاد الشخص.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير تراثي يركز على جانب الإقامة والحياة المشتركة في مكان واحد.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

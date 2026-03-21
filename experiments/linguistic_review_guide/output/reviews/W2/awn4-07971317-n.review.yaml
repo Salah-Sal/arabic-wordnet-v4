@@ -1,0 +1,201 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'الكل' عامة جداً وتستخدم غالباً كأداة استغراق."
+      - "اللمة 'مجموعة كاملة' تبدو ترجمة وصفية وليست مصطلحاً معجمياً مستقراً."
+    observations: "المفهوم يشير إلى تمام الشيء واجتماع أجزائه بحيث يعتبر وحدة واحدة."
+  blind_candidates:
+    - lemma: "الجُمْلَةُ"
+      generation_method: majaz
+      justification: "وردت في المعاجم بمعنى جماعة كل شيء، وهو المصطلح الدقيق للتعبير عن الشيء في تمامه."
+    - lemma: "المَجْمُوعُ"
+      generation_method: ishtiqaq
+      justification: "اسم لما اجتمع من أجزاء، ويستخدم للتعبير عن الحاصل الكلي لمجموعة."
+    - lemma: "الكُلِّيَّةُ"
+      generation_method: ishtiqaq
+      justification: "تستخدم في المنطق والفلسفة للتعبير عن شمول جميع الأفراد أو الأجزاء."
+    - lemma: "المَجْمُوعَةُ التَّامَّةُ"
+      generation_method: tarkib
+      justification: "تعبير اصطلاحي حديث يصف المجموعة التي استكملت جميع عناصرها."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "الكُلُّ"
+      confirm:
+        - text: "«الكل: في اللغة اسمٌ مجموع المعنى ولفظه واحد، وفي الاصطلاح: اسم لجملة مركبة من أجزاء»"
+          source: "كتاب التعريفات للجرجاني"
+        - text: "«لفظ كُلٍّ هو لضمّ أجزاء الشيء... ويفيد معنى التمام»"
+          source: "المفردات في غريب القرآن للراغب"
+    - lemma: "الجُمْلَةُ"
+      confirm:
+        - text: "«الجملة: جماعة كل شيء»"
+          source: "المعجم الوسيط"
+        - text: "«الجملة بالضم لغة المجموع»"
+          source: "كشاف اصطلاحات الفنون للتهانوي"
+        - text: "«in the lump»"
+          source: "ArabTerm (المعجم الموحد لمصطلحات التجارة)"
+    - lemma: "المَجْمُوعُ"
+      confirm:
+        - text: "«المجموع: اسم دال على جملة آحاد مقصودة»"
+          source: "دستور العلماء للأحمدنكري"
+        - text: "«المجموع (في علم الرياضة) نتيجة ضم الأعداد أو الحدود الجبرية المتشابهة»"
+          source: "المعجم الوسيط"
+    - lemma: "مجموعة كاملة"
+      confirm:
+        - text: "«plate pack»"
+          source: "ArabTerm (موسوعة الكهرباء)"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "الكُلُّ"
+      decision: confirmed
+      decision_reason: "مصطلح أصيل يعبر عن شمول الأجزاء والتمام، ومدعوم معجمياً كاسم للجملة المركبة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "الكُلُّ"
+    - lemma: "مجموعة كاملة"
+      decision: confirmed
+      decision_reason: "رغم كونها عبارة وصفية إلا أنها مستخدمة في السياقات الحديثة للتعبير عن المجموعة المستوفاة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَجْمُوعَةٌ كَامِلَةٌ"
+    - lemma: "الجُمْلَةُ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "من أدق الألفاظ العربية للتعبير عن 'المجموعة بأكملها' أو 'الشيء في تمامه'، وهي مدعومة بقوة في المعاجم القديمة والحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "الجُمْلَةُ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "المَجْمُوعُ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ شائع للتعبير عن حاصل جمع الأجزاء أو التجمع الكلي للآحاد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "المَجْمُوعُ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "أي مجموعة بأكملها"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب جداً ويحتاج إلى صياغة معجمية أكثر دقة توضح معنى الوحدة والتمام."
+    authored:
+      - type: terminological
+        text: "جماعة كل شيء، أو مجموعة من العناصر تُعتبر وحدة واحدة في تمامها واستيعابها لجميع أجزائها."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "جماعة كل شيء، أو مجموعة من العناصر تُعتبر وحدة واحدة في تمامها واستيعابها لجميع أجزائها."}
+  examples:
+    per_lemma:
+      - lemma: "الكُلُّ"
+        examples:
+          - text: "الكل أكبر من الجزء في المنطق الرياضي."
+            type: usage
+      - lemma: "الجُمْلَةُ"
+        examples:
+          - text: "أخذ التاجر البضاعة بجملتها دون تفصيل."
+            type: usage
+      - lemma: "المَجْمُوعُ"
+        examples:
+          - text: "بلغ المجموع الكلي للمقتنيات ألف قطعة."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "باع التاجر المجموعة كاملة دون استبقاء أي جزء منها."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "الكُلُّ"
+      entry_id: "{auto}"
+      root: "كلل"
+      maqayis_quote: "«الْكَافُ وَاللَّامُ أُصُولٌ ثَلَاثَةٌ صِحَاحٌ... وَأَمَّا كُلٌّ فَهُوَ اسْمٌ مَوْضُوعٌ لِلْإِحَاطَةِ مُضَافٌ أَبَدًا إِلَى مَا بَعْدَهُ.»"
+    - lemma: "الجُمْلَةُ"
+      entry_id: "{auto}"
+      root: "جمل"
+      maqayis_quote: "«الْجِيمُ وَالْمِيمُ وَاللَّامُ أَصْلَانِ: أَحَدُهُمَا تَجَمُّعُ وَعِظَمُ الْخَلْقِ... أَجْمَلْتُ الشَّيْءَ، وَهَذِهِ جُمْلَةُ الشَّيْءِ. وَأَجْمَلْتُهُ حَصَّلْتُهُ.»"
+    - lemma: "المَجْمُوعُ"
+      entry_id: "{auto}"
+      root: "جمع"
+      maqayis_quote: "«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ. يُقَالُ جَمَعْتُ الشَّيْءَ جَمْعًا.»"
+  per_sense:
+    - lemma: "الكُلُّ"
+      sense_id: "{auto}"
+      nuance: "يركز على استغراق جميع الأجزاء والإحاطة بها."
+      mwe: false
+    - lemma: "الجُمْلَةُ"
+      sense_id: "{auto}"
+      nuance: "تركز على الهيئة الوحدانية للمجموعة ككتلة واحدة غير مجزأة."
+      mwe: false
+    - lemma: "المَجْمُوعُ"
+      sense_id: "{auto}"
+      nuance: "يركز على الحاصل الناتج عن ضم الأفراد أو الأجزاء لبعضها."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"كلل","maqayis":"«الْكَافُ وَاللَّامُ أُصُولٌ ثَلَاثَةٌ صِحَاحٌ... وَأَمَّا كُلٌّ فَهُوَ اسْمٌ مَوْضُوعٌ لِلْإِحَاطَةِ مُضَافٌ أَبَدًا إِلَى مَا بَعْدَهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جمل","maqayis":"«الْجِيمُ وَالْمِيمُ وَاللَّامُ أَصْلَانِ: أَحَدُهُمَا تَجَمُّعُ وَعِظَمُ الْخَلْقِ... أَجْمَلْتُ الشَّيْءَ، وَهَذِهِ جُمْلَةُ الشَّيْءِ. وَأَجْمَلْتُهُ حَصَّلْتُهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جمع","maqayis":"«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ. يُقَالُ جَمَعْتُ الشَّيْءَ جَمْعًا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على استغراق جميع الأجزاء والإحاطة بها.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

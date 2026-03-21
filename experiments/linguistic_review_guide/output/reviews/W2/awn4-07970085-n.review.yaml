@@ -1,0 +1,236 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف العربي الحالي دائري نوعاً ما (استخدام كلمة مجموعة لتعريف المجموعة)."
+    observations: "اللمّات الموجودة (مجموعة فنية، مقتنيات فنية) دقيقة وشائعة الاستعمال. المفهوم واضح ومعبر عنه بمركبات وصفية مستقرة في الخطاب الثقافي المعاصر."
+  blind_candidates:
+    - lemma: "مَجْمُوعَةٌ فَنِّيَّة"
+      generation_method: tarkib
+      justification: "المركب الوصفي الأكثر شيوعاً ومباشرة للتعبير عن المفهوم."
+    - lemma: "مُقْتَنَيَاتٌ فَنِّيَّة"
+      generation_method: tarkib
+      justification: "يستخدم خصيصاً للمجموعات التي تم اقتناؤها وحفظها في المتاحف أو المجموعات الخاصة."
+    - lemma: "رَصِيدٌ فَنِّيّ"
+      generation_method: majaz
+      justification: "استعارة من الرصيد المالي للدلالة على مجموع الأعمال المتراكمة لدى جهة أو فنان."
+    - lemma: "ذَخِيرَةٌ فَنِّيَّة"
+      generation_method: majaz
+      justification: "تعبير تراثي يوحي بالقيمة العالية والنفاسة للمجموعة الفنية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُقْتَنَيَاتٌ فَنِّيَّة"
+      confirm:
+        - text: "«أُقِيم مزاد لبيع المقتنيات الفنية... للدلالة على ما يتم الحصول عليه من تحف أو أعمال فنية أو أشياء ثمينة. وقد أجاز مجمع اللغة المصري استعمال هذه الكلمة»"
+          source: "معجم الصواب اللغوي"
+    - lemma: "مَجْمُوعَة"
+      confirm:
+        - text: "«لفظ عام يطلق على مجموع عناصر منسجمة تكون وحدة»"
+          source: "المعجم الموحد لمصطلحات تقانة المعلومات"
+        - text: "«مجموعة من الأشياء المتشابهة في خصائصها، والمنظَّمة حسب أوجه التشابه بينها.»"
+          source: "معجم البيانات والذكاء الاصطناعي"
+    - lemma: "رَصِيد"
+      expands:
+        - text: "«ما يبقى للمُودع فى المصرف من حسابه الجارى»"
+          source: "المعجم الوسيط"
+          addition: "يُستخدم مجازاً في السياق الفني للدلالة على مجموع النتاج الفني المخزون أو المقتنى."
+    - lemma: "ذَخِيرَة"
+      expands:
+        - text: "«ما يُذخر من المال والزاد والذخيرة للحرب وغير ذلك»"
+          source: "المعجم الوسيط"
+          addition: "استُخدمت تاريخياً في عناوين الكتب (مثل ذخيرة الكتاب) للدلالة على مجموع المختارات الأدبية، وتصلح للمجموعات الفنية النفيسة."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مجموعة فنية"
+      decision: confirmed
+      decision_reason: "المصطلح القياسي والمباشر، وهو مركب وصفي مستقر دلالياً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَجْمُوعَةٌ فَنِّيَّةٌ"
+    - lemma: "مقتنيات فنية"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح أقره مجمع اللغة المصري ويشيع استخدامه في سياق المتاحف والمجموعات الخاصة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُقْتَنَيَاتٌ فَنِّيَّةٌ"
+    - lemma: "رَصِيدٌ فَنِّيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "استخدام معاصر شائع في النقد الفني، يعبر عن التراكم الكمي والنوعي للأعمال الفنية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "رَصِيدٌ فَنِّيٌّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "ذَخِيرَةٌ فَنِّيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير بليغ يستخدم لوصف المجموعات الفنية ذات القيمة التاريخية أو التراثية العالية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "ذَخِيرَةٌ فَنِّيَّةٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "مجموعة من الأعمال الفنية"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب ودائري (يستخدم المعرَّف في التعريف)."
+    authored:
+      - type: terminological
+        text: "طائفة من اللوحات أو التماثيل أو غيرها من الآثار الفنية، تُجمع وتُصان لما لها من قيمة جمالية أو تاريخية أو ثقافية."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "طائفة من اللوحات أو التماثيل أو غيرها من الآثار الفنية، تُجمع وتُصان لما لها من قيمة جمالية أو تاريخية أو ثقافية."}
+  examples:
+    per_lemma:
+      - lemma: "مَجْمُوعَةٌ فَنِّيَّةٌ"
+        examples:
+          - text: "تملك عائلة «روتشيلد» أضخم مجموعة فنية خاصة في العالم."
+            type: usage
+      - lemma: "مُقْتَنَيَاتٌ فَنِّيَّةٌ"
+        examples:
+          - text: "سُرقت بعض المقتنيات الفنية النادرة من المتحف الوطني خلال الاضطرابات."
+            type: usage
+      - lemma: "رَصِيدٌ فَنِّيٌّ"
+        examples:
+          - text: "يضم الرصيد الفني لهذا المتحف آلاف المخطوطات واللوحات الزيتية."
+            type: usage
+      - lemma: "ذَخِيرَةٌ فَنِّيَّةٌ"
+        examples:
+          - text: "تعد هذه الكاتدرائية ذخيرة فنية لا تقدر بثمن لما تحويه من أيقونات أثرية."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تملك عائلة «روتشيلد» أضخم مجموعة فنية خاصة في العالم."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "سُرقت بعض المقتنيات الفنية النادرة من المتحف الوطني خلال الاضطرابات."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يضم الرصيد الفني لهذا المتحف آلاف المخطوطات واللوحات الزيتية."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تعد هذه الكاتدرائية ذخيرة فنية لا تقدر بثمن لما تحويه من أيقونات أثرية."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَجْمُوعَةٌ فَنِّيَّةٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مجموعة"
+          root: "جمع"
+          maqayis_quote: "«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ.»"
+        - word: "فنية"
+          root: "فنن"
+          maqayis_quote: "«الْفَاءُ وَالنُّونُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى تَعْنِيَةٍ، وَالْآخَرُ عَلَى ضَرْبٍ مِنَ الضُّرُوبِ فِي الْأَشْيَاءِ كُلِّهَا.»"
+    - lemma: "مُقْتَنَيَاتٌ فَنِّيَّةٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مقتنيات"
+          root: "قني"
+          maqayis_quote: "«الْقَافُ وَالنُّونُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى الِادِّخَارِ.»"
+        - word: "فنية"
+          root: "فنن"
+          maqayis_quote: "«الْفَاءُ وَالنُّونُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى تَعْنِيَةٍ، وَالْآخَرُ عَلَى ضَرْبٍ مِنَ الضُّرُوبِ فِي الْأَشْيَاءِ كُلِّهَا.»"
+    - lemma: "رَصِيدٌ فَنِّيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "رصيد"
+          root: "رصد"
+          maqayis_quote: "«الرَّاءُ وَالصَّادُ وَالدَّالُ أَصْلٌ وَاحِدٌ، وَهُوَ التَّهَيُّؤُ لِرِقْبَةِ شَيْءٍ عَلَى مَسْلَكِهِ.»"
+        - word: "فني"
+          root: "فنن"
+          maqayis_quote: "«الْفَاءُ وَالنُّونُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى تَعْنِيَةٍ، وَالْآخَرُ عَلَى ضَرْبٍ مِنَ الضُّرُوبِ فِي الْأَشْيَاءِ كُلِّهَا.»"
+    - lemma: "ذَخِيرَةٌ فَنِّيَّةٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "ذخيرة"
+          root: "ذخر"
+          maqayis_quote: "«الذَّالُ وَالْخَاءُ وَالرَّاءُ يَدُلُّ عَلَى إِحْرَازِ شَيْءٍ يَحْفَظُهُ.»"
+        - word: "فنية"
+          root: "فنن"
+          maqayis_quote: "«الْفَاءُ وَالنُّونُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى تَعْنِيَةٍ، وَالْآخَرُ عَلَى ضَرْبٍ مِنَ الضُّرُوبِ فِي الْأَشْيَاءِ كُلِّهَا.»"
+  per_sense:
+    - lemma: "مَجْمُوعَةٌ فَنِّيَّةٌ"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام والأكثر تداولاً."
+      mwe: true
+    - lemma: "مُقْتَنَيَاتٌ فَنِّيَّةٌ"
+      sense_id: "{auto}"
+      nuance: "يركز على فعل الاقتناء والحفظ، ويشيع في سياق المتاحف والمجموعات الخاصة."
+      mwe: true
+    - lemma: "رَصِيدٌ فَنِّيٌّ"
+      sense_id: "{auto}"
+      nuance: "يستخدم للتعبير عن التراكم والوفرة في الأعمال الفنية، وغالباً ما يرتبط بجهة أو فنان معين."
+      mwe: true
+    - lemma: "ذَخِيرَةٌ فَنِّيَّةٌ"
+      sense_id: "{auto}"
+      nuance: "تعبير بليغ يوحي بالقيمة العالية والنفاسة."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العام والأكثر تداولاً.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على فعل الاقتناء والحفظ، ويشيع في سياق المتاحف والمجموعات الخاصة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يستخدم للتعبير عن التراكم والوفرة في الأعمال الفنية، وغالباً ما يرتبط بجهة أو فنان معين.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير بليغ يوحي بالقيمة العالية والنفاسة.","mwe":true}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

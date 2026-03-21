@@ -1,0 +1,221 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "المجموعة الحالية تفتقر إلى التشكيل الكامل للّمات."
+      - "المجموعة تفتقر إلى مصطلح 'سوء الظن' الذي يعبر بدقة عن خصلة عدم الثقة في الآخرين في السياق الثقافي العربي."
+    observations: "المجموعة تدور حول خصلة نفسية تتعلق بالشك وعدم اليقين تجاه الآخرين. المصطلحات الحالية (ارتياب، عدم ثقة) صحيحة ولكنها تحتاج إلى إغناء بمرادفات تعبر عن الجوانب الدلالية المختلفة لهذه السمة."
+  blind_candidates:
+    - lemma: "ارْتِيَاب"
+      generation_method: ishtiqaq
+      justification: "المصدر القياسي للفعل 'ارتاب'، وهو المصطلح الأكثر شيوعاً للتعبير عن حالة أو سمة عدم الثقة."
+    - lemma: "سُوءُ ظَنّ"
+      generation_method: tarkib
+      justification: "تعبير مركب (إضافي) يعبر عن الخصلة الأخلاقية والنفسية المتمثلة في عدم الثقة وتوقع الشر من الآخرين."
+    - lemma: "عَدَمُ ثِقَة"
+      generation_method: tarkib
+      justification: "تعبير اصطلاحي مباشر يصف غياب الثقة، وهو يقابل المصطلح الإنجليزي 'distrust' بدقة."
+    - lemma: "رِيبَة"
+      generation_method: ishtiqaq
+      justification: "اسم يدل على الشك والتهمة، وكثيراً ما يستخدم لوصف الجو النفسي أو السمة المرتبطة بعدم الثقة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "ارتياب"
+      confirm:
+        - text: "«(1) يرتاب في؛ لا يثق بِـ (2) ارتياب؛ عدم ثقة.»"
+          source: "المورد الحديث (2008)"
+      expands:
+        - text: "«ارتاب: فِيهِ وَبِه شكّ وَيُقَال ارتاب بِهِ اتهمه»"
+          source: "المعجم الوسيط"
+    - lemma: "عدم ثقة"
+      confirm:
+        - text: "«(1) ارتياب؛ سوء ظنّ؛ عدم ثقة»"
+          source: "المورد الحديث (2008)"
+    - lemma: "سوء ظن"
+      confirm:
+        - text: "«(1) ارتياب؛ سوء ظنّ؛ عدم ثقة (2) يرتاب أو يسيء الظنّ في..»"
+          source: "المورد الحديث (2008)"
+      expands:
+        - text: "«والأصل الآخر: الشك، يقال: ظننت الشيء، إذا لم تتيقنه، ومن ذلك الظنة: التهمة. والظنين: المتهم.»"
+          source: "مقاييس اللغة"
+    - lemma: "ريبة"
+      confirm:
+        - text: "«الرِّيبة: الظن والشك والتهمة»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«الرَّيْب أن تتوهم بالشيء أمراً ما فينكشف عما تتوهمه»"
+          source: "التعريفات الفقهية للبركتي"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "ارتياب"
+      decision: confirmed
+      decision_reason: "مصطلح مركزي في التعبير عن سمة عدم الثقة، وهو المصدر القياسي للفعل 'ارتاب'."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "ارْتِيَاب"
+    - lemma: "عدم ثقة"
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي شائع وشديد الدقة في ترجمة المفهوم الإنجليزي (distrust)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عَدَمُ ثِقَة"
+    - lemma: "سُوءُ ظَنّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح أخلاقي ونفسي أصيل في اللغة العربية يعبر عن سمة عدم الثقة في الآخرين وتوقع السوء منهم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "سُوءُ ظَنّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "رِيبَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "كلمة معجمية قوية تدل على الشك المصحوب بالتهمة، وهي مناسبة جداً لوصف السمة النفسية للمرتاب."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "رِيبَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "سمة عدم الثقة في الآخرين"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي صحيح ولكنه مقتضب جداً، يفضل تفصيله لبيان طبيعة هذه السمة."
+    authored:
+      - type: terminological
+        text: "خصلة نفسية تظهر في ميل الفرد إلى عدم الوثوق بالآخرين والشك في نواياهم وأفعالهم."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "خصلة نفسية تظهر في ميل الفرد إلى عدم الوثوق بالآخرين والشك في نواياهم وأفعالهم."}
+  examples:
+    per_lemma:
+      - lemma: "ارْتِيَاب"
+        examples:
+          - text: "ينظر بارتياب إلى كل مبادرة تأتي من خصومه."
+            type: usage
+      - lemma: "عَدَمُ ثِقَة"
+        examples:
+          - text: "أظهر الناخبون عدم ثقة متزايدة في الوعود السياسية."
+            type: usage
+      - lemma: "سُوءُ ظَنّ"
+        examples:
+          - text: "من شيم اللئيم سوء الظن بالناس."
+            type: usage
+      - lemma: "رِيبَة"
+        examples:
+          - text: "تحيط الريبة بكلماته وتصرفاته الغامضة."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "ارْتِيَاب"
+      entry_id: "{auto}"
+      root: "ريب"
+      maqayis_quote: "«الرَّاءُ وَالْيَاءُ وَالْبَاءُ أُصَيْلٌ يَدُلُّ عَلَى شَكٍّ، أَوْ شَكٍّ وَخَوْفٍ، فَالرَّيْبُ: الشَّكُّ.»"
+    - lemma: "رِيبَة"
+      entry_id: "{auto}"
+      root: "ريب"
+      maqayis_quote: "«الرَّاءُ وَالْيَاءُ وَالْبَاءُ أُصَيْلٌ يَدُلُّ عَلَى شَكٍّ، أَوْ شَكٍّ وَخَوْفٍ، فَالرَّيْبُ: الشَّكُّ.»"
+    - lemma: "سُوءُ ظَنّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "سوء"
+          root: "سوأ"
+          maqayis_quote: "«السِّينُ وَالْوَاوُ وَالْهَمْزَةُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خِلَافِ الْحَسَنِ.»"
+        - word: "ظن"
+          root: "ظن"
+          maqayis_quote: "«الظَّاءُ وَالنُّونُ أُصَيْلٌ صَحِيحٌ يَدُلُّ عَلَى مَعْنَيَيْنِ مُخْتَلِفَيْنِ: يَقِينٍ وَشَكٍّ.»"
+    - lemma: "عَدَمُ ثِقَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "عدم"
+          root: "عدم"
+          maqayis_quote: "«الْعَيْنُ وَالدَّالُ وَالْمِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى فُقْدَانِ الشَّيْءِ وَذَهَابِهِ.»"
+        - word: "ثقة"
+          root: "وثق"
+          maqayis_quote: "«الْوَاوُ وَالثَّاءُ وَالْقَافُ كَلِمَةٌ تَدُلُّ عَلَى عَقْدٍ وَإِحْكَامٍ.»"
+  per_sense:
+    - lemma: "ارْتِيَاب"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام والأكثر رسمية لوصف حالة الشك وعدم الثقة."
+      mwe: false
+    - lemma: "عَدَمُ ثِقَة"
+      sense_id: "{auto}"
+      nuance: "تعبير مباشر يصف غياب الثقة، وغالباً ما يستخدم في السياقات الاجتماعية والسياسية."
+      mwe: true
+    - lemma: "سُوءُ ظَنّ"
+      sense_id: "{auto}"
+      nuance: "يحمل دلالة أخلاقية سلبية تتمثل في افتراض السوء في الآخرين دون دليل."
+      mwe: true
+    - lemma: "رِيبَة"
+      sense_id: "{auto}"
+      nuance: "يركز على جانب الشك والاتهام المبطن وتوجس خيفة من الآخر."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ريب","maqayis":"«الرَّاءُ وَالْيَاءُ وَالْبَاءُ أُصَيْلٌ يَدُلُّ عَلَى شَكٍّ، أَوْ شَكٍّ وَخَوْفٍ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"سوء","root":"سوأ","maqayis":"«السِّينُ وَالْوَاوُ وَالْهَمْزَةُ أَصْلٌ...»"},{"word":"ظن","root":"ظنن","maqayis":"«الظَّاءُ وَالنُّونُ أُصَيْلٌ صَحِيحٌ يَدُلُّ عَلَى مَعْنَيَيْنِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"عدم","root":"عدم","maqayis":"«الْعَيْنُ وَالدَّالُ وَالْمِيمُ أَصْلٌ وَاحِدٌ...»"},{"word":"ثقة","root":"وثق","maqayis":"«الْوَاوُ وَالثَّاءُ وَالْقَافُ كَلِمَةٌ تَدُلُّ عَلَى عَقْدٍ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العام والأكثر رسمية لوصف حالة الشك وعدم الثقة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

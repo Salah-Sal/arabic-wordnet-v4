@@ -1,0 +1,242 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "استعمال (خط) للدلالة على اصطفاف الأشخاص هو اقتراض دلالي (ترجمة حرفية) من الكلمة الإنجليزية (line)، ولا يوافق الاستعمال العربي الفصيح الذي يخصصه للسطر أو الأثر الممتد."
+    observations: "المفهوم يدل على الترتيب الطولي (واحد خلف الآخر). الكلمات العربية الأنسب لهذا المعنى هي (طابور) المعربة، و(رتل)، و(صف)."
+  blind_candidates:
+    - lemma: "صَفّ"
+      generation_method: ishtiqaq
+      justification: "مشتقة من الجذر (صفف) الدال على الاستواء والترتيب، وتستخدم لاصطفاف الأشخاص أو الأشياء."
+    - lemma: "رَتْل"
+      generation_method: ishtiqaq
+      justification: "مشتقة من (رتل) الدال على تناسق الشيء وانتظامه، وتطلق على الجماعة يتبع بعضها بعضاً."
+    - lemma: "قِطَار"
+      generation_method: majaz
+      justification: "تطلق مجازاً على الأشياء التي تتبع بعضها في نسق واحد كقطار الإبل."
+    - lemma: "نَسَق"
+      generation_method: ishtiqaq
+      justification: "مشتقة من (نسق) الدالة على التتابع والنظام الواحد."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خَطّ"
+      contradicts:
+        - text: "الخَطُّ: الطَّريقةُ المُسْتَطِيلَةُ في الشيء، أو الطَّريقُ الخفيفُ... والكَتْبُ بالقَلَمِ"
+          source: "القاموس المحيط للفيروزآبادي"
+          conflict: "الكلمة في أصلها تدل على الأثر الممتد أو الطريق أو الكتابة، وليس على اصطفاف الأشخاص خلف بعضهم، إلا من باب الترجمة الحرفية (Calque)."
+    - lemma: "طَابُور"
+      confirm:
+        - text: "الطَّابور: الصَّفُّ من الناس وغيرهم يَقِفُ بعضُهم وراءَ بعض"
+          source: "المعجم الكبير"
+    - lemma: "صَفّ"
+      confirm:
+        - text: "الصَّفُّ: من كُلِّ شيءٍ: السَّطْرُ المستقيمُ. يقال: صفٌّ من الشَّجر. وصفٌّ الجنود"
+          source: "المعجم الكبير"
+    - lemma: "رَتْل"
+      confirm:
+        - text: "رَتَل: جماعة من الخيل أو السيارات أو نحوهما يتبع بعضُها بعضًا"
+          source: "معجم اللغة العربية المعاصرة لأحمد مختار عمر"
+    - lemma: "قِطَار"
+      expands:
+        - text: "الْقِطَارُ من الإبل : عددٌ منها بعضه خَلْفَ بعض على نسق واحد"
+          source: "المعجم الوسيط"
+          addition: "يختص عادة بالحيوانات أو المركبات ولا يطلق على الناس في السياق العام."
+    - lemma: "نَسَق"
+      expands:
+        - text: "النَّسَقُ: ما كان على نظام واحد من كل شيء"
+          source: "المعجم الوسيط"
+          addition: "يدل على مطلق النظام ولا يقتصر على الترتيب الطولي خلف بعض."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "خَطّ"
+      decision: removed
+      decision_reason: "استعمال (خط) للتعبير عن وقوف الأشخاص أو الأشياء واحداً خلف الآخر هو ترجمة حرفية عمياء (Calque) للاستعمال الإنجليزي (line)، والأصح في العربية استعمال (طابور) أو (رتل)."
+      evidence_assessment:
+        case: contradicts_only
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "طَابُور"
+      decision: confirmed
+      decision_reason: "كلمة معرّبة شائعة جداً، ومثبتة في المعاجم الحديثة بالدلالة المطابقة تماماً للمفهوم (وقوف الناس وراء بعضهم)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "طَابُور"
+    - lemma: "صَفّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "كلمة عربية فصيحة تعبر عن انتظام الناس أو الأشياء في خط أو سطر."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "صَفّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "رَتْل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح دقيق يدل على تتابع الأشخاص أو الآليات واحداً تلو الآخر في خط طولي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "رَتْل"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "قِطَار"
+      source: stage1
+      decision: removed
+      decision_reason: "مخصص أصلاً للإبل ثم لمركبات السكك الحديدية، ولا يطابق المفهوم العام للتشكيل البشري أو المادي."
+      evidence_assessment:
+        case: mixed
+    - lemma: "نَسَق"
+      source: stage1
+      decision: removed
+      decision_reason: "مفهوم عام يدل على النظام ولا يعبر تحديداً عن الاصطفاف الطولي."
+      evidence_assessment:
+        case: mixed
+
+stage4_content:
+  definition:
+    current: "تشكيل من الأشخاص أو الأشياء واحداً خلف الآخر"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ركيك لغوياً بسبب عبارة (واحداً خلف الآخر) كحال، والأفضل صياغته بأسلوب معجمي أسلس."
+    authored:
+      - type: linguistic
+        text: "تشكيل أو اصطفاف للأشخاص أو الأشياء، يقف فيه الواحد تلو الآخر."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "تشكيل أو اصطفاف للأشخاص أو الأشياء، يقف فيه الواحد تلو الآخر."
+
+  examples:
+    per_lemma:
+      - lemma: "طَابُور"
+        examples:
+          - text: "وقف المسافرون في طابور طويل أمام شباك التذاكر."
+            type: usage
+      - lemma: "صَفّ"
+        examples:
+          - text: "اصطف التلاميذ في صف منتظم استعداداً للدخول إلى فصولهم."
+            type: usage
+      - lemma: "رَتْل"
+        examples:
+          - text: "تحرك رتل من السيارات العسكرية ببطء على الطريق الجبلي."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "وقف المسافرون في طابور طويل أمام شباك التذاكر."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "اصطف التلاميذ في صف منتظم استعداداً للدخول إلى فصولهم."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تحرك رتل من السيارات العسكرية ببطء على الطريق الجبلي."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "طَابُور"
+      entry_id: "{auto}"
+      root: "طبر"
+    - lemma: "صَفّ"
+      entry_id: "{auto}"
+      root: "صفف"
+      maqayis_quote: "«الصَّادُ وَالْفَاءُ يَدُلُّ عَلَى أَصْلٍ وَاحِدٍ، وَهُوَ اسْتِوَاءٌ فِي الشَّيْءِ وَتَسَاوٍ بَيْنَ شَيْئَيْنِ فِي الْمَقَرِّ.»"
+    - lemma: "رَتْل"
+      entry_id: "{auto}"
+      root: "رتل"
+  per_sense:
+    - lemma: "طَابُور"
+      sense_id: "{auto}"
+      nuance: "كلمة معربة (من التركية) شائعة، وتستخدم غالباً للدلالة على الأشخاص المنتظرين لدورهم."
+      mwe: false
+    - lemma: "صَفّ"
+      sense_id: "{auto}"
+      nuance: "مصطلح عربي أصيل وشامل، قد يطلق على الاصطفاف الجانبي أو الطولي."
+      mwe: false
+    - lemma: "رَتْل"
+      sense_id: "{auto}"
+      nuance: "يغلب استخدامه للقوات والآليات العسكرية أو قوافل المركبات المتحركة في خط واحد."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"طبر"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صفف","maqayis":"«الصَّادُ وَالْفَاءُ يَدُلُّ عَلَى أَصْلٍ وَاحِدٍ، وَهُوَ اسْتِوَاءٌ فِي الشَّيْءِ وَتَسَاوٍ بَيْنَ شَيْئَيْنِ فِي الْمَقَرِّ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"رتل"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"كلمة معربة (من التركية) شائعة، وتستخدم غالباً للدلالة على الأشخاص المنتظرين لدورهم.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح عربي أصيل وشامل، قد يطلق على الاصطفاف الجانبي أو الطولي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يغلب استخدامه للقوات والآليات العسكرية أو قوافل المركبات المتحركة في خط واحد.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,238 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة 'مضيق' تفتقر إلى التشكيل الكامل."
+      - "نقص المترادفات العربية للمصطلح الإنجليزي 'sound' الذي قد يشير إلى ممرات مائية أوسع أو مداخل بحرية معينة."
+    observations: "المصطلح الأساسي 'مضيق' صحيح تماماً، ولكن المعاجم العربية تزخر بمترادفات أخرى تعبر عن فروق دقيقة (nuances) مثل 'بوغاز' للممرات الكبيرة و'خور' للمداخل الأصغر و'ناصفة' للممرات بين الجزر واليابسة."
+  blind_candidates:
+    - lemma: "مَضِيق"
+      generation_method: ishtiqaq
+      justification: "الاسم القياسي لمكان الضيق، وهو المصطلح الجغرافي الشائع."
+    - lemma: "بُوغاز"
+      generation_method: taarib
+      justification: "مصطلح جغرافي معرب عن التركية، شاع استخدامه في العصر الحديث للمضايق الدولية."
+    - lemma: "مَجَاز"
+      generation_method: majaz
+      justification: "لفظ تراثي يعبر عن مكان العبور، استُخدم تاريخياً للإشارة إلى مضيق جبل طارق."
+    - lemma: "خَوْر"
+      generation_method: ishtiqaq
+      justification: "يُستخدم للإشارة إلى الخليج الصغير أو الممر المائي المتوغل في اليابسة، ويقابل 'sound' في بعض سياقاته."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مضيق"
+      confirm:
+        - text: "«مجرى ماء ضيق بين قطعتين من الأرض، أو بين قارتين، أو ممر يصل بحرين أحدهما بالآخر»"
+          source: "المعجم الكبير"
+        - text: "«مجرى ماء مضيق بين قطعتين من الأرض كمضيق الدردنيل»"
+          source: "المعجم الوسيط"
+    - lemma: "بُوغاز"
+      confirm:
+        - text: "«جزء من الماء بين برين وموصل بين بحرين، مضيق بين ساحلين، فم النهر أو مصبه»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«تجمع على بواغيز: مضيق البحر»"
+          source: "تكملة المعاجم العربية (دوزي)"
+    - lemma: "مَجَاز"
+      confirm:
+        - text: "«المعبر أو الطريق إذا قطع من أحد جانبيه إلى الآخر الموضع يجاز به»"
+          source: "المعجم الكبير"
+      expands:
+        - text: "«سُمي مضيق جبل طارق بالمجاز قديماً لكونه معبراً بين الأندلس والمغرب»"
+          source: "تراثي/جغرافي"
+    - lemma: "خَوْر"
+      confirm:
+        - text: "«مصب الماء في البحر... الخليج من البحر»"
+          source: "المعجم الكبير"
+        - text: "«لسان من البحر يكون في البر على شكل خليج صغير»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "ناصِفة"
+      confirm:
+        - text: "«جسم مائي ضيق يصل بين اليابسة وجزيرة قريبة منها»"
+          source: "المورد الحديث"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مضيق"
+      decision: confirmed
+      decision_reason: "المصطلح الأساسي والأكثر شيوعاً ودقة في التعبير عن المفهوم الجغرافي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَضِيق"
+    - lemma: "بُوغاز"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح جغرافي مستقر ومعتمد في المعاجم الحديثة للدلالة على المضايق البحرية الكبرى."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "بُوغاز", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09469019-n"}
+    - lemma: "مَجَاز"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ تراثي أصيل يعبر عن وظيفة المضيق كمعبر مائي، واستخدامه يثري الشبكة الدلالية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَجَاز", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09469019-n"}
+    - lemma: "خَوْر"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يناسب المفهوم عند الحديث عن الممرات المائية التي تشبه الأخوار أو المداخل البحرية العريضة (Sounds)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "خَوْر", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09469019-n"}
+    - lemma: "ناصِفة"
+      decision: confirmed
+      decision_reason: "مصطلح تخصصي دقيق يقابل 'sound' في الجغرافيا عند وصف الممر بين جزيرة ويابسة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "ناصِفة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09469019-n"}
+
+stage4_content:
+  definition:
+    current: "قناة ضيقة من البحر تصل بين مسطحين مائيين أكبر"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي صحيح ولكنه يفتقر إلى الجنس القريب الدقيق (ممر مائي طبيعي) والفصل النوعي الشامل (بين قطعتين من اليابسة)."
+    authored:
+      - type: terminological
+        text: "ممرّ مائيّ طبيعيّ ضيق يقع بين قطعتين من اليابسة، ويصل بين مسطحين مائيين كبيرين (كبحرين أو محيطين)."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "مَضِيق"
+        examples:
+          - text: "يُعتبر مَضِيق هرمز من أهم الممرات المائية في تجارة النفط العالمية."
+            type: usage
+      - lemma: "بُوغاز"
+        examples:
+          - text: "عبَرت السفينة بوغاز الدردنيل فجراً متجهة نحو البحر الأسود."
+            type: usage
+      - lemma: "خَوْر"
+        examples:
+          - text: "تشتهر سواحل عمان بوجود أخوار طبيعية خلابة تتوغل في اليابسة."
+            type: usage
+      - lemma: "مَجَاز"
+        examples:
+          - text: "كان مَجَاز سبتة بوابة العبور التاريخية بين القارتين الإفريقية والأوروبية."
+            type: usage
+      - lemma: "ناصِفة"
+        examples:
+          - text: "تشكل الناصفة ممراً آمناً للسفن الصغيرة بين الجزيرة والساحل الرئيسي."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-09469019-n", definition_index: 0, text: "ممرّ مائيّ طبيعيّ ضيق يقع بين قطعتين من اليابسة، ويصل بين مسطحين مائيين كبيرين."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَضِيق"
+      entry_id: "{auto}"
+      root: "ضيق"
+      maqayis_quote: "«الضَّادُ وَالْيَاءُ وَالْقَافُ أَصْلَانِ، أَحَدُهُمَا يَدُلُّ عَلَى خِلَافِ السَّعَةِ، وَالْآخَرُ يَدُلُّ عَلَى بَعْضِ الطَّيْرِ. فَالْأَوَّلُ الضِّيقُ.»"
+    - lemma: "بُوغاز"
+      entry_id: "{auto}"
+      root: "بغز"
+      maqayis_quote: "«كلمة معربة، ولا ذكر لأصلها في مقاييس اللغة.»"
+    - lemma: "مَجَاز"
+      entry_id: "{auto}"
+      root: "جوز"
+      maqayis_quote: "«الْجِيمُ وَالْوَاوُ وَالزَّايُ أَصْلٌ وَاحِدٌ، وَهُوَ الْمَضَاءُ وَالنَّفَاذُ.»"
+    - lemma: "خَوْر"
+      entry_id: "{auto}"
+      root: "خور"
+      maqayis_quote: "«الْخَاءُ وَالْوَاوُ وَالرَّاءُ أَصْلَانِ: أَحَدُهُمَا يَدُلُّ عَلَى صَوْتٍ، وَالْآخَرُ عَلَى ضَعْفٍ.»"
+    - lemma: "ناصِفة"
+      entry_id: "{auto}"
+      root: "نصف"
+      maqayis_quote: "«النُّونُ وَالصَّادُ وَالْفَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى شَيْءٍ بَيْنَ شَيْئَيْنِ.»"
+  per_sense:
+    - lemma: "مَضِيق"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام والشامل لكل ممر مائي ضيق يربط بين مسطحين كبيرين."
+      mwe: false
+    - lemma: "بُوغاز"
+      sense_id: "{auto}"
+      nuance: "يُستخدم غالباً للمضايق الدولية الكبرى ذات الأهمية الملاحية."
+      mwe: false
+    - lemma: "مَجَاز"
+      sense_id: "{auto}"
+      nuance: "لفظ تراثي يركز على وظيفة المضيق كمعبر (crossing)."
+      mwe: false
+    - lemma: "خَوْر"
+      sense_id: "{auto}"
+      nuance: "ممر مائي أو خليج صغير متوغل في اليابسة، يقابل Sound في السياقات غير العميقة."
+      mwe: false
+    - lemma: "ناصِفة"
+      sense_id: "{auto}"
+      nuance: "ممر مائي يفصل تحديداً بين جزيرة واليابسة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ضيق","maqayis":"«الضَّادُ وَالْيَاءُ وَالْقَافُ أَصْلَانِ، أَحَدُهُمَا يَدُلُّ عَلَى خِلَافِ السَّعَةِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"بغز","maqayis":"«كلمة معربة.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جوز","maqayis":"«الْجِيمُ وَالْوَاوُ وَالزَّايُ أَصْلٌ وَاحِدٌ، وَهُوَ الْمَضَاءُ وَالنَّفَاذُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ العام والشامل لكل ممر مائي ضيق.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-09469019-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-09469019-n"
+        score: 0.95

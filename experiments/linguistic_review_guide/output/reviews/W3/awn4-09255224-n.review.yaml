@@ -1,0 +1,195 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "المجموعة تفتقر إلى التمييز بين القناة المائية والقناة الفلكية (وهم بصري)، حيث أن الرابط بـ (direct_hypernym) يشير إلى قناة مائية (awn4-09264153-n)، وهو خطأ تصنيفي دلالي يجب التنبيه إليه."
+    observations: "المصطلح يشير إلى ظاهرة تاريخية في علم الفلك تتعلق بكوكب المريخ. اللمات يجب أن تعكس هذا الجانب الوصفي أو التسمية التاريخية المشهورة."
+  blind_candidates:
+    - lemma: "قَنَاة"
+      generation_method: majaz
+      justification: "الترجمة المباشرة للمصطلح الإنجليزي (canal) والمستخدمة تاريخياً لوصف معالم المريخ."
+    - lemma: "أُخْدُود"
+      generation_method: ishtiqaq
+      justification: "وصف جيولوجي دقيق لماهية هذه المعالم (شقوق أو أخاديد) بعيداً عن فرضية القنوات الاصطناعية."
+    - lemma: "تَلَم"
+      generation_method: ishtiqaq
+      justification: "بمعنى الأخدود أو الشق في الأرض، ويناسب وصف المعالم السطحية الطولية."
+    - lemma: "قَنَاةٌ مِرِّيخِيَّة"
+      generation_method: tarkib
+      justification: "تعبير مركب يحدد النوع والمجال بدقة (قنوات المريخ)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "قناة"
+      confirm:
+        - text: "«قنوات المريخ (canals of Mars)»"
+          source: "المعجم الموحد لمصطلحات الرياضيات والفلك (1990)"
+      expands:
+        - text: "«القناة: مجرى للماء ضيق أو واسع»"
+          source: "المعجم الوسيط"
+    - lemma: "أخدود"
+      confirm:
+        - text: "«الأخدود: الشق المستطيل في الأرض»"
+          source: "المعجم الوسيط"
+        - text: "«والأخاديد: الشقوق في الأرض»"
+          source: "مقاييس اللغة"
+      expands:
+        - text: "«أخدود (groove): شق خطي ضحل في الأعضاء التشريحية»"
+          source: "معجم المصطلحات الطبية"
+    - lemma: "تلم"
+      confirm:
+        - text: "«التلم: كل أخدود في الأرض»"
+          source: "القاموس المحيط"
+      expands:
+        - text: "«التلم (furrow): مشق الكراب في الأرض»"
+          source: "لسان العرب"
+    - lemma: "قناة مريخية"
+      confirm:
+        - text: "«قنوات المريخ: canals of Mars»"
+          source: "المعجم الموحد لمصطلحات الرياضيات والفلك (1990)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "قَنَاة"
+      decision: confirmed
+      decision_reason: "اللمة الأساسية المستخدمة تاريخياً وعلمياً للإشارة إلى هذه الظاهرة (Canali)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "قَنَاة"
+    - lemma: "أُخْدُود"
+      source: stage1
+      decision: confirmed
+      decision_reason: "وصف دقيق للمعلم السطحي باعتباره شقاً أو منخفضاً طولياً في التربة، وهو ما أثبته العلم لاحقاً لبعض المعالم التي ظُنت قنوات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "أُخْدُود", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09255224-n"}
+    - lemma: "تَلَم"
+      source: stage1
+      decision: removed
+      decision_reason: "رغم صحته دلالياً، إلا أنه غلبت عليه الدلالة الزراعية (شق المحراث) ولا يُستخدم في السياق الفلكي."
+    - lemma: "قَنَاةٌ مِرِّيخِيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح مركب محدد للمجال الفلكي التاريخي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "قَنَاةٌ مِرِّيخِيَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09255224-n"}
+
+stage4_content:
+  definition:
+    current: "(علم الفلك) معلم سطحي غير واضح على المريخ كان يُعتقد سابقاً أنه نظام قنوات؛ يُعتقد الآن أنها وهم بصري"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكنه يحتاج صياغة أكثر دقة لغوياً بأسلوب المعاجم المتخصصة."
+    authored:
+      - type: terminological
+        text: "أيّ من الخطوط أو المعالم الطولية غير الواضحة على سطح كوكب المريخ، والتي فُسِّرت في أواخر القرن التاسع عشر على أنها قنوات اصطناعية، وتبين لاحقاً أنها مجرد وهم بصري أو أخاديد طبيعية."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-09255224-n", definition_index: 0, text: "أيّ من الخطوط أو المعالم الطولية غير الواضحة على سطح كوكب المريخ، والتي فُسِّرت في أواخر القرن التاسع عشر على أنها قنوات اصطناعية، وتبين لاحقاً أنها مجرد وهم بصري أو أخاديد طبيعية."}
+  examples:
+    per_lemma:
+      - lemma: "قَنَاة"
+        examples:
+          - text: "أثار رصد قناة واحدة على المريخ جدلاً واسعاً حول وجود حياة ذكية عليه."
+            type: usage
+      - lemma: "أُخْدُود"
+        examples:
+          - text: "تبين أن ما ظنه الفلكيون قنوات اصطناعية لم يكن سوى أخدود طبيعي أو ظلال بصرية."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-09255224-n", text: "ظلت قنوات المريخ لغزاً فلكياً حتى أثبتت الصور عالية الدقة بطلان فرضية بنائها."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "قَنَاة"
+      entry_id: "{auto}"
+      root: "قنو"
+      maqayis_quote: "«الْقَافُ وَالنُّونُ وَالْحَرْفُ الْمُعْتَلُّ... وَالْقَنَاةُ مُشَبَّهَةٌ بِهَذِهِ الْقَنَاةِ [الرمح]... لِأَنَّهَا كُعُوبٌ وَأَنَابِيبُ.»"
+    - lemma: "أُخْدُود"
+      entry_id: "{auto}"
+      root: "خدد"
+      maqayis_quote: "«الْخَاءُ وَالدَّالُ أَصْلٌ وَاحِدٌ، وَهُوَ تَأَسُّلُ الشَّيْءِ وَامْتِدَادُهُ إِلَى السُّفْلِ... وَالْأَخَاِدِيدُ: الشُّقُوقُ فِي الْأَرْضِ.»"
+    - lemma: "قَنَاةٌ مِرِّيخِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "قناة"
+          root: "قنو"
+          maqayis_quote: "«الْقَافُ وَالنُّونُ وَالْحَرْفُ الْمُعْتَلُّ... وَالْقَنَاةُ مُشَبَّهَةٌ بِهَذِهِ الْقَنَاةِ... لِأَنَّهَا كُعُوبٌ وَأَنَابِيبُ.»"
+        - word: "مريخية"
+          root: "مرخ"
+          maqayis_quote: "«الْمِيمُ وَالرَّاءُ وَالْخَاءُ كَلِمَةٌ صَحِيحَةٌ تَدُلُّ عَلَى تَلْيِينٍ فِي شَيْءٍ... وَمِمَّا شَذَّ عَنْ هَذَا الْبَابِ الْمِرِّيخُ... وَهُوَ نَجمٌ أَيْضًا.»"
+  per_sense:
+    - lemma: "قَنَاة"
+      sense_id: "{auto}"
+      nuance: "المصطلح التاريخي الذي يوحي بالبناء الاصطناعي (Canal)."
+      mwe: false
+    - lemma: "أُخْدُود"
+      sense_id: "{auto}"
+      nuance: "يصف الطبيعة الجيولوجية للمعلم كشق طبيعي في الأرض."
+      mwe: false
+    - lemma: "قَنَاةٌ مِرِّيخِيَّة"
+      sense_id: "{auto}"
+      nuance: "تعبير مركب يخصص القناة للمريخ تفادياً للالتباس مع القنوات المائية الأرضية."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قنو","maqayis":"«الْقَافُ وَالنُّونُ وَالْحَرْفُ الْمُعْتَلُّ... وَالْقَنَاةُ مُشَبَّهَةٌ بِهَذِهِ الْقَنَاةِ... لِأَنَّهَا كُعُوبٌ وَأَنَابِيبُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خدد","maqayis":"«الْخَاءُ وَالدَّالُ أَصْلٌ وَاحِدٌ... وَالْأَخَاِدِيدُ: الشُّقُوقُ فِي الْأَرْضِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"قناة","root":"قنو","maqayis":"«...»"},{"word":"مريخية","root":"مرخ","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح التاريخي الذي يوحي بالبناء الاصطناعي","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-09255224-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-09255224-n"
+        score: 0.9

@@ -1,0 +1,204 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة تفتقر إلى التشكيل الكامل."
+      - "الاكتفاء بصيغة جمع المذكر السالم (حائرون) مع وجود جموع تكسير أكثر فصاحة وشيوعاً (حيارى)."
+      - "التعريف الحالي بسيط جداً ويميل للوصف الحر أكثر من الصياغة المعجمية."
+    observations: "المجموعة تعبّر عن فئة من الناس (جمع) يشتركون في حالة ذهنية ونفسية معينة (الحيرة والإحباط). اللمّات المقترحة يجب أن تعكس هذا الجمع."
+  blind_candidates:
+    - lemma: "المُتَحَيِّرُون"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من الفعل الخماسي (تحيّر)، وهو أدق في الدلالة على الحالة المستمرة من الحيرة والارتباك."
+    - lemma: "الحَيَارَى"
+      generation_method: ishtiqaq
+      justification: "جمع تكسير أصيل لكلمة (حائر)، وهو أكثر شيوعاً وفصاحة في السياقات الأدبية للتعبير عن التيه والارتباك."
+    - lemma: "المُحْبَطُون"
+      generation_method: ishtiqaq
+      justification: "اسم مفعول من (أحبط)، يغطي جانب (frustrated) المذكور في التعريف بدقة."
+    - lemma: "الوَاجِمُون"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من (وجم)، ويعبّر عن السكوت من شدة الحيرة أو الحزن، مما يناسب حالة (baffled) الشديدة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "حائرون"
+      confirm:
+        - text: "«(الحائر) المتردد والمهزول»"
+          source: "المعجم الوسيط"
+        - text: "«الحيرة: التردد في الشيء. من ذلك الحيرة، وقد حار في الأمر يحير»"
+          source: "مقاييس اللغة"
+    - lemma: "مرتبكون"
+      confirm:
+        - text: "«ويقال ارتبك في الأمر، إذا لم يكد يتخلص منه.»"
+          source: "مقاييس اللغة"
+        - text: "«مُرْتبك؛ متحيِّر»"
+          source: "المورد الحديث (ترجمة perplexed)"
+    - lemma: "المُتَحَيِّرُون"
+      confirm:
+        - text: "«المتحير: الماء الكثير قد تحير لكثرته ولا منفذ له... والشيء الثابت الدائم»"
+          source: "المعجم الكبير (دلالة على الامتلاء والثبات في الحالة)"
+        - text: "«حائر: حالة روحية لا تجد نفسها أبدا في سلام، بل مُعَرضة باستمرار إلى اضطراب»"
+          source: "المعجم الموحد لمصطلحات اللسانيات"
+    - lemma: "المُحْبَطُون"
+      confirm:
+        - text: "«(1) مُخيَّب الآمال (2) مُحْبَط: مُصاب بالإحباط.»"
+          source: "المورد الحديث (ترجمة frustrated)"
+    - lemma: "الحَيَارَى"
+      confirm:
+        - text: "«(ج) حيران وحوران»"
+          source: "المعجم الوسيط (ملاحظة: حيارى هو الجمع الأشهر لحائر)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "حائرون"
+      decision: confirmed
+      decision_reason: "كلمة أصيلة تدل على التردد والحيرة، وهي مطابقة للمعنى الإنجليزي (perplexed)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حَائِرُون"
+    - lemma: "مرتبكون"
+      decision: confirmed
+      decision_reason: "تدل على الاختلاط وعدم القدرة على الخلاص من الموقف، وهي مناسبة جداً لوصف (perplexed/baffled)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُرْتَبِكُون"
+    - lemma: "المُتَحَيِّرُون"
+      source: stage1
+      decision: confirmed
+      decision_reason: "أكثر دقة في التعبير عن 'مطاوعة' الحيرة والوقوع التام فيها."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُتَحَيِّرُون", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-07960518-n"}
+    - lemma: "الحَيَارَى"
+      source: stage1
+      decision: confirmed
+      decision_reason: "جمع التكسير الأفصح والأكثر تداولاً في اللغة العربية لهذه الحالة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "حَيَارَى", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-07960518-n"}
+    - lemma: "المُحْبَطُون"
+      source: stage1
+      decision: confirmed
+      decision_reason: "ضرورية لتغطية جزء (frustrated) من التعريف الأصلي، حيث أن الحيرة والارتباك قد لا يستوعبان الإحباط لغةً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُحْبَطُون", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-07960518-n"}
+
+stage4_content:
+  definition:
+    current: "الناس الذين يشعرون بالإحباط والارتباك"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي أقرب للترجمة الحرفية منه للصياغة المعجمية الفصيحة."
+    authored:
+      - type: terminological
+        text: "مجموعة من الأشخاص الذين غلبت عليهم الحيرة والارتباك وخيبة الأمل في أمرٍ ما."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "حَائِرُون"
+        examples:
+          - text: "تركهم إعلان الشركة المفاجئ حائرين لا يدرون أين يذهبون."
+            type: usage
+      - lemma: "مُرْتَبِكُون"
+        examples:
+          - text: "ظهر المتحدثون مرتبكين أمام أسئلة الصحفيين المحرجة."
+            type: usage
+      - lemma: "حَيَارَى"
+        examples:
+          - text: "وقف الناس حيارى يتأملون أطلال مدينتهم المدمرة."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-07960518-n", definition_index: 0, text: "مجموعة من الأشخاص الذين غلبت عليهم الحيرة والارتباك وخيبة الأمل في أمرٍ ما."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "حَائِرُون"
+      entry_id: "{auto}"
+      root: "حير"
+      maqayis_quote: "«الْحَاءُ وَالْيَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ التَّرَدُّدُ فِي الشَّيْءِ. مِنْ ذَلِكَ الْحَيْرَةُ»"
+    - lemma: "مُرْتَبِكُون"
+      entry_id: "{auto}"
+      root: "ربك"
+      maqayis_quote: "«الرَّاءُ وَالْبَاءُ وَالْكَافُ كَلِمَةٌ تَدُلُّ عَلَى خَلْطٍ وَاخْتِلَاطٍ... وَيُقَالُ ارْتَبَكَ فِي الْأَمْرِ، إِذَا لَمْ يَكَدْ يَتَخَلَّصُ مِنْهُ.»"
+    - lemma: "مُتَحَيِّرُون"
+      entry_id: "{auto}"
+      root: "حير"
+      maqayis_quote: "«الْحَاءُ وَالْيَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ التَّرَدُّدُ فِي الشَّيْءِ.»"
+    - lemma: "مُحْبَطُون"
+      entry_id: "{auto}"
+      root: "حبط"
+      maqayis_quote: "«الْحَاءُ وَالْبَاءُ وَالطَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى بُطْلَانٍ أَوْ أَلَمٍ. يُقَالُ: أَحْبَطَ اللَّهُ عَمَلَ الْكَافِرِ، أَيْ أَبْطَلَهُ.»"
+  per_sense:
+    - lemma: "حَائِرُون"
+      sense_id: "{auto}"
+      nuance: "تعبر عن التردد الذهني وعدم القدرة على اتخاذ قرار."
+      mwe: false
+    - lemma: "مُرْتَبِكُون"
+      sense_id: "{auto}"
+      nuance: "تعبر عن الاختلاط والاضطراب في الأداء أو التفكير نتيجة موقف مفاجئ."
+      mwe: false
+    - lemma: "حَيَارَى"
+      sense_id: "{auto}"
+      nuance: "صيغة جمع تدل على شدة التيه والضياع، وغالباً ما تستخدم في السياق الوجداني أو الأدبي."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حير","maqayis":"«الْحَاءُ وَالْيَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ التَّرَدُّدُ فِي الشَّيْءِ. مِنْ ذَلِكَ الْحَيْرَةُ»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبر عن التردد الذهني وعدم القدرة على اتخاذ قرار.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-07960518-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-07960518-n"
+        score: 0.9

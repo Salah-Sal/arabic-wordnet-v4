@@ -1,0 +1,114 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "المجموعة تحتوي على لمة واحدة فقط، وهي تعريب مباشر للاسم الأجنبي."
+    observations: "عنصر الأستاتين هو أثقل الهالوجينات، ويسمى في العربية 'أستاتين' كتعريب قياسي لـ Astatine. الأدلة المعجمية تؤكد هذا الاسم في المعاجم العلمية المتخصصة (كيمياء، صيدلة، طب)."
+  blind_candidates:
+    - lemma: "أَسْتَاتِين"
+      generation_method: taarib
+      justification: "التعريب القياسي لاسم العنصر الكيميائي (Astatine)."
+    - lemma: "أَسْتَاتِينِيُوم"
+      generation_method: taarib
+      justification: "صيغة تعريبية محتملة بإضافة اللاحقة المعتادة للعناصر (-ium)."
+    - lemma: "عُنْصُر الأَسْتَاتِين"
+      generation_method: tarkib
+      justification: "تعبير وصفي مركب يشيع استخدامه في السياقات العلمية."
+    - lemma: "أَسْتَاتُون"
+      generation_method: taarib
+      justification: "صيغة تعريبية بديلة قديمة أو نادرة لبعض الهالوجينات."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "أَسْتَاتِين"
+      confirm:
+        - text: "واحد من الهالوجينات وهو مشع عدده الذري 85 ووزنه 310"
+          source: "المعجم الموحد لمصطلحات الكيمياء"
+        - text: "هالوجين مشع عدده الذريّ (85) ووزنه الذريّ (310)."
+          source: "المعجم الموحد لمصطلحات علم الصيدلة"
+        - text: "عنصر كيميائي إشعاعيّ النشاط."
+          source: "المورد الحديث"
+    - lemma: "أَسْتَاتِينِيُوم"
+      evidence_status: "no_material_found"
+    - lemma: "عُنْصُر الأَسْتَاتِين"
+      confirm:
+        - text: "الأستاتين: عنصر كيميائي إشعاعيّ النشاط."
+          source: "المورد الحديث"
+    - lemma: "أَسْتَاتُون"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "أستاتين"
+      decision: confirmed
+      decision_reason: "الاسم العلمي القياسي والمعتمد في المعاجم الكيميائية والطبية العربية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "أَسْتَاتِين"
+
+stage4_content:
+  definition:
+    current: "عنصر مشع غير مستقر للغاية (أثقل سلسلة الهالوجينات)؛ نتاج تحلل اليورانيوم والثوريوم"
+    assessment:
+      decision: revise
+      reason: "لتحسين الصياغة المعجمية وإضافة العدد الذري لزيادة الدقة العلمية."
+    authored:
+      - type: terminological
+        text: "عنصرٌ كيميائيٌّ من فصيلة الهالوجينات، وهو مُشِعٌّ غير مستقر، عدده الذري (85)، ينتج عن تحلل اليورانيوم والثوريوم."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "أَسْتَاتِين"
+        examples:
+          - text: "يُعد الأستاتين أندر العناصر الكيميائية الموجودة طبيعياً في القشرة الأرضية."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-14653739-n", definition_index: 0, text: "عنصرٌ كيميائيٌّ من فصيلة الهالوجينات، وهو مُشِعٌّ غير مستقر، عدده الذري (85)، ينتج عن تحلل اليورانيوم والثوريوم."}
+      - command: add_synset_example
+        params: {synset_id: "awn4-14653739-n", text: "يُعد الأستاتين أندر العناصر الكيميائية الموجودة طبيعياً في القشرة الأرضية."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "أَسْتَاتِين"
+      entry_id: "{auto}"
+      note: "الاسم معرب من اليونانية 'أستاتوس' (astatos) بمعنى غير مستقر."
+  per_sense:
+    - lemma: "أَسْتَاتِين"
+      sense_id: "{auto}"
+      nuance: "هو الاسم العلمي الفريد لهذا العنصر الكيميائي."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"origin":" معرب من اليونانية astatos"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم العلمي القياسي","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-14653739-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-14653739-n"
+        score: 0.95

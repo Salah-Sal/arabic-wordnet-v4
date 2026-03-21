@@ -1,0 +1,211 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "تعبير 'الحياة البيولوجية' يشير غالباً إلى مفهوم الحياة المجرد أو الدورات الحيوية بدلاً من مجموع الكائنات (biota)."
+      - "تعبير 'كائنات حية' عام جداً وقد لا يحمل الدلالة الجمعية الحصرية لمنطقة ما كما يفعل مصطلح 'بيوتا'."
+    observations: "المجموعة تشير إلى مفهوم 'البيوتا' (biota) وهو المجموع الكلي للحياة النباتية والحيوانية في حيز مكاني. المصطلحات العربية التقنية موجودة وموثقة في المعاجم المتخصصة مثل المعجم الموحد للمصطلحات المائية والمعجم الطبي الموحد."
+  blind_candidates:
+    - lemma: "بِيُوتا"
+      generation_method: taarib
+      justification: "المصطلح التقني المعرب المباشر لمفهوم biota."
+    - lemma: "الحَيَوِيَّات"
+      generation_method: ishtiqaq
+      justification: "لفظ عربي يجمع 'حيوي' للدلالة على مجموع الكائنات الحية في منطقة ما، وهو مستخدم في المعاجم الحديثة."
+    - lemma: "أَحْيَاءُ المِنْطَقَة"
+      generation_method: tarkib
+      justification: "تعبير وصفي دقيق مستخدم في المعاجم الطبية لترجمة biota."
+    - lemma: "المَجْمُوعُ الحَيَوِيّ"
+      generation_method: tarkib
+      justification: "ترجمة دقيقة لمفهوم التجمع الإحيائي الكلي."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "كائنات حية"
+      confirm:
+        - text: "مجموع الكائنات الحية في منطقة جغرافية معيّنة أو فترة زمنية محدّدة."
+          source: "المعجم الموحد لمصطلحات المياه (2000)"
+        - text: "حياة نباتية وحيوانية في منطقة أو في مجال محدد."
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+    - lemma: "بِيُوتا"
+      confirm:
+        - text: "بَيُوتا (مجموعة الأحياء البيولوجية في منطقة أو حُقبة زمنية مُعينة)."
+          source: "المعجم الموحد لمصطلحات المياه (2000)"
+    - lemma: "الحَيَوِيَّات"
+      confirm:
+        - text: "الحَيَويّات: نباتات منطقةٍ [أو حقبةٍ ما] وحيواناتُها."
+          source: "المورد الحديث (2008)"
+    - lemma: "أَحْيَاءُ المِنْطَقَة"
+      confirm:
+        - text: "أَحْياءُ المِنْطَقَة (biota)"
+          source: "المعجم الطبي الموحد (2009)"
+    - lemma: "الحياة البيولوجية"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "كائنات حية"
+      decision: confirmed
+      decision_reason: "تعبير معتمد في المعاجم العلمية الحديثة للدلالة على البيوتا بالرغم من عموميته."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "كَائِنَاتٌ حَيَّةٌ"
+    - lemma: "الحياة البيولوجية"
+      decision: removed
+      decision_reason: "تعبير غير اصطلاحي في هذا السياق، ويشير عادة إلى مفهوم الحياة كظاهرة."
+      evidence_assessment:
+        case: no_material
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "بِيُوتا"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تقني دقيق ومعرب مستخدم في الأوساط العلمية."
+      evidence_assessment:
+        case: confirm_only
+      actions:
+        - command: create_entry
+          params: {lemma: "بِيُوتا", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "الحَيَوِيَّات"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ عربي فصيح وموجز، موثق في المعاجم الحديثة كترجمة دقيقة لـ biota."
+      evidence_assessment:
+        case: confirm_only
+      actions:
+        - command: create_entry
+          params: {lemma: "الحَيَوِيَّات", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "أَحْيَاءُ المِنْطَقَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي مركب وارد في المعجم الطبي الموحد لترجمة المصطلح الإنجليزي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "أَحْيَاءُ المِنْطَقَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "جميع الكائنات الحية النباتية والحيوانية في منطقة معينة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي صحيح دلالياً لكنه يحتاج صياغة أكثر دقة لتشمل البعد الزمني والمصطلحي."
+    authored:
+      - type: terminological
+        text: "مجموعُ الكائناتِ الحيَّةِ النباتيَّةِ والحيوانيَّةِ التي تعيشُ في منطقةٍ جغرافيَّةٍ معيَّنةٍ أو حُقبةٍ زمنيةٍ ما."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مجموعُ الكائناتِ الحيَّةِ النباتيَّةِ والحيوانيَّةِ التي تعيشُ في منطقةٍ جغرافيَّةٍ معيَّنةٍ أو حُقبةٍ زمنيةٍ ما."}
+  examples:
+    per_lemma:
+      - lemma: "كَائِنَاتٌ حَيَّةٌ"
+        examples:
+          - text: "تتأثر الكائنات حية في القطب الشمالي بالتغيرات المناخية المتسارعة."
+            type: usage
+      - lemma: "بِيُوتا"
+        examples:
+          - text: "تتميز بيوتا الغابات الاستوائية بتنوع حيوي فريد."
+            type: usage
+      - lemma: "الحَيَوِيَّات"
+        examples:
+          - text: "دراسة الحيويات في التربة تكشف عن دور الكائنات الدقيقة في خصوبتها."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "تدرس هذه الحملة العلمية بيوتا أعماق المحيطات."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "الحَيَوِيَّات"
+      entry_id: "{auto}"
+      root: "حيي"
+      maqayis_quote: "«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ...»"
+    - lemma: "كَائِنَاتٌ حَيَّةٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "كائنات"
+          root: "كون"
+          maqayis_quote: "«الْكَافُ وَالْوَاوُ وَالنُّونُ أَصْلٌ يَدُلُّ عَلَى الْإِخْبَارِ عَنْ حُدُوثِ شَيْءٍ...»"
+        - word: "حية"
+          root: "حيي"
+          maqayis_quote: "«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ...»"
+    - lemma: "أَحْيَاءُ المِنْطَقَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "أحياء"
+          root: "حيي"
+          maqayis_quote: "«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ...»"
+        - word: "المنطقة"
+          root: "نطق"
+          maqayis_quote: "«النُّونُ وَالطَّاءُ وَالْقَافُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى صَوْتٍ أَوْ شَيْءٍ يُحْتَزَمُ بِهِ...»"
+  per_sense:
+    - lemma: "بِيُوتا"
+      sense_id: "{auto}"
+      nuance: "المصطلح التقني المعرب والأكثر دقة في السياقات البيولوجية التخصصية."
+      mwe: false
+    - lemma: "الحَيَوِيَّات"
+      sense_id: "{auto}"
+      nuance: "لفظ عربي يركز على الكائنات ككيان جمعي مميز لمنطقة أو حقبة."
+      mwe: false
+    - lemma: "كَائِنَاتٌ حَيَّةٌ"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام والشائع لوصف الكائنات الحية، ويستخدم هنا بمعنى الجمع الكلي."
+      mwe: true
+    - lemma: "أَحْيَاءُ المِنْطَقَة"
+      sense_id: "{auto}"
+      nuance: "تعبير مركب يشدد على العلاقة بين الكائنات والحيز الجغرافي."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حيي","maqayis":"«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"كائنات","root":"كون","maqayis":"«الْكَافُ وَالْوَاوُ وَالنُّونُ أَصْلٌ يَدُلُّ عَلَى الْإِخْبَارِ عَنْ حُدُوثِ شَيْءٍ...»"},{"word":"حية","root":"حيي","maqayis":"«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح التقني المعرب والأكثر دقة في السياقات البيولوجية التخصصية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

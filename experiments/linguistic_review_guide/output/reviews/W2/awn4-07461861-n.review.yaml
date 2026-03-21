@@ -1,0 +1,228 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة تفتقر للتشكيل الكامل."
+      - "عدم وجود مصطلحات رسمية قوية مثل 'محفل' أو 'احتفالية' التي تعكس الجانب الرسمي في التعريف."
+    observations: "المجموعة تغطي المفهوم العام للمناسبات والاحتفالات الاجتماعية. اللمّات الحالية صحيحة دلالياً ولكنها تحتاج إلى إغناء بصيغ أكثر تخصصاً وتشكيل دقيق."
+  blind_candidates:
+    - lemma: "مَحْفِل"
+      generation_method: ishtiqaq
+      justification: "اسم مكان من 'حفل' (اجتمع)، ويدل على مكان أو مجتمع الناس في المحافل الرسمية."
+    - lemma: "احْتِفَالِيَّة"
+      generation_method: ishtiqaq
+      justification: "مصدر صناعي من 'احتفال'، شاع استخدامه في العصر الحديث للدلالة على المراسم الرسمية الكبرى."
+    - lemma: "لِقَاء"
+      generation_method: ishtiqaq
+      justification: "مصدر لقى، يستخدم للدلالة على تجمع الناس واجتماعهم."
+    - lemma: "وَلِيمَة"
+      generation_method: majaz
+      justification: "تجمع اجتماعي يقام بمناسبة معينة، وإن كان غالباً ما يرتبط بالطعام."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "حَفْل"
+      confirm:
+        - text: "«من كل شَيْء مَا اجْتمع مِنْهُ وَالْجمع الْعَظِيم يُقَال عِنْده حفل من النَّاس»"
+          source: "المعجم الوسيط"
+        - text: "«اجتماع لغرض من الأغراض»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "مُنَاسَبَة"
+      confirm:
+        - text: "«مناسبة اجتماعية يقدَّم فيها البربك»"
+          source: "المورد الحديث"
+    - lemma: "مَحْفِل"
+      confirm:
+        - text: "«مَكَان الِاجْتِمَاع والمجلس»"
+          source: "المعجم الوسيط"
+        - text: "«المُجْتَمَعُ المَجْلِسُ. ويقال : شاعَ الحديثُ فى المحافل»"
+          source: "المعجم الكبير"
+        - text: "«ملتقى بين مجموعة من الخبراء والمختصين في مجال محدد لعرض بعض القضايا»"
+          source: "ArabTerm"
+    - lemma: "احْتِفَالِيَّة"
+      confirm:
+        - text: "«حفل ضخم تقيمه هيئة رسميّة أو مؤسَّسة حكوميَّة، يشتمل على برنامج من الفعاليّات الثقافيّة...»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "حَفْلَة"
+      confirm:
+        - text: "«الاحتفال يُقال أَقَامَ لَهُ حفلة اسْتِقْبَال»"
+          source: "المعجم الوسيط"
+        - text: "«اجتماع أو احتفال لغرضٍ من الأغراض»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "حَدَث اجْتِمَاعِيّ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "حفل"
+      decision: confirmed
+      decision_reason: "مصطلح أصيل يدل على الاجتماع والاحتفال، وهو من صلب المجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حَفْل"
+    - lemma: "مناسبة"
+      decision: confirmed
+      decision_reason: "أكثر المصطلحات شيوعاً للدلالة على الـ (occasion) الاجتماعية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُنَاسَبَة"
+    - lemma: "حدث اجتماعي"
+      decision: confirmed
+      decision_reason: "ترجمة اصطلاحية مقبولة وشائعة في السياقات الأكاديمية والإعلامية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حَدَث اجْتِمَاعِيّ"
+    - lemma: "مَحْفِل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعزز دلالة 'الرسمية' الواردة في التعريف، ويشير إلى التجمعات ذات الطابع المهيب أو الرسمي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَحْفِل", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-07461861-n"}
+    - lemma: "احْتِفَالِيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح معاصر دقيق لوصف الحفلات الرسمية والمراسم الكبرى."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "احْتِفَالِيَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-07461861-n"}
+    - lemma: "حَفْلَة"
+      decision: confirmed
+      decision_reason: "صيغة المرة من 'حفل'، وهي الأكثر تداولاً في الحديث عن المناسبات الفردية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "حَفْلَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-07461861-n"}
+
+stage4_content:
+  definition:
+    current: "تجمع اجتماعي رسمي أو احتفال للناس"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي بسيط جداً، ويفضل صياغته بأسلوب معجمي يجمع بين الغرض الاجتماعي والرسمي."
+    authored:
+      - type: terminological
+        text: "اجتماعٌ لعددٍ من النَّاسِ لِغَرَضٍ اجتماعيٍّ أو رَسْميٍّ، أو احتِفالٌ يُقامُ لِمُناسبةٍ ما."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "حَفْل"
+        examples:
+          - text: "أُقيمَ حَفْلٌ بِمُناسبةِ افْتِتاحِ المَشْروعِ الجَديدِ."
+            type: usage
+      - lemma: "مُنَاسَبَة"
+        examples:
+          - text: "تُعَدُّ الأَعْيادُ الوَطنيَّةُ مُناسبةً لِتَعزيزِ الروحِ الوَطنيَّةِ."
+            type: usage
+      - lemma: "مَحْفِل"
+        examples:
+          - text: "بَرَزَ اسْمُ العالِمِ في المَحافِلِ الدَّوْليَّةِ."
+            type: usage
+      - lemma: "احْتِفَالِيَّة"
+        examples:
+          - text: "نَظَّمَتِ الجامِعةُ احتِفاليَّةً لِتَكريمِ الخِرِّيجينَ."
+            type: usage
+  actions:
+    - command: update_definition
+      params: {synset_id: "awn4-07461861-n", definition_index: 0, text: "اجتماعٌ لعددٍ من النَّاسِ لِغَرَضٍ اجتماعيٍّ أو رَسْميٍّ، أو احتِفالٌ يُقامُ لِمُناسبةٍ ما."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "حَفْل"
+      entry_id: "{auto}"
+      root: "حفل"
+      maqayis_quote: "«الْحَاءُ وَالْفَاءُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ الْجَمْعُ. يُقَالُ حَفَلَ النَّاسُ وَاحْتَفَلُوا، إِذَا اجْتَمَعُوا فِي مَجْلِسِهِمْ.»"
+    - lemma: "مُنَاسَبَة"
+      entry_id: "{auto}"
+      root: "نسب"
+      maqayis_quote: "«النُّونُ وَالسِّينُ وَالْبَاءُ كَلِمَةٌ وَاحِدَةٌ قِيَاسُهَا اتِّصَالُ شَيْءٍ بِشَيْءٍ. مِنْهُ النَّسَبُ، سُمِّيَ لِاتِّصَالِهِ.»"
+    - lemma: "حَدَث اجْتِمَاعِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "حدث"
+          root: "حدث"
+          maqayis_quote: "«الْحَاءُ وَالدَّالُ وَالثَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ كَوْنُ الشَّيْءِ لَمْ يَكُنْ.»"
+        - word: "اجتماعي"
+          root: "جمع"
+          maqayis_quote: "«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ.»"
+    - lemma: "مَحْفِل"
+      entry_id: "{auto}"
+      root: "حفل"
+      maqayis_quote: "«الْمَجْلِسُ مَحْفِلٌ.»"
+    - lemma: "احْتِفَالِيَّة"
+      entry_id: "{auto}"
+      root: "حفل"
+      maqayis_quote: "«تَحَفَّلَ، إِذَا تَزَيَّنَ، فَهُوَ مِنْ ذَلِكَ أَيْضًا لِأَنَّهُ يَجْمَعُ لِنَفْسِهِ الْمَحَاسِنَ.»"
+  per_sense:
+    - lemma: "حَفْل"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام للاجتماع الاحتفالي."
+      mwe: false
+    - lemma: "مُنَاسَبَة"
+      sense_id: "{auto}"
+      nuance: "يركز على السبب أو الوقت الذي استدعى الاجتماع."
+      mwe: false
+    - lemma: "حَدَث اجْتِمَاعِيّ"
+      sense_id: "{auto}"
+      nuance: "وصف عام لأي نشاط يقع في إطار اجتماعي."
+      mwe: true
+    - lemma: "مَحْفِل"
+      sense_id: "{auto}"
+      nuance: "يدل على الطابع الرسمي أو المهيب للاجتماع."
+      mwe: false
+    - lemma: "احْتِفَالِيَّة"
+      sense_id: "{auto}"
+      nuance: "يدل على مراسم منظمة وضخمة ذات طابع احتفائي."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-07461861-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-07461861-n"
+        score: 0.95

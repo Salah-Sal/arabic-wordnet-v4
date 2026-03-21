@@ -1,0 +1,204 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة (احتمالية، طارئ) تغطي الجانب المفهومي (eventuality) والحدثي (contingency)، لكن ينقصها الصيغ الأنثوية الشائعة (طارئة) واللفظ العام (احتمال)."
+    observations: "المجموعة تعبر عن الأحداث الممكنة التي قد تقع في المستقبل، سواء كانت عارضة أو متوقعة. اللفظ 'احتمالية' هو ترجمة حديثة دقيقة لـ eventuality."
+  blind_candidates:
+    - lemma: "احْتِمَالِيَّة"
+      generation_method: ishtiqaq
+      justification: "مصدر صناعي يعبر عن صفة الشيء المحتمل أو الإمكانية الوقوعية لحدث ما."
+    - lemma: "طَارِئ"
+      generation_method: majaz
+      justification: "اسم فاعل من طرأ، يعبر عن الحدث الذي يقع فجأة وبشكل غير متوقع."
+    - lemma: "عَارِضَة"
+      generation_method: majaz
+      justification: "ما يعرض للمرء من أحداث أو عوارض، وهو لفظ تراثي مستخدم في سياق الطوارئ."
+    - lemma: "إِمْكَانِيَّة"
+      generation_method: ishtiqaq
+      justification: "مصدر صناعي من أمكن، يعبر عن كون الشيء ممكناً."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "احْتِمَالِيَّة"
+      confirm:
+        - text: "بِحُكْمِ أَنَّ كُلَّ خِطَابٍ يُعَدُّ تَرْكِيباً احْتِمَالِيّاً"
+          source: "المعجم الموحد لمصطلحات اللسانيات"
+    - lemma: "طَارِئ"
+      confirm:
+        - text: "الطَّارِئ: الْغَرِيبُ الْحَادِثُ الْمُفَاجِئُ"
+          source: "المعجم الكبير"
+        - text: "حدث صغير يأتي فجأة"
+          source: "المعجم الموحد لمصطلحات تقانة المعلومات"
+    - lemma: "طَارِئَة"
+      confirm:
+        - text: "حادث مفاجىء غير منتظر، أو حاجة ملحة."
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "احْتِمَال"
+      confirm:
+        - text: "الاحتمال: إمكان حدوث شيء"
+          source: "المورد الحديث"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "احتمالية"
+      decision: confirmed
+      decision_reason: "لفظ عصري دقيق يعبر عن الجانب المفهومي للحدث الممكن وقوعه (eventuality)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "احْتِمَالِيَّة"
+    - lemma: "طارئ"
+      decision: confirmed
+      decision_reason: "لفظ أصيل يعبر عن وقوع الحدث بشكل مفاجئ أو غير متوقع (contingency)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "طَارِئ"
+    - lemma: "طَارِئَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صيغة المؤنث من طارئ، وتستخدم كاسم للحدث نفسه (حادثة طارئة)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "طَارِئَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-07305484-n"}
+    - lemma: "احْتِمَال"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اللفظ الأشيع في الاستخدام اللغوي للتعبير عن الحدث الممكن (ready for all eventualities = مستعد لكل الاحتمالات)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "احْتِمَال", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-07305484-n"}
+
+stage4_content:
+  definition:
+    current: "حدث أو واقعة أو نتيجة محتملة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب جداً ويحتاج إلى صياغة معجمية توضح جانب 'الاحتمال' و'المفاجأة'."
+    authored:
+      - type: terminological
+        text: "حَدَثٌ أَوْ واقِعَةٌ أَوْ نَتِيجَةٌ مُمْكِنَةُ الوقُوعِ، غالباً ما تكونُ غيرَ مَضْمُونَةٍ أَوْ مُتَوَقَّعَةً في حِينِها."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-07305484-n", definition_index: 0, text: "حَدَثٌ أَوْ واقِعَةٌ أَوْ نَتِيجَةٌ مُمْكِنَةُ الوقُوعِ، غالباً ما تكونُ غيرَ مَضْمُونَةٍ أَوْ مُتَوَقَّعَةً في حِينِها."}
+  examples:
+    per_lemma:
+      - lemma: "احْتِمَالِيَّة"
+        examples:
+          - text: "علَينا الاسْتِعْدادُ لِكُلِّ احْتِمَالِيَّةٍ مُمْكِنَةٍ في هذا المَشْرُوعِ."
+            type: usage
+      - lemma: "طَارِئ"
+        examples:
+          - text: "واجهَتِ الشَّرِكَةُ طَارِئاً أَدَّى إلى تَأْخِيرِ الإِنْتاجِ."
+            type: usage
+      - lemma: "طَارِئَة"
+        examples:
+          - text: "اتَّخَذَتِ الحُكُومَةُ تَدابِيرَ لِمُواجَهَةِ أَيِّ طَارِئَةٍ أَمْنِيَّةٍ."
+            type: usage
+      - lemma: "احْتِمَال"
+        examples:
+          - text: "وُضِعَتِ الخُطَّةُ لِتَشْمَلَ جَمِيعَ الاحْتِمالاتِ المُمْكِنَةِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "علَينا الاسْتِعْدادُ لِكُلِّ احْتِمَالِيَّةٍ مُمْكِنَةٍ في هذا المَشْرُوعِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "واجهَتِ الشَّرِكَةُ طَارِئاً أَدَّى إلى تَأْخِيرِ الإِنْتاجِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "اتَّخَذَتِ الحُكُومَةُ تَدابِيرَ لِمُواجَهَةِ أَيِّ طَارِئَةٍ أَمْنِيَّةٍ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "وُضِعَتِ الخُطَّةُ لِتَشْمَلَ جَمِيعَ الاحْتِمالاتِ المُمْكِنَةِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "احْتِمَالِيَّة"
+      entry_id: "{auto}"
+      root: "حمل"
+      maqayis_quote: "«الْحَاءُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى إِقْلَالِ الشَّيْءِ... وَالضَّمَانُ حَمَالَةٌ، وَالْمَعْنَى وَاحِدٌ، وَهُوَ قِيَاسُ الْبَابِ.»"
+    - lemma: "طَارِئ"
+      entry_id: "{auto}"
+      root: "طرأ"
+      maqayis_quote: "«الجذر طرأ يدل على الحدوث المفاجئ والزيادة، ويرتبط بـ (طرر) الذي يدل على حدة في الشيء واستطالة.»"
+    - lemma: "طَارِئَة"
+      entry_id: "{auto}"
+      root: "طرأ"
+      maqayis_quote: "«الجذر طرأ يدل على الحدوث المفاجئ والزيادة.»"
+    - lemma: "احْتِمَال"
+      entry_id: "{auto}"
+      root: "حمل"
+      maqayis_quote: "«الْحَاءُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى إِقْلَالِ الشَّيْءِ...»"
+  per_sense:
+    - lemma: "احْتِمَالِيَّة"
+      sense_id: "{auto}"
+      nuance: "تعبر عن الجانب المفهومي والمجرد لإمكانية الوقوع."
+      mwe: false
+    - lemma: "طَارِئ"
+      sense_id: "{auto}"
+      nuance: "يعبر عن الحدث من حيث وقوعه المفاجئ أو الغريب."
+      mwe: false
+    - lemma: "طَارِئَة"
+      sense_id: "{auto}"
+      nuance: "اسم لما يطرأ من الأحداث، وهي أكثر استخداماً كحدث عيني."
+      mwe: false
+    - lemma: "احْتِمَال"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام الذي يشمل الممكنات والفرص والوقائع المحتملة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حمل","maqayis":"«الْحَاءُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى إِقْلَالِ الشَّيْءِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"طرأ","maqayis":"«الجذر طرأ يدل على الحدوث المفاجئ والزيادة.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبر عن الجانب المفهومي والمجرد لإمكانية الوقوع.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-07305484-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-07305484-n"
+        score: 0.9

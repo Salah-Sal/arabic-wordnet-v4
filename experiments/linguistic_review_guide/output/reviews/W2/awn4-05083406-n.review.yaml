@@ -1,0 +1,207 @@
+# Stage 1: Review + Generate (no evidence)
+stage1_review:
+  assessment:
+    concerns:
+      - "الافتقار لمصطلحات تقنية دقيقة مثل 'نقطة النظر' (perspective point/center)."
+      - "طول المصطلح 'وجهة النظر المكانية' وكونه يبدو وصفياً لتجنب اللبس مع المعنى الذهني (وجهة نظر كأمنية)."
+    observations: "المفهوم مكاني هندسي يتعلق بموضع الرائي أو الملاحظ، وهو جوهر علم المنظور (perspective). المصطلح 'زاوية النظر' شائع جداً لكنه قد يوحي بالمقدار الزاوي، بينما التعريف يركز على 'الموقع'."
+  blind_candidates:
+    - lemma: "مَنْظُور"
+      generation_method: ishtiqaq
+      justification: "اسم مفعول من نَظَرَ، يُستخدم للدلالة على الهيئة المكانية للأشياء من موقع الرائي، وكثيراً ما يُستخدم كمرادف لنقطة الرؤية."
+    - lemma: "مَوْقِع الرُّؤْيَة"
+      generation_method: tarkib
+      justification: "تركيب إضافي يصف بدقة 'الموقع' المذكور في التعريف."
+    - lemma: "زَاوِيَة النَّظَر"
+      generation_method: tarkib
+      justification: "المصطلح الأكثر شيوعاً للتعبير عن 'point of view' حتى في سياقها المكاني."
+    - lemma: "مَطَلّ"
+      generation_method: ishtiqaq
+      justification: "اسم مكان من 'طلّ' بمعنى أشرف من علو، ويناسب الموضع الذي يُلاحظ منه شيء ما."
+
+# Stage 2: Evidence Gathering
+stage2_evidence:
+  per_lemma:
+    - lemma: "زَاوِيَة النَّظَر"
+      confirm:
+        - text: "حزمة رادارية موجهة نحو مساحة معينة"
+          source: "المعجم الموحد لمصطلحات الاستشعار عن بعد (2000)"
+    - lemma: "نُقْطَة النَّظَر"
+      confirm:
+        - text: "مركز منظور (المرادف العربي لـ perspective center)"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية (2012)"
+        - text: "مركز الإسقاط في المنظور والاتجاه العمودي على سطح اللوحة"
+          source: "المعجم الموحد لمصطلحات التقنيات التربوية (1999)"
+    - lemma: "مَنْظُور"
+      expands:
+        - text: "إسقاط المجالات الطبيعية على سطح مستوٍ أو على سطح منحنٍ، كما تبدو للعين المجردة"
+          source: "المعجم الموحد لمصطلحات الاستشعار عن بعد (2000)"
+          addition: "يدل على النتيجة (المنظر) والتقنية أكثر من الموقع نفسه."
+    - lemma: "وِجْهَة النَّظَر المَكَانِيَّة"
+      evidence_status: "no_material_found"
+
+# Stage 3: Lemma Linguistic Analysis
+stage3_analysis:
+  per_lemma:
+    - lemma: "زَاوِيَة النَّظَر"
+      decision: confirmed
+      decision_reason: "مصطلح تقني ثابت في عدة مجالات (الاستشعار عن بعد، الهندسة) ويدل على الموقع الذي يُنظر منه."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "زَاوِيَة النَّظَر"
+    - lemma: "وِجْهَة النَّظَر المَكَانِيَّة"
+      decision: confirmed
+      decision_reason: "على الرغم من كونه وصفياً، إلا أنه ضروري لتمييز المعنى المكاني للفظ 'وجهة نظر' عن المعنى الذهني (رأي)."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+    - lemma: "نُقْطَة النَّظَر"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح هندسي دقيق جداً للمفهوم، حيث يُعرّف بـ 'مركز المنظور' أو 'مركز الإسقاط'."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "نُقْطَة النَّظَر", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-05083406-n"}
+
+# Stage 4: Content
+stage4_content:
+  definition:
+    current: "الخاصية المكانية للموقع الذي يتم منه ملاحظة شيء ما"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دقيق لكن يمكن صياغته بأسلوب معجمي أمتن."
+    authored:
+      - type: terminological
+        text: "الخاصيّة المَوْضِعِيّة للمَكان الذي يُرْصَد منه شيءٌ ما."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+      - type: linguistic
+        text: "مَوْضِع الرُّؤْيَة أو المَكَان الذي يَقِف فيه المُرَاقِب لمُعَايَنَةِ مَشْهَدٍ ما."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-05083406-n", definition_index: 0, text: "الخاصيّة المَوْضِعِيّة للمَكان الذي يُرْصَد منه شيءٌ ما."}
+
+  examples:
+    per_lemma:
+      - lemma: "زَاوِيَة النَّظَر"
+        examples:
+          - text: "تَتَغَيَّرُ مَعَالِمُ الجَبَلِ وتَفَاصِيلُ مَسَاحَتِهِ بِتَغَيُّرِ زَاوِيَةِ النَّظَرِ إِلَيْهِ."
+            type: usage
+      - lemma: "وِجْهَة النَّظَر المَكَانِيَّة"
+        examples:
+          - text: "تُؤَثِّرُ وِجْهَةُ النَّظَرِ المَكَانِيَّةُ لِلرَّصَّادِ عَلَى دِقَّةِ حِسَابِ الإِحْدَاثِيَّاتِ الجُغْرَافِيَّةِ."
+            type: usage
+      - lemma: "نُقْطَة النَّظَر"
+        examples:
+          - text: "فِي الرَّسْمِ الهَنْدَسِيِّ، تُحَدَّدُ نُقْطَةُ النَّظَرِ لِضَمَانِ دِقَّةِ التَّمْثِيلِ المَنْظُورِيِّ لِلأَجْسَامِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تَتَغَيَّرُ مَعَالِمُ الجَبَلِ وتَفَاصِيلُ مَسَاحَتِهِ بِتَغَيُّرِ زَاوِيَةِ النَّظَرِ إِلَيْهِ."}
+
+# Stage 5: Enrichment
+stage5_enrichment:
+  per_entry:
+    - lemma: "زَاوِيَة النَّظَر"
+      entry_id: "{auto}"
+      roots:
+        - word: "زاوية"
+          root: "زوى"
+          maqayis_quote: "«الزَّاءُ وَالْوَاوُ وَالْيَاءُ أَصْلٌ يَدُلُّ عَلَى انْضِمَامٍ وَتَجَمُّعٍ... وَزَاوِيَةُ الْبَيْتِ لِاجْتِمَاعِ الْحَائِطَيْنِ.»"
+        - word: "النظر"
+          root: "نظر"
+          maqayis_quote: "«النُّونُ وَالظَّاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَرْجِعُ فُرُوعُهُ إِلَى مَعْنًى وَاحِدٍ وَهُوَ تَأَمُّلُ الشَّيْءِ وَمُعَايَنَتُهُ.»"
+    - lemma: "وِجْهَة النَّظَر المَكَانِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "وجهة"
+          root: "وجه"
+          maqayis_quote: "«الْوَاوُ وَالْجِيمُ وَالْهَاءُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُقَابَلَةٍ لِشَيْءٍ... وَالْوِجْهَةُ: كُلُّ مَوْضِعٍ اسْتَقْبَلْتَهُ.»"
+        - word: "النظر"
+          root: "نظر"
+          maqayis_quote: "«النُّونُ وَالظَّاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ... تَأَمُّلُ الشَّيْءِ وَمُعَايَنَتُهُ.»"
+        - word: "المكانية"
+          root: "كون"
+          maqayis_quote: "«الْكَافُ وَالْوَاوُ وَالنُّونُ أَصْلٌ يَدُلُّ عَلَى الْإِخْبَارِ عَنْ حُدُوثِ شَيْءٍ... وَقَالَ قَوْمٌ: الْمَكَانُ اشْتِقَاقُهُ مِنْ كَانَ يَكُونُ.»"
+    - lemma: "نُقْطَة النَّظَر"
+      entry_id: "{auto}"
+      roots:
+        - word: "نقطة"
+          root: "نقط"
+          maqayis_quote: "«النُّونُ وَالْقَافُ وَالطَّاءُ أُصَيْلٌ يَدُلُّ عَلَى نُكْتَةٍ لَطِيفَةٍ فِي الشَّيْءِ.»"
+        - word: "النظر"
+          root: "نظر"
+          maqayis_quote: "«النُّونُ وَالظَّاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ... تَأَمُّلُ الشَّيْءِ وَمُعَايَنَتُهُ.»"
+  per_sense:
+    - lemma: "زَاوِيَة النَّظَر"
+      sense_id: "{auto}"
+      nuance: "تركز على المقدار الزاوي أو المنظور الهندسي الذي يُرى منه الشيء."
+      mwe: true
+    - lemma: "نُقْطَة النَّظَر"
+      sense_id: "{auto}"
+      nuance: "تركز على المركز الدقيق (النقطة) الذي ينطلق منه شعاع الرؤية أو الإسقاط."
+      mwe: true
+    - lemma: "وِجْهَة النَّظَر المَكَانِيَّة"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي يُستخدم للتفرقة بين الموقع الفيزيائي وبين وجهة النظر الفكرية."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"زاوية","root":"زوى","maqayis":"«...»"},{"word":"النظر","root":"نظر","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"وجهة","root":"وجه","maqayis":"«...»"},{"word":"النظر","root":"نظر","maqayis":"«...»"},{"word":"المكانية","root":"كون","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"نقطة","root":"نقط","maqayis":"«...»"},{"word":"النظر","root":"نظر","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركز على المقدار الزاوي أو المنظور الهندسي الذي يُرى منه الشيء.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-05083406-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-05083406-n"
+        score: 0.9

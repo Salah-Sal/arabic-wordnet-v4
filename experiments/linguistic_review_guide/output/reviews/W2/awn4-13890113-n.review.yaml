@@ -1,0 +1,182 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'شكل عشوائي' تركز على الجانب الإرادي أو الصدفي (arbitrary/random)، بينما 'amorphous' تركز على غياب البنية الفيزيائية أو الهندسية."
+      - "اللمة 'شكل غير متبلور' تقنية للغاية (فيزيائية/كيميائية) وقد لا تغطي الاستخدام العام للمصطلح."
+      - "التعريف الحالي مقتضب جداً ويستخدم إحدى اللمات (عشوائي) في شرح المعنى، مما يجعله تعريفاً دائرياً جزئياً."
+    observations: "المفهوم يجمع بين العشوائية في الاختيار (arbitrary) وغياب الهيئة المحددة (amorphous). في العربية، يُستخدم مصطلح 'عديم الشكل' كمرادف عام لـ amorphous، بينما يُستخدم 'غير متبلور' في السياق العلمي، و'هلامي' في السياق الوصفي المجازي."
+  blind_candidates:
+    - lemma: "شَكْلٌ هُلَامِيٌّ"
+      generation_method: majaz
+      justification: "يُستخدم 'هلامي' لوصف الأشياء التي تفتقر إلى قوام أو شكل محدد، وهو مرادف شائع لـ amorphous في السياقات غير التقنية."
+    - lemma: "شَكْلٌ غَيْرُ مُحَدَّدٍ"
+      generation_method: tarkib
+      justification: "ترجمة مباشرة للشق الأول من التعريف الإنجليزي (ill-defined shape)."
+    - lemma: "عَدِيمُ الشَّكْلِ"
+      generation_method: tarkib
+      justification: "المصطلح العربي القياسي المقابل لـ amorphous في المعاجم الحديثة والمتخصصة."
+    - lemma: "هَيْئَةٌ لَا شَكْلِيَّةٌ"
+      generation_method: tarkib
+      justification: "استخدام 'هيئة' كمرادف لـ 'شكل' مع النسبة المنفية (لا شكلية) للتعبير عن الحالة المجردة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "شكل عشوائي"
+      confirm:
+        - text: "«عشوائي: random, arbitrary»"
+          source: "المعجم الموحد لمصطلحات الكيمياء والجيولوجيا"
+    - lemma: "شكل غير متبلور"
+      confirm:
+        - text: "«مواد غير متبلورة: amorphous material»"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+    - lemma: "عَدِيمُ الشَّكْلِ"
+      confirm:
+        - text: "«عديم الشكل: amorphous»"
+          source: "المعجم الطبي الموحد، معجم الهندسة المدنية"
+    - lemma: "شَكْلٌ هُلَامِيٌّ"
+      confirm:
+        - text: "«هلامي: amorphuous [sic]»"
+          source: "مسرد الفلسفة وعلم النفس (ArabTerm)"
+    - lemma: "شَكْلٌ لَا بِلَّوْرِيٌّ"
+      confirm:
+        - text: "«لابِلَّوْري: amorphous»"
+          source: "المعجم الموحد لمصطلحات الفيزياء"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "شكل عشوائي"
+      decision: confirmed
+      decision_reason: "تغطي الشق المتعلق بالخيار الإرادي أو الصدفي (arbitrary) المذكور في التعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "شَكْلٌ عَشْوَائِيٌّ"
+    - lemma: "شكل غير متبلور"
+      decision: confirmed
+      decision_reason: "المصطلح التقني المعتمد لـ amorphous في العلوم الطبيعية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "شَكْلٌ غَيْرُ مُتَبَلْوِرٍ"
+    - lemma: "عَدِيمُ الشَّكْلِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح الأكثر شمولاً وعمومية للتعبير عن غياب الشكل (amorphous) في اللغة العربية الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "عَدِيمُ الشَّكْلِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "شَكْلٌ لَا بِلَّوْرِيٌّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف دقيق وواسع الانتشار في سياق الفيزياء والكيمياء كبديل لـ 'غير متبلور'."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "شَكْلٌ لَا بِلَّوْرِيٌّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "شكل غير محدد أو عشوائي"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب ويحتاج لبيان ماهية غياب الشكل بوضوح أكبر."
+    authored:
+      - type: terminological
+        text: "هيئة تفتقر إلى بنية هندسية منتظمة أو حدود واضحة ومحددة، أو تكون ناتجة عن اختيار صدفي لا يخضع لنمط معين."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "هيئة تفتقر إلى بنية هندسية منتظمة أو حدود واضحة ومحددة، أو تكون ناتجة عن اختيار صدفي لا يخضع لنمط معين."}
+  examples:
+    per_lemma:
+      - lemma: "شَكْلٌ عَشْوَائِيٌّ"
+        examples:
+          - text: "رسم الطفل شكلاً عشوائياً على الورقة لا يشبه أي شيء معروف."
+            type: usage
+      - lemma: "شَكْلٌ غَيْرُ مُتَبَلْوِرٍ"
+        examples:
+          - text: "يظهر الزجاج في المجهر كشكل غير متبلور يفتقر إلى الشبكة البلورية."
+            type: usage
+      - lemma: "عَدِيمُ الشَّكْلِ"
+        examples:
+          - text: "وصفت الرواية الوحش بأنه كائن عديم الشكل ينساب كالهلام."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "رسم الطفل شكلاً عشوائياً على الورقة لا يشبه أي شيء معروف."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "شَكْلٌ عَشْوَائِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "شكل"
+          root: "شكل"
+          maqayis_quote: "«الشِّينُ وَالْكَافُ وَاللَّامُ مُعْظَمُ بَابِهِ الْمُمَاثَلَةُ. تَقُولُ: هَذَا شَِكْلُ هَذَا، أَيْ مِثْلُهُ.»"
+        - word: "عشوائي"
+          root: "عشو"
+          maqayis_quote: "«الْعَيْنُ وَالشِّينُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى ظَلَامٍ وَقِلَّةِ وُضُوحٍ فِي الشَّيْءِ.»"
+    - lemma: "عَدِيمُ الشَّكْلِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "عديم"
+          root: "عدم"
+          maqayis_quote: "«الْعَيْنُ وَالدَّالُ وَالْمِيمُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى فِقْدَانِ الشَّيْءِ وَذَهَابِهِ.»"
+        - word: "الشكل"
+          root: "شكل"
+          maqayis_quote: "«الشِّينُ وَالْكَافُ وَاللَّامُ مُعْظَمُ بَابِهِ الْمُمَاثَلَةُ.»"
+  per_sense:
+    - lemma: "شَكْلٌ عَشْوَائِيٌّ"
+      sense_id: "{auto}"
+      nuance: "يركز على غياب النمط أو القصد في اختيار الهيئة (arbitrary)."
+      mwe: true
+    - lemma: "شَكْلٌ غَيْرُ مُتَبَلْوِرٍ"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب التقني الفيزيائي لغياب البنية البلورية المنتظمة."
+      mwe: true
+    - lemma: "عَدِيمُ الشَّكْلِ"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام لوصف غياب الهيئة المحددة (amorphous)."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

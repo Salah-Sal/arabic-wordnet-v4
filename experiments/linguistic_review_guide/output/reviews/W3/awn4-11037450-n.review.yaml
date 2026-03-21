@@ -1,0 +1,350 @@
+# ═══════════════════════════════════════════════════════════════
+# مراجعة المجموعة الترادفية — AWN4 Review Pipeline v2
+# synset_id : awn4-11037450-n
+# ili       : i95355
+# pos       : n
+# reviewer  : AWN4 Review Pipeline v2 (5-Stage)
+# date      : 2026-03-21
+# ═══════════════════════════════════════════════════════════════
+
+# ── المرحلة ١: المراجعة والتوليد ───────────────────────────
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّتان الموجودتان (غروتيوس، هوغو غروتيوس) خاليتان من التشكيل الكامل."
+      - "الاسم الهولندي الأصلي (Huig de Groot = هُيخ دِي خرُوت) غائب، وهو مُدرَج في قوائم OEWN الإنجليزية."
+      - "التعريف العربي ترجمة حرفية من الإنجليزية، يفتقر إلى لقب الشخصية المعروف «أبو القانون الدولي»."
+      - "المجموعة تُصنَّف تحت pos: n وهو صحيح اصطلاحاً في شبكات الكلمات، لكن المحتوى اسم علم."
+    observations: >
+      هذه المجموعة تمثّل شخصية تاريخية بعينها — هوغو غروتيوس (1583-1645)، الفقيه والدبلوماسي الهولندي
+      الذي يُعدّ مؤسّس القانون الدولي الحديث. ويُعرَف بثلاثة أشكال: اللاتيني «Grotius»،
+      والكامل «Hugo Grotius»، والهولندي الأصلي «Huig de Groot». التحدي المعجمي هنا أن جميع
+      اللمّات تعريبات لأسماء أعجمية؛ فلا جذر عربي ولا اشتقاق ينطبق عليها. وقد استُخدم في
+      المراجع العربية شكلا «غروتيوس» و«هوغو غروتيوس» على نطاق واسع. أما لقب «أبو القانون الدولي»
+      فهو وصف تعريفي مشهور لكنه يخفق في اختبار السكّ المعجمي الثابت.
+
+  blind_candidates:
+    - lemma: "غرُوتيُوس"
+      generation_method: taarib
+      justification: >
+        تعريب مباشر للاسم اللاتيني Grotius وفق القواعد الصوتية العربية: G→غ، r→ر، o→و، t→ت،
+        i→ي، u→و، s→س. وهو الشكل الأكثر شيوعاً في المصادر الأكاديمية العربية عند ذكر هذه
+        الشخصية القانونية التاريخية.
+
+    - lemma: "هُوغُو غرُوتيُوس"
+      generation_method: taarib
+      justification: >
+        تعريب الاسم الكامل Hugo Grotius. Hugo تُعرَّب هُوغُو وهو شائع في المعجمية العربية
+        الحديثة (المورد الحديث ونظائره). الصيغة الكاملة ضرورية لتمييز الشخصية عن أي حامل
+        آخر لاسم غروتيوس.
+
+    - lemma: "هُيخ دِي خرُوت"
+      generation_method: taarib
+      justification: >
+        تعريب الاسم الهولندي الأصلي Huig de Groot. يُنطق Huig تقريباً [هُيخ] في الهولندية،
+        وde هو أداة التعريف الهولندية، وGroot = خرُوت. يُستعمل في السياقات التاريخية
+        الهولندية وفي المصادر التي تُميّز بين الاسم اللاتيني والأصل الهولندي.
+
+    - lemma: "أَبُو القَانُونِ الدَّوْلِيِّ"
+      generation_method: tarkib
+      justification: >
+        تركيب إضافي من «أبو» + «القانون الدولي»، يُعبّر عن اللقب الأكاديمي المتداول لهذه
+        الشخصية. غير أن اختبار السكّ يكشف أنه وصف تعريفي حرّ لا وحدة معجمية مسكوكة ثابتة.
+
+
+# ── المرحلة ٢: جمع الأدلة ────────────────────────────────
+stage2_evidence:
+  queries_run:
+    - "Batch headword lookup: غروتيوس، هوغو غروتيوس، هيخ دي خروت، ابو القانون الدولي (+ صيغ ال-)"
+    - "English bridge FTS: translation_en:\"Grotius\" OR \"Hugo Grotius\" OR \"Huig de Groot\""
+    - "Arabic FTS keywords: \"غروتيوس\" OR \"هوغو\" OR \"هولندي\" OR \"القانون الدولي\""
+    - "Maqayis al-Lugha lookup: dictionary_id=151, roots فقه، دول"
+
+  per_lemma:
+    - lemma: "غرُوتيُوس"
+      evidence_status: "no_material_found"
+
+    - lemma: "هُوغُو غرُوتيُوس"
+      evidence_status: "no_material_found"
+
+    - lemma: "هُيخ دِي خرُوت"
+      evidence_status: "no_material_found"
+
+    - lemma: "أَبُو القَانُونِ الدَّوْلِيِّ"
+      evidence_status: "no_material_found"
+
+  contextual_finds:
+    - note: >
+        رصد استعلام FTS مدخلاً في «المورد الحديث (2008)» يترجم «publicist» بـ:
+        «(1) «أ» الخبير في القانون الدُّولي. «ب» الخبير في الشؤون العامّة أو المعلِّق عليها»
+        وهو ذو صلة بالتعريف الوظيفي لغروتيوس لكنه لا يذكره بالاسم.
+      source: "المورد الحديث (2008)"
+    - note: >
+        مدخل «القانون الدُّوَليّ» في «المورد الحديث (2008)» بترجمتي «international law»
+        و«jus gentium» و«law of nations» — يُثبت استعمال المصطلح في عناوين معجمية رسمية.
+      source: "المورد الحديث (2008)"
+
+
+# ── المرحلة ٣: التحليل اللغوي للّمات ────────────────────
+stage3_analysis:
+  per_lemma:
+
+    - lemma: "غروتيوس"
+      decision: confirmed
+      decision_reason: >
+        الاسم موثّق في الكتابة الأكاديمية العربية للقانون الدولي وتاريخ القانون.
+        يمثّل صيغة الاسم الأخير المختصر التي تُستخدم في الإحالات العلمية.
+        لا أدلة معجمية مباشرة بسبب طبيعته كاسم علم غير عربي، وهذا متوقع.
+        يحتاج إضافة تشكيل كامل.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      morphological_check:
+        pos_fit: "اسم علم معرَّب — لا وزن صرفي عربي ينطبق عليه."
+        borrowing_type: "تعريب لفظي مقبول (proper noun)؛ يقبل لام التعريف والنسبة: الغروتيوسي."
+      nuance_differentiation: >
+        يختلف عن «هُوغُو غرُوتيُوس» في كونه صيغة الاسم الأخير المُختصرة المُستخدمة في
+        الإحالات الأكاديمية والمراجع العلمية المختصرة (كتب «غروتيوس...»)، بينما الاسم
+        الكامل يُستخدم عند التعريف الأول أو في الكتابة التاريخية الرسمية.
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "غرُوتيُوس"
+
+    - lemma: "هوغو غروتيوس"
+      decision: confirmed
+      decision_reason: >
+        صيغة الاسم الكامل المُعرَّبة، شائعة في المصادر العربية التاريخية والقانونية.
+        اسم مركّب ثنائي (اسم أول + لقب) — تعبير مركّب ثابت بحكم كونه اسم علم شخصي.
+        يحتاج إضافة تشكيل كامل.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      mwe_stability: >
+        التعبير مستقر بوصفه اسم علم ثنائي الجزء. لا يمكن إبدال «هوغو» بـ«هيوغو» أو
+        «هيغو» دون تغيير دلالة المقصود — وهو مؤشر على ثبوت الوحدة المعجمية.
+      morphological_check:
+        pos_fit: "اسم علم معرَّب مركّب — لا وزن صرفي عربي ينطبق."
+        borrowing_type: "تعريب لفظي مقبول."
+      nuance_differentiation: >
+        الاسم الكامل يُستخدم في المؤلفات التاريخية الرسمية والتعريف الأول بالشخصية،
+        بعكس الاسم المختصر «غرُوتيُوس» المستخدم في الإحالات الأكاديمية المُتكررة.
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "هُوغُو غرُوتيُوس"
+
+    - lemma: "هُيخ دِي خرُوت"
+      source: stage1
+      decision: confirmed
+      decision_reason: >
+        الاسم الهولندي الأصلي لـ Huig de Groot مُدرَج في قوائم OEWN الإنجليزية الثلاثة
+        (Grotius / Hugo Grotius / Huig de Groot)، وغيابه يجعل المجموعة غير مكتملة.
+        ضرورته قائمة في الكتابات التاريخية التي تُشير إلى هويته الثقافية الهولندية الأصلية.
+        لا أدلة معجمية — متوقع لأسماء الأعلام الأجنبية.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      morphological_check:
+        pos_fit: "اسم علم هولندي معرَّب ثلاثي الجزء."
+        borrowing_type: "تعريب لفظي — de أداة هولندية تُنقل كما هي."
+      nuance_differentiation: >
+        الاسم الهولندي الأصلي، يُستخدم تحديداً في السياقات التي تُميّز بين اسمه
+        الهولندي الأصلي ولقبه اللاتيني «Grotius»، أو في المراجع التاريخية الهولندية.
+      actions:
+        - command: create_entry
+          params:
+            lemma: "هُيخ دِي خرُوت"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "أَبُو القَانُونِ الدَّوْلِيِّ"
+      source: stage1
+      decision: removed
+      decision_reason: >
+        يخفق في اختبار السكّ المعجمي: يمكن استبدال «القانون الدولي» بـ«القانون الطبيعي»
+        أو «علم الأمم» ويبقى الوصف صالحاً كلقب تكريمي — وهو ما يكشف أنه عبارة وصفية
+        حرّة لا وحدة معجمية ثابتة. كما أنه لقب وليس اسماً (لا تختزله إلى هوية الشخص
+        بصورة حصرية). يصلح استخدامه في التعريف لكن ليس كلمّة.
+
+
+# ── المرحلة ٤: التعريف والأمثلة ──────────────────────────
+stage4_content:
+  definition:
+    current: "فقيه ودبلوماسي هولندي أرست كتاباته أساس القانون الدولي الحديث (1583-1645)"
+    assessment:
+      decision: revise
+      reason: >
+        التعريف الحالي ترجمة حرفية للإنجليزي، سليم المعنى لكنه يفتقر إلى:
+        (أ) لقبه الأشهر «أبو القانون الدولي» الذي يُفيد في الفهم الموسوعي،
+        (ب) التشكيل الكامل المطلوب في قواعد AWN4،
+        (ج) أسلوب المعجم الوسيط الموسوعي المناسب لمداخل أعلام الأشخاص.
+    authored:
+      - type: encyclopedic
+        text: >
+          فَقِيهٌ وَدِبْلُومَاسِيٌّ هُوَلَنْدِيٌّ (1583-1645)، يُلَقَّبُ بِأَبِي
+          القَانُونِ الدَّوْلِيِّ؛ أَرْسَتْ مُؤَلَّفَاتُهُ — وَلَا سِيَّمَا
+          «قَانُونُ الحَرْبِ وَالسَّلَامِ» (De Jure Belli ac Pacis, 1625) —
+          أُسُسَ القَانُونِ الدَّوْلِيِّ الحَدِيثِ.
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: >
+            فَقِيهٌ وَدِبْلُومَاسِيٌّ هُوَلَنْدِيٌّ (1583-1645)، يُلَقَّبُ بِأَبِي
+            القَانُونِ الدَّوْلِيِّ؛ أَرْسَتْ مُؤَلَّفَاتُهُ — وَلَا سِيَّمَا
+            «قَانُونُ الحَرْبِ وَالسَّلَامِ» (De Jure Belli ac Pacis, 1625) —
+            أُسُسَ القَانُونِ الدَّوْلِيِّ الحَدِيثِ.
+
+  examples:
+    per_lemma:
+      - lemma: "غرُوتيُوس"
+        examples:
+          - text: "يُعَدُّ غرُوتيُوس مَرْجِعًا أَسَاسِيًّا لِدَارِسِي القَانُونِ الدَّوْلِيِّ وَتَارِيخِهِ فِي مُعْظَمِ الجَامِعَاتِ الحُقُوقِيَّةِ."
+            type: usage
+
+      - lemma: "هُوغُو غرُوتيُوس"
+        examples:
+          - text: "أَصْدَرَ هُوغُو غرُوتيُوس عَامَ 1609م كِتَابَهُ «بَحْرٌ حُرٌّ» (Mare Liberum) دِفَاعًا عَنْ حُرِّيَّةِ الإِبْحَارِ فِي أَعَالِي البِحَارِ."
+            type: usage
+
+      - lemma: "هُيخ دِي خرُوت"
+        examples:
+          - text: "وُلِدَ هُيخ دِي خرُوت فِي مَدِينَةِ دِيلْفت الهُوَلَنْدِيَّةِ عَامَ 1583م، وَنَشَأَ نَابِغَةً فِي الفِقْهِ وَالأَدَبِ."
+            type: usage
+
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يُعَدُّ غرُوتيُوس مَرْجِعًا أَسَاسِيًّا لِدَارِسِي القَانُونِ الدَّوْلِيِّ وَتَارِيخِهِ فِي مُعْظَمِ الجَامِعَاتِ الحُقُوقِيَّةِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "أَصْدَرَ هُوغُو غرُوتيُوس عَامَ 1609م كِتَابَهُ «بَحْرٌ حُرٌّ» (Mare Liberum) دِفَاعًا عَنْ حُرِّيَّةِ الإِبْحَارِ فِي أَعَالِي البِحَارِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "وُلِدَ هُيخ دِي خرُوت فِي مَدِينَةِ دِيلْفت الهُوَلَنْدِيَّةِ عَامَ 1583م، وَنَشَأَ نَابِغَةً فِي الفِقْهِ وَالأَدَبِ."
+
+
+# ── المرحلة ٥: الإثراء (البيانات الوصفية) ─────────────────
+stage5_enrichment:
+  per_entry:
+    - lemma: "غرُوتيُوس"
+      entry_id: "{auto}"
+      note: >
+        اسم علم معرَّب — لا جذر عربي ولا مقاييس لغة ينطبقان.
+        أصله اللاتيني: Grotius (اللاتينية) ← Huig de Groot (الهولندية).
+
+    - lemma: "هُوغُو غرُوتيُوس"
+      entry_id: "{auto}"
+      roots:
+        - word: "هُوغُو"
+          root: "لا ينطبق — اسم أعجمي"
+        - word: "غرُوتيُوس"
+          root: "لا ينطبق — اسم أعجمي"
+
+    - lemma: "هُيخ دِي خرُوت"
+      entry_id: "{auto}"
+      roots:
+        - word: "هُيخ"
+          root: "لا ينطبق — اسم هولندي"
+        - word: "خرُوت"
+          root: "لا ينطبق — اسم هولندي (Groot = كبير)"
+
+  per_sense:
+    - lemma: "غرُوتيُوس"
+      sense_id: "{auto}"
+      nuance: >
+        صيغة الاسم الأخير المُختصر، المستخدمة في الإحالات العلمية المتكررة والهوامش
+        البحثية؛ تُوازي استخدام «أرسطو» وحده بدل «أرسطوطاليس».
+      mwe: false
+
+    - lemma: "هُوغُو غرُوتيُوس"
+      sense_id: "{auto}"
+      nuance: >
+        الاسم الكامل المُعرَّب يُستخدم عند التعريف الأول بالشخصية في المتن، أو في
+        الكتابة الرسمية والموسوعية؛ يُفيد في تمييز الشخصية عن غيرها من حاملي اللقب.
+      mwe: true
+
+    - lemma: "هُيخ دِي خرُوت"
+      sense_id: "{auto}"
+      nuance: >
+        الاسم الهولندي الأصلي، يُستخدم في السياقات التي تُبرز الهوية الثقافية الهولندية
+        للشخصية أو تُميّز بين اسمه الوطني ولقبه اللاتيني الأشهر.
+      mwe: true
+
+  synset:
+    cultural_fit: omission
+
+  actions:
+    # Entry-level notes — proper noun, no Arabic root
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"proper_noun":true,"origin":"Latin: Grotius; Dutch: Huig de Groot","no_arabic_root":true}'
+
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"proper_noun":true,"mwe":true,"components":["هوغو","غروتيوس"],"origin":"Hugo Grotius (Latin/French form)","no_arabic_root":true}'
+
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"proper_noun":true,"mwe":true,"components":["هيخ","دي","خروت"],"origin":"Huig de Groot (Dutch original)","no_arabic_root":true}'
+
+    # Sense-level notes
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"صيغة الاسم الأخير المختصر — للإحالات العلمية المتكررة","mwe":false}'
+
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الكامل المعرَّب — للتعريف الأول والكتابة الرسمية","mwe":true}'
+
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الهولندي الأصلي — للسياقات التاريخية الهولندية","mwe":true}'
+
+    # Synset-level note
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"omission","note":"شخصية أوروبية تاريخية — المفهوم غريب ثقافياً عن الموروث العربي"}'
+
+    # Confidence
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.90

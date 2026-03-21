@@ -1,0 +1,191 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الحالية (ختام، نهاية) عامة جداً وليست متخصصة في سياق السباقات كما يشير التعريف."
+      - "الهايبرنيم المرتبط (حدث طبيعي) غير دقيق لحدث من صنع الإنسان كالمسابقات الرياضية."
+    observations: "المجموعة تركز على 'finish' كحدث ختامي في سياق رياضي أو تنافسي. نحتاج لإضافة تركيبات اصطلاحية مثل 'خط النهاية' التي تعبر عن هذا المفهوم بدقة أكبر."
+  blind_candidates:
+    - lemma: "نِهَايَة"
+      generation_method: ishtiqaq
+      justification: "اللفظ الأكثر مباشرة للتعبير عن نقطة الانتهاء."
+    - lemma: "خِتَام"
+      generation_method: ishtiqaq
+      justification: "يستخدم للتعبير عن نهاية المسابقات والفعاليات الكبرى."
+    - lemma: "خَطُّ النِّهَايَة"
+      generation_method: tarkib
+      justification: "تعبير اصطلاحي (MWE) يحدد المكان والحدث الذي تنتهي عنده المسابقة."
+    - lemma: "نِهَايَةُ السِّبَاق"
+      generation_method: tarkib
+      justification: "تركيب إضافي يطابق تعريف المجموعة تماماً."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خِتَام"
+      confirm:
+        - text: "«من كل شيء: عاقبته وآخره»"
+          source: "المعجم الوسيط"
+    - lemma: "نِهَايَة"
+      confirm:
+        - text: "«غايةُ الشيء وآخِرُه»"
+          source: "المعجم الوسيط"
+    - lemma: "خَطُّ النِّهَايَة"
+      confirm:
+        - text: "«خطّ النِّهاية [في سباقٍ للخيل]»"
+          source: "المورد الحديث (ترجمة wire)"
+        - text: "«وهما يجتازان خط الانتهاء»"
+          source: "المورد الحديث (تعريف photo finish)"
+    - lemma: "نِهَايَةُ السِّبَاق"
+      confirm:
+        - text: "«يحتلّ مَرْتبةً ما في سباق»"
+          source: "المورد الحديث (معنى finish)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "نِهَايَة"
+      decision: confirmed
+      decision_reason: "كلمة أساسية صحيحة وشائعة للتعبير عن الانتهاء."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نِهَايَة"
+    - lemma: "خِتَام"
+      decision: confirmed
+      decision_reason: "صحيحة لغوياً وتستخدم غالباً في سياق اختتام الفعاليات والبطولات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خِتَام"
+    - lemma: "خَطُّ النِّهَايَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي دقيق يحدد النقطة التي يختتم عندها السباق."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "خَطُّ النِّهَايَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "نِهَايَةُ السِّبَاق"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تركيب وصفي مباشر يطابق مدلول المجموعة تماماً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "نِهَايَةُ السِّبَاق", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "حدث محدد يختتم مسابقة (خاصة سباق)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وظيفي لكن يحتاج لصياغة معجمية أكثر رصانة تعبر عن طبيعة الحدث."
+    authored:
+      - type: terminological
+        text: "آخِرُ مَا يَنْتَهِي إلَيْهِ المُرْتَكِضُون فِي السِّبَاقِ، أَوْ اللَّحْظَةُ الفَاصِلَةُ التي تُخْتَتَمُ بِهَا المُنَافَسَة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "نِهَايَة"
+        examples:
+          - text: "كانت نِهَايَةُ السباقِ مثيرةً للغاية."
+            type: usage
+      - lemma: "خِتَام"
+        examples:
+          - text: "شهد خِتَامُ البطولةِ توزيعَ الجوائزِ على الفائزين."
+            type: usage
+      - lemma: "خَطُّ النِّهَايَة"
+        examples:
+          - text: "اجتاز العداءُ خَطَّ النِّهَايَةِ في زمنٍ قياسيّ."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "آخِرُ مَا يَنْتَهِي إلَيْهِ المُرْتَكِضُون فِي السِّبَاقِ، أَوْ اللَّحْظَةُ الفَاصِلَةُ التي تُخْتَتَمُ بِهَا المُنَافَسَة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "نِهَايَة"
+      entry_id: "{auto}"
+      root: "نهي"
+      maqayis_quote: "«النُّونُ وَالْهَاءُ وَالْيَاءُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ يَدُلُّ عَلَى بُلُوغِ الْغَايَةِ... وَالنِّهَايَةُ: غَايَةُ الشَّيْءِ.»"
+    - lemma: "خِتَام"
+      entry_id: "{auto}"
+      root: "ختم"
+      maqayis_quote: "«الْخَاءُ وَالتَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ، وَهُوَ بُلُوغُ آخِرِ الشَّيْءِ. يُقَالُ خَتَمْتُ الْعَمَلَ، وَخَتَمَ الْقَارِئُ السُّورَةَ.»"
+    - lemma: "خَطُّ النِّهَايَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "خط"
+          root: "خطط"
+          maqayis_quote: "«الْخَاءُ وَالطَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ أَثَرٌ يُمْتَدُّ طُولاً.»"
+        - word: "نهاية"
+          root: "نهي"
+          maqayis_quote: "«النُّونُ وَالْهَاءُ وَالْيَاءُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ يَدُلُّ عَلَى بُلُوغِ الْغَايَةِ.»"
+  per_sense:
+    - lemma: "نِهَايَة"
+      sense_id: "{auto}"
+      nuance: "تستخدم للتعبير العام عن نقطة الانتهاء الزمانية أو المكانية."
+      mwe: false
+    - lemma: "خِتَام"
+      sense_id: "{auto}"
+      nuance: "توحي بالاكتمال والتمام، وتستخدم غالباً للفعاليات والبطولات المنظمة."
+      mwe: false
+    - lemma: "خَطُّ النِّهَايَة"
+      sense_id: "{auto}"
+      nuance: "تحدد العلامة المكانية واللحظة الفيزيائية لانتهاء السباق."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نهي","maqayis":"«النُّونُ وَالْهَاءُ وَالْيَاءُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ يَدُلُّ عَلَى بُلُوغِ الْغَايَةِ... وَالنِّهَايَةُ: غَايَةُ الشَّيْءِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ختم","maqayis":"«الْخَاءُ وَالتَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ، وَهُوَ بُلُوغُ آخِرِ الشَّيْءِ. يُقَالُ خَتَمْتُ الْعَمَلَ، وَخَتَمَ الْقَارِئُ السُّورَةَ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تستخدم للتعبير العام عن نقطة الانتهاء الزمانية أو المكانية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

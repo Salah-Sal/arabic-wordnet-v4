@@ -1,0 +1,184 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة تفتقر إلى التشكيل الكامل."
+      - "المجموعة تمثل كيانًا جغرافيًا محددًا، لذا فإن التوليد يعتمد بشكل كبير على التعريب والتركيب الوصفي."
+    observations: "المجموعة تخص مصب 'هامبر' (Humber) في إنجلترا. المصطلحات العربية لهذا الكيان الجغرافي تتبع قواعد التعريب الصوتي المباشر أو الإضافة الوصفية (نهر/مصب)."
+  blind_candidates:
+    - lemma: "مَصَبُّ هَامْبَر"
+      generation_method: tarkib
+      justification: "تعبير وصفي مركب يحدد طبيعة الكيان الجغرافي (مصب) مضافًا إليه الاسم المعرب."
+    - lemma: "هَامْبَر"
+      generation_method: taarib
+      justification: "التعريب الصوتي المباشر لاسم العلم الإنجليزي (Humber)."
+    - lemma: "الْهَامْبَر"
+      generation_method: taarib
+      justification: "تعريب الاسم مع إضافة أل التعريف، وهو أسلوب شائع في العربية عند الإشارة إلى الأنهار والمصبات المائية."
+    - lemma: "نَهْرُ هَامْبَر"
+      generation_method: tarkib
+      justification: "تعبير شائع الاستخدام للإشارة إلى هذا الكيان الجغرافي رغم كونه مصبًا (estuary) من الناحية التقنية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "هامبر"
+      evidence_status: "no_material_found"
+    - lemma: "مَصَبُّ هَامْبَر"
+      evidence_status: "no_material_found"
+    - lemma: "هَامْبَر"
+      evidence_status: "no_material_found"
+    - lemma: "الْهَامْبَر"
+      evidence_status: "no_material_found"
+    - lemma: "نَهْرُ هَامْبَر"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "هامبر"
+      decision: confirmed
+      decision_reason: "الاسم المعرب القياسي لهذا الكيان الجغرافي."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "هَامْبَر"
+    - lemma: "الْهَامْبَر"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صيغة معرفة شائعة الاستخدام في السياقات الجغرافية العربية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "الْهَامْبَر", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مَصَبُّ هَامْبَر"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تسمية وصفية دقيقة تتطابق مع التعريف العلمي للكيان."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "مَصَبُّ هَامْبَر", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "نَهْرُ هَامْبَر"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تسمية شائعة الاستخدام في المراجع الجغرافية العامة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "نَهْرُ هَامْبَر", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "مصب في وسط شمال شرق إنجلترا يتشكل من نهر أوز ونهر ترينت"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي صحيح لكنه يحتاج لضبط لغوي أفضل ليتناسب مع أسلوب المعاجم العربية."
+    authored:
+      - type: encyclopedic
+        text: "مَصَبٌّ مائيٌّ واسعٌ يقع في ساحل إنجلترا الشمالي الشرقي، يتشكَّل من التقاء نهرَي أوز وترينت ويصبُّ في بحر الشمال."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مَصَبٌّ مائيٌّ واسعٌ يقع في ساحل إنجلترا الشمالي الشرقي، يتشكَّل من التقاء نهرَي أوز وترينت ويصبُّ في بحر الشمال."}
+  examples:
+    per_lemma:
+      - lemma: "هَامْبَر"
+        examples:
+          - text: "يُعتبر هَامْبَر أحد أهم الممرات المائية التجارية في المملكة المتحدة."
+            type: usage
+      - lemma: "مَصَبُّ هَامْبَر"
+        examples:
+          - text: "يصبُّ نهرا أوز وترينت مياههما في مَصَبِّ هَامْبَر."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يُعد مَصَبُّ هَامْبَر بيئة غنية بالحياة الفطرية والطيور المهاجرة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "هَامْبَر"
+      entry_id: "{auto}"
+    - lemma: "الْهَامْبَر"
+      entry_id: "{auto}"
+    - lemma: "مَصَبُّ هَامْبَر"
+      entry_id: "{auto}"
+      roots:
+        - word: "مصب"
+          root: "صبب"
+          maqayis_quote: "«الصَّادُ وَالْبَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ إِرَاقَةُ الشَّيْءِ... وَيُحْمَلُ عَلَى ذَلِكَ، فَيُقَالُ لِمَا انْحَدَرَ مِنَ الْأَرْضِ صَبَبٌ، وَجَمْعُهُ أَصْبَابٌ»"
+        - word: "هامبر"
+          root: null
+    - lemma: "نَهْرُ هَامْبَر"
+      entry_id: "{auto}"
+      roots:
+        - word: "نهر"
+          root: "نهر"
+          maqayis_quote: "«النُّونُ وَالْهَاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَفَتُّحِ شَيْءٍ أَوْ فَتْحِهِ... وَسُمِّيَ النَّهْرَ لِأَنَّهُ يَنْهَرُ الْأَرْضَ أَيْ يَشُقُّهَا»"
+        - word: "هامبر"
+          root: null
+  per_sense:
+    - lemma: "هَامْبَر"
+      sense_id: "{auto}"
+      nuance: "الاسم المجرد المعرب للكيان الجغرافي."
+      mwe: false
+    - lemma: "الْهَامْبَر"
+      sense_id: "{auto}"
+      nuance: "صيغة المعرفة للتعريب المباشر."
+      mwe: false
+    - lemma: "مَصَبُّ هَامْبَر"
+      sense_id: "{auto}"
+      nuance: "تسمية وصفية دقيقة تحدد طبيعة الكيان كونه مصباً (Estuary)."
+      mwe: true
+    - lemma: "نَهْرُ هَامْبَر"
+      sense_id: "{auto}"
+      nuance: "تسمية شائعة قد تستخدم للإشارة إلى الممر المائي ككل."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مصب","root":"صبب","maqayis":"«الصَّادُ وَالْبَاءُ أَصْلٌ وَاحِدٌ...»"},{"word":"هامبر","root":null}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تسمية وصفية دقيقة تحدد طبيعة الكيان كونه مصباً (Estuary).","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

@@ -1,0 +1,326 @@
+# ═══════════════════════════════════════════════════════════════
+# مراجعة المجموعة الترادفية — AWN4 Review Pipeline v2
+# Synset: awn4-11384130-n  |  ILI: i97288
+# المراجع: ناقد لغوي عربي خبير
+# التاريخ: 2026-03-21
+# ═══════════════════════════════════════════════════════════════
+
+# ── المرحلة ١: المراجعة والتوليد ─────────────────────────────
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّتان الموجودتان (جياني فيرساتشي، فيرساتشي) خاليتان من التشكيل الكامل"
+      - "لمّة (فيرساتشي) وحدها قد تُحيل إلى العلامة التجارية (Versace) لا الشخص تحديداً، فتُشكّل إبهاماً دلالياً في غياب السياق"
+      - "المجموعة تمثّل instance synset (اسم علم لفرد بعينه)؛ POS مُسجَّل n وهو مقبول وفق اصطلاح WordNet لكن يستحسن التوثيق"
+    observations: >
+      هذه المجموعة الترادفية instance synset مخصَّصة لشخصية تاريخية بعينها هي المصمّم
+      الإيطالي جياني فيرساتشي (1946-1997). اللمّات كلتاهما تعريبات للاسم الأجنبي؛ ولا
+      مجال هنا للاشتقاق أو المجاز أو التركيب العربي لأنّ أسماء الأعلام الشخصية تنقل
+      بالتعريب الصوتي لا بالترجمة. التعريف الحالي موجز ودقيق لكنّه يفتقر إلى السياق
+      الموسوعي الذي يميّز هذا الشخص. لا جذر عربي لأيٍّ من اللمّتين إذ هما كلمتان معرَّبتان
+      من الإيطالية (Gianni Versace).
+
+  blind_candidates:
+    # تنبيه: جميع المرشحات تعريبات (taarib) — لا سبيل غيرها لاسم علم شخصي أجنبي
+    - lemma: "جِيانِي فِيرسَاتشِي"
+      generation_method: taarib
+      justification: >
+        التعريب الفونولوجي المعياري للاسم الكامل Gianni Versace — gi→جي،
+        anni→اني، Ver→فير، sa→سا، tci→تشي. يُمثّل الصيغة الرسمية الكاملة
+        المتداولة في المراجع العربية الموسوعية.
+    - lemma: "فِيرسَاتشِي"
+      generation_method: taarib
+      justification: >
+        تعريب اللقب Versace وحده — وهو الصيغة الشائعة في الإعلام العربي
+        وقطاع الموضة؛ فيرساتشي بكسر الفاء وسكون الياء.
+    - lemma: "جِيانِّي فِيرسَاتشِي"
+      generation_method: taarib
+      justification: >
+        صيغة بديلة بمضاعفة النون تبعاً للنطق الإيطالي الأصيل (Gianni = /dʒanni/)
+        — وإن كانت أقلّ شيوعاً في الكتابة العربية.
+    - lemma: "فِيرسَاتشِيه"
+      generation_method: taarib
+      justification: >
+        تعريب بديل يُضيف هاء السكت في نهاية الاسم وفق أسلوب بعض المعاجم العربية
+        في تعريب الأسماء المنتهية بصوت متحرك.
+
+
+# ── المرحلة ٢: جمع الأدلة ────────────────────────────────────
+stage2_evidence:
+  queries_executed:
+    - query_id: 1
+      type: batch_headword_lookup
+      searched_norms:
+        - "جياني فيرساتشي"
+        - "الجياني فيرساتشي"
+        - "فيرساتشي"
+        - "الفيرساتشي"
+        - "جياني فرساتشي"
+        - "فرساتشي"
+        - "الفرساتشي"
+      result: "لا نتائج — لم تُسجَّل هذه الأسماء في قاعدة البيانات المعجمية"
+    - query_id: 2
+      type: english_bridge
+      searched_terms:
+        - "translation_en:\"Versace\""
+        - "translation_en:\"Gianni Versace\""
+        - "translation_en:\"fashion designer\""
+      result: "وُجد مدخلان لـ fashion designer (مُصمِّم أزياء، مبدع الموضة) ولم يُوجد Versace"
+    - query_id: 3
+      type: arabic_fts_keywords
+      searched_terms:
+        - "\"فيرساتشي\""
+        - "\"فرساتشي\""
+        - "\"جياني\""
+      result: "لا نتائج"
+
+  per_lemma:
+    - lemma: "جياني فيرساتشي"
+      evidence_status: "no_material_found"
+
+    - lemma: "فيرساتشي"
+      evidence_status: "no_material_found"
+
+    - lemma: "جِيانِي فِيرسَاتشِي"
+      source: stage1
+      evidence_status: "no_material_found"
+
+    - lemma: "فِيرسَاتشِي"
+      source: stage1
+      evidence_status: "no_material_found"
+
+    - lemma: "جِيانِّي فِيرسَاتشِي"
+      source: stage1
+      evidence_status: "no_material_found"
+
+    - lemma: "فِيرسَاتشِيه"
+      source: stage1
+      evidence_status: "no_material_found"
+
+  notes:
+    - >
+      غياب الأدلة المعجمية متوقَّع تماماً: هذه أسماء أعلام أجنبية معرَّبة لشخصية
+      تاريخية فردية، ولا تُقيَّد عادةً في المعاجم اللغوية العامة ولا في مسارد
+      المصطلحات المتخصصة (ARABTERM). يُعدّ غياب الأدلة حيادياً ولا يُضعف صحة اللمّات.
+
+
+# ── المرحلة ٣: التحليل اللغوي للّمات ────────────────────────
+stage3_analysis:
+  per_lemma:
+
+    # ── اللمّات الموجودة ──
+
+    - lemma: "جياني فيرساتشي"
+      decision: confirmed
+      decision_reason: >
+        الاسم الكامل للشخص المقصود — يُعدّ الصيغة الرسمية المعيارية المستخدمة
+        في الموسوعات والمراجع العربية. مركَّب ثنائي من الاسم الأول واللقب.
+        يجب تحديث التشكيل.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      nuance_differentiation: >
+        الاسم الكامل — يُستعمل في السياقات الرسمية والتوثيقية والموسوعية
+        حيث يُراد التمييز القاطع عن باقي أفراد عائلة فيرساتشي (دوناتيلا، سانتو...).
+      morphological_fit: >
+        تعريب فونولوجي مزدوج: Gianni (جياني) + Versace (فيرساتشي). الصيغة
+        تقبل لام التعريف (الجياني فيرساتشي) وإن كانت غير مألوفة عملياً لأسماء الأعلام.
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "جِيانِي فِيرسَاتشِي"
+
+    - lemma: "فيرساتشي"
+      decision: confirmed
+      decision_reason: >
+        اللقب المنفرد — الصيغة الشائعة في الإعلام العربي وقطاع الموضة
+        والاستخدام اليومي. مشهور بما يكفي لحمل هذه الدلالة وحده في معظم السياقات.
+        يجب تحديث التشكيل.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: >
+        اللقب المختصر — يُستعمل في الإعلام والحديث العام والموضة؛ أكثر تداولاً
+        من الاسم الكامل في النصوص غير الرسمية، غير أنه أقل دقةً توثيقياً
+        (إذ قد يُحيل إلى العلامة التجارية Versace أو إلى شقيقته دوناتيلا).
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "فِيرسَاتشِي"
+
+    # ── مرشحات المرحلة ١ ──
+
+    - lemma: "جِيانِي فِيرسَاتشِي"
+      source: stage1
+      decision: removed
+      decision_reason: >
+        يطابق اللمّة الموجودة (جياني فيرساتشي) بعد تصحيح التشكيل — لا داعي
+        لإدخال مدخل مكرر. يُعالَج بتحديث اللمّة الموجودة.
+
+    - lemma: "فِيرسَاتشِي"
+      source: stage1
+      decision: removed
+      decision_reason: >
+        يطابق اللمّة الموجودة (فيرساتشي) بعد تصحيح التشكيل — لا داعي
+        لإدخال مدخل مكرر.
+
+    - lemma: "جِيانِّي فِيرسَاتشِي"
+      source: stage1
+      decision: removed
+      decision_reason: >
+        صيغة بديلة بمضاعفة النون (جِيانِّي) — هذا النطق وإن كان قريباً من
+        الأصل الإيطالي فإنّه غير مستقرّ في الكتابة العربية المعيارية.
+        الشيوع المعجمي في الموسوعات العربية هو (جِيانِي) بنون واحدة.
+
+    - lemma: "فِيرسَاتشِيه"
+      source: stage1
+      decision: removed
+      decision_reason: >
+        إضافة هاء السكت غير مألوفة في تعريب أسماء الأعلام الإيطالية المنتهية
+        بـ/e/ في العربية المعيارية — الشائع حذفها لا الإبقاء عليها.
+
+
+# ── المرحلة ٤: التعريف والأمثلة ──────────────────────────────
+stage4_content:
+  definition:
+    current: "مصمم أزياء إيطالي (1946-1997)"
+    assessment:
+      decision: revise
+      reason: >
+        التعريف الحالي صحيح لكنّه مُجرَّد وصف موجز يُعادل المعلومة المُضمَّنة
+        في التسمية وحسب. Instance synsets تستحق تعريفاً موسوعياً يُميّز هذا
+        الشخص بصفاته الجوهرية وما اشتُهر به — بما يُعين القارئ على التمييز
+        وتصوُّر المفهوم.
+    authored:
+      - type: encyclopedic
+        text: >
+          مُصَمِّم أزياء إيطالي (فيرونا 1946 — ميامي 1997)، مؤسِّس دار
+          فيرساتشي للأزياء الفاخرة عام 1978، اشتُهر بتصاميمه الجريئة
+          الملوَّنة المستوحاة من الفنّ الإغريقي القديم ومن الفنّ البروكي؛
+          يُعدّ من أبرز مصمِّمي الموضة في القرن العشرين، واغتيل أمام منزله
+          في ميامي بيتش.
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-11384130-n"
+          definition_index: 0
+          text: >
+            مُصَمِّم أزياء إيطالي (فيرونا 1946 — ميامي 1997)، مؤسِّس دار
+            فيرساتشي للأزياء الفاخرة عام 1978، اشتُهر بتصاميمه الجريئة
+            الملوَّنة المستوحاة من الفنّ الإغريقي القديم ومن الفنّ البروكي؛
+            يُعدّ من أبرز مصمِّمي الموضة في القرن العشرين، واغتيل أمام منزله
+            في ميامي بيتش.
+
+  examples:
+    per_lemma:
+      - lemma: "جِيانِي فِيرسَاتشِي"
+        examples:
+          - text: >
+              أسَّس جِيانِي فِيرسَاتشِي دارَهُ للأزياء عام 1978 في ميلانو،
+              فغدا رمزاً للفخامة الإيطالية على الصعيد العالمي.
+            type: usage
+      - lemma: "فِيرسَاتشِي"
+        examples:
+          - text: >
+              تُواصل شقيقتُه دوناتيلا إدارة دار فِيرسَاتشِي وتُبقي على
+              روح المؤسِّس الأصلي في كلِّ مجموعة جديدة.
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: >
+            أسَّس جِيانِي فِيرسَاتشِي دارَهُ للأزياء عام 1978 في ميلانو،
+            فغدا رمزاً للفخامة الإيطالية على الصعيد العالمي.
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: >
+            تُواصل شقيقتُه دوناتيلا إدارة دار فِيرسَاتشِي وتُبقي على
+            روح المؤسِّس الأصلي في كلِّ مجموعة جديدة.
+
+
+# ── المرحلة ٥: الإثراء (البيانات الوصفية) ──────────────────
+stage5_enrichment:
+  per_entry:
+    - lemma: "جِيانِي فِيرسَاتشِي"
+      entry_id: "{auto}"
+      # لا جذر عربي — اسم علم أجنبي معرَّب
+      note: "اسم علم أجنبي معرَّب (إيطالي): Gianni Versace — لا ينتمي إلى جذر عربي"
+
+    - lemma: "فِيرسَاتشِي"
+      entry_id: "{auto}"
+      note: "اسم علم أجنبي معرَّب (إيطالي): Versace — لا ينتمي إلى جذر عربي"
+
+  per_sense:
+    - lemma: "جِيانِي فِيرسَاتشِي"
+      sense_id: "{auto}"
+      nuance: >
+        الاسم الكامل الرسمي — يُفضَّل في السياقات الموسوعية والتوثيقية
+        والأكاديمية حيث يُراد تحديد الهوية بلا إبهام والتمييز عن سائر
+        أفراد عائلة فيرساتشي.
+      mwe: true
+
+    - lemma: "فِيرسَاتشِي"
+      sense_id: "{auto}"
+      nuance: >
+        اللقب المختصر الشائع — يُستعمل في الإعلام وقطاع الموضة والحديث
+        العام؛ أكثر تداولاً من الاسم الكامل لكنه أقلّ دقةً لاحتمال إحالته
+        إلى العلامة التجارية أو أفراد آخرين من العائلة.
+      mwe: false
+
+  synset:
+    cultural_fit: omission
+
+  actions:
+    # Entry note — جِيانِي فِيرسَاتشِي
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"foreign_origin":"it","original_form":"Gianni Versace","arabization_method":"phonological"}'
+
+    # Entry note — فِيرسَاتشِي
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"foreign_origin":"it","original_form":"Versace","arabization_method":"phonological"}'
+
+    # Sense note — جِيانِي فِيرسَاتشِي
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الكامل الرسمي — للسياقات الموسوعية والتوثيقية","mwe":true}'
+
+    # Sense note — فِيرسَاتشِي
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللقب المختصر الشائع في الإعلام والموضة — أقل دقة توثيقية","mwe":false}'
+
+    # Synset note
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-11384130-n"
+        key: note
+        value: '{"cultural_fit":"omission","instance_of":"person","domain":"fashion"}'
+
+    # Confidence
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-11384130-n"
+        score: 0.90

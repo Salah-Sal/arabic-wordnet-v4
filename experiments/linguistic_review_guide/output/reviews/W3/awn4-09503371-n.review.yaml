@@ -1,0 +1,218 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمة الحالية تفتقر إلى التشكيل الكامل.
+      - الاقتصار على تعريب الاسم "ويندوارد" دون ذكر المقابل الدلالي العربي (مهب الريح).
+    observations: "المصطلح يشير إلى ممر مائي جغرافي محدد. الترجمة المباشرة (ويندوارد) شائعة في الأطلس الحديث، لكن المصطلح الوصفي (مهب الريح) يمثل المقابل العربي الدقيق لمعنى 'Windward' في الملاحة."
+  blind_candidates:
+    - lemma: "مَمَرّ وِيندوَارد"
+      generation_method: taarib
+      justification: "تعريب مباشر للاسم الإنجليزي الشائع للممر المائي."
+    - lemma: "مَضِيق وِيندوَارد"
+      generation_method: tarkib
+      justification: "استخدام 'مضيق' كبديل لـ 'ممر' (Passage) وهو شائع في التسميات الجغرافية العربية."
+    - lemma: "مَمَرّ مَهَبِّ الرِّيحِ"
+      generation_method: majaz
+      justification: "ترجمة دلالية لمصطلح 'Windward' الذي يعني الجهة التي تهب منها الريح."
+    - lemma: "مَضِيق مَهَبِّ الرِّيحِ"
+      generation_method: tarkib
+      justification: "جمع بين المصطلح الجغرافي 'مضيق' والترجمة الدلالية لـ 'Windward'."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مَمَرّ وِيندوَارد"
+      evidence_status: "no_material_found"
+    - lemma: "مَضِيق وِيندوَارد"
+      evidence_status: "no_material_found"
+    - lemma: "مَمَرّ مَهَبِّ الرِّيحِ"
+      evidence_status: "no_material_found"
+    - lemma: "مَضِيق مَهَبِّ الرِّيحِ"
+      evidence_status: "no_material_found"
+    - lemma: "مَضِيق"
+      confirm:
+        - text: "«(المَضِيقُ): ما ضاق واشتدَّ من الأمور مجرى ماءٍ ضَيِّقٌ بين قطعتين من الأرض.»"
+          source: "المعجم الوسيط"
+        - text: "«ممر مائي بين قارتين أو جزيرتين أو بين جزيرة واليابسة أو هو ممر يصل بحرين أحدهما بالآخر»"
+          source: "المعجم الموحد لمصطلحات الجيولوجيا (2000)"
+    - lemma: "مَهَبّ"
+      confirm:
+        - text: "«موضع الهُبُوب، يقالُ: قعد في مَهَبِّ الريح»"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "ممر ويندوارد"
+      decision: confirmed
+      decision_reason: "الاسم الجغرافي الشائع والمعتمد في الخرائط والمراجع العربية الحديثة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَمَرّ وِيندوَارد"
+    - lemma: "مَضِيق وِيندوَارد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "استخدام دقيق للمصطلح الجغرافي 'مضيق' لوصف هذه القناة المائية، وهو مستعمل بكثرة كبديل لـ 'ممر'."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "مَضِيق وِيندوَارد", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مَمَرّ مَهَبِّ الرِّيحِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "ترجمة دلالية فصيحة لمصطلح 'Windward Passage'، تعبر عن المعنى الملاحي الأصلي للاسم."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "مَمَرّ مَهَبِّ الرِّيحِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مَضِيق مَهَبِّ الرِّيحِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صيغة تجمع بين المصطلح الجغرافي 'مضيق' والترجمة الدلالية 'مهب الريح'."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "مَضِيق مَهَبِّ الرِّيحِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "قناة بين شرق كوبا وغرب هايتي تربط المحيط الأطلسي بالبحر الكاريبي"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دقيق جغرافياً لكن يحتاج إلى صياغة معجمية أكثر رصانة مع توضيح طبيعة الممر."
+    authored:
+      - type: terminological
+        text: "ممر مائي طبيعي يقع بين الجهة الشرقية من جزيرة كوبا والجهة الغربية من جزيرة هايتي، يصل مياه المحيط الأطلسي بمياه البحر الكاريبي."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "ممر مائي طبيعي يقع بين الجهة الشرقية من جزيرة كوبا والجهة الغربية من جزيرة هايتي، يصل مياه المحيط الأطلسي بمياه البحر الكاريبي."}
+  examples:
+    per_lemma:
+      - lemma: "مَمَرّ وِيندوَارد"
+        examples:
+          - text: "يُعتبر مَمَرّ وِيندوَارد أحد أهم المسارات الملاحية للسفن المتجهة إلى قناة بنما عبر المحيط الأطلسي."
+            type: usage
+      - lemma: "مَضِيق وِيندوَارد"
+        examples:
+          - text: "يفصل مَضِيق وِيندوَارد بين جزيرتي كوبا وهسبانيولا بعرض يبلغ حوالي 80 كيلومتراً."
+            type: usage
+      - lemma: "مَمَرّ مَهَبِّ الرِّيحِ"
+        examples:
+          - text: "أُطلق اسم مَمَرّ مَهَبِّ الرِّيحِ على القناة نظراً لموقعها المواجه للرياح التجارية الشمالية الشرقية."
+            type: usage
+      - lemma: "مَضِيق مَهَبِّ الرِّيحِ"
+        examples:
+          - text: "تعبر السفن الكبيرة مَضِيق مَهَبِّ الرِّيحِ للوصول إلى الموانئ الجنوبية في منطقة الكاريبي."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يُعد هذا الممر المائي ممراً استراتيجياً يربط بين المحيط الأطلسي والبحر الكاريبي."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَمَرّ وِيندوَارد"
+      entry_id: "{auto}"
+      roots:
+        - word: "ممر"
+          root: "مرر"
+          maqayis_quote: "«الْمِيمُ وَالرَّاءُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى مُضِيِّ شَيْءٍ... فَالْأَوَّلُ مَرَّ الشَّيْءُ يَمُرُّ، إِذَا مَضَى.»"
+    - lemma: "مَضِيق وِيندوَارد"
+      entry_id: "{auto}"
+      roots:
+        - word: "مضيق"
+          root: "ضيق"
+          maqayis_quote: "«الضَّادُ وَالْيَاءُ وَالْقَافُ كَلِمَةٌ وَاحِدَةٌ تَدُلُّ عَلَى خِلَافِ السَّعَةِ، وَذَلِكَ هُوَ الضِّيقُ.»"
+    - lemma: "مَمَرّ مَهَبِّ الرِّيحِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "ممر"
+          root: "مرر"
+          maqayis_quote: "«الْمِيمُ وَالرَّاءُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى مُضِيِّ شَيْءٍ... فَالْأَوَّلُ مَرَّ الشَّيْءُ يَمُرُّ، إِذَا مَضَى.»"
+        - word: "مهب"
+          root: "هبب"
+          maqayis_quote: "«الْهَاءُ وَالْبَاءُ مُعْظَمُ بَابِهِ الِانْتِبَاهُ وَالِاهْتِزَازُ وَالْحَرَكَةُ... هَبَّتِ الرِّيحُ تَهُبُّ هُبُوبًا.»"
+        - word: "الريح"
+          root: "روح"
+          maqayis_quote: "«الرَّاءُ وَالْوَاوُ وَالْحَاءُ أَصْلٌ كَبِيرٌ مُطَّرِدٌ، يَدُلُّ عَلَى سَعَةٍ وَفُسْحَةٍ وَاطِّرَادٍ. وَأَصْلُ [ذَلِكَ] كُلِّهِ الرِّيحُ.»"
+    - lemma: "مَضِيق مَهَبِّ الرِّيحِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مضيق"
+          root: "ضيق"
+          maqayis_quote: "«الضَّادُ وَالْيَاءُ وَالْقَافُ كَلِمَةٌ وَاحِدَةٌ تَدُلُّ عَلَى خِلَافِ السَّعَةِ، وَذَلِكَ هُوَ الضِّيقُ.»"
+        - word: "مهب"
+          root: "هبب"
+          maqayis_quote: "«الْهَاءُ وَالْبَاءُ مُعْظَمُ بَابِهِ الِانْتِبَاهُ وَالِاهْتِزَازُ وَالْحَرَكَةُ... هَبَّتِ الرِّيحُ تَهُبُّ هُبُوبًا.»"
+        - word: "الريح"
+          root: "روح"
+          maqayis_quote: "«الرَّاءُ وَالْوَاوُ وَالْحَاءُ أَصْلٌ كَبِيرٌ مُطَّرِدٌ، يَدُلُّ عَلَى سَعَةٍ وَفُسْحَةٍ وَاطِّرَادٍ. وَأَصْلُ [ذَلِكَ] كُلِّهِ الرِّيحُ.»"
+  per_sense:
+    - lemma: "مَمَرّ وِيندوَارد"
+      sense_id: "{auto}"
+      nuance: "الاسم الجغرافي المعرب الأكثر شيوعاً."
+      mwe: true
+    - lemma: "مَضِيق وِيندوَارد"
+      sense_id: "{auto}"
+      nuance: "يستخدم مصطلح 'مضيق' للتأكيد على الطبيعة الجغرافية للمكان كممر مائي ضيق بين جزيرتين."
+      mwe: true
+    - lemma: "مَمَرّ مَهَبِّ الرِّيحِ"
+      sense_id: "{auto}"
+      nuance: "ترجمة دلالية توضح سبب التسمية الأصلي المرتبط بالرياح."
+      mwe: true
+    - lemma: "مَضِيق مَهَبِّ الرِّيحِ"
+      sense_id: "{auto}"
+      nuance: "صيغة تجمع بين الدقة الجغرافية والترجمة الدلالية للرياح."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"ممر","root":"مرر","maqayis":"«الْمِيمُ وَالرَّاءُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى مُضِيِّ شَيْءٍ... فَالْأَوَّلُ مَرَّ الشَّيْءُ يَمُرُّ، إِذَا مَضَى.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الجغرافي المعرب الأكثر شيوعاً.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

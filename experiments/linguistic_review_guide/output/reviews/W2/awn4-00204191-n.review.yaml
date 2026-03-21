@@ -1,0 +1,235 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمات الموجودة تفتقر إلى التشكيل الكامل.
+      - التعريف العربي الحالي بسيط جداً وغير محكم معجمياً.
+    observations: "المجموعة تعبر عن مفهوم الرفض كحدث أو فعل (act). اللمات المقترحة (رفض، نبذ) دقيقة وتغطي الجانبين: عدم القبول (الرفض) والطرح/الإهمال (النبذ)."
+  blind_candidates:
+    - lemma: "رَفْض"
+      generation_method: ishtiqaq
+      justification: "المصدر الصريح للفعل رفض، وهو اللفظ الأساسي للتعبير عن عدم القبول."
+    - lemma: "نَبْذ"
+      generation_method: ishtiqaq
+      justification: "يدل على الرفض المصحوب بالطرح أو الإهمال، وهو مطابق للمعنى الإنجليزي في سياقات معينة."
+    - lemma: "رَدّ"
+      generation_method: majaz
+      justification: "الرفض بإرجاع الشيء إلى مصدره وعدم تسلمه."
+    - lemma: "إِعْرَاض"
+      generation_method: ishtiqaq
+      justification: "الرفض السلوكي بالصد عن الشيء وترك الالتفات إليه."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "رَفْض"
+      confirm:
+        - text: "«(رَفَضَ) الرَّاءُ وَالْفَاءُ وَالضَّادُ أَصْلٌ وَاحِدٌ، وَهُوَ التَّرْكُ... يُقَالُ رَفَضْتُ الشَّيْءَ: تَرَكْتُهُ.»"
+          source: "مقاييس اللغة"
+        - text: "«rejection: رَفْض»"
+          source: "المعجم الموحد لمصطلحات القانون"
+    - lemma: "نَبْذ"
+      confirm:
+        - text: "«(نَبَذَ) النُّونُ وَالْبَاءُ وَالذَّالُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى طَرْحٍ وَإِلْقَاءٍ.»"
+          source: "مقاييس اللغة"
+        - text: "«نَبَذَ العَهْدَ: نقَضَه... نبَذ الأمرَ: أهمله ولم يعمل به»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«rejection: النبذ»"
+          source: "المعجم الموحد لمصطلحات المياه"
+    - lemma: "رَدّ"
+      confirm:
+        - text: "«(رَدَّ) الرَّاءُ وَالدَّالُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ مُنْقَاسٌ، وَهُوَ رَجْعُ الشَّيْءِ.»"
+          source: "مقاييس اللغة"
+        - text: "«الرَّدُّ: في اللغة الصرف.»"
+          source: "التعريفات الفقهية"
+    - lemma: "إِعْرَاض"
+      confirm:
+        - text: "«الإعراض: الإضراب عن الشيء، وحقيقته جعل الهمزة للصيرورة، أي أخذت عرضا أي جانبا غير الجانب الذي هو فيه.»"
+          source: "التوقيف على مهمات التعاريف"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "رفض"
+      decision: confirmed
+      decision_reason: "اللفظ الأساسي والمباشر للمفهوم، ومدعوم بقوة في المعاجم الحديثة والتقنية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "رَفْض"
+    - lemma: "نبذ"
+      decision: confirmed
+      decision_reason: "مرادف دقيق يدل على الرفض المصحوب بالترك أو الطرح، ومستخدم اصطلاحاً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نَبْذ"
+    - lemma: "رَدّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر عن فعل الرفض من زاوية إرجاع الشيء وعدم قبوله، وهو وجه من وجوه الرفض."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "رَدّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-00204191-n"}
+    - lemma: "إِعْرَاض"
+      source: stage1
+      decision: confirmed
+      decision_reason: "نوع من الرفض المعنوي بالصد والترك، يغني الدلالة السلوكية للمجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "إِعْرَاض", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-00204191-n"}
+
+stage4_content:
+  definition:
+    current: "فعل رفض شيء ما"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ركيك ودوراني (استخدام الكلمة في تعريفها). يجب استخدام صياغة معجمية رصينة."
+    authored:
+      - type: terminological
+        text: "عَمَلِيَّةُ عَدَمِ قَبُولِ شَيْءٍ مَا أَوْ التَّصَدِّي لَهُ وَطَرْحِهِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-00204191-n", definition_index: 0, text: "عَمَلِيَّةُ عَدَمِ قَبُولِ شَيْءٍ مَا أَوْ التَّصَدِّي لَهُ وَطَرْحِهِ."}
+  examples:
+    per_lemma:
+      - lemma: "رَفْض"
+        examples:
+          - text: "قُوبِلَ هَذَا المَشْرُوعُ بِرَفْضٍ قَاطِعٍ مِنَ الجِهَاتِ المَعْنِيَّةِ."
+            type: usage
+      - lemma: "نَبْذ"
+        examples:
+          - text: "يَجِبُ نَبْذُ العَادَاتِ السَّيِّئَةِ لِتَحْقِيقِ التَّقَدُّمِ."
+            type: usage
+      - lemma: "رَدّ"
+        examples:
+          - text: "قَرَّرَ القَاضِي رَدَّ الدَّعْوَى لِعَدَمِ كِفَايَةِ الأَدِلَّةِ."
+            type: usage
+      - lemma: "إِعْرَاض"
+        examples:
+          - text: "تَمَسَّكَ بِرَأْيِهِ رَغْمَ إِعْرَاضِ الجَمِيعِ عَنْهُ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-00204191-n", text: "أَدَّى رَفْضُ العَرْضِ إِلَى تَوَقُّفِ المُفَاوَضَاتِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "رَفْض"
+      entry_id: "{auto}"
+      root: "رفض"
+      maqayis_quote: "«الرَّاءُ وَالْفَاءُ وَالضَّادُ أَصْلٌ وَاحِدٌ، وَهُوَ التَّرْكُ... يُقَالُ رَفَضْتُ الشَّيْءَ: تَرَكْتُهُ.»"
+    - lemma: "نَبْذ"
+      entry_id: "{auto}"
+      root: "نبذ"
+      maqayis_quote: "«النُّونُ وَالْبَاءُ وَالذَّالُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى طَرْحٍ وَإِلْقَاءٍ.»"
+    - lemma: "رَدّ"
+      entry_id: "{auto}"
+      root: "ردد"
+      maqayis_quote: "«الرَّاءُ وَالدَّالُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ مُنْقَاسٌ، وَهُوَ رَجْعُ الشَّيْءِ.»"
+    - lemma: "إِعْرَاض"
+      entry_id: "{auto}"
+      root: "عرض"
+      maqayis_quote: "«الْعَيْنُ وَالرَّاءُ وَالضَّادُ بِنَاءٌ تَكْثُرُ فُرُوعُهُ... تَرْجِعُ إِلَى أَصْلٍ وَاحِدٍ، وَهُوَ الْعَرْضُ الَّذِي يُخَالِفُ الطُّولَ.»"
+  per_sense:
+    - lemma: "رَفْض"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام والشامل لعدم القبول."
+      mwe: false
+    - lemma: "نَبْذ"
+      sense_id: "{auto}"
+      nuance: "رفض مصحوب بالترك أو الطرح بعيداً لهوان الشيء أو كراهته."
+      mwe: false
+    - lemma: "رَدّ"
+      sense_id: "{auto}"
+      nuance: "رفض يتضمن إرجاع الشيء المقترح أو المعروض وعدم تسلمه."
+      mwe: false
+    - lemma: "إِعْرَاض"
+      sense_id: "{auto}"
+      nuance: "رفض معنوي يتمثل في الصد وعدم الاهتمام أو الالتفات."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"رفض","maqayis":"«الرَّاءُ وَالْفَاءُ وَالضَّادُ أَصْلٌ وَاحِدٌ، وَهُوَ التَّرْكُ... يُقَالُ رَفَضْتُ الشَّيْءَ: تَرَكْتُهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نبذ","maqayis":"«النُّونُ وَالْبَاءُ وَالذَّالُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى طَرْحٍ وَإِلْقَاءٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ردد","maqayis":"«الرَّاءُ وَالدَّالُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ مُنْقَاسٌ، وَهُوَ رَجْعُ الشَّيْءِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عرض","maqayis":"«الْعَيْنُ وَالرَّاءُ وَالضَّادُ بِنَاءٌ تَكْثُرُ فُرُوعُهُ... تَرْجِعُ إِلَى أَصْلٍ وَاحِدٍ، وَهُوَ الْعَرْضُ الَّذِي يُخَالِفُ الطُّولَ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ العام والشامل لعدم القبول.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"رفض مصحوب بالترك أو الطرح بعيداً لهوان الشيء أو كراهته.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"رفض يتضمن إرجاع الشيء المقترح أو المعروض وعدم تسلمه.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"رفض معنوي يتمثل في الصد وعدم الاهتمام أو الالتفات.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-00204191-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-00204191-n"
+        score: 0.95

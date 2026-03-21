@@ -1,0 +1,183 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف العربي الحالي دائري (يستخدم لفظ 'النظافة' لتعريف 'النظافة')."
+      - "الاكتفاء بلمة واحدة لمفهوم مركزي كالنظافة يعد قصوراً معجمياً."
+    observations: "المفهوم يشير إلى النظافة كخصلة سلوكية أو ديدن (diligence) وليس مجرد الحالة الفيزيائية."
+  blind_candidates:
+    - lemma: "نَظَافَة"
+      generation_method: ishtiqaq
+      justification: "اللفظ الأساسي الدال على الحالة والخصلة."
+    - lemma: "طَهَارَة"
+      generation_method: ishtiqaq
+      justification: "لفظ تراثي يدل على النقاء وزوال الدنس، ويشمل الجانبين المادي والمعنوي."
+    - lemma: "تَنَظُّف"
+      generation_method: ishtiqaq
+      justification: "مصدر الفعل تَنَظَّفَ (تفعّل) الذي يفيد التكلف والاجتهاد في الفعل، وهو ما يطابق معنى (diligence) في التعريف الإنجليزي."
+    - lemma: "نَقَاء"
+      generation_method: ishtiqaq
+      justification: "خلو الشيء مما يشوبه، ويستخدم مرادفاً للنظافة في المعاجم القديمة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "نَظَافَة"
+      confirm:
+        - text: "«النَّظافَةُ: النَّقاوَةُ»"
+          source: "القاموس المحيط"
+        - text: "«النظافة في بعدها المتعلق بالصحة العامة... مجمل المبادئ والممارسات الهادفة للوقاية من الأمراض»"
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة"
+    - lemma: "طَهَارَة"
+      confirm:
+        - text: "«الطهارة: في اللغة: عبارة عن النظافة»"
+          source: "كتاب التعريفات للجرجاني"
+        - text: "«لغة النظافة وخلافها الدّنس»"
+          source: "كشاف اصطلاحات الفنون للتهانوي"
+      expands:
+        - text: "«والتَّطَهُّرُ: التَّنَزُّهُ عَنِ الذَّمِّ وَكُلِّ قَبِيحٍ»"
+          source: "مقاييس اللغة"
+          addition: "يضيف الجانب المعنوي والأخلاقي للنظافة كخصلة."
+    - lemma: "تَنَظُّف"
+      confirm:
+        - text: "«وتَنَظَّفَ: تَكَلَّفَ النَّظافَةَ»"
+          source: "القاموس المحيط"
+        - text: "«وفلان يتنظف يترفع عما يشين ويتنزه»"
+          source: "المعجم الوسيط"
+    - lemma: "نَقَاء"
+      confirm:
+        - text: "«أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خُلُوصِ الشَّيْءِ مِنْ شَوْبٍ»"
+          source: "مقاييس اللغة"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "نظافة"
+      decision: confirmed
+      decision_reason: "اللفظ الأساسي والشائع للمفهوم، ويغطي الدلالة على الخصلة والحالة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نَظَافَةٌ"
+    - lemma: "تَنَظُّفٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر بدقة عن 'الاجتهاد في الحفاظ على النظافة' لأن وزن (تفعّل) يفيد التكلف والمزاولة المستمرة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَنَظُّفٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-04903356-n"}
+    - lemma: "طَهَارَةٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف معجمي أصيل للنظافة، ويحمل دلالة الخصلة الثابتة في الشخصية (الطهر)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "طَهَارَةٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-04903356-n"}
+
+stage4_content:
+  definition:
+    current: "الاجتهاد في الحفاظ على النظافة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دائري ويفتقر للوضوح المصطلحي."
+    authored:
+      - type: terminological
+        text: "الخَصْلَةُ الَّتِي تُمَيِّزُ مَنْ يَعْنَى بِنَظَافَةِ بَدَنِهِ وَثَوْبِهِ وَمَكَانِهِ، وَيَجْتَهِدُ فِي إِزَالَةِ الأَدْنَاسِ وَالأَقْذَارِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-04903356-n", definition_index: 0, text: "الخَصْلَةُ الَّتِي تُمَيِّزُ مَنْ يَعْنَى بِنَظَافَةِ بَدَنِهِ وَثَوْبِهِ وَمَكَانِهِ، وَيَجْتَهِدُ فِي إِزَالَةِ الأَدْنَاسِ وَالأَقْذَارِ."}
+  examples:
+    per_lemma:
+      - lemma: "نَظَافَةٌ"
+        examples:
+          - text: "تُعَدُّ النَّظَافَةُ مِنَ القِيَمِ الجَمَالِيَّةِ وَالصِّحِّيَّةِ الرَّاقِيَةِ فِي المُجْتَمَعِ."
+            type: usage
+      - lemma: "تَنَظُّفٌ"
+        examples:
+          - text: "عُرِفَ عَنْهُ التَّنَظُّفُ الدَّائِمُ وَالعِنَايَةُ الفَائِقَةُ بِمَظْهَرِهِ وَبِيئَتِهِ."
+            type: usage
+      - lemma: "طَهَارَةٌ"
+        examples:
+          - text: "تُلازِمُ الطَّهَارَةُ المَرْءَ فِي عِبَادَاتِهِ وَحَيَاتِهِ اليَوْمِيَّةِ كَسِمَةٍ لِلنَّقَاءِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-04903356-n", text: "النَّظَافَةُ مِنَ الإِيمَانِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "نَظَافَةٌ"
+      entry_id: "{auto}"
+      root: "نظف"
+      maqayis_quote: "«النُّونُ وَالظَّاءُ وَالْفَاءُ كَلِمَةٌ وَاحِدَةٌ، وَهِيَ قَوْلُهُمْ: شَيْءٌ نَظِيفٌ: نَقِيٌّ، بَيِّنُ النَّظَافَةِ.»"
+    - lemma: "تَنَظُّفٌ"
+      entry_id: "{auto}"
+      root: "نظف"
+      maqayis_quote: "«النُّونُ وَالظَّاءُ وَالْفَاءُ كَلِمَةٌ وَاحِدَةٌ، وَهِيَ قَوْلُهُمْ: شَيْءٌ نَظِيفٌ: نَقِيٌّ، بَيِّنُ النَّظَافَةِ.»"
+    - lemma: "طَهَارَةٌ"
+      entry_id: "{auto}"
+      root: "طهر"
+      maqayis_quote: "«الطَّاءُ وَالْهَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى نَقَاءٍ وَزَوَالِ دَنَسٍ.»"
+  per_sense:
+    - lemma: "نَظَافَةٌ"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام الدال على الخصلة والحالة."
+      mwe: false
+    - lemma: "تَنَظُّفٌ"
+      sense_id: "{auto}"
+      nuance: "يركز على جانب الاجتهاد والمزاولة الفعلية للنظافة (Diligence)."
+      mwe: false
+    - lemma: "طَهَارَةٌ"
+      sense_id: "{auto}"
+      nuance: "يحمل بُعداً تراثياً وشرعياً، ويدل على خلو الذات من الأدناس المادية والمعنوية."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نظف","maqayis":"«النُّونُ وَالظَّاءُ وَالْفَاءُ كَلِمَةٌ وَاحِدَةٌ، وَهِيَ قَوْلُهُمْ: شَيْءٌ نَظِيفٌ: نَقِيٌّ، بَيِّنُ النَّظَافَةِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"طهر","maqayis":"«الطَّاءُ وَالْهَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى نَقَاءٍ وَزَوَالِ دَنَسٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على جانب الاجتهاد والمزاولة الفعلية للنظافة (Diligence)","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-04903356-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-04903356-n"
+        score: 0.95

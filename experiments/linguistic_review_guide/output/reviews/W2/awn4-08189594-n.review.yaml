@@ -1,0 +1,128 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الحالية تفتقر إلى التشكيل الكامل."
+      - "وجود شكل بديل شائع بلفظ 'أوربّا' (بواو واحدة) غير ممثل في المجموعة."
+    observations: "تتطابق المجموعة مع المفهوم الجيو-سياسي لأوروبا كمجموعة دول، وهو ما يميزها عن المفهوم الجغرافي البحت للقارة. اللمة 'أوروبا' هي اللفظ القياسي، وهناك بدائل شائعة في المعاجم الحديثة مثل 'أوربّا' و'القارة الأوروبية'."
+  blind_candidates:
+    - lemma: "أُورُوبَّا"
+      generation_method: taarib
+      justification: "الاسم القياسي المعرّب للقارة ولدولها."
+    - lemma: "أُورُبَّا"
+      generation_method: taarib
+      justification: "شكل بديل شائع في المعاجم (بواو واحدة) وورد في المعجم الكبير."
+    - lemma: "القَارَّةُ الأُورُوبِّيَّة"
+      generation_method: tarkib
+      justification: "تعبير مركّب يستخدم للإشارة إلى أوروبا ككيان جماعي جغرافي وسياسي."
+    - lemma: "الدُّوَلُ الأُورُوبِّيَّة"
+      generation_method: tarkib
+      justification: "تعبير وصفي مباشر لمدلول المجموعة (نظام الدول في أوروبا)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "أُورُوبَّا"
+      confirm:
+        - text: "«أوروبا (Europe): إحدى قارات العالم القديم...»"
+          source: "المعجم الكبير (بالرغم من وروده بلفظ أوربا في العنوان إلا أن أوروبا مستخدمة في المتن)"
+        - text: "«أوروبا»"
+          source: "المكنز الزراعي (ARABTERM)"
+    - lemma: "أُورُبَّا"
+      confirm:
+        - text: "«أُورُبَّا: إحدى قارات العالم السبع، تقع في النصف الشمالي من الكرة الأرضية.»"
+          source: "المعجم الكبير (مدخل رقم 37840)"
+    - lemma: "القَارَّةُ الأُورُوبِّيَّة"
+      confirm:
+        - text: "«...تقع في شمال قارة أوروبا.» (استخدام 'قارة أوروبا' كمركب وصفي)"
+          source: "المعجم الكبير (تعريف السويد)"
+    - lemma: "الدُّوَلُ الأُورُوبِّيَّة"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "أوروبا"
+      decision: confirmed
+      decision_reason: "الاسم الأساسي والقياسي المعرّب، ومثبت في جميع المعاجم الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "أُورُوبَّا"
+    - lemma: "أُورُبَّا"
+      source: stage1
+      decision: confirmed
+      decision_reason: "شكل بديل مثبت في المعجم الكبير، ويشيع استخدامه في الترجمات القديمة وبعض السياقات الرسمية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "أُورُبَّا", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "القَارَّةُ الأُورُوبِّيَّة"
+      source: stage1
+      decision: removed
+      decision_reason: "بالرغم من استخدامه، إلا أنه يشير غالباً إلى المفهوم الجغرافي (Continent) أكثر من المفهوم الجماعي للدول، ويفضل إبقاؤه للمجموعة الترادفية الخاصة بالقارة."
+    - lemma: "الدُّوَلُ الأُورُوبِّيَّة"
+      source: stage1
+      decision: removed
+      decision_reason: "عبارة وصفية حرة (Free phrase) وليست مصطلحاً معجمياً مسكوكاً."
+
+stage4_content:
+  definition:
+    current: "دول القارة الأوروبية مجتمعة"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق ومباشر ويتوافق مع المفهوم المعجمي لمجموعة الدول."
+  examples:
+    per_lemma:
+      - lemma: "أُورُوبَّا"
+        examples:
+          - text: "تَسْعَى أُورُوبَّا إِلَى تَعْزِيزِ التَّعَاوُنِ الِاقْتِصَادِيِّ بَيْنَ دُوَلِهَا."
+            type: usage
+      - lemma: "أُورُبَّا"
+        examples:
+          - text: "انْتَشَرَتِ الثَّوْرَةُ الصِّنَاعِيَّةُ فِي أُورُبَّا خِلَالَ القَرْنِ التَّاسِعَ عَشَرَ."
+            type: usage
+
+stage5_enrichment:
+  per_sense:
+    - lemma: "أُورُوبَّا"
+      sense_id: "{auto}"
+      nuance: "الاسم القياسي والأكثر شيوعاً."
+      mwe: false
+    - lemma: "أُورُبَّا"
+      sense_id: "{auto}"
+      nuance: "شكل بديل يظهر في بعض المعاجم الرسمية والترجمات."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم القياسي والأكثر شيوعاً","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"شكل بديل يظهر في بعض المعاجم الرسمية والترجمات","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

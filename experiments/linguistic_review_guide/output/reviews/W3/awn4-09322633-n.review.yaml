@@ -1,0 +1,167 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "تفتقر المجموعة لأسماء تاريخية لهذا المعلم الجغرافي المهم."
+      - "اللمة الموجودة غير مشكلة."
+    observations: "المفهوم اسم علم جغرافي (خليج) يقع بالكامل في محيط عربي (مصر). التسمية المعاصرة مستقرة تماماً، لكن هناك عمقاً تاريخياً للتسمية يستحق التوثيق."
+  blind_candidates:
+    - lemma: "خَلِيجُ السُّوَيْسِ"
+      generation_method: tarkib
+      justification: "الاسم المعياري المعاصر والدارج لهذا المعلم."
+    - lemma: "خَلِيجُ القُلْزُمِ"
+      generation_method: tarkib
+      justification: "الاسم التاريخي العربي القديم لخليج السويس، والقلزم هو الاسم القديم لمدينة السويس."
+    - lemma: "بَحْرُ السُّوَيْسِ"
+      generation_method: tarkib
+      justification: "تسمية بديلة ترد أحياناً في النصوص الجغرافية الأقدم أو الوصفية."
+    - lemma: "جَوْنُ السُّوَيْسِ"
+      generation_method: tarkib
+      justification: "استخدام لفظ (جَوْن) كمرادف فصيح للخليج في سياق أدبي أو جغرافي قديم."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خَلِيجُ السُّوَيْسِ"
+      confirm:
+        - text: "«أحد الخليجينِ اللَّذين ينتهى بهما البحرُ الأحمرُ شمالاً, تبدأُ عنده قناةُ السُّويس, وبـه حقولُ بترول بَحْرِيّةٌ.»"
+          source: "المعجم الكبير"
+        - text: "«خليج السويس (Gulf of Suez)»"
+          source: "المكنز الزراعي متعدد اللغات (ArabTerm)"
+    - lemma: "خَلِيجُ القُلْزُمِ"
+      confirm:
+        - text: "«عُرِفَتْ [السويس] قديمًا باسم ” كلسيما” وسَّماها العربُ ”الْقُلْزَم”»"
+          source: "المعجم الكبير"
+        - text: "«بحر القلزم ومقداره نحو ثلاثين مرحلة طولا... حتى ينتهي إلى القلزم، وهي مدينة [بني في موضعها السويس]»"
+          source: "معجم البلدان (ياقوت الحموي)"
+      expands:
+        - text: "«بحر القلزم: البحر الأحمر»"
+          source: "المعجم الوسيط"
+          addition: "يؤكد أن اسم القلزم كان يطلق على البحر الأحمر كله ومنه هذا الخليج."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "خليج السويس"
+      decision: confirmed
+      decision_reason: "الاسم الرسمي والمعياري الحالي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَلِيجُ السُّوَيْسِ"
+    - lemma: "خَلِيجُ القُلْزُمِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اسم تاريخي عربي موثق في أمهات الكتب الجغرافية (لياقوت الحموي وغيره) وهو مرادف دقيق للموقع قبل تسمية السويس."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "خَلِيجُ القُلْزُمِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "ذراع شمالية غربية للبحر الأحمر ترتبط بالبحر الأبيض المتوسط عبر قناة السويس"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دقيق لكنه يحتاج لضبط لغوي وتوضيح جغرافي أكبر يشمل الامتداد المكاني (شبه جزيرة سيناء)."
+    authored:
+      - type: encyclopedic
+        text: "ذِراعٌ بَحْرِيَّةٌ تَقَعُ فِي الطَّرَفِ الشَّمَالِيِّ الغَرْبِيِّ لِلْبَحْرِ الأَحْمَرِ، تَمْتَدُّ بَيْنَ شِبْهِ جَزِيرَةِ سِينَاءَ شَرْقاً وَسَاحِلِ مِصْرَ الإِفْرِيقِيِّ غَرْباً، وَتَتَّصِلُ بِالبَحْرِ الأَبْيَضِ المُتَوَسِّطِ عَبْرَ قَنَاةِ السُّوَيْسِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "ذِراعٌ بَحْرِيَّةٌ تَقَعُ فِي الطَّرَفِ الشَّمَالِيِّ الغَرْبِيِّ لِلْبَحْرِ الأَحْمَرِ، تَمْتَدُّ بَيْنَ شِبْهِ جَزِيرَةِ سِينَاءَ شَرْقاً وَسَاحِلِ مِصْرَ الإِفْرِيقِيِّ غَرْباً، وَتَتَّصِلُ بِالبَحْرِ الأَبْيَضِ المُتَوَسِّطِ عَبْرَ قَنَاةِ السُّوَيْسِ."}
+
+  examples:
+    per_lemma:
+      - lemma: "خَلِيجُ السُّوَيْسِ"
+        examples:
+          - text: "تُعَدُّ مِنْطَقَةُ خَلِيجِ السُّوَيْسِ مَرْكَزاً رَئِيسِيّاً لِإِنْتَاجِ البِتْرُولِ فِي مِصْرَ."
+            type: usage
+      - lemma: "خَلِيجُ القُلْزُمِ"
+        examples:
+          - text: "كَانَ العَرَبُ قَدِيماً يُسَمُّونَ هَذَا المَسْطَحَ المَائِيَّ خَلِيجَ القُلْزُمِ نِسْبَةً إِلَى مَدِينَةِ القُلْزُمِ التَّارِيخِيَّةِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تُعَدُّ مِنْطَقَةُ خَلِيجِ السُّوَيْسِ مَرْكَزاً رَئِيسِيّاً لِإِنْتَاجِ البِتْرُولِ فِي مِصْرَ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خَلِيجُ السُّوَيْسِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "خليج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"
+        - word: "السويس"
+          root: "سوس"
+          maqayis_quote: "«السِّينُ وَالْوَاوُ وَالسِّينُ أَصْلَانِ: أَحَدُهُمَا فَسَادٌ فِي شَيْءٍ، وَالْآخَرُ جِبِلَّةٌ وَخَلِيقَةٌ.»"
+    - lemma: "خَلِيجُ القُلْزُمِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "خليج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ.»"
+        - word: "القلزم"
+          root: "قلزم"
+          maqayis_quote: "«القلزمة: ابتلاع الشيء، يقال: تقلزمه إذا ابتلعه، وسمي بحر القلزم قلزما لالتهامه من ركبه.»"
+  per_sense:
+    - lemma: "خَلِيجُ السُّوَيْسِ"
+      sense_id: "{auto}"
+      nuance: "الاسم المعاصر الشائع والمستخدم رسمياً."
+      mwe: true
+    - lemma: "خَلِيجُ القُلْزُمِ"
+      sense_id: "{auto}"
+      nuance: "الاسم التاريخي التراثي الذي ساد في العصور الإسلامية حتى العصر الحديث."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"خليج","root":"خلج","maqayis":"«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"},{"word":"السويس","root":"سوس","maqayis":"«السِّينُ وَالْوَاوُ وَالسِّينُ أَصْلَانِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"خليج","root":"خلج","maqayis":"«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ.»"},{"word":"القلزم","root":"قلزم","maqayis":"«القلزمة: ابتلاع الشيء... وسمي بحر القلزم قلزما لالتهامه من ركبه.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم المعاصر الشائع والمستخدم رسمياً.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم التاريخي التراثي الذي ساد في العصور الإسلامية حتى العصر الحديث.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 1.0

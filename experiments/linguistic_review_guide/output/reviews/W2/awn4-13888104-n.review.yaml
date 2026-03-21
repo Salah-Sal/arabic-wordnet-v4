@@ -1,0 +1,181 @@
+# ── المرحلة ١: المراجعة والتوليد (بدون أدلة) ──────────────
+stage1_review:
+  assessment:
+    concerns:
+      - اللمة الموجودة حالياً عبارة عن مركب وصفي (MWE) بينما يفضل المعجم العربي المصطلحات المفردة إذا توفرت (مثل استدارة).
+      - التعريف الحالي "شكل منحني وبدون زوايا حادة" بسيط لغوياً ويفتقر للدقة العلمية الرياضية.
+    observations: "المفهوم يشير إلى الهيئة الهندسية التي تتسم بالانحناء وخلوها من الأركان الحادة، وهو مفهوم يشمل الدائرة والكرة والأشكال البيضوية."
+  blind_candidates:
+    - lemma: "اسْتِدارَة"
+      generation_method: ishtiqaq
+      justification: "المصدر الأصلي للفعل استدار، وهو الاسم المجرد الذي يصف حالة كون الشيء مستديراً."
+    - lemma: "تَدْوير"
+      generation_method: ishtiqaq
+      justification: "مصدر الفعل دوّر، ويستخدم للتعبير عن خاصية الاستدارة في سياقات فنية وصوتية."
+    - lemma: "شَكْلٌ مُسْتَدِير"
+      generation_method: tarkib
+      justification: "تعبير وصفي مباشر وشائع الاستخدام في اللغة المعاصرة والترجمات العلمية."
+    - lemma: "تَقَوُّس"
+      generation_method: ishtiqaq
+      justification: "يشير إلى خاصية الانحناء التي تميز الأشكال المستديرة، وإن كان أعم من الاستدارة الكاملة."
+
+# ── المرحلة ٢: جمع الأدلة ────────────────────────────────
+stage2_evidence:
+  per_lemma:
+    - lemma: "اسْتِدارَة"
+      confirm:
+        - text: "الاستدارة: كون الخطّ أو السطح مستديرا."
+          source: "كشاف اصطلاحات الفنون للتهانوي"
+        - text: "الاستدارة: كون السطح بحيث يحيط به خط واحد، ويفرض في داخله نقطة تتساوى جميع الخطوط المستقيمة الخارجة منها إليه."
+          source: "كتاب التعريفات للجرجاني"
+    - lemma: "تَدْوير"
+      confirm:
+        - text: "تدوير: رسم خط بشكل منحن."
+          source: "مسرد صناعة النسيج (ArabTerm)"
+      expands:
+        - text: "التدوير: (فى علم الأصوات اللغوية) هو تدوير الشفتين عند النطق بصوت لغوي."
+          source: "المعجم الكبير"
+    - lemma: "تَقَوُّس"
+      confirm:
+        - text: "التقوس: الانحناء بحيث يصير على هيئة القوس."
+          source: "التوقيف على مهمات التعاريف للمناوي"
+      expands:
+        - text: "تقوس: ترجمة لمصطلح curvature في سياقات هندسية وجيولوجية."
+          source: "المعجم الموحد لمصطلحات الجيولوجيا"
+    - lemma: "مُسْتَدير"
+      confirm:
+        - text: "المستدير: ما كان على شكل الدائرة."
+          source: "المعجم الكبير"
+
+# ── المرحلة ٣: التحليل اللغوي للّمات ────────────────────
+stage3_analysis:
+  per_lemma:
+    - lemma: "شكل مستدير"
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي وصفي دقيق ومستقر في اللغة المعاصرة، ويطابق تماماً المفهوم الإنجليزي 'round shape'."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "شَكْلٌ مُسْتَدِير"
+    - lemma: "اسْتِدارَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "هو المصطلح التراثي والعلمي الأدق لوصف الحالة والهيئة، وتدعم المعاجم استخدامه كاسم للهيئة المستديرة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "اسْتِدارَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَدْوير"
+      source: stage1
+      decision: removed
+      decision_reason: "غالباً ما يشير إلى عملية 'الجعل' أو الفعل، أو يستخدم في سياقات تخصصية جداً (مثل تدوير الشفاه)، ولا يصف الهيئة الهندسية المستقلة."
+    - lemma: "تَقَوُّس"
+      source: stage1
+      decision: removed
+      decision_reason: "يشير إلى الانحناء الجزئي (كالقوس) وليس بالضرورة الاستدارة الكاملة المطلوبة في هذا السياق."
+
+# ── المرحلة ٤: التعريف والأمثلة ──────────────────────────
+stage4_content:
+  definition:
+    current: "شكل منحني وبدون زوايا حادة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط جداً، ويفضل استخدام صياغة تجمع بين الوصف اللغوي والدقة الهندسية."
+    authored:
+      - type: terminological
+        text: "كلُّ هيئةٍ أو خَطٍّ أو سَطْحٍ مُنحنٍ لا يَحوي زَوايا، وتَترتَّبُ أجزاؤُهُ بِحيثُ تَدورُ حولَ مِحورٍ أو تَبتعدُ عن مَركزٍ داخليٍّ بأبعادٍ مُنتظمة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "كلُّ هيئةٍ أو خَطٍّ أو سَطْحٍ مُنحنٍ لا يَحوي زَوايا، وتَترتَّبُ أجزاؤُهُ بِحيثُ تَدورُ حولَ مِحورٍ أو تَبتعدُ عن مَركزٍ داخليٍّ بأبعادٍ مُنتظمة."}
+  examples:
+    per_lemma:
+      - lemma: "شَكْلٌ مُسْتَدِير"
+        examples:
+          - text: "يَتَّخِذُ القَمَرُ في لَيْلَةِ البَدْرِ شَكْلاً مُسْتَدِيراً كامِلاً."
+            type: usage
+      - lemma: "اسْتِدارَة"
+        examples:
+          - text: "تُعْجِبُني اسْتِدارَةُ المَيْدانِ الفَسِيحِ في وَسَطِ المَدِينَة."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يَتميَّزُ التَّصميمُ العَصريُّ بِمَيْلِهِ إلى الشَّكْلِ المُسْتَدِيرِ في الأثاثِ لِتوفيرِ المَساحَة."}
+
+# ── المرحلة ٥: الإثراء (البيانات الوصفية) ─────────────────
+stage5_enrichment:
+  per_entry:
+    - lemma: "شَكْلٌ مُسْتَدِير"
+      entry_id: "{auto}"
+      roots:
+        - word: "شكل"
+          root: "شكل"
+          maqayis_quote: "«الشين والكاف واللام أصلان: أحدهما يدلُّ على الشَّبَه، والآخر على عَقْل الشيء.»"
+        - word: "مستدير"
+          root: "دور"
+          maqayis_quote: "«الدال والواو والراء أصلٌ واحد يدل على إحداق الشيء بالشيء من حواليه.»"
+    - lemma: "اسْتِدارَة"
+      entry_id: "{auto}"
+      root: "دور"
+      maqayis_quote: "«الدال والواو والراء أصلٌ واحد يدل على إحداق الشيء بالشيء من حواليه.»"
+  per_sense:
+    - lemma: "شَكْلٌ مُسْتَدِير"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي عام يستخدم للإشارة إلى أي جسم أو خط يتسم بالاستدارة."
+      mwe: true
+    - lemma: "اسْتِدارَة"
+      sense_id: "{auto}"
+      nuance: "اسم هيئة أو مصدر يركز على خاصية الاستدارة كصفة مجردة أو شكل هندسي."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"شكل","root":"شكل","maqayis":"«الشين والكاف واللام أصلان...»"},{"word":"مستدير","root":"دور","maqayis":"«الدال والواو والراء أصلٌ واحد...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"دور","maqayis":"«الدال والواو والراء أصلٌ واحد يدل على إحداق الشيء بالشيء من حواليه.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير وصفي عام يستخدم للإشارة إلى أي جسم أو خط يتسم بالاستدارة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اسم هيئة أو مصدر يركز على خاصية الاستدارة كصفة مجردة أو شكل هندسي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

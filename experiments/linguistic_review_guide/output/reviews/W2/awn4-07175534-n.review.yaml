@@ -1,0 +1,172 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة تفتقر للتشكيل الكامل."
+      - "المجموعة تحتوي على لمة واحدة فقط رغم غنى المفهوم بمترادفات اصطلاحية في اللسانيات العربية."
+    observations: "المفهوم ينتمي لمجال التداوليات (Pragmatics)، وهو مفهوم مستقر جداً في اللسانيات الحديثة المترجمة للعربية. المصطلحات تتراوح بين النسبة (كلامي، لغوي) والتركيب الإضافي (فعل القول) والوصفي (إنجاز قولي)."
+  blind_candidates:
+    - lemma: "فِعْلٌ كَلَامِيٌّ"
+      generation_method: ishtiqaq
+      justification: "الترجمة المستقرة لمصطلح Speech Act في اللسانيات العربية الحديثة، وهو من الفعل والكلام."
+    - lemma: "فِعْلُ القَوْلِ"
+      generation_method: tarkib
+      justification: "تركيب إضافي يُستخدم أحياناً في السياقات البلاغية واللسانية للإشارة إلى الفعل المنجز بالقول."
+    - lemma: "إِنْجَازٌ قَوْلِيٌّ"
+      generation_method: tarkib
+      justification: "مصطلح تداولي شائع يعبر عن القول بوصفه إنجازاً لفعل ما (Performative)."
+    - lemma: "حَدَثٌ كَلَامِيٌّ"
+      generation_method: tarkib
+      justification: "تعبير وصفي يُستخدم للإشارة إلى المفهوم في سياق تحليل الخطاب."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "فعل كلامي"
+      confirm:
+        - text: "تعتبر الكتابة ممارسة لآثار مندرجة في المجال السوسيو ثقافي، بمثابة فعل كلامي ممكن وفاعل في الممارسات الاجتماعية والحقل النظري والإيديولوجي."
+          source: "المعجم الموحد لمصطلحات اللسانيات (2002)"
+        - text: "يوصف به كل فعل كلامي ينجز أو يتوق لإنجاز الحدث المعين، حسب أوستن."
+          source: "المعجم الموحد لمصطلحات اللسانيات (2002) - مادة: إنجازي"
+    - lemma: "فعل لغوي"
+      confirm:
+        - text: "فِعْل لغوي غير مباشر: من قبيل فعل الاستفهام الدال على الالتماس."
+          source: "مسرد الإعلام والتواصل، المنظمة العربية للتربية والثقافة والعلوم (موقع ArabTerm)"
+    - lemma: "إنجازي"
+      confirm:
+        - text: "صفة تُطلق على كل فعل لغوي يشكل مجردُ النطق به إنجازا كالأمر مثلا."
+          source: "مسرد الإعلام والتواصل (ArabTerm)"
+    - lemma: "فعل القول"
+      expands:
+        - text: "وحذف فعل القول في الجمل القرآنية الآتية... أى فقيل لهم: لقد جئتمونا"
+          source: "من بلاغة القرآن لأحمد أحمد بدوي (Hawramani)"
+          addition: "يُستخدم في البلاغة للإشارة إلى فعل (قال) المحذوف، وليس بالضرورة المفهوم اللساني الشامل لـ Speech Act."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "فعل كلامي"
+      decision: confirmed
+      decision_reason: "المصطلح الأكثر شيوعاً واستقراراً في اللسانيات العربية لتمثيل مفهوم Speech Act."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "فِعْلٌ كَلَامِيٌّ"
+    - lemma: "فِعْلٌ لُغَوِيٌّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف اصطلاحي مستخدم في معاجم المنظمة العربية للتربية والثقافة والعلوم (ArabTerm)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "فِعْلٌ لُغَوِيٌّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "إِنْجَازٌ قَوْلِيٌّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تداولي دقيق يعبر عن جوهر المفهوم (انجاز فعل عبر القول)، وهو مستقر في مدرسة طه عبد الرحمن واللسانيات المغربية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "إِنْجَازٌ قَوْلِيٌّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "استخدام اللغة لأداء فعل ما"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي صحيح لكن يمكن صياغته بشكل أكثر اصطلاحية ليشمل الأمثلة التي توضح طبيعة المفهوم اللساني."
+    authored:
+      - type: terminological
+        text: "وحدة وظيفية من الاتصال اللغوي تنجز فعلاً معيناً من خلال النطق، كالوعد أو الأمر أو الاعتذار."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "وحدة وظيفية من الاتصال اللغوي تنجز فعلاً معيناً من خلال النطق، كالوعد أو الأمر أو الاعتذار."}
+  examples:
+    per_lemma:
+      - lemma: "فِعْلٌ كَلَامِيٌّ"
+        examples:
+          - text: "يُعدّ الأمرُ في اللسانيات التداولية فعلاً كلامياً ينجز طلبَ القيام بشيء."
+            type: usage
+      - lemma: "إِنْجَازٌ قَوْلِيٌّ"
+        examples:
+          - text: "الوعدُ إنجازٌ قوليّ يرتّبُ التزاماً أخلاقياً وقانونياً على المتحدث."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "الفعل الكلامي هو حجر الزاوية في نظرية أفعال الكلام التي طورها أوستن وسيرل."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "فِعْلٌ كَلَامِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "فعل"
+          root: "فعل"
+          maqayis_quote: "«الْفَاءُ الْعَيْنُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِحْدَاثِ شَيْءٍ مِنْ عَمَلٍ وَغَيْرِهِ.»"
+        - word: "كلامي"
+          root: "كلم"
+          maqayis_quote: "«الْكَافُ وَاللَّامُ وَالْمِيمُ أَصْلَانِ: أَحَدُهُمَا يَدُلُّ عَلَى نُطْقٍ مُفْهِمٍ... فَالْأَوَّلُ الْكَلَامُ.»"
+    - lemma: "فِعْلٌ لُغَوِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "فعل"
+          root: "فعل"
+          maqayis_quote: "«الْفَاءُ الْعَيْنُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِحْدَاثِ شَيْءٍ مِنْ عَمَلٍ وَغَيْرِهِ.»"
+        - word: "لغوي"
+          root: "لغو"
+          maqayis_quote: "«اللَّامُ وَالْغَيْنُ وَالْوَاوُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى شَيْءٍ لَا يُعْتَدُّ بِهِ... وَاللُّغَةُ مِنْ هَذَا، لِأَنَّهَا كَلَامٌ يُلْغَى فِيهِ.»"
+    - lemma: "إِنْجَازٌ قَوْلِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "إنجاز"
+          root: "نجز"
+          maqayis_quote: "«النُّونُ وَالْجِيمُ وَالزَّايُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى انْقِضَاءِ شَيْءٍ وَفَرَاغِهِ.»"
+        - word: "قولي"
+          root: "قول"
+          maqayis_quote: "«الْقَافُ وَالْوَاوُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ تَرْدِيدُ الصَّوْتِ بِحُرُوفٍ مَنْظُومَةٍ مُفْهِمَةٍ.»"
+  per_sense:
+    - lemma: "فِعْلٌ كَلَامِيٌّ"
+      sense_id: "{auto}"
+      nuance: "المصطلح المعياري العام في اللسانيات."
+      mwe: true
+    - lemma: "فِعْلٌ لُغَوِيٌّ"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب اللغوي الصرف للأداء."
+      mwe: true
+    - lemma: "إِنْجَازٌ قَوْلِيٌّ"
+      sense_id: "{auto}"
+      nuance: "يركز على جانب الإنجاز (performative) للحدث القولي."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

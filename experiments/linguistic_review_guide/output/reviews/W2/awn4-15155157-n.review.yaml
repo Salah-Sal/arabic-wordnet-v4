@@ -1,0 +1,215 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة تفتقر للتشكيل الكامل."
+      - "عدم إدراج مصطلح 'توقيت زولو' المستخدم في السياقات العسكرية والملاحية."
+    observations: "اللمّات الحالية دقيقة وتغطّي المفهوم بشكل جيّد، لكنها تحتاج إلى ضبط بالشكل وإضافة بعض المترادفات الاصطلاحية المتخصصة."
+  blind_candidates:
+    - lemma: "تَوْقِيتُ غِرِينِتِش"
+      generation_method: tarkib
+      justification: "التعبير الأكثر شيوعاً للمفهوم، تركيب إضافي ينسب التوقيت للمكان المرجعي."
+    - lemma: "التَّوْقِيتُ العَالَمِيُّ"
+      generation_method: tarkib
+      justification: "الترجمة الاصطلاحية لـ (Universal Time)، تركيب وصفي يعبر عن شمولية هذا التوقيت."
+    - lemma: "تَوْقِيتُ زُولُو"
+      generation_method: tarkib
+      justification: "مصطلح متخصص يُستخدم في الملاحة والطيران والعمليات العسكرية للإشارة إلى توقيت غرينتش."
+    - lemma: "زَمَنُ غِرِينِتِش"
+      generation_method: tarkib
+      justification: "بديل ترادفي لـ 'توقيت' يستخدم كلمة 'زمن' للتعبير عن المقياس الزمني."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تَوْقِيتُ غِرِينِتِش"
+      confirm:
+        - text: "«توقيت غرينتش: (الفلك) التوقيت المحلي الوسطي عند خط طول (زوال) غرينتش»"
+          source: "المعجم الموحد لمصطلحات الاستشعار عن بعد"
+        - text: "«توقيت غرينتش الوَسطيّ (جن).» مفسراً بـ (zulu time)"
+          source: "المورد الحديث"
+    - lemma: "التَّوْقِيتُ العَالَمِيُّ"
+      confirm:
+        - text: "«التوقيت العالمي: universal time»"
+          source: "المعجم الموحد لمصطلحات الرياضيات والفلك"
+        - text: "«توقيت عالمي: universal time; UT»"
+          source: "موسوعة الكهرباء (IEC 60050)"
+    - lemma: "تَوْقِيتُ زُولُو"
+      confirm:
+        - text: "«zulu time: توقيت غرينتش الوَسطيّ (جن).»"
+          source: "المورد الحديث"
+    - lemma: "تَوْقِيتُ غِرِينِتِش الوَسَطِيّ"
+      confirm:
+        - text: "«توقيت غرينتش الوسطي: التوقيت المحلي الوسطي عند خط طول (زوال) غرينتش، وهو القوس عند خط الاستواء السماوي...»"
+          source: "المعجم الموحد لمصطلحات الاستشعار عن بعد"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "توقيت غرينتش"
+      decision: confirmed
+      decision_reason: "المصطلح الأكثر ذيوعاً واستعمالاً في العربية المعاصرة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَوْقِيتُ غِرِينِتِش"
+    - lemma: "التوقيت العالمي"
+      decision: confirmed
+      decision_reason: "المصطلح العلمي المقابل لـ (Universal Time)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "التَّوْقِيتُ العَالَمِيُّ"
+    - lemma: "تَوْقِيتُ زُولُو"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تقني هام مستخدم في الطيران والمجالات العسكرية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "تَوْقِيتُ زُولُو", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَوْقِيتُ غِرِينِتِش الوَسَطِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "الترجمة الدقيقة لـ (Greenwich Mean Time) كما تظهر في المعاجم المتخصصة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "تَوْقِيتُ غِرِينِتِش الوَسَطِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "التوقيت المحلي عند خط الصفر المار عبر غرينتش، إنجلترا؛ وهو نفسه في كل مكان"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط؛ يُفضل صياغته بأسلوب معجمي أكثر دقة يبرز الصفة المعيارية لهذا التوقيت."
+    authored:
+      - type: terminological
+        text: "نظام زمني يعتمد على التوقيت الشمسي المتوسط عند خط الزوال المار بمرصد غرينتش في إنجلترا، ويُتخذ معياراً زمنياً عالمياً."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "نظام زمني يعتمد على التوقيت الشمسي المتوسط عند خط الزوال المار بمرصد غرينتش في إنجلترا، ويُتخذ معياراً زمنياً عالمياً."}
+  examples:
+    per_lemma:
+      - lemma: "تَوْقِيتُ غِرِينِتِش"
+        examples:
+          - text: "تُعلن المحطة الإخبارية عن مواعيد برامجها بتوقيت غرينتش لتوحيد الموعد لمشاهديها في القارات المختلفة."
+            type: usage
+      - lemma: "التَّوْقِيتُ العَالَمِيُّ"
+        examples:
+          - text: "يُعتبر التوقيت العالمي المرجع الأساسي الذي تُضبط عليه الساعات الذرية والأنظمة التقنية."
+            type: usage
+      - lemma: "تَوْقِيتُ زُولُو"
+        examples:
+          - text: "أعطى برج المراقبة الإذن بالإقلاع للطائرة في تمام الساعة الثانية عشرة بتوقيت زولو."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يستخدم العلماء التوقيت العالمي في تسجيل الظواهر الفلكية لضمان دقة التزامن."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تَوْقِيتُ غِرِينِتِش"
+      entry_id: "{auto}"
+      roots:
+        - word: "توقيت"
+          root: "وقت"
+          maqayis_quote: "«الْوَاوُ وَالْقَافُ وَالتَّاءُ: أَصْلٌ يَدُلُّ عَلَى حَدِّ شَيْءٍ وَكُنْهِهِ فِي زَمَانٍ وَغَيْرِهِ. مِنْهُ الْوَقْتُ: الزَّمَانُ الْمَعْلُومُ.»"
+    - lemma: "التَّوْقِيتُ العَالَمِيُّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "توقيت"
+          root: "وقت"
+          maqayis_quote: "«الْوَاوُ وَالْقَافُ وَالتَّاءُ: أَصْلٌ يَدُلُّ عَلَى حَدِّ شَيْءٍ وَكُنْهِهِ فِي زَمَانٍ وَغَيْرِهِ. مِنْهُ الْوَقْتُ: الزَّمَانُ الْمَعْلُومُ.»"
+        - word: "العالمي"
+          root: "علم"
+          maqayis_quote: "«الْعَيْنُ وَاللَّامُ وَالْمِيمُ أَصْلٌ صَحِيحٌ وَاحِدٌ، يَدُلُّ عَلَى أَثَرٍ بِالشَّيْءِ يَتَمَيَّزُ بِهِ عَنْ غَيْرِهِ. وَالْبَابُ كُلُّهُ قِيَاسٌ وَاحِدٌ. وَمِنَ الْبَابِ الْعَالَمُونَ.»"
+    - lemma: "تَوْقِيتُ زُولُو"
+      entry_id: "{auto}"
+      roots:
+        - word: "توقيت"
+          root: "وقت"
+          maqayis_quote: "«الْوَاوُ وَالْقَافُ وَالتَّاءُ: أَصْلٌ يَدُلُّ عَلَى حَدِّ شَيْءٍ وَكُنْهِهِ فِي زَمَانٍ وَغَيْرِهِ. مِنْهُ الْوَقْتُ: الزَّمَانُ الْمَعْلُومُ.»"
+    - lemma: "تَوْقِيتُ غِرِينِتِش الوَسَطِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "توقيت"
+          root: "وقت"
+          maqayis_quote: "«الْوَاوُ وَالْقَافُ وَالتَّاءُ: أَصْلٌ يَدُلُّ عَلَى حَدِّ شَيْءٍ وَكُنْهِهِ فِي زَمَانٍ وَغَيْرِهِ. مِنْهُ الْوَقْتُ: الزَّمَانُ الْمَعْلُومُ.»"
+        - word: "الوسطي"
+          root: "وسط"
+          maqayis_quote: "«الْوَاوُ وَالسِّينُ وَالطَّاءُ: بِنَاءٌ عَلَى الْعَدْلِ وَالنَّصَفَةِ.»"
+  per_sense:
+    - lemma: "تَوْقِيتُ غِرِينِتِش"
+      sense_id: "{auto}"
+      nuance: "التسمية الأكثر تداولاً وارتباطاً بالمكان الجغرافي المرجعي."
+      mwe: true
+    - lemma: "التَّوْقِيتُ العَالَمِيُّ"
+      sense_id: "{auto}"
+      nuance: "تسمية علمية مجردة تركز على صبغته العالمية الموحدة."
+      mwe: true
+    - lemma: "تَوْقِيتُ زُولُو"
+      sense_id: "{auto}"
+      nuance: "تسمية اصطلاحية مستخدمة في الأوساط العسكرية والملاحية لتجنب اللبس."
+      mwe: true
+    - lemma: "تَوْقِيتُ غِرِينِتِش الوَسَطِيّ"
+      sense_id: "{auto}"
+      nuance: "التسمية الفنية الكاملة التي توضح طبيعة الزمن (متوسط)."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"توقيت","root":"وقت","maqayis":"«الْوَاوُ وَالْقَافُ وَالتَّاءُ: أَصْلٌ يَدُلُّ عَلَى حَدِّ شَيْءٍ وَكُنْهِهِ فِي زَمَانٍ وَغَيْرِهِ. مِنْهُ الْوَقْتُ: الزَّمَانُ الْمَعْلُومُ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"توقيت","root":"وقت","maqayis":"«...»"},{"word":"العالمي","root":"علم","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"التسمية الأكثر تداولاً وارتباطاً بالمكان الجغرافي المرجعي.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

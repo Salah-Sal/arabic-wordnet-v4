@@ -1,0 +1,196 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة تفتقر إلى التشكيل الكامل."
+      - "التعريف العربي جيّد لكنه يمكن أن يكون أكثر دقّة مصطلحيّة."
+    observations: "المجموعة تغطي مفهوماً دينيّاً مسيحيّاً محدداً (صعود المسيح)، واللمّات الموجودة تعبر عن الحدث (المعجزة) وعن العيد المرتبط به في آن واحد."
+  blind_candidates:
+    - lemma: "صُعُودُ المَسِيحِ"
+      generation_method: tarkib
+      justification: "الاسم المباشر للحدث في الأدبيات المسيحية."
+    - lemma: "عِيدُ الصُّعُودِ"
+      generation_method: tarkib
+      justification: "الاسم الشائع للعيد الذي يحيي ذكرى هذا الحدث."
+    - lemma: "خَمِيسُ الصُّعُودِ"
+      generation_method: tarkib
+      justification: "تسمية طقسية محددة لليوم الذي يقع فيه العيد (دائماً يوم خميس)."
+    - lemma: "عِيدُ الارْتِقَاءِ"
+      generation_method: tarkib
+      justification: "تسمية بديلة أقل شيوعاً ولكنها مستخدمة في بعض السياقات اللاهوتية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "صُعُودُ المَسِيحِ"
+      confirm:
+        - text: "صعود المسيح من الأرض إلى السماء (نص)"
+          source: "المورد الحديث"
+    - lemma: "عِيدُ الصُّعُودِ"
+      confirm:
+        - text: "من أعيادِ النَّصارى, وهو يوافق اليوم الذى صَعِدَ فيه المسيحُ إلى السماء"
+          source: "المعجم الكبير"
+        - text: "عيد الصُّعود (نص)"
+          source: "المورد الحديث"
+    - lemma: "خَمِيسُ الصُّعُودِ"
+      expands:
+        - text: "خميس الصُّعود (نص)"
+          source: "المورد الحديث"
+          addition: "يضيف التسمية الخاصة باليوم الطقسي للعيد."
+    - lemma: "عِيدُ الارْتِقَاءِ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "صعود المسيح"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي يعبر عن الحدث الموصوف في التعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "صُعُودُ المَسِيحِ"
+    - lemma: "عيد الصعود"
+      decision: confirmed
+      decision_reason: "التسمية الشائعة للعيد المرتبط بالحدث، ووردت في المعاجم صراحة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عِيدُ الصُّعُودِ"
+    - lemma: "خَمِيسُ الصُّعُودِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تسمية معجمية دقيقة (المورد الحديث) لليوم الذي يحتفل فيه بهذا الحدث."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "خَمِيسُ الصُّعُودِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-07326440-n"}
+
+stage4_content:
+  definition:
+    current: "(في العهد الجديد) صعود جسد يسوع إلى السماء في اليوم الأربعين بعد قيامته"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق وشامل للعناصر الأساسية (الحدث، الشخصية، الزمان)."
+  examples:
+    per_lemma:
+      - lemma: "صُعُودُ المَسِيحِ"
+        examples:
+          - text: "يُعَدُّ صُعُودُ المَسِيحِ إِلَى السَّمَاءِ حَدَثاً جَوْهَرِيّاً فِي العَقِيدَةِ المَسِيحِيَّةِ."
+            type: usage
+      - lemma: "عِيدُ الصُّعُودِ"
+        examples:
+          - text: "يَحْتَفِلُ المَسِيحِيُّونَ بِعِيدِ الصُّعُودِ تَمْجِيداً لِارْتِقَاءِ السَّيِّدِ المَسِيحِ."
+            type: usage
+      - lemma: "خَمِيسُ الصُّعُودِ"
+        examples:
+          - text: "يَقَعُ خَمِيسُ الصُّعُودِ بَعْدَ أَرْبَعِينَ يَوْماً مِن عِيدِ القِيَامَةِ."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "صُعُودُ المَسِيحِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "صعود"
+          root: "صعد"
+          maqayis_quote: "«الصَّادُ وَالْعَيْنُ وَالدَّالُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى ارْتِفَاعٍ وَمَشَقَّةٍ.»"
+        - word: "المسيح"
+          root: "مسح"
+          maqayis_quote: "«الْمِيمُ وَالسِّينُ وَالْحَاءُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ إِمْرَارُ الشَّيْءِ عَلَى الشَّيْءِ مَبْسُوطاً.»"
+    - lemma: "عِيدُ الصُّعُودِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "عيد"
+          root: "عود"
+          maqayis_quote: "«الْعَيْنُ وَالْوَاوُ وَالدَّالُ أَصْلَانِ صَحِيحَانِ... وَالْعِيدُ: كُلُّ يَوْمِ مَجْمَعٍ... لِأَنَّهُ يَعُودُ كُلَّ عَامٍ.»"
+        - word: "الصعود"
+          root: "صعد"
+          maqayis_quote: "«الصَّادُ وَالْعَيْنُ وَالدَّالُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى ارْتِفَاعٍ وَمَشَقَّةٍ.»"
+    - lemma: "خَمِيسُ الصُّعُودِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "خميس"
+          root: "خمس"
+          maqayis_quote: "«الْخَاءُ وَالْمِيمُ وَالسِّينُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى عَدَدٍ مَعْرُوفٍ.»"
+        - word: "الصعود"
+          root: "صعد"
+          maqayis_quote: "«الصَّادُ وَالْعَيْنُ وَالدَّالُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى ارْتِفَاعٍ وَمَشَقَّةٍ.»"
+  per_sense:
+    - lemma: "صُعُودُ المَسِيحِ"
+      sense_id: "{auto}"
+      nuance: "يرمز للحدث الفعلي (المعجزة)."
+      mwe: true
+    - lemma: "عِيدُ الصُّعُودِ"
+      sense_id: "{auto}"
+      nuance: "يرمز للمناسبة الاحتفالية أو العيد الديني."
+      mwe: true
+    - lemma: "خَمِيسُ الصُّعُودِ"
+      sense_id: "{auto}"
+      nuance: "يرمز لليوم المحدد في التقويم الليتورجي."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"صعود","root":"صعد","maqayis":"«الصَّادُ وَالْعَيْنُ وَالدَّالُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى ارْتِفَاعٍ وَمَشَقَّةٍ.»"},{"word":"المسيح","root":"مسح","maqayis":"«الْمِيمُ وَالسِّينُ وَالْحَاءُ أَصْلٌ وَاحِدٌ صَحِيحٌ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"عيد","root":"عود","maqayis":"«الْعَيْنُ وَالْوَاوُ وَالدَّالُ أَصْلَانِ صَحِيحَانِ...»"},{"word":"الصعود","root":"صعد","maqayis":"«الصَّادُ وَالْعَيْنُ وَالدَّالُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى ارْتِفَاعٍ وَمَشَقَّةٍ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"خميس","root":"خمس","maqayis":"«الْخَاءُ وَالْمِيمُ وَالسِّينُ أَصْلٌ وَاحِدٌ...»"},{"word":"الصعود","root":"صعد","maqayis":"«الصَّادُ وَالْعَيْنُ وَالدَّالُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى ارْتِفَاعٍ وَمَشَقَّةٍ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يرمز للحدث الفعلي (المعجزة).","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يرمز للمناسبة الاحتفالية أو العيد الديني.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يرمز لليوم المحدد في التقويم الليتورجي.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-07326440-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-07326440-n"
+        score: 1.0

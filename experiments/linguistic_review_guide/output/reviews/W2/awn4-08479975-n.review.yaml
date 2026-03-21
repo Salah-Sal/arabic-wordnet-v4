@@ -1,0 +1,196 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "المصطلح 'مختارات أدبية' (Anthology) واسع جداً وغير دقيق لوصف مجموعة من الحكايات والنوادر المحددة بشخص أو مكان."
+      - "نقص التشكيل في اللمات الحالية (طرائف، مختارات أدبية)."
+      - "غياب المصطلحات الأكثر دقة مثل 'نوادر' و'ملح' والتي وردت في التعريف."
+    observations: "المجموعة تدل على مصطلح 'ana' الإنجليزي الذي يشير إلى مجموعات النوادر والأقوال الخاصة بشخص أو مكان. العربية غنية جداً بهذا النوع من المؤلفات المعجمية والأدبية، وتستخدم لها ألفاظاً مثل 'النوادر' و'الطرائف' و'المستطرفات'."
+  blind_candidates:
+    - lemma: "نَوَادِرُ"
+      generation_method: majaz
+      justification: "الجمع من 'نادرة'، وهي الحكاية التي تندر وتقع على غير مثال، وتستخدم في الأدب العربي للدلالة على هذا النوع من المجموعات."
+    - lemma: "مُلَحٌ"
+      generation_method: majaz
+      justification: "الجمع من 'ملحة'، وهي الحكاية أو النكتة التي تملح الحديث وتزينه، وقد ورد في المعجم الوسيط 'الملح من الأخبار'."
+    - lemma: "مُسْتَطْرَفَاتٌ"
+      generation_method: ishtiqaq
+      justification: "من 'استطرف'، أي وجده طريفاً أو جديداً، وتستخدم للدلالة على ما يستحسن من النوادر والأخبار."
+    - lemma: "طُرَفٌ"
+      generation_method: ishtiqaq
+      justification: "الجمع من 'طرفة'، وهي الشيء المستحدث والمستحسن من القول، وهي مرادف للطرائف."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "طرائف"
+      confirm:
+        - text: "(الطرائف): حكايات طريفة عن شخص أو موطن."
+          source: "المورد الحديث"
+    - lemma: "نَوَادِرُ"
+      confirm:
+        - text: "«النادرة: الطرفة من القول»"
+          source: "المعجم الوسيط"
+        - text: "«واحد النوادر من الأحاديث»"
+          source: "القاموس المحيط"
+    - lemma: "مُلَحٌ"
+      confirm:
+        - text: "«المِلْح من الأخبار»"
+          source: "المعجم الوسيط"
+        - text: "«واحدة الملح من الأحاديث»"
+          source: "تاج العروس"
+    - lemma: "مُسْتَطْرَفَاتٌ"
+      confirm:
+        - text: "استعملها الأدباء في عناوين الكتب للدلالة على مختارات من النوادر والغرائب مثل كتاب المستطرف للأبشيهي."
+          source: "الاستعمال الأدبي والمعجمي"
+    - lemma: "مختارات أدبية"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "طرائف"
+      decision: confirmed
+      decision_reason: "المصطلح دقيق ومطابق للتعريف، وهو المقابل العربي المعتمد لمصطلح 'ana' في المعاجم الحديثة مثل المورد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "طَرَائِفُ"
+    - lemma: "مختارات أدبية"
+      decision: removed
+      decision_reason: "يشير المصطلح إلى 'Anthology' بصفة عامة، بينما المجموعة مخصصة للنوادر والحكايات عن شخص أو مكان محدد، مما يجعله فضفاضاً وغير دقيق هنا."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "نَوَادِرُ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "أحد أدق المصطلحات العربية التي تدل على مجموعة الحكايات والحوادث النادرة، وقد ورد في صلب التعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "نَوَادِرُ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-08479975-n"}
+    - lemma: "مُلَحٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح معجمي فصيح يدل على النوادر والأخبار المستملحة والذكية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُلَحٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-08479975-n"}
+    - lemma: "مُسْتَطْرَفَاتٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح اصطلاحي في الأدب العربي لمجموعات النوادر والغرائب المستملحة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُسْتَطْرَفَاتٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-08479975-n"}
+
+stage4_content:
+  definition:
+    current: "مجموعة من الحكايات والنوادر عن شخص أو مكان"
+    assessment:
+      decision: retain
+      reason: "التعريف الحالي دقيق وواضح ويغطي الجانبين (الشخص والمكان) اللذين يشملهما المصطلح 'ana'."
+  examples:
+    per_lemma:
+      - lemma: "طَرَائِفُ"
+        examples:
+          - text: "يَضُمُّ الكِتَابُ طَرَائِفَ ونَوَادِرَ عَنْ نَوَابِغِ القَرْنِ العِشْرِينَ."
+            type: usage
+      - lemma: "نَوَادِرُ"
+        examples:
+          - text: "نَوَادِرُ الحُكَمَاءِ وحِكَايَاتُهُمْ تَبُثُّ الحِكْمَةَ بِأُسْلُوبٍ فُكَاهِيٍّ."
+            type: usage
+      - lemma: "مُلَحٌ"
+        examples:
+          - text: "كَانَ المَجْلِسُ يَضِجُّ بِمُلَحِ الأَخْبَارِ وَنَوَادِرِ الأَشْعَارِ."
+            type: usage
+      - lemma: "مُسْتَطْرَفَاتٌ"
+        examples:
+          - text: "قَرَأْتُ في مُسْتَطْرَفَاتِ الجَاحِظِ حِكَايَاتٍ عَجِيبَةً عَنِ البُخَلَاءِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-08479975-n", text: "يحتوي هذا المؤلف على طرائف ونوادر عن حياة المتنبي في البلاط السيفي."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "طَرَائِفُ"
+      entry_id: "{auto}"
+      root: "طرف"
+      maqayis_quote: "«الطاء والراء والفاء أصل صحيح واحد، وهو الشيء الذي يجيء من الأطراف... والطريف: الشيء الذي لا عهد لك به.»"
+    - lemma: "نَوَادِرُ"
+      entry_id: "{auto}"
+      root: "ندر"
+      maqayis_quote: "«النون والدال والراء أصل صحيح يدل على خروج شيء وسقوطه... والنادرة من الكلام: ما شذ.»"
+    - lemma: "مُلَحٌ"
+      entry_id: "{auto}"
+      root: "ملح"
+      maqayis_quote: "«الميم واللام والحاء أصل صحيح... وملح الشيء ملاحة... والمملحة: حكايات نادرة.»"
+    - lemma: "مُسْتَطْرَفَاتٌ"
+      entry_id: "{auto}"
+      root: "طرف"
+      maqayis_quote: "«الطاء والراء والفاء أصل صحيح واحد... واستطرف الشيء: رآه طريفاً جديداً.»"
+  per_sense:
+    - lemma: "طَرَائِفُ"
+      sense_id: "{auto}"
+      nuance: "تركز على كون الحكايات جديدة (طريفة) ومستحسنة."
+      mwe: false
+    - lemma: "نَوَادِرُ"
+      sense_id: "{auto}"
+      nuance: "تركز على ندرة الحكاية وشذوذها عن المألوف."
+      mwe: false
+    - lemma: "مُلَحٌ"
+      sense_id: "{auto}"
+      nuance: "تركز على ما في الحكاية من ذكاء وفكاهة تملح الحديث."
+      mwe: false
+    - lemma: "مُسْتَطْرَفَاتٌ"
+      sense_id: "{auto}"
+      nuance: "تركز على الجانب المختاراتي للأخبار والنوادر المستجدة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"طرف","maqayis":"«الطاء والراء والفاء أصل صحيح واحد...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركز على كون الحكايات جديدة (طريفة) ومستحسنة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-08479975-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-08479975-n"
+        score: 0.9

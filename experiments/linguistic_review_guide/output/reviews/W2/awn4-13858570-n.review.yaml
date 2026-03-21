@@ -1,0 +1,245 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي عربيًا فيه دور (تحديد موقع بالنسبة لموقع)، وهو ترجمة حرفية للتعريف الإنجليزي."
+      - "اللمة الموجودة 'موقع زاوي' صحيحة تقنيًا لكنها تفتقر للتشكيل الكامل."
+    observations: "المفهوم يعبر عن الإحداثيات الزاوية أو التوجه المكاني، وهناك مصطلحات تراثية وعلمية دقيقة مثل 'السمت' تفي بهذا الغرض في سياقات الملاحة والفلك."
+  blind_candidates:
+    - lemma: "مَوْقِع زَاوِيّ"
+      generation_method: tarkib
+      justification: "الترجمة الاصطلاحية المباشرة للمصطلح الفيزيائي والهندسي."
+    - lemma: "سَمْت"
+      generation_method: majaz
+      justification: "مصطلح تراثي وعلمي عريق يعبر عن الموقع الزاوي الأفقي (Azimuth) ويستخدم للدلالة على القصد والجهة."
+    - lemma: "تَوْجِيه"
+      generation_method: majaz
+      justification: "يستخدم في العلوم للتعبير عن الـ Orientation وهو مرادف للموقع الزاوي من حيث كونه يحدد اتجاه الجسم."
+    - lemma: "وَضْع زَاوِيّ"
+      generation_method: tarkib
+      justification: "بديل اصطلاحي شائع في الفيزياء للتعبير عن حالة الجسم الزاوية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مَوْقِع زَاوِيّ"
+      confirm:
+        - text: "«حزمة رادار تمسح بالتتابع، تتبدل من موقع زاويّ إلى آخر»"
+          source: "المعجم الموحد لمصطلحات الحرب الإلكترونية (2004)"
+      expands:
+        - text: "«حساس الدوران الزاوي: مستشعر يستخدم لقياس الزاوية... angular position sensor»"
+          source: "مسرد الهندسة الكهربائية (ArabTerm)"
+    - lemma: "سَمْت"
+      confirm:
+        - text: "«الزاوية التي يصنعها اتجاه ما مع اتجاه الشمال»"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية (2012)"
+        - text: "«زاوية أفقية تقاس في اتجاه عقارب الساعة من الشمال»"
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة (1996)"
+      expands:
+        - text: "«سمت الرأس (Zenith): نقطة في السماء فوق رأس المشاهد»"
+          source: "المعجم الكبير (OCR)"
+    - lemma: "تَوْجِيه"
+      confirm:
+        - text: "«وضع الجزيئات بالنسبة للألياف... Orientation»"
+          source: "مسرد صناعة النسيج (ArabTerm)"
+        - text: "«orientation: توجيه»"
+          source: "المعجم الموحد لمصطلحات الرياضيات والفلك (1990)"
+    - lemma: "وَضْع زَاوِيّ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مَوْقِع زَاوِيّ"
+      decision: confirmed
+      decision_reason: "مصطلح تقني ثابت في المعاجم المتخصصة الحديثة (الهندسة والفيزياء) ويعبر بدقة عن المفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَوْقِع زَاوِيّ"
+    - lemma: "سَمْت"
+      source: stage1
+      decision: confirmed
+      decision_reason: "أدق كلمة مفردة في العربية تعبر عن الموقع الزاوي، ولها تاريخ طويل في الاستخدام العلمي (الفلك والملاحة)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "سَمْت", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَوْجِيه"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يغطي جانب 'التوجه' (Orientation) وهو مرادف وظيفي للموقع الزاوي في سياقات هندسية وفيزيائية عديدة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَوْجِيه", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "وَضْع زَاوِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فيزيائي بديل لـ 'موقع زاوي' (Angular Position)، شائع الاستخدام في الكتب المدرسية والجامعية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "وَضْع زَاوِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "علاقة يتم من خلالها تحديد أي موقع بالنسبة لأي موقع آخر"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مبهم ودائري. يحتاج إلى صياغة علمية تحدد ماهية العلاقة (كونها زاوية)."
+    authored:
+      - type: terminological
+        text: "القيمة أو الحالة التي تحدد موقع نقطة أو جسم بالنسبة لمرجع ما مقدرة بالزوايا؛ وهي التعبير الرقمي عن التوجه المكاني في نظام إحداثيات."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "القيمة أو الحالة التي تحدد موقع نقطة أو جسم بالنسبة لمرجع ما مقدرة بالزوايا؛ وهي التعبير الرقمي عن التوجه المكاني في نظام إحداثيات."}
+  examples:
+    per_lemma:
+      - lemma: "مَوْقِع زَاوِيّ"
+        examples:
+          - text: "يقوم المستشعر برصد الموقع الزاوي للمحرك بدقة عالية لضمان استقرار الدوران."
+            type: usage
+      - lemma: "سَمْت"
+        examples:
+          - text: "حدد الملاح سمت السفينة بالنسبة لخط الشمال الحقيقي لتصحيح المسار."
+            type: usage
+      - lemma: "تَوْجِيه"
+        examples:
+          - text: "يعتمد توجيه اللوح الشمسي على زاوية سقوط الأشعة لتحقيق أقصى كفاءة."
+            type: usage
+      - lemma: "وَضْع زَاوِيّ"
+        examples:
+          - text: "يتغير الوضع الزاوي للبندول باستمرار أثناء حركته الاهتزازية."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَوْقِع زَاوِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "موقع"
+          root: "وقع"
+          maqayis_quote: "«الْوَاوُ وَالْقَافُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ يَرْجِعُ إِلَيْهِ فُرُوعُهُ، يَدُلُّ عَلَى سُقُوطِ شَيْءٍ.»"
+        - word: "زاوي"
+          root: "زوي"
+          maqayis_quote: "«الزَّاءُ وَالْوَاوُ وَالْيَاءُ أَصْلٌ يَدُلُّ عَلَى انْضِمَامٍ وَتَجَمُّعٍ... وَزَاوِيَةُ الْبَيْتِ لِاجْتِمَاعِ الْحَائِطَيْنِ.»"
+    - lemma: "سَمْت"
+      entry_id: "{auto}"
+      root: "سمت"
+      maqayis_quote: "«السِّينُ وَالْمِيمُ وَالتَّاءُ أَصْلٌ يَدُلُّ عَلَى نَهْجٍ وَقَصْدٍ وَطَرِيقَةٍ. يُقَالُ سَمَتَ، إِذَا أَخَذَ النَّهْجَ.»"
+    - lemma: "تَوْجِيه"
+      entry_id: "{auto}"
+      root: "وجه"
+      maqayis_quote: "«الْوَاوُ وَالْجِيمُ وَالْهَاءُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُقَابَلَةٍ لِشَيْءٍ. وَالْوَجْهُ مُسْتَقْبِلٌ لِكُلِّ شَيْءٍ.»"
+    - lemma: "وَضْع زَاوِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "وضع"
+          root: "وضع"
+          maqayis_quote: "«الْوَاوُ وَالضَّادُ وَالْعَيْنُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الْخَفْضِ لِلشَّيْءِ وَحَطِّهِ.»"
+        - word: "زاوي"
+          root: "زوي"
+          maqayis_quote: "«الزَّاءُ وَالْوَاوُ وَالْيَاءُ أَصْلٌ يَدُلُّ عَلَى انْضِمَامٍ وَتَجَمُّعٍ... وَزَاوِيَةُ الْبَيْتِ لِاجْتِمَاعِ الْحَائِطَيْنِ.»"
+  per_sense:
+    - lemma: "مَوْقِع زَاوِيّ"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام والأكثر شيوعاً في الهندسة والاتصالات."
+      mwe: true
+    - lemma: "سَمْت"
+      sense_id: "{auto}"
+      nuance: "يركز على الموقع الزاوي الأفقي في الملاحة والفلك (Azimuth)."
+      mwe: false
+    - lemma: "تَوْجِيه"
+      sense_id: "{auto}"
+      nuance: "يركز على حالة اتجاه الجسم في الفضاء (Orientation)."
+      mwe: false
+    - lemma: "وَضْع زَاوِيّ"
+      sense_id: "{auto}"
+      nuance: "يستخدم غالباً في الفيزياء الميكانيكية لوصف حالة الأجسام الدوارة."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"موقع","root":"وقع","maqayis":"«الْوَاوُ وَالْقَافُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ يَرْجِعُ إِلَيْهِ فُرُوعُهُ، يَدُلُّ عَلَى سُقُوطِ شَيْءٍ.»"},{"word":"زاوي","root":"زوي","maqayis":"«الزَّاءُ وَالْوَاوُ وَالْيَاءُ أَصْلٌ يَدُلُّ عَلَى انْضِمَامٍ وَتَجَمُّعٍ... وَزَاوِيَةُ الْبَيْتِ لِاجْتِمَاعِ الْحَائِطَيْنِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سمت","maqayis":"«السِّينُ وَالْمِيمُ وَالتَّاءُ أَصْلٌ يَدُلُّ عَلَى نَهْجٍ وَقَصْدٍ وَطَرِيقَةٍ. يُقَالُ سَمَتَ، إِذَا أَخَذَ النَّهْجَ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"وجه","maqayis":"«الْوَاوُ وَالْجِيمُ وَالْهَاءُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُقَابَلَةٍ لِشَيْءٍ. وَالْوَجْهُ مُسْتَقْبِلٌ لِكُلِّ شَيْءٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"وضع","root":"وضع","maqayis":"«الْوَاوُ وَالضَّادُ وَالْعَيْنُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الْخَفْضِ لِلشَّيْءِ وَحَطِّهِ.»"},{"word":"زاوي","root":"زوي","maqayis":"«الزَّاءُ وَالْوَاوُ وَالْيَاءُ أَصْلٌ يَدُلُّ عَلَى انْضِمَامٍ وَتَجَمُّعٍ... وَزَاوِيَةُ الْبَيْتِ لِاجْتِمَاعِ الْحَائِطَيْنِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العام والأكثر شيوعاً في الهندسة والاتصالات.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الموقع الزاوي الأفقي في الملاحة والفلك (Azimuth).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على حالة اتجاه الجسم في الفضاء (Orientation).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يستخدم غالباً في الفيزياء الميكانيكية لوصف حالة الأجسام الدوارة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

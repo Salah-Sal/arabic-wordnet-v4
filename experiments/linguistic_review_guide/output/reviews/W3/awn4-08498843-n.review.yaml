@@ -1,0 +1,203 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة (المركز، الوسط) عامة جداً ولا تعكس المصطلح العسكري التراثي المتعارف عليه (قلب الجيش)."
+    observations: "مصطلح 'قلب' كان يستخدم تاريخياً للدلالة على منتصف التشكيل العسكري في التقسيم الخماسي للجيش (الخميس: قلب وميمنة وميسرة وطليعة وساقة)."
+  blind_candidates:
+    - lemma: "قَلْب"
+      generation_method: majaz
+      justification: "استعارة من قلب الإنسان، وهو المصطلح التراثي العسكري الدقيق لمنتصف التشكيل (قلب الجيش)."
+    - lemma: "قَلْبُ التَّشْكِيلِ"
+      generation_method: tarkib
+      justification: "تركيب إضافي يخصص القلب بالتشكيل العسكري."
+    - lemma: "مَرْكَز"
+      generation_method: ishtiqaq
+      justification: "كلمة عامة تدل على نقطة الارتكاز والمنتصف."
+    - lemma: "وَسَط"
+      generation_method: ishtiqaq
+      justification: "تدل على الجزء المتوسط بين الأطراف."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "قَلْب"
+      confirm:
+        - text: "«(قلب كل شَيْء) وَسطه ولبه ومحضه»"
+          source: "المعجم الوسيط"
+        - text: "«وقلب الإنسان سمي به لكثرة تقلبه، ويعبر بالقلب عن المعاني المختصة به من روح وعلم وشجاعة»"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+      expands:
+        - text: "«قلب الجيش: وسطه (معروف تاريخياً في التقسيم الخماسي للجيش)»"
+          source: "الاستعمال التاريخي"
+    - lemma: "المركز"
+      confirm:
+        - text: "«المركز: وسط الدائرة، ومقر السلطة، ومكان تجمع الأشياء»"
+          source: "المعجم الوسيط"
+        - text: "«مَرْكَزُ الْجُنْدِ: الْمَوْضِعُ الَّذِي أُلْزِمُوهُ»"
+          source: "مقاييس اللغة"
+    - lemma: "الوسط"
+      confirm:
+        - text: "«وَسَطُ الشَّيْءِ، مُحَرَّكَةً: مَا بَيْنَ طَرَفَيْهِ»"
+          source: "تاج العروس"
+    - lemma: "قَلْبُ التَّشْكِيلِ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "المركز"
+      decision: confirmed
+      decision_reason: "المركز يدل على نقطة التجمع والمنتصف، وهو مستخدم في السياقات العسكرية الحديثة للإشارة إلى قلب التشكيل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَرْكَز"
+    - lemma: "الوسط"
+      decision: confirmed
+      decision_reason: "الوسط لغة هو ما بين الطرفين، ويستخدم للدلالة على منتصف التشكيل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "وَسَط"
+    - lemma: "قَلْب"
+      source: stage1
+      decision: confirmed
+      decision_reason: "هو المصطلح العسكري الأدق والأكثر أصالة في التراث العربي للدلالة على منتصف الجيش."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "قَلْب", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "قَلْبُ التَّشْكِيلِ"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير وصفي حر غير مسكوك معجمياً كوحدة مستقلة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+
+stage4_content:
+  definition:
+    current: "منتصف تشكيل عسكري أو بحري"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد ولكنه يحتاج إلى ضبط شكلي (تشكيل وتنسيق)."
+    authored:
+      - type: terminological
+        text: "مُنْتَصَفُ تَشْكِيلٍ عَسْكَرِيٍّ أَوْ بَحْرِيٍّ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مُنْتَصَفُ تَشْكِيلٍ عَسْكَرِيٍّ أَوْ بَحْرِيٍّ."}
+  examples:
+    per_lemma:
+      - lemma: "مَرْكَز"
+        examples:
+          - text: "أَمَرَ الْقَائِدُ بِتَكْثِيفِ الدِّفَاعَاتِ فِي مَرْكَزِ التَّشْكِيلِ."
+            type: usage
+      - lemma: "وَسَط"
+        examples:
+          - text: "تَقَدَّمَتِ الدَّبَّابَاتُ مِنْ وَسَطِ الْجَيْشِ نَحْوَ الْعَدُوِّ."
+            type: usage
+      - lemma: "قَلْب"
+        examples:
+          - text: "وَقَفَ الْقَائِدُ فِي قَلْبِ الْجَيْشِ يُوَجِّهُ الْجُنُودَ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "وَقَفَ الْقَائِدُ فِي قَلْبِ الْجَيْشِ يُوَجِّهُ الْجُنُودَ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَرْكَز"
+      entry_id: "{auto}"
+      root: "ركز"
+      maqayis_quote: "«الرَّاءُ وَالْكَافُ وَالزَّاءُ أَصْلَانِ: أَحَدُهُمَا إِثْبَاتُ شَيْءٍ فِي شَيْءٍ يَذْهَبُ سُفْلًا، وَالْآخَرُ صَوْتٌ. فَالْأَوَّلُ: رَكَزْتُ الرُّمْحَ رَكْزًا. وَمَرْكَزُ الْجُنْدِ: الْمَوْضِعُ الَّذِي أُلْزِمُوهُ.»"
+    - lemma: "وَسَط"
+      entry_id: "{auto}"
+      root: "وسط"
+      maqayis_quote: "«الْوَاوُ وَالسِّينُ وَالطَّاءُ: بِنَاءٌ صَحِيحٌ يَدُلُّ عَلَى الْعَدْلِ وَالنِّصْفِ. وَأَعْدَلُ الشَّيْءِ: أَوْسَطُهُ وَوَسَطُهُ.»"
+    - lemma: "قَلْب"
+      entry_id: "{auto}"
+      root: "قلب"
+      maqayis_quote: "«الْقَافُ وَاللَّامُ وَالْبَاءُ أَصْلَانِ صَحِيحَانِ: أَحَدُهُمَا يَدُلُّ عَلَى خَالِصِ شَيْءٍ وَشَرِيفِهِ، وَالْآخَرُ عَلَى رَدِّ شَيْءٍ مِنْ جِهَةٍ إِلَى جِهَةٍ. فَالْأَوَّلُ الْقَلْبُ...»"
+  per_sense:
+    - lemma: "مَرْكَز"
+      sense_id: "{auto}"
+      nuance: "تُشير إلى نقطة الارتكاز والتجمع في التشكيل."
+      mwe: false
+    - lemma: "وَسَط"
+      sense_id: "{auto}"
+      nuance: "كلمة عامة تدل على الحيز المكاني المتوسط بين الأطراف."
+      mwe: false
+    - lemma: "قَلْب"
+      sense_id: "{auto}"
+      nuance: "هو المصطلح العسكري التراثي المتعارف عليه للإشارة إلى منتصف الجيش وأهم أجزائه."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ركز","maqayis":"«الرَّاءُ وَالْكَافُ وَالزَّاءُ أَصْلَانِ: أَحَدُهُمَا إِثْبَاتُ شَيْءٍ فِي شَيْءٍ يَذْهَبُ سُفْلًا، وَالْآخَرُ صَوْتٌ. فَالْأَوَّلُ: رَكَزْتُ الرُّمْحَ رَكْزًا. وَمَرْكَزُ الْجُنْدِ: الْمَوْضِعُ الَّذِي أُلْزِمُوهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"وسط","maqayis":"«الْوَاوُ وَالسِّينُ وَالطَّاءُ: بِنَاءٌ صَحِيحٌ يَدُلُّ عَلَى الْعَدْلِ وَالنِّصْفِ. وَأَعْدَلُ الشَّيْءِ: أَوْسَطُهُ وَوَسَطُهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قلب","maqayis":"«الْقَافُ وَاللَّامُ وَالْبَاءُ أَصْلَانِ صَحِيحَانِ: أَحَدُهُمَا يَدُلُّ عَلَى خَالِصِ شَيْءٍ وَشَرِيفِهِ، وَالْآخَرُ عَلَى رَدِّ شَيْءٍ مِنْ جِهَةٍ إِلَى جِهَةٍ. فَالْأَوَّلُ الْقَلْبُ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تُشير إلى نقطة الارتكاز والتجمع في التشكيل.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"كلمة عامة تدل على الحيز المكاني المتوسط بين الأطراف.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"هو المصطلح العسكري التراثي المتعارف عليه للإشارة إلى منتصف الجيش وأهم أجزائه.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

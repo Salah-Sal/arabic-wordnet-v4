@@ -1,0 +1,321 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الموجود جيد ولكنه يبدو كترجمة حرفية."
+      - "كلمة 'معاصرون' هي جمع والمفرد 'معاصر'."
+    observations: "المجموعة الترادفية تمثل مفهوم 'الجيل' أو 'الأقران' أو 'المعاصرين'. توجد في العربية مصطلحات دقيقة مثل 'جيل' و 'قرن' للدلالة على أهل عصر واحد، و'أتراب' و 'أقران' و 'لدات' للدلالة على المماثلين في السن."
+  blind_candidates:
+    - lemma: "قَرْن"
+      generation_method: majaz
+      justification: "القرن يطلق في العربية على الأمة من الناس، أو أهل عصر واحد."
+    - lemma: "أَقْرَان"
+      generation_method: ishtiqaq
+      justification: "جمع 'قِرْن' وهو المماثل أو المقارب في السن والصفات."
+    - lemma: "أَتْرَاب"
+      generation_method: ishtiqaq
+      justification: "جمع 'تِرْب' وهو المماثل في السن، وأكثر ما يستعمل للمؤنث ولكنه يستعمل للذكور أيضا."
+    - lemma: "لِدَات"
+      generation_method: ishtiqaq
+      justification: "جمع 'لِدَة' وهو من ولد في نفس الوقت، المماثل في السن."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "جيل"
+      confirm:
+        - text: "(الجيل) الأمة والجنس من الناس فالترك جيل والروم جيل والقرن من الزمن وثلث القرن يتعايش فيه الناس (ج) أجيال"
+          source: "المعجم الوسيط"
+    - lemma: "معاصرون"
+      confirm:
+        - text: "مُعَاصِر: contemporary"
+          source: "المعجم الموحد لمصطلحات اللسانيات"
+    - lemma: "قرن"
+      confirm:
+        - text: "قَرْن [مفرد]: ج قرون (لغير المصدر): ... أهل عصر واحد أو زمان واحد، أمّة أو جماعة تعيش في عصرٍ أو زمانٍ واحد"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "أقران"
+      confirm:
+        - text: "قِرْن [مفرد]: ج أقران، مؤ قِرْن: كُفْء ... قِرْن الإنسان: مِثله في الشجاعة والشدّة والعِلم والقتال وغير ذلك ... تنافس مع أقرانه في المسابقة العلميّة"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "أتراب"
+      confirm:
+        - text: "التِّرْب: المماثل في السن، وأكثر ما يستعمل في المؤنث، جمعه أتراب."
+          source: "معجم الصواب اللغوي"
+    - lemma: "لدات"
+      confirm:
+        - text: "(اللدة) من ولد معك في وقت واحد (ج) لدات"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "جِيل"
+      decision: confirmed
+      decision_reason: "مصطلح دقيق وشائع للتعبير عن مجموعة من الناس تعيش في زمن واحد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "جِيل"
+    - lemma: "مُعَاصِرُون"
+      decision: confirmed
+      decision_reason: "مصطلح دقيق يعبر عن الأشخاص الذين يعيشون في نفس العصر. واستخدام صيغة الجمع هنا مناسب نظرا لطبيعة المفهوم الجماعية (coevals/contemporaries)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُعَاصِرُون"
+    - lemma: "قَرْن"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فصيح وقرآني للتعبير عن أهل عصر واحد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "قَرْن", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "أَقْرَان"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبر عن مجموعة الأشخاص المتقاربين في السن أو المرتبة، وهو مقابل دقيق لـ coevals."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "أَقْرَان", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "أَتْرَاب"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تستخدم للدلالة على المماثلين في السن، ورغم غلبتها على الإناث فهي تستخدم للذكور والإناث معاً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "أَتْرَاب", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "لِدَات"
+      source: stage1
+      decision: confirmed
+      decision_reason: "جمع لدة، وهو المولود في نفس الوقت، مما يعبر عن المفهوم بدقة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "لِدَات", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "جميع الناس الذين يعيشون في نفس الوقت أو من نفس العمر تقريباً"
+    assessment:
+      decision: revise
+      reason: "التعريف سليم لكن يمكن صياغته بأسلوب معجمي عربي أمتن."
+    authored:
+      - type: terminological
+        text: "مجموعة من الناس يعيشون في عصر واحد ويتقاربون في السن."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مجموعة من الناس يعيشون في عصر واحد ويتقاربون في السن."}
+  examples:
+    per_lemma:
+      - lemma: "جِيل"
+        examples:
+          - text: "بناء الأوطان يتطلب تكاتف كل جيل مع الذي يليه."
+            type: usage
+      - lemma: "مُعَاصِرُون"
+        examples:
+          - text: "اختلف العلماء المعاصرون في تفسير هذه الظاهرة."
+            type: usage
+      - lemma: "قَرْن"
+        examples:
+          - text: "﴿وَكَمْ أَهْلَكْنَا مِنَ الْقُرُونِ مِنْ بَعْدِ نُوحٍ﴾"
+            type: quran
+            source: "سورة الإسراء: 17"
+      - lemma: "أَقْرَان"
+        examples:
+          - text: "تفوّق الطالب على جميع أقرانه في المدرسة."
+            type: usage
+      - lemma: "أَتْرَاب"
+        examples:
+          - text: "﴿وَعِنْدَهُمْ قَاصِرَاتُ الطَّرْفِ أَتْرَابٌ﴾"
+            type: quran
+            source: "سورة ص: 52"
+      - lemma: "لِدَات"
+        examples:
+          - text: "نشأ الصديقان معاً وكانا لداتٍ لا يفترقان."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "بناء الأوطان يتطلب تكاتف كل جيل مع الذي يليه."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "اختلف العلماء المعاصرون في تفسير هذه الظاهرة."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "﴿وَكَمْ أَهْلَكْنَا مِنَ الْقُرُونِ مِنْ بَعْدِ نُوحٍ﴾"}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تفوّق الطالب على جميع أقرانه في المدرسة."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "﴿وَعِنْدَهُمْ قَاصِرَاتُ الطَّرْفِ أَتْرَابٌ﴾"}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "نشأ الصديقان معاً وكانا لداتٍ لا يفترقان."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "جِيل"
+      entry_id: "{auto}"
+      root: "جيل"
+      maqayis_quote: "«الْجِيمُ وَالْيَاءُ وَاللَّامُ يَدُلُّ عَلَى التَّجَمُّعِ. فَالْجِيلُ الْجَمَاعَةُ.»"
+    - lemma: "مُعَاصِرُون"
+      entry_id: "{auto}"
+      root: "عصر"
+      maqayis_quote: "«الْعَيْنُ وَالصَّادُ وَالرَّاءُ أُصُولٌ ثَلَاثَةٌ صَحِيحَةٌ: فَالْأَوَّلُ دَهْرٌ وَحِينٌ...»"
+    - lemma: "قَرْن"
+      entry_id: "{auto}"
+      root: "قرن"
+      maqayis_quote: "«الْقَافُ وَالرَّاءُ وَالنُّونُ أَصْلَانِ صَحِيحَانِ، أَحَدُهُمَا يَدُلُّ عَلَى جَمْعِ شَيْءٍ إِلَى شَيْءٍ...»"
+    - lemma: "أَقْرَان"
+      entry_id: "{auto}"
+      root: "قرن"
+      maqayis_quote: "«الْقَافُ وَالرَّاءُ وَالنُّونُ أَصْلَانِ صَحِيحَانِ، أَحَدُهُمَا يَدُلُّ عَلَى جَمْعِ شَيْءٍ إِلَى شَيْءٍ...»"
+    - lemma: "أَتْرَاب"
+      entry_id: "{auto}"
+      root: "ترب"
+      maqayis_quote: "«التَّاءُ وَالرَّاءُ وَالْبَاءُ أَصْلَانِ: أَحَدُهُمَا التُّرَابُ وَمَا يُشْتَقُّ مِنْهُ، وَالْآخَرُ تَسَاوِي الشَّيْئَيْنِ... وَأَمَّا الْآخَرُ فَالتِّرْبُ الْخِدْنُ، وَالْجَمْعُ أَتْرَابٌ.»"
+    - lemma: "لِدَات"
+      entry_id: "{auto}"
+      root: "ولد"
+      maqayis_quote: "«الْوَاوُ وَاللَّامُ وَالدَّالُ: أَصْلٌ صَحِيحٌ، وَهُوَ دَلِيلُ النَّجْلِ وَالنَّسْلِ... وَاللِّدَةُ نُقْصَانُهُ الْوَاوُ لِأَنَّ أَصْلَهُ وِلْدَةٌ.»"
+  per_sense:
+    - lemma: "جِيل"
+      sense_id: "{auto}"
+      nuance: "يركز على المفهوم الزمني للأمة أو المجموعة التي تعيش في حقبة واحدة."
+      mwe: false
+    - lemma: "مُعَاصِرُون"
+      sense_id: "{auto}"
+      nuance: "يركز على الاشتراك في نفس العصر أو الزمان."
+      mwe: false
+    - lemma: "قَرْن"
+      sense_id: "{auto}"
+      nuance: "مصطلح تراثي دقيق يدل على أهل زمان واحد."
+      mwe: false
+    - lemma: "أَقْرَان"
+      sense_id: "{auto}"
+      nuance: "يدل على التماثل أو التقارب في السن أو الشجاعة أو المرتبة."
+      mwe: false
+    - lemma: "أَتْرَاب"
+      sense_id: "{auto}"
+      nuance: "يدل على التماثل التام في السن، وأكثر استخدامه للمؤنث."
+      mwe: false
+    - lemma: "لِدَات"
+      sense_id: "{auto}"
+      nuance: "يدل على المولودين في وقت واحد."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جيل","maqayis":"«الْجِيمُ وَالْيَاءُ وَاللَّامُ يَدُلُّ عَلَى التَّجَمُّعِ. فَالْجِيلُ الْجَمَاعَةُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عصر","maqayis":"«الْعَيْنُ وَالصَّادُ وَالرَّاءُ أُصُولٌ ثَلَاثَةٌ صَحِيحَةٌ: فَالْأَوَّلُ دَهْرٌ وَحِينٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قرن","maqayis":"«الْقَافُ وَالرَّاءُ وَالنُّونُ أَصْلَانِ صَحِيحَانِ، أَحَدُهُمَا يَدُلُّ عَلَى جَمْعِ شَيْءٍ إِلَى شَيْءٍ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قرن","maqayis":"«الْقَافُ وَالرَّاءُ وَالنُّونُ أَصْلَانِ صَحِيحَانِ، أَحَدُهُمَا يَدُلُّ عَلَى جَمْعِ شَيْءٍ إِلَى شَيْءٍ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ترب","maqayis":"«التَّاءُ وَالرَّاءُ وَالْبَاءُ أَصْلَانِ: أَحَدُهُمَا التُّرَابُ وَمَا يُشْتَقُّ مِنْهُ، وَالْآخَرُ تَسَاوِي الشَّيْئَيْنِ... وَأَمَّا الْآخَرُ فَالتِّرْبُ الْخِدْنُ، وَالْجَمْعُ أَتْرَابٌ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ولد","maqayis":"«الْوَاوُ وَاللَّامُ وَالدَّالُ: أَصْلٌ صَحِيحٌ، وَهُوَ دَلِيلُ النَّجْلِ وَالنَّسْلِ... وَاللِّدَةُ نُقْصَانُهُ الْوَاوُ لِأَنَّ أَصْلَهُ وِلْدَةٌ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على المفهوم الزمني للأمة أو المجموعة التي تعيش في حقبة واحدة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الاشتراك في نفس العصر أو الزمان.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح تراثي دقيق يدل على أهل زمان واحد.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يدل على التماثل أو التقارب في السن أو الشجاعة أو المرتبة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يدل على التماثل التام في السن، وأكثر استخدامه للمؤنث.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يدل على المولودين في وقت واحد.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

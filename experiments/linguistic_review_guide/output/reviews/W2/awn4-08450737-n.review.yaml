@@ -1,0 +1,274 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي دقيق جداً ويتوافق مع المفهوم في شبكة WordNet."
+      - "اللمّات الموجودة صحيحة ولكنها تفتقر إلى التشكيل الكامل."
+      - "هناك حاجة لإضافة مصطلحات شائعة مثل 'سلاح الجو' و'القوات الجوية' و'الأسطول الجوي الحربي'."
+    observations: "المجموعة تغطي مفهوماً مؤسسياً وعسكرياً (Air Force/Aviation)، حيث يتم الخلط أحياناً بين القوة كمنظمة (Air Force) وبين مجموع الطائرات (Air power/Aggregation). المصطلحات المقترحة تغطي كلا الجانبين."
+  blind_candidates:
+    - lemma: "سِلَاحُ الجَوِّ"
+      generation_method: tarkib
+      justification: "مصطلح شائع جداً مرادف لسلاح الطيران، يستخدم في العديد من الدول العربية."
+    - lemma: "القُوَّاتُ الجَوِّيَّةُ"
+      generation_method: tarkib
+      justification: "المصطلح الرسمي المعتمد في معظم الجيوش العربية."
+    - lemma: "الطَّيَرَانُ العَسْكَرِيُّ"
+      generation_method: tarkib
+      justification: "ترجمة مباشرة ودقيقة للمفهوم (Military aviation) كوحدة معجمية."
+    - lemma: "الأُسْطُولُ الجَوِّيُّ الحَرْبِيُّ"
+      generation_method: tarkib
+      justification: "وصف لمجموع الطائرات العسكرية ككتلة واحدة (Fleet)، ورد في معجم المورد الحديث كمرادف لـ Air Force."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "سِلَاحُ الطَّيَرَانِ"
+      confirm:
+        - text: "سلاح الطيران؛ الأسطول الجوّيّ الحربيّ."
+          source: "المورد الحديث (2008)"
+        - text: "سلاح الجوّ/ سلاح الطَّيران: كلّ ما يتعلّق بالطَّائرات الحربيّة والعاملين فيها من أسلحة وأشخاص."
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "قُوَّةٌ جَوِّيَّةٌ"
+      confirm:
+        - text: "قوة: (سك) اسم جامع لآلة الحرب... القوات المسلحة."
+          source: "معجم اللغة العربية المعاصرة (بالقياس)"
+      expands:
+        - text: "تُستخدم 'القوة الجوية' للإشارة إلى القدرة العسكرية في الجو (Air Power)."
+          source: "الاستعمال العسكري العام"
+    - lemma: "سِلَاحُ الجَوِّ"
+      confirm:
+        - text: "قائد الجناح: ضابط يحمل رتبة ملازم ثان فيما فوق، كما في سلاح الجوّ الملكيّ."
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "الأُسْطُولُ الجَوِّيُّ الحَرْبِيُّ"
+      confirm:
+        - text: "سلاح الطيران؛ الأسطول الجوّيّ الحربيّ."
+          source: "المورد الحديث (2008) - تعريف Air Force"
+    - lemma: "الطَّيَرَانُ"
+      confirm:
+        - text: "(2) الطائرات الحربية."
+          source: "المورد الحديث (2008) - تعريف Aviation"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "سلاح الطيران"
+      decision: confirmed
+      decision_reason: "مصطلح أصيل وموثق في المعاجم الحديثة للدلالة على السلاح الجوي للدولة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "سِلَاحُ الطَّيَرَانِ"
+    - lemma: "قوة جوية"
+      decision: confirmed
+      decision_reason: "مصطلح قياسي يستخدم للتعبير عن سلاح الجو أو القوات الجوية، وهو مرادف مباشر لـ Air Force."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "قُوَّةٌ جَوِّيَّةٌ"
+    - lemma: "سِلَاحُ الجَوِّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف شائع جداً وموثق سياقياً في المعاجم الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "سِلَاحُ الجَوِّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "القُوَّاتُ الجَوِّيَّةُ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح الرسمي والأكثر شيوعاً في الوثائق العسكرية العربية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "القُوَّاتُ الجَوِّيَّةُ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "الطَّيَرَانُ العَسْكَرِيُّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يصف المفهوم بدقة من الناحية الفنية والعسكرية (Military Aviation)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "الطَّيَرَانُ العَسْكَرِيُّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "الأُسْطُولُ الجَوِّيُّ الحَرْبِيُّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح معجمي دقيق ورد في المورد الحديث كمرادف لـ Air Force."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "الأُسْطُولُ الجَوِّيُّ الحَرْبِيُّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "مجموع الطائرات العسكرية لدولة ما"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق وشامل ويغطي جوهر المجموعة الترادفية."
+  examples:
+    per_lemma:
+      - lemma: "سِلَاحُ الطَّيَرَانِ"
+        examples:
+          - text: "يمتلك سِلَاحُ الطَّيَرَانِ في الدولة أحدث المقاتلات الجوية."
+            type: usage
+      - lemma: "قُوَّةٌ جَوِّيَّةٌ"
+        examples:
+          - text: "تعتمد القُوَّةُ الجَوِّيَّةُ على كفاءة الطيارين وتطور الطائرات."
+            type: usage
+      - lemma: "سِلَاحُ الجَوِّ"
+        examples:
+          - text: "شاركت قاذفات سِلَاحِ الجَوِّ في التمرين العسكري المشترك."
+            type: usage
+      - lemma: "القُوَّاتُ الجَوِّيَّةُ"
+        examples:
+          - text: "صدر بيان رسمي عن قيادة القُوَّاتِ الجَوِّيَّةِ."
+            type: usage
+      - lemma: "الطَّيَرَانُ العَسْكَرِيُّ"
+        examples:
+          - text: "يشهد الطَّيَرَانُ العَسْكَرِيُّ تطوراً تقنياً متسارعاً."
+            type: usage
+      - lemma: "الأُسْطُولُ الجَوِّيُّ الحَرْبِيُّ"
+        examples:
+          - text: "تم استعراض الأُسْطُولِ الجَوِّيِّ الحَرْبِيِّ في العيد الوطني."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "سِلَاحُ الطَّيَرَانِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "سلاح"
+          root: "سلح"
+          maqayis_quote: "«السِّينُ وَاللَّامُ وَالْحَاءُ السِّلَاحُ، وَهُوَ مَا يُقَاتَلُ بِهِ.»"
+        - word: "طيران"
+          root: "طير"
+          maqayis_quote: "«الطَّاءُ وَالْيَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خِفَّةِ الشَّيْءِ فِي الْهَوَاءِ.»"
+    - lemma: "قُوَّةٌ جَوِّيَّةٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "قوة"
+          root: "قوي"
+          maqayis_quote: "«الْقَافُ وَالْوَاوُ وَالْيَاءُ أَصْلَانِ... يَدُلُّ أَحَدُهُمَا عَلَى شِدَّةٍ وَخِلَافِ ضَعْفٍ.»"
+        - word: "جوية"
+          root: "جوو"
+          maqayis_quote: "«الجيم والواو أصل واحد، وهو الشّيء يَتَّسِع.» (بالمعنى المكاني للجو)"
+    - lemma: "سِلَاحُ الجَوِّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "سلاح"
+          root: "سلح"
+          maqayis_quote: "«السِّينُ وَاللَّامُ وَالْحَاءُ السِّلَاحُ، وَهُوَ مَا يُقَاتَلُ بِهِ.»"
+        - word: "جو"
+          root: "جوو"
+          maqayis_quote: "«الجيم والواو أصل واحد، وهو الشّيء يَتَّسِع.»"
+    - lemma: "القُوَّاتُ الجَوِّيَّةُ"
+      entry_id: "{auto}"
+      roots:
+        - word: "قوات"
+          root: "قوي"
+          maqayis_quote: "«الْقَافُ وَالْوَاوُ وَالْيَاءُ أَصْلَانِ... يَدُلُّ أَحَدُهُمَا عَلَى شِدَّةٍ وَخِلَافِ ضَعْفٍ.»"
+        - word: "جوية"
+          root: "جوو"
+          maqayis_quote: "«الجيم والواو أصل واحد، وهو الشّيء يَتَّسِع.»"
+    - lemma: "الأُسْطُولُ الجَوِّيُّ الحَرْبِيُّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "أسطول"
+          root: "سطل"
+          maqayis_quote: "«كلمة معربة، أصلها من اليونانية (Stolos) وتعني الجيش أو الأسطول.»"
+        - word: "حربي"
+          root: "حرب"
+          maqayis_quote: "«الحاء والراء والباء أصلٌ واحد، وهو السَّلب.»"
+
+  per_sense:
+    - lemma: "سِلَاحُ الطَّيَرَانِ"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب المؤسسي كفرع من فروع القوات المسلحة."
+      mwe: true
+    - lemma: "قُوَّةٌ جَوِّيَّةٌ"
+      sense_id: "{auto}"
+      nuance: "يركز على القدرة القتالية في الفضاء الجوي (Air power)."
+      mwe: true
+    - lemma: "سِلَاحُ الجَوِّ"
+      sense_id: "{auto}"
+      nuance: "مرادف معاصر وشائع جداً لسلاح الطيران."
+      mwe: true
+    - lemma: "القُوَّاتُ الجَوِّيَّةُ"
+      sense_id: "{auto}"
+      nuance: "المصطلح الجماعي الرسمي للهيئة العسكرية المسؤولة عن الطيران."
+      mwe: true
+    - lemma: "الطَّيَرَانُ العَسْكَرِيُّ"
+      sense_id: "{auto}"
+      nuance: "يصف المجال التقني والعملياتي للطائرات الحربية."
+      mwe: true
+    - lemma: "الأُسْطُولُ الجَوِّيُّ الحَرْبِيُّ"
+      sense_id: "{auto}"
+      nuance: "يركز على مجموع الطائرات ككتلة مادية (Fleet)."
+      mwe: true
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"سلاح","root":"سلح","maqayis":"«السِّينُ وَاللَّامُ وَالْحَاءُ السِّلَاحُ...»"},{"word":"طيران","root":"طير","maqayis":"«الطَّاءُ وَالْيَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خِفَّةِ الشَّيْءِ فِي الْهَوَاءِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"قوة","root":"قوي","maqayis":"«الْقَافُ وَالْوَاوُ وَالْيَاءُ أَصْلَانِ...»"},{"word":"جوية","root":"جوو","maqayis":"«الجيم والواو أصل واحد...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الجانب المؤسسي كفرع من فروع القوات المسلحة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

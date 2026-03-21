@@ -1,0 +1,277 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي مفهوم، لكن يمكن تحسين صياغته ليكون أكثر أصالة وجرياناً على أساليب المعاجم (بدلاً من الترجمة الحرفية 'تشكيل من... واحداً بجانب الآخر')."
+      - "اللمّات الموجودة (خط، صف) صحيحة وتعبر عن المفهوم المتمثل في الترتيب الطولي والاصطفاف."
+    observations: "المفهوم يشير إلى الترتيب الخطي جنباً إلى جنب (Row/Line). اللغة العربية غنية بالألفاظ التي تعبر عن هذا المفهوم بدقة واختلافات دلالية طفيفة، كالصف والسطر والنسق وغيرها."
+  blind_candidates:
+    - lemma: "صَفّ"
+      generation_method: ishtiqaq
+      justification: "مشتق من الجذر (ص ف ف) الدال على الاستواء والاصطفاف جنباً إلى جنب."
+    - lemma: "سَطْر"
+      generation_method: majaz
+      justification: "مجاز من سطر الكتابة، ويستخدم لوصف اصطفاف الأشياء كالأشجار وغيرها."
+    - lemma: "نَسَق"
+      generation_method: ishtiqaq
+      justification: "مشتق من النسق وهو الترتيب والانتظام على وتيرة واحدة."
+    - lemma: "مَصَفّ"
+      generation_method: ishtiqaq
+      justification: "مشتق من الاصطفاف، ويدل على موضع الصف أو حالة الاصطفاف."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خَطّ"
+      confirm:
+        - text: "الطَّرِيقَةُ المُسْتَطِيلَةُ في الشيء... والطريقُ الشارِعُ"
+          source: "القاموس المحيط للفيروزآبادي"
+        - text: "ويقال لما له طول... ويعبّر عن كلّ أرض فيها طول بالخطّ"
+          source: "المفردات في غريب القرآن للراغب الأصفهاني"
+    - lemma: "صَفّ"
+      confirm:
+        - text: "السطر الْمُسْتَقيم من كل شَيْء وَالْقَوْم المصطفون"
+          source: "المعجم الوسيط لمجموعة من المؤلفين"
+        - text: "السطر المستوى من كل شيء كصف المصلين والجند والشجر"
+          source: "التعريفات الفقهيّة للبركتي"
+    - lemma: "سَطْر"
+      confirm:
+        - text: "الصَّفّ من كل شَيْء يُقَال سطر من الْكِتَابَة وسطر من الشّجر"
+          source: "المعجم الوسيط لمجموعة من المؤلفين"
+        - text: "السَّطْرُ والسَّطَرُ: الصَّفُّ من الكتاب والشجر والنخل ونحوها"
+          source: "لسان العرب لابن منظور"
+    - lemma: "نَسَق"
+      confirm:
+        - text: "مَا كَانَ على نظام وَاحِد من كل شَيْء يُقَال جَاءَ الْقَوْم نسقا وزرعت الْأَشْجَار نسقا"
+          source: "المعجم الوسيط لمجموعة من المؤلفين"
+        - text: "النَّسَقُ من كل شيء: ما كان على طريقة نِظامِ واحد، عامٌّ في الأشياء"
+          source: "لسان العرب لابن منظور"
+    - lemma: "مَصَفّ"
+      contradicts:
+        - text: "مَوْضِعُ الصَّفِّ، ج: مَصَافُّ."
+          source: "القاموس المحيط للفيروزآبادي"
+          conflict: "الكلمة تدل في الغالب على (مكان) الاصطفاف أو موقفه، وليس التشكيل نفسه."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "خَطّ"
+      decision: confirmed
+      decision_reason: "من الاستخدامات الشائعة للترتيب الممتد (كخط الدفاع وخط النار)، وهو يؤدي دلالة الانتظام في مسار واحد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَطّ"
+    - lemma: "صَفّ"
+      decision: confirmed
+      decision_reason: "هو اللفظ الأساسي الدقيق للمجموعة الترادفية، ويعبر تماماً عن اصطفاف الناس أو الأشياء."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "صَفّ"
+    - lemma: "سَطْر"
+      source: stage1
+      decision: confirmed
+      decision_reason: "معناه في المعاجم 'الصف من كل شيء'، وهو مستخدم لانتظام الأشجار والمكتوبات، ويفي بدلالة المفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "سَطْر"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "نَسَق"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يدل على انتظام الأشياء وتتابعها على طريقة واحدة، وهو مرادف قوي للصف والترتيب."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "نَسَق"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "مَصَفّ"
+      source: stage1
+      decision: removed
+      decision_reason: "المَصَفّ يدل على (المكان) الذي يتم فيه الاصطفاف أو موقف الحرب، ولا يدل على نفس التشكيل."
+      evidence_assessment:
+        case: contradicts_only
+      mwe_check:
+        is_mwe: false
+
+stage4_content:
+  definition:
+    current: "تشكيل من الأشخاص أو الأشياء واحداً بجانب الآخر"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي أقرب إلى الترجمة الحرفية، ويمكن صياغته بأسلوب عربي فصيح ودقيق يعكس معنى الاصطفاف والانتظام."
+    authored:
+      - type: linguistic
+        text: "انتظامُ الأشخاصِ أو الأشياءِ واصطفافُهم جنباً إلى جنبٍ في امتدادٍ واحدٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "انتظامُ الأشخاصِ أو الأشياءِ واصطفافُهم جنباً إلى جنبٍ في امتدادٍ واحدٍ."
+  examples:
+    per_lemma:
+      - lemma: "خَطّ"
+        examples:
+          - text: "وقفَ الجُنودُ في خَطٍّ طويلٍ بانتظارِ الأوامرِ."
+            type: usage
+      - lemma: "صَفّ"
+        examples:
+          - text: "انتظمَ الطُّلَّابُ في صَفٍّ واحدٍ استعداداً لدخولِ الفصلِ."
+            type: usage
+      - lemma: "سَطْر"
+        examples:
+          - text: "غرسَ الفلَّاحُ سَطْراً من أشجارِ النَّخيلِ في مزرعتِهِ."
+            type: usage
+      - lemma: "نَسَق"
+        examples:
+          - text: "وُضِعتِ الكراسيُّ في القاعةِ على نَسَقٍ هندسيٍّ بديعٍ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "وقفَ الجُنودُ في خَطٍّ طويلٍ بانتظارِ الأوامرِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "انتظمَ الطُّلَّابُ في صَفٍّ واحدٍ استعداداً لدخولِ الفصلِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "غرسَ الفلَّاحُ سَطْراً من أشجارِ النَّخيلِ في مزرعتِهِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "وُضِعتِ الكراسيُّ في القاعةِ على نَسَقٍ هندسيٍّ بديعٍ."
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "انتظمَ الطُّلَّابُ في صَفٍّ واحدٍ استعداداً لدخولِ الفصلِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خَطّ"
+      entry_id: "{auto}"
+      root: "خطط"
+      maqayis_quote: "«الْخَاءُ وَالطَّاءُ أَصْلٌ وَاحِدٌ ; وَهُوَ أَثَرٌ يَمْتَدُّ امْتِدَادًا. فَمِنْ ذَلِكَ الْخَطُّ الَّذِي يَخُطُّهُ الْكَاتِبُ.»"
+    - lemma: "صَفّ"
+      entry_id: "{auto}"
+      root: "صفف"
+      maqayis_quote: "«الصَّادُ وَالْفَاءُ يَدُلُّ عَلَى أَصْلٍ وَاحِدٌ، وَهُوَ اسْتِوَاءٌ فِي الشَّيْءِ وَتَسَاوٍ بَيْنَ شَيْئَيْنِ فِي الْمَقَرِّ. مِنْ ذَلِكَ الصَّفُّ، يُقَالُ وَقَفَا صَفًّا.»"
+    - lemma: "سَطْر"
+      entry_id: "{auto}"
+      root: "سطر"
+      maqayis_quote: "«السِّينُ وَالطَّاءُ وَالرَّاءُ أَصْلٌ مُطَّرِدٌ يَدُلُّ عَلَى اصْطِفَافِ الشَّيْءِ، كَالْكِتَابِ وَالشَّجَرِ، وَكُلِّ شَيْءٍ اصْطَفَّ.»"
+    - lemma: "نَسَق"
+      entry_id: "{auto}"
+      root: "نسق"
+      maqayis_quote: "«النُّونُ وَالسِّينُ وَالْقَافُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَتَابُعٍ فِي الشَّيْءِ. وَكَلَامٌ نَسَقٌ: جَاءَ عَلَى نِظَامٍ وَاحِدٍ.»"
+  per_sense:
+    - lemma: "خَطّ"
+      sense_id: "{auto}"
+      nuance: "يُستخدم غالباً في التشكيلات ذات الامتداد الطولي التي تتخذ شكل الخط (مثل خط الدفاع أو خط الإنتاج)."
+      mwe: false
+    - lemma: "صَفّ"
+      sense_id: "{auto}"
+      nuance: "اللفظ الأساسي والمباشر للتعبير عن اصطفاف الأشخاص أو الأشياء جنباً إلى جنب في صف مستقيم."
+      mwe: false
+    - lemma: "سَطْر"
+      sense_id: "{auto}"
+      nuance: "يغلب استخدامه في الأشياء المكتوبة أو المغروسة كالأشجار جنباً إلى جنب أكثر من الأشخاص."
+      mwe: false
+    - lemma: "نَسَق"
+      sense_id: "{auto}"
+      nuance: "يفيد معنى الترتيب والانتظام والتتابع على وتيرة واحدة أكثر من مجرد الاصطفاف المكاني المادي."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خطط","maqayis":"«الْخَاءُ وَالطَّاءُ أَصْلٌ وَاحِدٌ ; وَهُوَ أَثَرٌ يَمْتَدُّ امْتِدَادًا. فَمِنْ ذَلِكَ الْخَطُّ الَّذِي يَخُطُّهُ الْكَاتِبُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صفف","maqayis":"«الصَّادُ وَالْفَاءُ يَدُلُّ عَلَى أَصْلٍ وَاحِدٌ، وَهُوَ اسْتِوَاءٌ فِي الشَّيْءِ وَتَسَاوٍ بَيْنَ شَيْئَيْنِ فِي الْمَقَرِّ. مِنْ ذَلِكَ الصَّفُّ، يُقَالُ وَقَفَا صَفًّا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سطر","maqayis":"«السِّينُ وَالطَّاءُ وَالرَّاءُ أَصْلٌ مُطَّرِدٌ يَدُلُّ عَلَى اصْطِفَافِ الشَّيْءِ، كَالْكِتَابِ وَالشَّجَرِ، وَكُلِّ شَيْءٍ اصْطَفَّ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نسق","maqayis":"«النُّونُ وَالسِّينُ وَالْقَافُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَتَابُعٍ فِي الشَّيْءِ. وَكَلَامٌ نَسَقٌ: جَاءَ عَلَى نِظَامٍ وَاحِدٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُستخدم غالباً في التشكيلات ذات الامتداد الطولي التي تتخذ شكل الخط (مثل خط الدفاع أو خط الإنتاج).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ الأساسي والمباشر للتعبير عن اصطفاف الأشخاص أو الأشياء جنباً إلى جنب في صف مستقيم.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يغلب استخدامه في الأشياء المكتوبة أو المغروسة كالأشجار جنباً إلى جنب أكثر من الأشخاص.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يفيد معنى الترتيب والانتظام والتتابع على وتيرة واحدة أكثر من مجرد الاصطفاف المكاني المادي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

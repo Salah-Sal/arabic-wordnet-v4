@@ -1,0 +1,143 @@
+# Stage 1: Review + Generate (no evidence)
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة تفتقر إلى التشكيل الكامل."
+      - "المصطلح عبارة عن اسم علم جغرافي مركب (Proper Name Phrase)."
+    observations: "المجموعة الترادفية تمثل كياناً جغرافياً محدداً (خليج سان دييغو). التسمية العربية المتبعة هي ترجمة مباشرة للاسم الإنجليزي مع الحفاظ على اللفظ الأجنبي لاسم المدينة. المصطلح يتبع بنية الإضافة (مضاف ومضاف إليه)."
+  blind_candidates:
+    - lemma: "خَلِيجُ سَان دِيِيغُو"
+      generation_method: tarkib
+      justification: "الترجمة الرسمية والشائعة لاسم الموقع الجغرافي (San Diego Bay)."
+    - lemma: "خَلِيجُ سَان دِييغو"
+      generation_method: tarkib
+      justification: "تنويع في كتابة الاسم الأجنبي (ياء واحدة بدل ياءين في دييغو)."
+    - lemma: "جَوْنُ سَان دِيِيغُو"
+      generation_method: tarkib
+      justification: "استخدام 'جون' كبديل دقيق لـ 'bay' في المصطلحات الجغرافية."
+    - lemma: "مِينَاءُ سَان دِيِيغُو"
+      generation_method: tarkib
+      justification: "استخدام 'ميناء' للإشارة إلى الخليج بصفته مرفأً طبيعياً، وهو استخدام شائع في السياقات الملاحية."
+
+# Stage 2: Evidence Gathering
+stage2_evidence:
+  per_lemma:
+    - lemma: "خليج سان دييغو"
+      evidence_status: "no_material_found"
+    - lemma: "خَلِيج"
+      confirm:
+        - text: "«الخَلِيجُ: امتداد من الماء متوغل في اليابس»"
+          source: "المعجم الوسيط"
+        - text: "«الخَلِيج: رِجْلٌ - أى شُعْبة - من البَحْرِ تُخْتَلَجُ منه شَرْمٌ من البَحْرِ ما انْقَطَع من مُعْظَم الماءِ»"
+          source: "المعجم الكبير"
+    - lemma: "جَوْن"
+      confirm:
+        - text: "«الجَوْنُ: الخَلِيجُ من البَحْرِ»"
+          source: "تاج العروس"
+      expands:
+        - text: "«الجَوْن: الأسود والأبيض (ضد)»"
+          source: "المعجم الوسيط"
+          addition: "يشير إلى أن كلمة جون لها دلالات أخرى واسعة في العربية القديمة."
+    - lemma: "شَرْم"
+      confirm:
+        - text: "«الشَّرْمُ: لُجَّةُ البَحْرِ، وقيل: موضع فيه، وقيل: هو أَبْعَدُ قَعْرِهِ. الجوهري: وشَرْمٌ من البحر خَلِيجٌ منه»"
+          source: "لسان العرب"
+
+# Stage 3: Lemma Linguistic Analysis
+stage3_analysis:
+  per_lemma:
+    - lemma: "خليج سان دييغو"
+      decision: confirmed
+      decision_reason: "الاسم الرسمي والمستقر لهذا الكيان الجغرافي في اللغة العربية المعاصرة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَلِيجُ سَان دِيِيغُو"
+    - lemma: "خَلِيجُ سَان دِيِيغُو"
+      source: stage1
+      decision: confirmed
+      decision_reason: "نفس اللمة الموجودة مع تدقيق التشكيل."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      # No create_entry needed as it is an update of the existing one
+
+# Stage 4: Definitions & Examples
+stage4_content:
+  definition:
+    current: "خليج في المحيط الهادئ في جنوب كاليفورنيا"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب جداً، يفضل صياغته بأسلوب معجمي أكثر دقة يبرز طبيعة الكيان الجغرافي."
+    authored:
+      - type: encyclopedic
+        text: "خَلِيجٌ بَحْرِيٌّ يَقَعُ فِي أَقْصَى جَنُوبِ وِلَايَةِ كَالِيفُورْنِيَا عَلَى سَاحِلِ الْمُحِيطِ الْهَادِئِ، يُعَدُّ مَرْفَأً طَبِيعِيًّا هَامًّا وَقَاعِدَةً لِلْأُسْطُولِ الْبَحْرِيِّ الْأَمْرِيكِيِّ."
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "خَلِيجٌ بَحْرِيٌّ يَقَعُ فِي أَقْصَى جَنُوبِ وِلَايَةِ كَالِيفُورْنِيَا عَلَى سَاحِلِ الْمُحِيطِ الْهَادِئِ."
+  examples:
+    per_lemma:
+      - lemma: "خَلِيجُ سَان دِيِيغُو"
+        examples:
+          - text: "تَمْتَدُّ مَدِينَةُ سَان دِيِيغُو حَوْلَ خَلِيجِ سَان دِيِيغُو الَّذِي يُعَدُّ مِنْ أَهَمِّ الْمَوَانِئِ فِي السَّاحِلِ الْغَرْبِيِّ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تَمْتَدُّ مَدِينَةُ سَان دِيِيغُو حَوْلَ خَلِيجِ سَان دِيِيغُو الَّذِي يُعَدُّ مِنْ أَهَمِّ الْمَوَانِئِ فِي السَّاحِلِ الْغَرْبِيِّ."
+
+# Stage 5: Enrichment (Metadata)
+stage5_enrichment:
+  per_entry:
+    - lemma: "خَلِيجُ سَان دِيِيغُو"
+      entry_id: "{auto}"
+      roots:
+        - word: "خليج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"
+        - word: "سان دييغو"
+          root: null
+          maqayis_quote: null
+  per_sense:
+    - lemma: "خَلِيجُ سَان دِيِيغُو"
+      sense_id: "{auto}"
+      nuance: "الاسم الرسمي المباشر للكيان الجغرافي."
+      mwe: true
+  synset:
+    cultural_fit: omission
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"خليج","root":"خلج","maqayis":"«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"},{"word":"سان دييغو","root":null,"maqayis":null}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الرسمي المباشر للكيان الجغرافي.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"omission"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

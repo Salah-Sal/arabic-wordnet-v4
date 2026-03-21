@@ -1,0 +1,257 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي يبدو ترجمة حرفية للتعريف الإنجليزي (الناس بشكل عام ككل)."
+      - "اللمة (عامة الشعب) مركب إضافي، ورغم صحتها يمكن الاكتفاء بـ (عامة) ككلمة مفردة تؤدي الغرض."
+    observations: "المفهوم يشير إلى الكيان الجامع للناس. اللغة العربية غنية بالألفاظ التي تعبر عن الكثرة والعموم مثل الجمهور والعامة."
+  blind_candidates:
+    - lemma: "عُمُوم"
+      generation_method: ishtiqaq
+      justification: "مصدر يدل على الشمول واحتواء الجميع."
+    - lemma: "عَامَّة"
+      generation_method: ishtiqaq
+      justification: "مشتق من العموم للدلالة على عموم الناس مقابل الخاصّة."
+    - lemma: "دَهْمَاء"
+      generation_method: majaz
+      justification: "استعارة من السواد والكثرة للدلالة على السواد الأعظم من الناس."
+    - lemma: "مَلَأ"
+      generation_method: majaz
+      justification: "الذين يملؤون العيون كثرة، ويقصد بهم الجماعة الكبيرة من الناس."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "جُمْهُور"
+      confirm:
+        - text: "من النَّاس: جُلُّهم، ومُعْظَمُ كُلِّ شيءٍ"
+          source: "القاموس المحيط للفيروزآبادي"
+        - text: "من كل شَيْء معظمه ... وَمن النَّاس جلهم"
+          source: "المعجم الوسيط"
+    - lemma: "عَامَّةُ الشَّعْبِ"
+      confirm:
+        - text: "عامة الشعب"
+          source: "المعجم الموحد لمصطلحات التجارة والمحاسبة"
+    - lemma: "عُمُوم"
+      confirm:
+        - text: "عامَّة الناس [فصيحة]-عموم الناس [صحيحة]"
+          source: "معجم الصواب اللغوي"
+    - lemma: "عَامَّة"
+      confirm:
+        - text: "من النَّاس خلاف الْخَاصَّة"
+          source: "المعجم الوسيط"
+    - lemma: "دَهْمَاء"
+      confirm:
+        - text: "عامة الناس وَسَوادُهم"
+          source: "المعجم الوسيط"
+    - lemma: "مَلَأ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "جُمْهُور"
+      decision: confirmed
+      decision_reason: "كلمة أصيلة تعبر بدقة عن معظم الناس أو جلهم، وتطابق المفهوم الإنجليزي public."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "جُمْهُور"
+    
+    - lemma: "عَامَّةُ الشَّعْبِ"
+      decision: confirmed
+      decision_reason: "تعبير مركب إضافي شائع ومستقر للدلالة على الناس ككل دون تمييز طبقي (populace)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عَامَّةُ الشَّعْبِ"
+            
+    - lemma: "عَامَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف دقيق لـ populace و public، وهي الكلمة المفردة المقابلة لـ (عامة الشعب)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "عَامَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-08196607-n"}
+          
+    - lemma: "دَهْمَاء"
+      source: stage1
+      decision: confirmed
+      decision_reason: "كلمة تراثية فصيحة تعني سواد الناس وعامتهم، وتستخدم مجازاً للدلالة على الكثرة الغالبة والمجموع."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "دَهْمَاء", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-08196607-n"}
+
+    - lemma: "عُمُوم"
+      source: stage1
+      decision: removed
+      decision_reason: "تستخدم غالباً مضافة (عموم الناس) أو تدل على معنى الشمول المجرد، وليست اسماً جامعاً للناس ككيان مستقل مثل الجمهور والعامة."
+
+    - lemma: "مَلَأ"
+      source: stage1
+      decision: removed
+      decision_reason: "الملأ هم الأشراف ووجوه القوم، وليس عامة الناس، مما يجعلها مناقضة جزئياً للمفهوم."
+
+stage4_content:
+  definition:
+    current: "الناس بشكل عام ككل"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ترجمة حرفية ركيكة للتعريف الإنجليزي، ويجب صياغته بأسلوب معجمي عربي فصيح."
+    authored:
+      - type: linguistic
+        text: "مُعْظَمُ النَّاسِ وجُلُّهُم والمَجْمُوعُ العَامُّ مِنْهُم مِنْ غَيْرِ تَخْصِيصٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-08196607-n", definition_index: 0, text: "مُعْظَمُ النَّاسِ وجُلُّهُم والمَجْمُوعُ العَامُّ مِنْهُم مِنْ غَيْرِ تَخْصِيصٍ."}
+
+  examples:
+    per_lemma:
+      - lemma: "جُمْهُور"
+        examples:
+          - text: "خَاطَبَ الرَّئِيسُ جُمْهُورَ المُواطِنِينَ بِلُغَةٍ مُبَاشِرَةٍ."
+            type: usage
+      - lemma: "عَامَّةُ الشَّعْبِ"
+        examples:
+          - text: "تَهْدِفُ القَرَارَاتُ الجَدِيدَةُ إِلَى تَحْسِينِ حَيَاةِ عَامَّةِ الشَّعْبِ."
+            type: usage
+      - lemma: "عَامَّة"
+        examples:
+          - text: "يَجِبُ أَنْ تَكُونَ هَذِهِ المَرَافِقُ مُتَاحَةً لِلْعَامَّةِ."
+            type: usage
+      - lemma: "دَهْمَاء"
+        examples:
+          - text: "تَنْسَاقُ الدَّهْمَاءُ عَادَةً وَرَاءَ الشَّائِعَاتِ دُونَ تَثَبُّتٍ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-08196607-n", text: "تَهْدِفُ القَرَارَاتُ الجَدِيدَةُ إِلَى تَحْسِينِ حَيَاةِ عَامَّةِ الشَّعْبِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "خَاطَبَ الرَّئِيسُ جُمْهُورَ المُواطِنِينَ بِلُغَةٍ مُبَاشِرَةٍ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "جُمْهُور"
+      entry_id: "{auto}"
+      root: "جمهر"
+      maqayis_quote: "«الرملة المشرفة على ما حولها شيء مجتمع عال»"
+    - lemma: "عَامَّة"
+      entry_id: "{auto}"
+      root: "عمم"
+      maqayis_quote: "«الْعَيْنُ وَالْمِيمُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى الطُّولِ وَالْكَثْرَةِ وَالْعُلُوِّ... وَالْعَامَّةُ ضِدَّ الْخَاصَّةِ.»"
+    - lemma: "دَهْمَاء"
+      entry_id: "{auto}"
+      root: "دهم"
+      maqayis_quote: "«الدَّالُ وَالْهَاءُ وَالْمِيمُ أَصْلٌ يَدُلُّ عَلَى غِشْيَانِ الشَّيْءِ فِي ظَلَامٍ... وَمِنَ الْبَابِ الدَّهْمُ: الْعَدَدُ الْكَثِيرُ.»"
+    - lemma: "عَامَّةُ الشَّعْبِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "عامة"
+          root: "عمم"
+          maqayis_quote: "«الْعَيْنُ وَالْمِيمُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى الطُّولِ وَالْكَثْرَةِ وَالْعُلُوِّ... وَالْعَامَّةُ ضِدَّ الْخَاصَّةِ.»"
+        - word: "الشعب"
+          root: "شعب"
+          maqayis_quote: "«الشِّينُ وَالْعَيْنُ وَالْبَاءُ أَصْلَانِ مُخْتَلِفَانِ، أَحَدُهُمَا يَدُلُّ عَلَى الِافْتِرَاقِ، وَالْآخَرُ عَلَى الِاجْتِمَاعِ.»"
+  per_sense:
+    - lemma: "جُمْهُور"
+      sense_id: "{auto}"
+      nuance: "تشير إلى العدد الكبير من الناس والمجتمعين على أمر أو وصف، وتستخدم غالباً للدلالة على الجمهور المخاطَب أو المعني بشيء."
+      mwe: false
+    - lemma: "عَامَّةُ الشَّعْبِ"
+      sense_id: "{auto}"
+      nuance: "تؤكد على الانتماء الشعبي وتستعمل غالباً في السياقات السياسية والاجتماعية كمقابل للطبقات الحاكمة أو الخاصة."
+      mwe: true
+    - lemma: "عَامَّة"
+      sense_id: "{auto}"
+      nuance: "لفظ عام يشير إلى غالبية الناس ككل في مقابل الخاصة."
+      mwe: false
+    - lemma: "دَهْمَاء"
+      sense_id: "{auto}"
+      nuance: "تحمل دلالة تراثية وأحياناً سلبية قليلاً (الغوغاء) أو مجرد الكثرة الغالبة للناس (السواد الأعظم)."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جمهر","maqayis":"«الرملة المشرفة على ما حولها شيء مجتمع عال»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عمم","maqayis":"«الْعَيْنُ وَالْمِيمُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى الطُّولِ وَالْكَثْرَةِ وَالْعُلُوِّ... وَالْعَامَّةُ ضِدَّ الْخَاصَّةِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"دهم","maqayis":"«الدَّالُ وَالْهَاءُ وَالْمِيمُ أَصْلٌ يَدُلُّ عَلَى غِشْيَانِ الشَّيْءِ فِي ظَلَامٍ... وَمِنَ الْبَابِ الدَّهْمُ: الْعَدَدُ الْكَثِيرُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"عامة","root":"عمم","maqayis":"«الْعَيْنُ وَالْمِيمُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى الطُّولِ وَالْكَثْرَةِ وَالْعُلُوِّ... وَالْعَامَّةُ ضِدَّ الْخَاصَّةِ.»"},{"word":"الشعب","root":"شعب","maqayis":"«الشِّينُ وَالْعَيْنُ وَالْبَاءُ أَصْلَانِ مُخْتَلِفَانِ، أَحَدُهُمَا يَدُلُّ عَلَى الِافْتِرَاقِ، وَالْآخَرُ عَلَى الِاجْتِمَاعِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تشير إلى العدد الكبير من الناس والمجتمعين على أمر أو وصف، وتستخدم غالباً للدلالة على الجمهور المخاطَب أو المعني بشيء.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تؤكد على الانتماء الشعبي وتستعمل غالباً في السياقات السياسية والاجتماعية كمقابل للطبقات الحاكمة أو الخاصة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"لفظ عام يشير إلى غالبية الناس ككل في مقابل الخاصة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تحمل دلالة تراثية وأحياناً سلبية قليلاً (الغوغاء) أو مجرد الكثرة الغالبة للناس (السواد الأعظم).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-08196607-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-08196607-n"
+        score: 0.95

@@ -1,0 +1,206 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة تفتقر إلى التشكيل الكامل."
+      - "التعريف العربي مقتضب جداً ويحتاج إلى تفصيل جغرافي."
+    observations: "المجموعة تتعلق بكيان جغرافي محدد (خليج البندقية). المصطلح العربي مستقر تاريخياً وجغرافياً، لكن يمكن إثراؤه بمترادفات كلاسيكية مثل 'جون' ومسميات حديثة مثل 'فينيسيا'."
+  blind_candidates:
+    - lemma: "خَلِيجُ الْبُنْدُقِيَّةِ"
+      generation_method: tarkib
+      justification: "الاسم الجغرافي القياسي والمنقول عن التسمية الإيطالية والأوروبية، وهو الأكثر شيوعاً."
+    - lemma: "جَوْنُ الْبُنْدُقِيَّةِ"
+      generation_method: majaz
+      justification: "استخدام كلمة 'جون' كمرادف فصيح لـ'خليج' (Bay/Gulf) في التراث المعجمي."
+    - lemma: "خَلِيجُ فِينِيسْيَا"
+      generation_method: taarib
+      justification: "استخدام الاسم المعرب المباشر للمدينة (Venezia) بدلاً من الاسم العربي التراثي (البندقية)."
+    - lemma: "شَرْمُ الْبُنْدُقِيَّةِ"
+      generation_method: majaz
+      justification: "استخدام 'شرم' لوصف الانبعاج الساحلي، وإن كان يطلق غالباً على الخلجان الضيقة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خليج البندقية"
+      confirm:
+        - text: "«تقع على الخليج المسمَّى باسمها [أي البندقية]»"
+          source: "المعجم الكبير"
+      expands:
+        - text: "«البندقية: قاعدة ولاية إيطالية مشهورة، تقع على الخليج المسمى باسمها»"
+          source: "المعجم الكبير"
+    - lemma: "جون البندقية"
+      confirm:
+        - text: "«يقال: خليج أو جون مستراح أي آمن.»"
+          source: "تكملة المعاجم العربية (دوزي)"
+          addition: "يؤكد دوزي ترادف 'خليج' و'جون' في السياق الجغرافي."
+    - lemma: "البندقية"
+      confirm:
+        - text: "«البُنْدُقِيَّة: قاعدةُ ولاية إيطالية مشهورة...»"
+          source: "المعجم الكبير"
+    - lemma: "البحر الأدرياتي"
+      confirm:
+        - text: "«(أدرياتيك Adriatic sea): ذراع كبير من البحر المتوسط... وأهم موانيه البندقية»"
+          source: "المعجم الكبير"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "خليج البندقية"
+      decision: confirmed
+      decision_reason: "المصطلح العربي القياسي لهذا الكيان الجغرافي، وموثق في المعاجم الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَلِيجُ الْبُنْدُقِيَّةِ"
+    - lemma: "جَوْنُ الْبُنْدُقِيَّةِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "بديل فصيح يستخدم 'جون' التي تعني الخليج في لغة العرب، وهو متداول في الكتب الجغرافية القديمة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "جَوْنُ الْبُنْدُقِيَّةِ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "خَلِيجُ فِينِيسْيَا"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تنويع مقبول يستخدم الاسم المعرب المعاصر للمدينة، وهو شائع في السياقات العلمية والترجمات الحديثة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "خَلِيجُ فِينِيسْيَا"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "شَرْمُ الْبُنْدُقِيَّةِ"
+      source: stage1
+      decision: removed
+      decision_reason: "كلمة 'شرم' تطلق عادة على الخلجان الضيقة أو المداخل البحرية الصغيرة، ولا تنطبق بدقة على خليج البندقية المتسع."
+
+stage4_content:
+  definition:
+    current: "ذراع من البحر الأدرياتيكي"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب؛ يحتاج إلى تحديد جغرافي أدق (الموقع من البحر) وربطه بالكيان الرئيسي (مدينة البندقية)."
+    authored:
+      - type: encyclopedic
+        text: "ذراعٌ شِماليٌّ مِنَ البَحْرِ الْأَدْرِيَاتِي (الْأَدْرِيَاتِيكِيِّ)، يَقَعُ بَيْنَ شِبْهِ جَزِيرَةِ إِيطَالْيَا وَسَاحِلِ الْبَلْقَانِ، وَتَقَعُ مَدِينَةُ الْبُنْدُقِيَّةِ الإِيطَالِيَّةُ عِنْدَ رَأْسِهِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "ذراعٌ شِماليٌّ مِنَ البَحْرِ الْأَدْرِيَاتِي (الْأَدْرِيَاتِيكِيِّ)، يَقَعُ بَيْنَ شِبْهِ جَزِيرَةِ إِيطَالْيَا وَسَاحِلِ الْبَلْقَانِ، وَتَقَعُ مَدِينَةُ الْبُنْدُقِيَّةِ الإِيطَالِيَّةُ عِنْدَ رَأْسِهِ."
+  examples:
+    per_lemma:
+      - lemma: "خَلِيجُ الْبُنْدُقِيَّةِ"
+        examples:
+          - text: "يُعَدُّ خَلِيجُ الْبُنْدُقِيَّةِ مَقْصِداً سِيَاحِيًّاً هَامّاً لِإِطْلَالَتِهِ عَلَى أَهَمِّ مَوَانِئِ إِيطَالْيَا التَّارِيخِيَّةِ."
+            type: usage
+      - lemma: "جَوْنُ الْبُنْدُقِيَّةِ"
+        examples:
+          - text: "كَانَتِ السُّفُنُ التِّجَارِيَّةُ تَمْخُرُ عُبَابَ جَوْنِ الْبُنْدُقِيَّةِ مُحَمَّلَةً بِبَضَائِعِ الشَّرْقِ."
+            type: usage
+      - lemma: "خَلِيجُ فِينِيسْيَا"
+        examples:
+          - text: "يَمْتَدُّ خَلِيجُ فِينِيسْيَا عَبْرَ الْجُزْءِ الشِّمالِيِّ مِنَ الْبَحْرِ الْأَدْرِيَاتِي."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "تَطُلُّ عِدَّةُ دُوَلٍ أُورُوبِّيَّةٍ عَلَى سَوَاحِلِ خَلِيجِ الْبُنْدُقِيَّةِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خَلِيجُ الْبُنْدُقِيَّةِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "خليج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"
+        - word: "البندقية"
+          root: "بندق"
+          maqayis_quote: "لم ترد في المقاييس لأنها لفظة رباعية معربة."
+    - lemma: "جَوْنُ الْبُنْدُقِيَّةِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "جون"
+          root: "جون"
+          maqayis_quote: "«الْجِيمُ وَالْوَاوُ وَالنُّونُ أَصْلٌ وَاحِدٌ... وَالْجَوْنُ عِنْدَ أَهْلِ اللُّغَةِ قَاطِبَةً اسْمٌ يَقَعُ عَلَى الْأَسْوَدِ وَالْأَبْيَضِ.»"
+        - word: "البندقية"
+          root: "بندق"
+          maqayis_quote: "لم ترد في المقاييس لأنها لفظة رباعية معربة."
+    - lemma: "خَلِيجُ فِينِيسْيَا"
+      entry_id: "{auto}"
+      roots:
+        - word: "خليج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ.»"
+        - word: "فينيسيا"
+          root: "فنس"
+          maqayis_quote: "اسم أعجمي معرب."
+  per_sense:
+    - lemma: "خَلِيجُ الْبُنْدُقِيَّةِ"
+      sense_id: "{auto}"
+      nuance: "الاسم الجغرافي العربي المستقر والأكثر دقة وتداولاً."
+      mwe: true
+    - lemma: "جَوْنُ الْبُنْدُقِيَّةِ"
+      sense_id: "{auto}"
+      nuance: "يستخدم كلمة 'جون' لإضفاء صبغة تراثية أو أدبية على الوصف الجغرافي."
+      mwe: true
+    - lemma: "خَلِيجُ فِينِيسْيَا"
+      sense_id: "{auto}"
+      nuance: "يستخدم الاسم المعرب المباشر (فينيسا/فينيسيا) الشائع في الترجمات الحديثة والأطالس المعاصرة."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"خليج","root":"خلج","maqayis":"«الخاء واللام والجيم أصل واحد...»"},{"word":"البندقية","root":"بندق","maqayis":"لفظ معرب"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الجغرافي العربي المستقر","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

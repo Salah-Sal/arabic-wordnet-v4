@@ -1,0 +1,231 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'ظرف' تشير عادةً إلى الحالة أو الوعاء أكثر من كونها حدثاً بحد ذاته، لكنها تُقبل في سياق 'الظرف الدقيق'."
+      - "اللمة 'مناسبة' عامة جداً وقد لا توحي بالحرج أو اللحظة الحاسمة بدون صفة."
+    observations: "المجموعة تدور حول المفهوم الزماني للحدث الحرج (Juncture). اللمات الموجودة مقبولة مع الحاجة لتعزيزها بمرشحات أكثر دقة مثل 'مَفْصِل'."
+  blind_candidates:
+    - lemma: "مَفْصِل"
+      generation_method: majaz
+      justification: "استعارة من مفصل العظام للدلالة على نقطة الالتقاء الحاسمة أو المنعطف التاريخي."
+    - lemma: "مُنْعَطَف"
+      generation_method: majaz
+      justification: "نقطة تحول في مسار الأحداث توحي بالحرج والأهمية."
+    - lemma: "فَاصِلَة"
+      generation_method: majaz
+      justification: "نقطة زمنية أو حدث يفصل بين مرحلتين، وغالباً ما يكون حاسماً."
+    - lemma: "لَحْظَة حَاسِمَة"
+      generation_method: tarkib
+      justification: "تعبير اصطلاحي يصف الحدث الذي يقع في وقت حرج بدقة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "ظرف"
+      confirm:
+        - text: "«ظرف: وضع، حالة... في أحلك الظروف: في أوقات الشدة»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«juncture: ظرف؛ وقت. وبخاصة: فترة أو مرحلة حاسمة»"
+          source: "المورد الحديث"
+    - lemma: "مناسبة"
+      confirm:
+        - text: "«occasion: مناسبة؛ حادثة»"
+          source: "المورد الحديث"
+    - lemma: "منعطف"
+      confirm:
+        - text: "«منعطف: نقطة تحول (مفهوم حديث شائع في السياق التاريخي والسياسي)»"
+          source: "الاستعمال الشائع"
+    - lemma: "مفصل"
+      confirm:
+        - text: "«المَفْصِل: اللسان، لأن به تُفصل الأمور وتُميز»"
+          source: "مقاييس اللغة"
+        - text: "«juncture: مَفصِل»"
+          source: "المورد الحديث"
+      expands:
+        - text: "«المَفْصِل: ملتقى كل عظمين في الجسد»"
+          source: "معجم الصواب اللغوي"
+          addition: "الاستخدام المجازي للنقطة الحاسمة مشتق من هذا المعنى."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "ظرف"
+      decision: confirmed
+      decision_reason: "مقبولة لدلالتها على السياق الزماني الحرج، وهي مرادف معتمد لـ juncture في القواميس الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "ظَرْف"
+    - lemma: "مناسبة"
+      decision: confirmed
+      decision_reason: "ترجمة دقيقة لـ occasion، وتشير إلى الحدث المرتبط بوقت معين."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُنَاسَبَة"
+    - lemma: "منعطف"
+      decision: confirmed
+      decision_reason: "تشير إلى اللحظة الحاسمة التي يتغير فيها مسار الأحداث، وهي قريبة جداً من مفهوم juncture."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُنْعَطَف"
+    - lemma: "مفصل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح حديث شائع جداً للدلالة على المنعطفات التاريخية أو النقاط الحاسمة في مسار ما."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَفْصِل", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "حدث يقع في وقت حرج"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي صحيح لكنه يفتقر إلى الجزالة المعجمية."
+    authored:
+      - type: terminological
+        text: "حَدَثٌ أو مَوْقِفٌ يَقَعُ فِي لَحْظَةٍ حَاسِمَةٍ أو وَقْتٍ حَرِجٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "حَدَثٌ أو مَوْقِفٌ يَقَعُ فِي لَحْظَةٍ حَاسِمَةٍ أو وَقْتٍ حَرِجٍ."}
+  examples:
+    per_lemma:
+      - lemma: "ظَرْف"
+        examples:
+          - text: "في هذا الظرف الدقيق من تاريخ الأمة، يجب علينا التكاتف."
+            type: usage
+      - lemma: "مُنَاسَبَة"
+        examples:
+          - text: "كانت هذه المناسبة فرصة ذهبية لعقد اتفاقية سلام."
+            type: usage
+      - lemma: "مُنْعَطَف"
+        examples:
+          - text: "تمر المنطقة حالياً بمنعطف خطير يتطلب الحكمة في التعامل."
+            type: usage
+      - lemma: "مَفْصِل"
+        examples:
+          - text: "تُعد هذه المعركة مَفْصِلاً تاريخياً في مسار الحرب."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "ظَرْف"
+      entry_id: "{auto}"
+      root: "ظرف"
+      maqayis_quote: "«الظَّاءُ وَالرَّاءُ وَالْفَاءُ كَلِمَةٌ كَأَنَّهَا صَحِيحَةٌ. يَقُولُونَ: هَذَا وِعَاءُ الشَّيْءِ وَظَرْفُهُ، ثُمَّ يُسَمُّونَ الْبَرَاعَةَ ظَرْفًا...»"
+    - lemma: "مُنَاسَبَة"
+      entry_id: "{auto}"
+      root: "نسب"
+      maqayis_quote: "«النُّونُ وَالسِّينُ وَالْبَاءُ كَلِمَةٌ وَاحِدَةٌ قِيَاسُهَا اتِّصَالُ شَيْءٍ بِشَيْءٍ. مِنْهُ النَّسَبُ، سُمِّيَ لِاتِّصَالِهِ وَلِلِاتِّصَالِ بِهِ.»"
+    - lemma: "مُنْعَطَف"
+      entry_id: "{auto}"
+      root: "عطف"
+      maqayis_quote: "«الْعَيْنُ وَالطَّاءُ وَالْفَاءُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى انْثِنَاءٍ وَعِيَاجٍ.»"
+    - lemma: "مَفْصِل"
+      entry_id: "{auto}"
+      root: "فصل"
+      maqayis_quote: "«الْفَاءُ وَالصَّادُ وَاللَّامُ كَلِمَةٌ صَحِيحَةٌ تَدُلُّ عَلَى تَمْيِيزِ الشَّيْءِ مِنَ الشَّيْءِ وَإِبَانَتِهِ عَنْهُ. وَالْمِفْصَلُ: اللِّسَانُ، لِأَنَّ بِهِ تُفْصَلُ الْأُمُورُ وَتُمَيَّزُ.»"
+  per_sense:
+    - lemma: "ظَرْف"
+      sense_id: "{auto}"
+      nuance: "تُركز على السياق المحيط أو الظروف الزمانية والمكانية للحدث."
+      mwe: false
+    - lemma: "مُنَاسَبَة"
+      sense_id: "{auto}"
+      nuance: "تشير إلى الحدث بحد ذاته كوقت ملائم أو احتفال أو وقوع أمر ما."
+      mwe: false
+    - lemma: "مُنْعَطَف"
+      sense_id: "{auto}"
+      nuance: "توحي بالتغير الجذري في الاتجاه أو المسار نتيجة وقوع الحدث."
+      mwe: false
+    - lemma: "مَفْصِل"
+      sense_id: "{auto}"
+      nuance: "تؤكد على الطبيعة الحاسمة للحدث كنقطة التقاء أو فصل لا يمكن تجاوزها دون قرار."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ظرف","maqayis":"«الظَّاءُ وَالرَّاءُ وَالْفَاءُ كَلِمَةٌ كَأَنَّهَا صَحِيحَةٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نسب","maqayis":"«النُّونُ وَالسِّينُ وَالْبَاءُ كَلِمَةٌ وَاحِدَةٌ قِيَاسُهَا اتِّصَالُ شَيْءٍ بِشَيْءٍ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عطف","maqayis":"«الْعَيْنُ وَالطَّاءُ وَالْفَاءُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى انْثِنَاءٍ وَعِيَاجٍ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"فصل","maqayis":"«الْفَاءُ وَالصَّادُ وَاللَّامُ كَلِمَةٌ صَحِيحَةٌ تَدُلُّ عَلَى تَمْيِيزِ الشَّيْءِ مِنَ الشَّيْءِ وَإِبَانَتِهِ عَنْهُ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تُركز على السياق المحيط أو الظروف الزمانية والمكانية للحدث.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تشير إلى الحدث بحد ذاته كوقت ملائم أو احتفال أو وقوع أمر ما.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"توحي بالتغير الجذري في الاتجاه أو المسار نتيجة وقوع الحدث.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تؤكد على الطبيعة الحاسمة للحدث كنقطة التقاء أو فصل لا يمكن تجاوزها دون قرار.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

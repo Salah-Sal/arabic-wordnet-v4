@@ -1,0 +1,176 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "غياب التشكيل عن اللمة الموجودة (كنز)."
+    observations: "التعريف دقيق ويعبر عن المفهوم بوضوح. اللمة (كنز) هي المقابل المعجمي الأدق للمصطلح الإنجليزي (treasure) في هذا السياق."
+  blind_candidates:
+    - lemma: "ذَخِيرَة"
+      generation_method: majaz
+      justification: "استعارة من الشيء المُدَّخَر لقيمته ووقت الحاجة إليه."
+    - lemma: "نَفَائِس"
+      generation_method: ishtiqaq
+      justification: "جمع (نفيسة)، وتُطلق على المقتنيات ذات القيمة العالية التي يُتنافس فيها."
+    - lemma: "خَبِيئَة"
+      generation_method: majaz
+      justification: "تُطلق على الشيء الثمين المخبوء والمحفوظ بعناية."
+    - lemma: "مُقْتَنَيَات ثَمِينَة"
+      generation_method: tarkib
+      justification: "مركب وصفي يعبر مباشرة عن مجموعة الأشياء التي تُقتنى لقيمتها المادية أو المعنوية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "كنز"
+      confirm:
+        - text: "كَنْز [مفرد]: ج كُنُوز ... 3 - كلُّ مُدَّخر ثمين يُتنافس فيه من مال أو ذهب أو أحجار كريمة"
+          source: "معجم اللغة العربية المعاصرة لأحمد مختار عمر"
+        - text: "الكَنْزُ: اسم للمال إِذا أُحرز في وعاء ولما يحرز فيه"
+          source: "لسان العرب لابن منظور"
+    - lemma: "ذخيرة"
+      confirm:
+        - text: "الذَّخِيرَة: ما ادُّخِر"
+          source: "المعجم الكبير"
+      contradicts:
+        - text: "عُدَّةُ الحرْبِ من رَصاص وقَذائفَ"
+          source: "المعجم الكبير"
+          conflict: "الاستعمال الغالب للكلمة اليوم يقتصر على العتاد العسكري وليس الأشياء الثمينة بحد ذاتها."
+    - lemma: "نفائس"
+      confirm:
+        - text: "النفيس: المَال الْكثير وَشَيْء نَفِيس عَظِيم الْقيمَة يرغب فِيهِ"
+          source: "المعجم الوسيط"
+    - lemma: "خبيئة"
+      expands:
+        - text: "الخبيئَةُ: الشيءُ المخبوءُ. يقال: له خَبِيئةٌ خَبَأَها ليوم حاجَتِهِ"
+          source: "المعجم الكبير"
+          addition: "تشير إلى الحفظ والإخفاء، لكنها لا تدل بالضرورة على النفاسة أو القيمة المادية العالية."
+    - lemma: "مقتنيات ثمينة"
+      confirm:
+        - text: "مُقْتَنَيات ... للدلالة على ما يتم الحصول عليه من تحف أو أعمال فنية أو أشياء ثمينة."
+          source: "معجم الصواب اللغوي"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "كنز"
+      decision: confirmed
+      decision_reason: "هي اللمة الأدق والأشيع للمفهوم، وتتطابق دلالياً مع (treasure) كمدخر ومجموعة من الأشياء الثمينة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "كَنْز"
+    - lemma: "نَفَائِس"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صيغة جمع شائعة الاستعمال للدلالة على مجموعة الأشياء الثمينة، وتعد مرادفاً مناسباً في سياق المقتنيات الثمينة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "نَفَائِس"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "ذَخِيرَة"
+      source: stage1
+      decision: removed
+      decision_reason: "دلالتها المعاصرة ارتبطت بالعتاد العسكري، وفي الأصل هي ما يدخر لوقت الحاجة ولا يشترط فيه النفاسة."
+    - lemma: "خَبِيئَة"
+      source: stage1
+      decision: removed
+      decision_reason: "تركز على فعل الإخفاء ولا تستلزم أن تكون الأشياء ثمينة في حد ذاتها."
+    - lemma: "مُقْتَنَيَات ثَمِينَة"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير وصفي حر غير مسكوك معجمياً ككلمة واحدة، واللمّات المفردة تفي بالغرض."
+
+stage4_content:
+  definition:
+    current: "مجموعة من الأشياء الثمينة"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق وموجز ويغطي المفهوم بشكل سليم متوافقاً مع الدلالة اللغوية."
+  examples:
+    per_lemma:
+      - lemma: "كَنْز"
+        examples:
+          - text: "عثر المستكشفون على كَنْزٍ تاريخي لا يُقدر بثمن يعود للعصر العباسي."
+            type: usage
+      - lemma: "نَفَائِس"
+        examples:
+          - text: "يضم المتحف الوطني نَفَائِسَ من المخطوطات والقطع الأثرية النادرة."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "عثر المستكشفون على كَنْزٍ تاريخي لا يُقدر بثمن يعود للعصر العباسي."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يضم المتحف الوطني نَفَائِسَ من المخطوطات والقطع الأثرية النادرة."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "كَنْز"
+      entry_id: "{auto}"
+      root: "كنز"
+      maqayis_quote: "«الْكَافُ وَالنُّونُ وَالزَّاءُ أُصَيْلٌ صَحِيحٌ يَدُلُّ عَلَى تَجَمُّعٍ فِي شَيْءٍ.»"
+    - lemma: "نَفَائِس"
+      entry_id: "{auto}"
+      root: "نفس"
+      maqayis_quote: "«النُّونُ وَالْفَاءُ وَالسِّينُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خُرُوجِ النَّسِيمِ كَيْفَ كَانَ، مِنْ رِيحٍ أَوْ غَيْرِهَا، وَإِلَيْهِ يَرْجِعُ فُرُوعُهُ.»"
+  per_sense:
+    - lemma: "كَنْز"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام والشائع للأشياء الثمينة المجموعة والمحفوظة."
+      mwe: false
+    - lemma: "نَفَائِس"
+      sense_id: "{auto}"
+      nuance: "تؤكد على قيمة الأشياء ونفاستها أكثر من تركيزها على كونها مجمعة أو مخبأة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"كنز","maqayis":"«الْكَافُ وَالنُّونُ وَالزَّاءُ أُصَيْلٌ صَحِيحٌ يَدُلُّ عَلَى تَجَمُّعٍ فِي شَيْءٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نفس","maqayis":"«النُّونُ وَالْفَاءُ وَالسِّينُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خُرُوجِ النَّسِيمِ كَيْفَ كَانَ، مِنْ رِيحٍ أَوْ غَيْرِهَا، وَإِلَيْهِ يَرْجِعُ فُرُوعُهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ العام والشائع للأشياء الثمينة المجموعة والمحفوظة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تؤكد على قيمة الأشياء ونفاستها أكثر من تركيزها على كونها مجمعة أو مخبأة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

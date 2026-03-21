@@ -1,0 +1,230 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "نقص التشكيل في اللمّات الحالية."
+      - "التعريف الحالي دقيق ولكنه مقتضب جداً."
+    observations: "المجموعة تغطي المفهوم العام للفشل كحدث. اللمّات الحالية (إخفاق، فشل) هي الأكثر شيوعاً، ولكن يمكن إثراء المجموعة بلمّات تعبر عن طبيعة الحدث كعثرة (كبوة) أو عدم تحقق المرجو (خيبة)."
+  blind_candidates:
+    - lemma: "إِخْفَاق"
+      generation_method: ishtiqaq
+      justification: "المصدر القياسي للفعل (أخفق) وهو المصطلح الأدق للتعبير عن عدم بلوغ الغرض."
+    - lemma: "فَشَل"
+      generation_method: ishtiqaq
+      justification: "المصطلح الأكثر ذيوعاً في الاستعمال المعاصر للفشل العام والتقني."
+    - lemma: "خَيْبَة"
+      generation_method: ishtiqaq
+      justification: "تعبر عن الفشل من زاوية انقطاع الرجاء وعدم نيل المأرب."
+    - lemma: "كَبْوَة"
+      generation_method: majaz
+      justification: "استعارة بليغة للحدث الفاشل (العثرة)، وتناسب سياق الحدث العابر في مسيرة ما."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "فَشَل"
+      confirm:
+        - text: "«فَشِلَ في عمله: أَخفَق (مج)»"
+          source: "المعجم الوسيط"
+        - text: "«فشِلَ في تحقيق أهدافه: أَخفق، عكسه نجح»"
+          source: "معجم اللغة العربية المعاصرة"
+      expands:
+        - text: "«توقف غير منتظر لبرنامج أو لنظام تشغيل أو للحاسوب نفسه»"
+          source: "المعجم الموحد لمصطلحات تقانة المعلومات (arabterm)"
+          addition: "الاستعمال التقني للمصطلح."
+    - lemma: "إِخْفَاق"
+      confirm:
+        - text: "«أَخْفَق في عمله: خاب»"
+          source: "معجم الصواب اللغوي"
+        - text: "«إخفاق: فشل في تحقيق المراد»"
+          source: "التعريف الضمني من معجم اللغة العربية المعاصرة (مادة خفق)"
+      expands:
+        - text: "«failure»"
+          source: "موسوعة الكهرباء (arabterm)"
+          addition: "يستخدم كمقابل تقني لـ failure."
+    - lemma: "خَيْبَة"
+      confirm:
+        - text: "«سَعَى فِي أَمْرٍ فَخَابَ، وَذَلِكَ إِذَا حُرِمَ فَلَمْ يُفِدْ خَيْرًا»"
+          source: "مقاييس اللغة"
+        - text: "«الخيبة: الخسران»"
+          source: "المعجم الوسيط"
+    - lemma: "كَبْوَة"
+      confirm:
+        - text: "«الكبوة: السقوط للوجه، وفي المثل (لكل جواد كبوة)»"
+          source: "المعجم الوسيط"
+        - text: "«يدل على سقوط وتزيل... كبا لوجهه... سقط»"
+          source: "مقاييس اللغة"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "إخفاق"
+      decision: confirmed
+      decision_reason: "مصطلح مركزي ودقيق يعبر عن عدم بلوغ الغرض المقصود."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "إِخْفَاق"
+    - lemma: "فشل"
+      decision: confirmed
+      decision_reason: "المصطلح الأشمل للفشل في الاستعمال المعاصر والتقني."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "فَشَل"
+    - lemma: "خَيْبَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تضيف بعداً دلالياً يتعلق بعدم تحقق المأمول أو المرجو من الحدث."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "خَيْبَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "كَبْوَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "استعارة شائعة ومقبولة لوصف حدث الفشل كعثرة مفاجئة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "كَبْوَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "حدث لا يحقق الغرض المقصود منه"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق وجامع لجوهر المفهوم كحدث مخفق."
+  examples:
+    per_lemma:
+      - lemma: "إِخْفَاق"
+        examples:
+          - text: "مُنِي المشروعُ بإِخْفَاقٍ ذريعٍ نتيجةَ سوءِ التخطيط."
+            type: usage
+      - lemma: "فَشَل"
+        examples:
+          - text: "كانَ فَشَلُ التجرِبةِ الأولى دافعاً له لمراجعةِ أبحاثِهِ."
+            type: usage
+      - lemma: "خَيْبَة"
+        examples:
+          - text: "أدّى تراجعُ المَبيعاتِ إلى خَيْبَةٍ في آمالِ المُستثمرينَ."
+            type: usage
+      - lemma: "كَبْوَة"
+        examples:
+          - text: "ليست هذهِ الخسارةُ إلّا كَبْوَةً عابِرةً في مَسيرةِ النجاحِ."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "إِخْفَاق"
+      entry_id: "{auto}"
+      root: "خفق"
+      maqayis_quote: "«الْخَاءُ وَالْفَاءُ وَالْقَافُ أَصْلٌ وَاحِدٌ يَرْجِعُ إِلَيْهِ فَرَوْعُهُ، وَهُوَ الِاضْطِرَابُ فِي الشَّيْءِ... وَأَمَّا قَوْلُهُمْ أَخْفَقَ الرَّجُلُ، إِذَا غَزَا وَلَمْ يُصِبْ شَيْئًا، فَيُمْكِنُ أَنْ يَكُونَ شَاذًّا عَنِ الْبَابِ، وَيُمْكِنُ أَنْ يُقَالَ: إِذَا لَمْ يُصِبْ فَهُوَ مُضْطَرِبُ الْحَالِ»"
+    - lemma: "فَشَل"
+      entry_id: "{auto}"
+      root: "فشل"
+      maqayis_quote: "«الْفَاءُ وَالشِّينُ وَاللَّامُ. يَقُولُونَ: تَفَشَّلَ الْمَاءُ: سَالَ. وَالْفَشْلُ: شَيْءٌ مِنْ أَدَاةِ الْهَوْدَجِ.»"
+    - lemma: "خَيْبَة"
+      entry_id: "{auto}"
+      root: "خيب"
+      maqayis_quote: "«الْخَاءُ وَالْيَاءُ وَالْبَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى عَدَمِ فَائِدَةٍ وَحِرْمَانٍ.»"
+    - lemma: "كَبْوَة"
+      entry_id: "{auto}"
+      root: "كبو"
+      maqayis_quote: "«الْكَافُ وَالْبَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى سُقُوطٍ وَتَزَيُّلٍ. يُقَالُ: كَبَا لِوَجْهِهِ يَكْبُو، وَهُوَ كَابٍ، إِذَا سَقَطَ.»"
+  per_sense:
+    - lemma: "إِخْفَاق"
+      sense_id: "{auto}"
+      nuance: "تستخدم في السياق الرسمي والعملي للتعبير عن عدم النجاح في تحقيق هدف محدد."
+      mwe: false
+    - lemma: "فَشَل"
+      sense_id: "{auto}"
+      nuance: "المصطلح الأكثر شمولاً وعمومية، ويستخدم في السياقات التقنية والاجتماعية."
+      mwe: false
+    - lemma: "خَيْبَة"
+      sense_id: "{auto}"
+      nuance: "تركز على النتيجة السلبية والشعور بالحرمان من الفائدة المرجوة."
+      mwe: false
+    - lemma: "كَبْوَة"
+      sense_id: "{auto}"
+      nuance: "تصف الفشل كحدث عارض أو سقوط مفاجئ مع إمكانية النهوض منه."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خفق","maqayis":"«الْخَاءُ وَالْفَاءُ وَالْقَافُ أَصْلٌ وَاحِدٌ يَرْجِعُ إِلَيْهِ فَرَوْعُهُ، وَهُوَ الِاضْطِرَابُ فِي الشَّيْءِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"فشل","maqayis":"«الْفَاءُ وَالشِّينُ وَاللَّامُ. يَقُولُونَ: تَفَشَّلَ الْمَاءُ: سَالَ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خيب","maqayis":"«الْخَاءُ وَالْيَاءُ وَالْبَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى عَدَمِ فَائِدَةٍ وَحِرْمَانٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"كبو","maqayis":"«الْكَافُ وَالْبَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى سُقُوطٍ وَتَزَيُّلٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تستخدم في السياق الرسمي والعملي للتعبير عن عدم النجاح في تحقيق هدف محدد.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الأكثر شمولاً وعمومية، ويستخدم في السياقات التقنية والاجتماعية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركز على النتيجة السلبية والشعور بالحرمان من الفائدة المرجوة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تصف الفشل كحدث عارض أو سقوط مفاجئ مع إمكانية النهوض منه.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

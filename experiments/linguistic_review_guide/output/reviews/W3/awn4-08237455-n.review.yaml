@@ -1,0 +1,234 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي دقيق ولكنه يفتقر إلى الصياغة المعجمية المتينة."
+      - "اللمة 'رف' مصطلح عسكري دقيق لكنه قد يكون مجهولاً لغير المختصين للتعبير عن الطائرات دون قرينة."
+    observations: "المفهوم يشير إلى الترتيب المادي الذي تتخذه مجموعة من الطائرات أثناء التحليق، أو إلى الوحدة التكتيكية نفسها. اللمات المرشحة يجب أن تعكس هذا التجمع المنظم للطائرات."
+  blind_candidates:
+    - lemma: "سِرْب"
+      generation_method: majaz
+      justification: "السرب في الأصل القطيع من الطير، واستعير للطائرات لمشابهتها بالطيور في التحليق الجماعي."
+    - lemma: "تَشْكِيلٌ طَيَرَانِيّ"
+      generation_method: tarkib
+      justification: "وصف للتشكيل بكونه متعلقاً بالطيران لتخصيصه بالطائرات المحلقة."
+    - lemma: "كَوْكَبَة"
+      generation_method: majaz
+      justification: "الكوكبة من الفرسان أو غيرهم هي الجماعة، وتستعار لمجموعة الطائرات ككوكبة الطائرات."
+    - lemma: "رَفُّ طَائِرَات"
+      generation_method: tarkib
+      justification: "الرف من الطير ما طار في صف واحد، واستعير للطائرات وهو معروف عسكرياً."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تَشْكِيل جَوِّيّ"
+      confirm:
+        - text: "«التشكيل: عدد أو مجموعة متجانسة من الأفراد أو الأشياء»"
+          source: "المعجم الكبير"
+      expands:
+        - text: "«flight path: خط الطيران»"
+          source: "المعجم الموحد لمصطلحات النقل (2010)"
+          addition: "يؤكد ارتباط مصطلحات الطيران بالجو والرحلات."
+    - lemma: "رَفّ"
+      confirm:
+        - text: "«الرَّفُّ: شِبْهُ الطَّاق تُجعَلُ عليه طرائفُ البيت... السِّرْبُ من الطير»"
+          source: "المعجم الوسيط"
+    - lemma: "سِرْب"
+      confirm:
+        - text: "«السِّرْبُ: الفَريقُ من الطَّير والحيوان»"
+          source: "المعجم الوسيط"
+    - lemma: "تَشْكِيل طَيَرَانِيّ"
+      evidence_status: "no_material_found"
+    - lemma: "كَوْكَبَة"
+      contradicts:
+        - text: "«الْجَمَاعَة من النَّاس»"
+          source: "المعجم الوسيط"
+          conflict: "تستخدم عادة للأشخاص أو النجوم وليس للطائرات."
+    - lemma: "رَفّ طَائِرَات"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تَشْكِيل جَوِّيّ"
+      decision: confirmed
+      decision_reason: "مصطلح تركيبي وصفي دقيق ومستعمل بكثرة للتعبير عن ترتيب الطائرات في الجو."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَشْكِيل جَوِّيّ"
+    - lemma: "رَفّ"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح وعسكري معتمد للتعبير عن وحدة طيران أو مجموعة طائرات محلقة (أصلها السرب من الطير)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "رَفّ"
+    - lemma: "سِرْب"
+      source: stage1
+      decision: confirmed
+      decision_reason: "كلمة فصيحة مستعارة من أسراب الطيور، وهي شائعة جداً وتكاد تكون المرادف الأبرز لمجموعة الطائرات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "سِرْب"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "تَشْكِيل طَيَرَانِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "عبارة غير مسكوكة، ويكفي عنها مصطلح 'تشكيل جوي'."
+    - lemma: "كَوْكَبَة"
+      source: stage1
+      decision: removed
+      decision_reason: "استعمالها بعيد عن سياق الطيران، وتخصص أكثر للفرسان والنجوم والمواكب."
+    - lemma: "رَفّ طَائِرَات"
+      source: stage1
+      decision: removed
+      decision_reason: "الكلمة الأساسية 'رف' تؤدي المعنى بمفردها كاستعارة معجمية، والتركيب الإضافي هنا وصفي حر وليس مصطلحاً مسكوكاً مستقلاً."
+
+stage4_content:
+  definition:
+    current: "تشكيل من الطائرات في حالة طيران"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ترجمة حرفية ومختصرة؛ يمكن صياغته بأسلوب معجمي أوضح يبين طبيعة الترتيب."
+    authored:
+      - type: terminological
+        text: "مَجْمُوعَةٌ مِنَ الطَّائِرَاتِ الْمُحَلِّقَةِ مَعاً فِي تَرْتِيبٍ وَنِظَامٍ مُعَيَّنٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "مَجْمُوعَةٌ مِنَ الطَّائِرَاتِ الْمُحَلِّقَةِ مَعاً فِي تَرْتِيبٍ وَنِظَامٍ مُعَيَّنٍ."
+  examples:
+    per_lemma:
+      - lemma: "تَشْكِيل جَوِّيّ"
+        examples:
+          - text: "حَلَّقَ التَّشْكِيلُ الْجَوِّيُّ فَوْقَ سَاحَةِ الِاحْتِفَالِ فِي يَوْمِ الِاسْتِقْلَالِ."
+            type: usage
+      - lemma: "رَفّ"
+        examples:
+          - text: "شَارَكَ رَفٌّ مِنَ الطَّائِرَاتِ الْمُقَاتِلَةِ فِي الِاسْتِعْرَاضِ الْعَسْكَرِيِّ."
+            type: usage
+      - lemma: "سِرْب"
+        examples:
+          - text: "عَبَرَ سِرْبٌ مِنَ الْمِرْوَحِيَّاتِ سَمَاءَ الْمَدِينَةِ بِنِظَامٍ بَدِيعٍ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "حَلَّقَ التَّشْكِيلُ الْجَوِّيُّ فَوْقَ سَاحَةِ الِاحْتِفَالِ فِي يَوْمِ الِاسْتِقْلَالِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "شَارَكَ رَفٌّ مِنَ الطَّائِرَاتِ الْمُقَاتِلَةِ فِي الِاسْتِعْرَاضِ الْعَسْكَرِيِّ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "عَبَرَ سِرْبٌ مِنَ الْمِرْوَحِيَّاتِ سَمَاءَ الْمَدِينَةِ بِنِظَامٍ بَدِيعٍ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تَشْكِيل جَوِّيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "تشكيل"
+          root: "شكل"
+          maqayis_quote: "«الشِّينُ وَالْكَافُ وَاللَّامُ مُعْظَمُ بَابِهِ الْمُمَاثَلَةُ. تَقُولُ: هَذَا شِكْلُ هَذَا، أَيْ مِثْلُهُ.»"
+        - word: "جوي"
+          root: "جوو"
+          maqayis_quote: "«الْجِيمُ وَالْوَاوُ شَيْءٌ وَاحِدٌ يَحْتَوِي عَلَى شَيْءٍ مِنْ جَوَانِبِهِ. فَالْجَوُّ جَوُّ السَّمَاءِ، وَهُوَ مَا حَنَا عَلَى الْأَرْضِ بِأَقْطَارِهِ...»"
+    - lemma: "رَفّ"
+      entry_id: "{auto}"
+      root: "رفف"
+      maqayis_quote: "«الرَّاءُ وَالْفَاءُ أَصْلَانِ: أَحَدُهُمَا الْمَصُّ وَمَا أَشْبَهَهُ، وَالثَّانِي الْحَرَكَةُ وَالرِّيقُ... وَمِمَّا شَذَّ عَنْ مُعْظَمِ الْبَابِ الرَّفُّ. قَالَ اللِّحْيَانِيُّ: هُوَ الْقَطِيعُ مِنَ الْبَقَرِ، وَيُقَالُ هُوَ الشَّاءُ الْكَثِيرُ.»"
+    - lemma: "سِرْب"
+      entry_id: "{auto}"
+      root: "سرب"
+      maqayis_quote: "«السِّينُ وَالرَّاءُ وَالْبَاءُ أَصْلٌ مُطَّرِدٌ، وَهُوَ يَدُلُّ عَلَى الِاتِّسَاعِ وَالذَّهَابِ فِي الْأَرْضِ. مِنْ ذَلِكَ السِّرْبُ وَالسُّرْبَةُ، وَهِيَ الْقَطِيعُ مِنَ الظِّبَاءِ وَالشَّاءِ.»"
+  per_sense:
+    - lemma: "تَشْكِيل جَوِّيّ"
+      sense_id: "{auto}"
+      nuance: "مصطلح وصفي عام وواضح يشير إلى الترتيب المادي للطائرات أثناء الطيران الجماعي."
+      mwe: true
+    - lemma: "رَفّ"
+      sense_id: "{auto}"
+      nuance: "استعارة من اصطفاف الطيور، ويُستخدم في السياق العسكري للدلالة على وحدة طيران تكتيكية محددة العدد."
+      mwe: false
+    - lemma: "سِرْب"
+      sense_id: "{auto}"
+      nuance: "مستعار من أسراب الطيور والحيوانات، وهو المصطلح الأكثر شيوعاً وعمومية للدلالة على مجموعة الطائرات، وغالباً ما يشير عسكرياً لوحدة أكبر من الرف."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"تشكيل","root":"شكل","maqayis":"«الشِّينُ وَالْكَافُ وَاللَّامُ مُعْظَمُ بَابِهِ الْمُمَاثَلَةُ...»"},{"word":"جوي","root":"جوو","maqayis":"«الْجِيمُ وَالْوَاوُ شَيْءٌ وَاحِدٌ يَحْتَوِي عَلَى شَيْءٍ مِنْ جَوَانِبِهِ. فَالْجَوُّ جَوُّ السَّمَاءِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"رفف","maqayis":"«الرَّاءُ وَالْفَاءُ أَصْلَانِ: أَحَدُهُمَا الْمَصُّ وَمَا أَشْبَهَهُ، وَالثَّانِي الْحَرَكَةُ وَالرِّيقُ... وَمِمَّا شَذَّ عَنْ مُعْظَمِ الْبَابِ الرَّفُّ... هُوَ الْقَطِيعُ مِنَ الْبَقَرِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سرب","maqayis":"«السِّينُ وَالرَّاءُ وَالْبَاءُ أَصْلٌ مُطَّرِدٌ، وَهُوَ يَدُلُّ عَلَى الِاتِّسَاعِ وَالذَّهَابِ فِي الْأَرْضِ. مِنْ ذَلِكَ السِّرْبُ وَالسُّرْبَةُ، وَهِيَ الْقَطِيعُ مِنَ الظِّبَاءِ وَالشَّاءِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح وصفي عام وواضح يشير إلى الترتيب المادي للطائرات أثناء الطيران الجماعي.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"استعارة من اصطفاف الطيور، ويُستخدم في السياق العسكري للدلالة على وحدة طيران تكتيكية محددة العدد.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مستعار من أسراب الطيور والحيوانات، وهو المصطلح الأكثر شيوعاً وعمومية للدلالة على مجموعة الطائرات، وغالباً ما يشير عسكرياً لوحدة أكبر من الرف.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

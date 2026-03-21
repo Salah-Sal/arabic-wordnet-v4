@@ -1,0 +1,143 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة تفتقر إلى التشكيل الكامل."
+      - "تحتاج اللمة إلى تدقيق نحوي في صيغة الإضافة (أبو/أبي) لضمان الفصاحة."
+    observations: "المجموعة تمثل معلماً جغرافياً وتاريخياً محدداً في شمال مصر، والتسمية العربية صحيحة ومثبتة في المصادر المعجمية والتاريخية."
+  blind_candidates:
+    - lemma: "خَلِيجُ أَبِي قِيرٍ"
+      generation_method: tarkib
+      justification: "الاسم الجغرافي القياسي بصيغة الإضافة الصحيحة (إضافة الخليج إلى اسم العلم)."
+    - lemma: "خَلِيجُ أَبُوكِيرَ"
+      generation_method: taarib
+      justification: "صيغة معربة شائعة في الخرائط القديمة والمصادر الغربية (Abukir Bay)."
+    - lemma: "جَوْنُ أَبِي قِيرٍ"
+      generation_method: tarkib
+      justification: "استخدام 'جون' (Bay) كبديل لغوي لخليج في السياقات الجغرافية الفصيحة."
+    - lemma: "خَلِيجُ أَبُو قِيرٍ"
+      generation_method: tarkib
+      justification: "الاسم الشائع مع بقاء 'أبو' على حالة الحكاية كجزء من اسم العلم."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خليج أبو قير"
+      confirm:
+        - text: "«أبو قير: قرية من قرى مصر على شاطئ البحر المتوسط... واشتهر اسمها في تاريخ مصر الحديث منذ الحملة الفرنسية؛ فقد اندحر فيها أسطول الفرنسيين على يد الأميرال نلسون في أول أغسطس سنة ١٧٩٨م»"
+          source: "المعجم الكبير"
+    - lemma: "خَلِيجُ أَبِي قِيرٍ"
+      confirm:
+        - text: "«أبو قير: قرية من قرى مصر على شاطئ البحر المتوسط... على بعد نحو ٢٠ كم من الشمال الشرقى من الإسكندرية»"
+          source: "المعجم الكبير (تأكيد الموقع والمسمى)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "خليج أبو قير"
+      decision: confirmed
+      decision_reason: "الاسم الجغرافي القياسي والوحيد لهذا المعلم، مع ضرورة ضبطه إعرابياً بالحركات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَلِيجُ أَبِي قِيرٍ"
+    - lemma: "خَلِيجُ أَبُوكِيرَ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "متغير صوتي/معرب شائع في المصادر التاريخية والجغرافية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "خَلِيجُ أَبُوكِيرَ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09209122-n"
+
+stage4_content:
+  definition:
+    current: "خليج على البحر الأبيض المتوسط في شمال مصر"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي صحيح لكنه يفتقر إلى التحديد الجغرافي الدقيق نسبة لأقرب مدينة كبرى (الإسكندرية)."
+    authored:
+      - type: encyclopedic
+        text: "خَلِيجٌ بَحْرِيٌّ يَقَعُ عَلَى سَاحِلِ البَحْرِ الأَبْيَضِ المُتَوَسِّطِ فِي شَمَالِ مِصْرَ، إِلَى الشَّرْقِ مِنْ مَدِينَةِ الإِسْكَنْدَرِيَّةِ، عُرِفَ بِمَعَارِكِهِ البَحْرِيَّةِ التَّارِيخِيَّةِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-09209122-n"
+          definition_index: 0
+          text: "خَلِيجٌ بَحْرِيٌّ يَقَعُ عَلَى سَاحِلِ البَحْرِ الأَبْيَضِ المُتَوَسِّطِ فِي شَمَالِ مِصْرَ، إِلَى الشَّرْقِ مِنْ مَدِينَةِ الإِسْكَنْدَرِيَّةِ."
+
+  examples:
+    per_lemma:
+      - lemma: "خَلِيجُ أَبِي قِيرٍ"
+        examples:
+          - text: "وَقَعَتْ مَعْرَكَةُ النِّيلِ البَحْرِيَّةِ فِي خَلِيجِ أَبِي قِيرٍ بَيْنَ الأُسْطُولَيْنِ الإِنْجِلِيزِيِّ وَالفَرَنْسِيِّ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "awn4-09209122-n"
+          text: "تُعَدُّ مِيَاهُ خَلِيجِ أَبِي قِيرٍ مَوْطِناً لِلْعَدِيدِ مِنْ نِقَاطِ الغَوْصِ الأَثَرِيَّةِ لِلْمُدُنِ الغَارِقَةِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خَلِيجُ أَبِي قِيرٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "خليج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"
+        - word: "أبي"
+          root: "أبو"
+          maqayis_quote: "«الْهَمْزَةُ وَالْبَاءُ وَالْوَاوُ يَدُلُّ عَلَى التَّرْبِيَةِ وَالْغَذْوِ... وَبِذَلِكَ سُمِّيَ الْأَبُ أَبًا.»"
+  per_sense:
+    - lemma: "خَلِيجُ أَبِي قِيرٍ"
+      sense_id: "{auto}"
+      nuance: "التسمية القياسية المتبعة في الإضافة العربية لهذا المعلم الجغرافي."
+      mwe: true
+    - lemma: "خَلِيجُ أَبُوكِيرَ"
+      sense_id: "{auto}"
+      nuance: "صيغة مقتبسة من النطق المعرب لاسم القديس كير (Abba Kyros) وشائعة في المصادر الأجنبية."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"خليج","root":"خلج","maqayis":"«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ...»"},{"word":"أبي","root":"أبو","maqayis":"«الْهَمْزَةُ وَالْبَاءُ وَالْوَاوُ يَدُلُّ عَلَى التَّرْبِيَةِ وَالْغَذْوِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"التسمية القياسية المتبعة في الإضافة العربية لهذا المعلم الجغرافي.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-09209122-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-09209122-n"
+        score: 0.95

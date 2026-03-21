@@ -1,0 +1,205 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة 'شكل طبيعي' هي تعبير وصفي مباشر (literal description) أكثر من كونها مصطلحاً معجمياً مسكوكاً."
+      - "التعريف الإنجليزي 'natural shape' يقابله في العربية مصطلحات أكثر دقة مثل 'تكوين' أو 'هيئة'."
+    observations: "المفهوم يشمل أي شكل مادي لم يتدخل الإنسان في صنعه، من البلورات المجهرية إلى التضاريس الجغرافية. في العربية المعاصرة، يُستخدم 'تكوين طبيعي' بكثرة لوصف الأشكال الجيولوجية، بينما يُستخدم 'خلقة' في السياق التراثي لوصف الهيئة الفطرية."
+  blind_candidates:
+    - lemma: "هَيْئَة طَبِيعِيَّة"
+      generation_method: tarkib
+      justification: "تعبير وصفي دقيق يجمع بين الشكل (هيئة) والمصدر (طبيعية)."
+    - lemma: "تَكْوِين طَبِيعِيّ"
+      generation_method: tarkib
+      justification: "يُستخدم بكثرة في العلوم الطبيعية للإشارة إلى الأشكال الناتجة عن عمليات طبيعية (formations)."
+    - lemma: "شَكْل فِطْرِيّ"
+      generation_method: tarkib
+      justification: "استخدام صفة الفطرة للدلالة على كون الشيء على أصل خلقته دون تدخل خارجي."
+    - lemma: "خِلْقَة"
+      generation_method: ishtiqaq
+      justification: "مصطلح تراثي يعبر عن هيئة الشيء وصورته التي خُلق عليها."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "شكل طبيعي"
+      confirm:
+        - text: "وهو شكل غير طبيعي للبروتين بالدماغ"
+          source: "ArabTerm - مسرد المناخ والبيئة"
+    - lemma: "خِلْقَة"
+      confirm:
+        - text: "وقيل هي مجموع الشكل واللون وهي من الكيفيات المختصّة بالكميات."
+          source: "كشّاف اصطلاحات الفنون للتهانوي"
+        - text: "الخِلْقَةُ: الفِطْرَةُ التى فُطِرَ عليها الإِنسانُ"
+          source: "المعجم الكبير"
+      expands:
+        - text: "ويستدير بالمرسي من ناحية الجوف جسر من حجارة مخلوقة. وقد ترجمها دي سلان بحجارة منحوتة."
+          source: "تكملة المعاجم لدوزي"
+          addition: "يستخدم 'مخلوق' و'مخلوقة' للإشارة إلى ما هو طبيعي (natural) مقابل المنحوت أو المصنوع."
+    - lemma: "تَكْوِين طَبِيعِيّ"
+      confirm:
+        - text: "تحلل طبيعي وتدريجي لمواد عضوية ميتة... على شكل طبقة رقيقة"
+          source: "ArabTerm"
+          addition: "الاستخدام السياقي لـ 'طبيعي' مع أشكال المادة شائع جداً."
+    - lemma: "جِبِلَّة"
+      confirm:
+        - text: "الجِبِلَّة: الخِلْقة والطبيعة"
+          source: "المعجم الوسيط"
+      contradicts:
+        - text: "الجِبِلَّة (فى علم الأحياء): مادة شبه زلالية، معقَّدة التركيب الكيماوى"
+          source: "المعجم الوسيط"
+          conflict: "تُستخدم الجبلة كمصطلح حيوي لـ Protoplasm وليس للشكل العام."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "شكل طبيعي"
+      decision: confirmed
+      decision_reason: "اللمة الأكثر شيوعاً ومباشرة في التعبير عن المفهوم باللغة المعاصرة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "شَكْلٌ طَبِيعِيٌّ"
+    - lemma: "تَكْوِين طَبِيعِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فني دقيق يُستخدم للإشارة إلى النتائج الشكلية للعمليات الطبيعية (Natural Formations)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "تَكْوِينٌ طَبِيعِيٌّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "هَيْئَة طَبِيعِيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف فصيح يركز على المظهر الخارجي والشكل العام الناتج عن الطبيعة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "هَيْئَةٌ طَبِيعِيَّةٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "خِلْقَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح معجمي أصيل يعبر عن الصورة التي يكون عليها الشيء منذ أصله، وهو أدق فلسفياً من التعبيرات الوصفية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "خِلْقَةٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "شكل ناتج عن قوى طبيعية؛ ليس من صنع الإنسان"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط؛ يحتاج إلى صياغة معجمية أكثر رصانة تحدد ماهية 'القوى الطبيعية' وتبرز استقلالية الشكل عن التدخل البشري."
+    authored:
+      - type: terminological
+        text: "الهيئة التي يتخذها الجرم أو المادة بفعل العمليات الطبيعية دون تدخل من إرادة الإنسان أو صناعته."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "شَكْلٌ طَبِيعِيٌّ"
+        examples:
+          - text: "تتخذ بلورات الثلج أشكالاً طبيعية سداسية مذهلة في دقتها."
+            type: usage
+      - lemma: "تَكْوِينٌ طَبِيعِيٌّ"
+        examples:
+          - text: "تُعد هذه الكهوف الملحية تكويناً طبيعياً نادراً في المنطقة."
+            type: usage
+      - lemma: "خِلْقَةٌ"
+        examples:
+          - text: "تأمل في خلقة الجبال وكيف جُعلت رواسي للأرض."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "الهيئة التي يتخذها الجرم أو المادة بفعل العمليات الطبيعية دون تدخل من إرادة الإنسان أو صناعته."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "شَكْلٌ طَبِيعِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "شكل"
+          root: "شكل"
+          maqayis_quote: "«الشِّينُ وَالْكَافُ وَاللَّامُ مُعْظَمُ بَابِهِ الْمُمَاثَلَةُ. تَقُولُ: هَذَا شَِكْلُ هَذَا، أَيْ مِثْلُهُ.»"
+        - word: "طبيعي"
+          root: "طبع"
+          maqayis_quote: "«الطَّاءُ وَالْبَاءُ وَالْعَيْنُ أَصْلٌ صَحِيحٌ، وَهُوَ مَثَلٌ عَلَى نِهَايَةٍ يَنْتَهِي إِلَيْهَا الشَّيْءُ حَتَّى يُخْتَمَ عِنْدَهَا.»"
+    - lemma: "تَكْوِينٌ طَبِيعِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "تكوين"
+          root: "كون"
+          maqayis_quote: "«الْكَافُ وَالْوَاوُ وَالنُّونُ أَصْلٌ يَدُلُّ عَلَى الْإِخْبَارِ عَنْ حُدُوثِ شَيْءٍ، إِمَّا فِي زَمَانٍ مَاضٍ أَوْ زَمَانٍ رَاهِنٍ.»"
+        - word: "طبيعي"
+          root: "طبع"
+          maqayis_quote: "«الطَّاءُ وَالْبَاءُ وَالْعَيْنُ أَصْلٌ صَحِيحٌ، وَهُوَ مَثَلٌ عَلَى نِهَايَةٍ يَنْتَهِي إِلَيْهَا الشَّيْءُ حَتَّى يُخْتَمَ عِنْدَهَا.»"
+    - lemma: "خِلْقَةٌ"
+      entry_id: "{auto}"
+      root: "خلق"
+      maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْقَافُ أَصْلَانِ: أَحَدُهُمَا تَقْدِيرُ الشَّيْءِ، وَالْآخَرُ مَلَاسَةُ الشَّيْءِ.»"
+  per_sense:
+    - lemma: "شَكْلٌ طَبِيعِيٌّ"
+      sense_id: "{auto}"
+      nuance: "تعبير عام وشامل لأي مظهر مادي طبيعي."
+      mwe: true
+    - lemma: "تَكْوِينٌ طَبِيعِيٌّ"
+      sense_id: "{auto}"
+      nuance: "يركز على النتيجة المتشكلة من عملية بناء أو ترسب طبيعي (خاصة في الجيولوجيا)."
+      mwe: true
+    - lemma: "هَيْئَةٌ طَبِيعِيَّةٌ"
+      sense_id: "{auto}"
+      nuance: "يركز على المظهر الخارجي والصفة البصرية للشكل."
+      mwe: true
+    - lemma: "خِلْقَةٌ"
+      sense_id: "{auto}"
+      nuance: "مصطلح تراثي يشير إلى أصل التصوير والتقدير الإلهي للشكل."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"شكل","root":"شكل","maqayis":"«الشِّينُ وَالْكَافُ وَاللَّامُ مُعْظَمُ بَابِهِ الْمُمَاثَلَةُ...»"},{"word":"طبيعي","root":"طبع","maqayis":"«الطَّاءُ وَالْبَاءُ وَالْعَيْنُ أَصْلٌ صَحِيحٌ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير عام وشامل لأي مظهر مادي طبيعي.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

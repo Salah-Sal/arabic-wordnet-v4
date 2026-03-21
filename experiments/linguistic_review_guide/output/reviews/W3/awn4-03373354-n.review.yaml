@@ -1,0 +1,169 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "عدم وجود تشكيل في اللمة الحالية (سلسلة زهور)."
+    observations: "المصطلح الحالي ترجمة وصفية دقيقة ومناسبة. يمكن إضافة تعبير (عقد زهور) كونه أكثر استعمالاً في الوصف المجازي لتتابع الزهور مثل العقد."
+  blind_candidates:
+    - lemma: "عِقْدُ زُهُورٍ"
+      generation_method: majaz
+      justification: "استعارة لشكل العقد الذي تنتظم فيه حبات اللؤلؤ وغيرها، ليدل على انتظام الزهور في خيط واحد."
+    - lemma: "سِلْسِلَةُ زُهُورٍ"
+      generation_method: tarkib
+      justification: "تركيب إضافي يصف ربط الزهور في هيئة سلسلة، وهو الأقرب للتعريف."
+    - lemma: "إِكْلِيلُ زُهُورٍ"
+      generation_method: tarkib
+      justification: "تركيب يدل على طوق الزهور الذي يوضع على الرأس أو العنق، وهو مفهوم قريب جداً."
+    - lemma: "ضَفِيرَةُ زُهُورٍ"
+      generation_method: tarkib
+      justification: "تركيب وصفي لربط الزهور وتضفيرها لتصبح كالسلسلة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "سِلْسِلَةُ زُهُورٍ"
+      evidence_status: "no_material_found"
+    - lemma: "عِقْدُ زُهُورٍ"
+      evidence_status: "no_material_found"
+    - lemma: "إِكْلِيلُ زُهُورٍ"
+      evidence_status: "no_material_found"
+    - lemma: "ضَفِيرَةُ زُهُورٍ"
+      confirm:
+        - text: "ضفيرة زهور"
+          source: "المعجم الموحد لمصطلحات علم الأحياء (1993)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "سلسلة زهور"
+      decision: confirmed
+      decision_reason: "تركيب وصفي صحيح ومستعمل يعبر بدقة عن مفهوم السلسلة المصنوعة من الزهور، ويطابق التعريف الإنجليزي للمفهوم (flower chain)."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "سِلْسِلَةُ زُهُورٍ"
+    - lemma: "عِقْدُ زُهُورٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فصيح وبليغ يعتمد على الاستعارة (العقد) لوصف تتابع الزهور وارتباطها كحبات العقد، وهو شائع في الاستعمال الأدبي لتمثيل نفس المفهوم."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "عِقْدُ زُهُورٍ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-03373354-n"}
+    - lemma: "إِكْلِيلُ زُهُورٍ"
+      source: stage1
+      decision: removed
+      decision_reason: "الإكليل يدل عادة على الطوق الذي يوضع على الرأس أو القبر (wreath/garland)، وليس مجرد السلسلة المتدلية (chain)."
+    - lemma: "ضَفِيرَةُ زُهُورٍ"
+      source: stage1
+      decision: removed
+      decision_reason: "الضفيرة تدل على تداخل وتجديل وثيق (garland/braid)، وهي أقرب لمفهوم آخر مستقل."
+
+stage4_content:
+  definition:
+    current: "زهور مربوطة ببعضها في سلسلة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي حرفي إلى حد ما، ويمكن صياغته بأسلوب معجمي عربي أمتن."
+    authored:
+      - type: terminological
+        text: "مجموعة من الزُّهُورِ المربوطة أو المنتظمة بعضها ببعض في خيط واحد على هيئة سلسلة أو عِقْد."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-03373354-n", definition_index: 0, text: "مجموعة من الزُّهُورِ المربوطة أو المنتظمة بعضها ببعض في خيط واحد على هيئة سلسلة أو عِقْد."}
+  examples:
+    per_lemma:
+      - lemma: "سلسلة زهور"
+        examples:
+          - text: "صَنَعَتِ الفتاةُ سِلْسِلَةَ زُهُورٍ وعَلَّقَتْها فِي غُرْفَتِها."
+            type: usage
+      - lemma: "عِقْدُ زُهُورٍ"
+        examples:
+          - text: "أَهْدَى الطِّفْلُ أُمَّهُ عِقْدَ زُهُورٍ بِمُناسَبَةِ العِيدِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "صَنَعَتِ الفتاةُ سِلْسِلَةَ زُهُورٍ وعَلَّقَتْها فِي غُرْفَتِها."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "أَهْدَى الطِّفْلُ أُمَّهُ عِقْدَ زُهُورٍ بِمُناسَبَةِ العِيدِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "سِلْسِلَةُ زُهُورٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "سلسلة"
+          root: "سلسل"
+          maqayis_quote: "«السِّينُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ مَدُّ الشَّيْءِ فِي رِفْقٍ وَخَفَاءٍ... وَمِمَّا حُمِّلَ عَلَيْهِ السِّلْسِلَةُ يَتْ بِذَلِكَ لِأَنَّهَا مُمْتَدَّةٌ فِي اتِّصَالٍ.»"
+        - word: "زهور"
+          root: "زهر"
+          maqayis_quote: "«الزَّاءُ وَالْهَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى حُسْنٍ وَضِيَاءٍ وَصَفَاءٍ... وَمِنْهُ الزَّهْرُ، وَهُوَ نَوْرُ كُلِّ نَبَاتٍ.»"
+    - lemma: "عِقْدُ زُهُورٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "عقد"
+          root: "عقد"
+          maqayis_quote: "«الْعَيْنُ وَالْقَافُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى شَدٍّ وَشِدَّةِ وُثُوقٍ... وَعِقْدُ الْقِلَادَةِ مَا يَكُونُ طُوَارَ الْعُنُقِ.»"
+        - word: "زهور"
+          root: "زهر"
+          maqayis_quote: "«الزَّاءُ وَالْهَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى حُسْنٍ وَضِيَاءٍ وَصَفَاءٍ... وَمِنْهُ الزَّهْرُ، وَهُوَ نَوْرُ كُلِّ نَبَاتٍ.»"
+  per_sense:
+    - lemma: "سلسلة زهور"
+      sense_id: "{auto}"
+      nuance: "تعبير مباشر يصف طريقة الربط المسترسلة."
+      mwe: true
+    - lemma: "عِقْدُ زُهُورٍ"
+      sense_id: "{auto}"
+      nuance: "تعبير أقرب للاستعارة، يشبه الزهور بحبات العقد المنتظمة."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"سلسلة","root":"سلسل","maqayis":"«السِّينُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ مَدُّ الشَّيْءِ فِي رِفْقٍ وَخَفَاءٍ... وَمِمَّا حُمِّلَ عَلَيْهِ السِّلْسِلَةُ يَتْ بِذَلِكَ لِأَنَّهَا مُمْتَدَّةٌ فِي اتِّصَالٍ.»"},{"word":"زهور","root":"زهر","maqayis":"«الزَّاءُ وَالْهَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى حُسْنٍ وَضِيَاءٍ وَصَفَاءٍ... وَمِنْهُ الزَّهْرُ، وَهُوَ نَوْرُ كُلِّ نَبَاتٍ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"عقد","root":"عقد","maqayis":"«الْعَيْنُ وَالْقَافُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى شَدٍّ وَشِدَّةِ وُثُوقٍ... وَعِقْدُ الْقِلَادَةِ مَا يَكُونُ طُوَارَ الْعُنُقِ.»"},{"word":"زهور","root":"زهر","maqayis":"«الزَّاءُ وَالْهَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى حُسْنٍ وَضِيَاءٍ وَصَفَاءٍ... وَمِنْهُ الزَّهْرُ، وَهُوَ نَوْرُ كُلِّ نَبَاتٍ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير مباشر يصف طريقة الربط المسترسلة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير أقرب للاستعارة، يشبه الزهور بحبات العقد المنتظمة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-03373354-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-03373354-n"
+        score: 0.95

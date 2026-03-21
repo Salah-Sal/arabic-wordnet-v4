@@ -1,0 +1,220 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الحالية هي ترجمات لفظية مباشرة للتعريف الإنجليزي."
+      - "غياب مصطلحات عربية تراثية أو متخصصة مثل 'معرض الوحوش' الذي ارتبط تاريخياً بهذا المفهوم."
+    observations: "المجموعة تعبّر عن مفهوم 'مجموعة الحيوانات للعرض أو الدراسة'، وهو ما يسبق تاريخياً المفهوم الحديث لحديقة الحيوان (zoo)، لذا يفضل شمول المصطلحات التي تعكس هذا الجانب العرضي والوحشي."
+  blind_candidates:
+    - lemma: "حَدِيقَةُ حَيَوَانٍ"
+      generation_method: tarkib
+      justification: "المصطلح العربي الحديث الأكثر شيوعاً للتعبير عن مجموعة حيوانات معروضة."
+    - lemma: "مَعْرِضُ حَيَوَانَاتٍ"
+      generation_method: tarkib
+      justification: "ترجمة وظيفية دقيقة للجانب العرضي في المفهوم."
+    - lemma: "مَجْمُوعَةُ حَيَوَانَاتٍ"
+      generation_method: tarkib
+      justification: "تعبير وصفي مستقر في اللغة المعاصرة."
+    - lemma: "حَظِيرَةُ حَيَوَانَاتٍ"
+      generation_method: tarkib
+      justification: "يُستخدم للإشارة إلى مكان حجز الحيوانات وتجميعها."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مجموعة حيوانات"
+      confirm:
+        - text: "«مجموعة حيوانات الجر مع الأثقال التي تنقلها»"
+          source: "المورد الحديث (2008)"
+        - text: "«اللافقاريات: مجموعة حيوانات ليس لها عمود فقري»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "معرض حيوانات"
+      confirm:
+        - text: "«(1) الجريئة؛ مَعْرِض الوحوش (2) مجموعة وحوش [في مَعْرِض].» (كرديف لـ menagerie)"
+          source: "المورد الحديث (2008)"
+    - lemma: "مَعْرِضُ الوُحُوشِ"
+      confirm:
+        - text: "«مَعْرِض الوحوش» (كرديف لـ menagerie)"
+          source: "المورد الحديث (2008)"
+    - lemma: "الجَرِيئَةُ"
+      expands:
+        - text: "«بَيْتٌ يُصْطادُ فيه السِّباعُ، يُبْنَى من حجارة... ويضعون للسَّبُع لَحْمَةً»"
+          source: "المعجم الكبير"
+          addition: "تشير إلى مكان حبس أو صيد الوحش المنفرد، وهي نواة فكرة المعرض."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مجموعة حيوانات"
+      decision: confirmed
+      decision_reason: "تعبير وصفي مستقر ودقيق دلالياً للمفهوم العام للمجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَجْمُوعَةُ حَيَوَانَاتٍ"
+    - lemma: "معرض حيوانات"
+      decision: confirmed
+      decision_reason: "يتفق مع جانب 'العرض' (display) المذكور في التعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَعْرِضُ حَيَوَانَاتٍ"
+    - lemma: "مَعْرِضُ الوُحُوشِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح الأدبي والتاريخي الأدق المقابل لـ menagerie، خاصة للحيوانات البرية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مَعْرِضُ الوُحُوشِ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "مجموعة من الحيوانات الحية للدراسة أو العرض"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي حرفي، يفضل صياغته بأسلوب معجمي يبرز طبيعة الحيوانات ومكانها."
+    authored:
+      - type: terminological
+        text: "مجموعةٌ من الحيوانات البريَّة أو النَّادرة تُجمع في مكانٍ واحدٍ وتُحبسُ لأغراض العَرْض أو الدِّراسة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "مجموعةٌ من الحيوانات البريَّة أو النَّادرة تُجمع في مكانٍ واحدٍ وتُحبسُ لأغراض العَرْض أو الدِّراسة."
+  examples:
+    per_lemma:
+      - lemma: "مَجْمُوعَةُ حَيَوَانَاتٍ"
+        examples:
+          - text: "تضمُّ الجامعةُ مجموعةَ حيواناتٍ نادرةٍ مُخصَّصةً لأبحاثِ عِلمِ الأحياء."
+            type: usage
+      - lemma: "مَعْرِضُ حَيَوَانَاتٍ"
+        examples:
+          - text: "زارَ الأطفالُ مَعْرِضَ حيواناتٍ مُتَنقِّلًا أُقيمَ في ساحةِ المدينة."
+            type: usage
+      - lemma: "مَعْرِضُ الوُحُوشِ"
+        examples:
+          - text: "كانَ مِن عادةِ الملوكِ قَديمًا اقتناءُ مَعْرِضٍ للوُحُوشِ في حَدائقِ قُصورِهم."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "استمتعَ الزُّوَّارُ بمُشاهدةِ مَجموعةٍ من الحيواناتِ الحَيَّةِ جُمعَت من مُختلفِ القارَّات."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَجْمُوعَةُ حَيَوَانَاتٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مجموعة"
+          root: "جمع"
+          maqayis_quote: "«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ.»"
+        - word: "حيوانات"
+          root: "حيي"
+          maqayis_quote: "«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ.»"
+    - lemma: "مَعْرِضُ حَيَوَانَاتٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "معرض"
+          root: "عرض"
+          maqayis_quote: "«الْعَيْنُ وَالرَّاءُ وَالضَّادُ بِنَاءٌ تَكْثُرُ فُرُوعُهُ، تَرْجِعُ إِلَى أَصْلٍ وَاحِدٍ، وَهُوَ الْعَرْضُ الَّذِي يُخَالِفُ الطُّولَ.»"
+        - word: "حيوانات"
+          root: "حيي"
+          maqayis_quote: "«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ.»"
+    - lemma: "مَعْرِضُ الوُحُوشِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "معرض"
+          root: "عرض"
+          maqayis_quote: "«الْعَيْنُ وَالرَّاءُ وَالضَّادُ بِنَاءٌ تَكْثُرُ فُرُوعُهُ، تَرْجِعُ إِلَى أَصْلٍ وَاحِدٍ، وَهُوَ الْعَرْضُ الَّذِي يُخَالِفُ الطُّولَ.»"
+        - word: "الوحوش"
+          root: "وحش"
+          maqayis_quote: "«الْوَاوُ وَالْحَاءُ وَالشِّينُ: كَلِمَةٌ تَدُلُّ عَلَى خِلَافِ الْإِنْسِ.»"
+  per_sense:
+    - lemma: "مَجْمُوعَةُ حَيَوَانَاتٍ"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام والشامل للمجموعة سواء كانت للدراسة أو العرض."
+      mwe: true
+    - lemma: "مَعْرِضُ حَيَوَانَاتٍ"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب الاحتفالي أو العرضي العام للجمهور."
+      mwe: true
+    - lemma: "مَعْرِضُ الوُحُوشِ"
+      sense_id: "{auto}"
+      nuance: "يركز على الحيوانات البرية والمفترسة، ويحمل صبغة تاريخية أو أدبية."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مجموعة","root":"جمع","maqayis":"«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ.»"},{"word":"حيوانات","root":"حيي","maqayis":"«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"معرض","root":"عرض","maqayis":"«الْعَيْنُ وَالرَّاءُ وَالضَّادُ بِنَاءٌ تَكْثُرُ فُرُوعُهُ، تَرْجِعُ إِلَى أَصْلٍ وَاحِدٍ، وَهُوَ الْعَرْضُ الَّذِي يُخَالِفُ الطُّولَ.»"},{"word":"حيوانات","root":"حيي","maqayis":"«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"معرض","root":"عرض","maqayis":"«الْعَيْنُ وَالرَّاءُ وَالضَّادُ بِنَاءٌ تَكْثُرُ فُرُوعُهُ، تَرْجِعُ إِلَى أَصْلٍ وَاحِدٍ، وَهُوَ الْعَرْضُ الَّذِي يُخَالِفُ الطُّولَ.»"},{"word":"الوحوش","root":"وحش","maqayis":"«الْوَاوُ وَالْحَاءُ وَالشِّينُ: كَلِمَةٌ تَدُلُّ عَلَى خِلَافِ الْإِنْسِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العام والشامل للمجموعة سواء كانت للدراسة أو العرض.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الجانب الاحتفالي أو العرضي العام للجمهور.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الحيوانات البرية والمفترسة، ويحمل صبغة تاريخية أو أدبية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

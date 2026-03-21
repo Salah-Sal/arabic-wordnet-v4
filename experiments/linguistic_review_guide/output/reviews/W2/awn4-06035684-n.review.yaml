@@ -1,0 +1,204 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "المصطلح 'مجموعة سكانية' يميل إلى الدلالة الديموغرافية (البشرية) حصراً، بينما التعريف يشمل 'العناصر' (items) بصفة عامة في علم الإحصاء."
+      - "غياب مصطلح 'عالم' (Universe) وهو المرادف المباشر في الإحصاء للمجموع الكلي."
+    observations: "المجموعة الترادفية تغطي المفهوم الإحصائي الكلي للنطاق الذي تُسحب منه العينات. المصطلح الموجود 'مجتمع إحصائي' دقيق جداً، لكن نحتاج لإثراء المجموعة بمرادفات تغطي الجانب الإحصائي البحثي والترجمة المباشرة لـ 'universe'."
+  blind_candidates:
+    - lemma: "مُجْتَمَعٌ إِحْصَائِيٌّ"
+      generation_method: tarkib
+      justification: "المصطلح القياسي والأكثر شيوعاً في علم الإحصاء العربي للتعبير عن 'population'."
+    - lemma: "عَالَمُ المَعَايَنَةِ"
+      generation_method: tarkib
+      justification: "تعبير اصطلاحي مستخدم لوصف النطاق الكلي الذي تُسحب منه العينات، ويقابل 'universe'."
+    - lemma: "مُجْتَمَعُ البَحْثِ"
+      generation_method: tarkib
+      justification: "مصطلح شائع في مناهج البحث العلمي لوصف المجتمع الكلي موضوع الدراسة."
+    - lemma: "جُمْلَةُ العَنَاصِرِ"
+      generation_method: tarkib
+      justification: "تعبير يصف التجميع الكامل للعناصر موضوع البحث بأسلوب لغوي عام."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُجْتَمَعٌ إِحْصَائِيٌّ"
+      confirm:
+        - text: "«سكان (ال...) في مفهوم علم الإحصاء»"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية (2012)"
+    - lemma: "عَالَمٌ"
+      confirm:
+        - text: "«عالَم: مجموعة الناس الممثَّلين في العيِّنة (Universe)»"
+          source: "مسرد الإعلام والتواصل، ArabTerm"
+    - lemma: "سُكَّان"
+      confirm:
+        - text: "«في مفهوم علم الإحصاء»"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية (2012)"
+    - lemma: "عَشِيرَة"
+      confirm:
+        - text: "«مجموعة من الأفراد تنتمي إلى نوع معين أو فئة ما لها القدرة على التزاوج فيما بينها (population)»"
+          source: "المعجم الموحد لمصطلحات علم الوراثة (2009)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مجتمع إحصائي"
+      decision: confirmed
+      decision_reason: "المصطلح التقني القياسي والمباشر للمفهوم في علم الإحصاء."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُجْتَمَعٌ إِحْصَائِيٌّ"
+    - lemma: "مجموعة سكانية"
+      decision: removed
+      decision_reason: "المصطلح ذو دلالة ديموغرافية ضيقة (تتعلق بالبشر) بينما المفهوم الإحصائي يشمل أي عناصر (items) مادية أو مجردة."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "عَالَمٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف مباشر لمصطلح 'Universe' في السياق الإحصائي، مؤكد في المعاجم المتخصصة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "عَالَمٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُجْتَمَعٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يُستخدم المصطلح مفرداً في سياق الإحصاء كاختصار لـ 'المجتمع الإحصائي'."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُجْتَمَعٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُجْتَمَعُ البَحْثِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح منهجي شائع جداً في الأدبيات البحثية العربية لوصف مجتمع الدراسة الكلي."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "مُجْتَمَعُ البَحْثِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "(إحصاء) التجميع الكامل للعناصر التي يمكن سحب عينات منها"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق علمياً ومصاغ بأسلوب منهجي سليم يغطي المفهوم الإحصائي."
+  examples:
+    per_lemma:
+      - lemma: "مُجْتَمَعٌ إِحْصَائِيٌّ"
+        examples:
+          - text: "يتطلب اختيار العينة العشوائية تحديد كافة مفردات المجتمع الإحصائي بدقة."
+            type: usage
+      - lemma: "عَالَمٌ"
+        examples:
+          - text: "يُمثّل العالَم في هذا الاستقصاء جميع طلاب المرحلة الثانوية في المنطقة."
+            type: usage
+      - lemma: "مُجْتَمَعٌ"
+        examples:
+          - text: "إذا كان المجتمع متجانساً، فإن العينة الصغيرة قد تكون كافية للتمثيل."
+            type: usage
+      - lemma: "مُجْتَمَعُ البَحْثِ"
+        examples:
+          - text: "شمل مجتمع البحث جميع الشركات المسجلة في البورصة خلال العام الماضي."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُجْتَمَعٌ إِحْصَائِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مجتمع"
+          root: "جمع"
+          maqayis_quote: "«الجيم والميم والعين أصل واحد، يدل على تضام الشيء.»"
+        - word: "إحصائي"
+          root: "حصي"
+          maqayis_quote: "«الحاء والصاد والحرف المعتل ثلاثة أصول: الثاني العد والإطاقة.»"
+    - lemma: "عَالَمٌ"
+      entry_id: "{auto}"
+      root: "علم"
+      maqayis_quote: "«العين واللام والميم أصل صحيح واحد، يدل على أثر بالشيء يتميز به عن غيره. ومن الباب العالمون، وذلك أن كل جنس من الخلق فهو في نفسه معلم وعلم.»"
+    - lemma: "مُجْتَمَعٌ"
+      entry_id: "{auto}"
+      root: "جمع"
+      maqayis_quote: "«الجيم والميم والعين أصل واحد، يدل على تضام الشيء.»"
+    - lemma: "مُجْتَمَعُ البَحْثِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مجتمع"
+          root: "جمع"
+          maqayis_quote: "«الجيم والميم والعين أصل واحد، يدل على تضام الشيء.»"
+        - word: "البحث"
+          root: "بحث"
+          maqayis_quote: "«الباء والحاء والثاء أصل واحد، وهو طلب الشيء في التراب ثم صار كل طلب بحثا.»"
+  per_sense:
+    - lemma: "مُجْتَمَعٌ إِحْصَائِيٌّ"
+      sense_id: "{auto}"
+      nuance: "المصطلح التقني الرسمي والأكثر دقة في الرياضيات والإحصاء."
+      mwe: true
+    - lemma: "عَالَمٌ"
+      sense_id: "{auto}"
+      nuance: "يُستخدم غالباً كمرادف لـ 'Universe' ويركز على الشمولية الكلية للوحدات."
+      mwe: false
+    - lemma: "مُجْتَمَعٌ"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام الشائع في سياق الحديث عن العينات والنتائج."
+      mwe: false
+    - lemma: "مُجْتَمَعُ البَحْثِ"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب المنهجي في الدراسات الميدانية والأكاديمية."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مجتمع","root":"جمع","maqayis":"«الجيم والميم والعين أصل واحد، يدل على تضام الشيء.»"},{"word":"إحصائي","root":"حصي","maqayis":"«الحاء والصاد والحرف المعتل ثلاثة أصول: الثاني العد والإطاقة.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"علم","maqayis":"«العين واللام والميم أصل صحيح واحد، يدل على أثر بالشيء يتميز به عن غيره...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح التقني الرسمي والأكثر دقة في الرياضيات والإحصاء.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

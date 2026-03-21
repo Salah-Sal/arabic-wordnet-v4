@@ -1,0 +1,203 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي يحتوي على ترادف داخلي (يعيق أو يؤخر) يمكن صياغته بشكل أمتن."
+      - "اللمّات الموجودة تفتقر إلى التشكيل الكامل."
+    observations: "المجموعة تغطي مفهوم 'العائق المفاجئ' أو 'التراجع بعد تقدم' (setback)، وهو مفهوم غني في العربية بتمثيلات مجازية متنوعة مثل الكبوة والانتكاسة."
+  blind_candidates:
+    - lemma: "كَبْوَة"
+      generation_method: majaz
+      justification: "استعارة من سقوط الفرس، وتستخدم للدلالة على الإخفاق المفاجئ أو التراجع المؤقت في مسيرة ناجحة."
+    - lemma: "خَيْبَة"
+      generation_method: majaz
+      justification: "تشير إلى الجانب النفسي (frustrating) من التعريف، وهي وقوع الأمر على خلاف ما أمل الشخص."
+    - lemma: "عَارِض"
+      generation_method: ishtiqaq
+      justification: "ما يعرض للشخص من عوائق أو أمراض تعيقه عن مقصده."
+    - lemma: "ارْتِدَاد"
+      generation_method: ishtiqaq
+      justification: "يدل على التراجع أو الرجوع للخلف بعد إحراز تقدم (reversal)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "نكسة"
+      confirm:
+        - text: "«نكسة: معاودة المرض»"
+          source: "المعجم الموحد لمصطلحات علم الصحة"
+        - text: "«setback: نَكْسَة؛ هزيمة»"
+          source: "المورد الحديث"
+    - lemma: "انتكاسة"
+      confirm:
+        - text: "«reversal: انتكاس؛ نكسة»"
+          source: "المورد الحديث"
+      expands:
+        - text: "«الانتكاس هو العود إلى الحالة السابقة السلبية»"
+          source: "تحليل دلالي"
+    - lemma: "ضربة"
+      confirm:
+        - text: "«blow: ضربة؛ لطمة؛ مصيبة؛ كارثة»"
+          source: "المورد الحديث"
+      expands:
+        - text: "«الضربة: الدفعة»"
+          source: "المعجم الوسيط"
+    - lemma: "كبوة"
+      confirm:
+        - text: "«الكبوة: السقوط للوجه. وفي المثل (لكل جواد كبوة)»"
+          source: "المعجم الوسيط"
+    - lemma: "عارض"
+      confirm:
+        - text: "«العارض: الآفة تعرض في الشيء والحائل والمانع»"
+          source: "المعجم الوسيط"
+        - text: "«عارض: حادث غير متوقع»"
+          source: "معجم المصطلحات الطبية (ArabTerm)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "نَكْسَة"
+      decision: confirmed
+      decision_reason: "مصطلح مركزي في العربية المعاصرة للدلالة على التراجع الكبير المفاجئ أو الفشل في مشروع ما بعد نجاح."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نَكْسَة"
+    - lemma: "انْتِكَاسَة"
+      decision: confirmed
+      decision_reason: "تدل بدقة على مفهوم 'الانتكاس' أو 'الارتداد' (reversal) وهي شائعة الاستخدام في السياقات الطبية والاجتماعية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "انْتِكَاسَة"
+    - lemma: "ضَرْبَة"
+      decision: confirmed
+      decision_reason: "ترجمة دقيقة لكلمة (blow) الإنجليزية في سياق الأحداث المؤسفة التي تعيق التقدم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "ضَرْبَة"
+    - lemma: "كَبْوَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير مجازي فصيح وشائع جداً لوصف التعثر أو التراجع المؤقت، وهو يتفق مع 'حدث مؤسف يعيق'."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "كَبْوَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "حدث مؤسف يعيق أو يؤخر؛ شيء محبط"
+    assessment:
+      decision: revise
+      reason: "الصياغة الحالية بسيطة، ويفضل استخدام لغة معجمية أكثر دقة لبيان طبيعة 'الحدث' وعلاقته بالتقدم."
+    authored:
+      - type: terminological
+        text: "حَدَثٌ مُؤْسِفٌ يَعْتَرِضُ سَيْرَ الأُمُورِ فَيُعِيقُ تَقَدُّمَهَا أَوْ يُؤَخِّرُهُ أَوْ يَرُدُّهُ لِلْخَلْفِ؛ وَقَدْ يَكُونُ مَصْدَرَ إِحْبَاطٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "نَكْسَة"
+        examples:
+          - text: "واجهت خطة السلام نكسة كبيرة بعد تجدد الاشتباكات."
+            type: usage
+      - lemma: "انْتِكَاسَة"
+        examples:
+          - text: "عانت الدولة من انتكاسة اقتصادية حادة أدت إلى تراجع معدلات النمو."
+            type: usage
+      - lemma: "ضَرْبَة"
+        examples:
+          - text: "كانت الهزيمة في الانتخابات ضربة قاضية لآمال الحزب في السلطة."
+            type: usage
+      - lemma: "كَبْوَة"
+        examples:
+          - text: "على الرغم من هذه الكبوة، إلا أن المشروع لا يزال قابلاً للنجاح."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "حَدَثٌ مُؤْسِفٌ يَعْتَرِضُ سَيْرَ الأُمُورِ فَيُعِيقُ تَقَدُّمَهَا أَوْ يُؤَخِّرُهُ أَوْ يَرُدُّهُ لِلْخَلْفِ؛ وَقَدْ يَكُونُ مَصْدَرَ إِحْبَاطٍ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "واجهت خطة السلام نكسة كبيرة بعد تجدد الاشتباكات."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "نَكْسَة"
+      entry_id: "{auto}"
+      root: "نكس"
+      maqayis_quote: "«النُّونُ وَالْكَافُ وَالسِّينُ أَصْلٌ يَدُلُّ عَلَى قَلْبِ الشَّيْءِ. مِنْهُ النَّكْسُ: قَلْبُكَ شَيْئًا عَلَى رَأْسِهِ.»"
+    - lemma: "انْتِكَاسَة"
+      entry_id: "{auto}"
+      root: "نكس"
+      maqayis_quote: "«النُّونُ وَالْكَافُ وَالسِّينُ أَصْلٌ يَدُلُّ عَلَى قَلْبِ الشَّيْءِ.»"
+    - lemma: "ضَرْبَة"
+      entry_id: "{auto}"
+      root: "ضرب"
+      maqayis_quote: "«الضَّادُ وَالرَّاءُ وَالْبَاءُ أَصْلٌ وَاحِدٌ... إِذَا أَوْقَعْتَ بِغَيْرِكَ ضَرْبًا.»"
+    - lemma: "كَبْوَة"
+      entry_id: "{auto}"
+      root: "كبو"
+      maqayis_quote: "«الْكَافُ وَالْبَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى سُقُوطٍ وَتَزَيُّلٍ. يُقَالُ: كَبَا لِوَجْهِهِ إِذَا سَقَطَ.»"
+  per_sense:
+    - lemma: "نَكْسَة"
+      sense_id: "{auto}"
+      nuance: "تدل على الفشل الكبير أو التراجع في قضية عامة أو مشروع ضخم."
+      mwe: false
+    - lemma: "انْتِكَاسَة"
+      sense_id: "{auto}"
+      nuance: "تستخدم غالباً في السياق الطبي أو النفسي أو السلوكي للدلالة على العودة إلى حالة سيئة سابقة."
+      mwe: false
+    - lemma: "ضَرْبَة"
+      sense_id: "{auto}"
+      nuance: "تؤكد على عنصر المفاجأة والأثر الصادم للحدث المؤسف."
+      mwe: false
+    - lemma: "كَبْوَة"
+      sense_id: "{auto}"
+      nuance: "توحي بأن الفشل عارض ومؤقت، وأنه سقطة يمكن النهوض منها."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نكس","maqayis":"«النُّونُ وَالْكَافُ وَالسِّينُ أَصْلٌ يَدُلُّ عَلَى قَلْبِ الشَّيْءِ. مِنْهُ النَّكْسُ: قَلْبُكَ شَيْئًا عَلَى رَأْسِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تؤكد على عنصر المفاجأة والأثر الصادم للحدث المؤسف.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

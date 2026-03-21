@@ -1,0 +1,235 @@
+# ── المرحلة ١: المراجعة والتوليد (بدون أدلة) ──────────────
+stage1_review:
+  assessment:
+    concerns:
+      - "المصطلح 'نظام مائي' فضفاض جداً وقد يشمل شبكات المياه المنزلية أو الزراعية."
+      - "غياب مصطلح 'حوض النهر' وهو الأكثر شيوعاً في الدراسات الجغرافية لهذا المفهوم."
+    observations: "المجموعة تعبّر عن المفهوم الهيدرولوجي المتكامل للنهر (River System). المصطلحات الحالية مقبولة لكنها تحتاج إلى إثراء بمصطلحات أكثر دقة وتخصصاً."
+  blind_candidates:
+    - lemma: "حَوْضٌ نَهْرِيّ"
+      generation_method: tarkib
+      justification: "مصطلح جغرافي معياري يصف النهر وروافده والمساحة التي يصرف مياهها."
+    - lemma: "نِظَامٌ نَهْرِيّ"
+      generation_method: tarkib
+      justification: "الترجمة المباشرة لـ (River System) وتعكس الترابط العضوي بين النهر وروافده."
+    - lemma: "شَبَكَةُ مِيَاهٍ"
+      generation_method: tarkib
+      justification: "تعبير وصفي عام قد ينطبق على الشبكات الطبيعية."
+    - lemma: "مَنْظُومَةٌ نَهْرِيَّة"
+      generation_method: tarkib
+      justification: "يتسق مع المفرط (hypernym) 'منظومة' ويعبر عن التفاعل بين المكونات."
+
+# ── المرحلة ٢: جمع الأدلة ────────────────────────────────
+stage2_evidence:
+  per_lemma:
+    - lemma: "نظام مائي"
+      confirm:
+        - text: "«(1) النِّظام المائيّ: النَّهر وروافده»"
+          source: "المورد الحديث (2008)"
+      expands:
+        - text: "«مجموعة من الكتل المائية التي تتبع مسار الوحدة المتكاملة.»"
+          source: "المعجم الموحد لمصطلحات المياه (2000)"
+          addition: "يستخدم مصطلح 'منظومة مائية' كمرادف لـ water system."
+    - lemma: "نظام نهري"
+      confirm:
+        - text: "«النهر ومياهه السطحية والمياه الجوفية المتصلة به.»"
+          source: "المعجم الموحد لمصطلحات المياه (2000)"
+          translation_en: "river system"
+    - lemma: "حوض النهر"
+      confirm:
+        - text: "«مُستجمع يتم تصريف المياه منه في البحر، عن طريق نهر وجميع روافده من المنبع إلى المصب...»"
+          source: "المعجم الموحد لمصطلحات المياه (2000)"
+    - lemma: "شبكة نهرية"
+      evidence_status: "no_material_found"
+
+# ── المرحلة ٣: التحليل اللغوي للّمات ────────────────────
+stage3_analysis:
+  per_lemma:
+    - lemma: "شبكة نهرية"
+      decision: confirmed
+      decision_reason: "مصطلح وصفي مقبول وشائع الاستخدام لوصف تفرع الروافد."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "شَبَكَةٌ نَهْرِيَّة"
+    - lemma: "نظام مائي"
+      decision: confirmed
+      decision_reason: "موثق في المعاجم الحديثة (المورد) بهذا المعنى الدقيق."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نِظَامٌ مَائِيّ"
+    - lemma: "نظام نهري"
+      source: stage1
+      decision: confirmed
+      decision_reason: "هو المصطلح الأكثر دقة وتخصصاً، وهو الترجمة المعيارية لـ River System."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "نِظَامٌ نَهْرِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "حوض النهر"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح جغرافي أساسي يطابق التعريف تماماً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "حَوْضُ النَّهْرِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "منظومة نهرية"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صياغة اصطلاحية حديثة تعكس مفهوم 'المنظومة' الوارد في المفرط."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "مَنْظُومَةٌ نَهْرِيَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+# ── المرحلة ٤: التعريف والأمثلة ──────────────────────────
+stage4_content:
+  definition:
+    current: "نهر وجميع روافده"
+    assessment:
+      decision: retain
+      reason: "التعريف موجز ودقيق."
+    authored:
+      - type: encyclopedic
+        text: "نظام يتألف من المجرى الرئيسي للنهر وجدول الروافد التي تغذيه، يشمل كافة المسطحات المائية السطحية والجوفية المترابطة التي تصب في مخرج واحد."
+    actions:
+      - command: add_definition
+        params: {synset_id: "{synset_id}", text: "نظام يتألف من المجرى الرئيسي للنهر وجدول الروافد التي تغذيه، يشمل كافة المسطحات المائية السطحية والجوفية المترابطة التي تصب في مخرج واحد."}
+  examples:
+    per_lemma:
+      - lemma: "شَبَكَةٌ نَهْرِيَّة"
+        examples:
+          - text: "تُعد الشبكة النهرية لحوض الأمازون الأكبر في العالم من حيث حجم التدفق."
+            type: usage
+      - lemma: "نِظَامٌ نَهْرِيّ"
+        examples:
+          - text: "يتأثر النظام النهري بالتغيرات المناخية التي تطرأ على منابع الروافد."
+            type: usage
+      - lemma: "نِظَامٌ مَائِيّ"
+        examples:
+          - text: "يشكل نهر النيل نظاماً مائياً معقداً يمتد عبر عدة دول إفريقية."
+            type: usage
+      - lemma: "حَوْضُ النَّهْرِ"
+        examples:
+          - text: "تمتد مساحة حوض النهر لتشمل مناطق جغرافية شاسعة تتجاوز الحدود السياسية."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تُعد الشبكة النهرية لحوض الأمازون الأكبر في العالم من حيث حجم التدفق."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يتأثر النظام النهري بالتغيرات المناخية التي تطرأ على منابع الروافد."}
+
+# ── المرحلة ٥: الإثراء (البيانات الوصفية) ─────────────────
+stage5_enrichment:
+  per_entry:
+    - lemma: "شَبَكَةٌ نَهْرِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "شبكة"
+          root: "شبك"
+          maqayis_quote: "«الشِّينُ وَالْبَاءُ وَالْكَافُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَدَاخُلِ الشَّيْءِ... وَمِنْ ذَلِكَ الشَّبَكَةُ.»"
+        - word: "نهرية"
+          root: "نهر"
+          maqayis_quote: "«النُّونُ وَالْهَاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَفَتُّحِ شَيْءٍ أَوْ فَتْحِهِ... وَسُمِّيَ النَّهْرَ لِأَنَّهُ يَنْهَرُ الْأَرْضَ أَيْ يَشُقُّهَا.»"
+    - lemma: "نِظَامٌ مَائِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "نظام"
+          root: "نظم"
+          maqayis_quote: "«النُّونُ وَالظَّاءُ وَالْمِيمُ: أَصْلٌ يَدُلُّ عَلَى تَأْلِيفِ شَيْءٍ وَتَأْلِيفِهِ... وَالنِّظَامُ: الْخَيْطُ يَجْمَعُ الْخَرَزَ.»"
+        - word: "مائي"
+          root: "موه"
+          maqayis_quote: "«الْمِيمُ وَالْوَاوُ وَالْهَاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ... وَهِيَ الْمَوَهُ: أَصْلُ بِنَاءِ الْمَاءِ.»"
+    - lemma: "نِظَامٌ نَهْرِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "نظام"
+          root: "نظم"
+          maqayis_quote: "«النُّونُ وَالظَّاءُ وَالْمِيمُ: أَصْلٌ يَدُلُّ عَلَى تَأْلِيفِ شَيْءٍ وَتَأْلِيفِهِ.»"
+        - word: "نهري"
+          root: "نهر"
+          maqayis_quote: "«النُّونُ وَالْهَاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَفَتُّحِ شَيْءٍ أَوْ فَتْحِهِ.»"
+    - lemma: "حَوْضُ النَّهْرِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "حوض"
+          root: "حوض"
+          maqayis_quote: "«الْحَاءُ وَالْوَاوُ وَالضَّادُ كَلِمَةٌ وَاحِدَةٌ، وَهُوَ الْهَزْمُ فِي الْأَرْضِ. فَالْحَوْضُ حَوْضُ الْمَاءِ.»"
+        - word: "النهر"
+          root: "نهر"
+          maqayis_quote: "«النُّونُ وَالْهَاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَفَتُّحِ شَيْءٍ أَوْ فَتْحِهِ.»"
+  per_sense:
+    - lemma: "نِظَامٌ نَهْرِيّ"
+      sense_id: "{auto}"
+      nuance: "المصطلح الأكثر دقة وتخصصاً في الهيدرولوجيا لوصف النهر ومكوناته."
+      mwe: true
+    - lemma: "شَبَكَةٌ نَهْرِيَّة"
+      sense_id: "{auto}"
+      nuance: "يركز على الشكل الهندسي المتفرع للروافد."
+      mwe: true
+    - lemma: "نِظَامٌ مَائِيّ"
+      sense_id: "{auto}"
+      nuance: "مصطلح عام يوضع في السياق النهري بناءً على ما ورد في المعاجم."
+      mwe: true
+    - lemma: "حَوْضُ النَّهْرِ"
+      sense_id: "{auto}"
+      nuance: "يركز على النطاق المكاني والمستجمع المائي للنهر وروافده."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"شبكة","root":"شبك","maqayis_quote":"«...»"},{"word":"نهرية","root":"نهر","maqayis_quote":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الأكثر دقة وتخصصاً في الهيدرولوجيا لوصف النهر ومكوناته.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

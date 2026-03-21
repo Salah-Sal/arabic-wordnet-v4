@@ -1,0 +1,224 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّة الموجودة 'مغرس' تشير لغوياً إلى مكان الغرس أكثر من المجموعة ذاتها، وإن كان الاستخدام قد يتوسع ليشملها."
+      - "الحاجة إلى لمّات تعبّر عن المجموعة النباتية بشكل أعمّ (مثل 'غراس' أو 'زرع')."
+    observations: "المجموعة تشير إلى كيان مادي مكون من نباتات مغروسة في حيز معين. اللمات الحالية تغطي جانب المكان (مغرس) وجانب الأشجار (مشجر)، لكن ينقصها اللفظ الذي يصف النباتات المغروسة ككل."
+  blind_candidates:
+    - lemma: "غِرَاس"
+      generation_method: ishtiqaq
+      justification: "اسم لما يُغرس من الشجر والنبات، وهو لفظ فصيح يعبر عن الكيان الجماعي للمغروسات."
+    - lemma: "مَشْجَر"
+      generation_method: ishtiqaq
+      justification: "منبت الشجر ومجموعها في مكان واحد، وهو مصطلح معجمي دقيق للأشجار."
+    - lemma: "شِتَال"
+      generation_method: ishtiqaq
+      justification: "جمع شتلة، ويستخدم للإشارة إلى مجموعة النباتات المغروسة حديثاً أو الصغيرة."
+    - lemma: "مَزْرُوعَات"
+      generation_method: ishtiqaq
+      justification: "لفظ عام يشمل كل ما يزرع، وهو جمع يؤدي معنى المجموعة النباتية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مَشْجَر"
+      confirm:
+        - text: "«مَنْبِتُ الشَّجَرِ موضعُ الأشجار... كلُّ مساحَةٍ يُغطِّيها الشَّجَرُ قليلاً كان أو كثيرًا»"
+          source: "المعجم الكبير"
+        - text: "«مجموعة متنوعة من الأشجار، تمثل في كثير من الأحيان جزء من حديقة نباتية.»"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+    - lemma: "مَغْرَس"
+      confirm:
+        - text: "«موضع الغَرْس»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«موضع الغرس (ج) مغارس»"
+          source: "المعجم الوسيط"
+          addition: "يؤكد دلالة المكان، لكن 'planting' في الإنجليزية قد تشمل المكان أيضاً."
+    - lemma: "غِرَاس"
+      confirm:
+        - text: "«الغِراسُ: ما يُغرس من الشجر ونحوه زمن الغرس»"
+          source: "المعجم الوسيط"
+        - text: "«الغِراس: بالكسر ما يُغرس من الشجر وأيضاً وقتُ الغرس.»"
+          source: "التعريفات الفقهية للبركتي"
+    - lemma: "زَرْع"
+      confirm:
+        - text: "«كل ما هو غَضٌّ أخضر، مجموعة من الأشجار أو النباتات المزروعة»"
+          source: "معجم اللغة العربية المعاصرة"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مشجر"
+      decision: confirmed
+      decision_reason: "مصطلح دقيق ومعتمد في المعاجم العربية الحديثة والمتخصصة للإشارة إلى مجموعة الأشجار أو منبتها."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَشْجَر"
+    - lemma: "مغرس"
+      decision: confirmed
+      decision_reason: "على الرغم من غلبة دلالة المكان عليه، إلا أنه مستخدم للإشارة إلى ما يُغرس أو منطقة الغرس، وهو مرادف مقبول في هذا السياق."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَغْرَس"
+    - lemma: "غِرَاس"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ معجمي فصيح يشير صراحة إلى النباتات المغروسة ككيان، وهو من أدق المرادفات لـ 'planting' كاسم لمجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "غِرَاس"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-08081724-n"
+    - lemma: "زَرْع"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يستخدم للإشارة إلى مجموعة النباتات المزروعة ككل، وهو لفظ شائع وشامل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "زَرْع"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-08081724-n"
+
+stage4_content:
+  definition:
+    current: "مجموعة من النباتات (أشجار أو شجيرات أو زهور) في منطقة معينة"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق وشامل ومترجم بأسلوب عربي سليم يطابق المفهوم في WordNet."
+  examples:
+    per_lemma:
+      - lemma: "مَشْجَر"
+        examples:
+          - text: "يحتوي المَشْجَرُ الوطني على مئات الأنواع من الأشجار النادرة."
+            type: usage
+      - lemma: "مَغْرَس"
+        examples:
+          - text: "كان المَغْرَسُ منظماً بحيث تتوزع الزهور حسب ألوانها."
+            type: usage
+      - lemma: "غِرَاس"
+        examples:
+          - text: "تعهد البستانيُّ الغِرَاسَ بالريِّ والعناية الفائقة."
+            type: usage
+      - lemma: "زَرْع"
+        examples:
+          - text: "أعجب السياحُ بمظهر الزَّرْعِ الممتد على طول الساحة."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَشْجَر"
+      entry_id: "{auto}"
+      root: "شجر"
+      maqayis_quote: "«الشِّينُ وَالْجِيمُ وَالرَّاءُ أَصْلَانِ مُتَدَاخِلَانِ... فَالشَّجَرُ مَعْرُوفٌ، الْوَاحِدَةُ شَجَرَةٌ، وَهِيَ لَا تَخْلُو مِنِ ارْتِفَاعٍ وَتَدَاخُلِ أَغْصَانٍ.»"
+    - lemma: "مَغْرَس"
+      entry_id: "{auto}"
+      root: "غرس"
+      maqayis_quote: "«الْغَيْنُ وَالرَّاءُ وَالسِّينُ أَصْلٌ صَحِيحٌ... يُقَالُ: غَرَسْتُ الشَّجَرَ غَرْسًا، وَهَذَا زَمَنُ الْغِرَاسِ.»"
+    - lemma: "غِرَاس"
+      entry_id: "{auto}"
+      root: "غرس"
+      maqayis_quote: "«الْغَيْنُ وَالرَّاءُ وَالسِّينُ أَصْلٌ صَحِيحٌ... يُقَالُ: غَرَسْتُ الشَّجَرَ غَرْسًا، وَهَذَا زَمَنُ الْغِرَاسِ.»"
+    - lemma: "زَرْع"
+      entry_id: "{auto}"
+      root: "زرع"
+      maqayis_quote: "«الزَّاءُ وَالرَّاءُ وَالْعَيْنُ أَصْلٌ يَدُلُّ عَلَى تَنْمِيَةِ الشَّيْءِ. فَالزَّرْعُ مَعْرُوفٌ... وَالزَّرْعُ اسْمٌ لِمَا نَبَتَ.»"
+  per_sense:
+    - lemma: "مَشْجَر"
+      sense_id: "{auto}"
+      nuance: "يختص بمجموع الأشجار (Arboretum) أو موضعها."
+      mwe: false
+    - lemma: "مَغْرَس"
+      sense_id: "{auto}"
+      nuance: "يركز على الموضع الذي تمت فيه عملية الغرس، وقد يطلق على المغروسات فيه."
+      mwe: false
+    - lemma: "غِرَاس"
+      sense_id: "{auto}"
+      nuance: "يشير إلى ماهية الأشجار أو الشجيرات المغروسة ككيان مادي."
+      mwe: false
+    - lemma: "زَرْع"
+      sense_id: "{auto}"
+      nuance: "لفظ عام يشمل أي مجموعة نباتية مغروسة سواء كانت زهوراً أو أشجاراً."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"شجر","maqayis":"«الشِّينُ وَالْجِيمُ وَالرَّاءُ أَصْلَانِ مُتَدَاخِلَانِ... فَالشَّجَرُ مَعْرُوفٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"غرس","maqayis":"«الْغَيْنُ وَالرَّاءُ وَالسِّينُ أَصْلٌ صَحِيحٌ... يُقَالُ: غَرَسْتُ الشَّجَرَ غَرْسًا...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"زرع","maqayis":"«الزَّاءُ وَالرَّاءُ وَالْعَيْنُ أَصْلٌ يَدُلُّ عَلَى تَنْمِيَةِ الشَّيْءِ... وَالزَّرْعُ اسْمٌ لِمَا نَبَتَ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يختص بمجموع الأشجار أو موضعها.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الموضع الذي تمت فيه عملية الغرس.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يشير إلى ماهية الأشجار أو الشجيرات المغروسة ككيان مادي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"لفظ عام يشمل أي مجموعة نباتية مغروسة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-08081724-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-08081724-n"
+        score: 0.9

@@ -1,0 +1,225 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الحالية 'ملعونون' و'هالكون' هي جموع مشتقة (اسم فاعل/مفعول)، وهو ما يناسب دلالة المجموعة (الناس المحكوم عليهم...) ككتلة بشرية."
+    observations: "المفهوم ديني في جوهره، يرتبط بالطرد من الرحمة الإلهية والعقاب في الآخرة. الألفاظ المستخدمة في العربية فصيحة ومستقاة من التراث الديني (القرآن والسنة)."
+  blind_candidates:
+    - lemma: "مَلْعُونُون"
+      generation_method: ishtiqaq
+      justification: "الجمع السالم للملعون، وهو المطرود من رحمة الله، وهو المقابل الدقيق لـ damned."
+    - lemma: "هَالِكُون"
+      generation_method: ishtiqaq
+      justification: "الجمع السالم للهالك، ويستخدم في السياق الديني لمن تردى في الإثم واستحق النار."
+    - lemma: "مُعَذَّبُون"
+      generation_method: ishtiqaq
+      justification: "اسم مفعول من عذّب، يشير مباشرة إلى وقوع العقاب عليهم."
+    - lemma: "أَهْلُ النَّارِ"
+      generation_method: tarkib
+      justification: "تعبير مركّب (إضافي) شائع جداً في النصوص الدينية للإشارة إلى المخلدين في العقاب."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "ملعونون"
+      confirm:
+        - text: "«اللَّعْنَة: العَذَاب؛ يُقال: أصابته لعنة من السماء»"
+          source: "المعجم الوسيط"
+        - text: "«لَعَنَهُ: طَرَدَهُ وأبْعَدَهُ من الخير»"
+          source: "المعجم الوسيط"
+        - text: "«اللعنة: شرعاً إبعاد الله من رحمته في الدنيا بانقطاع التوفيق وفي العقبى بالابتلاء بالعقوبة»"
+          source: "التعريفات الفقهية للبركتي"
+    - lemma: "هالكون"
+      confirm:
+        - text: "«هَلَكَ فلان هَلاكاً: مات. فهو هالك»"
+          source: "المعجم الوسيط"
+        - text: "«والاهتلاك: وهو رمي الإنسان نفسه في تهلكة»"
+          source: "كتاب العين"
+    - lemma: "معذبون"
+      confirm:
+        - text: "«عَذَّبَهُ: عاقبه ونكَّلَ به»"
+          source: "المعجم الوسيط"
+        - text: "«المعذبون في الأرض» (عنوان مدخل)"
+          source: "مسرد الفلسفة (ArabTerm)"
+    - lemma: "أهل النار"
+      confirm:
+        - text: "«أهل الشيء: أصحابه؛ وأهل النار: سكانها المخلدون فيها» (استنتاج من تعريف الأهل)"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "ملعونون"
+      decision: confirmed
+      decision_reason: "مصطلح مركزي في العقيدة واللغة للتعبير عن المطرودين من الرحمة والمحكوم عليهم بالعذاب."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَلْعُونُون"
+    - lemma: "هالكون"
+      decision: confirmed
+      decision_reason: "لفظ قرآني يعبر عن الهلاك الأخروي والعقاب."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "هَالِكُون"
+    - lemma: "مُعَذَّبُون"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يطابق تعريف المجموعة تماماً (المحكوم عليهم بالعقاب)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُعَذَّبُون", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-07962076-n"}
+    - lemma: "أَهْلُ النَّارِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "وحدة معجمية ثابتة (مركب إضافي) تشير إلى هذه الفئة في التراث العربي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "أَهْلُ النَّارِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-07962076-n"}
+
+stage4_content:
+  definition:
+    current: "الناس المحكوم عليهم بالعقاب الأبدي"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دقيق لكن يمكن صياغته بأسلوب معجمي أكثر ضبطاً وتحديداً للمجال الديني."
+    authored:
+      - type: terminological
+        text: "جماعة من البشر قُدّر عليهم الخلود في العقاب الأخروي جزاء كفرهم أو آثامهم."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-07962076-n"
+          definition_index: 0
+          text: "جماعة من البشر قُدّر عليهم الخلود في العقاب الأخروي جزاء كفرهم أو آثامهم."
+  examples:
+    per_lemma:
+      - lemma: "مَلْعُونُون"
+        examples:
+          - text: "يُصور الأدب الديني الملعونين وهم يتجرعون غصص الندم على ما فرطوا في جنب الله."
+            type: usage
+      - lemma: "هَالِكُون"
+        examples:
+          - text: "«كُلُّ شَيْءٍ هَالِكٌ إِلَّا وَجْهَهُ»؛ ويُراد بها في سياق الوعيد من تردى في المعاصي فاستحق العقاب."
+            type: quran
+      - lemma: "مُعَذَّبُون"
+        examples:
+          - text: "تحدثت الرواية عن صراخ المعذبين في الجحيم."
+            type: usage
+      - lemma: "أَهْلُ النَّارِ"
+        examples:
+          - text: "«أُولَٰئِكَ أَصْحَابُ النَّارِ ۖ هُمْ فِيهَا خَالِدُونَ»؛ ويشيع استخدام أهل النار كمرادف لأصحابها."
+            type: quran
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-07962076-n", text: "يُحشر الملعونون يوم القيامة وجوههم مسودة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَلْعُونُون"
+      entry_id: "{auto}"
+      root: "لعن"
+      maqayis_quote: "«اللام والعين والنون أصل صحيح واحد، وهو الإبعاد والطَّرْد. ولعن الله الشيطان: أبعده من الخير والجنة.»"
+    - lemma: "هَالِكُون"
+      entry_id: "{auto}"
+      root: "هلك"
+      maqayis_quote: "«الهاء واللام والكاف أصلٌ صحيح، يدلُّ على كَسْرٍ وسقوط. وهلك الشيءُ: سَقَطَ ومات.»"
+    - lemma: "مُعَذَّبُون"
+      entry_id: "{auto}"
+      root: "عذب"
+      maqayis_quote: "«العين والذال والباء أصلانِ: أحدهما الطِّيب من الماء... والآخر المَنْع والضَّرب. والعذاب: العقوبة لأنها تمنع الجاني من العود.»"
+    - lemma: "أَهْلُ النَّارِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "أهل"
+          root: "أهل"
+          maqayis_quote: "«الهمزة والهاء واللام أصلٌ واحد، وهو الأُنس بالشيء. وأهل الرجل: زوجه وأخص الناس به.»"
+        - word: "النار"
+          root: "نور"
+          maqayis_quote: "«النون والواو والراء أصلٌ صحيح واحد، وهو الضوء والحرارة.»"
+  per_sense:
+    - lemma: "مَلْعُونُون"
+      sense_id: "{auto}"
+      nuance: "تركز على الطرد من الرحمة الإلهية والإبعاد عن كل خير."
+      mwe: false
+    - lemma: "هَالِكُون"
+      sense_id: "{auto}"
+      nuance: "تركز على فناء الذات المعنوي والوقوع في شرور الأعمال المؤدية للنار."
+      mwe: false
+    - lemma: "مُعَذَّبُون"
+      sense_id: "{auto}"
+      nuance: "تركز على الجانب الحسي والنفسي من العقاب الواقع عليهم."
+      mwe: false
+    - lemma: "أَهْلُ النَّارِ"
+      sense_id: "{auto}"
+      nuance: "تعبير اصطلاحي يشير إلى ملازمة العقاب (كأهل الدار الذين لا يبرحونها)."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"لعن","maqayis":"«اللام والعين والنون أصل صحيح واحد، وهو الإبعاد والطَّرْد...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"هلك","maqayis":"«الهاء واللام والكاف أصلٌ صحيح، يدلُّ على كَسْرٍ وسقوط...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عذب","maqayis":"«العين والذال والباء أصلانِ: أحدهما الطِّيب من الماء... والآخر المَنْع والضَّرب...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"أهل","root":"أهل","maqayis":"«الهمزة والهاء واللام أصلٌ واحد...»"},{"word":"النار","root":"نور","maqayis":"«النون والواو والراء أصلٌ صحيح واحد...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركز على الطرد من الرحمة الإلهية...","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-07962076-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-07962076-n"
+        score: 0.95

@@ -1,0 +1,202 @@
+# ── المرحلة ١: المراجعة والتوليد (بدون أدلة) ──────────────
+stage1_review:
+  assessment:
+    concerns:
+      - التعريف الحالي موجز جداً ويميل للدوران (استخدام كلمة ريفي لتعريف الريفية).
+      - غياب المصطلحات المرادفة التي تشير إلى نفس المفهوم مثل "القروية".
+    observations: "المجموعة تدور حول مفهوم 'الريفية' كخاصية أو سمة مجردة (rurality)، وهي تقابل 'الحضرية' (urbanity). المصطلح العربي 'ريفية' هو الأكثر دقة وشيوعاً في السياقات الاجتماعية والأدبية المعاصرة."
+  blind_candidates:
+    - lemma: "رِيفِيَّة"
+      generation_method: ishtiqaq
+      justification: "المصدر الصناعي من 'ريف' للدلالة على الصفة المجردة والسمة العامة."
+    - lemma: "قَرَوِيَّة"
+      generation_method: ishtiqaq
+      justification: "النسبة إلى القرية مع التاء للدلالة على الحالة أو السمة المميزة لمجتمع القرية."
+    - lemma: "طَابَع رِيفِيّ"
+      generation_method: tarkib
+      justification: "تعبير مركب وصفي يشير إلى السمة الغالبة على الشيء (Rural character)."
+    - lemma: "طَابَع قَرَوِيّ"
+      generation_method: tarkib
+      justification: "مرادف لـ 'طابع ريفي' يركز على سمات القرية."
+
+# ── المرحلة ٢: جمع الأدلة ────────────────────────────────
+stage2_evidence:
+  per_lemma:
+    - lemma: "رِيفِيَّة"
+      confirm:
+        - text: "«أرض ريفية: مخصبة»"
+          source: "المعجم الكبير"
+      expands:
+        - text: "«رَيَّفَ المكانَ: أضفى عليه طابعَ الرِّيف بما يمتاز بـه من هدوءٍ وبساطةٍ وميْل إِلى الطبيعة»"
+          source: "المعجم الكبير"
+          addition: "الفعل 'ريف' يؤكد وجود مفهوم 'طابع الريف' كسمة معنوية (هدوء وبساطة)."
+    - lemma: "طَابَع رِيفِيّ"
+      confirm:
+        - text: "«سجاد ذو طابع ريفي بسيط ينسج من بعض أنواع الصوف الخشنة.»"
+          source: "ArabTerm - مسرد صناعة النسيج"
+    - lemma: "قَرَوِيَّة"
+      confirm:
+        - text: "«أَجْرى مباحثات حول الشئون القَرَوِيَّة [فصيحة]»"
+          source: "معجم الصواب اللغوي (أحمد مختار عمر)"
+          addition: "يؤكد استخدام 'القروية' كاسم يشير إلى الشئون أو الخصائص المرتبطة بالقرية."
+    - lemma: "طَابَع"
+      confirm:
+        - text: "«الطابع: الطبيعة... الخلق الغالب»"
+          source: "المعجم الوسيط"
+
+# ── المرحلة ٣: التحليل اللغوي للّمات ────────────────────
+stage3_analysis:
+  per_lemma:
+    - lemma: "رِيفِيَّة"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي يعبر عن المفهوم المجرد (rurality) وهو المقابل العربي القياسي للحضرية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "رِيفِيَّة"
+    - lemma: "طَابَع رِيفِيّ"
+      decision: confirmed
+      decision_reason: "تعبير مركب شائع جداً (Wasfi MWE) يعبر بدقة عن 'rural characteristic'."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "طَابَع رِيفِيّ"
+    - lemma: "قَرَوِيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف وثيق الصلة يركز على السمة المميزة للقرية، وهو مستخدم بكثرة في الأدبيات الاجتماعية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "قَرَوِيَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "طَابَع قَرَوِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف مركب يدعم 'طابع ريفي' ويؤكده في السياقات الوصفية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "طَابَع قَرَوِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+# ── المرحلة ٤: التعريف والأمثلة ──────────────────────────
+stage4_content:
+  definition:
+    current: "سمة أو طابع ريفي"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب ويميل للدوران، يحتاج لإيضاح الخصائص المعنوية للمفهوم."
+    authored:
+      - type: linguistic
+        text: "طابع أو نمط حياة ريفي يتميز بالبساطة والارتباط بالطبيعة والبعد عن تعقيد الحضر."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "طابع أو نمط حياة ريفي يتميز بالبساطة والارتباط بالطبيعة والبعد عن تعقيد الحضر."}
+  examples:
+    per_lemma:
+      - lemma: "رِيفِيَّة"
+        examples:
+          - text: "تمتاز روايات هذا الكاتب بريفية واضحة في تصوير الشخصيات."
+            type: usage
+      - lemma: "طَابَع رِيفِيّ"
+        examples:
+          - text: "يحتفظ الفندق بطابع ريفي هادئ يجذب السياح."
+            type: usage
+      - lemma: "قَرَوِيَّة"
+        examples:
+          - text: "تظهر في تصرفاتها قروية محببة تنم عن بساطة المنشأ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تمتاز روايات هذا الكاتب بريفية واضحة في تصوير الشخصيات."}
+
+# ── المرحلة ٥: الإثراء (البيانات الوصفية) ─────────────────
+stage5_enrichment:
+  per_entry:
+    - lemma: "رِيفِيَّة"
+      entry_id: "{auto}"
+      root: "ريف"
+      maqayis_quote: "«الرَّاءُ وَالْيَاءُ وَالْفَاءُ كَلِمَةٌ وَاحِدَةٌ تَدُلُّ عَلَى خِصْبٍ. يُقَالُ أَرَافَتِ الْأَرْضُ. وَأَرْيَفْنَا، إِذَا صِرْنَا إِلَى الرِّيفِ.»"
+    - lemma: "طَابَع رِيفِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "طابع"
+          root: "طبع"
+          maqayis_quote: "«الطَّاءُ وَالْبَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، وَهُوَ طَبْعُ الشَّيْءِ، أَيْ رَسْمُهُ وَتَصْوِيرُهُ... ثُمَّ يُسَمَّى مَا جُبِلَ عَلَيْهِ الْإِنْسَانُ طَبِيعَةً.»"
+        - word: "ريفي"
+          root: "ريف"
+          maqayis_quote: "«الرَّاءُ وَالْيَاءُ وَالْفَاءُ كَلِمَةٌ وَاحِدَةٌ تَدُلُّ عَلَى خِصْبٍ.»"
+    - lemma: "قَرَوِيَّة"
+      entry_id: "{auto}"
+      root: "قري"
+      maqayis_quote: "«الْقَافُ وَالرَّاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى جَمْعٍ وَاجْتِمَاعٍ... وَالْقَرْيَةُ سُمِّيَتْ قَرْيَةً لِاجْتِمَاعِ النَّاسِ فِيهَا.»"
+  per_sense:
+    - lemma: "رِيفِيَّة"
+      sense_id: "{auto}"
+      nuance: "تشير إلى السمة المجردة والحالة العامة للمجتمع الريفي."
+      mwe: false
+    - lemma: "طَابَع رِيفِيّ"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي يركز على المظهر والشكل والجو العام."
+      mwe: true
+    - lemma: "قَرَوِيَّة"
+      sense_id: "{auto}"
+      nuance: "تركز على الخصائص المرتبطة بالقرية ككيان اجتماعي مصغر."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ريف","maqayis":"«الرَّاءُ وَالْيَاءُ وَالْفَاءُ كَلِمَةٌ وَاحِدَةٌ تَدُلُّ عَلَى خِصْبٍ. يُقَالُ أَرَافَتِ الْأَرْضُ. وَأَرْيَفْنَا، إِذَا صِرْنَا إِلَى الرِّيفِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"طابع","root":"طبع","maqayis":"«الطَّاءُ وَالْبَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ...»"},{"word":"ريفي","root":"ريف","maqayis":"«الرَّاءُ وَالْيَاءُ وَالْفَاءُ كَلِمَةٌ وَاحِدَةٌ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تشير إلى السمة المجردة والحالة العامة للمجتمع الريفي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-04927414-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-04927414-n"
+        score: 0.9

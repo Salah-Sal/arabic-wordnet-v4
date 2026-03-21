@@ -1,0 +1,161 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة تفتقر إلى التشكيل الكامل."
+      - "تعدد طرق كتابة الاسم الأجنبي (كورتيس/كورتيز)."
+    observations: "المجموعة تمثل معلماً جغرافياً عالمياً، والأسماء العربية المستخدمة هي ترجمات مباشرة للأسماء الإنجليزية والإسبانية."
+  blind_candidates:
+    - lemma: "خَلِيج كَالِيفُورْنِيَا"
+      generation_method: tarkib
+      justification: "الاسم الجغرافي الرسمي والأكثر شيوعاً (Gulf of California)."
+    - lemma: "بَحْر كُورتِيس"
+      generation_method: tarkib
+      justification: "الاسم البديل والتاريخي للمسطح المائي (Sea of Cortes)."
+    - lemma: "بَحْر كُورتِيز"
+      generation_method: tarkib
+      justification: "تنويع إملائي شائع للاسم (Sea of Cortez)."
+    - lemma: "الخَلِيج القِرْمِزِيّ"
+      generation_method: tarkib
+      justification: "اسم تاريخي قديم للمنطقة (Vermilion Sea)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خليج كاليفورنيا"
+      confirm:
+        - text: "خليج كاليفورنيا (Gulf of California)"
+          source: "المكنز الزراعي متعدد اللغات (AGROVOC)"
+    - lemma: "بحر كورتيس"
+      evidence_status: "no_material_found"
+    - lemma: "بحر كورتيز"
+      evidence_status: "no_material_found"
+    - lemma: "الخليج القرمزي"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "خليج كاليفورنيا"
+      decision: confirmed
+      decision_reason: "الاسم الرسمي والمعتمد في المعاجم التقنية الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَلِيج كَالِيفُورْنِيَا"
+    - lemma: "بحر كورتيس"
+      decision: confirmed
+      decision_reason: "اسم بديل تاريخي وشائع في الأدبيات الجغرافية والعلمية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "بَحْر كُورتِيس"
+    - lemma: "بَحْر كُورتِيز"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تنويع إملائي مقبول وشائع للاسم التاريخي."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "بَحْر كُورتِيز", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "خليج يقع إلى الغرب من البر الرئيسي للمكسيك"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط؛ يُفضل إضافة تفاصيل جغرافية تميزه عن غيره."
+    authored:
+      - type: encyclopedic
+        text: "ذراع بحرية كبيرة من المحيط الهادئ، تقع بين شبه جزيرة كاليفورنيا والساحل الغربي للمكسيك، وتتميز بتنوع بيولوجي غني."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "ذراع بحرية كبيرة من المحيط الهادئ، تقع بين شبه جزيرة كاليفورنيا والساحل الغربي للمكسيك، وتتميز بتنوع بيولوجي غني."}
+  examples:
+    per_lemma:
+      - lemma: "خَلِيج كَالِيفُورْنِيَا"
+        examples:
+          - text: "يُعد خليج كاليفورنيا من أغنى النظم البيئية البحرية في العالم."
+            type: usage
+      - lemma: "بَحْر كُورتِيس"
+        examples:
+          - text: "أطلق المستكشفون الأوائل اسم بحر كورتيس على هذا الخليج."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يمتد خليج كاليفورنيا على مسافة طويلة تفصل شبه الجزيرة عن البر المكسيكي."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خَلِيج كَالِيفُورْنِيَا"
+      entry_id: "{auto}"
+      roots:
+        - word: "خليج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"
+        - word: "كاليفورنيا"
+          root: "أجنبي"
+          maqayis_quote: "اسم علم أعجمي لولاية ومنطقة جغرافية."
+    - lemma: "بَحْر كُورتِيس"
+      entry_id: "{auto}"
+      roots:
+        - word: "بحر"
+          root: "بحر"
+          maqayis_quote: "«الْبَاءُ وَالْحَاءُ وَالرَّاءُ. قَالَ الْخَلِيلُ سُمِّيَ الْبَحْرُ بَحْرًا لِاسْتِبْحَارِهِ وَهُوَ انْبِسَاطُهُ وَسَعَتُهُ.»"
+        - word: "كورتيس"
+          root: "أجنبي"
+          maqayis_quote: "اسم علم أعجمي نسبة للمستكشف هرنان كورتيس."
+  per_sense:
+    - lemma: "خَلِيج كَالِيفُورْنِيَا"
+      sense_id: "{auto}"
+      nuance: "الاسم الجغرافي الحديث والمعتمد دولياً."
+      mwe: true
+    - lemma: "بَحْر كُورتِيس"
+      sense_id: "{auto}"
+      nuance: "اسم تاريخي وبديل يكثر استخدامه في السياقات الأدبية والعلمية."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"خليج","root":"خلج","maqayis":"«...»"},{"word":"كاليفورنيا","root":"أجنبي","maqayis":"اسم علم أعجمي"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الجغرافي الحديث والمعتمد دولياً.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

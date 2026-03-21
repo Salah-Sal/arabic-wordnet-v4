@@ -1,0 +1,208 @@
+# Stage 1: Review + Generate
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'زمرة' عامة جداً (Generic group) وقد تلتبس مع 'الزمرة الدموية' (Blood group) أو الزمر الرياضية."
+      - "اللمة 'فَرْع حَيَوِي' صحيحة مصطلحياً لكنها تفتقر للتشكيل الكامل في البيانات الحالية."
+      - "اللمة 'كليد' هي تعريب صوتي (Transliteration) قد يكون أقل شيوعاً من 'كِلاد' في الأدبيات العلمية العربية المعاصرة."
+    observations: "المفهوم علمي تخصصي يتعلق بالتصنيف التفرعي (Cladistics). المصطلح الأكثر دقة هو 'فرع حيوي' كونه ترجمة دلالية، و'كِلاد' كتعريب للمصطلح العالمي."
+  blind_candidates:
+    - lemma: "فَرْعٌ حَيَوِيّ"
+      generation_method: tarkib
+      justification: "ترجمة دقيقة لمصطلح Clade كونه فرعاً حيوياً في شجرة الأنساب."
+    - lemma: "أُرُومَة"
+      generation_method: majaz
+      justification: "لفظ تراثي يعني الأصل، ويناسب المجموعات التي تشترك في سلف واحد."
+    - lemma: "نَسِيلَة"
+      generation_method: ishtiqaq
+      justification: "من النسل، للدلالة على مجموعة منحدرة من سلف مشترك."
+    - lemma: "كِلَاد"
+      generation_method: taarib
+      justification: "التعريب الصوتي الأكثر شيوعاً لمصطلح Clade في العلوم الطبيعية."
+
+# Stage 2: Evidence Gathering
+stage2_evidence:
+  per_lemma:
+    - lemma: "زمرة"
+      confirm:
+        - text: "«الزمرة: الجماعة القليلة.»"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+        - text: "«(الزمرة) الفوج وَالْجَمَاعَة»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«زمرة: group»"
+          source: "المعجم الموحد لمصطلحات الفيزياء العامة والنووية (1989)"
+    - lemma: "فَرْع حَيَوِي"
+      confirm:
+        - text: "«مجموعة بيولوجية من الأنواع التي تشترك في السمات الموروثة من سلف مشترك»"
+          source: "مسرد المناخ والبيئة وإدارة النفايات الصلبة (ArabTerm)"
+    - lemma: "كليد"
+      evidence_status: "no_material_found"
+    - lemma: "أُرُومَة"
+      confirm:
+        - text: "«أصل كل شىء ومجتمعه أرومة الرجل : أصله»"
+          source: "المعجم الكبير"
+      contradicts:
+        - text: "«أرومة: stump (Biology)»"
+          source: "المعجم الموحد لمصطلحات علم الأحياء (1993)"
+          conflict: "تُستخدم في علم الأحياء بمعنى جذل الشجرة (الجزء المتبقي بعد القطع) وليس للمجموعة التفرعية."
+    - lemma: "نَسِيلَة"
+      contradicts:
+        - text: "«نَسِيلَة: clone»"
+          source: "المعجم الطبي الموحد (2009)"
+          conflict: "النسيلة تُستخدم حصراً لترجمة Clone (المستنسخ) وليس Clade."
+
+# Stage 3: Lemma Analysis
+stage3_analysis:
+  per_lemma:
+    - lemma: "فَرْع حَيَوِي"
+      decision: confirmed
+      decision_reason: "مصطلح علمي دقيق ومدعوم بأدلة قوية من المعاجم المتخصصة (ArabTerm) ويطابق التعريف تماماً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "فَرْعٌ حَيَوِيّ"
+    - lemma: "زمرة"
+      decision: confirmed
+      decision_reason: "مقبولة كلفظ عام لمجموعة حيوية، وإن كانت تفتقر للتخصيص التطوري الذي توفره المصطلحات الأخرى."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "زُمْرَة"
+    - lemma: "كليد"
+      decision: confirmed
+      decision_reason: "تُبقى كتعريب صوتي موجود مسبقاً في المجموعة، وإن كان 'كِلاد' أفضل منها."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "كِلِيد"
+    - lemma: "كِلَاد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "التعريب الصوتي المعتمد في الأبحاث العلمية العربية المعاصرة لترجمة Clade."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "كِلَاد", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "أُرُومَة"
+      source: stage1
+      decision: removed
+      decision_reason: "رغم دلالتها على الأصل، إلا أنها في الاصطلاح الأحيائي تعني جذل الشجرة (Stump) مما قد يسبب خلطاً."
+    - lemma: "نَسِيلَة"
+      source: stage1
+      decision: removed
+      decision_reason: "تُستخدم في السياق الأحيائي والطبي لترجمة مصطلح Clone (المستنسخ) ولا تُستخدم لـ Clade."
+
+# Stage 4: Content
+stage4_content:
+  definition:
+    current: "مجموعة من الأصناف البيولوجية أو الأنواع التي تشترك في سمات موروثة من سلف مشترك"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكن يمكن صياغته بأسلوب معجمي أكثر دقة لبيان طبيعة هذه المجموعة (أحادية المنشأ)."
+    authored:
+      - type: terminological
+        text: "مَجْمُوعَةٌ بِيُولُوجِيَّةٌ تَشْتَمِلُ عَلَى جَمِيعِ النَّسْلِ الْمُنْحَدِرِ مِنْ سَلَفٍ مُشْتَرَكٍ وَاحِدٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مَجْمُوعَةٌ بِيُولُوجِيَّةٌ تَشْتَمِلُ عَلَى جَمِيعِ النَّسْلِ الْمُنْحَدِرِ مِنْ سَلَفٍ مُشْتَرَكٍ وَاحِدٍ."}
+  examples:
+    per_lemma:
+      - lemma: "فَرْعٌ حَيَوِيّ"
+        examples:
+          - text: "يُمَثِّلُ الثَّدْيِيَّاتُ فَرْعاً حَيَوِيّاً يَنْحَدِرُ مِنْ سَلَفٍ مُشْتَرَكٍ عَاشَ قَبْلَ مَلَايِينِ السِّنِينَ."
+            type: usage
+      - lemma: "كِلَاد"
+        examples:
+          - text: "يَسْتَخْدِمُ عُلَمَاءُ التَّصْنِيفِ التَّفَرُّعِيِّ مَصْطَلَحَ 'الْكِلَاد' لِتَمْيِيزِ الْمَجْمُوعَاتِ أُحَادِيَّةِ الْمَنْشَإِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يُمَثِّلُ الثَّدْيِيَّاتُ فَرْعاً حَيَوِيّاً يَنْحَدِرُ مِنْ سَلَفٍ مُشْتَرَكٍ عَاشَ قَبْلَ مَلَايِينِ السِّنِينَ."}
+
+# Stage 5: Enrichment
+stage5_enrichment:
+  per_entry:
+    - lemma: "زُمْرَة"
+      entry_id: "{auto}"
+      root: "زمر"
+      maqayis_quote: "«الزَّاءُ وَالْمِيمُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى صَوْتٍ... وَالزُّمْرَةُ: الْجَمَاعَةُ مِنَ النَّاسِ.»"
+    - lemma: "فَرْعٌ حَيَوِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "فرع"
+          root: "فرع"
+          maqayis_quote: "«الْفَاءُ وَالرَّاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى الْعُلُوِّ وَالِارْتِفَاعِ... وَفَرْعُ الشَّيْءِ: أَعْلَاهُ.»"
+        - word: "حيوي"
+          root: "حيي"
+          maqayis_quote: "«الْحَاءُ وَالْيَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خِلَافِ الْمَوْتِ...»"
+  per_sense:
+    - lemma: "فَرْعٌ حَيَوِيّ"
+      sense_id: "{auto}"
+      nuance: "المصطلح العربي الأدق والأكثر دلالة على المفهوم البيولوجي."
+      mwe: true
+    - lemma: "كِلَاد"
+      sense_id: "{auto}"
+      nuance: "تعريب صوتي مباشر يُستخدم في السياقات الأكاديمية التخصصية لضمان المطابقة مع المصطلح العالمي."
+      mwe: false
+    - lemma: "زُمْرَة"
+      sense_id: "{auto}"
+      nuance: "لفظ عام للجماعة، يُستخدم كمرادف بسيط في سياقات أقل تخصصاً."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"زمر","maqayis":"«الزَّاءُ وَالْمِيمُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى صَوْتٍ... وَالزُّمْرَةُ: الْجَمَاعَةُ مِنَ النَّاسِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"فرع","root":"فرع","maqayis":"«الْفَاءُ وَالرَّاءُ وَالْعَيْنُ...»"},{"word":"حيوي","root":"حيي","maqayis":"«الْحَاءُ وَالْيَاءُ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العربي الأدق والأكثر دلالة على المفهوم البيولوجي.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

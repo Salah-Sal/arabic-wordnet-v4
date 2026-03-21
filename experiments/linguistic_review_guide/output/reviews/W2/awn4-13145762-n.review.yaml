@@ -1,0 +1,199 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة تفتقر إلى التشكيل الكامل."
+      - "التعريف العربي الحالي 'نظام متطور من الجذور' قد يكون ترجمة حرفية لكلمة 'developed' التي قد لا تكون ضرورية في سياق التعريف العام للمصطلح النباتي."
+    observations: "المصطلح يشير إلى البنية الكلية للجذور في النبات. المصطلحات التقنية في علم الأحياء تفضّل 'المجموع الجذري' أو 'الجهاز الجذري'."
+  blind_candidates:
+    - lemma: "مَجْمُوعَةٌ جِذْرِيَّةٌ"
+      generation_method: tarkib
+      justification: "تعبير وصفي شائع جداً في الكتب المدرسية والجامعية لوصف نظام الجذور."
+    - lemma: "مَجْمُوعٌ جِذْرِيٌّ"
+      generation_method: tarkib
+      justification: "المصطلح القياسي في المعاجم العلمية (مثل المعجم الموحد لمصطلحات علم الأحياء)."
+    - lemma: "جِذْرِيَّة"
+      generation_method: ishtiqaq
+      justification: "اشتقاق اسمي لمفهوم الجذور ككل، وإن كان أقل شيوعاً من المركبات."
+    - lemma: "نِظَامُ الجُذُورِ"
+      generation_method: tarkib
+      justification: "ترجمة مباشرة ودقيقة للمصطلح الإنجليزي 'root system'."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مجموع جذري"
+      confirm:
+        - text: "مجموع جذري: root system"
+          source: "المعجم الموحد لمصطلحات علم الأحياء (1993)"
+    - lemma: "نظام الجذور"
+      evidence_status: "no_material_found"
+    - lemma: "مجموعة جذرية"
+      evidence_status: "no_material_found"
+    - lemma: "جهاز جذري"
+      confirm:
+        - text: "الأجهزة الجذرية: root systems"
+          source: "المَكنَز الزراعي متعدد اللغات (AGROVOC)"
+    - lemma: "جذرية"
+      contradicts:
+        - text: "الجِذْرِيَّةُ: السِّنُّ التي بعد الرباعية"
+          source: "المعجم الكبير"
+          conflict: "الدليل يشير إلى نوع من الأسنان وليس نظام الجذور النباتي."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مجموع جذري"
+      decision: confirmed
+      decision_reason: "مصطلح تقني معتمد في المعاجم العلمية الموحدة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَجْمُوعٌ جِذْرِيٌّ"
+    - lemma: "نظام الجذور"
+      decision: confirmed
+      decision_reason: "تعبير صحيح لغوياً ويدل على المفهوم بوضوح، وهو شائع الاستخدام."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نِظَامُ الجُذُورِ"
+    - lemma: "مَجْمُوعَةٌ جِذْرِيَّةٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير وصفي شائع جداً في الأدبيات التعليمية العربية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "مَجْمُوعَةٌ جِذْرِيَّةٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "جِهَازٌ جِذْرِيٌّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تقني معتمد في المكنز الزراعي (AGROVOC)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "جِهَازٌ جِذْرِيٌّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "نظام متطور من الجذور"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب جداً ويحتوي على كلمة 'متطور' التي قد توحي بمعنى تطوري (evolutionary) بينما المقصود هو الهيكل الكلي للجذور."
+    authored:
+      - type: terminological
+        text: "نِظَامٌ مِنَ الجُذُورِ تَنْمُوهُ النَّبَاتَاتُ لِتَثْبِيتِهَا فِي التُّرْبَةِ وَامْتِصَاصِ المَاءِ وَالأَمْلَاحِ المَعْدَنِيَّةِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "نِظَامٌ مِنَ الجُذُورِ تَنْمُوهُ النَّبَاتَاتُ لِتَثْبِيتِهَا فِي التُّرْبَةِ وَامْتِصَاصِ المَاءِ وَالأَمْلَاحِ المَعْدَنِيَّةِ."}
+  examples:
+    per_lemma:
+      - lemma: "مَجْمُوعٌ جِذْرِيٌّ"
+        examples:
+          - text: "يَتَمَيَّزُ نَبَاتُ الصَّبَّارِ بِمَجْمُوعٍ جِذْرِيٍّ كَثِيفٍ يُمَكِّنُهُ مِنَ البَقَاءِ فِي البِيئَاتِ الجَافَّةِ."
+            type: usage
+      - lemma: "نِظَامُ الجُذُورِ"
+        examples:
+          - text: "تَخْتَلِفُ أَنْوَاعُ نِظَامِ الجُذُورِ بَيْنَ النَّبَاتَاتِ ذَوَاتِ الفِلْقَةِ الوَاحِدَةِ وَذَوَاتِ الفِلْقَتَيْنِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يَتَمَيَّزُ نَبَاتُ الصَّبَّارِ بِمَجْمُوعٍ جِذْرِيٍّ كَثِيفٍ يُمَكِّنُهُ مِنَ البَقَاءِ فِي البِيئَاتِ الجَافَّةِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَجْمُوعٌ جِذْرِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مجموع"
+          root: "جمع"
+          maqayis_quote: "«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ. يُقَالُ جَمَعْتُ الشَّيْءَ جَمْعًا.»"
+        - word: "جذري"
+          root: "جذر"
+          maqayis_quote: "«الْجِيمُ وَالذَّالُ وَالرَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الْأَصْلُ مِنْ كُلِّ شَيْءٍ، حَتَّى يُقَالَ لِأَصْلِ اللِّسَانِ: جِذْرٌ.»"
+    - lemma: "نِظَامُ الجُذُورِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "نظام"
+          root: "نظم"
+          maqayis_quote: "«النُّونُ وَالظَّاءُ وَالْمِيمُ: أَصْلٌ يَدُلُّ عَلَى تَأْلِيفِ شَيْءٍ وَتَأْلِيفِهِ، وَنَظَمْتُ الْخَرَزَ نَظْمًا... وَالنِّظَامُ: الْخَيْطُ يَجْمَعُ الْخَرَزَ.»"
+        - word: "الجذور"
+          root: "جذر"
+          maqayis_quote: "«الْجِيمُ وَالذَّالُ وَالرَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الْأَصْلُ مِنْ كُلِّ شَيْءٍ.»"
+    - lemma: "جِهَازٌ جِذْرِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "جهاز"
+          root: "جهز"
+          maqayis_quote: "«الْجِيمُ وَالْهَاءُ وَالزَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ شَيْءٌ يُعْتَقَدُ وَيُحْوَى، نَحْوَ الْجَهَازِ، وَهُوَ مَتَاعُ الْبَيْتِ.»"
+        - word: "جذري"
+          root: "جذر"
+          maqayis_quote: "«الْجِيمُ وَالذَّالُ وَالرَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الْأَصْلُ مِنْ كُلِّ شَيْءٍ.»"
+  per_sense:
+    - lemma: "مَجْمُوعٌ جِذْرِيٌّ"
+      sense_id: "{auto}"
+      nuance: "المصطلح العلمي الأكثر دقة لوصف مجموع الجذور في علم الأحياء."
+      mwe: true
+    - lemma: "نِظَامُ الجُذُورِ"
+      sense_id: "{auto}"
+      nuance: "تعبير عام يصف البنية الهيكلية للجذور."
+      mwe: true
+    - lemma: "مَجْمُوعَةٌ جِذْرِيَّةٌ"
+      sense_id: "{auto}"
+      nuance: "تعبير تربوي وشائع في الكتب المدرسية."
+      mwe: true
+    - lemma: "جِهَازٌ جِذْرِيٌّ"
+      sense_id: "{auto}"
+      nuance: "يؤكد على الوظيفة الحيوية للجذور كعضو في النبات (جهاز)."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مجموع","root":"جمع","maqayis":"«...»"},{"word":"جذري","root":"جذر","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العلمي الأكثر دقة","mwe":true}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

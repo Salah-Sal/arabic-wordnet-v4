@@ -1,0 +1,136 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الحالية تفتقر إلى التشكيل الكامل."
+      - "التعريف الحالي مقبول ولكنه يفتقر إلى التفصيل الموسوعي المناسب لمثل هذه الجماعة التاريخية."
+    observations: "اللمة صحيحة تماماً وتمثل الجماعة العرقية المقصودة. التحدي الوحيد هو في ضبط كتابة الهمزة (أيونيا أم إيونيا) وفي التشكيل."
+  blind_candidates:
+    - lemma: "أَيُونِيُّون"
+      generation_method: ishtiqaq
+      justification: "اسم منسوب بالجمع للجماعة المنحدرة من إقليم أيونيا، وهو الاشتقاق المباشر للمصطلح الإنجليزي Ionian."
+    - lemma: "الأَيُونِيُّون"
+      generation_method: tarkib
+      justification: "الصيغة المعرفة بال للمصطلح، وهي الأكثر شيوعاً في الاستخدام التاريخي."
+    - lemma: "أَيُونِيّ"
+      generation_method: ishtiqaq
+      justification: "صيغة المفرد التي تستخدم للدلالة على الفرد أو الصفة المنسوبة للمجموعة."
+    - lemma: "الأَيُونِيَّة"
+      generation_method: ishtiqaq
+      justification: "مصدر صناعي أو اسم جمع يطلق أحياناً على القبيلة أو الجماعة ككل."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "الأيونيون"
+      confirm:
+        - text: "«الإِيُونِيُّون: أبناء إحدى القبائل الكبرى التي تكوّن منها الشعب اليونانى. نشؤوا فى بلاد الإغريق، ثم رحلوا إلى الشاطئ الشرقي لبحر إيجه، وأسسوا مقاطعة 'إيونيا'.»"
+          source: "المعجم الكبير (مجمع اللغة العربية بالقاهرة)"
+        - text: "«أيونِيّ: خاصّ بالطراز الأيونيّ. ج مَنْسُوبٌ إِلَى أَيُونِيَا أَوْ إِلَى الأَيُونِيِّين.»"
+          source: "المورد الحديث"
+    - lemma: "أَيُونِيّ"
+      confirm:
+        - text: "«أيوني: منسوب إلى أيونيا أو إلى الأيونيين.»"
+          source: "المورد الحديث"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "الأيونيون"
+      decision: confirmed
+      decision_reason: "اللفظ هو المصطلح المعياري المعتمد في المعاجم العربية (الكبير والوسيط) لوصف هذه الجماعة التاريخية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "الأَيُونِيُّون"
+    - lemma: "أَيُونِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صيغة المفرد ضرورية للنسبة وللإشارة إلى الفرد من هذه الجماعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "أَيُونِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-08177846-n"}
+
+stage4_content:
+  definition:
+    current: "السكان اليونانيون القدماء في أتيكا والمناطق ذات الصلة في أيونيا"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مختصر جداً؛ يفضل إضافة تفاصيل حول أصلهم وهجرتهم وموقعهم الجغرافي الدقيق ليكون تعريفاً موسوعياً مكتملاً."
+    authored:
+      - type: encyclopedic
+        text: "إحدى الجماعات العِرْقية الأربع الكبرى التي تكوّن منها الشعب اليونانيّ القديم، نشؤوا في بلاد الإغريق (خاصة أتيكا) ثم استوطنوا إقليم أيونيا على الساحل الغربي لآسيا الصغرى (تركيا الحالية) والجزر المجاورة لها."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-08177846-n", definition_index: 0, text: "إحدى الجماعات العِرْقية الأربع الكبرى التي تكوّن منها الشعب اليونانيّ القديم، نشؤوا في بلاد الإغريق (خاصة أتيكا) ثم استوطنوا إقليم أيونيا على الساحل الغربي لآسيا الصغرى (تركيا الحالية) والجزر المجاورة لها."}
+
+  examples:
+    per_lemma:
+      - lemma: "الأَيُونِيُّون"
+        examples:
+          - text: "اشتهر الأيونيون بإسهاماتهم الفلسفية والفنية العظيمة التي وضعت أسس الحضارة اليونانية القديمة."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-08177846-n", text: "لعب الأيونيون دوراً محورياً في نشر الثقافة اليونانية عبر مستعمراتهم في آسيا الصغرى."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "الأَيُونِيُّون"
+      entry_id: "{auto}"
+      root: "أين"
+      maqayis_quote: "«أَيَنَ: الْهَمْزَةُ وَالْيَاءُ وَالنُّونُ يَدُلُّ عَلَى الْإِعْيَاءِ، وَقُرْبِ الشَّيْءِ. أَمَّا الْأَوَّلُ فَالْأَيْنُ الْإِعْيَاءُ. وَيُقَالُ: لَا يُبْنَى مِنْهُ فِعْلٌ. وَقَدْ قَالُوا آنَ يَئِينُ أَيْنًا. وَأَمَّا الْقُرْبُ فَقَالُوا: آنَ لَكَ يَئِينُ أَيْنًا.»"
+    - lemma: "أَيُونِيّ"
+      entry_id: "{auto}"
+      root: "أين"
+      maqayis_quote: "«أَيَنَ: الْهَمْزَةُ وَالْيَاءُ وَالنُّونُ يَدُلُّ عَلَى الْإِعْيَاءِ، وَقُرْبِ الشَّيْءِ. أَمَّا الْأَوَّلُ فَالْأَيْنُ الْإِعْيَاءُ. وَيُقَالُ: لَا يُبْنَى مِنْهُ فِعْلٌ. وَقَدْ قَالُوا آنَ يَئِينُ أَيْنًا. وَأَمَّا الْقُرْبُ فَقَالُوا: آنَ لَكَ يَئِينُ أَيْنًا.»"
+
+  per_sense:
+    - lemma: "الأَيُونِيُّون"
+      sense_id: "{auto}"
+      nuance: "صيغة الجمع المعرفة بال للدلالة على الشعب أو الجماعة ككتلة تاريخية واحدة."
+      mwe: false
+    - lemma: "أَيُونِيّ"
+      sense_id: "{auto}"
+      nuance: "صيغة المفرد المنسوب، تستخدم للدلالة على الفرد المنتمي لهذه الجماعة أو لوصف الشيء بخصائصهم."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"أين","maqayis":"«أَيَنَ: الْهَمْزَةُ وَالْيَاءُ وَالنُّونُ يَدُلُّ عَلَى الْإِعْيَاءِ، وَقُرْبِ الشَّيْءِ...»","foreign_origin":"Ionian"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"صيغة الجمع المعرفة بال للدلالة على الشعب أو الجماعة ككتلة تاريخية واحدة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-08177846-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-08177846-n"
+        score: 1.0

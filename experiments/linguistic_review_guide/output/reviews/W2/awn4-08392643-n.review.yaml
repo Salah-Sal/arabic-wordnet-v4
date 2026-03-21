@@ -1,0 +1,218 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي ترجمة شبه حرفية ويفتقر إلى الدقة المصطلحية التي تميز (اللوبي) ككيان سياسي أو مجتمعي يسعى للتأثير في القرارات."
+      - "غياب المصطلح الأشهر والأدق معجمياً (جماعة ضغط)."
+    observations: "المجموعة الترادفية تمثل المفهوم السياسي (Lobby / Pressure group). المصطلحات المستخدمة صحيحة، ولكن التركيب (جماعة ضغط) موثق بشكل أوسع من (مجموعة ضغط) في المعاجم."
+  blind_candidates:
+    - lemma: "لُوبِي"
+      generation_method: taarib
+      justification: "مصطلح معرب شائع الاستخدام في السياق السياسي والإعلامي العربي للدلالة على مجموعة الضغط."
+    - lemma: "مَجْمُوعَةُ ضَغْطٍ"
+      generation_method: tarkib
+      justification: "تركيب إضافي يصف الكيان الجماعي الذي يمارس ضغطاً لدعم مصالحه."
+    - lemma: "عُصْبَةٌ مُنَاصِرَةٌ"
+      generation_method: tarkib
+      justification: "تركيب وصفي يعبر عن جماعة من الناس تناصر قضية مشتركة."
+    - lemma: "كُتْلَةُ مَصَالِحَ"
+      generation_method: tarkib
+      justification: "تركيب إضافي يعبر عن تجمع بشري تحركه مصالح مشتركة فئوية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "لوبي"
+      confirm:
+        - text: "لُوبي [مفرد]: جماعة ضغط، وهي جماعة تحاول التأثيرَ على أعضاء هيئة تشريعيّة"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "دائرة الضَّغط، لوبي"
+          source: "مسرد الإعلام والتواصل (ArabTerm)"
+    - lemma: "مجموعة ضغط"
+      evidence_status: no_material_found
+    - lemma: "جماعة ضغط"
+      confirm:
+        - text: "جماعة ضغط (pressure group; lobby)"
+          source: "المعجم الموحد لمصطلحات القانون"
+        - text: "جماعة الضغط: جماعةٌ مُشْتَرَكَةُ الأهداف تسعى للتأثير في سياسة الدولة دعمًا لمصالحها أو أهدافها."
+          source: "المورد الحديث"
+    - lemma: "عصبة مناصرة"
+      evidence_status: no_material_found
+    - lemma: "كتلة مصالح"
+      evidence_status: no_material_found
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "لوبي"
+      decision: confirmed
+      decision_reason: "مصطلح معرب موثق في المعاجم الحديثة ومستقر في الاستعمال السياسي والإعلامي للدلالة على المفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "لُوبِي"
+    
+    - lemma: "مجموعة ضغط"
+      decision: confirmed
+      decision_reason: "تركيب إضافي متداول بكثرة كمقابل لـ (pressure group) في الأدبيات السياسية المعاصرة، وهو مرادف مقبول لـ (جماعة ضغط)."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَجْمُوعَةُ ضَغْطٍ"
+
+    - lemma: "جماعة ضغط"
+      decision: confirmed
+      decision_reason: "المصطلح المعجمي الأصح والأكثر توثيقاً في المعاجم المتخصصة للدلالة على هذا المفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "جَمَاعَةُ ضَغْطٍ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-08392643-n"
+
+    - lemma: "عصبة مناصرة"
+      source: stage1
+      decision: removed
+      decision_reason: "تركيب حر غير مسكوك كمصطلح معجمي ثابت."
+    
+    - lemma: "كتلة مصالح"
+      source: stage1
+      decision: removed
+      decision_reason: "غير موثق كمصطلح مباشر لهذا المفهوم وتغطيته الدلالية أقل دقة من جماعة الضغط."
+
+stage4_content:
+  definition:
+    current: "الناس الذين يدعمون قضية مشتركة أو عملاً أو مبدأ أو مصلحة فئوية"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي عبارة عن ترجمة شبه حرفية وتفتقر لذكر الطبيعة التأثيرية لهذا الكيان السياسي، لذا تم تعديله ليكون تعريفاً مصطلحياً دقيقاً."
+    authored:
+      - type: terminological
+        text: "جَمَاعَةٌ مِنَ النَّاسِ تَسْعَى لِلتَّأْثِيرِ فِي السِّيَاسَاتِ وَالقَرَارَاتِ العَامَّةِ لِدَعْمِ قَضِيَّةٍ مُشْتَرَكَةٍ أَوْ حِمَايَةِ مَصَالِحَ فِئَوِيَّةٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-08392643-n"
+          definition_index: 0
+          text: "جَمَاعَةٌ مِنَ النَّاسِ تَسْعَى لِلتَّأْثِيرِ فِي السِّيَاسَاتِ وَالقَرَارَاتِ العَامَّةِ لِدَعْمِ قَضِيَّةٍ مُشْتَرَكَةٍ أَوْ حِمَايَةِ مَصَالِحَ فِئَوِيَّةٍ."
+
+  examples:
+    per_lemma:
+      - lemma: "لُوبِي"
+        examples:
+          - text: "يُمَارِسُ اللُّوبِيُّ الزِّرَاعِيُّ ضُغُوطاً قَوِيَّةً عَلَى الحُكُومَةِ لِتَقْدِيمِ الدَّعْمِ لِلْمُزَارِعِينَ."
+            type: usage
+      - lemma: "مَجْمُوعَةُ ضَغْطٍ"
+        examples:
+          - text: "تَشَكَّلَتْ مَجْمُوعَةُ ضَغْطٍ لِحِمَايَةِ البِيئَةِ مِنْ مَخَاطِرِ التَّلَوُّثِ الصِّنَاعِيِّ فِي المِنْطَقَةِ."
+            type: usage
+      - lemma: "جَمَاعَةُ ضَغْطٍ"
+        examples:
+          - text: "تُعَدُّ النِّقَابَاتُ العُمَّالِيَّةُ مِنْ أَهَمِّ جَمَاعَاتِ الضَّغْطِ فِي الدّوَلِ الدِّيمُقْرَاطِيَّةِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "awn4-08392643-n"
+          text: "تُعَدُّ النِّقَابَاتُ العُمَّالِيَّةُ مِنْ أَهَمِّ جَمَاعَاتِ الضَّغْطِ فِي الدّوَلِ الدِّيمُقْرَاطِيَّةِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَجْمُوعَةُ ضَغْطٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مجموعة"
+          root: "جمع"
+          maqayis_quote: "«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ...»"
+        - word: "ضغط"
+          root: "ضغط"
+          maqayis_quote: "«الضَّادُ وَالْغَيْنُ وَالطَّاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى مُزَاحَمَةٍ بِشِدَّةٍ...»"
+    - lemma: "جَمَاعَةُ ضَغْطٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "جماعة"
+          root: "جمع"
+          maqayis_quote: "«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ...»"
+        - word: "ضغط"
+          root: "ضغط"
+          maqayis_quote: "«الضَّادُ وَالْغَيْنُ وَالطَّاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى مُزَاحَمَةٍ بِشِدَّةٍ...»"
+
+  per_sense:
+    - lemma: "لُوبِي"
+      sense_id: "{auto}"
+      nuance: "مصطلح معرب شائع في السياق السياسي للتعبير عن الكيان الذي يستهدف المشرعين، وغالباً ما يحمل دلالة مؤسسية."
+      mwe: false
+    - lemma: "مَجْمُوعَةُ ضَغْطٍ"
+      sense_id: "{auto}"
+      nuance: "تركيب متداول يصف التجمع البشري الذي يمارس تأثيراً على صانع القرار، ويكثر استخدامه في الأدبيات الحديثة."
+      mwe: true
+    - lemma: "جَمَاعَةُ ضَغْطٍ"
+      sense_id: "{auto}"
+      nuance: "المصطلح المعجمي والعلمي الأبرز في العلوم السياسية والقانونية لهذا المفهوم."
+      mwe: true
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مجموعة","root":"جمع","maqayis":"«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ...»"},{"word":"ضغط","root":"ضغط","maqayis":"«الضَّادُ وَالْغَيْنُ وَالطَّاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى مُزَاحَمَةٍ بِشِدَّةٍ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"جماعة","root":"جمع","maqayis":"«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ...»"},{"word":"ضغط","root":"ضغط","maqayis":"«الضَّادُ وَالْغَيْنُ وَالطَّاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى مُزَاحَمَةٍ بِشِدَّةٍ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح معرب شائع في السياق السياسي للتعبير عن الكيان الذي يستهدف المشرعين، وغالباً ما يحمل دلالة مؤسسية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركيب متداول يصف التجمع البشري الذي يمارس تأثيراً على صانع القرار، ويكثر استخدامه في الأدبيات الحديثة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح المعجمي والعلمي الأبرز في العلوم السياسية والقانونية لهذا المفهوم.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-08392643-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-08392643-n"
+        score: 0.95

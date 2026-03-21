@@ -1,0 +1,161 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة (مملكة المعادن) تبدو ترجمة حرفية للمصطلح الإنجليزي (Mineral kingdom)، بينما المصطلح العربي الأكثر دقة وتداولاً في التراث والمعاجم هو (مملكة الجماد) أو (عالم الجماد)."
+      - "التعريف الحالي دقيق علمياً لكنه يفتقر إلى السياق الطبيعي الذي يربطه بالتقسيم التقليدي لعالم الطبيعة."
+    observations: "المفهوم يشير إلى أحد الأقسام الثلاثة للعالم الطبيعي (حيوان، نبات، جماد). المصطلح العربي القديم والمستقر هو (الجماد) أو (مملكة الجماد). استخدام كلمة (المعادن) يضيّق المفهوم في ذهن القارئ العربي المعاصر إلى الفلزات والأحجار الكريمة فقط، بينما المصطلح الإنجليزي والمفهوم يغطيان كل ما هو غير عضوي (بما في ذلك الماء والهواء في التقسيم الطبيعي القديم)."
+  blind_candidates:
+    - lemma: "مَمْلَكَة الجَمَاد"
+      generation_method: tarkib
+      justification: "الترجمة الاصطلاحية المعيارية لـ (Mineral kingdom) في السياق الطبيعي والتاريخي."
+    - lemma: "عَالَم الجَمَادَات"
+      generation_method: tarkib
+      justification: "تعبير تراثي شائع لوصف مملكة غير الأحياء."
+    - lemma: "الجَمَاد"
+      generation_method: ishtiqaq
+      justification: "اسم الجنس الجمعي الذي يمثل الفئة ككل، ويُقابل الحيوان والنبات."
+    - lemma: "المَعْدَنِيَّات"
+      generation_method: ishtiqaq
+      justification: "مصطلح اشتقاقي حديث للإشارة إلى صنف المعادن وما في حكمها."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "الجَمَاد"
+      confirm:
+        - text: "«الجَمادُ: القِسْمُ الثالِثُ من الكائناتِ، وهو قَسِيمُ الحيوانِ والنَّباتِ»"
+          source: "المعجم الكبير"
+        - text: "«الجَماد: قسم من أقسام الكائنات، وهو ما لا ينمو ولا حياة له خلاف الإنسان، والحيوان، والنبات»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "مَمْلَكَة الجَمَاد"
+      confirm:
+        - text: "«أحد أقسام العالم الطبيعي الرئيسية الثلاثة، وهي مملكة الجماد mineral kingdom ، ومملكة النبات plant kingdom ، ومملكة الحيوان animal kingdom .»"
+          source: "المورد الحديث (2008)"
+    - lemma: "مَمْلَكَة المَعَادِن"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مَمْلَكَة المَعَادِن"
+      decision: confirmed
+      decision_reason: "على الرغم من أنها ترجمة حرفية، إلا أنها مستخدمة في الكتب العلمية المترجمة، وبقاؤها مفيد للربط المباشر بالمصطلح الإنجليزي."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَمْلَكَة المَعَادِن"
+    - lemma: "مَمْلَكَة الجَمَاد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح العربي الأصيل والمكافئ الدقيق لـ (mineral kingdom) في السياق الطبيعي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "مَمْلَكَة الجَمَاد", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "عَالَم الجَمَاد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صيغة بديلة شائعة في التراث العربي (عالم الجماد، عالم النبات، عالم الحيوان)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "عَالَم الجَمَاد", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "الجَمَاد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اسم الجنس الذي يعبر عن الفئة ككل، وهو المعادل الوظيفي الأهم في العربية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "الجَمَاد", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "جميع الأشياء غير العضوية؛ تتباين مع المملكتين الحيوانية والنباتية"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يحتاج إلى صياغة أكثر جزالة تعكس طبيعة التقسيم الفلسفي والطبيعي."
+    authored:
+      - type: terminological
+        text: "مجموع الكائنات الطبيعية غير العضوية التي لا تنمو ولا تتنفس؛ وتُشكّل القسم الثالث من العالم الطبيعي بجوار الحيوان والنبات."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "الجَمَاد"
+        examples:
+          - text: "ينقسم الوجود المادي إلى ثلاثة عوالم كبرى: الحيوان والنبات والجماد."
+            type: usage
+      - lemma: "مَمْلَكَة الجَمَاد"
+        examples:
+          - text: "تدرس مملكة الجماد بنية الأرض وتكوين الصخور والتربة."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مجموع الكائنات الطبيعية غير العضوية التي لا تنمو ولا تتنفس؛ وتُشكّل القسم الثالث من العالم الطبيعي بجوار الحيوان والنبات."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "الجَمَاد"
+      entry_id: "{auto}"
+      root: "جمد"
+      maqayis_quote: "«الْجِيمُ وَالْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ، وَهُوَ جُمُودُ الشَّيْءِ الْمَائِعِ مِنْ بَرَدٍ أَوْ غَيْرِهِ... وَالْجَمَادُ الْأَرْضُ لَمْ تُمْطَرْ.»"
+    - lemma: "مَمْلَكَة الجَمَاد"
+      entry_id: "{auto}"
+      roots:
+        - word: "مملكة"
+          root: "ملك"
+          maqayis_quote: "«الْمِيمُ وَاللَّامُ وَالْكَافُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى قُوَّةٍ فِي الشَّيْءِ وَصِحَّةٍ... وَالْمِلْكُ: مَا مَلَكْتَهُ مِنْ حَلَالٍ.»"
+        - word: "الجماد"
+          root: "جمد"
+          maqayis_quote: "«الْجِيمُ وَالْمِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ، وَهُوَ جُمُودُ الشَّيْءِ الْمَائِعِ...»"
+  per_sense:
+    - lemma: "الجَمَاد"
+      sense_id: "{auto}"
+      nuance: "الاسم العام للفئة ويُستخدم للتصنيف الكلي."
+      mwe: false
+    - lemma: "مَمْلَكَة الجَمَاد"
+      sense_id: "{auto}"
+      nuance: "مصطلح اصطلاحي يوضع في سياق التقسيم الثلاثي لعالم الطبيعة."
+      mwe: true
+    - lemma: "مَمْلَكَة المَعَادِن"
+      sense_id: "{auto}"
+      nuance: "ترجمة حرفية للمصطلح الإنجليزي (Mineral kingdom)، تشيع في الكتب العلمية المترجمة."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

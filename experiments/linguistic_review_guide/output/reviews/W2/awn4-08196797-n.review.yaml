@@ -1,0 +1,131 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "خلو اللمة الحالية من التشكيل، مما قد يؤدي إلى لبس مع كلمة (سَكَّان) بمعنى صانع السكاكين، أو (سُكَّان) بمعنى الدفة."
+    observations: "مصطلح (سُكَّان) هو الأدق والأشيع للتعبير عن مفهوم التعداد السكاني أو مجموع قاطني منطقة معينة، وهو مستخدم بكثرة في المعاجم الحديثة والمصطلحات الإحصائية."
+  blind_candidates:
+    - lemma: "سُكَّان"
+      generation_method: ishtiqaq
+      justification: "مشتق من الجذر (سكن)، وهو جمع (ساكن) ويُطلق على مجموع قاطني بقعة جغرافية."
+    - lemma: "قَاطِنُون"
+      generation_method: ishtiqaq
+      justification: "جمع (قاطن) من الجذر (قطن) بمعنى أقام واستوطن، يعبر عن المقيمين في مكان ما."
+    - lemma: "أَهَالٍ"
+      generation_method: ishtiqaq
+      justification: "جمع (أهل)، ويستخدم للإشارة إلى سكان المدن أو القرى، مثل: أهالي المنطقة."
+    - lemma: "شَعْب"
+      generation_method: majaz
+      justification: "يطلق على الجماعة الكبيرة من الناس التي تخضع لنظام واحد وتجمعها وحدة ثقافية، وقد يستخدم مجازاً بمعنى السكان."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "سكان"
+      confirm:
+        - text: "«سكان: مسرد الجغرافيا والتاريخ»"
+          source: "مسرد الجغرافيا والتاريخ، المنظمة العربية للتربية والثقافة والعلوم (موقع ArabTerm)"
+        - text: "«سُكَّانُ الدَّارِ: الجِنُّ المُقِيمُونَ بها»"
+          source: "المعجم الكبير"
+    - lemma: "شعب"
+      confirm:
+        - text: "«الشَّعْب: الجماعة الكبيرة ترجع لأب واحد , وهو أوسع من القبيلة الجماعة من الناس تخضع لنظام اجتماعي واحد»"
+          source: "المعجم الوسيط"
+    - lemma: "أهال"
+      confirm:
+        - text: "«أَسْرَعَ أهالي المدينة إلى الترحيب به»"
+          source: "معجم الصواب اللغوي لأحمد مختار عمر"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "سكان"
+      decision: confirmed
+      decision_reason: "اللمة صحيحة وهي الترجمة المعتمدة والأدق لمفهوم (population)، وتم ضبطها بالتشكيل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "سُكَّان"
+    - lemma: "قَاطِنُون"
+      source: stage1
+      decision: removed
+      decision_reason: "كلمة عامة تعني المقيمين ولا تستخدم كمصطلح مستقل للتعبير عن المفهوم الديموغرافي للـ (population) بنفس دقة وشيوع (سُكَّان)."
+    - lemma: "أَهَالٍ"
+      source: stage1
+      decision: removed
+      decision_reason: "كلمة (أهالي) تشير غالبًا إلى روابط القربى أو الانتماء لمكان صغير، ولا تناسب المفهوم الإحصائي للدولة."
+    - lemma: "شَعْب"
+      source: stage1
+      decision: removed
+      decision_reason: "مصطلح (شعب) يحمل دلالات سياسية وقومية وثقافية (People / Nation)، بينما المجموعة الترادفية تركز على الجانب الديموغرافي والجغرافي البحت (Population)."
+
+stage4_content:
+  definition:
+    current: "الناس الذين يسكنون إقليماً أو دولة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقبول ولكنه أشبه بترجمة حرفية، ويمكن صياغته بأسلوب معجمي أدق يعبر عن الطابع الديموغرافي."
+    authored:
+      - type: terminological
+        text: "مَجْمُوعُ الأَشْخَاصِ الَّذِينَ يُقِيمُونَ فِي إِقْلِيمٍ أَوْ دَوْلَةٍ أَوْ مِنْطَقَةٍ جُغْرَافِيَّةٍ مُعَيَّنَةٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "مَجْمُوعُ الأَشْخَاصِ الَّذِينَ يُقِيمُونَ فِي إِقْلِيمٍ أَوْ دَوْلَةٍ أَوْ مِنْطَقَةٍ جُغْرَافِيَّةٍ مُعَيَّنَةٍ."
+  examples:
+    per_lemma:
+      - lemma: "سُكَّان"
+        examples:
+          - text: "يَبْلُغُ تَعْدَادُ سُكَّانِ الدَّوْلَةِ عِدَّةَ مَلَايِينَ نَسَمَةٍ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "يَبْلُغُ تَعْدَادُ سُكَّانِ الدَّوْلَةِ عِدَّةَ مَلَايِينَ نَسَمَةٍ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "سُكَّان"
+      entry_id: "{auto}"
+      root: "سكن"
+      maqayis_quote: "«السِّينُ وَالْكَافُ وَالنُّونُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ، يَدُلُّ عَلَى خِلَافِ الِاضْطِرَابِ وَالْحَرَكَةِ... وَالسَّكْنُ: الْأَهْلُ الَّذِينَ يَسْكُنُونَ الدَّارَ.»"
+  per_sense:
+    - lemma: "سُكَّان"
+      sense_id: "{auto}"
+      nuance: "يُعبر عن مجموع الأفراد المقيمين في منطقة جغرافية أو إدارية، وغالبًا ما يُستخدم في السياقات الديموغرافية والإحصائية."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سكن","maqayis":"«السِّينُ وَالْكَافُ وَالنُّونُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ، يَدُلُّ عَلَى خِلَافِ الِاضْطِرَابِ وَالْحَرَكَةِ... وَالسَّكْنُ: الْأَهْلُ الَّذِينَ يَسْكُنُونَ الدَّارَ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُعبر عن مجموع الأفراد المقيمين في منطقة جغرافية أو إدارية، وغالبًا ما يُستخدم في السياقات الديموغرافية والإحصائية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,293 @@
+# ═══════════════════════════════════════════════════════════════
+# مراجعة المجموعة الترادفية — AWN4 Review Pipeline v2
+# synset_id : awn4-11344897-n
+# ili       : i97062
+# pos       : n
+# العنوان   : لويس سوليفان — المعماري الأمريكي (1856-1924)
+# ═══════════════════════════════════════════════════════════════
+
+# ── المرحلة ١: المراجعة والتوليد (عمياء) ─────────────────────
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّتان الموجودتان تفتقران إلى التشكيل الكامل"
+      - "الشكل الرسمي الكامل للاسم (لويس هنري سوليفان / Louis Henry Sullivan) غائب عن المجموعة"
+      - "التعريف الحالي ترجمة حرفية من الإنجليزية، ويستخدم علامات اقتباس لاتينية بدلاً من الشوليتين العربيتين «»"
+    observations: >
+      هذه المجموعة تمثّل اسم علم لمعماري أمريكي بارز (1856-1924) اشتُهر بتصميم ناطحات
+      السحاب ذات الهياكل الفولاذية وبصياغة مبدأ «الشكل يتبع الوظيفة». لا مجال هنا
+      للاشتقاق أو المجاز لأن المدخل اسم علم أعجمي — الوحيد المنهجي هو التعريب الصوتي.
+      الاسم «Sullivan» من أصل أيرلندي موثَّق في موسوعة السلطان قابوس لأسماء العرب،
+      مما يؤكد تداول هذا التعريب في المنظومة الاسمية العربية. التحدي الرئيسي هو تحديد
+      الأشكال المعيارية المكتملة وضبطها بالتشكيل.
+  blind_candidates:
+    - lemma: "سُولِيفَان"
+      generation_method: taarib
+      justification: "تعريب صوتي للقب 'Sullivan' الأيرلندي الأصل؛ هو الشكل المختصر الأكثر شيوعاً في الإحالة إلى هذا المعماري في المصادر العربية المتخصصة"
+    - lemma: "لُوِيس سُولِيفَان"
+      generation_method: taarib
+      justification: "تعريب الاسم الثنائي (الاسم الأول + اللقب)، وهو الشكل الأكثر تداولاً في المصادر العربية المعمارية والموسوعية"
+    - lemma: "لُوِيس هِنْرِي سُولِيفَان"
+      generation_method: taarib
+      justification: "تعريب الاسم الرسمي الكامل بالاسم الأوسط 'Henry'؛ يُستخدم في السياقات الموسوعية التي تستلزم التعريف الكامل للشخصية بلا لبس"
+    - lemma: "لُوِيس هَنْرِي سُولِيفَان"
+      generation_method: taarib
+      justification: "تعريب بديل يعكس النطق الفرنسي للاسم الأوسط 'Henri' (المسجَّل في المصادر الإنجليزية بصيغة Louis Henri Sullivan) — فارق فونولوجي دقيق بين كسر الهاء وفتحها"
+
+
+# ── المرحلة ٢: جمع الأدلة ─────────────────────────────────────
+# الاستعلامات المُنفَّذة:
+#   Q1 — مطابقة دقيقة دفعية: سوليفان، لويس سوليفان، لويس هنري سوليفان، لويس هنرى سوليفان
+#   Q2 — الجسر الإنجليزي: Sullivan / Louis Sullivan / Louis Henry Sullivan
+#   Q3 — بحث FTS: ناطحات السحاب، الشكل يتبع الوظيفة، معماري امريكي
+stage2_evidence:
+  per_lemma:
+    - lemma: "سوليفان"
+      expands:
+        - text: "«سوليفان: عن الأيرلندية بمعنى أسود العينين. يستخدم للذكور.»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+          addition: "يوثِّق المصدر الأصل الأيرلندي للاسم ويؤكد قبوله في المنظومة الاسمية العربية المعاصرة، مما يدعم شرعية هذا الشكل المُعرَّب"
+
+    - lemma: "لويس سوليفان"
+      evidence_status: "no_material_found"
+
+    - lemma: "لُوِيس هِنْرِي سُولِيفَان"
+      evidence_status: "no_material_found"
+
+    - lemma: "لُوِيس هَنْرِي سُولِيفَان"
+      evidence_status: "no_material_found"
+
+
+# ── المرحلة ٣: التحليل اللغوي للّمات ─────────────────────────
+stage3_analysis:
+  per_lemma:
+    # ── اللمّات الموجودة ──────────────────────────────────────
+
+    - lemma: "سوليفان"
+      decision: confirmed
+      decision_reason: >
+        الشكل موثَّق في موسوعة عربية متخصصة لأسماء الأعلام، وهو التعريب الصوتي المعياري
+        للقب 'Sullivan'. يُقبل كلمّة مرجعية للإحالة المختصرة. يحتاج إلى إضافة تشكيل كامل.
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: "الشكل المختصر (اللقب وحده)، يُستخدم في الإحالات الاختصارية وعند الاكتفاء بالتعريف الضمني في السياق"
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "سُولِيفَان"
+
+    - lemma: "لويس سوليفان"
+      decision: confirmed
+      decision_reason: >
+        هذا الشكل الثنائي (الاسم الأول + اللقب) هو الأكثر تداولاً في المصادر العربية
+        المعمارية والموسوعية، ويُغطي الاستخدام اليومي في الكتابة العربية. لا أدلة معجمية
+        مباشرة لكن التعريب راسخ ومنتظم. يحتاج إلى تشكيل كامل.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      nuance_differentiation: "الشكل الشائع المعتمد في أغلب المصادر العربية، يجمع الاسم الأول واللقب دون الاسم الأوسط"
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "لُوِيس سُولِيفَان"
+
+    # ── مرشحات المرحلة ١ ──────────────────────────────────────
+
+    - lemma: "سُولِيفَان"
+      source: stage1
+      decision: removed
+      decision_reason: "مطابق تماماً للمّة الموجودة 'سوليفان' — سيُعالَج ضمن أمر update_lemma للمّة الموجودة"
+
+    - lemma: "لُوِيس سُولِيفَان"
+      source: stage1
+      decision: removed
+      decision_reason: "مطابق تماماً للمّة الموجودة 'لويس سوليفان' — سيُعالَج ضمن أمر update_lemma للمّة الموجودة"
+
+    - lemma: "لُوِيس هِنْرِي سُولِيفَان"
+      source: stage1
+      decision: confirmed
+      decision_reason: >
+        الاسم الرسمي الكامل للمعماري (Louis Henry Sullivan) مسجَّل في OEWN بصيغتيه
+        (Henry / Henri). الشكل الثلاثي ضروري في السياقات الموسوعية والأكاديمية التي
+        تستلزم التمييز القاطع عن أشخاص آخرين يحملون الاسم ذاته. لا أدلة معجمية مباشرة
+        لكن التعريب منتظم ومتوقَّع.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      nuance_differentiation: "الاسم الرسمي الكامل بثلاثة مكوّنات، مخصَّص للسياقات الموسوعية والأكاديمية الرسمية التي تتطلب تعريفاً لا لبس فيه"
+      actions:
+        - command: create_entry
+          params:
+            lemma: "لُوِيس هِنْرِي سُولِيفَان"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "لُوِيس هَنْرِي سُولِيفَان"
+      source: stage1
+      decision: removed
+      decision_reason: >
+        التعريب العربي المعياري للاسمين الإنجليزي (Henry) والفرنسي (Henri) لا يختلف في
+        الكتابة العربية — كلاهما يُكتب «هِنْرِي». لا مسوّغ لشكلين منفصلين يمثّلان
+        الشخصية ذاتها بنطقَيْن متقاربَيْن جداً.
+
+
+# ── المرحلة ٤: التعريف والأمثلة ──────────────────────────────
+stage4_content:
+  definition:
+    current: "معماري أمريكي معروف بناطحات السحاب ذات الهياكل الفولاذية وصياغة عبارة 'الشكل يتبع الوظيفة' (1856-1924)"
+    assessment:
+      decision: revise
+      reason: >
+        التعريف الحالي ترجمة حرفية من الإنجليزية مع ثلاث مشكلات: (١) يستخدم علامات
+        اقتباس لاتينية بدلاً من الشوليتين العربيتين «»، (٢) يفتقر إلى السياق المعرفي
+        (مدرسة شيكاغو المعمارية) الذي يُحدِّد مكانة سوليفان تاريخياً، (٣) أسلوبه
+        وصفي ركيك لا يتوافق مع أسلوب المعجم الوسيط.
+    authored:
+      - type: encyclopedic
+        text: "مُعَمَّارٌ أَمْرِيكِيٌّ (1856-1924)، من رواد مدرسة شيكاغو المعمارية، اشتُهر بتصميم ناطحات السحاب ذات الهياكل الفولاذية، وبصياغته مبدأ «الشكل يتبع الوظيفة» الذي أرسى قواعد العمارة الوظيفية الحديثة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "مُعَمَّارٌ أَمْرِيكِيٌّ (1856-1924)، من رواد مدرسة شيكاغو المعمارية، اشتُهر بتصميم ناطحات السحاب ذات الهياكل الفولاذية، وبصياغته مبدأ «الشكل يتبع الوظيفة» الذي أرسى قواعد العمارة الوظيفية الحديثة."
+
+  examples:
+    per_lemma:
+      - lemma: "سُولِيفَان"
+        examples:
+          - text: "يُعدُّ سوليفان من أبرز معماريي الولايات المتحدة في نهاية القرن التاسع عشر، وقد تتلمذ على يديه فرانك لويد رايت."
+            type: usage
+      - lemma: "لُوِيس سُولِيفَان"
+        examples:
+          - text: "أسهمت أعمال لويس سوليفان الفولاذية في شيكاغو في إعادة تعريف مفهوم العمارة الحضرية في العالم الحديث."
+            type: usage
+      - lemma: "لُوِيس هِنْرِي سُولِيفَان"
+        examples:
+          - text: "صاغ لويس هنري سوليفان في مقالته الشهيرة عام 1896 مبدأه الخالد: «الشكل يتبع الوظيفة دائماً»."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يُعدُّ سوليفان من أبرز معماريي الولايات المتحدة في نهاية القرن التاسع عشر، وقد تتلمذ على يديه فرانك لويد رايت."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "أسهمت أعمال لويس سوليفان الفولاذية في شيكاغو في إعادة تعريف مفهوم العمارة الحضرية في العالم الحديث."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "صاغ لويس هنري سوليفان في مقالته الشهيرة عام 1896 مبدأه الخالد: «الشكل يتبع الوظيفة دائماً»."
+
+
+# ── المرحلة ٥: الإثراء (البيانات الوصفية) ────────────────────
+# ملاحظة: المداخل الثلاثة أسماء أعلام أعجمية مُعرَّبة لا جذور عربية لها،
+# وبالتالي لا تنطبق عليها حقول root / maqayis_quote.
+stage5_enrichment:
+  per_entry:
+    - lemma: "سُولِيفَان"
+      entry_id: "{auto}"
+
+    - lemma: "لُوِيس سُولِيفَان"
+      entry_id: "{auto}"
+
+    - lemma: "لُوِيس هِنْرِي سُولِيفَان"
+      entry_id: "{auto}"
+
+  per_sense:
+    - lemma: "سُولِيفَان"
+      sense_id: "{auto}"
+      nuance: "الشكل المختصر (اللقب وحده)؛ يُستخدم في الإحالات الاختصارية وبعد ذكر الاسم الكامل في السياق، شائع في النصوص الأكاديمية المتخصصة"
+
+    - lemma: "لُوِيس سُولِيفَان"
+      sense_id: "{auto}"
+      nuance: "الشكل الثنائي الأكثر شيوعاً في المصادر العربية (الاسم الأول + اللقب دون الأوسط)؛ الشكل المُفضَّل في كتابات العمارة والموسوعات العربية"
+      mwe: true
+
+    - lemma: "لُوِيس هِنْرِي سُولِيفَان"
+      sense_id: "{auto}"
+      nuance: "الاسم الرسمي الكامل بثلاثة مكوّنات؛ مخصَّص للسياقات الموسوعية الرسمية التي تستلزم التعريف الدقيق القاطع للشخصية دون التباس"
+      mwe: true
+
+  synset:
+    cultural_fit: omission
+
+  actions:
+    # بيانات المدخل: سُولِيفَان
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"foreign_proper_name":true,"origin":"Irish via English","transliteration_of":"Sullivan","no_arabic_root":true}'
+
+    # بيانات المدخل: لُوِيس سُولِيفَان
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"foreign_proper_name":true,"mwe":true,"mwe_type":"idafi","no_arabic_root":true}'
+
+    # بيانات المدخل: لُوِيس هِنْرِي سُولِيفَان
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"foreign_proper_name":true,"mwe":true,"mwe_type":"idafi","full_official_name":true,"no_arabic_root":true}'
+
+    # بيانات المعنى: سُولِيفَان
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الشكل المختصر، يُستخدم في الإحالات الاختصارية","mwe":false}'
+
+    # بيانات المعنى: لُوِيس سُولِيفَان
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الشكل الثنائي الأكثر شيوعاً في المصادر العربية","mwe":true}'
+
+    # بيانات المعنى: لُوِيس هِنْرِي سُولِيفَان
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الرسمي الكامل للسياقات الموسوعية الرسمية","mwe":true}'
+
+    # بيانات المجموعة
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"omission"}'
+
+    # درجة الثقة
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.82

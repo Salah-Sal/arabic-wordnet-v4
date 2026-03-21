@@ -1,0 +1,209 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "الارتباط القوي لكلمة (معجزة) بالدلالة الدينية (النبوة) قد يجعلها ضيقة النطاق مقارنة بالتعريف الإنجليزي الذي يشمل 'أي حدث مذهل'."
+      - "خلو المجموعة من المترادفات الأكثر عمومية مثل (أعجوبة) و(عجيبة)."
+    observations: "المجموعة تركز على كلمة (معجزة) وهي صحيحة الاستعمال في السياق المذهل العام (مثل المعجزة الاقتصادية)، ولكن إثراءها بمترادفات تعبر عن (التعجب) المحض مثل (أعجوبة) سيجعلها أكثر دقة وملاءمة للتعريف."
+  blind_candidates:
+    - lemma: "أُعْجُوبَة"
+      generation_method: ishtiqaq
+      justification: "اسم لما يتعجب منه، وهو اللفظ الأقرب للترجمة الحرفية لـ (wonderful occurrence)."
+    - lemma: "خَارِقَة"
+      generation_method: ishtiqaq
+      justification: "من (خوارق العادات)، وهو ما يكسر المألوف والمعتاد، ويناسب (amazing occurrence)."
+    - lemma: "عَجِيبَة"
+      generation_method: ishtiqaq
+      justification: "فعيلة بمعنى مفعولة (ما يُعجب منه)، شائعة الاستعمال في وصف الأحداث المذهلة."
+    - lemma: "آيَة"
+      generation_method: majaz
+      justification: "تستخدم بمعنى العلامة أو المعجزة أو الحدث الذي يعتبر عبرة ومبعثاً للدهشة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "معجزة"
+      confirm:
+        - text: "«(المعجزة) أمر خارق للعادة يُظهره الله على يد نبي تأييدًا لنبوَّتِهِ ما يعجز البشر أن يأتوا بمثله»"
+          source: "المعجم الوسيط"
+        - text: "«Miracle»"
+          source: "ArabTerm"
+    - lemma: "أُعْجُوبَة"
+      confirm:
+        - text: "«(الأعجوبة) ما يدعو إلى العجب»"
+          source: "المعجم الوسيط"
+        - text: "«مُعْجِزة؛ أعجوبة»"
+          source: "المورد الحديث"
+    - lemma: "خَارِقَة"
+      confirm:
+        - text: "«الخارق (عند المتكلمين): ما خالف العادة، وهو معجز إن قارن التحدي»"
+          source: "المعجم الوسيط"
+        - text: "«قدرة خارقة [على اجتراح العجائب]»"
+          source: "المورد الحديث"
+    - lemma: "عَجِيبَة"
+      confirm:
+        - text: "«عجيبة [والجمع: عجائب]... شيء يثير الدهش»"
+          source: "المورد الحديث"
+        - text: "«آية، أعجوبة»"
+          source: "تكملة المعاجم العربية (دوزي)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "معجزة"
+      decision: confirmed
+      decision_reason: "على الرغم من أصلها الديني، إلا أنها مستخدمة بكثرة في اللغة المعاصرة لوصف أي نجاح مذهل أو حدث استثنائي يثير العجز عن مضااهاته."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُعْجِزَة"
+    - lemma: "أُعْجُوبَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ فصيح مدعوم بالمعاجم (الوسيط) ويعبر بدقة عن الحدث الذي يثير العجب دون ضرورة الارتباط بدعوى النبوة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "أُعْجُوبَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "عَجِيبَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ شائع جداً وموثق في المعاجم الحديثة والترجمات، ويستخدم لوصف الأحداث المذهلة (عجائب الطبيعة)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "عَجِيبَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "خَارِقَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبر عن الحدث الذي يخرق العادة والمألوف، وهي شائعة الاستعمال كاسم (خارقة/خوارق) في سياق الظواهر المذهلة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "خَارِقَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "أي حدث مذهل أو عجيب"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي بسيط جداً، ويفضل صياغته بأسلوب معجمي يبرز عنصر الدهشة والخروج عن المألوف."
+    authored:
+      - type: terminological
+        text: "حَدَثٌ بَاهِرٌ أَوْ ظَاهِرَةٌ بَدِيعَةٌ تَبْعَثُ عَلَى الدَّهْشَةِ وَالِاسْتِعْظَامِ لِخُرُوجِهَا عَنِ الْمَأْلُوفِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "مُعْجِزَة"
+        examples:
+          - text: "كان نجاة الركاب من ذلك الحادث المروع معجزة حقيقية."
+            type: usage
+      - lemma: "أُعْجُوبَة"
+        examples:
+          - text: "تعتبر مدينة البتراء أعجوبة معمارية خالدة."
+            type: usage
+      - lemma: "عَجِيبَة"
+        examples:
+          - text: "شاهد السائحون عجيبة من عجائب الطبيعة في الكهف المتلألئ."
+            type: usage
+      - lemma: "خَارِقَة"
+        examples:
+          - text: "سجل التاريخ خوارق طبيعية لم يجد لها العلماء تفسيراً."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "حَدَثٌ بَاهِرٌ أَوْ ظَاهِرَةٌ بَدِيعَةٌ تَبْعَثُ عَلَى الدَّهْشَةِ وَالِاسْتِعْظَامِ لِخُرُوجِهَا عَنِ الْمَأْلُوفِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُعْجِزَة"
+      entry_id: "{auto}"
+      root: "عجز"
+      maqayis_quote: "«الْعَيْنُ وَالْجِيمُ وَالزَّايُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى الضَّعْفِ، وَالْآخَرُ عَلَى مُؤَخَّرِ الشَّيْءِ.»"
+    - lemma: "أُعْجُوبَة"
+      entry_id: "{auto}"
+      root: "عجب"
+      maqayis_quote: "«الْعَيْنُ وَالْجِيمُ وَالْبَاءُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى كِبْرٍ وَاسْتِكْبَارٍ لِلشَّيْءِ، وَالْآخَرُ خِلْقَةٌ مِنْ خِلَقِ الْحَيَوَانِ.»"
+    - lemma: "عَجِيبَة"
+      entry_id: "{auto}"
+      root: "عجب"
+      maqayis_quote: "«الْعَيْنُ وَالْجِيمُ وَالْبَاءُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى كِبْرٍ وَاسْتِكْبَارٍ لِلشَّيْءِ، وَالْآخَرُ خِلْقَةٌ مِنْ خِلَقِ الْحَيَوَانِ.»"
+    - lemma: "خَارِقَة"
+      entry_id: "{auto}"
+      root: "خرق"
+      maqayis_quote: "«الْخَاءُ وَالرَّاءُ وَالْقَافُ أَصْلٌ وَاحِدٌ، وَهُوَ مَزْقُ الشَّيْءِ وَجَوْبُهُ، إِلَى ذَلِكَ يَرْجِعُ فُرُوعُهُ.»"
+  per_sense:
+    - lemma: "مُعْجِزَة"
+      sense_id: "{auto}"
+      nuance: "تستخدم للدلالة على الحدث الذي يثير العجز عن مجاراته لشدة إعجازه."
+      mwe: false
+    - lemma: "أُعْجُوبَة"
+      sense_id: "{auto}"
+      nuance: "تركز على عنصر العجب والدهشة، وتستخدم غالباً لوصف المعالم الباهرة."
+      mwe: false
+    - lemma: "عَجِيبَة"
+      sense_id: "{auto}"
+      nuance: "مرادفة للأعجوبة وتستخدم بكثرة في سياق عجائب الطبيعة والظواهر."
+      mwe: false
+    - lemma: "خَارِقَة"
+      sense_id: "{auto}"
+      nuance: "تركز على عنصر خرق القوانين الطبيعية أو العادات المألوفة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عجز","maqayis":"«الْعَيْنُ وَالْجِيمُ وَالزَّايُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى الضَّعْفِ، وَالْآخَرُ عَلَى مُؤَخَّرِ الشَّيْءِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عجب","maqayis":"«الْعَيْنُ وَالْجِيمُ وَالْبَاءُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى كِبْرٍ وَاسْتِكْبَارٍ لِلشَّيْءِ، وَالْآخَرُ خِلْقَةٌ مِنْ خِلَقِ الْحَيَوَانِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خرق","maqayis":"«الْخَاءُ وَالرَّاءُ وَالْقَافُ أَصْلٌ وَاحِدٌ، وَهُوَ مَزْقُ الشَّيْءِ وَجَوْبُهُ، إِلَى ذَلِكَ يَرْجِعُ فُرُوعُهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تستخدم للدلالة على الحدث الذي يثير العجز عن مجاراته لشدة إعجازه.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

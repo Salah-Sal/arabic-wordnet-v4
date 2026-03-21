@@ -1,0 +1,148 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "عدم وجود مداخل معجمية مباشرة لهذه القبيلة في القواميس العربية العامة (المعجم الكبير أو الوسيط) رغم ورودها في القواميس المتخصصة (موسيقى/جغرافيا)."
+    observations: "المصطلح تاريخي يشير إلى إحدى القبائل اليونانية الأربع الكبرى. الاسم العربي مأخوذ من تعريب (Aeolia) إلى (أيوليا) ومن ثم النسبة إليها (أيوليون). المصطلح مستخدم بكثرة في كتب التاريخ والترجمات العربية للمصادر الكلاسيكية."
+  blind_candidates:
+    - lemma: "الأَيُولِيُّون"
+      generation_method: ishtiqaq
+      justification: "الاسم الجمعي المعرف للقبيلة اليونانية المنسوبة إلى أيوليا."
+    - lemma: "أَيُولِيُّون"
+      generation_method: ishtiqaq
+      justification: "صيغة التنكير للمصطلح."
+    - lemma: "إِيُولِيُّون"
+      generation_method: taarib
+      justification: "رسم بديل يبدأ بالهمزة المكسورة، شائع في بعض المراجع."
+    - lemma: "أَهَالِي أَيُولِيَا"
+      generation_method: tarkib
+      justification: "تعبير وصفي مركب يشير إلى سكان المنطقة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "الأيوليون"
+      expands:
+        - text: "«مقام أيولي: إحدى المقامات في الموسيقى اليونانية القديمة»"
+          source: "ArabTerm"
+          addition: "يؤكد استخدام صفة 'أيولي' نسبةً إلى اليونان القديمة، مما يدعم صحة اشتقاق اسم القبيلة."
+        - text: "«إيولُس: إله الرياح (مث).»"
+          source: "المنظمة العربية للتربية والثقافة والعلوم"
+          addition: "يؤكد تعريب الجذر الإغريقي (Aeol) إلى (أيول/إيول)."
+    - lemma: "الأَيُولِيُّون"
+      evidence_status: "no_material_found"
+    - lemma: "أَيُولِيُّون"
+      evidence_status: "no_material_found"
+    - lemma: "إِيُولِيُّون"
+      evidence_status: "no_material_found"
+    - lemma: "أَهَالِي أَيُولِيَا"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "الأيوليون"
+      decision: confirmed
+      decision_reason: "المصطلح التاريخي المعتمد والمستعمل في المراجع العربية لوصف هذه الجماعة السكانية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "الأَيُولِيُّون"
+    - lemma: "أَيُولِيُّون"
+      source: stage1
+      decision: confirmed
+      decision_reason: "توفير الصيغة النكرة للمصطلح بجانب المعرفة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "أَيُولِيُّون", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "إِيُولِيُّون"
+      source: stage1
+      decision: removed
+      decision_reason: "رسم 'أيوليون' بفتح الهمزة هو الأكثر شيوعاً واتساقاً مع 'أيوليا'."
+    - lemma: "أَهَالِي أَيُولِيَا"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير وصفي حر وليس مصطلحاً معجمياً مثبتاً."
+
+stage4_content:
+  definition:
+    current: "السكان اليونانيون القدماء في أيوليا"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي صحيح ولكنه يحتاج إلى صياغة معجمية أكثر دقة تبرز صفتهم كقبيلة."
+    authored:
+      - type: terminological
+        text: "إحدى قبائل اليونان القديمة الكبرى، سكنوا بلاد أيوليا في الجزء الشمالي الغربي من آسيا الصغرى."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "إحدى قبائل اليونان القديمة الكبرى، سكنوا بلاد أيوليا في الجزء الشمالي الغربي من آسيا الصغرى."}
+
+  examples:
+    per_lemma:
+      - lemma: "الأَيُولِيُّون"
+        examples:
+          - text: "عُرف الأَيُولِيُّون ببراعتهم في فنون الموسيقى والشعر الغنائي في العصور الكلاسيكية."
+            type: usage
+      - lemma: "أَيُولِيُّون"
+        examples:
+          - text: "هاجر أَيُولِيُّون من بلادهم الأصلية واستوطنوا جزر بحر إيجة."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "كان الأيوليون أحد المكونات الأربعة الرئيسية للشعب اليوناني القديم."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "الأَيُولِيُّون"
+      entry_id: "{auto}"
+      root: null
+    - lemma: "أَيُولِيُّون"
+      entry_id: "{auto}"
+      root: null
+  per_sense:
+    - lemma: "الأَيُولِيُّون"
+      sense_id: "{auto}"
+      nuance: "صيغة الجمع المعرفة للإشارة إلى الجماعة ككل."
+      mwe: false
+    - lemma: "أَيُولِيُّون"
+      sense_id: "{auto}"
+      nuance: "صيغة التنكير."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":null,"type":"proper_name"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"صيغة الجمع المعرفة للإشارة إلى الجماعة ككل.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

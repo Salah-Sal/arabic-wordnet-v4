@@ -1,0 +1,236 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّة 'مجموعة أعمال' فضفاضة وقد تشمل أعمالاً فنية غير مكتوبة."
+      - "اللمّة 'مدونة' تفتقر إلى التشكيل الكامل في البيانات الأصلية."
+    observations: "المصطلح العربي المعاصر الأدق لـ (corpus) في السياق اللساني هو 'مدونة' أو 'متن لغوي'. أما في السياق الأدبي العام فيُستخدم 'الأعمال الكاملة' أو 'مجموعة أعمال'."
+  blind_candidates:
+    - lemma: "مُدَوَّنَة"
+      generation_method: majaz
+      justification: "استعارة دلالية من السجل أو الكتاب الذي يُدوّن فيه؛ وهي المصطلح القياسي المعاصر لـ (corpus) في اللسانيات الحاسوبية."
+    - lemma: "ذَخِيرَة"
+      generation_method: majaz
+      justification: "لفظ تراثي استُعمل في عناوين المصنفات الكبرى (مثل ذخيرة الكتاب) ويُستخدم معاصراً بمعنى (repertory) أو الرصيد اللغوي."
+    - lemma: "جَامِع"
+      generation_method: ishtiqaq
+      justification: "من المصطلحات التراثية للمصنفات التي تجمع نصوصاً في باب واحد (مثل الجامع الصحيح)."
+    - lemma: "مَتْن"
+      generation_method: majaz
+      justification: "يُطلق على أصل الكتاب ونصّه، ويُستخدم في اللسانيات كمرادف للمدونة (متن لغوي)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُدَوَّنَة"
+      confirm:
+        - text: "«المُدَوَّنة: مجموعة قوانين أو كتابات واسعة في حقل معيَّن.»"
+          source: "المورد الحديث"
+        - text: "«مجموعة كبيرة مهيكلة من البيانات النصية أو الصوتية.»"
+          source: "معجم البيانات والذكاء الاصطناعي (2024)"
+      expands:
+        - text: "«ما يشكل الرصيد اللغوي أو مجموع المعطيات اللغوية التي يخضعها الباحث للتحليل والدرس.»"
+          source: "المعجم الموحد لمصطلحات اللسانيات"
+    - lemma: "ذَخِيرَة"
+      confirm:
+        - text: "«(في عِلْم اللُّغَةِ) repertory: مَجْمُوعَةُ الرُّموزِ الصوتيّة أو الكتابيّة فِى نِظامٍ لُغَويّ مُحَدَّد.»"
+          source: "المعجم الكبير"
+    - lemma: "مَتْن"
+      confirm:
+        - text: "«مَتْن، مدونة: ما يشكل الرصيد اللغوي أو مجموع المعطيات اللغوية التي يخضعها الباحث للتحليل والدرس.»"
+          source: "المعجم الموحد لمصطلحات اللسانيات"
+      expands:
+        - text: "«متْن الكتابِ: أصله، وهو خلاف الشّرح والحواشي، نصُّه الأصليّ.»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "مَجْمُوعَة أَعْمَال"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مدونة"
+      decision: confirmed
+      decision_reason: "المصطلح المعياري في اللسانيات والتقانة والترجمة القانونية لـ (corpus)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُدَوَّنَة"
+    - lemma: "مجموعة أعمال"
+      decision: confirmed
+      decision_reason: "تعبير وصفي دقيق للمعنى العام (collection of writings)، وإن كان أقل تخصصية من 'مدونة'."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَجْمُوعَة أَعْمَال"
+    - lemma: "ذَخِيرَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "موثقة في المعاجم الكبرى (المعجم الكبير) كمصطلح لساني مرادف لـ (repertory/corpus)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "ذَخِيرَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-07972069-n"}
+    - lemma: "مَتْن لُغَوِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح شائع في الدراسات اللسانية لوصف المادة النصية الخاضعة للدراسة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "مَتْن لُغَوِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-07972069-n"}
+    - lemma: "الأَعْمَال الكَامِلَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح الأدبي الشائع لمجموع كتابات مؤلف واحد تُنشر معاً."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "الأَعْمَال الكَامِلَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-07972069-n"}
+
+stage4_content:
+  definition:
+    current: "مجموعة من الكتابات"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب جداً ولا يغطي الجوانب الاصطلاحية للمفهوم (اللساني والأدبي)."
+    authored:
+      - type: terminological
+        text: "مَجْمُوعَةٌ ضَخْمَةٌ مُهَيْكَلَةٌ مِنَ النُّصُوصِ أَوْ التَّسْجِيلَاتِ اللَّغَوِيَّةِ تُتَّخَذُ مَادَّةً لِلدِّرَاسَةِ وَالبَحْثِ اللِّسَانِيِّ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+      - type: encyclopedic
+        text: "مَجْمُوعُ نِتَاجِ أَدِيبٍ أَوْ مُفَكِّرٍ مِنَ المُؤَلَّفَاتِ وَالمَقَالَاتِ يُجْمَعُ فِي إصْدَارٍ وَاحِدٍ أَوْ سِلْسِلَةٍ مُتَرَابِطَةٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-07972069-n", definition_index: 0, text: "مَجْمُوعَةٌ ضَخْمَةٌ مُهَيْكَلَةٌ مِنَ النُّصُوصِ أَوْ التَّسْجِيلَاتِ اللَّغَوِيَّةِ تُتَّخَذُ مَادَّةً لِلدِّرَاسَةِ وَالبَحْثِ؛ أَوْ مَجْمُوعُ نِتَاجِ أَدِيبٍ أَوْ مُفَكِّرٍ فِي مُؤَلَّفٍ وَاحِدٍ."}
+
+  examples:
+    per_lemma:
+      - lemma: "مُدَوَّنَة"
+        examples:
+          - text: "تعتمد اللسانيات الحاسوبية على بناء مُدَوَّنَة لغوية ضخمة لتدريب نماذج الذكاء الاصطناعي."
+            type: usage
+      - lemma: "ذَخِيرَة"
+        examples:
+          - text: "تُعد هذه الموسوعة ذَخِيرَةً لغوية غنية بالألفاظ التراثية النادرة."
+            type: usage
+      - lemma: "الأَعْمَال الكَامِلَة"
+        examples:
+          - text: "صدرت حديثاً الأَعْمَال الكَامِلَة للشاعر محمود درويش في مجلدات فاخرة."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-07972069-n", text: "قام الباحث بتحليل مُدَوَّنَةٍ تضم آلاف الرسائل التاريخية."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُدَوَّنَة"
+      entry_id: "{auto}"
+      root: "دون"
+      maqayis_quote: "«الدَّالُ وَالْوَاوُ وَالنُّونُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الْمُدَانَاةِ وَالْمُقَارَبَةِ...»"
+    - lemma: "مَجْمُوعَة أَعْمَال"
+      entry_id: "{auto}"
+      roots:
+        - word: "مجموعة"
+          root: "جمع"
+          maqayis_quote: "«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ.»"
+        - word: "أعمال"
+          root: "عمل"
+          maqayis_quote: "«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامٌّ فِي كُلِّ فِعْلٍ يُفْعَلُ.»"
+    - lemma: "ذَخِيرَة"
+      entry_id: "{auto}"
+      root: "ذخر"
+      maqayis_quote: "«الذَّالُ وَالْخَاءُ وَالرَّاءُ يَدُلُّ عَلَى إِحْرَازِ شَيْءٍ يَحْفَظُهُ.»"
+    - lemma: "مَتْن لُغَوِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "متن"
+          root: "متن"
+          maqayis_quote: "«الْمِيمُ وَالتَّاءُ وَالنُّونُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى صَلَابَةٍ فِي الشَّيْءِ مَعَ امْتِدَادٍ وَطُولٍ.»"
+        - word: "لغوي"
+          root: "لغو"
+          maqayis_quote: "«اللَّامُ وَالْغَيْنُ وَالْوَاوُ كَلِمَةٌ تَدُلُّ عَلَى الشَّيْءِ لَا يُعْتَدُّ بِهِ... وَاللُّغَةُ مِنَ النُّطْقِ.»"
+  per_sense:
+    - lemma: "مُدَوَّنَة"
+      sense_id: "{auto}"
+      nuance: "المصطلح التقني الحديث لمجموع البيانات اللغوية المهيكلة."
+      mwe: false
+    - lemma: "مَجْمُوعَة أَعْمَال"
+      sense_id: "{auto}"
+      nuance: "تعبير عام يشمل النتاج الأدبي أو الفني لشخص ما."
+      mwe: true
+    - lemma: "ذَخِيرَة"
+      sense_id: "{auto}"
+      nuance: "تؤكد على قيمة المحتوى وكونه مخزناً معرفياً مستخلصاً."
+      mwe: false
+    - lemma: "مَتْن لُغَوِيّ"
+      sense_id: "{auto}"
+      nuance: "تركز على النص ذاته كمادة خام للتحليل الصرفي أو النحوي."
+      mwe: true
+    - lemma: "الأَعْمَال الكَامِلَة"
+      sense_id: "{auto}"
+      nuance: "تفيد الشمول والاستقصاء لكل ما كتبه المؤلف."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"دون","maqayis":"«الدَّالُ وَالْوَاوُ وَالنُّونُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الْمُدَانَاةِ وَالْمُقَارَبَةِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مجموعة","root":"جمع","maqayis":"«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ.»"},{"word":"أعمال","root":"عمل","maqayis":"«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامٌّ فِي كُلِّ فِعْلٍ يُفْعَلُ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح التقني الحديث لمجموع البيانات اللغوية المهيكلة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-07972069-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-07972069-n"
+        score: 0.95

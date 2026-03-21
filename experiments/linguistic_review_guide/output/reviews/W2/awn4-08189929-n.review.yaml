@@ -1,0 +1,210 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الحالية (أمريكا الشمالية) تدل في الأصل على القارة ككيان جغرافي، في حين أن المجموعة الترادفية تقصد الدول مجتمعة (كيان سياسي/بشري)."
+      - "لا بد من الاعتماد على المجاز المرسل لتسويغ إطلاق اسم القارة على دولها، أو إضافة لمة صريحة بكلمة (دول)."
+    observations: "المجاز المرسل (علاقته المحلية) شائع ومقبول جداً في العربية لإطلاق اسم المكان (القارة) وإرادة من فيه (الدول/السكان). ومع ذلك، فإن إضافة تعبير صريح مثل (دول أمريكا الشمالية) يزيد من الدقة ويطابق التعريف تماماً."
+  blind_candidates:
+    - lemma: "دُوَلُ أَمْرِيكَا الشَّمَالِيَّةِ"
+      generation_method: tarkib
+      justification: "تركيب إضافي وصفي يعبر بدقة عن مجموعة الدول في تلك القارة."
+    - lemma: "أَمْرِيكَا الشَّمَالِيَّة"
+      generation_method: majaz
+      justification: "مجاز مرسل علاقته المحلية؛ حيث يُطلق اسم المكان ويُراد به الكيانات السياسية أو البشرية التي تحله."
+    - lemma: "الشِّمَالُ الأَمْرِيكِيّ"
+      generation_method: tarkib
+      justification: "تعبير وصفي بديل قد يستخدم للإشارة إلى القسم الشمالي."
+    - lemma: "أَمِيرْكَا الشَّمَالِيَّة"
+      generation_method: majaz
+      justification: "صيغة بديلة معربة لكلمة أمريكا، تُستخدم بنفس العلاقة المجازية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "أمريكا الشمالية"
+      expands:
+        - text: "«إحدى قارتي نصف الكرة الغربي. وثالثة القارات مساحة, وتبلغ مساحتها (٨,٣٨٥,٠٠٠ ميل مربع), وعدد سكانها نحو (٢٥٠) مليون نسمة...»"
+          source: "المعجم الكبير"
+          addition: "يؤكد المعجم الدلالة الجغرافية (القارة)، وتُفهم الدلالة السياسية/الجمعية (الدول) من باب المجاز المرسل الشائع."
+    - lemma: "أميركا الشمالية"
+      confirm:
+        - text: "«أميركا الشمالية» ترجمة لـ: North America"
+          source: "المَكنَز الزراعي متعدد اللغات"
+    - lemma: "دُوَلُ أَمْرِيكَا الشَّمَالِيَّةِ"
+      evidence_status: "no_material_found"
+    - lemma: "الشِّمَالُ الأَمْرِيكِيّ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "أمريكا الشمالية"
+      decision: confirmed
+      decision_reason: "تُستخدم اللمة التي تدل على القارة جغرافياً للدلالة على دولها مجتمعة من باب المجاز المرسل، وهو استخدام شائع في السياقات السياسية والاقتصادية (مثل: اتفقت أمريكا الشمالية على...)."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "أَمْرِيكَا الشَّمَالِيَّة"
+
+    - lemma: "دُوَلُ أَمْرِيكَا الشَّمَالِيَّةِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير صريح ومباشر يطابق المفهوم (الدول مجتمعة) بدقة دون الحاجة إلى قرينة مجازية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "دُوَلُ أَمْرِيكَا الشَّمَالِيَّةِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+          
+    - lemma: "أَمِيرْكَا الشَّمَالِيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صيغة إملائية صحيحة وشائعة، تخضع لنفس المسوغ المجازي للمة الأساسية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "أَمِيرْكَا الشَّمَالِيَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "الشِّمَالُ الأَمْرِيكِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير قد يشير إلى المناطق الشمالية داخل القارة أو داخل دولة معينة، ولا يحمل دلالة دقيقة على القارة بأكملها أو دولها."
+
+stage4_content:
+  definition:
+    current: "دول قارة أمريكا الشمالية مجتمعة"
+    assessment:
+      decision: retain
+      reason: "التعريف الحالي دقيق وواضح ويطابق المفهوم الإنجليزي (the nations of the North American continent collectively)."
+  examples:
+    per_lemma:
+      - lemma: "أمريكا الشمالية"
+        examples:
+          - text: "وقّعت أمريكا الشمالية اتفاقية تجارة حرة شاملة."
+            type: usage
+      - lemma: "دُوَلُ أَمْرِيكَا الشَّمَالِيَّةِ"
+        examples:
+          - text: "تسعى دول أمريكا الشمالية إلى تعزيز التعاون الاقتصادي فيما بينها."
+            type: usage
+      - lemma: "أَمِيرْكَا الشَّمَالِيَّة"
+        examples:
+          - text: "شهدت أميركا الشمالية نمواً متسارعاً في قطاع التكنولوجيا."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "وقّعت أمريكا الشمالية اتفاقية تجارة حرة شاملة."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تسعى دول أمريكا الشمالية إلى تعزيز التعاون الاقتصادي فيما بينها."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "شهدت أميركا الشمالية نمواً متسارعاً في قطاع التكنولوجيا."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "أَمْرِيكَا الشَّمَالِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "أمريكا"
+          root: "امرك"
+          maqayis_quote: "كلمة معربة لا أصل لها في مقاييس اللغة."
+        - word: "الشمالية"
+          root: "شمل"
+          maqayis_quote: "«الشِّينُ وَالْمِيمُ وَاللَّامُ أَصْلَانِ مُنْقَاسَانِ مُطَّرِدَانِ...»"
+    - lemma: "دُوَلُ أَمْرِيكَا الشَّمَالِيَّةِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "دول"
+          root: "دول"
+          maqayis_quote: "«الدَّالُ وَالْوَاوُ وَاللَّامُ أَصْلَانِ: أَحَدُهُمَا يَدُلُّ عَلَى تَحَوُّلِ شَيْءٍ مِنْ مَكَانٍ إِلَى مَكَانٍ...»"
+        - word: "أمريكا"
+          root: "امرك"
+          maqayis_quote: "كلمة معربة."
+        - word: "الشمالية"
+          root: "شمل"
+          maqayis_quote: "«الشِّينُ وَالْمِيمُ وَاللَّامُ أَصْلَانِ مُنْقَاسَانِ مُطَّرِدَانِ...»"
+    - lemma: "أَمِيرْكَا الشَّمَالِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "أميركا"
+          root: "امرك"
+          maqayis_quote: "كلمة معربة."
+        - word: "الشمالية"
+          root: "شمل"
+          maqayis_quote: "«الشِّينُ وَالْمِيمُ وَاللَّامُ أَصْلَانِ مُنْقَاسَانِ مُطَّرِدَانِ...»"
+  per_sense:
+    - lemma: "أَمْرِيكَا الشَّمَالِيَّة"
+      sense_id: "{auto}"
+      nuance: "تعبير مجازي يعتمد على السياق للدلالة على الدول، وهو الأكثر شيوعاً كاسم علم."
+      mwe: true
+    - lemma: "دُوَلُ أَمْرِيكَا الشَّمَالِيَّةِ"
+      sense_id: "{auto}"
+      nuance: "تعبير صريح يزيل اللبس بين الكيان الجغرافي والكيان السياسي المشترك."
+      mwe: true
+    - lemma: "أَمِيرْكَا الشَّمَالِيَّة"
+      sense_id: "{auto}"
+      nuance: "صيغة بديلة للمة الأساسية تُكتب بالياء."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"أمريكا","root":"امرك","maqayis":"كلمة معربة لا أصل لها في مقاييس اللغة."},{"word":"الشمالية","root":"شمل","maqayis":"«الشِّينُ وَالْمِيمُ وَاللَّامُ أَصْلَانِ مُنْقَاسَانِ مُطَّرِدَانِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"دول","root":"دول","maqayis":"«الدَّالُ وَالْوَاوُ وَاللَّامُ أَصْلَانِ: أَحَدُهُمَا يَدُلُّ عَلَى تَحَوُّلِ شَيْءٍ مِنْ مَكَانٍ إِلَى مَكَانٍ...»"},{"word":"أمريكا","root":"امرك","maqayis":"كلمة معربة."},{"word":"الشمالية","root":"شمل","maqayis":"«الشِّينُ وَالْمِيمُ وَاللَّامُ أَصْلَانِ مُنْقَاسَانِ مُطَّرِدَانِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"أميركا","root":"امرك","maqayis":"كلمة معربة."},{"word":"الشمالية","root":"شمل","maqayis":"«الشِّينُ وَالْمِيمُ وَاللَّامُ أَصْلَانِ مُنْقَاسَانِ مُطَّرِدَانِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير مجازي يعتمد على السياق للدلالة على الدول، وهو الأكثر شيوعاً كاسم علم.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير صريح يزيل اللبس بين الكيان الجغرافي والكيان السياسي المشترك.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"صيغة بديلة للمة الأساسية تُكتب بالياء.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,182 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة تفتقر إلى التشكيل الكامل."
+      - "غياب مصطلح 'مكتبة' منفرداً وهو الأكثر شيوعاً في السياق التقني."
+      - "عدم إدراج مصطلح 'مكتبة برامج' الذي يقابل 'program library' بدقة."
+    observations: "المصطلح العربي 'مكتبة برمجية' مستقر تماماً في الأدبيات التقنية، وهو ترجمة دقيقة للمفهوم الإنجليزي 'software library'. المفهوم يعتمد على استعارة لفظ 'المكتبة' (جمع الكتب) لجمع 'البرمجيات/الروتينات' الجاهزة للاستخدام."
+  blind_candidates:
+    - lemma: "مَكْتَبَةٌ"
+      generation_method: majaz
+      justification: "اللفظ الأساسي المستخدم في الحوسبة للدلالة على مجموعة من الدوال أو البرامج الجاهزة، استعارة من مكتبة الكتب."
+    - lemma: "مَجْمُوعَةٌ بَرْمَجِيَّةٌ"
+      generation_method: tarkib
+      justification: "تعبير وصفي مباشر يعبر عن جوهر المفهوم كمجموعة من البرامج."
+    - lemma: "مَكْتَبَةُ بَرَامِجَ"
+      generation_method: tarkib
+      justification: "ترجمة حرفية دقيقة للمصطلح 'program library' وهو شائع الاستخدام."
+    - lemma: "خِزَانَةُ بَرَامِجَ"
+      generation_method: majaz
+      justification: "استخدام لفظ 'خزانة' كبديل لـ 'مكتبة' في بعض السياقات المعجمية القديمة للدلالة على مكان الحفظ والجمع."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مكتبة برمجية"
+      confirm:
+        - text: "«مكتبةٌ برمجية: جَمْعَةٌ مضبوطةٌ من البرمجيات والوثائق المرتبطةِ بها، مصمَّمةٌ للمساعدة على تطوير البرمجيات، أو الاستخدامِ، أو الصيانة.»"
+          source: "معجم مصطلحات المعلوماتية (2000)"
+    - lemma: "مكتبة"
+      confirm:
+        - text: "«في البرمجة: جَمْعَةٌ من المَسَاقاتِ routines المخزَّنةِ ضمن ملفّ. كلُّ مجموعةٍ من التعليمات ضمن مكتبةٍ لها اسمٌ، ويُنفِّذ كلٌّ منها مهمةً مختلفة.»"
+          source: "معجم مصطلحات المعلوماتية (2000)"
+    - lemma: "مكتبة برامج"
+      confirm:
+        - text: "«مجموعة من البرامج الخاصة مخزنة في ملف ومعدة للاستخدام العام يمكن للمستخدم استدعاء ما يحتاجه منها بمجرد الإشارة إليه لتضمينه في برنامجه.»"
+          source: "مسرد التربية (ArabTerm)"
+    - lemma: "مكتبة روتينات فرعية"
+      expands:
+        - text: "«مكتبة إجراءات: جَمْعَةٌ من المَسَاقات routines المصرَّفة compiled معاً.»"
+          source: "معجم مصطلحات المعلوماتية (2000)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مكتبة برمجية"
+      decision: confirmed
+      decision_reason: "مصطلح تقني قياسي مدعوم بالأدلة المعجمية الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَكْتَبَةٌ بَرْمَجِيَّةٌ"
+    - lemma: "مَكْتَبَةٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "هو اللفظ الأساسي والأكثر شيوعاً، وتدعمه المعاجم التقنية المتخصصة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَكْتَبَةٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مَكْتَبَةُ بَرَامِجَ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "ترجمة دقيقة لـ 'program library' وموجود في المسارد التقنية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "مَكْتَبَةُ بَرَامِجَ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مَكْتَبَةُ رُوتِينَاتٍ فَرْعِيَّةٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "ترجمة دقيقة لـ 'subroutine library' وتتوافق مع التعريف العربي الحالي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "مَكْتَبَةُ رُوتِينَاتٍ فَرْعِيَّةٍ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "(حوسبة) مجموعة من البرامج والروتينات الفرعية القياسية المخزنة والمتاحة للاستخدام الفوري"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكن يمكن تحسينه ليكون أكثر دقة واصطلاحية مع التركيز على الغرض من المكتبة."
+    authored:
+      - type: terminological
+        text: "مجموعة من البرمجيات أو الروتينات الفرعية المُصنفة والمخزنة معاً في ملف واحد، تهدف إلى تسهيل عملية التطوير البرمجي من خلال توفير وظائف جاهزة للاستدعاء والاستخدام."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "مَكْتَبَةٌ بَرْمَجِيَّةٌ"
+        examples:
+          - text: "استخدم المطور مكتبةً برمجيةً مفتوحة المصدر لمعالجة البيانات الضخمة."
+            type: usage
+      - lemma: "مَكْتَبَةٌ"
+        examples:
+          - text: "يجب تضمين مكتبة الرسوميات في المشروع قبل البدء بكتابة دوال الرسم."
+            type: usage
+      - lemma: "مَكْتَبَةُ بَرَامِجَ"
+        examples:
+          - text: "تحدث مكتبة البرامج تلقائياً لضمان سد الثغرات الأمنية."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مجموعة من البرمجيات أو الروتينات الفرعية المُصنفة والمخزنة معاً في ملف واحد، تهدف إلى تسهيل عملية التطوير البرمجي من خلال توفير وظائف جاهزة للاستدعاء والاستخدام."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَكْتَبَةٌ"
+      entry_id: "{auto}"
+      root: "كتب"
+      maqayis_quote: "«الْكَافُ وَالتَّاءُ وَالْبَاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى جَمْعِ شَيْءٍ إِلَى شَيْءٍ. مِنْ ذَلِكَ الْكِتَابُ وَالْكِتَابَةُ.»"
+    - lemma: "مَكْتَبَةٌ بَرْمَجِيَّةٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مكتبة"
+          root: "كتب"
+          maqayis_quote: "«الْكَافُ وَالتَّاءُ وَالْبَاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى جَمْعِ شَيْءٍ إِلَى شَيْءٍ.»"
+        - word: "برمجية"
+          root: "برمج"
+          maqayis_quote: "جذر رباعي حديث مشتق من 'برنامج' (من الفارسية: برنامك)، ولم يورده ابن فارس في مقاييسه لكونه من المولدات الحديثة."
+  per_sense:
+    - lemma: "مَكْتَبَةٌ بَرْمَجِيَّةٌ"
+      sense_id: "{auto}"
+      nuance: "المصطلح الكامل والرسمي للمفهوم في السياقات الأكاديمية والمهنية."
+      mwe: true
+    - lemma: "مَكْتَبَةٌ"
+      sense_id: "{auto}"
+      nuance: "اللفظ المختصر والشائع الاستخدام بين المبرمجين في الحديث اليومي والتقني."
+      mwe: false
+    - lemma: "مَكْتَبَةُ بَرَامِجَ"
+      sense_id: "{auto}"
+      nuance: "يركز على كونها وعاءً يضم برامج مستقلة يمكن إعادة استخدامها."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"كتب","maqayis":"«الْكَافُ وَالتَّاءُ وَالْبَاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى جَمْعِ شَيْءٍ إِلَى شَيْءٍ. مِنْ ذَلِكَ الْكِتَابُ وَالْكِتَابَةُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الكامل والرسمي للمفهوم في السياقات الأكاديمية والمهنية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

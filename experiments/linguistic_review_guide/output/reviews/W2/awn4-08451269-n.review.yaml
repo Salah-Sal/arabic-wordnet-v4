@@ -1,0 +1,166 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الوحيدة الحالية (شبكة) صحيحة ولكن المجموعة تفتقر لمرادفات فصيحة أخرى تعبر عن 'نظام مترابط'."
+      - "التعريف الحالي يحتاج إلى صياغة معجمية رصينة بدلاً من الترجمة الحرفية."
+    observations: "المفهوم يعبر عن بنية تواصلية أو ترابطية، واللفظ العربي 'شبكة' هو الأكثر استقراراً، مع إمكانية استخدام 'منظومة' كمرادف بنيوي و'شابكة' كمرادف اشتقاقي حديث."
+  blind_candidates:
+    - lemma: "شَبَكَة"
+      generation_method: majaz
+      justification: "الاستعمال المجازي المستقر للفظ 'شبكة' ليدل على كل نظام مترابط قياساً على شبكة الصيد."
+    - lemma: "مَنْظُومَة"
+      generation_method: ishtiqaq
+      justification: "من النظم وهو التأليف والترتيب، وتدل على مجموعة العناصر المترابطة التي تشكل وحدة وظيفية."
+    - lemma: "شَابِكَة"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من شبك، تستخدم في المعاجم الحديثة للدلالة على الأنظمة المترابطة (خاصة المعلوماتية)."
+    - lemma: "تَشَابُك"
+      generation_method: ishtiqaq
+      justification: "مصدر يدل على حالة الترابط والتداخل بين العناصر."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "شبكة"
+      confirm:
+        - text: "«(الشبكة)... وكل متداخل متشابك يقال شبكة المواصلات وشبكة الكهرباء ونحو ذلك»"
+          source: "المعجم الوسيط"
+        - text: "«الآلية التي تربط بين الناس و/أو المنظمات التي تتقاسم نوعا ما هدفا مشتركا.»"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+        - text: "«بنية من العلاقات بين عناصر متعددة.»"
+          source: "مسرد الإعلام والتواصل (ArabTerm)"
+    - lemma: "منظومة"
+      confirm:
+        - text: "«(منظومة): المؤلفة المرتبة المضموم بعضها إلى بعض»"
+          source: "موسوعة السلطان قابوس"
+        - text: "«(نظم): النون والظاء والميم: أصل يدل على تأليف شيء وتأليفه»"
+          source: "مقاييس اللغة"
+    - lemma: "شابكة"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "شبكة"
+      decision: confirmed
+      decision_reason: "اللفظ الأساسي والمستقر في اللغة الحديثة والمعاجم المتخصصة للدلالة على الأنظمة المترابطة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "شَبَكَة"
+    - lemma: "مَنْظُومَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف رصين يعبر عن الجانب البنيوي والترتيبي للنظام المترابط، وهي تدعم المفهوم بدقة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَنْظُومَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "شَابِكَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ اشتقاقي حديث (Neologism) شاع استخدامه في بعض الأوساط التقنية كمرادف لـ network، وإضافته تثري المكنز."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "شَابِكَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "نظام مترابط من الأشياء أو الأشخاص"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ترجمة حرفية بسيطة؛ يحتاج إلى صياغة معجمية توضح ماهية الترابط والغرض منه."
+    authored:
+      - type: terminological
+        text: "بِنْيَةٌ أَوْ مَجْمُوعَةٌ مِنْ عَنَاصِرَ مُتَدَاخِلَةٍ (أَشْيَاءَ أَوْ أَشْخَاصٍ) يَرْتَبِطُ بَعْضُهَا بِبَعْضٍ لِتُشَكِّلَ كُلًّا وَاحِدًا تَبَادُلِيَّ المَنْفَعَةِ أَوِ الغَرَضِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "شَبَكَة"
+        examples:
+          - text: "تَعْتَمِدُ الشَّرِكَةُ عَلَى شَبَكَةٍ وَاسِعَةٍ مِنَ المُرَاسِلِينَ لِتَغْطِيَةِ الأَحْدَاثِ العَالَمِيَّةِ."
+            type: usage
+      - lemma: "مَنْظُومَة"
+        examples:
+          - text: "يَعْمَلُ المَشْرُوعُ ضِمْنَ مَنْظُومَةٍ مُتَكَامِلَةٍ مِنَ الخِدْمَاتِ اللُّوجِسْتِيَّةِ."
+            type: usage
+      - lemma: "شَابِكَة"
+        examples:
+          - text: "تَمَّ رَبْطُ المَكَاتِبِ الفَرْعِيَّةِ بِشَابِكَةٍ مَحَلِّيَّةٍ لِتَسْهِيلِ تَبَادُلِ البَيَانَاتِ."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "بِنْيَةٌ أَوْ مَجْمُوعَةٌ مِنْ عَنَاصِرَ مُتَدَاخِلَةٍ (أَشْيَاءَ أَوْ أَشْخَاصٍ) يَرْتَبِطُ بَعْضُهَا بِبَعْضٍ لِتُشَكِّلَ كُلًّا وَاحِدًا."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تَعْتَمِدُ الشَّرِكَةُ عَلَى شَبَكَةٍ وَاسِعَةٍ مِنَ المُرَاسِلِينَ لِتَغْطِيَةِ الأَحْدَاثِ العَالَمِيَّةِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "شَبَكَة"
+      entry_id: "{auto}"
+      root: "شبك"
+      maqayis_quote: "«الشِّينُ وَالْبَاءُ وَالْكَافُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَدَاخُلِ الشَّيْءِ. يُقَالُ شَبَّكَ أَصَابِعَهُ تَشْبِيكًا. وَمِنْ ذَلِكَ الشَّبَكَةُ.»"
+    - lemma: "مَنْظُومَة"
+      entry_id: "{auto}"
+      root: "نظم"
+      maqayis_quote: "«النُّونُ وَالظَّاءُ وَالْمِيمُ: أَصْلٌ يَدُلُّ عَلَى تَأْلِيفِ شَيْءٍ وَتأْلِيفِهِ، وَنَظَمْتُ الْخَرَزَ نَظْمًا.»"
+    - lemma: "شَابِكَة"
+      entry_id: "{auto}"
+      root: "شبك"
+      maqayis_quote: "«الشِّينُ وَالْبَاءُ وَالْكَافُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَدَاخُلِ الشَّيْءِ.»"
+  per_sense:
+    - lemma: "شَبَكَة"
+      sense_id: "{auto}"
+      nuance: "اللفظ الأكثر شيوعاً وعمومية، ويستخدم للشبكات المادية والتقنية والاجتماعية."
+      mwe: false
+    - lemma: "مَنْظُومَة"
+      sense_id: "{auto}"
+      nuance: "تركز على الجانب الترتيبي والتنظيمي للعناصر المترابطة."
+      mwe: false
+    - lemma: "شَابِكَة"
+      sense_id: "{auto}"
+      nuance: "تستخدم غالباً في السياقات التقنية والمعلوماتية كبديل حديث لـ network."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"شبك","maqayis":"«الشِّينُ وَالْبَاءُ وَالْكَافُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَدَاخُلِ الشَّيْءِ. يُقَالُ شَبَّكَ أَصَابِعَهُ تَشْبِيكًا. وَمِنْ ذَلِكَ الشَّبَكَةُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ الأكثر شيوعاً وعمومية، ويستخدم للشبكات المادية والتقنية والاجتماعية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,162 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "المفهوم مرتبط بالديانات الوثنية القديمة."
+      - "اللمة 'بانثيون' هي تعريب للمصطلح الغربي، وقد تعني أيضاً المعبد أو الصرح."
+      - "اللمة 'مجمع الآلهة' هي ترجمة مركبة لكنها واضحة ومستخدمة."
+    observations: "مصطلح 'مجمع الآلهة' أكثر دلالة ووضوحاً للمتلقي العربي، بينما 'بانثيون' يُستخدم غالباً في السياقات الأكاديمية والتاريخية."
+  blind_candidates:
+    - lemma: "مَجْمَعُ الآلِهَةِ"
+      generation_method: tarkib
+      justification: "تركيب إضافي يعبر عن مكان اجتماع أو مجموعة مترابطة من الآلهة."
+    - lemma: "بَانْثِيُون"
+      generation_method: taarib
+      justification: "تعريب مباشر للمصطلح العالمي (Pantheon) الذي يدل على هذا المفهوم."
+    - lemma: "زُمْرَةُ الآلِهَةِ"
+      generation_method: tarkib
+      justification: "استخدام كلمة زمرة للدلالة على الجماعة أو المجموعة المنتمية لفئة واحدة."
+    - lemma: "حَشْدُ الآلِهَةِ"
+      generation_method: tarkib
+      justification: "حشد يعبر عن الجمع الكبير."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "بانثيون"
+      confirm:
+        - text: "«(1) «أ», الپانثيون: «ب» هيكل مكرَّس لجميع الآلهة. «ج» مَدْفن عظماء الأمة. «د» آلهة شعبٍ ما (2) مجموعة مشاهير.»"
+          source: "المورد الحديث (2008)"
+    - lemma: "مجمع الآلهة"
+      confirm:
+        - text: "«مجمع الآلهة» (translation_en: pantheon)"
+          source: "مسرد الجغرافيا والتاريخ، المنظمة العربية للتربية والثقافة والعلوم"
+    - lemma: "زمرة الآلهة"
+      evidence_status: "no_material_found"
+    - lemma: "حشد الآلهة"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "بانثيون"
+      decision: confirmed
+      decision_reason: "مصطلح معرب شائع الاستخدام في الدراسات التاريخية والأثرية والميثولوجية للدلالة على مجموعة الآلهة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "بَانْثِيُون"
+
+    - lemma: "مجمع الآلهة"
+      decision: confirmed
+      decision_reason: "تركيب إضافي دقيق وشائع للتعبير عن المفهوم باللغة العربية، وهو موثق معجمياً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَجْمَعُ الآلِهَةِ"
+
+    - lemma: "زُمْرَةُ الآلِهَةِ"
+      source: stage1
+      decision: removed
+      decision_reason: "لم يثبت استخدام هذا التركيب كمسكوك اصطلاحي لهذا المفهوم."
+
+    - lemma: "حَشْدُ الآلِهَةِ"
+      source: stage1
+      decision: removed
+      decision_reason: "غير موثق ومجمع الآلهة يؤدي المعنى بشكل أفضل وأدق."
+
+stage4_content:
+  definition:
+    current: "جميع آلهة دين معين"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد ولكنه يمكن أن يكون أدق ليشمل الشعوب والمعتقدات وليس فقط الأديان بشكلها الحديث، واستخدام 'مجموع' بدل 'جميع' يعكس فكرة الكيان الواحد للمجموعة."
+    authored:
+      - type: terminological
+        text: "مجموع الآلهة التي تُعْبَدُ في معتقد أو دين أو شعب معين."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مجموع الآلهة التي تُعْبَدُ في معتقد أو دين أو شعب معين."}
+
+  examples:
+    per_lemma:
+      - lemma: "بانثيون"
+        examples:
+          - text: "شَمِلَ بَانْثِيُونُ الإِغْرِيقِ عَدَدًا كَبِيرًا مِنَ الآلِهَةِ الَّتِي تُمَثِّلُ قُوَى الطَّبِيعَةِ."
+            type: usage
+      - lemma: "مجمع الآلهة"
+        examples:
+          - text: "يُعَدُّ زِيُوسُ كَبِيرَ مَجْمَعِ الآلِهَةِ فِي المِيثُولُوجْيَا اليُونَانِيَّةِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يُعَدُّ زِيُوسُ كَبِيرَ مَجْمَعِ الآلِهَةِ فِي المِيثُولُوجْيَا اليُونَانِيَّةِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "شَمِلَ بَانْثِيُونُ الإِغْرِيقِ عَدَدًا كَبِيرًا مِنَ الآلِهَةِ الَّتِي تُمَثِّلُ قُوَى الطَّبِيعَةِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يُعَدُّ زِيُوسُ كَبِيرَ مَجْمَعِ الآلِهَةِ فِي المِيثُولُوجْيَا اليُونَانِيَّةِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مجمع الآلهة"
+      entry_id: "{auto}"
+      roots:
+        - word: "مجمع"
+          root: "جمع"
+          maqayis_quote: "«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ.»"
+        - word: "الآلهة"
+          root: "اله"
+          maqayis_quote: "«الْهَمْزَةُ وَاللَّامُ وَالْهَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ التَّعَبُّدُ.»"
+  per_sense:
+    - lemma: "بانثيون"
+      sense_id: "{auto}"
+      nuance: "مصطلح أجنبي معرب يستخدم غالبًا في السياقات الأكاديمية أو عند الإشارة إلى أساطير معينة (مثل اليونانية والرومانية)."
+      mwe: false
+    - lemma: "مجمع الآلهة"
+      sense_id: "{auto}"
+      nuance: "تعبير عربي واضح الدلالة لوصف مجموعة الآلهة المرتبطة بدين أو شعب."
+      mwe: true
+  synset:
+    cultural_fit: lexical_gap
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مجمع","root":"جمع","maqayis":"«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ.»"},{"word":"الآلهة","root":"اله","maqayis":"«الْهَمْزَةُ وَاللَّامُ وَالْهَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ التَّعَبُّدُ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح أجنبي معرب يستخدم غالبًا في السياقات الأكاديمية أو عند الإشارة إلى أساطير معينة (مثل اليونانية والرومانية).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير عربي واضح الدلالة لوصف مجموعة الآلهة المرتبطة بدين أو شعب.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"lexical_gap"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

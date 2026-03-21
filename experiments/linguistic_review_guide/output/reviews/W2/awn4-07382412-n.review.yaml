@@ -1,0 +1,200 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي دقيق ولكنه يفتقر إلى لمة 'عارض' التي تعبر عن الحدث المفاجئ نفسه."
+    observations: "المجموعة تغطي مفهوم الانقطاع الفجائي. اللمات الموجودة (انقطاع، توقف، مقاطعة) مناسبة، ولكن هناك تفاوت في دقة الدلالة بينها وبين التعريف الإنجليزي (interruption, break)."
+  blind_candidates:
+    - lemma: "اِنْقِطَاع"
+      generation_method: ishtiqaq
+      justification: "المصدر القياسي من انقطع، وهو المعادل الدقيق لـ interruption."
+    - lemma: "مُقَاطَعَة"
+      generation_method: ishtiqaq
+      justification: "تدل على فعل القطع العارض للنشاط، وتستخدم تقنياً بمعنى interrupt."
+    - lemma: "عَارِض"
+      generation_method: ishtiqaq
+      justification: "يدل على الحدث الطارئ الذي يظهر فجأة فيقطع الاستمرار."
+    - lemma: "اِعْتِرَاض"
+      generation_method: ishtiqaq
+      justification: "من عرض، أي وقف في الطريق أو اعترض المسار، مما يسبب القطع."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "اِنْقِطَاع"
+      confirm:
+        - text: "«انقطاع: إشارة تستعمل لقطع العمل الجاري في الوحدة المركزية بهدف إثارة الانتباه»"
+          source: "المعجم الموحد لمصطلحات تقانة المعلومات (2011)"
+        - text: "«انقطاع: interruption»"
+          source: "المعجم الموحد لمصطلحات القانون (2017)"
+    - lemma: "تَوَقُّف"
+      confirm:
+        - text: "«توقف: stop, stopping»"
+          source: "مسرد الفن والتسلية (ArabTerm)"
+        - text: "«التوقف: هو التلوم والامتناع والكف»"
+          source: "التعريفات الفقهية للبركتي"
+    - lemma: "مُقَاطَعَة"
+      confirm:
+        - text: "«مقاطعة: طلب انتباه المعالج... يوقف عملياته الحالية ويخزن حالة العمل»"
+          source: "معجم مصطلحات المعلوماتية (2000)"
+    - lemma: "عَارِض"
+      confirm:
+        - text: "«عارض: حادث غير متوقع»"
+          source: "معجم المصطلحات الطبية (1985)"
+        - text: "«عارض: الآفة تعرض في الشيء، الحائل والمانع؛ يقال: عرض له عارض»"
+          source: "المعجم الوسيط"
+    - lemma: "اِعْتِرَاض"
+      expands:
+        - text: "«اعتراض: إيقاف ومنع من متابعة مسار، الاستيلاء على مواد ومنعها من الوصول إلى وجهتها»"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+          addition: "يؤكد معنى الإيقاف والمنع ولكنه يميل للاعتراض المادي أو المكاني."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "انقطاع"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي يعبر عن الحالة والحدث الناتج عن قطع النشاط."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "اِنْقِطَاع"
+    - lemma: "توقف"
+      decision: confirmed
+      decision_reason: "لفظ عام يصف توقف النشاط، وهو مقبول كمرادف واسع."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَوَقُّف"
+    - lemma: "مقاطعة"
+      decision: confirmed
+      decision_reason: "دقيقة جداً في السياقات التقنية وسياق الحوار، وتعبر عن الفعل المسبب للانقطاع."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُقَاطَعَة"
+    - lemma: "عَارِض"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر بدقة عن 'الحدث المفاجئ' (abrupt occurrence) الوارد في التعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "عَارِض", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "حدث مفاجئ يقطع نشاطاً جارياً"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد ولكنه يفتقر إلى الصياغة المعجمية الرصينة التي تميز بين السبب والنتيجة."
+    authored:
+      - type: terminological
+        text: "حُدُوثُ أَمْرٍ طَارِئٍ يَقْطَعُ نَشَاطًا أَوْ عَمَلًا مُسْتَمِرًّا."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "حُدُوثُ أَمْرٍ طَارِئٍ يَقْطَعُ نَشَاطًا أَوْ عَمَلًا مُسْتَمِرًّا."}
+  examples:
+    per_lemma:
+      - lemma: "اِنْقِطَاع"
+        examples:
+          - text: "أَدَّى انْقِطَاعُ التَّيَّارِ الكَهْرَبَائِيِّ إِلَى تَوَقُّفِ مَطَابِعِ الصُّحُفِ."
+            type: usage
+      - lemma: "تَوَقُّف"
+        examples:
+          - text: "حَدَثَ تَوَقُّفٌ فُجَائِيٌّ لِلدَّرْسِ بِسَبَبِ صَيْحَةٍ خَارِجَ القَاعَةِ."
+            type: usage
+      - lemma: "مُقَاطَعَة"
+        examples:
+          - text: "اعْتَذَرَ المُحَاضِرُ عَنْ مُقَاطَعَةِ حَدِيثِهِ بِسَبَبِ الخَلَلِ الفَنِّيِّ."
+            type: usage
+      - lemma: "عَارِض"
+        examples:
+          - text: "حَالَ دُونَ إِتْمَامِ اللِّقَاءِ عَارِضٌ صَحِّيٌّ بَاغِتٌ لِلْمُذِيعِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "أَدَّى انْقِطَاعُ التَّيَّارِ الكَهْرَبَائِيِّ إِلَى تَوَقُّفِ مَطَابِعِ الصُّحُفِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "اِنْقِطَاع"
+      entry_id: "{auto}"
+      root: "قطع"
+      maqayis_quote: "«الْقَافُ وَالطَّاءُ وَالْعَيْنُ أَصْلٌ صَحِيحٌ وَاحِدٌ، يَدُلُّ عَلَى صَرْمٍ وَإِبَانَةِ شَيْءٍ مِنْ شَيْءٍ.»"
+    - lemma: "تَوَقُّف"
+      entry_id: "{auto}"
+      root: "وقف"
+      maqayis_quote: "«الْوَاوُ وَالْقَافُ وَالْفَاءُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَمَكُّثٍ فِي شَيْءٍ ثُمَّ يُقَاسُ عَلَيْهِ.»"
+    - lemma: "مُقَاطَعَة"
+      entry_id: "{auto}"
+      root: "قطع"
+      maqayis_quote: "«الْقَافُ وَالطَّاءُ وَالْعَيْنُ أَصْلٌ صَحِيحٌ وَاحِدٌ، يَدُلُّ عَلَى صَرْمٍ وَإِبَانَةِ شَيْءٍ مِنْ شَيْءٍ.»"
+    - lemma: "عَارِض"
+      entry_id: "{auto}"
+      root: "عرض"
+      maqayis_quote: "«الْعَيْنُ وَالرَّاءُ وَالضَّادُ بِنَاءٌ تَكْثُرُ فُرُوعُهُ، وَهِيَ مَعَ كَثْرَتِهَا تَرْجِعُ إِلَى أَصْلٍ وَاحِدٍ، وَهُوَ الْعَرْضُ الَّذِي يُخَالِفُ الطُّولَ.»"
+  per_sense:
+    - lemma: "اِنْقِطَاع"
+      sense_id: "{auto}"
+      nuance: "يُشِيرُ إِلَى حَالَةِ الانْفِصَالِ أَوْ عَدَمِ الِاتِّصَالِ النَّاتِجِ عَنِ القَطْعِ."
+      mwe: false
+    - lemma: "تَوَقُّف"
+      sense_id: "{auto}"
+      nuance: "لَفْظٌ عَامٌّ لِعَدَمِ الِاسْتِمْرَارِ فِي الحَرَكَةِ أَوِ الفِعْلِ."
+      mwe: false
+    - lemma: "مُقَاطَعَة"
+      sense_id: "{auto}"
+      nuance: "تَدُلُّ عَلَى فِعْلِ القَطْعِ الَّذِي يَرِدُ عَلَى نَشَاطٍ مُسْتَمِرٍّ، وَتُسْتَعْمَلُ كَثِيرًا فِي الحَدِيثِ."
+      mwe: false
+    - lemma: "عَارِض"
+      sense_id: "{auto}"
+      nuance: "تُرَكِّزُ عَلَى الحَدَثِ أَوْ الطَّارِئِ الَّذِي يَكُونُ سَبَبًا فِي القَطْعِ."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قطع","maqayis":"«الْقَافُ وَالطَّاءُ وَالْعَيْنُ أَصْلٌ صَحِيحٌ وَاحِدٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُشِيرُ إِلَى حَالَةِ الانْفِصَالِ أَوْ عَدَمِ الِاتِّصَالِ النَّاتِجِ عَنِ القَطْعِ.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

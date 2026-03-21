@@ -1,0 +1,208 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي دائري (يستخدم اللّمات في التعريف نفسه)."
+    observations: "المجموعة الترادفية تمثل مفهوم التوزيع العام (act of distribution). اللّمات الحالية (تقسيم، توزيع) صحيحة تماماً وتغطي المفهوم، لكنها تفتقر للتشكيل. كما أن لفظ 'نشر' الوارد في التعريف يستحق أن يكون لمّة مستقلة لدلالته على التوزيع بالبسط."
+  blind_candidates:
+    - lemma: "نَشْر"
+      generation_method: ishtiqaq
+      justification: "وارد في التعريف الأصلي ويدل على التوزيع بالبسط والتشعب."
+    - lemma: "تَفْرِيق"
+      generation_method: ishtiqaq
+      justification: "مرادف معجمي أصيل للتوزيع والتقسيم، كما ورد في معجم مقاليد العلوم."
+    - lemma: "تَجْزِئَة"
+      generation_method: ishtiqaq
+      justification: "يدل على عملية التقسيم إلى أجزاء أصغر."
+    - lemma: "تَقْسِيط"
+      generation_method: ishtiqaq
+      justification: "توزيع الشيء (غالباً المال) على أجزاء وأوقات معينة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تَوْزِيع"
+      confirm:
+        - text: "«التوزيع: التقسيم، وتوزعوه اقتسموه.»"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+        - text: "«(التَّوْزِيع) التَّفْرِيق»"
+          source: "المعجم الوسيط"
+    - lemma: "تَقْسِيم"
+      confirm:
+        - text: "«التّقسيم: مرادف القسمة سواء كانت قسمة الكلّ إلى الأجزاء أو قسمة الكلّي إلى جزئياته»"
+          source: "كشاف اصطلاحات الفنون للتهانوي"
+        - text: "«التقسيم: هو ضم قيود متخالفة بحيث يحصل عن كل واحد منها قسمٌ»"
+          source: "التعريفات الفقهية للبركتي"
+    - lemma: "نَشْر"
+      confirm:
+        - text: "«نشَر الجندَ/ نشَر الأشياءَ: فرَّقهم ووزَّعهم»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«النُّونُ وَالشِّينُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى فَتْحِ شَيْءٍ وَتَشَعُّبِهِ.»"
+          source: "مقاييس اللغة"
+    - lemma: "تَفْرِيق"
+      confirm:
+        - text: "«التَّفْرِيق: إِيقَاع تبَاين بَين أَمريْن من نوع وَاحِد. التقسيمُ: ذكر مُتَعَدد، ثمَّ إِضَافَة مَا لكل إِلَيْهِ على التَّعْيِين.»"
+          source: "معجم مقاليد العلوم للسيوطي"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تقسيم"
+      decision: confirmed
+      decision_reason: "لمّة أساسية تعبر عن تجزئة الكل إلى أجزاء."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَقْسِيم"
+    - lemma: "توزيع"
+      decision: confirmed
+      decision_reason: "اللّمّة الأكثر شيوعاً ودقة للتعبير عن توزيع الأشياء على مستحقين أو أماكن."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَوْزِيع"
+    - lemma: "نَشْر"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يدل على التوزيع بالبسط والامتداد، وهو وارد في التعريف العربي الحالي للمجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "نَشْر", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَفْرِيق"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف معجمي فصيح لعملية التوزيع والتقسيم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَفْرِيق", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "فعل التوزيع أو النشر أو التقسيم"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دائري (يستخدم الكلمات المعرفة فيه)."
+    authored:
+      - type: terminological
+        text: "فعل جَعْل الشيءِ حِصَصاً أو قِطَعاً وتفريقها أو بَسْطها في جهاتٍ أو على أشخاصٍ مختلفين."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "تَوْزِيع"
+        examples:
+          - text: "أشرفتِ اللجنةُ على تَوْزِيعِ المساعداتِ على العائلاتِ المحتاجةِ."
+            type: usage
+      - lemma: "تَقْسِيم"
+        examples:
+          - text: "تمَّ تَقْسِيمُ الميراثِ بين الورثةِ وفقاً للشرعِ."
+            type: usage
+      - lemma: "نَشْر"
+        examples:
+          - text: "بدأتِ الوزارةُ بنَشْرِ المدارسِ في القرى النائيةِ."
+            type: usage
+      - lemma: "تَفْرِيق"
+        examples:
+          - text: "أدى تَفْرِيقُ المهامِ بين الموظفين إلى زيادةِ الإنتاجيةِ."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تَوْزِيع"
+      entry_id: "{auto}"
+      root: "وزع"
+      maqayis_quote: "«الْوَاوُ وَالزَّاءُ وَالْعَيْنُ: بِنَاءٌ مَوْضُوعٌ عَلَى غَيْرِ قِيَاسٍ. وَوَزَعْتُهُ عَنِ الْأَمْرِ: كَفَفْتُهُ. ... وَبِهَا أَوْزَاعٌ مِنَ النَّاسِ، أَيْ جَمَاعَاتٌ.»"
+    - lemma: "تَقْسِيم"
+      entry_id: "{auto}"
+      root: "قسم"
+      maqayis_quote: "«الْقَافُ وَالسِّينُ وَالْمِيمُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى جَمَالٍ وَحُسْنٍ وَالْآخَرُ عَلَى تَجْزِئَةِ شَيْءٍ.»"
+    - lemma: "نَشْر"
+      entry_id: "{auto}"
+      root: "نشر"
+      maqayis_quote: "«النُّونُ وَالشِّينُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى فَتْحِ شَيْءٍ وَتَشَعُّبِهِ.»"
+    - lemma: "تَفْرِيق"
+      entry_id: "{auto}"
+      root: "فرق"
+      maqayis_quote: "«الْفَاءُ وَالرَّاءُ وَالْقَافُ أُصَيْلٌ صَحِيحٌ يَدُلُّ عَلَى تَمْيِيزٍ وَتَزْيِيلٍ بَيْنَ شَيْئَيْنِ.»"
+  per_sense:
+    - lemma: "تَوْزِيع"
+      sense_id: "{auto}"
+      nuance: "يركز على عملية المناولة وإعطاء الشيء لعدة أشخاص أو أماكن."
+      mwe: false
+    - lemma: "تَقْسِيم"
+      sense_id: "{auto}"
+      nuance: "يركز على عملية التجزئة وفصل الكل إلى أجزاء أو حصص."
+      mwe: false
+    - lemma: "نَشْر"
+      sense_id: "{auto}"
+      nuance: "يركز على عملية البسط والإذاعة وتوسيع نطاق الوجود."
+      mwe: false
+    - lemma: "تَفْرِيق"
+      sense_id: "{auto}"
+      nuance: "يركز على إبعاد الأجزاء عن بعضها البعض وتشتيتها."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"وزع","maqayis":"«الْوَاوُ وَالزَّاءُ وَالْعَيْنُ: بِنَاءٌ مَوْضُوعٌ عَلَى غَيْرِ قِيَاسٍ. وَوَزَعْتُهُ عَنِ الْأَمْرِ: كَفَفْتُهُ. ... وَبِهَا أَوْزَاعٌ مِنَ النَّاسِ، أَيْ جَمَاعَاتٌ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قسم","maqayis":"«الْقَافُ وَالسِّينُ وَالْمِيمُ أَصْلَانِ صَحِيحَانِ... يَدُلُّ ... عَلَى تَجْزِئَةِ شَيْءٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نشر","maqayis":"«النُّونُ وَالشِّينُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى فَتْحِ شَيْءٍ وَتَشَعُّبِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"فرق","maqayis":"«الْفَاءُ وَالرَّاءُ وَالْقَافُ أُصَيْلٌ صَحِيحٌ يَدُلُّ عَلَى تَمْيِيزٍ وَتَزْيِيلٍ بَيْنَ شَيْئَيْنِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على عملية المناولة وإعطاء الشيء لعدة أشخاص أو أماكن.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

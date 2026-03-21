@@ -1,0 +1,179 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّة الحالية 'بروم' تفتقر إلى التشكيل الكامل."
+      - "غياب المترادفات الشائعة مثل 'برومين'."
+    observations: "المجموعة تتعلق بعنصر كيميائي (البروم). التعريب هو الوسيلة الأساسية لتسمية العناصر المكتشفة حديثاً، مع وجود تنوع طفيف في اللاحقة (بروم/برومين)."
+  blind_candidates:
+    - lemma: "بُرُوم"
+      generation_method: taarib
+      justification: "الاسم المعرب الأكثر شيوعاً والمستخدم في المناهج التعليمية والمجامع اللغوية."
+    - lemma: "بُرُومِين"
+      generation_method: taarib
+      justification: "نقل صوتي مباشر للاسم الإنجليزي (Bromine)، شائع في المراجع العلمية."
+    - lemma: "عُنْصُر البُرُوم"
+      generation_method: tarkib
+      justification: "تسمية وصفية رسمية للعنصر الكيميائي."
+    - lemma: "بُرُومِيُوم"
+      generation_method: taarib
+      justification: "لاحقة بديلة تظهر في بعض الترجمات الكيميائية القديمة أو المتخصصة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "بروم"
+      confirm:
+        - text: "«برومبُرُوم [مفرد]: ج برومات: (كم) جسم بسيط لا فلزيّ سائل، أحمر غامق اللون، كريه الرائحة، يشبه الكلور، يُستخرج من مياه البحر...»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«العنصر رقم (35) وهو سائل أصفر ينحل بالمحلات العضوية، وتستعمل بعض مركباته كمهدئة للأعصاب.»"
+          source: "المعجم الموحد لمصطلحات علم الصيدلة"
+    - lemma: "برومين"
+      confirm:
+        - text: "«عنصر هالوجيني يستخدم كمعقم للمياه... رمزه الكيميائي Br»"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية"
+        - text: "«البروم؛ البرومين (ك).»"
+          source: "المورد الحديث"
+    - lemma: "عنصر البروم"
+      confirm:
+        - text: "«البروم (العُنْصُرُ الخامِسُ والثَلاَثُون)»"
+          source: "المعجم الطبي الموحد"
+    - lemma: "بُرُومِيُوم"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "بروم"
+      decision: confirmed
+      decision_reason: "هو المصطلح المعياري المعتمد في المجامع اللغوية والمناهج التعليمية العربية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "بُرُوم"
+    - lemma: "بُرُومِين"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف شائع جداً في الأدبيات العلمية والتقنية، وله شواهد معجمية قوية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "بُرُومِين", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "عُنْصُر البُرُوم"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تركيب وصفي اصطلاحي مستخدم في السياقات العلمية الرسمية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "عُنْصُر البُرُوم", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "بُرُومِيُوم"
+      source: stage1
+      decision: removed
+      decision_reason: "لم يتم العثور على شواهد كافية في المعاجم العربية الحديثة، والمصطلحات الأخرى تغني عنه."
+
+stage4_content:
+  definition:
+    current: "عنصر سائل لافلزي ثقيل متطاير ذو لون بني داكن ينتمي للهالوجينات؛ يوجد في مياه البحر"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دقيق علمياً لكنه يفتقر إلى بعض الخصائص المميزة (مثل الرائحة والعدد الذري) والأسلوب المعجمي الرصين."
+    authored:
+      - type: terminological
+        text: "عنصرٌ لافلزيٌّ سائلٌ في درجات الحرارة العاديّة، ثقيلٌ متطايرٌ، ذو لونٍ بنيٍّ مُحمَرٍّ ورائحةٍ خانقةٍ كريهةٍ، ينتمي لمجموعة الهالوجينات، عدده الذريّ 35 ورمزه الكيميائيّ (Br)، ويوجد في الطبيعة على هيئة أملاح في مياه البحر والترسبات الملحيّة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "عنصرٌ لافلزيٌّ سائلٌ في درجات الحرارة العاديّة، ثقيلٌ متطايرٌ، ذو لونٍ بنيٍّ مُحمَرٍّ ورائحةٍ خانقةٍ كريهةٍ، ينتمي لمجموعة الهالوجينات، عدده الذريّ 35 ورمزه الكيميائيّ (Br)، ويوجد في الطبيعة على هيئة أملاح في مياه البحر والترسبات الملحيّة."}
+  examples:
+    per_lemma:
+      - lemma: "بُرُوم"
+        examples:
+          - text: "يُستخرج البُرُوم بشكل أساسي من مياه البحر الميت."
+            type: usage
+      - lemma: "بُرُومِين"
+        examples:
+          - text: "يُستخدم البرومين في معالجة مياه أحواض السباحة كبديل للكلور."
+            type: usage
+      - lemma: "عُنْصُر البُرُوم"
+        examples:
+          - text: "يُعد عُنْصُر البُرُوم من العناصر النشطة كيميائياً التي لا توجد منفردة في الطبيعة."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يُستخدم البُرُوم بشكل أساسي من مياه البحر الميت."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "بُرُوم"
+      entry_id: "{auto}"
+      root: "برم"
+      maqayis_quote: "«الْبَاءُ وَالرَّاءُ وَالْمِيمُ يَدُلُّ عَلَى أَرْبَعَةِ أُصُولٍ: إِحْكَامُ الشَّيْءِ، وَالْغَرَضُ بِهِ، وَاخْتِلَافُ اللَّوْنَيْنِ، وَجِنْسٌ مِنَ النَّبَاتِ...»"
+    - lemma: "بُرُومِين"
+      entry_id: "{auto}"
+      root: "برم"
+      maqayis_quote: "«الْبَاءُ وَالرَّاءُ وَالْمِيمُ يَدُلُّ عَلَى أَرْبَعَةِ أُصُولٍ...»"
+    - lemma: "عُنْصُر البُرُوم"
+      entry_id: "{auto}"
+      roots:
+        - word: "عنصر"
+          root: "عنصر"
+          maqayis_quote: "«الْعَيْنُ وَالنُّونُ وَالصَّادُ وَالرَّاءُ: لَيْسَ فِيهِ إِلَّا الْعُنْصُرُ: وَهُوَ الْأَصْلُ.»"
+        - word: "البروم"
+          root: "برم"
+          maqayis_quote: "«الْبَاءُ وَالرَّاءُ وَالْمِيمُ يَدُلُّ عَلَى أَرْبَعَةِ أُصُولٍ...»"
+  per_sense:
+    - lemma: "بُرُوم"
+      sense_id: "{auto}"
+      nuance: "المصطلح الكيميائي الأساسي والمعياري."
+      mwe: false
+    - lemma: "بُرُومِين"
+      sense_id: "{auto}"
+      nuance: "بديل صوتي شائع متأثر بالإنجليزية."
+      mwe: false
+    - lemma: "عُنْصُر البُرُوم"
+      sense_id: "{auto}"
+      nuance: "تسمية تقنية رسمية تؤكد على طبيعة المادة كعنصر كيميائي."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"برم","maqayis":"«الْبَاءُ وَالرَّاءُ وَالْمِيمُ يَدُلُّ عَلَى أَرْبَعَةِ أُصُولٍ: إِحْكَامُ الشَّيْءِ، وَالْغَرَضُ بِهِ، وَاخْتِلَافُ اللَّوْنَيْنِ، وَجِنْسٌ مِنَ النَّبَاتِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الكيميائي الأساسي والمعياري.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

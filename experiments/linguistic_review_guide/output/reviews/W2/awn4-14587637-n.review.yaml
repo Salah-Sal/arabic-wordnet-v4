@@ -1,0 +1,248 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي فيه دور دلالي (circularity) حيث استخدم كلمات من جنس اللمات (ملغى، مبطلاً)."
+      - "التعريف الحالي هو ترجمة حرفية للتعريف الإنجليزي ولا يعكس الصياغة المعجمية العربية الرصينة."
+      - "المجموعة تفتقر إلى مصطلحات دقيقة تميز بين 'حالة البطلان' و'فعل الإلغاء'."
+    observations: "المجموعة تدور حول المفهوم القانوني والإجرائي لانتهاء صلاحية أو أثر عمل ما. اللمات الموجودة (إبطال، إلغاء) صحيحة ولكنها تحتاج لإغناء بمصطلحات أكثر تخصصاً (بطلان، فسخ، نقض) لتغطية الفروق الدلالية الدقيقة في السياقات القانونية والعقود."
+  blind_candidates:
+    - lemma: "فَسْخٌ"
+      generation_method: ishtiqaq
+      justification: "مصدر يدل على نقض العقد أو الاتفاق وإزالة أثره، وهو شائع في السياق القانوني والشرعي."
+    - lemma: "نَقْضٌ"
+      generation_method: majaz
+      justification: "يستخدم لإبطال الأحكام أو العهود، وأصله من نقض البناء أو الحبل."
+    - lemma: "بُطْلَانٌ"
+      generation_method: ishtiqaq
+      justification: "الاسم الدال على حالة كونه باطلاً، وهو الأنسب لوصف 'الحالة' (state) المطلوبة في التعريف."
+    - lemma: "إِسْقَاطٌ"
+      generation_method: majaz
+      justification: "يستخدم في سياق إسقاط الحقوق أو الدعاوى، وهو مرادف لـ revocation في بعض السياقات."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "إِبْطَال"
+      confirm:
+        - text: "«إبطال: annulment»"
+          source: "المعجم الموحد لمصطلحات القانون (2017)"
+        - text: "«الإبطال: إفساد الشيء وإزالته حقا كان ذلك الشيء أو باطلا»"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+    - lemma: "إِلْغَاء"
+      confirm:
+        - text: "«إلغاء: cancellation; repeal; revocation»"
+          source: "المعجم الموحد لمصطلحات القانون (2017)"
+        - text: "«إلغاء: إبطال العمل بشيء»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "بُطْلَان"
+      confirm:
+        - text: "«بُطلان: nullity»"
+          source: "المعجم الموحد لمصطلحات القانون (2017)"
+        - text: "«بُطلان: جزاء يقرره القانون إما لعدم توفر ركن من أركان العقد أو بذلك»"
+          source: "المورد الحديث (2008)"
+    - lemma: "فَسْخ"
+      confirm:
+        - text: "«فسخ: rescission; dissolution; annulment»"
+          source: "المعجم الموحد لمصطلحات القانون (2017)"
+        - text: "«فسخ: annulment; rescission»"
+          source: "قاموس حبيب سالمون"
+    - lemma: "نَقْض"
+      confirm:
+        - text: "«نقض حكمًا: أصدر حكمًا قضائيًّا بإلغاء حكم سابق وإعلان بُطلانه»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«نقض الشيء نقضا أفسده بعد إحكامه... نقض ما أبرمه فلان أبطل»"
+          source: "المعجم الوسيط"
+    - lemma: "إِسْقَاط"
+      confirm:
+        - text: "«إسقاط: revocation; waiver; forfeiture»"
+          source: "المعجم الموحد لمصطلحات القانون (2017)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "إبطال"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي يعبر عن جعل الشيء باطلاً، ويتفق مع التعريف الإنجليزي annulment."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "إِبْطَالٌ"
+    - lemma: "إلغاء"
+      decision: confirmed
+      decision_reason: "مصطلح عام وشائع للتعبير عن وقف أثر قانوني أو إجرائي، ويتفق مع revocation."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "إِلْغَاءٌ"
+    - lemma: "بُطْلَانٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "هو الأنسب للتعبير عن 'حالة' كون الشيء باطلاً (nullity/state of being annulled)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "بُطْلَانٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "فَسْخٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح قانوني دقيق لفسخ العقود والارتباطات، وهو أحد أوجه annulment."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "فَسْخٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "نَقْضٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر عن إبطال ما أُبرم من عهود أو أحكام، وهو مرادف قوي في السياق القضائي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "نَقْضٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "إِسْقَاطٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يستخدم تحديداً في إبطال الحقوق أو الدعاوى، وهو يتناسب مع مفهوم revocation."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "إِسْقَاطٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "حالة كونه ملغى أو مبطلاً"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يعاني من الدور الدلالي ولا يتبع الأسلوب المعجمي الرصين."
+    authored:
+      - type: terminological
+        text: "صِفَةُ العَمَلِ أَوِ العَقْدِ الَّذِي فَقَدَ قُوَّتَهُ القَانُونِيَّةَ أَوْ أُلْغِيَ أَثَرُهُ نَتِيجَةَ قَرَارٍ أَوْ خَلَلٍ شَرْعِيٍّ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "صِفَةُ العَمَلِ أَوِ العَقْدِ الَّذِي فَقَدَ قُوَّتَهُ القَانُونِيَّةَ أَوْ أُلْغِيَ أَثَرُهُ نَتِيجَةَ قَرَارٍ أَوْ خَلَلٍ شَرْعِيٍّ."}
+  examples:
+    per_lemma:
+      - lemma: "إِبْطَالٌ"
+        examples:
+          - text: "قَرَّرَتِ المَحْكَمَةُ إِبْطَالَ العَقْدِ لِعَدَمِ أَهْلِيَّةِ أَحَدِ الطَّرَفَيْنِ."
+            type: usage
+      - lemma: "إِلْغَاءٌ"
+        examples:
+          - text: "تَمَّ إِلْغَاءُ تَرْخِيصِ البِنَاءِ لِمُخَالَفَتِهِ المَوَاصِفَاتِ المَطْلُوبَةَ."
+            type: usage
+      - lemma: "بُطْلَانٌ"
+        examples:
+          - text: "حَكَمَ القَاضِي بِبُطْلَانِ الإِجْرَاءَاتِ لِوُجُودِ خَطَأٍ جَوْهَرِيٍّ."
+            type: usage
+      - lemma: "فَسْخٌ"
+        examples:
+          - text: "أَدَّى الإِخْلَالُ بِالشُّرُوطِ إِلَى فَسْخِ الشَّرَاكَةِ بَيْنَ الرَّجُلَيْنِ."
+            type: usage
+      - lemma: "نَقْضٌ"
+        examples:
+          - text: "تَقَدَّمَ المُحَامِي بِطَلَبٍ لِنَقْضِ الحُكْمِ الصَّادِرِ بِحَقِّ مُوَكِّلِهِ."
+            type: usage
+      - lemma: "إِسْقَاطٌ"
+        examples:
+          - text: "أَعْلَنَتِ الدَّوْلَةُ إِسْقَاطَ التُّهَمِ عَنِ السُّجَنَاءِ السِّيَاسِيِّينَ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "حَكَمَ القَاضِي بِبُطْلَانِ الإِجْرَاءَاتِ لِوُجُودِ خَطَأٍ جَوْهَرِيٍّ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "إِبْطَالٌ"
+      entry_id: "{auto}"
+      root: "بطل"
+      maqayis_quote: "«الْبَاءُ وَالطَّاءُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ ذَهَابُ الشَّيْءِ وَقِلَّةُ مُكْثِهِ وَلُبْثِهِ.»"
+    - lemma: "إِلْغَاءٌ"
+      entry_id: "{auto}"
+      root: "لغو"
+      maqayis_quote: "«اللَّامُ وَالْغَيْنُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ صَحِيحَانِ، أَحَدُهُمَا يَدُلُّ عَلَى الشَّيْءِ لَا يُعْتَدُّ بِهِ.»"
+    - lemma: "بُطْلَانٌ"
+      entry_id: "{auto}"
+      root: "بطل"
+      maqayis_quote: "«الْبَاءُ وَالطَّاءُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ ذَهَابُ الشَّيْءِ وَقِلَّةُ مُكْثِهِ وَلُبْثِهِ.»"
+    - lemma: "فَسْخٌ"
+      entry_id: "{auto}"
+      root: "فسخ"
+      maqayis_quote: "«الْفَاءُ وَالسِّينُ وَالْخَاءُ كَلِمَةٌ تَدُلُّ عَلَى نَقْضِ شَيْءٍ.»"
+    - lemma: "نَقْضٌ"
+      entry_id: "{auto}"
+      root: "نقض"
+      maqayis_quote: "«النُّونُ وَالْقَافُ وَالضَّادُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى نَكْثِ شَيْءٍ.»"
+    - lemma: "إِسْقَاطٌ"
+      entry_id: "{auto}"
+      root: "سقط"
+      maqayis_quote: "«السِّينُ وَالْقَافُ وَالطَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الُّوُقُوعِ، وَهُوَ مُطَّرِدٌ.»"
+  per_sense:
+    - lemma: "إِبْطَالٌ"
+      sense_id: "{auto}"
+      nuance: "الفعل العام الذي يجعل الشيء باطلاً سواء كان حقاً أو باطلاً في الأصل."
+      mwe: false
+    - lemma: "إِلْغَاءٌ"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب الإجرائي بوقف العمل بقانون أو قرار أو موعد."
+      mwe: false
+    - lemma: "بُطْلَانٌ"
+      sense_id: "{auto}"
+      nuance: "يعبر عن الحالة القانونية للشيء الذي فقد أركان صحته، فهو وصف للحالة أكثر منه للفعل."
+      mwe: false
+    - lemma: "فَسْخٌ"
+      sense_id: "{auto}"
+      nuance: "يختص بنقض الروابط التعاقدية كالنكاح والبيع والشركة."
+      mwe: false
+    - lemma: "نَقْضٌ"
+      sense_id: "{auto}"
+      nuance: "يستخدم غالباً في إبطال العهود أو الأحكام القضائية (محكمة النقض)."
+      mwe: false
+    - lemma: "إِسْقَاطٌ"
+      sense_id: "{auto}"
+      nuance: "يستخدم في التنازل عن حق أو إسقاط تهمة أو مرتبة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

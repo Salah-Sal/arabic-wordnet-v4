@@ -1,0 +1,230 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمّات الحالية تفتقر إلى التشكيل الكامل.
+      - التعريف العربي الحالي بسيط جداً ولا يفي بالدلالة المعجمية الدقيقة للمصطلح.
+    observations: "المفهوم يشير إلى الرابطة القومية والمدنية بين الأفراد الذين يجمعهم وطن واحد. اللمات المقترحة (مواطنون، أبناء الوطن) جيدة جداً، وسأضيف (أهل البلد) كمرادف فصيح وشائع."
+  blind_candidates:
+    - lemma: "مُواطِنُون"
+      generation_method: ishtiqaq
+      justification: "الجمع القياسي لكلمة مواطن، وهي المشتقة من (واطن) بمعنى شارك في الوطن."
+    - lemma: "أَبْنَاءُ الوَطَن"
+      generation_method: tarkib
+      justification: "تركيب إضافي اصطلاحي شائع يعبر عن الانتماء المشترك."
+    - lemma: "أَهْلُ البَلَد"
+      generation_method: tarkib
+      justification: "تعبير لغوي فصيح يدل على الساكنين في حيز جرافي واحد (البلد)."
+    - lemma: "بَلَدِيّ"
+      generation_method: ishtiqaq
+      justification: "النسبة إلى البلد، وتستخدم للإشارة إلى من يشاركك نفس الموطن (ابن بلدي)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مواطنون"
+      confirm:
+        - text: "«واطَنَ القومَ: عاش معهم في وطنٍ واحدٍ»"
+          source: "المعجم الوسيط"
+        - text: "«مُواطِن: مَنْ نشَأ معك في وطن واحد»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«مواطن المرء أو ابن بلده»"
+          source: "المورد الحديث (compatriot)"
+    - lemma: "أبناء الوطن"
+      confirm:
+        - text: "«أبناء الشَّعب/ أبناء الوطن: المواطنون»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«حَرْبٌ أهليَّة: صراع مسلَّح يقع بين أبناء الوطن الواحد»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "أهل البلد"
+      confirm:
+        - text: "«أهل الدار: سكانها»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«أهل البلد أدرى بشعابها»"
+          source: "أمثال عربية"
+    - lemma: "بلدي"
+      confirm:
+        - text: "«الْمَنْسُوب إِلَى الْبَلَد فِي طَبِيعَته وبيئته»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«ابن بلده»"
+          source: "المورد الحديث (ترجمة compatriot)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مواطنون"
+      decision: confirmed
+      decision_reason: "المصطلح الأساسي والرسمي في اللغة المعاصرة لمن ينتمون لوطن واحد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُوَاطِنُون"
+    - lemma: "أبناء الوطن"
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي (MWE) فصيح وشائع الاستخدام في السياقات الوطنية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "أَبْنَاءُ الوَطَنِ"
+    - lemma: "أهل البلد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير لغوي صحيح وشائع للدلالة على الساكنين في بلد واحد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "أَهْلُ البَلَدِ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-07961955-n"
+    - lemma: "بلدي"
+      source: stage1
+      decision: removed
+      decision_reason: "رغم صحته، إلا أنه قد ينصرف في الاستعمال المعاصر إلى معانٍ أخرى (شعبي، ريفي)، والخيارات الأخرى أدق."
+
+stage4_content:
+  definition:
+    current: "الناس الذين يعيشون في نفس البلد"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط، يحتاج إلى صياغة معجمية تبرز معنى الانتماء والمواطنة."
+    authored:
+      - type: terminological
+        text: "مجموع الأشخاص الذين ينتمون إلى وطن واحد ويشتركون في السكنى فيه، وتجمعهم غالباً رابطة الجنسية أو الانتماء القومي."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-07961955-n"
+          definition_index: 0
+          text: "مجموع الأشخاص الذين ينتمون إلى وطن واحد ويشتركون في السكنى فيه، وتجمعهم غالباً رابطة الجنسية أو الانتماء القومي."
+  examples:
+    per_lemma:
+      - lemma: "مُوَاطِنُون"
+        examples:
+          - text: "يتساوى المواطنون في الحقوق والواجبات أمام القانون."
+            type: usage
+      - lemma: "أَبْنَاءُ الوَطَنِ"
+        examples:
+          - text: "دعا الزعيمُ أبناءَ الوطن إلى التكاتف لبناء مستقبل زاهر."
+            type: usage
+      - lemma: "أَهْلُ البَلَدِ"
+        examples:
+          - text: "أهل البلد أدرى بشعابها."
+            type: proverb
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "awn4-07961955-n"
+          text: "يتمتع المواطنون في شتى بقاع الأرض بحق الحماية من دولتهم."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "أهل البلد هم الذين يبنون حضارتها بسواعدهم."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُوَاطِنُون"
+      entry_id: "{auto}"
+      root: "وطن"
+      maqayis_quote: "«الْوَاوُ وَالطَّاءُ وَالنُّونُ: كَلِمَةٌ صَحِيحَةٌ. فَالْوَطَنُ: مَحَلُّ الْإِنْسَانِ.»"
+    - lemma: "أَبْنَاءُ الوَطَنِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "أبناء"
+          root: "بنو"
+          maqayis_quote: "«الْبَاءُ وَالنُّونُ وَالْوَاوُ كَلِمَةٌ وَاحِدَةٌ، وَهُوَ الشَّيْءُ يَتَوَلَّدُ عَنِ الشَّيْءِ، كَابْنِ الْإِنْسَانِ وَغَيْرِهِ.»"
+        - word: "الوطن"
+          root: "وطن"
+          maqayis_quote: "«فَالْوَطَنُ: مَحَلُّ الْإِنْسَانِ.»"
+    - lemma: "أَهْلُ البَلَدِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "أهل"
+          root: "أهل"
+          maqayis_quote: "«أَهْلُ الرَّجُلِ أَخَصُّ النَّاسِ بِهِ. وَأَهْلُ الْبَيْتِ: سُكَّانُهُ.»"
+        - word: "البلد"
+          root: "بلد"
+          maqayis_quote: "«الْبَاءُ وَاللَّامُ وَالدَّالُ أَصْلٌ وَاحِدٌ ... وَالْبَالِدُ قِيَاسًا لِلْمُقِيمِ بِالْبَلَدِ.»"
+  per_sense:
+    - lemma: "مُوَاطِنُون"
+      sense_id: "{auto}"
+      nuance: "المصطلح الرسمي الذي يبرز العلاقة القانونية والسياسية مع الدولة."
+      mwe: false
+    - lemma: "أَبْنَاءُ الوَطَنِ"
+      sense_id: "{auto}"
+      nuance: "تعبير وجداني وخطابي يبرز رابطة اللحمة والأصل المشترك."
+      mwe: true
+    - lemma: "أَهْلُ البَلَدِ"
+      sense_id: "{auto}"
+      nuance: "تعبير عام يشير إلى السكان الذين يقطنون مكاناً واحداً."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"وطن","maqayis":"«الْوَاوُ وَالطَّاءُ وَالنُّونُ: كَلِمَةٌ صَحِيحَةٌ. فَالْوَطَنُ: مَحَلُّ الْإِنْسَانِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"أبناء","root":"بنو","maqayis":"«الْبَاءُ وَالنُّونُ وَالْوَاوُ كَلِمَةٌ وَاحِدَةٌ...»"},{"word":"الوطن","root":"وطن","maqayis":"«فَالْوَطَنُ: مَحَلُّ الْإِنْسَانِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"أهل","root":"أهل","maqayis":"«أَهْلُ الرَّجُلِ أَخَصُّ النَّاسِ بِهِ. وَأَهْلُ الْبَيْتِ: سُكَّانُهُ.»"},{"word":"البلد","root":"بلد","maqayis":"«الْبَاءُ وَاللَّامُ وَالدَّالُ أَصْلٌ وَاحِدٌ ... وَالْبَالِدُ قِيَاسًا لِلْمُقِيمِ بِالْبَلَدِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الرسمي الذي يبرز العلاقة القانونية والسياسية مع الدولة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير وجداني وخطابي يبرز رابطة اللحمة والأصل المشترك.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير عام يشير إلى السكان الذين يقطنون مكاناً واحداً.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-07961955-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-07961955-n"
+        score: 0.95

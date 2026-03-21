@@ -1,0 +1,231 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمات الحالية (استرداد، استعادة) تغطي جانب 'الاسترجاع المادي'، لكنها تفتقر للفظ 'استرجاع' الشائع جداً في سياقات استرجاع البيانات والبحث."
+    observations: "التعريف العربي الحالي دقيق لغوياً ومتوافق مع التعريف الإنجليزي والـ ILI، لكن يمكن تجويده ليشمل 'الاستخلاص'."
+  blind_candidates:
+    - lemma: "اِسْتِرْجَاع"
+      generation_method: ishtiqaq
+      justification: "المصدر القياسي من الفعل 'استرجع'، وهو اللفظ الأكثر شيوعاً في سياق استعادة المعلومات (Retrieval) والموارد المفقودة."
+    - lemma: "إِنْقَاذ"
+      generation_method: ishtiqaq
+      justification: "يعبر عن جانب 'Saving' الوارد في التعريف الإنجليزي، وهو استخلاص الشيء من ورطة أو خطر الضياع."
+    - lemma: "اِسْتِرْدَاد"
+      generation_method: ishtiqaq
+      justification: "يدل على طلب رد الشيء، ويشيع في السياقات القانونية (استرداد الحيازة) والمالية."
+    - lemma: "اِسْتِعَادَة"
+      generation_method: ishtiqaq
+      justification: "يدل على طلب عودة الشيء، ويستخدم بكثرة في سياق استعادة النظم والملفات (System Recovery)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "استرداد"
+      confirm:
+        - text: "«دَعْوَى استرداد الحيازة (في قانون المرافعات): هى دَعْوَى يرفعها الحائز الذى نزعت حيازته طالباً رَدَّها إليه.»"
+          source: "المعجم الوسيط"
+        - text: "«عملية استخلاص المواد من خاماتها أو من مركَّباتها أو من مخلَّفاتٍ تحتويها, مثل استردادِ الفضَّةِ من بقايا عمليات التصوير الفوتغرافى.»"
+          source: "المعجم الكبير"
+    - lemma: "استعادة"
+      confirm:
+        - text: "«استرجاعُ معطياتٍ فُقِدَتْ، أو ترميمُ معطيات متضاربة، أو معطيات اعتراها خطأ إثر إصابة النظام بعطل.»"
+          source: "معجم مصطلحات المعلوماتية (2000)"
+        - text: "«استرداد (المرادف العربي) - recovery»"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية (2012)"
+    - lemma: "استرجاع"
+      confirm:
+        - text: "«استرجاع البيانات (فى الحَاسِيبِ الآلى) retrieval: البحث عن البيانات المطلوبة فى ملفٍّ أو فى قاعدة للبيانات والاطلاع عليها.»"
+          source: "المعجم الكبير"
+        - text: "«تجديد معطيات لَحِقَ بها تلف ما، وذلك بكيفية، تصبح معها قابلة للاستعمال من جديد.»"
+          source: "المعجم الموحد لمصطلحات تقانة المعلومات (2011)"
+    - lemma: "إنقاذ"
+      confirm:
+        - text: "«الإنقاذ: التخليص من ورطه.»"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+        - text: "«فصل مراقب للمواد القابلة للتدوير وإعادة الاستخدام بمكبات القمامة أو مرافق استعادة المواد.»"
+          source: "مسرد المناخ والبيئة وإدارة النفايات الصلبة"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "استرداد"
+      decision: confirmed
+      decision_reason: "لفظ أصيل ومدعوم بالأدلة في المعاجم القانونية والتقنية، ويعبر عن استرجاع الملكية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "اِسْتِرْدَاد"
+    - lemma: "استعادة"
+      decision: confirmed
+      decision_reason: "لفظ أساسي في سياقات الاسترجاع التقني (Recovery) وموثق في المعاجم الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "اِسْتِعَادَة"
+    - lemma: "اِسْتِرْجَاع"
+      source: stage1
+      decision: confirmed
+      decision_reason: "ضروري لتغطية مفهوم 'Retrieval' و'Recovery'، وهو الأكثر تداولاً في علوم الحاسوب والمجالات التقنية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "اِسْتِرْجَاع", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-00046648-n"}
+    - lemma: "إِنْقَاذ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يغطي الجانب الوقائي أو الإصلاحي (saving/salvaging) الوارد في تعريف المجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "إِنْقَاذ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-00046648-n"}
+
+stage4_content:
+  definition:
+    current: "فعل استعادة أو إنقاذ شيء مفقود (أو معرض لخطر الفقدان)"
+    assessment:
+      decision: revise
+      reason: "لجعل التعريف أكثر شمولية لمفهوم الاستخلاص والاسترجاع المعلوماتي."
+    authored:
+      - type: terminological
+        text: "فِعْلُ اِسْتِخْلَاصِ شَيْءٍ مَفْقُودٍ أَوْ إِعَادَتِهِ إِلَى مِلْكِيَّةِ صَاحِبِهِ أَوْ صِيَانَتِهِ مِنْ ضَيَاعٍ أَوْ تَلَفٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "اِسْتِرْدَاد"
+        examples:
+          - text: "قَرَّرَ التَّاجِرُ رَفْعَ دَعْوَى اِسْتِرْدَادِ حِيَازَةِ المَتْجَرِ بَعْدَ غَصْبِهِ."
+            type: usage
+      - lemma: "اِسْتِعَادَة"
+        examples:
+          - text: "سَاعَدَ تَوْفِيرُ النُّسَخِ الاِحْتِيَاطِيَّةِ عَلَى اِسْتِعَادَةِ النِّظَامِ بَعْدَ تَعَطُّلِهِ."
+            type: usage
+      - lemma: "اِسْتِرْجَاع"
+        examples:
+          - text: "يَتِمُّ اِسْتِرْجَاعُ البَيَانَاتِ المَحْذُوفَةِ بِسُهُولَةٍ بِوَاسِطَةِ هَذَا البَرْنَامَجِ."
+            type: usage
+      - lemma: "إِنْقَاذ"
+        examples:
+          - text: "شَارَكَتْ فِرَقُ الطَّوَارِئِ فِي إِنْقَاذِ المَحَاصِيلِ الزِّرَاعِيَّةِ مِنَ الفَيَضَانِ."
+            type: usage
+  actions:
+    - command: update_definition
+      params: {synset_id: "awn4-00046648-n", definition_index: 0, text: "فِعْلُ اِسْتِخْلَاصِ شَيْءٍ مَفْقُودٍ أَوْ إِعَادَتِهِ إِلَى مِلْكِيَّةِ صَاحِبِهِ أَوْ صِيَانَتِهِ مِنْ ضَيَاعٍ أَوْ تَلَفٍ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "اِسْتِرْدَاد"
+      entry_id: "{auto}"
+      root: "رد"
+      maqayis_quote: "«الرَّاءُ وَالدَّالُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ مُنْقَاسٌ، وَهُوَ رَجْعُ الشَّيْءِ. تَقُولُ: رَدَدْتُ الشَّيْءَ أَرُدُّهُ رَدًّا.»"
+    - lemma: "اِسْتِعَادَة"
+      entry_id: "{auto}"
+      root: "عود"
+      maqayis_quote: "«الْعَيْن ُ وَالْوَاوُ وَالدَّالُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى تَثْنِيَةٍ فِي الْأَمْرِ... هُوَ تَثْنِيَةُ الْأَمْرِ عَوْدًا بَعْدَ بَدْءٍ.»"
+    - lemma: "اِسْتِرْجَاع"
+      entry_id: "{auto}"
+      root: "رجع"
+      maqayis_quote: "«الرَّاءُ وَالْجِيمُ وَالْعَيْنُ أَصْلٌ كَبِيرٌ مُطَّرِدٌ مُنْقَاسٌ، يَدُلُّ عَلَى رَدٍّ وَتَكْرَارٍ. تَقُولُ: رَجَعَ يَرْجِعُ رُجُوعًا، إِذَا عَادَ.»"
+    - lemma: "إِنْقَاذ"
+      entry_id: "{auto}"
+      root: "نقذ"
+      maqayis_quote: "«النُّونُ وَالْقَافُ وَالذَّالُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى اسْتِخْلَاصِ شَيْءٍ. وَأَنْقَذْتُهُ مِنْهُ: خَلَّصْتُهُ.»"
+  per_sense:
+    - lemma: "اِسْتِرْدَاد"
+      sense_id: "{auto}"
+      nuance: "يركز على استرجاع الحق أو الملكية (قانونياً أو مالياً)."
+      mwe: false
+    - lemma: "اِسْتِعَادَة"
+      sense_id: "{auto}"
+      nuance: "يركز على إعادة الشيء لحالة سابقة أو وضع أصلي (ترميم)."
+      mwe: false
+    - lemma: "اِسْتِرْجَاع"
+      sense_id: "{auto}"
+      nuance: "يركز على عملية جلب المعلومات أو الموارد المخزنة أو المفقودة."
+      mwe: false
+    - lemma: "إِنْقَاذ"
+      sense_id: "{auto}"
+      nuance: "يركز على التخليص من خطر أو تلف وشيك."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"رد","maqayis":"«الرَّاءُ وَالدَّالُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ مُنْقَاسٌ، وَهُوَ رَجْعُ الشَّيْءِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عود","maqayis":"«الْعَيْن ُ وَالْوَاوُ وَالدَّالُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى تَثْنِيَةٍ فِي الْأَمْرِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"رجع","maqayis":"«الرَّاءُ وَالْجِيمُ وَالْعَيْنُ أَصْلٌ كَبِيرٌ مُطَّرِدٌ مُنْقَاسٌ، يَدُلُّ عَلَى رَدٍّ وَتَكْرَارٍ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نقذ","maqayis":"«النُّونُ وَالْقَافُ وَالذَّالُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى اسْتِخْلَاصِ شَيْءٍ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على استرجاع الحق أو الملكية (قانونياً أو مالياً).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على إعادة الشيء لحالة سابقة أو وضع أصلي (ترميم).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على عملية جلب المعلومات أو الموارد المخزنة أو المفقودة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على التخليص من خطر أو تلف وشيك.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-00046648-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-00046648-n"
+        score: 0.95

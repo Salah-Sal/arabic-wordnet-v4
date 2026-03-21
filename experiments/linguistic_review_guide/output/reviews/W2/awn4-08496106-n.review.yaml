@@ -1,0 +1,217 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي مقتضب جداً، يحتاج إلى صياغة معجمية أكثر دقة."
+    observations: "المجموعة تغطي المفهوم الجماعي لليهود كشعب أو ملة. المصطلحات الحالية صحيحة لكنها تفتقر للتشكيل التام."
+  blind_candidates:
+    - lemma: "يَهُود"
+      generation_method: majaz
+      justification: "اسم جنس جمعي يدل على الجماعة بصفة مطلقة."
+    - lemma: "بَنُو إِسْرَائِيلَ"
+      generation_method: tarkib
+      justification: "مصطلح تراثي وقرآني يعبر عنهم بصفة جماعية باعتبار النسب."
+    - lemma: "مَعْشَرُ اليَهُودِ"
+      generation_method: tarkib
+      justification: "المعشر تدل على الجماعة الذين أمرهم واحد، وتستخدم في السياقات الخطابية."
+    - lemma: "الجَالِيَةُ اليَهُودِيَّةُ"
+      generation_method: tarkib
+      justification: "مصطلح حديث يعبر عن الجماعات اليهودية المستقرة في مواطن مختلفة (الشتات)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "يهود"
+      confirm:
+        - text: "«اليَهود: بنو إسرائيل، وهم قوم موسى عليه السَّلام ويطلق عليهم العبرانيّون... أتباع الديانة اليهوديَّة»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«(الْيَهُود) قوم من أصل سامي قيل إِنَّهُم سموا كَذَلِك باسم يهوذا أحد أَبنَاء يَعْقُوب»"
+          source: "المعجم الوسيط"
+    - lemma: "الجالية اليهودية"
+      confirm:
+        - text: "«Jewry: (1) الجالية اليهودية [في بلدٍ ما] (2) الشعب اليهوديّ.»"
+          source: "المورد الحديث"
+    - lemma: "بنو إسرائيل"
+      confirm:
+        - text: "«بَنُو إسرائيل: من ينتسبون إلى إسرائيل هذا . وقد وردت هذه التسمية فى القرآن الكريم إحدى وأربعين مرة.»"
+          source: "المعجم الكبير"
+    - lemma: "الشعب اليهودي"
+      confirm:
+        - text: "«Jewry: ... (2) الشعب اليهوديّ.»"
+          source: "المورد الحديث"
+    - lemma: "معشر اليهود"
+      expands:
+        - text: "«مَعْشر: كل جماعة أمرهم وأحد، وأهل الرجل.»"
+          source: "موسوعة السلطان قابوس"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "يهود"
+      decision: confirmed
+      decision_reason: "الاسم الأساسي للجماعة في اللغة العربية، مدعوم بأدلة معجمية قوية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "يَهُود"
+    - lemma: "الجالية اليهودية"
+      decision: confirmed
+      decision_reason: "مصطلح معجمي حديث مستخدم للتعبير عن 'Jewry' خاصة في سياق المجتمعات المحلية أو الشتات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "الجَالِيَةُ اليَهُودِيَّةُ"
+    - lemma: "بَنُو إِسْرَائِيلَ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير مركب ثابت في اللغة العربية (تراثياً وحديثاً) للدلالة على اليهود كجماعة عرقية ودينية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "بَنُو إِسْرَائِيلَ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "الشَّعْبُ اليَهُودِيُّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح سياسي واجتماعي حديث يعبر عن الوحدة القومية أو التاريخية للجماعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "الشَّعْبُ اليَهُودِيُّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مَعْشر اليَهُود"
+      decision: removed
+      decision_reason: "تعبير وصفي عام لا يرتقي لكونه وحدة معجمية مسكوكة في هذا السياق مقارنة بالبدائل الأخرى."
+
+stage4_content:
+  definition:
+    current: "اليهود بصفة جماعية"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط؛ الأفضل استخدام صياغة معجمية تشمل الجانبين الديني والعرقي."
+    authored:
+      - type: terminological
+        text: "مجموع أتباع الديانة اليهودية أو الأشخاص الذين ينحدرون من أصل يهودي باعتبارهم وحدة اجتماعية أو دينية أو قومية."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مجموع أتباع الديانة اليهودية أو الأشخاص الذين ينحدرون من أصل يهودي باعتبارهم وحدة اجتماعية أو دينية أو قومية."}
+  examples:
+    per_lemma:
+      - lemma: "يَهُود"
+        examples:
+          - text: "يتوزع اليهود في مختلف أقطار العالم، ويحافظون على هويتهم الدينية."
+            type: usage
+      - lemma: "الجَالِيَةُ اليَهُودِيَّةُ"
+        examples:
+          - text: "تُعد الجالية اليهودية في نيويورك من أكبر الجاليات تأثيراً في المجتمع."
+            type: usage
+      - lemma: "بَنُو إِسْرَائِيلَ"
+        examples:
+          - text: "خاطب القرآن الكريم بني إسرائيل مذكراً إياهم بنعم الله عليهم."
+            type: usage
+      - lemma: "الشَّعْبُ اليَهُودِيُّ"
+        examples:
+          - text: "يتحدث المؤرخون عن التطورات التاريخية التي مر بها الشعب اليهودي عبر العصور."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يتوزع اليهود في مختلف أقطار العالم، ويحافظون على هويتهم الدينية."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "يَهُود"
+      entry_id: "{auto}"
+      root: "هود"
+      maqayis_quote: "«فَأَمَّا الْيَهُودُ فَمِنْ هَادَ يَهُودُ، إِذَا تَابَ هَوْدًا. وَسُمُّوا بِهِ لِأَنَّهُمْ تَابُوا عَنْ عِبَادَةِ الْعِجْلِ.»"
+    - lemma: "الجَالِيَةُ اليَهُودِيَّةُ"
+      entry_id: "{auto}"
+      roots:
+        - word: "جالية"
+          root: "جلو"
+          maqayis_quote: "«الْجِيمُ وَاللَّامُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ، وَهُوَ ظُهُورُ الشَّيْءِ وَوُضُوحُهُ.»"
+        - word: "يهودية"
+          root: "هود"
+          maqayis_quote: "«الْهَاءُ وَالْوَاوُ وَالدَّالُ: أَصْلٌ يَدُلُّ عَلَى إِرْوَادٍ وَسُكُونٍ.»"
+    - lemma: "بَنُو إِسْرَائِيلَ"
+      entry_id: "{auto}"
+      roots:
+        - word: "بنو"
+          root: "بني"
+          maqayis_quote: "«الْبَاءُ وَالنُّونُ وَالْيَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الشَّيْءُ يُبْنَى.»"
+        - word: "إسرائيل"
+          root: "أسرأيل"
+          maqayis_quote: "اسم أعجمي ممنوع من الصرف، معناه في العبرية (عبد الله) أو (يصارع الله)."
+    - lemma: "الشَّعْبُ اليَهُودِيُّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "الشعب"
+          root: "شعب"
+          maqayis_quote: "«الشِّينُ وَالْعَيْنُ وَالْبَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ تَفَرُّعُ الشَّيْءِ.»"
+        - word: "اليهودي"
+          root: "هود"
+          maqayis_quote: "«الْهَاءُ وَالْوَاوُ وَالدَّالُ: أَصْلٌ يَدُلُّ عَلَى إِرْوَادٍ وَسُكُونٍ.»"
+  per_sense:
+    - lemma: "يَهُود"
+      sense_id: "{auto}"
+      nuance: "الاسم العام والمجرد للجماعة ككل."
+      mwe: false
+    - lemma: "الجَالِيَةُ اليَهُودِيَّةُ"
+      sense_id: "{auto}"
+      nuance: "يركز على الجماعة المقيمة في بلد ما أو في الشتات."
+      mwe: true
+    - lemma: "بَنُو إِسْرَائِيلَ"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب العرقي والنسبي والتاريخي الديني."
+      mwe: true
+    - lemma: "الشَّعْبُ اليَهُودِيُّ"
+      sense_id: "{auto}"
+      nuance: "يركز على الوحدة السياسية والقومية في السياق الحديث."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"هود","maqayis":"«فَأَمَّا الْيَهُودُ فَمِنْ هَادَ يَهُودُ، إِذَا تَابَ هَوْدًا...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم العام والمجرد للجماعة ككل.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

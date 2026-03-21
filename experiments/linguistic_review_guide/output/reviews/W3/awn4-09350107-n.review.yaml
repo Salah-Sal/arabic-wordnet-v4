@@ -1,0 +1,148 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة تفتقر إلى التشكيل الكامل."
+      - "المصطلح جغرافي مخصص (اسم علم مكاني) ويحتاج إلى ضبط دقيق."
+    observations: "المجموعة تعبر عن كيان جغرافي محدد (خليج كوريا) الواقع في البحر الأصفر. اللمة الحالية صحيحة دلالياً ولكنها تحتاج إلى معالجة صرفية (تشكيل) وإضافة مرادفات شائعة."
+  blind_candidates:
+    - lemma: "خَلِيج كُورِيَا"
+      generation_method: tarkib
+      justification: "الترجمة المباشرة والأكثر شيوعاً للمصطلح الإنجليزي (Korea Bay) باستخدام الإضافة."
+    - lemma: "خَلِيج غَرْب كُورِيَا"
+      generation_method: tarkib
+      justification: "يُستخدم للتمييز عن خليج شرق كوريا، وهو المصطلح الأدق جغرافياً لهذا الموقع المحدد (West Korea Bay)."
+    - lemma: "خَلِيج كُورِيَا الغَرْبِيّ"
+      generation_method: tarkib
+      justification: "صيغة وصفية بديلة للتمييز الجغرافي."
+    - lemma: "جَوْن كُورِيَا"
+      generation_method: tarkib
+      justification: "استخدام 'جون' (inlet) كمرادف لخليج في السياقات الجغرافية الدقيقة، وإن كان أقل شيوعاً."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خَلِيج"
+      confirm:
+        - text: "«الخَلِيجُ: امتدادٌ من الماء متوغِّلٌ في اليابس.»"
+          source: "المعجم الوسيط"
+        - text: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"
+          source: "مقاييس اللغة"
+    - lemma: "البحر الأصفر"
+      confirm:
+        - text: "«البحر الأصفر (Yellow Sea)»"
+          source: "المكنز الزراعي متعدد اللغات"
+    - lemma: "كُورِيَا"
+      confirm:
+        - text: "«كَوْرِيّا: صورة كتابية صوتية... تستخدم للإناث [وللبلد].»"
+          source: "موسوعة السلطان قابوس"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "خليج كوريا"
+      decision: confirmed
+      decision_reason: "المصطلح الرسمي والشائع لهذا الكيان الجغرافي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَلِيج كُورِيَا"
+    - lemma: "خَلِيج غَرْب كُورِيَا"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف ضروري للتمييز بين هذا الخليج (في البحر الأصفر) وخليج شرق كوريا (في بحر اليابان)."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "خَلِيج غَرْب كُورِيَا", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09350107-n"}
+
+stage4_content:
+  definition:
+    current: "مدخل للبحر الأصفر بين شبه جزيرة لياودونغ في الصين وغرب كوريا"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد ولكنه يحتاج صياغة معجمية أكثر دقة وتحديداً للكيانات الجغرافية."
+    authored:
+      - type: encyclopedic
+        text: "خَلِيجٌ فِي البَحْرِ الأَصْفَرِ، يَقَعُ بَيْنَ شِبْهِ جَزِيرَةِ لِيَاودُونغ فِي الصِّينِ وَالساحِلِ الغَرْبِيِّ لِشِبْهِ جَزِيرَةِ كُورِيَا."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-09350107-n", definition_index: 0, text: "خَلِيجٌ فِي البَحْرِ الأَصْفَرِ، يَقَعُ بَيْنَ شِبْهِ جَزِيرَةِ لِيَاودُونغ فِي الصِّينِ وَالساحِلِ الغَرْبِيِّ لِشِبْهِ جَزِيرَةِ كُورِيَا."}
+  examples:
+    per_lemma:
+      - lemma: "خَلِيج كُورِيَا"
+        examples:
+          - text: "يُعدُّ خَلِيجُ كُورِيَا مَمَرًّا مَائِيًّا حَيَويًّا لِلتِّجَارَةِ بَيْنَ الصِّينِ وَكُورِيَا الشَّمَالِيَّةِ."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خَلِيج كُورِيَا"
+      entry_id: "{auto}"
+      roots:
+        - word: "خَلِيج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"
+        - word: "كُورِيَا"
+          root: null
+          maqayis_quote: "اسم عَلَم أعجمي (Korea)."
+    - lemma: "خَلِيج غَرْب كُورِيَا"
+      entry_id: "{auto}"
+      roots:
+        - word: "خَلِيج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"
+        - word: "غرب"
+          root: "غرب"
+          maqayis_quote: "«الغين والراء والباء أصلٌ صحيح يدلُّ على ذهابٍ وتنحٍّ.»"
+        - word: "كوريا"
+          root: null
+          maqayis_quote: "اسم عَلَم أعجمي (Korea)."
+  per_sense:
+    - lemma: "خَلِيج كُورِيَا"
+      sense_id: "{auto}"
+      nuance: "الاسم العام والمطلق للخليج."
+      mwe: true
+    - lemma: "خَلِيج غَرْب كُورِيَا"
+      sense_id: "{auto}"
+      nuance: "تسمية تمييزية تستخدم جغرافياً للتفريق بينه وبين خليج شرق كوريا."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"خَلِيج","root":"خلج","maqayis":"«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ...»"},{"word":"كُورِيَا","root":null,"maqayis":"اسم عَلَم أعجمي"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم العام والمطلق للخليج.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-09350107-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-09350107-n"
+        score: 0.95

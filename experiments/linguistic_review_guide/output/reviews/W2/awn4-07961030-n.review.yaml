@@ -1,0 +1,196 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمات الموجودة تفتقر إلى التشكيل الكامل.
+      - الحاجة إلى لمات إضافية تعبر عن القوة والإقدام بأسلوب أدبي رفيع.
+    observations: "المجموعة تعبر عن مفهوم 'الشجعان' كفئة من الناس. اللمات المقترحة هي جموع تكسير قياسية وسماعية تعبر عن هذا المعنى الجمعي."
+  blind_candidates:
+    - lemma: "شُجْعَان"
+      generation_method: ishtiqaq
+      justification: "الجمع القياسي لكلمة 'شجاع'، وهي الكلمة الأساسية المعبرة عن الشجاعة."
+    - lemma: "بَوَاسِل"
+      generation_method: ishtiqaq
+      justification: "جمع 'باسل'، ويستخدم بكثرة في الأدب العربي المعاصر لوصف الأبطال."
+    - lemma: "كُمَاة"
+      generation_method: ishtiqaq
+      justification: "مصطلح تراثي يعبر عن الشجعان المتسلحين، ويناسب السياق التاريخي والأدبي."
+    - lemma: "مَغَاوِير"
+      generation_method: ishtiqaq
+      justification: "جمع 'مغوار'، وتعبر عن الشجاعة المقترنة بالإقدام والمبادرة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "شُجْعَان"
+      confirm:
+        - text: "«الشَّجاعُ... الشديدُ القَلْبِ عندَ البأسِ، ج: ... شُجْعانٌ»"
+          source: "القاموس المحيط"
+        - text: "«الشجاع من قوى قلبه واشتد عند البأس»"
+          source: "موسوعة السلطان قابوس"
+    - lemma: "بَوَاسِل"
+      confirm:
+        - text: "«الباسل: الشجاع... يُقال: قَوْلٌ بَاسِلٌ وغَضَبٌ باسِلٌ»"
+          source: "المعجم الكبير"
+        - text: "«أجاز مجمع اللغة المصري جمع 'فاعل' - وصفاً لمذكر عاقل- على 'فواعل'... وقد ورد الجمع 'بواسل' في شعر أورده ديوان الحماسة»"
+          source: "معجم الصواب اللغوي"
+    - lemma: "كُمَاة"
+      confirm:
+        - text: "«الكَمِيُّ: الشجاع المُتَكَمِّي في سِلاحه لأَنه كَمَى نفسه أَي ستَرها بالدِّرع والبَيْضة، والجمع الكُماة»"
+          source: "لسان العرب"
+    - lemma: "مَغَاوِير"
+      confirm:
+        - text: "«المغوار: الكرار الكثير الغارات، وهو من صفات الشجاعة»"
+          source: "المعجم الوسيط (مستخلص من مادة غور)"
+    - lemma: "صَنَادِيد"
+      confirm:
+        - text: "«الصِّنْدِيدُ، وَهُوَ السَّيِّدُ الشَّرِيفُ الشجاع، وَالْجَمْعُ: صَنَادِيدُ.»"
+          source: "مقاييس اللغة"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "شجعان"
+      decision: confirmed
+      decision_reason: "الكلمة الأساسية والأكثر شيوعاً للتعبير عن الشجعان كفئة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "شُجْعَان"
+    - lemma: "بواسل"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح وشائع الاستخدام، وله شواهد شعرية ومعجمية تدعم استخدامه للجمع."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "بَوَاسِل"
+    - lemma: "مَغَاوِير"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تضيف بعداً دلالياً يتعلق بالإقدام والمبادرة في القتال."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَغَاوِير", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-07961030-n"}
+    - lemma: "كُمَاة"
+      source: stage1
+      decision: removed
+      decision_reason: "رغم فصاحتها، إلا أنها متخصصة في وصف المحاربين المتسلحين وقد لا تناسب المعنى العام لـ 'brave people' في سياقات معاصرة."
+    - lemma: "صَنَادِيد"
+      decision: confirmed
+      decision_reason: "تعبر عن الشجعان ذوي المكانة والسيادة، وهي من الكلمات الجزلة في العربية."
+      evidence_assessment:
+        case: confirm_only
+      actions:
+        - command: create_entry
+          params: {lemma: "صَنَادِيد", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-07961030-n"}
+
+stage4_content:
+  definition:
+    current: "الناس الذين يتصفون بالشجاعة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي بسيط جداً؛ يفضل استخدام صياغة أكثر دقة تعبر عن الجرأة والإقدام."
+    authored:
+      - type: linguistic
+        text: "جماعة من الناس ممن عُرفوا بالجرأة والإقدام في مواجهة المخاطر والشدائد."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-07961030-n", definition_index: 0, text: "جماعة من الناس ممن عُرفوا بالجرأة والإقدام في مواجهة المخاطر والشدائد."}
+  examples:
+    per_lemma:
+      - lemma: "شُجْعَان"
+        examples:
+          - text: "كرم القائد الشجعان الذين صمدوا في وجه العدو."
+            type: usage
+      - lemma: "بَوَاسِل"
+        examples:
+          - text: "انطلق الجنود البواسل لتحرير المدينة."
+            type: usage
+      - lemma: "مَغَاوِير"
+        examples:
+          - text: "تقدم المغاوير الصفوف الأولى في المعركة."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-07961030-n", text: "يحتفي التاريخ بذكرى الشجعان الذين ضحوا من أجل أوطانهم."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "شُجْعَان"
+      entry_id: "{auto}"
+      root: "شجع"
+      maqayis_quote: "«الشِّينُ وَالْجِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى جُرْأَةٍ وَإِقْدَامٍ...»"
+    - lemma: "بَوَاسِل"
+      entry_id: "{auto}"
+      root: "بسل"
+      maqayis_quote: "«الْبَاءُ وَالسِّينُ وَاللَّامُ أَصْلٌ وَاحِدٌ... وَهُوَ الْمَنْعُ وَالْحَبْسُ... وَالْبَسَالَةُ الشَّجَاعَةُ مِنْ هَذَا; لِأَنَّهَا الِامْتِنَاعُ عَلَى الْقِرْنِ.»"
+    - lemma: "مَغَاوِير"
+      entry_id: "{auto}"
+      root: "غور"
+      maqayis_quote: "«الْغَيْنُ وَالْوَاوُ وَالرَّاءُ أَصْلَانِ صَحِيحَانِ... وَالْأَصْلُ الْآخَرُ إِقْدَامٌ عَلَى أَخْذِ مَالٍ قَهْرًا أَوْ حَرَبًا... يُقَالُ: أَغَارَ بَنُو فُلَانٍ عَلَى بَنِي فُلَانٍ إِغَارَةً وَغَارَةً.»"
+    - lemma: "صَنَادِيد"
+      entry_id: "{auto}"
+      root: "صند"
+      maqayis_quote: "«الصَّادُ وَالنُّونُ وَالدَّالُ أَصْلٌ صَحِيحٌ، يَدُلُّ عَلَى عِظَمِ قَدْرٍ وَعِظَمِ جِسْمٍ. مِنْ ذَلِكَ الصِّنْدِيدُ، وَهُوَ السَّيِّدُ الشَّرِيفُ.»"
+  per_sense:
+    - lemma: "شُجْعَان"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام والأكثر تجرداً لوصف فئة الشجعان."
+      mwe: false
+    - lemma: "بَوَاسِل"
+      sense_id: "{auto}"
+      nuance: "تضفي صبغة أدبية وتوحي بصلابة الموقف وعدم الاستسلام (من المنع)."
+      mwe: false
+    - lemma: "مَغَاوِير"
+      sense_id: "{auto}"
+      nuance: "توحي بكثرة الإغارة والجرأة في الهجوم والمبادرة."
+      mwe: false
+    - lemma: "صَنَادِيد"
+      sense_id: "{auto}"
+      nuance: "تجمع بين الشجاعة وعظم القدر والسيادة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"شجع","maqayis":"«الشِّينُ وَالْجِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى جُرْأَةٍ وَإِقْدَامٍ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ العام والأكثر تجرداً لوصف فئة الشجعان.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-07961030-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-07961030-n"
+        score: 0.95

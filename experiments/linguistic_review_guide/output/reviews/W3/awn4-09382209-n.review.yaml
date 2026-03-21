@@ -1,0 +1,134 @@
+# ═══════════════════════════════════════════════════════════════
+# AWN4 Gemini Review Pipeline v2 (5-Stage) - Output for awn4-09382209-n
+# ═══════════════════════════════════════════════════════════════
+
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الحالية تفتقر إلى التشكيل الكامل."
+      - "التعريف الحالي ترجمة حرفية للتعريف الإنجليزي ويحتاج إلى صياغة معجمية أفضل."
+    observations: "المجموعة تمثل علماً جغرافياً (Proper Noun) لمكان محدد في أستراليا. اللمة المستخدمة هي التعريب القياسي للاسم، والتعريف يحدد الموقع الجغرافي بدقة."
+  blind_candidates:
+    - lemma: "خَلِيجُ مُورِيتُون"
+      generation_method: tarkib
+      justification: "التعريب المباشر للاسم الإنجليزي (Moreton Bay) باستخدام صيغة الإضافة."
+    - lemma: "جَوْنُ مُورِيتُون"
+      generation_method: tarkib
+      justification: "استخدام 'جون' كبديل دقيق لـ 'bay' في المصطلحات الجغرافية، وإن كان 'خليج' أكثر شيوعاً."
+    - lemma: "خَلِيجُ مُورْتُون"
+      generation_method: tarkib
+      justification: "تنويع في تعريب اسم العلم (Moreton) بحذف الياء الزائدة."
+    - lemma: "مُورِيتُون بَاي"
+      generation_method: taarib
+      justification: "التعريب الصوتي الكامل للاسم كما هو في الإنجليزية، ويستخدم أحياناً في النصوص السياحية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خليج موريتون"
+      evidence_status: "no_material_found"
+    - lemma: "موريتون"
+      evidence_status: "no_material_found"
+    - lemma: "بحر تسمان"
+      confirm:
+        - text: "بحر تسمان (Tasman Sea)"
+          source: "المكنز الزراعي متعدد اللغات (AGROVOC)"
+    - lemma: "خليج"
+      confirm:
+        - text: "«الخَلِيجُ: ماءٌ يميلُ ميلةً عن معظمِ الماءِ فيستقرُّ.»"
+          source: "مقاييس اللغة"
+        - text: "«الخَلِيجُ: شُعبةٌ من البحرِ تنفذُ في البرِّ.»"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "خليج موريتون"
+      decision: confirmed
+      decision_reason: "الاسم الجغرافي المعتمد والشائع في اللغة العربية لهذا الموقع."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَلِيجُ مُورِيتُون"
+
+stage4_content:
+  definition:
+    current: "ذراع من بحر تسمان يشكل خليجاً إلى الشرق من بريسبان"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ترجمة حرفية؛ يفضل إضافة تحديد الدولة (أستراليا) وتعديل الصياغة لتكون أكثر معجمية."
+    authored:
+      - type: encyclopedic
+        text: "خَلِيجٌ بَحْرِيٌّ فِي كْوِينْزْلَانْد بِأُسْتُرَالِيَا، يَقَعُ فِي بَحْرِ تَسْمَان إِلَى الشَّرْقِ مِنْ مَدِينَةِ بْرِيسْبَان."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "خَلِيجٌ بَحْرِيٌّ فِي كْوِينْزْلَانْد بِأُسْتُرَالِيَا، يَقَعُ فِي بَحْرِ تَسْمَان إِلَى الشَّرْقِ مِنْ مَدِينَةِ بْرِيسْبَان."
+
+  examples:
+    per_lemma:
+      - lemma: "خليج موريتون"
+        examples:
+          - text: "تُعَدُّ جَزِيرَةُ مُورِيتُون إِحْدَى أَهَمِّ المَعَالِمِ السِّيَاحِيَّةِ فِي خَلِيجِ مُورِيتُون بِأُسْتُرَالِيَا."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "تُعَدُّ جَزِيرَةُ مُورِيتُون إِحْدَى أَهَمِّ المَعَالِمِ السِّيَاحِيَّةِ فِي خَلِيجِ مُورِيتُون بِأُسْتُرَالِيَا."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خَلِيجُ مُورِيتُون"
+      entry_id: "{auto}"
+      roots:
+        - word: "خليج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"
+        - word: "موريتون"
+          root: "اسم علم"
+          maqayis_quote: "اسم علم أعجمي معرب."
+
+  per_sense:
+    - lemma: "خَلِيجُ مُورِيتُون"
+      sense_id: "{auto}"
+      nuance: "اسم علم جغرافي محدد."
+      mwe: true
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"خليج","root":"خلج","maqayis":"«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"},{"word":"موريتون","root":"اسم علم","maqayis":"اسم علم أعجمي معرب."}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اسم علم جغرافي محدد.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

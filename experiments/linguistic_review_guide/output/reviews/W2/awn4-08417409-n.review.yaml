@@ -1,0 +1,217 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'مجموعة' عامة جداً وهي في الواقع مرادف للمجموعة الأعلى (hypernym)."
+      - "اللمة 'دفعة' مناسبة جداً لكنها تفتقر للتشكيل في البيانات الحالية."
+    observations: "المفهوم يشير إلى 'الدُفعة' (Batch) التي تُعامل كوحدة واحدة، سواء كانت أشخاصاً أو أشياء. المصطلحات العربية غنية بالتخصيص حسب طبيعة المجموعة (أشخاص: فوج، أشياء: حزمة، أدوات متكاملة: طقم)."
+  blind_candidates:
+    - lemma: "دُفْعَة"
+      generation_method: ishtiqaq
+      justification: "من الجذر (دفع)، وهي المصطلح القياسي للمجموعة التي تُعامل أو تخرج معاً (مثل دُفعة خريجين أو دُفعة إنتاج)."
+    - lemma: "فَوْج"
+      generation_method: ishtiqaq
+      justification: "للإشارة إلى الدُفعة من الناس التي تتحرك أو تُعامل معاً."
+    - lemma: "حُزْمَة"
+      generation_method: ishtiqaq
+      justification: "للمجموعة من الأشياء (أو البيانات) التي تُجمع وتُربط لتُعامل كوحدة."
+    - lemma: "طَقْم"
+      generation_method: taarib
+      justification: "للمجموعة المتكاملة من الأدوات أو الأشياء التي تُستخدم لغرض واحد وتُعامل معاً."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "دُفْعَة"
+      confirm:
+        - text: "«الدُّفعة من الشيء: المجموعة التي تشترك في شيء يجمعها فيقال: دُفعة من المطر، ودفعة من الخريجين.»"
+          source: "معجم الصواب اللغوي"
+        - text: "«مجموعة من الوثائق، أو تسجيلات المعطيات، التي تجري معالجتها كوحدة.»"
+          source: "معجم مصطلحات المعلوماتية"
+    - lemma: "مَجْمُوعَة"
+      confirm:
+        - text: "«لفظ عام يطلق على مجموع عناصر منسجمة تكون وحدة مثل مجموعة المحارف ومجموعة التعليمات وغيرهما»"
+          source: "المعجم الموحد لمصطلحات تقانة المعلومات"
+    - lemma: "فَوْج"
+      confirm:
+        - text: "«جماعة من الناس تأتي في وقت واحد (عاد الفوج الأول من الحجّاج)»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "حُزْمَة"
+      confirm:
+        - text: "«تجميع منظم لمجموعة من العناصر.»"
+          source: "المعجم الموحد لمصطلحات اللسانيات"
+        - text: "«مجموعة من البيانات حجمها ثابت ونمطها معروف، ترسل كوحدة مركبة خلال شبكة تبديل حزمي.»"
+          source: "مسرد التربية (ArabTerm)"
+    - lemma: "طَقْم"
+      confirm:
+        - text: "«مجموعة متكاملة من الأدوات تستعمل في أغراض خاصة (مج)»"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "دفعة"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي ومباشر للمفهوم، خاصة في السياقات التقنية والتعليمية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "دُفْعَة"
+    - lemma: "مجموعة"
+      decision: confirmed
+      decision_reason: "رغم عموميته، إلا أنه مستخدم بكثرة كمرادف ثانوي في هذا السياق."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَجْمُوعَة"
+    - lemma: "فَوْج"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يغطي جانب 'الأشخاص' في التعريف (batch of persons) بشكل دقيق."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "فَوْج", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-08417409-n"}
+    - lemma: "حُزْمَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يغطي جانب 'الأشياء' والبيانات التي تُعامل كوحدة واحدة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "حُزْمَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-08417409-n"}
+    - lemma: "طَقْم"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مفيد للمجموعات المتكاملة من الأشياء (مثل طقم أدوات أو طقم برامج)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "طَقْم", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-08417409-n"}
+
+stage4_content:
+  definition:
+    current: "مجموعة من الأشياء أو الأشخاص يتم التعامل معهم معًا"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي بسيط جداً، ويفضل صياغته بأسلوب معجمي يبرز فكرة 'الوحدة الواحدة' و'الوقت الواحد'."
+    authored:
+      - type: terminological
+        text: "كمية من المواد أو مجموعة من الأشخاص يتم تجهيزهم أو التعامل معهم كوحدة واحدة في وقت واحد."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-08417409-n", definition_index: 0, text: "كمية من المواد أو مجموعة من الأشخاص يتم تجهيزهم أو التعامل معهم كوحدة واحدة في وقت واحد."}
+  examples:
+    per_lemma:
+      - lemma: "دُفْعَة"
+        examples:
+          - text: "تمت معالجة دُفعة جديدة من البيانات في ساعة متأخرة."
+            type: usage
+          - text: "تخرجت دُفعة عام 2025 من كلية الهندسة."
+            type: usage
+      - lemma: "فَوْج"
+        examples:
+          - text: "وصل الفوج الأول من السائحين إلى المدينة الأثرية."
+            type: usage
+      - lemma: "حُزْمَة"
+        examples:
+          - text: "أرسل الخادم حُزمة من الوثائق عبر الشبكة."
+            type: usage
+      - lemma: "طَقْم"
+        examples:
+          - text: "اشترى النجار طقماً جديداً من أدوات النحت."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-08417409-n", text: "يتم فحص المنتجات في دُفعات لضمان جودتها."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "دُفْعَة"
+      entry_id: "{auto}"
+      root: "دفع"
+      maqayis_quote: "«الدَّالُ وَالْفَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ مَشْهُورٌ، يَدُلُّ عَلَى تَنْحِيَةِ الشَّيْءِ... وَالدُّفْعَةُ مِنَ الْمَطَرِ وَالدَّمِ وَغَيْرِهِ.»"
+    - lemma: "مَجْمُوعَة"
+      entry_id: "{auto}"
+      root: "جمع"
+      maqayis_quote: "«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ.»"
+    - lemma: "فَوْج"
+      entry_id: "{auto}"
+      root: "فوج"
+      maqayis_quote: "«الْفَاءُ وَالْوَاوُ وَالْجِيمُ كَلِمَةٌ تَدُلُّ عَلَى تَجَمُّعٍ. مِنْ ذَلِكَ الْفَوْجُ، الْجَمَاعَةُ مِنَ النَّاسِ.»"
+    - lemma: "حُزْمَة"
+      entry_id: "{auto}"
+      root: "حزم"
+      maqayis_quote: "«الْحَاءُ وَالزَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ، وَهُوَ شَدُّ الشَّيْءِ وَجَمْعُهُ، قِيَاسٌ مُطَّرِدٌ... وَالْحُزْمَةُ مِنَ الْحَطَبِ وَغَيْرِهِ مَعْرُوفَةٌ.»"
+    - lemma: "طَقْم"
+      entry_id: "{auto}"
+      root: "طقم"
+  per_sense:
+    - lemma: "دُفْعَة"
+      sense_id: "{auto}"
+      nuance: "تُستخدم للمجموعات التي تُعالج أو تُطلق أو تخرج معاً (سياق تقني أو تعليمي)."
+      mwe: false
+    - lemma: "فَوْج"
+      sense_id: "{auto}"
+      nuance: "مخصصة لمجموعات الأشخاص التي تتحرك أو تتوارد في أوقات محددة."
+      mwe: false
+    - lemma: "حُزْمَة"
+      sense_id: "{auto}"
+      nuance: "تشير إلى الأشياء المربوطة أو المجمعة مادياً أو رقمياً لتُعامل ككتلة."
+      mwe: false
+    - lemma: "طَقْم"
+      sense_id: "{auto}"
+      nuance: "تشير إلى مجموعة أدوات أو أشياء متكاملة ومكملة لبعضها البعض."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"دفع","maqayis":"«الدَّالُ وَالْفَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ مَشْهُورٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تُستخدم للمجموعات التي تُعالج أو تُطلق أو تخرج معاً.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-08417409-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-08417409-n"
+        score: 0.95

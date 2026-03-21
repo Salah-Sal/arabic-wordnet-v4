@@ -1,0 +1,218 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي ميكانيكي ومبسط بشكل كبير."
+      - "نقص المصطلحات العلمية الدقيقة للمجموعة (مثل تماس ومماسة)."
+    observations: "المجموعة تغطي المفهوم الفيزيائي والحسي للاتصال بين جسمين. اللمات الموجودة صحيحة ولكنها تحتاج لضبط بالشكل وإغناء بمصطلحات أكثر دقة."
+  blind_candidates:
+    - lemma: "لَمْس"
+      generation_method: ishtiqaq
+      justification: "المصدر الصريح للفعل لمس، وهو المفهوم الأساسي في المجموعة."
+    - lemma: "تَلَامُس"
+      generation_method: ishtiqaq
+      justification: "يدل على التفاعل التشاركي بين جسمين في الاتصال."
+    - lemma: "تَمَاسّ"
+      generation_method: ishtiqaq
+      justification: "مصطلح علمي وفيزيائي شائع للتعبير عن نقطة أو حالة الاتصال."
+    - lemma: "مُمَاسَّة"
+      generation_method: ishtiqaq
+      justification: "مصطلح دقيق في المعاجم يعبر عن ملاقاة الجرمين بلا حائل."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "لَمْس"
+      confirm:
+        - text: "«أصل اللمس باليد ليعرف مس الشيء»"
+          source: "المصباح المنير"
+        - text: "«اللمس: هو قوة منبثة في جميع البدن تدرك بها الحرارة والبرودة... عند التماس والاتصال به»"
+          source: "كتاب التعريفات"
+    - lemma: "تَلَامُس"
+      confirm:
+        - text: "«تلامس الشيئان: تماسَّا 'باعد بين الأسلاك الكهربائية منعاً لتلامسها'»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "تَمَاسّ"
+      confirm:
+        - text: "«تماس: contact»"
+          source: "المعجم الموحد للمصطلحات الفيزيائية"
+        - text: "«الجرمان: مس أحدهما الآخر»"
+          source: "المعجم الوسيط"
+        - text: "«الملاقاة بحسب اللمس»"
+          source: "دستور العلماء"
+    - lemma: "مُمَاسَّة"
+      confirm:
+        - text: "«المماسة: ملاقاة الجرمين بلا حائل بينهما»"
+          source: "التوقيف على مهمات التعاريف"
+        - text: "«المماسة باليد، كالللمس»"
+          source: "تاج العروس"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تلامس"
+      decision: confirmed
+      decision_reason: "مصطلح دقيق يعبر عن الفعل التبادلي للاتصال، وهو شائع الاستخدام في السياقات التقنية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَلَامُس"
+    - lemma: "لمس"
+      decision: confirmed
+      decision_reason: "المصطلح الأساسي والأكثر شيوعاً للفعل الحسي والحركي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "لَمْس"
+    - lemma: "تَمَاسّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فيزيائي وعلمي ضروري للمجموعة يعبر عن حالة الاتصال بين الأجسام."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "تَمَاسّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-00047263-n"
+    - lemma: "مُمَاسَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح معجمي دقيق يعبر عن الاتصال المباشر دون فاصل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُمَاسَّة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-00047263-n"
+
+stage4_content:
+  definition:
+    current: "فعل وضع شيئين معاً دون وجود مسافة بينهما"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي صياغته ضعيفة وميكانيكية."
+    authored:
+      - type: terminological
+        text: "مُلاَقاةُ جِسْمٍ لآخَرَ بِحَيْثُ لاَ يَكُونُ بَيْنَهُما فاصِلٌ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-00047263-n"
+          definition_index: 0
+          text: "مُلاَقاةُ جِسْمٍ لآخَرَ بِحَيْثُ لاَ يَكُونُ بَيْنَهُما فاصِلٌ."
+  examples:
+    per_lemma:
+      - lemma: "لَمْس"
+        examples:
+          - text: "كَانَ لَمْسُ القُمَاشِ الحَرِيرِيِّ يُشْعِرُهُ بِالرَّاحَةِ."
+            type: usage
+      - lemma: "تَلَامُس"
+        examples:
+          - text: "يُؤَدِّي تَلَامُسُ الأَسْلَاكِ المَكْشُوفَةِ إِلَى حُدُوثِ مَاسٍّ كَهْرَبَائِيٍّ."
+            type: usage
+      - lemma: "تَمَاسّ"
+        examples:
+          - text: "نُقْطَةُ التَّمَاسِّ بَيْنَ السَّطْحَيْنِ تَزِيدُ مِنْ قُوَّةِ الاحْتِكَاكِ."
+            type: usage
+      - lemma: "مُمَاسَّة"
+        examples:
+          - text: "المُمَاسَّةُ بَيْنَ السَّطْحَيْنِ تَزِيدُ مِنْ قُوَّةِ الاحْتِكَاكِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "awn4-00047263-n"
+          text: "مَنَعَ المُهَنْدِسُ تَلَامُسَ القُطْبَيْنِ لِتَفادِي تَعَطُّلِ الدَّائِرَةِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "لَمْس"
+      entry_id: "{auto}"
+      root: "لمس"
+      maqayis_quote: "«اللَّامُ وَالْمِيمُ وَالسِّينُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَطَلُّبِ شَيْءٍ وَمَسِيسِهِ أَيْضًا.»"
+    - lemma: "تَلَامُس"
+      entry_id: "{auto}"
+      root: "لمس"
+      maqayis_quote: "«اللَّامُ وَالْمِيمُ وَالسِّينُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَطَلُّبِ شَيْءٍ وَمَسِيسِهِ أَيْضًا.»"
+    - lemma: "تَمَاسّ"
+      entry_id: "{auto}"
+      root: "مسس"
+      maqayis_quote: "«الْمِيمُ وَالسِّينُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى جَسِّ الشَّيْءِ بِالْيَدِ.»"
+    - lemma: "مُمَاسَّة"
+      entry_id: "{auto}"
+      root: "مسس"
+      maqayis_quote: "«الْمِيمُ وَالسِّينُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى جَسِّ الشَّيْءِ بِالْيَدِ.»"
+  per_sense:
+    - lemma: "لَمْس"
+      sense_id: "{auto}"
+      nuance: "يدل على الفعل الحسي أو الحركي باليد غالباً، وله دلالة إدراكية."
+      mwe: false
+    - lemma: "تَلَامُس"
+      sense_id: "{auto}"
+      nuance: "يدل على هيئة أو فعل الاتصال التشاركي بين سطحي جسمين."
+      mwe: false
+    - lemma: "تَمَاسّ"
+      sense_id: "{auto}"
+      nuance: "مصطلح مجرد أو علمي يعبر عن حالة التلاقي الفيزيائي."
+      mwe: false
+    - lemma: "مُمَاسَّة"
+      sense_id: "{auto}"
+      nuance: "مصطلح معجمي وفني يعبر عن الملاقاة المباشرة بين جرمين."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"لمس","maqayis":"«اللَّامُ وَالْمِيمُ وَالسِّينُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَطَلُّبِ شَيْءٍ وَمَسِيسِهِ أَيْضًا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"مسس","maqayis":"«الْمِيمُ وَالسِّينُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى جَسِّ الشَّيْءِ بِالْيَدِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يدل على الفعل الحسي أو الحركي باليد غالباً، وله دلالة إدراكية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-00047263-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-00047263-n"
+        score: 0.95

@@ -1,0 +1,224 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة صحيحة، ولكن ينقصها بعض المترادفات المسكوكة التي تعبر عن الصفة الجماعية (Collective) بشكل أقوى في السياق القانوني الرسمي."
+    observations: "المفهوم يشير إلى الكيان القانوني الممثل للمتهم، وهو مفهوم حديث نسبياً في صياغته الاصطلاحية، ويعتمد غالباً على التراكيب الإضافية (فريق، هيئة، جهة) أو النقل الدلالي للمصدر (الدفاع)."
+  blind_candidates:
+    - lemma: "فَرِيقُ الدِّفَاعِ"
+      generation_method: tarkib
+      justification: "تركيب إضافي شائع جداً في الصحافة والقانون للتعبير عن مجموعة المحامين والمستشارين."
+    - lemma: "الدِّفَاعُ"
+      generation_method: majaz
+      justification: "استخدام المصدر (الدفاع) للتعبير عن القائم به (المتهم ومحاموه) من باب المجاز المرسل (إطلاق المصدر على الفاعل)."
+    - lemma: "جِهَةُ الدِّفَاعِ"
+      generation_method: tarkib
+      justification: "مصطلح قانوني رسمي يستخدم لتمييز طرف المتهم عن طرف الادعاء."
+    - lemma: "هَيْئَةُ الدِّفَاعِ"
+      generation_method: tarkib
+      justification: "يعبر عن التشكيل الجماعي المنظم للمستشارين القانونيين."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "الدِّفَاع"
+      confirm:
+        - text: "«في القَضَاء: إجـراءاتٌ تَصدُرُ عن المُتَّهمِ أو مُمَثِّلِه، دحْضًا للاتِّهامِ الموجَّهِ إليه»"
+          source: "المعجم الكبير"
+      expands:
+        - text: "«ما يتقدم به أو يعرضه المرفوعة ضده دعوى من دفوع ومطالبات ومرافعات»"
+          source: "المعجم الموحد لمصطلحات القانون"
+    - lemma: "فَرِيقُ الدِّفَاعِ"
+      confirm:
+        - text: "«مجموعة القتال: وحدة عسكريّة مكوّنة من خمس سرايا» (قياساً على استخدام 'فريق' و 'مجموعة' للوحدات البشرية المنظمة)."
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "هَيْئَةُ الدِّفَاعِ"
+      confirm:
+        - text: "«هيئة: جماعة من النَّاس يُعهد إليها بعملٍ خاصّ»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "جِهَةُ الدِّفَاعِ"
+      confirm:
+        - text: "«جهة: جانب، ناحية»"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "الدِّفَاع"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي وشائع، يستخدم كاسم جماعي في المحاكم (نادى الحاجب على الدفاع)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "الدِّفَاع"
+    - lemma: "فَرِيقُ الدِّفَاعِ"
+      decision: confirmed
+      decision_reason: "تعبير مركب دقيق يصف المجموعة البشرية (المتهم والمحامين) كوحدة واحدة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "فَرِيقُ الدِّفَاعِ"
+    - lemma: "هَيْئَةُ الدِّفَاعِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فني رسمي يستخدم لوصف كيان المحامين المشكل للدفاع عن قضية ما."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "هَيْئَةُ الدِّفَاعِ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-08081359-n"
+    - lemma: "جِهَةُ الدِّفَاعِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يستخدم بكثرة في المحاضر القانونية للتمييز بين الأطراف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "جِهَةُ الدِّفَاعِ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-08081359-n"
+
+stage4_content:
+  definition:
+    current: "المتهم ومستشاروه القانونيون مجتمعين"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دقيق لكن يمكن صياغته بأسلوب معجمي يبرز الدور الوظيفي للكيان الجماعي."
+    authored:
+      - type: terminological
+        text: "الكيان القانوني الذي يمثل المتهم في الخصومة القضائية، ويضم المتهم ومحاميه ومستشاريه بصفتهم طرفاً واحداً يسعى لدحض الاتهام."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-08081359-n"
+          definition_index: 0
+          text: "الكيان القانوني الذي يمثل المتهم في الخصومة القضائية، ويضم المتهم ومحاميه ومستشاريه بصفتهم طرفاً واحداً يسعى لدحض الاتهام."
+  examples:
+    per_lemma:
+      - lemma: "الدِّفَاع"
+        examples:
+          - text: "استمعت المحكمة إلى مرافعة الدفاع الختامية قبل النطق بالحكم."
+            type: usage
+      - lemma: "فَرِيقُ الدِّفَاعِ"
+        examples:
+          - text: "قدم فريق الدفاع أدلة جديدة تثبت براءة المتهم من التهمة المنسوبة إليه."
+            type: usage
+      - lemma: "هَيْئَةُ الدِّفَاعِ"
+        examples:
+          - text: "قررت هيئة الدفاع الانسحاب من الجلسة احتجاجاً على الإجراءات."
+            type: usage
+      - lemma: "جِهَةُ الدِّفَاعِ"
+        examples:
+          - text: "طلبت جهة الدفاع مهلة إضافية للاطلاع على تقرير الخبير."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "awn4-08081359-n"
+          text: "طالبت جهة الدفاع بتأجيل الجلسة لحين حضور الشهود."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "الدِّفَاع"
+      entry_id: "{auto}"
+      root: "دفع"
+      maqayis_quote: "«الدَّالُ وَالْفَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ مَشْهُورٌ، يَدُلُّ عَلَى تَنْحِيَةِ الشَّيْءِ. يُقَالُ دَفَعْتُ الشَّيْءَ أَدْفَعُهُ دَفْعًا. وَدَافَعَ اللَّهُ عَنْهُ السُّوءَ دِفَاعًا.»"
+    - lemma: "فَرِيقُ الدِّفَاعِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "فريق"
+          root: "فرق"
+          maqayis_quote: "«الْفَاءُ وَالرَّاءُ وَالْقَافُ أُصَيْلٌ صَحِيحٌ يَدُلُّ عَلَى تَمْيِيزٍ وَتَزْيِيلٍ بَيْنَ شَيْئَيْنِ. وَالْفَارِقُ مِنَ النَّاسِ: الَّذِي يَفْرِقُ بَيْنَ الْأُمُورِ، يَفْصِلُهَا.»"
+        - word: "دفاع"
+          root: "دفع"
+          maqayis_quote: "«الدَّالُ وَالْفَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ مَشْهُورٌ، يَدُلُّ عَلَى تَنْحِيَةِ الشَّيْءِ.»"
+    - lemma: "هَيْئَةُ الدِّفَاعِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "هيئة"
+          root: "هيأ"
+          maqayis_quote: "«الْهَاءُ وَالْيَاءُ وَالْهَمْزَةُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى حُسْنِ تَقْدِيرِ الشَّيْءِ.»"
+        - word: "دفاع"
+          root: "دفع"
+          maqayis_quote: "«الدَّالُ وَالْفَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ مَشْهُورٌ، يَدُلُّ عَلَى تَنْحِيَةِ الشَّيْءِ.»"
+    - lemma: "جِهَةُ الدِّفَاعِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "جهة"
+          root: "وجه"
+          maqayis_quote: "«الْوَاوُ وَالْجِمُ وَالْهَاءُ: أَصْلٌ وَاحِدٌ، وَهُوَ مُواجَهَةُ الشَّيْءِ. وَالْوَجْهُ: مُسْتَقْبِلُ كُلِّ شَيْءٍ.»"
+        - word: "دفاع"
+          root: "دفع"
+          maqayis_quote: "«الدَّالُ وَالْفَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ مَشْهُورٌ، يَدُلُّ عَلَى تَنْحِيَةِ الشَّيْءِ.»"
+  per_sense:
+    - lemma: "الدِّفَاع"
+      sense_id: "{auto}"
+      nuance: "اللفظ الأكثر تجريداً وشمولاً، يستخدم للإشارة إلى الطرف ككل (The Defense) من باب المجاز."
+      mwe: false
+    - lemma: "فَرِيقُ الدِّفَاعِ"
+      sense_id: "{auto}"
+      nuance: "يركز على تكامل المحامين والمستشارين كفريق عمل واحد (Defense Team)."
+      mwe: true
+    - lemma: "هَيْئَةُ الدِّفَاعِ"
+      sense_id: "{auto}"
+      nuance: "يركز على الصفة الرسمية والتنظيمية للمجموعة (Defense Body/Council)."
+      mwe: true
+    - lemma: "جِهَةُ الدِّفَاعِ"
+      sense_id: "{auto}"
+      nuance: "يبرز الموقع القانوني كطرف مقابل لجهة الادعاء (Defense Side)."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"دفع","maqayis":"«الدَّالُ وَالْفَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ مَشْهُورٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ الأكثر تجريداً وشمولاً، يستخدم للإشارة إلى الطرف ككل (The Defense) من باب المجاز.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-08081359-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-08081359-n"
+        score: 0.95

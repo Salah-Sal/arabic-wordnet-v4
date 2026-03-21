@@ -1,0 +1,300 @@
+# ═══════════════════════════════════════════════════════════════
+# مراجعة المجموعة الترادفية — AWN4 Review Pipeline v2 (5-Stage)
+# synset_id : awn4-10845956-n
+# ili       : i94341
+# pos       : n
+# date      : 2026-03-21
+# ═══════════════════════════════════════════════════════════════
+
+
+# ── المرحلة ١: المراجعة والتوليد ─────────────────────────────
+stage1_review:
+
+  assessment:
+    concerns:
+      - "اللمّتان الموجودتان («أستير» و«فريد أستير») مُهمَلَتا التشكيل الكامل"
+      - "الصورة غير المُشكَّلة «استير» تتطابق بصريًّا مع مصطلح «إستير/استير» الكيميائي (ester المُسجَّل في ARABTERM)، مما يُوقع في لبس مرئيّ عند حذف الشكل"
+      - "POS المدخلَين ينبغي أن يكون proper_noun لا noun، لأنهما اسما علم لشخص بعينه"
+      - "المجموعة الفوقية (كوريغراف / مصمم رقصات) لا تُعبِّر بدقة عن مهنة أستير الأساسية؛ فهو في المقام الأول راقص وممثل لا مصمم رقصات بالمعنى الصارم"
+    observations: >
+      المجموعة اسم علم لشخص حقيقي (راقص وممثل سينمائي أمريكي، 1899-1987) اشتُهر بالرقص النقري.
+      اللمّتان الحاليتان تعريب مباشر للاسم Fred Astaire؛ لا جذر عربي ينطبق عليهما.
+      أولويات المعالجة: إضافة التشكيل الكامل، وتصحيح POS المدخلَين على مستوى المداخل (entries)،
+      وتحسين صياغة التعريف العربي من «الأصيل» الركيكة في هذا السياق إلى ما هو أدق.
+      لا يُتوقَّع وجود توثيق معجمي عربي لهذا الاسم في المعجمية الكلاسيكية أو الحديثة.
+
+  # ── التوليد الأعمى (من الملف المُقنَّع — بلا لمّات) ──
+  blind_candidates:
+    - lemma: "فريد أَسْتير"
+      generation_method: taarib
+      justification: >
+        تعريب الاسم الكامل Fred Astaire بالصورة الأكثر شيوعًا في المصادر الإعلامية والموسوعية العربية؛
+        «فريد» التعريب المستقر لـ Fred، و«أَسْتير» اللقب المعرَّب بالألف والسين والتاء والياء والراء.
+
+    - lemma: "أَسْتير"
+      generation_method: taarib
+      justification: >
+        تعريب اللقب Astaire وحده للإحالة المختصرة؛ يُستخدم في السياقات التي سبق فيها ذكر الاسم الكامل،
+        ويُعادل استخدام مجرد اللقب في الكتابة الإنجليزية.
+
+    - lemma: "فريد أَسْتَاير"
+      generation_method: taarib
+      justification: >
+        صيغة تعريب بديلة للقب Astaire بألف مدٍّ قبل الياء محاكاةً للنطق الإنجليزي /æˈstɛər/؛
+        بعض المصادر العربية تُمدُّ الحرف الأخير في الاسم.
+
+    - lemma: "فرِد أَسْتير"
+      generation_method: taarib
+      justification: >
+        تعريب الاسم الأول Fred صوتيًّا كـ«فرِد» (بكسر الراء وسكون الدال) بدلًا من «فريد»،
+        تجنُّبًا للاشتراك مع الاسم العربي «فريد» ذي المعنى المستقل (الفريد = unique).
+
+
+# ── المرحلة ٢: جمع الأدلة ────────────────────────────────────
+# استعلامات منفَّذة: 3
+#   [Q1] Batch headword lookup: استير، الاستير، فريد استير، فريد اساير، فريد استاير، فرد استير
+#   [Q2] English bridge: "Astaire" OR "Fred Astaire" OR "tap dancer" OR "tap dancing" OR "tap dance"
+#   [Q3] Arabic FTS: "راقص" OR "نقري" OR "رقص نقري" OR "تاب" OR "استير"
+stage2_evidence:
+
+  per_lemma:
+
+    - lemma: "أستير"
+      contradicts:
+        - text: "«مركبات عضوية تنتج عن تفاعل الحوامض العضوية مع الكحولات»"
+          source: "المعجم الموحد لمصطلحات الكيمياء (1992) — ARABTERM (entry_id: 426790)"
+          conflict: >
+            الصورة غير المُشكَّلة «استير» مُسجَّلة في قاعدة البيانات لمصطلح ester الكيميائي
+            بالترجمة الإنجليزية ester؛ مما يُحدث التباسًا بصريًّا بين الاسم العلم «أَسْتير» (Astaire)
+            والمصطلح العلمي عند حذف التشكيل.
+
+    - lemma: "فريد أستير"
+      expands:
+        - text: "«الرَّقص النَّقرِيّ: رقصٌ يتميَّز بنقرات قوية بالأقدام أو برؤوسها أو كعوبها»"
+          source: "المورد الحديث (2008) — ARABTERM (entry_id: 722292, translation_en: tap dance)"
+          addition: >
+            يُثبت المصطلح العربي الرسمي «الرقص النقري» مقابلًا معتمدًا لـ tap dance المذكور في التعريف الإنجليزي،
+            مما يُعزِّز سلامة استخدامه في التعريف الحالي ويُؤكد دقة صياغة «النقري».
+
+    - lemma: "فريد أَسْتير"
+      evidence_status: "no_material_found"
+
+    - lemma: "أَسْتير"
+      evidence_status: "no_material_found"
+
+    - lemma: "فريد أَسْتَاير"
+      evidence_status: "no_material_found"
+
+    - lemma: "فرِد أَسْتير"
+      evidence_status: "no_material_found"
+
+
+# ── المرحلة ٣: التحليل اللغوي للّمات ────────────────────────
+stage3_analysis:
+
+  per_lemma:
+
+    # ── لمّة موجودة ──
+    - lemma: "أستير"
+      decision: confirmed
+      decision_reason: >
+        اللقب الأشيع في الإحالات العربية لـ Astaire؛ مقبول كتعريب فصيح على وزن أَفْعَيل.
+        التعارض الوارد (ester الكيميائي) يزول بإضافة التشكيل الكامل «أَسْتير»، إذ المصطلح
+        الكيميائي يُكتب في الغالب «إِسْتِر» بكسر الهمزة وسكون التاء.
+        يُستلزم تصحيح POS المدخل إلى proper_noun وإضافة التشكيل.
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: >
+        الصورة المختصرة (اللقب وحده)؛ تُستخدم في الإحالات المتكررة بعد أول ذكر للاسم الكامل،
+        وفي الكتابات الأكاديمية والإعلامية التي تُعامِل اللقب معرِّفًا وافيًا.
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "أَسْتير"
+        - command: update_entry
+          params:
+            entry_id: "{auto}"
+            pos: proper_noun
+
+    # ── لمّة موجودة ──
+    - lemma: "فريد أستير"
+      decision: confirmed
+      decision_reason: >
+        الصيغة الكاملة للاسم العلم (اسم أول + لقب)؛ هي الصيغة الرئيسية المعتمدة في المصادر
+        الموسوعية والإعلامية العربية لهذه الشخصية. اجتاز اختبار السكّ: مركَّب اسمي ثابت لا يقبل
+        إبدال «فريد» بـ«أحمد» مثلًا مع الإحالة ذاتها. يُستلزم التشكيل وتصحيح POS.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      nuance_differentiation: >
+        الاسم الكامل (الاسم الأول + اللقب)؛ يُستخدم في التعريف الأول للشخصية والسياقات
+        الرسمية والموسوعية حيث يُطلب التحديد الكامل للهوية.
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "فريد أَسْتير"
+        - command: update_entry
+          params:
+            entry_id: "{auto}"
+            pos: proper_noun
+
+    # ── مرشح المرحلة ١ ──
+    - lemma: "فريد أَسْتير"
+      source: stage1
+      decision: removed
+      decision_reason: >
+        مكرَّر مع اللمّة الموجودة «فريد أستير» التي تُعالَج بتصحيح تشكيلها إلى «فريد أَسْتير»
+        في إجراء update_lemma ضمن هذه المراجعة ذاتها؛ لا حاجة لإنشاء مدخل جديد.
+
+    # ── مرشح المرحلة ١ ──
+    - lemma: "أَسْتير"
+      source: stage1
+      decision: removed
+      decision_reason: >
+        مكرَّر مع اللمّة الموجودة «أستير» التي تُعالَج بتصحيح تشكيلها إلى «أَسْتير»
+        في إجراء update_lemma ضمن هذه المراجعة؛ لا حاجة لإنشاء مدخل جديد.
+
+    # ── مرشح المرحلة ١ ──
+    - lemma: "فريد أَسْتَاير"
+      source: stage1
+      decision: removed
+      decision_reason: >
+        صيغة تعريب غير مستقرة في المصادر العربية؛ «أَسْتَاير» بالألف الممدودة قبل الياء لم تُسجَّل
+        في أي مصدر معجمي يدعمها، والصيغة الراسخة هي «أَسْتير».
+
+    # ── مرشح المرحلة ١ ──
+    - lemma: "فرِد أَسْتير"
+      source: stage1
+      decision: removed
+      decision_reason: >
+        صيغة الاسم الأول «فرِد» غير شائعة ولا مستقرة في المصادر العربية؛
+        «فريد» هو التعريب المعتمد لـ Fred في الكتابة العربية، وإن حمل معنى عربيًّا مستقلًّا
+        (فريد = unique)، إلا أن الاستخدام الجاري اتخذه تعريبًا ثابتًا لهذا الاسم الأجنبي.
+
+
+# ── المرحلة ٤: التعريف والأمثلة ──────────────────────────────
+stage4_content:
+
+  definition:
+    current: "راقص وممثل سينمائي أمريكي اشتهر برقصه النقري الأصيل والأنيق (1899-1987)"
+    assessment:
+      decision: revise
+      reason: >
+        التعريف الحالي مقبول في جوهره لكنه يحتاج إلى تحسينات أسلوبية: «الأصيل» ترجمة حرفية لـ original
+        ركيكة في هذا السياق ويُستبدل بـ«الابتكاري»؛ كما أن إضافة «تلفزيوني» تُكمل السيرة المهنية،
+        وصياغة «يُعدّ من أبرز رواد...» تُعطي التعريف طابعًا موسوعيًّا أدق.
+    authored:
+      - type: encyclopedic
+        text: "راقصٌ وممثلٌ سينمائيٌّ وتلفزيونيٌّ أمريكيٌّ (1899-1987)، يُعدُّ من أبرز رُوَّاد فنِّ الرقص النقريِّ؛ اشتُهر بأسلوبه الابتكاريِّ الرشيق الذي أحدثَ أثرًا بالغًا في السينما الموسيقية العالمية."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "راقصٌ وممثلٌ سينمائيٌّ وتلفزيونيٌّ أمريكيٌّ (1899-1987)، يُعدُّ من أبرز رُوَّاد فنِّ الرقص النقريِّ؛ اشتُهر بأسلوبه الابتكاريِّ الرشيق الذي أحدثَ أثرًا بالغًا في السينما الموسيقية العالمية."
+
+  examples:
+    per_lemma:
+      - lemma: "أَسْتير"
+        examples:
+          - text: "لا يزالُ أَسْتير يُمثِّل قمَّة الأناقة الحركية في تاريخ الرقص السينمائيِّ الأمريكيِّ."
+            type: usage
+
+      - lemma: "فريد أَسْتير"
+        examples:
+          - text: "جمع فريد أَسْتير في أفلامه الموسيقية بين براعة الرقص النقريِّ وخفَّة الأداء التمثيليِّ في تناغم نادر."
+            type: usage
+
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "لا يزالُ أَسْتير يُمثِّل قمَّة الأناقة الحركية في تاريخ الرقص السينمائيِّ الأمريكيِّ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "جمع فريد أَسْتير في أفلامه الموسيقية بين براعة الرقص النقريِّ وخفَّة الأداء التمثيليِّ في تناغم نادر."
+
+
+# ── المرحلة ٥: الإثراء (البيانات الوصفية) ───────────────────
+stage5_enrichment:
+
+  # ملاحظة: كلتا اللمّتين تعريب لاسم أجنبي؛ لا جذر عربي ينطبق عليهما،
+  # وبالتالي لا يُوجَد اقتباس من مقاييس اللغة لابن فارس.
+
+  per_entry:
+    - lemma: "أَسْتير"
+      entry_id: "{auto}"
+
+    - lemma: "فريد أَسْتير"
+      entry_id: "{auto}"
+
+  per_sense:
+    - lemma: "أَسْتير"
+      sense_id: "{auto}"
+      nuance: "اللقب وحده؛ يُستخدم في الإحالات الاختصارية والسياقات التي سبق فيها ذكر الاسم الكامل"
+
+    - lemma: "فريد أَسْتير"
+      sense_id: "{auto}"
+      nuance: "الاسم الكامل؛ يُستخدم في التعريف الأول للشخصية والسياقات الرسمية والموسوعية"
+      mwe: true
+
+  synset:
+    cultural_fit: omission
+
+  actions:
+    # entry: أَسْتير
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"origin":"transliteration","source_lang":"en","original":"Astaire","pos_note":"proper_noun"}'
+
+    # entry: فريد أَسْتير
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"origin":"transliteration","source_lang":"en","original":"Fred Astaire","pos_note":"proper_noun","mwe":true,"mwe_type":"idafi"}'
+
+    # sense: أَسْتير
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللقب وحده؛ للإحالة الاختصارية","mwe":false}'
+
+    # sense: فريد أَسْتير
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الكامل؛ للتعريف الأول والسياقات الرسمية","mwe":true}'
+
+    # synset
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"omission"}'
+
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.75

@@ -1,0 +1,220 @@
+# ── المرحلة ١: المراجعة والتوليد (بدون أدلة) ──────────────
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي 'حدوث لشيء ما' يميل لوصف العملية (process) أكثر من وصف المورد أو الفرد (instance)."
+      - "الافتقار للفظ 'حادثة' وهو من أكثر الألفاظ شيوعاً للتعبير عن الحدوث العيني."
+    observations: "المجموعة تغطي مفاهيم 'الحالة' و'المثال' و'الواقعة' كترادفات لكلمة 'instance' الإنجليزية، وهي تغطية جيدة لكنها تحتاج لتدقيق دلالي وتوسيع لتشمل 'الحادثة'."
+  blind_candidates:
+    - lemma: "حَالَة"
+      generation_method: ishtiqaq
+      justification: "اللفظ المعياري للتعبير عن 'case' أو 'instance' في سياقات مختلفة."
+    - lemma: "وَاقِعَة"
+      generation_method: ishtiqaq
+      justification: "تعبر عن الحدوث الفعلي والواقعي لشيء ما."
+    - lemma: "مِثَال"
+      generation_method: ishtiqaq
+      justification: "تستخدم للتعبير عن فرد يمثل قاعدة أو جنساً (instance of a class)."
+    - lemma: "حَادِثَة"
+      generation_method: ishtiqaq
+      justification: "لفظ شائع يعبر عن وقوع حدث معين في زمان ومكان."
+
+# ── المرحلة ٢: جمع الأدلة ────────────────────────────────
+stage2_evidence:
+  per_lemma:
+    - lemma: "حَالَة"
+      confirm:
+        - text: "«واحِدَةُ أحوالِ الشَّيءِ»"
+          source: "المعجم الكبير"
+        - text: "«في مثل هذه الحالة: في حالة كهذه»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "مِثَال"
+      confirm:
+        - text: "«شاهد يذكر لإيضاح القاعدة»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«صورة الشّيء التي تمثِّل صفاتِهِ»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«على سبيل المثال: أي كأنموذج»"
+          source: "المعجم الوسيط"
+    - lemma: "وَاقِعَة"
+      confirm:
+        - text: "«(فِي الفلسفة): مَا حدث ووُجد»"
+          source: "المعجم الوسيط"
+        - text: "«الواقعة: النازلة من صروف الدهر»"
+          source: "المعجم الكبير"
+    - lemma: "حَادِثَة"
+      confirm:
+        - text: "«مؤنث الحادث والنائبة»"
+          source: "المعجم الوسيط"
+        - text: "«الحادثة: هي الواقعة التي احتيج فيها إلى الاستفتاء»"
+          source: "التعريفات الفقهية للبركتي"
+
+# ── المرحلة ٣: التحليل اللغوي للّمات ────────────────────
+stage3_analysis:
+  per_lemma:
+    - lemma: "حَالَة"
+      decision: confirmed
+      decision_reason: "لفظ أصيل يعبر عن 'الظرف' أو 'الحالة' المحددة التي يقع فيها الشيء، وهو مكافئ دقيق لـ 'case'."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حَالَة"
+    - lemma: "مِثَال"
+      decision: confirmed
+      decision_reason: "يعبر عن 'النموذج' أو 'الفرد' الذي يمثل جنساً، وهو الاستخدام الأدق لـ 'instance' في السياقات المنطقية والتعليمية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مِثَال"
+    - lemma: "وَاقِعَة"
+      decision: confirmed
+      decision_reason: "مصطلح فلسفي ولغوي رصين يعبر عن الحدوث العيني (fact/occurrence)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "وَاقِعَة"
+    - lemma: "حَادِثَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف قوي لـ 'واقعة' وأكثر شيوعاً في الاستخدام المعاصر للتعبير عن وقوع حدث محدد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "حَادِثَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-07323507-n"}
+
+# ── المرحلة ٤: التعريف والأمثلة ──────────────────────────
+stage4_content:
+  definition:
+    current: "حدوث لشيء ما"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يركز على المصدر (الحدث) بينما المجموعة تعبر عن 'المورد' أو 'الفرد' (instance) الذي وقع."
+    authored:
+      - type: terminological
+        text: "واقعةٌ عينية أو فردٌ يمثِّلُ جنساً أو حَدَثاً عامّاً."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-07323507-n", definition_index: 0, text: "واقعةٌ عينية أو فردٌ يمثِّلُ جنساً أو حَدَثاً عامّاً."}
+  examples:
+    per_lemma:
+      - lemma: "حَالَة"
+        examples:
+          - text: "يجب دراسة كل حالة على حدة قبل اتخاذ القرار."
+            type: usage
+      - lemma: "مِثَال"
+        examples:
+          - text: "قدّم الأستاذ مثالاً توضيحياً لشرح القاعدة اللغوية."
+            type: usage
+      - lemma: "وَاقِعَة"
+        examples:
+          - text: "سجّل المؤرخون هذه الواقعة بدقة متناهية."
+            type: usage
+      - lemma: "حَادِثَة"
+        examples:
+          - text: "وقعت الحادثة في تمام الساعة العاشرة صباحاً."
+            type: usage
+
+# ── المرحلة ٥: الإثراء (البيانات الوصفية) ─────────────────
+stage5_enrichment:
+  per_entry:
+    - lemma: "حَالَة"
+      entry_id: "{auto}"
+      root: "حول"
+      maqayis_quote: "«الْحَاءُ وَالْوَاوُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ تَحَرُّكٌ فِي دَوْرٍ... وَكَذَلِكَ كُلُّ مُتَحَوِّلٍ عَنْ حَالَةٍ.»"
+    - lemma: "مِثَال"
+      entry_id: "{auto}"
+      root: "مثل"
+      maqayis_quote: "«الْمِيمُ وَالثَّاءُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مُنَاظَرَةِ الشَّيْءِ لِلشَّيْءِ. وَهَذَا مِثْلُ هَذَا، أَيْ نَظِيرُهُ.»"
+    - lemma: "وَاقِعَة"
+      entry_id: "{auto}"
+      root: "قع"
+      maqayis_quote: "«الْوَاوُ وَالْقَافُ وَالعَيْنُ أَصْلٌ وَاحِدٌ... يَدُلُّ عَلَى سُقُوطِ شَيْءٍ. وَالْوَاقِعَةُ: الْقِيَامَةُ، لِأَنَّهَا تَقَعُ بِالْخَلْقِ.»"
+    - lemma: "حَادِثَة"
+      entry_id: "{auto}"
+      root: "حدث"
+      maqayis_quote: "«الْحَاءُ وَالدَّالُ وَالثَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ كَوْنُ الشَّيْءِ لَمْ يَكُنْ. يُقَالُ حَدَثَ أَمْرٌ بَعْدَ أَنْ لَمْ يَكُنْ.»"
+  per_sense:
+    - lemma: "حَالَة"
+      sense_id: "{auto}"
+      nuance: "تركز على الظرف أو الوضع الخاص الذي يوجد فيه الشيء (case)."
+      mwe: false
+    - lemma: "مِثَال"
+      sense_id: "{auto}"
+      nuance: "تركز على كون الحدوث نموذجاً أو شاهداً يوضح قاعدة أو صنفاً (instance/example)."
+      mwe: false
+    - lemma: "وَاقِعَة"
+      sense_id: "{auto}"
+      nuance: "تركز على الجانب الموضوعي والوجودي للحدث الذي وقع بالفعل (fact/occurrence)."
+      mwe: false
+    - lemma: "حَادِثَة"
+      sense_id: "{auto}"
+      nuance: "تركز على الحدث كوقوع زمني محدد له بداية ونهاية (incident)."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حول","maqayis":"«الْحَاءُ وَالْوَاوُ وَاللَّامُ أَصْلٌ وَاحِدٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"مثل","maqayis":"«الْمِيمُ وَالثَّاءُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مُنَاظَرَةِ الشَّيْءِ لِلشَّيْءِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قع","maqayis":"«الْوَاوُ وَالْقَافُ وَالعَيْنُ أَصْلٌ وَاحِدٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حدث","maqayis":"«الْحَاءُ وَالدَّالُ وَالثَّاءُ أَصْلٌ وَاحِدٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركز على الظرف أو الوضع الخاص الذي يوجد فيه الشيء (case)","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-07323507-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-07323507-n"
+        score: 0.9

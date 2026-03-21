@@ -1,0 +1,172 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمة الحالية تفتقر إلى التشكيل الكامل.
+      - لا توجد لمات مرادفة تدعم التنوع الاصطلاحي (مثل التعريب العلمي في المعاجم المتخصصة).
+    observations: "المجموعة تشير إلى معلم جغرافي محدد (خليج كامبيتشي). الترجمة الحالية دقيقة من حيث الدلالة، ولكنها تحتاج إلى ضبط معجمي وإضافة بدائل تعريبية فصيحة."
+  blind_candidates:
+    - lemma: "خَلِيجُ كَامْبِيتْشِي"
+      generation_method: tarkib
+      justification: "التعريب الأشيع والأساسي للاسم الجغرافي (Campeche) مع المكون النوعي (Gulf)."
+    - lemma: "خَلِيجُ كَمْبِيش"
+      generation_method: tarkib
+      justification: "بناءً على تعريب (Campeche) بـ(كمبيش) في المكنز الزراعي (AGROVOC)."
+    - lemma: "جَوْنُ كَامْبِيتْشِي"
+      generation_method: tarkib
+      justification: "استخدام (جون) كبديل لـ(خليج) في سياق المسطحات المائية المحاطة باليابسة."
+    - lemma: "خَلِيجُ كَامْبِيشِي"
+      generation_method: tarkib
+      justification: "صيغة تعريبية بديلة شائعة تعتمد إبدال (ch) الإسبانية بـ(ش) العربية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خليج كامبيتشي"
+      evidence_status: "no_material_found"
+    - lemma: "خَلِيجُ كَامْبِيتْشِي"
+      evidence_status: "no_material_found"
+    - lemma: "خَلِيجُ كَمْبِيش"
+      confirm:
+        - text: "كمبيش (Campeche)"
+          source: "المكنز الزراعي متعدد اللغات (Arabterm/AGROVOC)"
+    - lemma: "خَلِيجُ كَامْبِيشِي"
+      evidence_status: "no_material_found"
+    - lemma: "جَوْنُ كَامْبِيتْشِي"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "خليج كامبيتشي"
+      decision: confirmed
+      decision_reason: "الاسم الجغرافي المعتمد والشائع في الأطالس العربية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَلِيجُ كَامْبِيتْشِي"
+    - lemma: "خَلِيجُ كَمْبِيش"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يتفق مع التعريب العلمي المعتمد في المكنز الزراعي (AGROVOC)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "خَلِيجُ كَمْبِيش", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09320635-n"}
+    - lemma: "خَلِيجُ كَامْبِيشِي"
+      source: stage1
+      decision: confirmed
+      decision_reason: "بديل تعريبي شائع يراعي قواعد النطق العربي للأسماء الأجنبية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "خَلِيجُ كَامْبِيشِي", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09320635-n"}
+    - lemma: "جَوْنُ كَامْبِيتْشِي"
+      source: stage1
+      decision: removed
+      decision_reason: "على الرغم من صحته لغوياً، إلا أن (الخليج) هو المصطلح المستقر جغرافياً لهذا المعلم."
+
+stage4_content:
+  definition:
+    current: "جزء من خليج المكسيك إلى الغرب من يوكاتان"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب ويحتاج إلى ضبط بأسلوب المعاجم العربية مع تحديد طبيعة المعلم الجغرافي (شبه جزيرة يوكاتان)."
+    authored:
+      - type: terminological
+        text: "خَلِيجٌ بَحْرِيٌّ يَقَعُ فِي الجُزْءِ الجَنُوبِيِّ لِخَلِيجِ المَكْسِيكِ، إِلَى الغَرْبِ مِنْ شِبْهِ جَزِيرَةِ يُوكَاتَان."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-09320635-n", definition_index: 0, text: "خَلِيجٌ بَحْرِيٌّ يَقَعُ فِي الجُزْءِ الجَنُوبِيِّ لِخَلِيجِ المَكْسِيكِ، إِلَى الغَرْبِ مِنْ شِبْهِ جَزِيرَةِ يُوكَاتَان."}
+  examples:
+    per_lemma:
+      - lemma: "خَلِيجُ كَامْبِيتْشِي"
+        examples:
+          - text: "يُعَدُّ خَلِيجُ كَامْبِيتْشِي مَوْطِناً لِبَعْضِ أَكْبَرِ حُقُولِ النِّفْطِ فِي المَكْسِيكِ."
+            type: usage
+      - lemma: "خَلِيجُ كَمْبِيش"
+        examples:
+          - text: "تَمْتَازُ الثَّرْوَةُ السَّمَكِيَّةُ فِي خَلِيجِ كَمْبِيش بِتَنَوُّعِهَا الكَبِيرِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يُعَدُّ خَلِيجُ كَامْبِيتْشِي مَوْطِناً لِبَعْضِ أَكْبَرِ حُقُولِ النِّفْطِ فِي المَكْسِيكِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خَلِيجُ كَامْبِيتْشِي"
+      entry_id: "{auto}"
+      roots:
+        - word: "خليج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"
+    - lemma: "خَلِيجُ كَمْبِيش"
+      entry_id: "{auto}"
+      roots:
+        - word: "خليج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"
+    - lemma: "خَلِيجُ كَامْبِيشِي"
+      entry_id: "{auto}"
+      roots:
+        - word: "خليج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"
+  per_sense:
+    - lemma: "خَلِيجُ كَامْبِيتْشِي"
+      sense_id: "{auto}"
+      nuance: "الاسم الأشيع جغرافياً في الاستخدام العام."
+      mwe: true
+    - lemma: "خَلِيجُ كَمْبِيش"
+      sense_id: "{auto}"
+      nuance: "يُفضل في السياقات العلمية والتقنية (الزراعية والبيئية) وفق مكنز Arabterm."
+      mwe: true
+    - lemma: "خَلِيجُ كَامْبِيشِي"
+      sense_id: "{auto}"
+      nuance: "صيغة بديلة تراعي قواعد التعريب الصوتي الشائع."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"خليج","root":"خلج","maqayis_quote":"«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الأشيع جغرافياً في الاستخدام العام.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-09320635-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-09320635-n"
+        score: 0.9

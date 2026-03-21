@@ -1,0 +1,129 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة تفتقر إلى التشكيل الكامل."
+    observations: "المصطلح يشير إلى مجموعة عرقية محددة في بلجيكا وفرنسا، والترجمة المعتمدة في العربية هي التعريب المباشر للاسم. اللمة 'والونيون' صحيحة وشائعة."
+  blind_candidates:
+    - lemma: "وَالُونِيُّونَ"
+      generation_method: taarib
+      justification: "الجمع السالم للنسبة إلى إقليم والونيا، وهو الاسم القياسي لهذه المجموعة العرقية."
+    - lemma: "الوَالُون"
+      generation_method: taarib
+      justification: "اسم جنس جمعي للمجموعة العرقية، معرّب مباشرة من الفرنسية (Wallons)."
+    - lemma: "أَهْلُ وَالُونِيَا"
+      generation_method: tarkib
+      justification: "تعبير وصفي إضافي يشير إلى سكان الإقليم."
+    - lemma: "وَالُونِيّ"
+      generation_method: taarib
+      justification: "المفرد أو النسبة، ويستخدم أحياناً للدلالة على المجموعة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "والونيون"
+      confirm:
+        - text: "«(1) الوَلُّونيّ: أحد أفراد شعب يقطن الأجزاء الجنوبيّة والجنوبية الشرقيّة من بلجيكا والمناطق الفرنسيّة المجاورة لها (2) الوَلّونيّة: لغة الوَلّونيّين الفرنسيّة»"
+          source: "المورد الحديث (2008)"
+    - lemma: "الوَالُونِيُّونَ"
+      confirm:
+        - text: "«الوَلُّونيّ: أحد أفراد شعب يقطن الأجزاء الجنوبيّة والجنوبية الشرقيّة من بلجيكا والمناطق الفرنسيّة المجاورة لها»"
+          source: "المورد الحديث (2008)"
+    - lemma: "الوَالُون"
+      evidence_status: "no_material_found"
+    - lemma: "أَهْلُ وَالُونِيَا"
+      evidence_status: "no_material_found"
+    - lemma: "وَالُونِيّ"
+      confirm:
+        - text: "«الوَلُّونيّ: أحد أفراد شعب يقطن الأجزاء الجنوبيّة والجنوبية الشرقيّة من بلجيكا والمناطق الفرنسيّة المجاورة لها»"
+          source: "المورد الحديث (2008)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "والونيون"
+      decision: confirmed
+      decision_reason: "هو المصطلح القياسي والشائع في اللغة العربية المعاصرة للدلالة على هذه المجموعة العرقية، وهو معرّب من الاسم الأصلي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "وَالُونِيُّونَ"
+    - lemma: "وَالُون"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اسم جنس جمعي معرّب مباشرة، يستخدم كبديل للمصطلح السابق."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "وَالُون", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-08501996-n"}
+
+stage4_content:
+  definition:
+    current: "مجموعة عرقية تتحدث لهجة فرنسية وتعيش في جنوب وشرق بلجيكا والأجزاء المجاورة من فرنسا"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق وشامل، يحدد الجنس القريب (مجموعة عرقية) والفصل النوعي (اللغة والمنطقة الجغرافية)."
+  examples:
+    per_lemma:
+      - lemma: "والونيون"
+        examples:
+          - text: "يُشَكِّلُ الوَالُونِيُّونَ نَحْوَ ثُلُثِ سُكَّانِ بَلْجِيكَا، وَيَتَرَاكَزُونَ فِي إِقْلِيمِ وَالُونِيَا."
+            type: usage
+      - lemma: "وَالُون"
+        examples:
+          - text: "يَسْكُنُ الوَالُونُ فِي المَنَاطِقِ الجَنُوبِيَّةِ مِنَ المَمْلَكَةِ البَلْجِيكِيَّةِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يُشَكِّلُ الوَالُونِيُّونَ نَحْوَ ثُلُثِ سُكَّانِ بَلْجِيكَا، وَيَتَرَاكَزُونَ فِي إِقْلِيمِ وَالُونِيَا."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "وَالُونِيُّونَ"
+      entry_id: "{auto}"
+      root: null
+    - lemma: "وَالُون"
+      entry_id: "{auto}"
+      root: null
+  per_sense:
+    - lemma: "وَالُونِيُّونَ"
+      sense_id: "{auto}"
+      nuance: "صيغة الجمع القياسية للأفراد المنتمين لهذه المجموعة."
+      mwe: false
+    - lemma: "وَالُون"
+      sense_id: "{auto}"
+      nuance: "اسم جنس جمعي يشير إلى المجموعة ككتلة واحدة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":null,"note":"لفظ أعجمي معرّب (Proper Noun)"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"صيغة الجمع القياسية للأفراد المنتمين لهذه المجموعة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-08501996-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-08501996-n"
+        score: 0.9

@@ -1,0 +1,223 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة صحيحة لكنها عامة جداً."
+      - "المصطلح الإنجليزي (findings) له دلالة تقنية دقيقة في الحرف اليدوية (مثل قطع الوصل في المجوهرات أو الخردوات في الخياطة)، والتعريف يوسعها لتشمل الأدوات أيضاً."
+    observations: "المفهوم يشير إلى 'العُدّة' أو 'اللوازم' المتكاملة التي يستخدمها الحرفي. اللمّات الحالية (لوازم ومستلزمات) تغطي الجانب الوظيفي، لكن هناك مصطلحات تراثية ومتخصصة أخرى مثل 'عُدّة' و'خردوات'."
+  blind_candidates:
+    - lemma: "لَوَازِم"
+      generation_method: majaz
+      justification: "لفظ شائع في المعاجم الحديثة للدلالة على ما يُحتاج إليه في صنعة ما (Supplies)."
+    - lemma: "مُسْتَلْزَمَات"
+      generation_method: ishtiqaq
+      justification: "اشتقاق من 'لزم' للدلالة على الاحتياجات الضرورية لإتمام العمل."
+    - lemma: "عُدَّة"
+      generation_method: majaz
+      justification: "لفظ تراثي أصيل لكل ما يُعدّ من أدوات وآلات لأداء مهمة (Kit/Tools)."
+    - lemma: "خُرْدَوَات"
+      generation_method: taarib
+      justification: "يُستخدم في السياق الحديث للدلالة على القطع الصغيرة والمواد المكملة في الخياطة وصناعة المجوهرات (Findings/Haberdashery)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "لوازم"
+      confirm:
+        - text: "«لوازِم: قطع جزئية تستعمل لتبديل القطع المعطوبة في جهاز أو آلة»"
+          source: "مسرد الإعلام والتواصل (ArabTerm)"
+        - text: "«قائمة مواد، قائمة لوازم: bill of materials»"
+          source: "المعجم الموحد لمصطلحات النفط"
+    - lemma: "مستلزمات"
+      confirm:
+        - text: "«إكسسوارات: ملحقات أو مستلزمات كمالية... (مجوهرات)»"
+          source: "مسرد صناعة النسيج (ArabTerm)"
+    - lemma: "عُدَّة"
+      confirm:
+        - text: "«العُدَّةُ: ما أُعِدَّ لأمرٍ يحدُثُ»"
+          source: "المعجم الوسيط"
+        - text: "«العُدّة: بالضم ما أعددته لحوادث الدهر.»"
+          source: "التوقيف على مهمات التعاريف"
+      expands:
+        - text: "«مجموعة عناصر تشكل وحدة جاهزة للتركيب والاستعمال لإنجاز وظائف معينة»"
+          source: "المعجم الموحد لمصطلحات تقانة المعلومات"
+    - lemma: "خُرْدَوَات"
+      confirm:
+        - text: "«خردة: مواد (معدنية أساسا) يتخلص منها أثناء عمليات التصنيع...»"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+      evidence_status: "no_material_found" # لم يُعثر على 'خردوات' بالجمع كمدخل مستقل في المعاجم الممسوحة لكنها شائعة في الاستعمال.
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "لوازم"
+      decision: confirmed
+      decision_reason: "مصطلح شائع ومثبت في المعاجم التقنية الحديثة للدلالة على المواد التكميلية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: "تشير إلى المواد والقطع التي تلزم لإتمام الصنعة (Articles/Supplies)."
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "لَوَازِم"
+    - lemma: "مستلزمات"
+      decision: confirmed
+      decision_reason: "مرادف قوي لـ 'لوازم' وشائع في الاستخدام المعاصر."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: "تؤكد على جانب الضرورة والاحتياج لإنجاز العمل (Requirements)."
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُسْتَلْزَمَات"
+    - lemma: "عُدَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "أدق مصطلح لوصف 'مجموعة الأدوات' (Collection of tools) المذكورة في التعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: "تركز على مجموعة الأدوات والآلات المهيأة للعمل (Kit/Set of tools)."
+      actions:
+        - command: create_entry
+          params: {lemma: "عُدَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "خُرْدَوَات"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فني دقيق في سياق الملابس والمجوهرات يشير إلى الأجزاء الصغيرة المكملة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: "تشير تحديداً إلى القطع المعدنية أو البلاستيكية الصغيرة (مثل الأزرار والمشابك) المستخدمة في الصنعة (Haberdashery/Findings)."
+      actions:
+        - command: create_entry
+          params: {lemma: "خُرْدَوَات", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "مجموعة من الأدوات والمواد الأخرى التي يستخدمها الحرفي لصنع المجوهرات أو الملابس أو الأحذية"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ترجمة حرفية، ويفضل صياغته بأسلوب معجمي عربي يركز على الجمع بين الأدوات والمواد المكملة."
+    authored:
+      - type: terminological
+        text: "مجموعةُ الآلاتِ والأدواتِ والقِطَعِ التكميليّةِ التي يُعِدُّها الصانعُ أو الحِرَفيُّ لاستخدامِها في إنتاجِ المجوهراتِ أو الثيابِ أو الأحذيةِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مجموعةُ الآلاتِ والأدواتِ والقِطَعِ التكميليّةِ التي يُعِدُّها الصانعُ أو الحِرَفيُّ لاستخدامِها في إنتاجِ المجوهراتِ أو الثيابِ أو الأحذيةِ."}
+  examples:
+    per_lemma:
+      - lemma: "لَوَازِم"
+        examples:
+          - text: "اشترى الصائغُ لَوَازِمَ جديدةً لصناعةِ العقودِ المرصعةِ."
+            type: usage
+      - lemma: "مُسْتَلْزَمَات"
+        examples:
+          - text: "توفّرُ الورشةُ كافةَ مُسْتَلْزَمَاتِ خياطةِ الملابسِ الجلديةِ."
+            type: usage
+      - lemma: "عُدَّة"
+        examples:
+          - text: "أخرجَ الإسكافِيُّ عُدَّتَهُ وبدأَ في إصلاحِ الحذاءِ."
+            type: usage
+      - lemma: "خُرْدَوَات"
+        examples:
+          - text: "يحتوي هذا المتجرُ على تشكيلةٍ واسعةٍ من الخُرْدَوَاتِ كالأزرارِ والمشابكِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "أخرجَ الإسكافِيُّ عُدَّتَهُ وبدأَ في إصلاحِ الحذاءِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "اشترى الصائغُ لَوَازِمَ جديدةً لصناعةِ العقودِ المرصعةِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "لَوَازِم"
+      entry_id: "{auto}"
+      root: "لزم"
+      maqayis_quote: "«اللام والزاي والميم أصل واحد صحيح، وهو وجوب الشيء عليه، يقال لزمه الشيء يلزمه لزوما.»"
+    - lemma: "مُسْتَلْزَمَات"
+      entry_id: "{auto}"
+      root: "لزم"
+      maqayis_quote: "«اللام والزاي والميم أصل واحد صحيح، وهو وجوب الشيء عليه، يقال لزمه الشيء يلزمه لزوما.»"
+    - lemma: "عُدَّة"
+      entry_id: "{auto}"
+      root: "عدد"
+      maqayis_quote: "«الْعَيْنُ وَالدَّالُ أَصْلٌ صَحِيحٌ وَاحِدٌ لَا يَخْلُو مِنَ الْعَدِّ الَّذِي هُوَ الْإِحْصَاءُ. وَمِنَ الْإِعْدَادِ الَّذِي هُوَ تَهْيِئَةُ الشَّيْءِ... الْعُدَّةُ: مَا أُعِدَّ لِأَمْرٍ يَحْدُثُ.»"
+    - lemma: "خُرْدَوَات"
+      entry_id: "{auto}"
+      root: "خرد"
+      maqayis_quote: "«الخاء والراء والدال أصل واحد، وهو صون الشيء.» (ملاحظة: المعنى الحديث معرّب من الفارسية)."
+  per_sense:
+    - lemma: "لَوَازِم"
+      sense_id: "{auto}"
+      nuance: "تشير إلى المواد التكميلية العامة."
+      mwe: false
+    - lemma: "مُسْتَلْزَمَات"
+      sense_id: "{auto}"
+      nuance: "تؤكد على الضرورة والاحتياج التقني."
+      mwe: false
+    - lemma: "عُدَّة"
+      sense_id: "{auto}"
+      nuance: "تركز على الأدوات والآلات (Kit)."
+      mwe: false
+    - lemma: "خُرْدَوَات"
+      sense_id: "{auto}"
+      nuance: "تختص بالأجزاء الصغيرة كالأزرار والمشابك."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"لزم","maqayis":"«اللام والزاي والميم أصل واحد صحيح، وهو وجوب الشيء عليه...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"لزم","maqayis":"«اللام والزاي والميم أصل واحد صحيح، وهو وجوب الشيء عليه...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عدد","maqayis":"«الْعَيْنُ وَالدَّالُ أَصْلٌ صَحِيحٌ وَاحِدٌ... الْعُدَّةُ: مَا أُعِدَّ لِأَمْرٍ يَحْدُثُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خرد","maqayis":"«الخاء والراء والدال أصل واحد...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تشير إلى المواد التكميلية العامة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

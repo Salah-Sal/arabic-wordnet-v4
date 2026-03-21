@@ -1,0 +1,262 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "أشلاء" تميل دلالتها إلى بقايا الجثث أو الأعضاء الممزقة، وقد تكون أضيق من مفهوم smithereens العام.
+      - "قطع صغيرة" عبارة وصفية عامة وليست مصطلحاً معجمياً مسكوكاً (lexicalized term).
+    observations: "المجموعة تعبر عن حالة التفتت التام لشيء ما إلى أجزاء دقيقة. المصطلح الإنجليزي smithereens غالباً ما يُستخدم في سياق التحطم (shattered to smithereens)، وهو ما يقابله في العربية مصطلحات تدل على نتاج التحطم والتفتت."
+  blind_candidates:
+    - lemma: "حُطَام"
+      generation_method: ishtiqaq
+      justification: "ما تكسر من الشيء، ويعبر عن مجموعة الشظايا الناتجة عن التحطم."
+    - lemma: "فُتَات"
+      generation_method: ishtiqaq
+      justification: "ما تساقط من الشيء عند كسره أو تفتيته."
+    - lemma: "شَذَر مَذَر"
+      generation_method: tarkib
+      justification: "تعبير اصطلاحي يدل على التفرق والتمزق الشديد، يناسب سياق 'smithereens'."
+    - lemma: "جُذَاذ"
+      generation_method: ishtiqaq
+      justification: "القطع الصغيرة المحطمة، وردت في القرآن الكريم لوصف تكسير الأصنام."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "أشلاء"
+      confirm:
+        - text: "بقايا الشيء أو أعضاؤه"
+          source: "المعجم الكبير"
+    - lemma: "قطع صغيرة"
+      evidence_status: "no_material_found"
+    - lemma: "حُطَام"
+      confirm:
+        - text: "من كل شيء: ما تحطم منه"
+          source: "المعجم الوسيط"
+        - text: "الأجزاء المتفتتة من الأنسجة المصابة."
+          source: "معجم المصطلحات الطبية"
+    - lemma: "فُتَات"
+      confirm:
+        - text: "من الشَّيْء مَا تكسر مِنْهُ وتساقط"
+          source: "المعجم الوسيط"
+        - text: "فتات الأتربة المحفورة أو الصخور المكسورة"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية"
+    - lemma: "جُذَاذ"
+      confirm:
+        - text: "ما تكسَّر وتفرَّق من الشيء"
+          source: "المعجم الكبير"
+        - text: "المقطع أو المكسر وفي التنزيل العزيز {فجعلهم جذاذا}"
+          source: "المعجم الوسيط"
+    - lemma: "شَذَر مَذَر"
+      confirm:
+        - text: "ذهبوا في كل وجه شذر مذر... أي ذهبوا في كل وجه، ولا يقال ذلك في الإقبال"
+          source: "لسان العرب"
+        - text: "شرد الشرك شذر مذر أي فرقه وبدده في كل وجه"
+          source: "لسان العرب"
+    - lemma: "شَظَايَا"
+      confirm:
+        - text: "شظايا المال: بقاياه"
+          source: "المعجم الكبير"
+        - text: "كسر؛ شظايا؛ فتات [smithereens]"
+          source: "المورد الحديث"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "أشلاء"
+      decision: confirmed
+      decision_reason: "على الرغم من ارتباطها غالباً بالأجساد، إلا أن المعاجم والقواميس الحديثة تدعم استخدامها لبقايا الأشياء المحطمة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "أَشْلَاء"
+    - lemma: "قطع صغيرة"
+      decision: removed
+      decision_reason: "عبارة وصفية حرة وليست وحدة معجمية ثابتة."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "حُطَام"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح معجمي أصيل يعبر عن نتاج التحطم، ويدعمه الاستخدام التقني الحديث."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "حُطَام", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "فُتَات"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يدل بدقة على الأجزاء الدقيقة المتكسرة، وهو أحد الترجمات المباشرة لـ smithereens."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "فُتَات", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "جُذَاذ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح كلاسيكي دقيق جداً لوصف نتاج التكسير الشامل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "جُذَاذ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "شَذَر مَذَر"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي عربي يعبر عن حالة التشتت والتفتت التام، وهو المكافئ الوظيفي الأمثل للتعبير الإنجليزي (to smithereens)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: mazji
+      actions:
+        - command: create_entry
+          params: {lemma: "شَذَر مَذَر", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "شَظَايَا"
+      decision: confirmed
+      decision_reason: "المصطلح الأكثر شيوعاً في الترجمات الحديثة لـ smithereens وfragments."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "شَظَايَا", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "مجموعة من الشظايا الصغيرة تعتبر ككل"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط، ويفضل استخدام صياغة معجمية تعكس حالة التحطم والتفتت."
+    authored:
+      - type: linguistic
+        text: "مَا تَحَطَّمَ وتَفَتَّتَ من الشَّيْءِ وصَارَ قِطَعاً صَغِيرَةً جِدّاً."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مَا تَحَطَّمَ وتَفَتَّتَ من الشَّيْءِ وصَارَ قِطَعاً صَغِيرَةً جِدّاً."}
+  examples:
+    per_lemma:
+      - lemma: "أَشْلَاء"
+        examples:
+          - text: "تَحَوَّلَتِ السَّيَّارَةُ بَعْدَ الِانْفِجَارِ إِلَى أَشْلَاءٍ مُتَنَاثِرَةٍ."
+            type: usage
+      - lemma: "حُطَام"
+        examples:
+          - text: "بَقِيَ حُطَامُ السَّفِينَةِ طَافِيًا عَلَى سَطْحِ المَاءِ."
+            type: usage
+      - lemma: "فُتَات"
+        examples:
+          - text: "جَمَعَتِ العَصَافِيرُ فُتَاتَ الخُبْزِ مِنَ الأَرْضِ."
+            type: usage
+      - lemma: "جُذَاذ"
+        examples:
+          - text: "جَعَلَ البَطَلُ قُيُودَهُ جُذَاذًا بَعْدَ أَنْ حَطَّمَهَا."
+            type: usage
+      - lemma: "شَذَر مَذَر"
+        examples:
+          - text: "تَفَرَّقَتْ قِطَعُ المِرْآةِ شَذَر مَذَر بَعْدَ سُقُوطِهَا."
+            type: usage
+      - lemma: "شَظَايَا"
+        examples:
+          - text: "تَطَايَرَتْ شَظَايَا الزُّجَاجِ فِي كُلِّ أَنْحَاءِ الغُرْفَةِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تَحَوَّلَتِ السَّيَّارَةُ بَعْدَ الِانْفِجَارِ إِلَى أَشْلَاءٍ مُتَنَاثِرَةٍ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "أَشْلَاء"
+      entry_id: "{auto}"
+      root: "شلو"
+      maqayis_quote: "«الشِّينُ وَاللَّامُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى عُضْوٍ مِنَ الْأَعْضَاءِ، وَقَدْ يُقَالُ الْجَسَدُ نَفْسُهُ... وَيُقَالُ إِنَّ بَنِي فُلَانٍ أَشْلَاءٌ فِي بَنِي فُلَانٍ، أَيْ بَقَايَا فِيهِمْ.»"
+    - lemma: "حُطَام"
+      entry_id: "{auto}"
+      root: "حطم"
+      maqayis_quote: "«الْحَاءُ وَالطَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ، وَهُوَ كَسْرُ الشَّيْءِ. يُقَالُ حَطَمْتُ الشَّيْءَ حَطْمًا كَسْرَتُهُ.»"
+    - lemma: "فُتَات"
+      entry_id: "{auto}"
+      root: "فتت"
+      maqayis_quote: "«الْفَاءُ وَالتَّاءُ كَلِمَةٌ تَدُلُّ عَلَى تَكْسِيرِ شَيْءٍ وَرَفْتِهِ. يُقَالُ: فَتَتُّ الشَّيْءَ أَفُتُّ فَتًّا، فَهُوَ مَفْتُوتٌ وَفَتِيتٌ.»"
+    - lemma: "جُذَاذ"
+      entry_id: "{auto}"
+      root: "جذذ"
+      maqayis_quote: "«الْجِيمُ وَالذَّالُ أَصْلٌ وَاحِدٌ، إِمَّا كَسْرٌ وَإِمَّا قَطْعٌ. يُقَالُ جَذَذْتُ الشَّيْءَ كَسَرْتُهُ. قَالَ اللَّهُ تَعَالَى: {فَجَعَلَهُمْ جُذَاذًا إِلَّا كَبِيرًا لَهُمْ}، أَيْ كَسَّرَهُمْ.»"
+    - lemma: "شَذَر مَذَر"
+      entry_id: "{auto}"
+      roots:
+        - word: "شذر"
+          root: "شذر"
+          maqayis_quote: "«الشِّينُ وَالذَّالُ وَالرَّاءُ أَصْلَانِ: أَحَدُهُمَا يَدُلُّ عَلَى تَفَرُّقِ شَيْءٍ وَتَمَيُّزِهِ... مِنْ ذَلِكَ قَوْلُ الْعَرَبِ: تَفَرَّقَ الْقَوْمُ شَذَرَ مَذَرَ، إِذَا تَبَدَّدُوا فِي الْبِلَادِ.»"
+        - word: "مذر"
+          root: "مذر"
+          maqayis_quote: "«الْمِيمُ وَالذَّالُ وَالرَّاءُ يَدُلُّ عَلَى فَسَادٍ فِي شَيْءٍ... وَيَجُوزُ أَنْ يُقَالَ: إِنَّ مِنَ الْبَابِ قَوْلَهُمْ تَفَرَّقُوا شَذَرَ مَذَرَ.»"
+    - lemma: "شَظَايَا"
+      entry_id: "{auto}"
+      root: "شظي"
+      maqayis_quote: "«الشِّينُ وَالظَّاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ يَدُلُّ عَلَى تَصَدُّعِ الشَّيْءِ مِنْ مَوَاضِعَ كَثِيرَةٍ، حَتَّى يَصِيرَ صُدُوعًا مُتَفَرِّقَةً.»"
+  per_sense:
+    - lemma: "أَشْلَاء"
+      sense_id: "{auto}"
+      nuance: "تركز على البقايا العضوية أو ما كان جسماً متماسكاً فتمزق."
+      mwe: false
+    - lemma: "حُطَام"
+      sense_id: "{auto}"
+      nuance: "يدل على ركام الأشياء المحطمة، وغالباً ما يكون لليابس أو الهش من المواد."
+      mwe: false
+    - lemma: "فُتَات"
+      sense_id: "{auto}"
+      nuance: "يدل على القطع الصغيرة جداً أو المتساقطة من الشيء عند تفتيته."
+      mwe: false
+    - lemma: "جُذَاذ"
+      sense_id: "{auto}"
+      nuance: "مصطلح كلاسيكي يدل على القطع المتكسرة بفعل فاعل أو بقوة شديدة."
+      mwe: false
+    - lemma: "شَذَر مَذَر"
+      sense_id: "{auto}"
+      nuance: "يصف حالة التفرق والتشتت التام للشظايا في كل اتجاه."
+      mwe: true
+    - lemma: "شَظَايَا"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام للقطع المتطايرة أو المتشظية من جسم ما."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

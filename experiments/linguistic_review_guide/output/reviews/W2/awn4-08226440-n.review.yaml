@@ -1,0 +1,198 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمة الحالية تفتقر إلى التشكيل الكامل.
+      - الاكتفاء بلمة واحدة لمفهوم شائع الاستعمال في الرياضة والإعلام.
+    observations: "المفهوم يشير إلى اللاعبين غير الأساسيين في فريق رياضي، ويُعبّر عنه غالباً بالمكان الذي يجلسون فيه (دكة) عن طريق المجاز المرسل (علاقة المحلية)."
+  blind_candidates:
+    - lemma: "دِكَّةُ الِاحْتِيَاطِ"
+      generation_method: tarkib
+      justification: "تعبير مركب إضافي شائع جداً في الصحافة الرياضية، وهو مرادف مباشر للدكة البدلاء."
+    - lemma: "الِاحْتِيَاطِيُّون"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل/صفة مشبهة تدل مباشرة على اللاعبين غير الأساسيين، وهي الجمع الفصيح لـ (احتياطي)."
+    - lemma: "بُدَلَاءُ"
+      generation_method: ishtiqaq
+      justification: "جمع (بديل)، وهو المصطلح التقني المستخدم في قوانين الألعاب (مثل كرة القدم) للإشارة إلى اللاعبين الذين يدخلون بدلاً من زملائهم."
+    - lemma: "صَفُّ الِاحْتِيَاطِ"
+      generation_method: tarkib
+      justification: "تعبير وصفي/إضافي يستخدم أحياناً للإشارة إلى مجموعة اللاعبين الاحتياطيين."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "دِكَّةُ البُدَلَاءِ"
+      confirm:
+        - text: "«الدَّكَّةُ... مَقْعَدٌ مُسْتَطِيلٌ مِنْ خَشَبٍ غالِبًا، يُجْلَسُ عليه (مُحَدَثَةٌ)»"
+          source: "المعجم الكبير"
+        - text: "«البَدِيل: الخَلَفُ والعوض واحد الأبدال عند الصوفية»"
+          source: "المعجم الوسيط"
+        - text: "«bench: يُخْرِج لاعبًا من اللعب»"
+          source: "المورد الحديث (2008)"
+    - lemma: "دِكَّةُ الِاحْتِيَاطِ"
+      confirm:
+        - text: "«احتياطيّ: صفة لمصدر يمكن استخدامه بديلا للمصدر الأصلي عند توقفه عن العمل.»"
+          source: "مسرد التربية (ArabTerm)"
+      expands:
+        - text: "«الدَّكَّةُ بالفتح... ومن ثم تكون هذه الكلمة من الفصيح الشائع على ألسنة العامة، ولكن صواب ضبطها بفتح الدال.»"
+          source: "معجم الصواب اللغوي"
+    - lemma: "الِاحْتِيَاطِيُّون"
+      confirm:
+        - text: "«reserve: احتياطي»"
+          source: "المعجم الموحد لمصطلحات المياه"
+    - lemma: "بُدَلَاءُ"
+      confirm:
+        - text: "«البديل... (ج) أبدال وبدلاء»"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "دكة البدلاء"
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي مستقر وشائع الاستعمال في السياق الرياضي العربي المعاصر، وهو المقابل الدقيق للمصطلح الإنجليزي (bench)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "دَكَّةُ البُدَلَاءِ"
+    - lemma: "دِكَّةُ الِاحْتِيَاطِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف تام لـ (دكة البدلاء) ويشيع استخدامه في نفس السياق الرياضي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "دَكَّةُ الِاحْتِيَاطِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "بُدَلَاءُ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح الفني المباشر للاعبين الاحتياطيين، وهو جمع بديل، ومذكور في المعاجم كخلف وعوض."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "بُدَلَاءُ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "الِاحْتِيَاطِيُّون"
+      source: stage1
+      decision: confirmed
+      decision_reason: "جمع (احتياطي)، وهو وصف شائع للاعبين الذين لا يشاركون بصفة أساسية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "الِاحْتِيَاطِيُّون", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "اللاعبون الاحتياطيون في فريق"
+    assessment:
+      decision: retain
+      reason: "التعريف الحالي دقيق وواضح لغوياً واصطلاحياً."
+  examples:
+    per_lemma:
+      - lemma: "دَكَّةُ البُدَلَاءِ"
+        examples:
+          - text: "بَقِيَ النَّجْمُ الكَبِيرُ عَلَى دَكَّةِ البُدَلَاءِ طَوَالَ زَمَنِ المُبَارَاةِ."
+            type: usage
+      - lemma: "دَكَّةُ الِاحْتِيَاطِ"
+        examples:
+          - text: "قَرَّرَ المُدَرِّبُ الِاسْتِعَانَةَ بِأَحَدِ المَهَارِيِّينَ مِنْ دَكَّةِ الِاحْتِيَاطِ فِي الشَّوْطِ الثَّانِي."
+            type: usage
+      - lemma: "بُدَلَاءُ"
+        examples:
+          - text: "أَجْرَى الفَرِيقُ ثَلَاثَةَ تَبْدِيلَاتٍ لِإِشْرَاكِ البُدَلَاءِ فِي اللُّعْبَةِ."
+            type: usage
+      - lemma: "الِاحْتِيَاطِيُّون"
+        examples:
+          - text: "يَتَدَرَّبُ الِاحْتِيَاطِيُّون بِنَفْسِ قُوَّةِ اللَّاعِبِينَ الأَسَاسِيِّينَ."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "دَكَّةُ البُدَلَاءِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "دكة"
+          root: "دكك"
+          maqayis_quote: "«الدَّالُ وَالْكَافُ أَصْلَانِ: أَحَدُهُمَا يَدُلُّ عَلَى تَطَامُنٍ وَانْسِطَاحٍ. مِنْ ذَلِكَ الدُّكَّانُ... وَمِنْهُ الْأَرْضُ الدَّكَّاءُ: وَهِيَ الْأَرْضُ الْعَرِيضَةُ الْمُسْتَوِيَةُ.»"
+        - word: "البدلاء"
+          root: "بدل"
+          maqayis_quote: "«الْبَاءُ وَالدَّالُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ قِيَامُ الشَّيْءِ مَقَامَ الشَّيْءِ الذَّاهِبِ. يُقَالُ: هَذَا بَدَلُ الشَّيْءِ وَبَدِيلُهُ.»"
+    - lemma: "دَكَّةُ الِاحْتِيَاطِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "دكة"
+          root: "دكك"
+          maqayis_quote: "«الدَّالُ وَالْكَافُ أَصْلَانِ: أَحَدُهُمَا يَدُلُّ عَلَى تَطَامُنٍ وَانْسِطَاحٍ...»"
+        - word: "الاحتياط"
+          root: "حوط"
+          maqayis_quote: "«الْحَاءُ وَالْوَاوُ وَالطَّاءُ كَلِمَةٌ وَاحِدَةٌ، وَهُوَ الشَّيْءُ يُطِيفُ بِالشَّيْءِ.»"
+    - lemma: "بُدَلَاءُ"
+      entry_id: "{auto}"
+      root: "بدل"
+      maqayis_quote: "«الْبَاءُ وَالدَّالُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ قِيَامُ الشَّيْءِ مَقَامَ الشَّيْءِ الذَّاهِبِ.»"
+    - lemma: "الِاحْتِيَاطِيُّون"
+      entry_id: "{auto}"
+      root: "حوط"
+      maqayis_quote: "«الْحَاءُ وَالْوَاوُ وَالطَّاءُ كَلِمَةٌ وَاحِدَةٌ، وَهُوَ الشَّيْءُ يُطِيفُ بِالشَّيْءِ.»"
+  per_sense:
+    - lemma: "دَكَّةُ البُدَلَاءِ"
+      sense_id: "{auto}"
+      nuance: "تعبير مجازي يشير إلى اللاعبين عبر مكان جلوسهم، وهو الأكثر شيوعاً في الإعلام."
+      mwe: true
+    - lemma: "دَكَّةُ الِاحْتِيَاطِ"
+      sense_id: "{auto}"
+      nuance: "مرادف لـ (دكة البدلاء)، يركز على مفهوم 'الاحتياط' (Reserve) كصفة للاعبين."
+      mwe: true
+    - lemma: "بُدَلَاءُ"
+      sense_id: "{auto}"
+      nuance: "المصطلح القانوني/الفني المباشر للأفراد الذين يحلون محل غيرهم."
+      mwe: false
+    - lemma: "الِاحْتِيَاطِيُّون"
+      sense_id: "{auto}"
+      nuance: "يركز على وظيفة اللاعبين كخيار ثانٍ أو مدخر للمواقف الصعبة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"دكة","root":"دكك","maqayis":"«...»"},{"word":"البدلاء","root":"بدل","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير مجازي يشير إلى اللاعبين عبر مكان جلوسهم، وهو الأكثر شيوعاً في الإعلام.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,156 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمة "ملكية" تفتقر إلى التشكيل الكامل، مما قد يسبب التباساً مع "مَلَكِيَّة" (نظام الحكم).
+      - التعريف الحالي وظيفي جداً (ترجمة حرفية للإنجليزية) ويفتقر للصيغة المعجمية العربية الرصينة.
+    observations: "المجموعة تدور حول المفهوم القانوني والاعتباري لصفة المالك. المصطلح العربي المعاصر الأكثر دقة هو 'مِلْكِيَّة' (بكسر الميم)، وهو مصدر صناعي شاع استخدامه في القانون والاجتماع."
+  blind_candidates:
+    - lemma: "مِلْكِيَّة"
+      generation_method: ishtiqaq
+      justification: "المصدر الصناعي من 'مِلْك' للدلالة على الحالة أو الصفة الاعتبارية."
+    - lemma: "تَمَلُّك"
+      generation_method: ishtiqaq
+      justification: "مصدر الفعل 'تملك' الذي قد يعبر عن حالة الاستحواذ والملك."
+    - lemma: "مِلْك"
+      generation_method: ishtiqaq
+      justification: "الاسم الأصلي للجذر، ويعني احتواء الشيء والقدرة على التصرف فيه."
+    - lemma: "حِيَازَة"
+      generation_method: ishtiqaq
+      justification: "مرادف قانوني يتعلق بوضع اليد والسيطرة على الشيء، وغالباً ما يقترن بالملكية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "ملكية"
+      confirm:
+        - text: "«مِلْكِيَّة: مصدر صناعي من مِلْك: تمليك. حقُّ الاستعمال والتّصرُّف في الشّيء إطلاقًا في نطاق القانون»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«حق يخول لمالك العقار أو المنقول دون غيره سلطة استعماله واستغلاله والتصرف فيه»"
+          source: "المعجم الموحد لمصطلحات القانون"
+    - lemma: "مِلْك"
+      confirm:
+        - text: "«المِلْكُ: احتواء الشيء والقدرة على الاستبداد به»"
+          source: "المحكم والمحيط الأعظم"
+        - text: "«المِلْكُ: ما مُلِكَ من مالٍ وخَوَلٍ»"
+          source: "مقاييس اللغة"
+    - lemma: "تَمَلُّك"
+      expands:
+        - text: "«تَمَلَّكَ الشيءَ: امتلكه، أو مَلَكه قهراً»"
+          source: "المعجم الوسيط"
+          addition: "يشير إلى الفعل أو عملية الاستيلاء أكثر من كونه 'حالة' ساكنة."
+    - lemma: "حِيَازَة"
+      contradicts:
+        - text: "«الحق في استعمالات محددة للنظم الإيكولوجية والاستفادة من خدماتها»"
+          source: "ArabTerm"
+          conflict: "الحيازة تختلف عن الملكية التامة في القانون؛ فهي وضع يد قد لا يستند إلى سند ملكية."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "ملكية"
+      decision: confirmed
+      decision_reason: "المصطلح العربي الأساسي والمعاصر المقابل لمفهوم ownership."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مِلْكِيَّة"
+    - lemma: "مِلْك"
+      source: stage1
+      decision: confirmed
+      decision_reason: "الاسم الأصلي الذي يعبر عن الاستبداد بالشيء واحتوائه، وهو صالح للدلالة على الحالة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مِلْك", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَمَلُّك"
+      source: stage1
+      decision: removed
+      decision_reason: "يعبر عن عملية الاكتساب أو الفعل (acquisition/possessing) وليس الحالة الاعتبارية للمالك."
+    - lemma: "حِيَازَة"
+      source: stage1
+      decision: removed
+      decision_reason: "مفهوم قانوني مستقل يعني وضع اليد والسيطرة المادية، وقد ينفصل عن الملكية القانونية."
+
+stage4_content:
+  definition:
+    current: "حالة أو حقيقة كونه مالكاً"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ترجمة لفظية، ويفضل استخدام صياغة معجمية عربية تجمع بين الجانب اللغوي والقانوني."
+    authored:
+      - type: terminological
+        text: "حقُّ الفرد أو الجماعة في حيازة شيء والانتفاع به والتَّصرُّف فيه بصفة قانونيّة تامّة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "حقُّ الفرد أو الجماعة في حيازة شيء والانتفاع به والتَّصرُّف فيه بصفة قانونيّة تامّة."}
+  examples:
+    per_lemma:
+      - lemma: "مِلْكِيَّة"
+        examples:
+          - text: "تضمن القوانين الحديثة حقَّ الملكية الفردية كدعامة للاقتصاد."
+            type: usage
+      - lemma: "مِلْك"
+        examples:
+          - text: "هذا العقار في مِلْكي منذ عشر سنوات."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "تنتقل مِلْكيّة العقارات عبر التسجيل الرسمي في الدوائر العقارية."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مِلْكِيَّة"
+      entry_id: "{auto}"
+      root: "ملك"
+      maqayis_quote: "«الْمِيمُ وَاللَّامُ وَالْكَافُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى قُوَّةٍ فِي الشَّيْءِ وَصِحَّةٍ... ثُمَّ قِيلَ مَلَكَ الْإِنْسَانُ الشَّيْءَ يَمْلِكُهُ مَلْكًا. وَالِاسْمُ الْمِلْكُ؛ لِأَنَّ يَدَهُ فِيهِ قَوِيَّةٌ صَحِيحَةٌ.»"
+    - lemma: "مِلْك"
+      entry_id: "{auto}"
+      root: "ملك"
+      maqayis_quote: "«الْمِيمُ وَاللَّامُ وَالْكَافُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى قُوَّةٍ فِي الشَّيْءِ وَصِحَّةٍ...»"
+  per_sense:
+    - lemma: "مِلْكِيَّة"
+      sense_id: "{auto}"
+      nuance: "مصدر صناعي يستخدم غالباً في السياقات القانونية والاجتماعية المعاصرة للدلالة على الحق والصفة."
+      mwe: false
+    - lemma: "مِلْك"
+      sense_id: "{auto}"
+      nuance: "الاسم الأصلي للجذر، ويعبر عن أصل القدرة على الشيء واحتوائه، ويستخدم في السياقات الكلاسيكية واليومية."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ملك","maqayis":"«الْمِيمُ وَاللَّامُ وَالْكَافُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى قُوَّةٍ فِي الشَّيْءِ وَصِحَّةٍ... ثُمَّ قِيلَ مَلَكَ الْإِنْسَانُ الشَّيْءَ يَمْلِكُهُ مَلْكًا. وَالِاسْمُ الْمِلْكُ؛ لِأَنَّ يَدَهُ فِيهِ قَوِيَّةٌ صَحِيحَةٌ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصدر صناعي يستخدم غالباً في السياقات القانونية والاجتماعية المعاصرة للدلالة على الحق والصفة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

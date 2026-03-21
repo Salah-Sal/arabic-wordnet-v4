@@ -1,0 +1,264 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي حرفي بعض الشيء ('حالة أو مثال على كونه غير كامل')، ويفضّل صياغة معجمية أكثر رصانة."
+      - "اللمة 'عدم كمال' مقبولة تعبيرياً لكنها تركيب وليست لفظة مفردة."
+    observations: "تتراوح المصطلحات في هذه المجموعة بين النقص الكمي (نقص) والنقص الكيفي أو العيب الوظيفي (عيب، خلل). المصطلح 'شائبة' يضيف بعداً دلالياً للنقص في الصفاء أو الكمال المعنوي."
+  blind_candidates:
+    - lemma: "نَقْص"
+      generation_method: ishtiqaq
+      justification: "المصدر المباشر للدلالة على عدم التمام أو الخسران في الحظ أو المادة."
+    - lemma: "خَلَل"
+      generation_method: ishtiqaq
+      justification: "يدل على الفساد أو الضعف أو منفرج ما بين الشيئين، ويستخدم للدلالة على العيب الوظيفي."
+    - lemma: "شَائِبَة"
+      generation_method: majaz
+      justification: "من الشوب وهو الخلط، وتستخدم للدلالة على ما يشوب الشيء الكامل من كدر أو عيب."
+    - lemma: "قُصُور"
+      generation_method: ishtiqaq
+      justification: "يدل على العجز عن بلوغ التمام أو الغاية، وهو مرادف قوي لعدم الكمال."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "نقص"
+      confirm:
+        - text: "«النَّقْصُ: الخُسْرَانُ في الحَظِّ... النُّقْصَانُ أيضاً: اسْمٌ للقَدْرِ الذَّاهِبِ من المَنْقُوصِ»"
+          source: "القاموس المحيط"
+        - text: "«نقص الشيءُ نقصاً ونقصاناً: خسّ وقلّ»"
+          source: "المعجم الوسيط"
+    - lemma: "عيب"
+      confirm:
+        - text: "«العَيْبُ، والعابُ: الوَصْمَةُ...»"
+          source: "القاموس المحيط"
+        - text: "«الْعَيْب: مَا ينقص الْقيمَة أَو الْعين نُقْصَانا يفوت (بِهِ) غَرَض صَحِيح»"
+          source: "مقاليد العلوم"
+    - lemma: "عدم كمال"
+      confirm:
+        - text: "«imperfection ... نقص؛ عدم اكتمال؛ عيب؛ شائبة»"
+          source: "المورد الحديث"
+    - lemma: "خَلَل"
+      confirm:
+        - text: "«الخَلَلُ: مُنْفَرَجُ ما بَيْنَ كُلِّ شَيْئَيْنِ الفساد والضَّعْف»"
+          source: "المعجم الوسيط"
+    - lemma: "شَائِبَة"
+      confirm:
+        - text: "«الشائبة: الشَّيْء الْغَرِيب يخْتَلط بِغَيْرِهِ ... لَيْسَ فِيهِ مَا يعِيبهُ»"
+          source: "المعجم الوسيط"
+    - lemma: "قُصُور"
+      confirm:
+        - text: "«القُصُور: العجز عن بلوغ الأمر»"
+          source: "المعجم الوسيط (بالمعنى العام)"
+    - lemma: "عدم اكتمال"
+      confirm:
+        - text: "«imperfectness ... نَقْص؛ عدم اكتمال»"
+          source: "المورد الحديث"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "نقص"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي يدل على ذهاب جزء من الشيء أو عدم تمامه."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نَقْص"
+    - lemma: "عيب"
+      decision: confirmed
+      decision_reason: "يدل على وصمة أو نقص في القيمة أو العين يخل بالكمال المنشود."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عَيْب"
+    - lemma: "عدم كمال"
+      decision: confirmed
+      decision_reason: "تعبير وصفي مباشر يقابل imperfection/imperfectness بدقة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عَدَمُ كَمَال"
+    - lemma: "خَلَل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يؤكد الدليل المعجمي استخدامه للدلالة على الفساد والضعف في الشيء، وهو مناسب للسياق."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "خَلَل", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "شَائِبَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تستخدم للدلالة على ما يخل بصفاء الشيء أو كماله، وتجمع على شوائب."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "شَائِبَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "عدم اكتمال"
+      decision: confirmed
+      decision_reason: "مرادف قوي لعدم الكمال وشائع الاستخدام في السياقات الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "عَدَمُ اكْتِمَال", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "حالة أو مثال على كونه غير كامل"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ترجمة حرفية بسيطة؛ الصيغة المقترحة تدمج بين الوصف والتعريف بالمترادفات المعجمية."
+    authored:
+      - type: terminological
+        text: "صِفَةُ مَا لَيْسَ بِتَامّ، أَوْ وُجُودُ نَقْصٍ أَوْ عَيْبٍ فِي شَيْءٍ مَا."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "نَقْص"
+        examples:
+          - text: "اكتشف المهندس نقصاً في التصميم الإنشائي للمبنى."
+            type: usage
+      - lemma: "عَيْب"
+        examples:
+          - text: "يضمن البائع السلعة للمشتري من أي عيب مصنعي يظهر فيها."
+            type: usage
+      - lemma: "عَدَمُ كَمَال"
+        examples:
+          - text: "يدرك الفنان أن عمله يتسم بعدم كمال بشري، مما يزيده جمالاً."
+            type: usage
+      - lemma: "خَلَل"
+        examples:
+          - text: "أدى خلل فني في المحرك إلى توقف السيارة فجأة في منتصف الطريق."
+            type: usage
+      - lemma: "شَائِبَة"
+        examples:
+          - text: "هذا الألماس نقي ونادر، فلا تشوبه أي شائبة تعكر صِفوه."
+            type: usage
+      - lemma: "عَدَمُ اكْتِمَال"
+        examples:
+          - text: "لم تتمكن اللجنة من تقييم المشروع بسبب عدم اكتمال البيانات المقدمة."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "صِفَةُ مَا لَيْسَ بِتَامّ، أَوْ وُجُودُ نَقْصٍ أَوْ عَيْبٍ فِي شَيْءٍ مَا."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "نَقْص"
+      entry_id: "{auto}"
+      root: "نقص"
+      maqayis_quote: "«(نَقَصَ) النُّونُ وَالْقَافُ وَالصَّادُ كَلِمَةٌ وَاحِدَةٌ، هِيَ النَّقْصُ: خِلَافُ الزِّيَادَةِ.»"
+    - lemma: "عَيْب"
+      entry_id: "{auto}"
+      root: "عيب"
+      maqayis_quote: "«(عَيَبَ) الْعَيْنُ وَالْيَاءُ وَالْبَاءُ أَصْلٌ صَحِيحٌ، فِيهِ كَلِمَتَانِ: إِحْدَاهُمَا الْعَيْبُ وَالْأُخْرَى الْعَيْبَةُ... فَالْعَيْبُ فِي الشَّيْءِ مَعْرُوفٌ.»"
+    - lemma: "عَدَمُ كَمَال"
+      entry_id: "{auto}"
+      roots:
+        - word: "عدم"
+          root: "عدم"
+          maqayis_quote: "«(عَدِمَ) الْعَيْنُ وَالدَّالُ وَالْمِيمُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى فِقْدَانِ الشَّيْءِ.»"
+        - word: "كمال"
+          root: "كمل"
+          maqayis_quote: "«(كَمَلَ) الْكَافُ وَالْمِيمُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَمَامِ الشَّيْءِ.»"
+    - lemma: "خَلَل"
+      entry_id: "{auto}"
+      root: "خلل"
+      maqayis_quote: "«(خَلَّ) الْخَاءُ وَاللَّامُ أَصْلٌ وَاحِدٌ يَتَقَارَبُ فَرَوْعُهُ... فَأَمَّا الْفُرْجَةُ فَالْخَلَلُ بَيْنَ الشَّيْئَيْنِ.»"
+    - lemma: "شَائِبَة"
+      entry_id: "{auto}"
+      root: "شوب"
+      maqayis_quote: "«(شَوُبَ) الشِّينُ وَالْوَاوُ وَالْبَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الْخَلْطُ.»"
+    - lemma: "عَدَمُ اكْتِمَال"
+      entry_id: "{auto}"
+      roots:
+        - word: "عدم"
+          root: "عدم"
+          maqayis_quote: "«(عَدِمَ) الْعَيْنُ وَالدَّالُ وَالْمِيمُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى فِقْدَانِ الشَّيْءِ.»"
+        - word: "اكتمال"
+          root: "كمل"
+          maqayis_quote: "«(كَمَلَ) الْكَافُ وَالْمِيمُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَمَامِ الشَّيْءِ.»"
+  per_sense:
+    - lemma: "نَقْص"
+      sense_id: "{auto}"
+      nuance: "يدل على الافتقار الكمي أو ذهاب جزء من الشيء."
+      mwe: false
+    - lemma: "عَيْب"
+      sense_id: "{auto}"
+      nuance: "يدل على نقص كيفي أو وصمة تخل بقيمة الشيء أو غرضه."
+      mwe: false
+    - lemma: "عَدَمُ كَمَال"
+      sense_id: "{auto}"
+      nuance: "تعبير عام عن حالة عدم التمام."
+      mwe: true
+    - lemma: "خَلَل"
+      sense_id: "{auto}"
+      nuance: "يشير غالباً إلى نقص وظيفي أو اضطراب في النظام أو البناء."
+      mwe: false
+    - lemma: "شَائِبَة"
+      sense_id: "{auto}"
+      nuance: "تشير إلى نقص يسير أو مادة غريبة تخل بصفاء الشيء."
+      mwe: false
+    - lemma: "عَدَمُ اكْتِمَال"
+      sense_id: "{auto}"
+      nuance: "يركز على أن الشيء لم يبلغ مرحلة التمام النهائية بعد."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نقص","maqayis":"«(نَقَصَ) النُّونُ وَالْقَافُ وَالصَّادُ كَلِمَةٌ وَاحِدَةٌ، هِيَ النَّقْصُ: خِلَافُ الزِّيَادَةِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يدل على الافتقار الكمي أو ذهاب جزء من الشيء.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

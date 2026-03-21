@@ -325,8 +325,24 @@ def cmd_sync(args):
             WHERE wave_id = ?
         """, (reviewed, prepared, wave_id))
 
-    # 5. Pull cost/failure data from .batch_status.db if it exists
-    if batch_status_db.exists():
+    # 5. Pull cost/failure data from .batch_summary.json (preferred) or .batch_status.db
+    summary_json_path = output_dir / ".batch_summary.json"
+    if summary_json_path.exists():
+        import json as _json
+        try:
+            summary = _json.loads(summary_json_path.read_text())
+            total_cost = summary.get("total_cost", 0.0)
+            total_failed = summary.get("failed", 0)
+            print(f"Batch summary JSON: total cost ${total_cost:.2f}, {total_failed} failures")
+            # Apply cost to all waves proportionally (summary is per-run aggregate)
+            for wave_id, in db.execute("SELECT wave_id FROM waves"):
+                db.execute(
+                    "UPDATE waves SET total_cost_usd = ? WHERE wave_id = ?",
+                    (total_cost, wave_id)
+                )
+        except (ValueError, OSError) as e:
+            print(f"WARNING: .batch_summary.json unreadable ({e}), skipping cost data")
+    elif batch_status_db.exists():
         try:
             bsdb = sqlite3.connect(str(batch_status_db))
             bsdb.execute("PRAGMA integrity_check")
@@ -475,28 +491,46 @@ def cmd_status(args):
 
     # Throughput estimate
     if total_reviewed > 0:
-        # Check batch_status.db for timing
         output_dir = (SCRIPT_DIR / campaign["output_dir"]).resolve()
+        summary_json_path = output_dir / ".batch_summary.json"
         batch_status_db = output_dir / ".batch_status.db"
-        if batch_status_db.exists():
-            bsdb = sqlite3.connect(str(batch_status_db))
-            first_start = bsdb.execute(
-                "SELECT MIN(started_at) FROM batch_runs"
-            ).fetchone()[0]
-            last_finish = bsdb.execute(
-                "SELECT MAX(finished_at) FROM batch_runs WHERE finished_at IS NOT NULL"
-            ).fetchone()[0]
-            bsdb.close()
 
-            if first_start and last_finish:
-                start_dt = datetime.fromisoformat(first_start)
-                end_dt = datetime.fromisoformat(last_finish)
-                elapsed_days = max((end_dt - start_dt).total_seconds() / 86400, 0.01)
-                rate = total_reviewed / elapsed_days
-                remaining = tree_size - total_reviewed
-                est_days = remaining / rate if rate > 0 else float("inf")
-                print(f"\n  Throughput: ~{rate:.0f} synsets/day")
-                print(f"  Remaining: ~{remaining:,} synsets (~{est_days:.0f} days at current rate)")
+        first_start = None
+        last_finish = None
+
+        # Prefer .batch_summary.json (safe to read while container runs)
+        if summary_json_path.exists():
+            import json as _json
+            try:
+                summary = _json.loads(summary_json_path.read_text())
+                last_finish = summary.get("finished_at")
+            except (ValueError, OSError):
+                pass
+
+        # Fall back to .batch_status.db for first_start (or full timing)
+        if batch_status_db.exists():
+            try:
+                bsdb = sqlite3.connect(str(batch_status_db))
+                first_start = bsdb.execute(
+                    "SELECT MIN(started_at) FROM batch_runs"
+                ).fetchone()[0]
+                if not last_finish:
+                    last_finish = bsdb.execute(
+                        "SELECT MAX(finished_at) FROM batch_runs WHERE finished_at IS NOT NULL"
+                    ).fetchone()[0]
+                bsdb.close()
+            except sqlite3.DatabaseError:
+                pass
+
+        if first_start and last_finish:
+            start_dt = datetime.fromisoformat(first_start)
+            end_dt = datetime.fromisoformat(last_finish)
+            elapsed_days = max((end_dt - start_dt).total_seconds() / 86400, 0.01)
+            rate = total_reviewed / elapsed_days
+            remaining = tree_size - total_reviewed
+            est_days = remaining / rate if rate > 0 else float("inf")
+            print(f"\n  Throughput: ~{rate:.0f} synsets/day")
+            print(f"  Remaining: ~{remaining:,} synsets (~{est_days:.0f} days at current rate)")
 
     print()
     db.close()

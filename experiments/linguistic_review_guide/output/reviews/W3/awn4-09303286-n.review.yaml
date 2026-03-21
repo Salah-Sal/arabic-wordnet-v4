@@ -1,0 +1,266 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الحالية تفتقر إلى التشكيل الكامل."
+      - "التعريف الحالي مقتضب جداً ويحتاج صياغة معجمية رصينة."
+    observations: "المفهوم يشير إلى تشكيل جغرافي محدد (Firth) يرتبط غالباً بالمصبات الناتجة عن التجلد، واللفظ العربي 'خور' هو الأقرب تراثياً، بينما 'لسان بحري' و'مصب خليجي' يمثلان الاصطلاح الجغرافي الحديث."
+  blind_candidates:
+    - lemma: "خَوْر"
+      generation_method: majaz
+      justification: "لفظ عربي قديم يطلق على مصب الماء في البحر وعلى الخليج الصغير، وهو الأنسب للمفهوم."
+    - lemma: "شَرْم"
+      generation_method: majaz
+      justification: "يعني الشق في الجبل أو الأرض، ويستخدم دلالة على الخليج الضيق المتوغل في اليابسة."
+    - lemma: "مَصَبّ خَلِيجِيّ"
+      generation_method: tarkib
+      justification: "تركيب وصفي اصطلاحي يعبر عن طبيعة الـ (Firth) كمصب نهري متسع يشبه الخليج."
+    - lemma: "ذِرَاع بَحْر"
+      generation_method: tarkib
+      justification: "تعبير وصفي يستخدم للإشارة إلى توغل البحر في اليابسة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خَوْر"
+      confirm:
+        - text: "«الخَوْر: مصبُّ الماء فى البحر المنخفض من الأرض بين مرتفعين الخليج»"
+          source: "المعجم الوسيط"
+        - text: "«الخَوْرُ: المُنْخَفَضُ المُطْمَئِنُّ من الأَرْضِ بين نَشْزَيْنِ... مَصَبُّ المياهِ الجارِيَةِ فى البَحْرِ، إذا اتَّسَعَ وعَرُضَ الخَلِيجُ من البَحْر»"
+          source: "المعجم الكبير"
+    - lemma: "لِسَان بَحْرِيّ"
+      confirm:
+        - text: "«لسان بحري: (firth) نتيجة تأثير التجلد خلال العصر الجليدي تم تراجعه في مناطق مسطحة... يساهم في توسيع النهر وخصوصا مصبه.»"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+        - text: "«مصب نهر، لسان بحري: firth»"
+          source: "المعجم الموحد لمصطلحات الجيولوجيا"
+    - lemma: "شَرْم"
+      confirm:
+        - text: "«الشَّرْم: لُجَّة البحر، وقيل: موضع فيه، وقيل: هو أَبْعَدُ قَعْره. الجوهري: وشَرْمٌ من البحر خَلِيجٌ منه.»"
+          source: "لسان العرب"
+        - text: "«الشَّرْمُ: كل شق غير نافذ في جبل أو حائط، ومن البحر خليج منه»"
+          source: "المعجم الوسيط"
+    - lemma: "مَصَبّ خَلِيجِيّ"
+      confirm:
+        - text: "«مصب خليجي: firth (Sco.)»"
+          source: "مسرد الجغرافيا والتاريخ (ArabTerm)"
+    - lemma: "ذِرَاع بَحْر"
+      confirm:
+        - text: "«ذراع بحر، خليج: firth; sea arm»"
+          source: "المعجم الموحد لمصطلحات علوم البحار"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "خور"
+      decision: confirmed
+      decision_reason: "مصطلح أصيل ومستخدم بكثرة في الجغرافيا العربية لوصف المصبات والخلجان الضيقة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَوْر"
+    - lemma: "لسان بحري"
+      decision: confirmed
+      decision_reason: "مصطلح جغرافي حديث معتمد في المعاجم المتخصصة كترجمة دقيقة لكلمة (firth)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "لِسَان بَحْرِيّ"
+    - lemma: "شَرْم"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ تراثي يعبر بدقة عن 'الشق' البحري في اليابسة، وهو ما ينطبق على تشكل الـ (firth)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "شَرْم"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "مَصَبّ خَلِيجِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تقني دقيق ورد في المعاجم الجغرافية كترجمة لمصطلح (firth) خاصة في السياق الإسكتلندي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مَصَبّ خَلِيجِيّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "ذِرَاع بَحْر"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير وصفي عام لا يرتقي لكونه مصطلحاً معجمياً مستقلاً في هذا السياق، والبدائل الأخرى أقوى."
+
+stage4_content:
+  definition:
+    current: "مصب ضيق وطويل (خاصة في اسكتلندا)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط؛ يفضل صياغته بأسلوب معجمي يوضح الطبيعة الجيومورفولوجية لهذا المصب."
+    authored:
+      - type: terminological
+        text: "مَصَبٌّ بَحْرِيٌّ ضَيِّقٌ مُتَوَاغِلٌ فِي اليَابِسَةِ، يَتَكَوَّنُ غَالِبًا بِفِعْلِ التَّجَلُّدِ، وَيَشِيعُ اسْتِعْمَالُ هَذَا الوَصْفِ فِي المَصَبَّاتِ الإِسْكُتْلَنْدِيَّةِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "مَصَبٌّ بَحْرِيٌّ ضَيِّقٌ مُتَوَاغِلٌ فِي اليَابِسَةِ، يَتَكَوَّنُ غَالِبًا بِفِعْلِ التَّجَلُّدِ، وَيَشِيعُ اسْتِعْمَالُ هَذَا الوَصْفِ فِي المَصَبَّاتِ الإِسْكُتْلَنْدِيَّةِ."
+  examples:
+    per_lemma:
+      - lemma: "خَوْر"
+        examples:
+          - text: "يُعَدُّ خَوْرُ فُورث فِي إِسْكُتْلَنْدَا مِنْ أَشْهَرِ المَصَبَّاتِ الَّتِي تَعْبُرُهَا الجُسُورُ العِمْلَاقَةُ."
+            type: usage
+      - lemma: "لِسَان بَحْرِيّ"
+        examples:
+          - text: "تَتَمَيَّزُ السَّوَاحِلُ الشَّمَالِيَّةُ بِوُجُودِ لِسَانٍ بَحْرِيٍّ يَمْتَدُّ لِكِيلُومِتْرَاتٍ دَاخِلَ البَرِّ."
+            type: usage
+      - lemma: "شَرْم"
+        examples:
+          - text: "تَكْثُرُ الشُّرُومُ فِي السَّوَاحِلِ الصَّخْرِيَّةِ حَيْثُ يَنْفُذُ البَحْرُ فِي شُقُوقِ اليَابِسَةِ."
+            type: usage
+      - lemma: "مَصَبّ خَلِيجِيّ"
+        examples:
+          - text: "أَوْضَحَتِ الخَرِيطَةُ الجُغْرَافِيَّةُ مَصَبًّا خَلِيجِيًّا عَمِيقًا عِنْدَ نِهَايَةِ مَجْرَى النَّهْرِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يُعَدُّ خَوْرُ فُورث فِي إِسْكُتْلَنْدَا مِنْ أَشْهَرِ المَصَبَّاتِ الَّتِي تَعْبُرُهَا الجُسُورُ العِمْلَاقَةُ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خَوْر"
+      entry_id: "{auto}"
+      root: "خور"
+      maqayis_quote: "«الْخَاءُ وَالْوَاوُ وَالرَّاءُ أَصْلَانِ: أَحَدُهُمَا يَدُلُّ عَلَى صَوْتٍ، وَالْآخَرُ عَلَى ضَعْفٍ...»"
+    - lemma: "لِسَان بَحْرِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "لسان"
+          root: "لسن"
+          maqayis_quote: "«اللَّامُ وَالسِّينُ وَالنُّونُ أَصْلٌ صَحِيحٌ وَاحِدٌ، يَدُلُّ عَلَى طُولٍ لَطِيفٍ غَيْرِ بَائِنٍ، فِي عُضْوٍ أَوْ غَيْرِهِ. مِنْ ذَلِكَ اللِّسَانُ...»"
+        - word: "بحري"
+          root: "بحر"
+          maqayis_quote: "«الْبَاءُ وَالْحَاءُ وَالرَّاءُ... سُمِّيَ الْبَحْرُ بَحْرًا لِاسْتِبْحَارِهِ وَهُوَ انْبِسَاطُهُ وَسَعَتُهُ.»"
+    - lemma: "شَرْم"
+      entry_id: "{auto}"
+      root: "شرم"
+      maqayis_quote: "«الشِّينُ وَالرَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ لَا يُخْلَفُ، وَهُوَ يَدُلُّ عَلَى خَرْقٍ فِي الشَّيْءِ وَمَزْقٍ... وَسَمِعْتُ مَنْ يَقُولُ إِنَّ الشَّرْمَ كَالْخَرْقِ فِي جَانِبِ الْبَحْرِ، كَالْمَدْخَلِ إِلَى الْبَحْرِ.»"
+    - lemma: "مَصَبّ خَلِيجِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مصب"
+          root: "صبب"
+          maqayis_quote: "«الصَّادُ وَالْبَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ تَسَفُّلُ الشَّيْءِ... يُقَالُ صَبَبْتُ الْمَاءَ أَصُبُّهُ صَبًّا... وَالصَّبَبُ: مَا انْحَدَرَ مِنَ الْأَرْضِ.»"
+        - word: "خليجي"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى جَذْبِ شَيْءٍ وَنَزْعِهِ... وَالْخَلِيجُ: جَدْوَلٌ يُنْتَزَعُ مِنَ النَّهْرِ أَوْ مِنَ الْبَحْرِ.»"
+  per_sense:
+    - lemma: "خَوْر"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام والأكثر شيوعاً للمصبات والخلجان الضيقة في التراث الجغرافي العربي."
+      mwe: false
+    - lemma: "لِسَان بَحْرِيّ"
+      sense_id: "{auto}"
+      nuance: "مصطلح تقني يركز على الشكل المتطاول للمصب (Tongue/Spit) وعلاقته بالنشاط الجليدي."
+      mwe: true
+    - lemma: "شَرْم"
+      sense_id: "{auto}"
+      nuance: "يوحي بالضيق والعمق والتشكل الصخري (الشق)، ويستخدم بكثرة في سواحل البحر الأحمر."
+      mwe: false
+    - lemma: "مَصَبّ خَلِيجِيّ"
+      sense_id: "{auto}"
+      nuance: "ترجمة اصطلاحية دقيقة للمفهوم الإسكتلندي (Firth) الذي يجمع بين صفات المصب والخليج."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خور","maqayis":"«الْخَاءُ وَالْوَاوُ وَالرَّاءُ أَصْلَانِ: أَحَدُهُمَا يَدُلُّ عَلَى صَوْتٍ، وَالْآخَرُ عَلَى ضَعْفٍ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"لسان","root":"لسن","maqayis":"«اللَّامُ وَالسِّينُ وَالنُّونُ أَصْلٌ صَحِيحٌ وَاحِدٌ، يَدُلُّ عَلَى طُولٍ لَطِيفٍ غَيْرِ بَائِنٍ...»"},{"word":"بحري","root":"بحر","maqayis":"«الْبَاءُ وَالْحَاءُ وَالرَّاءُ... سُمِّيَ الْبَحْرُ بَحْرًا لِاسْتِبْحَارِهِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"شرم","maqayis":"«الشِّينُ وَالرَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ... وَسَمِعْتُ مَنْ يَقُولُ إِنَّ الشَّرْمَ كَالْخَرْقِ فِي جَانِبِ الْبَحْرِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مصب","root":"صبب","maqayis":"«الصَّادُ وَالْبَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ تَسَفُّلُ الشَّيْءِ...»"},{"word":"خليجي","root":"خلج","maqayis":"«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ... وَالْخَلِيجُ: جَدْوَلٌ يُنْتَزَعُ مِنَ النَّهْرِ أَوْ مِنَ الْبَحْرِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ العام والأكثر شيوعاً للمصبات والخلجان الضيقة في التراث الجغرافي العربي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح تقني يركز على الشكل المتطاول للمصب (Tongue/Spit) وعلاقته بالنشاط الجليدي.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يوحي بالضيق والعمق والتشكل الصخري (الشق)، ويستخدم بكثرة في سواحل البحر الأحمر.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"ترجمة اصطلاحية دقيقة للمفهوم الإسكتلندي (Firth) الذي يجمع بين صفات المصب والخليج.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

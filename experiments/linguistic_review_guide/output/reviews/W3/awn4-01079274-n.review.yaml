@@ -1,0 +1,263 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "كلمة 'وقاية' تشير إلى حماية الشيء وحفظه مما يؤذيه، وهي دلالة أخص بكثير من مطلق معنى 'المنع' الوارد في المجموعة."
+    observations: "المجموعة تعبر عن فعل الحيلولة دون وقوع أمر أو كبح شخص عن فعل شيء. اللمات 'منع' و'حظر' مناسبة ومباشرة للمفهوم، بينما يجب إضافة كلمات أخرى تعبر عن نفس الدلالة."
+  blind_candidates:
+    - lemma: "مَنْع"
+      generation_method: ishtiqaq
+      justification: "مصدر الفعل منع، وهو اللفظ الأعم والأشمل للدلالة على الحيلولة دون وقوع الشيء."
+    - lemma: "حَظْر"
+      generation_method: ishtiqaq
+      justification: "مصدر حظر، ويعني المنع والتحريم."
+    - lemma: "دَرْء"
+      generation_method: ishtiqaq
+      justification: "مصدر درأ، ويعني الدفع، ويستعمل في سياق المنع والدفع الاستباقي."
+    - lemma: "حَيْلُولَة"
+      generation_method: ishtiqaq
+      justification: "مصدر حال، ويقصد به الحجز والتوسط لمنع وقوع الأمر أو اتصال الأشياء."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "حظر"
+      confirm:
+        - text: "الرجل - حظراً, وحظاراً: اتخذ حظيرة عليه: حجر ومنع الشيء: منعه"
+          source: "المعجم الوسيط"
+        - text: "(حَظَرَ) الْحَاءُ وَالظَّاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الْمَنْعِ."
+          source: "مقاييس اللغة"
+    - lemma: "منع"
+      confirm:
+        - text: "منعته أمنعه منعا فامتنع أي حلت بينه وبين إرادته"
+          source: "كتاب العين"
+        - text: "(مَنَعَ) الْمِيمُ وَالنُّونُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ هُوَ خِلَافُ الْإِعْطَاءِ. وَمَنَعْتُهُ الشَّيْءَ مَنْعًا"
+          source: "مقاييس اللغة"
+    - lemma: "وقاية"
+      contradicts:
+        - text: "الوقاية: حفظ الشيء عما يؤذيه ويضره والتوقي جعل الشيء وقاية مما يخاف."
+          source: "التوقيف على مهمات التعاريف"
+          conflict: "الوقاية تعني الحماية والصيانة الاستباقية لدرء الأذى، وليس مطلق المنع."
+    - lemma: "درء"
+      confirm:
+        - text: "الدرء: الميل لأحد الجانبين والدفع."
+          source: "التوقيف على مهمات التعاريف"
+        - text: "دَرَأْتُ الشَّيْءَ: دَفَعْتُهُ."
+          source: "مقاييس اللغة"
+    - lemma: "حيلولة"
+      confirm:
+        - text: "وَالْحِيلَةُ وَالْحَوِيلُ وَالْمُحَاوَلَةُ مِنْ طَرِيقٍ وَاحِدٍ ... لِأَنَّهُ يَدُورُ حَوَالَيِ الشَّيْءِ لِيُدْرِكَهُ."
+          source: "مقاييس اللغة"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "منع"
+      decision: confirmed
+      decision_reason: "اللمة مطابقة تماماً للمفهوم، فالمَنْع هو الحيلولة دون وقوع الأمر."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَنْع"
+    - lemma: "حظر"
+      decision: confirmed
+      decision_reason: "اللمة مطابقة وتدل على المنع والحجر، وغالباً ما تحمل طابعاً رسمياً أو تشريعياً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حَظْر"
+    - lemma: "وقاية"
+      decision: removed
+      decision_reason: "الوقاية دلالتها أخص من المنع المطلق، إذ تتعلق بالحفظ والحماية من أذى مرتقب، ولا تعبر عن مطلق المنع."
+      evidence_assessment:
+        case: contradicts_only
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "دَرْء"
+      source: stage1
+      decision: confirmed
+      decision_reason: "الدرء يعني الدفع الشديد، ويستعمل لمنع الأمور غير المرغوب فيها من الحدوث، وهو دقيق في هذا السياق."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "دَرْء"
+            pos: "n"
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "حَيْلُولَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "الحيلولة هي التوسط والتدخل لمنع حدوث الفعل أو اتصال الأطراف، وهي مرادف دقيق للمنع."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "حَيْلُولَة"
+            pos: "n"
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "فعل المنع"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دائري ويستخدم إحدى اللمات (المنع) في التعريف، لذا يجب صياغة تعريف دقيق لا يعتمد على اللمة."
+    authored:
+      - type: terminological
+        text: "فعل التدخل أو الحجر للحيلولة دون وقوع أمر ما أو اعتراض طريق شخص لإيقاف تنفيذ إرادته."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "فعل التدخل أو الحجر للحيلولة دون وقوع أمر ما أو اعتراض طريق شخص لإيقاف تنفيذ إرادته."
+  examples:
+    per_lemma:
+      - lemma: "مَنْع"
+        examples:
+          - text: "اتخذت الجهات المختصة تدابير صارمة لِمَنْعِ انتشار الوباء."
+            type: usage
+      - lemma: "حَظْر"
+        examples:
+          - text: "أعلنت الحكومة حَظْرَ التجول في المناطق المتضررة."
+            type: usage
+      - lemma: "دَرْء"
+        examples:
+          - text: "دَرْءُ المفاسد مقدم على جلب المصالح."
+            type: proverb
+      - lemma: "حَيْلُولَة"
+        examples:
+          - text: "سعت القوات الدولية إلى الحَيْلُولَةِ دون تفاقم النزاع المسلح."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "اتخذت الجهات المختصة تدابير صارمة لِمَنْعِ انتشار الوباء."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "أعلنت الحكومة حَظْرَ التجول في المناطق المتضررة."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَنْع"
+      entry_id: "{auto}"
+      root: "منع"
+      maqayis_quote: "«الْمِيمُ وَالنُّونُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ هُوَ خِلَافُ الْإِعْطَاءِ. وَمَنَعْتُهُ الشَّيْءَ مَنْعًا، وَهُوَ مَانِعٌ وَمَنَّاعٌ.»"
+    - lemma: "حَظْر"
+      entry_id: "{auto}"
+      root: "حظر"
+      maqayis_quote: "«الْحَاءُ وَالظَّاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الْمَنْعِ. يُقَالُ حَظَرْتُ الشَّيْءَ أَحْظُرُهُ حَظْرًا»"
+    - lemma: "دَرْء"
+      entry_id: "{auto}"
+      root: "درأ"
+      maqayis_quote: "«دَرَأْتُ الشَّيْءَ: دَفَعْتُهُ. قَالَ اللَّهُ تَعَالَى: {وَيَدْرَأُ عَنْهَا الْعَذَابَ}»"
+    - lemma: "حَيْلُولَة"
+      entry_id: "{auto}"
+      root: "حول"
+      maqayis_quote: "«الْحَاءُ وَالْوَاوُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ تَحَرُّكٌ فِي دَوْرٍ... وَحَالَ الشَّخْصُ يَحُولُ، إِذَا تَحَرَّكَ، وَكَذَلِكَ كُلُّ مُتَحَوِّلٍ عَنْ حَالَةٍ.»"
+  per_sense:
+    - lemma: "مَنْع"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام والشامل الدال على عدم السماح بوقوع الشيء أو تحقيقه."
+      mwe: false
+    - lemma: "حَظْر"
+      sense_id: "{auto}"
+      nuance: "المنع المقترن بقوة التشريع أو السلطة أو التحريم."
+      mwe: false
+    - lemma: "دَرْء"
+      sense_id: "{auto}"
+      nuance: "المنع القائم على المدافعة الاستباقية لتجنب الخطر أو الفساد."
+      mwe: false
+    - lemma: "حَيْلُولَة"
+      sense_id: "{auto}"
+      nuance: "المنع الناشئ عن توسط وتدخل لقطع الاتصال أو مسار الفعل."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"منع","maqayis":"«الْمِيمُ وَالنُّونُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ هُوَ خِلَافُ الْإِعْطَاءِ. وَمَنَعْتُهُ الشَّيْءَ مَنْعًا، وَهُوَ مَانِعٌ وَمَنَّاعٌ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حظر","maqayis":"«الْحَاءُ وَالظَّاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الْمَنْعِ. يُقَالُ حَظَرْتُ الشَّيْءَ أَحْظُرُهُ حَظْرًا»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"درأ","maqayis":"«دَرَأْتُ الشَّيْءَ: دَفَعْتُهُ. قَالَ اللَّهُ تَعَالَى: {وَيَدْرَأُ عَنْهَا الْعَذَابَ}»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حول","maqayis":"«الْحَاءُ وَالْوَاوُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ تَحَرُّكٌ فِي دَوْرٍ... وَحَالَ الشَّخْصُ يَحُولُ، إِذَا تَحَرَّكَ، وَكَذَلِكَ كُلُّ مُتَحَوِّلٍ عَنْ حَالَةٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ العام والشامل الدال على عدم السماح بوقوع الشيء أو تحقيقه.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المنع المقترن بقوة التشريع أو السلطة أو التحريم.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المنع القائم على المدافعة الاستباقية لتجنب الخطر أو الفساد.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المنع الناشئ عن توسط وتدخل لقطع الاتصال أو مسار الفعل.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,164 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الحالية تفتقر إلى التشكيل الكامل."
+      - "عدم وجود مرادفات للمصطلح الأساسي رغم سعة المعجم العربي."
+    observations: "المجموعة تمثل مفهماً جغرافياً عالمياً (خليج المكسيك). المصطلح العربي مستقر تماماً، ولكن يمكن إثراؤه بمصطلحات معجمية تراثية تعطي نفس المعنى."
+  blind_candidates:
+    - lemma: "خَلِيجُ الْمَكْسِيك"
+      generation_method: tarkib
+      justification: "الاسم القياسي والأكثر شيوعاً، وهو مركب إضافي يجمع بين المفهوم الجغرافي والموقع."
+    - lemma: "جَوْنُ الْمَكْسِيك"
+      generation_method: majaz
+      justification: "استخدام كلمة 'جون' وهي لفظة تراثية فصيحة تعني الخليج الواسع أو الشرم، مما يوفر بديلاً معجمياً غنياً."
+    - lemma: "بَحْرُ الْمَكْسِيك"
+      generation_method: tarkib
+      justification: "تسمية وصفية تستخدم أحياناً في النصوص القديمة أو المترجمة لوصف الخليج الواسع كبحر شبه مغلق."
+    - lemma: "حَوْضُ الْمَكْسِيك"
+      generation_method: majaz
+      justification: "وصف جغرافي يشير إلى الطبيعة الحوضية والجيولوجية للمنطقة المائية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خَلِيجُ الْمَكْسِيك"
+      confirm:
+        - text: "خليج المكسيك (Gulf of Mexico)"
+          source: "المَكنَز الزراعي متعدد اللغات (ArabTerm)"
+    - lemma: "جَوْن"
+      confirm:
+        - text: "«الجَوْن ويجمع على أجوان: خور، خليج»"
+          source: "تكملة المعاجم العربية (رينهارت دوزي)"
+        - text: "«جُوْن: خليج صغير»"
+          source: "المورد الحديث"
+      expands:
+        - text: "«تجوَّن البحر: توغل في الأرض وكون جونا أي خليجا»"
+          source: "معجم الإدريسي (نقلاً عن دوزي)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "خليج المكسيك"
+      decision: confirmed
+      decision_reason: "المصطلح العربي الرسمي والقياسي لهذا المفهوم الجغرافي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَلِيجُ الْمَكْسِيك"
+    - lemma: "جَوْنُ الْمَكْسِيك"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ 'جون' فصيح ويدل دلالة دقيقة على الخليج الواسع، وإضافته تثري المجموعة المترادفة ببدائل معجمية فصيحة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "جَوْنُ الْمَكْسِيك", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "ذراع من المحيط الأطلسي إلى الجنوب من الولايات المتحدة وإلى الشرق من المكسيك"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب جداً ويفتقر للغة المعجمية الرصينة."
+    authored:
+      - type: encyclopedic
+        text: "مساحة مائية شاسعة تعد جزءًا من المحيط الأطلسي، محاطة باليابسة من جهات ثلاث، حيث تحدها الولايات المتحدة من الشمال والشرق، والمكسيك من الغرب والجنوب، وكوبا من الجنوب الشرقي؛ وهو أحد أكبر الخلجان في العالم."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مساحة مائية شاسعة تعد جزءًا من المحيط الأطلسي، محاطة باليابسة من جهات ثلاث، حيث تحدها الولايات المتحدة من الشمال والشرق، والمكسيك من الغرب والجنوب، وكوبا من الجنوب الشرقي؛ وهو أحد أكبر الخلجان في العالم."}
+
+  examples:
+    per_lemma:
+      - lemma: "خَلِيجُ الْمَكْسِيك"
+        examples:
+          - text: "تُعدُّ مياه خَلِيجِ الْمَكْسِيكِ مَصْدراً غنياً للثروة السمكية والنفطية."
+            type: usage
+      - lemma: "جَوْنُ الْمَكْسِيك"
+        examples:
+          - text: "تتميز التيارات البحرية في جَوْنِ الْمَكْسِيكِ بتأثيرها الكبير على مناخ القارة."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يُعدُّ خَلِيجُ الْمَكْسِيكِ من أهم الممرات المائية الحيوية في القارة الأمريكية."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خَلِيجُ الْمَكْسِيك"
+      entry_id: "{auto}"
+      roots:
+        - word: "خليج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"
+        - word: "المكسيك"
+          root: null
+          maqayis_quote: "اسم عَلَم أعجمي معرَّب."
+    - lemma: "جَوْنُ الْمَكْسِيك"
+      entry_id: "{auto}"
+      roots:
+        - word: "جون"
+          root: "جون"
+          maqayis_quote: "«الْجِيمُ وَالْوَاوُ وَالنُّونُ أَصْلٌ وَاحِدٌ... وَالْجَوْنُ عِنْدَ أَهْلِ اللُّغَةِ قَاطِبَةً اسْمٌ يَقَعُ عَلَى الْأَسْوَدِ وَالْأَبْيَضِ.»"
+        - word: "المكسيك"
+          root: null
+          maqayis_quote: "اسم عَلَم أعجمي معرَّب."
+  per_sense:
+    - lemma: "خَلِيجُ الْمَكْسِيك"
+      sense_id: "{auto}"
+      nuance: "الاسم العلمي والجغرافي الأكثر شيوعاً وتداولاً."
+      mwe: true
+    - lemma: "جَوْنُ الْمَكْسِيك"
+      sense_id: "{auto}"
+      nuance: "بديل معجمي فصيح يستخدم في السياقات الأدبية أو المعجمية القديمة."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"خليج","root":"خلج","maqayis":"«الخاء واللام والجيم أصل واحد يدل على لي وفتل...»"},{"word":"المكسيك","root":null,"maqayis":"اسم علم أعجمي"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"جون","root":"جون","maqayis":"«الجيم والواو والنون أصل واحد...»"},{"word":"المكسيك","root":null,"maqayis":"اسم علم أعجمي"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم العلمي والجغرافي الأكثر شيوعاً وتداولاً","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"بديل معجمي فصيح يستخدم في السياقات الأدبية أو المعجمية القديمة","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

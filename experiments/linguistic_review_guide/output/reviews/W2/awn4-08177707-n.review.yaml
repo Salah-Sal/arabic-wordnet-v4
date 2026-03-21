@@ -1,0 +1,137 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الحالية 'الدوريون' هي جمع، ومن الأفضل إضافة الصيغة المفردة 'الدُّوريّ'."
+      - "اللمة الحالية تفتقر إلى التشكيل الكامل."
+    observations: "التعريف دقيق ويحدد الحقبة التاريخية والموقع الجغرافي (دوريس) بدقة. المصطلح معرب ومستقر في كتب التاريخ والآثار."
+  blind_candidates:
+    - lemma: "الدُّورِيُّون"
+      generation_method: taarib
+      justification: "الجمع القياسي المعرب للقبائل الإغريقية المنسوبة لمكان (Doris)."
+    - lemma: "الدُّورِيّ"
+      generation_method: taarib
+      justification: "صيغة المفرد والنسبة، وتستخدم للدلالة على الفرد أو النوع."
+    - lemma: "أَهْلُ دُورِيس"
+      generation_method: tarkib
+      justification: "تعبير وصفي شائع في المصادر التاريخية القديمة."
+    - lemma: "سُكَّانُ دُورِيس"
+      generation_method: tarkib
+      justification: "تعبير وصفي مباشر للمفهوم."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "الدوريون"
+      confirm:
+        - text: "«دوريون(ال...): dorians»"
+          source: "مسرد الجغرافيا والتاريخ، المنظمة العربية للتربية والثقافة والعلوم (موقع ArabTerm)"
+    - lemma: "الدُّوريّ"
+      confirm:
+        - text: "«الدُّوريّ: أحد أبناء شعب إغريقي قديم غزا اليونان حوالى عام 1100 ق.م»"
+          source: "المورد الحديث (2008)"
+    - lemma: "أهل دوريس"
+      evidence_status: "no_material_found"
+    - lemma: "سكان دوريس"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "الدوريون"
+      decision: confirmed
+      decision_reason: "مصطلح مستقر ومعتمد في المعاجم التاريخية والجغرافية العربية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "الدُّورِيُّون"
+    - lemma: "الدُّورِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "الصيغة المفردة للمصطلح، وهي ضرورية لتمثيل الوحدة المعجمية الأساسية، وموثقة في المعاجم الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "الدُّورِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-08177707-n"}
+    - lemma: "أهل دوريس"
+      decision: removed
+      decision_reason: "تعبير وصفي وليس وحدة معجمية مسكوكة."
+    - lemma: "سكان دوريس"
+      decision: removed
+      decision_reason: "تعبير وصفي زائد."
+
+stage4_content:
+  definition:
+    current: "السكان اليونانيون القدماء في دوريس الذين دخلوا اليونان من الشمال حوالي 1100 قبل الميلاد"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكن يمكن صياغته بأسلوب معجمي أكثر إحكاماً ووضوحاً."
+    authored:
+      - type: terminological
+        text: "إِحْدَى القَبَائِلِ اليُونَانِيَّةِ القَدِيمَةِ، نُسِبُوا إِلَى دُورِيسَ، وَهُمُ الَّذِينَ اجْتَاحُوا اليُونَانَ مِنَ الشَّمَالِ حَوَالِي عَامِ 1100 ق.م."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "الدُّورِيُّون"
+        examples:
+          - text: "أَسَّسَ الدُّورِيُّون مَمَالِكَ قَوِيَّةً فِي بِلَادِ اليُونَانِ بَعْدَ غَزْوِهِمْ لَهَا."
+            type: usage
+      - lemma: "الدُّورِيّ"
+        examples:
+          - text: "يُعَدُّ النِّظَامُ العَسْكَرِيُّ الصَّارِمُ سِمَةً مُمَيِّزَةً لِلْمُجْتَمَعِ الدُّورِيّ."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-08177707-n", definition_index: 0, text: "إِحْدَى القَبَائِلِ اليُونَانِيَّةِ القَدِيمَةِ، نُسِبُوا إِلَى دُورِيسَ، وَهُمُ الَّذِينَ اجْتَاحُوا اليُونَانَ مِنَ الشَّمَالِ حَوَالِي عَامِ 1100 ق.م."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "الدُّورِيّ"
+      entry_id: "{auto}"
+      root: "دور"
+      maqayis_quote: "«الدَّالُ وَالْوَاوُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى إِحْدَاقِ الشَّيْءِ بِالشَّيْءِ مِنْ حَوَالَيْهِ.»"
+  per_sense:
+    - lemma: "الدُّورِيُّون"
+      sense_id: "{auto}"
+      nuance: "صيغة الجمع للدلالة على الشعب أو القبيلة ككل."
+      mwe: false
+    - lemma: "الدُّورِيّ"
+      sense_id: "{auto}"
+      nuance: "صيغة المفرد للدلالة على الفرد أو للنسبة (مثل الفن الدوري أو النظام الدوري)."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"دور","maqayis":"«الدَّالُ وَالْوَاوُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى إِحْدَاقِ الشَّيْءِ بِالشَّيْءِ مِنْ حَوَالَيْهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"صيغة الجمع للدلالة على الشعب أو القبيلة ككل.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-08177707-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-08177707-n"
+        score: 0.95

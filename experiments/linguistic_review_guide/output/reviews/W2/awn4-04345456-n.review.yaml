@@ -1,0 +1,306 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'خيط' تشير في الأصل إلى الأداة (الخيط نفسه) أكثر من إشارتها إلى المجموعة المنظومة فيه، وإن كانت تُستخدم مجازاً."
+      - "اللمة 'عقد' ترتبط بالقلائد والجواهر بشكل أساسي، بينما التعريف الإنجليزي string أعمّ."
+    observations: "المجموعة الترادفية تمثل مفهوم 'المنظوم' (Collection threaded together). اللغة العربية ثرية بالألفاظ الدقيقة لهذا المفهوم بحسب طبيعة الأشياء المنظومة (لؤلؤ، خرز، جزر، أحداث)."
+  blind_candidates:
+    - lemma: "نَظْم"
+      generation_method: ishtiqaq
+      justification: "المصدر 'نظم' يُستخدم لوصف ما نُظم من اللؤلؤ والخرز، وهو مطابق تماماً للتعريف."
+    - lemma: "سِمْط"
+      generation_method: majaz
+      justification: "لفظ تراثي دقيق يطلق على الخيط ما دام الخرز منظوماً فيه."
+    - lemma: "سِلْسِلَة"
+      generation_method: majaz
+      justification: "تُستخدم للمنظومات المتتابعة سواء كانت مادية كالحلقات أو معنوية كالأحداث (a string of events)."
+    - lemma: "مَنْظُومَة"
+      generation_method: ishtiqaq
+      justification: "تُطلق على المجموعة المرتبة والمتصلة من الأشياء."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خيط"
+      confirm:
+        - text: "«السلك يخاط به أو ينظم فيه الشيء»"
+          source: "المعجم الوسيط"
+        - text: "«ما يُنْظَمُ فيه الشَّيءُ»"
+          source: "المعجم الكبير"
+    - lemma: "عقد"
+      confirm:
+        - text: "«العقد: القلادة»"
+          source: "مجمل اللغة"
+        - text: "«النِّظَامُ: العِقْدُ مِنَ الْجَوْهَرِ وَالْخَرَزِ وَنَحْوِهِمَا»"
+          source: "النهاية في غريب الحديث والأثر"
+    - lemma: "نَظْم"
+      confirm:
+        - text: "«النَّظْمُ: المَنْظُومُ، وصف بالمصدر. والنَّظْمُ: ما نظَمْته من لؤلؤٍ وخرزٍ وغيرهما»"
+          source: "لسان العرب"
+        - text: "«نَظْمٌ من لؤلؤ: أي منظوم»"
+          source: "المعجم المعاصر"
+    - lemma: "سِمْط"
+      confirm:
+        - text: "«السِّمْطُ: الخيطُ ما دام الخرز ونحوه منظوماً فيه»"
+          source: "المعجم الوسيط"
+        - text: "«السِّمْطُ الخيط الواحد المنْظومُ»"
+          source: "لسان العرب"
+    - lemma: "سِلْسِلَة"
+      confirm:
+        - text: "«حلقاتٌ ونحوها يتصل بعضها ببعض, ويعبَّر بها عن الأشياء المتتابعة فيقال: سلسلة مقالات أو مؤلَّفات»"
+          source: "المعجم الوسيط"
+        - text: "«string: سلسلة»"
+          source: "المورد الحديث"
+    - lemma: "مَنْظُومَة"
+      confirm:
+        - text: "«مجموعة أفكار ومبادئ مرتبطة ومنظمة»"
+          source: "المعجم المعاصر"
+        - text: "«string: المنظومة»"
+          source: "المورد الحديث"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "خَيْط"
+      decision: confirmed
+      decision_reason: "على الرغم من دلالته الأولية على الأداة، إلا أنه يُستخدم في السياقات الحديثة والفيزيائية للتعبير عن مفهوم String."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَيْط"
+    - lemma: "عِقْد"
+      decision: confirmed
+      decision_reason: "مصطلح أصيل للمجموعة المنظومة من الجواهر والخرز، وهو ما ينطبق عليه تعريف المجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عِقْد"
+    - lemma: "نَظْم"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصدر يُراد به المفعول (المنظوم)، وهو أدق الألفاظ العربية للتعبير عن مجموعة أشياء في سلك."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "نَظْم"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "سِمْط"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تراثي دقيق جداً يصف الخيط وما عليه من منظوم كوحدة واحدة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "سِمْط"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "سِلْسِلَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "ضرورية للتعبير عن التتابع (string of events/islands) والترابط الحلقي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "سِلْسِلَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "مَنْظُومَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تُستخدم في اللغة المعاصرة والتقنية لوصف مجموعة من العناصر المرتبطة وظيفياً أو تسلسلياً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مَنْظُومَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "مجموعة من الأشياء منظومة في خيط واحد، أو كأنها منظومة في خيط واحد"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكن يمكن جعله أكثر دقة ببيان صفة الاتصال والتتابع."
+    authored:
+      - type: terminological
+        text: "مجموعة من الأشياء (كالخرز أو الجواهر) متصل بعضها ببعض في خيط أو سلك واحد، وتُطلق مجازًا على الأشياء المتتابعة بانتظام."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "مجموعة من الأشياء (كالخرز أو الجواهر) متصل بعضها ببعض في خيط أو سلك واحد، وتُطلق مجازًا على الأشياء المتتابعة بانتظام."
+  examples:
+    per_lemma:
+      - lemma: "خَيْط"
+        examples:
+          - text: "أصلحت الخياطةُ خَيْطًا من الأزرار الملونة."
+            type: usage
+      - lemma: "عِقْد"
+        examples:
+          - text: "يتألق العِقْدُ في جيدها بلآلئه البراقة."
+            type: usage
+      - lemma: "نَظْم"
+        examples:
+          - text: "أهدى الغواص للسياح نَظْمًا من المحار النادر."
+            type: usage
+      - lemma: "سِمْط"
+        examples:
+          - text: "باعت المرأةُ سِمْطًا من الياقوت لتأمين معيشتها."
+            type: usage
+      - lemma: "سِلْسِلَة"
+        examples:
+          - text: "شاهدنا سِلْسِلَةً من الجزر الصغيرة من نافذة الطائرة."
+            type: usage
+      - lemma: "مَنْظُومَة"
+        examples:
+          - text: "تتبع هذه الشركة مَنْظُومَةً من الصحف الإقليمية."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يتألق العِقْدُ في جيدها بلآلئه البراقة."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خَيْط"
+      entry_id: "{auto}"
+      root: "خيط"
+      maqayis_quote: "«الْخَاءُ وَالْيَاءُ وَالطَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى امْتِدَادِ الشَّيْءِ فِي دِقَّةٍ.»"
+    - lemma: "عِقْد"
+      entry_id: "{auto}"
+      root: "عقد"
+      maqayis_quote: "«الْعَيْنُ وَالْقَافُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى شَدٍّ وَشِدَّةِ وُثُوقٍ.»"
+    - lemma: "نَظْم"
+      entry_id: "{auto}"
+      root: "نظم"
+      maqayis_quote: "«النُّونُ وَالظَّاءُ وَالْمِيمُ: أَصْلٌ يَدُلُّ عَلَى تَأْلِيفِ شَيْءٍ وَتَأْلِيفِهِ.»"
+    - lemma: "سِمْط"
+      entry_id: "{auto}"
+      root: "سمط"
+      maqayis_quote: "«السِّينُ وَالْمِيمُ وَالطَّاءُ أَصْلٌ يَدُلُّ عَلَى ضَمِّ شَيْءٍ إِلَى شَيْءٍ وَشَدِّهِ بِهِ.»"
+    - lemma: "سِلْسِلَة"
+      entry_id: "{auto}"
+      root: "سلسل"
+      maqayis_quote: "«السِّينُ وَاللَّامُ وَالسِّينُ يَدُلُّ عَلَى سُهُولَةٍ فِي الشَّيْءِ. والسَّلْسُ: جِنْسٌ مِنَ الْخَرَزِ.»"
+    - lemma: "مَنْظُومَة"
+      entry_id: "{auto}"
+      root: "نظم"
+      maqayis_quote: "«النُّونُ وَالظَّاءُ وَالْمِيمُ: أَصْلٌ يَدُلُّ عَلَى تَأْلِيفِ شَيْءٍ وَتَأْلِيفِهِ.»"
+  per_sense:
+    - lemma: "خَيْط"
+      sense_id: "{auto}"
+      nuance: "التركيز على الخيط نفسه كحامل للمنظوم، وتُستخدم مجازاً للمنظومة ككل."
+      mwe: false
+    - lemma: "عِقْد"
+      sense_id: "{auto}"
+      nuance: "غلب استعمالها في الجواهر واللآلئ التي تُحيط بالعنق."
+      mwe: false
+    - lemma: "نَظْم"
+      sense_id: "{auto}"
+      nuance: "اللفظ الأصيل لما جُمع في سلك، وتوحي بالترتيب الدقيق."
+      mwe: false
+    - lemma: "سِمْط"
+      sense_id: "{auto}"
+      nuance: "لفظ تراثي دقيق يعني الخيط ما دام الخرز منظوماً فيه."
+      mwe: false
+    - lemma: "سِلْسِلَة"
+      sense_id: "{auto}"
+      nuance: "تُستخدم للمنظومات المادية (حلقات) أو المعنوية (أحداث) المتصلة كأنها في خيط."
+      mwe: false
+    - lemma: "مَنْظُومَة"
+      sense_id: "{auto}"
+      nuance: "لفظ حديث يميل إلى وصف الترتيب الوظيفي للأشياء."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خيط","maqayis":"«الْخَاءُ وَالْيَاءُ وَالطَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى امْتِدَادِ الشَّيْءِ فِي دِقَّةٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عقد","maqayis":"«الْعَيْنُ وَالْقَافُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى شَدٍّ وَشِدَّةِ وُثُوقٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نظم","maqayis":"«النُّونُ وَالظَّاءُ وَالْمِيمُ: أَصْلٌ يَدُلُّ عَلَى تَأْلِيفِ شَيْءٍ وَتَأْلِيفِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سمط","maqayis":"«السِّينُ وَالْمِيمُ وَالطَّاءُ أَصْلٌ يَدُلُّ عَلَى ضَمِّ شَيْءٍ إِلَى شَيْءٍ وَشَدِّهِ بِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سلسل","maqayis":"«السِّينُ وَاللَّامُ وَالسِّينُ يَدُلُّ عَلَى سُهُولَةٍ فِي الشَّيْءِ. والسَّلْسُ: جِنْسٌ مِنَ الْخَرَزِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"التركيز على الخيط نفسه كحامل للمنظوم، وتُستخدم مجازاً للمنظومة ككل.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

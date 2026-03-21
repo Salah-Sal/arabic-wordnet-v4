@@ -1,0 +1,235 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي يبدو ترجمة حرفية ومختصرة للتعريف الإنجليزي ولا يعبر بعمق عن دلالة المفهوم."
+    observations: "المفهوم يدور حول عملية ذهنية لتقييم شيء وإعطائه قدره أو قيمته. المصطلحات العربية تتنوع في هذا الحقل بين ما يميل إلى الجانب المادي أو القيمي (تثمين) وما يميل إلى الجانب المعنوي والذهني (تقدير)."
+  blind_candidates:
+    - lemma: "تَقْيِيم"
+      generation_method: ishtiqaq
+      justification: "مشتق من الفعل قيّم، ويعني بيان قيمة الشيء، وهو يطابق معنى الحكم على صفات شيء أو شخص."
+    - lemma: "تَخْمِين"
+      generation_method: ishtiqaq
+      justification: "يدل على التوقع والظن في تحديد قدر الشيء وصفاته، وهو نوع من التقدير."
+    - lemma: "تَقْدِير"
+      generation_method: ishtiqaq
+      justification: "من قدر، ويعني تحديد قدر الشيء، وهو من أشهر المرادفات العربية للمفهوم."
+    - lemma: "حُسْبَان"
+      generation_method: ishtiqaq
+      justification: "من الحسبان بمعنى الظن أو إعطاء الشيء قدراً وحساباً."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تثمين"
+      confirm:
+        - text: "تثمين: estimation"
+          source: "المعجم الموحد لمصطلحات التجارة والمحاسبة"
+        - text: "(1) يُجِلُّ؛ يُقدِّر؛ يحترم (2) يُثمِّن؛ يقيِّم ... (5) تثمين؛ تقييم"
+          source: "المورد الحديث"
+    - lemma: "تقدير"
+      confirm:
+        - text: "التقدير: هو تحديد كل مخلوق بحده الذي يوجد من حسن وقبح، ونفع وضر، وغيرهما."
+          source: "كتاب التعريفات للشريف الجرجاني"
+        - text: "التقدير من الإنسان وجهان: أحدهما التفكر في الأمر بحسب نظر العقل وبناء الأمر عليه، وذلك محمود"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+    - lemma: "تقييم"
+      confirm:
+        - text: "تحديد دقيق لنشاط ما وفق معايير محددة."
+          source: "مسرد الإعلام والتواصل"
+        - text: "الرأي والحُكم الفنيّ والقانونيّ عن حالة شيء ما قيد الفحص بعد الانتهاء من مرحلة الاختبار"
+          source: "المعجم الموحد لمصطلحات المياه"
+    - lemma: "تخمين"
+      confirm:
+        - text: "عملية تفكير تقوم على الحدس والتوقع."
+          source: "مسرد الإعلام والتواصل"
+        - text: "التخْمينُ: تَقْدِير الخضروات."
+          source: "معجم مقاليد العلوم للسيوطي"
+    - lemma: "حسبان"
+      contradicts:
+        - text: "الْعَدُّ التدبير الدَّقيق الصواعق البَرَد"
+          source: "المعجم الوسيط"
+          conflict: "يدل على العد الحسابي أو التدبير أكثر من كونه حكماً على الصفات أو القيمة المعنوية."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تثمين"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح وشائع في الاستخدام المعاصر بمعنى إعطاء قيمة (مادية أو معنوية) للشيء، وهو مرادف دقيق للمفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَثْمِين"
+    - lemma: "تقدير"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي وفصيح يدل على تحديد قدر الشيء وقيمته بناء على التفكر، ويطابق تماما المفهوم المراد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَقْدِير"
+    - lemma: "تَقْيِيم"
+      source: stage1
+      decision: removed
+      decision_reason: "رغم صحة دلالته، إلا أنه يمثل المجموعة الترادفية الأعم (التقييم - awn4-00875745-n)، ومن الأفضل تخصيص هذه المجموعة الحالية لمفاهيم التقدير والتثمين كنوع من أنواع التقييم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+    - lemma: "تَخْمِين"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يستخدم بمعنى التقدير التقريبي أو المبني على الظن، وهو وجه من وجوه التقدير وإصدار الحكم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "تَخْمِين"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "حُسْبَان"
+      source: stage1
+      decision: removed
+      decision_reason: "يركز أكثر على الحساب والعد ولا يستعمل عادة للتعبير عن الحكم على الصفات والقيم."
+      evidence_assessment:
+        case: contradicts_only
+      mwe_check:
+        is_mwe: false
+
+stage4_content:
+  definition:
+    current: "حكم على صفات شيء أو شخص ما"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ركيك ويمثل ترجمة حرفية. تم صياغة تعريف لغوي ومصطلحي أوضح."
+    authored:
+      - type: terminological
+        text: "إصدار حكم على قدر شيء أو شخص أو صفاته أو قيمته بناءً على معطيات أو خبرة أو تأمل."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "إصدار حكم على قدر شيء أو شخص أو صفاته أو قيمته بناءً على معطيات أو خبرة أو تأمل."
+  examples:
+    per_lemma:
+      - lemma: "تَثْمِين"
+        examples:
+          - text: "حظيت جهود الفريق في إنجاح المشروع بتثمين عالٍ من قبل الإدارة."
+            type: usage
+      - lemma: "تَقْدِير"
+        examples:
+          - text: "بناءً على تقدير الخبراء، فإن الخسائر الناتجة عن العاصفة طفيفة."
+            type: usage
+      - lemma: "تَخْمِين"
+        examples:
+          - text: "اعتمد في تحديده للسعر على مجرد التخمين دون دراسة متأنية للسوق."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "حظيت جهود الفريق في إنجاح المشروع بتثمين عالٍ من قبل الإدارة."
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "بناءً على تقدير الخبراء، فإن الخسائر الناتجة عن العاصفة طفيفة."
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "اعتمد في تحديده للسعر على مجرد التخمين دون دراسة متأنية للسوق."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تَثْمِين"
+      entry_id: "{auto}"
+      root: "ثمن"
+      maqayis_quote: "«الثَّاءُ وَالْمِيمُ وَالنُّونُ أَصْلَانِ: أَحَدُهُمَا عِوَضُ مَا يُبَاعُ، وَالْآخَرُ جُزْءٌ مِنْ ثَمَانِيَةٍ.»"
+    - lemma: "تَقْدِير"
+      entry_id: "{auto}"
+      root: "قدر"
+      maqayis_quote: "«الْقَافُ وَالدَّالُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مَبْلَغِ الشَّيْءِ وَكُنْهِهِ وَنِهَايَتِهِ. فَالْقَدْرُ: مَبْلَغُ كُلِّ شَيْءٍ.»"
+    - lemma: "تَخْمِين"
+      entry_id: "{auto}"
+      root: "تخم"
+      maqayis_quote: "«التَّاءُ وَالْخَاءُ وَالْمِيمُ كَلِمَةٌ وَاحِدَةٌ لَا تَتَفَرَّعُ. التُّخُومُ: أَعْلَامُ الْأَرْضِ وَحُدُودُهَا.»"
+  per_sense:
+    - lemma: "تَثْمِين"
+      sense_id: "{auto}"
+      nuance: "يركز على إعطاء قيمة (غالبا إيجابية أو مادية) للشيء واستحسانه."
+      mwe: false
+    - lemma: "تَقْدِير"
+      sense_id: "{auto}"
+      nuance: "أعم من التثمين، ويركز على تحديد القدر أو القيمة بناءً على تفكر واجتهاد."
+      mwe: false
+    - lemma: "تَخْمِين"
+      sense_id: "{auto}"
+      nuance: "يميل إلى الظن والحدس في تحديد القدر أو القيمة أكثر من الاستناد إلى معطيات يقينية."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ثمن","maqayis":"«الثَّاءُ وَالْمِيمُ وَالنُّونُ أَصْلَانِ: أَحَدُهُمَا عِوَضُ مَا يُبَاعُ، وَالْآخَرُ جُزْءٌ مِنْ ثَمَانِيَةٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قدر","maqayis":"«الْقَافُ وَالدَّالُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مَبْلَغِ الشَّيْءِ وَكُنْهِهِ وَنِهَايَتِهِ. فَالْقَدْرُ: مَبْلَغُ كُلِّ شَيْءٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"تخم","maqayis":"«التَّاءُ وَالْخَاءُ وَالْمِيمُ كَلِمَةٌ وَاحِدَةٌ لَا تَتَفَرَّعُ. التُّخُومُ: أَعْلَامُ الْأَرْضِ وَحُدُودُهَا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على إعطاء قيمة (غالبا إيجابية أو مادية) للشيء واستحسانه.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"أعم من التثمين، ويركز على تحديد القدر أو القيمة بناءً على تفكر واجتهاد.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يميل إلى الظن والحدس في تحديد القدر أو القيمة أكثر من الاستناد إلى معطيات يقينية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

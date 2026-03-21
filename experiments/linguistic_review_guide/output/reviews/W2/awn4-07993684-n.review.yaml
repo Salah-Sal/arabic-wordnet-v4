@@ -1,0 +1,188 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي مقتضب ويحتاج إلى صياغة معجمية أدق لتوضيح المقصود بالمواد، وما إذا كانت مادية أو نصوصًا."
+      - "المصطلحات الحالية جيدة ومناسبة للمعنى، لكنها تفتقر إلى التشكيل."
+    observations: "المصطلح 'يهوديات' مبني على نمط الجمع القياسي للمصادر الصناعية (بإضافة ـيَّات) للإشارة إلى المجموعات أو الدراسات المتعلقة بحقل معين، وهو شائع. أما 'المقتنيات اليهودية' فهو مركب وصفي يفي بالغرض بشكل أكثر تحديداً للأشياء المادية التي يتم اقتناؤها."
+  blind_candidates:
+    - lemma: "اليَهُودِيَّات"
+      generation_method: ishtiqaq
+      justification: "جمع باللاحقة (ـيَّات) التي تدل على المجموعات أو الدراسات والمواد المتعلقة بحقل معين (مثل: إسلاميات، إسرائيليات)."
+    - lemma: "المُقْتَنَيَات اليَهُودِيَّة"
+      generation_method: tarkib
+      justification: "مركب وصفي يشير مباشرة إلى الأشياء والمواد التي تُقتنى ولها صلة باليهودية."
+    - lemma: "الأَشْيَاء اليَهُودِيَّة"
+      generation_method: tarkib
+      justification: "مركب عام وشامل لكل ما يتعلق باليهود من مواد."
+    - lemma: "المَجْمُوعَة اليَهُودِيَّة"
+      generation_method: tarkib
+      justification: "تعبير يستخدم عادة في سياق المتاحف للإشارة إلى المقتنيات المتعلقة باليهود."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "المقتنيات اليهودية"
+      confirm:
+        - text: "مُقْتَنَيات: ما يتم الحصول عليه من تحف أو أعمال فنية أو أشياء ثمينة."
+          source: "معجم الصواب اللغوي لأحمد مختار عمر"
+    - lemma: "اليهوديات"
+      confirm:
+        - text: "(الْيَهُودِيَّة) مِلَّة الْيَهُود"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "اليهودية: ديانة اليهود. Translation: Judaism"
+          source: "المورد الحديث (2008)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "المقتنيات اليهودية"
+      decision: confirmed
+      decision_reason: "مصطلح مركب وصفي يعبر بدقة عن الجانب المادي والملموس من كلمة Judaica كتحف أو مقتنيات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "المُقْتَنَيَات اليَهُودِيَّة"
+
+    - lemma: "اليهوديات"
+      decision: confirmed
+      decision_reason: "مصطلح مبني على نمط الاشتقاق بلاحقة (ـيَّات) للدلالة على المواد والدراسات المتعلقة بموضوع معين، وهو شائع ومناسب."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "اليَهُودِيَّات"
+
+    - lemma: "اليَهُودِيَّات"
+      source: stage1
+      decision: removed
+      decision_reason: "موجود بالفعل في المجموعة الترادفية."
+
+    - lemma: "المُقْتَنَيَات اليَهُودِيَّة"
+      source: stage1
+      decision: removed
+      decision_reason: "موجود بالفعل في المجموعة الترادفية."
+
+    - lemma: "الأَشْيَاء اليَهُودِيَّة"
+      source: stage1
+      decision: removed
+      decision_reason: "مصطلح عام جداً وغير مسكوك معجمياً، و'المقتنيات' أبلغ وأدق."
+
+    - lemma: "المَجْمُوعَة اليَهُودِيَّة"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير وصفي حر ولا يشكل مصطلحاً مسكوكاً مستقلاً."
+
+stage4_content:
+  definition:
+    current: "المواد المتعلقة باليهودية"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب جداً ويحتاج إلى توضيح أن هذه المواد تشمل المقتنيات والمواد الثقافية أو التاريخية المرتبطة باليهودية."
+    authored:
+      - type: terminological
+        text: "مَجْمُوعَةُ المُقْتَنَيَاتِ والمَوَادِّ التَّارِيخِيَّةِ أو الثَّقَافِيَّةِ المُرْتَبِطَةِ بِاليَهُودِيَّةِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-07993684-n"
+          definition_index: 0
+          text: "مَجْمُوعَةُ المُقْتَنَيَاتِ والمَوَادِّ التَّارِيخِيَّةِ أو الثَّقَافِيَّةِ المُرْتَبِطَةِ بِاليَهُودِيَّةِ."
+
+  examples:
+    per_lemma:
+      - lemma: "المقتنيات اليهودية"
+        examples:
+          - text: "يَضُمُّ المَتْحَفُ قِسْمًا خَاصًّا لِعَرْضِ المُقْتَنَيَاتِ اليَهُودِيَّةِ النَّادِرَةِ."
+            type: usage
+      - lemma: "اليهوديات"
+        examples:
+          - text: "تُعَدُّ هَذِهِ المَكْتَبَةُ مِنْ أَكْبَرِ المَكْتَبَاتِ الَّتِي تَحْوِي قِسْمًا ضَخْمًا لِلْيَهُودِيَّاتِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يَضُمُّ المَتْحَفُ قِسْمًا خَاصًّا لِعَرْضِ المُقْتَنَيَاتِ اليَهُودِيَّةِ النَّادِرَةِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تُعَدُّ هَذِهِ المَكْتَبَةُ مِنْ أَكْبَرِ المَكْتَبَاتِ الَّتِي تَحْوِي قِسْمًا ضَخْمًا لِلْيَهُودِيَّاتِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "المقتنيات اليهودية"
+      entry_id: "{auto}"
+      roots:
+        - word: "المقتنيات"
+          root: "قني"
+          maqayis_quote: "«الْقَافُ وَالنُّونُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ يَدُلُّ أَحَدُهُمَا عَلَى مُلَازَمَةٍ وَمُخَالَطَةٍ... وَمِنَ الْبَابِ: قَنَى الشَّيْءَ وَاقْتَنَاهُ، إِذَا كَانَ ذَلِكَ مُعَدًّا لَهُ لَا لِلتِّجَارَةِ.»"
+        - word: "اليهودية"
+          root: "هود"
+          maqayis_quote: "«الْهَاءُ وَالْوَاوُ وَالدَّالُ: أَصْلٌ يَدُلُّ عَلَى إِرْوَادٍ وَسُكُونٍ... فَأَمَّا الْيَهُودُ فَمِنْ هَادَ يَهُودُ، إِذَا تَابَ هَوْدًا.»"
+    - lemma: "اليهوديات"
+      entry_id: "{auto}"
+      root: "هود"
+      maqayis_quote: "«الْهَاءُ وَالْوَاوُ وَالدَّالُ: أَصْلٌ يَدُلُّ عَلَى إِرْوَادٍ وَسُكُونٍ... فَأَمَّا الْيَهُودُ فَمِنْ هَادَ يَهُودُ، إِذَا تَابَ هَوْدًا.»"
+
+  per_sense:
+    - lemma: "المقتنيات اليهودية"
+      sense_id: "{auto}"
+      nuance: "يُشير تحديداً إلى الجانب المادي والملموس كتحف أو آثار أو مقتنيات متحفية وشخصية."
+      mwe: true
+    - lemma: "اليهوديات"
+      sense_id: "{auto}"
+      nuance: "مُصطلح أعم يشمل المقتنيات المادية بالإضافة إلى النصوص والدراسات والوثائق."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"المقتنيات","root":"قني","maqayis":"«الْقَافُ وَالنُّونُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ يَدُلُّ أَحَدُهُمَا عَلَى مُلَازَمَةٍ وَمُخَالَطَةٍ... وَمِنَ الْبَابِ: قَنَى الشَّيْءَ وَاقْتَنَاهُ، إِذَا كَانَ ذَلِكَ مُعَدًّا لَهُ لَا لِلتِّجَارَةِ.»"},{"word":"اليهودية","root":"هود","maqayis":"«الْهَاءُ وَالْوَاوُ وَالدَّالُ: أَصْلٌ يَدُلُّ عَلَى إِرْوَادٍ وَسُكُونٍ... فَأَمَّا الْيَهُودُ فَمِنْ هَادَ يَهُودُ، إِذَا تَابَ هَوْدًا.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"هود","maqayis":"«الْهَاءُ وَالْوَاوُ وَالدَّالُ: أَصْلٌ يَدُلُّ عَلَى إِرْوَادٍ وَسُكُونٍ... فَأَمَّا الْيَهُودُ فَمِنْ هَادَ يَهُودُ، إِذَا تَابَ هَوْدًا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُشير تحديداً إلى الجانب المادي والملموس كتحف أو آثار أو مقتنيات متحفية وشخصية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مُصطلح أعم يشمل المقتنيات المادية بالإضافة إلى النصوص والدراسات والوثائق.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-07993684-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-07993684-n"
+        score: 0.95

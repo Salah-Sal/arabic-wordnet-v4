@@ -1,0 +1,164 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة تفتقر إلى التشكيل الكامل."
+      - "التعريف الحالي مقتضب جداً ويحتاج إلى تفصيل موسوعي يتناسب مع كونه علماً جغرافياً."
+    observations: "المجموعة تمثل معلماً جغرافياً بارزاً (خليج عدن)، واللمة الموجودة صحيحة لكنها تحتاج لضبط صرفي وإغناء دلالي."
+  blind_candidates:
+    - lemma: "خَلِيجُ عَدَن"
+      generation_method: tarkib
+      justification: "الاسم الجغرافي المعاصر والأكثر شيوعاً، وهو مركب إضافي."
+    - lemma: "خَلِيجُ بَرْبَرَة"
+      generation_method: tarkib
+      justification: "اسم تاريخي قديم لخليج عدن، كان مستخدماً في الخرائط القديمة وكتابات الجغرافيين العرب."
+    - lemma: "بَحْرُ عَدَن"
+      generation_method: tarkib
+      justification: "تسمية وصفية ترد أحياناً في النصوص التاريخية."
+    - lemma: "خَلِيجُ اليَمَن"
+      generation_method: tarkib
+      justification: "تسمية جغرافية وصفية نسبة إلى الساحل الشمالي للخليج."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خليج عدن"
+      confirm:
+        - text: "«خليج عدن»"
+          source: "المكنز الزراعي متعدد اللغات"
+      expands:
+        - text: "«عَدَنُ أَبْيَنَ، محرَّكةً: جَزِيرَةٌ باليمنِ... وهي بلد عى سِيف البحر في أَقصى بلاد اليمن»"
+          source: "لسان العرب"
+          addition: "يوضح أصل تسمية عدن وموقعها على سيف (ساحل) البحر."
+    - lemma: "خَلِيجُ بَرْبَرَة"
+      confirm:
+        - text: "«بَرْبرَةُ: هذه بلاد أخرى بين بلاد الحبش والزنج واليمن على ساحل بحر اليمن وبحر الزنج... ويقال لبلاد هؤلاء سواحل بربرة.»"
+          source: "معجم البلدان"
+    - lemma: "خَلِيجُ عَدَن"
+      confirm:
+        - text: "«الخَلِيجُ: فى الجغرافيا gulf: امتدادٌ من مياه البِحارِ أو الأَنْهارِ مُتَوغِّلٌ فى اليابسِ.»"
+          source: "المعجم الكبير"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "خليج عدن"
+      decision: confirmed
+      decision_reason: "الاسم المعياري المعاصر والوحيد المستخدم رسمياً لهذا المسطح المائي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَلِيجُ عَدَن"
+    - lemma: "خَلِيجُ بَرْبَرَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اسم تاريخي موثق في التراث الجغرافي العربي، يغني الشبكة الدلالية كمرادف تاريخي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "خَلِيجُ بَرْبَرَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "بَحْرُ عَدَن"
+      source: stage1
+      decision: removed
+      decision_reason: "تسمية غير مستقرة معجمياً ولا تستخدم كعلم جغرافي محدد في المراجع الحديثة."
+
+stage4_content:
+  definition:
+    current: "ذراع من المحيط الهندي عند مدخل البحر الأحمر"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي صحيح جغرافياً لكنه يفتقر إلى التفصيل الموسوعي اللازم لتعريف علم جغرافي عالمي."
+    authored:
+      - type: encyclopedic
+        text: "بحر يقع بين الساحل الجنوبي للجزيرة العربية (اليمن) والساحل الشمالي للصومال في القارة الأفريقية، وهو جزء من المحيط الهندي، ويتصل بالبحر الأحمر من جهة الغرب عبر مضيق باب المندب."
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "بحر يقع بين الساحل الجنوبي للجزيرة العربية (اليمن) والساحل الشمالي للصومال في القارة الأفريقية، وهو جزء من المحيط الهندي، ويتصل بالبحر الأحمر من جهة الغرب عبر مضيق باب المندب."
+
+  examples:
+    per_lemma:
+      - lemma: "خَلِيجُ عَدَن"
+        examples:
+          - text: "يُعدّ خليج عدن ممرًا مائيًا حيويًا للتجارة العالمية، حيث يربط بين المحيط الهندي والبحر الأبيض المتوسط."
+            type: usage
+      - lemma: "خَلِيجُ بَرْبَرَة"
+        examples:
+          - text: "عُرف خليج عدن في الخرائط القديمة باسم خليج بربرة نسبة إلى مدينة بربرة التاريخية على الساحل الصومالي."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "يمتد خليج عدن من مضيق باب المندب غرباً حتى بحر العرب شرقاً."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خَلِيجُ عَدَن"
+      entry_id: "{auto}"
+      roots:
+        - word: "خليج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"
+        - word: "عدن"
+          root: "عدن"
+          maqayis_quote: "«الْعَيْنُ وَالدَّالُ وَالنُّونُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى الْإِقَامَةِ.»"
+    - lemma: "خَلِيجُ بَرْبَرَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "خليج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"
+        - word: "بربرة"
+          root: "بربر"
+          maqayis_quote: "«الْبَاءُ وَالرَّاءُ فِي الْمُضَاعَفِ: حِكَايَةُ أَصْوَاتٍ... والبربرة: كثرة الكلام والصياح.»"
+  per_sense:
+    - lemma: "خَلِيجُ عَدَن"
+      sense_id: "{auto}"
+      nuance: "الاسم العلمي والجغرافي المعاصر والمعتمد دولياً."
+      mwe: true
+    - lemma: "خَلِيجُ بَرْبَرَة"
+      sense_id: "{auto}"
+      nuance: "تسمية تاريخية تراثية تعكس البعد الجغرافي القديم للمنطقة."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"خليج","root":"خلج","maqayis":"«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ...»"},{"word":"عدن","root":"عدن","maqayis":"«الْعَيْنُ وَالدَّالُ وَالنُّونُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى الْإِقَامَةِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم العلمي والجغرافي المعاصر والمعتمد دولياً.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 1.0

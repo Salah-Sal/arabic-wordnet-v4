@@ -1,0 +1,218 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "المصطلح 'جينوم' معرب ومستقر تماماً في الأوساط العلمية، بينما 'مجموع مورثي' عبارة وصفية جيدة ومناسبة."
+      - "التعريف الحالي حرفي ومعقد قليلاً ويحتاج لتبسيط لجعله أكثر مصطلحية ووضوحاً."
+    observations: "المفهوم يشير إلى كامل المادة الوراثية في الكائن الحي. نلاحظ وجود محاولات لنحت مصطلحات مثل 'مجين' كبديل عربي فصيح للفظ المعرب."
+  blind_candidates:
+    - lemma: "مَجِين"
+      generation_method: ishtiqaq
+      justification: "نحت من العبارة (مجموع جيني) أو اشتقاق للدلالة على المكان الذي يضم الجينات، وهو مستخدم في المجامع العلمية."
+    - lemma: "شِفْرَةٌ وِرَاثِيَّة"
+      generation_method: tarkib
+      justification: "مركب وصفي يستخدم أحياناً للإشارة إلى المحتوى الوراثي رغم اختلافه الدقيق عن الجينوم."
+    - lemma: "مَخْزُونٌ وِرَاثِيّ"
+      generation_method: tarkib
+      justification: "تعبير وصفي يدل على مجمل العناصر الوراثية التي يمتلكها الكائن."
+    - lemma: "مَجْمُوعٌ جِينِيّ"
+      generation_method: tarkib
+      justification: "مركب يعبر بشكل مباشر عن الفكرة الماثلة في الجينوم."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "جينوم"
+      confirm:
+        - text: "«جميع المعطيات الوراثية التي تحملها جميع كروموسومات كائن حي.»"
+          source: "مسرد المناخ والبيئة وإدارة النفايات الصلبة، المنظمة العربية للتربية والثقافة والعلوم"
+        - text: "«مجموعة المورثات التي يحملها أحد الأمشاج، وهي مجموعة كاملة للعوامل الوراثية التي تحملها جميع الصبغيات الفردانية في الخلية.»"
+          source: "المعجم الموحد لمصطلحات علم الوراثة (2009)"
+    - lemma: "مجموع مورثي"
+      evidence_status: "no_material_found"
+    - lemma: "مَجِين"
+      confirm:
+        - text: "«مجموعة المورثات التي يحملها أحد الأمشاج، وهي مجموعة كاملة للعوامل الوراثية التي تحملها جميع الصبغيات الفردانية في الخلية.»"
+          source: "المعجم الموحد لمصطلحات علم الوراثة (2009)"
+        - text: "«مجموع المورثاث.»"
+          source: "المعجم الموحد لمصطلحات الطب البيطري (2010)"
+    - lemma: "شِفْرَةٌ وِرَاثِيَّة"
+      contradicts:
+        - text: "«المعطيات المشفرة المخزونة والمنقولة بين مجموعة (64) ثلاثيات النكليوتيدات الممكنة والأحماض الأمينية وشفرات الوقف التي تحددها.»"
+          source: "مسرد المناخ والبيئة وإدارة النفايات الصلبة"
+          conflict: "الشفرة الوراثية (Genetic code) مفهوم يختلف علمياً عن الجينوم، حيث تعني نظام التشفير وليس المحتوى الوراثي الكامل."
+    - lemma: "مَخْزُونٌ وِرَاثِيّ"
+      evidence_status: "no_material_found"
+    - lemma: "مَجْمُوعٌ جِينِيّ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "جينوم"
+      decision: confirmed
+      decision_reason: "مصطلح معرّب شائع جداً ومستقر في كافة المعاجم العلمية المتخصصة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "جِينُوم"
+    - lemma: "مجموع مورثي"
+      decision: confirmed
+      decision_reason: "تعبير وصفي دقيق لغوياً وعلمياً، يعبر بوضوح عن المفهوم من خلال ألفاظ عربية أصيلة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَجْمُوعٌ مُوَرِّثِيّ"
+    - lemma: "مَجِين"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح عربي منحوت ومثبت في المعاجم الموحدة كبديل فصيح لمصطلح جينوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مَجِين"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "شِفْرَةٌ وِرَاثِيَّة"
+      source: stage1
+      decision: removed
+      decision_reason: "تختلف دلالياً عن الجينوم، حيث تشير إلى المفهوم الإنجليزي (Genetic code)."
+      evidence_assessment:
+        case: contradicts_only
+    - lemma: "مَخْزُونٌ وِرَاثِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "لا تفتقر إلى الدقة فحسب، بل إنها تتقاطع مع مفهوم الحوض الجيني (Gene pool)."
+      evidence_assessment:
+        case: no_material
+    - lemma: "مَجْمُوعٌ جِينِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "تم الاكتفاء بمصطلح 'مجموع مورثي' كونه أصح من حيث الاعتماد التام على جذور عربية لتأدية نفس المعنى."
+      evidence_assessment:
+        case: no_material
+
+stage4_content:
+  definition:
+    current: "ترتيب الجينات في مجموعة أحادية الصيغة الصبغية من الكروموسومات لكائن معين؛ تسلسل الحمض النووي الكامل للكائن"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يبدو كترجمة حرفية، يمكن صياغته بأسلوب مصطلحي عربي أيسر وأكثر وضوحاً وفق المعاجم العلمية."
+    authored:
+      - type: terminological
+        text: "مجموع المادة الوراثية التي يحملها الكائن الحي، وتشمل التسلسل الكامل للحمض النووي في الخلية."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "مجموع المادة الوراثية التي يحملها الكائن الحي، وتشمل التسلسل الكامل للحمض النووي في الخلية."
+  examples:
+    per_lemma:
+      - lemma: "جِينُوم"
+        examples:
+          - text: "أنجز العلماء مشروع فك شفرة جِينُوم الإنسان بنجاح تام."
+            type: usage
+      - lemma: "مَجْمُوعٌ مُوَرِّثِيّ"
+        examples:
+          - text: "يعكف الباحثون على دراسة المَجْمُوعِ المُوَرِّثِيِّ لهذا النوع النادر من النباتات لفهم خصائصه."
+            type: usage
+      - lemma: "مَجِين"
+        examples:
+          - text: "يحتوي المَجِينُ البشري على مليارات الأزواج من القواعد النيتروجينية."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "أنجز العلماء مشروع فك شفرة جِينُوم الإنسان بنجاح تام."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يعكف الباحثون على دراسة المَجْمُوعِ المُوَرِّثِيِّ لهذا النوع النادر من النباتات لفهم خصائصه."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يحتوي المَجِينُ البشري على مليارات الأزواج من القواعد النيتروجينية."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَجْمُوعٌ مُوَرِّثِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مجموع"
+          root: "جمع"
+          maqayis_quote: "«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ...»"
+        - word: "مورثي"
+          root: "ورث"
+          maqayis_quote: "«الْوَاوُ وَالرَّاءُ وَالثَّاءُ: كَلِمَةٌ وَاحِدَةٌ، هِيَ الْوِرْثُ...»"
+  per_sense:
+    - lemma: "جِينُوم"
+      sense_id: "{auto}"
+      nuance: "المصطلح المعرّب الأكثر شيوعاً وعالمية في الأوساط العلمية والطبية."
+      mwe: false
+    - lemma: "مَجْمُوعٌ مُوَرِّثِيّ"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي دقيق يشرح المفهوم بوضوح باستخدام مفردات عربية أصيلة."
+      mwe: true
+    - lemma: "مَجِين"
+      sense_id: "{auto}"
+      nuance: "مصطلح عربي منحوت ومفضل في بعض المعاجم الموحدة كبديل معتمد للفظ الأجنبي."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مجموع","root":"جمع","maqayis":"«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ...»"},{"word":"مورثي","root":"ورث","maqayis":"«الْوَاوُ وَالرَّاءُ وَالثَّاءُ: كَلِمَةٌ وَاحِدَةٌ، هِيَ الْوِرْثُ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح المعرّب الأكثر شيوعاً وعالمية في الأوساط العلمية والطبية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير وصفي دقيق يشرح المفهوم بوضوح باستخدام مفردات عربية أصيلة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح عربي منحوت ومفضل في بعض المعاجم الموحدة كبديل معتمد للفظ الأجنبي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

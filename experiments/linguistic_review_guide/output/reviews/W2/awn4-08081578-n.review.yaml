@@ -1,0 +1,314 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي يركز حصرياً على 'المحامين' (الأشخاص) بينما اللمّات الحالية 'الادعاء' و'النيابة' تشير غالباً إلى الهيئة أو الوظيفة (Senses shifting between Institution/Group/Act)."
+      - "اللمّات الموجودة غير مشكولة."
+    observations: "تعد 'النيابة' و'الادعاء' من المصطلحات المركزية في النظم القانونية العربية، حيث تشير إلى سلطة الاتهام التي تحرك الدعوى الجنائية. المصطلح الرسمي الكامل غالباً ما يكون مركباً (النيابة العامة أو الادعاء العام)، والتعريف الإنجليزي يخص 'فئة المحامين' (the lawyers) وهو ما يعادل وظيفياً 'هيئة النيابة' أو 'جهاز الادعاء'."
+  blind_candidates:
+    - lemma: "النِّيَابَةُ العَامَّةُ"
+      generation_method: tarkib
+      justification: "المصطلح الرسمي الشائع في معظم الدول العربية (مثل مصر والشام) للدلالة على الهيئة القضائية التي تمثل المجتمع في الادعاء."
+    - lemma: "الِادِّعَاءُ العَامُّ"
+      generation_method: tarkib
+      justification: "المصطلح الرسمي المعتمد في دول الخليج العربي والمغرب العربي كمرادف للنيابة العامة."
+    - lemma: "سُلْطَةُ الِاتِّهَامِ"
+      generation_method: tarkib
+      justification: "وصف قانوني دقيق للدور الوظيفي الذي تقوم به هذه المجموعة من المحامين."
+    - lemma: "جِهَةُ الِادِّعَاءِ"
+      generation_method: tarkib
+      justification: "تعبير اصطلاحي يشير بوضوح إلى الطرف (المدعي ومحاموه) في سياق التقاضي، وهو الأقرب لترجمة definition_en حرفياً."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "النيابة"
+      confirm:
+        - text: "(النِّيَابَة) هَيْئَة قضائية تقوم بِإِقَامَة الدَّعْوَى على مُتَّهم وَنَحْوه نِيَابَة عَن الْمَجْنِي عَلَيْهِ فَردا كَانَ أَو مجتمعا"
+          source: "المعجم الوسيط"
+    - lemma: "الادعاء"
+      confirm:
+        - text: "(الادعاء) (فِي القانون) تَوْجِيه الطّلب ضد الْخصم أَمَام الْقَضَاء"
+          source: "المعجم الوسيط"
+    - lemma: "النِّيَابَةُ العَامَّةُ"
+      confirm:
+        - text: "نيابة (ال..) العمومية، ادعاء (ال..) العام: الجهاز الذي يمثل المجتمع بالمحكمة وتتولى إقامة وممارسة الدعاوى العمومية نيابة عنه."
+          source: "معجم مصطلحات القانون (ArabTerm)"
+    - lemma: "الِادِّعَاءُ العَامُّ"
+      confirm:
+        - text: "الدعوى التي تقيمها النيابة العامة أو الادعاء العام باسم المجتمع من أجل توقيع العقاب الملائم على مرتكب فعل جرمي معين."
+          source: "معجم مصطلحات القانون (ArabTerm)"
+    - lemma: "جِهَةُ الِادِّعَاءِ"
+      confirm:
+        - text: "جهة الادّعاء: المدعي ومحاموه"
+          source: "المورد الحديث"
+    - lemma: "سُلْطَةُ الِاتِّهَامِ"
+      confirm:
+        - text: "سلطة الاتهام (prosecution): هي الجهة المناط بها قانوناً تحريك الدعوى الجنائية."
+          source: "معجم المصطلحات القانونية"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "الادعاء"
+      decision: confirmed
+      decision_reason: "مصطلح قانوني أصيل وشائع الاستخدام كاسم جنس للجهة التي تتولى الاتهام، مع ضرورة ضبطه بالشكل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "الِادِّعَاءُ"
+    - lemma: "النيابة"
+      decision: confirmed
+      decision_reason: "المصطلح الأكثر تداولاً في السياق الإجرائي العربي للدلالة على هيئة الادعاء."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "النِّيَابَةُ"
+    - lemma: "النِّيَابَةُ العَامَّةُ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح الرسمي الكامل والأكثر دقة تقنياً لوصف 'محامي الدولة'."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "النِّيَابَةُ العَامَّةُ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "الِادِّعَاءُ العَامُّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف رسمي معتمد في نظم قانونية عربية متعددة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "الِادِّعَاءُ العَامُّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "جِهَةُ الِادِّعَاءِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير دقيق يشير إلى 'الطرف' الممثل للادعاء (Lawyers and Plaintiff) وهو ما يطابق التعريف الإنجليزي تماماً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "جِهَةُ الِادِّعَاءِ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "سُلْطَةُ الِاتِّهَامِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "وصف وظيفي قانوني شائع في الأدبيات الحقوقية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "سُلْطَةُ الِاتِّهَامِ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "المحامون الذين يعملون لصالح الدولة لرفع القضية ضد المدعى عليه"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ترجمة حرفية؛ الأفضل استخدام المصطلحات القانونية العربية المستقرة التي تدمج بين 'المحامين' و'الهيئة القضائية' التي يمثلونها."
+    authored:
+      - type: terminological
+        text: "الهيئة القضائية أو مجموعة المحامين الذين يمثلون الدولة أو المجتمع في تحريك الدعوى الجنائية ومتابعتها ضد المتهمين."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "الهيئة القضائية أو مجموعة المحامين الذين يمثلون الدولة أو المجتمع في تحريك الدعوى الجنائية ومتابعتها ضد المتهمين."
+
+  examples:
+    per_lemma:
+      - lemma: "النِّيَابَةُ"
+        examples:
+          - text: "أمرت النيابة بحبس المتهم على ذمة التحقيق."
+            type: usage
+      - lemma: "الِادِّعَاءُ"
+        examples:
+          - text: "قدم الادعاء أدلة جديدة تثبت تورط الجاني في الجريمة."
+            type: usage
+      - lemma: "النِّيَابَةُ العَامَّةُ"
+        examples:
+          - text: "تتولى النيابة العامة إقامة الدعوى العمومية ومباشرتها أمام المحاكم."
+            type: usage
+      - lemma: "الِادِّعَاءُ العَامُّ"
+        examples:
+          - text: "طالب الادعاء العام بتوقيع أقصى عقوبة ينص عليها القانون."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "قدمت جهة الادعاء مرافعتها الختامية قبل نطق الحكم."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "النِّيَابَةُ"
+      entry_id: "{auto}"
+      root: "نوب"
+      maqayis_quote: "«النون والواو والباء كلمة واحدة تدل على اعتياد مكان ورجوع إليه.»"
+    - lemma: "الِادِّعَاءُ"
+      entry_id: "{auto}"
+      root: "دعو"
+      maqayis_quote: "«الدال والعين والحرف المعتل أصل واحد، وهو أن تميل الشيء إليك بصوت وكلام يكون منك.»"
+    - lemma: "النِّيَابَةُ العَامَّةُ"
+      entry_id: "{auto}"
+      roots:
+        - word: "النيابة"
+          root: "نوب"
+          maqayis_quote: "«النون والواو والباء كلمة واحدة تدل على اعتياد مكان ورجوع إليه.»"
+        - word: "العامة"
+          root: "عمم"
+          maqayis_quote: "«العين والميم والميم: أصلٌ واحد يدلُّ على كثرةٍ واجتماع.»"
+    - lemma: "الِادِّعَاءُ العَامُّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "الادعاء"
+          root: "دعو"
+          maqayis_quote: "«الدال والعين والحرف المعتل أصل واحد...»"
+        - word: "العام"
+          root: "عمم"
+          maqayis_quote: "«العين والميم والميم: أصلٌ واحد يدلُّ على كثرةٍ واجتماع.»"
+    - lemma: "سُلْطَةُ الِاتِّهَامِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "سلطة"
+          root: "سلط"
+          maqayis_quote: "«السين واللام والطاء أصل واحد، وهو القوة والقهر.»"
+        - word: "الاتهام"
+          root: "وهم"
+          maqayis_quote: "«الواو والهاء والميم: كلمات لا تنقاس، بل أفراد. ومنها وهم القلب، ومنه قياس التهمة.»"
+    - lemma: "جِهَةُ الِادِّعَاءِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "جهة"
+          root: "وجه"
+          maqayis_quote: "«الواو والجيم والهاء: أصل واحد يدل على مقابلة لشيء. والوجه مستقبل لكل شيء. وأصل جهته وجهته.»"
+        - word: "الادعاء"
+          root: "دعو"
+          maqayis_quote: "«الدال والعين والحرف المعتل أصل واحد...»"
+
+  per_sense:
+    - lemma: "النِّيَابَةُ"
+      sense_id: "{auto}"
+      nuance: "تستخدم غالباً كلفظ مختصر للنيابة العامة في السياقات الإجرائية اليومية."
+      mwe: false
+    - lemma: "الِادِّعَاءُ"
+      sense_id: "{auto}"
+      nuance: "لفظ عام يشير إلى طرف الخصومة الذي يوجه الطلب، ويستخدم في القضاء المدني والجنائي."
+      mwe: false
+    - lemma: "النِّيَابَةُ العَامَّةُ"
+      sense_id: "{auto}"
+      nuance: "الاسم الرسمي للهيئة في مصر والأردن ولبنان وغيرها."
+      mwe: true
+    - lemma: "الِادِّعَاءُ العَامُّ"
+      sense_id: "{auto}"
+      nuance: "الاسم الرسمي للهيئة في عُمان والكويت والسودان وبعض دول المغرب العربي."
+      mwe: true
+    - lemma: "سُلْطَةُ الِاتِّهَامِ"
+      sense_id: "{auto}"
+      nuance: "تعبير فقهي قانوني يركز على الصلاحية الممنوحة للهيئة بتحريك الدعوى."
+      mwe: true
+    - lemma: "جِهَةُ الِادِّعَاءِ"
+      sense_id: "{auto}"
+      nuance: "يشير إلى الفريق القانوني الممثل للادعاء في المحاكمة."
+      mwe: true
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نوب","maqayis":"«النون والواو والباء كلمة واحدة تدل على اعتياد مكان ورجوع إليه.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"دعو","maqayis":"«الدال والعين والحرف المعتل أصل واحد...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"النيابة","root":"نوب","maqayis":"«النون والواو والباء كلمة واحدة تدل على اعتياد مكان ورجوع إليه.»"},{"word":"العامة","root":"عمم","maqayis":"«العين والميم والميم: أصلٌ واحد يدلُّ على كثرةٍ واجتماع.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"الادعاء","root":"دعو","maqayis":"«الدال والعين والحرف المعتل أصل واحد...»"},{"word":"العام","root":"عمم","maqayis":"«العين والميم والميم: أصلٌ واحد يدلُّ على كثرةٍ واجتماع.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"سلطة","root":"سلط","maqayis":"«السين واللام والطاء أصل واحد، وهو القوة والقهر.»"},{"word":"الاتهام","root":"وهم","maqayis":"«الواو والهاء والميم: كلمات لا تنقاس، بل أفراد. ومنها وهم القلب، ومنه قياس التهمة.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"جهة","root":"وجه","maqayis":"«الواو والجيم والهاء: أصل واحد يدل على مقابلة لشيء.»"},{"word":"الادعاء","root":"دعو","maqayis":"«الدال والعين والحرف المعتل أصل واحد...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,229 @@
+# ═══════════════════════════════════════════════════════════════
+# مراجعة المجموعة الترادفية: awn4-07306035-n
+# ═══════════════════════════════════════════════════════════════
+
+stage1_review:
+  assessment:
+    concerns:
+      - "المصطلح «إِنْهَاء» يميل دلالياً إلى كونه مصدراً متعدياً (فعل الإكمال)، بينما التعريف يركز على الحدث الذي تقع به النهاية."
+      - "نقص التشكيل في اللمات الموجودة يقلل من دقة المعالجة الآلية."
+    observations: "المجموعة تغطي مفهوم «النهاية» كنقطة زمنية أو مكانية أو منطقية يكتمل عندها الحدث. المصطلحات الحالية جيدة، لكن يفضل إغناء المجموعة بمصطلحات أخرى مثل «انتهاء» و«خاتمة»."
+  blind_candidates:
+    - lemma: "نِهَايَة"
+      generation_method: ishtiqaq
+      justification: "المصطلح الأكثر شمولاً للدلالة على غاية الشيء وآخره."
+    - lemma: "انْتِهَاء"
+      generation_method: ishtiqaq
+      justification: "مصدر الفعل المطاوع «انتهى»، وهو يصف وقوع الحدث وبلوغه الغاية."
+    - lemma: "خَاتِمَة"
+      generation_method: ishtiqaq
+      justification: "يستخدم للدلالة على عاقبة الشيء وآخر جزء فيه، وهو شائع في اللغة المعاصرة."
+    - lemma: "تَمَام"
+      generation_method: ishtiqaq
+      justification: "بلوغ الشيء كماله وانقضاؤه، وإن كان يميل أحياناً إلى معنى الكمال."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "نهاية"
+      confirm:
+        - text: "«غايةُ الشيء وآخِرُه»"
+          source: "المعجم الوسيط"
+        - text: "«النّهاية:[في الانكليزية] End ،termination ،outcome»"
+          source: "كشاف اصطلاحات الفنون"
+    - lemma: "ختام"
+      confirm:
+        - text: "«مِن كُلِّ شيءٍ: آخره وعاقبته»"
+          source: "المعجم الكبير"
+        - text: "«الختام:[في الانكليزية] Closing ،epilogue ،end»"
+          source: "كشاف اصطلاحات الفنون"
+    - lemma: "إنهاء"
+      confirm:
+        - text: "«إِنْهاء [في الانكليزية] Ending»"
+          source: "المورد الحديث"
+      expands:
+        - text: "«أنهى الشيء: أتمّه وفرغ منه»"
+          source: "المعجم الوسيط (مشتق)"
+          addition: "يدل على وقوع الفعل المنهي للشيء."
+    - lemma: "انتهاء"
+      confirm:
+        - text: "«انْتِهَاء من (ن ه ي) بلوغ الغاية والكف عن الشيء»"
+          source: "موسوعة السلطان قابوس"
+        - text: "«إِنْتِهاء [في الانكليزية] Ending»"
+          source: "المورد الحديث"
+    - lemma: "خاتمة"
+      confirm:
+        - text: "«خاتمة كل شيء: عاقبته وآخره»"
+          source: "المعجم الوسيط"
+        - text: "«[في الانكليزية] Conclusion»"
+          source: "المورد الحديث"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "نهاية"
+      decision: confirmed
+      decision_reason: "المصطلح الأساسي والمطابق تماماً للتعريف واللمة الإنجليزية (ending)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نِهَايَة"
+    - lemma: "ختام"
+      decision: confirmed
+      decision_reason: "مرادف قوي يدل على آخر الشيء وعاقبته، ويستخدم كثيراً في سياق انتهاء الأحداث والفعاليات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خِتَام"
+    - lemma: "إنهاء"
+      decision: confirmed
+      decision_reason: "مقبول للدلالة على الحدث المنهي لشيء ما، خاصة في السياقات الرسمية والقانونية (مثل إنهاء العقد)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "إِنْهَاء"
+    - lemma: "انْتِهَاء"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصدر للفعل المطاوع «انتهى»، وهو يعبر بدقة عن 'حدث الانقضاء' (event) المذكور في التعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "انْتِهَاء", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "خَاتِمَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تؤكدها المعاجم كمرادف لآخر الشيء وعاقبته، وهي مرادف دقيق لـ (conclusion)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "خَاتِمَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "حدث ينهي وقوعه شيئاً ما"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي صياغته ركيكة (ترجمة حرفية للإنجليزية)، ويفضل استخدام صياغة معجمية عربية أصيلة."
+    authored:
+      - type: linguistic
+        text: "آخِرُ الشَّيْءِ وَغَايَتُهُ وَمَا يَنْقَضِي عِنْدَهُ وُقُوعُ أَمْرٍ مَا."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "آخِرُ الشَّيْءِ وَغَايَتُهُ وَمَا يَنْقَضِي عِنْدَهُ وُقُوعُ أَمْرٍ مَا."}
+  examples:
+    per_lemma:
+      - lemma: "نِهَايَة"
+        examples:
+          - text: "وَصَلَ المتَسَابِقُ إِلَى نِهَايَةِ المِضْمَارِ فِي وَقْتٍ قِيَاسِيٍّ."
+            type: usage
+      - lemma: "خِتَام"
+        examples:
+          - text: "كَانَ خِتَامُ الحَفْلِ مِسْكاً بِتَوْزِيعِ الجَوَائِزِ عَلَى الفَائِزِينَ."
+            type: usage
+      - lemma: "إِنْهَاء"
+        examples:
+          - text: "أَدَّى إِنْهَاءُ العَمَلِيَّاتِ العَسْكَرِيَّةِ إِلَى عَوْدَةِ الهُدُوءِ لِلْمِنْطَقَةِ."
+            type: usage
+      - lemma: "انْتِهَاء"
+        examples:
+          - text: "انْتَظَرَ الجُمْهُورُ انْتِهَاءَ العَرْضِ لِيُحَيُّوا المُمَثِّلِينَ."
+            type: usage
+      - lemma: "خَاتِمَة"
+        examples:
+          - text: "جَاءَتْ خَاتِمَةُ الرِّوَايَةِ غَيْرَ مُتَوَقَّعَةٍ لِلْقُرَّاءِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يُعْلَنُ عَنْ نِهَايَةِ كُلِّ مَرْحَلَةٍ بَعْدَ اكْتِمَالِ مَهَامِّهَا."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "نِهَايَة"
+      entry_id: "{auto}"
+      root: "نهي"
+      maqayis_quote: "«النُّونُ وَالْهَاءُ وَالْيَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى غَايَةٍ وَبُلُوغٍ. نِهَايَةُ كُلِّ شَيْءٍ: غَايَتُهُ.»"
+    - lemma: "خِتَام"
+      entry_id: "{auto}"
+      root: "ختم"
+      maqayis_quote: "«الْخَاءُ وَالتَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ، وَهُوَ بُلُوغُ آخِرِ الشَّيْءِ. وَخِتَامُ كُلِّ مَشْرُوبٍ: آخِرُهُ.»"
+    - lemma: "إِنْهَاء"
+      entry_id: "{auto}"
+      root: "نهي"
+      maqayis_quote: "«النُّونُ وَالْهَاءُ وَالْيَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى غَايَةٍ وَبُلُوغٍ. وَمِنْهُ أَنْهَيْتُ إِلَيْهِ الْخَبَرَ: بَلَّغْتُهُ إِيَّاهُ.»"
+    - lemma: "انْتِهَاء"
+      entry_id: "{auto}"
+      root: "نهي"
+      maqayis_quote: "«النُّونُ وَالْهَاءُ وَالْيَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى غَايَةٍ وَبُلُوغٍ. فَإِذَا نَهَيْتُهُ فَانْتَهَى عَنْكَ فَتِلْكَ غَايَةُ مَا كَانَ وَآخِرُهُ.»"
+    - lemma: "خَاتِمَة"
+      entry_id: "{auto}"
+      root: "ختم"
+      maqayis_quote: "«الْخَاءُ وَالتَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ، وَهُوَ بُلُوغُ آخِرِ الشَّيْءِ.»"
+  per_sense:
+    - lemma: "نِهَايَة"
+      sense_id: "{auto}"
+      nuance: "المصطلح الأكثر شمولية وعمومية للدلالة على النقطة التي ينقضي عندها الشيء."
+      mwe: false
+    - lemma: "خِتَام"
+      sense_id: "{auto}"
+      nuance: "يركز على الجزء الأخير الذي يُغلق به الشيء أو يُتمم، وغالباً ما يحمل دلالة احتفالية أو رسمية."
+      mwe: false
+    - lemma: "إِنْهَاء"
+      sense_id: "{auto}"
+      nuance: "يشير إلى الحدث من زاوية صدور فعل الإيقاف أو التكميل، ويكثر في السياقات الإجرائية."
+      mwe: false
+    - lemma: "انْتِهَاء"
+      sense_id: "{auto}"
+      nuance: "يركز على صيرورة الحدث نفسه وبلوغه نهايته تلقائياً أو زمنياً."
+      mwe: false
+    - lemma: "خَاتِمَة"
+      sense_id: "{auto}"
+      nuance: "تشير غالباً إلى الجزء الأخير من عمل مؤلف أو خطاب، وما يترتب عليه من عاقبة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الأكثر شمولية وعمومية للدلالة على النقطة التي ينقضي عندها الشيء.","mwe":false}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

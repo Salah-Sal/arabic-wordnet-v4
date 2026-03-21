@@ -1,0 +1,174 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف العربي الحالي مختصر جداً (حدث واحد متميز)، ويحتاج لبيان طبيعة التميز (زماني ومكاني)."
+      - "اللمّات الموجودة صحيحة ولكن تحتاج لضبط بالشكل الكامل."
+    observations: "المجموعة تعبّر عن المفهوم الإنجليزي 'incident' الذي يشير إلى وقوع شيء محدد ومتميز عن السياق العام. اللفظان 'حادثة' و'واقعة' هما الأكثر شيوعاً ودقة في العربية الفصحى لهذا المعنى، حيث تشير 'واقعة' إلى الجانب الوجودي (ما وقع فعلاً) بينما تشير 'حادثة' إلى الجانب الزمني (ما استُحدث)."
+  blind_candidates:
+    - lemma: "حَادِثَة"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من (حدث) في صيغة المؤنث، تطلق على الأمر الذي يقع ويستحدث بعد أن لم يكن."
+    - lemma: "وَاقِعَة"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من (وقع)، تشير إلى الحَدث الذي ثبت وقوعه وتحققه في الواقع."
+    - lemma: "طَارِئَة"
+      generation_method: ishtiqaq
+      justification: "من (طرأ)، تشير إلى الحادثة المفاجئة أو العارضة التي تقع على غير انتظار."
+    - lemma: "عَارِضَة"
+      generation_method: ishtiqaq
+      justification: "من (عرض)، تستخدم في المعاجم العربية للإشارة إلى النازلة أو الحادثة التي تعترض مسار الأمور."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "حَادِثَة"
+      confirm:
+        - text: "«(الْحَادِثَة) مؤنث الْحَادِث والنائبة (ج) حوادث»"
+          source: "المعجم الوسيط"
+        - text: "«الحادثة: هي الواقعة التي احتيج فيها إلى الاستفتاء لدقَّتها.»"
+          source: "التعريفات الفقهيّة للبركتي"
+    - lemma: "وَاقِعَة"
+      confirm:
+        - text: "«(الواقعة) في الفلسفة: ما حدث ووجد»"
+          source: "المعجم الوسيط"
+        - text: "«الواقعة: النازلة من صروف الدهر»"
+          source: "المعجم الكبير"
+    - lemma: "عَارِضَة"
+      expands:
+        - text: "«العارضة: النازلة»"
+          source: "المعجم الوسيط"
+          addition: "تستخدم غالباً في سياق الحوادث التي تطرأ فجأة أو تعترض سير الأمور."
+    - lemma: "طَارِئَة"
+      confirm:
+        - text: "«طارئ: incident»"
+          source: "المعجم الموحد لمصطلحات تقانة المعلومات"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "حادثة"
+      decision: confirmed
+      decision_reason: "اللفظ الأساسي والأكثر شيوعاً للتعبير عن الحادثة المنفردة والمتميزة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حَادِثَة"
+    - lemma: "واقعة"
+      decision: confirmed
+      decision_reason: "لفظ فصيح ودقيق، خاصة في السياقات الرسمية والفلسفية للإشارة إلى الحدث المحقق."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "وَاقِعَة"
+    - lemma: "عَارِضَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تستخدم في الفصحى بمعنى النازلة أو الحادثة، وتناسب الدلالة على الحادث العرضي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "عَارِضَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "طَارِئَة"
+      source: stage1
+      decision: removed
+      decision_reason: "رغم صحتها لغوياً، إلا أنها تشير غالباً إلى الحادث المفاجئ أو المستجد بشكل خاص (emergency/contingency) أكثر من كونها حدثاً متميزاً عاماً."
+
+stage4_content:
+  definition:
+    current: "حدث واحد متميز"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي حرفي جداً وغير كافٍ لتمييز 'incident' عن 'event' العامة."
+    authored:
+      - type: terminological
+        text: "حَادِثَةٌ أَوْ وَاقِعَةٌ مُنْفَرِدَةٌ تَقَعُ فِي سِيَاقٍ زَمَانِيٍّ وَمَكَانِيٍّ مُحَدَّدٍ، وَتَتَمَيَّزُ عَمَّا سِوَاهَا مِنَ الأَحْدَاثِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "حَادِثَة"
+        examples:
+          - text: "سَجَّلَ رِجَالُ الشُّرْطَةِ كُلَّ تَفَاصِيلِ الحَادِثَةِ فِي مَحْضَرٍ رَسْمِيٍّ."
+            type: usage
+      - lemma: "وَاقِعَة"
+        examples:
+          - text: "كَانَتْ هَذِهِ الوَاقِعَةُ نُقْطَةَ تَحَوُّلٍ حَاسِمَةٍ فِي مَجْرَى التَّارِيخِ."
+            type: usage
+      - lemma: "عَارِضَة"
+        examples:
+          - text: "مَرَّتْ بِنَا عَارِضَةٌ فِي الطَّرِيقِ أَخَّرَتْنَا عَنِ المَوْعِدِ."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "حَادِثَةٌ أَوْ وَاقِعَةٌ مُنْفَرِدَةٌ تَقَعُ فِي سِيَاقٍ زَمَانِيٍّ وَمَكَانِيٍّ مُحَدَّدٍ، وَتَتَمَيَّزُ عَمَّا سِوَاهَا مِنَ الأَحْدَاثِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "سَجَّلَ رِجَالُ الشُّرْطَةِ كُلَّ تَفَاصِيلِ الحَادِثَةِ فِي مَحْضَرٍ رَسْمِيٍّ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "حَادِثَة"
+      entry_id: "{auto}"
+      root: "حدث"
+      maqayis_quote: "«الْحَاءُ وَالدَّالُ وَالثَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ كَوْنُ الشَّيْءِ لَمْ يَكُنْ. يُقَالُ حَدَثَ أَمْرٌ بَعْدَ أَنْ لَمْ يَكُنْ.»"
+    - lemma: "وَاقِعَة"
+      entry_id: "{auto}"
+      root: "وقع"
+      maqayis_quote: "«الْوَاوُ وَالْقَافُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ يَرْجِعُ إِلَيْهِ فُرُوعُهُ، يَدُلُّ عَلَى سُقُوطِ شَيْءٍ. يُقَالُ: وَقَعَ الشَّيْءُ وُقُوعًا فَهُوَ وَاقِعٌ.»"
+    - lemma: "عَارِضَة"
+      entry_id: "{auto}"
+      root: "عرض"
+      maqayis_quote: "«الْعَيْنُ وَالرَّاءُ وَالضَّادُ أَصْلَانِ صَحِيحَانِ، أَحَدُهُمَا خِلَافُ الطُّولِ، وَالْآخَرُ أَنْ يَعْرِضَ الشَّيْءُ.»"
+  per_sense:
+    - lemma: "حَادِثَة"
+      sense_id: "{auto}"
+      nuance: "تشير إلى وقوع شيء جديد أو استثنائي، وغالباً ما ترتبط بالأمور اليومية أو الجنائية أو العرضية."
+      mwe: false
+    - lemma: "وَاقِعَة"
+      sense_id: "{auto}"
+      nuance: "أكثر رسمية ودقة، تشير إلى الحدث من حيث كونه حقيقة وقعت وثبتت، وتستخدم كثيراً في السياقات التاريخية والقانونية."
+      mwe: false
+    - lemma: "عَارِضَة"
+      sense_id: "{auto}"
+      nuance: "تفيد وقوع حدث يعترض المجرى الطبيعي للأمور، وغالباً ما توصف بأنها 'عارضة' لبيان طابعها المؤقت أو المفاجئ."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حدث","maqayis":"«الْحَاءُ وَالدَّالُ وَالثَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ كَوْنُ الشَّيْءِ لَمْ يَكُنْ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تشير إلى وقوع شيء جديد أو استثنائي، وغالباً ما ترتبط بالأمور اليومية أو الجنائية أو العرضية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

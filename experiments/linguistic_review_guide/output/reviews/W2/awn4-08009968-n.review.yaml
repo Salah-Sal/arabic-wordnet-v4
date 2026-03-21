@@ -1,0 +1,188 @@
+# ── المرحلة ١: المراجعة والتوليد (بدون أدلة) ──────────────
+stage1_review:
+  assessment:
+    concerns:
+      - "المصطلح الحالي عبارة عن تعبير وصفي طويل (MWE) وليس وحدة معجمية مفردة، إلا أنه مقبول في سياق المجموعات الترادفية المتخصصة."
+    observations: "المفهوم حديث نسبيًا في السياق العربي، ويعتمد على وصف الوظيفة (الملاطفة والإطعام) أو طبيعة الحيوانات (أليفة)."
+  blind_candidates:
+    - lemma: "حَدِيقَةُ مُلَاطَفَة"
+      generation_method: tarkib
+      justification: "ترجمة دقيقة للوظيفة الأساسية (Petting)، حيث تجمع بين المكان والفعل."
+    - lemma: "مُدَاعَبَةُ الحَيَوَانَات"
+      generation_method: tarkib
+      justification: "يركز على النشاط الذي يقوم به الزوار، وهو لمس ومداعبة الحيوانات."
+    - lemma: "حَظِيرَةُ الأَلِيف"
+      generation_method: tarkib
+      justification: "استخدام 'حظيرة' ليدل على المكان المسيج و'الأليف' للدلالة على نوع الحيوان."
+    - lemma: "حَدِيقَةُ حَيَوَانَاتٍ تَفَاعُلِيَّة"
+      generation_method: tarkib
+      justification: "مصطلح حديث يشير إلى إمكانية التفاعل المباشر بين الزوار والحيوانات، وهو شائع في المراكز الترفيهية الحديثة."
+
+# ── المرحلة ٢: جمع الأدلة ────────────────────────────────
+stage2_evidence:
+  per_lemma:
+    - lemma: "حديقة حيوانات أليفة"
+      confirm:
+        - text: "«الحيوانات الأهليّة: هي ما دُجِّن من الحيوانات... حديقة الحيوان: تشتمل على أصناف من الحيوانات الحيّة للعرض.»"
+          source: "معجم اللغة العربية المعاصرة (أحمد مختار عمر)"
+      expands:
+        - text: "«معلفة البهائم: معرض البهائم، دار غرائب الحيوان، حديقة الحيوانات.»"
+          source: "تكملة المعاجم العربية (رينهارت دوزي)"
+          addition: "يؤكد أن لفظ 'حديقة حيوانات' مستخدم تاريخيًا كمرادف لمعرض البهائم."
+    - lemma: "حَدِيقَةُ حَيَوَانَاتٍ تَفَاعُلِيَّة"
+      evidence_status: "no_material_found"
+    - lemma: "حَدِيقَةُ مُلَاطَفَة"
+      evidence_status: "no_material_found"
+    - lemma: "مُدَاعَبَةُ الحَيَوَانَات"
+      evidence_status: "no_material_found"
+    - lemma: "حَظِيرَةُ الأَلِيف"
+      evidence_status: "no_material_found"
+
+# ── المرحلة ٣: التحليل اللغوي للّمات ────────────────────
+stage3_analysis:
+  per_lemma:
+    - lemma: "حديقة حيوانات أليفة"
+      decision: confirmed
+      decision_reason: "على الرغم من كونه تعبيراً مركباً، إلا أنه المصطلح الأكثر شيوعاً واستقراراً في اللغة العربية الحديثة للتعبير عن مفهوم (Petting Zoo)."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      nuance_differentiation: "المصطلح العام والشائع."
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حَدِيقَةُ حَيَوَانَاتٍ أَلِيفَة"
+    - lemma: "حَدِيقَةُ حَيَوَانَاتٍ تَفَاعُلِيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح حديث يعبر عن الجانب التفاعلي الذي يميز هذه الحدائق عن حدائق الحيوان التقليدية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      nuance_differentiation: "يركز على طبيعة العلاقة التفاعلية (Interactive) بين الزوار والحيوانات."
+      actions:
+        - command: create_entry
+          params: {lemma: "حَدِيقَةُ حَيَوَانَاتٍ تَفَاعُلِيَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "حَدِيقَةُ مُلَاطَفَة"
+      source: stage1
+      decision: removed
+      decision_reason: "ترجمة حرفية غير مستقرة في الاستعمال اللغوي."
+    - lemma: "مُدَاعَبَةُ الحَيَوَانَات"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير وصفي عام لا يشكل وحدة معجمية اصطلاحية للمكان."
+    - lemma: "حَظِيرَةُ الأَلِيف"
+      source: stage1
+      decision: removed
+      decision_reason: "غير مألوف في السياق المعاصر."
+
+# ── المرحلة ٤: التعريف والأمثلة ──────────────────────────
+stage4_content:
+  definition:
+    current: "مجموعة من الحيوانات الأليفة مخصصة للأطفال لملاطفتها وإطعامها"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط؛ يحتاج إلى صياغة معجمية أكثر دقة تشمل المكان والنشاط."
+    authored:
+      - type: encyclopedic
+        text: "حَيِّزٌ أَوْ حَدِيقَةٌ صَغِيرَةٌ مَحْرُوسَةٌ، تَضُمُّ مَجْمُوعَةً مِنَ الحَيَوَانَاتِ المَنْزِلِيَّةِ الهَادِئَةِ، مُهَيَّأَةٌ لِلأَطْفَالِ بِحَيْثُ يُمْكِنُهُمْ تَلَمُّسُهَا وَمُلَاطَفَتُهَا وَإِطْعَامُهَا بِشَكْلٍ مُبَاشِرٍ."
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "حَيِّزٌ أَوْ حَدِيقَةٌ صَغِيرَةٌ مَحْرُوسَةٌ، تَضُمُّ مَجْمُوعَةً مِنَ الحَيَوَانَاتِ المَنْزِلِيَّةِ الهَادِئَةِ، مُهَيَّأَةٌ لِلأَطْفَالِ لِيَقُومُوا بِلَمْسِهَا وَمُلَاطَفَتِهَا وَإِطْعَامِهَا بِشَكْلٍ مُبَاشِرٍ."
+
+  examples:
+    per_lemma:
+      - lemma: "حَدِيقَةُ حَيَوَانَاتٍ أَلِيفَة"
+        examples:
+          - text: "قَضَى الأَطْفَالُ وَقْتًا مُمْتِعًا فِي حَدِيقَةِ الحَيَوَانَاتِ الأَلِيفَةِ، حَيْثُ أَطْعَمُوا الأَرَانِبَ وَصِغَارَ الخِرَافِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "تُعدُّ حَدِيقَةُ الحَيَوَانَاتِ الأَلِيفَةِ مَكَانًا تَرْبَوِيًّا يَتَعَلَّمُ فِيهِ الصِّغَارُ كَيْفِيَّةَ الرِّفْقِ بِالحَيَوَانِ."
+
+# ── المرحلة ٥: الإثراء (البيانات الوصفية) ─────────────────
+stage5_enrichment:
+  per_entry:
+    - lemma: "حَدِيقَةُ حَيَوَانَاتٍ أَلِيفَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "حديقة"
+          root: "حدق"
+          maqayis_quote: "«الْحَاءُ وَالدَّالُ وَالْقَافُ أَصْلٌ وَاحِدٌ، [وَهُوَ الشَّيْءُ] يُحِيطُ بِشَيْءٍ... وَالْحَدِيقَةُ: الْأَرْضُ ذَاتُ الشَّجَرِ.»"
+        - word: "حيوانات"
+          root: "حي"
+          maqayis_quote: "«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ... فَالْحَيَاةُ وَالْحَيَوَانُ، وَهُوَ ضِدُّ الْمَوْتِ.»"
+        - word: "أليفة"
+          root: "ألف"
+          maqayis_quote: "«الْهَمْزَةُ وَاللَّامُ وَالْفَاءُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى انْضِمَامِ الشَّيْءِ إِلَى الشَّيْءِ... أَلِفْتُ الشَّيْءَ آلَفُهُ. وَالْأُلْفَةُ مَصْدَرُ الِائْتِلَافِ. وَإِلْفُكَ وَأَلِيفُكَ: الَّذِي تَأْلَفُهُ.»"
+    - lemma: "حَدِيقَةُ حَيَوَانَاتٍ تَفَاعُلِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "حديقة"
+          root: "حدق"
+          maqayis_quote: "«الْحَاءُ وَالدَّالُ وَالْقَافُ أَصْلٌ وَاحِدٌ، [وَهُوَ الشَّيْءُ] يُحِيطُ بِشَيْءٍ... وَالْحَدِيقَةُ: الْأَرْضُ ذَاتُ الشَّجَرِ.»"
+        - word: "تفاعلية"
+          root: "فعل"
+          maqayis_quote: "«الْفَاءُ الْعَيْنُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِحْدَاثِ شَيْءٍ مِنْ عَمَلٍ وَغَيْرِهِ.»"
+
+  per_sense:
+    - lemma: "حَدِيقَةُ حَيَوَانَاتٍ أَلِيفَة"
+      sense_id: "{auto}"
+      nuance: "المصطلح القياسي لوصف هذا المكان."
+      mwe: true
+    - lemma: "حَدِيقَةُ حَيَوَانَاتٍ تَفَاعُلِيَّة"
+      sense_id: "{auto}"
+      nuance: "مصطلح حديث يركز على إمكانية اللمس والتفاعل المباشر."
+      mwe: true
+
+  synset:
+    cultural_fit: phraset
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"حديقة","root":"حدق","maqayis":"«الْحَاءُ وَالدَّالُ وَالْقَافُ أَصْلٌ وَاحِدٌ...»"},{"word":"حيوانات","root":"حي","maqayis":"«الْحَاءُ وَالْيَاءُ... أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ...»"},{"word":"أليفة","root":"ألف","maqayis":"«الْهَمْزَةُ وَاللَّامُ وَالْفَاءُ أَصْلٌ وَاحِدٌ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"حديقة","root":"حدق","maqayis":"«الْحَاءُ وَالدَّالُ...»"},{"word":"تفاعلية","root":"فعل","maqayis":"«الْفَاءُ الْعَيْنُ وَاللَّامُ أَصْلٌ صَحِيحٌ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح القياسي لوصف هذا المكان.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح حديث يركز على إمكانية اللمس والتفاعل المباشر.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"phraset"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

@@ -1,0 +1,182 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمات الموجودة عبارة عن تعابير وصفية طويلة (أحجار التبليط، بلاط حجري).
+      - غياب كلمة "بَلَاط" وهي اللفظة العربية الأساسية والمباشرة لهذا المفهوم.
+    observations: "المجموعة تعبر عن حجارة الرصف أو التبليط بشكل جمعي. اللمات الحالية صحيحة دلالياً لكنها تفتقر إلى الإيجاز المصطلحي."
+  blind_candidates:
+    - lemma: "بَلَاط"
+      generation_method: majaz
+      justification: "اللفظ العربي الأشهر للحجارة التي تفرش بها الأرض، وهو اسم جنس جمعي."
+    - lemma: "رَصْفَة"
+      generation_method: ishtiqaq
+      justification: "من الرصف، وتطلق على الحجارة المرصوفة أو المساحة المبلطة بها."
+    - lemma: "حِجَارَةُ التَّبْلِيط"
+      generation_method: tarkib
+      justification: "تعبير إضافي دقيق يصف الوظيفة (التبليط) والمادة (الحجارة)."
+    - lemma: "رَصِيف حَجَرِيّ"
+      generation_method: tarkib
+      justification: "تعبير وصفي يصف البنية الناتجة عن رصف هذه الحجارة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "بَلَاط"
+      confirm:
+        - text: "ضرب من الحجارة تُفرش به الأرض"
+          source: "المعجم الوسيط"
+        - text: "كل أرض فرشت بالحجارة أو بالآجر"
+          source: "المعجم الكبير"
+    - lemma: "رَصْفَة"
+      confirm:
+        - text: "واحدة الرصف لحجارة مرصوف بعضها إلى بعض في مسيل"
+          source: "القاموس المحيط"
+    - lemma: "حَجَر لَوْحِيّ"
+      confirm:
+        - text: "حجر مسطح، يستخدم عموما للتبليط"
+          source: "ArabTerm"
+    - lemma: "أحجار التبليط"
+      confirm:
+        - text: "تبليط، رصف بالحجارة اللوحية (flagstone paving)"
+          source: "ArabTerm"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "أحجار التبليط"
+      decision: confirmed
+      decision_reason: "مصطلح وصفي دقيق وشائع الاستخدام في المراجع التقنية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "أَحْجَارُ التَّبْلِيط"
+    - lemma: "بلاط حجري"
+      decision: confirmed
+      decision_reason: "مصطلح وصفي يميز نوع البلاط عن الأنواع الأخرى كالسيراميك أو الآجر."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "بَلَاطٌ حَجَرِيّ"
+    - lemma: "بَلَاط"
+      source: stage1
+      decision: confirmed
+      decision_reason: "هو اللفظ العربي الأصيل والأكثر إيجازاً للتعبير عن حجارة الرصف بشكل جمعي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "بَلَاط", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-07972726-n"}
+    - lemma: "حَجَرٌ لَوْحِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المقابل الدقيق والمصطلحي لـ flagstone في المعاجم التقنية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "حَجَرٌ لَوْحِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-07972726-n"}
+
+stage4_content:
+  definition:
+    current: "أحجار التبليط (البلاطات) مجتمعة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب ويميل للوصف البسيط، الأفضل صياغته بأسلوب المعاجم الفنية."
+    authored:
+      - type: terminological
+        text: "أحجار مسطحة عريضة تُستخدم في رصف الأرضيات أو تغطية الجدران، وتطلق على المادة المرصوفة بها ككل."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "بَلَاط"
+        examples:
+          - text: "رُصِفت ساحةُ القصرِ بالبَلَاطِ الحجريِّ المصقول."
+            type: usage
+      - lemma: "أَحْجَارُ التَّبْلِيط"
+        examples:
+          - text: "تستخدم أحجارُ التبليطِ الكبيرةِ لرصفِ الممراتِ الخارجيةِ."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-07972726-n", definition_index: 0, text: "أحجار مسطحة عريضة تُستخدم في رصف الأرضيات أو تغطية الجدران، وتطلق على المادة المرصوفة بها ككل."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "بَلَاط"
+      entry_id: "{auto}"
+      root: "بلط"
+      maqayis_quote: "«الْبَاءُ وَاللَّامُ وَالطَّاءُ أَصْلٌ وَاحِدٌ، وَالْأَمْرُ فِيهِ قَرِيبٌ مِمَّا قَبْلَهُ (أي الاستواء). قَالُوا: الْبَلَاطُ كُلُّ شَيْءٍ فُرِشَتْ بِهِ الدَّارُ مِنْ حَجَرٍ وَغَيْرِهِ.»"
+    - lemma: "حَجَرٌ لَوْحِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "حجر"
+          root: "حجر"
+          maqayis_quote: "«الْحَاءُ وَالْجِيمُ وَالرَّاءُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ، وَهُوَ الْمَنْعُ وَالْإِحَاطَةُ عَلَى الشَّيْءِ... وَالْحَجَرُ مَعْرُوفٌ، وَأَحْسِبُ أَنَّ الْبَابَ كُلَّه مَحْمُولٌ عَلَيْهِ وَمَأْخُوذٌ مِنْهُ، لِشِدَّتِهِ وَصَلَابَتِهِ.»"
+        - word: "لوحي"
+          root: "لوح"
+          maqayis_quote: "«اللَّامُ وَالْوَاوُ وَالْحَاءُ أَصْلٌ صَحِيحٌ، مُعْظَمُهُ مُقَارَبَةُ بَابِ اللَّمَعَانِ... وَاللَّوْحُ أَيْضًا كُلُّ عَظْمٍ عَرِيضٍ. وَسُمِّيَ لَوْحًا لِأَنَّهُ يَلُوحُ.»"
+  per_sense:
+    - lemma: "بَلَاط"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام والشامل لكل ما تفرش به الأرض من حجارة أو غيرها، ويستخدم كاسم جنس."
+      mwe: false
+    - lemma: "أَحْجَارُ التَّبْلِيط"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي يركز على الوظيفة الإنشائية للمادة."
+      mwe: true
+    - lemma: "بَلَاطٌ حَجَرِيّ"
+      sense_id: "{auto}"
+      nuance: "تعبير يحدد المادة الخام (الحجر) تمييزاً لها عن البلاط الإسمنتي أو الخزفي."
+      mwe: true
+    - lemma: "حَجَرٌ لَوْحِيّ"
+      sense_id: "{auto}"
+      nuance: "مصطلح تقني يصف الشكل المسطح والعريض للحجر (Flagstone)."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"بلط","maqayis":"«الْبَاءُ وَاللَّامُ وَالطَّاءُ أَصْلٌ وَاحِدٌ... قَالُوا: الْبَلَاطُ كُلُّ شَيْءٍ فُرِشَتْ بِهِ الدَّارُ مِنْ حَجَرٍ وَغَيْرِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ العام والشامل لكل ما تفرش به الأرض من حجارة أو غيرها، ويستخدم كاسم جنس.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-07972726-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-07972726-n"
+        score: 0.9

@@ -1,0 +1,200 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف العربي دقيق إلى حد ما ولكنه يحتاج إلى صياغة معجمية أفضل لتجنب الأسلوب الركيك (خاصة للمشاهير)."
+    observations: "المجموعة الدلالية تعبر عن الاستخدام المجازي لمجموعة النجوم (galaxy) للإشارة إلى تجمع لشخصيات بارزة أو مشهورة. اللفظ 'كَوْكَبَة' هو المعادل الأدق والأكثر شيوعا لهذا الاستخدام في العربية المعاصرة."
+  blind_candidates:
+    - lemma: "كَوْكَبَة"
+      generation_method: majaz
+      justification: "نقل دلالي من مجموعة النجوم إلى مجموعة من الأشخاص البارزين، وهو شائع جداً في الاستعمال."
+    - lemma: "نُخْبَة"
+      generation_method: ishtiqaq
+      justification: "مشتق من النخب بمعنى الاختيار، وتطلق على خيار الناس وأفضلهم، تناسب التجمع المختار من المشاهير."
+    - lemma: "صَفْوَة"
+      generation_method: ishtiqaq
+      justification: "بمعنى الخالص والمختار من كل شيء، وتناسب تجمع الأشخاص المتميزين."
+    - lemma: "ثُلَّة"
+      generation_method: majaz
+      justification: "تطلق على الجماعة من الناس بشكل عام، وقد تكتسب دلالة إيجابية في السياق."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "كوكبة"
+      confirm:
+        - text: "الكوكبة: حشدٌ من أشخاص [أو أشياء] لامعين أو بارزين."
+          source: "المورد الحديث"
+        - text: "والجماعة من الناس"
+          source: "المعجم الوسيط"
+    - lemma: "نخبة"
+      confirm:
+        - text: "(النخبة) الْمُخْتَار من كل شَيْء يُقَال جَاءَ فِي نخبة أَصْحَابه خيارهم"
+          source: "المعجم الوسيط"
+    - lemma: "صفوة"
+      confirm:
+        - text: "من كلِّ شيءٍ: صَفْوَهُ (خَالِصُهُ وأَحْسَنُهُ وخِيارُهُ)."
+          source: "المعجم الكبير"
+    - lemma: "ثلة"
+      expands:
+        - text: "الجماعة من الناس"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "كَوْكَبَة"
+      decision: confirmed
+      decision_reason: "الكلمة تعبر بدقة عن الاستخدام المجازي لكلمة galaxy وتشير إلى تجمع لأشخاص لامعين وبارزين."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "كَوْكَبَة"
+    - lemma: "نُخْبَة"
+      decision: confirmed
+      decision_reason: "تستخدم للدلالة على المجموعة المختارة والمتميزة من الناس، وهو ما يتقاطع دلاليا مع مفهوم التجمع الرائع للمشاهير."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نُخْبَة"
+    - lemma: "صَفْوَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف قوي لكلمة نخبة، وتعبر عن خيار الشيء وأفضله، وتناسب التجمع المتميز للأشخاص."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "صَفْوَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "ثُلَّة"
+      source: stage1
+      decision: removed
+      decision_reason: "كلمة ثلة تعني مجرد جماعة من الناس، وتفتقر في دلالتها المعجمية المجردة إلى سمة التألق أو البروز التي تميز المجموعة."
+
+stage4_content:
+  definition:
+    current: "تجمع رائع (خاصة للمشاهير)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ركيك الترجمة. صيغ بأسلوب معجمي عربي يعبر عن المفهوم بسلاسة ودقة."
+    authored:
+      - type: terminological
+        text: "تجمُّع من الأشخاص البارزين أو المشاهير يَتَّسِمُ بالتألق والتميز."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "تجمُّع من الأشخاص البارزين أو المشاهير يَتَّسِمُ بالتألق والتميز."}
+  examples:
+    per_lemma:
+      - lemma: "كَوْكَبَة"
+        examples:
+          - text: "شَهِدَ الحَفْلُ حُضورَ كَوْكَبَةٍ مِنْ ألْمَعِ نُجومِ الفَنِّ والأدَبِ."
+            type: usage
+      - lemma: "نُخْبَة"
+        examples:
+          - text: "ضَمَّتِ النَّدْوَةُ نُخْبَةً مِنْ كِبارِ العُلَماءِ والمُفَكِّرينَ."
+            type: usage
+      - lemma: "صَفْوَة"
+        examples:
+          - text: "اخْتارَ المُديرُ صَفْوَةَ الخِرّيجينَ لِلعَمَلِ في المَشْروعِ الجَديدِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "شَهِدَ الحَفْلُ حُضورَ كَوْكَبَةٍ مِنْ ألْمَعِ نُجومِ الفَنِّ والأدَبِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "شَهِدَ الحَفْلُ حُضورَ كَوْكَبَةٍ مِنْ ألْمَعِ نُجومِ الفَنِّ والأدَبِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "ضَمَّتِ النَّدْوَةُ نُخْبَةً مِنْ كِبارِ العُلَماءِ والمُفَكِّرينَ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "اخْتارَ المُديرُ صَفْوَةَ الخِرّيجينَ لِلعَمَلِ في المَشْروعِ الجَديدِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "كَوْكَبَة"
+      entry_id: "{auto}"
+      root: "ككب"
+    - lemma: "نُخْبَة"
+      entry_id: "{auto}"
+      root: "نخب"
+      maqayis_quote: "«النُّونُ وَالْخَاءُ وَالْبَاءُ كَلِمَةٌ تَدُلُّ عَلَى تَعَظُّمٍ يُقَالُ أَحَدُهُمَا عَلَى خِيَارِ شَيْءٍ، وَالْآخَرُ عَلَى ثَقْبٍ وَهَزْمٍ فِي شَيْءٍ.»"
+    - lemma: "صَفْوَة"
+      entry_id: "{auto}"
+      root: "صفو"
+      maqayis_quote: "«الصَّادُ وَالْفَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خُلُوصٍ مِنْ كُلِّ شَوْبٍ.»"
+  per_sense:
+    - lemma: "كَوْكَبَة"
+      sense_id: "{auto}"
+      nuance: "تتميز بدلالة مجازية قوية تربط تألق الأشخاص بلمعان النجوم في السماء، وهي الأدق لترجمة galaxy."
+      mwe: false
+    - lemma: "نُخْبَة"
+      sense_id: "{auto}"
+      nuance: "تركز على عملية الانتقاء والاختيار، لتدل على خيار الناس وأفضلهم."
+      mwe: false
+    - lemma: "صَفْوَة"
+      sense_id: "{auto}"
+      nuance: "تشير إلى النقاء والخلوص من الشوائب، وتستخدم للدلالة على أفضل أجزاء الشيء وأعلاها جودة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ككب"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نخب","maqayis":"«النُّونُ وَالْخَاءُ وَالْبَاءُ كَلِمَةٌ تَدُلُّ عَلَى تَعَظُّمٍ يُقَالُ أَحَدُهُمَا عَلَى خِيَارِ شَيْءٍ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صفو","maqayis":"«الصَّادُ وَالْفَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خُلُوصٍ مِنْ كُلِّ شَوْبٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تتميز بدلالة مجازية قوية تربط تألق الأشخاص بلمعان النجوم في السماء، وهي الأدق لترجمة galaxy.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركز على عملية الانتقاء والاختيار، لتدل على خيار الناس وأفضلهم.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تشير إلى النقاء والخلوص من الشوائب، وتستخدم للدلالة على أفضل أجزاء الشيء وأعلاها جودة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

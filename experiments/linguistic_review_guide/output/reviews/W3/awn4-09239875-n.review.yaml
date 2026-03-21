@@ -1,0 +1,195 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّة الموجودة تفتقر إلى التشكيل الكامل."
+      - "غياب التسمية العربية التراثية للمدينة (نابولية)."
+    observations: "المجموعة تعبر عن معْلَم جغرافي محدد (خليج)، والتسمية الأكثر شيوعاً هي التركيب الإضافي 'خليج نابولي'. التحدي اللغوي يكمن في اختيار الصيغة الأنسب لاسم المدينة (نابولي/نابولية)."
+  blind_candidates:
+    - lemma: "خَلِيجُ نَابُولِي"
+      generation_method: tarkib
+      justification: "التركيب الإضافي القياسي والمعاصر للخليج منسوباً إلى المدينة."
+    - lemma: "خَلِيجُ نَابُولِيَة"
+      generation_method: tarkib
+      justification: "استخدام الاسم العربي التراثي لمدينة نابولي (نابولية) في التركيب الإضافي."
+    - lemma: "جَوْنُ نَابُولِي"
+      generation_method: tarkib
+      justification: "استخدام لفظ 'جون' كمرادف فصيح لـ'خليج' في السياقات الجغرافية."
+    - lemma: "شَرْمُ نَابُولِي"
+      generation_method: tarkib
+      justification: "استخدام لفظ 'شرم' للدلالة على ذراع البحر أو الخليج الصغير."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خَلِيجُ نَابُولِي"
+      confirm:
+        - text: "«نابوليّ: منسوب إلى مدينة نابولي بإيطاليا»"
+          source: "المورد الحديث (2008)"
+      expands:
+        - text: "«نَابُولِيّ: صورة كتابية صوتية من نابلي نسبة إلى نابلي مدينة بإيطاليا»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+    - lemma: "خَلِيجُ نَابُولِيَة"
+      confirm:
+        - text: "«مشكطرا مشير (في نسخة نابولي) مشكطرا مشير (في نسخة نابولية)»"
+          source: "تكملة المعاجم العربية (رينهارت دوزي)"
+          addition: "توثيق استخدام صيغة 'نابولية' للإشارة إلى المدينة."
+    - lemma: "جَوْنُ نَابُولِي"
+      confirm:
+        - text: "«والجَوْنُ: الخليجُ من البحر»"
+          source: "القاموس المحيط"
+    - lemma: "شَرْمُ نَابُولِي"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "خليج نابولي"
+      decision: confirmed
+      decision_reason: "التسمية المعيارية والشائعة للخليج."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَلِيجُ نَابُولِي"
+    - lemma: "خَلِيجُ نَابُولِيَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صيغة فصيحة وتراثية تعتمد الاسم العربي القديم للمدينة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "خَلِيجُ نَابُولِيَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "جَوْنُ نَابُولِي"
+      source: stage1
+      decision: confirmed
+      decision_reason: "استخدام لفظ 'جون' يثري المادة المعجمية بمرادف جغرافي دقيق."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "جَوْنُ نَابُولِي", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "شَرْمُ نَابُولِي"
+      source: stage1
+      decision: removed
+      decision_reason: "لفظ 'شرم' غير مستعمل جغرافياً للإشارة إلى هذا الخليج، وغالباً ما يرتبط ببيئات جغرافية أخرى."
+
+stage4_content:
+  definition:
+    current: "ذراع من البحر التيراني عند مدينة نابولي"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب جداً ويحتاج إلى إضافة تفاصيل جغرافية دقيقة بأسلوب معجمي رصين."
+    authored:
+      - type: terminological
+        text: "خَلِيجٌ بَحْرِيٌّ فِي الشَّاطِئِ الغَرْبِيِّ لِإِيطَالِيَا، وَهُوَ جُزْءٌ مِنَ البَحْرِ التِّيرَانِيِّ، تَقَعُ عَلَى ضِفَافِهِ مَدِينَةُ نَابُولِي وَتُطِلُّ عَلَيْهِ فُوَّهَةُ بُرْكَانِ فِيزُوف."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+      - type: encyclopedic
+        text: "خَلِيجٌ جَغْرَافِيٌّ شَهِيرٌ يَقَعُ عَلَى السَّاحِلِ الجَنُوبِيِّ الغَرْبِيِّ لِإِيطَالِيَا، يَمْتَدُّ بَيْنَ شِبْهِ جَزِيرَةِ فِيلْيَا شَمَالاً وَشِبْهِ جَزِيرَةِ سُورِينْتُو جَنُوباً، وَيُعَدُّ مِنْ أَهَمِّ المَرَاكِزِ المِلَاحِيَّةِ وَالسِّيَاحِيَّةِ فِي البَحْرِ الأَبْيَضِ المُتَوَسِّطِ."
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "خَلِيجٌ بَحْرِيٌّ فِي الشَّاطِئِ الغَرْبِيِّ لِإِيطَالِيَا، وَهُوَ جُزْءٌ مِنَ البَحْرِ التِّيرَانِيِّ، تَقَعُ عَلَى ضِفَافِهِ مَدِينَةُ نَابُولِي وَتُطِلُّ عَلَيْهِ فُوَّهَةُ بُرْكَانِ فِيزُوف."}
+      - command: add_definition
+        params: {synset_id: "{synset_id}", text: "خَلِيجٌ جَغْرَافِيٌّ شَهِيرٌ يَقَعُ عَلَى السَّاحِلِ الجَنُوبِيِّ الغَرْبِيِّ لِإِيطَالِيَا، يَمْتَدُّ بَيْنَ شِبْهِ جَزِيرَةِ فِيلْيَا شَمَالاً وَشِبْهِ جَزِيرَةِ سُورِينْتُو جَنُوباً، وَيُعَدُّ مِنْ أَهَمِّ المَرَاكِزِ المِلَاحِيَّةِ وَالسِّيَاحِيَّةِ فِي البَحْرِ الأَبْيَضِ المُتَوَسِّطِ."}
+  examples:
+    per_lemma:
+      - lemma: "خَلِيجُ نَابُولِي"
+        examples:
+          - text: "يُعْتَبَرُ خَلِيجُ نَابُولِي مِنْ أَجْمَلِ المَنَاظِرِ الطَّبِيعِيَّةِ فِي العَالَمِ بِسَبَبِ تَنَاغُمِ مِيَاهِهِ مَعَ مُنْحَدَرَاتِ فِيزُوف."
+            type: usage
+      - lemma: "خَلِيجُ نَابُولِيَة"
+        examples:
+          - text: "وَصَفَ الرَّحَّالَةُ العَرَبُ القُدَامَى جَمَالَ خَلِيجِ نَابُولِيَة وَعُمْرَانَ المَدِينَةِ المُحِيطَةِ بِهِ."
+            type: usage
+      - lemma: "جَوْنُ نَابُولِي"
+        examples:
+          - text: "تَمْخُرُ السُّفُنُ عُبَابَ جَوْنِ نَابُولِي لِتَصِلَ إِلَى المِينَاءِ التَّارِيخِيِّ المَزْدَحِمِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يُعْتَبَرُ خَلِيجُ نَابُولِي مِنْ أَجْمَلِ المَنَاظِرِ الطَّبِيعِيَّةِ فِي العَالَمِ بِسَبَبِ تَنَاغُمِ مِيَاهِهِ مَعَ مُنْحَدَرَاتِ فِيزُوف."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خَلِيجُ نَابُولِي"
+      entry_id: "{auto}"
+      roots:
+        - word: "خَلِيج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"
+        - word: "نَابُولِي"
+          root: null
+          maqayis_quote: "اسم علم أعجمي لمدينة إيطالية."
+    - lemma: "خَلِيجُ نَابُولِيَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "خَلِيج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"
+        - word: "نَابُولِيَة"
+          root: null
+          maqayis_quote: "الصيغة العربية التراثية لاسم مدينة نابولي."
+    - lemma: "جَوْنُ نَابُولِي"
+      entry_id: "{auto}"
+      roots:
+        - word: "جَوْن"
+          root: "جون"
+          maqayis_quote: "«الْجِيمُ وَالْوَاوُ وَالنُّونُ أَصْلٌ وَاحِدٌ... وَالْجَوْنُ عِنْدَ أَهْلِ اللُّغَةِ قَاطِبَةً اسْمٌ يَقَعُ عَلَى الْأَسْوَدِ وَالْأَبْيَضِ.» (ملاحظة: المعنى الجغرافي كخليج موثق في القاموس المحيط)."
+        - word: "نَابُولِي"
+          root: null
+          maqayis_quote: "اسم علم أعجمي لمدينة إيطالية."
+  per_sense:
+    - lemma: "خَلِيجُ نَابُولِي"
+      sense_id: "{auto}"
+      nuance: "التسمية المعاصرة والأكثر تداولاً في الخرائط والإعلام."
+      mwe: true
+    - lemma: "خَلِيجُ نَابُولِيَة"
+      sense_id: "{auto}"
+      nuance: "تسمية تراثية تذكر في السياقات التاريخية أو الأدبية التي تستحضر التراث العربي."
+      mwe: true
+    - lemma: "جَوْنُ نَابُولِي"
+      sense_id: "{auto}"
+      nuance: "استخدام لفظ 'جون' يركز على الهيئة الجغرافية للخليج كونه محاطاً باليابسة."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"خَلِيج","root":"خلج","maqayis":"«...»"},{"word":"نَابُولِي","root":null,"maqayis":"اسم علم أعجمي"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"التسمية المعاصرة والأكثر تداولاً","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

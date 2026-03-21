@@ -1,0 +1,119 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمة الحالية تفتقر إلى التشكيل الكامل.
+      - المصطلح اسم علم جغرافي مركب، يحتاج لضبط بنيته التركيبية.
+    observations: "المصطلح يشير إلى معلم جغرافي محدد في أيرلندا، والترجمة العربية القياسية هي 'خليج غالواي'. التحدي الوحيد هو ضبط كتابة الاسم الأجنبي (Galway) وتشكيله."
+  blind_candidates:
+    - lemma: "خَلِيج غَالْوَاي"
+      generation_method: tarkib
+      justification: "الترجمة المباشرة والأكثر شيوعاً للاسم الجغرافي (Galway Bay)."
+    - lemma: "جَوْن غَالْوَاي"
+      generation_method: tarkib
+      justification: "استخدام كلمة 'جون' كمرادف لـ'خليج' في بعض السياقات الجغرافية لوصف الخلجان الصغيرة أو المتوسطة."
+    - lemma: "خَلِيج غَالْوِي"
+      generation_method: tarkib
+      justification: "رسم بديل للاسم الأجنبي يتبع النطق الإنجليزي المقارب (Galway)."
+    - lemma: "شَرْم غَالْوَاي"
+      generation_method: tarkib
+      justification: "استخدام 'شرم' وهو مصطلح جغرافي للخليج الصغير، وإن كان أقل شيوعاً في هذا السياق."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خَلِيج"
+      confirm:
+        - text: "«الخَلِيجُ: امتدادٌ من الماء متوغِّلٌ في اليابس»"
+          source: "المعجم الوسيط"
+        - text: "«الخَلِيجُ: رِجْلٌ - أى شُعْبة - من البَحْرِ تُخْتَلَجُ منه شَرْمٌ من البَحْرِ ما انْقَطَع من مُعْظَم الماءِ»"
+          source: "المعجم الكبير"
+    - lemma: "خليج غالواي"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "خليج غالواي"
+      decision: confirmed
+      decision_reason: "الاسم الجغرافي القياسي والمعتمد في المصادر العربية لهذا المعلم."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَلِيج غَالْوَاي"
+    - lemma: "جَوْن غَالْوَاي"
+      source: stage1
+      decision: removed
+      decision_reason: "رغم صحة المعنى دلالياً، إلا أنه ليس المصطلح الشائع للاسم العلم الجغرافي."
+    - lemma: "خَلِيج غَالْوِي"
+      source: stage1
+      decision: removed
+      decision_reason: "رسم بديل أقل شيوعاً من 'غالواي'."
+
+stage4_content:
+  definition:
+    current: "خليج في شمال المحيط الأطلسي على الساحل الغربي لأيرلندا"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دقيق ولكنه يحتاج لصياغة معجمية أكثر رصانة مع ضبط الأسماء."
+    authored:
+      - type: encyclopedic
+        text: "خَلِيجٌ بَحْرِيٌّ يَقَعُ فِي شَمَالِ المُحِيطِ الأَطْلَسِيِّ، عَلَى السَّاحِلِ الغَرْبِيِّ لِجُمْهُورِيَّةِ أَيْرْلَنْدَا، يَمْتَدُّ بَيْنَ شِبْهِ جَزِيرَةِ إِيفِرَاغْ وَكُونِيمَارَا."
+  examples:
+    per_lemma:
+      - lemma: "خَلِيج غَالْوَاي"
+        examples:
+          - text: "تُشتهر منطقة خليج غالواي بجمال طبيعتها ومزارع المحار التقليدية."
+            type: usage
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "خَلِيجٌ بَحْرِيٌّ يَقَعُ فِي شَمَالِ المُحِيطِ الأَطْلَسِيِّ، عَلَى السَّاحِلِ الغَرْبِيِّ لِجُمْهُورِيَّةِ أَيْرْلَنْدَا."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خَلِيج غَالْوَاي"
+      entry_id: "{auto}"
+      roots:
+        - word: "خليج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"
+        - word: "غالواي"
+          root: null
+          maqayis_quote: "اسم أعجمي ليس له جذر عربي."
+  per_sense:
+    - lemma: "خَلِيج غَالْوَاي"
+      sense_id: "{auto}"
+      nuance: "اسم علم جغرافي لخليج محدد."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"خليج","root":"خلج","maqayis":"«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"},{"word":"غالواي","root":null,"maqayis":"اسم أعجمي"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اسم علم جغرافي لخليج محدد","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

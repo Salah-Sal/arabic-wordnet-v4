@@ -1,0 +1,217 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمات الحالية تفتقر إلى التشكيل الكامل.
+      - التعريف الحالي وظيفي لكنه يفتقر إلى الجزالة المعجمية.
+    observations: "المفهوم يشير إلى الجانب المرئي من الأشياء والأشخاص، وهو مفهوم مركزي في اللغة. اللمتان الموجودتان (مظهر وهيئة) هما الأكثر شيوعاً ودقة، ولكن يمكن إثراء المجموعة بلمتي (شكل) و(منظر) لشمول الأوجه الدلالية المرتبطة بالهيئة الخارجية والرؤية البصرية."
+  blind_candidates:
+    - lemma: "مَظْهَر"
+      generation_method: ishtiqaq
+      justification: "اسم مكان من (ظهر)، يدل على ما انكشف وبَرَز من الشيء."
+    - lemma: "هَيْئَة"
+      generation_method: ishtiqaq
+      justification: "اسم للحال التي يكون عليها الشيء في ملبسه وشكله."
+    - lemma: "مَنْظَر"
+      generation_method: ishtiqaq
+      justification: "اسم لما يقع عليه النظر من الشيء."
+    - lemma: "شَكْل"
+      generation_method: ishtiqaq
+      justification: "يدل على الهيئة والصورة المحسوسة للشيء."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مَظْهَر"
+      confirm:
+        - text: "«فلانٌ حَسَنُ المَظْهَر. ويُقالُ: مَظْهَرٌ متناسِقٌ، و: مَظْهَرٌ جَذَّابٌ. ... الصورة التي يبدو عليها الشيء.»"
+          source: "المعجم الكبير"
+        - text: "«الصورة التي يبدو عليها الشيء والعلاقة.»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+    - lemma: "هَيْئَة"
+      confirm:
+        - text: "«الشكل والمظهر العام وطراز النمو.»"
+          source: "المعجم الموحد لمصطلحات علم الأحياء"
+        - text: "«حال المتهيئ في ملبسه ونحوه.»"
+          source: "كتاب العين"
+    - lemma: "شَكْل"
+      confirm:
+        - text: "«صورة الشيء المحسوسة والمتوهمة.»"
+          source: "القاموس المحيط"
+        - text: "«هيئة حاصلة للجسم بسبب إحاطة حد واحد بالمقدار.»"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+    - lemma: "مَنْظَر"
+      confirm:
+        - text: "«الرواء: المنظر الحسن.»"
+          source: "المعجم الوسيط"
+        - text: "«مشهد طبيعي لمنطقة ريفية، يمكن أن يتميز بمكونات أو أنشطة خاصة.»"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مظهر"
+      decision: confirmed
+      decision_reason: "الكلمة الأساسية والأكثر دقة للتعبير عن الجانب الخارجي المرئي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَظْهَر"
+    - lemma: "هيئة"
+      decision: confirmed
+      decision_reason: "تؤكدها المعاجم كدلالة على حال الشيء وصورته الخارجية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "هَيْئَة"
+    - lemma: "شَكْل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر عن الهيئة الجسمانية والحدود الخارجية للشيء."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "شَكْل", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-04681322-n"}
+    - lemma: "مَنْظَر"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يدل على الجانب الذي يقع عليه النظر من الشيء أو الشخص."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَنْظَر", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-04681322-n"}
+
+stage4_content:
+  definition:
+    current: "الجانب الخارجي أو المرئي لشخص أو شيء"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مباشر لكن ينقصه الأسلوب المعجمي الرصين."
+    authored:
+      - type: linguistic
+        text: "الحالُ الظَّاهرةُ للشيءِ أو الشَّخصِ، وما يَقَعُ عليه النَّظَرُ من جانِبِهِ الخارجيّ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-04681322-n", definition_index: 0, text: "الحالُ الظَّاهرةُ للشيءِ أو الشَّخصِ، وما يَقَعُ عليه النَّظَرُ من جانِبِهِ الخارجيّ."}
+  examples:
+    per_lemma:
+      - lemma: "مَظْهَر"
+        examples:
+          - text: "كان مَظْهَرُ المدينةِ يُوحِي بالرُّقِيِّ والحداثةِ."
+            type: usage
+      - lemma: "هَيْئَة"
+        examples:
+          - text: "بَدَتِ الهَيْئَةُ العامَّةُ للمَبْنَى مُتَناسِقَةً مع البيئةِ المحيطةِ."
+            type: usage
+      - lemma: "شَكْل"
+        examples:
+          - text: "يَتَّخِذُ هذا النَّباتُ شَكْلًا مخروطِيًّا مُمَيَّزًا."
+            type: usage
+      - lemma: "مَنْظَر"
+        examples:
+          - text: "يَسُرُّكَ مَنْظَرُ الحدائقِ الغَنَّاءِ في فصلِ الربيعِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-04681322-n", text: "يجبُ عدمُ الحكمِ على الناسِ من مَظْهَرِهمُ الخارجيِّ فقط."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَظْهَر"
+      entry_id: "{auto}"
+      root: "ظهر"
+      maqayis_quote: "«الظَّاءُ وَالْهَاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى قُوَّةٍ وَبُرُوزٍ. مِنْ ذَلِكَ: ظَهَرَ الشَّيْءُ يَظْهَرُ ظُهُورًا فَهُوَ ظَاهِرٌ، إِذَا انْكَشَفَ وَبَرَزَ.»"
+    - lemma: "هَيْئَة"
+      entry_id: "{auto}"
+      root: "هيأ"
+      maqayis_quote: "«الهيئة: حال الشيء وكيفيته.» (نقلًا عن المعاجم المتأخرة لعدم توفر نص صريح في المقاييس بهذا المعنى الدقيق تحت هذا الجذر)."
+    - lemma: "شَكْل"
+      entry_id: "{auto}"
+      root: "شكل"
+      maqayis_quote: "«الشِّينُ وَالْكَافُ وَاللَّامُ مُعْظَمُ بَابِهِ الْمُمَاثَلَةُ. تَقُولُ: هَذَا شَِكْلُ هَذَا، أَيْ مِثْلُهُ.»"
+    - lemma: "مَنْظَر"
+      entry_id: "{auto}"
+      root: "نظر"
+      maqayis_quote: "«النُّونُ وَالظَّاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَرْجِعُ فُرُوعُهُ إِلَى مَعْنًى وَاحِدٍ وَهُوَ تَأَمُّلُ الشَّيْءِ وَمُعَايَنَتُهُ.»"
+  per_sense:
+    - lemma: "مَظْهَر"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب الذي برز وانكشف للعيان من الشيء."
+      mwe: false
+    - lemma: "هَيْئَة"
+      sense_id: "{auto}"
+      nuance: "تركز على الحالة العامة والتكوين الذي استقر عليه الشيء."
+      mwe: false
+    - lemma: "شَكْل"
+      sense_id: "{auto}"
+      nuance: "يركز على الحدود الخارجية والصورة الهندسية أو الجسمانية."
+      mwe: false
+    - lemma: "مَنْظَر"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب الجمالي أو المشهدي الذي يقع عليه البصر."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ظهر","maqayis":"«الظَّاءُ وَالْهَاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى قُوَّةٍ وَبُرُوزٍ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"هيأ","maqayis":"«الهيئة: حال الشيء وكيفيته.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"شكل","maqayis":"«الشِّينُ وَالْكَافُ وَاللَّامُ مُعْظَمُ بَابِهِ الْمُمَاثَلَةُ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نظر","maqayis":"«النُّونُ وَالظَّاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ... تَأَمُّلُ الشَّيْءِ وَمُعَايَنَتُهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الجانب الذي برز وانكشف للعيان من الشيء.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-04681322-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-04681322-n"
+        score: 1.0

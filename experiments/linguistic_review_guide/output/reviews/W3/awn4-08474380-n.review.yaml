@@ -1,0 +1,252 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "استخدام مصطلح 'كود جيني' الدخيل بالكامل (كود من code وجين من gene) بالرغم من وجود مصطلح عربي أصيل ومشهور وهو 'شفرة وراثية'."
+      - "عدم وجود تشكيل للمصطلحات الموجودة في قاعدة البيانات."
+    observations: "المجموعة الدلالية تعبر عن المفهوم العلمي 'genetic code'. 'شفرة وراثية' هو المصطلح الأكثر دقة وشيوعاً واستقراراً في المعاجم العلمية المتخصصة. والمصطلحات الأخرى هي إما تعريب مباشر أو مزيج بين التعريب والترجمة."
+  blind_candidates:
+    - lemma: "رَامُوز جِينِيّ"
+      generation_method: tarkib
+      justification: "تركيب وصفي يعتمد على مصطلح 'راموز' بدلاً من كود أو شفرة، وهو متداول في المعجم الطبي الموحد كترجمة معتمدة."
+    - lemma: "كُود وِرَاثِيّ"
+      generation_method: tarkib
+      justification: "تركيب وصفي يجمع بين التعريب الشائع 'كود' والمصطلح العربي الأصيل 'وراثي'."
+    - lemma: "شَفْرَة جِينِيَّة"
+      generation_method: tarkib
+      justification: "تركيب وصفي مستخدم في بعض الأدبيات العلمية يجمع بين 'شفرة' والنسبة إلى المصطلح المعرب 'جين'."
+    - lemma: "رَمْز وِرَاثِيّ"
+      generation_method: tarkib
+      justification: "تركيب وصفي عربي خالص يستخدم 'رمز' كبديل شائع لكلمة 'شفرة'."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "شفرة وراثية"
+      confirm:
+        - text: "«المعطيات المشفرة المخزونة والمنقولة بين مجموعة (64) ثلاثيات النكليوتيدات الممكنة والأحماض الأمينية وشفرات الوقف التي تحددها.»"
+          source: "مسرد المناخ والبيئة وإدارة النفايات الصلبة، المنظمة العربية للتربية والثقافة والعلوم (موقع ArabTerm)"
+        - text: "«مجموعة العلاقات بين ترتيب النكليوتيدات في الدنا ومتوالية الأحماض الأمينية في البروتين.»"
+          source: "المعجم الموحد لمصطلحات علم الوراثة (2009)"
+    - lemma: "كود جيني"
+      evidence_status: "no_material_found"
+    - lemma: "رَامُوز جِينِيّ"
+      confirm:
+        - text: "«الرَّاموزُ الجينِيّ (genetic code)»"
+          source: "المعجم الطبي الموحد (2009)"
+    - lemma: "كُود وِرَاثِيّ"
+      confirm:
+        - text: "«كود وراثي (genetic code)»"
+          source: "المَكنَز الزراعي متعدد اللغات"
+    - lemma: "شَفْرَة جِينِيَّة"
+      evidence_status: "no_material_found"
+    - lemma: "رَمْز وِرَاثِيّ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "شفرة وراثية"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح ومعتمد في المجامع والمعاجم العلمية لترجمة المفهوم، وهو واسع الانتشار."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      nuance_differentiation: "المصطلح القياسي والمفضل في الأوساط العلمية والمناهج الدراسية والأكثر وضوحاً ودقة."
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "شَفْرَة وِرَاثِيَّة"
+    
+    - lemma: "كود جيني"
+      decision: removed
+      decision_reason: "مصطلح مكون من لفظتين دخيلتين (كود وجين) وليس له شواهد معجمية مباشرة، ويغني عنه المصطلح الفصيح 'شفرة وراثية'."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+            
+    - lemma: "رَامُوز جِينِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح معتمد في المعجم الطبي الموحد ويمثل بديلاً موثقاً لمصطلح الشفرة الوراثية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      nuance_differentiation: "يستخدم بشكل أساسي في السياقات الطبية والأدبيات المتخصصة التي تفضل استخدام لفظ 'راموز'."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "رَامُوز جِينِيّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-08474380-n"
+
+    - lemma: "كُود وِرَاثِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح موثق معجمياً (في المكنز الزراعي) وهو مزيج بين اللفظ الدخيل الشائع الاستخدام (كود) والعربي (وراثي)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      nuance_differentiation: "مصطلح هجين يستخدم في بعض المراجع والترجمات كبديل غير رسمي عن 'الشفرة الوراثية'."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "كُود وِرَاثِيّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-08474380-n"
+
+    - lemma: "شَفْرَة جِينِيَّة"
+      source: stage1
+      decision: removed
+      decision_reason: "عدم وجود شواهد معجمية كافية ولتقليل الاعتماد على كلمة 'جين' الدخيلة بوجود 'وراثية'."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+
+    - lemma: "رَمْز وِرَاثِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "عدم وجود شواهد معجمية، والمصطلحات الأخرى المعتمدة أثبت وأشهر في هذا السياق."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+
+stage4_content:
+  definition:
+    current: "ترتيب النيوكليوتيدات في جزيئات الحمض النووي الذي يحمل المعلومات الوراثية في الخلايا الحية"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق علمياً وشامل للمفهوم ويقابل المعنى الأجنبي بوضوح."
+  examples:
+    per_lemma:
+      - lemma: "شَفْرَة وِرَاثِيَّة"
+        examples:
+          - text: "اكتشف العلماء كيفية فك الشفرة الوراثية التي تحدد صفات الكائن الحي."
+            type: usage
+      - lemma: "رَامُوز جِينِيّ"
+        examples:
+          - text: "يحتوي الراموز الجيني على التعليمات اللازمة لبناء البروتينات في الخلية."
+            type: usage
+      - lemma: "كُود وِرَاثِيّ"
+        examples:
+          - text: "تساعد دراسة الكود الوراثي للفيروسات في تطوير لقاحات فعّالة ضدها."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "awn4-08474380-n"
+          text: "اكتشف العلماء كيفية فك الشفرة الوراثية التي تحدد صفات الكائن الحي."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "اكتشف العلماء كيفية فك الشفرة الوراثية التي تحدد صفات الكائن الحي."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "شَفْرَة وِرَاثِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "شفرة"
+          root: "شفر"
+          maqayis_quote: "«الشِّينُ وَالْفَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى حَدِّ الشَّيْءِ وَحَرْفِهِ.»"
+        - word: "وراثية"
+          root: "ورث"
+          maqayis_quote: "«الْوَاوُ وَالرَّاءُ وَالثَّاءُ: كَلِمَةٌ وَاحِدَةٌ، هِيَ الْوِرْثُ. وَالْمِيرَاثُ أَصْلُهُ الْوَاوُ.»"
+    - lemma: "رَامُوز جِينِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "راموز"
+          root: "رمز"
+          maqayis_quote: "«الرَّاءُ وَالْمِيمُ والزَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى حَرَكَةٍ وَاضْطِرَابٍ... وَيَقُولُونَ: إِنَّ الرَّامُوزَ: الْبَحْرُ.»"
+    - lemma: "كُود وِرَاثِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "كود"
+          root: "كود"
+          maqayis_quote: "«الْكَافُ وَالْوَاوُ وَالدَّالُ كَلِمَةٌ كَأَنَّهَا تَدُلُّ عَلَى الْتِمَاسِ شَيْءٍ بِبَعْضِ الْعَنَاءِ.»"
+        - word: "وراثي"
+          root: "ورث"
+          maqayis_quote: "«الْوَاوُ وَالرَّاءُ وَالثَّاءُ: كَلِمَةٌ وَاحِدَةٌ، هِيَ الْوِرْثُ. وَالْمِيرَاثُ أَصْلُهُ الْوَاوُ.»"
+  per_sense:
+    - lemma: "شَفْرَة وِرَاثِيَّة"
+      sense_id: "{auto}"
+      nuance: "المصطلح القياسي والمفضل في الأوساط العلمية والمناهج الدراسية والأكثر وضوحاً ودقة."
+      mwe: true
+    - lemma: "رَامُوز جِينِيّ"
+      sense_id: "{auto}"
+      nuance: "يستخدم بشكل أساسي في السياقات الطبية والأدبيات المتخصصة التي تفضل استخدام لفظ 'راموز'."
+      mwe: true
+    - lemma: "كُود وِرَاثِيّ"
+      sense_id: "{auto}"
+      nuance: "مصطلح هجين يستخدم في بعض المراجع والترجمات كبديل غير رسمي عن 'الشفرة الوراثية'."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"شفرة","root":"شفر","maqayis":"«الشِّينُ وَالْفَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى حَدِّ الشَّيْءِ وَحَرْفِهِ.»"},{"word":"وراثية","root":"ورث","maqayis":"«الْوَاوُ وَالرَّاءُ وَالثَّاءُ: كَلِمَةٌ وَاحِدَةٌ، هِيَ الْوِرْثُ. وَالْمِيرَاثُ أَصْلُهُ الْوَاوُ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"راموز","root":"رمز","maqayis":"«الرَّاءُ وَالْمِيمُ والزَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى حَرَكَةٍ وَاضْطِرَابٍ... وَيَقُولُونَ: إِنَّ الرَّامُوزَ: الْبَحْرُ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"كود","root":"كود","maqayis":"«الْكَافُ وَالْوَاوُ وَالدَّالُ كَلِمَةٌ كَأَنَّهَا تَدُلُّ عَلَى الْتِمَاسِ شَيْءٍ بِبَعْضِ الْعَنَاءِ.»"},{"word":"وراثي","root":"ورث","maqayis":"«الْوَاوُ وَالرَّاءُ وَالثَّاءُ: كَلِمَةٌ وَاحِدَةٌ، هِيَ الْوِرْثُ. وَالْمِيرَاثُ أَصْلُهُ الْوَاوُ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح القياسي والمفضل في الأوساط العلمية والمناهج الدراسية والأكثر وضوحاً ودقة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يستخدم بشكل أساسي في السياقات الطبية والأدبيات المتخصصة التي تفضل استخدام لفظ ''راموز''.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح هجين يستخدم في بعض المراجع والترجمات كبديل غير رسمي عن ''الشفرة الوراثية''.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-08474380-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-08474380-n"
+        score: 0.95

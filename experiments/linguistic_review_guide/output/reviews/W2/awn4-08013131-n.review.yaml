@@ -1,0 +1,215 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمات الحالية تفتقر للتشكيل الكامل.
+      - كلمة "مجموعة" عامة جداً وقد تتداخل مع فئة الأشياء الأشمل (الاشتمال).
+    observations: "المفهوم يشير إلى 'طقم' أو 'عدة' أو 'تشكيلة' من الأشياء المتجانسة التي تُباع أو تُستخدم معاً ككُلٍ واحد. كلمة 'طقم' هي الأكثر دقة في السياق الحديث للأدوات والأواني والملابس."
+  blind_candidates:
+    - lemma: "طَقْم"
+      generation_method: taarib
+      justification: "اللفظ الأكثر شيوعاً واستعمالاً في العربية الحديثة للدلالة على مجموعة متكاملة من الأواني أو الأدوات أو الملابس."
+    - lemma: "مَجْمُوعَة"
+      generation_method: ishtiqaq
+      justification: "اللفظ العام للمفهوم الرياضي والمنطقي والمادي لأي تجمع من الأشياء المتشابهة."
+    - lemma: "تَشْكِيلَة"
+      generation_method: ishtiqaq
+      justification: "تُستخدم للدلالة على مجموعة متنوعة ومختارة بعناية من الأشياء (مثل تشكيلة ملابس)."
+    - lemma: "عُدَّة"
+      generation_method: ishtiqaq
+      justification: "تُستخدم خصيصاً لمجموعة الأدوات والآلات اللازمة لعمل معين (مثل عدة النجارة)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "طَقْم"
+      confirm:
+        - text: "مجموعة متكاملة من الأدوات تستعمل في أغراض خاصة"
+          source: "المعجم الوسيط"
+        - text: "مجموعة متكاملة من الأدوات أو الأشياء تُستعمل لأغراض خاصَّة 'طقم أقلام/ مجوهرات/ فضيّات/ صحون/ قهوة/ شاي'"
+          source: "معجم اللغة العربية المعاصرة"
+      expands:
+        - text: "لفظ عام يطلق على قطع الملابس التي تلبس مع بعضها رغم اختلاف تصميمها وشكلها والمواد التي صنعت منها."
+          source: "مسرد صناعة النسيج (ArabTerm)"
+    - lemma: "مَجْمُوعَة"
+      confirm:
+        - text: "مفهوم رياضي استعمل بكثرة في اللسانيات وهو يدل على عدد من المكونات لها خاصيات متشابهة أو خاصية واحدة."
+          source: "المعجم الموحد لمصطلحات اللسانيات"
+        - text: "لفظ عام يطلق على مجموع عناصر منسجمة تكون وحدة مثل مجموعة المحارف ومجموعة التعليمات وغيرهما"
+          source: "المعجم الموحد لمصطلحات تقانة المعلومات"
+    - lemma: "تَشْكِيلَة"
+      confirm:
+        - text: "عدد متنوع من شيء ما. مثال: تشكيلة من الأقمشة"
+          source: "معجم الصواب اللغوي (نقلاً عن الأساسي)"
+    - lemma: "عُدَّة"
+      confirm:
+        - text: "ما أُعِدَّ لأمرٍ يحدُثُ"
+          source: "المعجم الوسيط"
+        - text: "مجموعة عناصر تشكل وحدة جاهزة للتركيب والاستعمال لإنجاز وظائف معينة"
+          source: "المعجم الموحد لمصطلحات تقانة المعلومات"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "طَقْم"
+      decision: confirmed
+      decision_reason: "أدق مصطلح لوصف مجموعة مادية متكاملة من الأشياء التي تنتمي لبعضها (أواني، أدوات، ملابس)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "طَقْم"
+    - lemma: "مَجْمُوعَة"
+      decision: confirmed
+      decision_reason: "اللفظ الأعم والأكثر شمولاً، وهو ضروري لتغطية الجوانب التجريدية والرياضية للمفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَجْمُوعَة"
+    - lemma: "تَشْكِيلَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح شائع ومسجل في المعاجم الحديثة للدلالة على مجموعة متنوعة ومختارة من صنف واحد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَشْكِيلَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-08013131-n"}
+    - lemma: "عُدَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فصيح وعريق يخص مجموعة الأدوات والآلات اللازمة لغرض وظيفي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "عُدَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-08013131-n"}
+
+stage4_content:
+  definition:
+    current: "مجموعة من الأشياء من نفس النوع تنتمي لبعضها البعض وتُستخدم كذلك"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ركيك لغوياً ويحتاج لصياغة معجمية أكثر دقة."
+    authored:
+      - type: terminological
+        text: "مجموعة من الأشياء المتجانسة التي تُؤلف وحدة متكاملة وتُستعمل معاً لغرض محدد."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-08013131-n", definition_index: 0, text: "مجموعة من الأشياء المتجانسة التي تُؤلف وحدة متكاملة وتُستعمل معاً لغرض محدد."}
+  examples:
+    per_lemma:
+      - lemma: "طَقْم"
+        examples:
+          - text: "اشترت العروس طقماً جديداً من أواني القهوة المذهبة."
+            type: usage
+      - lemma: "مَجْمُوعَة"
+        examples:
+          - text: "يدرس الطلاب خصائص المجموعة في مادة الرياضيات."
+            type: usage
+      - lemma: "تَشْكِيلَة"
+        examples:
+          - text: "عرض المتجر تشكيلة واسعة من الملابس الشتوية."
+            type: usage
+      - lemma: "عُدَّة"
+        examples:
+          - text: "أحضر النجار عدته ليبدأ في إصلاح الباب المكسور."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "طَقْم"
+      entry_id: "{auto}"
+      root: "طقم"
+      maqayis_quote: "جذر معرّب لم يرد في مقاييس اللغة."
+    - lemma: "مَجْمُوعَة"
+      entry_id: "{auto}"
+      root: "جمع"
+      maqayis_quote: "«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ. يُقَالُ جَمَعْتُ الشَّيْءَ جَمْعًا.»"
+    - lemma: "تَشْكِيلَة"
+      entry_id: "{auto}"
+      root: "شكل"
+      maqayis_quote: "«الشِّينُ وَالْكَافُ وَاللَّامُ مُعْظَمُ بَابِهِ الْمُمَاثَلَةُ. تَقُولُ: هَذَا شَِكْلُ هَذَا، أَيْ مِثْلُهُ.»"
+    - lemma: "عُدَّة"
+      entry_id: "{auto}"
+      root: "عدد"
+      maqayis_quote: "«الْعَيْنُ وَالدَّالُ أَصْلٌ صَحِيحٌ وَاحِدٌ لَا يَخْلُو مِنَ الْعَدِّ الَّذِي هُوَ الْإِحْصَاءُ. وَمِنَ الْإِعْدَادِ الَّذِي هُوَ تَهْيِئَةُ الشَّيْءِ.»"
+  per_sense:
+    - lemma: "طَقْم"
+      sense_id: "{auto}"
+      nuance: "تُركز على التكامل المادي الجمالي أو الوظيفي للأشياء (أواني، ملابس)."
+      mwe: false
+    - lemma: "مَجْمُوعَة"
+      sense_id: "{auto}"
+      nuance: "المصطلح الأعم، يُستخدم في السياقات التجريدية والمادية العامة."
+      mwe: false
+    - lemma: "تَشْكِيلَة"
+      sense_id: "{auto}"
+      nuance: "تُوحي بالتنوع والاختيار من بين عدة خيارات متاحة."
+      mwe: false
+    - lemma: "عُدَّة"
+      sense_id: "{auto}"
+      nuance: "تختص بمجموعة الأدوات التقنية أو اليدوية اللازمة لأداء حرفة أو مهمة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"طقم","maqayis":"جذر معرّب لم يرد في مقاييس اللغة."}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جمع","maqayis":"«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ. يُقَالُ جَمَعْتُ الشَّيْءَ جَمْعًا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"شكل","maqayis":"«الشِّينُ وَالْكَافُ وَاللَّامُ مُعْظَمُ بَابِهِ الْمُمَاثَلَةُ. تَقُولُ: هَذَا شَِكْلُ هَذَا، أَيْ مِثْلُهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عدد","maqayis":"«الْعَيْنُ وَالدَّالُ أَصْلٌ صَحِيحٌ وَاحِدٌ لَا يَخْلُو مِنَ الْعَدِّ الَّذِي هُوَ الْإِحْصَاءُ. وَمِنَ الْإِعْدَادِ الَّذِي هُوَ تَهْيِئَةُ الشَّيْءِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تُركز على التكامل المادي الجمالي أو الوظيفي للأشياء (أواني، ملابس).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-08013131-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-08013131-n"
+        score: 0.95

@@ -1,0 +1,216 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'حدوث إضافي' هي تعبير وصفي أكثر منها مصطلحاً معجمياً مسكوكاً."
+    observations: "المفهوم يدور حول وقوع حدث بعد حدث آخر أو كزيادة عليه. اللفظ 'طروء' هو الأدق للتعبير عن هذا المعنى في السياقات الحديثة والمعاصرة، بينما 'إرداف' يعبر عن التبعية."
+  blind_candidates:
+    - lemma: "طُرُوء"
+      generation_method: ishtiqaq
+      justification: "مصدر الفعل طرأ، ويدل على حدوث الشيء بعد أن لم يكن، أو عروضه على حالة قائمة."
+    - lemma: "تَعَاقُب"
+      generation_method: ishtiqaq
+      justification: "يدل على توالي الأحداث بعضها إثر بعض."
+    - lemma: "تَوَالٍ"
+      generation_method: ishtiqaq
+      justification: "يدل على تتابع الأشياء في ترتيب متصل."
+    - lemma: "حُدُوث تَالٍ"
+      generation_method: tarkib
+      justification: "تعبير وصفي يطابق التعريف الإنجليزي (following on)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "طُرُوء"
+      confirm:
+        - text: "«طَرَأ: حدث وخرج فجأةً»"
+          source: "المعجم الوسيط"
+        - text: "«طَرَأَ الشيءُ: حدث بدون توقُّع»"
+          source: "المعجم الكبير"
+    - lemma: "إِرْدَاف"
+      confirm:
+        - text: "«أَرْدَفَ الشَّيْءَ بالشَّيءِ، وأَرْدَفَهُ عَلَيْهِ: أَتْبَعَهُ عليْه»"
+          source: "تاج العروس"
+        - text: "«الرَّدَفُ: ما تَبِعَ شَيْئاً، وهو التَرَادُفُ»"
+          source: "المحيط في اللغة"
+    - lemma: "تَوَالٍ"
+      confirm:
+        - text: "«التَّوَالِي: كَون الشَّيْء بعد الشَّيْء بِالْقِيَاسِ إِلَى مبدأ مَحْدُود، وَلَيْسَ بَينهمَا شَيْء من بَابهَا.»"
+          source: "معجم مقاليد العلوم"
+    - lemma: "حدوث إضافي"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "طُرُوء"
+      decision: confirmed
+      decision_reason: "مصطلح دقيق يعبر عن حدوث أمر على حالة قائمة أو وقوعه فجأة بعد حدث سابق."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "طُرُوء"
+
+    - lemma: "حدوث إضافي"
+      decision: confirmed
+      decision_reason: "تعبير مقبول وصفياً لمطابقة المعنى الإنجليزي، وإن كان أقل فصاحة من 'طروء'."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حُدُوث إِضَافِيّ"
+
+    - lemma: "إِرْدَاف"
+      source: stage1
+      decision: confirmed
+      decision_reason: "من الجذر (ردف) الذي يعني الاتباع، ويناسب تماماً معنى 'following on in addition'."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "إِرْدَاف", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "تَوَالٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر عن التتابع والترتيب المتصل للأحداث."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَوَالٍ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "الحدوث بشكل تالٍ أو إضافي"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط، ويفضل صياغته بأسلوب معجمي يبرز طبيعة الحدوث."
+    authored:
+      - type: terminological
+        text: "حُصُولُ أَمْرٍ عَلَى سَبِيلِ التَّبَعِيَّةِ أَوْ الإِضَافَةِ إِلَى حَالٍ قَائِمَةٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "طُرُوء"
+        examples:
+          - text: "أدَّى طُرُوءُ ظُرُوفٍ جَدِيدَةٍ إِلَى تَأْجِيلِ الِاجْتِمَاعِ."
+            type: usage
+      - lemma: "حُدُوث إِضَافِيّ"
+        examples:
+          - text: "يُتَوَقَّعُ حُدُوثٌ إِضَافِيٌّ لِلهَزَّاتِ الِارْتِدَادِيَّةِ بَعْدَ الزِّلْزَالِ."
+            type: usage
+      - lemma: "إِرْدَاف"
+        examples:
+          - text: "كَانَ إِرْدَافُ المُلَاحَظَةِ بَعْدَ التَّقْرِيرِ مُفِيداً لِتَوْضِيحِ المَوْقِفِ."
+            type: usage
+      - lemma: "تَوَالٍ"
+        examples:
+          - text: "شَهِدَتِ المِنْطَقَةُ تَوَالِيَ الأَحْدَاثِ المُتَسَارِعَةِ."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "حُصُولُ أَمْرٍ عَلَى سَبِيلِ التَّبَعِيَّةِ أَوْ الإِضَافَةِ إِلَى حَالٍ قَائِمَةٍ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "أدَّى طُرُوءُ ظُرُوفٍ جَدِيدَةٍ إِلَى تَأْجِيلِ الِاجْتِمَاعِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "طُرُوء"
+      entry_id: "{auto}"
+      root: "طرأ"
+    - lemma: "إِرْدَاف"
+      entry_id: "{auto}"
+      root: "ردف"
+      maqayis_quote: "«الرَّاءُ وَالدَّالُ وَالْفَاءُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ، يَدُلُّ عَلَى اتِّبَاعِ الشَّيْءِ. فَالتَّرَادُفُ: التَّتَابُعُ.»"
+    - lemma: "تَوَالٍ"
+      entry_id: "{auto}"
+      root: "تلو"
+    - lemma: "حُدُوث إِضَافِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "حدوث"
+          root: "حدث"
+          maqayis_quote: "«الْحَاءُ وَالدَّالُ وَالثَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ كَوْنُ الشَّيْءِ لَمْ يَكُنْ.»"
+        - word: "إضافي"
+          root: "ضيف"
+          maqayis_quote: "«الضَّادُ وَالْيَاءُ وَالْفَاءُ أَصْلٌ وَاحِدٌ صَحِيحٌ، يَدُلُّ عَلَى مَيْلِ الشَّيْءِ إِلَى الشَّيْءِ.»"
+  per_sense:
+    - lemma: "طُرُوء"
+      sense_id: "{auto}"
+      nuance: "يدل على وقوع الأمر فجأة أو عروضه على حالة مستقرة."
+      mwe: false
+    - lemma: "إِرْدَاف"
+      sense_id: "{auto}"
+      nuance: "يوحي باتباع الشيء بالشيء وتلاحقهما."
+      mwe: false
+    - lemma: "تَوَالٍ"
+      sense_id: "{auto}"
+      nuance: "يشير إلى تتابع الأحداث في سلسلة زمنية أو منطقية."
+      mwe: false
+    - lemma: "حُدُوث إِضَافِيّ"
+      sense_id: "{auto}"
+      nuance: "وصف عام لوقوع شيء زائد أو مكمل لما سبقه."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"طرأ"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ردف","maqayis":"«الرَّاءُ وَالدَّالُ وَالْفَاءُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ، يَدُلُّ عَلَى اتِّبَاعِ الشَّيْءِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"تلو"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"حدوث","root":"حدث","maqayis":"«الْحَاءُ وَالدَّالُ وَالثَّاءُ أَصْلٌ وَاحِدٌ...»"},{"word":"إضافي","root":"ضيف","maqayis":"«الضَّادُ وَالْيَاءُ وَالْفَاءُ أَصْلٌ وَاحِدٌ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يدل على وقوع الأمر فجأة أو عروضه على حالة مستقرة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

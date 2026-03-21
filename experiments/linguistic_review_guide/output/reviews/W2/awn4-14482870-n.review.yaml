@@ -1,0 +1,272 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة «خلو من العيب» عبارة وصفية أكثر منها لمة معجمية مسكوكة، وتصنيفها كمركب (MWE) أدق."
+      - "اللمة «مثالية» ترتبط في العصر الحديث بالمذهب الفلسفي (Idealism) أكثر من كمال الذات المادي."
+    observations: "المجموعة تغطي مفهوم الكمال والخلو من النقص والعيوب، وهي حالة مجردة تنطبق على الذوات والصفات والأعمال. يفتقر التمثيل الحالي للمصطلحات التراثية القوية مثل «تمام» و«سلامة» التي تؤدي المعنى بدقة معجمية عالية."
+  blind_candidates:
+    - lemma: "تَمَام"
+      generation_method: ishtiqaq
+      justification: "تمام الشيء خلوه من النقص، وهو المرادف الأقرب للكمال."
+    - lemma: "سَلَامَة"
+      generation_method: ishtiqaq
+      justification: "السلامة هي التعري من الآفات والعيوب الظاهرة والباطنة."
+    - lemma: "إِتْقَان"
+      generation_method: ishtiqaq
+      justification: "إتقان الشيء بلوغه أقصى درجات الإحكام وبراءته من الخلل."
+    - lemma: "نَقَاء"
+      generation_method: ishtiqaq
+      justification: "خلو الشيء من الشوائب والعيوب التي تشينه."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "كمال"
+      confirm:
+        - text: "«كمال: خلو من العيوب»"
+          source: "المعجم الموحد لمصطلحات التقنيات التربوية"
+        - text: "«الكمال: ما يكمل به النوع في ذاته، أو صفاته»"
+          source: "التعريفات للجرجاني"
+    - lemma: "خلو من العيب"
+      confirm:
+        - text: "«خلا الشَّيءُ أو الشَّخصُ من العيب: بَرِئ منه.»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«كمال: خلو من العيوب»"
+          source: "المعجم الموحد لمصطلحات التقنيات التربوية"
+    - lemma: "مثالية"
+      confirm:
+        - text: "«المثالية: كون الشيء مثالياً»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+      expands:
+        - text: "«اتجاه فكري يقول بأسبقية الأشكال المجردة أو التمثلات الذهنية على الواقع.»"
+          source: "المعجم الموحد لمصطلحات اللسانيات"
+          addition: "يشير إلى الاستخدام الفلسفي للمصطلح."
+    - lemma: "تمام"
+      confirm:
+        - text: "«التَّمامُ: ما تَمَّ به الشَّيْءُ... الكَمَالُ... هو أنَّ التَّامَّ : ما تُجُزَّأُ منه أجْزاؤُه . فلا يَفْهَم السامعُ من : « رَجُل تـامُّ الخَلْق » إلَّا أنه لا نَقْصَ فى أعضائه»"
+          source: "المعجم الكبير"
+        - text: "«تم الشيء إذا كمل»"
+          source: "مقاييس اللغة"
+    - lemma: "سلامة"
+      confirm:
+        - text: "«السلامة: التعري من الآفات الظاهرة والباطنة.»"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+        - text: "«سلامة: الخلو من الأضرار.»"
+          source: "المعجم الموحد لمصطلحات تقانات الأغذية"
+        - text: "«السَّلامَةُ: أَنْ يَسْلَمَ الْإِنْسَانُ مِنَ الْعَاهَةِ وَالْأَذَى.»"
+          source: "مقاييس اللغة"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "كمال"
+      decision: confirmed
+      decision_reason: "اللمة الأساسية والأكثر شيوعاً للتعبير عن الكمال والخلو من العيب."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "كَمَال"
+    - lemma: "خلو من العيب"
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي دقيق يصف الحالة بالتعريف، وهو مرادف مباشر لـ flawlessness."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خُلُوٌّ مِنَ العَيْبِ"
+    - lemma: "مثالية"
+      decision: confirmed
+      decision_reason: "تستخدم للتعبير عن بلوغ الشيء حد النموذج الأعلى (Ideal state)، وهي مناسبة في سياق الكمال النموذجي."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مِثَالِيَّة"
+    - lemma: "تَمَام"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف قوي يركز على اكتمال الأجزاء ونفي النقص، وهو من صميم دلالة المجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "تَمَام"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "سَلَامَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعني الخلو من العيوب والآفات والعلل، وتستخدم بكثرة في السياقات المادية والمعنوية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "سَلَامَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "حالة كونه بدون عيب أو نقص"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط؛ يفضل صياغته بأسلوب معجمي يجمع بين الكمال والتمام."
+    authored:
+      - type: linguistic
+        text: "خُلُوُّ الشَّيْءِ مِنَ العُيُوبِ وَالنَّقَائِصِ، وَبُلُوغُهُ حَدَّ التَّمَامِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+      - type: terminological
+        text: "بُلُوغُ الشَّيْءِ أَقْصَى غَايَاتِ الصَّلَاحِ أَوِ الجَوْدَةِ فِي ذَاتِهِ أَوْ صِفَاتِهِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "بُلُوغُ الشَّيْءِ أَقْصَى غَايَاتِ الصَّلَاحِ أَوِ الجَوْدَةِ، وَخُلُوُّهُ مِنَ العُيُوبِ وَالنَّقَائِصِ."
+  examples:
+    per_lemma:
+      - lemma: "كَمَال"
+        examples:
+          - text: "بَلَغَ الرَّسَّامُ ذُرْوَةَ الكَمَالِ فِي لَوْحَتِهِ الَّتِي خَلَتْ مِنْ كُلِّ نَقْصٍ."
+            type: usage
+      - lemma: "تَمَام"
+        examples:
+          - text: "تَحَقَّقَ تَمَامُ الهِلَالِ بَدْرًا فِي لَيْلَةِ أَرْبَعَ عَشْرَةَ."
+            type: usage
+      - lemma: "سَلَامَة"
+        examples:
+          - text: "أَثْبَتَ الفَحْصُ سَلَامَةَ الجِهَازِ مِنَ العُيُوبِ المَصْنَعِيَّةِ."
+            type: usage
+      - lemma: "خُلُوٌّ مِنَ العَيْبِ"
+        examples:
+          - text: "خُلُوُّ السِّجِلِّ مِنَ العَيْبِ دَلِيلٌ عَلَى النَّزَاهَةِ وَالإِتْقَانِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "يَسْعَى الفَيْلَسُوفُ لِلْوُصُولِ إِلَى الكَمَالِ الإِنْسَانِيِّ المُنَزَّهِ عَنِ النَّقْصِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "كَمَال"
+      entry_id: "{auto}"
+      root: "كمل"
+      maqayis_quote: "«الْكَافُ وَالْمِيمُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَمَامِ الشَّيْءِ. يُقَالُ: كَمَلَ الشَّيْءُ وَكَمُلَ فَهُوَ كَامِلٌ، أَيْ تَامٌّ.»"
+    - lemma: "تَمَام"
+      entry_id: "{auto}"
+      root: "تمم"
+      maqayis_quote: "«التَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ مُنْقَاسٌ، وَهُوَ دَلِيلُ الْكَمَالِ. يُقَالُ تَمَّ الشَّيْءُ، إِذَا كَمَلَ.»"
+    - lemma: "سَلَامَة"
+      entry_id: "{auto}"
+      root: "سلم"
+      maqayis_quote: "«السِّينُ وَاللَّامُ وَالْمِيمُ مُعْظَمُ بَابِهِ مِنَ الصِّحَّةِ وَالْعَافِيَةِ... فَالسَّلَامَةُ: أَنْ يَسْلَمَ الْإِنْسَانُ مِنَ الْعَاهَةِ وَالْأَذَى.»"
+    - lemma: "مِثَالِيَّة"
+      entry_id: "{auto}"
+      root: "مثل"
+      maqayis_quote: "«الْمِيمُ وَالثَّاءُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مُنَاظَرَةِ الشَّيْءِ لِلشَّيْءِ... وَالْمِثْلُ وَالْمِثَالُ فِي مَعْنًى وَاحِدٍ.»"
+    - lemma: "خُلُوٌّ مِنَ العَيْبِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "خلو"
+          root: "خلو"
+          maqayis_quote: "«تَعَرِّي الشَّيْءِ مِنَ الشَّيْءِ، وَالمَكَانِ الَّذِي لَا شَيْءَ بِهِ.»"
+        - word: "عيب"
+          root: "عيب"
+          maqayis_quote: "«الْعَيْنُ وَالْيَاءُ وَالْبَاءُ أَصْلٌ صَحِيحٌ... فَالْعَيْبُ فِي الشَّيْءِ مَعْرُوفٌ.»"
+  per_sense:
+    - lemma: "كَمَال"
+      sense_id: "{auto}"
+      nuance: "أقصى درجات الجودة وبلوغ الغاية في الحسن والصفات."
+      mwe: false
+    - lemma: "تَمَام"
+      sense_id: "{auto}"
+      nuance: "يركز على اكتمال البناء أو الأجزاء وعدم نقص شيء منها."
+      mwe: false
+    - lemma: "سَلَامَة"
+      sense_id: "{auto}"
+      nuance: "يركز على الصحة والتعافي والخلو من الآفات والعلل."
+      mwe: false
+    - lemma: "مِثَالِيَّة"
+      sense_id: "{auto}"
+      nuance: "يركز على كون الشيء نموذجاً يحتذى أو صورة ذهنية كاملة."
+      mwe: false
+    - lemma: "خُلُوٌّ مِنَ العَيْبِ"
+      sense_id: "{auto}"
+      nuance: "وصف صريح ومباشر لبراءة الذات من أي نقيصة."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"كمل","maqayis":"«الْكَافُ وَالْمِيمُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَمَامِ الشَّيْءِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"تمم","maqayis":"«التَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ مُنْقَاسٌ، وَهُوَ دَلِيلُ الْكَمَالِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سلم","maqayis":"«السِّينُ وَاللَّامُ وَالْمِيمُ مُعْظَمُ بَابِهِ مِنَ الصِّحَّةِ وَالْعَافِيَةِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"خلو","root":"خلو","maqayis":"«...»"},{"word":"عيب","root":"عيب","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"أقصى درجات الجودة وبلوغ الغاية في الحسن والصفات.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

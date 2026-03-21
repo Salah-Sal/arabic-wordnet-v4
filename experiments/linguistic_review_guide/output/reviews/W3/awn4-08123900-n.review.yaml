@@ -1,0 +1,150 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "خلو اللمة الموجودة من التشكيل الكامل."
+    observations: "تُعد «رُتْبَة» المصطلح العلمي القياسي والمعتمد لترجمة (order) في علم التصنيف الأحيائي."
+  blind_candidates:
+    - lemma: "رُتْبَة"
+      generation_method: ishtiqaq
+      justification: "مصدر من الفعل (رتب) يدل على الدرجة أو المنزلة، واستعيرت في علم التصنيف للدلالة على مستوى تصنيفي محدد."
+    - lemma: "طَائِفَة"
+      generation_method: majaz
+      justification: "تدل على الجماعة من الأشياء، وقد تستخدم مجازاً للدلالة على مجموعة تصنيفية (وإن كانت قد استقرت لمستوى Class لاحقاً)."
+    - lemma: "زُمْرَة"
+      generation_method: majaz
+      justification: "تعني الفوج والجماعة، ويمكن أن تعبر عن تكتل من الكائنات المترابطة."
+    - lemma: "صِنْف"
+      generation_method: ishtiqaq
+      justification: "يعني النوع والضرب من الشيء، ويصلح للدلالة على الفئات التصنيفية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "رتبة"
+      confirm:
+        - text: "«order: مَرْتَبَةٌ في سُلَّم تَصْنيف النبات والحيوان أَدْنى مِن الطائفة class وأعلى مِن الفصيلة.»"
+          source: "المعجم الكبير"
+        - text: "«إحدى المستويات التصنيفية للكائنات الحية، والتي تحتوي على الأسر ذات الصلة؛ يتم تجميع الرتب ذات الصلة في طبقات.»"
+          source: "مسرد المناخ والبيئة وإدارة النفايات الصلبة"
+    - lemma: "طائفة"
+      contradicts:
+        - text: "«(في علم الأحياء): وحدة تصنيفية كالحشرات من الحيوان, وذوات الفلقتين من النبات»"
+          source: "المعجم الوسيط"
+          conflict: "تشير لمستوى تصنيفي مختلف (Class) أعلى من الرتبة المحددة هنا."
+    - lemma: "زمرة"
+      contradicts:
+        - text: "«الفوجُ والجماعة»"
+          source: "المعجم الوسيط"
+          conflict: "دلالتها عامة ولا تستخدم كمصطلح محدد في تصنيف الأحياء لمرتبة (Order)."
+    - lemma: "صنف"
+      contradicts:
+        - text: "«من الشيء: ضربٌ منه متميز الصفةُ النوع»"
+          source: "المعجم الوسيط"
+          conflict: "دلالته عامة ويستخدم غالباً للتعبير عن الصنف أو النوع وليس الرتبة."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "رتبة"
+      decision: confirmed
+      decision_reason: "مصطلح علمي دقيق ومعتمد في المعاجم المتخصصة والعامة للتعبير عن مرتبة التصنيف التي تفصل بين الطائفة والفصيلة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "رُتْبَة"
+    - lemma: "طَائِفَة"
+      source: stage1
+      decision: removed
+      decision_reason: "تستخدم في علم التصنيف لمرتبة أعلى (Class) وليس (Order)."
+      evidence_assessment:
+        case: contradicts_only
+      mwe_check:
+        is_mwe: false
+    - lemma: "زُمْرَة"
+      source: stage1
+      decision: removed
+      decision_reason: "مصطلح عام يدل على الجماعة ولا يستخدم للدلالة على هذه المرتبة التصنيفية."
+      evidence_assessment:
+        case: contradicts_only
+      mwe_check:
+        is_mwe: false
+    - lemma: "صِنْف"
+      source: stage1
+      decision: removed
+      decision_reason: "يستخدم بمعنى عام للنوع أو الضرب، ولا يقابل مرتبة (Order)."
+      evidence_assessment:
+        case: contradicts_only
+      mwe_check:
+        is_mwe: false
+
+stage4_content:
+  definition:
+    current: "(في الأحياء) مجموعة تصنيفية تحتوي على فصيلة واحدة أو أكثر"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكن يمكن صياغته بأسلوب معجمي أدق عبر توضيح موقعه الدقيق في السلم التصنيفي لتفادي أي التباس."
+    authored:
+      - type: terminological
+        text: "مَرْتَبَةٌ تَصْنِيفِيَّةٌ فِي عِلْمِ الْأَحْيَاءِ، أَدْنَى مِنَ الطَّائِفَةِ وَأَعْلَى مِنَ الْفَصِيلَةِ، تَضُمُّ فَصِيلَةً وَاحِدَةً أَوْ أَكْثَرَ ذَاتَ قَرَابَةٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "مَرْتَبَةٌ تَصْنِيفِيَّةٌ فِي عِلْمِ الْأَحْيَاءِ، أَدْنَى مِنَ الطَّائِفَةِ وَأَعْلَى مِنَ الْفَصِيلَةِ، تَضُمُّ فَصِيلَةً وَاحِدَةً أَوْ أَكْثَرَ ذَاتَ قَرَابَةٍ."
+  examples:
+    per_lemma:
+      - lemma: "رُتْبَة"
+        examples:
+          - text: "تَنْدَرِجُ فَصِيلَةُ السِّنَّوْرِيَّاتِ تَحْتَ رُتْبَةِ اللَّوَاحِمِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "تَنْدَرِجُ فَصِيلَةُ السِّنَّوْرِيَّاتِ تَحْتَ رُتْبَةِ اللَّوَاحِمِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "رُتْبَة"
+      entry_id: "{auto}"
+      root: "رتب"
+      maqayis_quote: "«...وَالرَّتَبُ: مَا أَشْرَفَ مِنَ الْأَرْضِ كَالدَّرَجِ. تَقُولُ: رَتَبَةٌ وَرَتَبٌ، كَقَوْلِكَ دَرَجَةٌ وَدَرَجٌ...»"
+  per_sense:
+    - lemma: "رُتْبَة"
+      sense_id: "{auto}"
+      nuance: "تُسْتَخْدَمُ مُصْطَلَحاً عِلْمِيّاً مُحَدَّداً فِي التَّصْنِيفِ الْأَحْيَائِيِّ لِمَرْتَبَةٍ تَقَعُ بَيْنَ الطَّائِفَةِ وَالْفَصِيلَةِ."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"رتب","maqayis_quote":"«...وَالرَّتَبُ: مَا أَشْرَفَ مِنَ الْأَرْضِ كَالدَّرَجِ. تَقُولُ: رَتَبَةٌ وَرَتَبٌ، كَقَوْلِكَ دَرَجَةٌ وَدَرَجٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تُسْتَخْدَمُ مُصْطَلَحاً عِلْمِيّاً مُحَدَّداً فِي التَّصْنِيفِ الْأَحْيَائِيِّ لِمَرْتَبَةٍ تَقَعُ بَيْنَ الطَّائِفَةِ وَالْفَصِيلَةِ.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

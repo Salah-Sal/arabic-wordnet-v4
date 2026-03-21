@@ -1,0 +1,223 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي واسع جداً وقد يختلط بمفاهيم أخرى مثل المجموعة (Collection) أو الطقم (Set)."
+    observations: "المجموعة تشير إلى مفهوم 'Block' كـ'وحدة إجرائية' أو 'تجمع كمي' يُعامل ككيان واحد، وهو مفهوم شائع في البرمجة والإحصاء والتجارة."
+  blind_candidates:
+    - lemma: "رُزْمَة"
+      generation_method: majaz
+      justification: "تُستخدم للإشارة إلى مجموعة من الأشياء (مثل الأوراق) التي تُجمع في وحدة واحدة."
+    - lemma: "دُفْعَة"
+      generation_method: majaz
+      justification: "تُستخدم في سياق المعالجة (Batch) حيث تُعامل مجموعة من الأشياء كمرحلة واحدة أو وحدة واحدة."
+    - lemma: "حُزْمَة"
+      generation_method: majaz
+      justification: "شائعة في سياق البيانات (Packet) والبرمجيات (Software Block/Bundle) كأشياء مترابطة تُعامل كوحدة."
+    - lemma: "مَنْظُومَة"
+      generation_method: ishtiqaq
+      justification: "للأشياء المترابطة التي تنظم في وحدة واحدة، وإن كانت تميل للتعقيد البنيوي."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "كتلة"
+      confirm:
+        - text: "«مجموعة معطيات متشابهة تُعالج، بصفة عامة، كوحدة غير قابلة للقسمة من طرف برنامج أو لنقل معطيات»"
+          source: "المعجم الموحد لمصطلحات تقانة المعلومات"
+        - text: "«القطعة المجتمعة من الشيء والجماعة من الناس المتفقون على رأي واحد»"
+          source: "المعجم الوسيط"
+    - lemma: "مجموعة"
+      confirm:
+        - text: "«لفظ عام يطلق على مجموع عناصر منسجمة تكون وحدة مثل مجموعة المحارف ومجموعة التعليمات وغيرهما»"
+          source: "المعجم الموحد لمصطلحات تقانة المعلومات"
+    - lemma: "رزمة"
+      confirm:
+        - text: "«ما جُمع في شيء واحد. يقال: رزمة ثياب، ورزمة ورق»"
+          source: "المعجم الوسيط"
+    - lemma: "دفعة"
+      confirm:
+        - text: "«مجموعة من الوثائق، أو تسجيلات المعطيات، التي تجري معالجتُها كوحدة»"
+          source: "معجم مصطلحات المعلوماتية"
+        - text: "«الدُّفعة من الشيء: المجموعة التي تشترك في شيء يجمعها فيقال: دُفعة من المطر، ودفعة من الخريجين»"
+          source: "معجم الصواب اللغوي"
+    - lemma: "حزمة"
+      confirm:
+        - text: "«مجموعة من البيانات حجمها ثابت ونمطها معروف، ترسل كوحدة مركبة خلال شبكة تبديل حزمي»"
+          source: "مسرد التربية (أراب تيرم)"
+        - text: "«ما جُمع ورُبط من كل شيء»"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "كُتْلَة"
+      decision: confirmed
+      decision_reason: "المصطلح التقني الأدق لمعنى Block (وحدة برمجية أو مادية مصمتة)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "كُتْلَة"
+    - lemma: "مَجْمُوعَة"
+      decision: confirmed
+      decision_reason: "مصطلح عام يغطي جوهر التعريف (تجمع أشياء مترابطة)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَجْمُوعَة"
+    - lemma: "رُزْمَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مناسبة للوحدات المجموعة من أشياء مادية (أوراق، ثياب) وتُعامل ككتلة واحدة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "رُزْمَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "دُفْعَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تُعبر بدقة عن 'Block processing' أو التعامل مع كمية كمرحلة واحدة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "دُفْعَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "حُزْمَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تُستخدم بكثرة في سياق البيانات والبرمجيات كبديل لـ Block/Packet."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "حُزْمَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "عدد أو كمية من الأشياء المترابطة يتم التعامل معها كوحدة واحدة"
+    assessment:
+      decision: revise
+      reason: "لجعل التعريف أكثر دقة معجمية ليشمل 'المعالجة' و'التجانس'."
+    authored:
+      - type: terminological
+        text: "ما جُمع من الأشياء المترابطة أو المتجانسة وجُعل وحدة واحدة في التعامل أو المعالجة"
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "ما جُمع من الأشياء المترابطة أو المتجانسة وجُعل وحدة واحدة في التعامل أو المعالجة"}
+  examples:
+    per_lemma:
+      - lemma: "كُتْلَة"
+        examples:
+          - text: "تم نقل كتلة من البيانات عبر الشبكة بنجاح."
+            type: usage
+      - lemma: "مَجْمُوعَة"
+        examples:
+          - text: "اشترى التاجر مجموعة من الأسهم في البورصة."
+            type: usage
+      - lemma: "رُزْمَة"
+        examples:
+          - text: "أرسل المدير رزمة من الأوراق الهامة بالبريد السريع."
+            type: usage
+      - lemma: "دُفْعَة"
+        examples:
+          - text: "وصلت دفعة جديدة من الكتب إلى المكتبة الوطنية."
+            type: usage
+      - lemma: "حُزْمَة"
+        examples:
+          - text: "تحتوي هذه الحزمة البرمجية على كافة الأدوات اللازمة للمطور."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "كُتْلَة"
+      entry_id: "{auto}"
+      root: "كتل"
+      maqayis_quote: "«الْكَافُ وَالتَّاءُ وَاللَّامُ أُصَيْلٌ يَدُلُّ عَلَى تَجَمُّعٍ. يُقَالُ: هَذِهِ كُتْلَةٌ مِنْ شَيْءٍ، أَيْ قِطْعَةٌ مُجْتَمِعَةٌ.»"
+    - lemma: "مَجْمُوعَة"
+      entry_id: "{auto}"
+      root: "جمع"
+      maqayis_quote: "«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ. يُقَالُ جَمَعْتُ الشَّيْءَ جَمْعًا.»"
+    - lemma: "رُزْمَة"
+      entry_id: "{auto}"
+      root: "رزم"
+      maqayis_quote: "«الرَّاءُ وَالزَّاءُ وَالْمِيمُ أَصْلَانِ مُتَقَارِبَانِ: أَحَدُهُمَا جَمْعُ الشَّيْءِ وَضَمُّ بَعْضِهِ إِلَى بَعْضٍ تِبَاعًا... رَزَمْتُ الشَّيْءَ: جَمَعْتُهُ. وَمِنْ ذَلِكَ اشْتِقَاقُ رِزْمَةِ الثِّيَابِ.»"
+    - lemma: "دُفْعَة"
+      entry_id: "{auto}"
+      root: "دفع"
+      maqayis_quote: "«الدَّالُ وَالْفَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ مَشْهُورٌ، يَدُلُّ عَلَى تَنْحِيَةِ الشَّيْءِ... وَالدُّفْعَةُ مِنَ الْمَطَرِ وَالدَّمِ وَغَيْرِهِ.»"
+    - lemma: "حُزْمَة"
+      entry_id: "{auto}"
+      root: "حزم"
+      maqayis_quote: "«الْحَاءُ وَالزَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ، وَهُوَ شَدُ الشَّيْءِ وَجَمْعُهُ، قِيَاسٌ مُطَّرِدٌ... وَالْحُزْمَةُ مِنَ الْحَطَبِ وَغَيْرِهِ مَعْرُوفَةٌ.»"
+  per_sense:
+    - lemma: "كُتْلَة"
+      sense_id: "{auto}"
+      nuance: "تُستخدم للوحدات الصلبة أو التقنية المصمتة (مثل كتلة بيانات)."
+      mwe: false
+    - lemma: "مَجْمُوعَة"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام والأشمل لأي تجمع."
+      mwe: false
+    - lemma: "رُزْمَة"
+      sense_id: "{auto}"
+      nuance: "تُشير غالباً إلى الأشياء المجمعة في غلاف أو وعاء واحد (رزمة ورق)."
+      mwe: false
+    - lemma: "دُفْعَة"
+      sense_id: "{auto}"
+      nuance: "تُشير إلى مجموعة تُعالج أو تُرسل في وقت واحد كجزء من عملية متتالية."
+      mwe: false
+    - lemma: "حُزْمَة"
+      sense_id: "{auto}"
+      nuance: "تُشير إلى أشياء مربوطة معاً أو مجموعة بيانات رقمية (Packet/Bundle)."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params: {entity_type: entry, entity_id: "{auto}", key: note, value: '{"root":"كتل","maqayis":"«الْكَافُ وَالتَّاءُ وَاللَّامُ أُصَيْلٌ يَدُلُّ عَلَى تَجَمُّعٍ...»"}'}
+    - command: set_metadata
+      params: {entity_type: entry, entity_id: "{auto}", key: note, value: '{"root":"جمع","maqayis":"«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ...»"}'}
+    - command: set_metadata
+      params: {entity_type: entry, entity_id: "{auto}", key: note, value: '{"root":"رزم","maqayis":"«الرَّاءُ وَالزَّاءُ وَالْمِيمُ أَصْلَانِ مُتَقَارِبَانِ...»"}'}
+    - command: set_metadata
+      params: {entity_type: entry, entity_id: "{auto}", key: note, value: '{"root":"دفع","maqayis":"«الدَّالُ وَالْفَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ مَشْهُورٌ...»"}'}
+    - command: set_metadata
+      params: {entity_type: entry, entity_id: "{auto}", key: note, value: '{"root":"حزم","maqayis":"«الْحَاءُ وَالزَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ...»"}'}
+    - command: set_metadata
+      params: {entity_type: sense, entity_id: "{auto}", key: note, value: '{"nuance":"تُستخدم للوحدات الصلبة أو التقنية المصمتة (مثل كتلة بيانات).","mwe":false}'}
+    - command: set_metadata
+      params: {entity_type: sense, entity_id: "{auto}", key: note, value: '{"nuance":"المصطلح العام والأشمل لأي تجمع.","mwe":false}'}
+    - command: set_metadata
+      params: {entity_type: sense, entity_id: "{auto}", key: note, value: '{"nuance":"تُشير غالباً إلى الأشياء المجمعة في غلاف أو وعاء واحد (رزمة ورق).","mwe":false}'}
+    - command: set_metadata
+      params: {entity_type: sense, entity_id: "{auto}", key: note, value: '{"nuance":"تُشير إلى مجموعة تُعالج أو تُرسل في وقت واحد كجزء من عملية متتالية.","mwe":false}'}
+    - command: set_metadata
+      params: {entity_type: sense, entity_id: "{auto}", key: note, value: '{"nuance":"تُشير إلى أشياء مربوطة معاً أو مجموعة بيانات رقمية (Packet/Bundle).","mwe":false}'}
+    - command: set_metadata
+      params: {entity_type: synset, entity_id: "{synset_id}", key: note, value: '{"cultural_fit":"native"}'}
+    - command: set_confidence
+      params: {entity_type: synset, entity_id: "{synset_id}", score: 0.95}

@@ -1,0 +1,201 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي يحتوي على ركاكة لغوية ('لأحدهم' بدلاً من 'بأحدها' أو 'بأحدهما')."
+      - "التعريف غامض بعض الشيء في الشق الثاني ('ومنتج استقلابي لآخر')."
+    observations: "المفهوم البيولوجي يشير إلى تفاعل يلحق فيه كائن حي أو إفرازاته ضرراً بكائن آخر (Antibiosis). المصطلح المعتمد والمستقر علمياً هو 'تضاد حيوي'."
+  blind_candidates:
+    - lemma: "مُضَادَّة حَيَوِيَّة"
+      generation_method: tarkib
+      justification: "تركيب وصفي يعبر عن طبيعة العلاقة التي تتضمن الممانعة والضدية بين الكائنات الحية."
+    - lemma: "تَنَافُر حَيَوِيّ"
+      generation_method: tarkib
+      justification: "مركب وصفي يعبر عن عدم التوافق بين الكائنات الحية والذي يؤدي إلى إقصاء أحدهما للآخر."
+    - lemma: "تَضَادّ"
+      generation_method: ishtiqaq
+      justification: "مصدر يدل على الحالة التي يكون فيها كائنان في موقع الضد لبعضهما بيولوجيا."
+    - lemma: "إِبَادَة حَيَوِيَّة"
+      generation_method: tarkib
+      justification: "تركيب يشير إلى الأثر النهائي المتمثل في القضاء على الكائن الآخر بواسطة كائن حي."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تضاد حيوي"
+      confirm:
+        - text: "«حالة توجد فيها كائنات حية متعايشة إلا أنها يضاد بعضها بعضا في النمو.»"
+          source: "معجم المصطلحات الطبية (ج.2، 2003)"
+        - text: "«antibiosis: تَضادٌّ حَيَوِيّ؛تَصَادّ»"
+          source: "المعجم الطبي الموحد (2009)"
+    - lemma: "مضادة حيوية"
+      evidence_status: no_material_found
+    - lemma: "تنافر حيوي"
+      evidence_status: no_material_found
+    - lemma: "تضاد"
+      confirm:
+        - text: "«التَّضادّ: تضادٌّ بين مُتَعضِّيَيْن يؤدي إلى إلحاق الأذى بأحدهما (أح).»"
+          source: "المورد الحديث (2008)"
+      expands:
+        - text: "«antibiosis: تضاد»"
+          source: "المَكنَز الزراعي متعدد اللغات"
+    - lemma: "إبادة حيوية"
+      evidence_status: no_material_found
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تضاد حيوي"
+      decision: confirmed
+      decision_reason: "مصطلح علمي مستقر وموثق في المعاجم الطبية المتخصصة، ويعبر بدقة عن المفهوم (antibiosis)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      nuance_differentiation: "المصطلح الأخص والأكثر شيوعاً للدلالة على العلاقة الحيوية الضارة بين الكائنات."
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَضَادّ حَيَوِيّ"
+
+    - lemma: "مُضَادَّة حَيَوِيَّة"
+      source: stage1
+      decision: removed
+      decision_reason: "لا يوجد ما يدعمه معجمياً، و'تضاد حيوي' هو الشائع والمستقر."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+
+    - lemma: "تَنَافُر حَيَوِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "مصطلح غير موثق و'التنافر' يحمل دلالة نفسية أو فيزيائية أكثر من كونها إضراراً بيولوجياً."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+
+    - lemma: "تَضَادّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "ورد في المورد الحديث للدلالة على المفهوم نفسه كاختصار في السياق الأحيائي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: "أعم من 'تضاد حيوي'، ولكنه يستخدم مجازاً للدلالة على المعنى البيولوجي عند أمن اللبس في السياق (أح)."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "تَضَادّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "إِبَادَة حَيَوِيَّة"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبر عن نتيجة متطرفة وغير دقيقة علمياً؛ فالعلاقة قد تكتفي بالتثبيط ولا تصل للإبادة الكاملة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+
+stage4_content:
+  definition:
+    current: "علاقة بين الكائنات الحية تكون ضارة لأحدهم أو بين الكائنات الحية ومنتج استقلابي لآخر"
+    assessment:
+      decision: revise
+      reason: "لتصحيح الأخطاء النحوية وتحسين الصياغة العلمية لتبدو أبلغ وتجنب الركاكة."
+    authored:
+      - type: terminological
+        text: "علاقة بيئية بين كائنين حيين يلحق فيها أحدهما الضرر بالآخر، أو علاقة بين كائن حي وناتج استقلابي مفرز من كائن حي آخر يثبط نموه."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "علاقة بيئية بين كائنين حيين يلحق فيها أحدهما الضرر بالآخر، أو علاقة بين كائن حي وناتج استقلابي مفرز من كائن حي آخر يثبط نموه."
+  examples:
+    per_lemma:
+      - lemma: "تضاد حيوي"
+        examples:
+          - text: "يُعَدُّ التَّضَادّ الحَيَوِيّ من العوامل المهمة التي تؤثر في تنظيم تجمعات الميكروبات في التربة."
+            type: usage
+      - lemma: "تضاد"
+        examples:
+          - text: "أظهرت الدراسة وجود تَضَادّ بين سلالتين من الفطريات أدى إلى تثبيط نمو إحداهما."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "يُعَدُّ التَّضَادّ الحَيَوِيّ من العوامل المهمة التي تؤثر في تنظيم تجمعات الميكروبات في التربة."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تضاد حيوي"
+      entry_id: "{auto}"
+      roots:
+        - word: "تضاد"
+          root: "ضدد"
+          maqayis_quote: "«(ضَدَّ) الضَّادُ وَالدَّالُ كَلِمَتَانِ مُتَبَايِنَتَانِ فِي الْقِيَاسِ. فَالْأُولَى: الضِّدُّ ضِدُّ الشَّيْءِ. وَالْمُتَضَادَّانِ: الشَّيْئَانِ لَا يَجُوزُ اجْتِمَاعُهُمَا فِي وَقْتٍ وَاحِدٍ، كَاللَّيْلِ وَالنَّهَارِ...»"
+        - word: "حيوي"
+          root: "حيي"
+    - lemma: "تضاد"
+      entry_id: "{auto}"
+      root: "ضدد"
+      maqayis_quote: "«(ضَدَّ) الضَّادُ وَالدَّالُ كَلِمَتَانِ مُتَبَايِنَتَانِ فِي الْقِيَاسِ. فَالْأُولَى: الضِّدُّ ضِدُّ الشَّيْءِ. وَالْمُتَضَادَّانِ: الشَّيْئَانِ لَا يَجُوزُ اجْتِمَاعُهُمَا فِي وَقْتٍ وَاحِدٍ، كَاللَّيْلِ وَالنَّهَارِ...»"
+  per_sense:
+    - lemma: "تضاد حيوي"
+      sense_id: "{auto}"
+      nuance: "المصطلح الأخص والأكثر شيوعاً للدلالة على العلاقة الحيوية الضارة بين الكائنات."
+      mwe: true
+    - lemma: "تضاد"
+      sense_id: "{auto}"
+      nuance: "أعم من 'تضاد حيوي'، ولكنه يستخدم مجازاً للدلالة على المعنى البيولوجي عند أمن اللبس في السياق."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"تضاد","root":"ضدد","maqayis":"«(ضَدَّ) الضَّادُ وَالدَّالُ كَلِمَتَانِ مُتَبَايِنَتَانِ فِي الْقِيَاسِ. فَالْأُولَى: الضِّدُّ ضِدُّ الشَّيْءِ. وَالْمُتَضَادَّانِ: الشَّيْئَانِ لَا يَجُوزُ اجْتِمَاعُهُمَا فِي وَقْتٍ وَاحِدٍ، كَاللَّيْلِ وَالنَّهَارِ...»"},{"word":"حيوي","root":"حيي"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ضدد","maqayis":"«(ضَدَّ) الضَّادُ وَالدَّالُ كَلِمَتَانِ مُتَبَايِنَتَانِ فِي الْقِيَاسِ. فَالْأُولَى: الضِّدُّ ضِدُّ الشَّيْءِ. وَالْمُتَضَادَّانِ: الشَّيْئَانِ لَا يَجُوزُ اجْتِمَاعُهُمَا فِي وَقْتٍ وَاحِدٍ، كَاللَّيْلِ وَالنَّهَارِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الأخص والأكثر شيوعاً للدلالة على العلاقة الحيوية الضارة بين الكائنات.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"أعم من '\''تضاد حيوي\'\'، ولكنه يستخدم مجازاً للدلالة على المعنى البيولوجي عند أمن اللبس في السياق.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

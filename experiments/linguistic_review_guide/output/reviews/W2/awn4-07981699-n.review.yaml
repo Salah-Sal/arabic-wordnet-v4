@@ -1,0 +1,274 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "ترجمة كلمة (جسم) من (body) في الإنجليزية قد تبدو ترجمة حرفية (Calque)، إلا أنها أصبحت شائعة ومستقرة في المعاجم المعاصرة ولغة الإدارة للإشارة إلى مجموعة متكاملة (مثل: الجسم الطبي)."
+      - "التعريف الحالي ركيك ويميل إلى الترجمة الحرفية، ويحتاج إلى صياغة معجمية أمتن."
+    observations: "المفهوم يشير إلى مجموعة من الأشخاص ينتظمون في سلك واحد أو مهنة واحدة بحيث يُنظر إليهم ككيان اعتباري واحد. في العربية، تُستخدم ألفاظ مثل (هيئة)، (سلك)، (رابطة) للتعبير عن هذا التجمع."
+  blind_candidates:
+    - lemma: "هَيْئَة"
+      generation_method: majaz
+      justification: "يُطلق مجازاً على مجموعة الأشخاص المنتظمين في عمل أو مهنة واحدة كأنهم جسد واحد (مثل: هيئة التدريس، هيئة المحلفين)."
+    - lemma: "رَابِطَة"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل يدل على ما يربط الأشخاص ببعضهم، ثم استعمل اصطلاحاً للمجموعة المرتبطة برابط مهني أو غيره كأنهم كيان واحد."
+    - lemma: "سِلْك"
+      generation_method: majaz
+      justification: "استعارة للخيط الذي ينتظم فيه الخرز، ليُطلق على المنتظمين في مهنة واحدة (مثل: السلك الدبلوماسي، سلك القضاء)."
+    - lemma: "كِيَان"
+      generation_method: ishtiqaq
+      justification: "مصدر يدل على الوجود المستقل، ويُستخدم للتعبير عن المجموعة التي يُنظر إليها كشخصية اعتبارية واحدة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "جسم"
+      confirm:
+        - text: "«مجموعة متكاملة تعمل على أداء وظيفة واحدة 'الجسم الإداريّ/ الطِّبّيّ/ الدِّبلوماسيّ/ التَّعليميّ/ القضاء'»"
+          source: "معجم اللغة العربية المعاصرة"
+      expands:
+        - text: "«الجَسَد كُلُّ شخص يُدرك من الإنسان والحيوان والنبات»"
+          source: "المعجم الوسيط"
+    - lemma: "هيئة"
+      confirm:
+        - text: "«الجماعة من الناس يعهد إليها بعملٍ خاصّ»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«شاع استعمالها حديثًا بمعنى الجماعة، وقد نَصَّ الوسيط على هذا المعنى قائلاً: (الهيئة: الجماعة من الناس يُعْهَد إليها بعمل خاص)»"
+          source: "معجم الصواب اللغوي"
+    - lemma: "رابطة"
+      confirm:
+        - text: "«الجماعة يجمعهم أمر يشتركون فيه (محدثة)»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«الجَماعَةُ يجمَعُهم أَمْرٌ يَشْتَرِكُونَ فيه»"
+          source: "المعجم الكبير"
+    - lemma: "سلك"
+      confirm:
+        - text: "«السِّلْكُ السِّياشىُّ أو الدبلوماسىّ : جماعة الموظفين الذين يمثلون دولةً لدى دولة أخرى»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«وقد يُطلق هذا المصطلحُ على مجالاتٍ أخرى, فيقالُ: السِّلْكُ القضائىُّ, وسِلْكُ التدريس»"
+          source: "المعجم الكبير"
+    - lemma: "كيان"
+      contradicts:
+        - text: "«شيء مادي أو غير مادي يمكن التعرُّف عليه وتمييزه بوضوح»"
+          source: "معجم البيانات والذكاء الاصطناعي"
+          conflict: "الدلالة عامة جداً تشمل أي شيء ذي وجود مستقل (Entity)، ولا تختص بمجموعة من الأشخاص."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "جسم"
+      decision: confirmed
+      decision_reason: "على الرغم من كونها ترجمة اقتراضية دلالية (Calque) لكلمة Body الإنجليزية، إلا أنها استقرت في المعاجم المعاصرة ولغة الصحافة والإدارة للإشارة إلى مجموعة متكاملة ذات وظيفة واحدة (مثل: الجسم الطبي)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "جِسْم"
+    - lemma: "هيئة"
+      decision: confirmed
+      decision_reason: "لفظ عربي أصيل وموثق معجمياً للإشارة إلى الجماعة التي يُعهد إليها بعمل خاص."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "هَيْئَة"
+    - lemma: "رَابِطَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح معاصر موثق معجمياً للإشارة إلى الجماعة التي يجمعها أمر مشترك أو مهنة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "رَابِطَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "سِلْك"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ مستعمل مجازاً وموثق معجمياً للدلالة على المهنة أو مجموعة المنتظمين فيها (كالسلك الدبلوماسي)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "سِلْك"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "كِيَان"
+      source: stage1
+      decision: removed
+      decision_reason: "المصطلح دلالته أعم، فهو يشير إلى أي وجود أو ذات مستقلة (Entity) ولا يختص تحديداً بـ 'مجموعة من الأشخاص'."
+      evidence_assessment:
+        case: contradicts_only
+
+stage4_content:
+  definition:
+    current: "مجموعة من الأشخاص مرتبطين برابط مشترك أو مهنة ويُنظر إليهم ككيان"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ركيك ويميل إلى الترجمة الحرفية. يحتاج إلى صياغة معجمية أمتن باستخدام جنس قريب (جماعة من الناس) وفصل نوعي يوضح طبيعة هذا التجمع."
+    authored:
+      - type: terminological
+        text: "جماعة من الناس يجمعهم رابط مشترك أو مهنة واحدة، ويُنظر إليهم بوصفهم كياناً اعتبارياً واحداً."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "جماعة من الناس يجمعهم رابط مشترك أو مهنة واحدة، ويُنظر إليهم بوصفهم كياناً اعتبارياً واحداً."
+  examples:
+    per_lemma:
+      - lemma: "جِسْم"
+        examples:
+          - text: "أصدر الجسم الطبي بياناً يوضح فيه موقفه من الأزمة."
+            type: usage
+      - lemma: "هَيْئَة"
+        examples:
+          - text: "عقدت هيئة التدريس اجتماعاً لمناقشة سير الامتحانات."
+            type: usage
+      - lemma: "رَابِطَة"
+        examples:
+          - text: "أسس الكتاب رابطة أدبية ترعى مصالحهم."
+            type: usage
+      - lemma: "سِلْك"
+        examples:
+          - text: "التحق الدبلوماسي الشاب بالسلك السياسي مؤخراً."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "أصدر الجسم الطبي بياناً يوضح فيه موقفه من الأزمة."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "عقدت هيئة التدريس اجتماعاً لمناقشة سير الامتحانات."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "أسس الكتاب رابطة أدبية ترعى مصالحهم."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "التحق الدبلوماسي الشاب بالسلك السياسي مؤخراً."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "جِسْم"
+      entry_id: "{auto}"
+      root: "جسم"
+      maqayis_quote: "«الْجِيمُ وَالسِّينُ وَالْمِيمُ يَدُلُّ عَلَى تَجَمُّعِ الشَّيْءِ. فَالْجِسْمُ كُلُّ شَخْصٍ مُدْرِكٍ»"
+    - lemma: "هَيْئَة"
+      entry_id: "{auto}"
+      root: "هيأ"
+    - lemma: "رَابِطَة"
+      entry_id: "{auto}"
+      root: "ربط"
+      maqayis_quote: "«الرَّاءُ وَالْبَاءُ وَالطَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى شَدٍّ وَثَبَاتٍ»"
+    - lemma: "سِلْك"
+      entry_id: "{auto}"
+      root: "سلك"
+      maqayis_quote: "«السِّينُ وَاللَّامُ وَالْكَافُ أَصْلٌ يَدُلُّ عَلَى نُفُوذِ شَيْءٍ فِي شَيْءٍ»"
+  per_sense:
+    - lemma: "جِسْم"
+      sense_id: "{auto}"
+      nuance: "يستخدم عادة في السياقات المهنية والنقابية بتأثير من اللغات الأجنبية (كالجسم الطبي، الجسم الصحفي)."
+      mwe: false
+    - lemma: "هَيْئَة"
+      sense_id: "{auto}"
+      nuance: "يدل على جماعة يُعهد إليها بعمل أو اختصاص محدد ذي طابع رسمي أو مؤسسي."
+      mwe: false
+    - lemma: "رَابِطَة"
+      sense_id: "{auto}"
+      nuance: "يركز على المشترك أو العلاقة التي تجمع بين أفراد المجموعة في إطار تنظيمي نقابي أو تطوعي."
+      mwe: false
+    - lemma: "سِلْك"
+      sense_id: "{auto}"
+      nuance: "يغلب استخدامه للإشارة إلى المنتظمين في مهنة حكومية أو رسمية واحدة (كالسلك الدبلوماسي أو القضائي)."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جسم","maqayis":"«الْجِيمُ وَالسِّينُ وَالْمِيمُ يَدُلُّ عَلَى تَجَمُّعِ الشَّيْءِ. فَالْجِسْمُ كُلُّ شَخْصٍ مُدْرِكٍ»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"هيأ"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ربط","maqayis":"«الرَّاءُ وَالْبَاءُ وَالطَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى شَدٍّ وَثَبَاتٍ»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سلك","maqayis":"«السِّينُ وَاللَّامُ وَالْكَافُ أَصْلٌ يَدُلُّ عَلَى نُفُوذِ شَيْءٍ فِي شَيْءٍ»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يستخدم عادة في السياقات المهنية والنقابية بتأثير من اللغات الأجنبية (كالجسم الطبي، الجسم الصحفي).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يدل على جماعة يُعهد إليها بعمل أو اختصاص محدد ذي طابع رسمي أو مؤسسي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على المشترك أو العلاقة التي تجمع بين أفراد المجموعة في إطار تنظيمي نقابي أو تطوعي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يغلب استخدامه للإشارة إلى المنتظمين في مهنة حكومية أو رسمية واحدة (كالسلك الدبلوماسي أو القضائي).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

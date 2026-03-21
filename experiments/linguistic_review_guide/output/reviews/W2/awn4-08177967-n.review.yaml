@@ -1,0 +1,219 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّة 'ناخبون' هي جمع 'ناخب'، وهي صحيحة تماماً لكنها قد تُعتبر صفة للأفراد أكثر منها اسماً للهيئة الجمعية."
+    observations: "المصطلح العربي المستقر لهذا المفهوم هو 'الهيئة الناخبة' أو 'الهيئة الانتخابية'. كما يُستخدم 'جمهور الناخبين' للتعبير عن الكتلة البشرية صاحبة حق التصويت."
+  blind_candidates:
+    - lemma: "النَّاخِبُونَ"
+      generation_method: ishtiqaq
+      justification: "الجمع السالم لاسم الفاعل 'ناخب'، وهو التعبير المباشر عن الأفراد الذين يشكلون هذه الهيئة."
+    - lemma: "الهَيْئَةُ النَّاخِبَةُ"
+      generation_method: tarkib
+      justification: "تعبير مركب وصفي يعبر عن الكيان الجماعي للمصوتين."
+    - lemma: "الهَيْئَةُ الِانْتِخَابِيَّةُ"
+      generation_method: tarkib
+      justification: "مصطلح قانوني وسياسي شائع جداً يصف مجموع الناخبين."
+    - lemma: "جُمْهُورُ النَّاخِبِينَ"
+      generation_method: tarkib
+      justification: "تعبير إضافي يستخدم لوصف مجموع الناخبين ككتلة واحدة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "ناخبون"
+      confirm:
+        - text: "«ناخِب [مفرد]: ج ناخِبون ومُنتخبات (لغير العاقل): 1- اسم فاعل من نخَبَ. 2- من له حقّ الاشتراك والتصويت في الانتخاب»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "الهيئة الناخبة"
+      confirm:
+        - text: "«تصويت إيجابيّ: تصويت يصدر عن البرلمان أو هيئة ناخبة أخرى...»"
+          source: "المعجم الموحد لمصطلحات القانون"
+    - lemma: "الهيئة الانتخابية"
+      confirm:
+        - text: "«هيئة انتخابية: مجموع الناخبين في دائرة انتخابية»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«هيئة انتخابية»"
+          source: "المعجم الموحد لمصطلحات القانون"
+    - lemma: "جمهور الناخبين"
+      confirm:
+        - text: "«electorate: (2) جمهور النّاخبين.»"
+          source: "المورد الحديث"
+    - lemma: "هيئة الناخبين"
+      confirm:
+        - text: "«هيئة الناخبين: مجموع الناخبين في دائرة انتخابية»"
+          source: "معجم اللغة العربية المعاصرة"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "ناخبون"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي يعبر عن الأفراد المنخرطين في عملية التصويت."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "النَّاخِبُونَ"
+    - lemma: "الهيئة الناخبة"
+      decision: confirmed
+      decision_reason: "المصطلح الأكثر دقة للتعبير عن 'electorate' ككيان قانوني وسياسي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "الهَيْئَةُ النَّاخِبَةُ"
+    - lemma: "الهَيْئَةُ الِانْتِخَابِيَّةُ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف قوي وشائع جداً في النصوص الدستورية والقانونية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "الهَيْئَةُ الِانْتِخَابِيَّةُ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-08177967-n"}
+    - lemma: "جُمْهُورُ النَّاخِبِينَ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يُستخدم للتعبير عن الكتلة البشرية الناخبة في السياقات الإعلامية والسياسية العامة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "جُمْهُورُ النَّاخِبِينَ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-08177967-n"}
+
+stage4_content:
+  definition:
+    current: "هيئة المواطنين الذين يحق لهم التصويت"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد ولكنه يفتقر إلى الشمولية الدستورية."
+    authored:
+      - type: terminological
+        text: "مجموع المواطنين الذين يتمتعون بحق الانتخاب في بلد أو دائرة انتخابية معينة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "النَّاخِبُونَ"
+        examples:
+          - text: "يتوجه الناخبون اليوم إلى صناديق الاقتراع لاختيار ممثليهم في البرلمان."
+            type: usage
+      - lemma: "الهَيْئَةُ النَّاخِبَةُ"
+        examples:
+          - text: "يجب على الهيئة الناخبة أن تمارس حقها بمسؤولية لضمان نزاهة العملية الديمقراطية."
+            type: usage
+      - lemma: "الهَيْئَةُ الِانْتِخَابِيَّةُ"
+        examples:
+          - text: "استدعت الحكومة الهيئة الانتخابية لإجراء انتخابات مبكرة."
+            type: usage
+      - lemma: "جُمْهُورُ النَّاخِبِينَ"
+        examples:
+          - text: "أظهرت استطلاعات الرأي ميلاً واضحاً لدى جمهور الناخبين نحو التغيير."
+            type: usage
+  actions:
+    - command: update_definition
+      params: {synset_id: "awn4-08177967-n", definition_index: 0, text: "مجموع المواطنين الذين يتمتعون بحق الانتخاب في بلد أو دائرة انتخابية معينة."}
+    - command: add_synset_example
+      params: {synset_id: "awn4-08177967-n", text: "دعت السلطات الهيئة الناخبة للاقتراع في الموعد المحدد."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "النَّاخِبُونَ"
+      entry_id: "{auto}"
+      root: "نخب"
+      maqayis_quote: "«النون والخاء والباء كلمة تدل على تعظم يقال أحدهما على خيار شيء... النخبة: خيار الشيء ونخبته. وانتخبته، وهو منتخب أي مختار.»"
+    - lemma: "الهَيْئَةُ النَّاخِبَةُ"
+      entry_id: "{auto}"
+      roots:
+        - word: "الهيئة"
+          root: "هيأ"
+          maqayis_quote: "«الهيئة الحالة الظاهرة... وهيأته للأمر أعددته.»"
+        - word: "الناخبة"
+          root: "نخب"
+          maqayis_quote: "«النون والخاء والباء كلمة تدل على تعظم... النخبة: خيار الشيء.»"
+    - lemma: "الهَيْئَةُ الِانْتِخَابِيَّةُ"
+      entry_id: "{auto}"
+      roots:
+        - word: "الهيئة"
+          root: "هيأ"
+          maqayis_quote: "«الهيئة الحالة الظاهرة.»"
+        - word: "الانتخابية"
+          root: "نخب"
+          maqayis_quote: "«النخبة: خيار الشيء.»"
+    - lemma: "جُمْهُورُ النَّاخِبِينَ"
+      entry_id: "{auto}"
+      roots:
+        - word: "جمهور"
+          root: "جمهر"
+          maqayis_quote: "«الجمهور: الرمل الكثير المتراكم... والجمهور: الجماعة من الناس.»"
+        - word: "الناخبين"
+          root: "نخب"
+          maqayis_quote: "«النخبة: خيار الشيء.»"
+  per_sense:
+    - lemma: "النَّاخِبُونَ"
+      sense_id: "{auto}"
+      nuance: "يشير إلى الأفراد بصفتهم الفردية في عملية التصويت."
+      mwe: false
+    - lemma: "الهَيْئَةُ النَّاخِبَةُ"
+      sense_id: "{auto}"
+      nuance: "المصطلح الرسمي الذي يعبر عن المجموع ككيان قانوني واحد."
+      mwe: true
+    - lemma: "الهَيْئَةُ الِانْتِخَابِيَّةُ"
+      sense_id: "{auto}"
+      nuance: "يركز على الصفة الإجرائية والدستورية للمجموعة."
+      mwe: true
+    - lemma: "جُمْهُورُ النَّاخِبِينَ"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب الكمي والبشري للناخبين ككتلة شعبية."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نخب","maqayis":"«النون والخاء والباء كلمة تدل على تعظم يقال أحدهما على خيار شيء... النخبة: خيار الشيء ونخبته. وانتخبته، وهو منتخب أي مختار.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"الهيئة","root":"هيأ","maqayis":"«الهيئة الحالة الظاهرة... وهيأته للأمر أعددته.»"},{"word":"الناخبة","root":"نخب","maqayis":"«النون والخاء والباء كلمة تدل على تعظم... النخبة: خيار الشيء.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يشير إلى الأفراد بصفتهم الفردية في عملية التصويت.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-08177967-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-08177967-n"
+        score: 0.95

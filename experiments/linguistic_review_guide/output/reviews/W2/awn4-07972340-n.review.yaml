@@ -1,0 +1,209 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة تفتقر إلى التشكيل الكامل."
+      - "المجموعة تمثل مفهوماً جامعاً (collective) بينما اللمّة الأولى هي جمع تكسير بسيط."
+    observations: "المفهوم يشير إلى 'tenantry' أي هيئة أو جماعة المستأجرين في عقار ما ككتلة واحدة. التعبير عن هذا المفهوم في العربية غالباً ما يتم عبر الجمع أو المركبات الإضافية مثل 'جمهور المستأجرين'."
+  blind_candidates:
+    - lemma: "المُسْتَأْجِرُون"
+      generation_method: ishtiqaq
+      justification: "الجمع السالم لكلمة مستأجر، ويستخدم دلالياً للإشارة إلى الجماعة."
+    - lemma: "جُمْهُورُ المُسْتَأْجِرِين"
+      generation_method: tarkib
+      justification: "تعبير اصطلاحي يشير إلى مجموع المستأجرين كفئة واحدة."
+    - lemma: "جَمَاعَةُ المُسْتَأْجِرِين"
+      generation_method: tarkib
+      justification: "تعبير ورد في المعاجم الحديثة (مثل المورد) كترجمة لمصطلح tenantry."
+    - lemma: "نُزَلَاء"
+      generation_method: majaz
+      justification: "جمع نزيل، وهو من يشارك في المسكن، وتستخدم للجماعة القاطنة في عقار أو فندق."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "المُسْتَأْجِرُون"
+      confirm:
+        - text: "«المستأجِر: هو الذي استأجره»"
+          source: "التعريفات الفقهية للبركتي"
+        - text: "«المستأجر: tenant»"
+          source: "المعجم الموحد لمصطلحات التجارة والمحاسبة"
+      expands:
+        - text: "«المستأجرون: tenants»"
+          source: "المكنز الزراعي متعدد اللغات (AGROVOC)"
+    - lemma: "جُمْهُورُ المُسْتَأْجِرِين"
+      confirm:
+        - text: "«tenantry: (1) tenancy (2) جماعة المستأجِرين.»"
+          source: "المورد الحديث"
+          addition: "يؤكد استخدام التركيب الإضافي للتعبير عن الجماعة."
+    - lemma: "جَمَاعَةُ المُسْتَأْجِرِين"
+      confirm:
+        - text: "«tenantry: (2) جماعة المستأجِرين.»"
+          source: "المورد الحديث"
+    - lemma: "نُزَلَاء"
+      confirm:
+        - text: "«النزيل: الضيف والمشارك في المنزل... (ج) نزلاء»"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "المُسْتَأْجِرُون"
+      decision: confirmed
+      decision_reason: "الجمع الطبيعي والأساسي للإشارة إلى فئة المستأجرين، وهو مستخدم بكثرة في السياقات القانونية والعقارية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "المُسْتَأْجِرُون"
+    - lemma: "جُمْهُورُ المُسْتَأْجِرِين"
+      decision: confirmed
+      decision_reason: "مركب إضافي فصيح يعبر بدقة عن 'tenantry' ككتلة بشرية أو فئة اجتماعية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "جُمْهُورُ المُسْتَأْجِرِين"
+    - lemma: "جَمَاعَةُ المُسْتَأْجِرِين"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف معجمي دقيق لمصطلح 'tenantry' ورد في المعاجم الحديثة المتخصصة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "جَمَاعَةُ المُسْتَأْجِرِين"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "نُزَلَاء"
+      source: stage1
+      decision: removed
+      decision_reason: "رغم فصاحته، إلا أنه يشمل الضيوف وسكان الفنادق والسجون، بينما المجموعة محددة بعلاقة الإيجار (tenants)."
+
+stage4_content:
+  definition:
+    current: "مستأجرو عقار ما يُنظر إليهم كمجموعة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ترجمة حرفية للتعريف الإنجليزي، ويفضل صياغته بأسلوب معجمي عربي أمتن."
+    authored:
+      - type: terminological
+        text: "فئةٌ من النَّاسِ تَجمَعُهُم صِفَةُ استِئجَارِ المَسَاكِنِ أو الأراضِي في عَقارٍ أو مَنطِقَةٍ مُحَدَّدَةٍ، ويُنظَرُ إليهِم بِصِفَتِهِم كُتلَةً وَاحدَةً."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "فئةٌ من النَّاسِ تَجمَعُهُم صِفَةُ استِئجَارِ المَسَاكِنِ أو الأراضِي في عَقارٍ أو مَنطِقَةٍ مُحَدَّدَةٍ، ويُنظَرُ إليهِم بِصِفَتِهِم كُتلَةً وَاحدَةً."
+  examples:
+    per_lemma:
+      - lemma: "المُسْتَأْجِرُون"
+        examples:
+          - text: "طَالَبَ المُسْتَأْجِرُونَ المَالِكَ بِإِجْرَاءِ الإِصْلَاحَاتِ الضَّرُورِيَّةِ فِي البِنَايَةِ."
+            type: usage
+      - lemma: "جُمْهُورُ المُسْتَأْجِرِين"
+        examples:
+          - text: "أَصْدَرَ جُمْهُورُ المُسْتَأْجِرِينَ بَيَاناً يَرْفُضُونَ فِيهِ الزِّيَادَةَ المُفَاجِئَةَ فِي الإِيجَارِ."
+            type: usage
+      - lemma: "جَمَاعَةُ المُسْتَأْجِرِين"
+        examples:
+          - text: "تَمَّ تَشْكِيلُ جَمَاعَةِ المُسْتَأْجِرِينَ لِلدِّفَاعِ عَنْ حُقُوقِهِمْ أَمَامَ السُّلُطَاتِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "طَالَبَ المُسْتَأْجِرُونَ المَالِكَ بِإِجْرَاءِ الإِصْلَاحَاتِ الضَّرُورِيَّةِ فِي البِنَايَةِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "المُسْتَأْجِرُون"
+      entry_id: "{auto}"
+      root: "أجر"
+      maqayis_quote: "«الْهَمْزَةُ وَالْجِيمُ وَالرَّاءُ أَصْلَانِ يُمْكِنُ الْجَمْعُ بَيْنَهُمَا بِالْمَعْنَى، فَالْأَوَّلُ الْكِرَاءُ عَلَى الْعَمَلِ...»"
+    - lemma: "جُمْهُورُ المُسْتَأْجِرِين"
+      entry_id: "{auto}"
+      roots:
+        - word: "جمهور"
+          root: "جمهر"
+          maqayis_quote: "«الْجِيمُ وَالْمِيمُ وَالْهَاءُ وَالرَّاءُ كَلِمَةٌ وَاحِدَةٌ، وَهِيَ الْجُمْهُورُ، وَهُوَ الْمُجْتَمِعُ مِنْ كُلِّ شَيْءٍ.»"
+        - word: "المستأجرين"
+          root: "أجر"
+          maqayis_quote: "«الْهَمْزَةُ وَالْجِيمُ وَالرَّاءُ أَصْلَانِ... الْأَوَّلُ الْكِرَاءُ عَلَى الْعَمَلِ.»"
+    - lemma: "جَمَاعَةُ المُسْتَأْجِرِين"
+      entry_id: "{auto}"
+      roots:
+        - word: "جماعة"
+          root: "جمع"
+          maqayis_quote: "«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى انْضِمَامِ الشَّيْءِ...»"
+        - word: "المستأجرين"
+          root: "أجر"
+          maqayis_quote: "«الْهَمْزَةُ وَالْجِيمُ وَالرَّاءُ أَصْلَانِ... الْأَوَّلُ الْكِرَاءُ عَلَى الْعَمَلِ.»"
+  per_sense:
+    - lemma: "المُسْتَأْجِرُون"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام المباشر للإشارة إلى الأفراد المستأجرين بصيغة الجمع."
+      mwe: false
+    - lemma: "جُمْهُورُ المُسْتَأْجِرِين"
+      sense_id: "{auto}"
+      nuance: "يركز على الكثرة والغالبية والصفة الجمعية للمستأجرين كفئة واحدة."
+      mwe: true
+    - lemma: "جَمَاعَةُ المُسْتَأْجِرِين"
+      sense_id: "{auto}"
+      nuance: "يشير إلى المستأجرين كجماعة منظمة أو تجمع بشري تربطه علاقة تعاقدية واحدة."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"أجر","maqayis":"«الْهَمْزَةُ وَالْجِيمُ وَالرَّاءُ أَصْلَانِ يُمْكِنُ الْجَمْعُ بَيْنَهُمَا بِالْمَعْنَى، فَالْأَوَّلُ الْكِرَاءُ عَلَى الْعَمَلِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"جمهور","root":"جمهر","maqayis":"«الْجِيمُ وَالْمِيمُ وَالْهَاءُ وَالرَّاءُ كَلِمَةٌ وَاحِدَةٌ، وَهِيَ الْجُمْهُورُ...»"},{"word":"المستأجرين","root":"أجر","maqayis":"«الْهَمْزَةُ وَالْجِيمُ وَالرَّاءُ أَصْلَانِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ العام المباشر للإشارة إلى الأفراد المستأجرين بصيغة الجمع.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الكثرة والغالبية والصفة الجمعية للمستأجرين كفئة واحدة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

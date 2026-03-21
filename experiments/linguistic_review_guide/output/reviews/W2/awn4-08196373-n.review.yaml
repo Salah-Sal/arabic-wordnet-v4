@@ -1,0 +1,226 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي يبدو ترجمة حرفية للمقابل الإنجليزي (الناس الذين يمتلكون ممتلكات وثروة)، ويمكن صياغته بأسلوب عربي أكثر طبيعية وجرياناً."
+      - "عدم وجود تشكيل للمات في المجموعة الأصلية."
+    observations: "المجموعة تعبر عن الفئة الاجتماعية التي تملك المال (The Rich)، وتضم أشهر الجمعين المستعملين للدلالة على هذه الفئة: الأغنياء والأثرياء، وهما دقيقان تماماً في تمثيل المعنى."
+  blind_candidates:
+    - lemma: "أَغْنِيَاء"
+      generation_method: ishtiqaq
+      justification: "جمع غني، وهو الوصف المباشر لمن يملك المال ويكتفي به."
+    - lemma: "أَثْرِيَاء"
+      generation_method: ishtiqaq
+      justification: "جمع ثري، وهو الوصف لمن كثر ماله وعظمت ثروته."
+    - lemma: "مُتْرَفُون"
+      generation_method: ishtiqaq
+      justification: "جمع مترف، وهم الفئة التي تعيش في نعيم ورفاهية زائدة."
+    - lemma: "مَيَاسِير"
+      generation_method: ishtiqaq
+      justification: "جمع ميسور، وهم الفئة ذات السعة واليسر في العيش والمادة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "أثرياء"
+      confirm:
+        - text: "تستحقّ كلمة «أَثْرياء» المنع من الصرف؛ لأنها منتهية بألف التأنيث الممدودة... هم أثْرياءُ بما لديهم من كرامة [فصيحة]"
+          source: "معجم الصواب اللغوي لأحمد مختار عمر"
+        - text: "ثَرِيَ الرَّجُلُ ــــ ثَرىً, وثَرَاءً: كَثُرَ مالُه... الثَّرِيُّ: الغني (الجمع أثرياء)"
+          source: "المعجم الكبير"
+    - lemma: "أغنياء"
+      confirm:
+        - text: "تستحقّ كلمة «أَغْنِياء» المنع من الصرف؛ لأنها منتهية بألف التأنيث الممدودة... صادقت رجالاً أَغْنِياءَ [فصيحة]"
+          source: "معجم الصواب اللغوي لأحمد مختار عمر"
+        - text: "غَنِيَ فلانٌ غَنًى, وغَنَاةً: كثر ماله. فهو غانٍ, وغَنِيٌّ"
+          source: "المعجم الوسيط"
+    - lemma: "مُتْرَفُون"
+      confirm:
+        - text: "يُقَالُ رَجُلٌ مُتْرَفٌ مُنَعَّمٌ، وَتَرَّفَهُ أَهْلُهُ إِذَا نَعَّمُّوهُ بِالطَّعَامِ الطَّيِّبِ وَالشَّيْءِ يُخَصُّ بِهِ."
+          source: "مقاييس اللغة"
+      contradicts:
+        - text: "المترفون عادة ما تشير في السياقات التراثية إلى المبالغة والفساد في النعمة (مثل الاستعمال القرآني)."
+          source: "تحليل سياقي"
+          conflict: "اللمة تحمل دلالة سلبية لا تتفق مع الحياد التام لمصطلح (rich people)."
+    - lemma: "مَيَاسِير"
+      confirm:
+        - text: "اليَسَارُ: الْغِنَى."
+          source: "مقاييس اللغة"
+        - text: "المَيْسُورُ: اليُسْر , وهو مصدرٌ على وزن مفعول (الجمع مياسير)"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "أثرياء"
+      decision: confirmed
+      decision_reason: "لمة صحيحة وفصيحة ودقيقة في التعبير عن الفئة ذات الثروة، تحتاج فقط إلى إضافة التشكيل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "أَثْرِيَاء"
+
+    - lemma: "أغنياء"
+      decision: confirmed
+      decision_reason: "المرادف الأشهر والأكثر استخداماً للفئة المكتفية بالمال، وتحتاج فقط إلى ضبط التشكيل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "أَغْنِيَاء"
+
+    - lemma: "مُتْرَفُون"
+      source: stage1
+      decision: removed
+      decision_reason: "الكلمة تحمل دلالات إضافية تتمثل في التنعم المفرط والفساد، مما يجعلها أضيق من المفهوم المحايد للمجموعة المتمثل في حيازة المال."
+      evidence_assessment:
+        case: contradicts_only
+
+    - lemma: "مَيَاسِير"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فصيح وشائع يدل على ذوي اليسار والغنى والسعة، ويمثل إثراءً جيداً ومناسباً للمجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مَيَاسِير"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "الناس الذين يمتلكون ممتلكات وثروة (يُعتبرون كمجموعة)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يحمل ركاكة الترجمة الحرفية، ويمكن تحسينه ليكون أكثر سلاسة وجرياناً على أسلوب المعاجم العربية وبناءً اصطلاحياً أدق."
+    authored:
+      - type: terminological
+        text: "فِئَةٌ مِنَ النَّاسِ تَمْلِكُ وَفْرَةً مِنَ المَالِ وَالمُمْتَلَكَاتِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "فِئَةٌ مِنَ النَّاسِ تَمْلِكُ وَفْرَةً مِنَ المَالِ وَالمُمْتَلَكَاتِ."
+
+  examples:
+    per_lemma:
+      - lemma: "أَثْرِيَاء"
+        examples:
+          - text: "يَسْتَثْمِرُ الأَثْرِيَاءُ جُزْءاً كَبِيراً مِنْ أَمْوَالِهِمْ فِي المَشَارِيعِ العَقَارِيَّةِ."
+            type: usage
+      - lemma: "أَغْنِيَاء"
+        examples:
+          - text: "تُفْرَضُ الزَّكَاةُ عَلَى الأَغْنِيَاءِ لِتُوَزَّعَ عَلَى الفُقَرَاءِ وَالمُحْتَاجِينَ."
+            type: usage
+      - lemma: "مَيَاسِير"
+        examples:
+          - text: "تَبَرَّعَ مَيَاسِيرُ المَدِينَةِ لِبِنَاءِ مُسْتَشْفًى جَدِيدٍ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "يَسْتَثْمِرُ الأَثْرِيَاءُ جُزْءاً كَبِيراً مِنْ أَمْوَالِهِمْ فِي المَشَارِيعِ العَقَارِيَّةِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تُفْرَضُ الزَّكَاةُ عَلَى الأَغْنِيَاءِ لِتُوَزَّعَ عَلَى الفُقَرَاءِ وَالمُحْتَاجِينَ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "أَثْرِيَاء"
+      entry_id: "{auto}"
+      root: "ثرو"
+      maqayis_quote: "«الثَّاءُ وَالرَّاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ، وَهُوَ الْكَثْرَةُ، وَخِلَافُ الْيُبْسِ.»"
+    - lemma: "أَغْنِيَاء"
+      entry_id: "{auto}"
+      root: "غني"
+      maqayis_quote: "«الْغَيْنُ وَالنُّونُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ صَحِيحَانِ، أَحَدُهُمَا يَدُلُّ عَلَى الْكِفَايَةِ، وَالْآخَرُ صَوْتٌ.»"
+    - lemma: "مَيَاسِير"
+      entry_id: "{auto}"
+      root: "يسر"
+      maqayis_quote: "«الْيَاءُ وَالسِّينُ وَالرَّاءُ: أَصْلَانِ يَدُلُّ أَحَدُهُمَا عَلَى انْفِتَاحِ شَيْءٍ وَخِفَّتِهِ...»"
+
+  per_sense:
+    - lemma: "أَثْرِيَاء"
+      sense_id: "{auto}"
+      nuance: "تركز على كثرة المال والممتلكات بشكل يفوق الحاجة بكثير."
+      mwe: false
+    - lemma: "أَغْنِيَاء"
+      sense_id: "{auto}"
+      nuance: "اللفظ الأعم والأشمل، ويركز على الاكتفاء وعدم الحاجة للآخرين."
+      mwe: false
+    - lemma: "مَيَاسِير"
+      sense_id: "{auto}"
+      nuance: "تشير إلى من تيسرت أحوالهم المادية وتوفرت لهم سعة العيش، دون بلوغ درجة الثراء الفاحش."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ثرو","maqayis":"«الثَّاءُ وَالرَّاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ، وَهُوَ الْكَثْرَةُ، وَخِلَافُ الْيُبْسِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"غني","maqayis":"«الْغَيْنُ وَالنُّونُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ صَحِيحَانِ، أَحَدُهُمَا يَدُلُّ عَلَى الْكِفَايَةِ، وَالْآخَرُ صَوْتٌ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"يسر","maqayis":"«الْيَاءُ وَالسِّينُ وَالرَّاءُ: أَصْلَانِ يَدُلُّ أَحَدُهُمَا عَلَى انْفِتَاحِ شَيْءٍ وَخِفَّتِهِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركز على كثرة المال والممتلكات بشكل يفوق الحاجة بكثير.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ الأعم والأشمل، ويركز على الاكتفاء وعدم الحاجة للآخرين.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تشير إلى من تيسرت أحوالهم المادية وتوفرت لهم سعة العيش، دون بلوغ درجة الثراء الفاحش.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

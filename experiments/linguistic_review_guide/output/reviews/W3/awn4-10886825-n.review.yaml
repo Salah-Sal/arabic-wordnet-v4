@@ -1,0 +1,360 @@
+# ══════════════════════════════════════════════════════════════
+# مراجعة المجموعة الترادفية — AWN4 Review Pipeline v2
+# Synset: awn4-10886825-n  |  ILI: i94564
+# الموضوع: جون موسى براونينغ — مخترع أمريكي للأسلحة النارية
+# ══════════════════════════════════════════════════════════════
+
+# ── المرحلة ١: المراجعة والتوليد ─────────────────────────────
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّتان الموجودتان (براونينغ، جون براونينغ) خاليتان من التشكيل الكامل"
+      - "الاسم الكامل للمخترع (جون موسى براونينغ) غائب من اللمّات العربية رغم وروده في المقابل الإنجليزي John Moses Browning"
+      - "التعريف العربي يستخدم كلمة 'أوتوماتيكية' الدخيلة بدلاً من المصطلح العربي المعتمد 'آلية'"
+      - "صنف pos مسجّل كـ n، بينما الأسماء الأعلام الأجنبية تستحق التمييز بـ proper_noun"
+    observations: >
+      هذه المجموعة الترادفية تخص اسم علم لشخصية تاريخية أجنبية هي جون موسى براونينغ
+      (1855-1926)، مصمّم أسلحة أمريكي اشتُهر بتصميم المسدسات الآلية والبنادق المتكررة.
+      إذ إن المدخل اسم علم أجنبي، فلا مجال لأساليب الاشتقاق أو المجاز أو التركيب؛
+      الأسلوب الوحيد المنطبق هو التعريب (النقل الصوتي). اللمّات الموجودة مقبولة لغويًا
+      لكنها تفتقر إلى التشكيل وتغفل الاسم الكامل. ينبغي إضافة "جون موسى براونينغ"
+      لتغطية التسمية الكاملة الواردة في المرجع الإنجليزي John Moses Browning.
+
+  blind_candidates:
+    - lemma: "بْرَاوْنِينْغ"
+      generation_method: taarib
+      justification: >
+        تعريب مباشر للاسم الإنجليزي Browning باستخدام: باء + راء + ألف + واو + نون + ياء
+        + نون + غين. الغين المعجمة أصح لتمثيل صوت /ŋ/ في نهاية الكلمة الإنجليزية.
+        يقبل لام التعريف والنسبة (البراونينغي / البراونينغيون).
+    - lemma: "جُون بْرَاوْنِينْغ"
+      generation_method: taarib
+      justification: >
+        تعريب الاسم الأول والاسم الأخير معًا. John → جون (اسم علم عربي معروف التعريب).
+        يُفيد في التمييز عند الإشارة لشخص بعينه مقابل اسم العائلة المجرد.
+    - lemma: "جُون مُوسَى بْرَاوْنِينْغ"
+      generation_method: taarib
+      justification: >
+        تعريب الاسم الكامل الثلاثي: John Moses Browning. Moses → موسى (مقابله العربي
+        الكلاسيكي المتداول). الاسم الكامل يُعدّ الأكثر دقةً في الإحالة التوثيقية.
+    - lemma: "بْرَاوْنِينج"
+      generation_method: taarib
+      justification: >
+        تعريب بديل باستخدام الجيم بدلًا من الغين المعجمة لتمثيل نهاية -ing. غير أن
+        الغين أقرب صوتيًا إلى /ŋ/ وأشيع في المصادر العربية المتخصصة؛ لذا هذا الشكل
+        أدنى رتبةً من السابق.
+
+
+# ── المرحلة ٢: جمع الأدلة ────────────────────────────────────
+stage2_evidence:
+  query_log:
+    - query_id: 1
+      pattern: "batch headword lookup"
+      terms_searched:
+        - براونينغ
+        - البراونينغ
+        - جون براونينغ
+        - براونينج
+        - البراونينج
+        - جون موسى براونينغ
+        - بروننج
+      result: "لا نتائج — لم يُوجَد أي مدخل في قاعدة البيانات بهذه الأشكال"
+    - query_id: 2
+      pattern: "English bridge (Pattern ٧)"
+      terms_searched:
+        - "John Browning"
+        - "Browning"
+        - "John M. Browning"
+        - "John Moses Browning"
+      result: >
+        النتائج لا علاقة لها بالمخترع؛ كلمة browning وردت فقط بمعنى التحمير/الاسمرار
+        في علم التغذية (اسمرار أنزيمي، browning — مجال Nutrition Technologies)،
+        وورد "Browning's vein" (وريد براونينغ) في المعجم الطبي الموحد 2009 إشارةً
+        لعالم تشريح مختلف كليًا.
+    - query_id: 3
+      pattern: "Arabic FTS keyword"
+      terms_searched:
+        - براونينغ
+        - براونينج
+        - "مخترع اسلحة"
+        - "اسلحة نارية"
+      result: >
+        وريد براونينغ فقط (entry_id: 664588) — المعجم الطبي الموحد 2009 — لا صلة له
+        بالمخترع جون براونينغ.
+
+  per_lemma:
+    - lemma: "براونينغ"
+      evidence_status: "no_material_found"
+
+    - lemma: "جون براونينغ"
+      evidence_status: "no_material_found"
+
+    - lemma: "بْرَاوْنِينْغ"
+      evidence_status: "no_material_found"
+
+    - lemma: "جُون بْرَاوْنِينْغ"
+      evidence_status: "no_material_found"
+
+    - lemma: "جُون مُوسَى بْرَاوْنِينْغ"
+      evidence_status: "no_material_found"
+
+    - lemma: "بْرَاوْنِينج"
+      evidence_status: "no_material_found"
+
+  note: >
+    انعدام الأدلة المعجمية متوقّع تمامًا؛ هذا اسم علم لشخص تاريخي أجنبي لم يُدرَج
+    في المعاجم العربية التقليدية ولا في قواعد المصطلحات التقنية الحديثة. الدليل
+    الوحيد الخاطئ التوهم هو "وريد براونينغ" في المعجم الطبي، وهو نسبة لطبيب تشريح
+    آخر وليس للمخترع جون براونينغ.
+
+
+# ── المرحلة ٣: التحليل اللغوي للّمات ───────────────────────
+stage3_analysis:
+  per_lemma:
+    - lemma: "براونينغ"
+      decision: confirmed
+      decision_reason: >
+        تعريب مستقر ومتداول في المصادر العربية للاسم العائلي Browning. يُمثّل الشكل
+        المختصر المناسب للإحالة اليومية. يقبل التعريف واللصق الاشتقاقي. الغياب عن
+        قاعدة البيانات المعجمية لا يُعدّ دليلًا على عدم الصحة لأن الأعلام الأجنبية
+        نادرًا ما تُدرَج في المعاجم العربية.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: >
+        الاسم الأخير (العائلي) وحده؛ يُستخدم عند الاكتفاء بالتعريف السياقي للشخص
+        أو في الإحالة المختصرة كـ"مسدس براونينغ" أو "بندقية براونينغ".
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "بْرَاوْنِينْغ"
+
+    - lemma: "جون براونينغ"
+      decision: confirmed
+      decision_reason: >
+        الاسم الأول مع الاسم الأخير — صيغة أكثر تحديدًا للشخص. ضروري لتمييزه عن
+        أفراد آخرين من عائلة براونينغ. الشكلان معًا (براونينغ + جون براونينغ) يُغطيان
+        ما يقابله John Browning و Browning في الإنجليزية.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      nuance_differentiation: >
+        يضيف الاسم الأول (جون) للتمييز الكامل عن بقية أفراد العائلة؛ هو الصيغة
+        المفضّلة في السياق الموسوعي والتوثيقي.
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "جُون بْرَاوْنِينْغ"
+
+    - lemma: "بْرَاوْنِينْغ"
+      source: stage1
+      decision: removed
+      decision_reason: >
+        يتطابق مع اللمّة الموجودة (براونينغ) بعد إضافة التشكيل. لا حاجة لإدخال مستقل.
+
+    - lemma: "جُون بْرَاوْنِينْغ"
+      source: stage1
+      decision: removed
+      decision_reason: >
+        يتطابق مع اللمّة الموجودة (جون براونينغ) بعد التشكيل. ليس إضافة جديدة.
+
+    - lemma: "جُون مُوسَى بْرَاوْنِينْغ"
+      source: stage1
+      decision: confirmed
+      decision_reason: >
+        الاسم الكامل John Moses Browning وارد في المقابل الإنجليزي للمجموعة
+        (John M. Browning / John Moses Browning) لكنه غائب من اللمّات العربية.
+        إضافته تُحقق التوازي الكامل مع الإنجليزية وتُفيد في البحث التوثيقي.
+        موسى هو المقابل العربي الكلاسيكي المستقر لـMoses.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      nuance_differentiation: >
+        الاسم الثلاثي الكامل؛ يُستخدم في السياقات الرسمية والموسوعية للتعريف
+        الكامل لا اللبس فيه. يقابل الصيغة الإنجليزية John Moses Browning.
+      actions:
+        - command: create_entry
+          params:
+            lemma: "جُون مُوسَى بْرَاوْنِينْغ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-10886825-n"
+
+    - lemma: "بْرَاوْنِينج"
+      source: stage1
+      decision: removed
+      decision_reason: >
+        الشكل بالجيم أقل شيوعًا وأبعد صوتيًا عن الأصل الإنجليزي /brɑːnɪŋ/؛
+        الغين المعجمة أقرب إلى صوت الـng الإنجليزي في الموارد العربية المتخصصة.
+        لا داعي لإدخال بديل يُربك القارئ.
+
+
+# ── المرحلة ٤: التعريف والأمثلة ─────────────────────────────
+stage4_content:
+  definition:
+    current: "مخترع أمريكي للأسلحة النارية (خاصة المسدسات الأوتوماتيكية والبنادق المتكررة ومدفع رشاش يسمى صانع السلام) (1855-1926)"
+    assessment:
+      decision: revise
+      reason: >
+        التعريف يستخدم "أوتوماتيكية" وهي كلمة دخيلة غير فصيحة؛ المصطلح العربي المعتمد
+        لـautomatic pistols هو "مسدسات آلية" أو "مسدسات ذاتية الحشو". ما عدا ذلك
+        التعريف وافٍ موسوعيًا ويشمل الجنس القريب (مخترع) والفصل النوعي (الأسلحة النارية
+        وأنواعها المحددة والتواريخ).
+    authored:
+      - type: encyclopedic
+        text: >
+          مخترعٌ أمريكي للأسلحة النارية (1855-1926)؛ اشتُهر بتصميم المسدسات الآلية
+          والبنادق المتكررة، وبمدفع رشاش عُرف بـ"صانع السلام".
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-10886825-n"
+          definition_index: 0
+          text: "مخترعٌ أمريكي للأسلحة النارية (1855-1926)؛ اشتُهر بتصميم المسدسات الآلية والبنادق المتكررة، وبمدفع رشاش عُرف بـ\"صانع السلام\"."
+
+  examples:
+    per_lemma:
+      - lemma: "بْرَاوْنِينْغ"
+        examples:
+          - text: "يُعدّ بْرَاوْنِينْغ من أبرز مصمّمي الأسلحة الفردية في التاريخ الحديث، إذ لا تزال تصاميمه تُستخدم في الجيوش حتى يومنا هذا."
+            type: usage
+      - lemma: "جُون بْرَاوْنِينْغ"
+        examples:
+          - text: "طوّر جُون بْرَاوْنِينْغ آلية عمل المسدس الذاتي التي باتت أساسًا لمعظم المسدسات الحديثة."
+            type: usage
+      - lemma: "جُون مُوسَى بْرَاوْنِينْغ"
+        examples:
+          - text: "حمل المسدس الأمريكي الشهير M1911 توقيع جُون مُوسَى بْرَاوْنِينْغ الذي صمّمه عام 1911."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يُعدّ بْرَاوْنِينْغ من أبرز مصمّمي الأسلحة الفردية في التاريخ الحديث، إذ لا تزال تصاميمه تُستخدم في الجيوش حتى يومنا هذا."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "طوّر جُون بْرَاوْنِينْغ آلية عمل المسدس الذاتي التي باتت أساسًا لمعظم المسدسات الحديثة."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "حمل المسدس الأمريكي الشهير M1911 توقيع جُون مُوسَى بْرَاوْنِينْغ الذي صمّمه عام 1911."
+
+
+# ── المرحلة ٥: الإثراء (البيانات الوصفية) ──────────────────
+stage5_enrichment:
+  per_entry:
+    - lemma: "بْرَاوْنِينْغ"
+      entry_id: "{auto}"
+      note: >
+        اسم علم أجنبي معرَّب — لا جذر عربي. لا اقتباس من مقاييس اللغة.
+        النقل الصوتي: Browning → براونينغ.
+
+    - lemma: "جُون بْرَاوْنِينْغ"
+      entry_id: "{auto}"
+      note: >
+        مركّب إضافي من اسمَيْن مُعرَّبَيْن: John → جون، Browning → براونينغ.
+        لا جذر عربي لأي منهما.
+
+    - lemma: "جُون مُوسَى بْرَاوْنِينْغ"
+      entry_id: "{auto}"
+      note: >
+        مركّب إضافي من ثلاثة أسماء: John → جون، Moses → موسى (للاسم الأوسط
+        مقابله العربي الكلاسيكي المستقر)، Browning → براونينغ.
+        جذر موسى: م-و-س من العبرية عبر التعريب القرآني.
+
+  per_sense:
+    - lemma: "بْرَاوْنِينْغ"
+      sense_id: "{auto}"
+      nuance: >
+        الاسم الأخير (العائلي) وحده؛ يُستعمل اختصارًا أو في السياق الذي يُحدّد الشخص
+        مسبقًا، وفي تسمية المنتجات المنسوبة إليه (مسدس براونينغ، بندقية براونينغ).
+
+    - lemma: "جُون بْرَاوْنِينْغ"
+      sense_id: "{auto}"
+      nuance: >
+        الاسمان الأول والأخير معًا؛ يُفصّل أكثر من الاسم الأخير وحده ويُميّز الشخص
+        عن غيره من حاملي نفس اللقب. أنسب للسياق الموسوعي والتعريفي العام.
+      mwe: true
+
+    - lemma: "جُون مُوسَى بْرَاوْنِينْغ"
+      sense_id: "{auto}"
+      nuance: >
+        الاسم الكامل الثلاثي؛ الأكثر دقةً وتحديدًا في السياقات التوثيقية والرسمية
+        والتاريخية. يقابل بالضبط الصيغة الإنجليزية John Moses Browning.
+      mwe: true
+
+  synset:
+    cultural_fit: omission
+    cultural_fit_note: >
+      المفهوم شخصية تاريخية أجنبية. براونينغ مرتبط بصناعة الأسلحة الغربية ولا يحضر
+      في الموروث الثقافي العربي. يُدرَج في السياقات الموسوعية والعسكرية بالتعريب فقط.
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"transliteration_source":"Browning","lang":"en","root":null,"maqayis":null}'
+
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"transliteration_source":"John Browning","lang":"en","root":null,"maqayis":null,"mwe":true,"mwe_type":"idafi"}'
+
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"transliteration_source":"John Moses Browning","lang":"en","root":null,"maqayis":null,"mwe":true,"mwe_type":"idafi","middle_name_ar":"موسى"}'
+
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الأخير وحده؛ للإحالة المختصرة وتسمية المنتجات المنسوبة","mwe":false}'
+
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسمان الأول والأخير؛ للتعريف العام والسياق الموسوعي","mwe":true}'
+
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الكامل الثلاثي؛ للتوثيق الرسمي والدقيق","mwe":true}'
+
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-10886825-n"
+        key: note
+        value: '{"cultural_fit":"omission","note":"شخصية تاريخية أجنبية — لا تراثية"}'
+
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-10886825-n"
+        score: 0.82

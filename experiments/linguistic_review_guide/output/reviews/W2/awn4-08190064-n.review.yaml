@@ -1,0 +1,172 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "تعريف الشبكة 'دول أمريكا الوسطى مجتمعة' يعاني من الدوران، حيث استخدم اسم المنطقة لتعريفها."
+    observations: "المفهوم يشير إلى الكيان الجيوسياسي والجغرافي لدول المنطقة الممتدة بين أمريكا الشمالية والجنوبية، ويُطلق على هذه المنطقة اسم (أمريكا الوسطى)."
+  blind_candidates:
+    - lemma: "أَمْرِيكَا الوُسْطَى"
+      generation_method: tarkib
+      justification: "تركيب وصفي مستقر في الجغرافيا السياسية للتعبير عن هذه المنطقة."
+    - lemma: "دُوَلُ أَمْرِيكَا الوُسْطَى"
+      generation_method: tarkib
+      justification: "تركيب إضافي يركز على الكيان السياسي المكوّن من الدول نفسها عوضاً عن المنطقة الجغرافية المجردة."
+    - lemma: "أَمِيرْكَا الوُسْطَى"
+      generation_method: taarib
+      justification: "صياغة بديلة لتعريب اسم 'أمريكا' مألوفة في الكتابات الصحفية."
+    - lemma: "أَمْرِيكَا المَرْكَزِيَّة"
+      generation_method: taarib
+      justification: "ترجمة حرفية تستخدم أحياناً لوصف الموقع الجغرافي للمنطقة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "أمريكا الوسطى"
+      confirm:
+        - text: "«تطلق على الجزء الجنوبي من قارة أمريكا الشمالية الواقع إلى الجنوب من المكسيك, والذي يمتد إلى شمالي كولومبيا بأمريكا الجنوبية. تبلغ مساحتها ٢٢٨,٥٧٨ ميلا مربعا. وتتكون من ست جمهوريات هي: جواتيمالا, وهندوراس, والسلفادور, ونيكاراجوا, وكوستاريكا, وبنما»"
+          source: "المعجم الكبير"
+    - lemma: "أميركا الوسطى"
+      confirm:
+        - text: "«أميركا الوسطى: Central America»"
+          source: "المكنز الزراعي متعدد اللغات"
+    - lemma: "دول أمريكا الوسطى"
+      evidence_status: "no_material_found"
+    - lemma: "أمريكا المركزية"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "أمريكا الوسطى"
+      decision: confirmed
+      decision_reason: "المصطلح الجغرافي والسياسي المعياري والمستقر للدلالة على هذه المنطقة ودولها."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "أَمْرِيكَا الوُسْطَى"
+
+    - lemma: "أميركا الوسطى"
+      source: stage1
+      decision: confirmed
+      decision_reason: "بديل إملائي شائع الاستخدام في بعض الدول العربية والوكالات الإخبارية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "أَمِيرْكَا الوُسْطَى"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "دول أمريكا الوسطى"
+      source: stage1
+      decision: removed
+      decision_reason: "تركيب إضافي حر لا يشكل وحدة معجمية مستقلة بل يُفهم من ضم الكلمتين."
+
+    - lemma: "أمريكا المركزية"
+      source: stage1
+      decision: removed
+      decision_reason: "ترجمة حرفية غير شائعة ولا ترقى لتكون مصطلحاً جغرافياً مستقراً."
+
+stage4_content:
+  definition:
+    current: "دول أمريكا الوسطى مجتمعة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يعاني من الدوران باحتوائه على مصطلح (أمريكا الوسطى) نفسه، ويجب توضيح الموقع الجغرافي لتعريف المفهوم بدقة."
+    authored:
+      - type: encyclopedic
+        text: "المنطقة الجغرافية ودولها مجتمعة، والتي تمتد من جنوبي المكسيك في أمريكا الشمالية إلى الحدود الشمالية لكولومبيا في أمريكا الجنوبية."
+  examples:
+    per_lemma:
+      - lemma: "أمريكا الوسطى"
+        examples:
+          - text: "تسعى دول أَمْرِيكَا الوُسْطَى إلى تعزيز التكامل الاقتصادي والتبادل التجاري بينها."
+            type: usage
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "المنطقة الجغرافية ودولها مجتمعة، والتي تمتد من جنوبي المكسيك في أمريكا الشمالية إلى الحدود الشمالية لكولومبيا في أمريكا الجنوبية."
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "تسعى دول أَمْرِيكَا الوُسْطَى إلى تعزيز التكامل الاقتصادي والتبادل التجاري بينها."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "أمريكا الوسطى"
+      entry_id: "{auto}"
+      roots:
+        - word: "أمريكا"
+          root: "أمريكا"
+          maqayis_quote: "لا يوجد (كلمة أعجمية معربة)"
+        - word: "الوسطى"
+          root: "وسط"
+          maqayis_quote: "«(وَسَطَ) الْوَاوُ وَالسِّينُ وَالطَّاءُ: بِنَاءٌ صَحِيحٌ يَدُلُّ عَلَى الْعَدْلِ وَالنِّصْفِ. وَأَعْدَلُ الشَّيْءِ: أَوْسَطُهُ وَوَسَطُهُ.»"
+    - lemma: "أميركا الوسطى"
+      entry_id: "{auto}"
+      roots:
+        - word: "أميركا"
+          root: "أميركا"
+          maqayis_quote: "لا يوجد (كلمة أعجمية معربة)"
+        - word: "الوسطى"
+          root: "وسط"
+          maqayis_quote: "«(وَسَطَ) الْوَاوُ وَالسِّينُ وَالطَّاءُ: بِنَاءٌ صَحِيحٌ يَدُلُّ عَلَى الْعَدْلِ وَالنِّصْفِ.»"
+  per_sense:
+    - lemma: "أمريكا الوسطى"
+      sense_id: "{auto}"
+      nuance: "الصيغة المعيارية والأكثر شيوعاً للدلالة على المنطقة الجغرافية في الكتابات العربية."
+      mwe: true
+    - lemma: "أميركا الوسطى"
+      sense_id: "{auto}"
+      nuance: "بديل إملائي لاسم المنطقة يُستخدم في بعض البلدان العربية والوكالات الإخبارية."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"أمريكا","root":"أمريكا","maqayis_quote":"لا يوجد (كلمة أعجمية معربة)"},{"word":"الوسطى","root":"وسط","maqayis_quote":"«(وَسَطَ) الْوَاوُ وَالسِّينُ وَالطَّاءُ: بِنَاءٌ صَحِيحٌ يَدُلُّ عَلَى الْعَدْلِ وَالنِّصْفِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"أميركا","root":"أميركا","maqayis_quote":"لا يوجد (كلمة أعجمية معربة)"},{"word":"الوسطى","root":"وسط","maqayis_quote":"«(وَسَطَ) الْوَاوُ وَالسِّينُ وَالطَّاءُ: بِنَاءٌ صَحِيحٌ يَدُلُّ عَلَى الْعَدْلِ وَالنِّصْفِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الصيغة المعيارية والأكثر شيوعاً للدلالة على المنطقة الجغرافية في الكتابات العربية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"بديل إملائي لاسم المنطقة يُستخدم في بعض البلدان العربية والوكالات الإخبارية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,249 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "خلو اللمات من التشكيل الكامل."
+    observations: "تتفق دلالة المجموعة مع المصطلحات السوسيولوجية التي تقسم المجتمع إلى فئات أو طبقات بناءً على المحددات الاقتصادية والاجتماعية والثقافية."
+  blind_candidates:
+    - lemma: "طَبَقَة"
+      generation_method: majaz
+      justification: "نقلت من معناها المادي كغطاء أو مرتبة فوق أخرى إلى المعنى المجتمعي للدلالة على مستوى اجتماعي يضم مجموعة من الناس."
+    - lemma: "فِئَة"
+      generation_method: ishtiqaq
+      justification: "مشتقة من (الفيء)، وتطلق على الجماعة من الناس تجمعهم صفة واحدة أو حالة مشتركة."
+    - lemma: "شَرِيحَة"
+      generation_method: majaz
+      justification: "استعارة من الشريحة (القطعة المرققة) لتدل على قطاع أو جزء من المجتمع."
+    - lemma: "مَرْتَبَة"
+      generation_method: ishtiqaq
+      justification: "مشتقة من الرتبة، وتستخدم مجازاً للدلالة على المنزلة الاجتماعية أو الاقتصادية لمجموعة من الناس."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "طَبَقَة"
+      confirm:
+        - text: "«(في علم الاجتماع): الشَّريحة من المجتمع تَتَحَدَّد أوضاعهم المعيشيّة, ودُخولهم الاقتصادية, وتتشابه مصالِحُهم.»"
+          source: "المعجم الوسيط"
+        - text: "«من (ط ب ق) جماعة من الناس على مستوى واحد في العلم أو الحرفة أو الصناعة والمرتبة والدرجة والحال والمنزلة»"
+          source: "معجم الغني"
+      expands:
+        - text: "«الجيل بعد الجيل, أو القوم المتشابهون في سن أو عهد»"
+          source: "المعجم الوجيز"
+    - lemma: "طبقة اجتماعية"
+      confirm:
+        - text: "«فئة من المجتمع تشترك في خصائص معينة.»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "فِئَة"
+      expands:
+        - text: "«الجماعة»"
+          source: "الصحاح في اللغة"
+        - text: "«الفئة: هي الطائفة المقيمة وراء الجيش للالتجاء إليهم عند الهزيمة.»"
+          source: "المعجم الوسيط"
+    - lemma: "شَرِيحَة"
+      confirm:
+        - text: "«فئةٌ من المجتمع تتقاربُ ظروفُها الاجتماعيةُ أو المهنيةُ أو الثقافيةُ»"
+          source: "المعجم الوسيط"
+    - lemma: "مَرْتَبَة"
+      expands:
+        - text: "«الرُّتْبَة»"
+          source: "المعجم الوجيز"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "طبقة"
+      decision: confirmed
+      decision_reason: "المعنى المعجمي متطابق تماماً مع دلالة المجموعة (الشريحة من المجتمع التي تتحدد أوضاعهم المعيشية وتتشابه مصالحهم)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "طَبَقَة"
+
+    - lemma: "طبقة اجتماعية"
+      decision: confirmed
+      decision_reason: "تركيب وصفي شائع ومثبت معجمياً يفيد ذات المعنى المراد، ويزيل اللبس عن معاني (طبقة) المادية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "طَبَقَة اِجْتِمَاعِيَّة"
+
+    - lemma: "طَبَقَة"
+      source: stage1
+      decision: removed
+      decision_reason: "موجودة بالفعل في المجموعة بغير تشكيل وتم تأكيدها."
+
+    - lemma: "فِئَة"
+      source: stage1
+      decision: removed
+      decision_reason: "الكلمة أعم دلالياً (مجرد جماعة من الناس) ولا تحمل بالضرورة معنى التراتبية الاجتماعية والاقتصادية الكامنة في المجموعة."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+
+    - lemma: "شَرِيحَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مثبتة معجمياً بدلالة المجموعة (فئة من المجتمع تتقارب ظروفها)، وتعبر عن الدلالة بصورة مجازية شائعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "شَرِيحَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "مَرْتَبَة"
+      source: stage1
+      decision: removed
+      decision_reason: "تركز على المنزلة والمكانة الفردية أو التصنيف المجرد، ولا تدل على مجموع الناس ذاتهم ككيان اجتماعي."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+
+stage4_content:
+  definition:
+    current: "مجموعة من الناس لديهم نفس الوضع الاجتماعي أو الاقتصادي أو التعليمي"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد، لكن يمكن صياغته بأسلوب معجمي أكثر دقة وإحكاماً (فئة بدلاً من مجموعة، تتقارب ظروفهم بدلاً من لديهم نفس الوضع)."
+    authored:
+      - type: terminological
+        text: "فِئَةٌ مِنَ المُجْتَمَعِ تَتَقَارَبُ ظُرُوفُهُمُ الِاجْتِمَاعِيَّةُ أَوِ الِاقْتِصَادِيَّةُ وَتَتَشَابَهُ مَصَالِحُهُمْ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "فِئَةٌ مِنَ المُجْتَمَعِ تَتَقَارَبُ ظُرُوفُهُمُ الِاجْتِمَاعِيَّةُ أَوِ الِاقْتِصَادِيَّةُ وَتَتَشَابَهُ مَصَالِحُهُمْ."
+
+  examples:
+    per_lemma:
+      - lemma: "طبقة"
+        examples:
+          - text: "تَسْعَى الدَّوْلَةُ إِلَى دَعْمِ الطَّبَقَةِ العَامِلَةِ وتَحْسِينِ ظُرُوفِهَا المعِيشِيَّةِ."
+            type: usage
+      - lemma: "طبقة اجتماعية"
+        examples:
+          - text: "يُؤَثِّرُ الانْتِمَاءُ إِلَى طَبَقَةٍ اِجْتِمَاعِيَّةٍ مُعَيَّنَةٍ عَلَى الفُرَصِ المُتَاحَةِ لِلْأَفْرَادِ."
+            type: usage
+      - lemma: "شَرِيحَة"
+        examples:
+          - text: "تَسْتَهْدِفُ الحَمْلَةُ شَرِيحَةَ الشَّبَابِ فِي المُجْتَمَعِ لِتَوْعِيَتِهِمْ بِالمَخَاطِرِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تَسْعَى الدَّوْلَةُ إِلَى دَعْمِ الطَّبَقَةِ العَامِلَةِ وتَحْسِينِ ظُرُوفِهَا المعِيشِيَّةِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يُؤَثِّرُ الانْتِمَاءُ إِلَى طَبَقَةٍ اِجْتِمَاعِيَّةٍ مُعَيَّنَةٍ عَلَى الفُرَصِ المُتَاحَةِ لِلْأَفْرَادِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تَسْتَهْدِفُ الحَمْلَةُ شَرِيحَةَ الشَّبَابِ فِي المُجْتَمَعِ لِتَوْعِيَتِهِمْ بِالمَخَاطِرِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "طَبَقَة"
+      entry_id: "{auto}"
+      root: "طبق"
+      maqayis_quote: "«الطَّاءُ وَالْبَاءُ وَالْقَافُ أَصْلٌ صَحِيحٌ وَاحِدٌ، وَهُوَ يَدُلُّ عَلَى وَضْعِ شَيْءٍ مَبْسُوطٍ عَلَى مِثْلِهِ حَتَّى يُغَطِّيَهُ.»"
+    - lemma: "طَبَقَة اِجْتِمَاعِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "طَبَقَة"
+          root: "طبق"
+          maqayis_quote: "«الطَّاءُ وَالْبَاءُ وَالْقَافُ أَصْلٌ صَحِيحٌ وَاحِدٌ، وَهُوَ يَدُلُّ عَلَى وَضْعِ شَيْءٍ مَبْسُوطٍ عَلَى مِثْلِهِ حَتَّى يُغَطِّيَهُ.»"
+        - word: "اِجْتِمَاعِيَّة"
+          root: "جمع"
+          maqayis_quote: "«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ.»"
+    - lemma: "شَرِيحَة"
+      entry_id: "{auto}"
+      root: "شرح"
+      maqayis_quote: "«الشِّينُ وَالرَّاءُ وَالْحَاءُ أُصَيْلٌ يَدُلُّ عَلَى الْفَتْحِ وَالْبَيَانِ.»"
+  per_sense:
+    - lemma: "طَبَقَة"
+      sense_id: "{auto}"
+      nuance: "اللفظة الأساسية؛ تدل على التراتبية الاقتصادية أو الاجتماعية لمجموعة كبيرة من الناس بشكل رئيسي، مثل الطبقة العاملة أو الوسطى."
+      mwe: false
+    - lemma: "طَبَقَة اِجْتِمَاعِيَّة"
+      sense_id: "{auto}"
+      nuance: "تركيب وصفي يزيل أي لبس مع معاني (طبقة) المادية كالطبقات الجيولوجية أو غيرها، وهو صريح في تخصيص المعنى بالمجتمع."
+      mwe: true
+    - lemma: "شَرِيحَة"
+      sense_id: "{auto}"
+      nuance: "تشير إلى قطاع أفقي من المجتمع تجمعه خصائص معينة (كالعمر أو المهنة)، ولا تتضمن بالضرورة التراتبية الرأسية الكامنة في (طبقة)."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"طبق","maqayis":"«الطَّاءُ وَالْبَاءُ وَالْقَافُ أَصْلٌ صَحِيحٌ وَاحِدٌ، وَهُوَ يَدُلُّ عَلَى وَضْعِ شَيْءٍ مَبْسُوطٍ عَلَى مِثْلِهِ حَتَّى يُغَطِّيَهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"طَبَقَة","root":"طبق","maqayis":"«الطَّاءُ وَالْبَاءُ وَالْقَافُ أَصْلٌ صَحِيحٌ وَاحِدٌ، وَهُوَ يَدُلُّ عَلَى وَضْعِ شَيْءٍ مَبْسُوطٍ عَلَى مِثْلِهِ حَتَّى يُغَطِّيَهُ.»"},{"word":"اِجْتِمَاعِيَّة","root":"جمع","maqayis":"«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"شرح","maqayis":"«الشِّينُ وَالرَّاءُ وَالْحَاءُ أُصَيْلٌ يَدُلُّ عَلَى الْفَتْحِ وَالْبَيَانِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظة الأساسية؛ تدل على التراتبية الاقتصادية أو الاجتماعية لمجموعة كبيرة من الناس بشكل رئيسي، مثل الطبقة العاملة أو الوسطى.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركيب وصفي يزيل أي لبس مع معاني (طبقة) المادية كالطبقات الجيولوجية أو غيرها، وهو صريح في تخصيص المعنى بالمجتمع.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تشير إلى قطاع أفقي من المجتمع تجمعه خصائص معينة (كالعمر أو المهنة)، ولا تتضمن بالضرورة التراتبية الرأسية الكامنة في (طبقة).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

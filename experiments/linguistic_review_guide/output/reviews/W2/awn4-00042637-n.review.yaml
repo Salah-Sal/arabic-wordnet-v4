@@ -1,0 +1,239 @@
+# ── المرحلة ١: المراجعة والتوليد (بدون أدلة) ──────────────
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الحالية (اكتساب، حصول) صحيحة لكنها تفتقر إلى التشكيل الكامل."
+      - "المجموعة تحتاج إلى لمّات تعبر عن الظفر بالشيء أو حيازته مادياً وقانونياً لزيادة الدقة الدلالية."
+    observations: "المفهوم الأساسي هو عملية التملك أو الوصول إلى الشيء، وهو مفهوم عام يتقاطع مع السياقات القانونية، والمالية، والمعرفية، والرياضية."
+  blind_candidates:
+    - lemma: "نَيْل"
+      generation_method: ishtiqaq
+      justification: "مصدر نال، وهو فصيح جداً ومباشر للتعبير عن إدراك الشيء والوصول إليه."
+    - lemma: "حِيَازَة"
+      generation_method: ishtiqaq
+      justification: "مصدر حاز، ويشير إلى الحصول على الشيء وضمه إلى حوزة الشخص وسيطرته."
+    - lemma: "تَمَلُّك"
+      generation_method: ishtiqaq
+      justification: "يشير إلى الحصول المؤدي إلى الملكية القانونية أو الفعلية."
+    - lemma: "إِحْرَاز"
+      generation_method: ishtiqaq
+      justification: "يستخدم في سياق الظفر بالمكاسب المعنوية أو المادية المحددة (نصر، جائزة، مال)."
+
+# ── المرحلة ٢: جمع الأدلة ────────────────────────────────
+stage2_evidence:
+  per_lemma:
+    - lemma: "اكتساب"
+      confirm:
+        - text: "«الاكتساب: محاولة أسباب حصول المطلوب.»"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+        - text: "«اكتساب: الحصول على ما هو جديد في عالم المعرفة.»"
+          source: "ArabTerm - مسرد التربية"
+    - lemma: "حصول"
+      confirm:
+        - text: "«الْحُصُول: مصدر حصل يحصل... جَمْعُ الشَّيْءِ.»"
+          source: "دستور العلماء / مقاييس اللغة"
+    - lemma: "نيل"
+      confirm:
+        - text: "«نال خيراً ينال نيلاً أي أصاب... والنيل والنائل ما نلته.»"
+          source: "مختار الصحاح / لسان العرب"
+        - text: "«نال النادي الرياضي الجائزة السنوية: أدركها وبلغها.»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "حيازة"
+      confirm:
+        - text: "«حيازة الشيء: ما ضمَّه الإنسانُ إلى نَفْسِه من مالٍ أو غيره.»"
+          source: "المعجم الكبير"
+        - text: "«حِيَازَة الرجل مَا فِي حوزته من مَال أَو عقار.»"
+          source: "المعجم الوسيط"
+    - lemma: "إحراز"
+      confirm:
+        - text: "«الإحراز: جعل الشيء في الحِرْز وهو الموضعُ الحَصين.»"
+          source: "التعريفات الفقهية للبركتي"
+        - text: "«إحراز: نيل، تحقيق (إحراز قصب السبق).»"
+          source: "استخدام معاصر شائع يؤكده أصل المادة في الحفظ والتحصيل"
+
+# ── المرحلة ٣: التحليل اللغوي للّمات ────────────────────
+stage3_analysis:
+  per_lemma:
+    - lemma: "اكتساب"
+      decision: confirmed
+      decision_reason: "مصطلح دقيق يعبر عن السعي والجهد في نيل الشيء (السعي في الكسب)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "اِكْتِسَاب"
+    - lemma: "حصول"
+      decision: confirmed
+      decision_reason: "المصدر العام والأساسي للفعل 'حصل على' الذي بني عليه التعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حُصُول"
+    - lemma: "نيل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ فصيح وشامل للحصول على الأشياء المادية والمعنوية، ويحمل طابعاً إيجابياً غالباً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "نَيْل", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "حيازة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبر عن الجانب المادي والقانوني للحصول على الشيء وضمه للسيطرة الفعلية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "حِيَازَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "إحراز"
+      source: stage1
+      decision: confirmed
+      decision_reason: "دقيقة في التعبير عن الحصول على المكاسب والنجاحات والاحتفاظ بها."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "إِحْرَاز", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+# ── المرحلة ٤: التعريف والأمثلة ──────────────────────────
+stage4_content:
+  definition:
+    current: "فعل الحصول على شيء ما"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب جداً، والتعديل يهدف لبيان معاني الضم والظفر والملك."
+    authored:
+      - type: linguistic
+        text: "نَيْلُ الشَّيْءِ والظَّفَرُ بِهِ وضَمُّهُ إِلى المِلْكِ أَوِ الحَوْزَةِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "نَيْلُ الشَّيْءِ والظَّفَرُ بِهِ وضَمُّهُ إِلى المِلْكِ أَوِ الحَوْزَةِ."}
+  examples:
+    per_lemma:
+      - lemma: "اِكْتِسَاب"
+        examples:
+          - text: "اكتسابُ اللغاتِ الجَدِيدَةِ يَفْتَحُ آفَاقاً مَعْرِفِيَّةً وَاسِعَةً."
+            type: usage
+      - lemma: "حُصُول"
+        examples:
+          - text: "تَمَّ الحُصُولُ عَلَى المُوافَقَةِ الرَّسْمِيَّةِ لِلبَدْءِ فِي المَشْرُوعِ."
+            type: usage
+      - lemma: "نَيْل"
+        examples:
+          - text: "نَيْلُ الشَّرَفِ وَالمَجْدِ يَحْتَاجُ إِلى بَذْلٍ وَتَضْحِيَةٍ."
+            type: usage
+      - lemma: "حِيَازَة"
+        examples:
+          - text: "حِيَازَةُ العَقَارَاتِ تَتَطَلَّبُ تَسْجِيلاً قَانُونِيّاً فِي الدَّوَائِرِ المُخْتَصَّةِ."
+            type: usage
+      - lemma: "إِحْرَاز"
+        examples:
+          - text: "إِحْرَازُ النَّصْرِ فِي المُسَابَقَةِ كَانَ حَلِيفَ مَنِ اجْتَهَدَ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "اكتساب المهارات والظفر بالنجاح يتطلب صبراً."}
+
+# ── المرحلة ٥: الإثراء (البيانات الوصفية) ─────────────────
+stage5_enrichment:
+  per_entry:
+    - lemma: "اِكْتِسَاب"
+      entry_id: "{auto}"
+      root: "كسب"
+      maqayis_quote: "«الْكَافُ وَالسِّينُ وَالْبَاءُ أَصْلٌ صَحِيحٌ، وَهُوَ يَدُلُّ عَلَى ابْتِغَاءٍ وَطَلَبٍ وَإِصَابَةٍ.»"
+    - lemma: "حُصُول"
+      entry_id: "{auto}"
+      root: "حصل"
+      maqayis_quote: "«الْحَاءُ وَالصَّادُ وَاللَّامُ أَصْلٌ وَاحِدٌ مُنْقَاسٌ، وَهُوَ جَمْعُ الشَّيْءِ.»"
+    - lemma: "نَيْل"
+      entry_id: "{auto}"
+      root: "نيل"
+      maqayis_quote: "«نال خيراً ينال نيلاً أي أصاب... والنيل والنائل ما نلته.» (لسان العرب / مختار الصحاح)"
+    - lemma: "حِيَازَة"
+      entry_id: "{auto}"
+      root: "حوز"
+      maqayis_quote: "«الْحَاءُ وَالْوَاوُ وَالزَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الْجَمْعُ وَالتَّجَمُّعُ... وَكُلُّ مَنْ ضَمَّ شَيْئًا إِلَى نَفْسِهِ فَقَدْ حَازَهُ حَوْزًا.»"
+    - lemma: "إِحْرَاز"
+      entry_id: "{auto}"
+      root: "حرز"
+      maqayis_quote: "«الْحَاءُ وَالرَّاءُ وَالزَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ مِنَ الْحِفْظِ وَالتَّحَفُّظِ.»"
+  per_sense:
+    - lemma: "اِكْتِسَاب"
+      sense_id: "{auto}"
+      nuance: "يركز على السعي والجهد المبذول في طلب الشيء."
+      mwe: false
+    - lemma: "حُصُول"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام الذي يصف وقوع الشيء وتحققه في يد الشخص."
+      mwe: false
+    - lemma: "نَيْل"
+      sense_id: "{auto}"
+      nuance: "يفيد الوصول إلى المبتغى والظفر بالمراد (غالباً في السياق الإيجابي)."
+      mwe: false
+    - lemma: "حِيَازَة"
+      sense_id: "{auto}"
+      nuance: "تفيد السيطرة المادية أو القانونية الفعلية على الشيء وضمه للحوزة."
+      mwe: false
+    - lemma: "إِحْرَاز"
+      sense_id: "{auto}"
+      nuance: "تفيد نيل الشيء مع وضعه في حيز الحفظ والظفر به كجائزة أو سبق."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"كسب","maqayis":"«الْكَافُ وَالسِّينُ وَالْبَاءُ أَصْلٌ صَحِيحٌ، وَهُوَ يَدُلُّ عَلَى ابْتِغَاءٍ وَطَلَبٍ وَإِصَابَةٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حصل","maqayis":"«الْحَاءُ وَالصَّادُ وَاللَّامُ أَصْلٌ وَاحِدٌ مُنْقَاسٌ، وَهُوَ جَمْعُ الشَّيْءِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على السعي والجهد المبذول في طلب الشيء.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

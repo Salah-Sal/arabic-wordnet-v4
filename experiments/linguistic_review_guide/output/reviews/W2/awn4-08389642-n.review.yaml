@@ -1,0 +1,207 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللفظ "تابلوه" دخيل (فرنسي) وإن كان شائعاً في الأوساط الفنية والمسرحية.
+      - المصطلح "لوحة حية" ترجمة حرفية (calque) للمصطلح الأجنبي "tableau vivant".
+    observations: "المفهوم يشير إلى وضعية تمثيلية ساكنة يحاكي فيها الأشخاص لوحة فنية أو مشهداً تاريخياً، وهو مفهوم فني غربي انتقل إلى الثقافة العربية المعاصرة عبر المسرح والفنون التشكيلية. التعريف الحالي وصفي دقيق لكنه يفتقر للصبغة المعجمية."
+  blind_candidates:
+    - lemma: "لَوْحَةٌ حَيَّةٌ"
+      generation_method: tarkib
+      justification: "ترجمة مباشرة للمفهوم (tableau vivant) وشائعة في الأدبيات الفنية العربية."
+    - lemma: "مَشْهَدٌ صَامِتٌ"
+      generation_method: tarkib
+      justification: "وصف دقيق للموقف التمثيلي الذي لا يتضمن كلاماً أو حركة."
+    - lemma: "تَمْثِيلٌ صَامِتٌ"
+      generation_method: tarkib
+      justification: "المصطلح العام للمحاكاة بدون صوت، وينطبق على حالة التابلوه."
+    - lemma: "تَشْكِيلٌ بَشَرِيٌّ"
+      generation_method: tarkib
+      justification: "يشير إلى الجانب البصري من ترتيب الأشخاص لتكوين هيئة معينة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تابلوه"
+      confirm:
+        - text: "تابلوه [مفرد]: ج تابلوهات: ... (فن) مشهد فاصل صامت خلال عرض مسرحيّ يتجمَّد فيه الممثلون على المسرح ثم يتابعون الحركة."
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "التابلوه؛ اللوحة الحيّة: تمثيلٌ ساكن [لِمَشْهدٍ إلخ] يؤدّيه على المسرح جماعة يرتدون ملابس نموذجيّة."
+          source: "المورد الحديث (2008)"
+    - lemma: "لوحة حية"
+      confirm:
+        - text: "التابلوه؛ اللوحة الحيّة: تمثيلٌ ساكن [لِمَشْهدٍ إلخ] يؤدّيه على المسرح جماعة يرتدون ملابس نموذجيّة."
+          source: "المورد الحديث (2008)"
+    - lemma: "مشهد صامت"
+      confirm:
+        - text: "مشهد فاصل صامت خلال عرض مسرحيّ يتجمَّد فيه الممثلون..."
+          source: "معجم اللغة العربية المعاصرة (في تعريف تابلوه)"
+    - lemma: "مشهد ساكن"
+      confirm:
+        - text: "...تمثيلٌ ساكن [لِمَشْهدٍ إلخ] يؤدّيه على المسرح جماعة..."
+          source: "المورد الحديث (2008) (في تعريف التابلوه)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تابلوه"
+      decision: confirmed
+      decision_reason: "مصطلح فني مستقر في المعاجم العربية الحديثة لوصف المشهد التمثيلي الساكن، رغم أصله الفرنسي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَابْلُوه"
+    - lemma: "لوحة حية"
+      decision: confirmed
+      decision_reason: "تعبير فصيح ومصطلح فني يترجم المفهوم بدقة، ومدعوم بشواهد معجمية حديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "لَوْحَةٌ حَيَّةٌ"
+    - lemma: "مَشْهَدٌ صَامِتٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "وصف اصطلاحي مستخدم في سياق المسرح لتمثيل المفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "مَشْهَدٌ صَامِتٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مَشْهَدٌ سَاكِنٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "وصف دقيق مستخلص من التعريف المعجمي للتابلوه في المعاجم الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "مَشْهَدٌ سَاكِنٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "مجموعة من الأشخاص مرتبين بشكل جذاب (كما لو كانوا في لوحة)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بحت، والأفضل صياغته بأسلوب معجمي يبرز الجانب الفني والتمثيلي الساكن."
+    authored:
+      - type: terminological
+        text: "تَمْثِيلٌ صَامِتٌ أَوْ سَاكِنٌ يُؤَدِّيهِ مَجْمُوعَةٌ مِنَ الأَشْخَاصِ عَلَى المَسْرَحِ أَوْ فِي لَوْحَةٍ فَنِّيَّةٍ، حَيْثُ يَتَجَمَّدُونَ فِي أَوْضَاعٍ مُعَيَّنَةٍ لِتَكْوِينِ مَشْهَدٍ جَذَّابٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "تَمْثِيلٌ صَامِتٌ أَوْ سَاكِنٌ يُؤَدِّيهِ مَجْمُوعَةٌ مِنَ الأَشْخَاصِ عَلَى المَسْرَحِ أَوْ فِي لَوْحَةٍ فَنِّيَّةٍ، حَيْثُ يَتَجَمَّدُونَ فِي أَوْضَاعٍ مُعَيَّنَةٍ لِتَكْوِينِ مَشْهَدٍ جَذَّابٍ."}
+  examples:
+    per_lemma:
+      - lemma: "تَابْلُوه"
+        examples:
+          - text: "قَدَّمَتِ الفِرْقَةُ المَسْرَحِيَّةُ تَابْلُوهًا جَمِيلًا فِي نِهَايَةِ العَرْضِ."
+            type: usage
+      - lemma: "لَوْحَةٌ حَيَّةٌ"
+        examples:
+          - text: "تُعَدُّ اللَّوْحَةُ الحَيَّةُ مَشْهَدًا فَنِّيًّا يَمْزُجُ بَيْنَ الرَّسْمِ وَالتَّمْثِيلِ."
+            type: usage
+      - lemma: "مَشْهَدٌ صَامِتٌ"
+        examples:
+          - text: "بَدَأَ الِاحْتِفَالُ بِمَشْهَدٍ صَامِتٍ يُجَسِّدُ نِضَالَ الشُّعُوبِ."
+            type: usage
+      - lemma: "مَشْهَدٌ سَاكِنٌ"
+        examples:
+          - text: "كَانَ المَشْهَدُ السَّاكِنُ عَلَى المَسْرَحِ يُوحِي بِالرَّهْبَةِ وَالِاحْتِرَامِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "قَدَّمَتِ الفِرْقَةُ المَسْرَحِيَّةُ تَابْلُوهًا جَمِيلًا فِي نِهَايَةِ العَرْضِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "لَوْحَةٌ حَيَّةٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "لوحة"
+          root: "لوح"
+          maqayis_quote: "«اللَّامُ وَالْوَاوُ وَالْحَاءُ أَصْلٌ صَحِيحٌ، مُعْظَمُهُ مُقَارَبَةُ بَابِ اللَّمَعَانِ. يُقَالُ: لَاحَ الشَّيْءُ يَلُوحُ، إِذَا لَمَحَ وَلَمَعَ...»"
+        - word: "حية"
+          root: "حيي"
+          maqayis_quote: "«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ، وَالْآخَرُ الِاسْتِحْيَاءُ...»"
+    - lemma: "مَشْهَدٌ صَامِتٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مشهد"
+          root: "شهد"
+          maqayis_quote: "«الشِّينُ وَالْهَاءُ وَالدَّالُ أَصْلٌ يَدُلُّ عَلَى حُضُورٍ وَعِلْمٍ وَإِعْلَامٍ...»"
+        - word: "صامت"
+          root: "صمت"
+          maqayis_quote: "«الصَّادُ وَالْمِيمُ وَالتَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى إِبْهَامٍ وَإِغْلَاقٍ. مِنْ ذَلِكَ صَمَتَ الرَّجُلُ، إِذَا سَكَتَ...»"
+    - lemma: "مَشْهَدٌ سَاكِنٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مشهد"
+          root: "شهد"
+          maqayis_quote: "«الشِّينُ وَالْهَاءُ وَالدَّالُ أَصْلٌ يَدُلُّ عَلَى حُضُورٍ وَعِلْمٍ وَإِعْلَامٍ...»"
+        - word: "ساكن"
+          root: "سكن"
+          maqayis_quote: "«السِّينُ وَالْكَافُ وَالنُّونُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ، يَدُلُّ عَلَى خِلَافِ الِاضْطِرَابِ وَالْحَرَكَةِ...»"
+  per_sense:
+    - lemma: "تَابْلُوه"
+      sense_id: "{auto}"
+      nuance: "مصطلح فني مأخوذ من الفرنسية، يُستخدم بكثرة في سياق المسرح والاستعراض."
+      mwe: false
+    - lemma: "لَوْحَةٌ حَيَّةٌ"
+      sense_id: "{auto}"
+      nuance: "تعبير فصيح يصف المشهد التمثيلي الساكن الذي يحاكي اللوحات الفنية، وهو ترجمة مباشرة لـ \"tableau vivant\"."
+      mwe: true
+    - lemma: "مَشْهَدٌ صَامِتٌ"
+      sense_id: "{auto}"
+      nuance: "يركز على غياب الحوار أو الصوت في التكوين البشري."
+      mwe: true
+    - lemma: "مَشْهَدٌ سَاكِنٌ"
+      sense_id: "{auto}"
+      nuance: "يركز على انعدام الحركة وتجميد الممثلين في وضعية معينة."
+      mwe: true
+  synset:
+    cultural_fit: lexical_gap
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"لوحة","root":"لوح","maqayis":"«...»"},{"word":"حية","root":"حيي","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"...","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"lexical_gap"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

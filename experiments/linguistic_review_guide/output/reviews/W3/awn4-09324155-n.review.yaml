@@ -1,0 +1,132 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الحالية تفتقر إلى التشكيل الكامل."
+      - "الاسم الإنجليزي 'Roads' يشير إلى دلالة تقنية بحرية (مراسي/مرسى) لم يتم تعريبها دلالياً بل صوتياً فقط."
+    observations: "تعتبر 'هامبتون رودز' اسماً جغرافياً خاصاً (Proper Noun) في الولايات المتحدة، والتعامل الشائع مع مثل هذه الأسماء في العربية هو النقل الصوتي (Transliteration). الدلالة المكانية للمصطلح تشمل قناة مائية ومرفأ طبيعياً."
+  blind_candidates:
+    - lemma: "هَامْبْتُون رُودْز"
+      generation_method: taarib
+      justification: "نقل صوتي مباشر للاسم الإنجليزي 'Hampton Roads' وهو الأكثر شيوعاً في الاستعمال العربي."
+    - lemma: "هَامْبْتُون رُودْس"
+      generation_method: taarib
+      justification: "نقل صوتي بديل يتبع نمط كتابة الأسماء المنتهية بـ 's' بالسين، وهو نمط موجود في أسماء مثل 'رودس' (اليونانية)."
+    - lemma: "مَرَاسِي هَامْبْتُون"
+      generation_method: tarkib
+      justification: "ترجمة دلالية لكلمة 'Roads' التي تعني في الاصطلاح البحري 'Roadstead' أي المكان الذي ترسو فيه السفن، مع الإبقاء على 'هامبتون' كاسم علم."
+    - lemma: "قَنَاة هَامْبْتُون رُودْز"
+      generation_method: tarkib
+      justification: "تسمية وصفية تحدد طبيعة المكان الجغرافية كقناة مائية كما ورد في التعريف."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "هامبتون رودز"
+      confirm:
+        - text: "خط هامبتون (Hampton line)"
+          source: "المعجم الطبي الموحد"
+      expands:
+        - text: "فيرجينيا: عن اللاتينية بمعنى عذراء وبكر... وهي ولاية أمريكية."
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+          addition: "يؤكد تهجئة 'فيرجينيا' الواردة في التعريف."
+    - lemma: "هَامْبْتُون رُودْز"
+      evidence_status: "no_material_found"
+    - lemma: "مَرَاسِي هَامْبْتُون"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "هامبتون رودز"
+      decision: confirmed
+      decision_reason: "هو المصطلح السائد والمستقر في الاستخدام العربي للإشارة إلى هذا الموقع الجغرافي."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "هَامْبْتُون رُودْز"
+    - lemma: "هَامْبْتُون رُودْس"
+      source: stage1
+      decision: removed
+      decision_reason: "رغم صحته الصوتية، إلا أن 'رودز' بالزاي أكثر تعبيراً عن النطق الإنجليزي الفعلي للاسم."
+    - lemma: "مَرَاسِي هَامْبْتُون"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح وصفي دقيق من الناحية العلمية البحرية، حيث أن 'Roads' هنا تعني 'Roadstead' (مراسي)."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "مَرَاسِي هَامْبْتُون", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "قناة في جنوب شرق فيرجينيا يتدفق عبرها نهر إليزابيث ونهر جيمس إلى خليج تشيزبيك"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يبدو ترجمة حرفية، ويفضل صياغته بأسلوب معجمي أكثر رصانة يوضح طبيعة المكان كمرفأ طبيعي وقناة."
+    authored:
+      - type: encyclopedic
+        text: "مرفأ طبيعي وقناة مائية واسعة في جنوب شرقي ولاية فيرجينيا بالولايات المتحدة الأمريكية، تلتقي فيها مياه نهري جيمس وإليزابيث لتصب في خليج تشيزبيك."
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مرفأ طبيعي وقناة مائية واسعة في جنوب شرقي ولاية فيرجينيا بالولايات المتحدة الأمريكية، تلتقي فيها مياه نهري جيمس وإليزابيث لتصب في خليج تشيزبيك."}
+
+  examples:
+    per_lemma:
+      - lemma: "هَامْبْتُون رُودْز"
+        examples:
+          - text: "تُعد هامبتون رودز واحدة من أكبر المرافئ الطبيعية في العالم ومقراً رئيسياً للقوات البحرية."
+            type: usage
+      - lemma: "مَرَاسِي هَامْبْتُون"
+        examples:
+          - text: "تكتسب مراسي هامبتون أهمية استراتيجية كبرى لوقوعها عند مخرج نهري جيمس وإليزابيث."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "تُعد هامبتون رودز واحدة من أكبر المرافئ الطبيعية في العالم."}
+
+stage5_enrichment:
+  per_sense:
+    - lemma: "هَامْبْتُون رُودْز"
+      sense_id: "{auto}"
+      nuance: "النقل الصوتي المباشر للاسم العلم."
+      mwe: true
+    - lemma: "مَرَاسِي هَامْبْتُون"
+      sense_id: "{auto}"
+      nuance: "تسمية وصفية دالة على الوظيفة البحرية للمكان كمراسي للسفن."
+      mwe: true
+  synset:
+    cultural_fit: omission
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"النقل الصوتي المباشر للاسم العلم","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تسمية وصفية دالة على الوظيفة البحرية للمكان كمراسي للسفن","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"omission"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

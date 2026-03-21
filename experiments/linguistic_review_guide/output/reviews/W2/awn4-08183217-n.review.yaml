@@ -1,0 +1,228 @@
+# Stage 1: Review + Generate
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي وصفيّ بعض الشيء، يمكن صياغته بأسلوب معجمي أكثر إحكاماً."
+    observations: "المجموعة تغطي المفهوم المؤسسي للنظام القضائي، واللمّات الموجودة أساسية وصحيحة."
+  blind_candidates:
+    - lemma: "نِظَامٌ قَضَائِيٌّ"
+      generation_method: tarkib
+      justification: "ترجمة اصطلاحية مباشرة لمفهوم الـ judicial system الوارد في التعريف."
+    - lemma: "هَيْئَةٌ قَضَائِيَّةٌ"
+      generation_method: tarkib
+      justification: "مصطلح يشير إلى المكون المؤسسي والجماعي للقضاة والمحاكم."
+    - lemma: "القَضَاء"
+      generation_method: majaz
+      justification: "استخدام المصدر للدلالة على المؤسسة التي تمارسه."
+    - lemma: "سُلْطَةٌ قَضَائِيَّةٌ"
+      generation_method: tarkib
+      justification: "المصطلح الدستوري والقانوني الرسمي للفرع القضائي."
+
+# Stage 2: Evidence Gathering
+stage2_evidence:
+  per_lemma:
+    - lemma: "قَضَاء"
+      confirm:
+        - text: "«(القَضَاء) الحكم وَالْأَدَاء وَعمل القَاضِي وَرِجَال الْقَضَاء الْهَيْئَة الَّتِي يُوكل إِلَيْهَا بحث الْخُصُومَات للفصل فِيهَا طبقًا للقوانين»"
+          source: "المعجم الوسيط"
+        - text: "«القضاء لغةً الحكم، وفي اصطلاح الفقهاء: القضاء: تسليم، مثل الواجب بالسبب. القضاء على الغير: إلزام أمر لم يكن لازمًا قبله. القضاء في الخصومة: هو إظهار ما هو ثابت.»"
+          source: "التعريفات للجرجاني"
+    - lemma: "سُلْطَةٌ قَضَائِيَّةٌ"
+      confirm:
+        - text: "«السلطة المختصة بالفصل في المنازعات القضائية بكافة أنواعها، وتتمثل عامة في مختلف الأجهزة التي تقوم بممارسة الوظيفة القضائية.»"
+          source: "المعجم الموحد لمصطلحات القانون"
+    - lemma: "نِظَامٌ قَضَائِيٌّ"
+      confirm:
+        - text: "«(2) .أ» النظام القضائي. .ب» القضاة» كترجمة لكلمة judiciary"
+          source: "المورد الحديث"
+    - lemma: "هَيْئَةٌ قَضَائِيَّةٌ"
+      confirm:
+        - text: "«أعضاء الهيئة القضائية: القضاة أو المستشارون الذين تتشكل منهم الهيئة القضائية.»"
+          source: "المعجم الموحد لمصطلحات القانون"
+
+# Stage 3: Lemma Analysis
+stage3_analysis:
+  per_lemma:
+    - lemma: "قضاء"
+      decision: confirmed
+      decision_reason: "مصطلح أصيل وشائع جداً، وموثق في المعاجم القديمة والحديثة للدلالة على مؤسسة الحكم العدلي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "قَضَاء"
+    - lemma: "سلطة قضائية"
+      decision: confirmed
+      decision_reason: "المصطلح الرسمي الدستوري في النظم القانونية العربية الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "سُلْطَةٌ قَضَائِيَّةٌ"
+    - lemma: "نظام قضائي"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير وصفي اصطلاحي ثابت في الدراسات القانونية والسياسية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "نِظَامٌ قَضَائِيٌّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-08183217-n"
+    - lemma: "هيئة قضائية"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يستخدم للإشارة إلى الجانب العضوي والمؤسسي للمنظومة القضائية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "هَيْئَةٌ قَضَائِيَّةٌ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-08183217-n"
+
+# Stage 4: Content
+stage4_content:
+  definition:
+    current: "نظام المحاكم القانونية التي تدير العدالة وتشكل الفرع القضائي للحكومة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي متأثر بالصياغة الإنجليزية؛ يفضل صياغته بأسلوب يبرز الجانب الوظيفي والمؤسسي في سياق اللغة العربية."
+    authored:
+      - type: terminological
+        text: "مجموعة المحاكم ورجال القضاء المختصين بالفصل في الخصومات وإقامة العدل، وهي أحد فروع السلطة الثلاث في الدولة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-08183217-n"
+          definition_index: 0
+          text: "مجموعة المحاكم ورجال القضاء المختصين بالفصل في الخصومات وإقامة العدل، وهي أحد فروع السلطة الثلاث في الدولة."
+  examples:
+    per_lemma:
+      - lemma: "قَضَاء"
+        examples:
+          - text: "استقل القضاء عن السلطة التنفيذية لضمان العدالة والحيادية."
+            type: usage
+      - lemma: "سُلْطَةٌ قَضَائِيَّةٌ"
+        examples:
+          - text: "تعتبر السلطة القضائية ركيزة أساسية في صون الحقوق والحريات العامة."
+            type: usage
+      - lemma: "نِظَامٌ قَضَائِيٌّ"
+        examples:
+          - text: "يهدف إصلاح النظام القضائي إلى تسريع وتيرة التقاضي وتبسيط الإجراءات."
+            type: usage
+      - lemma: "هَيْئَةٌ قَضَائِيَّةٌ"
+        examples:
+          - text: "أصدرت الهيئة القضائية حكماً نهائياً في القضية المنظورة أمامها."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "awn4-08183217-n"
+          text: "يعد استقلال القضاء عن السلطتين التشريعية والتنفيذية مبدأً دستورياً ثابتاً."
+
+# Stage 5: Enrichment
+stage5_enrichment:
+  per_entry:
+    - lemma: "قَضَاء"
+      entry_id: "{auto}"
+      root: "قضي"
+      maqayis_quote: "«الْقَافُ وَالضَّادُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِحْكَامِ أَمْرٍ وَإِتْقَانِهِ وَإِنْفَاذِهِ لِجِهَتِهِ... وَالْقَضَاءُ: الْحُكْمُ.»"
+    - lemma: "سُلْطَةٌ قَضَائِيَّةٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "سلطة"
+          root: "سلط"
+          maqayis_quote: "«السِّينُ وَاللَّامُ وَالطَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الْقُوَّةُ وَالْقَهْرُ.»"
+        - word: "قضائية"
+          root: "قضي"
+          maqayis_quote: "«الْقَافُ وَالضَّادُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِحْكَامِ أَمْرٍ وَإِتْقَانِهِ.»"
+    - lemma: "نِظَامٌ قَضَائِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "نظام"
+          root: "نظم"
+          maqayis_quote: "«النُّونُ وَالظَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَأْلِيفِ شَيْءٍ.»"
+        - word: "قضائي"
+          root: "قضي"
+          maqayis_quote: "«الْقَافُ وَالضَّادُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِحْكَامِ أَمْرٍ.»"
+    - lemma: "هَيْئَةٌ قَضَائِيَّةٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "هيئة"
+          root: "هيأ"
+          maqayis_quote: "«الْهَاءُ وَالْيَاءُ وَالْهَمْزَةُ أَصْلٌ يَدُلُّ عَلَى مَنْظَرِ الشَّيْءِ وَحَالِهِ.»"
+        - word: "قضائية"
+          root: "قضي"
+          maqayis_quote: "«الْقَافُ وَالضَّادُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِحْكَامِ أَمْرٍ.»"
+  per_sense:
+    - lemma: "قَضَاء"
+      sense_id: "{auto}"
+      nuance: "المصطلح الأكثر شمولاً وعمومية في اللغة للدلالة على المنظومة والمهنة."
+      mwe: false
+    - lemma: "سُلْطَةٌ قَضَائِيَّةٌ"
+      sense_id: "{auto}"
+      nuance: "يركز على البعد الدستوري كفرع مستقل من فروع الحكم."
+      mwe: true
+    - lemma: "نِظَامٌ قَضَائِيٌّ"
+      sense_id: "{auto}"
+      nuance: "يركز على البعد الهيكلي والإجرائي والقوانين التي تحكم العمل القضائي."
+      mwe: true
+    - lemma: "هَيْئَةٌ قَضَائِيَّةٌ"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب العضوي والمؤسسي (المحاكم والمستشارين)."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قضي","maqayis":"«الْقَافُ وَالضَّادُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِحْكَامِ أَمْرٍ وَإِتْقَانِهِ وَإِنْفَاذِهِ لِجِهَتِهِ... وَالْقَضَاءُ: الْحُكْمُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الأكثر شمولاً وعمومية في اللغة للدلالة على المنظومة والمهنة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-08183217-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-08183217-n"
+        score: 1.0

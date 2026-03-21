@@ -1,0 +1,278 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "عبارة (توقف مؤقت) هي تعبير وصفي مركب أكثر من كونها وحدة معجمية مسكوكة أصيلة، غير أنها أصبحت شائعة في الاستعمال المعاصر كترجمة لمصطلح (Pause)."
+    observations: "تتضمن المجموعة الترادفية مفهوم الانقطاع أو التوقف القصير للنشاط (Pause). اللمات الموجودة تعبر عن المعنى بشكل جيد، حيث (وقفة) تمثل مصطلحاً أصيلاً مفرداً، في حين يغلب طابع التركيب الوصفي على (توقف مؤقت)."
+  blind_candidates:
+    - lemma: "فَتْرَة"
+      generation_method: ishtiqaq
+      justification: "الفترة هي الانكسار والمدة بين زمانين يقل فيها النشاط."
+    - lemma: "اِسْتِرَاحَة"
+      generation_method: ishtiqaq
+      justification: "الاستراحة تعبر عن التوقف عن النشاط طلباً للراحة."
+    - lemma: "هُدْنَة"
+      generation_method: majaz
+      justification: "الهدنة في الأصل وقف القتال، وتستعار للتوقف المؤقت عن أي نشاط شاق."
+    - lemma: "هُجُود"
+      generation_method: majaz
+      justification: "الهجود هو النوم والسكون، ويمكن أن يستعار لعدم النشاط."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "توقف مؤقت"
+      evidence_status: "no_material_found"
+    - lemma: "وقفة"
+      confirm:
+        - text: "«لحظة توقف نشاط أو عمل، يعتبر في الآدب 'استراحة محارب'؛ بالنسبة لخطيب يتوقف خلال الخطبة لاسترجاع الأنفاس وقياس وقع كلامه على الجمهور أو لانتهاء المعنى أو المقطع.»"
+          source: "المعجم الموحد لمصطلحات اللسانيات (2002)"
+    - lemma: "فترة"
+      confirm:
+        - text: "«قطع مؤقت في النشاط كما هو بين نوبتين.»"
+          source: "معجم المصطلحات الطبية (ج.3، 1997)"
+      expands:
+        - text: "«الضعف والانكسار والمدة تقع بين زمنين أو نبيين... وفترة الحمى زمن سكونها بين نوبتين»"
+          source: "المعجم الوسيط لمجموعة من المؤلفين"
+    - lemma: "استراحة"
+      confirm:
+        - text: "«فترة استراحة وانتعاش كائن بيولوجي بعد مجهود بدني و/أو عقلي.»"
+          source: "مسرد المناخ والبيئة وإدارة النفايات الصلبة"
+        - text: "«الْانْقِطاعُ عن العَمَلِ أو نَحْوِه فتْرةً ما طلًبا للرَّاحَةِ الفَتْرَةُ أو المدَّةُ التِي يُسْتَرَاحُ فيها.»"
+          source: "المعجم الكبير"
+    - lemma: "هدنة"
+      contradicts:
+        - text: "«المصالحة بعد الحرب أو فترة تعقب الحرب يتهيأ فيها العدوان للصلح ولها شروط خاصة»"
+          source: "المعجم الوسيط لمجموعة من المؤلفين"
+          conflict: "المصطلح مقصور في الأصل على إيقاف النزاع والحروب."
+    - lemma: "هجود"
+      contradicts:
+        - text: "«الهجود: النوم. والهاجد: النائم.»"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+          conflict: "الكلمة تدل على النوم تحديداً وليس مجرد توقف النشاط."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "توقف مؤقت"
+      decision: confirmed
+      decision_reason: "على الرغم من كونه مركباً وصفياً، فإنه قد تبلور ليصبح مقابلاً دقيقاً وشائعاً لمفهوم الانقطاع المؤقت في السياقات المعاصرة (Pause)."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَوَقُّف مُؤَقَّت"
+    - lemma: "وقفة"
+      decision: confirmed
+      decision_reason: "مصطلح مفرد فصيح يعبر بدقة عن الانقطاع المؤقت لالتقاط الأنفاس أو الاستراحة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "وَقْفَة"
+    - lemma: "فَتْرَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح معجمي فصيح يدل على السكون والانقطاع بين حدثين متتابعين أو فترات النشاط."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "فَتْرَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "اِسْتِرَاحَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تدل الاستراحة تحديداً على الانقطاع المؤقت عن العمل أو النشاط بهدف الراحة، وهي دلالة متصلة اتصالاً وثيقاً بالمجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "اِسْتِرَاحَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "هُدْنَة"
+      source: stage1
+      decision: removed
+      decision_reason: "تختص الهدنة بالسياق الحربي أو التنازعي، ولا تناسب الاستخدام العام لانقطاع النشاط."
+    - lemma: "هُجُود"
+      source: stage1
+      decision: removed
+      decision_reason: "الكلمة تعني النوم والسكون التام ولا تصلح كمرادف للتوقف المؤقت عن النشاط العام."
+
+stage4_content:
+  definition:
+    current: "عدم نشاط مؤقت"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي عبارة عن ترجمة حرفية ركيكة، ويفتقر إلى الصياغة المعجمية السليمة."
+    authored:
+      - type: terminological
+        text: "حالة انقطاع أو توقف قصير عن العمل أو النشاط لفترة زمنية محددة يعقبها استئناف له."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "حالة انقطاع أو توقف قصير عن العمل أو النشاط لفترة زمنية محددة يعقبها استئناف له."
+  examples:
+    per_lemma:
+      - lemma: "تَوَقُّف مُؤَقَّت"
+        examples:
+          - text: "شهد المشروع توقفاً مؤقتاً بسبب نقص الموارد قبل أن يستأنف العمل من جديد."
+            type: usage
+      - lemma: "وَقْفَة"
+        examples:
+          - text: "أخذ المتحدث وقفة قصيرة في خطابه ليلتقط أنفاسه."
+            type: usage
+      - lemma: "فَتْرَة"
+        examples:
+          - text: "عاش المريض فترة سكون بين نوبتي الألم."
+            type: usage
+      - lemma: "اِسْتِرَاحَة"
+        examples:
+          - text: "خرج الموظفون لأخذ استراحة الظهيرة قبل إكمال مهامهم."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "شهد المشروع توقفاً مؤقتاً بسبب نقص الموارد قبل أن يستأنف العمل من جديد."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "أخذ المتحدث وقفة قصيرة في خطابه ليلتقط أنفاسه."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "عاش المريض فترة سكون بين نوبتي الألم."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "خرج الموظفون لأخذ استراحة الظهيرة قبل إكمال مهامهم."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تَوَقُّف مُؤَقَّت"
+      entry_id: "{auto}"
+      roots:
+        - word: "توقف"
+          root: "وقف"
+          maqayis_quote: "«الْوَاوُ وَالْقَافُ وَالْفَاءُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَمَكُّثٍ فِي شَيْءٍ ثُمَّ يُقَاسُ عَلَيْهِ.»"
+        - word: "مؤقت"
+          root: "وقت"
+          maqayis_quote: "«الْوَاوُ وَالْقَافُ وَالتَّاءُ: أَصْلٌ يَدُلُّ عَلَى حَدِّ شَيْءٍ وَكُنْهِهِ فِي زَمَانٍ وَغَيْرِهِ.»"
+    - lemma: "وَقْفَة"
+      entry_id: "{auto}"
+      root: "وقف"
+      maqayis_quote: "«الْوَاوُ وَالْقَافُ وَالْفَاءُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَمَكُّثٍ فِي شَيْءٍ ثُمَّ يُقَاسُ عَلَيْهِ.»"
+    - lemma: "فَتْرَة"
+      entry_id: "{auto}"
+      root: "فتر"
+      maqayis_quote: "«الْفَاءُ وَالتَّاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى ضَعْفٍ فِي الشَّيْءِ.»"
+    - lemma: "اِسْتِرَاحَة"
+      entry_id: "{auto}"
+      root: "روح"
+      maqayis_quote: "«الرَّاءُ وَالْوَاوُ وَالْحَاءُ أَصْلٌ كَبِيرٌ مُطَّرِدٌ، يَدُلُّ عَلَى سَعَةٍ وَفُسْحَةٍ وَاطِّرَادٍ.»"
+  per_sense:
+    - lemma: "تَوَقُّف مُؤَقَّت"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي صريح يشير إلى التوقف الذي يُتوقع استئنافه لاحقاً، ويشيع في السياقات التقنية والمهنية."
+      mwe: true
+    - lemma: "وَقْفَة"
+      sense_id: "{auto}"
+      nuance: "توقف قصير ومؤقت عن الحديث أو المشي أو النشاط لغرض التقاط الأنفاس أو التفكير."
+      mwe: false
+    - lemma: "فَتْرَة"
+      sense_id: "{auto}"
+      nuance: "تشير إلى مدة زمنية يتخللها سكون وانقطاع للحدة بين نشاطين متصلين."
+      mwe: false
+    - lemma: "اِسْتِرَاحَة"
+      sense_id: "{auto}"
+      nuance: "توقف مؤقت يرتبط دلالياً بغرض التنفيس وطلب الراحة واستعادة النشاط المفقود."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"توقف","root":"وقف","maqayis":"«الْوَاوُ وَالْقَافُ وَالْفَاءُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَمَكُّثٍ فِي شَيْءٍ ثُمَّ يُقَاسُ عَلَيْهِ.»"},{"word":"مؤقت","root":"وقت","maqayis":"«الْوَاوُ وَالْقَافُ وَالتَّاءُ: أَصْلٌ يَدُلُّ عَلَى حَدِّ شَيْءٍ وَكُنْهِهِ فِي زَمَانٍ وَغَيْرِهِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"وقف","maqayis":"«الْوَاوُ وَالْقَافُ وَالْفَاءُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَمَكُّثٍ فِي شَيْءٍ ثُمَّ يُقَاسُ عَلَيْهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"فتر","maqayis":"«الْفَاءُ وَالتَّاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى ضَعْفٍ فِي الشَّيْءِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"روح","maqayis":"«الرَّاءُ وَالْوَاوُ وَالْحَاءُ أَصْلٌ كَبِيرٌ مُطَّرِدٌ، يَدُلُّ عَلَى سَعَةٍ وَفُسْحَةٍ وَاطِّرَادٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير وصفي صريح يشير إلى التوقف الذي يُتوقع استئنافه لاحقاً، ويشيع في السياقات التقنية والمهنية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"توقف قصير ومؤقت عن الحديث أو المشي أو النشاط لغرض التقاط الأنفاس أو التفكير.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تشير إلى مدة زمنية يتخللها سكون وانقطاع للحدة بين نشاطين متصلين.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"توقف مؤقت يرتبط دلالياً بغرض التنفيس وطلب الراحة واستعادة النشاط المفقود.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

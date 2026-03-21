@@ -1,0 +1,226 @@
+# Stage 1: Review + Generate (no evidence)
+stage1_review:
+  assessment:
+    concerns:
+      - "استخدام كلمة 'شكل' في التعريف العربي لتعريف 'الشكل' (دوران)."
+      - "التعريف الحالي ركيك لغوياً باستخدام كلمة 'مزيج'."
+      - "اللمّة الوحيدة الموجودة 'شكل' عامة جداً وتحتاج لمرادفات أكثر دقة هندسياً."
+    observations: "المجموعة تتعلق بالمفهوم الهندسي للشكل (figure) المكون من نقاط وخطوط ومستويات، وهو ما يتطلب مصطلحات تجمع بين التجريد الرياضي والتحقق الحسي."
+  blind_candidates:
+    - lemma: "هَيْئَة"
+      generation_method: majaz
+      justification: "الهيئة هي حال الشيء وكيفيته، وتستخدم في المعاجم الاصطلاحية كمرادف للشكل الهندسي."
+    - lemma: "مُجَسَّم"
+      generation_method: ishtiqaq
+      justification: "من 'جسم'، ويناسب الأشكال ذات الأبعاد الثلاثة التي توصف بأنها ملموسة ومرئية."
+    - lemma: "تَكْوِين"
+      generation_method: majaz
+      justification: "يشير إلى البنية الناتجة عن تجميع العناصر (نقاط وخطوط)، ويشيع في السياق الفني."
+    - lemma: "شَكْل هَنْدَسِيّ"
+      generation_method: tarkib
+      justification: "المصطلح التقني الدقيق الذي يصف عناصر المجموعة (نقاط، خطوط، مستويات)."
+
+# Stage 2: Evidence Gathering
+stage2_evidence:
+  per_lemma:
+    - lemma: "شَكْل"
+      confirm:
+        - text: "«الشكل: هيئة حاصلة للجسم بسبب إحاطة حد واحد بالمقدار كما في الكرة، أو حدود كما في المضلعات...»"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+        - text: "«الشكْلُ: مَا يُحِيط بِهِ حد أَو حُدُود.»"
+          source: "معجم مقاليد العلوم للسيوطي"
+        - text: "«صُورةُ الشيءِ المَحْسوسَةُ والمُتَوَهَّمَةُ.»"
+          source: "القاموس المحيط للفيروزآبادي"
+    - lemma: "هَيْئَة"
+      confirm:
+        - text: "«الهيئة أو الشكل العام لقطعة من الملابس.»"
+          source: "مسرد صناعة النسيج (ArabTerm)"
+        - text: "«الشكل والمظهر العام وطراز النمو»"
+          source: "المعجم الموحد لمصطلحات علم الأحياء"
+      expands:
+        - text: "«الهيئة: حال الشيء وكيفيته.»"
+          source: "المعجم الوسيط"
+          addition: "تؤكد استخدام الهيئة للدلالة على الصفة الخارجية للشكل."
+    - lemma: "مُجَسَّم"
+      confirm:
+        - text: "«مالَهُ طُولٌ وعَرْضُ وسُمْكُ»"
+          source: "المعجم الكبير"
+        - text: "«المجسمات المستعملة لإنجاز التخطيط الأولي...»"
+          source: "مسرد صناعة النسيج (ArabTerm)"
+    - lemma: "شَكْل هَنْدَسِيّ"
+      confirm:
+        - text: "«شكل هندسي: geometrical figure»"
+          source: "المعجم الموحد لمصطلحات الرياضيات والفلك"
+
+# Stage 3: Lemma Linguistic Analysis
+stage3_analysis:
+  per_lemma:
+    - lemma: "شَكْل"
+      decision: confirmed
+      decision_reason: "اللمّة الأصلية والأكثر شيوعاً، وتتطابق مع التعريفات المعجمية الاصطلاحية الدقيقة للمفهوم الهندسي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "شَكْل"
+    - lemma: "هَيْئَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف قوي للشكل، وتستخدم في التعريفات الفلسفية والهندسية لوصف الحالة الخارجية للجسم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "هَيْئَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُجَسَّم"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يغطي الجانب الملموس (ثلاثي الأبعاد) المذكور في التعريف، وهو مصطلح مستقر هندسياً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُجَسَّم", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "شَكْل هَنْدَسِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح العلمي الدقيق والخاص بتركيب النقاط والخطوط والمستويات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "شَكْل هَنْدَسِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَكْوِين"
+      source: stage1
+      decision: removed
+      decision_reason: "المصطلح يميل للمعنى الفلسفي (الخلق) أو الفني، ولا يرتقي لمستوى المصطلح الهندسي المجرد في المعاجم التقليدية."
+
+# Stage 4: Definitions & Examples
+stage4_content:
+  definition:
+    current: "مزيج من النقاط والخطوط والمستويات التي تشكل شكلاً مرئياً وملموساً"
+    assessment:
+      decision: revise
+      reason: "تجنب الدوران وتحسين الصياغة بأسلوب المعجم الوسيط."
+    authored:
+      - type: terminological
+        text: "الهيئةُ الحاصلةُ للجسمِ أو السطحِ من إحاطةِ حَدٍّ واحدٍ أو حُدودٍ مستويةٍ به."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+      - type: linguistic
+        text: "صورةُ الشيءِ المحدودةُ التي تدركُها الحواسُّ، والناتجةُ عن ترتيبِ مكوّناتِهِ المكانيةِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "الهيئةُ الحاصلةُ للجسمِ أو السطحِ من إحاطةِ حَدٍّ واحدٍ أو حُدودٍ مستويةٍ به."}
+  examples:
+    per_lemma:
+      - lemma: "شَكْل"
+        examples:
+          - text: "يتميّزُ الشَّكْلُ السُّداسيُّ بانتظامِ أضلاعِهِ وزواياه."
+            type: usage
+      - lemma: "هَيْئَة"
+        examples:
+          - text: "تغيَّرَتْ هَيْئَةُ الجسمِ بعدَ تعرُّضِهِ لضغطٍ هائلٍ."
+            type: usage
+      - lemma: "مُجَسَّم"
+        examples:
+          - text: "صمَّمَ المهندسُ مُجَسَّماً دقيقاً للمبنى الجديدِ."
+            type: usage
+      - lemma: "شَكْل هَنْدَسِيّ"
+        examples:
+          - text: "المثلثُ هو أبسطُ شَكْلٍ هَنْدَسِيّ مُغلقٍ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يتميّزُ الشَّكْلُ السُّداسيُّ بانتظامِ أضلاعِهِ وزواياه."}
+
+# Stage 5: Enrichment (Metadata)
+stage5_enrichment:
+  per_entry:
+    - lemma: "شَكْل"
+      entry_id: "{auto}"
+      root: "شكل"
+      maqayis_quote: "«الشِّينُ وَالْكَافُ وَاللَّامُ مُعْظَمُ بَابِهِ الْمُمَاثَلَةُ. تَقُولُ: هَذَا شَِكْلُ هَذَا، أَيْ مِثْلُهُ.»"
+    - lemma: "هَيْئَة"
+      entry_id: "{auto}"
+      root: "هيأ"
+      maqayis_quote: "«الْهَاءُ وَالْيَاءُ وَالْأَلِفُ كَلِمَةٌ تَأْتِي وَهَاؤُهَا زَائِدَةٌ. يُقَالُ: هَيَا، وَالْمُرَادُ: يَا.»"
+    - lemma: "مُجَسَّم"
+      entry_id: "{auto}"
+      root: "جسم"
+      maqayis_quote: "«الْجِيمُ وَالسِّينُ وَالْمِيمُ يَدُلُّ عَلَى تَجَمُّعِ الشَّيْءِ. فَالْجِسْمُ كُلُّ شَخْصٍ مُدْرِكٍ.»"
+    - lemma: "شَكْل هَنْدَسِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "شكل"
+          root: "شكل"
+          maqayis_quote: "«الشِّينُ وَالْكَافُ وَاللَّامُ مُعْظَمُ بَابِهِ الْمُمَاثَلَةُ.»"
+        - word: "هندسي"
+          root: "هندس"
+          maqayis_quote: "«كلمة معربة من الفارسية (هنداز) وتعني تقدير المقادير، ولم ترد في مقاييس اللغة كأصل.»"
+  per_sense:
+    - lemma: "شَكْل"
+      sense_id: "{auto}"
+      nuance: "اللفظ الأعم والأكثر تجريداً لوصف الحدود المحيطة بالشيء."
+      mwe: false
+    - lemma: "هَيْئَة"
+      sense_id: "{auto}"
+      nuance: "تركز على المظهر الخارجي والكيفية التي يبدو عليها الشكل."
+      mwe: false
+    - lemma: "مُجَسَّم"
+      sense_id: "{auto}"
+      nuance: "تختص بالأشكال ثلاثية الأبعاد ذات الجسم الملموس."
+      mwe: false
+    - lemma: "شَكْل هَنْدَسِيّ"
+      sense_id: "{auto}"
+      nuance: "المصطلح العلمي الدقيق الذي يصف العلاقات الرياضية بين النقاط والخطوط."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"شكل","maqayis":"«الشِّينُ وَالْكَافُ وَاللَّامُ مُعْظَمُ بَابِهِ الْمُمَاثَلَةُ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ الأعم والأكثر تجريداً لوصف الحدود المحيطة بالشيء.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

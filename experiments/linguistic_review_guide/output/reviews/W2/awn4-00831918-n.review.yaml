@@ -1,0 +1,187 @@
+# ── المرحلة ١: المراجعة والتوليد (بدون أدلة) ──────────────
+stage1_review:
+  assessment:
+    concerns:
+      - "خلو اللمات الموجودة من التشكيل الكامل."
+    observations: "المفهوم واضح ويعبر عن 'اللبس' كفعل ونشاط إنساني. اللمات المقترحة تغطي الجوانب المختلفة للتعريف (الغطاء والزينة)."
+  blind_candidates:
+    - lemma: "ارْتِدَاء"
+      generation_method: ishtiqaq
+      justification: "المصدر القياسي من الفعل ارتدى (افتعل)، وهو الأكثر شيوعاً للتعبير عن فعل لبس الثياب."
+    - lemma: "لُبْس"
+      generation_method: ishtiqaq
+      justification: "المصدر الأصلي للفعل لَبِسَ، ويعبر عن أصل الفعل."
+    - lemma: "اكْتِسَاء"
+      generation_method: ishtiqaq
+      justification: "يعبر عن فعل وضع الكساء على الجسم، ويتسق مع 'الغطاء' المذكور في التعريف."
+    - lemma: "تَزَيُّن"
+      generation_method: ishtiqaq
+      justification: "يعبر عن جانب 'الزينة' المذكور في التعريف، وإن كان أوسع من مجرد لبس الحلي."
+
+# ── المرحلة ٢: جمع الأدلة ────────────────────────────────
+stage2_evidence:
+  per_lemma:
+    - lemma: "لُبْس"
+      confirm:
+        - text: "«اللُبْسُ بالضم: مصدر قولك لبست الثوب ألبس.»"
+          source: "الصحاح في اللغة"
+        - text: "«اللُّبْسُ، بالضم: مصدر قولك لَبِسْتُ الثوبَ أَلْبَس.»"
+          source: "لسان العرب"
+        - text: "«اللّبس... وفي اللغة الفارسية جامه پوشيدن أي ارتداء الثياب.»"
+          source: "كشاف اصطلاحات الفنون"
+    - lemma: "ارْتِدَاء"
+      confirm:
+        - text: "«وقد تَرَدّى به وارْتَدَى بمعنًى أي لبِسَ الرِّداءَ. وإنه لحَسَنُ الرِّدْيَةِ أَي الارْتِداء.»"
+          source: "لسان العرب"
+        - text: "«ارْتَدَى فُلانٌ: لَبِسَ الرِّداءَ... وفلانٌ الرِّداءَ، وبه: لَبِسَهُ.»"
+          source: "المعجم الكبير"
+    - lemma: "اكْتِسَاء"
+      confirm:
+        - text: "«اكْتَسَى: لَبِسَ الثياب. يقال: اكتسى فلانٌ، واكتسى بالثوب.»"
+          source: "المعجم الوسيط"
+    - lemma: "تَزَيُّن"
+      expands:
+        - text: "«تزيَّن: ازدان»"
+          source: "المعجم الوسيط"
+        - text: "«تَزَيُّن من (ز ي ن) التَّحَسُّن والتَّجَمُّل.»"
+          source: "موسوعة السلطان قابوس"
+
+# ── المرحلة ٣: التحليل اللغوي للّمات ────────────────────
+stage3_analysis:
+  per_lemma:
+    - lemma: "لبس"
+      decision: confirmed
+      decision_reason: "المصدر الأساسي للفعل الثلاثي 'لبس' المعبر عن هذا المعنى."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "لُبْس"
+    - lemma: "ارتداء"
+      decision: confirmed
+      decision_reason: "لفظ فصيح وشائع جداً في الاستعمال المعاصر والقديم للتعبير عن لبس الملابس والحلي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "ارْتِدَاء"
+    - lemma: "اكْتِسَاء"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصدر فصيح يعبر عن تغطية الجسم بالثياب، وهو مرادف قوي في السياقات الأدبية والفصيحة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "اكْتِسَاء", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-00831918-n"}
+
+# ── المرحلة ٤: التعريف والأمثلة ──────────────────────────
+stage4_content:
+  definition:
+    current: "فعل وضع شيء على الجسم كغطاء أو زينة"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق وموجز ويغطي الجانبين الوظيفي (غطاء) والجمالي (زينة)."
+    authored:
+      - type: linguistic
+        text: "فعل يفعله الإنسان بوضع قطعة من الثياب أو الحلي على بدنه بهدف الستر أو التجمل."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "لُبْس"
+        examples:
+          - text: "يُفَضِّلُ الرَّجُلُ لُبْسَ الثِّيَابِ القُطْنِيَّةِ فِي الصَّيْفِ لِتَخْفِيفِ الحَرَارَةِ."
+            type: usage
+      - lemma: "ارْتِدَاء"
+        examples:
+          - text: "أَصْبَحَ ارْتِدَاءُ الكِمَامَاتِ إلْزَامِيًّا فِي جَمِيعِ المَرَافِقِ الصِّحِّيَّةِ."
+            type: usage
+      - lemma: "اكْتِسَاء"
+        examples:
+          - text: "مَا أَجْمَلَ اكْتِسَاءَ الفَتَاةِ بِثِيَابِ الحَيَاءِ وَالعِفَّةِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-00831918-n", text: "عَلَيْكَ بِارْتِدَاءِ مَلَابِسَ ثَقِيلَةٍ لِتَقِيَ نَفْسَكَ بَرْدَ الشِّتَاءِ."}
+
+# ── المرحلة ٥: الإثراء (البيانات الوصفية) ─────────────────
+stage5_enrichment:
+  per_entry:
+    - lemma: "لُبْس"
+      entry_id: "{auto}"
+      root: "لبس"
+      maqayis_quote: "«اللَّامُ وَالْبَاءُ وَالسِّينُ أَصْلٌ صَحِيحٌ وَاحِدٌ، يَدُلُّ عَلَى مُخَالَطَةٍ وَمُدَاخَلَةٍ. مِنْ ذَلِكَ لَبِسْتُ الثَّوْبَ أَلْبَسُهُ، وَهُوَ الْأَصْلُ، وَمِنْهُ تَتَفَرَّعُ الْفُرُوعُ.»"
+    - lemma: "ارْتِدَاء"
+      entry_id: "{auto}"
+      root: "ردي"
+      maqayis_quote: "«الرَّاءُ وَالدَّالُ وَالْيَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى رَمْيٍ أَوْ تَرَامٍ وَمَا أَشْبَهَ ذَلِكَ... وَمِمَّا شَذَّ عَنِ الْبَابِ الرِّدَاءُ الَّذِي يُلْبَسُ، مَا أَدْرِي مِمَّ اشْتِقَاقُهُ.»"
+    - lemma: "اكْتِسَاء"
+      entry_id: "{auto}"
+      root: "كسو"
+      maqayis_quote: "«الْكَافُ وَالسِّينُ وَالْحَرْفُ الْمُعْتَلُّ... أَمَّا مَا لَيْسَ بِمَهْمُوزٍ فَمِنْهُ الْكُسْوَةُ وَالْكِسَاءُ مَعْرُوفٌ.»"
+  per_sense:
+    - lemma: "لُبْس"
+      sense_id: "{auto}"
+      nuance: "المصدر العام والأصلي لفعل وضع الثياب على البدن."
+      mwe: false
+    - lemma: "ارْتِدَاء"
+      sense_id: "{auto}"
+      nuance: "يرتبط غالباً بالملابس التي تغطي الجزء العلوي أو التي تلف حول الجسم (كالمشلح والعباءة)، وشاع استخدامه لكل أنواع اللبس."
+      mwe: false
+    - lemma: "اكْتِسَاء"
+      sense_id: "{auto}"
+      nuance: "يركز على معنى التغطية الكاملة (الكسوة)، وغالباً ما يرتبط بالملابس الكاملة أو الهبات."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"لبس","maqayis":"«اللَّامُ وَالْبَاءُ وَالسِّينُ أَصْلٌ صَحِيحٌ وَاحِدٌ، يَدُلُّ عَلَى مُخَالَطَةٍ وَمُدَاخَلَةٍ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ردي","maqayis":"«الرَّاءُ وَالدَّالُ وَالْيَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى رَمْيٍ أَوْ تَرَامٍ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"كسو","maqayis":"«الْكَافُ وَالسِّينُ وَالْحَرْفُ الْمُعْتَلُّ... فَمِنْهُ الْكُسْوَةُ وَالْكِسَاءُ مَعْرُوفٌ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصدر العام والأصلي لفعل وضع الثياب على البدن.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-00831918-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-00831918-n"
+        score: 0.95

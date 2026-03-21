@@ -1,0 +1,184 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "غياب التشكيل عن اللمّات الموجودة."
+      - "إدراج كلمة (بنغال) للدلالة على المجموعة العرقية، والأصح أنها تُشير إلى الإقليم الجغرافي، بينما تدل النسبة (بنغالي) وجمعها (بنغاليون) على الأفراد."
+      - "غياب صيغة المفرد المنسوب (بنغالي) التي تقابل المفردة الإنجليزية مباشرة."
+    observations: "المفهوم يُشير إلى إثنية البنغال، ويُعبّر عنه في العربية باستخدام ياء النسبة إلى اسم الإقليم (البنغال) ليدل على الفرد (بنغالي)، وبجمع المذكر السالم (بنغاليون) ليدل على الجماعة."
+  blind_candidates:
+    - lemma: "بَنْغَالِيّ"
+      generation_method: taarib
+      justification: "صيغة النسبة الدالة على الفرد من إقليم البنغال، وهي معربة ومستخدمة بكثرة."
+    - lemma: "بَنْغَالِيُّون"
+      generation_method: ishtiqaq
+      justification: "جمع المذكر السالم لصيغة النسبة، للدلالة على المجموعة العرقية بأكملها."
+    - lemma: "شَعْبُ البَنْغَال"
+      generation_method: tarkib
+      justification: "تركيب إضافي يوضح الدلالة العرقية صراحة."
+    - lemma: "قَوْمِيَّةٌ بَنْغَالِيَّة"
+      generation_method: tarkib
+      justification: "تركيب وصفي يُستخدم في السياقات السوسيولوجية والسياسية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "بنغال"
+      contradicts:
+        - text: "إقليمٌ شمال شرق الهند , وشرق باكستان على خليج البنغال , يضمّ فى الشمال غابات الهملايا , وفى الجنوب أحراج سندريان , وفى سنة ١٩٤٧ م قُسّم إلى مقاطعتين بين الهند وباكستان"
+          source: "المعجم الكبير"
+          conflict: "تُشير الكلمة إلى الإقليم الجغرافي وليس إلى المجموعة العرقية ذاتها."
+    - lemma: "بنغاليون"
+      confirm:
+        - text: "(3) البنغاليون."
+          source: "المورد الحديث"
+    - lemma: "بَنْغَالِيّ"
+      confirm:
+        - text: "(1) البنغاليّ: أحد أبناء البنغال"
+          source: "المورد الحديث"
+    - lemma: "شَعْبُ البَنْغَال"
+      evidence_status: "no_material_found"
+    - lemma: "قَوْمِيَّةٌ بَنْغَالِيَّة"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "بنغال"
+      decision: removed
+      decision_reason: "الكلمة تدلّ على المكان أو الإقليم الجغرافي (Bengal)، ولا تُطلق مجردةً على أفراد المجموعة العرقية، والأصح استخدام صيغة النسبة وجمعها."
+      evidence_assessment:
+        case: contradicts_only
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "بنغاليون"
+      decision: confirmed
+      decision_reason: "جمع لصيغة النسبة (بنغالي)، وهو المصطلح الأدق للدلالة على هذه المجموعة العرقية مجتمعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "بَنْغَالِيُّون"
+    - lemma: "بَنْغَالِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صيغة النسبة المعبرة عن الفرد الواحد من الإثنية، وهي المقابل المباشر للمفردة الإنجليزية (Bengali)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "بَنْغَالِيّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "شَعْبُ البَنْغَال"
+      source: stage1
+      decision: removed
+      decision_reason: "تركيب حرّ وشرحي، ولا يعد مصطلحاً معجمياً."
+    - lemma: "قَوْمِيَّةٌ بَنْغَالِيَّة"
+      source: stage1
+      decision: removed
+      decision_reason: "تركيب وصفي."
+
+stage4_content:
+  definition:
+    current: "مجموعة عرقية تتحدث البنغالية وتعيش في بنغلاديش وشرق الهند"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد ولكنه يفتقر إلى الدقة المعجمية؛ فالبنغال ليسوا مجرد مجموعة عرقية تعيش هناك، بل هم شعب هندوآري أصيل في المنطقة."
+    authored:
+      - type: terminological
+        text: "مجموعة عرقية من الشعوب الهندوآرية، تستوطن تاريخياً منطقة البنغال في جنوب آسيا، وتتحدث اللغة البنغالية."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "مجموعة عرقية من الشعوب الهندوآرية، تستوطن تاريخياً منطقة البنغال في جنوب آسيا، وتتحدث اللغة البنغالية."
+  examples:
+    per_lemma:
+      - lemma: "بنغاليون"
+        examples:
+          - text: "يُشكّل البَنْغَالِيُّون الأغلبية الساحقة من سكان بنغلاديش."
+            type: usage
+      - lemma: "بَنْغَالِيّ"
+        examples:
+          - text: "التقيتُ برجلٍ بَنْغَالِيّ يتحدث العربية بطلاقة."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يُشكّل البَنْغَالِيُّون الأغلبية الساحقة من سكان بنغلاديش."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "التقيتُ برجلٍ بَنْغَالِيّ يتحدث العربية بطلاقة."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "بنغاليون"
+      entry_id: "{auto}"
+      root: "بنغل"
+    - lemma: "بَنْغَالِيّ"
+      entry_id: "{auto}"
+      root: "بنغل"
+  per_sense:
+    - lemma: "بنغاليون"
+      sense_id: "{auto}"
+      nuance: "صيغة الجمع، تُستخدم للإشارة إلى المجموعة العرقية ككل أو لجماعة من الأفراد."
+      mwe: false
+    - lemma: "بَنْغَالِيّ"
+      sense_id: "{auto}"
+      nuance: "صيغة المفرد المنسوب، تدل على الفرد الواحد من هذه الإثنية."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"بنغل"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"بنغل"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"صيغة الجمع، تُستخدم للإشارة إلى المجموعة العرقية ككل أو لجماعة من الأفراد.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"صيغة المفرد المنسوب، تدل على الفرد الواحد من هذه الإثنية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,157 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف ترجمة حرفية لأسلوب (a member of)، ويحتاج لإعادة صياغة ليكون أكثر طبيعية."
+      - "اللمة الموجودة تفتقر للتشكيل، ولا توجد تغطية للمرادفات الشائعة مثل صيغة النسبة."
+    observations: "المفهوم يشير إلى الانتماء العرقي لشعب الإيغبو في نيجيريا. تستخدم الألفاظ المعربة عن الأصل الإنجليزي أو المحلي للدلالة على العرقية وعلى الفرد منها."
+  blind_candidates:
+    - lemma: "إِيغْبُو"
+      generation_method: taarib
+      justification: "التعريب الصوتي الشائع للاسم الأصلي (Igbo)."
+    - lemma: "إِيبُو"
+      generation_method: taarib
+      justification: "التعريب الشائع للاسم البديل (Ibo)."
+    - lemma: "إِيغْبُووِيّ"
+      generation_method: ishtiqaq
+      justification: "اسم منسوب إلى العرقية للدلالة على الفرد منها."
+    - lemma: "فَرْدٌ إِيغْبُووِيّ"
+      generation_method: tarkib
+      justification: "تركيب وصفي يحدد الانتماء للعرقية (توليد استكشافي)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "إِيغْبُو"
+      evidence_status: "no_material_found"
+    - lemma: "إِيبُو"
+      evidence_status: "no_material_found"
+    - lemma: "إِيغْبُووِيّ"
+      evidence_status: "no_material_found"
+    - lemma: "فَرْدٌ إِيغْبُووِيّ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "إِيغْبُو"
+      decision: confirmed
+      decision_reason: "اللفظ المعرب الشائع والمستقر لاسم هذه العرقية، ويستخدم للدلالة على الفرد المنتمي إليها."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "إِيغْبُو"
+    - lemma: "إِيبُو"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعريب بديل ومشهور للفظ (Ibo) وهو لنفس العرقية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "إِيبُو", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "إِيغْبُووِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اسم منسوب إلى (إيغبو)، وهو صيغة عربية قياسية للدلالة على انتماء الفرد إلى هذه العرقية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "إِيغْبُووِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "فَرْدٌ إِيغْبُووِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "تركيب وصفي حر وليس وحدة معجمية مسكوكة."
+      evidence_assessment:
+        case: no_material
+
+stage4_content:
+  definition:
+    current: "عضو في أكبر مجموعة عرقية في جنوب شرق نيجيريا"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ترجمة حرفية من الإنجليزية. صيغ بأسلوب موسوعي طبيعي بالعربية يوضح الانتماء العرقي."
+    authored:
+      - type: encyclopedic
+        text: "أحد أفراد شعب الإيغبو، وهم كبرى المجموعات العرقية في جنوب شرق نيجيريا."
+  examples:
+    per_lemma:
+      - lemma: "إِيغْبُو"
+        examples:
+          - text: "تحدثت إلى باحث من الإيغبو حول تقاليدهم الثقافية القديمة."
+            type: usage
+      - lemma: "إِيبُو"
+        examples:
+          - text: "يعيش العديد من أفراد الإيبو في مناطق جنوب شرق نيجيريا."
+            type: usage
+      - lemma: "إِيغْبُووِيّ"
+        examples:
+          - text: "كان الكاتب النيجيري الشهير تشينوا أتشيبي إيغبووياً."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "أحد أفراد شعب الإيغبو، وهم كبرى المجموعات العرقية في جنوب شرق نيجيريا."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تحدثت إلى باحث من الإيغبو حول تقاليدهم الثقافية القديمة."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يعيش العديد من أفراد الإيبو في مناطق جنوب شرق نيجيريا."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "كان الكاتب النيجيري الشهير تشينوا أتشيبي إيغبووياً."}
+
+stage5_enrichment:
+  per_sense:
+    - lemma: "إِيغْبُو"
+      sense_id: "{auto}"
+      nuance: "الاسم الأصلي المعرب للعرقية، يُطلق على الفرد والمجموعة."
+      mwe: false
+    - lemma: "إِيبُو"
+      sense_id: "{auto}"
+      nuance: "صيغة تعريبية بديلة مستمدة من اللفظ الإنجليزي (Ibo)."
+      mwe: false
+    - lemma: "إِيغْبُووِيّ"
+      sense_id: "{auto}"
+      nuance: "صيغة النسبة القياسية للدلالة صراحة على فرد واحد من العرقية."
+      mwe: false
+  synset:
+    cultural_fit: omission
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الأصلي المعرب للعرقية، يُطلق على الفرد والمجموعة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"صيغة تعريبية بديلة مستمدة من اللفظ الإنجليزي (Ibo).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"صيغة النسبة القياسية للدلالة صراحة على فرد واحد من العرقية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"omission"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

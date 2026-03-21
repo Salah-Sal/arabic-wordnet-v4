@@ -1,0 +1,197 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة «أبوريجينال» هي تعريب خام (transliteration) للصفة الإنجليزية Aboriginal، بينما يفضل في العربية استخدام ياء النسبة للأسماء المعربة (أبوريجيني) أو المصطلح الوصفي."
+      - "اللمة «أسترالي أصلي» صحيحة دلالياً لكنها تحتاج إلى ضبط بالشكل الكامل."
+    observations: "المفهوم يشير إلى السكان الأصليين لأستراليا (الأبوريجين). المصطلح «أصلي» مستخدم بكثرة في المعاجم الحديثة والمصطلحات التقنية للإشارة إليهم، كما يوجد خيار لغوي تراثي (أرومي) يشير إلى الأصل والمحتد، استُخدم في معاجم الترجمة الحديثة."
+  blind_candidates:
+    - lemma: "أُسْتُرَالِيّ أَصْلِيّ"
+      generation_method: tarkib
+      justification: "تركيب وصفي مباشر للمفهوم، وهو الأكثر شيوعاً في التقارير والكتب الجغرافية."
+    - lemma: "أَبُورِيجِينِيّ"
+      generation_method: taarib
+      justification: "تعريب للمصطلح العالمي Aborigine مع إضافة ياء النسبة العربية لجعله اسماً للفرد."
+    - lemma: "أَرُومِيّ"
+      generation_method: majaz
+      justification: "إحياء دلالي للفظ «أرومة» (بمعنى الأصل والمحتد)، استخدمه معجم المورد الحديث مقابلاً لـ Aborigine."
+    - lemma: "سَاكِنٌ أَصْلِيّ"
+      generation_method: tarkib
+      justification: "تركيب وصفي عام يستخدم في السياقات الحقوقية والأنثروبولوجية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "أُسْتُرَالِيّ أَصْلِيّ"
+      confirm:
+        - text: "السكان الأوائل ببعض الأقاليم أو المناطق (السكان الأصليين بأستراليا) الذين لا زالوا متواجدين ومتميزين عن غيرهم من السكان النازحين إلى المنطقة."
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+    - lemma: "أَبُورِيجِينِيّ"
+      evidence_status: "no_material_found"
+    - lemma: "أَرُومِيّ"
+      confirm:
+        - text: "الأَروميّ: واحد من سكان البلاد الأصليين أو القُدامى."
+          source: "المورد الحديث (2008)"
+      expands:
+        - text: "الْأَرُومَةُ أَصْلُ كُلِّ شَجَرَةٍ. وَأَصْلُ الْحَسَبِ أَرُومَةٌ، وَكَذَلِكَ أَصْلُ كُلِّ شَيْءٍ وَمُجْتَمَعُهُ."
+          source: "مقاييس اللغة"
+    - lemma: "أَبُورِيجِينَال"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "أسترالي أصلي"
+      decision: confirmed
+      decision_reason: "مصطلح دقيق وشائع الاستخدام في المصادر العربية الرسمية والتقنية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "أُسْتُرَالِيّ أَصْلِيّ"
+    - lemma: "أبوريجينال"
+      decision: confirmed
+      decision_reason: "مقبول كتعريب صوتي مباشر للمصطلح الإنجليزي، رغم كونه أقل فصاحة من الصيغ الأخرى."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "أَبُورِيجِينَال"
+    - lemma: "أَبُورِيجِينِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "الصيغة المعربة الأكثر مواءمة للنظام الصرفي العربي (بياء النسبة)."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "أَبُورِيجِينِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09695957-n"}
+    - lemma: "أَرُومِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ تراثي فصيح (من الأرومة) استُعمل في المعاجم الحديثة للدلالة على السكان الأصليين، مما يغني اللغة بمترادفات أصيلة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "أَرُومِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09695957-n"}
+
+stage4_content:
+  definition:
+    current: "فرد من الشعب الذي كان يعيش في أستراليا عند وصول الأوروبيين"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دقيق لكنه يحتاج لأسلوب معجمي أمتن وصياغة توضح هويته كأحد السكان الأصليين."
+    authored:
+      - type: terminological
+        text: "واحدٌ من سُكّان أستراليا الأصليّين الذين استوطنوها قَبْل وصول المُستعمرين الأوروبيّين."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-09695957-n"
+          definition_index: 0
+          text: "واحدٌ من سُكّان أستراليا الأصليّين الذين استوطنوها قَبْل وصول المُستعمرين الأوروبيّين."
+  examples:
+    per_lemma:
+      - lemma: "أُسْتُرَالِيّ أَصْلِيّ"
+        examples:
+          - text: "ناضل الأستراليّ الأصليّ طويلاً لاستعادة حقوقه التاريخيّة في أراضي أجداده."
+            type: usage
+      - lemma: "أَبُورِيجِينِيّ"
+        examples:
+          - text: "يُعتبر الأبوريجينيّ جزءاً أصيلاً من الفسيفساء الثقافيّة في القارة الأستراليّة."
+            type: usage
+      - lemma: "أَرُومِيّ"
+        examples:
+          - text: "تتميز فنون الأروميّ الأستراليّ بنقوشها الرمزيّة التي تعكس ارتباطه العميق بالأرض."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-09695957-n", text: "يعتز كل أبوريجينيّ في أستراليا بتراثه الذي يمتد لآلاف السنين."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "أُسْتُرَالِيّ أَصْلِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "أسترالي"
+          root: "أستراليا"
+          maqayis_quote: "اسم أعجمي للقارة."
+        - word: "أصلي"
+          root: "أصل"
+          maqayis_quote: "«الْأَصْلُ أَصْلُ الشَّيْءِ... مَجْدٌ أَصِيلٌ.»"
+    - lemma: "أَرُومِيّ"
+      entry_id: "{auto}"
+      root: "أرم"
+      maqayis_quote: "«الْأَرُومَةُ أَصْلُ كُلِّ شَجَرَةٍ. وَأَصْلُ الْحَسَبِ أَرُومَةٌ، وَكَذَلِكَ أَصْلُ كُلِّ شَيْءٍ وَمُجْتَمَعُهُ.»"
+    - lemma: "أَبُورِيجِينِيّ"
+      entry_id: "{auto}"
+      root: "أبوريجين"
+      maqayis_quote: "لفظ معرب عن اللاتينية (ab origine) بمعنى «من الأصل»."
+  per_sense:
+    - lemma: "أُسْتُرَالِيّ أَصْلِيّ"
+      sense_id: "{auto}"
+      nuance: "المصطلح الوصفي الرسمي والشائع في الخطاب السياسي والحقوقي."
+      mwe: true
+    - lemma: "أَبُورِيجِينِيّ"
+      sense_id: "{auto}"
+      nuance: "تسمية معربة مباشرة تعبر عن الهوية العرقية المحددة."
+      mwe: false
+    - lemma: "أَرُومِيّ"
+      sense_id: "{auto}"
+      nuance: "لفظ فصيح يركز على عراقة المحتد والأصل التاريخي."
+      mwe: false
+    - lemma: "أَبُورِيجِينَال"
+      sense_id: "{auto}"
+      nuance: "نقل حرفي للمصطلح الإنجليزي، يستخدم غالباً في السياقات المترجمة ترجمة مباشرة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"أسترالي","root":"أستراليا"},{"word":"أصلي","root":"أصل","maqayis":"«الْأَصْلُ أَصْلُ الشَّيْءِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"أرم","maqayis":"«الْأَرُومَةُ أَصْلُ كُلِّ شَجَرَةٍ. وَأَصْلُ الْحَسَبِ أَرُومَةٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الوصفي الرسمي والشائع","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-09695957-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-09695957-n"
+        score: 0.9

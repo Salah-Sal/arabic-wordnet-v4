@@ -1,0 +1,232 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الحالية تفتقر إلى التشكيل الكامل."
+      - "اللمّة 'مترددون' قد تشير إلى الحيرة أكثر من الخوف، رغم تداخل المفهومين في الشخصية الجبانة."
+      - "التعريف الحالي وصفي بسيط ويحتاج إلى صياغة معجمية أمتن."
+    observations: "المجموعة تعبر عن فئة من الناس تجمع بين سمة الخوف (timid) وسمة الحيطة الزائدة (cautious). اللمّات الحالية (حذرون، خائفون، مترددون) صحيحة في سياق الجمع، ولكن يمكن إثراؤها بمترادفات تعبر عن المبالغة في هذه الصفات مثل 'هيابون' و'وجلون'."
+  blind_candidates:
+    - lemma: "هَيَّابُونَ"
+      generation_method: ishtiqaq
+      justification: "صيغة مبالغة تدل على شدة الخوف والتهيب، وهي ترجمة دقيقة لكلمة timid."
+    - lemma: "وَجِلُونَ"
+      generation_method: ishtiqaq
+      justification: "جمع 'وجل' وهو الخائف، وتناسب وصف الناس بالخوف."
+    - lemma: "مُتَحَرِّزُونَ"
+      generation_method: ishtiqaq
+      justification: "من 'تحرز' أي توقى وتحفظ، وتناسب وصف الناس بالحذر والحيطة."
+    - lemma: "مُتَحَوِّطُونَ"
+      generation_method: ishtiqaq
+      justification: "من 'تحوط' أي أخذ بالحيطة، وهي من الكلمات الشائعة في التعبير عن الحذر الشديد."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "حذرون"
+      confirm:
+        - text: "«الحَذَرُ والحِذْرُ: التحرّز... والجمع حَذِرُونَ وحَذارَى»"
+          source: "لسان العرب"
+    - lemma: "خائفون"
+      confirm:
+        - text: "«خافه خَوْفاً... فهو خائف... والجمع خائفون»"
+          source: "المعجم الوسيط (بالقياس)"
+    - lemma: "مترددون"
+      contradicts:
+        - text: "«المُتَرَدِّدُ: المجتمِعُ الخلق القصير»"
+          source: "المعجم الوسيط"
+          conflict: "المعنى الكلاسيكي للمتردد يختلف تماماً عن المعنى المعاصر (الحائر)، وهو هنا بعيد عن 'الخوف والحذر' إلا من باب اللوازم."
+    - lemma: "هَيَّابُونَ"
+      confirm:
+        - text: "«الْهَيَّابَانُ: الْجَبَانُ... ورجل هيوب: يهاب كل شيء»"
+          source: "مقاييس اللغة"
+        - text: "«الهيَّاب: الشديد الخوف والحذر»"
+          source: "موسوعة السلطان قابوس"
+    - lemma: "وَجِلُونَ"
+      confirm:
+        - text: "«الوَجَلُ: الخوف... ورجل وجل ج: وجال ووجلون»"
+          source: "القاموس المحيط"
+    - lemma: "مُتَحَرِّزُونَ"
+      confirm:
+        - text: "«تَحَرَّز من الشيء: تحفظ وتوقى كأنه جعل نفسه في حرز منه»"
+          source: "المعجم الكبير"
+    - lemma: "مُتَحَوِّطُونَ"
+      expands:
+        - text: "«أحاط بالشيء وحوطه: حفظه وصانه»"
+          source: "المعجم الوسيط (بالجذر)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "حذرون"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي يعبر عن صفة الحذر في صيغة الجمع المتسقة مع المجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حَذِرُونَ"
+    - lemma: "خائفون"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي يعبر عن صفة الخوف، وهي الركن الأول في تعريف المجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَائِفُونَ"
+    - lemma: "مترددون"
+      decision: confirmed
+      decision_reason: "على الرغم من دلالته الكلاسيكية المختلفة، إلا أنه في الاستعمال المعاصر والترجمة يرتبط بالشخصية الهيابة الحذرة التي تخشى الإقدام."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُتَرَدِّدُونَ"
+    - lemma: "هَيَّابُونَ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر بدقة عن صفة 'timid' (الهيوب) التي تجمع بين الخوف والتهيب."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "هَيَّابُونَ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-07961176-n"}
+    - lemma: "وَجِلُونَ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح قرآني وفصيح يعبر عن استشعار الخوف، وهو من مرادفات خائفون."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "وَجِلُونَ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-07961176-n"}
+    - lemma: "مُتَحَرِّزُونَ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر عن الجانب العملي للحذر (الاحتراز) المذكور في التعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُتَحَرِّزُونَ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-07961176-n"}
+
+stage4_content:
+  definition:
+    current: "الناس الذين يتصفون بالخوف والحذر"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي بسيط جداً، ويفضل استخدام صياغة معجمية تجمع بين الوجل والاحتراز."
+    authored:
+      - type: linguistic
+        text: "قومٌ غلب عليهم الوجلُ فأسرفوا في الاحتراز والحيطة وتجنب المخاطر."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-07961176-n", definition_index: 0, text: "قومٌ غلب عليهم الوجلُ فأسرفوا في الاحتراز والحيطة وتجنب المخاطر."}
+  examples:
+    per_lemma:
+      - lemma: "حَذِرُونَ"
+        examples:
+          - text: "لا يزال الحذرون في مأمن من غدر الزمان بتقلباته."
+            type: usage
+      - lemma: "خَائِفُونَ"
+        examples:
+          - text: "بات الناس خائفين يترقبون ما تسفر عنه الأزمة الاقتصادية."
+            type: usage
+      - lemma: "هَيَّابُونَ"
+        examples:
+          - text: "الهيابون لا يجرؤون على خوض غمار التجارب التي تتطلب جسارة."
+            type: usage
+      - lemma: "وَجِلُونَ"
+        examples:
+          - text: "{إِنَّا مِنكُم وَجِلُونَ} [الحجر: 52]"
+            type: quran
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-07961176-n", text: "هم قومٌ خائفون من العواقب، حذرون من كل جديد."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "حَذِرُونَ"
+      entry_id: "{auto}"
+      root: "حذر"
+      maqayis_quote: "«الْحَاءُ وَالذَّالُ وَالرَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ مِنَ التَّحَرُّزِ وَالتَّيَقُّظِ. يُقَالُ حَذِرَ يَحْذَرُ حَذَرًا.»"
+    - lemma: "خَائِفُونَ"
+      entry_id: "{auto}"
+      root: "خوف"
+      maqayis_quote: "«الْخَاءُ وَالْوَاوُ وَالْفَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الذُّعْرِ وَالْفَزَعِ. يُقَالُ خِفْتُ الشَّيْءَ خَوْفًا وَخِيفَةً.»"
+    - lemma: "مُتَرَدِّدُونَ"
+      entry_id: "{auto}"
+      root: "ردد"
+      maqayis_quote: "«الرَّاءُ وَالدَّالُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ مُنْقَاسٌ، وَهُوَ رَجْعُ الشَّيْءِ... وَالمُتَرَدِّدُ: الإِنْسَانُ المُجْتَمِعُ الخَلْقِ.»"
+    - lemma: "هَيَّابُونَ"
+      entry_id: "{auto}"
+      root: "هيب"
+      maqayis_quote: "«الْهَاءُ وَالْيَاءُ وَالْبَاءُ كَلِمَةُ إِجْلَالٍ وَمَخَافَةٍ. مِنْ ذَلِكَ هَابَهُ يَهَابُهُ هَيْبَةً.»"
+    - lemma: "مُتَحَرِّزُونَ"
+      entry_id: "{auto}"
+      root: "حرز"
+      maqayis_quote: "«الْحَاءُ وَالرَّاءُ وَالزَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ مِنَ الْحِفْظِ وَالتَّحَفُّظِ يُقَالُ حَرَزْتُهُ وَاحْتَرَزَ هُوَ، أَيْ تَحَفَّظَ.»"
+  per_sense:
+    - lemma: "حَذِرُونَ"
+      sense_id: "{auto}"
+      nuance: "يركز على جانب الاحتياط والتيقظ لتجنب الضرر."
+      mwe: false
+    - lemma: "خَائِفُونَ"
+      sense_id: "{auto}"
+      nuance: "يعبر عن الشعور الداخلي بالفزع أو توقع المكروه."
+      mwe: false
+    - lemma: "هَيَّابُونَ"
+      sense_id: "{auto}"
+      nuance: "يدل على الجبن الممزوج بالهيبة أو التردد في الإقدام."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حذر","maqayis":"«الْحَاءُ وَالذَّالُ وَالرَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ مِنَ التَّحَرُّزِ وَالتَّيَقُّظِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على جانب الاحتياط والتيقظ لتجنب الضرر.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-07961176-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-07961176-n"
+        score: 0.9

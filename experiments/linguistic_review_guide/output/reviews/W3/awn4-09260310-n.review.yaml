@@ -1,0 +1,174 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة تفتقر للتشكيل الكامل."
+      - "غياب الاسم العربي التاريخي الأشهر (بحر الخزر)."
+    observations: "المجموعة تخص أكبر مسطح مائي مغلق في العالم. التسمية الحديثة الشائعة هي 'بحر قزوين'، بينما التسمية التراثية العربية هي 'بحر الخزر'. اللمّة 'قزوين' وحدها قد تشير للمدينة أو البحر حسب السياق (مجاز مرسل)."
+  blind_candidates:
+    - lemma: "بَحْرُ قَزْوِين"
+      generation_method: tarkib
+      justification: "الاسم الجغرافي الحديث والمعاصر المتعارف عليه."
+    - lemma: "قَزْوِين"
+      generation_method: majaz
+      justification: "تسمية البحر باسم المدينة المشهورة الواقعة عليه (علاقة المجاورة)."
+    - lemma: "بَحْرُ الْخَزَرِ"
+      generation_method: majaz
+      justification: "الاسم العربي التاريخي الأصيل المنسوب لشعوب الخزر."
+    - lemma: "بَحِيرَةُ قَزْوِين"
+      generation_method: tarkib
+      justification: "تسمية دقيقة علمياً وجغرافياً كونه مسطحاً مائياً مغلقاً."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "بحر قزوين"
+      confirm:
+        - text: "بحر قزوين: Caspian Sea"
+          source: "المكنز الزراعي متعدد اللغات (ArabTerm)"
+        - text: "يصب [نهر الفولغا] في دلتا واسعة في بحر قزوين"
+          source: "المعجم الكبير"
+    - lemma: "قزوين"
+      confirm:
+        - text: "قزوين: مدينة مشهورة... وهي في الإقليم الرابع."
+          source: "معجم البلدان"
+      expands:
+        - text: "حصن قزوين يسمى كشرين بالفارسية."
+          source: "معجم البلدان"
+    - lemma: "بحر الخزر"
+      confirm:
+        - text: "بحر الخزر: وهو بحر طبرستان وجرجان وآبسكون كلها واحد، وهو بحر واسع عظيم لا اتصال له بغيره."
+          source: "معجم البلدان"
+        - text: "أشهر البحار التي عرفها العرب هي: ... وبحر الخزر (بحر قزوين)."
+          source: "المعجم الكبير"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "بحر قزوين"
+      decision: confirmed
+      decision_reason: "الاسم المعاصر الأكثر شيوعاً والمثبت في المعاجم الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "بَحْرُ قَزْوِين"
+    - lemma: "قزوين"
+      decision: confirmed
+      decision_reason: "تسمية شائعة بالاختصار، وإن كانت تشترك مع اسم المدينة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "قَزْوِين"
+    - lemma: "بحر الخزر"
+      source: stage1
+      decision: confirmed
+      decision_reason: "الاسم العربي الأصيل المثبت في أمهات المعاجم الجغرافية والتراثية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "بَحْرُ الْخَزَرِ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-09260310-n"
+
+stage4_content:
+  definition:
+    current: "بحيرة كبيرة مالحة بين إيران وروسيا يغذيها نهر الفولغا؛ أكبر مسطح مائي داخلي في العالم"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق وشامل جغرافياً."
+  examples:
+    per_lemma:
+      - lemma: "بَحْرُ قَزْوِين"
+        examples:
+          - text: "يُعد بحر قزوين أكبر بحيرة مغلقة في العالم من حيث المساحة."
+            type: usage
+      - lemma: "قَزْوِين"
+        examples:
+          - text: "تقع العديد من الموانئ الهامة على سواحل قزوين."
+            type: usage
+      - lemma: "بَحْرُ الْخَزَرِ"
+        examples:
+          - text: "أطلق الجغرافيون العرب القدامى اسم بحر الخزر على ما يُعرف اليوم ببحر قزوين."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "بَحْرُ قَزْوِين"
+      entry_id: "{auto}"
+      roots:
+        - word: "بحر"
+          root: "بحر"
+          maqayis_quote: "«الْبَاءُ وَالْحَاءُ وَالرَّاءُ. قَالَ الْخَلِيلُ سُمِّيَ الْبَحْرُ بَحْرًا لِاسْتِبْحَارِهِ وَهُوَ انْبِسَاطُهُ وَسَعَتُهُ.»"
+    - lemma: "قَزْوِين"
+      entry_id: "{auto}"
+      note: "اسم علم أعجمي لمدينة وبحر."
+    - lemma: "بَحْرُ الْخَزَرِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "بحر"
+          root: "بحر"
+          maqayis_quote: "«الْبَاءُ وَالْحَاءُ وَالرَّاءُ. قَالَ الْخَلِيلُ سُمِّيَ الْبَحْرُ بَحْرًا لِاسْتِبْحَارِهِ وَهُوَ انْبِسَاطُهُ وَسَعَتُهُ.»"
+        - word: "الخزر"
+          root: "خزر"
+          maqayis_quote: "«الْخَاءُ وَالزَّاءُ وَالرَّاءُ أَصْلَانِ... وَالثَّانِي الْخَزَرُ، وَهُوَ ضِيقُ الْعَيْنِ وَصِغَرُهَا.»"
+  per_sense:
+    - lemma: "بَحْرُ قَزْوِين"
+      sense_id: "{auto}"
+      nuance: "الاسم الجغرافي الحديث والمعياري."
+      mwe: true
+    - lemma: "قَزْوِين"
+      sense_id: "{auto}"
+      nuance: "تسمية مختصرة تستخدم في السياقات الأدبية أو كاختصار جغرافي."
+      mwe: false
+    - lemma: "بَحْرُ الْخَزَرِ"
+      sense_id: "{auto}"
+      nuance: "التسمية العربية التاريخية الكلاسيكية."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"بحر","root":"بحر","maqayis":"«الْبَاءُ وَالْحَاءُ وَالرَّاءُ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"بحر","root":"بحر","maqayis":"«الْبَاءُ وَالْحَاءُ وَالرَّاءُ...»"},{"word":"الخزر","root":"خزر","maqayis":"«الْخَاءُ وَالزَّاءُ وَالرَّاءُ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الجغرافي الحديث والمعياري.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-09260310-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-09260310-n"
+        score: 1.0

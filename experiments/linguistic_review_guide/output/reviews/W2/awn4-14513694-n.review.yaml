@@ -1,0 +1,248 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'واجب' تشير غالباً إلى 'الشيء' (Duty) أكثر من 'الحالة' (State)، لكنها مقبولة بالاستخدام الموسع."
+    observations: "المفهوم مركزي في الحقوق والأخلاق، واللغات العربية غنية بالمترادفات الدقيقة التي تفرق بين الالتزام العقدي (التزام) والشرعي (وجوب) والمالي (ذمة) والمسؤولية (تبعة)."
+  blind_candidates:
+    - lemma: "الْتِزَام"
+      generation_method: ishtiqaq
+      justification: "المصدر القياسي من 'التزم' وهو المصطلح المعاصر الأكثر شيوعاً للتعبير عن حالة التقيّد بفعل."
+    - lemma: "وُجُوب"
+      generation_method: ishtiqaq
+      justification: "المصدر المجرد من 'وجب' وهو يعبر بدقة عن 'حالة كونه واجباً' (state of being obligated)."
+    - lemma: "تَبِعَة"
+      generation_method: ishtiqaq
+      justification: "تشير إلى المسؤولية المالية أو القانونية التي تتبع الفعل (liability)."
+    - lemma: "ذِمَّة"
+      generation_method: majaz
+      justification: "تستخدم للتعبير عن الالتزام المعنوي أو المالي الذي يشغل كيان الشخص (في ذمته)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "الْتِزَام"
+      confirm:
+        - text: "«تَقيُّد شفوي أو مكتوب بشيء وتحمل المسؤولية في حالة عدم تنفيذه.»"
+          source: "مسرد الإعلام والتواصل (ArabTerm)"
+        - text: "«التزام مالي: financial obligation»"
+          source: "المعجم الموحد لمصطلحات التجارة والمحاسبة"
+    - lemma: "وَاجِب"
+      confirm:
+        - text: "«شعور الفرد بضرورة القيام بعمل أو تأدية حق من الحقوق أو الوفاء بتعهد أو التزام.»"
+          source: "مسرد الإعلام والتواصل (ArabTerm)"
+        - text: "«ما يثاب بفعله ويعاقب على تركه»"
+          source: "المعجم الوسيط"
+    - lemma: "وُجُوب"
+      confirm:
+        - text: "«الوجوب: هو ضرورة اقتضاء الذات عينها وتحقيقها في الخارج، وعند الفقهاء: عبارة عن شغل الذمة.»"
+          source: "كتاب التعريفات للجرجاني"
+        - text: "«الوجوب الشرعي ما يستحق تاركه الذم والعقاب.»"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+    - lemma: "تَبِعَة"
+      confirm:
+        - text: "«اسم الشيء الذي عليك فيه عُهدة الأمانة يحملها الإنسان أو يُعهد بها إليه»"
+          source: "المعجم الكبير"
+        - text: "«ما فيه إثْم يتبع به»"
+          source: "المعجم الكبير"
+    - lemma: "ذِمَّة"
+      confirm:
+        - text: "«معنى يصير الإنسان به أهلاً لوجوب الحق له أو عليه»"
+          source: "المعجم الوسيط"
+        - text: "«الذمة المالية: مجموعة الحقوق والالتزامات لشخص ما»"
+          source: "المعجم الكبير"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "الْتِزَام"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي وشامل للالتزامات القانونية والأخلاقية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "الْتِزَام"
+    - lemma: "وَاجِب"
+      decision: confirmed
+      decision_reason: "رغم أنه اسم مفعول في الأصل إلا أنه استقر كاسم للمفهوم (Duty/Obligation)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "وَاجِب"
+    - lemma: "وُجُوب"
+      source: stage1
+      decision: confirmed
+      decision_reason: "هو المصدر الذي يعبر بدقة عن 'الحالة' (State) المطلوبة في التعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "وُجُوب", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَبِعَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبر عن الالتزام من زاوية المسؤولية والعاقبة (Liability)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَبِعَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "ذِمَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فقهي وقانوني عريق يعبر عن وعاء الالتزام في الشخص."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "ذِمَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "حالة كونه ملزماً بفعل أو دفع شيء ما"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي بسيط جداً، ويفضل استخدام صياغة مصطلحية تشمل الأبعاد القانونية والأخلاقية."
+    authored:
+      - type: terminological
+        text: "مَا يَفْرِضُهُ القَانُونُ أَوِ الأَخْلَاقُ أَوِ العَهْدُ عَلَى الشَّخْصِ مِنْ فِعْلٍ أَوْ تَرْكٍ أَوْ أَدَاءِ مَالٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مَا يَفْرِضُهُ القَانُونُ أَوِ الأَخْلَاقُ أَوِ العَهْدُ عَلَى الشَّخْصِ مِنْ فِعْلٍ أَوْ تَرْكٍ أَوْ أَدَاءِ مَالٍ."}
+
+  examples:
+    per_lemma:
+      - lemma: "الْتِزَام"
+        examples:
+          - text: "عليه التزامٌ قانونيٌّ بتسديدِ الدُّيونِ في موعدِها."
+            type: usage
+      - lemma: "وَاجِب"
+        examples:
+          - text: "الصِّدقُ واجبٌ أخلاقيٌّ على كلِّ إنسانٍ."
+            type: usage
+      - lemma: "وُجُوب"
+        examples:
+          - text: "تقرَّرَ وجوبُ التَّعويضِ على المتسبِّبِ في الضَّررِ."
+            type: usage
+      - lemma: "تَبِعَة"
+        examples:
+          - text: "يتحمَّلُ المديرُ تبعةَ القراراتِ التي اتَّخذَها."
+            type: usage
+      - lemma: "ذِمَّة"
+        examples:
+          - text: "ما زالَ الدَّينُ في ذمَّتِه حتى يَقضيَه."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "عليه التزامٌ قانونيٌّ بتسديدِ الدُّيونِ في موعدِها."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "الْتِزَام"
+      entry_id: "{auto}"
+      root: "لزم"
+      maqayis_quote: "«اللَّامُ وَالزَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ صَحِيحٌ، يَدُلُّ عَلَى مُصَاحَبَةِ الشَّيْءِ بِالشَّيْءِ دَائِمًا.»"
+    - lemma: "وَاجِب"
+      entry_id: "{auto}"
+      root: "وجب"
+      maqayis_quote: "«الْوَاوُ وَالْجِيمُ وَالْبَاءُ: أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى سُقُوطِ الشَّيْءِ وَوُقُوعِهِ، ثُمَّ يَتَفَرَّعُ.»"
+    - lemma: "وُجُوب"
+      entry_id: "{auto}"
+      root: "وجب"
+      maqayis_quote: "«الْوَاوُ وَالْجِيمُ وَالْبَاءُ: أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى سُقُوطِ الشَّيْءِ وَوُقُوعِهِ، ثُمَّ يَتَفَرَّعُ.»"
+    - lemma: "تَبِعَة"
+      entry_id: "{auto}"
+      root: "تبع"
+      maqayis_quote: "«التَّاءُ وَالْبَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ لَا يَشِذُّ عَنْهُ مِنَ الْبَابِ شَيْءٌ، وَهُوَ التُّلُوُّ وَالْقَفْوُ.»"
+    - lemma: "ذِمَّة"
+      entry_id: "{auto}"
+      root: "ذمم"
+      maqayis_quote: "«فَأَمَّا الْعَهْدُ فَإِنَّهُ يُسَمَّى ذِمَامًا لِأَنَّ الْإِنْسَانَ يُذَمُّ عَلَى إِضَاعَتِهِ مِنْهُ.»"
+  per_sense:
+    - lemma: "الْتِزَام"
+      sense_id: "{auto}"
+      nuance: "يركز على التعهد الإرادي أو القانوني المكتوب."
+      mwe: false
+    - lemma: "وَاجِب"
+      sense_id: "{auto}"
+      nuance: "يشير إلى الفعل المطلوب القيام به كضرورة أخلاقية أو دينية."
+      mwe: false
+    - lemma: "وُجُوب"
+      sense_id: "{auto}"
+      nuance: "الحالة المجردة لكون الشيء لازماً وضرورياً."
+      mwe: false
+    - lemma: "تَبِعَة"
+      sense_id: "{auto}"
+      nuance: "تركز على المسؤولية المترتبة على الشخص وما يلحقه من حقوق الغير."
+      mwe: false
+    - lemma: "ذِمَّة"
+      sense_id: "{auto}"
+      nuance: "وعاء الالتزامات المعنوي والمالي المرتبط بشخصية الملتزم."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"لزم","maqayis":"«اللَّامُ وَالزَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ صَحِيحٌ، يَدُلُّ عَلَى مُصَاحَبَةِ الشَّيْءِ بِالشَّيْءِ دَائِمًا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"وجب","maqayis":"«الْوَاوُ وَالْجِيمُ وَالْبَاءُ: أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى سُقُوطِ الشَّيْءِ وَوُقُوعِهِ، ثُمَّ يَتَفَرَّعُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"تبع","maqayis":"«التَّاءُ وَالْبَاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ لَا يَشِذُّ عَنْهُ مِنَ الْبَابِ شَيْءٌ، وَهُوَ التُّلُوُّ وَالْقَفْوُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ذمم","maqayis":"«فَأَمَّا الْعَهْدُ فَإِنَّهُ يُسَمَّى ذِمَامًا لِأَنَّ الْإِنْسَانَ يُذَمُّ عَلَى إِضَاعَتِهِ مِنْهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على التعهد الإرادي أو القانوني المكتوب.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

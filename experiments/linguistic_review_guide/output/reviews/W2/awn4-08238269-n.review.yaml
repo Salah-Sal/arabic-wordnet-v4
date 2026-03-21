@@ -1,0 +1,159 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "المصطلح 'شعبة' يُستخدم غالباً في تصنيف الحيوان (Phylum)، بينما المصطلح 'قسم' هو الأدق في تصنيف النبات (Division) وفقاً للتعريف."
+      - "التعريف الحالي يحتوي على دور 'قسماً فرعياً' لشرح 'القسم'."
+    observations: "المجموعة تتناول مرتبة تصنيفية عليا في علم الأحياء، وهناك تميز اصطلاحي في العربية بين مملكة الحيوان (شعبة) ومملكة النبات (قسم)، وكلاهما صحيح كمرادف للمفهوم العام."
+  blind_candidates:
+    - lemma: "شُعْبَة"
+      generation_method: ishtiqaq
+      justification: "المصطلح الأكثر شيوعاً للمراتب التصنيفية الكبرى تحت المملكة."
+    - lemma: "قِسْم"
+      generation_method: ishtiqaq
+      justification: "المصطلح المعتمد في تصنيف النبات (Botany) للمرتبة الموازية للشعبة في الحيوان."
+    - lemma: "طَائِفَة"
+      generation_method: majaz
+      justification: "تُستخدم أحياناً كمرتبة تصنيفية عامة، وإن كانت تدل غالباً على (Class)."
+    - lemma: "فِرْقَة"
+      generation_method: majaz
+      justification: "بمعنى الجزء أو القسم من الشيء، وتُستخدم في تقسيم الجماعات."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "شُعْبَة"
+      confirm:
+        - text: "«الشُّعبة: في علم الأحياء وحدة تصنيفية كبيرة في تقسيم الكائنات الحية تضم مجموعة متقاربة من الأصناف أو الطوائف»"
+          source: "المعجم الموحد لمصطلحات الجيولوجيا"
+        - text: "«شعبة: phylum... أعلى مرتبة تقسيم في مملكة النظام البيولوجي لتصنيف الحيوانات»"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+    - lemma: "قِسْم"
+      confirm:
+        - text: "«قسم: division... (علم الأحياء)»"
+          source: "المعجم الموحد لمصطلحات علم الأحياء"
+      expands:
+        - text: "«(قِسْم) القاف والسين والميم... يدل... على تجزئة شيء... والنصيب قسم بكسر القاف»"
+          source: "مقاييس اللغة"
+    - lemma: "طَائِفَة"
+      expands:
+        - text: "«الطائفة: (في علم الأحياء) وحدة تصنيفية كالحشرات من الحيوان وذوات الفلقتين من النبات»"
+          source: "المعجم الوسيط"
+          addition: "يُشير إلى استخدام 'طائفة' كوحدة تصنيفية، وإن كانت تُطلق غالباً على مرتبة 'Class'."
+    - lemma: "فِرْقَة"
+      confirm:
+        - text: "«الشُّعبة: الفِرْقة من الشيء»"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "شُعْبَة"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي في علم التصنيف البيولوجي للمرتبة الكبرى (Phylum/Division)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "شُعْبَة"
+    - lemma: "قِسْم"
+      decision: confirmed
+      decision_reason: "المصطلح الدقيق لمرتبة 'Division' في تصنيف النبات والفطريات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "قِسْم"
+
+stage4_content:
+  definition:
+    current: "(علم الأحياء) مجموعة من الكائنات الحية تشكل قسماً فرعياً من فئة أكبر (خاصة في التصنيف النباتي)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دائري (يستخدم كلمة 'قسم' لتعريف 'القسم') وغير دقيق في تحديد المرتبة التصنيفية."
+    authored:
+      - type: terminological
+        text: "(في علم الأحياء) مَرْتَبَةٌ تَصْنِيفِيَّةٌ كُبْرَى تَقَعُ بَيْنَ المَمْلَكَةِ وَالطَّائِفَةِ (الصِّنْفِ)، وَتُسَمَّى فِي تَصْنِيفِ النَّبَاتِ وَالفِطْرِيَّاتِ قِسْمًا وَفِي تَصْنِيفِ الحَيَوَانَاتِ شُعْبَةً."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "(في علم الأحياء) مَرْتَبَةٌ تَصْنِيفِيَّةٌ كُبْرَى تَقَعُ بَيْنَ المَمْلَكَةِ وَالطَّائِفَةِ (الصِّنْفِ)، وَتُسَمَّى فِي تَصْنِيفِ النَّبَاتِ وَالفِطْرِيَّاتِ قِسْمًا وَفِي تَصْنِيفِ الحَيَوَانَاتِ شُعْبَةً."
+  examples:
+    per_lemma:
+      - lemma: "شُعْبَة"
+        examples:
+          - text: "تَضُمُّ شُعْبَةُ الحَبْلِيَّاتِ جَمِيعَ الحَيَوَانَاتِ الَّتِي تَمْتَلِكُ حَبْلًا ظَهْرِيًّا فِي إِحْدَى مَرَاحِلِ نُمُوِّهَا."
+            type: usage
+      - lemma: "قِسْم"
+        examples:
+          - text: "يُصَنَّفُ الصَّنَوْبَرُ ضِمْنَ قِسْمِ المَخْرُوطِيَّاتِ التَّابِعِ لِمَمْلَكَةِ النَّبَاتِ."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "شُعْبَة"
+      entry_id: "{auto}"
+      root: "شعب"
+      maqayis_quote: "«الشِّينُ وَالْعَيْنُ وَالْبَاءُ أَصْلَانِ مُخْتَلِفَانِ، أَحَدُهُمَا يَدُلُّ عَلَى الِافْتِرَاقِ، وَالْآخَرُ عَلَى الِاجْتِمَاعِ... وَمِنْهُ الشَّعْبُ: مَا تَشَعَّبَ مِنْ قَبَائِلِ الْعَرَبِ وَالْعَجَمِ... وَانْشَعَبَتْ أَغْصَانُ الشَّجَرَةِ.»"
+    - lemma: "قِسْم"
+      entry_id: "{auto}"
+      root: "قسم"
+      maqayis_quote: "«الْقَافُ وَالسِّينُ وَالْمِيمُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى جَمَالٍ وَحُسْنٍ وَالْآخَرُ عَلَى تَجْزِئَةِ شَيْءٍ.»"
+  per_sense:
+    - lemma: "شُعْبَة"
+      sense_id: "{auto}"
+      nuance: "تُستخدم غالباً في تصنيف الحيوان (Phylum)، وتوحي بالتفرع من أصل مشترك."
+      mwe: false
+    - lemma: "قِسْم"
+      sense_id: "{auto}"
+      nuance: "المصطلح المتخصص لمرتبة Division في تصنيف النبات، ويدل على جزء متميز من الكل."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"شعب","maqayis":"«الشِّينُ وَالْعَيْنُ وَالْبَاءُ أَصْلَانِ مُخْتَلِفَانِ، أَحَدُهُمَا يَدُلُّ عَلَى الِافْتِرَاقِ، وَالْآخَرُ عَلَى الِاجْتِمَاعِ... وَمِنْهُ الشَّعْبُ: مَا تَشَعَّبَ مِنْ قَبَائِلِ الْعَرَبِ وَالْعَجَمِ... وَانْشَعَبَتْ أَغْصَانُ الشَّجَرَةِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قسم","maqayis":"«الْقَافُ وَالسِّينُ وَالْمِيمُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى جَمَالٍ وَحُسْنٍ وَالْآخَرُ عَلَى تَجْزِئَةِ شَيْءٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تُستخدم غالباً في تصنيف الحيوان (Phylum)، وتوحي بالتفرع من أصل مشترك.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح المتخصص لمرتبة Division في تصنيف النبات، ويدل على جزء متميز من الكل.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

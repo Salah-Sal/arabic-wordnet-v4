@@ -1,0 +1,197 @@
+stage1_review:
+  assessment:
+    concerns:
+      - التعريف الحالي يميل للأسلوب الموسوعي المطول (Encyclopedic).
+      - اللمات الموجودة كافية ومناسبة، لكن ينقصها التشكيل الكامل وربما إضافة صيغ شائعة أخرى.
+    observations: "المصطلح يشير إلى فئة تاريخية/دينية محددة في التقليد المسيحي، ويرتبط دلالياً بمصطلحات أخرى مثل نجم بيت لحم والهدايا الثلاث. لفظ 'المجوس' في أصله الفارسي يشير لرجال الدين الزرادشتيين، لكنه في هذا السياق اكتسب دلالة مسيحية خاصة."
+  blind_candidates:
+    - lemma: "المَجُوسُ الثَّلَاثَةُ"
+      generation_method: tarkib
+      justification: "الاسم الأكثر شيوعاً وتحديداً لهذه المجموعة في العربية."
+    - lemma: "حُكَمَاءُ المَشْرِقِ"
+      generation_method: tarkib
+      justification: "ترجمة كتابية تقليدية (إنجيل متى 2:1) مستخدمة بكثرة في الأدبيات المسيحية."
+    - lemma: "المَجُوسُ"
+      generation_method: majaz
+      justification: "الاسم العام الذي يُطلق عليهم في سياق قصة الميلاد، وغالباً ما يُقصد به هؤلاء الثلاثة تحديداً عند وروده في هذا السياق."
+    - lemma: "المُلُوكُ الثَّلَاثَةُ"
+      generation_method: tarkib
+      justification: "تسمية بديلة شائعة متأثرة بالتقاليد الغربية (Three Kings) وموجودة في بعض الترجمات العربية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "المجوس الثلاثة"
+      confirm:
+        - text: "المجوسيّ: واحد من ثلاثة حكماء حملوا الهدايا إلى المسيح عند ولادته"
+          source: "المورد الحديث"
+    - lemma: "حكماء المشرق"
+      confirm:
+        - text: "نجم بَيْتَ لَحْمَ: نجم يعتقد النَّصارى أنه قاد المجوس إلى يَسوعَ الطفل في بيتَ لَحمَ."
+          source: "المورد الحديث"
+    - lemma: "المجوس"
+      confirm:
+        - text: "المجوس: (في الإنكليزية) Magi... المَجُوس: فرقة من الكفرة يعبدون الشمس والقمر"
+          source: "كشاف اصطلاحات الفنون / المعجم الوسيط"
+      expands:
+        - text: "واحد من ثلاثة حكماء حملوا الهدايا إلى المسيح عند ولادته"
+          source: "المورد الحديث"
+          addition: "يوضح الاستخدام الخاص للمفرد في السياق الكتابي."
+    - lemma: "الملوك الثلاثة"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "المجوس الثلاثة"
+      decision: confirmed
+      decision_reason: "المصطلح الرئيسي والأكثر دقة في التعبير عن المجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "المَجُوسُ الثَّلَاثَةُ"
+    - lemma: "حكماء المشرق"
+      decision: confirmed
+      decision_reason: "مصطلح كتابي تراثي مثبت في تراجم العهد الجديد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حُكَمَاءُ المَشْرِقِ"
+    - lemma: "المَجُوسُ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يستخدم كاسم علم جمعي للمجموعة في السياق الديني، وقد أثبته المورد الحديث كدلالة خاصة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "المَجُوسُ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "المُلُوكُ الثَّلَاثَةُ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تسمية رديفة مقبولة وشائعة في الأدبيات العامة والترجمات."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "المُلُوكُ الثَّلَاثَةُ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "(العهد الجديد) الحكماء الذين زاروا يسوع ومريم ويوسف بعد فترة وجيزة من ولادة يسوع؛ يقول إنجيل متى إنهم استرشدوا بنجم وجلبوا هدايا من الذهب واللبان والمر؛ ولأن هناك ثلاث هدايا، يُفترض عادة أنهم كانوا ثلاثة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي طويل جداً ويحتوي على تفاصيل استطرادية. الأفضل صياغته بأسلوب معجمي مركز."
+    authored:
+      - type: terminological
+        text: "الحكماء الذين قادهم النجم إلى بيت لحم لزيارة يسوع (المسيح) بعد ولادته، وقدموا له هدايا من الذهب واللبان والمر، واشتهروا بكونهم ثلاثة لعدد هداياهم."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "المَجُوسُ الثَّلَاثَةُ"
+        examples:
+          - text: "يرمز الذهب الذي قدمه المجوس الثلاثة إلى ملوكية يسوع."
+            type: usage
+      - lemma: "حُكَمَاءُ المَشْرِقِ"
+        examples:
+          - text: "جاء حكماء المشرق إلى أورشليم قائلين: أين هو المولود ملك اليهود؟"
+            type: usage
+            source: "إنجيل متى 2:1-2"
+      - lemma: "المَجُوسُ"
+        examples:
+          - text: "سار المجوس خلف النجم حتى وصلوا إلى موضع الطفل."
+            type: usage
+      - lemma: "المُلُوكُ الثَّلَاثَةُ"
+        examples:
+          - text: "تُقام الاحتفالات بعيد الملوك الثلاثة في ذكرى زيارتهم للمسيح."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "الحكماء الذين قادهم النجم لزيارة يسوع المسيح في مهد ببيت لحم، حاملين هدايا من الذهب واللبان والمُرّ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "المَجُوسُ الثَّلَاثَةُ"
+      entry_id: "{auto}"
+      roots:
+        - word: "المجوس"
+          root: "مجس"
+          maqayis_quote: "«الْمِيمُ وَالْجِيمُ وَالسِّينُ كَلِمَةٌ مَا نَعْرِفُ لَهَا قِيَاسًا، وَأَظُنُّهَا فَارِسِيَّةٌ، وَهِيَ قَوْلُنَا هَؤُلَاءِ الْمَجُوسُ.»"
+        - word: "الثلاثة"
+          root: "ثلث"
+          maqayis_quote: "«الثَّاءُ وَاللَّامُ وَالثَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى اجْتِمَاعِ ثَلَاثَةِ أَشْيَاءَ.»"
+    - lemma: "حُكَمَاءُ المَشْرِقِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "حكماء"
+          root: "حكم"
+          maqayis_quote: "«الْحَاءُ وَالْكَافُ وَالْمِيمُ أَصْلٌ وَاحِدٌ، وَهُوَ الْمَنْعُ. وَالْحِكْمَةُ هَذَا قِيَاسُهَا، لِأَنَّهَا تَمْنَعُ مِنَ الْجَهْلِ.»"
+        - word: "المشرق"
+          root: "شرق"
+          maqayis_quote: "«الشِّينُ وَالرَّاءُ وَالْقَافُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى إِضَاءَةٍ وَفَتْحٍ. مِنْ ذَلِكَ شَرَقَتِ الشَّمْسُ.»"
+    - lemma: "المَجُوسُ"
+      entry_id: "{auto}"
+      root: "مجس"
+      maqayis_quote: "«الْمِيمُ وَالْجِيمُ وَالسِّينُ كَلِمَةٌ مَا نَعْرِفُ لَهَا قِيَاسًا، وَأَظُنُّهَا فَارِسِيَّةٌ، وَهِيَ قَوْلُنَا هَؤُلَاءِ الْمَجُوسُ.»"
+    - lemma: "المُلُوكُ الثَّلَاثَةُ"
+      entry_id: "{auto}"
+      roots:
+        - word: "الملوك"
+          root: "ملك"
+          maqayis_quote: "«الْمِيمُ وَاللَّامُ وَالْكَافُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى قُوَّةٍ فِي الشَّيْءِ وَصِحَّةٍ... وَالْمَلِكُ: مَنْ قَدَرَ عَلَى الِاسْتِبْدَادِ بِأَمْرِهِ.»"
+        - word: "الثلاثة"
+          root: "ثلث"
+          maqayis_quote: "«الثَّاءُ وَاللَّامُ وَالثَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى اجْتِمَاعِ ثَلَاثَةِ أَشْيَاءَ.»"
+  per_sense:
+    - lemma: "المَجُوسُ الثَّلَاثَةُ"
+      sense_id: "{auto}"
+      nuance: "الاسم التحديدي الأكثر دقة لهذه الفئة في الأدبيات العربية."
+      mwe: true
+    - lemma: "حُكَمَاءُ المَشْرِقِ"
+      sense_id: "{auto}"
+      nuance: "تعبير تراثي كتابي يؤكد على صفتهم كحكماء ومنشئهم الجغرافي."
+      mwe: true
+    - lemma: "المَجُوسُ"
+      sense_id: "{auto}"
+      nuance: "لفظ عام يُستخدم كاسم علم للمجموعة في قصة الميلاد."
+      mwe: false
+    - lemma: "المُلُوكُ الثَّلَاثَةُ"
+      sense_id: "{auto}"
+      nuance: "تسمية شائعة تركز على صفتهم الملوكية، وغالباً ما تُستخدم في سياقات احتفالية أو ترجمات غربية."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

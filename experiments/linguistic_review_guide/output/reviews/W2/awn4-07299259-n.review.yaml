@@ -1,0 +1,284 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة تفتقر إلى التشكيل الكامل."
+      - "التعريف العربي الحالي هو ترجمة حرفية للتعريف الإنجليزي ويحتاج صياغة معجمية أدق."
+    observations: "المجموعة تغطي مفهوم الحدوث المتزامن أو الارتباط الوجودي بين حدثين، وهو مفهوم أصيل في اللغة والمنطق العربي (الملازمة، الاقتران)."
+  blind_candidates:
+    - lemma: "تَزَامُن"
+      generation_method: ishtiqaq
+      justification: "المصدر القياسي للفعل 'تزامن' الذي يعني الحدوث في زمن واحد."
+    - lemma: "مُرَافَقَة"
+      generation_method: ishtiqaq
+      justification: "تعبر عن الملازمة والمصاحبة بين شيئين."
+    - lemma: "مُصَاحَبَة"
+      generation_method: ishtiqaq
+      justification: "تعبر عن الاقتران والمشاركة في الوجود أو الفعل."
+    - lemma: "تَسَاوُق"
+      generation_method: ishtiqaq
+      justification: "تعني التساير والتقارن في الحدوث، وهي أدق في التعبير عن التزامن الوظيفي."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تزامن"
+      confirm:
+        - text: "اتفاق حادثين في زمن واحد."
+          source: "معجم المصطلحات الطبية"
+        - text: "تَزَامَنَ الشَّيْئَانِ: اتَّفَقا فى الزَّمَنِ."
+          source: "المعجم الكبير"
+    - lemma: "مرافقة"
+      confirm:
+        - text: "مُصاحَبة؛ مرافَقَة؛ مسايَرة؛ شيء مُلازم."
+          source: "المورد الحديث"
+        - text: "مرافق: صفة لما يصاحب شيئاً آخر."
+          source: "معجم المصطلحات الطبية"
+    - lemma: "مصاحبة"
+      confirm:
+        - text: "المصاحبة: الموافقة والمشاركة في الشيء."
+          source: "التوقيف على مهمات التعاريف"
+        - text: "ظاهرة لغويَّة دلاليَّة تتمثل في تلازم استخدام لفظين أو أكثر."
+          source: "المعجم الكبير"
+    - lemma: "تساوق"
+      confirm:
+        - text: "(تساوقت) الماشية وتزاحمت في السير والشيئان تسايرا أو تقارنا."
+          source: "المعجم الوسيط"
+    - lemma: "ملازمة"
+      confirm:
+        - text: "الملازمة: لغة امتناع انفكاك شيء عن شيء."
+          source: "التوقيف على مهمات التعاريف"
+        - text: "كون الحكم مقتضياً للآخر على معنى أن الحكم بحيث لو وقع يقتضي وقوع حكم آخر اقتضاء ضرورياً."
+          source: "كتاب التعريفات للجرجاني"
+    - lemma: "اقتران"
+      confirm:
+        - text: "الاقتران: كالازدواج في كونه اجتماع شيئين أو أشياء في معنى من المعاني."
+          source: "التوقيف على مهمات التعاريف"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تزامن"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي يعبر عن الحدوث في نفس الوقت."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَزَامُن"
+    - lemma: "مرافقة"
+      decision: confirmed
+      decision_reason: "تعبر عن المصاحبة والتبعية في الحدوث."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُرَافَقَة"
+    - lemma: "مصاحبة"
+      decision: confirmed
+      decision_reason: "تعبر عن المشاركة والاقتران، وهي مستعملة بكثرة في السياقات العلمية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُصَاحَبَة"
+    - lemma: "تساوق"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ تراثي فصيح يعبر عن التساير والتقارن، وهو مناسب جداً للمفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَسَاوُق", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "ملازمة"
+      decision: confirmed
+      decision_reason: "مصطلح منطقي ولغوي يعبر عن عدم انفكاك وقوع شيء عن آخر، وهو مرادف دقيق لـ concomitant."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُلَازَمَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "اقتران"
+      decision: confirmed
+      decision_reason: "يعبر عن اجتماع الأشياء في الوجود أو المعنى، وهو مستخدم في الفلك والمنطق."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "اقْتِرَان", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "حدث أو موقف يحدث في نفس الوقت أو بالارتباط مع آخر"
+    assessment:
+      decision: revise
+      reason: "الصياغة الحالية تبدو ترجمة حرفية، والتعريف المقترح أكثر دقة لغوية واصطلاحية."
+    authored:
+      - type: terminological
+        text: "وُقوعُ حَدَثٍ أو ظاهِرَةٍ في زَمَنِ وُقوعِ غَيْرِها، أوِ ارْتِباطُ أمْرَيْنِ مَعاً في الوجودِ أو التَّحَقُّقِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "وُقوعُ حَدَثٍ أو ظاهِرَةٍ في زَمَنِ وُقوعِ غَيْرِها، أوِ ارْتِباطُ أمْرَيْنِ مَعاً في الوجودِ أو التَّحَقُّقِ."}
+  examples:
+    per_lemma:
+      - lemma: "تَزَامُن"
+        examples:
+          - text: "تَزَامُنُ انقطاعِ التيارِ معَ هُطولِ المطرِ سبَّبَ إرباكاً في الحركةِ."
+            type: usage
+      - lemma: "مُرَافَقَة"
+        examples:
+          - text: "مُرَافَقَةُ الموسيقى للغناءِ تزيدُ منْ جمالِ العرضِ."
+            type: usage
+      - lemma: "مُصَاحَبَة"
+        examples:
+          - text: "تُلاحَظُ في هذا المرضِ مُصَاحَبَةُ الحُمَّى للصُّداعِ المزمنِ."
+            type: usage
+      - lemma: "تَسَاوُق"
+        examples:
+          - text: "يحدثُ تَسَاوُقٌ بينَ التغيراتِ الاقتصاديةِ والاجتماعيةِ في المجتمعِ."
+            type: usage
+      - lemma: "مُلَازَمَة"
+        examples:
+          - text: "تُعَدُّ المُلَازَمَةُ بينَ السببِ والنتيجةِ قاعدةً منطقيةً لا تنفكُّ."
+            type: usage
+      - lemma: "اقْتِرَان"
+        examples:
+          - text: "اقْتِرَانُ القولِ بالعملِ هو أساسُ النجاحِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يحدثُ تزامنٌ بينَ الظواهرِ الطبيعيةِ في فصلِ الربيعِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تَزَامُن"
+      entry_id: "{auto}"
+      root: "زمن"
+      maqayis_quote: "«الزَّاءُ وَالْمِيمُ وَالنُّونُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى وَقْتٍ مِنَ الْوَقْتِ.»"
+    - lemma: "مُرَافَقَة"
+      entry_id: "{auto}"
+      root: "رفق"
+      maqayis_quote: "«الرَّاءُ وَالْفَاءُ وَالْقَافُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُوَافَقَةٍ وَمُقَارَبَةٍ بِلَا عُنْفٍ.»"
+    - lemma: "مُصَاحَبَة"
+      entry_id: "{auto}"
+      root: "صحب"
+      maqayis_quote: "«الصَّادُ وَالْحَاءُ وَالْبَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُقَارَنَةِ شَيْءٍ وَمُقَارَبَتِهِ.»"
+    - lemma: "تَسَاوُق"
+      entry_id: "{auto}"
+      root: "سوق"
+      maqayis_quote: "«السِّينُ وَالْوَاوُ وَالْقَافُ أَصْلٌ وَاحِدٌ، وَهُوَ حَدْوُ الشَّيْءِ.»"
+    - lemma: "مُلَازَمَة"
+      entry_id: "{auto}"
+      root: "لزم"
+      maqayis_quote: "«اللَّامُ وَالزَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ صَحِيحٌ، يَدُلُّ عَلَى مُصَاحَبَةِ الشَّيْءِ بِالشَّيْءِ دَائِمًا.»"
+    - lemma: "اقْتِرَان"
+      entry_id: "{auto}"
+      root: "قرن"
+      maqayis_quote: "«الْقَافُ وَالرَّاءُ وَالنُّونُ أَصْلَانِ صَحِيحَانِ، أَحَدُهُمَا يَدُلُّ عَلَى جَمْعِ شَيْءٍ إِلَى شَيْءٍ.»"
+  per_sense:
+    - lemma: "تَزَامُن"
+      sense_id: "{auto}"
+      nuance: "يركز على الوحدة الزمنية للحدوث."
+      mwe: false
+    - lemma: "مُرَافَقَة"
+      sense_id: "{auto}"
+      nuance: "يركز على التبعية أو الملازمة العارضة."
+      mwe: false
+    - lemma: "مُصَاحَبَة"
+      sense_id: "{auto}"
+      nuance: "يركز على الاشتراك والمقارنة في الوجود."
+      mwe: false
+    - lemma: "تَسَاوُق"
+      sense_id: "{auto}"
+      nuance: "يركز على التماشي والتطابق في المسار أو التطور."
+      mwe: false
+    - lemma: "مُلَازَمَة"
+      sense_id: "{auto}"
+      nuance: "يركز على الارتباط الضروري أو المنطقي الذي لا ينفك."
+      mwe: false
+    - lemma: "اقْتِرَان"
+      sense_id: "{auto}"
+      nuance: "يركز على الجمع بين شيئين في حيز واحد أو معنى واحد."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"زمن","maqayis":"«الزَّاءُ وَالْمِيمُ وَالنُّونُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى وَقْتٍ مِنَ الْوَقْتِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"رفق","maqayis":"«الرَّاءُ وَالْفَاءُ وَالْقَافُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُوَافَقَةٍ وَمُقَارَبَةٍ بِلَا عُنْفٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صحب","maqayis":"«الصَّادُ وَالْحَاءُ وَالْبَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُقَارَنَةِ شَيْءٍ وَمُقَارَبَتِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سوق","maqayis":"«السِّينُ وَالْوَاوُ وَالْقَافُ أَصْلٌ وَاحِدٌ، وَهُوَ حَدْوُ الشَّيْءِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"لزم","maqayis":"«اللَّامُ وَالزَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ صَحِيحٌ، يَدُلُّ عَلَى مُصَاحَبَةِ الشَّيْءِ بِالشَّيْءِ دَائِمًا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قرن","maqayis":"«الْقَافُ وَالرَّاءُ وَالنُّونُ أَصْلَانِ صَحِيحَانِ، أَحَدُهُمَا يَدُلُّ عَلَى جَمْعِ شَيْءٍ إِلَى شَيْءٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الوحدة الزمنية للحدوث","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

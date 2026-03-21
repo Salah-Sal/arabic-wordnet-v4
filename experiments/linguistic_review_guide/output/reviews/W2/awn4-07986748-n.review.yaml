@@ -1,0 +1,228 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمتان الموجودتان (أصحاب) و(معارف) مجردتان من التشكيل، وهما تشيران إلى فئتين متمايزتين (الأصدقاء المقربون، والمعارف السطحيون) لكن تجميعهما معاً يغطي المفهوم الإنجليزي (kith)."
+    observations: "المفهوم يشير إلى الدائرة الاجتماعية المحيطة بالشخص من أصدقاء ومعارف ومقربين. لا توجد كلمة عربية واحدة مسكوكة تؤدي هذا المعنى المزدوج بدقة، ولذلك يتم التعبير عنه غالباً بالجمع بين الأصدقاء والمعارف أو الأهل والأصحاب."
+  blind_candidates:
+    - lemma: "أَصْدِقَاء"
+      generation_method: ishtiqaq
+      justification: "جمع (صديق) وهو الصاحب المخلص الود، ويمثل الشق الأقرب في هذا المفهوم."
+    - lemma: "خُلَطَاء"
+      generation_method: ishtiqaq
+      justification: "جمع (خليط) وهو من تخالطه وتتفاعل معه في محيطك الاجتماعي سواء كان صديقاً أو مجرد معرفة."
+    - lemma: "صَحْب"
+      generation_method: ishtiqaq
+      justification: "اسم جمع (صاحب) ويشمل الأصدقاء والمرافقين بشكل عام."
+    - lemma: "مَعْشَر"
+      generation_method: majaz
+      justification: "يطلق على الجماعة من الناس يجمعهم أمر واحد كالقرابة أو الصحبة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "أَصْحَاب"
+      confirm:
+        - text: "«جمعُ الأصـحاب: أصاحيبُ»"
+          source: "المعجم الكبير"
+        - text: "«الصَّحْبُ: جَمَاعَةُ الصّاحِبِ، والأصْحَابُ: جَمَاعَةُ الصَّحْبِ»"
+          source: "المحيط في اللغة للصاحب بن عباد"
+    - lemma: "مَعَارِف"
+      confirm:
+        - text: "«أحد معارف المرء. to make the acquaintance of : يتعرّف إلى.»"
+          source: "المورد الحديث"
+        - text: "«وهو من المعارف: من المعروفين»"
+          source: "المعجم الوسيط"
+    - lemma: "أَصْدِقَاء"
+      confirm:
+        - text: "«الصاحب الصادق الودِّ. وقد يستعمل للواحد والجمع والمؤنث.»"
+          source: "المعجم الوسيط"
+        - text: "«(الصّديق) الصاحب الصَّادِق الود (ج) أصدقاء»"
+          source: "المعجم الوسيط لمجموعة من المؤلفين"
+    - lemma: "خُلَطَاء"
+      confirm:
+        - text: "«يُطلق على الشريك, والصاحب, والجار المصافي, والزوج, وابن العمّ»"
+          source: "المعجم الوسيط"
+    - lemma: "مَعْشَر"
+      confirm:
+        - text: "«كلُّ جماعة أمرُهم واحدٌ أهلُ الرَّجل»"
+          source: "المعجم الوسيط"
+    - lemma: "صَحْب"
+      confirm:
+        - text: "«الصَّحْبُ: جَمَاعَةُ الصّاحِبِ»"
+          source: "المحيط في اللغة للصاحب بن عباد"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "أصحاب"
+      decision: confirmed
+      decision_reason: "جمع (صاحب) وهو الملازم والمعاشر، وتُعد الكلمة من أشهر الألفاظ الدالة على الأصدقاء والمقربين، وتغطي جانباً أصيلاً من المفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "أَصْحَاب"
+
+    - lemma: "معارف"
+      decision: confirmed
+      decision_reason: "جمع (معرفة)، ويُطلق على الأشخاص الذين تربطك بهم معرفة عامة أو سطحية دون بلوغ درجة الصداقة، وهو ما يطابق الشق الثاني من المفهوم الإنجليزي (acquaintances)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَعَارِف"
+
+    - lemma: "أَصْدِقَاء"
+      source: stage1
+      decision: confirmed
+      decision_reason: "جمع (صديق) وهو الصاحب الصادق الود، وهي أدق وأشيع من لفظ (أصحاب) في الاستعمال المعاصر للدلالة على الأصدقاء الخلص، وتكمل دلالة (معارف)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "أَصْدِقَاء", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "خُلَطَاء"
+      source: stage1
+      decision: removed
+      decision_reason: "رغم دلالتها على المخالطة والمصاحبة، إلا أن استخدامها في لغة العصر أقل شيوعاً من (أصدقاء) و(معارف) للدلالة على هذه الفئة."
+
+    - lemma: "صَحْب"
+      source: stage1
+      decision: removed
+      decision_reason: "تؤدي نفس دلالة (أصحاب) الموجودة سلفاً في المجموعة، ويكتفى بها اختصاراً."
+
+    - lemma: "مَعْشَر"
+      source: stage1
+      decision: removed
+      decision_reason: "تفيد الجماعة أو الأهل الذين يجمعهم أمر واحد، ولا تتطابق دلالتها بشكل تام مع مفهوم الأصدقاء والمعارف المتفرقين."
+
+stage4_content:
+  definition:
+    current: "أصدقاؤك ومعارفك"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مصاغ بصيغة المخاطب المباشر (أصدقاؤك) وهو أسلوب غير معجمي. يفضل صياغته بأسلوب عام مجرد."
+    authored:
+      - type: linguistic
+        text: "مجموع الأصدقاء والمعارف الذين يحيطون بالشخص وتربطه بهم صلات وعلاقات اجتماعية."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مجموع الأصدقاء والمعارف الذين يحيطون بالشخص وتربطه بهم صلات وعلاقات اجتماعية."}
+
+  examples:
+    per_lemma:
+      - lemma: "أَصْحَاب"
+        examples:
+          - text: "دعا إلى حفل زفافه جميع أقاربه وأصحابه."
+            type: usage
+      - lemma: "مَعَارِف"
+        examples:
+          - text: "كان يمتلك شبكة واسعة من المعارف في المدينة سهلت له عمله."
+            type: usage
+      - lemma: "أَصْدِقَاء"
+        examples:
+          - text: "التقى بمجموعة من الأصدقاء القدامى بعد غياب طويل."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "دعا إلى حفل زفافه جميع أقاربه وأصحابه."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "كان يمتلك شبكة واسعة من المعارف في المدينة سهلت له عمله."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "التقى بمجموعة من الأصدقاء القدامى بعد غياب طويل."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "أَصْحَاب"
+      entry_id: "{auto}"
+      root: "صحب"
+      maqayis_quote: "«(صَحَبَ) الصَّادُ وَالْحَاءُ وَالْبَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُقَارَنَةِ شَيْءٍ وَمُقَارَبَتِهِ.»"
+    - lemma: "مَعَارِف"
+      entry_id: "{auto}"
+      root: "عرف"
+      maqayis_quote: "«(عَرَفَ) الْعَيْنُ وَالرَّاءُ وَالْفَاءُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى تَتَابُعِ الشَّيْءِ مُتَّصِلًا بَعْضُهُ بِبَعْضٍ، وَالْآخَرُ عَلَى السُّكُونِ وَالطُّمَأْنِينَةِ. ... وَالْأَصْلُ الْآخَرُ الْمَعْرِفَةُ وَالْعِرْفَانُ. تَقُولُ: عَرَفَ فُلَانٌ فُلَانًا عِرْفَانًا وَمَعْرِفَةً.»"
+    - lemma: "أَصْدِقَاء"
+      entry_id: "{auto}"
+      root: "صدق"
+      maqayis_quote: "«(صَدَقَ) الصَّادُ وَالدَّالُ وَالْقَافُ أَصْلٌ يَدُلُّ عَلَى قُوَّةٍ فِي الشَّيْءِ قَوْلًا وَغَيْرَهُ.»"
+
+  per_sense:
+    - lemma: "أَصْحَاب"
+      sense_id: "{auto}"
+      nuance: "تؤكد على الملازمة والمرافقة، وتعتبر أعم من الصداقة حيث قد تشمل زملاء العمل أو رفقاء السفر."
+      mwe: false
+    - lemma: "مَعَارِف"
+      sense_id: "{auto}"
+      nuance: "تقتصر على مجرد المعرفة السطحية أو العامة بالأشخاص دون وجود روابط عاطفية عميقة أو ملازمة."
+      mwe: false
+    - lemma: "أَصْدِقَاء"
+      sense_id: "{auto}"
+      nuance: "تعبر عن أعلى درجات الصحبة والمودة الخالصة بين الأشخاص، وتقابل لفظ (معارف) في هذه المجموعة."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صحب","maqayis":"«(صَحَبَ) الصَّادُ وَالْحَاءُ وَالْبَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُقَارَنَةِ شَيْءٍ وَمُقَارَبَتِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عرف","maqayis":"«(عَرَفَ) الْعَيْنُ وَالرَّاءُ وَالْفَاءُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى تَتَابُعِ الشَّيْءِ مُتَّصِلًا بَعْضُهُ بِبَعْضٍ، وَالْآخَرُ عَلَى السُّكُونِ وَالطُّمَأْنِينَةِ. ... وَالْأَصْلُ الْآخَرُ الْمَعْرِفَةُ وَالْعِرْفَانُ. تَقُولُ: عَرَفَ فُلَانٌ فُلَانًا عِرْفَانًا وَمَعْرِفَةً.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صدق","maqayis":"«(صَدَقَ) الصَّادُ وَالدَّالُ وَالْقَافُ أَصْلٌ يَدُلُّ عَلَى قُوَّةٍ فِي الشَّيْءِ قَوْلًا وَغَيْرَهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تؤكد على الملازمة والمرافقة، وتعتبر أعم من الصداقة حيث قد تشمل زملاء العمل أو رفقاء السفر.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تقتصر على مجرد المعرفة السطحية أو العامة بالأشخاص دون وجود روابط عاطفية عميقة أو ملازمة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبر عن أعلى درجات الصحبة والمودة الخالصة بين الأشخاص، وتقابل لفظ (معارف) في هذه المجموعة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

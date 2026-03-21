@@ -1,0 +1,289 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة (دستور الأدوية) تطلق حصراً على الكتاب أو المرجع الرسمي الذي يضم قائمة بالأدوية ومواصفاتها، وهو ما يختلف عن الدلالة المطلوبة هنا وهي (مخزون الأدوية أو المجموعة الدوائية بحد ذاتها)."
+      - "الخلط جاء من الاشتراك اللفظي في الترجمة الإنجليزية لكلمة pharmacopoeia التي تعني المرجع الطبي (المعنى الأساسي)، وتعني أيضاً المخزون الدوائي (بمعنى مجازي أو ثانوي)."
+    observations: "المفهوم يشير إلى مجموعة الأدوية المادية المخزنة للاستعمال. التعبير عنه في العربية يكون عادة عبر التراكيب الإضافية أو الوصفية لعدم وجود لفظ مفرد مسكوك لهذا المعنى بدقة."
+  blind_candidates:
+    - lemma: "ذَخِيرَةٌ دَوَائِيَّةٌ"
+      generation_method: majaz
+      justification: "استعارة من الذخيرة (العتاد) للتعبير عن المخزون الدوائي المحتفظ به لوقت الحاجة أو الطوارئ."
+    - lemma: "مَخْزُونٌ دَوَائِيٌّ"
+      generation_method: tarkib
+      justification: "تركيب وصفي مباشر ودقيق للتعبير عن كمية الأدوية المخزنة."
+    - lemma: "صَيْدَلِيَّةٌ"
+      generation_method: majaz
+      justification: "تستخدم مجازاً وبشكل شائع للدلالة على مجموعة الأدوية المحتفظ بها (مثل: صيدلية منزلية)."
+    - lemma: "مَجْمُوعَةٌ دَوَائِيَّةٌ"
+      generation_method: tarkib
+      justification: "تركيب وصفي يعبر بدقة عن مجموعة الأدوية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "دستور الأدوية"
+      contradicts:
+        - text: "«مرجع رسميّ موثوق يحتوي على كل ما يتعلق بالأدوية ومستحضراتها.»"
+          source: "المعجم الموحد لمصطلحات علم الصيدلة (2009)"
+          conflict: "المعنى هنا يشير إلى الكتاب/المرجع، وليس إلى الأدوية المادية المخزنة."
+    - lemma: "مخزون أدوية"
+      confirm:
+        - text: "«(2) مجموعة [أو مخزون] أدوية.»"
+          source: "المورد الحديث (2008)"
+    - lemma: "ذَخِيرَةٌ دَوَائِيَّةٌ"
+      expands:
+        - text: "«الذَّخِيرَةُ: ما ادُّخِر»"
+          source: "المعجم الكبير"
+          addition: "يدعم الاستعمال المجازي للذخيرة لتعني كل ما يُدَّخَر ويُخزَّن، بما في ذلك الأدوية."
+    - lemma: "مَخْزُونٌ دَوَائِيٌّ"
+      evidence_status: "no_material_found"
+    - lemma: "صَيْدَلِيَّةٌ"
+      contradicts:
+        - text: "«(الصيدلية) الْمَكَان يُبَاشر فِيهِ الصيدلي عمله ويحفظ مَا يمتلك من عقاقير وأدوية وَنَحْوهَا»"
+          source: "المعجم الوسيط"
+          conflict: "المعجم يحصر المعنى في المكان الفيزيائي للصيدلة، ولا يذكر المعنى المجازي لمجموعة الأدوية."
+    - lemma: "مَجْمُوعَةٌ دَوَائِيَّةٌ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "دستور الأدوية"
+      decision: removed
+      decision_reason: "اللمة تعني المرجع أو الكتاب الرسمي للأدوية، وهذا يتعارض مع دلالة المجموعة التي تقصد المخزون المادي من الأدوية، وقد نتج الخلط عن ترجمة عمياء لأحد معاني الكلمة الإنجليزية."
+      evidence_assessment:
+        case: contradicts_only
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    
+    - lemma: "مخزون أدوية"
+      decision: confirmed
+      decision_reason: "تعبير إضافي صحيح ومطابق تماماً لتعريف المجموعة وللمعنى المراد إيصاله."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَخْزُونُ أَدْوِيَةٍ"
+            
+    - lemma: "ذَخِيرَةٌ دَوَائِيَّةٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير بلاغي مستعمل وصحيح يعكس فكرة تخزين الأدوية للضرورة أو للطوارئ قياساً على الذخيرة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "ذَخِيرَةٌ دَوَائِيَّةٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-03927331-n"}
+          
+    - lemma: "مَخْزُونٌ دَوَائِيٌّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تركيب وصفي دقيق ومباشر ومألوف الاستعمال في السياقات الطبية والإدارية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "مَخْزُونٌ دَوَائِيٌّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-03927331-n"}
+          
+    - lemma: "مَجْمُوعَةٌ دَوَائِيَّةٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير مباشر يطابق دلالة المجموعة (collection) ويوضح كونها من الأدوية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "مَجْمُوعَةٌ دَوَائِيَّةٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-03927331-n"}
+
+    - lemma: "صَيْدَلِيَّةٌ"
+      source: stage1
+      decision: removed
+      decision_reason: "المعنى الأساسي والمعجمي هو المكان الذي تباع أو تُحفظ فيه الأدوية، واستخدامها للدلالة على مجموعة الأدوية بحد ذاتها هو استخدام مجازي واسع قد يسبب لبساً مع المعنى المكاني."
+      evidence_assessment:
+        case: contradicts_only
+
+stage4_content:
+  definition:
+    current: "مجموعة أو مخزون من الأدوية"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي هو ترجمة حرفية مقبولة ولكن يمكن تحسين سبكه اللغوي ليصبح تعريفاً وافياً."
+    authored:
+      - type: linguistic
+        text: "مِقْدَارٌ مُدَّخَرٌ أَو مَجْمُوعَةٌ مُحْتَفَظٌ بِهَا مِنَ الْأَدْوِيَةِ وَالْعَقَاقِيرِ الطِّبِّيَّةِ لِلِاسْتِعْمَالِ مَتَى دَعَتِ الْحَاجَةُ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-03927331-n", definition_index: 0, text: "مِقْدَارٌ مُدَّخَرٌ أَو مَجْمُوعَةٌ مُحْتَفَظٌ بِهَا مِنَ الْأَدْوِيَةِ وَالْعَقَاقِيرِ الطِّبِّيَّةِ لِلِاسْتِعْمَالِ مَتَى دَعَتِ الْحَاجَةُ."}
+
+  examples:
+    per_lemma:
+      - lemma: "مَخْزُونُ أَدْوِيَةٍ"
+        examples:
+          - text: "تَفَقَّدَ الطَّبِيبُ مَخْزُونَ أَدْوِيَةٍ فِي عِيَادَتِهِ لِلتَّأَكُّدِ مِنْ صَلَاحِيَّتِهَا."
+            type: usage
+      - lemma: "ذَخِيرَةٌ دَوَائِيَّةٌ"
+        examples:
+          - text: "يَحْتَفِظُ الْمُسْتَشْفَى بِذَخِيرَةٍ دَوَائِيَّةٍ اسْتِرَاتِيجِيَّةٍ لِمُوَاجَهَةِ حَالَاتِ الطَّوَارِئِ."
+            type: usage
+      - lemma: "مَخْزُونٌ دَوَائِيٌّ"
+        examples:
+          - text: "يَجِبُ تَوْفِيرُ مَخْزُونٍ دَوَائِيٍّ كَافٍ لِلْمَرْضَى الَّذِينَ يُعَانُونَ مِنْ أَمْرَاضٍ مُزْمِنَةٍ."
+            type: usage
+      - lemma: "مَجْمُوعَةٌ دَوَائِيَّةٌ"
+        examples:
+          - text: "يَحْتَوِي صُنْدُوقُ الْإِسْعَافَاتِ الْأَوَّلِيَّةِ عَلَى مَجْمُوعَةٍ دَوَائِيَّةٍ مُتَكَامِلَةٍ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تَفَقَّدَ الطَّبِيبُ مَخْزُونَ أَدْوِيَةٍ فِي عِيَادَتِهِ لِلتَّأَكُّدِ مِنْ صَلَاحِيَّتِهَا."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يَحْتَفِظُ الْمُسْتَشْفَى بِذَخِيرَةٍ دَوَائِيَّةٍ اسْتِرَاتِيجِيَّةٍ لِمُوَاجَهَةِ حَالَاتِ الطَّوَارِئِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يَجِبُ تَوْفِيرُ مَخْزُونٍ دَوَائِيٍّ كَافٍ لِلْمَرْضَى الَّذِينَ يُعَانُونَ مِنْ أَمْرَاضٍ مُزْمِنَةٍ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يَحْتَوِي صُنْدُوقُ الْإِسْعَافَاتِ الْأَوَّلِيَّةِ عَلَى مَجْمُوعَةٍ دَوَائِيَّةٍ مُتَكَامِلَةٍ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَخْزُونُ أَدْوِيَةٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مخزون"
+          root: "خزن"
+          maqayis_quote: "«الْخَاءُ وَالزَّاءُ وَالنُّونُ أَصْلٌ يَدُلُّ عَلَى صِيَانَةِ الشَّيْءِ.»"
+        - word: "أدوية"
+          root: "دوي"
+          maqayis_quote: "«الدَّالُ وَالْوَاوُ وَالْحَرْفُ الْمُعْتَلُّ... الدَّوَاءُ مَعْرُوفٌ»"
+    - lemma: "ذَخِيرَةٌ دَوَائِيَّةٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "ذخيرة"
+          root: "ذخر"
+          maqayis_quote: "«الذَّالُ وَالْخَاءُ وَالرَّاءُ يَدُلُّ عَلَى إِحْرَازِ شَيْءٍ يَحْفَظُهُ.»"
+        - word: "دوائية"
+          root: "دوي"
+          maqayis_quote: "«الدَّالُ وَالْوَاوُ وَالْحَرْفُ الْمُعْتَلُّ... الدَّوَاءُ مَعْرُوفٌ»"
+    - lemma: "مَخْزُونٌ دَوَائِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مخزون"
+          root: "خزن"
+          maqayis_quote: "«الْخَاءُ وَالزَّاءُ وَالنُّونُ أَصْلٌ يَدُلُّ عَلَى صِيَانَةِ الشَّيْءِ.»"
+        - word: "دوائي"
+          root: "دوي"
+          maqayis_quote: "«الدَّالُ وَالْوَاوُ وَالْحَرْفُ الْمُعْتَلُّ... الدَّوَاءُ مَعْرُوفٌ»"
+    - lemma: "مَجْمُوعَةٌ دَوَائِيَّةٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مجموعة"
+          root: "جمع"
+          maqayis_quote: "«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ.»"
+        - word: "دوائية"
+          root: "دوي"
+          maqayis_quote: "«الدَّالُ وَالْوَاوُ وَالْحَرْفُ الْمُعْتَلُّ... الدَّوَاءُ مَعْرُوفٌ»"
+
+  per_sense:
+    - lemma: "مَخْزُونُ أَدْوِيَةٍ"
+      sense_id: "{auto}"
+      nuance: "تعبير إضافي مباشر وشائع يعكس كمية الأدوية المخزنة."
+      mwe: true
+    - lemma: "ذَخِيرَةٌ دَوَائِيَّةٌ"
+      sense_id: "{auto}"
+      nuance: "تعبير بلاغي استعاري يوحي بأهمية الأدوية واعتبارها عتاداً للطوارئ."
+      mwe: true
+    - lemma: "مَخْزُونٌ دَوَائِيٌّ"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي دقيق يُفضَّل في السياقات الإدارية والطبية المتخصصة."
+      mwe: true
+    - lemma: "مَجْمُوعَةٌ دَوَائِيَّةٌ"
+      sense_id: "{auto}"
+      nuance: "يركز على تعدد وتنوع الأصناف الدوائية المحتفظ بها وليس كميتها فقط."
+      mwe: true
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مخزون","root":"خزن","maqayis":"«الْخَاءُ وَالزَّاءُ وَالنُّونُ أَصْلٌ يَدُلُّ عَلَى صِيَانَةِ الشَّيْءِ.»"},{"word":"أدوية","root":"دوي","maqayis":"«الدَّالُ وَالْوَاوُ وَالْحَرْفُ الْمُعْتَلُّ... الدَّوَاءُ مَعْرُوفٌ»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"ذخيرة","root":"ذخر","maqayis":"«الذَّالُ وَالْخَاءُ وَالرَّاءُ يَدُلُّ عَلَى إِحْرَازِ شَيْءٍ يَحْفَظُهُ.»"},{"word":"دوائية","root":"دوي","maqayis":"«الدَّالُ وَالْوَاوُ وَالْحَرْفُ الْمُعْتَلُّ... الدَّوَاءُ مَعْرُوفٌ»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مخزون","root":"خزن","maqayis":"«الْخَاءُ وَالزَّاءُ وَالنُّونُ أَصْلٌ يَدُلُّ عَلَى صِيَانَةِ الشَّيْءِ.»"},{"word":"دوائي","root":"دوي","maqayis":"«الدَّالُ وَالْوَاوُ وَالْحَرْفُ الْمُعْتَلُّ... الدَّوَاءُ مَعْرُوفٌ»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مجموعة","root":"جمع","maqayis":"«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ.»"},{"word":"دوائية","root":"دوي","maqayis":"«الدَّالُ وَالْوَاوُ وَالْحَرْفُ الْمُعْتَلُّ... الدَّوَاءُ مَعْرُوفٌ»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير إضافي مباشر وشائع يعكس كمية الأدوية المخزنة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير بلاغي استعاري يوحي بأهمية الأدوية واعتبارها عتاداً للطوارئ.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير وصفي دقيق يُفضَّل في السياقات الإدارية والطبية المتخصصة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على تعدد وتنوع الأصناف الدوائية المحتفظ بها وليس كميتها فقط.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-03927331-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-03927331-n"
+        score: 0.95

@@ -1,0 +1,219 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'تَوَافُق' واسعة الدلالة جدًّا، فهي تشمل الاتفاق في الرأي والانسجام والملاءمة والكومبيوتر، وليست مخصصة للمكان إلا بقرينة."
+      - "اللمة 'تَطَابُق مَكَانِيّ' صحيحة لكنها مركبة، وهناك ألفاظ مفردة تؤدي المعنى بدقة أكبر في السياقات العلمية."
+    observations: "المفهوم يتعلق بالهندسة والفيزياء (coincidence/congruence)، حيث يشغل جسمان نفس الحيز في الفراغ. المصطلحات العربية المركزية هي 'تطابق' و'انطباق' و'تماكن'."
+  blind_candidates:
+    - lemma: "تَطَابُق"
+      generation_method: ishtiqaq
+      justification: "المصطلح الرياضي والهندسي الأساسي للدلالة على تساوِي جسمين وتطابقهما في الأبعاد والمكان."
+    - lemma: "تَمَاثُل مَكَانِيّ"
+      generation_method: tarkib
+      justification: "تعبير وصفي يدل على التساوي التام في الخصائص المكانية."
+    - lemma: "تَوَافُق مَوْضِعِيّ"
+      generation_method: tarkib
+      justification: "تعبير يدل على اتفاق الموضع بين شيئين."
+    - lemma: "انْطِبَاق"
+      generation_method: ishtiqaq
+      justification: "يدل على وضع شيء على شيء بحيث يغطيه تماماً، وهو مستعمل في الهندسة للدلالة على شغل نفس الحيز."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تَطَابُق مَكَانِيّ"
+      confirm:
+        - text: "تطابق (ن): coincidence"
+          source: "المعجم الموحد لمصطلحات الفيزياء العامة والنووية (1989)"
+        - text: "تطابق: coincidence"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية (2012)"
+    - lemma: "تَوَافُق"
+      contradicts:
+        - text: "(فى الفلسفة): أن يسلك المرءُ مسلك الجماعة ويَتجنَّب ما عنده من شذوذٍ فى الخُلُق والسلوك"
+          source: "المعجم الوسيط"
+          conflict: "الدلالة هنا اجتماعية/فلسفية وليست مكانية هندسية."
+    - lemma: "تَطَابُق"
+      confirm:
+        - text: "التَّطَابُقُ: التَّمَاثُلُ والتَّشَابُه... تَطَابُقُ الْمُثْلَّثَيْنِ (في الهندسة): تَشَابُهٌ كامِلٌ بينهما, وتَساوٍ في جميعِ الْعَناصر الْمُتَناظِرة فيهما"
+          source: "المعجم الكبير"
+    - lemma: "انْطِبَاق"
+      confirm:
+        - text: "الانطباق: مُوَافقَة السطحين فِي الطول وَالْعرض."
+          source: "دستور العلماء"
+        - text: "الانطباق (هن): coincidence"
+          source: "المورد الحديث"
+    - lemma: "تَمَاكُن"
+      confirm:
+        - text: "تماكُن؛ تزامُن: coincidence"
+          source: "المورد الحديث"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تَطَابُق مَكَانِيّ"
+      decision: confirmed
+      decision_reason: "مصطلح تقني دقيق يشرح المفهوم بوضوح، وإن كان مركباً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَطَابُق مَكَانِيّ"
+    - lemma: "تَوَافُق"
+      decision: removed
+      decision_reason: "اللفظ عام جداً ويفتقر للخصوصية المكانية المطلوبة في هذا السياق، وقد يسبب لبساً مع التوافق الاجتماعي أو النفسي."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "تَطَابُق"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اللفظ المفرد الأكثر شيوعاً في الرياضيات والفيزياء للدلالة على التطابق المكاني."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَطَابُق", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "انْطِبَاق"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تراثي ومعاصر دقيق للدلالة على موافقة السطوح لبعضها وشغلها نفس الحيز."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "انْطِبَاق", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَمَاكُن"
+      decision: confirmed
+      decision_reason: "لفظ اشتقاقي من (المكان) يدل صراحة على الاشتراك في الحيز المكاني، وهو بديل ممتاز للمصطلحات المركبة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَمَاكُن", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "صفة شغل نفس الموضع أو المساحة في الفراغ"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقبول ولكنه يفتقر إلى صياغة معجمية محكمة توضح كيفية هذا الشغل (التطابق)."
+    authored:
+      - type: terminological
+        text: "اتِّفاقُ جسمينِ أو أكثرَ في الحيّزِ أو الموضعِ بحيثُ ينطبقُ كلٌّ منهما على الآخَر تَمامَ الانطباق."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "اتِّفاقُ جسمينِ أو أكثرَ في الحيّزِ أو الموضعِ بحيثُ ينطبقُ كلٌّ منهما على الآخَر تَمامَ الانطباق."}
+  examples:
+    per_lemma:
+      - lemma: "تَطَابُق مَكَانِيّ"
+        examples:
+          - text: "يَتَحَقَّقُ التَّطَابُقُ المَكَانِيُّ عِنْدَما يَشْغَلُ جِسْمانِ الحَيِّزَ نَفْسَهُ."
+            type: usage
+      - lemma: "تَطَابُق"
+        examples:
+          - text: "يُبْرِهِنُ العالِمُ على تَطَابُقِ الشَّكْلَيْنِ الهَنْدَسِيَّيْنِ بِنَقْلِ أَحَدِهِما إلى الآخَر."
+            type: usage
+      - lemma: "انْطِبَاق"
+        examples:
+          - text: "يُعَدُّ انْطِبَاقُ السَّطْحَيْنِ دَلِيلًا على تَسَاوِي أَبْعَادِهما."
+            type: usage
+      - lemma: "تَمَاكُن"
+        examples:
+          - text: "يَدْرُسُ عِلْمُ الفِيزياءِ حَالَاتِ تَمَاكُنِ الجُسَيْماتِ في نِظامٍ مُعَيَّن."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يَتَحَقَّقُ التطابق عِنْدَما يَشْغَلُ جِسْمانِ الحَيِّزَ نَفْسَهُ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تَطَابُق"
+      entry_id: "{auto}"
+      root: "طبق"
+      maqayis_quote: "«الطَّاءُ وَالْبَاءُ وَالْقَافُ أَصْلٌ صَحِيحٌ وَاحِدٌ، وَهُوَ يَدُلُّ عَلَى وَضْعِ شَيْءٍ مَبْسُوطٍ عَلَى مِثْلِهِ حَتَّى يُغَطِّيَهُ. مِنْ ذَلِكَ الطَّبَقُ. تَقُولُ: أَطْبَقْتُ الشَّيْءَ عَلَى الشَّيْءِ، فَالْأَوَّلُ طَبَقٌ لِلثَّانِي ; وَقَدْ تَطَابَقَا.»"
+    - lemma: "انْطِبَاق"
+      entry_id: "{auto}"
+      root: "طبق"
+      maqayis_quote: "«الطَّاءُ وَالْبَاءُ وَالْقَافُ أَصْلٌ صَحِيحٌ وَاحِدٌ، وَهُوَ يَدُلُّ عَلَى وَضْعِ شَيْءٍ مَبْسُوطٍ عَلَى مِثْلِهِ حَتَّى يُغَطِّيَهُ.»"
+    - lemma: "تَمَاكُن"
+      entry_id: "{auto}"
+      root: "كون"
+      maqayis_quote: "«الْكَافُ وَالْوَاوُ وَالنُّونُ أَصْلٌ يَدُلُّ عَلَى الْإِخْبَارِ عَنْ حُدُوثِ شَيْءٍ... وَقَالَ قَوْمٌ: الْمَكَانُ اشْتِقَاقُهُ مِنْ كَانَ يَكُونُ، فَلَمَّا كَثُرَ تُوُهِّمَتِ الْمِيمُ أَصْلِيَّةً فَقِيلَ تَمَكَّنَ.»"
+    - lemma: "تَطَابُق مَكَانِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "تطابق"
+          root: "طبق"
+          maqayis_quote: "«الطَّاءُ وَالْبَاءُ وَالْقَافُ أَصْلٌ صَحِيحٌ وَاحِدٌ، وَهُوَ يَدُلُّ عَلَى وَضْعِ شَيْءٍ مَبْسُوطٍ عَلَى مِثْلِهِ حَتَّى يُغَطِّيَهُ.»"
+        - word: "مكاني"
+          root: "كون"
+          maqayis_quote: "«الْمَكَانُ اشْتِقَاقُهُ مِنْ كَانَ يَكُونُ.»"
+  per_sense:
+    - lemma: "تَطَابُق مَكَانِيّ"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي صريح يزيل اللبس عن أنواع التطابق الأخرى (المنطقي أو الخُلُقي)."
+      mwe: true
+    - lemma: "تَطَابُق"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام والأكثر تداولاً في العلوم الرياضية."
+      mwe: false
+    - lemma: "انْطِبَاق"
+      sense_id: "{auto}"
+      nuance: "يؤكد على هيئة التراكب ووضع جسم فوق الآخر تماماً."
+      mwe: false
+    - lemma: "تَمَاكُن"
+      sense_id: "{auto}"
+      nuance: "يركز على الاشتراك في (المكان) ذاته."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"طبق","maqayis":"«الطَّاءُ وَالْبَاءُ وَالْقَافُ أَصْلٌ صَحِيحٌ وَاحِدٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"تطابق","root":"طبق","maqayis":"«...»"},{"word":"مكاني","root":"كون","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير وصفي صريح","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

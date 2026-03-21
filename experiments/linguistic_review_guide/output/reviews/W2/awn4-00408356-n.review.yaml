@@ -1,0 +1,201 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف العربي الحالي يتضمن كلمات يمكن اعتبارها لمات مرشحة (سلوك، عمل)، مما قد يسبب دوراناً لغوياً."
+      - "المجموعة تحتوي على لمة واحدة فقط (نشاط)، وهي لمة عامة جداً مقارنة بالتعريف الإنجليزي 'any specific behavior'."
+    observations: "اللمة 'نشاط' هي الأكثر شيوعاً للتعبير عن 'activity'، والتعريف الحالي يحاول حصر الدلالة في 'السلوك المحدد' أو 'العمل الممارس'. المصطلح العربي يغطي الجوانب الإنسانية والآلية والبيولوجية."
+  blind_candidates:
+    - lemma: "فَعَالِيَّة"
+      generation_method: ishtiqaq
+      justification: "مصدر صناعي من 'فعال'، يستخدم بكثرة في السياقات الحديثة للتعبير عن الأنشطة المنظمة أو الفعاليات."
+    - lemma: "مُمَارَسَة"
+      generation_method: ishtiqaq
+      justification: "مصدر من الفعل 'مارس'، يناسب الجزء الثاني من التعريف 'عمل يمارس'."
+    - lemma: "تَصَرُّف"
+      generation_method: ishtiqaq
+      justification: "يناسب معنى 'specific behavior' خاصة في السياقات الاجتماعية والشخصية."
+    - lemma: "إِجْرَاء"
+      generation_method: ishtiqaq
+      justification: "يستخدم للتعبير عن نشاط محدد أو خطوة عملية في سياق إداري أو تقني."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "نَشَاط"
+      confirm:
+        - text: "«ممارسة صادقة لعمل من الأعمال. يقال: لفلان نشاط زراعي أو تجاري مثلاً»"
+          source: "المعجم الوسيط"
+        - text: "«مجموع الأفعال والأعمال التي ينجزها شخص في مجال معين.»"
+          source: "مسرد الإعلام والتواصل (ArabTerm)"
+      expands:
+        - text: "«اهتزاز وحركة. منه النشاط معروف وهو لما فيه من الحركة والاهتزاز والتفتح.»"
+          source: "مقاييس اللغة"
+    - lemma: "فَعَالِيَّة"
+      confirm:
+        - text: "«أجاز مجمع اللغة المصري استعمال الفعالية... بمعنى نشاط وتأثير»"
+          source: "معجم الصواب اللغوي"
+        - text: "«ظاهرة تعتبر خلاصة فعالية توحد فعلا في فضاء بطابع واقع يفعل في العالم وينتج الأثر.»"
+          source: "المعجم الموحد لمصطلحات اللسانيات"
+    - lemma: "مُمَارَسَة"
+      confirm:
+        - text: "«الممارسة: عملية البيع أو الشراء بدون مزايدة ولا مناقصة (محدثة)»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«الميم والراء والسين أصل صحيح يدل على مضامة شيء لشيء بشدة وقوة... ومنه تمرس فلان بالشيء: احتك به.»"
+          source: "مقاييس اللغة"
+    - lemma: "سُلُوك"
+      confirm:
+        - text: "«كل الأفعال والنشاطات التي تصدر عن الفرد سواء كانت ظاهرة أم غير ظاهرة.»"
+          source: "مسرد التربية (ArabTerm)"
+        - text: "«الاستجابة الكلية التي يبديها كائن حي إزاء أي موقف يواجهه.»"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "نَشَاط"
+      decision: confirmed
+      decision_reason: "اللمة الأساسية والمقابلة المباشرة لمصطلح 'activity' في أغلب السياقات، ومدعومة بتعريف المعجم الوسيط."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نَشَاط"
+    - lemma: "فَعَالِيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح شائع جداً في اللغة المعاصرة للتعبير عن النشاطات المنظمة والفعاليات، وأقره المجمع اللغوي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "فَعَالِيَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُمَارَسَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تنسجم مع التعريف العربي 'عمل يمارس'، وتعبر عن النشاط الذي يتكرر أو يتخذ طابعاً مهنياً أو شخصياً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُمَارَسَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "سُلُوك"
+      source: stage1
+      decision: confirmed
+      decision_reason: "التعريف الإنجليزي ينص صراحة على 'any specific behavior'، وكلمة 'سلوك' هي المقابل الدقيق لها."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "سُلُوك", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "أيّ سلوك محدّد أو عمل يُمارَس"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكنه يحتاج إلى صياغة معجمية أكثر رصانة وتشكيل كامل لضبط المعنى."
+    authored:
+      - type: terminological
+        text: "سُلوكٌ مُعيَّنٌ أو مُمَارَسَةٌ لِفِعْلٍ أو عَمَلٍ مَحْدُودٍ يَقُومُ بِهِ المَرْءُ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "نَشَاط"
+        examples:
+          - text: "يَمْنَعُ القَانُونُ كُلَّ نَشَاطٍ تِجَارِيٍّ غَيْرِ مُرَخَّصٍ."
+            type: usage
+      - lemma: "فَعَالِيَّة"
+        examples:
+          - text: "شَارَكَ الطُّلَّابُ فِي فَعَالِيَّاتِ المِهْرَجَانِ الثَّقَافِيِّ."
+            type: usage
+      - lemma: "مُمَارَسَة"
+        examples:
+          - text: "تُعْتَبَرُ المُمَارَسَةُ الرِّيَاضِيَّةُ جُزْءًا هَامًّا مِنَ النَّمَطِ الصِّحِّيِّ."
+            type: usage
+      - lemma: "سُلُوك"
+        examples:
+          - text: "تَمَّ رَصْدُ سُلُوكٍ غَرِيبٍ مِنَ الحَيَوَانَاتِ قَبْلَ وُقُوعِ الزِّلْزَالِ."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "سُلوكٌ مُعيَّنٌ أو مُمَارَسَةٌ لِفِعْلٍ أو عَمَلٍ مَحْدُودٍ يَقُومُ بِهِ المَرْءُ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "نَشَاط"
+      entry_id: "{auto}"
+      root: "نشط"
+      maqayis_quote: "«النُّونُ وَالشِّينُ وَالطَّاءُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى اهْتِزَازٍ وَحَرَكَةٍ. مِنْهُ النَّشَاطُ مَعْرُوفٌ وَهُوَ لِمَا فِيهِ مِنَ الْحَرَكَةِ وَالِاهْتِزَازِ وَالتَّفَتُّحِ.»"
+    - lemma: "فَعَالِيَّة"
+      entry_id: "{auto}"
+      root: "فعل"
+      maqayis_quote: "«الْفَاءُ الْعَيْنُ وَالَّلامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِحْدَاثِ شَيْءٍ مِنْ عَمَلٍ وَغَيْرِهِ. مِنْ ذَلِكَ: فَعَلْتُ كَذَا أَفْعَلُهُ فَعْلًا.»"
+    - lemma: "مُمَارَسَة"
+      entry_id: "{auto}"
+      root: "مرس"
+      maqayis_quote: "«الْمِيمُ وَالرَّاءُ وَالسِّينُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مُضَامَّةِ شَيْءٍ لِشَيْءٍ بِشِدَّةٍ وَقُوَّةٍ. مِنْهُ الْمَرَسُ: الْحَبْلُ... وَرَجُلٌ مَرِسٌ: ذُو جَلَدٍ.»"
+    - lemma: "سُلُوك"
+      entry_id: "{auto}"
+      root: "سلك"
+      maqayis_quote: "«السِّينُ وَاللَّامُ وَالْكَافُ أَصْلٌ يَدُلُّ عَلَى نُفُوذِ شَيْءٍ فِي شَيْءٍ. يُقَالُ سَلَكْتُ الطَّرِيقَ أَسْلُكُهُ.»"
+  per_sense:
+    - lemma: "نَشَاط"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام والشامل لأي نوع من أنواع النشاط (بدني، ذهني، تجاري)."
+      mwe: false
+    - lemma: "فَعَالِيَّة"
+      sense_id: "{auto}"
+      nuance: "تستخدم غالباً للأنشطة المنظمة أو الجماعية أو التي لها أثر ونتائج ملموسة."
+      mwe: false
+    - lemma: "مُمَارَسَة"
+      sense_id: "{auto}"
+      nuance: "تركز على الجانب التطبيقي أو العملي للنشاط، وغالباً ما تشير إلى شيء يعتاد الشخص فعله."
+      mwe: false
+    - lemma: "سُلُوك"
+      sense_id: "{auto}"
+      nuance: "تركز على الجانب السلوكي أو الاستجابة للفعل، وتبرز في السياقات النفسية والاجتماعية."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نشط","maqayis":"«النُّونُ وَالشِّينُ وَالطَّاءُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى اهْتِزَازٍ وَحَرَكَةٍ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العام والشامل لأي نوع من أنواع النشاط.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

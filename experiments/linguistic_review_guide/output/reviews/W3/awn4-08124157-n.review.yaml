@@ -1,0 +1,141 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "خلو اللمة الحالية (رتيبة) من التشكيل، مما قد يسبب التباساً مع كلمات أخرى."
+    observations: "المفهوم يشير إلى مستوى تصنيفي فرعي يقع تحت (الرتبة) في علم التصنيف الحيوي. اللغة العربية قادرة على التعبير عن هذا المفهوم بدقة إما عن طريق صيغة التصغير (رتيبة) أو بإضافة صفة مخصصة (فرعية)."
+  blind_candidates:
+    - lemma: "رُتَيْبَة"
+      generation_method: ishtiqaq
+      justification: "استخدام صيغة التصغير (فُعَيْلَة) من (رُتْبَة) للدلالة على كونها تقع تحتها في التصنيف البيولوجي أو أصغر منها درجة."
+    - lemma: "رُتْبَة فَرْعِيَّة"
+      generation_method: tarkib
+      justification: "مركب وصفي يبين بوضوح أنها جزء متفرع من رتبة أصلية، وهو أسلوب شائع في المصطلحات العلمية."
+    - lemma: "تَحْتَ رُتْبَة"
+      generation_method: tarkib
+      justification: "ترجمة مباشرة للمقاطع السابقة في اللغات الأجنبية (sub-) باستخدام الظرف (تحت)."
+    - lemma: "دُونَ رُتْبَة"
+      generation_method: tarkib
+      justification: "استخدام الظرف (دون) للدلالة على المرتبة الأدنى مباشرة في التسلسل الهرمي."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "رُتَيْبَة"
+      confirm:
+        - text: "«الرُّتبة الفرعية؛ الرُّتَيْبة [في تصنيف الأحياء].»"
+          source: "المورد الحديث (2008)"
+        - text: "«رُتَيْبَة [ج:رُتَيْبَات]»"
+          source: "المعجم الطبي الموحد (2009)"
+    - lemma: "رُتْبَة فَرْعِيَّة"
+      confirm:
+        - text: "«الرُّتبة الفرعية؛ الرُّتَيْبة [في تصنيف الأحياء].»"
+          source: "المورد الحديث (2008)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "رتيبة"
+      decision: confirmed
+      decision_reason: "مصطلح علمي دقيق وشائع ومعتمد في المعاجم الحديثة، يستخدم صيغة التصغير العربية الأصيلة للتعبير عن المرتبة التصنيفية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "رُتَيْبَة"
+
+    - lemma: "رُتْبَة فَرْعِيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مركب وصفي معتمد في المعاجم الحديثة كبديل ومرادف للمصطلح الأول، ويؤدي نفس الدلالة العلمية بوضوح."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "رُتْبَة فَرْعِيَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-08124157-n"}
+
+stage4_content:
+  definition:
+    current: "(في الأحياء) مجموعة تصنيفية تعد قسماً فرعياً من الرتبة"
+    assessment:
+      decision: retain
+      reason: "التعريف الحالي دقيق وواضح ويحقق شروط التعريف المصطلحي من حيث الجنس والفصل النوعي."
+  examples:
+    per_lemma:
+      - lemma: "رُتَيْبَة"
+        examples:
+          - text: "تضم رتبة القوارض عدة رتيبات تشترك في الخصائص التشريحية."
+            type: usage
+      - lemma: "رُتْبَة فَرْعِيَّة"
+        examples:
+          - text: "قسّم العالِم هذه الرتبة إلى ثلاث رتب فرعية متباينة."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "رُتَيْبَة"
+      entry_id: "{auto}"
+      root: "رتب"
+      maqayis_quote: "«وَالرَّتَبُ: مَا أَشْرَفَ مِنَ الْأَرْضِ كَالدَّرَجِ. تَقُولُ: رَتَبَةٌ وَرَتَبٌ، كَقَوْلِكَ دَرَجَةٌ وَدَرَجٌ.»"
+    - lemma: "رُتْبَة فَرْعِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "رتبة"
+          root: "رتب"
+          maqayis_quote: "«وَالرَّتَبُ: مَا أَشْرَفَ مِنَ الْأَرْضِ كَالدَّرَجِ. تَقُولُ: رَتَبَةٌ وَرَتَبٌ، كَقَوْلِكَ دَرَجَةٌ وَدَرَجٌ.»"
+        - word: "فرعية"
+          root: "فرع"
+          maqayis_quote: "«الْفَاءُ وَالرَّاءُ وَالْعَيْنُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى عُلُوٍّ وَارْتِفَاعٍ وَسُمُوٍّ وَسُبُوغٍ. مِنْ ذَلِكَ الْفَرْعُ، وَهُوَ أَعْلَى الشَّيْءِ.»"
+  per_sense:
+    - lemma: "رُتَيْبَة"
+      sense_id: "{auto}"
+      nuance: "مصطلح اشتقاقي مبني على التصغير، وهو موجز وشائع جداً في الكتابات العلمية المتخصصة."
+      mwe: false
+    - lemma: "رُتْبَة فَرْعِيَّة"
+      sense_id: "{auto}"
+      nuance: "مركب وصفي يوضح العلاقة التصنيفية بصراحة تامة، ويستخدم بشكل مرادف وموازٍ للفظ (رتيبة)."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"رتب","maqayis":"«وَالرَّتَبُ: مَا أَشْرَفَ مِنَ الْأَرْضِ كَالدَّرَجِ. تَقُولُ: رَتَبَةٌ وَرَتَبٌ، كَقَوْلِكَ دَرَجَةٌ وَدَرَجٌ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"رتبة","root":"رتب","maqayis":"«وَالرَّتَبُ: مَا أَشْرَفَ مِنَ الْأَرْضِ كَالدَّرَجِ. تَقُولُ: رَتَبَةٌ وَرَتَبٌ، كَقَوْلِكَ دَرَجَةٌ وَدَرَجٌ.»"},{"word":"فرعية","root":"فرع","maqayis":"«الْفَاءُ وَالرَّاءُ وَالْعَيْنُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى عُلُوٍّ وَارْتِفَاعٍ وَسُمُوٍّ وَسُبُوغٍ. مِنْ ذَلِكَ الْفَرْعُ، وَهُوَ أَعْلَى الشَّيْءِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح اشتقاقي مبني على التصغير، وهو موجز وشائع جداً في الكتابات العلمية المتخصصة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مركب وصفي يوضح العلاقة التصنيفية بصراحة تامة، ويستخدم بشكل مرادف وموازٍ للفظ (رتيبة).","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-08124157-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-08124157-n"
+        score: 0.95

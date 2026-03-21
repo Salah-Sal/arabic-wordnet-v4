@@ -1,0 +1,136 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمة الحالية تفتقر إلى التشكيل الكامل.
+      - استخدام اسم "فينغر" في التعريف هو تعريب لفظي، والأفضل استخدام "البحيرات الأصبعية" كما ورد في المعاجم التقنية (ArabTerm).
+    observations: "المجموعة تتعلق بمعلم جغرافي محدد (بحيرة كايوغا). التحدي اللغوي يكمن في التعريب الدقيق للاسم الأجنبي ووصف الطبيعة الجيولوجية للبحيرة."
+  blind_candidates:
+    - lemma: "بُحَيْرَة كَايُوغَا"
+      generation_method: tarkib
+      justification: "التركيب الإضافي القياسي لتسمية البحيرات في العربية، مع تعريب 'Cayuga' بالعين الغينية المقابلة للجيم غير المعطشة."
+    - lemma: "بُحَيْرَة كَايُوجَا"
+      generation_method: tarkib
+      justification: "بديل تعريبي يستخدم الجيم، وهو أقل شيوعاً في الأسماء العلمية الجغرافية لهذه المنطقة."
+    - lemma: "كَايُوغَا"
+      generation_method: taarib
+      justification: "الاسم العلم بمفرده، يستخدم غالباً في السياقات المختصرة أو الخرائط."
+    - lemma: "بُحَيْرَة كَايُوغَا الجَلِيدِيَّة"
+      generation_method: tarkib
+      justification: "تعبير وصفي يحدد الطبيعة الجيولوجية للبحيرة كما ورد في التعريف."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "بحيرة كايوغا"
+      evidence_status: "no_material_found"
+    - lemma: "بُحَيْرَة كَايُوغَا"
+      evidence_status: "no_material_found"
+    - lemma: "بُحَيْرَة أصبعية"
+      confirm:
+        - text: "«اسم يطلق على مجموعة من البحيرات بالولايات المتحدة (ولاية نيويورك). شكلها الممدود وشبه المتوازي الذي يوحي بشبه مع أصابع اليد هو سبب هذا الاسم.»"
+          source: "معجم عرب تيرم (ArabTerm)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "بحيرة كايوغا"
+      decision: confirmed
+      decision_reason: "اللمة صحيحة من حيث التعريب والمحتوى، لكنها تحتاج إلى ضبط بالشكل."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "بُحَيْرَة كَايُوغَا"
+    - lemma: "كَايُوغَا"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يصلح كاسم علم مفرد للإشارة إلى البحيرة في سياقات معينة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "كَايُوغَا", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09262487-n"}
+
+stage4_content:
+  definition:
+    current: "بحيرة جليدية في وسط نيويورك؛ أطول بحيرات فينغر"
+    assessment:
+      decision: revise
+      reason: "تحسين الصياغة لتكون أكثر فصاحة واستبدال 'فينغر' بالمصطلح العربي المعتمد 'الأصبعية'."
+    authored:
+      - type: encyclopedic
+        text: "بُحَيْرَةٌ جَلِيدِيَّةٌ تَقَعُ فِي وَسَطِ وِلَايَةِ نِيُويُوركَ الأَمْرِيكِيَّةِ، وَتُعَدُّ أَطْوَلَ البُحَيْرَاتِ الأُصْبُعِيَّةِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-09262487-n", definition_index: 0, text: "بُحَيْرَةٌ جَلِيدِيَّةٌ تَقَعُ فِي وَسَطِ وِلَايَةِ نِيُويُوركَ الأَمْرِيكِيَّةِ، وَتُعَدُّ أَطْوَلَ البُحَيْرَاتِ الأُصْبُعِيَّةِ."}
+  examples:
+    per_lemma:
+      - lemma: "بُحَيْرَة كَايُوغَا"
+        examples:
+          - text: "تَمْتَازُ بُحَيْرَةُ كَايُوغَا بِمَنَاظِرِهَا الطَّبِيعِيَّةِ الخَلَّابَةِ وَعُمْقِهَا الكَبِيرِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-09262487-n", text: "تُعد بُحَيْرَة كَايُوغَا مَقْصِداً سِيَاحِيّاً هَامّاً فِي مِنْطَقَةِ البُحَيْرَاتِ الأُصْبُعِيَّةِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "بُحَيْرَة كَايُوغَا"
+      entry_id: "{auto}"
+      roots:
+        - word: "بحيرة"
+          root: "بحر"
+          maqayis_quote: "«الْبَاءُ وَالْحَاءُ وَالرَّاءُ. قَالَ الْخَلِيلُ سُمِّيَ الْبَحْرُ بَحْرًا لِاسْتِبْحَارِهِ وَهُوَ انْبِسَاطُهُ وَسَعَتُهُ.»"
+        - word: "كايوغا"
+          root: null
+          maqayis_quote: "اسم علم أعجمي معرب."
+    - lemma: "كَايُوغَا"
+      entry_id: "{auto}"
+      root: null
+      maqayis_quote: "اسم علم أعجمي معرب."
+  per_sense:
+    - lemma: "بُحَيْرَة كَايُوغَا"
+      sense_id: "{auto}"
+      nuance: "الاسم الكامل والرسمي للمعلم الجغرافي."
+      mwe: true
+    - lemma: "كَايُوغَا"
+      sense_id: "{auto}"
+      nuance: "اسم العلم المجرد، يستخدم للاختصار أو في السياقات التقنية والجغرافية."
+      mwe: false
+  synset:
+    cultural_fit: omission
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"بحيرة","root":"بحر","maqayis":"«الْبَاءُ وَالْحَاءُ وَالرَّاءُ. قَالَ الْخَلِيلُ سُمِّيَ الْبَحْرُ بَحْرًا لِاسْتِبْحَارِهِ وَهُوَ انْبِسَاطُهُ وَسَعَتُهُ.»"},{"word":"كايوغا","root":null}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الكامل والرسمي للمعلم الجغرافي.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-09262487-n"
+        key: note
+        value: '{"cultural_fit":"omission"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-09262487-n"
+        score: 0.9

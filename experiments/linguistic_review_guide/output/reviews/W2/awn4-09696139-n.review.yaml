@@ -1,0 +1,235 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمتان الحاليتان جيدتان، لكن ينقص المجموعة المصطلحات المعجمية الدقيقة والمعروفة تاريخياً ومعاصراً للتعبير عن هذا العرق (الصقالبة، السلاف)."
+    observations: "التعريف الحالي سليم ومباشر، ويمكن إثراء المجموعة بالمصطلح التراثي الأصيل (صقالبة) والمصطلح المعاصر الجامع (سلاف)."
+  blind_candidates:
+    - lemma: "صَقَالِبَة"
+      generation_method: taarib
+      justification: "الاسم التراثي التاريخي الذي أطلقته العرب على هذه الشعوب."
+    - lemma: "سَلَاف"
+      generation_method: taarib
+      justification: "الاسم الجامع المعاصر الدال على هذا الجنس."
+    - lemma: "سَلَافِيُّون"
+      generation_method: ishtiqaq
+      justification: "جمع نسبة، وهو مستخدم وشائع."
+    - lemma: "شَعْب سَلَافِيّ"
+      generation_method: tarkib
+      justification: "تعبير وصفي يكثر وروده في السياقات الحديثة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "سلافيون"
+      evidence_status: "no_material_found"
+    - lemma: "شعب سلافي"
+      evidence_status: "no_material_found"
+    - lemma: "صَقَالِبَة"
+      confirm:
+        - text: "«جيلٌ من الناس كانت مساكنهم إلى الشمال من بلاد البلغار وانتشروا الآن في كثير من شرق أوربة ؛ وهم المسمون الآن بالسلاف»"
+          source: "المعجم الوسيط"
+        - text: "«اسمٌ لجماعاتٍ عاشتْ فِى منطقة البلقان وشرقِىِّ أوربا, ثم انتشرتْ شرقًا إلى روسيا»"
+          source: "المعجم الكبير"
+    - lemma: "سَلَاف"
+      confirm:
+        - text: "«جنسٌ من الفصيلة الهند أوربية, تنتشرُ حاليا فى منطقةٍ واسعةٍ تمتد من روسيا إلى البلقان, وقد عُرفوا أيضًا باسم الصقالبة»"
+          source: "المعجم الكبير"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "سلافيون"
+      decision: confirmed
+      decision_reason: "صيغة جمع صحيحة ومستعملة بكثرة للدلالة على هذه الشعوب."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "سَلَافِيُّون"
+    - lemma: "شعب سلافي"
+      decision: confirmed
+      decision_reason: "مركب وصفي شائع ومقبول ويدل على المعنى بدقة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "شَعْب سَلَافِيّ"
+    - lemma: "صَقَالِبَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تراثي موثق معجمياً بوضوح."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "صَقَالِبَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "سَلَاف"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح معاصر موثق في المعاجم الحديثة للدلالة على هذا العرق الجامع."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "سَلَاف", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "مجموعة من الناس يتحدثون لغة سلافية"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يقتصر على الجانب اللغوي، والأفضل شمول الانتماء العرقي والجغرافي كما في المعاجم الموثوقة."
+    authored:
+      - type: terminological
+        text: "جماعات عرقية تنتمي إلى الفصيلة الهندو-أوروبية، موطنهم الأصلي أوروبا الشرقية والوسطى ويتحدثون اللغات السلافية."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  actions:
+    - command: update_definition
+      params: {synset_id: "{synset_id}", definition_index: 0, text: "جماعات عرقية تنتمي إلى الفصيلة الهندو-أوروبية، موطنهم الأصلي أوروبا الشرقية والوسطى ويتحدثون اللغات السلافية."}
+  examples:
+    per_lemma:
+      - lemma: "سلافيون"
+        examples:
+          - text: "يتوزع السلافيون في دول أوروبا الشرقية والبلقان."
+            type: usage
+      - lemma: "شعب سلافي"
+        examples:
+          - text: "يتميز كل شعب سلافي بتراثه الثقافي واللغوي الخاص."
+            type: usage
+      - lemma: "صَقَالِبَة"
+        examples:
+          - text: "كانت الدولة الإسلامية تجلب الصقالبة وتستخدمهم جنوداً في جيوشها."
+            type: usage
+      - lemma: "سَلَاف"
+        examples:
+          - text: "يعتبر السلاف من أكبر المجموعات العرقية في القارة الأوروبية."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يتوزع السلافيون في دول أوروبا الشرقية والبلقان."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يتميز كل شعب سلافي بتراثه الثقافي واللغوي الخاص."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "كانت الدولة الإسلامية تجلب الصقالبة وتستخدمهم جنوداً في جيوشها."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يعتبر السلاف من أكبر المجموعات العرقية في القارة الأوروبية."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "سلافيون"
+      entry_id: "{auto}"
+      root: "سلف"
+      maqayis_quote: "«السِّينُ وَاللَّامُ وَالْفَاءُ أَصْلٌ يَدُلُّ عَلَى تَقَدُّمٍ وَسَبْقٍ...»"
+    - lemma: "شعب سلافي"
+      entry_id: "{auto}"
+      roots:
+        - word: "شعب"
+          root: "شعب"
+          maqayis_quote: "«الشِّينُ وَالْعَيْنُ وَالْبَاءُ أَصْلَانِ مُخْتَلِفَانِ، أَحَدُهُمَا يَدُلُّ عَلَى الِافْتِرَاقِ، وَالْآخَرُ عَلَى الِاجْتِمَاعِ...»"
+        - word: "سلافي"
+          root: "سلف"
+          maqayis_quote: "«السِّينُ وَاللَّامُ وَالْفَاءُ أَصْلٌ يَدُلُّ عَلَى تَقَدُّمٍ وَسَبْقٍ...»"
+    - lemma: "صَقَالِبَة"
+      entry_id: "{auto}"
+      root: "صقلب"
+    - lemma: "سَلَاف"
+      entry_id: "{auto}"
+      root: "سلف"
+      maqayis_quote: "«السِّينُ وَاللَّامُ وَالْفَاءُ أَصْلٌ يَدُلُّ عَلَى تَقَدُّمٍ وَسَبْقٍ...»"
+  per_sense:
+    - lemma: "سلافيون"
+      sense_id: "{auto}"
+      nuance: "صيغة جمع قياسية تستخدم بكثرة في الكتابات المعاصرة."
+      mwe: false
+    - lemma: "شعب سلافي"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي يؤكد على البعد الشعبي والقومي."
+      mwe: true
+    - lemma: "صَقَالِبَة"
+      sense_id: "{auto}"
+      nuance: "المصطلح التراثي والتاريخي المستخدم في الأدبيات العربية الكلاسيكية."
+      mwe: false
+    - lemma: "سَلَاف"
+      sense_id: "{auto}"
+      nuance: "اسم الجنس الجامع المستخدم في الكتابات الجغرافية والأنثروبولوجية الحديثة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سلف","maqayis":"«السِّينُ وَاللَّامُ وَالْفَاءُ أَصْلٌ يَدُلُّ عَلَى تَقَدُّمٍ وَسَبْقٍ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"شعب","root":"شعب","maqayis":"«الشِّينُ وَالْعَيْنُ وَالْبَاءُ أَصْلَانِ مُخْتَلِفَانِ، أَحَدُهُمَا يَدُلُّ عَلَى الِافْتِرَاقِ، وَالْآخَرُ عَلَى الِاجْتِمَاعِ...»"},{"word":"سلافي","root":"سلف","maqayis":"«السِّينُ وَاللَّامُ وَالْفَاءُ أَصْلٌ يَدُلُّ عَلَى تَقَدُّمٍ وَسَبْقٍ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صقلب"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سلف","maqayis":"«السِّينُ وَاللَّامُ وَالْفَاءُ أَصْلٌ يَدُلُّ عَلَى تَقَدُّمٍ وَسَبْقٍ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"صيغة جمع قياسية تستخدم بكثرة في الكتابات المعاصرة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير وصفي يؤكد على البعد الشعبي والقومي.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح التراثي والتاريخي المستخدم في الأدبيات العربية الكلاسيكية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اسم الجنس الجامع المستخدم في الكتابات الجغرافية والأنثروبولوجية الحديثة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

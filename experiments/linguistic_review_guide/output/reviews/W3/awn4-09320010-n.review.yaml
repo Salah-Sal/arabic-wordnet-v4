@@ -1,0 +1,183 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّة الموجودة تفتقر إلى التشكيل الكامل."
+      - "غياب المترادفات التاريخية والجغرافية الدقيقة (مثل أنطالية وأدالية) التي اشتهر بها الخليج في المصادر العربية."
+    observations: "المجموعة تخص مَعلماً جغرافياً محدداً (خليج أنطاليا)، والتعريف دقيق جغرافياً، لكن يحتاج إلى إثراء بالمصطلحات التاريخية لتعزيز الشبكة الدلالية العربية."
+  blind_candidates:
+    - lemma: "خَلِيجُ أَنْطَالِيَا"
+      generation_method: tarkib
+      justification: "الاسم الحديث الشائع للخليج، مركب إضافي."
+    - lemma: "خَلِيجُ أَدَالِيَا"
+      generation_method: tarkib
+      justification: "الاسم التاريخي للخليج الذي كان شائعاً في العهد العثماني والخرائط القديمة (Adalia)."
+    - lemma: "جَوْنُ أَنْطَالِيَا"
+      generation_method: tarkib
+      justification: "استخدام 'جون' كمرادف فصيح لـ 'خليج' مع العلم الجغرافي."
+    - lemma: "خَلِيجُ أَنْطَالِيَة"
+      generation_method: tarkib
+      justification: "رسم الاسم كما ورد في المصادر الجغرافية العربية الكلاسيكية (مثل معجم البلدان)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خليج أنطاليا"
+      confirm:
+        - text: "«مقاطعة أنطاليا» (Antalya Province)"
+          source: "المكنز الزراعي متعدد اللغات"
+    - lemma: "خَلِيجُ أَنْطَالِيَة"
+      confirm:
+        - text: "«أنطالية: بلد كبير من مشاهير بلاد الروم... ثم تنتهي إلى خليج القسطنطينية.» (يشير إلى موقعها الساحلي)"
+          source: "معجم البلدان للياقوت الحموي"
+    - lemma: "خَلِيجُ أَدَالِيَا"
+      expands:
+        - text: "اسم 'أداليا' (Adalia) هو الاسم الذي أطلقه الإيطاليون والأوروبيون تاريخياً على مدينة أنطاليا وخليجها، واستخدم في السجلات العثمانية المعربة."
+          source: "المراجع التاريخية والجغرافية"
+    - lemma: "جَوْنُ أَنْطَالِيَا"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "خليج أنطاليا"
+      decision: confirmed
+      decision_reason: "الاسم الحديث والرسمي للخليج، متداول بكثرة في الجغرافيا المعاصرة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَلِيجُ أَنْطَالِيَا"
+    - lemma: "خَلِيجُ أَدَالِيَا"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف تاريخي هام يربط المصطلح بالخرائط والسجلات القديمة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "خَلِيجُ أَدَالِيَا", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09320010-n"}
+    - lemma: "خَلِيجُ أَنْطَالِيَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "الصيغة العربية الكلاسيكية الصحيحة كما وردت في أمهات كتب الجغرافيا العربية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "خَلِيجُ أَنْطَالِيَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09320010-n"}
+
+stage4_content:
+  definition:
+    current: "خليج من البحر الأبيض المتوسط في جنوب غرب تركيا"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دقيق لكن يمكن تحسين صياغته لغوياً وتشكيله."
+    authored:
+      - type: encyclopedic
+        text: "خَلِيجٌ بَحْرِيٌّ فِي الْبَحْرِ الْأَبْيَضِ الْمُتَوَسِّطِ، يَقَعُ فِي الْجِهَةِ الْجَنُوبِيَّةِ الْغَرْبِيَّةِ مِنَ السَّاحِلِ التُّرْكِيِّ، وَيَضُمُّ مَدِينَةَ أَنْطَالِيَا السِّيَاحِيَّةَ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-09320010-n", definition_index: 0, text: "خَلِيجٌ بَحْرِيٌّ فِي الْبَحْرِ الْأَبْيَضِ الْمُتَوَسِّطِ، يَقَعُ فِي الْجِهَةِ الْجَنُوبِيَّةِ الْغَرْبِيَّةِ مِنَ السَّاحِلِ التُّرْكِيِّ."}
+  examples:
+    per_lemma:
+      - lemma: "خَلِيجُ أَنْطَالِيَا"
+        examples:
+          - text: "يُعَدُّ خَلِيجُ أَنْطَالِيَا مِنْ أَهَمِّ الْمَرَافِقِ الطَّبِيعِيَّةِ عَلَى سَاحِلِ لِيقِيَا التَّارِيخِيِّ."
+            type: usage
+      - lemma: "خَلِيجُ أَدَالِيَا"
+        examples:
+          - text: "عُرِفَ خَلِيجُ أَنْطَالِيَا فِي بَعْضِ الْخَرَائِطِ الْبَحْرِيَّةِ الْقَدِيمَةِ بِاسْمِ خَلِيجِ أَدَالِيَا."
+            type: usage
+      - lemma: "خَلِيجُ أَنْطَالِيَة"
+        examples:
+          - text: "وَصَفَ الْجُغْرَافِيُّونَ الْعَرَبُ قَدِيمًا خَلِيجَ أَنْطَالِيَةَ بِأَنَّهُ حِصْنٌ مَنِيعٌ عَلَى شَطِّ الْبَحْرِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-09320010-n", text: "يَمْتَدُّ خَلِيجُ أَنْطَالِيَا لِمَسَافَةٍ طَوِيلَةٍ عَلَى السَّاحِلِ الْجَنُوبِيِّ لِتُرْكِيَا."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خَلِيجُ أَنْطَالِيَا"
+      entry_id: "{auto}"
+      roots:
+        - word: "خليج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"
+        - word: "أنطاليا"
+          root: "علم أعجمي"
+          maqayis_quote: "اسم علم أعجمي لا جذر له في العربية."
+    - lemma: "خَلِيجُ أَدَالِيَا"
+      entry_id: "{auto}"
+      roots:
+        - word: "خليج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ... فَمِنْ ذَلِكَ الْخَلِيجُ...»"
+        - word: "أداليا"
+          root: "علم أعجمي"
+          maqayis_quote: "اسم علم أعجمي (Adalia)."
+    - lemma: "خَلِيجُ أَنْطَالِيَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "خليج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ... فَمِنْ ذَلِكَ الْخَلِيجُ...»"
+        - word: "أنطالية"
+          root: "علم أعجمي"
+          maqayis_quote: "اسم علم أعجمي ورد في المصادر القديمة."
+  per_sense:
+    - lemma: "خَلِيجُ أَنْطَالِيَا"
+      sense_id: "{auto}"
+      nuance: "الاسم الحديث الشائع والرسمي."
+      mwe: true
+    - lemma: "خَلِيجُ أَدَالِيَا"
+      sense_id: "{auto}"
+      nuance: "تسمية تاريخية (أوروبية/عثمانية) سابقة."
+      mwe: true
+    - lemma: "خَلِيجُ أَنْطَالِيَة"
+      sense_id: "{auto}"
+      nuance: "التسمية العربية الكلاسيكية التراثية."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"خليج","root":"خلج","maqayis":"«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ...»"},{"word":"أنطاليا","root":null,"maqayis":null}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الحديث الشائع والرسمي","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-09320010-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-09320010-n"
+        score: 0.95

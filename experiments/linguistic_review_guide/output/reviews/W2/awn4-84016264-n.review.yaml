@@ -1,0 +1,192 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة 'ملونون' جاءت بصيغة الجمع، والأصل في المداخل المعجمية الإفراد، رغم أن الاستعمال الشائع لهذا المعنى يغلب فيه الجمع."
+    observations: "المفهوم مرتبط بالتقسيمات العرقية الحديثة (كترجمة لمصطلح colored). وقد أثبتت المعاجم الحديثة كالمعجم الوسيط لفظ 'الملونون' بدلالة غير البيض."
+  blind_candidates:
+    - lemma: "مُلَوَّن"
+      generation_method: ishtiqaq
+      justification: "اسم مفعول من لوّن، يستخدم حديثاً للإشارة إلى الأعراق غير البيضاء."
+    - lemma: "أَسْوَد"
+      generation_method: majaz
+      justification: "استخدام الجزء (اللون الأسود) للتعبير عن الكل (الأعراق غير البيضاء) نظراً لشيوعه."
+    - lemma: "أَسْمَر"
+      generation_method: majaz
+      justification: "استخدام درجة لون البشرة الداكنة للتعبير عن العرق."
+    - lemma: "زِنْجِيّ"
+      generation_method: majaz
+      justification: "لفظ تاريخي يطلق على السود، وقد يستخدم مجازاً للأعراق غير البيضاء في بعض السياقات القديمة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "ملونون"
+      confirm:
+        - text: "«(الملونون) من النَّاس غير الْبيض مِنْهُم (محدثة)»"
+          source: "المعجم الوسيط لمجموعة من المؤلفين"
+    - lemma: "مُلَوَّن"
+      confirm:
+        - text: "«مُلَوَّن: من (ل و ن) القمحي اللون من الناس وذو الألوان.»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+    - lemma: "أسود"
+      expands:
+        - text: "«نقيض الأبيض العربُ تسمى الأَخْضَرَ الشديد الخُضْرَة أسودَ لأنه يُرى كذلك»"
+          source: "المعجم الوسيط"
+          addition: "يدل على نقيض الأبيض بشكل عام."
+    - lemma: "أسمر"
+      expands:
+        - text: "«ذُو السُّمرة... أسمر اللون»"
+          source: "المعجم الوسيط"
+          addition: "يدل على اللون القمحي أو الداكن قليلاً."
+    - lemma: "زنجي"
+      expands:
+        - text: "«واحد الزنج أو الزنوج»"
+          source: "المعجم الوسيط"
+          addition: "يدل على عرق محدد من السود وليس جميع الملونين."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "ملونون"
+      decision: confirmed
+      decision_reason: "مثبتة في المعجم الوسيط كدلالة على العرق غير الأبيض ومستقرة في الاستعمال المعاصر كترجمة اصطلاحية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: "صيغة جمع تدل على الفئة أو الجماعة العرقية ككل (الملونون)."
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{synset_id}-0"
+            new_lemma: "مُلَوَّنُون"
+
+    - lemma: "مُلَوَّن"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صيغة المفرد القياسية، فصيحة ومطردة اشتقاقياً، وتستخدم لوصف الفرد من هذه الفئة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: "صيغة مفرد تدل على الفرد المنسوب للعرق الملون."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُلَوَّن"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "أَسْوَد"
+      source: stage1
+      decision: removed
+      decision_reason: "مصطلح أضيق دلالياً يختص بعرق محدد، بينما يشمل المفهوم جميع الأعراق غير البيضاء."
+
+    - lemma: "أَسْمَر"
+      source: stage1
+      decision: removed
+      decision_reason: "يدل على درجة لون البشرة (بين السواد والبياض) ولا يرقى ليكون مصطلحاً عرقياً مقابلاً لـ (الملونين)."
+
+    - lemma: "زِنْجِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "خاص بالأفارقة (الزنج) ولا يشمل بقية الأعراق غير البيضاء المعنية بالمفهوم."
+
+stage4_content:
+  definition:
+    current: "عرق ذو تصبغ جلدي مختلف عن العرق الأبيض (وخاصة السود)"
+    assessment:
+      decision: revise
+      reason: "تعديل الصياغة لتكون أكثر دقة وشمولاً وتوافقاً مع أسلوب المعاجم العربية الحديثة."
+    authored:
+      - type: terminological
+        text: "فرد أو جماعة من الناس ينتمون إلى عرق ذي بشرة غير بيضاء، ويطلق غالباً على ذوي البشرة السوداء."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "فرد أو جماعة من الناس ينتمون إلى عرق ذي بشرة غير بيضاء، ويطلق غالباً على ذوي البشرة السوداء."
+
+  examples:
+    per_lemma:
+      - lemma: "مُلَوَّنُون"
+        examples:
+          - text: "طالبت حركات الحقوق المدنية بتحقيق المساواة للمُلَوَّنِين في مختلف المجالات."
+            type: usage
+      - lemma: "مُلَوَّن"
+        examples:
+          - text: "يواجه كل شخص مُلَوَّن تحديات مضاعفة في المجتمعات العنصرية."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{synset_id}-0"
+          text: "طالبت حركات الحقوق المدنية بتحقيق المساواة للمُلَوَّنِين في مختلف المجالات."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يواجه كل شخص مُلَوَّن تحديات مضاعفة في المجتمعات العنصرية."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُلَوَّنُون"
+      entry_id: "{synset_id}-0"
+      root: "لون"
+      maqayis_quote: "«اللام والواو والنون كلمة واحدة، وهي سحنة الشيء: من ذلك اللون: لون الشيء، كالحمرة والسواد.»"
+    - lemma: "مُلَوَّن"
+      entry_id: "{auto}"
+      root: "لون"
+      maqayis_quote: "«اللام والواو والنون كلمة واحدة، وهي سحنة الشيء: من ذلك اللون: لون الشيء، كالحمرة والسواد.»"
+  per_sense:
+    - lemma: "مُلَوَّنُون"
+      sense_id: "{synset_id}-0"
+      nuance: "صيغة جمع تدل على الفئة الجماعية."
+      mwe: false
+    - lemma: "مُلَوَّن"
+      sense_id: "{auto}"
+      nuance: "صيغة مفرد تدل على الفرد المنسوب لهذه الفئة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{synset_id}-0"
+        key: note
+        value: '{"root":"لون","maqayis_quote":"«اللام والواو والنون كلمة واحدة، وهي سحنة الشيء: من ذلك اللون: لون الشيء، كالحمرة والسواد.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"لون","maqayis_quote":"«اللام والواو والنون كلمة واحدة، وهي سحنة الشيء: من ذلك اللون: لون الشيء، كالحمرة والسواد.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{synset_id}-0"
+        key: note
+        value: '{"nuance":"صيغة جمع تدل على الفئة الجماعية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"صيغة مفرد تدل على الفرد المنسوب لهذه الفئة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.90

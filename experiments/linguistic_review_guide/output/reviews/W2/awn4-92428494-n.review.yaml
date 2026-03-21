@@ -1,0 +1,197 @@
+# ── المرحلة ١: المراجعة والتوليد (بدون أدلة) ──────────────
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة تفتقر إلى التشكيل الكامل."
+      - "التعريف الحالي دائري (الدور)، حيث يعرّف المصطلح بنفسه."
+    observations: "المفهوم حديث نسبيًا (audio library)، وهو يتطلب تراكيب وصفية أو إضافية في العربية المعاصرة. المصطلح 'مكتبة صوتية' هو الأكثر شيوعًا، ولكن يمكن استحضار مصطلحات تراثية مثل 'خزانة' لوصف المجموعات الخاصة."
+  blind_candidates:
+    - lemma: "مَكْتَبَةٌ صَوْتِيَّةٌ"
+      generation_method: tarkib
+      justification: "الترجمة المباشرة والأكثر شيوعاً للمصطلح الإنجليزي (Audio Library)."
+    - lemma: "خِزَانَةٌ صَوْتِيَّةٌ"
+      generation_method: tarkib
+      justification: "استخدام لفظ 'خزانة' وهو مصطلح تراثي كان يطلق على المكتبات (مثل خزانة الحكمة)، لإضفاء طابع كلاسيكي على المجموعات الصوتية."
+    - lemma: "أَرْشِيفٌ صَوْتِيٌّ"
+      generation_method: tarkib
+      justification: "مصطلح حديث شائع الاستخدام في المؤسسات الإعلامية والأكاديمية لوصف مجموعات التسجيلات التاريخية."
+    - lemma: "مَكْتَبَةُ التَّسْجِيلاتِ الصَّوْتِيَّةِ"
+      generation_method: tarkib
+      justification: "تركيب إضافي وصفي دقيق يحدد طبيعة المحتوى (التسجيلات) داخل المكتبة."
+
+# ── المرحلة ٢: جمع الأدلة ────────────────────────────────
+stage2_evidence:
+  per_lemma:
+    - lemma: "مكتبة صوتية"
+      confirm:
+        - text: "«مكتبة صوتية (record library): مسرد الفن، التسلية والرياضة»"
+          source: "ArabTerm"
+    - lemma: "مكتبة التسجيلات الصوتية"
+      confirm:
+        - text: "«مكتبة التسجيلات الصوتيّة (sound library): مسرد الإعلام والتواصل»"
+          source: "ArabTerm"
+    - lemma: "أرشيف صوتي"
+      evidence_status: "no_material_found"
+    - lemma: "خزانة صوتية"
+      evidence_status: "no_material_found"
+
+# ── المرحلة ٣: التحليل اللغوي للّمات ────────────────────
+stage3_analysis:
+  per_lemma:
+    - lemma: "مكتبة صوتية"
+      decision: confirmed
+      decision_reason: "مصطلح قياسي وشائع ومدعوم بالأدلة المعجمية الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَكْتَبَةٌ صَوْتِيَّةٌ"
+    - lemma: "مَكْتَبَةُ التَّسْجِيلاتِ الصَّوْتِيَّةِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تقني دقيق ورد في معاجم المصطلحات (ArabTerm) ويعد مرادفاً تاماً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "مَكْتَبَةُ التَّسْجِيلاتِ الصَّوْتِيَّةِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-92428494-n"}
+    - lemma: "أَرْشِيفٌ صَوْتِيٌّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح شائع جداً في السياق المؤسسي (الإذاعة والتلفزيون) ويؤدي المعنى المطلوب."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "أَرْشِيفٌ صَوْتِيٌّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-92428494-n"}
+    - lemma: "خِزَانَةٌ صَوْتِيَّةٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تركيب صحيح لغوياً يعتمد على لفظ 'خزانة' التراثي، ويصلح كمرادف أدبي أو للمجموعات الخاصة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "خِزَانَةٌ صَوْتِيَّةٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-92428494-n"}
+
+# ── المرحلة ٤: التعريف والأمثلة ──────────────────────────
+stage4_content:
+  definition:
+    current: "المكتبة الصوتية هي مجموعة من التسجيلات الصوتية"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دائري ويفتقر للعمق الوظيفي (الجنس والفصل)."
+    authored:
+      - type: terminological
+        text: "مؤسسة أو قسم منها يُعنى بجمع التسجيلات الصوتية (كالموسيقى والخطب والكتب المسموعة) وفهرستها وحفظها وتيسير الانتفاع بها."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-92428494-n", definition_index: 0, text: "مؤسسة أو قسم منها يُعنى بجمع التسجيلات الصوتية وفهرستها وحفظها وتيسير الانتفاع بها."}
+  examples:
+    per_lemma:
+      - lemma: "مَكْتَبَةٌ صَوْتِيَّةٌ"
+        examples:
+          - text: "تضم الجامعة مَكْتَبَةً صَوْتِيَّةً متطورة تحتوي على تسجيلات نادرة للمحاضرات والندوات."
+            type: usage
+      - lemma: "أَرْشِيفٌ صَوْتِيٌّ"
+        examples:
+          - text: "يعمل الأَرْشِيفُ الصَّوْتِيُّ للإذاعة على رقمنة التسجيلات القديمة لحمايتها من التلف."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تضم الجامعة مَكْتَبَةً صَوْتِيَّةً متطورة تحتوي على تسجيلات نادرة للمحاضرات والندوات."}
+
+# ── المرحلة ٥: الإثراء (البيانات الوصفية) ─────────────────
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَكْتَبَةٌ صَوْتِيَّةٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مكتبة"
+          root: "كتب"
+          maqayis_quote: "«الْكَافُ وَالْتَّاءُ وَالْبَاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى جَمْعِ شَيْءٍ إِلَى شَيْءٍ.»"
+        - word: "صوتية"
+          root: "صوت"
+          maqayis_quote: "«الصَّادُ وَالْوَاوُ وَالْتَّاءُ أَصْلٌ صَحِيحٌ، وَهُوَ الصَّوْتُ، وَهُوَ جِنْسٌ لِكُلِّ مَا وَقَرَ فِي أُذُنِ السَّامِعِ.»"
+    - lemma: "خِزَانَةٌ صَوْتِيَّةٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "خزانة"
+          root: "خزن"
+          maqayis_quote: "«الْخَاءُ وَالزَّاءُ وَالْنُّونُ أَصْلٌ يَدُلُّ عَلَى صِيَانَةِ الشَّيْءِ.»"
+        - word: "صوتية"
+          root: "صوت"
+          maqayis_quote: "«الصَّادُ وَالْوَاوُ وَالْتَّاءُ أَصْلٌ صَحِيحٌ، وَهُوَ الصَّوْتُ.»"
+    - lemma: "مَكْتَبَةُ التَّسْجِيلاتِ الصَّوْتِيَّةِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مكتبة"
+          root: "كتب"
+          maqayis_quote: "«الْكَافُ وَالْتَّاءُ وَالْبَاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى جَمْعِ شَيْءٍ إِلَى شَيْءٍ.»"
+        - word: "التسجيلات"
+          root: "سجل"
+          maqayis_quote: "«السِّينُ وَالْجِيمُ وَالْلَّامُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى انْصِبَابِ شَيْءٍ بَعْدَ امْتِلَائِهِ... السِّجِلُّ كِتَابٌ يَجْمَعُ كُتُبًا وَمَعَانِيَ.»"
+    - lemma: "أَرْشِيفٌ صَوْتِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "أرشيف"
+          root: null
+          maqayis_quote: "لفظ دخيل (Archive)."
+        - word: "صوتي"
+          root: "صوت"
+          maqayis_quote: "«الصَّادُ وَالْوَاوُ وَالْتَّاءُ أَصْلٌ صَحِيحٌ.»"
+  per_sense:
+    - lemma: "مَكْتَبَةٌ صَوْتِيَّةٌ"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام والأكثر شيوعاً للمؤسسة التي تحفظ التسجيلات."
+      mwe: true
+    - lemma: "أَرْشِيفٌ صَوْتِيٌّ"
+      sense_id: "{auto}"
+      nuance: "يركز على البعد التاريخي والحفظ طويل الأمد للتسجيلات النادرة."
+      mwe: true
+    - lemma: "خِزَانَةٌ صَوْتِيَّةٌ"
+      sense_id: "{auto}"
+      nuance: "مصطلح أدبي أو تراثي يُستخدم غالباً للمجموعات الشخصية أو الخاصة."
+      mwe: true
+    - lemma: "مَكْتَبَةُ التَّسْجِيلاتِ الصَّوْتِيَّةِ"
+      sense_id: "{auto}"
+      nuance: "مصطلح تقني دقيق يحدد موضوع المكتبة بشكل صريح."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-92428494-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-92428494-n"
+        score: 0.95

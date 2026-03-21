@@ -1,0 +1,148 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمة الحالية تفتقر إلى التشكيل الكامل.
+      - لا توجد لمات بديلة للمصطلح الجغرافي بالرغم من وجود تنوعات إملائية محتملة للاسم المعرب.
+    observations: "المصطلح الحالي «خليج سان فرانسيسكو» هو التسمية العربية القياسية لهذا المعلم الجغرافي، وهو مركب إضافي يجمع بين اسم الجنس «خليج» والاسم العلم المعرب «سان فرانسيسكو». المعجم الكبير يثبت هذا الاستخدام ضمن تعريف مدينة سان فرانسيسكو."
+  blind_candidates:
+    - lemma: "خَلِيجُ سَان فْرَانْسِيسْكُو"
+      generation_method: tarkib
+      justification: "التركيب الإضافي القياسي لاسم العلم الجغرافي."
+    - lemma: "خَلِيجُ سَان فْرَنْسِيسْكُو"
+      generation_method: tarkib
+      justification: "تنوع إملائي شائع للاسم المعرب (بكسر الراء بدلاً من فتحها)."
+    - lemma: "جَوْنُ سَان فْرَانْسِيسْكُو"
+      generation_method: tarkib
+      justification: "استخدام مرادف «جَوْن» كبديل لـ «خليج» في المصطلحات الجغرافية."
+    - lemma: "مِيناءُ سَان فْرَانْسِيسْكُو"
+      generation_method: tarkib
+      justification: "استخدام «ميناء» للإشارة إلى الخليج في السياق الملاحي والتجاري."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خليج سان فرانسيسكو"
+      confirm:
+        - text: "«مدينة بغربىِّ ولاية كاليفورنيا الأمريكية, جنوبَ غرب خليج سان فرانسيسكو...»"
+          source: "المعجم الكبير"
+    - lemma: "خَلِيج"
+      confirm:
+        - text: "«امتداد من المَاء متوغل فِي الْيَابِس»"
+          source: "المعجم الوسيط"
+    - lemma: "سَان فْرَانْسِيسْكُو"
+      confirm:
+        - text: "«مدينة بغربىِّ ولاية كاليفورنيا الأمريكية...»"
+          source: "المعجم الكبير"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "خليج سان فرانسيسكو"
+      decision: confirmed
+      decision_reason: "هو الاسم الرسمي والعلمي المتعارف عليه في الجغرافيا العربية لهذا المعلم، وقد ورد ذكره نصاً في المعجم الكبير."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَلِيجُ سَان فْرَانْسِيسْكُو"
+    - lemma: "خَلِيجُ سَان فْرَنْسِيسْكُو"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تنوع إملائي مقبول وشائع في الكتابات العربية للاسم المعرب «سان فرانسيسكو»."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "خَلِيجُ سَان فْرَنْسِيسْكُو", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09445364-n"}
+
+stage4_content:
+  definition:
+    current: "خليج في المحيط الهادئ في غرب كاليفورنيا"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دقيق لكنه يحتاج إلى صياغة معجمية أكثر تفصيلاً لبيان الأهمية الجغرافية."
+    authored:
+      - type: encyclopedic
+        text: "خَلِيجٌ كَبِيرٌ يَقَعُ فِي غَرْبِيِّ وِلَايَةِ كَالِيفُورْنِيَا الأَمْرِيكِيَّةِ، يَتَّصِلُ بِالمُحِيطِ الهَادِئِ عَبْرَ مَضِيقِ «البَوَّابَةِ الذَّهَبِيَّةِ»، وَتُطِلُّ عَلَيْهِ مَدِينَةُ سَان فْرَانْسِيسْكُو وَتُحِيطُ بِهِ عِدَّةُ مُدُنٍ أُخْرَى."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-09445364-n", definition_index: 0, text: "خَلِيجٌ فِي المُحِيطِ الهَادِئِ فِي غَرْبِيِّ كَالِيفُورْنِيَا."}
+      - command: add_definition
+        params: {synset_id: "awn4-09445364-n", text: "خَلِيجٌ كَبِيرٌ يَقَعُ فِي غَرْبِيِّ وِلَايَةِ كَالِيفُورْنِيَا الأَمْرِيكِيَّةِ، يَتَّصِلُ بِالمُحِيطِ الهَادِئِ عَبْرَ مَضِيقِ «البَوَّابَةِ الذَّهَبِيَّةِ»، وَتُطِلُّ عَلَيْهِ مَدِينَةُ سَان فْرَانْسِيسْكُو."}
+
+  examples:
+    per_lemma:
+      - lemma: "خَلِيجُ سَان فْرَانْسِيسْكُو"
+        examples:
+          - text: "يُعَدُّ جِسْرُ البَوَّابَةِ الذَّهَبِيَّةِ أَشْهَرَ المَعَالِمِ الَّتِي تَرْبِطُ بَيْنَ ضِفَّتَيْ خَلِيجِ سَان فْرَانْسِيسْكُو."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-09445364-n", text: "يُعَدُّ خَلِيجُ سَان فْرَانْسِيسْكُو مَرْفَأً طَبِيعِيًّا هَامًّا عَلَى السَّاحِلِ الغَرْبِيِّ لِلْوِلَايَاتِ المُتَّحِدَةِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خَلِيجُ سَان فْرَانْسِيسْكُو"
+      entry_id: "{auto}"
+      roots:
+        - word: "خَلِيج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"
+        - word: "سَان"
+        - word: "فْرَانْسِيسْكُو"
+    - lemma: "خَلِيجُ سَان فْرَنْسِيسْكُو"
+      entry_id: "{auto}"
+      roots:
+        - word: "خَلِيج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ.»"
+
+  per_sense:
+    - lemma: "خَلِيجُ سَان فْرَانْسِيسْكُو"
+      sense_id: "{auto}"
+      nuance: "التسمية القياسية والأكثر شيوعاً."
+      mwe: true
+    - lemma: "خَلِيجُ سَان فْرَنْسِيسْكُو"
+      sense_id: "{auto}"
+      nuance: "تنوع إملائي للاسم المعرب."
+      mwe: true
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"خليج","root":"خلج","maqayis":"«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"},{"word":"سان"},{"word":"فرانسيسكو"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"التسمية القياسية والأكثر شيوعاً.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-09445364-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-09445364-n"
+        score: 0.95

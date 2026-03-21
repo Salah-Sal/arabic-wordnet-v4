@@ -1,0 +1,176 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة تفتقر إلى التشكيل الكامل (خليج عمان)."
+      - "اللمة اسم علم جغرافي (Proper Noun)، والتعريف الحالي دقيق وموجز."
+    observations: "المصطلح يشير إلى مسطح مائي حيوي يربط بين بحر العرب والخليج العربي. تاريخياً، استُخدمت تسميات متعددة لهذا المسطح تشمل بحر عمان وبحر مكران."
+  blind_candidates:
+    - lemma: "خَلِيجُ عُمَانَ"
+      generation_method: tarkib
+      justification: "الاسم الجغرافي المعاصر والأكثر شيوعاً (تركيب إضافي)."
+    - lemma: "بَحْرُ عُمَانَ"
+      generation_method: tarkib
+      justification: "تسمية تاريخية جغرافية شائعة في المصادر العربية الكلاسيكية (تركيب إضافي)."
+    - lemma: "بَحْرُ مَكْرَانَ"
+      generation_method: tarkib
+      justification: "تسمية تاريخية إقليمية تشير إلى نفس المسطح المائي نسبةً إلى إقليم مكران."
+    - lemma: "خَلِيجُ مَكْرَانَ"
+      generation_method: tarkib
+      justification: "تسمية بديلة محتملة تزاوج بين الوصف الطبوغرافي (خليج) والمنطقة الجغرافية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خليج عمان"
+      confirm:
+        - text: "خليج عمان (Gulf of Oman)"
+          source: "المكنز الزراعي متعدد اللغات"
+    - lemma: "بحر عمان"
+      confirm:
+        - text: "«دردؤر: موضع في سواحل بحر عمان مضيق بين جبلين يسلكه الصغار من السفن.»"
+          source: "معجم البلدان للياقوت الحموي"
+        - text: "«قيس: جزيرة هي كيش في بحر عمان...»"
+          source: "معجم البلدان للياقوت الحموي"
+        - text: "«مصيرة: جزيرة عظيمة في بحر عمان فيها عدة قرى.»"
+          source: "معجم البلدان للياقوت الحموي"
+    - lemma: "بحر مكران"
+      confirm:
+        - text: "«تيز: بلدة على ساحل بحر مكران أو السند، وفي قبالتها من الغرب أرض عمان»"
+          source: "معجم البلدان للياقوت الحموي"
+    - lemma: "خَلِيجُ مَكْرَانَ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "خليج عمان"
+      decision: confirmed
+      decision_reason: "المصطلح الرسمي والمعاصر للمسطح المائي المذكور في التعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَلِيجُ عُمَانَ"
+    - lemma: "بَحْرُ عُمَانَ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف تاريخي وجغرافي واسع الانتشار في التراث العربي المعجمي والجغرافي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "بَحْرُ عُمَانَ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "بَحْرُ مَكْرَانَ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف إقليمي تاريخي موثق في المعاجم الجغرافية (ياقوت الحموي)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "بَحْرُ مَكْرَانَ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "ذراع من بحر العرب يربطه بالخليج العربي"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق علمياً وجغرافياً، ويحدد الموقع والوظيفة (الربط)."
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "ذِرَاعٌ مِنْ بَحْرِ العَرَبِ يَرْبِطُهُ بِالخَلِيجِ العَرَبِيِّ."
+  examples:
+    per_lemma:
+      - lemma: "خَلِيجُ عُمَانَ"
+        examples:
+          - text: "يُعَدُّ خَلِيجُ عُمَانَ مَمَرّاً مَائِيّاً حَيَوِيّاً يَرْبِطُ بَيْنَ بَحْرِ العَرَبِ وَالخَلِيجِ العَرَبِيِّ."
+            type: usage
+      - lemma: "بَحْرُ عُمَانَ"
+        examples:
+          - text: "ذَكَرَ اليَاقُوتُ الحَمَوِيُّ العَدِيدَ مِنَ الجُزُرِ الوَاقِعَةِ فِي بَحْرِ عُمَانَ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يَقَعُ خَلِيجُ عُمَانَ بَيْنَ سَوَاحِلِ عُمَانَ وَإِيرَانَ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خَلِيجُ عُمَانَ"
+      entry_id: "{auto}"
+      roots:
+        - word: "خليج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"
+        - word: "عمان"
+          root: "عمن"
+          maqayis_quote: "«الْعَيْنُ وَالْمِيمُ وَالنُّونُ لَيْسَ بِأَصْلٍ، وَفِيهِ عُمَانُ: بَلَدٌ.»"
+    - lemma: "بَحْرُ عُمَانَ"
+      entry_id: "{auto}"
+      roots:
+        - word: "بحر"
+          root: "بحر"
+          maqayis_quote: "«الْبَاءُ وَالْحَاءُ وَالرَّاءُ. قَالَ الْخَلِيلُ سُمِّيَ الْبَحْرُ بَحْرًا لِاسْتِبْحَارِهِ وَهُوَ انْبِسَاطُهُ وَسَعَتُهُ.»"
+        - word: "عمان"
+          root: "عمن"
+          maqayis_quote: "«الْعَيْنُ وَالْمِيمُ وَالنُّونُ لَيْسَ بِأَصْلٍ، وَفِيهِ عُمَانُ: بَلَدٌ.»"
+  per_sense:
+    - lemma: "خَلِيجُ عُمَانَ"
+      sense_id: "{auto}"
+      nuance: "التسمية الرسمية والحديثة للمسطح المائي."
+      mwe: true
+    - lemma: "بَحْرُ عُمَانَ"
+      sense_id: "{auto}"
+      nuance: "تسمية تاريخية جغرافية تصف المسطح كبحر مستقل أو جزء من بحر الهند."
+      mwe: true
+    - lemma: "بَحْرُ مَكْرَانَ"
+      sense_id: "{auto}"
+      nuance: "تسمية إقليمية منسوبة لسواحل مكران المقابلة لعمان."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"خليج","root":"خلج","maqayis":"«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصلٌ واحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ...»"},{"word":"عمان","root":"عمن","maqayis":"«الْعَيْنُ وَالْمِيمُ وَالنُّونُ لَيْسَ بِأَصْلٍ، وَفِيهِ عُمَانُ: بَلَدٌ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"بحر","root":"بحر","maqayis":"«الْبَاءُ وَالْحَاءُ وَالرَّاءُ... سُمِّيَ الْبَحْرُ بَحْرًا لِاسْتِبْحَارِهِ وَهُوَ انْبِسَاطُهُ وَسَعَتُهُ.»"},{"word":"عمان","root":"عمن","maqayis":"«الْعَيْنُ وَالْمِيمُ وَالنُّونُ لَيْسَ بِأَصْلٍ، وَفِيهِ عُمَانُ: بَلَدٌ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"التسمية الرسمية والحديثة للمسطح المائي.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,232 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "استخدام (جماعة المصلين) صحيح ولكنه تعبير إضافي وليس كلمة مفردة."
+      - "كلمة (رعية) لها دلالة واسعة (عامة الناس)، ورغم استخدامها في السياق المسيحي لتعني (أبناء الكنيسة/الأبرشية)، إلا أن إطلاقها قد يلتبس مع المعنى العام للكلمة، لذا يستحسن إضافة مرشحات أكثر تخصصاً."
+    observations: "المجموعة الترادفية تعبر عن المصلين في كنيسة معينة (Congregation, flock)، واللغة العربية تستخدم مصطلحات مثل (رعية) أو (أبرشية) في السياق المسيحي لتدل على ذلك. كما أن (جماعة المصلين) مفهومة وواضحة."
+  blind_candidates:
+    - lemma: "جَمَاعَة المُصَلِّينَ"
+      generation_method: tarkib
+      justification: "تعبير إضافي يصف المجموعة التي تؤدي الصلاة بشكل منتظم."
+    - lemma: "رَعِيَّة كَنَسِيَّة"
+      generation_method: tarkib
+      justification: "مركب وصفي يخصص كلمة (رعية) بالسياق الديني الكنسي لمنع اللبس مع رعية الحاكم."
+    - lemma: "طَائِفَة كَنَسِيَّة"
+      generation_method: tarkib
+      justification: "تستخدم الطائفة للدلالة على جماعة من الناس يجمعهم مذهب أو كنيسة واحدة."
+    - lemma: "أَبْنَاء الرَّعِيَّة"
+      generation_method: tarkib
+      justification: "تعبير شائع في السياق الكنسي للإشارة إلى أفراد الكنيسة التابعين لراعٍ معين."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "جماعة المصلين"
+      confirm:
+        - text: "«(1) «أ» جمعٌ محتشد. وبخاصة: جماعة المصلِّين. «ب» أبرشية؛ طائفة؛ رعايا كنيسة.»"
+          source: "المورد الحديث (2008)"
+    - lemma: "رعية"
+      confirm:
+        - text: "«(1) «أ» جمعٌ محتشد. وبخاصة: جماعة المصلِّين. «ب» أبرشية؛ طائفة؛ رعايا كنيسة.»"
+          source: "المورد الحديث (2008)"
+      expands:
+        - text: "«الماشية الرَّاعِيَة الماشية المَرْعيَّة عامَّة الناس الذين عليهم راعٍ يُدبِّر أمْرَههم ويرعى مصالحهم»"
+          source: "المعجم الوسيط"
+          addition: "يبين الأصل اللغوي الذي استعير منه المعنى الديني (الراعي والرعية)."
+    - lemma: "رعية كنسية"
+      confirm:
+        - text: "«رعايا كنيسة»"
+          source: "المورد الحديث (2008)"
+    - lemma: "طائفة كنسية"
+      expands:
+        - text: "«طائفة؛ رعايا كنيسة»"
+          source: "المورد الحديث (2008)"
+          addition: "يستخدم المورد (طائفة) كأحد مرادفات (congregation) في السياق الديني."
+    - lemma: "أبناء الرعية"
+      expands:
+        - text: "«أبناء الأبرشية»"
+          source: "المورد الحديث (2008)"
+          addition: "تعبير عن الأفراد ضمن الرعية."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "جماعة المصلين"
+      decision: confirmed
+      decision_reason: "تعبير إضافي مسكوك ومثبت في المعاجم ثنائية اللغة كترجمة دقيقة لمفهوم (congregation)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "جَمَاعَة المُصَلِّينَ"
+
+    - lemma: "رعية"
+      decision: confirmed
+      decision_reason: "استعمال مجازي شائع ومثبت في السياق الكنسي للتعبير عن جماعة المؤمنين التابعين لكنيسة أو راعٍ معين (flock/parish)."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "رَعِيَّة"
+
+    - lemma: "رَعِيَّة كَنَسِيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مركب وصفي يزيل اللبس الموجود في كلمة (رعية) مجردة، ويخصصها بالسياق الكنسي وهو مستعمل بكثرة كترجمة لـ (church congregation)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "رَعِيَّة كَنَسِيَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+    - lemma: "طَائِفَة كَنَسِيَّة"
+      source: stage1
+      decision: removed
+      decision_reason: "كلمة طائفة تستخدم عادة للدلالة على مذهب كامل (denomination) وليس على جماعة محلية تحضر في كنيسة معينة."
+
+    - lemma: "أَبْنَاء الرَّعِيَّة"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير يشير إلى الأفراد (parishioners) بدلاً من الكيان الجماعي (congregation)، واللمة (رعية كنسية) تفي بالغرض بشكل أفضل."
+
+stage4_content:
+  definition:
+    current: "مجموعة من الناس يعتنقون إيماناً مشتركاً ويحضرون عادةً في كنيسة معينة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد ولكنه عبارة عن ترجمة حرفية تقريباً. يمكن صياغته بأسلوب معجمي عربي أدق."
+    authored:
+      - type: terminological
+        text: "جماعة من المؤمنين يعتنقون مذهباً واحداً وينتظمون في حضور الصلوات في كنيسة معينة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "جماعة من المؤمنين يعتنقون مذهباً واحداً وينتظمون في حضور الصلوات في كنيسة معينة."}
+
+  examples:
+    per_lemma:
+      - lemma: "جماعة المصلين"
+        examples:
+          - text: "استمعت جَمَاعَة المُصَلِّينَ إلى عِظَةِ الكاهن في يوم الأحد."
+            type: usage
+      - lemma: "رعية"
+        examples:
+          - text: "يَهْتَمُّ الكَاهِنُ بِشُؤُونِ رَعِيَّتِهِ الرُّوحِيَّةِ."
+            type: usage
+      - lemma: "رَعِيَّة كَنَسِيَّة"
+        examples:
+          - text: "تُسَاهِمُ الرَّعِيَّةُ الكَنَسِيَّةُ فِي الأَعْمَالِ الخَيْرِيَّةِ لِلْمُجْتَمَعِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "استمعت جَمَاعَة المُصَلِّينَ إلى عِظَةِ الكاهن في يوم الأحد."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يَهْتَمُّ الكَاهِنُ بِشُؤُونِ رَعِيَّتِهِ الرُّوحِيَّةِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تُسَاهِمُ الرَّعِيَّةُ الكَنَسِيَّةُ فِي الأَعْمَالِ الخَيْرِيَّةِ لِلْمُجْتَمَعِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "جَمَاعَة المُصَلِّينَ"
+      entry_id: "{auto}"
+      roots:
+        - word: "جماعة"
+          root: "جمع"
+          maqayis_quote: "«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ.»"
+        - word: "المصلين"
+          root: "صلي"
+          maqayis_quote: "«الصَّادُ وَاللَّامُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا النَّارُ... وَالْآخِرُ جِنْسٌ مِنَ الْعِبَادَةِ.»"
+    - lemma: "رَعِيَّة"
+      entry_id: "{auto}"
+      root: "رعي"
+      maqayis_quote: "«الرَّاءُ وَالْعَيْنُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا الْمُرَاقَبَةُ وَالْحِفْظُ، وَالْآخَرُ الرُّجُوعُ.»"
+    - lemma: "رَعِيَّة كَنَسِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "رعية"
+          root: "رعي"
+          maqayis_quote: "«الرَّاءُ وَالْعَيْنُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا الْمُرَاقَبَةُ وَالْحِفْظُ، وَالْآخَرُ الرُّجُوعُ.»"
+        - word: "كنسية"
+          root: "كنس"
+          maqayis_quote: "«الْكَافُ وَالنُّونُ وَالسِّينُ أَصْلَانِ صَحِيحَانِ، أَحَدُهُمَا يَدُلُّ عَلَى سَفْرِ شَيْءٍ عَنْ وَجْهِ شَيْءٍ، وَهُوَ كَشْفُهُ. وَالْأَصْلُ الْآخَرُ يَدُلُّ عَلَى اسْتِخْفَاءٍ.»"
+
+  per_sense:
+    - lemma: "جَمَاعَة المُصَلِّينَ"
+      sense_id: "{auto}"
+      nuance: "تعبير عام يشير إلى المتجمعين للصلاة، ويُستخدم في مختلف الأديان."
+      mwe: true
+    - lemma: "رَعِيَّة"
+      sense_id: "{auto}"
+      nuance: "مصطلح مجازي مستمد من رعاية الماشية، ويشير إلى جموع المؤمنين الموكلين لراعي الكنيسة."
+      mwe: false
+    - lemma: "رَعِيَّة كَنَسِيَّة"
+      sense_id: "{auto}"
+      nuance: "تعبير مخصص للسياق المسيحي لإزالة اللبس عن المعنى السياسي أو العام لكلمة (رعية)."
+      mwe: true
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"جماعة","root":"جمع","maqayis":"«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ.»"},{"word":"المصلين","root":"صلي","maqayis":"«الصَّادُ وَاللَّامُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا النَّارُ... وَالْآخِرُ جِنْسٌ مِنَ الْعِبَادَةِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"رعي","maqayis":"«الرَّاءُ وَالْعَيْنُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا الْمُرَاقَبَةُ وَالْحِفْظُ، وَالْآخَرُ الرُّجُوعُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"رعية","root":"رعي","maqayis":"«الرَّاءُ وَالْعَيْنُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا الْمُرَاقَبَةُ وَالْحِفْظُ، وَالْآخَرُ الرُّجُوعُ.»"},{"word":"كنسية","root":"كنس","maqayis":"«الْكَافُ وَالنُّونُ وَالسِّينُ أَصْلَانِ صَحِيحَانِ، أَحَدُهُمَا يَدُلُّ عَلَى سَفْرِ شَيْءٍ عَنْ وَجْهِ شَيْءٍ، وَهُوَ كَشْفُهُ. وَالْأَصْلُ الْآخَرُ يَدُلُّ عَلَى اسْتِخْفَاءٍ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير عام يشير إلى المتجمعين للصلاة، ويُستخدم في مختلف الأديان.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح مجازي مستمد من رعاية الماشية، ويشير إلى جموع المؤمنين الموكلين لراعي الكنيسة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير مخصص للسياق المسيحي لإزالة اللبس عن المعنى السياسي أو العام لكلمة (رعية).","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

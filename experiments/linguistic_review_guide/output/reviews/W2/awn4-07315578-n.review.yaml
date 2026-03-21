@@ -1,0 +1,188 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "خلو المجموعة من لفظ «طَارِئ» الذي يعبر بدقة عن الحدوث المفاجئ."
+      - "لفظ «حَدَث عارض» قد يُنظر إليه كتركيب وصفي أكثر منه وحدة معجمية بسيطة، لكنه مستقر الاستعمال."
+    observations: "المجموعة تدور حول مفهوم «العَرَض» (Accident) بمعناه الفلسفي والمنطقي (ما ليس جوهرياً) وبمعناه العام (الصدفة). المصطلحات الموجودة تغطي الجانبين، ويفضل إغناؤها بما يدل على المفاجأة."
+  blind_candidates:
+    - lemma: "عَرَض"
+      generation_method: ishtiqaq
+      justification: "لفظ أصيل يعبر عن الشيء الذي يطرأ ويزول ولا يدوم، وهو المقابل الفلسفي الدقيق لـ (Accident)."
+    - lemma: "صُدْفَة"
+      generation_method: ishtiqaq
+      justification: "اللفظ الأكثر شيوعاً للتعبير عن وقوع الشيء بلا ميعاد أو تدبير."
+    - lemma: "سَانِحَة"
+      generation_method: ishtiqaq
+      justification: "ما يعرض للفكر أو يقع فجأة من الأمور (Stroke/Chance)."
+    - lemma: "طَارِئ"
+      generation_method: ishtiqaq
+      justification: "ما يحدث فجأة وبشكل غير متوقع (Sudden/Unexpected event)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "صُدْفَة"
+      confirm:
+        - text: "«الصُّدْفَةُ: الملاقاةُ دُونَ قصدٍ وتدبير حدوثُ الشَّيءِ عَرَضًا دُونَ اتِّفاقٍ وقصدٍ أو مَوعِدٍ»"
+          source: "المعجم الكبير"
+    - lemma: "عَرَض"
+      confirm:
+        - text: "«العَرَضُ: ما لا يكون له ثباتٌ... وقيل: الدّنيا عَرَضٌ حاضرٌ، تنبيها أن لا ثبات لها»"
+          source: "المفردات في غريب القرآن للراغب الأصفهاني"
+        - text: "«العَرَض: الموجود الذي يحتاج في وجوده إلى موضع أي محل يقوم به كاللون»"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+    - lemma: "طَارِئ"
+      confirm:
+        - text: "«الطَّارِئُ: الغريب الحادثُ المفاجِئُ»"
+          source: "المعجم الكبير"
+    - lemma: "حَدَث عارض"
+      confirm:
+        - text: "«عارِض [مفرد]: حادث غير متوقَّع يُصاب به المرءُ، مانع، حائل»"
+          source: "معجم اللغة العربية المعاصرة"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "حدث عارض"
+      decision: confirmed
+      decision_reason: "مصطلح مركب مستقر يعبر عن الحادثة غير المتوقعة التي تطرأ في سياق معين."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      nuance_differentiation: "يركز على صفة «العروض» أي عدم الديمومة والمفاجأة في السياق العملي."
+    - lemma: "صدفة"
+      decision: confirmed
+      decision_reason: "اللفظ المعياري الأساسي لوقوع الشيء بلا تدبير مسبق."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: "تؤكد على انعدام القصد والاتفاق المسبق (Chance)."
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "صُدْفَة"
+    - lemma: "عرض"
+      decision: confirmed
+      decision_reason: "لفظ علمي دقيق يعبر عن الحدوث الطارئ غير الجوهري."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: "يستعمل غالباً في السياقات الفلسفية والطبية والمنطقية للتعبير عما هو غير أصيل."
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عَرَض"
+    - lemma: "طَارِئ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يدل على المفاجأة والغرابة في الحدوث، وهو مرادف قوي لـ (Accident) في سياق الحدوث المفاجئ."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: "يركز على عنصر المباغتة والمفاجأة في الوقوع."
+      actions:
+        - command: create_entry
+          params: {lemma: "طَارِئ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-07315578-n"}
+
+stage4_content:
+  definition:
+    current: "أي شيء يحدث فجأة أو عن طريق الصدفة دون سبب ظاهر"
+    assessment:
+      decision: revise
+      reason: "الصياغة الحالية مقبولة ولكن يمكن تحسينها لتكون أكثر معجمية ودقة."
+    authored:
+      - type: terminological
+        text: "ما يقَعُ فجْأةً أو بالمُصادَفَةِ بلا قَصْدٍ ولا سَبَبٍ ظاهِرٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-07315578-n", definition_index: 0, text: "ما يقَعُ فجْأةً أو بالمُصادَفَةِ بلا قَصْدٍ ولا سَبَبٍ ظاهِرٍ."}
+  examples:
+    per_lemma:
+      - lemma: "صُدْفَة"
+        examples:
+          - text: "التقيتُ بزميلِ الدراسةِ صُدْفةً في زحامِ السوقِ."
+            type: usage
+      - lemma: "عَرَض"
+        examples:
+          - text: "ظُهورُ هذا اللونِ على المعدِنِ عَرَضٌ زائلٌ وليس من خَصائصهِ."
+            type: usage
+      - lemma: "حدث عارض"
+        examples:
+          - text: "كانَ انقطاعُ التيارِ الكهربائيِّ حَدَثاً عارِضاً لم يُعطِّلِ الحفلَ."
+            type: usage
+      - lemma: "طَارِئ"
+        examples:
+          - text: "استدعَتِ الشركةُ الموظفينَ لمواجهةِ طارئٍ في نظامِ الأمانِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-07315578-n", text: "وقوعُ الحادثِ بتلك الطريقةِ كان صُدْفةً محضةً."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "صُدْفَة"
+      entry_id: "{auto}"
+      root: "صدف"
+      maqayis_quote: "«الصَّادُ وَالدَّالُ وَالْفَاءُ أَصْلَانِ: [الْأَوَّلُ] يَدُلُّ عَلَى الْمَيْلِ، وَالثَّانِي: عَرَضٌ مِنَ الْأَعْرَاضِ. فَالْأَوَّلُ قَوْلُهُمْ: صَدَفَ عَنِ الشَّيْءِ، إِذَا مَالَ عَنْهُ وَوَلَّى ذَاهِبًا.»"
+    - lemma: "عَرَض"
+      entry_id: "{auto}"
+      root: "عرض"
+      maqayis_quote: "«الْعَيْنُ وَالرَّاءُ وَالضَّادُ بِنَاءٌ تَكْثُرُ فُرُوعُهُ، وَهِيَ مَعَ كَثْرَتِهَا تَرْجِعُ إِلَى أَصْلٍ وَاحِدٍ، وَهُوَ الْعَرْضُ الَّذِي يُخَالِفُ الطُّولَ... وَالْعَرَضُ مِنْ أَحْدَاثِ الدَّهْرِ، كَالْمَرَضِ وَنَحْوِهِ، سُمِّيَ عَرَضًا لِأَنَّهُ يَعْتَرِضُ.»"
+    - lemma: "طَارِئ"
+      entry_id: "{auto}"
+      root: "طرأ"
+      maqayis_quote: "«الطاء والراء والهمزة أصل واحد، وهو طلوع الشيء فجأة... طرأ علينا فلان إذا طلع فجأة.»"
+  per_sense:
+    - lemma: "صُدْفَة"
+      sense_id: "{auto}"
+      nuance: "تركز على انتفاء القصد والميعاد المسبق."
+      mwe: false
+    - lemma: "عَرَض"
+      sense_id: "{auto}"
+      nuance: "تركز على كون الحدوث غير أصيل أو طارئ على الذات."
+      mwe: false
+    - lemma: "طَارِئ"
+      sense_id: "{auto}"
+      nuance: "تركز على عنصر المفاجأة والمباغتة في الحدوث."
+      mwe: false
+    - lemma: "حدث عارض"
+      sense_id: "{auto}"
+      nuance: "تعبير مركب يستعمل في سياق الحوادث اليومية غير الجوهرية."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صدف","maqayis":"«الصَّادُ وَالدَّالُ وَالْفَاءُ أَصْلَانِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تؤكد على عنصر المفاجأة والمباغتة في الحدوث.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-07315578-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-07315578-n"
+        score: 0.9

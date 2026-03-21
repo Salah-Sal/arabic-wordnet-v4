@@ -1,0 +1,244 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمات الحالية تفتقر إلى التشكيل الكامل.
+      - اللمة "محتوى" قد تُفهم في المعاجم القديمة بمعنى "بيوت العرب" ما لم تُقيد بالسياق الحديث.
+    observations: "اللمتان الموجودتان صحيحتان وتعبران عن المفهوم بدقة، خاصة مع الإشارة إلى غلبة صيغة الجمع. هناك مرادفات قوية أخرى مثل 'مضمون' و'مشتملات' تعزز المجموعة."
+  blind_candidates:
+    - lemma: "مُحْتَوًى"
+      generation_method: ishtiqaq
+      justification: "اسم مفعول من الفعل (احتوى)، يعبر عن الشيء الذي يضمه غيره، وهو المصطلح الأشيع حالياً."
+    - lemma: "مَضْمُون"
+      generation_method: ishtiqaq
+      justification: "اسم مفعول من (ضمن)، ويستخدم للدلالة على ما في طي الشيء أو الكتاب."
+    - lemma: "مُشْتَمَلَات"
+      generation_method: ishtiqaq
+      justification: "جمع اسم المفعول من (اشتمل)، ويعبر عما هو موجود داخل حيز أو بنية معينة."
+    - lemma: "فَحْوَى"
+      generation_method: ishtiqaq
+      justification: "تستخدم غالباً لمضمون الكلام ومعناه، لكنها تتداخل مع مفهوم المحتوى العام."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُحْتَوًى"
+      confirm:
+        - text: "«مجموعة الخبرات الموجودة في المنهاج التربوي، والتي تحقق أهداف التعلم.»"
+          source: "مسرد التربية (ArabTerm)"
+        - text: "«المحتوى: (في الكيمياء والجيولوجيا) يستخدم للدلالة على كمية مادة داخل أخرى.»"
+          source: "المعجم الموحد لمصطلحات الكيمياء والجيولوجيا"
+    - lemma: "محتويات"
+      confirm:
+        - text: "«contents»"
+          source: "معجم المصطلحات الطبية (ArabTerm)"
+        - text: "«جدول المحتويات: table of contents»"
+          source: "المعجم الموحد لمصطلحات تقانة المعلومات"
+    - lemma: "مَضْمُون"
+      confirm:
+        - text: "«(الْمَضْمُون) المحتوى وَمِنْه مَضْمُون الْكتاب مَا فِي طيه ومضمون الْكَلَام فحواه وَمَا يفهم مِنْهُ»"
+          source: "المعجم الوسيط"
+        - text: "«المحتوى منه مضمون الكتاب: ما في طَيِّه»"
+          source: "المعجم الكبير"
+    - lemma: "مُشْتَمَلَات"
+      confirm:
+        - text: "«ما يكون متضمنا في بنية نسيجية أو خلوية.»"
+          source: "المعجم الموحد لمصطلحات علم الصيدلة"
+      expands:
+        - text: "«الشَّمْلَةُ: كِسَاءٌ يُؤْتَزَرُ بِهِ وَيُشْتَمَلُ... شَمَِلَهُمُ الْأَمْرُ، إِذَا عَمَّهُمْ.»"
+          source: "مقاييس اللغة"
+    - lemma: "فَحْوَى"
+      confirm:
+        - text: "«فحوى القَوْل مضمونه ومرماه الَّذِي يتَّجه إِلَيْهِ الْقَائِل»"
+          source: "المعجم الوسيط"
+      contradicts:
+        - text: "«ما ظهر للفهم من مطاوي الكلام»"
+          source: "مقاييس اللغة"
+          conflict: "الدليل يقصرها على الجانب الذهني/الكلامي بينما المجموعة عامة لكل ما هو مشمول في شيء."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "محتوى"
+      decision: confirmed
+      decision_reason: "المصطلح الأساسي والأكثر شيوعاً في الاستعمال المعاصر للدلالة على محتوى الأوعية والكتب والبيانات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُحْتَوًى"
+    - lemma: "محتويات"
+      decision: confirmed
+      decision_reason: "صيغة الجمع هي الأكثر شيوعاً في الاستعمال الفعلي (محتويات الحقيبة، محتويات الكتاب) كما أشارت الملحوظة في التعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُحْتَوَيَات"
+    - lemma: "مَضْمُون"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف قوي جداً، نص المعجم الوسيط صراحة على أنه 'المحتوى'، ويشيع استخدامه لمحتوى الكتب والرسائل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَضْمُون", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُشْتَمَلَات"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تفيد الإحاطة والاحتواء المادي والبنيوي، وتستخدم كثيراً في السياقات القانونية والعلمية للدلالة على العناصر المكونة لشيء ما."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُشْتَمَلَات", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "(عادة بصيغة الجمع) كل ما هو مدرج في مجموعة أو موجود أو مشمول داخل شيء ما"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكن يمكن صياغته بأسلوب معجمي أكثر رصانة وتركيزاً على الماهية."
+    authored:
+      - type: terminological
+        text: "ما يَشتمِلُ عليه الشيءُ ويضمُّه في حَيِّزه، أو ما تَنطوِي عليه مجمُوعةٌ أو وعاء."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "ما يَشتمِلُ عليه الشيءُ ويضمُّه في حَيِّزه، أو ما تَنطوِي عليه مجمُوعةٌ أو وعاء."}
+  examples:
+    per_lemma:
+      - lemma: "مُحْتَوًى"
+        examples:
+          - text: "يجبُ مراجعةُ مُحْتَوَى المِنهاجِ الدِّراسيِّ بصفةٍ دوريَّة."
+            type: usage
+      - lemma: "مُحْتَوَيَات"
+        examples:
+          - text: "أفْرَغَ اللصُّ المِحْفَظَةَ من جَميعِ مُحْتَوَيَاتِها."
+            type: usage
+      - lemma: "مَضْمُون"
+        examples:
+          - text: "يَتَّفِقُ مَضْمُونُ الكتابِ مع عُنْوانِهِ."
+            type: usage
+      - lemma: "مُشْتَمَلَات"
+        examples:
+          - text: "اشْتَرى البيتَ بجَميعِ مُشْتَمَلَاتِهِ من أثاثٍ ومَتاع."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يجبُ مراجعةُ مُحْتَوَى المِنهاجِ الدِّراسيِّ بصفةٍ دوريَّة."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "أفْرَغَ اللصُّ المِحْفَظَةَ من جَميعِ مُحْتَوَيَاتِها."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يَتَّفِقُ مَضْمُونُ الكتابِ مع عُنْوانِهِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "اشْتَرى البيتَ بجَميعِ مُشْتَمَلَاتِهِ من أثاثٍ ومَتاع."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُحْتَوًى"
+      entry_id: "{auto}"
+      root: "حوي"
+      maqayis_quote: "«الْحَاءُ وَالْوَاوُ وَمَا بَعْدَهُ مُعْتَلٌّ أَصْلٌ وَاحِدٌ، وَهُوَ الْجَمْعُ يُقَالُ حَوَيْتُ الشَّيْءَ أَحْوِيهِ حَيًّا، إِذَا جَمَعْتَهُ.»"
+    - lemma: "مُحْتَوَيَات"
+      entry_id: "{auto}"
+      root: "حوي"
+      maqayis_quote: "«الْحَاءُ وَالْوَاوُ وَمَا بَعْدَهُ مُعْتَلٌّ أَصْلٌ وَاحِدٌ، وَهُوَ الْجَمْعُ يُقَالُ حَوَيْتُ الشَّيْءَ أَحْوِيهِ حَيًّا، إِذَا جَمَعْتَهُ.»"
+    - lemma: "مَضْمُون"
+      entry_id: "{auto}"
+      root: "ضمن"
+      maqayis_quote: "«الضَّادُ وَالْمِيمُ وَالنُّونُ أَصْلٌ صَحِيحٌ، وَهُوَ جَعْلُ الشَّيْءِ فِي شَيْءٍ يَحْوِيهِ. مِنْ ذَلِكَ قَوْلُهُمْ: ضَمَّنَتُ الشَّيْءَ، إِذَا جَعَلْتَهُ فِي وِعَائِهِ.»"
+    - lemma: "مُشْتَمَلَات"
+      entry_id: "{auto}"
+      root: "شمل"
+      maqayis_quote: "«الشِّينُ وَالْمِيمُ وَاللَّامُ أَصْلَانِ مُنْقَاسَانِ مُطَّرِدَانِ... فَالْأَوَّلُ يَدُلُّ عَلَى دَوَرَانِ الشَّيْءِ بِالشَّيْءِ وَأَخْذِهِ إِيَّاهُ مِنْ جَوَانِبِهِ.»"
+  per_sense:
+    - lemma: "مُحْتَوًى"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام والشامل لكل ما يضمه وعاء أو نظام."
+      mwe: false
+    - lemma: "مُحْتَوَيَات"
+      sense_id: "{auto}"
+      nuance: "تستخدم للدلالة على التفاصيل الجزئية المكونة للكل (غالباً بصيغة الجمع)."
+      mwe: false
+    - lemma: "مَضْمُون"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب المعنوي أو الفكري لما يحتويه الكتاب أو الرسالة."
+      mwe: false
+    - lemma: "مُشْتَمَلَات"
+      sense_id: "{auto}"
+      nuance: "يركز على العناصر المادية أو القانونية المحاط بها في حيز معين."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حوي","maqayis":"«الْحَاءُ وَالْوَاوُ وَمَا بَعْدَهُ مُعْتَلٌّ أَصْلٌ وَاحِدٌ، وَهُوَ الْجَمْعُ يُقَالُ حَوَيْتُ الشَّيْءَ أَحْوِيهِ حَيًّا، إِذَا جَمَعْتَهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ضمن","maqayis":"«الضَّادُ وَالْمِيمُ وَالنُّونُ أَصْلٌ صَحِيحٌ، وَهُوَ جَعْلُ الشَّيْءِ فِي شَيْءٍ يَحْوِيهِ. مِنْ ذَلِكَ قَوْلُهُمْ: ضَمَّنَتُ الشَّيْءَ، إِذَا جَعَلْتَهُ فِي وِعَائِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"شمل","maqayis":"«الشِّينُ وَالْمِيمُ وَاللَّامُ أَصْلَانِ مُنْقَاسَانِ مُطَّرِدَانِ... فَالْأَوَّلُ يَدُلُّ عَلَى دَوَرَانِ الشَّيْءِ بِالشَّيْءِ وَأَخْذِهِ إِيَّاهُ مِنْ جَوَانِبِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العام والشامل لكل ما يضمه وعاء أو نظام.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تستخدم للدلالة على التفاصيل الجزئية المكونة للكل (غالباً بصيغة الجمع).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الجانب المعنوي أو الفكري لما يحتويه الكتاب أو الرسالة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على العناصر المادية أو القانونية المحاط بها في حيز معين.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-07971643-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-07971643-n"
+        score: 0.95

@@ -1,0 +1,226 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة (ثقة) غير مشكلة تشكيلاً كاملاً."
+      - "التعريف العربي الحالي يبدو كترجمة حرفية للتعريف الإنجليزي."
+    observations: "المفهوم يعبر عن الحالة النفسية للمصدّق أو الواثق، وهو ما يغطيه المصدر (ثقة) بشكل أساسي، ولكن هناك بدائل معجمية دقيقة تعبر عن الميل النفسي للتصديق مثل (أمنة) في التراث."
+  blind_candidates:
+    - lemma: "ثِقَة"
+      generation_method: ishtiqaq
+      justification: "المصدر الأصيل من (وثق)، وهو اللفظ الشائع والمستقر في اللغة للتعبير عن هذا المفهوم."
+    - lemma: "تَصْدِيق"
+      generation_method: ishtiqaq
+      justification: "يعبر عن الجانب الاعتقادي في الثقة، وهو قبول صدق الآخر."
+    - lemma: "ائْتِمَان"
+      generation_method: ishtiqaq
+      justification: "مصدر من (ائتمن)، ويعبر عن حالة الشعور بالأمن تجاه الآخرين."
+    - lemma: "تَعْوِيل"
+      generation_method: ishtiqaq
+      justification: "يعبر عن جانب الاعتماد على موثوقية الآخر."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "ثِقَة"
+      confirm:
+        - text: "«الثِّقَة مصدر وَقد يُوصف بِهِ...»"
+          source: "المعجم الوسيط"
+        - text: "«الثِّقَة: هو الذي يعتمد عليها في الأقوال والأفعال.»"
+          source: "التعريفات الفقهيّة للبركتي"
+    - lemma: "تَصْدِيق"
+      confirm:
+        - text: "«(في علم النفس): توجُّه النَّفْسِ إلى تأييد قضية أو رأى...»"
+          source: "المعجم الوسيط"
+        - text: "«ثقة؛ تصديق They seem to deserve some degree of credit .»"
+          source: "المورد الحديث"
+    - lemma: "ائْتِمَان"
+      confirm:
+        - text: "«ائتمان؛ اعتماد [يفتحه المصرف لمصلحة شخص...]»"
+          source: "المورد الحديث"
+          addition: "يشير إلى الاستخدام المالي الشائع، لكن أصله اللغوي هو الثقة."
+    - lemma: "تَعْوِيل"
+      confirm:
+        - text: "«التعويل: الاعتماد على الغير فيما ينقله»"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+    - lemma: "أَمَنَة"
+      confirm:
+        - text: "«أَمَنَةٌ بِالْفَتْحِ يُصَدِّقُ مَا سَمِعَ وَلَا يُكَذِّبُ بِشَيْءٍ، يَثِقُ بِالنَّاسِ.»"
+          source: "مقاييس اللغة لابن فارس"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "ثقة"
+      decision: confirmed
+      decision_reason: "اللفظ الأساسي والمستقر للمفهوم، يحتاج فقط لتصحيح التشكيل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "ثِقَة"
+    - lemma: "تَصْدِيق"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يغطي الجانب النفسي من الإيمان بصدق الآخرين، كما ورد في المعجم الوسيط والمورد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَصْدِيق", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "ائْتِمَان"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يركز على حالة الأمان النفسي الناتجة عن الثقة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "ائْتِمَان", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَعْوِيل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر عن جانب الاعتماد (reliance) المتضمن في الثقة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَعْوِيل", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "أَمَنَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تراثي دقيق جداً لوصف سمة 'سرعة التصديق' أو 'الوثوقية' في الشخص."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "أَمَنَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "سمة الإيمان بصدق وموثوقية الآخرين"
+    assessment:
+      decision: revise
+      reason: "الصياغة الحالية تبدو مترجمة، والتعريف الجديد يتبع أسلوب المعاجم العربية بذكر الجنس القريب والفصل النوعي."
+    authored:
+      - type: terminological
+        text: "خَصْلَةٌ نَفْسِيَّةٌ تَقُومُ عَلَى الرُّكُونِ إِلَى صِدْقِ الآخَرِينَ وَالاعْتِمَادِ عَلَى أَمَانَتِهِمْ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "خَصْلَةٌ نَفْسِيَّةٌ تَقُومُ عَلَى الرُّكُونِ إِلَى صِدْقِ الآخَرِينَ وَالاعْتِمَادِ عَلَى أَمَانَتِهِمْ."}
+  examples:
+    per_lemma:
+      - lemma: "ثِقَة"
+        examples:
+          - text: "بُنِيَتْ عَلَاقَتُهُمَا عَلَى الثِّقَةِ الْمُتَبَادَلَةِ مُنْذُ الطُّفُولَةِ."
+            type: usage
+      - lemma: "تَصْدِيق"
+        examples:
+          - text: "تَمَيَّزَ الرَّجُلُ بِسُرْعَةِ التَّصْدِيقِ لِكُلِّ مَا يُقَالُ لَهُ."
+            type: usage
+      - lemma: "ائْتِمَان"
+        examples:
+          - text: "لَا يُمْكِنُ بِنَاءُ شَرَاكَةٍ دُونَ ائْتِمَانٍ كَامِلٍ لِلْمَقَاصِدِ."
+            type: usage
+      - lemma: "تَعْوِيل"
+        examples:
+          - text: "كَانَ تَعْوِيلُهُ عَلَى صِدْقِ صَدِيقِهِ فِي مَحَلِّهِ."
+            type: usage
+      - lemma: "أَمَنَة"
+        examples:
+          - text: "عُرِفَ بَيْنَ قَوْمِهِ بِأَنَّهُ أَمَنَةٌ، لَا يَظُنُّ بِأَحَدٍ سُوءاً."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "الثِّقَةُ أَسَاسُ التَّعَامُلِ الصَّادِقِ بَيْنَ النَّاسِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "ثِقَة"
+      entry_id: "{auto}"
+      root: "وثق"
+      maqayis_quote: "«الْوَاوُ وَالثَّاءُ وَالْقَافُ كَلِمَةٌ تَدُلُّ عَلَى عَقْدٍ وَإِحْكَامٍ.»"
+    - lemma: "تَصْدِيق"
+      entry_id: "{auto}"
+      root: "صدق"
+      maqayis_quote: "«الصَّادُ وَالدَّالُ وَالْقَافُ أَصْلٌ يَدُلُّ عَلَى قُوَّةٍ فِي الشَّيْءِ قَوْلًا وَغَيْرَهُ.»"
+    - lemma: "ائْتِمَان"
+      entry_id: "{auto}"
+      root: "أمن"
+      maqayis_quote: "«الْهَمْزَةُ وَالْمِيمُ وَالنُّونُ أَصْلَانِ مُتَقَارِبَانِ: أَحَدُهُمَا الْأَمَانَةُ الَّتِي هِيَ ضِدُّ الْخِيَانَةِ، وَمَعْنَاهَا سُكُونُ الْقَلْبِ، وَالْآخَرُ التَّصْدِيقُ.»"
+    - lemma: "تَعْوِيل"
+      entry_id: "{auto}"
+      root: "عول"
+      maqayis_quote: "«الْعَيْنُ وَالْوَاوُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى الِاسْتِعَانَةِ بِالشَّيْءِ.»"
+    - lemma: "أَمَنَة"
+      entry_id: "{auto}"
+      root: "أمن"
+      maqayis_quote: "«أَمَنَةٌ بِالْفَتْحِ يُصَدِّقُ مَا سَمِعَ وَلَا يُكَذِّبُ بِشَيْءٍ، يَثِقُ بِالنَّاسِ.»"
+  per_sense:
+    - lemma: "ثِقَة"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام والشامل لحالة الركون والاعتماد."
+      mwe: false
+    - lemma: "تَصْدِيق"
+      sense_id: "{auto}"
+      nuance: "يركز على قبول الخبر واعتباره صادقاً."
+      mwe: false
+    - lemma: "ائْتِمَان"
+      sense_id: "{auto}"
+      nuance: "يركز على حالة الطمأنينة وعدم الخوف من الخيانة."
+      mwe: false
+    - lemma: "تَعْوِيل"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب العملي من الاعتماد على الشخص الموثوق."
+      mwe: false
+    - lemma: "أَمَنَة"
+      sense_id: "{auto}"
+      nuance: "سمة شخصية دقيقة لمن يثق بالناس ويصدقهم بسرعة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"وثق","maqayis":"«الْوَاوُ وَالثَّاءُ وَالْقَافُ كَلِمَةٌ تَدُلُّ عَلَى عَقْدٍ وَإِحْكَامٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ العام والشامل لحالة الركون والاعتماد.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,161 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمة الحالية "البحر الأبيض" شديدة اللبس في العربية مع "البحر الأبيض المتوسط" عند إطلاقها بدون سياق.
+      - غياب المصطلح في المعاجم اللغوية العامة كمدخل مستقل لصالح المعاجم الجغرافية والمتخصصة.
+    observations: "المصطلح يشير إلى كيان جغرافي محدد في شمال روسيا. الترجمة العربية المباشرة هي 'البحر الأبيض'، ولكن في المؤلفات الجغرافية العربية يضاف إليه غالباً نعت 'الشمالي' للتمييز، أو يُشار إليه باسمه الروسي المعرب 'بيلوي'."
+  blind_candidates:
+    - lemma: "البَحْرُ الأَبْيَضُ"
+      generation_method: tarkib
+      justification: "الترجمة الحرفية والمصطلح الجغرافي القياسي لـ (White Sea)."
+    - lemma: "البَحْرُ الأَبْيَضُ الشَّمَالِيُّ"
+      generation_method: tarkib
+      justification: "مصطلح جغرافي تمييزي شائع في الكتب المدرسية والجامعية العربية لتفريقه عن المتوسط."
+    - lemma: "بَحْرُ بِيَلُوي"
+      generation_method: taarib
+      justification: "تعريب للاسم الروسي (Beloye More) لضمان الدقة وتجنب اللبس."
+    - lemma: "بَحْرُ رُوسْيَا الأَبْيَضُ"
+      generation_method: tarkib
+      justification: "تعبير وصفي إضافي يستخدم كاسم علم في السياقات الإخبارية والجغرافية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "البحر الأبيض"
+      confirm:
+        - text: "«بحر بارنت... يصب في دلتا واسعة في بحر قزوين...» (سياق جغرافي عام)"
+          source: "المعجم الكبير (بالاستنتاج)"
+      expands:
+        - text: "«بحر بارنت (Barents Sea)»"
+          source: "المكنز الزراعي"
+          addition: "يؤكد وجود أسماء البحار القطبية في المكنز، وإن لم يرد 'البحر الأبيض' كمدخل مستقل فيه."
+    - lemma: "البحر الأبيض الشمالي"
+      evidence_status: "no_material_found"
+    - lemma: "بحر بيلوي"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "البحر الأبيض"
+      decision: confirmed
+      decision_reason: "الاسم الرسمي والجغرافي المعتمد في اللغة العربية لهذا المسطح المائي، واللبس مع المتوسط يُحل بالسياق أو بالنعت."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "البَحْرُ الأَبْيَضُ"
+    - lemma: "البَحْرُ الأَبْيَضُ الشَّمَالِيُّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح ضروري للتمييز الدلالي ومنتشر في الأدبيات الجغرافية العربية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "البَحْرُ الأَبْيَضُ الشَّمَالِيُّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09501940-n"}
+    - lemma: "بَحْرُ بِيَلُوي"
+      source: stage1
+      decision: confirmed
+      decision_reason: "الاسم الروسي الأصلي للمسطح المائي، استخدامه يزيل أي احتمال للبس."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "بَحْرُ بِيَلُوي", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09501940-n"}
+
+stage4_content:
+  definition:
+    current: "مدخل كبير لبحر بارنتس في الجزء الشمالي الغربي من روسيا الأوروبية"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق علمياً وجغرافياً ويتبع المنهج الموسوعي المناسب لأسماء الأعلام الجغرافية."
+  examples:
+    per_lemma:
+      - lemma: "البَحْرُ الأَبْيَضُ"
+        examples:
+          - text: "يُعد البحر الأبيض منفذاً مائياً استراتيجياً لروسيا في القطب الشمالي."
+            type: usage
+      - lemma: "البَحْرُ الأَبْيَضُ الشَّمَالِيُّ"
+        examples:
+          - text: "يختلف البحر الأبيض الشمالي عن البحر الأبيض المتوسط في خصائصه المناخية والبيولوجية."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-09501940-n", text: "يقع البحر الأبيض في شمال روسيا، ويتصل ببحر بارنتس عبر مضيق ضيق يسمى 'الجورلو'."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "البَحْرُ الأَبْيَضُ"
+      entry_id: "{auto}"
+      roots:
+        - word: "بحر"
+          root: "بحر"
+          maqayis_quote: "«الْبَاءُ وَالْحَاءُ وَالرَّاءُ... سُمِّيَ الْبَحْرُ بَحْرًا لِاسْتِبْحَارِهِ وَهُوَ انْبِسَاطُهُ وَسَعَتُهُ.»"
+        - word: "أبيض"
+          root: "بيض"
+          maqayis_quote: "«الْبَاءُ وَالْيَاءُ وَالضَّادُ أَصْلٌ... فَالْأَصْلُ الْبَيَاضُ مِنَ الْأَلْوَانِ.»"
+    - lemma: "البَحْرُ الأَبْيَضُ الشَّمَالِيُّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "بحر"
+          root: "بحر"
+          maqayis_quote: "«الْبَاءُ وَالْحَاءُ وَالرَّاءُ... سُمِّيَ الْبَحْرُ بَحْرًا لِاسْتِبْحَارِهِ وَهُوَ انْبِسَاطُهُ وَسَعَتُهُ.»"
+        - word: "أبيض"
+          root: "بيض"
+          maqayis_quote: "«الْبَاءُ وَالْيَاءُ وَالضَّادُ أَصْلٌ... فَالْأَصْلُ الْبَيَاضُ مِنَ الْأَلْوَانِ.»"
+        - word: "شمالي"
+          root: "شمل"
+          maqayis_quote: "«الشِّينُ وَالْمِيمُ وَاللَّامُ أَصْلَانِ... الثَّانِي يَدُلُّ عَلَى الْجَانِبِ الَّذِي يُخَالِفُ الْيَمِينَ.»"
+  per_sense:
+    - lemma: "البَحْرُ الأَبْيَضُ"
+      sense_id: "{auto}"
+      nuance: "الاسم العام والمختصر للمسطح المائي."
+      mwe: true
+    - lemma: "البَحْرُ الأَبْيَضُ الشَّمَالِيُّ"
+      sense_id: "{auto}"
+      nuance: "صيغة تمييزية تستخدم لتجنب اللبس مع البحر المتوسط."
+      mwe: true
+    - lemma: "بَحْرُ بِيَلُوي"
+      sense_id: "{auto}"
+      nuance: "تسمية تعتمد على النقل الصوتي للاسم الأصلي، تستخدم في السياقات العلمية الدقيقة."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"بحر","root":"بحر","maqayis":"«الْبَاءُ وَالْحَاءُ وَالرَّاءُ... سُمِّيَ الْبَحْرُ بَحْرًا لِاسْتِبْحَارِهِ وَهُوَ انْبِسَاطُهُ وَسَعَتُهُ.»"},{"word":"أبيض","root":"بيض","maqayis":"«الْبَاءُ وَالْيَاءُ وَالضَّادُ أَصْلٌ... فَالْأَصْلُ الْبَيَاضُ مِنَ الْأَلْوَانِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم العام والمختصر للمسطح المائي.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-09501940-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-09501940-n"
+        score: 0.9

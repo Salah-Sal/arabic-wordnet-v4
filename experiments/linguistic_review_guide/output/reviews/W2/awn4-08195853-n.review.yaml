@@ -1,0 +1,226 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الوحيدة الموجودة غير مشكولة."
+      - "نقص في المترادفات الاصطلاحية الشائعة مثل (انفجار سكاني)."
+    observations: "المجموعة تعبر عن مفهوم (Overpopulation). المصطلح الأكثر شيوعاً هو (اكتظاظ سكاني)، ولكن توجد مصطلحات أخرى دقيقة مستخدمة في السياقات الديموغرافية والاجتماعية."
+  blind_candidates:
+    - lemma: "اِكْتِظَاظٌ سُكَّانِيٌّ"
+      generation_method: tarkib
+      justification: "تعبير مركب وصفي شائع جداً للدلالة على تجاوز عدد السكان للسعة الاستيعابية."
+    - lemma: "تَضَخُّمٌ سُكَّانِيٌّ"
+      generation_method: tarkib
+      justification: "يستخدم في الأدبيات الديموغرافية للدلالة على النمو السكاني المفرط."
+    - lemma: "اِنْفِجَارٌ سُكَّانِيٌّ"
+      generation_method: tarkib
+      justification: "مصطلح اصطلاحي (Population explosion) يستخدم للدلالة على الزيادة السكانية الهائلة والمفاجئة."
+    - lemma: "تَكَدُّسٌ سُكَّانِيٌّ"
+      generation_method: tarkib
+      justification: "يدل على تجمع سكاني كثيف يتجاوز حدود الراحة أو الموارد المتاحة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "اكتظاظ سكاني"
+      confirm:
+        - text: "«إكتظاظ سكاني (Overpopulation)»"
+          source: "المكنز الزراعي متعدد اللغات"
+        - text: "«الاكتظاظ السُّكانيّ. (Overpopulation)»"
+          source: "المورد الحديث (2008)"
+    - lemma: "انفجار سكاني"
+      confirm:
+        - text: "«هذا ما يعبر عنه بالانفجار السكاني. (Population explosion)»"
+          source: "مسرد المناخ والبيئة، ArabTerm"
+        - text: "«انْفِجارٌ سُكَّانِيّ (Population explosion)»"
+          source: "المعجم الطبي الموحد"
+    - lemma: "تضخم سكاني"
+      expands:
+        - text: "«تضخم... زيادة في المستوى العام للأسعار... (Inflation)»"
+          source: "ArabTerm"
+          addition: "المعجم يورد التضخم في السياق الاقتصادي، لكنه لغوياً يعني العظم والزيادة، ويستخدم مركباً مع (سكاني) في الدراسات."
+    - lemma: "زيادة السكان"
+      confirm:
+        - text: "«زِيادَةُ السُّكَّان (Overpopulation)»"
+          source: "المعجم الطبي الموحد"
+    - lemma: "تكدس سكاني"
+      expands:
+        - text: "«كَدَسَ... كُدْسُ الطَّعَامِ... التَّكَدُّسُ، وَهُوَ مَشْيُ الْفَرَسِ كَأَنَّهُ مُثْقَلٌ.»"
+          source: "مقاييس اللغة"
+          addition: "التكدس يدل على التراكم والامتلاء، ويستخدم لوصف الازدحام السكاني الشديد."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "اكتظاظ سكاني"
+      decision: confirmed
+      decision_reason: "المصطلح الأساسي والأكثر دقة ومطابقة للتعريف الإنجليزي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "اِكْتِظَاظٌ سُكَّانِيٌّ"
+    - lemma: "اِنْفِجَارٌ سُكَّانِيٌّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تقني ثابت (Population Explosion) يعبر عن الحالة القصوى من زيادة السكان."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "اِنْفِجَارٌ سُكَّانِيٌّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَضَخُّمٌ سُكَّانِيٌّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يستخدم لوصف الزيادة الكمية المفرطة في الكتلة السكانية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "تَضَخُّمٌ سُكَّانِيٌّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "زِيَادَةٌ سُكَّانِيَّةٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح مباشر وشائع جداً، ومثبت في المعاجم الطبية كمرادف لـ Overpopulation."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "زِيَادَةٌ سُكَّانِيَّةٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "زيادة كبيرة في عدد السكان"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي بسيط جداً؛ يفضل تقديم تعريف اصطلاحي يربط الزيادة بالموارد أو المساحة."
+    authored:
+      - type: terminological
+        text: "وُجُودُ عَدَدٍ مِنَ السُّكَّانِ يَفُوقُ المَوَارِدَ المَتَاحَةَ أَوْ القُدْرَةَ الِاسْتِيعَابِيَّةَ لِلبِيئَةِ فِي مَنْطِقَةٍ مَا."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "وُجُودُ عَدَدٍ مِنَ السُّكَّانِ يَفُوقُ المَوَارِدَ المَتَاحَةَ أَوْ القُدْرَةَ الِاسْتِيعَابِيَّةَ لِلبِيئَةِ فِي مَنْطِقَةٍ مَا."}
+  examples:
+    per_lemma:
+      - lemma: "اِكْتِظَاظٌ سُكَّانِيٌّ"
+        examples:
+          - text: "تُعَانِي بَعْضُ العَوَاصِمِ مِنْ اِكْتِظَاظٍ سُكَّانِيٍّ خَانِقٍ أَدَّى إِلَى تَدَهْوُرِ الخِدْمَاتِ."
+            type: usage
+      - lemma: "اِنْفِجَارٌ سُكَّانِيٌّ"
+        examples:
+          - text: "يُحَذِّرُ الخُبَرَاءُ مِن اِنْفِجَارٍ سُكَّانِيٍّ قَدْ يَلْتَهِمُ ثِمَارَ التَّنْمِيَةِ الِاقْتِصَادِيَّةِ."
+            type: usage
+      - lemma: "تَضَخُّمٌ سُكَّانِيٌّ"
+        examples:
+          - text: "تَتَسَابَقُ الدُّوَلُ لِوَضْعِ خِطَطٍ لِمُواجَهَةِ التَّضَخُّمِ السُّكَّانِيِّ المُرْتَقَبِ."
+            type: usage
+      - lemma: "زِيَادَةٌ سُكَّانِيَّةٌ"
+        examples:
+          - text: "سَجَّلَتِ المَنْطِقَةُ زِيَادَةً سُكَّانِيَّةً غَيْرَ مَسْبُوقَةٍ خِلَالَ العَقْدِ المَاضِي."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يُعَدُّ الِاِكْتِظَاظُ السُّكَّانِيُّ تَحَدِّياً كَبِيراً لِلأَمْنِ الغِذَائِيِّ العَالَمِيِّ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "اِكْتِظَاظٌ سُكَّانِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "اكتظاظ"
+          root: "كظظ"
+          maqayis_quote: "«الْكَافُ وَالظَّاءُ أَصْلٌ صَحِيحٌ، يَدُلُّ عَلَى تَمَرُّسٍ وَشِدَّةٍ وَامْتِلَاءٍ... اكْتَظَّ الْوَادِي بِالْمَاءِ، إِذَا امْتَلَأَ بِسَيْلِهِ.»"
+        - word: "سكاني"
+          root: "سكن"
+          maqayis_quote: "«السِّينُ وَالْكَافُ وَالنُّونُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ، يَدُلُّ عَلَى خِلَافِ الِاضْطِرَابِ وَالْحَرَكَةِ... وَالسَّكْنُ: الْأَهْلُ الَّذِينَ يَسْكُنُونَ الدَّارَ.»"
+    - lemma: "اِنْفِجَارٌ سُكَّانِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "انفجار"
+          root: "فجر"
+          maqayis_quote: "«الْفَاءُ وَالْجِيمُ وَالرَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ التَّفَتُّحُ فِي الشَّيْءِ... انْفَجَرَ الْمَاءُ انْفِجَارًا: تَفَتَّحَ.»"
+        - word: "سكاني"
+          root: "سكن"
+          maqayis_quote: "«السِّينُ وَالْكَافُ وَالنُّونُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ...»"
+    - lemma: "تَضَخُّمٌ سُكَّانِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "تضخم"
+          root: "ضخم"
+          maqayis_quote: "«الضَّادُ وَالْخَاءُ وَالْمِيمُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى عِظَمٍ فِي الشَّيْءِ.»"
+        - word: "سكاني"
+          root: "سكن"
+          maqayis_quote: "«السِّينُ وَالْكَافُ وَالنُّونُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ...»"
+    - lemma: "زِيَادَةٌ سُكَّانِيَّةٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "زيادة"
+          root: "زيد"
+          maqayis_quote: "«الزَّاءُ وَالْيَاءُ وَالدَّالُ أَصْلٌ يَدُلُّ عَلَى الْفَضْلِ. يَقُولُونَ زَادَ الشَّيْءُ يَزِيدُ...»"
+        - word: "سكانية"
+          root: "سكن"
+          maqayis_quote: "«السِّينُ وَالْكَافُ وَالنُّونُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ...»"
+  per_sense:
+    - lemma: "اِكْتِظَاظٌ سُكَّانِيٌّ"
+      sense_id: "{auto}"
+      nuance: "يُركز على امتلاء المكان بالناس وضيق العيش الناتج عن ذلك."
+      mwe: true
+    - lemma: "اِنْفِجَارٌ سُكَّانِيٌّ"
+      sense_id: "{auto}"
+      nuance: "يُركز على سرعة وعنف الزيادة العددية المفاجئة."
+      mwe: true
+    - lemma: "تَضَخُّمٌ سُكَّانِيٌّ"
+      sense_id: "{auto}"
+      nuance: "يُركز على الحجم الهائل للكتلة البشرية."
+      mwe: true
+    - lemma: "زِيَادَةٌ سُكَّانِيَّةٌ"
+      sense_id: "{auto}"
+      nuance: "تعبير عام ومحايد يصف الارتفاع في الأعداد."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"اكتظاظ","root":"كظظ","maqayis":"«الْكَافُ وَالظَّاءُ أَصْلٌ صَحِيحٌ...»"},{"word":"سكاني","root":"سكن","maqayis":"«السِّينُ وَالْكَافُ وَالنُّونُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُركز على امتلاء المكان بالناس وضيق العيش الناتج عن ذلك.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,172 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "المصطلحات الموجودة تفتقر إلى التشكيل الكامل."
+      - "نقص في اللمات التي تمثل المفهوم في السياق القانوني والسياسي الحديث (مثل رعايا)."
+    observations: "المجموعة تعبر عن 'المحكومين' أو 'الرعية' ككيان جمعي خاضع لسلطة سياسية. اللفظ 'رعية' هو المصطلح التراثي الأصيل الذي يربط بين الحاكم والمحكوم بعلاقة رعاية ومسؤولية، بينما 'محكومون' هو المصطلح الوصفي المباشر الذي يبرز علاقة القوة والتبعية القانونية."
+  blind_candidates:
+    - lemma: "رَعِيَّة"
+      generation_method: majaz
+      justification: "اللفظ العربي الأصيل لمفهوم 'المحكومين' منسوباً إلى الراعي (الحاكم)."
+    - lemma: "مَحْكُومُون"
+      generation_method: ishtiqaq
+      justification: "اسم مفعول من حَكَمَ، يعبر مباشرة عن صفة الخضوع للحكم."
+    - lemma: "رَعَايَا"
+      generation_method: ishtiqaq
+      justification: "جمع رعية، ويُستخدم في السياقات القانونية والدبلوماسية الحديثة للإشارة إلى مواطني الدولة."
+    - lemma: "أَهْلُ البِلاد"
+      generation_method: tarkib
+      justification: "تعبير وصفي يشير إلى المواطنين المقيمين الخاضعين لحكم الدولة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "رعية"
+      confirm:
+        - text: "«الرَّعِيَّةُ: عامَّة الناس الذين عليهم راعٍ يُدبِّر أمْرَههم ويرعى مصالحهم»"
+          source: "المعجم الوسيط"
+        - text: "«الرَّعِيَّةُ التى تَسوسُها الملوكُ»"
+          source: "المعجم الكبير"
+    - lemma: "محكومون"
+      confirm:
+        - text: "«الدكتاتورية: حكم الفرد أو الجماعة دون الالتزام بموافقة المحكومين»"
+          source: "المعجم الوسيط (في مادة دكتاتورية)"
+    - lemma: "رَعَايَا"
+      confirm:
+        - text: "«(الرعية) الْمَاشِيَة الراعية والماشية المرعية وَعَامة النَّاس الَّذين عَلَيْهِم رَاع يدبر أَمرهم ويرعى مصالحهم (ج) رعايا»"
+          source: "المعجم الوسيط (في مادة رعي)"
+        - text: "«الرعية: أحد رعايا دولة ما»"
+          source: "المورد الحديث (ترجمة subject)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "رعية"
+      decision: confirmed
+      decision_reason: "مصطلح أصيل وشائع جداً للتعبير عن المفهوم في التراث واللغة المعاصرة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "رَعِيَّة"
+    - lemma: "محكومون"
+      decision: confirmed
+      decision_reason: "مصطلح سياسي وقانوني مباشر يقابل 'الحاكمون'، ومستعمل في المعاجم الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَحْكُومُون"
+    - lemma: "رَعَايَا"
+      source: stage1
+      decision: confirmed
+      decision_reason: "جمع 'رعية'، وهو المصطلح المفضل في النصوص القانونية والدبلوماسية الحديثة (رعايا الدولة)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "رَعَايَا", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "مجموعة الأشخاص الذين هم مواطنون في حكومة معينة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي حرفي وضعيف؛ يفضل صياغته بأسلوب معجمي يبرز علاقة الخضوع للحكم والرعاية."
+    authored:
+      - type: terminological
+        text: "عامَّةُ الناسِ الذين يَخضعُون لسُلطةِ حُكْمٍ أو دولةٍ، ويُدَبِّرُ الحاكِمُ شؤونَهم ومصالِحَهم."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "عامَّةُ الناسِ الذين يَخضعُون لسُلطةِ حُكْمٍ أو دولةٍ، ويُدَبِّرُ الحاكِمُ شؤونَهم ومصالِحَهم."}
+  examples:
+    per_lemma:
+      - lemma: "رَعِيَّة"
+        examples:
+          - text: "العَدلُ أساسُ المُلْكِ وصَلاحِ الرَّعِيَّة."
+            type: proverb
+      - lemma: "مَحْكُومُون"
+        examples:
+          - text: "تقومُ النُّظُمُ الديمقراطيّةُ على رِضَا المَحْكُومِين."
+            type: usage
+      - lemma: "رَعَايَا"
+        examples:
+          - text: "تلتزمُ الدَّولةُ بحمايةِ رَعايَاها في الخارجِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يجبُ على الوالي الالتفاتُ إلى مَصالحِ رَعِيَّتِه."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "رَعِيَّة"
+      entry_id: "{auto}"
+      root: "رعي"
+      maqayis_quote: "«الراء والعين والحرف المعتل أصلان: أحدهما المراقبة والحفظ، والآخر الرجوع. فالأول رعيته الشيء: رقبته وحفظته. والراعي: الوالي.»"
+    - lemma: "مَحْكُومُون"
+      entry_id: "{auto}"
+      root: "حكم"
+      maqayis_quote: "«الحاء والكاف والميم أصل واحد، وهو المنع. وأول ذلك الحكم، وهو المنع من الظلم.»"
+    - lemma: "رَعَايَا"
+      entry_id: "{auto}"
+      root: "رعي"
+      maqayis_quote: "«الراء والعين والحرف المعتل أصلان: أحدهما المراقبة والحفظ، والآخر الرجوع.»"
+  per_sense:
+    - lemma: "رَعِيَّة"
+      sense_id: "{auto}"
+      nuance: "اسم جمع يؤكد على علاقة الرعاية والمسؤولية الأخلاقية بين الحاكم والشعب."
+      mwe: false
+    - lemma: "مَحْكُومُون"
+      sense_id: "{auto}"
+      nuance: "مصطلح سياسي يركز على علاقة التبعية القانونية والسلطوية (مقابل الحاكمين)."
+      mwe: false
+    - lemma: "رَعَايَا"
+      sense_id: "{auto}"
+      nuance: "صيغة جمع تستخدم غالباً في السياق القانوني الدولي والدبلوماسي للإشارة إلى الأفراد المنتمين لسيادة دولة ما."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"رعي","maqayis":"«الراء والعين والحرف المعتل أصلان: أحدهما المراقبة والحفظ... والراعي: الوالي.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حكم","maqayis":"«الحاء والكاف والميم أصل واحد، وهو المنع. وأول ذلك الحكم، وهو المنع من الظلم.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اسم جمع يؤكد على علاقة الرعاية والمسؤولية الأخلاقية بين الحاكم والشعب.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

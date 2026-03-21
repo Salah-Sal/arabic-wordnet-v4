@@ -1,0 +1,225 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'شبكة صيد' هي ترجمة حرفية (Literal translation) للمصطلح الإنجليزي dragnet، وفي العربية تستخدم حصراً للصيد الفعلي للأسماك، بينما السياق هنا أمني (القبض على المجرمين)."
+      - "اللمة 'حملة اعتقالات' تصف الحدث الناتج وليس 'نظام التدابير المنسقة' بحد ذاته."
+    observations: "المفهوم يعبر عن شبكة من الإجراءات الأمنية المنسقة (تطويق، مداهمة، نصب شرك) للقبض على مطلوبين. العربية تستخدم استعارات مشابهة مثل 'شرك' (من حبالة الصيد) أو 'طوق' (من الإحاطة)."
+  blind_candidates:
+    - lemma: "حَمْلَةُ دَهْمٍ"
+      generation_method: tarkib
+      justification: "تعبير أمني شائع يصف التدابير المنسقة والمفاجئة للقبض على المطلوبين."
+    - lemma: "طَوْقٌ أَمْنِيٌّ"
+      generation_method: tarkib
+      justification: "يعبر بدقة عن 'نظام التدابير المنسقة' من خلال فكرة التطويق والإحاطة لمنع الهرب."
+    - lemma: "شَبَكَةُ تَعَقُّبٍ"
+      generation_method: tarkib
+      justification: "نقل دلالي لمفهوم الـ dragnet كمنظومة منسقة للملاحقة."
+    - lemma: "شَرَك"
+      generation_method: majaz
+      justification: "استعارة فصيحة من أدوات الصيد للتعبير عن المصيدة الأمنية المنصوبة للمجرمين، وقد ربطها معجم المورد الحديث صراحة بـ dragnet."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "شَرَك"
+      confirm:
+        - text: "«(2) شَرَكٌ a police dragnet»"
+          source: "المورد الحديث (2008)"
+        - text: "«الشَّرَك: حَبائِلُ الصَّيْدِ»"
+          source: "المعجم الكبير"
+        - text: "«الشَّرَكُ، مُحَرَّكةً: حَبائِلُ الصَّيْدِ، وما يُنْصَبُ للطَّيْرِ»"
+          source: "القاموس المحيط"
+    - lemma: "طَوْقٌ أَمْنِيٌّ"
+      confirm:
+        - text: "«طوّقت الشرطة المنطقة: أحاطت بها»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«طوَّق الجيشُ العدوّ: التفّ حوله»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "حَمْلَةُ دَهْمٍ"
+      confirm:
+        - text: "«دَهَمَتْهُمُ الْخَيْلُ تَدْهَمُهُمْ، إِذَا غَشِيَتْهُمْ»"
+          source: "مقاييس اللغة"
+        - text: "«دَهَمَ (و) غشي وأتاه فجأة»"
+          source: "المنجد"
+    - lemma: "شَبَكَةُ صَيْدٍ"
+      contradicts:
+        - text: "«شبكة [للصَّيْد]»"
+          source: "المورد الحديث"
+          conflict: "المعجم يضع 'شبكة صيد' للمعنى الحرفي و'شرك' لمعنى dragnet الأمني، مما يؤكد التمييز بينهما."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "حَمْلَةُ اعْتِقَالاتٍ"
+      decision: confirmed
+      decision_reason: "مقبولة لوصف الحدث الأمني المنسق الذي يؤدي للقبض على الأفراد، وهي مستخدمة بكثرة في السياق المعاصر."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حَمْلَةُ اعْتِقَالاتٍ"
+    - lemma: "شَبَكَةُ صَيْدٍ"
+      decision: removed
+      decision_reason: "حذف بسبب الخلط الدلالي؛ المصطلح يعبر عن أداة الصيد الفعلية للأسماك ولا يستخدم في العربية لوصف 'نظام التدابير الأمنية' إلا كترجمة حرفية غير مستساغة."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "شَرَك"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فصيح يطابق تماماً مفهوم الـ dragnet (المصيدة) في السياق الأمني، ومدعوم بأدلة معجمية ثنائية اللغة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "شَرَك", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "طَوْقٌ أَمْنِيٌّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "التعبير المعاصر الأكثر دقة لوصف 'نظام التدابير المنسقة' للإحاطة بالمطلوبين."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "طَوْقٌ أَمْنِيٌّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "حَمْلَةُ دَهْمٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبر عن الجانب التنفيذي والمنسق لعملية الملاحقة والقبض."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "حَمْلَةُ دَهْمٍ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "نظام من التدابير المنسقة للقبض على (المجرمين أو غيرهم من الأفراد)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ترجمة حرفية، ويفضل صياغته بأسلوب معجمي يوضح طبيعة الإجراءات."
+    authored:
+      - type: terminological
+        text: "مَجْمُوعةٌ مِنَ الإِجْرَاءَاتِ الأَمْنِيَّةِ أَوِ التَّدَابِيرِ المُنَسَّقَةِ الَّتِي تَهْدِفُ إِلَى تَطْوِيقِ المَطْلُوبِينَ أَوِ المُجْرِمِينَ وَإِلْقَاءِ القَبْضِ عَلَيْهِمْ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مَجْمُوعةٌ مِنَ الإِجْرَاءَاتِ الأَمْنِيَّةِ أَوِ التَّدَابِيرِ المُنَسَّقَةِ الَّتِي تَهْدِفُ إِلَى تَطْوِيقِ المَطْلُوبِينَ أَوِ المُجْرِمِينَ وَإِلْقَاءِ القَبْضِ عَلَيْهِمْ."}
+  examples:
+    per_lemma:
+      - lemma: "شَرَك"
+        examples:
+          - text: "نَصَبَتِ الشُّرْطَةُ شَرَكاً مُحْكَماً لِلإِيقَاعِ بِأَفْرَادِ العِصَابَةِ."
+            type: usage
+      - lemma: "طَوْقٌ أَمْنِيٌّ"
+        examples:
+          - text: "فَرَضَتِ القُوَّاتُ طَوْقاً أَمْنِيّاً شَامِلاً حَوْلَ مَخْبَإِ المُهَرِّبِينَ."
+            type: usage
+      - lemma: "حَمْلَةُ دَهْمٍ"
+        examples:
+          - text: "أَسْفَرَتْ حَمْلَةُ الدَّهْمِ عَنْ ضَبْطِ كَمِّيَّاتٍ كَبِيرَةٍ مِنَ المَمْنُوعَاتِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "نَفَّذَتِ الأَجْهِزَةُ المَعْنِيَّةُ طَوْقاً أَمْنِيّاً وَاسِعاً لِتَعَقُّبِ الفَارِّينَ مِنَ العَدَالَةِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "شَرَك"
+      entry_id: "{auto}"
+      root: "شرك"
+      maqayis_quote: "«الشِّينُ وَالرَّاءُ وَالْكَافُ... الشَّرَكُ: لَقَمُ الطَّرِيقِ... وَمِنْهُ شَرَكُ الصَّائِدِ، سُمِّيَ بِذَلِكَ لِامْتِدَادِهِ.»"
+    - lemma: "طَوْقٌ أَمْنِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "طوق"
+          root: "طوق"
+          maqayis_quote: "«الطَّاءُ وَالْوَاوُ وَالْقَافُ أَصْلٌ صَحِيحٌ... فَكُلُّ مَا اسْتَدَارَ بِشَيْءٍ فَهُوَ طَوْقٌ.»"
+        - word: "أمني"
+          root: "أمن"
+          maqayis_quote: "«الْأَلِفُ وَالْمِيمُ وَالنُّونُ أَصْلٌ وَاحِدٌ تَتَقَارَبُ فُرُوعُهُ، وَمَعْنَاهُ الْأَمَانَةُ الَّتِي هِيَ ضِدُّ الْخِيَانَةِ، وَمَعْنَاهُ الثِّقَةُ.»"
+    - lemma: "حَمْلَةُ دَهْمٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "حملة"
+          root: "حمل"
+          maqayis_quote: "«الْحَاءُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى إِقْلَالِ الشَّيْءِ.»"
+        - word: "دهم"
+          root: "دهم"
+          maqayis_quote: "«الدَّالُ وَالْهَاءُ وَالْمِيمُ أَصْلٌ يَدُلُّ عَلَى غِشْيَانِ الشَّيْءِ... وَدَهَمَتْهُمُ الْخَيْلُ تَدْهَمُهُمْ، إِذَا غَشِيَتْهُمْ.»"
+  per_sense:
+    - lemma: "شَرَك"
+      sense_id: "{auto}"
+      nuance: "تعبير استعاري يركز على الخداع ونصب الفخ للمجرمين."
+      mwe: false
+    - lemma: "طَوْقٌ أَمْنِيٌّ"
+      sense_id: "{auto}"
+      nuance: "يركز على الإحاطة الجغرافية والمنع المادي من الهرب."
+      mwe: true
+    - lemma: "حَمْلَةُ دَهْمٍ"
+      sense_id: "{auto}"
+      nuance: "يركز على عنصر المفاجأة والاقتحام."
+      mwe: true
+    - lemma: "حَمْلَةُ اعْتِقَالاتٍ"
+      sense_id: "{auto}"
+      nuance: "يركز على النتيجة القانونية (الاعتقال) والاتساع الزمني أو المكاني للعملية."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"شرك","maqayis":"«الشِّينُ وَالرَّاءُ وَالْكَافُ... الشَّرَكُ: لَقَمُ الطَّرِيقِ... وَمِنْهُ شَرَكُ الصَّائِدِ، سُمِّيَ بِذَلِكَ لِامْتِدَادِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"طوق","root":"طوق","maqayis":"«...»"},{"word":"أمني","root":"أمن","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"حملة","root":"حمل","maqayis":"«...»"},{"word":"دهم","root":"دهم","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير استعاري يركز على الخداع ونصب الفخ للمجرمين.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

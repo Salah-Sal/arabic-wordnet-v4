@@ -1,0 +1,138 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "المجموعة الترادفية تشير إلى اسم علم أجنبي (شخصية تاريخية)، ولا يُتوقع إيجاد هذه الأسماء في المعاجم اللغوية العربية العامة."
+    observations: "اللمّات الحالية هي نقل صوتي مباشر (تعريب) مقبول لاسم المعماري البلجيكي 'Victor Horta'. 'فيكتور هورتا' هو الاسم الكامل، و'هورتا' هو الاسم الأخير للاختصار."
+  blind_candidates:
+    - lemma: "فِيكْتُور هُورْتَا"
+      generation_method: taarib
+      justification: "نقل صوتي مباشر للاسم الأجنبي."
+    - lemma: "هُورْتَا"
+      generation_method: taarib
+      justification: "اكتفاء بالاسم العائلي كطريقة شائعة للإشارة للشخصيات المعروفة."
+    - lemma: "فِيكْتُور غُورْتَا"
+      generation_method: taarib
+      justification: "نقل صوتي بديل محتمل لحرف الهاء في بعض اللغات."
+    - lemma: "المُهَنْدِس هُورْتَا"
+      generation_method: tarkib
+      justification: "إضافة اللقب المهني للاسم الأجنبي لتعريفه."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "فيكتور هورتا"
+      evidence_status: "no_material_found"
+    - lemma: "هورتا"
+      evidence_status: "no_material_found"
+    - lemma: "فِيكْتُور هُورْتَا"
+      evidence_status: "no_material_found"
+    - lemma: "فِيكْتُور غُورْتَا"
+      evidence_status: "no_material_found"
+    - lemma: "المُهَنْدِس هُورْتَا"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "فيكتور هورتا"
+      decision: confirmed
+      decision_reason: "نقل صوتي دقيق وشائع لاسم المعماري البلجيكي."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: mazji
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "فِيكْتُور هُورْتَا"
+    - lemma: "هورتا"
+      decision: confirmed
+      decision_reason: "الاسم الأخير للمعماري، يُستخدم للاختصار كما هو معتاد في اللغات الأجنبية والمترجمة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "هُورْتَا"
+    - lemma: "فِيكْتُور غُورْتَا"
+      source: stage1
+      decision: removed
+      decision_reason: "نقل صوتي غير شائع لهذا الاسم تحديداً."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+    - lemma: "المُهَنْدِس هُورْتَا"
+      source: stage1
+      decision: removed
+      decision_reason: "عبارة وصفية وليست الاسم المجرد للمستهدف."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+
+stage4_content:
+  definition:
+    current: "معماري بلجيكي ورائد في عمارة الفن الجديد (1861-1947)"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق وشامل، يذكر مهنته وأهميته والحقبة الزمنية التي عاش فيها."
+  examples:
+    per_lemma:
+      - lemma: "فيكتور هورتا"
+        examples:
+          - text: "يُعدّ فِيكْتُور هُورْتَا من أبرز المعماريين في مدرسة الفن الجديد."
+            type: usage
+      - lemma: "هورتا"
+        examples:
+          - text: "تتميز تصميمات هُورْتَا بالاعتماد على المنحنيات والأشكال المستوحاة من الطبيعة."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "awn4-11081084-n"
+          text: "يُعدّ فِيكْتُور هُورْتَا من أبرز المعماريين في مدرسة الفن الجديد."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تتميز تصميمات هُورْتَا بالاعتماد على المنحنيات والأشكال المستوحاة من الطبيعة."
+
+stage5_enrichment:
+  per_sense:
+    - lemma: "فيكتور هورتا"
+      sense_id: "{auto}"
+      nuance: "الاسم الكامل للمعماري."
+      mwe: true
+    - lemma: "هورتا"
+      sense_id: "{auto}"
+      nuance: "الاسم الأخير، يُستخدم غالباً كاختصار مألوف."
+      mwe: false
+  synset:
+    cultural_fit: omission
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الكامل للمعماري.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الأخير، يُستخدم غالباً كاختصار مألوف.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-11081084-n"
+        key: note
+        value: '{"cultural_fit":"omission"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-11081084-n"
+        score: 0.95

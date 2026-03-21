@@ -1,0 +1,201 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الحالية صحيحة لكنها تفتقر إلى المصطلح التقني الحديث الذي يعبر عن النظام المتكامل للعلامات (signage)."
+    observations: "تتراوح المصطلحات بين الوصف اللغوي العام (علامات) والوصف المادي للأدوات (لافتات، لوحات) والمصطلح التقني الموحد (تشوير)."
+  blind_candidates:
+    - lemma: "لَافِتَات"
+      generation_method: ishtiqaq
+      justification: "جمع لافتة، وهي الوسيلة الأكثر شيوعاً للتعبير عن اللوحات الإعلانية والإرشادية."
+    - lemma: "عَلَامَات"
+      generation_method: ishtiqaq
+      justification: "المصطلح العام الذي يشمل كل ما يوضع للدلالة أو الإرشاد، وهو مستخدم في التعريف."
+    - lemma: "لَوْحَاتٌ إِرْشَادِيَّة"
+      generation_method: tarkib
+      justification: "تعبير مركّب يخص العلامات التي تهدف لتوجيه الجمهور في الأماكن العامة."
+    - lemma: "شَارَات"
+      generation_method: ishtiqaq
+      justification: "تستخدم للدلالة على الرموز أو العلامات المميزة، وإن كانت أضيق دلالة أحياناً."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "لَافِتَات"
+      confirm:
+        - text: "«(اللافتة) لوحة من خشب وَنَحْوه يكْتب عَلَيْهَا اسْم أَو شعار لتوجيه النّظر إِلَيْهِ (ج) لوافت (محدثة)»"
+          source: "المعجم الوسيط"
+    - lemma: "لَوْحَات إِرْشَادِيَّة"
+      confirm:
+        - text: "«إرشاد المارة، السيارات، الزبائن أوالزوار في مكان عمومي بواسطة علامات عمودية أو أرضية»"
+          source: "مسرد الإعلام والتواصل (ArabTerm)"
+          addition: "المسرد يربط هذا المفهوم بمصطلح 'تشوير' ويصف الوظيفة الإرشادية للوحات."
+    - lemma: "عَلَامَات"
+      confirm:
+        - text: "«عَلَامَات من (ع ل م) جمع العَلَامة: السمة وما ينصب في الطريق فيُهتدى به»"
+          source: "موسوعة السلطان قابوس"
+    - lemma: "تَشْوِير"
+      confirm:
+        - text: "«إرشاد المارة، السيارات، الزبائن أوالزوار في مكان عمومي بواسطة علامات عمودية أو أرضية»"
+          source: "مسرد الإعلام والتواصل (ArabTerm)"
+          addition: "يقابل مصطلح signage بالإنجليزية."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "لَافِتَات"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح شائع يعبر عن الجانب المادي للعلامات التجارية والملصقات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "لَافِتَات"
+    - lemma: "لَوْحَات إِرْشَادِيَّة"
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي ثابت يخص نوعاً هاماً من أنواع العلامات المذكورة في المجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "لَوْحَاتٌ إِرْشَادِيَّةٌ"
+    - lemma: "عَلَامَات"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اللفظ الأكثر عمومية وشمولاً، وهو أساس التعريف اللغوي للمفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "عَلَامَات", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَشْوِير"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح التقني المعتمد في المعاجم المتخصصة (ArabTerm) لترجمة signage، ويشير إلى النظام المتكامل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَشْوِير", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "العلامات واللافتات مجتمعة (خاصة العلامات التجارية أو الملصقات)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط؛ يحتاج إلى صياغة معجمية توضح الوظيفة والمكان."
+    authored:
+      - type: terminological
+        text: "مجموعة من العلامات واللافتات والرموز المنصوبة في الأماكن العامة أو التجارية لغرض الإعلام أو الإرشاد أو الإعلان."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "لَافِتَات"
+        examples:
+          - text: "امتلأت شوارع المدينة باللافتات الإعلانية الملونة خلال فترة الأعياد."
+            type: usage
+      - lemma: "لَوْحَات إِرْشَادِيَّة"
+        examples:
+          - text: "يجب اتباع اللوحات الإرشادية داخل المطار للوصول إلى بوابات المغادرة."
+            type: usage
+      - lemma: "عَلَامَات"
+        examples:
+          - text: "وضعت البلدية علامات جديدة لتنظيم حركة المرور في التقاطعات الحيوية."
+            type: usage
+      - lemma: "تَشْوِير"
+        examples:
+          - text: "اعتمدت الوزارة نظاماً جديداً للتشوير الطرقي لضمان سلامة السائقين."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مجموعة من العلامات واللافتات والرموز المنصوبة في الأماكن العامة أو التجارية لغرض الإعلام أو الإرشاد أو الإعلان."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "لَافِتَات"
+      entry_id: "{auto}"
+      root: "لفت"
+      maqayis_quote: "«اللَّامُ وَالْفَاءُ وَالتَّاءُ كَلِمَةٌ وَاحِدَةٌ تَدُلُّ عَلَى اللَّيِّ وَصَرْفِ الشَّيْءِ عَنْ جِهَتِهِ الْمُسْتَقِيمَةِ.»"
+    - lemma: "لَوْحَاتٌ إِرْشَادِيَّةٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "لوحات"
+          root: "لوح"
+          maqayis_quote: "«اللَّامُ وَالْوَاوُ وَالْحَاءُ أَصْلٌ صَحِيحٌ، مُعْظَمُهُ مُقَارَبَةُ بَابِ اللَّمَعَانِ. يُقَالُ: لَاحَ الشَّيْءُ يَلُوحُ، إِذَا لَمَحَ وَلَمَعَ.»"
+        - word: "إرشادية"
+          root: "رشد"
+          maqayis_quote: "«الرَّاءُ وَالشِّينُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى اصْطِحَابِ الشَّيْءِ وَالِاسْتِقَامَةِ.»"
+    - lemma: "عَلَامَات"
+      entry_id: "{auto}"
+      root: "علم"
+      maqayis_quote: "«الْعَيْنُ وَاللَّامُ وَالْمِيمُ أَصْلٌ صَحِيحٌ وَاحِدٌ، يَدُلُّ عَلَى أَثَرٍ بِالشَّيْءِ يَتَمَيَّزُ بِهِ عَنْ غَيْرِهِ.»"
+    - lemma: "تَشْوِير"
+      entry_id: "{auto}"
+      root: "شور"
+      maqayis_quote: "«الشِّينُ وَالْوَاوُ وَالرَّاءُ أَصْلَانِ مُطَّرِدَانِ، الْأَوَّلُ مِنْهُمَا إِبْدَاءُ شَيْءٍ وَإِظْهَارُهُ وَعَرْضُهُ.»"
+  per_sense:
+    - lemma: "لَافِتَات"
+      sense_id: "{auto}"
+      nuance: "تركز على الأداة المادية المكتوب عليها (banner/signboard) وغالباً ما ترتبط بالإعلانات."
+      mwe: false
+    - lemma: "لَوْحَاتٌ إِرْشَادِيَّةٌ"
+      sense_id: "{auto}"
+      nuance: "تخص الجانب التوجيهي والإعلامي للجمهور في المرافق والطرق."
+      mwe: true
+    - lemma: "عَلَامَات"
+      sense_id: "{auto}"
+      nuance: "المصطلح الأعم الذي يشمل الإشارات والرموز المكتوبة وغير المكتوبة."
+      mwe: false
+    - lemma: "تَشْوِير"
+      sense_id: "{auto}"
+      nuance: "مصطلح تقني حديث يشير إلى نظام العلامات بوصفه عملية تنظيمية متكاملة (signage system)."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"لفت","maqayis":"«اللَّامُ وَالْفَاءُ وَالتَّاءُ كَلِمَةٌ وَاحِدَةٌ تَدُلُّ عَلَى اللَّيِّ وَصَرْفِ الشَّيْءِ عَنْ جِهَتِهِ الْمُسْتَقِيمَةِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"لوحات","root":"لوح","maqayis":"«اللَّامُ وَالْوَاوُ وَالْحَاءُ أَصْلٌ صَحِيحٌ...»"},{"word":"إرشادية","root":"رشد","maqayis":"«الرَّاءُ وَالشِّينُ وَالدَّالُ أَصْلٌ وَاحِدٌ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح تقني حديث يشير إلى نظام العلامات بوصفه عملية تنظيمية متكاملة (signage system).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

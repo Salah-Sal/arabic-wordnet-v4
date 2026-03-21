@@ -1,0 +1,177 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الأصلي مخصص لكرة القدم الأمريكية ولا يشير إلى ذلك صراحة."
+      - "مصطلح 'الخط الخلفي' في كرة القدم المألوفة عربياً يشير إلى المدافعين، بينما في هذا السياق يشير إلى لاعبي الهجوم (Backfield)."
+    observations: "تمت ترجمة المصطلح الإنجليزي 'backfield' إلى 'الخط الخلفي' بناءً على التشكيل المكاني للفريق."
+  blind_candidates:
+    - lemma: "خَطُّ الخَلْف"
+      generation_method: "tarkib"
+      justification: "تركيب إضافي يعبر عن موقع اللاعبين في الخلف."
+    - lemma: "الخَطُّ الخَلْفِيّ"
+      generation_method: "tarkib"
+      justification: "تركيب وصفي شائع في الرياضة للتعبير عن المواقع الخلفية في التشكيل."
+    - lemma: "مُهَاجِمُو الخَلْف"
+      generation_method: "tarkib"
+      justification: "تخصيص للوظيفة الهجومية والموقع الخلفي معاً."
+    - lemma: "الخَلْفِيُّون"
+      generation_method: "ishtiqaq"
+      justification: "جمع 'خلفي'، استخدمت في المعاجم الحديثة للدلالة على لاعبي المواقع الخلفية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "الخط الخلفي"
+      evidence_status: "no_material_found"
+
+    - lemma: "الخَلْفِيُّون"
+      confirm:
+        - text: "«(1) الخَلْفِيّون: لاعبو المواقع الخلفيّة [في كرة القدم] (2) المواقع الخلفية [من الملعب].»"
+          source: "المورد الحديث"
+
+    - lemma: "خَطُّ الخَلْف"
+      evidence_status: "no_material_found"
+
+    - lemma: "مُهَاجِمُو الخَلْف"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "الخط الخلفي"
+      decision: confirmed
+      decision_reason: "يعبر عن التشكيل الجماعي كخط هندسي على أرض الملعب، وهو الترجمة الأشيع."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "الخَطُّ الخَلْفِيّ"
+
+    - lemma: "الخَلْفِيُّون"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح معجمي مسجل في المورد الحديث، يناسب الدلالة على لاعبي الخلف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "الخَلْفِيُّون"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-08446701-n"
+
+    - lemma: "خَطُّ الخَلْف"
+      source: stage1
+      decision: removed
+      decision_reason: "غير مستعمل رياضياً، 'الخط الخلفي' هو الشائع."
+
+    - lemma: "مُهَاجِمُو الخَلْف"
+      source: stage1
+      decision: removed
+      decision_reason: "وصف حر وليس مصطلحاً مسكوكاً."
+
+stage4_content:
+  definition:
+    current: "لاعبو الهجوم في كرة القدم الذين يصطفون خلف لاعبي الخط"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي حرفي ويجب أن يوضح أن المقصود هو كرة القدم الأمريكية."
+    authored:
+      - type: terminological
+        text: "مجموعة لاعبي الهجوم في كرة القدم الأمريكية الذين يصطفون خلف خط المواجهة، أو منطقة الملعب التي يشغلونها."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-08446701-n"
+          definition_index: 0
+          text: "مجموعة لاعبي الهجوم في كرة القدم الأمريكية الذين يصطفون خلف خط المواجهة، أو منطقة الملعب التي يشغلونها."
+
+  examples:
+    per_lemma:
+      - lemma: "الخط الخلفي"
+        examples:
+          - text: "تراجع الظهير الرباعي ليوزع الكرة على زملائه في الخط الخلفي."
+            type: usage
+      - lemma: "الخَلْفِيُّون"
+        examples:
+          - text: "نجح الخلفيون في اختراق دفاع الفريق الخصم وإحراز هدف التقدم."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تراجع الظهير الرباعي ليوزع الكرة على زملائه في الخط الخلفي."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "نجح الخلفيون في اختراق دفاع الفريق الخصم وإحراز هدف التقدم."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "الخط الخلفي"
+      entry_id: "{auto}"
+      roots:
+        - word: "الخط"
+          root: "خطط"
+          maqayis_quote: "«الخاء والطاء أصلٌ واحد ; وهو أثر يمتدُّ امتداداً»"
+        - word: "الخلفي"
+          root: "خلف"
+          maqayis_quote: "«الخاء واللام والفاء أصولٌ ثلاثة: أحدها أن يجيء شيءٌ بَعْدَ شيء يقوم مَقامَه، والثاني خِلاف قُدَّام، والثالث التغيُّر»"
+    - lemma: "الخَلْفِيُّون"
+      entry_id: "{auto}"
+      root: "خلف"
+      maqayis_quote: "«الخاء واللام والفاء أصولٌ ثلاثة: أحدها أن يجيء شيءٌ بَعْدَ شيء يقوم مَقامَه، والثاني خِلاف قُدَّام، والثالث التغيُّر»"
+  per_sense:
+    - lemma: "الخط الخلفي"
+      sense_id: "{auto}"
+      nuance: "يعبر عن التشكيل الجماعي كخط هندسي على أرض الملعب."
+      mwe: true
+    - lemma: "الخَلْفِيُّون"
+      sense_id: "{auto}"
+      nuance: "يصف اللاعبين أنفسهم كأفراد يشغلون المواقع الخلفية."
+      mwe: false
+  synset:
+    cultural_fit: phraset
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"الخط","root":"خطط","maqayis_quote":"«الخاء والطاء أصلٌ واحد ; وهو أثر يمتدُّ امتداداً»"},{"word":"الخلفي","root":"خلف","maqayis_quote":"«الخاء واللام والفاء أصولٌ ثلاثة: أحدها أن يجيء شيءٌ بَعْدَ شيء يقوم مَقامَه، والثاني خِلاف قُدَّام، والثالث التغيُّر»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خلف","maqayis_quote":"«الخاء واللام والفاء أصولٌ ثلاثة: أحدها أن يجيء شيءٌ بَعْدَ شيء يقوم مَقامَه، والثاني خِلاف قُدَّام، والثالث التغيُّر»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يعبر عن التشكيل الجماعي كخط هندسي على أرض الملعب","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يصف اللاعبين أنفسهم كأفراد يشغلون المواقع الخلفية","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-08446701-n"
+        key: note
+        value: '{"cultural_fit":"phraset"}'

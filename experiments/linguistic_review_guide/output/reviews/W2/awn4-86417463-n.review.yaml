@@ -1,0 +1,162 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة (أبو) هي نقحرة حرفية خاطئة ومضللة للمصطلح الإنجليزي (Abo) الذي يشير إلى السكان الأصليين لأستراليا، وتتعارض تماماً مع المعنى العربي لكلمة (أبو)."
+      - "المفهوم يشير إلى فرد من السكان الأصليين لأستراليا، والمصطلح الإنجليزي يحمل دلالة تحقيرية لا يوجد لها مقابل مباشر ومستقر في العربية، لذا يجب استخدام المصطلحات المحايدة الوصفية."
+      - "التعريف يضم ملاحظة (مصطلح مهين غالباً) وهي تخص اللفظ الإنجليزي ولا تنطبق على المقابلات العربية التي سنضعها."
+    observations: "يجب إزالة اللمة الحالية (أبو) لأنها تسبب التباساً كاملاً مع الكلمة العربية الشائعة التي تعني الوالد، واستبدالها بمصطلحات وصفية أو معربة مثل (أبوريجيني) أو (أسترالي أصلي)."
+  blind_candidates:
+    - lemma: "أَبُورِيجِينِيّ"
+      generation_method: taarib
+      justification: "تعريب شائع ومستعمل للمصطلح الإنجليزي Aborigine الدال على السكان الأصليين لأستراليا."
+    - lemma: "سَاكِنٌ أَصْلِيّ"
+      generation_method: tarkib
+      justification: "مصطلح عام يشير إلى السكان الأصليين لأي منطقة، ويمكن أن يدل على المفهوم إذا خُصص بالسياق."
+    - lemma: "أُسْتْرَالِيٌّ أَصْلِيّ"
+      generation_method: tarkib
+      justification: "تركيب وصفي يحدد الانتماء الجغرافي للفرد من السكان الأصليين لأستراليا بدقة."
+    - lemma: "أَرُومِيّ"
+      generation_method: ishtiqaq
+      justification: "مشتق من الأرومة (الأصل)، وورد في بعض المعاجم كترجمة لـ Aborigine."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "أبو"
+      contradicts:
+        - text: "«أبوت الرجل آبوه: إذا كنت له أبا»"
+          source: "كتاب العين"
+          conflict: "الكلمة تعني الوالد في اللغة العربية ولا صلة لها أبداً بالسكان الأصليين لأستراليا، واستخدامها في هذا السياق خطأ معجمي فادح نتج عن نقحرة حرفية عمياء للمصطلح الإنجليزي (Abo)."
+    - lemma: "أَبُورِيجِينِيّ"
+      evidence_status: "no_material_found"
+    - lemma: "سَاكِنٌ أَصْلِيّ"
+      confirm:
+        - text: "«وَاطِن ؛ سَاكِنٌ أَصْلِيّ»"
+          source: "المعجم الطبي الموحد (2009)"
+    - lemma: "أُسْتْرَالِيٌّ أَصْلِيّ"
+      evidence_status: "no_material_found"
+    - lemma: "أَرُومِيّ"
+      confirm:
+        - text: "«الأَروميّ: واحد من سكان البلاد الأصليين أو القُدامى.»"
+          source: "المورد الحديث (2008)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "أبو"
+      decision: removed
+      decision_reason: "اللمة هي نقحرة حرفية خاطئة للمصطلح الإنجليزي (Abo) وتتعارض دلالياً مع كلمة (أبو) التي تعني الوالد في اللغة العربية، ولا تستخدم في العربية للدلالة على هذا المفهوم."
+    - lemma: "أَبُورِيجِينِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعريب شائع ومستقر لمصطلح (Aborigine) الدال على أحد أفراد السكان الأصليين لأستراليا."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "أَبُورِيجِينِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "أُسْتْرَالِيٌّ أَصْلِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير دقيق ومباشر يعبر عن المفهوم بوضوح ويحدد الانتماء الجغرافي بدقة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "أُسْتْرَالِيٌّ أَصْلِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "سَاكِنٌ أَصْلِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "مصطلح عام يشمل السكان الأصليين لأي بلد، ولا يختص بأستراليا كما هو محدد في المجموعة الترادفية."
+    - lemma: "أَرُومِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "الكلمة تشير بشكل عام إلى الأصلي أو القديم، وليست مخصصة لسكان أستراليا بشكل حصري، والمصطلحات الأخرى أوضح وأكثر دقة."
+
+stage4_content:
+  definition:
+    current: "فرد ذو بشرة داكنة من عرق عاش في أستراليا عند وصول الأوروبيين (مصطلح مهين غالباً)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يحتوي على ملحوظة بين قوسين (مصطلح مهين غالباً) وهي تخص اللفظ الإنجليزي (Abo) ولا تنطبق على المقابلات العربية المقترحة كـ (أبوريجيني) أو (أسترالي أصلي). يجب صياغة تعريف موضوعي ومحايد يعبر عن المفهوم نفسه."
+    authored:
+      - type: encyclopedic
+        text: "أحد أفراد السكان الأصليين الذين استوطنوا قارة أستراليا قبل وصول المستوطنين الأوروبيين."
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "أحد أفراد السكان الأصليين الذين استوطنوا قارة أستراليا قبل وصول المستوطنين الأوروبيين."}
+  examples:
+    per_lemma:
+      - lemma: "أَبُورِيجِينِيّ"
+        examples:
+          - text: "يحتفظ كل أبوريجيني بارتباط روحي وثيق بأرض أجداده وتقاليدهم العريقة."
+            type: usage
+      - lemma: "أُسْتْرَالِيٌّ أَصْلِيّ"
+        examples:
+          - text: "تُعد ثقافة كل أسترالي أصلي من أقدم الثقافات المستمرة في العالم."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يحتفظ كل أبوريجيني بارتباط روحي وثيق بأرض أجداده وتقاليدهم العريقة."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تُعد ثقافة كل أسترالي أصلي من أقدم الثقافات المستمرة في العالم."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "أُسْتْرَالِيٌّ أَصْلِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "أسترالي"
+          root: ""
+          maqayis_quote: ""
+        - word: "أصلي"
+          root: "أصل"
+          maqayis_quote: "«الْهَمْزَةُ وَالصَّادُ وَاللَّامُ، ثَلَاثَةُ أُصُولٍ مُتَبَاعِدٍ بَعْضُهَا مِنْ بَعْضٍ، أَحَدُهَا: أَسَاسُ الشَّيْءِ...»"
+  per_sense:
+    - lemma: "أَبُورِيجِينِيّ"
+      sense_id: "{auto}"
+      nuance: "تعريب مباشر للمصطلح الأجنبي، ويشيع استخدامه في الدراسات الأنثروبولوجية والتقارير المترجمة."
+      mwe: false
+    - lemma: "أُسْتْرَالِيٌّ أَصْلِيّ"
+      sense_id: "{auto}"
+      nuance: "مصطلح وصفي عربي واضح يربط الفرد بأصل الانتماء الجغرافي (أستراليا)."
+      mwe: true
+  synset:
+    cultural_fit: lexical_gap
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"أسترالي","root":"","maqayis":""},{"word":"أصلي","root":"أصل","maqayis":"«الْهَمْزَةُ وَالصَّادُ وَاللَّامُ، ثَلَاثَةُ أُصُولٍ مُتَبَاعِدٍ بَعْضُهَا مِنْ بَعْضٍ، أَحَدُهَا: أَسَاسُ الشَّيْءِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعريب مباشر للمصطلح الأجنبي، ويشيع استخدامه في الدراسات الأنثروبولوجية والتقارير المترجمة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح وصفي عربي واضح يربط الفرد بأصل الانتماء الجغرافي (أستراليا).","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"lexical_gap"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,212 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة تفتقر إلى التشكيل الكامل."
+      - "لفظ 'نار' قد يشير إلى المادة (العنصر) أكثر من كونه حدثاً، لكنه مقبول مجازاً."
+    observations: "المجموعة تركز على 'الحدث' (event) وليس المادة أو العملية الكيميائية. اللفظ الأكثر دقة في العربية لهذا المعنى هو 'حريق'. اللفظ 'نار' يُستخدم للتعبير عن الحدث من باب إطلاق اسم المادة على الحدث المرتبط بها."
+  blind_candidates:
+    - lemma: "اِحْتِرَاق"
+      generation_method: ishtiqaq
+      justification: "المصدر الأصلي للفعل 'احترق'، ويعبر عن عملية أو حدث الاحتراق ذاته."
+    - lemma: "اِشْتِعَال"
+      generation_method: ishtiqaq
+      justification: "يعبر عن بدء الحدث وانتشار اللهب."
+    - lemma: "انْدِلَاع"
+      generation_method: ishtiqaq
+      justification: "يُستخدم خصيصاً للتعبير عن نشوب النار فجأة وانتشارها كحدث."
+    - lemma: "نُشُوب"
+      generation_method: ishtiqaq
+      justification: "غالباً ما يقترن بلفظ الحريق (نشوب حريق) ليدل على وقوع الحدث."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "حَرِيق"
+      confirm:
+        - text: "«(الْحَرِيق) اضطرام النَّار وتحرقها واللهب وَاسم من الاحتراق»"
+          source: "المعجم الوسيط"
+        - text: "«الحريقُ: الإحراق... اضطرامُ النَّار وتَلَهُّبها»"
+          source: "المعجم الكبير"
+    - lemma: "نَار"
+      confirm:
+        - text: "«(النَّار) عنصر طبيعي فعال يمثله النُّور والحرارة المحرقة وَتطلق على اللهب الَّذِي يَبْدُو للحاسة كَمَا تطلق على الْحَرَارَة المحرقة»"
+          source: "المعجم الوسيط"
+        - text: "«نار: تدل على تكون لهب أثناء تفاعل الاحتراق، مصحوب بانبعاث حرارة وضوء»"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+    - lemma: "اِحْتِرَاق"
+      confirm:
+        - text: "«(فى الفيزياء) combustion: عمليَّةٌ تَتَّحِدُ فيها المادَّةُ مع الأكسجين في درجةٍ عاليةٍ, مُنْتِجَةً طاقةً حراريةً»"
+          source: "المعجم الكبير"
+    - lemma: "اِشْتِعَال"
+      confirm:
+        - text: "«اشتعال المادة تلقائيًّا نتيجة ارتفاع درجة حرارتها... نقطةُ الاشتعال Ignition Point: درجةُ الحرارة التى تبدأُ عندها المادةُ فى الاحتراق.»"
+          source: "المعجم الكبير"
+    - lemma: "انْدِلَاع"
+      confirm:
+        - text: "«اندلعتِ النَّارُ: شبّت فجأةً وانتشر لهبُها، امتدَّت، اتّقدَت»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "نُشُوب"
+      confirm:
+        - text: "«اندلعتِ الحربُ: نشِبَتْ- اندلعت نارُ الحرب: اشتدّ وطِيسُها.»"
+          source: "معجم اللغة العربية المعاصرة"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "حريق"
+      decision: confirmed
+      decision_reason: "المصطلح الأدق والأكثر شيوعاً للتعبير عن حدث الحريق المدمّر."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حَرِيق"
+    - lemma: "نار"
+      decision: confirmed
+      decision_reason: "تُستخدم للتعبير عن الحدث دلالةً على اللهب المشتعل، وهي مقبولة وشائعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نَار"
+    - lemma: "اِحْتِرَاق"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر عن الجانب الفيزيائي للحدث (combustion)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "اِحْتِرَاق", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "انْدِلَاع"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ قوي يعبر عن مفاجأة وقوع الحريق وانتشاره."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "انْدِلَاع", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "حدث احتراق شيء ما (غالباً ما يكون مدمراً)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ترجمة حرفية، ويُفضل صياغته بأسلوب معجمي عربي رصين يبرز طبيعة الحدث."
+    authored:
+      - type: terminological
+        text: "اشتعال النار واضطرامها في مادة أو مكان، وغالباً ما ينتج عنه إتلاف وضرر."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "اشتعال النار واضطرامها في مادة أو مكان، وغالباً ما ينتج عنه إتلاف وضرر."
+  examples:
+    per_lemma:
+      - lemma: "حَرِيق"
+        examples:
+          - text: "تمكن رجال الإطفاء من السيطرة على حريق هائل اندلع في المنطقة الصناعية."
+            type: usage
+      - lemma: "نَار"
+        examples:
+          - text: "اندلعت النار في الغابة بسبب موجة الحر الشديدة."
+            type: usage
+      - lemma: "اِحْتِرَاق"
+        examples:
+          - text: "ينتج عن احتراق الوقود طاقة حرارية تستخدم في تسيير المركبات."
+            type: usage
+      - lemma: "انْدِلَاع"
+        examples:
+          - text: "حذر الخبراء من اندلاع حرائق الغابات في فصل الصيف."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "أدى الحريق إلى تدمير أجزاء واسعة من الممتلكات."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "حَرِيق"
+      entry_id: "{auto}"
+      root: "حرق"
+      maqayis_quote: "«الْحَاءُ وَالرَّاءُ وَالْقَافُ أَصْلَانِ: أَحَدُهُمَا حَكُّ الشَّيْءِ بِالشَّيْءِ مَعَ حَرَارَةٍ وَالْتِهَابٍ... وَالْحَرَقُ: النَّارُ.»"
+    - lemma: "نَار"
+      entry_id: "{auto}"
+      root: "نور"
+      maqayis_quote: "«النُّونُ وَالْوَاوُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِضَاءَةٍ وَاضْطِرَابٍ وَقِلَّةِ ثَبَاتٍ. مِنْهُ النُّورُ وَالنَّارُ.»"
+    - lemma: "اِحْتِرَاق"
+      entry_id: "{auto}"
+      root: "حرق"
+      maqayis_quote: "«الْحَاءُ وَالرَّاءُ وَالْقَافُ أَصْلَانِ: أَحَدُهُمَا حَكُّ الشَّيْءِ بِالشَّيْءِ مَعَ حَرَارَةٍ وَالْتِهَابٍ...»"
+    - lemma: "انْدِلَاع"
+      entry_id: "{auto}"
+      root: "دلع"
+      maqayis_quote: "«الدَّالُ وَاللَّامُ وَالْعَيْنُ أُصَيْلٌ يَدُلُّ عَلَى خُرُوجٍ. تَقُولُ: دَلَعَ لِسَانُهُ: خَرَجَ.»"
+  per_sense:
+    - lemma: "حَرِيق"
+      sense_id: "{auto}"
+      nuance: "يدل على الحدث من حيث هو اشتعال مدمّر للممتلكات أو الغابات."
+      mwe: false
+    - lemma: "نَار"
+      sense_id: "{auto}"
+      nuance: "يركز على وجود اللهب والحرارة في الحدث، وهو أعم من الحريق."
+      mwe: false
+    - lemma: "اِحْتِرَاق"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب الكيميائي والفيزيائي للعملية."
+      mwe: false
+    - lemma: "انْدِلَاع"
+      sense_id: "{auto}"
+      nuance: "يركز على لحظة نشوب النار وبداية انتشارها."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حرق","maqayis":"«الْحَاءُ وَالرَّاءُ وَالْقَافُ أَصْلَانِ: أَحَدُهُمَا حَكُّ الشَّيْءِ بِالشَّيْءِ مَعَ حَرَارَةٍ وَالْتِهَابٍ... وَالْحَرَقُ: النَّارُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نور","maqayis":"«النُّونُ وَالْوَاوُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِضَاءَةٍ وَاضْطِرَابٍ وَقِلَّةِ ثَبَاتٍ. مِنْهُ النُّورُ وَالنَّارُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يدل على الحدث من حيث هو اشتعال مدمّر للممتلكات أو الغابات.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,170 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "وجود لمة 'توزيع' في هذه المجموعة وفي مجموعتها الأصلية الأعم (hypernym) قد يخلق تكراراً أو دوراناً دلالياً في الشبكة."
+      - "التعريف الحالي 'فعل الصرف (إعطاء الشيء في حصص)' دائري وركيك الصياغة."
+    observations: "مصطلح 'dispensing' يشير تحديداً إلى إعطاء الشيء لمستحقيه بحصص مقررة (كالدواء والرواتب والمؤن). في العربية، 'صرف' هو المعادل الأدق والأكثر تخصصاً لهذه الدلالة. أما 'توزيع' فيعني التفريق وهو أعم."
+  blind_candidates:
+    - lemma: "صَرْف"
+      generation_method: ishtiqaq
+      justification: "مصدر صرف، ويدل على إنفاق الشيء أو إعطائه كصرف المال أو الدواء."
+    - lemma: "تَوْزِيع"
+      generation_method: ishtiqaq
+      justification: "مصدر وزع، ويدل على تفريق الشيء وتجزئته بين المستحقين."
+    - lemma: "إِعْطَاء"
+      generation_method: ishtiqaq
+      justification: "مصدر أعطى، ويفيد المناولة والتسليم، وهو جنس المفهوم."
+    - lemma: "تَقْسِيم"
+      generation_method: ishtiqaq
+      justification: "مصدر قسم، ويدل على جعل الشيء أجزاء وحصصاً وإعطائها."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "صَرْف"
+      confirm:
+        - text: "«(صرف) ... والمال أنفقه»"
+          source: "المعجم الوسيط"
+        - text: "«صَرْفُ الدَّواء»"
+          source: "المعجم الطبي الموحد"
+    - lemma: "تَوْزِيع"
+      confirm:
+        - text: "«التوزيع: التقسيم، وتوزعوه اقتسموه.»"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+        - text: "«(التَّوْزِيع) التَّفْرِيق»"
+          source: "المعجم الوسيط"
+    - lemma: "إِعْطَاء"
+      evidence_status: "no_material_found"
+    - lemma: "تَقْسِيم"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "توزيع"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح ومستعمل بكثرة للدلالة على تفريق الأشياء وإعطائها لمستحقيها، وإن كان أعم من الصرف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَوْزِيع"
+    - lemma: "صرف"
+      decision: confirmed
+      decision_reason: "هو المصطلح الأدق والمطابق للدلالة التخصصية (dispensation)، حيث يكثر استعماله في إعطاء المستحقات المقدرة من مال ومؤن وأدوية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "صَرْف"
+    - lemma: "إِعْطَاء"
+      source: stage1
+      decision: removed
+      decision_reason: "مفهوم عام جداً يمثل الجنس الدلالي، ويفتقر إلى التخصيص المتعلق بإعطاء الشيء في حصص أو مقادير."
+    - lemma: "تَقْسِيم"
+      source: stage1
+      decision: removed
+      decision_reason: "يركز على عملية التجزئة نفسها أكثر من تركيزه على إعطاء الأجزاء ومناولتها كما يفيد المفهوم."
+
+stage4_content:
+  definition:
+    current: "فعل الصرف (إعطاء الشيء في حصص)"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دائري (يعرف الصرف بالصرف) وركيك. يحتاج إلى صياغة تبين ماهية إعطاء الشيء في حصص مقدرة لمستحقيها."
+    authored:
+      - type: terminological
+        text: "إعطاء الأشياء كالأموال أو الأدوية أو المؤن لمستحقيها في حصص أو مقادير معينة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "إعطاء الأشياء كالأموال أو الأدوية أو المؤن لمستحقيها في حصص أو مقادير معينة."
+  examples:
+    per_lemma:
+      - lemma: "صَرْف"
+        examples:
+          - text: "أشرف الصيدلي على صَرْفِ الأدوية للمرضى."
+            type: usage
+      - lemma: "تَوْزِيع"
+        examples:
+          - text: "بدأت الجمعية الخيرية في تَوْزِيعِ الحصص الغذائية على المحتاجين."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "أشرف الصيدلي على صَرْفِ الأدوية للمرضى."
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "بدأت الجمعية الخيرية في تَوْزِيعِ الحصص الغذائية على المحتاجين."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تَوْزِيع"
+      entry_id: "{auto}"
+      root: "وزع"
+      maqayis_quote: "«(وزع) الواو والزاء والعين: بناء موضوع على غير قياس. ووزعته عن الأمر: كففته... وبها أوزاع من الناس، أي جماعات.»"
+    - lemma: "صَرْف"
+      entry_id: "{auto}"
+      root: "صرف"
+      maqayis_quote: "«(صرف) الصاد والراء والفاء معظم بابه يدل على رجع الشيء. من ذلك صرفت القوم صرفا وانصرفوا، إذا رجعتهم فرجعوا.»"
+  per_sense:
+    - lemma: "تَوْزِيع"
+      sense_id: "{auto}"
+      nuance: "يفيد تقسيم الأشياء وتفريقها على مستحقيها، وهو أعم في دلالته من الصرف وأقل تخصيصاً للمستحقات الرسمية."
+      mwe: false
+    - lemma: "صَرْف"
+      sense_id: "{auto}"
+      nuance: "مصطلح دقيق وشائع للدلالة على إعطاء الأموال أو الأدوية أو المؤن لمستحقيها بصفة رسمية ومقدرة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"وزع","maqayis":"«(وزع) الواو والزاء والعين: بناء موضوع على غير قياس. ووزعته عن الأمر: كففته... وبها أوزاع من الناس، أي جماعات.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صرف","maqayis":"«(صرف) الصاد والراء والفاء معظم بابه يدل على رجع الشيء. من ذلك صرفت القوم صرفا وانصرفوا، إذا رجعتهم فرجعوا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يفيد تقسيم الأشياء وتفريقها على مستحقيها، وهو أعم في دلالته من الصرف وأقل تخصيصاً للمستحقات الرسمية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح دقيق وشائع للدلالة على إعطاء الأموال أو الأدوية أو المؤن لمستحقيها بصفة رسمية ومقدرة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,330 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّة 'انبيثاق' مكتوبة بياء زائدة، والصواب 'انبثاق'."
+      - "نقص بعض المرادفات الأساسية مثل 'ظهور' و'بروز' رغم شيوعها وملاءمتها للتعريف."
+    observations: "المجموعة تغطي مفهوم الخروج والظهور، لكنها تحتاج إلى ضبط إملائي وإثراء بمرادفات تميز بين الظهور المادي (بزوغ، خروج) والظهور المعنوي أو التميز (انبثاق، بروز)."
+  blind_candidates:
+    - lemma: "ظُهُور"
+      generation_method: ishtiqaq
+      justification: "الاسم المباشر لعملية الانكشاف للعيان."
+    - lemma: "بُرُوز"
+      generation_method: ishtiqaq
+      justification: "يدل على الخروج من الاستتار والتميز عن المحيط."
+    - lemma: "تَجَلٍّ"
+      generation_method: ishtiqaq
+      justification: "يستخدم للانكشاف والوضوح، خاصة في السياقات المعنوية."
+    - lemma: "اِنْبِلاَج"
+      generation_method: majaz
+      justification: "يستخدم لظهور الضوء والفجر، وهو استعارة قوية للظهور بعد خفاء."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خُرُوج"
+      confirm:
+        - text: "الخروج: في الأصل، الانفصال من المحيط إلى الخارج ويلزمه الظهور والبروز."
+          source: "التوقيف على مهمات التعاريف للمناوي"
+        - text: "الخروج: ضد الدخول."
+          source: "كشّاف اصطلاحات الفنون والعلوم للتهانوي"
+    - lemma: "بُزُوغ"
+      confirm:
+        - text: "بزغت الشمس... بدا منها طُلوعٌ أو طَلَعَت وشَرَقَتْ."
+          source: "لسان العرب لابن منظور"
+        - text: "بزغت السن: شقَّت اللِّثةَ وظهرت."
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "اِنْبِثَاق"
+      confirm:
+        - text: "انبثاق: انبعاث غاز أو رائحة أو ضوء من جسم ما."
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+        - text: "انبثق الفجر: بدا وبزغ وانتشر نورُه."
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "ظُهُور"
+      confirm:
+        - text: "ظهور: الانكشاف والبروز."
+          source: "مقاييس اللغة لابن فارس"
+        - text: "ظهور (emersion): في الجغرافيا والتاريخ."
+          source: "مسرد الجغرافيا (ArabTerm)"
+    - lemma: "بُرُوز"
+      confirm:
+        - text: "البروز: الخروج من كل شيء يواري... وإما أن ينكشف عنه ما كان مستورا به."
+          source: "التوقيف على مهمات التعاريف للمناوي"
+        - text: "بروز (emergence): في المناخ والبيئة والجيولوجيا."
+          source: "مسرد المناخ (ArabTerm)"
+    - lemma: "تَجَلٍّ"
+      confirm:
+        - text: "التجلي في اللغة بمعنى الظهور."
+          source: "كشّاف اصطلاحات الفنون والعلوم للتهانوي"
+        - text: "أصله الانكشاف."
+          source: "التوقيف على مهمات التعاريف للمناوي"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "خروج"
+      decision: confirmed
+      decision_reason: "المصطلح الأساسي الذي يعبر عن الخروج المادي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خُرُوج"
+    - lemma: "بزوغ"
+      decision: confirmed
+      decision_reason: "دقيق في وصف بداية الظهور والطلوع."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "بُزُوغ"
+    - lemma: "انبيثاق"
+      decision: confirmed
+      decision_reason: "مرادف قوي لعملية الصدور والنتوج، لكن يحتاج لتصحيح إملائي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "اِنْبِثَاق"
+    - lemma: "ظُهُور"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المرادف الأشمل والأكثر مباشرة للمفهوم باللغة العربية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "ظُهُور", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "بُرُوز"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر عن التميز والانكشاف بعد استتار، وهو ترجمة دقيقة لـ emergence."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "بُرُوز", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَجَلٍّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يغطي جانب الوضوح والانكشاف، خاصة في السياقات المجردة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَجَلٍّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "فعل الخروج أو الظهور للعيان"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي بسيط جداً، ويفضل استخدام صياغة معجمية تجمع بين حدوث الشيء وانكشافه."
+    authored:
+      - type: terminological
+        text: "حُصُولُ الشَّيْءِ بَعْدَ خَفَاءٍ، أَوْ بُدُوُّهُ وَانْكِشَافُهُ لِلْعَيَانِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "حُصُولُ الشَّيْءِ بَعْدَ خَفَاءٍ، أَوْ بُدُوُّهُ وَانْكِشَافُهُ لِلْعَيَانِ."}
+  examples:
+    per_lemma:
+      - lemma: "خُرُوج"
+        examples:
+          - text: "حُدِّدَتْ نُقْطَةُ خُرُوجِ الطَّوَارِئِ فِي المَبْنَى."
+            type: usage
+      - lemma: "بُزُوغ"
+        examples:
+          - text: "اِنْتَظَرَ المُرَاقِبُونَ لَحْظَةَ بُزُوغِ الفَجْرِ."
+            type: usage
+      - lemma: "اِنْبِثَاق"
+        examples:
+          - text: "هَذَا القَرَارُ هُوَ ثَمَرَةُ اِنْبِثَاقِ رُؤْيَةٍ جَدِيدَةٍ."
+            type: usage
+      - lemma: "ظُهُور"
+        examples:
+          - text: "كَانَ ظُهُورُ المُذَنَّبِ حَدَثًا فَلَكِيًّا نَادِرًا."
+            type: usage
+      - lemma: "بُرُوز"
+        examples:
+          - text: "سَاعَدَ بُرُوزُ هَذِهِ القِمَّةِ الجَبَلِيَّةِ فِي تَحْدِيدِ الاتِّجَاهِ."
+            type: usage
+      - lemma: "تَجَلٍّ"
+        examples:
+          - text: "لَقَدْ تَمَّ تَجَلِّي الحَقِيقَةِ بَعْدَ طُولِ غُمُوضٍ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "حُدِّدَتْ نُقْطَةُ خُرُوجِ الطَّوَارِئِ فِي المَبْنَى."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "اِنْتَظَرَ المُرَاقِبُونَ لَحْظَةَ بُزُوغِ الفَجْرِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "هَذَا القَرَارُ هُوَ ثَمَرَةُ اِنْبِثَاقِ رُؤْيَةٍ جَدِيدَةٍ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "كَانَ ظُهُورُ المُذَنَّبِ حَدَثًا فَلَكِيًّا نَادِرًا."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "سَاعَدَ بُرُوزُ هَذِهِ القِمَّةِ الجَبَلِيَّةِ فِي تَحْدِيدِ الاتِّجَاهِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "لَقَدْ تَمَّ تَجَلِّي الحَقِيقَةِ بَعْدَ طُولِ غُمُوضٍ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خُرُوج"
+      entry_id: "{auto}"
+      root: "خرج"
+      maqayis_quote: "«الْخَاءُ وَالرَّاءُ وَالْجِيمُ أَصْلَانِ... الْأَوَّلُ: النَّفَاذُ عَنِ الشَّيْءِ.»"
+    - lemma: "بُزُوغ"
+      entry_id: "{auto}"
+      root: "بزغ"
+      maqayis_quote: "«الْبَاءُ وَالزَّاءُ وَالْغَيْنُ أَصْلٌ وَاحِدٌ، وَهُوَ طُلُوعُ الشَّيْءِ وَظُهُورُهُ.»"
+    - lemma: "اِنْبِثَاق"
+      entry_id: "{auto}"
+      root: "بثق"
+      maqayis_quote: "«الْبَاءُ وَالثَّاءُ وَالْقَافُ يَدُلُّ عَلَى التَّفَتُّحِ فِي الْمَاءِ وَغَيْرِهِ.»"
+    - lemma: "ظُهُور"
+      entry_id: "{auto}"
+      root: "ظهر"
+      maqayis_quote: "«الظَّاءُ وَالْهَاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى قُوَّةٍ وَبُرُوزٍ... ظَهَرَ الشَّيْءُ يَظْهَرُ ظُهُورًا، إِذَا انْكَشَفَ وَبَرَزَ.»"
+    - lemma: "بُرُوز"
+      entry_id: "{auto}"
+      root: "برز"
+      maqayis_quote: "«الْبَاءُ وَالرَّاءُ وَالزَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ ظُهُورُ الشَّيْءِ وَبُدُوُّهُ، قِيَاسٌ لَا يُخْلِفُ.»"
+    - lemma: "تَجَلٍّ"
+      entry_id: "{auto}"
+      root: "جلو"
+      maqayis_quote: "«الْجِمُ وَاللَّامُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى انْكِشَافِ شَيْءٍ وَبُرُوزِهِ.»"
+  per_sense:
+    - lemma: "خُرُوج"
+      sense_id: "{auto}"
+      nuance: "الحركة المادية من الداخل إلى الخارج."
+      mwe: false
+    - lemma: "ظُهُور"
+      sense_id: "{auto}"
+      nuance: "الانكشاف العام للرؤية بعد الاستتار."
+      mwe: false
+    - lemma: "بُزُوغ"
+      sense_id: "{auto}"
+      nuance: "بداية الظهور والطلوع، وغالباً ما يرتبط بالأجرام السماوية أو الأسنان."
+      mwe: false
+    - lemma: "اِنْبِثَاق"
+      sense_id: "{auto}"
+      nuance: "الاندفاع أو الصدور المفاجئ عن أصل أو منبع."
+      mwe: false
+    - lemma: "بُرُوز"
+      sense_id: "{auto}"
+      nuance: "الظهور المتميز أو النتوء الذي يجعله لافتاً للنظر."
+      mwe: false
+    - lemma: "تَجَلٍّ"
+      sense_id: "{auto}"
+      nuance: "الانكشاف التام والوضوح، ويشيع في الأمور المعنوية والحقائق."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خرج","maqayis":"«الْخَاءُ وَالرَّاءُ وَالْجِيمُ أَصْلَانِ... الْأَوَّلُ: النَّفَاذُ عَنِ الشَّيْءِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"بزغ","maqayis":"«الْبَاءُ وَالزَّاءُ وَالْغَيْنُ أَصْلٌ وَاحِدٌ، وَهُوَ طُلُوعُ الشَّيْءِ وَظُهُورُهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"بثق","maqayis":"«الْبَاءُ وَالثَّاءُ وَالْقَافُ يَدُلُّ عَلَى التَّفَتُّحِ فِي الْمَاءِ وَغَيْرِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ظهر","maqayis":"«الظَّاءُ وَالْهَاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى قُوَّةٍ وَبُرُوزٍ... ظَهَرَ الشَّيْءُ يَظْهَرُ ظُهُورًا، إِذَا انْكَشَفَ وَبَرَزَ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"برز","maqayis":"«الْبَاءُ وَالرَّاءُ وَالزَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ ظُهُورُ الشَّيْءِ وَبُدُوُّهُ، قِيَاسٌ لَا يُخْلِفُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جلو","maqayis":"«الْجِمُ وَاللَّامُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى انْكِشَافِ شَيْءٍ وَبُرُوزِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الحركة المادية من الداخل إلى الخارج.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الانكشاف العام للرؤية بعد الاستتار.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"بداية الظهور والطلوع، وغالباً ما يرتبط بالأجرام السماوية أو الأسنان.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاندفاع أو الصدور المفاجئ عن أصل أو منبع.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الظهور المتميز أو النتوء الذي يجعله لافتاً للنظر.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الانكشاف التام والوضوح، ويشيع في الأمور المعنوية والحقائق.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

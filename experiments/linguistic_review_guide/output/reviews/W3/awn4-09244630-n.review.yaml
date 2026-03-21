@@ -1,0 +1,176 @@
+# ── المرحلة ١: المراجعة والتوليد (بدون أدلة) ──────────────
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي ترجمة حرفية ركيكة للتعريف الإنجليزي."
+      - "اللمة الموجودة تفتقر إلى التشكيل الكامل."
+    observations: "المجموعة تخص معلماً جغرافياً محدداً (Proper Noun)، والتعامل معها يتطلب الموازنة بين التعريب الصوتي (Transliteration) والمصطلح الجغرافي الوصفي."
+  blind_candidates:
+    - lemma: "خَلِيجُ بِيسْكَايْن"
+      generation_method: tarkib
+      justification: "الاسم الشائع والمستقر في الأطالس العربية لهذا المعلم الجغرافي."
+    - lemma: "خَلِيجُ بِيسْكِين"
+      generation_method: taarib
+      justification: "نطق بديل يعتمد على الكسر في المقطع الأخير، مستخدم في بعض المصادر."
+    - lemma: "جَوْنُ بِيسْكَايْن"
+      generation_method: tarkib
+      justification: "استخدام 'جون' (Bay/Cove) لبيان ضيق الخليج وصغر مساحته مقارنة بالخليج الكبير (Gulf)."
+    - lemma: "خَلِيجُ بِيصْقِين"
+      generation_method: taarib
+      justification: "خيار تعريب صوتي بديل يراعي مخارج الحروف العربية الأصلية (الصاد والقاف)."
+
+# ── المرحلة ٢: جمع الأدلة ────────────────────────────────
+stage2_evidence:
+  per_lemma:
+    - lemma: "خليج بيسكاين"
+      evidence_status: "no_material_found"
+    - lemma: "جون"
+      confirm:
+        - text: "«الجَوْنُ: خليج صغير»"
+          source: "المعجم الموحد لمصطلحات الجيولوجيا (2000)"
+    - lemma: "خليج"
+      confirm:
+        - text: "«الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ. وَخَلِيجَا النَّهْرِ أَوِ الْبَحْرِ: جَنَاحَاهُ.»"
+          source: "مقاييس اللغة لابن فارس"
+
+# ── المرحلة ٣: التحليل اللغوي للّمات ────────────────────
+stage3_analysis:
+  per_lemma:
+    - lemma: "خليج بيسكاين"
+      decision: confirmed
+      decision_reason: "الاسم العلم المستقر والمستخدم في الجغرافيا، وهو تعريب صوتي دقيق لـ Biscayne Bay."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَلِيجُ بِيسْكَايْن"
+    - lemma: "جَوْنُ بِيسْكَايْن"
+      source: stage1
+      decision: confirmed
+      decision_reason: "خيار اصطلاحي دقيق جغرافياً، حيث أن 'الجون' في المصطلحات الجيولوجية الحديثة هو الخليج الصغير أو الضيق، وهو ما يطابق تعريف المجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "جَوْنُ بِيسْكَايْن", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09244630-n"}
+    - lemma: "خَلِيجُ بِيسْكِين"
+      source: stage1
+      decision: confirmed
+      decision_reason: "نطق بديل شائع للمصطلح في العربية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "خَلِيجُ بِيسْكِين", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09244630-n"}
+
+# ── المرحلة ٤: التعريف والأمثلة ──────────────────────────
+stage4_content:
+  definition:
+    current: "خليج ضيق يتشكل من مدخل للمحيط الأطلسي في جنوب شرق فلوريدا"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ركيك ومترجم آلياً. يحتاج صياغة أكثر دقة وموسوعية."
+    authored:
+      - type: encyclopedic
+        text: "خَلِيجٌ بَحْرِيٌّ ضَيِّقٌ يَقَعُ فِي الجُزْءِ الجَنُوبِيِّ الشَّرْقِيِّ مِنْ وِلَايَةِ فْلُورِيدَا الأَمْرِيكِيَّةِ، وَيُشَكِّلُ مَدْخَلًا لِلْمُحِيطِ الأَطْلَسِيِّ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-09244630-n", definition_index: 0, text: "خَلِيجٌ بَحْرِيٌّ ضَيِّقٌ يَقَعُ فِي الجُزْءِ الجَنُوبِيِّ الشَّرْقِيِّ مِنْ وِلَايَةِ فْلُورِيدَا الأَمْرِيكِيَّةِ، وَيُشَكِّلُ مَدْخَلًا لِلْمُحِيطِ الأَطْلَسِيِّ."}
+
+  examples:
+    per_lemma:
+      - lemma: "خَلِيجُ بِيسْكَايْن"
+        examples:
+          - text: "تُعَدُّ مِنْطَقَةُ خَلِيجِ بِيسْكَايْن فِي فْلُورِيدَا مَوْطِنًا لِلْعَدِيدِ مِنَ الشِّعَابِ المَرْجَانِيَّةِ وَالأَحْيَاءِ المَائِيَّةِ."
+            type: usage
+      - lemma: "جَوْنُ بِيسْكَايْن"
+        examples:
+          - text: "يَمْتَازُ جَوْنُ بِيسْكَايْن بِمِيَاهِهِ الضَّحْلَةِ الَّتِي تَجْذِبُ السُّيَّاحَ لِمُمَارَسَةِ الرِّيَاضَاتِ المَائِيَّةِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-09244630-n", text: "يُعَدُّ خَلِيجُ بِيسْكَايْن مِنْ أَبْرَزِ المَعَالِمِ الجُغْرَافِيَّةِ فِي سَاحِلِ مِيَامِي."}
+
+# ── المرحلة ٥: الإثراء (البيانات الوصفية) ─────────────────
+stage5_enrichment:
+  per_entry:
+    - lemma: "خَلِيجُ بِيسْكَايْن"
+      entry_id: "{auto}"
+      roots:
+        - word: "خليج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"
+        - word: "بيسكاين"
+          root: "proper_noun"
+    - lemma: "جَوْنُ بِيسْكَايْن"
+      entry_id: "{auto}"
+      roots:
+        - word: "جون"
+          root: "جون"
+          maqayis_quote: "«الْجِيمُ وَالْوَاوُ وَالنُّونُ أَصْلٌ وَاحِدٌ. الْجَوْنُ عِنْدَ أَهْلِ اللُّغَةِ قَاطِبَةً اسْمٌ يَقَعُ عَلَى الْأَسْوَدِ وَالْأَبْيَضِ.»"
+        - word: "بيسكاين"
+          root: "proper_noun"
+  per_sense:
+    - lemma: "خَلِيجُ بِيسْكَايْن"
+      sense_id: "{auto}"
+      nuance: "الاسم العلمي والشائع المستقر في الأطالس الجغرافية."
+      mwe: true
+    - lemma: "جَوْنُ بِيسْكَايْن"
+      sense_id: "{auto}"
+      nuance: "تسمية اصطلاحية دقيقة تصف طبيعة الخليج كمدخل ضيق أو جَوْن."
+      mwe: true
+    - lemma: "خَلِيجُ بِيسْكِين"
+      sense_id: "{auto}"
+      nuance: "نطق بديل للتعريب الصوتي."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"خليج","root":"خلج","maqayis":"«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ...»"},{"word":"بيسكاين","root":null}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"جون","root":"جون","maqayis":"«الْجِيمُ وَالْوَاوُ وَالنُّونُ أَصْلٌ وَاحِدٌ...»"},{"word":"بيسكاين","root":null}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم العلمي والشائع المستقر في الأطالس الجغرافية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-09244630-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-09244630-n"
+        score: 0.95

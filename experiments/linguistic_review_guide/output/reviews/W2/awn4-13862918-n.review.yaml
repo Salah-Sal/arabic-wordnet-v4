@@ -1,0 +1,191 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّة 'عَلَاقَة سِيَاسِيَّة' هي تعبير وصفي (MWE) وقد لا تُعتبر مدخلاً معجمياً مفرداً في المعاجم القديمة، لكنها ضرورية لتمثيل المفهوم الاصطلاحي المعاصر."
+    observations: "المفهوم يشير إلى السياسة من زاوية التدافع والمناورة (politics as intrigue)، وهو ما تعبر عنه كلمة 'سياسة' في أحد وجوهها، ولكن لضبط الدلالة يُفضل إضافة تراكيب مثل 'مناورة سياسية' و'تآمر سياسي'."
+  blind_candidates:
+    - lemma: "سِيَاسَة"
+      generation_method: ishtiqaq
+      justification: "اللفظ العربي الأساسي لتدبير أمور الجماعة والحكم."
+    - lemma: "عَلَاقَة سِيَاسِيَّة"
+      generation_method: tarkib
+      justification: "تعبير عن الروابط الاجتماعية في السياق السياسي."
+    - lemma: "مُنَاوَرَة سِيَاسِيَّة"
+      generation_method: tarkib
+      justification: "للتعبير عن جانب 'intrigue' (الخداع والمخاتلة) المذكور في التعريف."
+    - lemma: "تَآمُر سِيَاسِيّ"
+      generation_method: tarkib
+      justification: "للتعبير عن 'intrigue to gain power' (المؤامرات لكسب السلطة)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "سِيَاسَة"
+      confirm:
+        - text: "«فالسياسة استصلاح الخلق بإرشادهم إلى الطريق المنجّي في الدنيا والآخرة»"
+          source: "كشاف اصطلاحات الفنون للتهانوي"
+        - text: "«فَنُّ الحكْم وإدارة أعمال الدولة الداخليَّة والخارجيَّة»"
+          source: "المعجم الكبير"
+    - lemma: "مُنَاوَرَة"
+      confirm:
+        - text: "«فعل تناور ماكر لمراوغة فرد أو جماعة، لتحقيق وضعية بدقة تتطلب مهارة بأغراض غير مُعلنة وخادعة»"
+          source: "المعجم الموحد لمصطلحات اللسانيات"
+    - lemma: "مُؤَامَرَة"
+      confirm:
+        - text: "«تخصص الاستخدام في العصر الحديث للمكيدة أو المشاورة لإيقاع الشر بأحد»"
+          source: "معجم الصواب اللغوي"
+    - lemma: "عَلَاقَة سِيَاسِيَّة"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "سِيَاسَة"
+      decision: confirmed
+      decision_reason: "اللفظ المركزي والمستقر دلالياً للمفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "سِيَاسَة"
+    - lemma: "عَلَاقَة سِيَاسِيَّة"
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي شائع يمثل الجانب الاجتماعي للعلاقات السياسية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عَلَاقَة سِيَاسِيَّة"
+    - lemma: "مُنَاوَرَة سِيَاسِيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تحدد الجانب العملي المذكور في التعريف (intrigue) بدقة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "مُنَاوَرَة سِيَاسِيَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَآمُر سِيَاسِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعكس جانب المؤامرات المذكور صراحة في التعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "تَآمُر سِيَاسِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "علاقات اجتماعية تنطوي على مؤامرات لكسب السلطة أو القوة"
+    assessment:
+      decision: revise
+      reason: "لجعل التعريف أكثر شمولاً ودقة من الناحية المعجمية."
+    authored:
+      - type: terminological
+        text: "مجموعة من الأنشطة أو العلاقات الاجتماعية المرتبطة بصناعة القرارات في الجماعات، أو غيرها من أشكال علاقات القوة بين الأفراد، وكثيراً ما تنطوي على المكايد والمناورات لكسب السلطة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مجموعة من الأنشطة أو العلاقات الاجتماعية المرتبطة بصناعة القرارات في الجماعات، أو غيرها من أشكال علاقات القوة بين الأفراد، وكثيراً ما تنطوي على المكايد والمناورات لكسب السلطة."}
+  examples:
+    per_lemma:
+      - lemma: "سِيَاسَة"
+        examples:
+          - text: "تُعدُّ السياسة فنَّ الممكن والتعامل مع الواقع لتحقيق المصالح العليا."
+            type: usage
+      - lemma: "عَلَاقَة سِيَاسِيَّة"
+        examples:
+          - text: "توطدت العلاقة السياسية بين البلدين بعد توقيع معاهدة السلام."
+            type: usage
+      - lemma: "مُنَاوَرَة سِيَاسِيَّة"
+        examples:
+          - text: "لجأ المعارضون إلى مناورة سياسية لعرقلة مشروع القانون الجديد."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "تمارس الأحزاب سياسة تعتمد على التحالفات والمناورات لتعزيز نفوذها."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "سِيَاسَة"
+      entry_id: "{auto}"
+      root: "سوس"
+      maqayis_quote: "«السِّينُ وَالْوَاوُ وَالسِّينُ أَصْلَانِ: أَحَدُهُمَا فَسَادٌ فِي شَيْءٍ، وَالْآخَرُ جِبِلَّةٌ وَخَلِيقَةٌ... سُسْتُهُ أَسُوسُهُ... كَأَنَّهُ يَدُلُّهُ عَلَى الطَّبْعِ الْكَرِيمِ وَيَحْمِلُهُ عَلَيْهِ.»"
+    - lemma: "عَلَاقَة سِيَاسِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "علاقة"
+          root: "علق"
+          maqayis_quote: "«الْعَيْنُ وَاللَّامُ وَالْقَافُ أَصْلٌ كَبِيرٌ صَحِيحٌ يَرْجِعُ إِلَى مَعْنًى وَاحِدٍ، وَهُوَ أَنْ يُنَاطَ الشَّيْءُ بِالشَّيْءِ الْعَالِي.»"
+        - word: "سياسية"
+          root: "سوس"
+          maqayis_quote: "«السِّينُ وَالْوَاوُ وَالسِّينُ أَصْلَانِ...»"
+    - lemma: "مُنَاوَرَة سِيَاسِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "مناورة"
+          root: "نور"
+          maqayis_quote: "«النُّونُ وَالْوَاوُ وَالرَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الْإِضَاءَةُ... وَنَاوَرْتُهُ: شَاوَرْتُهُ، وَالْمُنَاوَرَةُ فِي الْحَرْبِ: أَنْ يُدِيرَ الْفَارِسُ فَرَسَهُ كَيْمَا يَنَالَ مِنَ الْقِرْنِ فُرْصَةً.»"
+        - word: "سياسية"
+          root: "سوس"
+          maqayis_quote: "«السِّينُ وَالْوَاوُ وَالسِّينُ أَصْلَانِ...»"
+  per_sense:
+    - lemma: "سِيَاسَة"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام والشامل لكافة جوانب العمل السياسي."
+      mwe: false
+    - lemma: "عَلَاقَة سِيَاسِيَّة"
+      sense_id: "{auto}"
+      nuance: "تركز على طبيعة الروابط القائمة بين الكيانات السياسية."
+      mwe: true
+    - lemma: "مُنَاوَرَة سِيَاسِيَّة"
+      sense_id: "{auto}"
+      nuance: "تؤكد على الجانب التكتيكي والخادع أحياناً في العمل السياسي."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سوس","maqayis":"«السِّينُ وَالْوَاوُ وَالسِّينُ أَصْلَانِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ العام والشامل لكافة جوانب العمل السياسي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

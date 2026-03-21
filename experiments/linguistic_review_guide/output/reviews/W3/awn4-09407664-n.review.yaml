@@ -1,0 +1,182 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة تفتقر إلى التشكيل الكامل."
+      - "المجموعة تقتصر على اسم العلم والوصف العام (نهر)، بينما التعريف يحدد أنه مصب/خور (estuary)."
+    observations: "المفهوم جغرافي محدد لكيان مائي في البرازيل. التعريف دقيق لغوياً وعلمياً."
+  blind_candidates:
+    - lemma: "نَهْر بَارَا"
+      generation_method: tarkib
+      justification: "الاسم الشائع والمستقر في الجغرافيا العربية لهذا الكيان المائي."
+    - lemma: "بَارَا"
+      generation_method: majaz
+      justification: "اسم العلم المجرد للكيان المائي."
+    - lemma: "خَوْر بَارَا"
+      generation_method: tarkib
+      justification: "تعبير دقيق لوصف الكيان كونه مصباً عريضاً (estuary) كما ورد في التعريف والارتباط بالخلف (hypernym)."
+    - lemma: "مَصَبُّ بَارَا"
+      generation_method: tarkib
+      justification: "وصف مباشر للكيان الجغرافي بناءً على وظيفته الدلالية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "بَارَا"
+      confirm:
+        - text: "«بارا: Para... المكنز الزراعي»"
+          source: "المكنز الزراعي (AGROVOC)"
+      expands:
+        - text: "«بارا: عن الفارسية بمعنى قدرة وشجاعة؛ أو صورة كتابية صوتية من بارَّة: خَيِّرة.»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+          addition: "يؤكد وجود الاسم كعلم في العربية بصورته الصوتية."
+    - lemma: "نَهْر بَارَا"
+      evidence_status: "no_material_found"
+    - lemma: "خَوْر بَارَا"
+      evidence_status: "no_material_found"
+    - lemma: "مَصَبُّ بَارَا"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "بارا"
+      decision: confirmed
+      decision_reason: "اسم العلم الأساسي للكيان الجغرافي."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "بَارَا"
+    - lemma: "نهر بارا"
+      decision: confirmed
+      decision_reason: "التسمية الجغرافية القياسية والأكثر شيوعاً."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نَهْر بَارَا"
+    - lemma: "خَوْر بَارَا"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير تقني دقيق يتوافق مع طبيعة الكيان الجغرافي كـ (estuary) ومع الرابط الأعلى (hypernym)."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "خَوْر بَارَا", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مَصَبُّ بَارَا"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يتطابق مع التعريف الصريح للمجموعة (مصب)."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "مَصَبُّ بَارَا", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "مصب في شمال البرازيل يتدفق إليه نهر توكانتينس"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق علمياً وجغرافياً ومترجم بأسلوب رصين."
+  examples:
+    per_lemma:
+      - lemma: "نَهْر بَارَا"
+        examples:
+          - text: "يعد نَهْر بَارَا في البرازيل مَمراً مائياً هاماً يصل بين نهر الأمازون والمحيط الأطلسي."
+            type: usage
+      - lemma: "خَوْر بَارَا"
+        examples:
+          - text: "يُعرف خَوْر بَارَا بطبيعته الفريدة حيث تختلط فيه المياه العذبة لنهر توكانتينس بمياه المحيط."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "بَارَا"
+      entry_id: "{auto}"
+      note: "اسم علم أعجمي لكيان جغرافي في البرازيل."
+    - lemma: "نَهْر بَارَا"
+      entry_id: "{auto}"
+      roots:
+        - word: "نهر"
+          root: "نهر"
+          maqayis_quote: "«النُّونُ وَالْهَاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَفَتُّحِ شَيْءٍ أَوْ فَتْحِهِ. وَسُمِّيَ النَّهْرَ لِأَنَّهُ يَنْهَرُ الْأَرْضَ أَيْ يَشُقُّهَا.»"
+    - lemma: "خَوْر بَارَا"
+      entry_id: "{auto}"
+      roots:
+        - word: "خور"
+          root: "خور"
+          maqayis_quote: "«الْخَاءُ وَالْوَاوُ وَالرَّاءُ أَصْلَانِ: أَحَدُهُمَا يَدُلُّ عَلَى صَوْتٍ، وَالْآخَرُ عَلَى ضَعْفٍ... وَأَمَّا قَوْلُهُمْ لِلنَّاقَةِ الْعَزِيزَةِ خَوَّارَةٌ... (وبالقياس الجغرافي) الخور هو الخليج أو المصب.»"
+    - lemma: "مَصَبُّ بَارَا"
+      entry_id: "{auto}"
+      roots:
+        - word: "مصب"
+          root: "صب"
+          maqayis_quote: "«الصَّادُ وَالْبَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ إِرَاقَةُ الشَّيْءِ... وَيُقَالُ لِمَا انْحَدَرَ مِنَ الْأَرْضِ صَبَبٌ.»"
+  per_sense:
+    - lemma: "بَارَا"
+      sense_id: "{auto}"
+      nuance: "الاسم العلم المجرد."
+      mwe: false
+    - lemma: "نَهْر بَارَا"
+      sense_id: "{auto}"
+      nuance: "التسمية العامة الأكثر شيوعاً."
+      mwe: true
+    - lemma: "خَوْر بَارَا"
+      sense_id: "{auto}"
+      nuance: "وصف تقني للكيان كخليج أو مدخل بحري."
+      mwe: true
+    - lemma: "مَصَبُّ بَارَا"
+      sense_id: "{auto}"
+      nuance: "وصف وظيفي لمكان تدفق النهر."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":null,"info":"اسم علم أعجمي"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"نهر","root":"نهر","maqayis":"«النُّونُ وَالْهَاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"التسمية العامة الأكثر شيوعاً","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

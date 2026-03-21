@@ -1,0 +1,158 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة تفتقر إلى التشكيل الكامل."
+      - "التعريف العربي مقتضب جداً ويحتاج إلى تفصيل جغرافي يوضح طبيعة هذا المعلم."
+    observations: "المجموعة تتعلق بمعلم جغرافي محدد (خليج أوب) في روسيا. اللفظ 'أوب' هو تعريب لاسم النهر الروسي (Обь). المعنى يتأرجح بين كونه خليجاً (Gulf) ومصباً نهرياً (Estuary) وهو أطول مَصَبّ في العالم."
+  blind_candidates:
+    - lemma: "خَلِيجُ أُوب"
+      generation_method: tarkib
+      justification: "الاسم الجغرافي القياسي لهذا المعلم، يتكون من 'خليج' والاسم العلم 'أوب'."
+    - lemma: "مَصَبُّ أُوب"
+      generation_method: tarkib
+      justification: "وصف جغرافي دقيق للمعلم كونه مَصَبّاً لنهر أوب في البحر."
+    - lemma: "جَوْنُ أُوب"
+      generation_method: majaz
+      justification: "استخدام 'جون' كمرادف فصيح للخليج الكبير أو الداخل في اليابسة."
+    - lemma: "ثَغْرُ أُوب"
+      generation_method: majaz
+      justification: "استخدام 'ثغر' للدلالة على فوهة النهر أو مدخله البحري."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خَلِيجُ أُوب"
+      expands:
+        - text: "«بحر كارا»"
+          source: "المكنز الزراعي متعدد اللغات"
+          addition: "يوثق وجود بحر كارا في المعاجم العربية الحديثة وهو المصب الذي يقع فيه الخليج."
+        - text: "«سَيْبيريا: منطقةٌ جغرافية شاسعة تحتلُّ الجزء الشمالى من قارة آسيا ممتدةٌ من جبال أورال حتى المحيط الهادى»"
+          source: "المعجم الكبير"
+          addition: "يوثق النطاق الجغراي (سيبيريا) الذي يقع فيه الخليج."
+    - lemma: "أُوب"
+      confirm:
+        - text: "«الأَوْبُ: الرُّجُوعُ. آبَ إِلى الشيءِ: رَجَعَ»"
+          source: "لسان العرب"
+        - text: "«الْهَمْزَةُ وَالْوَاوُ وَالْبَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الرُّجُوعُ»"
+          source: "مقاييس اللغة"
+      # ملاحظة: أوب هنا اسم علم أعجمي، لكنه يشترك لفظياً مع الجذر العربي.
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "خليج أوب"
+      decision: confirmed
+      decision_reason: "الاسم الرسمي والمتعارف عليه جغرافياً، وهو ترجمة دقيقة للمصطلح الإنجليزي Gulf of Ob."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَلِيجُ أُوب"
+
+    - lemma: "مَصَبُّ أُوب"
+      source: stage1
+      decision: confirmed
+      decision_reason: "وصف جغرافي دقيق وشائع لهذا المعلم في النصوص المتخصصة، حيث يُعرف بأنه أطول مَصَب نهري."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "مَصَبُّ أُوب", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09321880-n"}
+
+stage4_content:
+  definition:
+    current: "مدخل لبحر كارا في غرب سيبيريا"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي فقير بالمعلومات الجغرافية التي تميز هذا الخليج عن غيره."
+    authored:
+      - type: encyclopedic
+        text: "خَلِيجٌ طَوِيلٌ فِي شَمَالِ رُوسِيَا، يُمَثِّلُ مَصَبَّ نَهْرِ أُوب فِي بَحْرِ كَارَا (جُزْءٌ مِنَ الْمُحِيطِ الْمُتَجَمِّدِ الشَّمَالِيِّ)، وَيُعَدُّ مِنْ أَطْوَلِ المَصَابِّ النَّهْرِيَّةِ فِي العَالَمِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-09321880-n", definition_index: 0, text: "خَلِيجٌ طَوِيلٌ فِي شَمَالِ رُوسِيَا، يُمَثِّلُ مَصَبَّ نَهْرِ أُوب فِي بَحْرِ كَارَا، وَيُعَدُّ مِنْ أَطْوَلِ المَصَابِّ النَّهْرِيَّةِ فِي العَالَمِ."}
+
+  examples:
+    per_lemma:
+      - lemma: "خَلِيجُ أُوب"
+        examples:
+          - text: "يَمْتَدُّ خَلِيجُ أُوب لِمَسَافَةِ ثَمَانِمِائَةِ كِيلُومِتْرٍ تَقْرِيباً قَبْلَ أَنْ يَمْتَزِجَ بِمِيَاهِ بَحْرِ كَارَا."
+            type: usage
+      - lemma: "مَصَبُّ أُوب"
+        examples:
+          - text: "تَتَجَمَّدُ مِيَاهُ مَصَبِّ أُوب فِي مُعْظَمِ أَيَّامِ السَّنَةِ بِسَبَبِ الْمُنَاخِ الْقُطْبِيِّ الشَّدِيدِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-09321880-n", text: "يُعَدُّ خَلِيجُ أُوب بَوَّابَةً مَائِيَّةً هَامَّةً لِلشَّحْنِ فِي مَنَاطِقِ غَرْبِ سِيبِيريا."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خَلِيجُ أُوب"
+      entry_id: "{auto}"
+      roots:
+        - word: "خليج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"
+        - word: "أوب"
+          root: "أوب"
+          maqayis_quote: "«الْهَمْزَةُ وَالْوَاوُ وَالْبَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الرُّجُوعُ.»"
+    - lemma: "مَصَبُّ أُوب"
+      entry_id: "{auto}"
+      roots:
+        - word: "مصب"
+          root: "صبب"
+          maqayis_quote: "«الصَّادُ وَالْبَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى انْحِدَارِ شَيْءٍ.»"
+        - word: "أوب"
+          root: "أوب"
+          maqayis_quote: "«الْهَمْزَةُ وَالْوَاوُ وَالْبَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الرُّجُوعُ.»"
+
+  per_sense:
+    - lemma: "خَلِيجُ أُوب"
+      sense_id: "{auto}"
+      nuance: "الاسم الرسمي والأكثر شيوعاً للمعلم الجغرافي."
+      mwe: true
+    - lemma: "مَصَبُّ أُوب"
+      sense_id: "{auto}"
+      nuance: "يؤكد على الطبيعة الهيدرولوجية للمعلم كمكان التقاء النهر بالبحر."
+      mwe: true
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"خليج","root":"خلج","maqayis":"«الخاء واللام والجيم أصل واحد...»"},{"word":"أوب","root":"أوب","maqayis":"«الهمزة والواو والباء أصل واحد...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الرسمي والأكثر شيوعاً","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-09321880-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-09321880-n"
+        score: 0.95

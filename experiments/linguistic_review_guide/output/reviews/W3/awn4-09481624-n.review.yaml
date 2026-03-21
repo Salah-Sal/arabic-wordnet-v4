@@ -1,0 +1,195 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة 'مجرى المد' صحيحة وصفياً لكنها قد تفتقر للاصطلاح المعجمي الواحد."
+      - "نقص التشكيل في اللمة الحالية."
+    observations: "المفهوم يشير إلى القنوات المائية المتأثرة بحركة المد والجزر، وهناك عدة ألفاظ فنية وتراثية تفي بهذا الغرض."
+  blind_candidates:
+    - lemma: "مَجْرَى المَدّ"
+      generation_method: tarkib
+      justification: "تعبير إضافي يصف القناة (المجرى) منسوبة إلى ظاهرة المد."
+    - lemma: "خَوْر"
+      generation_method: majaz
+      justification: "لفظ تراثي يطلق على لسان البحر الذي يمتد في البر أو مَصَبّ الماء في البحر، وهو مرادف طبيعي لـ tideway."
+    - lemma: "قَنَاة مَدِّيَّة"
+      generation_method: tarkib
+      justification: "تعبير وصفي حديث (قناة + مدية) يستخدم في علوم البحار والجيولوجيا."
+    - lemma: "مَمَرٌّ مَدِّيّ"
+      generation_method: tarkib
+      justification: "تعبير اصطلاحي يشير إلى الممر المائي الذي تسلكه مياه المد."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مَجْرَى المَدّ"
+      confirm:
+        - text: "«سبيل [أو مَسْلك] المدّ؛ قناة تجري فيها مياه المدّ.»"
+          source: "المورد الحديث"
+    - lemma: "خَوْر"
+      confirm:
+        - text: "«الخَوْرُ: مَصب المَاء فِي الْبَحْر، وَقيل: هُوَ خَليجٌ من الْبَحْر.»"
+          source: "لسان العرب"
+        - text: "«وهو عند عرب السواحل كالخليج يندّ من البحر.»"
+          source: "معجم البلدان"
+    - lemma: "قَنَاة مَدِّيَّة"
+      confirm:
+        - text: "«قناة مدية» في سياق ترجمة tidal channel."
+          source: "المعجم الموحد لمصطلحات الجيولوجيا"
+    - lemma: "طَرِيق المَدّ"
+      confirm:
+        - text: "«طريق المد» ترجمة لمصطلح tideway."
+          source: "المعجم الموحد لمصطلحات المياه"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مجرى المد"
+      decision: confirmed
+      decision_reason: "مصطلح وصفي دقيق وشائع الاستخدام في الجغرافيا وعلوم البحار."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَجْرَى المَدّ"
+    - lemma: "خَوْر"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ تراثي مستعمل بكثرة في منطقة الخليج العربي والجزيرة العربية لوصف القنوات المائية المدية والمصبات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "خَوْر", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09481624-n"}
+    - lemma: "قَنَاة مَدِّيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فني دقيق مستخدم في المعاجم الجيولوجية وعلوم المحيطات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "قَنَاة مَدِّيَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09481624-n"}
+    - lemma: "طَرِيق المَدّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فني معتمد في المعجم الموحد لمصطلحات المياه."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "طَرِيق المَدّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09481624-n"}
+
+stage4_content:
+  definition:
+    current: "قناة يجري فيها تيار المد والجزر"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب؛ يحتاج إلى دقة اصطلاحية توضح طبيعة هذا الممر المائي ومكانه."
+    authored:
+      - type: terminological
+        text: "مَمرٌّ مائِيٌّ أَو قناةٌ تَنْفُذُ فيها مِيَاهُ البَحْرِ بِقُوَّةِ تَيَّارِ المَدِّ، وَغالِبًا ما تَكُونُ عِنْدَ مَصَبَّاتِ الأَنْهَارِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-09481624-n"
+          definition_index: 0
+          text: "مَمرٌّ مائِيٌّ أَو قناةٌ تَنْفُذُ فيها مِيَاهُ البَحْرِ بِقُوَّةِ تَيَّارِ المَدِّ، وَغالِبًا ما تَكُونُ عِنْدَ مَصَبَّاتِ الأَنْهَارِ."
+  examples:
+    per_lemma:
+      - lemma: "مَجْرَى المَدّ"
+        examples:
+          - text: "تَكُونَ سُرْعَةُ التَّيَّارِ في مَجْرَى المَدِّ قَوِيَّةً مِمَّا يُؤَثِّرُ على حَرَكَةِ السُّفُنِ الصَّغِيرَةِ."
+            type: usage
+      - lemma: "خَوْر"
+        examples:
+          - text: "يُعَدُّ خَوْرُ دُبَيٍّ مَجْرًى مَدِيًّا طَبِيعِيًّا يَمْتَدُّ كَمِيًلَاتٍ دَاخِلَ اليَابِسَةِ."
+            type: usage
+      - lemma: "قَنَاة مَدِّيَّة"
+        examples:
+          - text: "تَتَشَكَّلُ القَنَاةُ المَدِّيَّةُ بِفِعْلِ النَّحْتِ المُسْتَمِرِّ لِتَيَّاراتِ المَدِّ وَالجَزْرِ في المناطقِ الرَّمْلِيَّةِ."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَجْرَى المَدّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مجرى"
+          root: "جري"
+          maqayis_quote: "«الجِيمُ وَالرَّاءُ وَالْيَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ انْسِيَاحُ الشَّيْءِ. يُقَالُ جَرَى الْمَاءُ يَجْرِي جَرْيَةً وَجَرْيًا.»"
+        - word: "المد"
+          root: "مدد"
+          maqayis_quote: "«المِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى الِامْتِدَادِ فِي الزَّمَانِ وَالْمَكَانِ.»"
+    - lemma: "خَوْر"
+      entry_id: "{auto}"
+      root: "خور"
+      maqayis_quote: "«الْخَاءُ وَالْوَاوُ وَالرَّاءُ أَصْلَانِ: أَحَدُهُمَا يَدُلُّ عَلَى صَوْتٍ، وَالْآخَرُ عَلَى ضَعْفٍ.» (ملاحظة: المعنى الجغرافي تطور دلالي لاحق)."
+    - lemma: "قَنَاة مَدِّيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "قناة"
+          root: "قني"
+          maqayis_quote: "«الْقَافُ وَالنُّونُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ يَدُلُّ عَلَى فَرْعٍ من فروع الشجر.»"
+        - word: "مدية"
+          root: "مدد"
+          maqayis_quote: "«المِيمُ وَالدَّالُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى الِامْتِدَادِ.»"
+  per_sense:
+    - lemma: "مَجْرَى المَدّ"
+      sense_id: "{auto}"
+      nuance: "تعبير عام يصف القناة من منظور حركية المياه (المجرى)."
+      mwe: true
+    - lemma: "خَوْر"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب الجيومورفولوجي كلسان مائي ممتد في اليابسة."
+      mwe: false
+    - lemma: "قَنَاة مَدِّيَّة"
+      sense_id: "{auto}"
+      nuance: "مصطلح فني تخصصي يستخدم في الجيولوجيا وعلم المحيطات."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مجرى","root":"جري","maqayis":"«الجِيمُ وَالرَّاءُ وَالْيَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ انْسِيَاحُ الشَّيْءِ...»"},{"word":"المد","root":"مدد","maqayis":"«المِيمُ وَالدَّالُ أَصْلٌ... يَدُلُّ عَلَى الِامْتِدَادِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير عام يصف القناة من منظور حركية المياه","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-09481624-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-09481624-n"
+        score: 0.9

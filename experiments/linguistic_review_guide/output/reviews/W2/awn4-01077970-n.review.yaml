@@ -1,0 +1,206 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'توقف' تشير غالباً إلى الفعل اللازم (intransitive) بينما التعريف يركز على الفعل المتعدي (transitive)."
+      - "نقص التشكيل في اللمات الموجودة."
+    observations: "المجموعة تركز على فعل الإيقاف كنشاط بشري متعدٍ لشيء ما. اللمات 'إيقاف' و'وقف' هي الأنسب، بينما 'توقف' تصف حالة الشيء بعد إيقافه أو فعله هو للتوقف."
+  blind_candidates:
+    - lemma: "إِيقَاف"
+      generation_method: ishtiqaq
+      justification: "المصدر القياسي للفعل أوقف، وهو الأكثر شيوعاً للتعبير عن فعل الإيقاف المتعمد."
+    - lemma: "تَعْطِيل"
+      generation_method: ishtiqaq
+      justification: "يُستخدم للتعبير عن إيقاف عمل آلة أو مشروع أو وظيفة."
+    - lemma: "صَدّ"
+      generation_method: ishtiqaq
+      justification: "إيقاف الحركة أو الهجوم ومنعه من التقدم."
+    - lemma: "كَفّ"
+      generation_method: ishtiqaq
+      justification: "المنع من الاستمرار في فعل أو نشاط."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "إِيقَاف"
+      confirm:
+        - text: "«أوقف الشَّخصَ وغيرَه: وقَفَه، جعله يقف، أو يسكن بعد مشي «أوقف السَّيَّارة/ نزيفًا- أوقف محركًا: أخمد حركته»»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "وَقْف"
+      confirm:
+        - text: "«وَقَفَ الماشِيَ والجالسَ، وَقْفاً: جعله يقف. يقال: وقف الدابَّةَ»"
+          source: "المعجم الوسيط"
+    - lemma: "تَوَقُّف"
+      contradicts:
+        - text: "«توقّف المطرُ: انقطع»"
+          source: "معجم اللغة العربية المعاصرة"
+          conflict: "يدل على الفعل اللازم (انقطاع الشيء من تلقاء نفسه) وليس فعل الإيقاف المتعدي لشيء آخر."
+    - lemma: "تَعْطِيل"
+      confirm:
+        - text: "«أوقف تنفيذ الحكم: عطّله- أوقف محادثات: منع استمرارها»"
+          source: "معجم اللغة العربية المعاصرة"
+      expands:
+        - text: "«الْعَيْنُ وَالطَّاءُ وَاللَّامُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى خُلُوٍّ وَفَرَاغٍ. نَقُولُ: عُطِّلَتِ الدَّارُ... وَكُلُّ شَيْءٍ خَلَا مِنْ حَافِظٍ فَقَدْ عُطِّلَ»"
+          source: "مقاييس اللغة"
+    - lemma: "مَنْع"
+      confirm:
+        - text: "«وقَفَ دونه أو أمامه: منعه، حال بينه وبين ما يريد»"
+          source: "معجم اللغة العربية المعاصرة"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "إيقاف"
+      decision: confirmed
+      decision_reason: "المصدر الصريح والأكثر دقة للتعبير عن التعدية في الإيقاف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "إِيقَاف"
+    - lemma: "وقف"
+      decision: confirmed
+      decision_reason: "مصدر سماعي للفعل الثلاثي المتعدي، ويُستخدم بكثرة في السياقات القانونية والرسمية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "وَقْف"
+    - lemma: "توقف"
+      decision: removed
+      decision_reason: "يشير إلى المطاوعة أو الفعل اللازم (Intransitive) ولا يتوافق مع تعريف المجموعة الذي يركز على الفعل المتعدي (Act of stopping something)."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "تَعْطِيل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "دلالة خاصة على إيقاف العمل أو الوظيفة أو المفعول."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَعْطِيل", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مَنْع"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يدل على الحيلولة دون استمرار الشيء، وهو مرادف قوي في سياق منع الحركة أو النشاط."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَنْع", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "فعل إيقاف شيء ما"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب جداً ويفتقر للصياغة المعجمية الدقيقة."
+    authored:
+      - type: terminological
+        text: "جَعْلُ الشيءِ يَكُفُّ عن الحركةِ أو الاستمرارِ في العملِ أو النشاط."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "جَعْلُ الشيءِ يَكُفُّ عن الحركةِ أو الاستمرارِ في العملِ أو النشاط."}
+  examples:
+    per_lemma:
+      - lemma: "إِيقَاف"
+        examples:
+          - text: "أمرَ الضابطُ بإيقافِ السيرِ ريثما تمرُّ سيارةُ الإسعاف."
+            type: usage
+      - lemma: "وَقْف"
+        examples:
+          - text: "أعلنتِ الأممُ المتحدةُ عن اتفاقٍ لـ وَقْفِ إطلاقِ النارِ بين الطرفين."
+            type: usage
+      - lemma: "تَعْطِيل"
+        examples:
+          - text: "تسبَّبَ العطلُ المفاجئُ في تعطيلِ الإنتاجِ بالمصنعِ لعدةِ ساعات."
+            type: usage
+      - lemma: "مَنْع"
+        examples:
+          - text: "تتخذُ الدولةُ إجراءاتٍ صارمةً لـ مَنْعِ انتشارِ الأوبئةِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "تقررَ إيقافُ العملِ بالمشروعِ حتى إشعارٍ آخر."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "إِيقَاف"
+      entry_id: "{auto}"
+      root: "وقف"
+      maqayis_quote: "«الْوَاوُ وَالْقَافُ وَالْفَاءُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَمَكُّثٍ فِي شَيْءٍ ثُمَّ يُقَاسُ عَلَيْهِ»"
+    - lemma: "وَقْف"
+      entry_id: "{auto}"
+      root: "وقف"
+      maqayis_quote: "«الْوَاوُ وَالْقَافُ وَالْفَاءُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَمَكُّثٍ فِي شَيْءٍ ثُمَّ يُقَاسُ عَلَيْهِ»"
+    - lemma: "تَعْطِيل"
+      entry_id: "{auto}"
+      root: "عطل"
+      maqayis_quote: "«الْعَيْنُ وَالطَّاءُ وَاللَّامُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى خُلُوٍّ وَفَرَاغٍ»"
+    - lemma: "مَنْع"
+      entry_id: "{auto}"
+      root: "منع"
+      maqayis_quote: "«الْمِيمُ وَالنُّونُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ هُوَ خِلَافُ الْإِعْطَاءِ»"
+  per_sense:
+    - lemma: "إِيقَاف"
+      sense_id: "{auto}"
+      nuance: "اللفظ الأكثر شمولاً وتداولاً في التعبير عن إنهاء الحركة أو النشاط بشكل عام."
+      mwe: false
+    - lemma: "وَقْف"
+      sense_id: "{auto}"
+      nuance: "يُستخدم غالباً في السياقات الرسمية أو القانونية أو الدينية (مثل وقف إطلاق النار، أو وقف التنفيذ)."
+      mwe: false
+    - lemma: "تَعْطِيل"
+      sense_id: "{auto}"
+      nuance: "يركز على إبطال مفعول الشيء أو وظيفته أو جعل المرفق غير صالح للعمل مؤقتاً."
+      mwe: false
+    - lemma: "مَنْع"
+      sense_id: "{auto}"
+      nuance: "يركز على الحيلولة دون استمرار الشيء أو وقوعه، وغالباً ما يرتبط بجهود المكافحة أو التصدي."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"وقف","maqayis":"«الْوَاوُ وَالْقَافُ وَالْفَاءُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَمَكُّثٍ فِي شَيْءٍ ثُمَّ يُقَاسُ عَلَيْهِ»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ الأكثر شمولاً وتداولاً في التعبير عن إنهاء الحركة أو النشاط بشكل عام.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

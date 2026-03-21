@@ -1,0 +1,260 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة 'عدم نظافة' عبارة وصفية مركبة وليست مفردة معجمية بسيطة، رغم شيوعها."
+      - "الحاجة إلى إدراج مصطلحات تراثية تعبر عن الحالة مثل 'الدنس' و'الوساخة'."
+    observations: "المجموعة تعبر عن حالة أو سمة سلبية (نقص النظافة). اللمات المقترحة تغطي الجوانب المادية (الوسخ) والمعنوية (الدنس) والسلوكية (الإهمال)."
+  blind_candidates:
+    - lemma: "إِهْمَالُ النَّظَافَةِ"
+      generation_method: tarkib
+      justification: "تعبير إضافي يركز على الجانب السلوكي (العادات) المذكور في التعريف."
+    - lemma: "دَنَسٌ"
+      generation_method: ishtiqaq
+      justification: "لفظ عربي فصيح يعبر عن تلطخ الشيء بالقبيح أو الوسخ."
+    - lemma: "رَثَاثَةٌ"
+      generation_method: ishtiqaq
+      justification: "تعبر عن سوء الهيئة والمنظر الناتج عن قلة العناية والنظافة."
+    - lemma: "قَذَارَةٌ"
+      generation_method: ishtiqaq
+      justification: "المصطلح المقابل المباشر للنظافة في المعاجم العربية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "قذارة"
+      confirm:
+        - text: "قَذَارة من (ق ذ ر) إتساخ الشيء حتى يقبح في العين."
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+      expands:
+        - text: "قذر: خلاف النظافة الشيء الذي يكره."
+          source: "مقاييس اللغة"
+    - lemma: "دنس"
+      confirm:
+        - text: "الدَّنَسُ لَطْخُ الوَسَخِ والجمع أَدْناسٌ دَنِسَ دَنَساً فهو دَنِسٌ وتَدَنَّسَ ودَنَّسَه."
+          source: "المحكم والمحيط الأعظم"
+        - text: "الدنس: الوسخ. وقد دنس الثوب يدنس دنسا: توسخ."
+          source: "الصحاح في اللغة"
+    - lemma: "وساخة"
+      confirm:
+        - text: "وساخة [مفرد]: قذارة، فقدان النَّظافة وانعدامها."
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "رثاثة"
+      confirm:
+        - text: "الرَّثَاثَةُ: البَذاذَةُ, وهى سوءُ الحالِ والهَيْئَةِ."
+          source: "المعجم الكبير"
+      contradicts:
+        - text: "رَثَّ الثَّوْبُ يَرِثُّ رَثَاثَةً: بَلِيَ."
+          source: "المعجم الوسيط"
+          conflict: "الرثاثة تتعلق بالبلاء والقدم أكثر من كونها نقصاً في عادات النظافة."
+    - lemma: "عدم نظافة"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "عدم نظافة"
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي شائع جداً في العربية المعاصرة للتعبير عن غياب النظافة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عَدَمُ نَظَافَةٍ"
+    - lemma: "قذارة"
+      decision: confirmed
+      decision_reason: "المصطلح الأساسي في العربية المقابل للنظافة، وهو مدعوم بالأدلة المعجمية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "قَذَارَةٌ"
+    - lemma: "دَنَسٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ تراثي قوي يعبر عن تلطخ الثوب أو العرض بالوسخ، ويناسب السياق الوصفي للمجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "دَنَسٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-04903901-n"}
+    - lemma: "إِهْمَالُ النَّظَافَةِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير دقيق في وصف 'نقص العادات' كما ورد في التعريف الإنجليزي (lack of cleanly habits)."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "إِهْمَالُ النَّظَافَةِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-04903901-n"}
+    - lemma: "رَثَاثَةٌ"
+      source: stage1
+      decision: removed
+      decision_reason: "الرثاثة تتعلق بقدم الملابس وبلاها وسوء الهيئة العامة، وليست مرادفاً دقيقاً لعدم النظافة المادي."
+    - lemma: "وَسَاخَةٌ"
+      decision: confirmed
+      decision_reason: "مصطلح عربي فصيح ومعاصر يعبر بدقة عن فقدان النظافة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "وَسَاخَةٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-04903901-n"}
+
+stage4_content:
+  definition:
+    current: "نقص في عادات النظافة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب جداً. يفضل صياغته بأسلوب معجمي يجمع بين الحالة والصفة."
+    authored:
+      - type: linguistic
+        text: "حالةُ الافتِقارِ إِلى النَّظافَةِ، أَو صِفَةُ الشَّيْءِ القَذِرِ؛ وهِيَ ضِدُّ النَّظَافَةِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+      - type: terminological
+        text: "نقصُ العِنايَةِ بالنَّظافَةِ الشخصيَّةِ أو المَكانيَّةِ بما يُؤَدِّي إِلى تراكمِ الأَوْساخِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-04903901-n", definition_index: 0, text: "حالةُ الافتِقارِ إِلى النَّظافَةِ، أَو صِفَةُ الشَّيْءِ القَذِرِ؛ وهِيَ ضِدُّ النَّظَافَةِ."}
+  examples:
+    per_lemma:
+      - lemma: "عَدَمُ نَظَافَةٍ"
+        examples:
+          - text: "يؤدي عدم نظافة اليدين إلى انتشار الأمراض المعدية."
+            type: usage
+      - lemma: "قَذَارَةٌ"
+        examples:
+          - text: "يُعاني السكّان من قذارة الشوارع بسبب نقص حاويات القمامة."
+            type: usage
+      - lemma: "دَنَسٌ"
+        examples:
+          - text: "ثوبٌ ناصعُ البياضِ ليس فيه دَنَسٌ."
+            type: usage
+      - lemma: "وَسَاخَةٌ"
+        examples:
+          - text: "لا بد من تنظيف الأدوات باستمرار لمنع تراكم الوساخة عليها."
+            type: usage
+      - lemma: "إِهْمَالُ النَّظَافَةِ"
+        examples:
+          - text: "يُعَدُّ إهمال النظافة سبباً رئيسياً لتدهور الصحة العامة."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-04903901-n", text: "يُؤَدِّي عَدَمُ نَظَافَةِ المَكانِ إِلى تَرَاكُمِ الحَشَراتِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "قَذَارَةٌ"
+      entry_id: "{auto}"
+      root: "قذر"
+      maqayis_quote: "«الْقَافُ وَالذَّالُ وَالرَّاءُ كَلِمَةٌ تَدُلُّ عَلَى خِلَافِ النَّظَافَةِ. يُقَالُ: شَيْءٌ قَذِرٌ، بَيِّنُ الْقَذَرِ.»"
+    - lemma: "دَنَسٌ"
+      entry_id: "{auto}"
+      root: "دنس"
+      maqayis_quote: "«الدَّالُ وَالنُّونُ وَالسِّينُ كَلِمَةٌ وَاحِدَةٌ، وَهِيَ الدَّنَسُ، وَهُوَ اللَّطْخُ بِقَبِيحٍ.»"
+    - lemma: "وَسَاخَةٌ"
+      entry_id: "{auto}"
+      root: "وسخ"
+      maqayis_quote: "«الْوَاوُ وَالسِّينُ وَالْخَاءُ كَلِمَةٌ. الْوَسَخُ: الدَّرَنُ.»"
+    - lemma: "عَدَمُ نَظَافَةٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "عدم"
+          root: "عدم"
+          maqayis_quote: "«الْعَيْنُ وَالدَّالُ وَالْمِيمُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى فِقْدَانِ الشَّيْءِ.»"
+        - word: "نظافة"
+          root: "نظف"
+          maqayis_quote: "«النُّونُ وَالظَّاءُ وَالْفَاءُ كَلِمَةٌ وَاحِدَةٌ، وَهِيَ قَوْلُهُمْ: شَيْءٌ نَظِيفٌ: نَقِيٌّ.»"
+    - lemma: "إِهْمَالُ النَّظَافَةِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "إهمال"
+          root: "همل"
+          maqayis_quote: "«الْهَاءُ وَالْمِيمُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَرْكِ الشَّيْءِ وَالْتَّخَلِّي عَنْهُ.»"
+        - word: "نظافة"
+          root: "نظف"
+          maqayis_quote: "«النُّونُ وَالظَّاءُ وَالْفَاءُ كَلِمَةٌ وَاحِدَةٌ، وَهِيَ قَوْلُهُمْ: شَيْءٌ نَظِيفٌ: نَقِيٌّ.»"
+  per_sense:
+    - lemma: "عَدَمُ نَظَافَةٍ"
+      sense_id: "{auto}"
+      nuance: "التعبير العام والمحايد لنقص النظافة."
+      mwe: true
+    - lemma: "قَذَارَةٌ"
+      sense_id: "{auto}"
+      nuance: "تعبر عن شدة الاتساخ الذي ينفر منه الطبع."
+      mwe: false
+    - lemma: "دَنَسٌ"
+      sense_id: "{auto}"
+      nuance: "تحمل دلالة معنوية (خلقية) أو تلطخ مادي يفسد الطهارة."
+      mwe: false
+    - lemma: "وَسَاخَةٌ"
+      sense_id: "{auto}"
+      nuance: "الوصف المباشر لفقدان النظافة المادية."
+      mwe: false
+    - lemma: "إِهْمَالُ النَّظَافَةِ"
+      sense_id: "{auto}"
+      nuance: "تركز على الجانب السلوكي والتقصير في فعل التنظيف."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قذر","maqayis":"«الْقَافُ وَالذَّالُ وَالرَّاءُ كَلِمَةٌ تَدُلُّ عَلَى خِلَافِ النَّظَافَةِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"دنس","maqayis":"«الدَّالُ وَالنُّونُ وَالسِّينُ كَلِمَةٌ وَاحِدَةٌ، وَهِيَ الدَّنَسُ، وَهُوَ اللَّطْخُ بِقَبِيحٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"وسخ","maqayis":"«الْوَاوُ وَالسِّينُ وَالْخَاءُ كَلِمَةٌ. الْوَسَخُ: الدَّرَنُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"التعبير العام والمحايد لنقص النظافة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-04903901-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-04903901-n"
+        score: 0.95

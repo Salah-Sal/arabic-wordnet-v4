@@ -1,0 +1,249 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "لفظ 'وهج' قد يوحي بالاستمرارية والحرارة أكثر من الفجائية المطلوبة في التعريف، لكنه مستخدم علمياً في سياقات معينة."
+    observations: "المجموعة تغطي مفهوماً فيزيائياً واضحاً (انبعاث طاقة فجائي). اللمات الموجودة قوية، وسأقترح لمات أكثر دقة للمرة الواحدة (unit noun) وللسياق العلمي."
+  blind_candidates:
+    - lemma: "وَمِيضٌ"
+      generation_method: ishtiqaq
+      justification: "الاسم القياسي لانبعاث الضوء أو الطاقة بشكل فجائي."
+    - lemma: "بَرْقَةٌ"
+      generation_method: ishtiqaq
+      justification: "اسم المرة من البرق، ويدل على لمعة فجائية واحدة."
+    - lemma: "دَفْقَةٌ إِشْعَاعِيَّةٌ"
+      generation_method: tarkib
+      justification: "تركيب وصفي دقيق يترجم 'burst of radiant energy' في السياق العلمي."
+    - lemma: "تَأَلُّقٌ مَفَاجِئٌ"
+      generation_method: tarkib
+      justification: "تعبير عن السطوع الذي يحدث بشكل غير متوقع."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "وَمِيض"
+      confirm:
+        - text: "«ضوء ضئيل يسطع فجأة في بعض البلورات عند تعرضها للاشعاع أو الجسيمات المشعة»"
+          source: "المعجم الموحد لمصطلحات علوم الزلازل"
+        - text: "«وَمِيض من (و م ض) لمعان البرق.»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+    - lemma: "وَهَج"
+      confirm:
+        - text: "«إشعاع حراري ينبعث من جسم بعد تسخينه إلى درجة حرارة عالية»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«الوَهَجُ: حصول الضوء والحر من النار»"
+          source: "المفردات في غريب القرآن للراغب الأصفهاني"
+    - lemma: "وَمْضَة"
+      confirm:
+        - text: "«فلاش، ومضة: برنامج يقوم بعمل حركة للرسوم والنصوص...»"
+          source: "مسرد التربية (ArabTerm)"
+    - lemma: "دَفْقَة"
+      confirm:
+        - text: "«يُقَال جَاءُوا دفقة وَاحِدَة دفْعَة وَاحِدَة»"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "وميض"
+      decision: confirmed
+      decision_reason: "اللمة الأساسية والمناسبة تماماً لتعريف 'flash' والتعريف العربي المذكور."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "وَمِيضٌ"
+    - lemma: "وهج"
+      decision: confirmed
+      decision_reason: "مقبول للدلالة على شدة الانبعاث الضوئي والحراري، وإن كان يميل للاستمرارية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "وَهَجٌ"
+    - lemma: "وَمْضَةٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اسم المرة من الوميض، وهو الأدق للتعبير عن 'burst' (انفجار أو دفقة واحدة)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "وَمْضَةٌ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "دَفْقَةٌ إِشْعَاعِيَّةٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تقني دقيق يطابق التعريف حرفياً ويستخدم في الفيزياء والعلوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "دَفْقَةٌ إِشْعَاعِيَّةٌ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "انبعاث مفاجئ ومكثف للطاقة المشعة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكن يحتاج إلى صياغة معجمية أكثر دقة لبيان طبيعة هذا الانبعاث."
+    authored:
+      - type: terminological
+        text: "تولُّدٌ مُفاجِئٌ وشَدِيدٌ لِلطَّاقَةِ الإِشْعَاعِيَّةِ، يَظْهَرُ غَالِبًا عَلَى شَكْلِ ضَوْءٍ سَاطِعٍ قَصِيرِ المَدَى."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "تولُّدٌ مُفاجِئٌ وشَدِيدٌ لِلطَّاقَةِ الإِشْعَاعِيَّةِ، يَظْهَرُ غَالِبًا عَلَى شَكْلِ ضَوْءٍ سَاطِعٍ قَصِيرِ المَدَى."
+  examples:
+    per_lemma:
+      - lemma: "وَمِيضٌ"
+        examples:
+          - text: "رأى رُوَّادُ الفَضاءِ وَمِيضًا سَاطِعًا نَاتِجًا عَنِ اصْطِدَامِ نَيْزَكٍ بِسَطْحِ القَمَرِ."
+            type: usage
+      - lemma: "وَهَجٌ"
+        examples:
+          - text: "يُمكنُ رُؤيةُ وَهَجِ الحَرِيقِ من مَسَافَاتٍ بَعِيدةٍ في جَوْفِ اللَّيْلِ."
+            type: usage
+      - lemma: "وَمْضَةٌ"
+        examples:
+          - text: "أَرْسَلَ الجِهَازُ وَمْضَةً ضَوْئِيَّةً كإِشَارَةٍ لِبَدْءِ العَمَلِيَّةِ."
+            type: usage
+      - lemma: "دَفْقَةٌ إِشْعَاعِيَّةٌ"
+        examples:
+          - text: "تَسَبَّبَتِ الدَّفْقَةُ الإِشْعَاعِيَّةُ الشَّمْسِيَّةُ في اضْطِرَابِ الاتِّصَالاتِ اللَّاسِلْكِيَّةِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "رأى رُوَّادُ الفَضاءِ وَمِيضًا سَاطِعًا نَاتِجًا عَنِ اصْطِدَامِ نَيْزَكٍ بِسَطْحِ القَمَرِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "وَمِيضٌ"
+      entry_id: "{auto}"
+      root: "ومض"
+      maqayis_quote: "«الْوَاوُ وَالْمِيمُ وَالضَّادُ: كَلِمَةٌ تَدُلُّ عَلَى لَمَعَانِ شَيْءٍ. يُقَالُ: وَمَضَ الْبَرْقُ وَمِيضًا.»"
+    - lemma: "وَهَجٌ"
+      entry_id: "{auto}"
+      root: "وهج"
+      maqayis_quote: "«الْوَاوُ وَالْهَاءُ وَالْجِيمُ: كَلِمَةٌ وَاحِدَةٌ، وَهِيَ الْوَهَجُ: حَرُّ النَّارِ وَتَوَقُّدُهَا. وَيُسْتَعَارُ ذَلِكَ فَيُقَالُ: تَوَهَّجَ الْجَوْهَرُ: تَلَأْلأَ.»"
+    - lemma: "وَمْضَةٌ"
+      entry_id: "{auto}"
+      root: "ومض"
+      maqayis_quote: "«الْوَاوُ وَالْمِيمُ وَالضَّادُ: كَلِمَةٌ تَدُلُّ عَلَى لَمَعَانِ شَيْءٍ.»"
+    - lemma: "دَفْقَةٌ إِشْعَاعِيَّةٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "دفقة"
+          root: "دفق"
+          maqayis_quote: "«الدَّالُ وَالْفَاءُ وَالْقَافُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ قِيَاسُهُ، وَهُوَ دَفْعُ الشَّيْءِ قُدُمًا. مِنْ ذَلِكَ: دَفَقَ الْمَاءُ.»"
+        - word: "إشعاعية"
+          root: "شعع"
+          maqayis_quote: "«الشِّينُ وَالْعَيْنُ فِي الْمُضَاعَفِ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى التَّفَرُّقِ وَالِانْتِشَارِ. مِنْ ذَلِكَ الشُّعَاعُ شُعَاعُ الشَّمْسِ.»"
+  per_sense:
+    - lemma: "وَمِيضٌ"
+      sense_id: "{auto}"
+      nuance: "يُستخدم للتعبير عن اللمعان الفجائي للضوء أو الطاقة."
+      mwe: false
+    - lemma: "وَهَجٌ"
+      sense_id: "{auto}"
+      nuance: "يُركز على شدة الضياء والحرارة المنبعثة من مصدر مشع."
+      mwe: false
+    - lemma: "وَمْضَةٌ"
+      sense_id: "{auto}"
+      nuance: "يدل على وحدة مفردة وقصيرة جداً من الوميض."
+      mwe: false
+    - lemma: "دَفْقَةٌ إِشْعَاعِيَّةٌ"
+      sense_id: "{auto}"
+      nuance: "مصطلح علمي يصف الكمية المفاجئة والمركزة من الطاقة الإشعاعية."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ومض","maqayis":"«الْوَاوُ وَالْمِيمُ وَالضَّادُ: كَلِمَةٌ تَدُلُّ عَلَى لَمَعَانِ شَيْءٍ. يُقَالُ: وَمَضَ الْبَرْقُ وَمِيضًا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"وهج","maqayis":"«الْوَاوُ وَالْهَاءُ وَالْجِيمُ: كَلِمَةٌ وَاحِدَةٌ، وَهِيَ الْوَهَجُ: حَرُّ النَّارِ وَتَوَقُّدُهَا. وَيُسْتَعَارُ ذَلِكَ فَيُقَالُ: تَوَهَّجَ الْجَوْهَرُ: تَلَأْلأَ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ومض","maqayis":"«الْوَاوُ وَالْمِيمُ وَالضَّادُ: كَلِمَةٌ تَدُلُّ عَلَى لَمَعَانِ شَيْءٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"دفقة","root":"دفق","maqayis":"«الدَّالُ وَالْفَاءُ وَالْقَافُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ قِيَاسُهُ، وَهُوَ دَفْعُ الشَّيْءِ قُدُمًا.»"},{"word":"إشعاعية","root":"شعع","maqayis":"«الشِّينُ وَالْعَيْنُ فِي الْمُضَاعَفِ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى التَّفَرُّقِ وَالِانْتِشَارِ. مِنْ ذَلِكَ الشُّعَاعُ شُعَاعُ الشَّمْسِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُستخدم للتعبير عن اللمعان الفجائي للضوء أو الطاقة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُركز على شدة الضياء والحرارة المنبعثة من مصدر مشع.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يدل على وحدة مفردة وقصيرة جداً من الوميض.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح علمي يصف الكمية المفاجئة والمركزة من الطاقة الإشعاعية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

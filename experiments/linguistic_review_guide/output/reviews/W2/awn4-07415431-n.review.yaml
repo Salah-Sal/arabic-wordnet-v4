@@ -1,0 +1,168 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "المجموعة تحتوي على لمّة واحدة فقط، وهي لمّة مركبة."
+      - "تعريف المجموعة الإنجليزي 'newsworthy event' يقابله في العربية مصطلحات متنوعة تتراوح بين التركيب الإضافي والوصفي."
+      - "الارتباط بالمجموعة العليا 'حدث طبيعي' قد يكون غير دقيق إذا كان الحدث الإخباري ناتجاً عن فعل بشري، لكنه يندرج تحت 'واقعة'."
+    observations: "المفهوم واضح ويعبر عن الوقائع التي تستقطب اهتمام وسائل الإعلام. المصطلح العربي 'حدث إخباري' هو الأكثر شيوعاً واستقراراً في اللغة المعاصرة."
+  blind_candidates:
+    - lemma: "حَدَثٌ إِخْبَارِيّ"
+      generation_method: tarkib
+      justification: "الترجمة المباشرة والأكثر شيوعاً للمصطلح الإنجليزي في الصحافة العربية."
+    - lemma: "وَاقِعَةٌ إِخْبَارِيَّة"
+      generation_method: tarkib
+      justification: "استخدام 'واقعة' كمرادف لـ 'حدث' في سياق التقارير الإخبارية."
+    - lemma: "خَبَرٌ هَامّ"
+      generation_method: tarkib
+      justification: "كثيراً ما يُطلق لفظ 'الخبر' على الحدث نفسه في السياق الصحفي."
+    - lemma: "نَبَأٌ بَارِز"
+      generation_method: tarkib
+      justification: "استخدام كلمة 'نبأ' التي تعني الخبر ذا الشأن العظيم لوصف الحدث الإخباري الهام."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "حدث إخباري"
+      confirm:
+        - text: "«سَبْق صحفيّ: حدث إخباريّ هام وبارز تنفرد به صحيفة»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«فرصة التصوير: فترة قصيرة مخصَّصة للصَّحافة لتصوير المشاركين في حدث إخباري هامّ»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "نَبَأ"
+      confirm:
+        - text: "«النبأ: الخبر... ما له وقعٌ، وشأنٌ عظيمٌ»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«النَّبَأُ: خبر ذو فائدة عظيمة يحصل به علم أو غَلَبَة ظنّ، ولا يقال للخبر في الأصل نَبَأٌ حتى يتضمّن هذه الأشياء الثّلاثة»"
+          source: "المفردات في غريب القرآن"
+    - lemma: "واقعة"
+      confirm:
+        - text: "«الواقعة: النازلة من صروف الدهر»"
+          source: "المعجم الوسيط"
+        - text: "«الواقعة: حادثة تقع وتحدث»"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "حدث إخباري"
+      decision: confirmed
+      decision_reason: "مصطلح مستقر ومستخدم بكثافة في الإعلام العربي المعاصر وله شواهد معجمية واضحة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حَدَثٌ إِخْبَارِيّ"
+    - lemma: "وَاقِعَةٌ إِخْبَارِيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف دقيق لـ 'حدث إخباري' يستخدم في السياقات الأكثر رسمية أو قانونية للخبر."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "وَاقِعَةٌ إِخْبَارِيَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "نَبَأٌ بَارِز"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر عن الأحداث الإخبارية ذات الأهمية القصوى، مستفيداً من الدلالة اللغوية لـ 'النبأ'."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "نَبَأٌ بَارِز", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "حدث يستحق النشر في الأخبار"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب ويميل للوصف المباشر؛ يفضل صياغته بأسلوب معجمي يبرز القيمة الخبرية."
+    authored:
+      - type: terminological
+        text: "حَدَثٌ يَتَمَيَّزُ بِأَهَمِّيَّتِهِ لِلْجُمْهُورِ وَيَسْتَحِقُّ التَّغْطِيَةَ الْإِخْبَارِيَّةَ فِي وَسَائِلِ الْإِعْلَامِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "حَدَثٌ إِخْبَارِيّ"
+        examples:
+          - text: "كَانَ افْتِتَاحُ الْمُؤْتَمَرِ الدَّوْلِيِّ حَدَثًا إِخْبَارِيًّا بَارِزًا غَطَّتْهُ وَسَائِلُ الْإِعْلَامِ الْعَالَمِيَّةُ."
+            type: usage
+      - lemma: "وَاقِعَةٌ إِخْبَارِيَّة"
+        examples:
+          - text: "تُعَدُّ هَذِهِ الْوَاقِعَةُ الْإِخْبَارِيَّةُ نُقْطَةَ تَحَوُّلٍ فِي مَسَارِ الْقَضِيَّةِ."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "حَدَثٌ يَتَمَيَّزُ بِأَهَمِّيَّتِهِ لِلْجُمْهُورِ وَيَسْتَحِقُّ التَّغْطِيَةَ الْإِخْبَارِيَّةَ فِي وَسَائِلِ الْإِعْلَامِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "حَدَثٌ إِخْبَارِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "حدث"
+          root: "حدث"
+          maqayis_quote: "«الْحَاءُ وَالدَّالُ وَالثَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ كَوْنُ الشَّيْءِ لَمْ يَكُنْ.»"
+        - word: "إخباري"
+          root: "خبر"
+          maqayis_quote: "«الْخَاءُ وَالْبَاءُ وَالرَّاءُ أَصْلَانِ: فَالْأَوَّلُ الْعِلْمُ، وَالثَّاني يَدُلُّ عَلَى لِينٍ وَرَخَاوَةٍ.»"
+    - lemma: "وَاقِعَةٌ إِخْبَارِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "واقعة"
+          root: "وقع"
+          maqayis_quote: "«الْوَاوُ وَالْقَافُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى سُقُوطِ شَيْءٍ.»"
+        - word: "إخبارية"
+          root: "خبر"
+          maqayis_quote: "«الْخَاءُ وَالْبَاءُ وَالرَّاءُ أَصْلَانِ: فَالْأَوَّلُ الْعِلْمُ، وَالثَّاني يَدُلُّ عَلَى لِينٍ وَرَخَاوَةٍ.»"
+  per_sense:
+    - lemma: "حَدَثٌ إِخْبَارِيّ"
+      sense_id: "{auto}"
+      nuance: "المصطلح القياسي والأكثر تداولاً في المجال الصحفي."
+      mwe: true
+    - lemma: "وَاقِعَةٌ إِخْبَارِيَّة"
+      sense_id: "{auto}"
+      nuance: "تركز على الجانب الموضوعي للواقعة ومدى أهميتها للنشر."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"حدث","root":"حدث","maqayis":"«الْحَاءُ وَالدَّالُ وَالثَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ كَوْنُ الشَّيْءِ لَمْ يَكُنْ.»"},{"word":"إخباري","root":"خبر","maqayis":"«الْخَاءُ وَالْبَاءُ وَالرَّاءُ أَصْلَانِ: فَالْأَوَّلُ الْعِلْمُ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح القياسي والأكثر تداولاً في المجال الصحفي.","mwe":true}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,182 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "كلمة (إيواء) في المجموعة الحالية تعني توفير السكن للغير (فعل متعدٍ)، بينما المفهوم يشير إلى فعل الإقامة نفسه (فعل لازم)."
+    observations: "المفهوم الإنجليزي (lodging) يعبر عن فعل الإقامة المؤقتة أو النزول في مكان للراحة والمبيت. تتوافر في العربية ألفاظ دقيقة للتعبير عن هذا المفهوم كـ (نزول) و(مبيت)."
+  blind_candidates:
+    - lemma: "نُزُول"
+      generation_method: ishtiqaq
+      justification: "مصدر نزل، ويعني الحلول في المكان للإقامة المؤقتة، وهو من أشهر المقابلات للمفهوم."
+    - lemma: "مَبِيت"
+      generation_method: ishtiqaq
+      justification: "مصدر ميمي من (بات)، ويعبر عن الإقامة لقضاء الليل، وهو شائع الاستخدام في سياق الإقامة المؤقتة."
+    - lemma: "سُكْنَى"
+      generation_method: ishtiqaq
+      justification: "مصدر بمعنى الإقامة والسكن، وإن كان يميل إلى الاستقرار الدائم."
+    - lemma: "حُلُول"
+      generation_method: ishtiqaq
+      justification: "مصدر حلَّ، أي نزل وأقام."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "إيواء"
+      confirm:
+        - text: "«إيواء»"
+          source: "مسرد الفن، التسلية والرياضة (ArabTerm)"
+      contradicts:
+        - text: "«آوى فلاناً: أسكنه وأنزله.»"
+          source: "المعجم الوسيط"
+          conflict: "المعنى متعدٍّ يعبر عن توفير السكن للغير، وليس فعل الإقامة الذاتي."
+    - lemma: "نُزُول"
+      confirm:
+        - text: "«النُّزولُ: الحُلولُ.نَزَلَهُم،وـ بهم،وـ عليهم يَنْزِلُ نُزولاً ومَنْزِلاً: حَلَّ.»"
+          source: "القاموس المحيط للفيروزآبادي"
+        - text: "«بَاب النُّزُول حل بعقوتهم وأناخ بفنائهم وَحط ساحتهم وَنزل بدارهم»"
+          source: "الألفاظ المختلفة في المعاني المؤتلفة لابن مالك"
+    - lemma: "مَبِيت"
+      confirm:
+        - text: "«مكان المَبِيت ... يصاغ المصدر الميمي من الثلاثي السالم على «مَفْعَل»»"
+          source: "معجم الصواب اللغوي لأحمد مختار عمر"
+        - text: "«مأكلٌ ومَبِيت [في نُزُلٍ أو فندق].»"
+          source: "المورد الحديث"
+    - lemma: "سُكْنَى"
+      confirm:
+        - text: "«(السُّكْنَى) الإسكان وَأَن تسكن إنْسَانا منزلا بِلَا أُجْرَة والمسكن»"
+          source: "المعجم الوسيط لمجموعة من المؤلفين"
+    - lemma: "حُلُول"
+      confirm:
+        - text: "«الْحُلُول: مصدر يحل ... وحلول الشَّيْء فِي الشَّيْء عبارَة عَن نُزُوله فِيهِ»"
+          source: "دستور العلماء للأحمدنكري"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "إيواء"
+      decision: removed
+      decision_reason: "مصدر للفعل المتعدي (آوى)، ويعني إعطاء المأوى وتوفير السكن للغير، بينما المجموعة تعبر عن الفعل اللازم (الإقامة الذاتية للمرء)."
+      evidence_assessment:
+        case: contradicts_only
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "نُزُول"
+      decision: confirmed
+      decision_reason: "النزول هو الحلول في المكان والإقامة فيه مؤقتاً (كنزول الضيف أو النزول في فندق)، وهو تعبير فصيح ومطابق تماماً لمعنى المجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نُزُول"
+    - lemma: "مَبِيت"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصدر ميمي دقيق يعبر عن الإقامة لقضاء الليل، وهو شائع في الاستعمال المعاصر كمرادف للإقامة المؤقتة (lodging)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مَبِيت"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "سُكْنَى"
+      source: stage1
+      decision: removed
+      decision_reason: "تدل إما على الإقامة الدائمة (الاستقرار) أو على الفعل المتعدي (الإسكان)، ولا تختص بالإقامة المؤقتة."
+    - lemma: "حُلُول"
+      source: stage1
+      decision: removed
+      decision_reason: "رغم صحة دلالته اللغوية على النزول، إلا أنه ارتبط بشدة في الاصطلاح بالمعاني الفلسفية والصوفية (اتحاد الجسمين)، فتركه أولى دفعاً للالتباس."
+
+stage4_content:
+  definition:
+    current: "فعل الإقامة في مسكن (مؤقت عادة)"
+    assessment:
+      decision: retain
+      reason: "التعريف الحالي دقيق وموجز ويعبر عن المفهوم بسلاسة ووضوح دون حاجة للتعديل."
+  examples:
+    per_lemma:
+      - lemma: "نُزُول"
+        examples:
+          - text: "اضْطُرَّ المُسَافِرُونَ إِلَى النُّزُولِ فِي فُنْدُقٍ قَرِيبٍ بِسَبَبِ العَاصِفَةِ."
+            type: usage
+      - lemma: "مَبِيت"
+        examples:
+          - text: "وَفَّرَتِ الجِهَةُ المُنَظِّمَةُ المَأْكَلَ والمَبِيتَ لِجَمِيعِ المُشَارِكِينَ فِي المُؤْتَمَرِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "اضْطُرَّ المُسَافِرُونَ إِلَى النُّزُولِ فِي فُنْدُقٍ قَرِيبٍ بِسَبَبِ العَاصِفَةِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "وَفَّرَتِ الجِهَةُ المُنَظِّمَةُ المَأْكَلَ والمَبِيتَ لِجَمِيعِ المُشَارِكِينَ فِي المُؤْتَمَرِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "نُزُول"
+      entry_id: "{auto}"
+      root: "نزل"
+      maqayis_quote: "«النُّونُ وَالزَّاءُ وَاللَّامُ كَلِمَةٌ صَحِيحَةٌ تَدُلُّ عَلَى هُبُوطِ شَيْءٍ وَوُقُوعِهِ.»"
+    - lemma: "مَبِيت"
+      entry_id: "{auto}"
+      root: "بيت"
+      maqayis_quote: "«الْبَاءُ وَالْيَاءُ وَالتَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الْمَأْوَى وَالْمَآبُ وَمَجْمَعُ الشَّمْلِ.»"
+  per_sense:
+    - lemma: "نُزُول"
+      sense_id: "{auto}"
+      nuance: "يعبر عن مطلق الحلول والإقامة المؤقتة في المكان."
+      mwe: false
+    - lemma: "مَبِيت"
+      sense_id: "{auto}"
+      nuance: "يختص بالإقامة المؤقتة التي تتضمن قضاء الليل والنوم في المكان."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نزل","maqayis":"«النُّونُ وَالزَّاءُ وَاللَّامُ كَلِمَةٌ صَحِيحَةٌ تَدُلُّ عَلَى هُبُوطِ شَيْءٍ وَوُقُوعِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"بيت","maqayis":"«الْبَاءُ وَالْيَاءُ وَالتَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الْمَأْوَى وَالْمَآبُ وَمَجْمَعُ الشَّمْلِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يعبر عن مطلق الحلول والإقامة المؤقتة في المكان.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يختص بالإقامة المؤقتة التي تتضمن قضاء الليل والنوم في المكان.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

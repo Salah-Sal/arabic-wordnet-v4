@@ -1,0 +1,447 @@
+# ═══════════════════════════════════════════════════════════════
+# مراجعة المجموعة الترادفية — AWN4 Review Pipeline v2
+# Synset: awn4-11373505-n  |  ili: i97226
+# الموضوع: مَادَام تُوسُو — Marie Tussaud (1761-1850)
+# ═══════════════════════════════════════════════════════════════
+
+
+# ── المرحلة ١: المراجعة والتوليد ───────────────────────────────
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة ('ماري توسو' و'مدام توسو') تفتقر إلى تشكيل كامل — يجب ضبطها"
+      - "اللمّتان الموجودتان تُغطّيان صورتَي الاسم الأكثر شهرة، لكنهما لا تشملان اسم الميلاد (غروشولتز) ولا صيغة الكنية المنفردة (توسو)، في حين يتضمّن المقابل الإنجليزي الأربع الصيغ: Tussaud / Marie Tussaud / Madame Tussaud / Marie Grosholtz"
+      - "الفئة الدلالية (pos: n) صحيحة في سياق قواعد WordNet رغم أن المدخل اسم علم — لا تعديل مطلوب"
+      - "التعريف العربي الحالي يُعبِّر عن 'أقنعة شمعية' بدلاً من 'أقنعة وجه للموتى' (wax death masks) وهي الصياغة الأدق؛ ويغفل تفصيلتَي 'جولتها ببريطانيا' وتأريخ افتتاح المعرض عام 1835"
+    observations: >
+      هذه المجموعة الترادفية اسمُ علَمٍ لامرأة تاريخية بعينها هي ماري تُوسُو (Marie Tussaud)، الفنانة الفرنسية الألزاسية
+      الأصل المتخصصة في صنع تماثيل الشمع، والتي رسّخت شهرتها في لندن خلال القرن التاسع عشر. تعريب اسمها العلَم يعتمد
+      اصطلاح النقل الصوتي (التعريب)، ولا يُنتظر له مقابل اشتقاقي أو مجازي في العربية. اللمّات المقبولة ينبغي أن تُعادل
+      الصيغ الأربع المعتمدة في OEWN. الملاءمة الثقافية تندرج ضمن فئة 'الحذف' (omission) إذ المفهوم شخصية أوروبية غريبة
+      عن الموروث العربي رغم شهرة متحفها عالمياً.
+
+  blind_candidates:
+    - lemma: "مَادَام تُوسُو"
+      generation_method: taarib
+      justification: >
+        الصيغة الأشهر عالمياً واسم المتحف المعروف؛ 'مادام' لقب فرنسي يُعرَّب نقلاً صوتياً، و'توسو' تعريب لكنية
+        Tussaud. هذه الصيغة المركبة ثابتة في الإعلام العربي والترجمات المعاصرة.
+    - lemma: "مَارِي تُوسُو"
+      generation_method: taarib
+      justification: >
+        الصيغة الرسمية المكتملة للاسم (الاسم الأول + الكنية)، تُستخدم في المراجع التاريخية والموسوعية العربية
+        وتعادل الصيغة الإنجليزية 'Marie Tussaud'.
+    - lemma: "مَارِي غْرُوشُولْتْز"
+      generation_method: taarib
+      justification: >
+        اسم الميلاد (الاسم قبل الزواج) لشخصية الفنانة؛ 'غروشولتز' تعريب صوتي للقب الألزاسي Grosholtz. يُدرَج
+        لشموليّة التغطية المعجمية ولتعادل الصيغة الإنجليزية 'Marie Grosholtz' في OEWN.
+    - lemma: "تُوسُو"
+      generation_method: taarib
+      justification: >
+        الكنية المنفردة Tussaud معرَّبةً، تُستخدم اختزالاً في السياقات غير الرسمية والمراجع المختصرة،
+        وتعادل صيغة OEWN 'Tussaud'.
+
+
+# ── المرحلة ٢: جمع الأدلة ────────────────────────────────────
+stage2_evidence:
+  queries_run:
+    - pattern: "١ — مطابقة دقيقة دفعية"
+      terms_searched:
+        - "ماري توسو"
+        - "مادام توسو"
+        - "مدام توسو"
+        - "توسو"
+        - "ماري غروشولتز"
+        - "السيدة توسو"
+      result: "لا مداخل مطابقة — الأسماء العلَم الأعجمية المعرَّبة غير مُدرَجة في المعاجم العربية المُستعلَمة"
+
+    - pattern: "٧ — الجسر الإنجليزي"
+      terms_searched: ["Tussaud", "Marie Tussaud", "Madame Tussaud", "Marie Grosholtz", "wax museum", "waxworks"]
+      result: "وُجد مدخل واحد ذو صلة: entry_id=728440 (مُتْحَف الشَّمع، المورد الحديث)"
+
+    - pattern: "٦ — بحث FTS بالكلمات المفتاحية"
+      terms_searched: ["توسو", "أقنعة شمعية", "نماذج شمعية", "متحف الشمع", "معرض الشمع"]
+      result: "وُجد مدخلان: entry_id=728445 (التمثال الشمعي / معرض الشمع، المورد الحديث) وentry_id=859234 (شمع، معجم اللغة العربية المعاصرة)"
+
+  per_lemma:
+    # ── اللمّات الموجودة ──
+    - lemma: "ماري توسو"
+      evidence_status: "no_material_found"
+
+    - lemma: "مدام توسو"
+      evidence_status: "no_material_found"
+
+    # ── مرشحات المرحلة ١ ──
+    - lemma: "مَادَام تُوسُو"
+      evidence_status: "no_material_found"
+
+    - lemma: "مَارِي تُوسُو"
+      evidence_status: "no_material_found"
+
+    - lemma: "مَارِي غْرُوشُولْتْز"
+      evidence_status: "no_material_found"
+
+    - lemma: "تُوسُو"
+      evidence_status: "no_material_found"
+
+  related_findings:
+    - entry_id: 728440
+      headword: "مُتْحَف الشَّمع؛ مَعْرِض الشَّمْع."
+      translation_en: "wax museum"
+      source: "المورد الحديث (2008)"
+      relevance: >
+        يوثّق المصطلح العربي المعتمد لوصف ما أسّسته توسو؛ يُظهر أن 'معرض الشمع' و'متحف الشمع' صيغتان
+        متداولتان في العربية المعاصرة للمفهوم ذاته.
+
+    - entry_id: 728445
+      headword: "التِّمثال الشَّمعيّ / مَعْرِض الشَّمع / فن القولبة بالشَّمع"
+      translation_en: "waxwork"
+      source: "المورد الحديث (2008)"
+      relevance: >
+        يُثبّت المصطلح 'التمثال الشمعي' مقابلاً عربياً لـ waxwork، وهو ما تخصّصت توسو في صنعه؛
+        وكذلك 'فن القولبة بالشمع' وصفاً لحرفتها.
+
+    - entry_id: 859234
+      headword: "شَمْع / شَمَع"
+      source: "معجم اللغة العربية المعاصرة لأحمد مختار عمر"
+      relevance: >
+        يُدرج المعجم عبارة 'متحف الشمع' ضمن سياق استعمال مادة 'شمع'، مما يُثبّت الصيغة في المعاجم
+        المعاصرة الموثوقة.
+
+
+# ── المرحلة ٣: التحليل اللغوي للّمات ─────────────────────────
+stage3_analysis:
+  per_lemma:
+
+    # ── اللمّات الموجودة ──
+    - lemma: "ماري توسو"
+      decision: confirmed
+      decision_reason: >
+        اسم علَم مُعرَّب صحيح يعادل 'Marie Tussaud'؛ الصيغة مستخدمة في الإعلام والمصادر الموسوعية العربية.
+        يحتاج إلى ضبط تشكيل كامل.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      nuance_differentiation: >
+        يجمع الاسم الأول (ماري) بالكنية (توسو)، وهو الاسم الرسمي التاريخي للشخصية كما يرد في المراجع
+        الأكاديمية والموسوعات؛ يُمايزه عن 'مدام توسو' الذي يحمل اللقب التشريفي الفرنسي.
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَارِي تُوسُو"
+
+    - lemma: "مدام توسو"
+      decision: confirmed
+      decision_reason: >
+        اسم علَم مُعرَّب صحيح يعادل 'Madame Tussaud'؛ هذه الصيغة هي الأشهر على مستوى العلامة التجارية
+        ومتحف الشمع الذي لا يزال قائماً. يحتاج إلى ضبط تشكيل.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      nuance_differentiation: >
+        يتضمّن لقب 'مدام' (Madame) الفرنسي الدال على المكانة الاجتماعية؛ يُستخدم تحديداً للإشارة إلى
+        الشخصية بوصفها مؤسِّسة متحف الشمع الشهير، ويُعدّ الاسم التجاري الأبرز للمتحف في العالم.
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَادَام تُوسُو"
+
+    # ── مرشحات المرحلة ١ ──
+    - lemma: "مَادَام تُوسُو"
+      source: stage1
+      decision: removed
+      decision_reason: >
+        تُطابق اللمّة الموجودة 'مدام توسو' بعد تصحيح التشكيل — مرشح مكرر، لا حاجة إلى إجراء منفصل.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+
+    - lemma: "مَارِي تُوسُو"
+      source: stage1
+      decision: removed
+      decision_reason: >
+        تُطابق اللمّة الموجودة 'ماري توسو' بعد تصحيح التشكيل — مرشح مكرر، لا حاجة إلى إجراء منفصل.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+
+    - lemma: "مَارِي غْرُوشُولْتْز"
+      source: stage1
+      decision: confirmed
+      decision_reason: >
+        اسم الميلاد (Marie Grosholtz) للشخصية قبل زواجها؛ يقابل مباشرةً الصيغة الإنجليزية 'Marie Grosholtz'
+        الواردة في OEWN. يُستخدم في المصادر التاريخية والموسوعية الإنجليزية عند الإشارة إلى مرحلة حياتها
+        المبكرة. إضافته تُكمل التغطية المعجمية للأسماء الأربعة المعتمدة في WordNet.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      nuance_differentiation: >
+        اسم ما قبل الزواج؛ يُحيل إلى الشخصية في مرحلة نشأتها الألزاسية-الفرنسية قبل أن تُعرَّف بكنية
+        زوجها توسو؛ يرد في الدراسات التاريخية ووثائق الأحوال المدنية الأوروبية.
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مَارِي غْرُوشُولْتْز"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "تُوسُو"
+      source: stage1
+      decision: confirmed
+      decision_reason: >
+        الكنية المنفردة Tussaud مُعرَّبةً؛ تُقابل الصيغة الإنجليزية 'Tussaud' الواردة في OEWN.
+        تُستخدم اختزالاً شائعاً في المصادر الإعلامية والموسوعية العربية والإنجليزية على حدٍّ سواء.
+        إضافتها تُكمل التغطية الرباعية المعتمدة في WordNet.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: >
+        الكنية المجرَّدة وحدها، دون اسم أول أو لقب؛ تُستخدم في أسلوب الإحالة المختزلة حين تكون
+        الهوية محددة من السياق. تختلف عن 'ماري توسو' (الاسم الكامل) و'مادام توسو' (اللقب التشريفي).
+      actions:
+        - command: create_entry
+          params:
+            lemma: "تُوسُو"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+
+# ── المرحلة ٤: التعريف والأمثلة ───────────────────────────────
+stage4_content:
+  definition:
+    current: "صانعة نماذج فرنسية (عاشت في إنجلترا) اشتهرت بصنع أقنعة شمعية لضحايا الثورة الفرنسية وافتتحت معرضاً دائماً للشمع في لندن (1761-1850)"
+    assessment:
+      decision: revise
+      reason: >
+        التعريف الحالي يُهمل ثلاثة عناصر جوهرية: (١) دقّة الوصف 'أقنعة الموت الشمعية' (wax death masks)
+        مقابل 'أقنعة شمعية' المبهم؛ (٢) تفصيلة 'جولتها ببريطانيا بنماذجها' الواردة في المصدر الإنجليزي؛
+        (٣) تحديد عام 1835 كتاريخ افتتاح المعرض الدائم. كما تُعادل الصياغة الحالية ترجمةً حرفية غير
+        دقيقة — يستوجب الأمر تأليف تعريف موسوعي وفق أسلوب المعجم الوسيط.
+    authored:
+      - type: encyclopedic
+        text: >
+          صانعةُ تماثيلَ شمعيةٍ فرنسيةٌ (١٧٦١-١٨٥٠)، أقامت في إنجلترا بعد عام ١٨٠٢؛ اشتُهرت بصنع
+          قوالب شمعية للوجوه أخذتها عن ضحايا الثورة الفرنسية المشهورين بعد إعدامهم، وجالت ببريطانيا
+          بمجموعتها من النماذج الشمعية، ثم أسّست عام ١٨٣٥ معرضاً دائماً للتماثيل الشمعية في لندن
+          لا يزال قائماً باسمها حتى اليوم.
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: >
+            صانعةُ تماثيلَ شمعيةٍ فرنسيةٌ (١٧٦١-١٨٥٠)، أقامت في إنجلترا بعد عام ١٨٠٢؛ اشتُهرت بصنع
+            قوالب شمعية للوجوه أخذتها عن ضحايا الثورة الفرنسية المشهورين بعد إعدامهم، وجالت ببريطانيا
+            بمجموعتها من النماذج الشمعية، ثم أسّست عام ١٨٣٥ معرضاً دائماً للتماثيل الشمعية في لندن
+            لا يزال قائماً باسمها حتى اليوم.
+
+  examples:
+    per_lemma:
+      - lemma: "مَارِي تُوسُو"
+        examples:
+          - text: "أتقنت مَارِي تُوسُو فنَّ القولبة الشمعية في باريس قبل أن تستقرّ في لندن وتُؤسِّس متحفها الشهير."
+            type: usage
+
+      - lemma: "مَادَام تُوسُو"
+        examples:
+          - text: "يضمّ متحف مَادَام تُوسُو في لندن مئاتِ التماثيل الشمعية لشخصيات تاريخية ومعاصرة من شتى أنحاء العالم."
+            type: usage
+
+      - lemma: "مَارِي غْرُوشُولْتْز"
+        examples:
+          - text: "وُلدت مَارِي غْرُوشُولْتْز عام ١٧٦١ في مدينة ستراسبورغ التي كانت آنذاك جزءاً من الأراضي الألمانية."
+            type: usage
+
+      - lemma: "تُوسُو"
+        examples:
+          - text: "يستقطب متحف تُوسُو ملايين الزوار سنوياً، وبات وجهةً سياحية لا غنى عنها في قلب لندن."
+            type: usage
+
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "أتقنت مَارِي تُوسُو فنَّ القولبة الشمعية في باريس قبل أن تستقرّ في لندن وتُؤسِّس متحفها الشهير."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يضمّ متحف مَادَام تُوسُو في لندن مئاتِ التماثيل الشمعية لشخصيات تاريخية ومعاصرة من شتى أنحاء العالم."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "وُلدت مَارِي غْرُوشُولْتْز عام ١٧٦١ في مدينة ستراسبورغ التي كانت آنذاك جزءاً من الأراضي الألمانية."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يستقطب متحف تُوسُو ملايين الزوار سنوياً، وبات وجهةً سياحية لا غنى عنها في قلب لندن."
+
+
+# ── المرحلة ٥: الإثراء (البيانات الوصفية) ─────────────────────
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَارِي تُوسُو"
+      entry_id: "{auto}"
+      note: >
+        اسم علَم أعجمي مُعرَّب — لا جذر عربي ولا مقاييس لغة قابلة للتطبيق.
+        مكوّناه: 'ماري' (Marie — اسم أول فرنسي أصله اللاتيني Maria) + 'توسو' (Tussaud — كنية فرنسية).
+      roots:
+        - word: "ماري"
+          root: "N/A — اسم أعجمي"
+        - word: "توسو"
+          root: "N/A — كنية فرنسية"
+
+    - lemma: "مَادَام تُوسُو"
+      entry_id: "{auto}"
+      note: >
+        اسم علَم مُعرَّب — لا جذر عربي ولا مقاييس لغة قابلة للتطبيق.
+        مكوّناه: 'مادام' (Madame — لقب فرنسي احترامي للنساء المتزوجات) + 'توسو' (Tussaud — الكنية).
+      roots:
+        - word: "مادام"
+          root: "N/A — لقب فرنسي"
+        - word: "توسو"
+          root: "N/A — كنية فرنسية"
+
+    - lemma: "مَارِي غْرُوشُولْتْز"
+      entry_id: "{auto}"
+      note: >
+        اسم علَم أعجمي مُعرَّب — لا جذر عربي ولا مقاييس لغة قابلة للتطبيق.
+        مكوّناه: 'ماري' (Marie — الاسم الأول) + 'غروشولتز' (Grosholtz — اللقب الألزاسي-الألماني لعائلة والدها).
+      roots:
+        - word: "ماري"
+          root: "N/A — اسم أعجمي"
+        - word: "غروشولتز"
+          root: "N/A — لقب ألزاسي"
+
+    - lemma: "تُوسُو"
+      entry_id: "{auto}"
+      root: "N/A — كنية فرنسية أعجمية"
+
+  per_sense:
+    - lemma: "مَارِي تُوسُو"
+      sense_id: "{auto}"
+      nuance: >
+        الاسم الرسمي الكامل (الاسم الأول + الكنية)؛ يُستخدم في المراجع التاريخية والأكاديمية للإشارة
+        إلى الشخصية بصفتها الإنسانية والتاريخية. يُمايزه احتواؤه الاسمَ الشخصي 'ماري' دون اللقب الوظيفي.
+      mwe: true
+
+    - lemma: "مَادَام تُوسُو"
+      sense_id: "{auto}"
+      nuance: >
+        الاسم التجاري والعلامة الثقافية الشهيرة؛ يحمل اللقب الفرنسي 'مادام' الدال على المكانة الاجتماعية
+        والاحترام. يُستخدم للإشارة إلى الشخصية بوصفها مؤسِّسة المتحف ورمزاً ثقافياً، وللمتحف نفسه
+        اختصاراً. الأعرف والأوسع تداولاً في الإعلام العربي.
+      mwe: true
+
+    - lemma: "مَارِي غْرُوشُولْتْز"
+      sense_id: "{auto}"
+      nuance: >
+        اسم ما قبل الزواج؛ يُحدِّد هوية الشخصية في مرحلة حياتها الأولى (1761-1795 تقريباً) قبل
+        ارتباطها بكنية توسو. يُستخدم في الدراسات البيوغرافية التاريخية والوثائق الرسمية الأوروبية.
+      mwe: true
+
+    - lemma: "تُوسُو"
+      sense_id: "{auto}"
+      nuance: >
+        الكنية المجرّدة وحدها؛ أسلوب إحالة مختزَل يرد عند وضوح السياق. تختلف عن سائر الأشكال
+        بكونها أحادية المقطع الدلالي وأقصرها، وتُستخدم بصفة خاصة في العناوين الإعلامية المختصرة.
+      mwe: false
+
+  synset:
+    cultural_fit: omission
+
+  actions:
+    # ── بيانات المداخل ──
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"foreign_proper_noun":true,"components":[{"word":"ماري","origin":"French given name, Latin Maria"},{"word":"توسو","origin":"French surname Tussaud"}]}'
+
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"foreign_proper_noun":true,"components":[{"word":"مادام","origin":"French honorific Madame"},{"word":"توسو","origin":"French surname Tussaud"}]}'
+
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"foreign_proper_noun":true,"components":[{"word":"ماري","origin":"French given name, Latin Maria"},{"word":"غروشولتز","origin":"Alsatian-German surname Grosholtz"}]}'
+
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"foreign_proper_noun":true,"origin":"French surname Tussaud, used as standalone reference"}'
+
+    # ── بيانات المعاني ──
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الرسمي الكامل في المراجع التاريخية والأكاديمية","mwe":true}'
+
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم التجاري الأشهر ورمز المتحف، يحمل لقب مادام الفرنسي","mwe":true}'
+
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اسم ما قبل الزواج، يُستخدم في السياقات البيوغرافية التاريخية","mwe":true}'
+
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الكنية المجردة في الإحالات المختزلة","mwe":false}'
+
+    # ── بيانات المجموعة ──
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"omission","note":"شخصية تاريخية أوروبية، مفهومها غريب عن الموروث العربي رغم شهرة متحفها عالمياً"}'
+
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.82

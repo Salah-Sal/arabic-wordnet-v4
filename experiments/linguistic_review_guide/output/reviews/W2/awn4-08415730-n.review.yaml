@@ -1,0 +1,258 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'مجموعة متنوعة' عبارة وصفية حرة (مركب وصفي) وليست مصطلحاً مسكوكاً، حيث يمكن استبدال مكوناتها بمرادفات (مثل: طائفة متنوعة، مجموعة مختلفة) دون الإخلال بالمعنى، مما ينفي عنها صفة الثبات المعجمي."
+    observations: "المفهوم يدل على جمع أشياء من أصناف وأنواع مختلفة. اللمتان 'تشكيلة' و'خليط' تؤديان المعنى بدقة وتعتبران من الكلمات الأساسية في العربية للتعبير عن هذا المفهوم. يمكن إثراء المجموعة بكلمات أُخرى مثل 'مزيج' و'منوعات'."
+  blind_candidates:
+    - lemma: "تَشْكِيلَة"
+      generation_method: ishtiqaq
+      justification: "اشتقاق من الجذر (شكل) على وزن تفعيلة، يدل على مجموعة أُعطيت شكلاً من عناصر متنوعة."
+    - lemma: "خَلِيط"
+      generation_method: ishtiqaq
+      justification: "اشتقاق من الجذر (خلط) على وزن فعيل بمعنى مفعول، يدل على ما اختلط من أشياء متباينة."
+    - lemma: "مَزِيج"
+      generation_method: ishtiqaq
+      justification: "اشتقاق من الجذر (مزج)، يدل على الجمع بين أشياء مختلفة."
+    - lemma: "مُنَوَّعَات"
+      generation_method: ishtiqaq
+      justification: "جمع مؤنث سالم لاسم المفعول من (نوّع)، يدل على أشياء ذات أنواع شتى جُمعت معاً."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تشكيلة"
+      confirm:
+        - text: "كلمة «تَشْكيلة» اسم مرة مأخوذ من الفعل «شَكَّلَ» بمعنى صوَّر أشكالاً، وقد جاء في الأساسي أن التشكيلة هي عدد متنوع من شيء ما."
+          source: "معجم الصواب اللغوي لأحمد مختار عمر"
+    - lemma: "خليط"
+      confirm:
+        - text: "ما اختلَط من صنفين أو أصناف"
+          source: "المعجم الوسيط"
+    - lemma: "مجموعة متنوعة"
+      evidence_status: "no_material_found"
+    - lemma: "مزيج"
+      confirm:
+        - text: "يتكون من شيئين أو أكثر ممتزجين"
+          source: "المعجم الوسيط"
+    - lemma: "منوعات"
+      confirm:
+        - text: "وحدات نصية تحكم بتشابهاتها، وهي منوعات سياقية ومنوعات حرة تساهم في تعدد الوحدة."
+          source: "المعجم الموحد لمصطلحات اللسانيات (2002)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تشكيلة"
+      decision: confirmed
+      decision_reason: "مصطلح دقيق ومستعمل بكثرة للدلالة على عدد متنوع من الأشياء المجمعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَشْكِيلَة"
+    - lemma: "خليط"
+      decision: confirmed
+      decision_reason: "مصطلح فصيح يدل بوضوح على تداخل واختلاط صنفين أو أكثر."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَلِيط"
+    - lemma: "مجموعة متنوعة"
+      decision: removed
+      decision_reason: "تعبير وصفي حر غير مسكوك، حيث يمكن استبدال مكوناته بسهولة (كقولنا: طائفة متنوعة، مجموعة مختلفة) ولا يحمل خصائص المفرَدة المعجمية."
+      evidence_assessment:
+        case: no_material
+    - lemma: "مَزِيج"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف قوي وفصيح لـ'خليط'، ويدل على ما يُجمع ويُمزج من أشياء مختلفة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مَزِيج"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "مُنَوَّعَات"
+      source: stage1
+      decision: confirmed
+      decision_reason: "كلمة شائعة وفصيحة تُستخدم للدلالة على مجموعة من الأشياء أو المواضيع المختلفة والمنوعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُنَوَّعَات"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "مجموعة تحتوي على تشكيلة متنوعة من أنواع الأشياء"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يحتوي على كلمة (تشكيلة) وهي إحدى لمّات المجموعة، مما يوقع في الدوران المعجمي (تعريف الشيء بنفسه). يجب صياغة تعريف دقيق لا يتضمن اللمّات."
+    authored:
+      - type: terminological
+        text: "مَا جُمِعَ مِنْ أَشْيَاءَ وَعَنَاصِرَ مُخْتَلِفَةِ الأَنْوَاعِ أَوِ الأَصْنَافِ فِي كِيَانٍ وَاحِد."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "مَا جُمِعَ مِنْ أَشْيَاءَ وَعَنَاصِرَ مُخْتَلِفَةِ الأَنْوَاعِ أَوِ الأَصْنَافِ فِي كِيَانٍ وَاحِد."
+  examples:
+    per_lemma:
+      - lemma: "تَشْكِيلَة"
+        examples:
+          - text: "تَضُمُّ المَكْتَبَةُ تَشْكِيلَةً نَادِرَةً مِنَ المَخْطُوطَاتِ التَّارِيخِيَّةِ."
+            type: usage
+      - lemma: "خَلِيط"
+        examples:
+          - text: "يَتَكَوَّنُ هَذَا العِطْرُ مِنْ خَلِيطٍ مُتَنَاغِمٍ مِنَ الزُّهُورِ البَرِّيَّةِ."
+            type: usage
+      - lemma: "مَزِيج"
+        examples:
+          - text: "قَدَّمَ المَعْرِضُ مَزِيجاً فَرِيداً مِنَ الفُنُونِ الكِلَاسِيكِيَّةِ والمُعَاصِرَةِ."
+            type: usage
+      - lemma: "مُنَوَّعَات"
+        examples:
+          - text: "اشْتَرَى بَاقَةً مِنَ المُنَوَّعَاتِ الأَدَبِيَّةِ لِيَقْرَأَهَا فِي عُطْلَتِهِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تَضُمُّ المَكْتَبَةُ تَشْكِيلَةً نَادِرَةً مِنَ المَخْطُوطَاتِ التَّارِيخِيَّةِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يَتَكَوَّنُ هَذَا العِطْرُ مِنْ خَلِيطٍ مُتَنَاغِمٍ مِنَ الزُّهُورِ البَرِّيَّةِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "قَدَّمَ المَعْرِضُ مَزِيجاً فَرِيداً مِنَ الفُنُونِ الكِلَاسِيكِيَّةِ والمُعَاصِرَةِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "اشْتَرَى بَاقَةً مِنَ المُنَوَّعَاتِ الأَدَبِيَّةِ لِيَقْرَأَهَا فِي عُطْلَتِهِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تَشْكِيلَة"
+      entry_id: "{auto}"
+      root: "شكل"
+      maqayis_quote: "«الشِّينُ وَالْكَافُ وَاللَّامُ مُعْظَمُ بَابِهِ الْمُمَاثَلَةُ...»"
+    - lemma: "خَلِيط"
+      entry_id: "{auto}"
+      root: "خلط"
+      maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالطَّاءُ أَصْلٌ وَاحِدٌ مُخَالِفٌ لِلْبَابِ الَّذِي قَبْلَهُ، بَلْ هُوَ مُضَادٌّ لَهُ. تَقُولُ: خَلَطْتُ الشَّيْءَ بِغَيْرِهِ فَاخْتَلَطَ...»"
+    - lemma: "مَزِيج"
+      entry_id: "{auto}"
+      root: "مزج"
+      maqayis_quote: "«الْمِيمُ وَالزَّاءُ وَالْجِيمُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى خَلْطِ الشَّيْءِ بِغَيْرِهِ. وَمَزَجَ الشَّرَابَ يَمْزُجُهُ مَزْجًا...»"
+    - lemma: "مُنَوَّعَات"
+      entry_id: "{auto}"
+      root: "نوع"
+      maqayis_quote: "«النُّونُ وَالْوَاوُ وَالْعَيْنُ كَلِمَتَانِ، إِحْدَاهُمَا تَدُلُّ عَلَى طَائِفَةٍ مِنَ الشَّيْءِ مُمَاثِلَةٍ لَهُ...»"
+  per_sense:
+    - lemma: "تَشْكِيلَة"
+      sense_id: "{auto}"
+      nuance: "تُشير إلى مجموعة مُنتقاة من أشياء مختلفة جُمعت لغرض أو عرض معين."
+      mwe: false
+    - lemma: "خَلِيط"
+      sense_id: "{auto}"
+      nuance: "يُركّز على تداخل واختلاط عدة عناصر أو أصناف مختلفة بحيث تفقد أحياناً تمايزها الواضح."
+      mwe: false
+    - lemma: "مَزِيج"
+      sense_id: "{auto}"
+      nuance: "يُشابه الخليط، ولكنه يُوحي بانسجام أو تكامل بين العناصر المجتمعة."
+      mwe: false
+    - lemma: "مُنَوَّعَات"
+      sense_id: "{auto}"
+      nuance: "تُطلق على مجموعة من الأشياء أو الأعمال (كالفنية أو الأدبية) التي لا يجمعها موضوع واحد بل تتميز بالتعدد والاختلاف."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"شكل","maqayis":"«الشِّينُ وَالْكَافُ وَاللَّامُ مُعْظَمُ بَابِهِ الْمُمَاثَلَةُ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خلط","maqayis":"«الْخَاءُ وَاللَّامُ وَالطَّاءُ أَصْلٌ وَاحِدٌ مُخَالِفٌ لِلْبَابِ الَّذِي قَبْلَهُ، بَلْ هُوَ مُضَادٌّ لَهُ. تَقُولُ: خَلَطْتُ الشَّيْءَ بِغَيْرِهِ فَاخْتَلَطَ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"مزج","maqayis":"«الْمِيمُ وَالزَّاءُ وَالْجِيمُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى خَلْطِ الشَّيْءِ بِغَيْرِهِ. وَمَزَجَ الشَّرَابَ يَمْزُجُهُ مَزْجًا...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نوع","maqayis":"«النُّونُ وَالْوَاوُ وَالْعَيْنُ كَلِمَتَانِ، إِحْدَاهُمَا تَدُلُّ عَلَى طَائِفَةٍ مِنَ الشَّيْءِ مُمَاثِلَةٍ لَهُ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تُشير إلى مجموعة مُنتقاة من أشياء مختلفة جُمعت لغرض أو عرض معين.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُركّز على تداخل واختلاط عدة عناصر أو أصناف مختلفة بحيث تفقد أحياناً تمايزها الواضح.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُشابه الخليط، ولكنه يُوحي بانسجام أو تكامل بين العناصر المجتمعة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تُطلق على مجموعة من الأشياء أو الأعمال (كالفنية أو الأدبية) التي لا يجمعها موضوع واحد بل تتميز بالتعدد والاختلاف.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

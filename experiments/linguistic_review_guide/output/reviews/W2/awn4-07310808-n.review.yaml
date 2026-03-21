@@ -1,0 +1,228 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة هي ترجمة حرفية للمصطلحات الإنجليزية، وتفتقر للتشكيل الكامل."
+      - "التعريف العربي بسيط جداً ويحتاج إلى صياغة معجمية أكثر دقة."
+    observations: "المفهوم يشير إلى الأحداث التي تتكرر في دورات أو فترات زمنية منتظمة. اللغة العربية غنية بالمصطلحات التي تعبر عن التكرار والتوالي، خاصة مصطلح 'التواتر' الذي يشترط فيه اللغويون وجود فترة زمنية بين الحدوث والآخر، وهو ما يطابق التعريف تماماً."
+  blind_candidates:
+    - lemma: "دَوْرِيَّةٌ"
+      generation_method: ishtiqaq
+      justification: "مصدر صناعي من 'دَوْر' يعبر عن خاصية التكرار الدوري أو الشيء الذي يحدث بانتظام."
+    - lemma: "تَوَاتُرٌ"
+      generation_method: ishtiqaq
+      justification: "من الجذر 'وتر'، وهو تتابع الأشياء بوجود فترات بينها، مما يطابق تماماً 'recurs at intervals'."
+    - lemma: "ظَاهِرَةٌ دَوْرِيَّةٌ"
+      generation_method: tarkib
+      justification: "تعبير اصطلاحي علمي دقيق لوصف الأحداث التي تتكرر بانتظام."
+    - lemma: "حَدَثٌ مُتَوَاتِرٌ"
+      generation_method: ishtiqaq
+      justification: "وصف للحدث الذي يتكرر تباعاً مع وجود فواصل زمنية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "حَدَثٌ دَوْرِيّ"
+      expands:
+        - text: "«عدد التغيرات التي تحدثها ظاهرة دورية خلال ثانية واحدة»"
+          source: "المعجم الموحد لمصطلحات تقانة المعلومات"
+          addition: "استخدام 'ظاهرة دورية' كمرادف للحدث الذي له تردد."
+    - lemma: "حَدَثٌ مُتَكَرِّر"
+      confirm:
+        - text: "«تكرار حدوث كثافة معينة للأمطار»"
+          source: "المعجم الموحد لمصطلحات المياه"
+    - lemma: "تَوَاتُرٌ"
+      confirm:
+        - text: "«لا تكون مواترة إلا إذا وقعت بينهما فترة، وإلا فهي مداركة»"
+          source: "مقاييس اللغة لابن فارس"
+        - text: "«تواتر: تكرار (recurrence)»"
+          source: "المعجم الموحد لمصطلحات اللسانيات"
+    - lemma: "ظَاهِرَةٌ دَوْرِيَّةٌ"
+      confirm:
+        - text: "«التردد: عدد التغيرات التي تحدثها ظاهرة دورية خلال ثانية واحدة»"
+          source: "المعجم الموحد لمصطلحات تقانة المعلومات"
+    - lemma: "دَوْرِيَّةٌ"
+      confirm:
+        - text: "«الدورية: نزعة إلى تكرر الحدوث في فترات نظامية»"
+          source: "المورد الحديث"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "حدث دوري"
+      decision: confirmed
+      decision_reason: "مصطلح شائع ومباشر، يطابق المفهوم العلمي واللغوي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حَدَثٌ دَوْرِيٌّ"
+    - lemma: "حدث متكرر"
+      decision: confirmed
+      decision_reason: "وصف دقيق للحدث الذي يعود للحدوث مرة بعد أخرى."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حَدَثٌ مُتَكَرِّرٌ"
+    - lemma: "تَوَاتُرٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تراثي دقيق جداً (من الجذر وتر) يعني التتابع مع وجود فترات، وهو ما يطابق التعريف تماماً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَوَاتُرٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "ظَاهِرَةٌ دَوْرِيَّةٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير علمي رصين يستخدم في الفيزياء والعلوم الطبيعية لوصف الأحداث الدورية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "ظَاهِرَةٌ دَوْرِيَّةٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "حدث يتكرر على فترات زمنية"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب جداً ويحتاج إلى صياغة أكثر دقة ومطابقة للأسلوب المعجمي."
+    authored:
+      - type: terminological
+        text: "واقِعَةٌ أو ظاهِرَةٌ تتَكرَّرُ حُدوثاً في فتراتٍ زمنيّةٍ مُنتظِمَة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "واقِعَةٌ أو ظاهِرَةٌ تتَكرَّرُ حُدوثاً في فتراتٍ زمنيّةٍ مُنتظِمَة."}
+  examples:
+    per_lemma:
+      - lemma: "حَدَثٌ دَوْرِيٌّ"
+        examples:
+          - text: "ظاهرة المد والجزر حدث دوري يتكرر مرتين يوميا بتأثير جاذبية القمر."
+            type: usage
+      - lemma: "حَدَثٌ مُتَكَرِّرٌ"
+        examples:
+          - text: "تعتبر الفيضانات الموسمية في حوض النيل حدثا متكررا اعتاد عليه السكان منذ القدم."
+            type: usage
+      - lemma: "تَوَاتُرٌ"
+        examples:
+          - text: "تتميز الزلازل في الصدوع النشطة بتواتر حدوثها على مدى قرون."
+            type: usage
+      - lemma: "ظَاهِرَةٌ دَوْرِيَّةٌ"
+        examples:
+          - text: "كسوف الشمس ظاهرة دورية يمكن حساب مواعيدها بدقة متناهية لآلاف السنين."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "تعد تعاقب الفصول الأربعة من أبرز الأمثلة على الأحداث الدورية في الطبيعة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "حَدَثٌ دَوْرِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "حدث"
+          root: "حدث"
+          maqayis_quote: "«الْحَاءُ وَالدَّالُ وَالثَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ كَوْنُ الشَّيْءِ لَمْ يَكُنْ. يُقَالُ حَدَثَ أَمْرٌ بَعْدَ أَنْ لَمْ يَكُنْ.»"
+        - word: "دوري"
+          root: "دور"
+          maqayis_quote: "«الدَّالُ وَالْوَاوُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى إِحْدَاقِ الشَّيْءِ بِالشَّيْءِ مِنْ حَوَالَيْهِ. يُقَالُ دَارَ يَدُورُ دَوَرَانًا.»"
+    - lemma: "حَدَثٌ مُتَكَرِّرٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "حدث"
+          root: "حدث"
+          maqayis_quote: "«الْحَاءُ وَالدَّالُ وَالثَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ كَوْنُ الشَّيْءِ لَمْ يَكُنْ.»"
+        - word: "متكرر"
+          root: "كر"
+          maqayis_quote: "«الْكَافُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى جَمْعٍ وَتَرْدِيدٍ. مِنْ ذَلِكَ كَرَرْتُ، وَذَلِكَ رُجُوعُكَ إِلَيْهِ بَعْدَ الْمَرَّةِ الْأُولَى.»"
+    - lemma: "تَوَاتُرٌ"
+      entry_id: "{auto}"
+      root: "وتر"
+      maqayis_quote: "«أَمَّا الْمُوَاتَرَةُ فِي الْأَشْيَاءِ فَقَالَ اللِّحْيَانِيُّ: لَا تَكُونُ مُوَاتَرَةً إِلَّا إِذَا وَقَعَتْ بَيْنَهُمَا فَتْرَةٌ، وَإِلَّا فَهِيَ مُدَارَكَةٌ.»"
+    - lemma: "ظَاهِرَةٌ دَوْرِيَّةٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "ظاهرة"
+          root: "ظهر"
+          maqayis_quote: "«الظَّاءُ وَالْهَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ صَحِيحٌ، يَدُلُّ عَلَى قُوَّةٍ وَبُرُوزٍ.»"
+        - word: "دورية"
+          root: "دور"
+          maqayis_quote: "«الدَّالُ وَالْوَاوُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى إِحْدَاقِ الشَّيْءِ بِالشَّيْءِ مِنْ حَوَالَيْهِ.»"
+  per_sense:
+    - lemma: "حَدَثٌ دَوْرِيٌّ"
+      sense_id: "{auto}"
+      nuance: "يؤكد على الطبيعة الدائرية للحدث وعودته لنقطة البداية بانتظام."
+      mwe: true
+    - lemma: "حَدَثٌ مُتَكَرِّرٌ"
+      sense_id: "{auto}"
+      nuance: "يركز على مجرد العودة للحدوث دون اشتراط الانتظام الدقيق في الفترات."
+      mwe: true
+    - lemma: "تَوَاتُرٌ"
+      sense_id: "{auto}"
+      nuance: "مصطلح يعبر عن ظاهرة التتابع التي تفصل بين آحادها فترات زمنية."
+      mwe: false
+    - lemma: "ظَاهِرَةٌ دَوْرِيَّةٌ"
+      sense_id: "{auto}"
+      nuance: "تعبير علمي يصف الحدث بوصفه ظاهرة قابلة للرصد والقياس الدوري."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"حدث","root":"حدث","maqayis":"«الْحَاءُ وَالدَّالُ وَالثَّاءُ أَصْلٌ وَاحِدٌ...»"},{"word":"دوري","root":"دور","maqayis":"«الدَّالُ وَالْوَاوُ وَالرَّاءُ أَصْلٌ وَاحِدٌ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"حدث","root":"حدث","maqayis":"«الْحَاءُ وَالدَّالُ وَالثَّاءُ أَصْلٌ وَاحِدٌ...»"},{"word":"متكرر","root":"كر","maqayis":"«الْكَافُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى جَمْعٍ وَتَرْدِيدٍ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"وتر","maqayis":"«أَمَّا الْمُوَاتَرَةُ فِي الْأَشْيَاءِ... لَا تَكُونُ مُوَاتَرَةً إِلَّا إِذَا وَقَعَتْ بَيْنَهُمَا فَتْرَةٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"ظاهرة","root":"ظهر","maqayis":"«الظَّاءُ وَالْهَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ صَحِيحٌ...»"},{"word":"دورية","root":"دور","maqayis":"«الدَّالُ وَالْوَاوُ وَالرَّاءُ أَصْلٌ وَاحِدٌ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

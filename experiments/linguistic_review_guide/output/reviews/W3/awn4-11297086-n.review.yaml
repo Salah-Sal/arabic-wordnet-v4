@@ -1,0 +1,315 @@
+# ═══════════════════════════════════════════════════════════════
+# مراجعة المجموعة الترادفية — AWN4 Review Pipeline v2 (5-Stage)
+# synset_id: awn4-11297086-n
+# ili: i96790
+# ═══════════════════════════════════════════════════════════════
+
+# ── المرحلة ١: المراجعة والتوليد ──────────────────────────────
+stage1_review:
+  assessment:
+    concerns:
+      - "المجموعة تحتوي على اسم علم لشخصية تاريخية محددة (إيليال سارينن)، وتصنيفها كـ pos:n (noun عام) غير دقيق — ينبغي أن يكون pos:proper_noun."
+      - "اللمّتان الموجودتان خاليتان من التشكيل الكامل."
+      - "لمّة 'سارينن' وحدها غامضة لأنها تنطبق على الأب (إيليال) والابن (إيرو) على حدٍّ سواء، مما يفتح باب الاشتراك اللفظي داخل الشبكة."
+      - "التعريب 'إيليال' لاسم Eliel يحتاج مراجعة: الاسم الأصلي الفنلندي يُنطق 'إيليِل' وليس 'إيليال'، غير أن 'إيليال' شائع في المصادر العربية، لذا يُبقى مع تسجيل الملاحظة."
+    observations: >
+      هذه المجموعة استثنائية لأنها ليست مصطلحاً اصطلاحياً بل اسم علم لشخص بعينه.
+      معايير التوليد المصطلحي المعتادة (مجاز، اشتقاق، تركيب) لا تنطبق هنا؛ إذ المرشحات الوحيدة
+      الممكنة هي صيغ تعريب بديلة للاسم الأجنبي. اللمّات الموجودة (إيليال سارينن، سارينن) مقبولة
+      من حيث المبدأ، لكن تحتاج إلى تشكيل وضبط POS وتحقق من دقة التعريب الصوتي.
+
+  blind_candidates:
+    # بما أن هذا اسم علم أجنبي، المرشحات هي صور تعريب بديلة صوتياً
+    - lemma: "إِيلِيِل سَارِينِن"
+      generation_method: taarib
+      justification: >
+        صيغة تعريب أكثر دقة صوتياً للاسم الأصلي الفنلندي Eliel Saarinen؛ فالمقطع الأخير
+        من Eliel يُلفظ 'ل' خالصة لا 'ال'، فتكون 'إيليِل' أدق من 'إيليال'.
+    - lemma: "إِيلِيَال سَارِينِن"
+      generation_method: taarib
+      justification: >
+        الصيغة المستخدمة فعلاً في المصادر العربية لتعريب Eliel، بإشباع حركة اللام ألفاً،
+        وهو نمط شائع في التعريب العربي للأسماء الأجنبية المنتهية بصوت مشابه.
+    - lemma: "إِيلِيَل سَارِينِن"
+      generation_method: taarib
+      justification: >
+        صيغة وسط بين الصيغتين السابقتين، تحذف الألف المُشبعة وتسكّن اللام،
+        مما قد يناسب بعض الأذواق الصوتية العربية في التعريب.
+    - lemma: "سَارِينِن"
+      generation_method: taarib
+      justification: >
+        الاسم الأخير (اللقب) فقط، وهو أسلوب معجمي مألوف في بعض القواميس الموسوعية
+        التي تُدرج الشخصيات تحت لقبها الأسري.
+
+
+# ── المرحلة ٢: جمع الأدلة ────────────────────────────────────
+stage2_evidence:
+  query_log:
+    - query_num: 1
+      type: batch_headword_lookup
+      description: "بحث دفعي عن اللمّات الموجودة بأشكالها المسوّاة"
+      terms_searched:
+        - "ايليال سارينن"
+        - "الايليال سارينن"
+        - "سارينن"
+        - "السارينن"
+        - "ايليل سارينن"
+        - "اليليل سارينن"
+      result_count: 0
+    - query_num: 2
+      type: english_bridge
+      description: "جسر إنجليزي لـ Saarinen / Eliel Saarinen / Eero Saarinen"
+      terms_searched:
+        - "Saarinen"
+        - "Eliel Saarinen"
+        - "Eero Saarinen"
+      result_count: 0
+    - query_num: 3
+      type: arabic_fts_keyword
+      description: "بحث بكلمات مفتاحية من التعريف (سارينن، فنلندي، معماري)"
+      terms_searched:
+        - "سارينن"
+        - "سارنن"
+        - "فنلندي"
+        - "معماري فنلند"
+      result_count: 0
+      note: "النتائج المُسترجعة تتعلق بمصطلحات 'فنلندي' العامة (قطن فنلندي، حمام فنلندي) ولا صلة لها بالشخصية المقصودة."
+
+  per_lemma:
+    - lemma: "إيليال سارينن"
+      evidence_status: "no_material_found"
+
+    - lemma: "سارينن"
+      evidence_status: "no_material_found"
+
+    - lemma: "إِيلِيِل سَارِينِن"
+      source: stage1
+      evidence_status: "no_material_found"
+
+    - lemma: "إِيلِيَال سَارِينِن"
+      source: stage1
+      evidence_status: "no_material_found"
+
+    - lemma: "إِيلِيَل سَارِينِن"
+      source: stage1
+      evidence_status: "no_material_found"
+
+    - lemma: "سَارِينِن"
+      source: stage1
+      evidence_status: "no_material_found"
+
+  evidence_summary: >
+    لا توجد أي مداخل في قاعدة البيانات المعجمية (760,660 مدخل) لأي صيغة من صيغ
+    اسم إيليال سارينن، سواء بالبحث المباشر أو الجسر الإنجليزي أو FTS بالكلمات المفتاحية.
+    هذا متوقع تماماً لأن الأسماء العلم للشخصيات الأجنبية نادراً ما تُدرج في المعاجم
+    العربية المعيارية أو قواميس المصطلحات المتخصصة.
+
+
+# ── المرحلة ٣: التحليل اللغوي للّمات ────────────────────────
+stage3_analysis:
+  per_lemma:
+    # ── اللمّات الموجودة ──
+    - lemma: "إيليال سارينن"
+      decision: confirmed
+      decision_reason: >
+        هذا هو الاسم الكامل للشخصية (الاسم الأول + اللقب العائلي)، وهو اللمّة الأساسية
+        الضرورية لتعيين الهوية بدقة. رغم غياب الأدلة المعجمية (مفهوم لاسم علم أجنبي)،
+        فإن التعريب المستخدم شائع في المصادر العربية ومعروف. يحتاج إلى إضافة التشكيل الكامل.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      nuance_differentiation: >
+        يجمع الاسم الأول واللقب معاً فيُحدد الشخصية بلا لبس، ويميّزها عن ابنه المعماري
+        إيرو سارينن الذي يشترك معه في اللقب العائلي.
+      morphology_check:
+        pos_fit: "اسم علم أعجمي معرَّب — تعريب صوتي مقبول"
+        tashkeel_status: missing
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "إِيلِيَال سَارِينِن"
+        - command: update_entry
+          params:
+            entry_id: "{auto}"
+            pos: proper_noun
+
+    - lemma: "سارينن"
+      decision: confirmed
+      decision_reason: >
+        الاسم الأخير (اللقب) وحده مقبول كلمّة ثانوية في المعاجم الموسوعية التي تُدرج
+        الأعلام تحت لقبها؛ وهو الأسلوب المعتمد في كثير من المعاجم الإنجليزية (Saarinen
+        يحيل إلى Eliel Saarinen). غير أنه يستوجب التشكيل والتنبيه إلى ضرورة السياق
+        لتمييزه عن الابن (إيرو سارينن).
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: >
+        اللقب وحده يُستخدم أسلوب الإحالة المختصرة في النصوص التي سبق ذكر الاسم الكامل،
+        بينما اللمّة الأولى (إيليال سارينن) هي الاسم المرجعي الكامل غير القابل للالتباس.
+      morphology_check:
+        pos_fit: "اسم علم أعجمي معرَّب — لقب عائلي"
+        tashkeel_status: missing
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "سَارِينِن"
+        - command: update_entry
+          params:
+            entry_id: "{auto}"
+            pos: proper_noun
+
+    # ── مرشحات المرحلة ١ ──
+    - lemma: "إِيلِيِل سَارِينِن"
+      source: stage1
+      decision: removed
+      decision_reason: >
+        رغم أن هذه الصيغة أدق صوتياً للفنلندية، فإن تعريب 'إيليال' هو الأشهر والأوسع
+        انتشاراً في المصادر العربية المعتمدة، والتغيير إلى 'إيليِل' سيُحدث ارتباكاً دون
+        مكسب عملي حقيقي.
+
+    - lemma: "إِيلِيَال سَارِينِن"
+      source: stage1
+      decision: removed
+      decision_reason: >
+        هذه الصيغة مطابقة عملياً للمّة الموجودة 'إيليال سارينن' بعد إضافة التشكيل — لا
+        حاجة لإنشاء مدخل مستقل.
+
+    - lemma: "إِيلِيَل سَارِينِن"
+      source: stage1
+      decision: removed
+      decision_reason: >
+        صيغة تعريب ثالثة غير ضرورية في ظل وجود الاسم المعتمد. إضافة تعريبات بديلة
+        متعددة لاسم علم يُفضي إلى تضخم المجموعة دون قيمة مضافة.
+
+    - lemma: "سَارِينِن"
+      source: stage1
+      decision: removed
+      decision_reason: >
+        اللقب المجرد موجود فعلاً كلمّة ثانية في المجموعة ('سارينن')، فلا حاجة لإنشاء
+        مدخل مستقل له من المرحلة ١.
+
+  synset_actions:
+    - command: update_synset
+      params:
+        synset_id: "awn4-11297086-n"
+        pos: proper_noun
+
+
+# ── المرحلة ٤: التعريف والأمثلة ──────────────────────────────
+stage4_content:
+  definition:
+    current: "معماري ومخطط مدن فنلندي انتقل إلى الولايات المتحدة عام 1923؛ والد إيرو سارينن (1873-1950)"
+    assessment:
+      decision: revise
+      reason: >
+        التعريف الحالي مقبول في مضمونه لكنه يفتقر إلى الصياغة المعجمية الموحدة؛ فهو
+        يبدأ بصفة (معماري) وليس بعبارة تعريفية واضحة الجنس القريب، كما أن ذكر 'والد إيرو
+        سارينن' يعتمد اسماً علماً آخر كمعرِّف وهو مقبول في التعريف الموسوعي. يُضاف
+        أيضاً ذكر أبرز أعماله لإتمام التعريف الموسوعي.
+    authored:
+      - type: encyclopedic
+        text: >
+          إِيلِيَال سَارِينِن (1873-1950): مهندس معماري ومخطط عمراني فنلندي الأصل، اشتهر بأسلوبه
+          الوطني الرومانسي في أوروبا ثم بتصاميمه الوظيفية بعد هجرته إلى الولايات المتحدة
+          الأمريكية عام 1923م؛ من أبرز أعماله محطة هلسنكي المركزية، وهو والد المعماري
+          الأمريكي إيرو سارينن.
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-11297086-n"
+          definition_index: 0
+          text: >
+            إِيلِيَال سَارِينِن (1873-1950): مهندس معماري ومخطط عمراني فنلندي الأصل، اشتهر بأسلوبه
+            الوطني الرومانسي في أوروبا ثم بتصاميمه الوظيفية بعد هجرته إلى الولايات المتحدة
+            الأمريكية عام 1923م؛ من أبرز أعماله محطة هلسنكي المركزية، وهو والد المعماري
+            الأمريكي إيرو سارينن.
+
+  examples:
+    per_lemma:
+      - lemma: "إِيلِيَال سَارِينِن"
+        examples:
+          - text: "يُعدّ إيليال سارينن من رواد العمارة الوظيفية في القرن العشرين، وقد أثّرت مدرسة كرانبروك للفنون التي أسّسها في ميشيغان تأثيراً بالغاً في الحركة المعمارية الأمريكية."
+            type: usage
+      - lemma: "سَارِينِن"
+        examples:
+          - text: "انتقل سارينن من الأسلوب القومي الرومانسي الفنلندي إلى التصميم العضوي الحديث بعد استقراره في الولايات المتحدة، تاركاً بصمة واضحة في جيل من المعماريين."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يُعدّ إيليال سارينن من رواد العمارة الوظيفية في القرن العشرين، وقد أثّرت مدرسة كرانبروك للفنون التي أسّسها في ميشيغان تأثيراً بالغاً في الحركة المعمارية الأمريكية."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "انتقل سارينن من الأسلوب القومي الرومانسي الفنلندي إلى التصميم العضوي الحديث بعد استقراره في الولايات المتحدة، تاركاً بصمة واضحة في جيل من المعماريين."
+
+
+# ── المرحلة ٥: الإثراء (البيانات الوصفية) ─────────────────
+stage5_enrichment:
+  per_entry:
+    # لا يوجد جذر عربي للأسماء الأعجمية — يُتخطى حقل root/maqayis_quote
+    - lemma: "إِيلِيَال سَارِينِن"
+      entry_id: "{auto}"
+      note: "اسم علم أعجمي معرَّب — لا جذر عربي ولا شاهد من مقاييس اللغة"
+    - lemma: "سَارِينِن"
+      entry_id: "{auto}"
+      note: "لقب عائلي أعجمي معرَّب — لا جذر عربي ولا شاهد من مقاييس اللغة"
+
+  per_sense:
+    - lemma: "إِيلِيَال سَارِينِن"
+      sense_id: "{auto}"
+      nuance: "الاسم الكامل (الاسم الأول + اللقب)؛ يُستخدم للإحالة الدقيقة الخالية من اللبس، لا سيما عند التمييز بينه وبين ابنه إيرو سارينن."
+      mwe: true
+    - lemma: "سَارِينِن"
+      sense_id: "{auto}"
+      nuance: "اللقب العائلي المختصر؛ يُستخدم في السياق الذي سبق ذكر الاسم الكامل أو في الفهارس الأبجدية، وهو أسلوب إحالة مكثّفة."
+
+  synset:
+    cultural_fit: omission
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"foreign_proper_noun":true,"original_name":"Eliel Saarinen","origin_lang":"fi","note":"no_arabic_root"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"foreign_proper_noun":true,"original_name":"Saarinen","origin_lang":"fi","note":"no_arabic_root"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الكامل غير القابل للالتباس يُميّزه عن ابنه إيرو سارينن","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللقب المختصر للإحالة السياقية بعد ذكر الاسم الكامل","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-11297086-n"
+        key: note
+        value: '{"cultural_fit":"omission","pos_correction":"proper_noun","arabization_note":"Eliel يُعرَّب إيليال بإشباع اللام — شائع في المصادر العربية رغم أن الأدق صوتياً إيليِل"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-11297086-n"
+        score: 0.72

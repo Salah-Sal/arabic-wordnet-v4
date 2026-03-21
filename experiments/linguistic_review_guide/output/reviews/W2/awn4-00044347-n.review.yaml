@@ -1,0 +1,221 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف العربي يحتوي على دوران (استخدام كلمة 'التخلص' لتعريف 'تخلص')."
+      - "اللمّات الحالية تفتقر إلى التشكيل الكامل."
+    observations: "المفهوم يشير إلى العملية النهائية لإنهاء العلاقة بشيء ما، سواء كان ذلك بطرحه كنفايات أو بنقل ملكيته أو بإتلافه. المعاجم العربية الحديثة (مثل Arabterm) تستخدم 'تخلص' و'تصريف' و'طرح' بشكل متبادل في السياقات التقنية."
+  blind_candidates:
+    - lemma: "إِتْلَاف"
+      generation_method: ishtiqaq
+      justification: "يشير إلى التخلص من الشيء بإفنائه، وهو مستخدم تقنياً للتعبير عن تدمير البيانات أو النفايات."
+    - lemma: "نَبْذ"
+      generation_method: majaz
+      justification: "مصطلح كلاسيكي أصيل يعني طرح الشيء وإلقاءه لعدم الحاجة إليه، وهو مرادف دقيق لـ disposal."
+    - lemma: "طَرْح"
+      generation_method: ishtiqaq
+      justification: "يستخدم في الهندسة المدنية والبيئية كمرادف للتخلص من الفضلات والنفايات."
+    - lemma: "تَصْرِيف"
+      generation_method: ishtiqaq
+      justification: "يشير إلى تدبير أمر الشيء أو التخلص من السوائل والفضلات بطريقة منظمة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تخلص"
+      confirm:
+        - text: "«عملية التخلص من النفايات البيئية، مع الالتزام بالقيم المنظمة لذلك»"
+        source: "المعجم الموحد لمصطلحات الطاقة المتجددة"
+    - lemma: "تصريف"
+      confirm:
+        - text: "«طرق تصريف النفايات: disposal route»"
+        source: "المعجم الموحد لمصطلحات المياه"
+        addition: "يستخدم غالباً في سياق النفايات السائلة والمياه."
+    - lemma: "نبذ"
+      confirm:
+        - text: "«النَّبْذُ: إلقاء الشيء وطرحه لقلّة الاعتداد به»"
+        source: "المفردات في غريب القرآن للراغب الأصفهاني"
+      expands:
+        - text: "«نَبَذَ الشّيءَ: طرَحه وألقاه، تركه وهجره»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "طرح"
+      confirm:
+        - text: "«طرح أي فضلات صلبة أو سائلة في التربة أو في الماء بحيث تتسرب إلى البيئة»"
+        source: "المعجم الموحد لمصطلحات الهندسة المدنية"
+    - lemma: "إتلاف"
+      confirm:
+        - text: "«عملية حذف المعطيات من قرص أو غيره بحيث لا يمكن بعد ذلك استرجاع تلك المعطيات»"
+        source: "المعجم الموحد لمصطلحات تقانة المعلومات"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تخلص"
+      decision: confirmed
+      decision_reason: "المصطلح الأكثر شيوعاً في الاستخدام الحديث للتعبير عن التخلص من النفايات والممتلكات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَخَلُّص"
+    - lemma: "تصريف"
+      decision: confirmed
+      decision_reason: "مؤكد في المعاجم التقنية خاصة في سياق النفايات السائلة ومياه الصرف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَصْرِيف"
+    - lemma: "نبذ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف كلاسيكي أصيل يعبر عن جوهر المفهوم (الإلقاء والطرح) ويغني الشبكة الدلالية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "نَبْذ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-00044347-n"}
+    - lemma: "طرح"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح هندسي ومدني معتمد في المعاجم الموحدة لترجمة disposal."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "طَرْح", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-00044347-n"}
+    - lemma: "إتلاف"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مناسب للتخلص من الأشياء عن طريق إعدامها أو تدميرها (مثل الأوراق السرية أو المواد الخطرة)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "إِتْلَاف", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-00044347-n"}
+
+stage4_content:
+  definition:
+    current: "فعل أو وسيلة التخلص من شيء ما"
+    assessment:
+      decision: revise
+      reason: "تجنب الدوران في التعريف وتوسيع النطاق ليشمل الوسيلة والعملية."
+    authored:
+      - type: terminological
+        text: "عملية إبعاد شيء ما أو طرحه أو التحرر منه بصفة نهائية بوسيلة تقنية أو تنظيمية."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "تَخَلُّص"
+        examples:
+          - text: "يجب اتباع الطرق الآمنة في التخلص من النفايات الطبية."
+            type: usage
+      - lemma: "تَصْرِيف"
+        examples:
+          - text: "تم إنشاء بئر لتصريف المياه المالحة الناتجة عن عمليات الحفر."
+            type: usage
+      - lemma: "نَبْذ"
+        examples:
+          - text: "كان نبذ التقاليد البالية أول خطوة في طريق الإصلاح."
+            type: usage
+      - lemma: "طَرْح"
+        examples:
+          - text: "وضعت البلدية قوانين صارمة بشأن طرح الفضلات في مجاري الأنهار."
+            type: usage
+      - lemma: "إِتْلَاف"
+        examples:
+          - text: "تقوم الأجهزة الأمنية بإتلاف الوثائق السرية بعد انتهاء مدة حفظها."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-00044347-n", definition_index: 0, text: "عملية إبعاد شيء ما أو طرحه أو التحرر منه بصفة نهائية بوسيلة تقنية أو تنظيمية."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تَخَلُّص"
+      entry_id: "{auto}"
+      root: "خلص"
+      maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالصَّصَادُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ، وَهُوَ تَنْقِيَةُ الشَّيْءِ وَتَهْذِيبُهُ.»"
+    - lemma: "تَصْرِيف"
+      entry_id: "{auto}"
+      root: "صرف"
+      maqayis_quote: "«الصَّادُ وَالرَّاءُ وَالْفَاءُ مُعْظَمُ بَابِهِ يَدُلُّ عَلَى رَجْعِ الشَّيْءِ.»"
+    - lemma: "نَبْذ"
+      entry_id: "{auto}"
+      root: "نبذ"
+      maqayis_quote: "«النُّونُ وَالْبَاءُ وَالذَّالُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى طَرْحٍ وَإِلْقَاءٍ.»"
+    - lemma: "طَرْح"
+      entry_id: "{auto}"
+      root: "طرح"
+      maqayis_quote: "«الطَّاءُ وَالرَّاءُ وَالْحَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى نَبْذِ الشَّيْءِ وَإِلْقَائِهِ.»"
+    - lemma: "إِتْلَاف"
+      entry_id: "{auto}"
+      root: "تلف"
+      maqayis_quote: "«التَّاءُ وَاللَّامُ وَالْفَاءُ كَلِمَةٌ وَاحِدَةٌ، وَهُوَ ذَهَابُ الشَّيْءِ.»"
+  per_sense:
+    - lemma: "تَخَلُّص"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام والأكثر تداولاً لعملية الإنهاء."
+      mwe: false
+    - lemma: "تَصْرِيف"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب الإجرائي والتقني، خاصة في السوائل والنفايات المنظمة."
+      mwe: false
+    - lemma: "نَبْذ"
+      sense_id: "{auto}"
+      nuance: "يحمل دلالة معنوية أو مادية قوية تعني الطرح لعدم القيمة أو الرغبة."
+      mwe: false
+    - lemma: "طَرْح"
+      sense_id: "{auto}"
+      nuance: "يستخدم غالباً في السياقات الهندسية والبيئية لوصف إلقاء الفضلات."
+      mwe: false
+    - lemma: "إِتْلَاف"
+      sense_id: "{auto}"
+      nuance: "يشير حصراً إلى التخلص عن طريق التدمير المادي للشيء."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خلص","maqayis":"«الْخَاءُ وَاللَّامُ وَالصَّصَادُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ، وَهُوَ تَنْقِيَةُ الشَّيْءِ وَتَهْذِيبُهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العام والأكثر تداولاً لعملية الإنهاء.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-00044347-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-00044347-n"
+        score: 0.95

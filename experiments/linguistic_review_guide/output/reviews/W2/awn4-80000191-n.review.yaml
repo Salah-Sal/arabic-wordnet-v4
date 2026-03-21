@@ -1,0 +1,169 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'قوقازيون' وردت في صيغة الجمع، والأصل في المداخل المعجمية الإفراد (قوقازي) لأسماء الأجناس."
+      - "اللمة 'العرق الأبيض' تفتقر إلى التشكيل الكامل."
+    observations: "المفهوم يشير إلى المجموعة البشرية ذات البشرة الفاتحة، وهو مصطلح أنثروبولوجي معروف. المصطلحان 'العرق الأبيض' و'قوقازي' هما المقابلان الأدق والمستقران في الاستخدام العربي."
+  blind_candidates:
+    - lemma: "العِرْقُ الأَبْيَضُ"
+      generation_method: tarkib
+      justification: "تركيب وصفي يعبر بدقة عن العرق ذي البشرة الفاتحة وهو المصطلح الشائع والمستقر."
+    - lemma: "قُوقَازِيّ"
+      generation_method: taarib
+      justification: "مصطلح أنثروبولوجي وتاريخي معرّب يستخدم لوصف أصحاب البشرة البيضاء، نسبة إلى جبال القوقاز."
+    - lemma: "بِيضُ البَشَرَةِ"
+      generation_method: tarkib
+      justification: "إضافة توضح السمة الجسدية الأساسية لهذا العرق."
+    - lemma: "السُّلَالَةُ القُوقَازِيَّةُ"
+      generation_method: tarkib
+      justification: "تركيب وصفي يستخدم في الأنثروبولوجيا للدلالة على العرق الأبيض."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "العرق الأبيض"
+      confirm:
+        - text: "«(2) القوقازيّ؛ القفقاسيّ: .أ» أحد أبناء القوقاز. .ب» أحد أفراد العرق الأبيض.»"
+          source: "المورد الحديث (2008)"
+    - lemma: "قوقازيون"
+      evidence_status: "no_material_found"
+    - lemma: "قُوقَازِيّ"
+      confirm:
+        - text: "«(1) «أ», قوقازيّ؛ قفقاسيّ: «ب» ذو علاقة بالقوقاز. «ج» ذو علاقة بالعرق الأبيض»"
+          source: "المورد الحديث (2008)"
+    - lemma: "بِيضُ البَشَرَةِ"
+      evidence_status: "no_material_found"
+    - lemma: "السُّلَالَةُ القُوقَازِيَّةُ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "العرق الأبيض"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي ومستقر للتعبير عن هذا المفهوم في اللغتين العربية والإنجليزية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "العِرْقُ الأَبْيَضُ"
+
+    - lemma: "قوقازيون"
+      decision: removed
+      decision_reason: "اللمة في صيغة الجمع، بينما الأصل في المعاجم إيراد المصطلحات مفردة (قوقازي). سيتم إضافة المفرد وإزالة الجمع."
+      evidence_assessment:
+        case: no_material
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+
+    - lemma: "قُوقَازِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "النسبة إلى القوقاز، وتستخدم أنثروبولوجياً للتعبير عن أفراد العرق الأبيض، وتم تأكيدها معجمياً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "قُوقَازِيّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "بِيضُ البَشَرَةِ"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير وصفي حر وليس مصطلحاً معجمياً مستقراً بنفس درجة العرق الأبيض."
+      evidence_assessment:
+        case: no_material
+
+    - lemma: "السُّلَالَةُ القُوقَازِيَّةُ"
+      source: stage1
+      decision: removed
+      decision_reason: "يؤدي نفس الغرض الدلالي للعرق الأبيض والقوقازي، ولكن المصطلحين الأولين أكثر شيوعاً واطّراداً."
+      evidence_assessment:
+        case: no_material
+
+stage4_content:
+  definition:
+    current: "عرق ذو بشرة فاتحة"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق وواضح ويقابل التعريف الإنجليزي بشكل مباشر وصحيح."
+  examples:
+    per_lemma:
+      - lemma: "العِرْقُ الأَبْيَضُ"
+        examples:
+          - text: "تُعدّ دراسة الخصائص الجينية لِلْعِرْقِ الأَبْيَضِ من اهتمامات الأنثروبولوجيا الفيزيائية."
+            type: usage
+      - lemma: "قُوقَازِيّ"
+        examples:
+          - text: "أثبتت التحليلات الأنثروبولوجية أن صاحب الرفات قُوقَازِيّ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "تُعدّ دراسة الخصائص الجينية لِلْعِرْقِ الأَبْيَضِ من اهتمامات الأنثروبولوجيا الفيزيائية."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "العِرْقُ الأَبْيَضُ"
+      entry_id: "{auto}"
+      roots:
+        - word: "العرق"
+          root: "عرق"
+          maqayis_quote: "«(عَرَقَ) الْعَيْنُ وَالرَّاءُ وَالْقَافُ أَرْبَعَةُ أُصُولٍ صَحِيحَةٌ... وَالْأَصْلُ الثَّانِي السِّنْخُ الْمُتَشَعِّبُ. مِنْ ذَلِكَ الْعِرْقُ عِرْقُ الشَّجَرَةِ.»"
+        - word: "الأبيض"
+          root: "بيض"
+          maqayis_quote: "«(بَيْضَ) الْبَاءُ وَالْيَاءُ وَالضَّادُ أَصْلٌ... فَالْأَصْلُ الْبَيَاضُ مِنَ الْأَلْوَانِ.»"
+  per_sense:
+    - lemma: "العِرْقُ الأَبْيَضُ"
+      sense_id: "{auto}"
+      nuance: "التسمية العامة والشائعة التي تركز على السمة الظاهرية (لون البشرة)."
+      mwe: true
+    - lemma: "قُوقَازِيّ"
+      sense_id: "{auto}"
+      nuance: "تسمية أنثروبولوجية وتاريخية تركز على الأصل الجغرافي المفترض (جبال القوقاز)."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"العرق","root":"عرق","maqayis":"«(عَرَقَ) الْعَيْنُ وَالرَّاءُ وَالْقَافُ أَرْبَعَةُ أُصُولٍ صَحِيحَةٌ... وَالْأَصْلُ الثَّانِي السِّنْخُ الْمُتَشَعِّبُ. مِنْ ذَلِكَ الْعِرْقُ عِرْقُ الشَّجَرَةِ.»"},{"word":"الأبيض","root":"بيض","maqayis":"«(بَيْضَ) الْبَاءُ وَالْيَاءُ وَالضَّادُ أَصْلٌ... فَالْأَصْلُ الْبَيَاضُ مِنَ الْأَلْوَانِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"التسمية العامة والشائعة التي تركز على السمة الظاهرية (لون البشرة).","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تسمية أنثروبولوجية وتاريخية تركز على الأصل الجغرافي المفترض (جبال القوقاز).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

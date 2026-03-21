@@ -1,0 +1,146 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة تفتقر إلى التشكيل الكامل."
+      - "عدم إدراج الأسماء البديلة الشائعة مثل خليج السدرة."
+    observations: "المصطلح يشير إلى معلم جغرافي بارز في ليبيا، والاسم مشتق من مدينة سرت الساحلية. الاسم المستخدم هو المصطلح القياسي."
+  blind_candidates:
+    - lemma: "خَلِيجُ سِرْت"
+      generation_method: tarkib
+      justification: "الاسم الجغرافي القياسي المنسوب لمدينة سرت الليبية."
+    - lemma: "خَلِيجُ السِّدْرَة"
+      generation_method: tarkib
+      justification: "اسم بديل شائع منسوب لميناء السدرة الواقع في نفس الخليج."
+    - lemma: "جَوْنُ سِرْت"
+      generation_method: tarkib
+      justification: "استخدام لفظ 'جون' للدلالة على الخليج الواسع (Bight)."
+    - lemma: "خَلِيجُ سِيدْرَا"
+      generation_method: taarib
+      justification: "تعريب للاسم الأجنبي الشائع دولياً (Gulf of Sidra)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خليج سرت"
+      confirm:
+        - text: "«سُرْتُ... مدينة على ساحل البحر الرومي بين برقة وطرابلس الغرب لا بأس بها»"
+          source: "معجم البلدان لياقوت الحموي"
+        - text: "«سرت... مدينة على بحر الروم بين برقة وطرابلس»"
+          source: "تاج العروس"
+    - lemma: "خَلِيجُ السِّدْرَة"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "خليج سرت"
+      decision: confirmed
+      decision_reason: "الاسم العربي الأصيل والأكثر شيوعاً للمعلم الجغرافي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَلِيجُ سِرْت"
+    - lemma: "خَلِيجُ السِّدْرَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اسم بديل معتبر وشائع الاستخدام في الخرائط والمراجع العربية المعاصرة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "خَلِيجُ السِّدْرَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09322490-n"}
+
+stage4_content:
+  definition:
+    current: "مدخل واسع للبحر الأبيض المتوسط على الساحل الشمالي لليبيا"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دقيق لكن يمكن صياغته بأسلوب معجمي أجود يبرز طبيعته كخليج واسع."
+    authored:
+      - type: encyclopedic
+        text: "حوض مائي كبير وجزء من البحر الأبيض المتوسط يمتد على الساحل الليبي الشمالي بين بنغازي ومصراتة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-09322490-n", definition_index: 0, text: "حوض مائي كبير وجزء من البحر الأبيض المتوسط يمتد على الساحل الليبي الشمالي بين بنغازي ومصراتة."}
+  examples:
+    per_lemma:
+      - lemma: "خَلِيجُ سِرْت"
+        examples:
+          - text: "يُعد خليج سرت من أهم المناطق الاستراتيجية على الساحل الليبي."
+            type: usage
+      - lemma: "خَلِيجُ السِّدْرَة"
+        examples:
+          - text: "تنتشر الموانئ النفطية على طول ساحل خليج السدرة."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-09322490-n", text: "تطل عدة مدن ليبية هامة على خليج سرت."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خَلِيجُ سِرْت"
+      entry_id: "{auto}"
+      roots:
+        - word: "خليج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"
+        - word: "سرت"
+          root: "سرت"
+          maqayis_quote: "«لم يذكره ابن فارس، وهو اسم أعجمي مرتجل لمدينة ليبية.»"
+    - lemma: "خَلِيجُ السِّدْرَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "خليج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"
+        - word: "السدرة"
+          root: "سدر"
+          maqayis_quote: "«السِّينُ وَالدَّالُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى شِبْهِ الْحَيْرَةِ وَاضْطِرَابِ الرَّأْيِ.»"
+  per_sense:
+    - lemma: "خَلِيجُ سِرْت"
+      sense_id: "{auto}"
+      nuance: "الاسم الأكثر شيوعاً ورسمية في ليبيا."
+      mwe: true
+    - lemma: "خَلِيجُ السِّدْرَة"
+      sense_id: "{auto}"
+      nuance: "اسم بديل يكثر استخدامه في المراجع النفطية والجغرافية المعاصرة."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"خليج","root":"خلج","maqayis":"«...»"},{"word":"سرت","root":"سرت","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الأكثر شيوعاً ورسمية في ليبيا.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-09322490-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-09322490-n"
+        score: 0.95

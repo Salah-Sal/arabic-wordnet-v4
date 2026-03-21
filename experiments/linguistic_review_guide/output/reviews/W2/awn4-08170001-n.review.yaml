@@ -1,0 +1,213 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمات الموجودة تفتقر إلى التشكيل الكامل.
+      - غياب مصطلح "الرعية" وهو المصطلح الأكثر شيوعاً في السياق الكنسي العربي للتعبير عن هذا المفهوم.
+    observations: "المجموعة تعبر عن مفهوم 'العلمانيين' في الكنيسة، وهم المؤمنون من غير سلك الكهنوت. المصطلح 'علمانيون' هنا ليس بالمعنى السياسي المعاصر (Secularists) بل بالمعنى الكنسي التقليدي (Laity) المستمد من كونهم يعيشون في 'العالم' (Sæculum). مصطلح 'عوام' مقبول ولكنه أقل دقة تخصصية من 'علمانيين'."
+  blind_candidates:
+    - lemma: "عَلْمَانِيُّونَ"
+      generation_method: ishtiqaq
+      justification: "الجمع القياسي لـ 'علماني'، وهو المصطلح المعياري في اللاهوت العربي للتعبير عن غير الإكليروس."
+    - lemma: "رَعِيَّة"
+      generation_method: majaz
+      justification: "مصطلح قرآني وتراثي استُخدم في المسيحية العربية للتعبير عن جمهور المؤمنين (Flock) تحت رعاية الكاهن."
+    - lemma: "شَعْبُ الكَنِيسَةِ"
+      generation_method: tarkib
+      justification: "تعبير تركيبي شائع جداً في الأدبيات الكنسية المعاصرة للإشارة إلى العلمانيين."
+    - lemma: "العَوَامّ"
+      generation_method: majaz
+      justification: "استخدام اللفظ العامي للتمييز بين طبقة المتخصصين (رجال الدين) وبقية الناس."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "العلمانيون"
+      confirm:
+        - text: "«علماني: عالمي، دنيوي لاديني، ليس من رجال الدين»"
+          source: "تكملة المعاجم العربية (دوزي)"
+        - text: "«العلماني: نسبة إلى العلم بمعنى العالم وهو خلاف الديني أو الكهنوتي»"
+          source: "المعجم الوسيط"
+        - text: "«كافّيّ: ... علمانيّ؛ مدنيّ؛ شخص من غير رجال الدين»"
+          source: "المورد الحديث (2008)"
+    - lemma: "العوام"
+      confirm:
+        - text: "«العامة ضد الخاصة»"
+          source: "مقاييس اللغة"
+        - text: "«العوام: جمع عام وعامة، وهو الشامل المتسع»"
+          source: "التوقيف على مهمات التعاريف"
+      expands:
+        - text: "«جمهور المؤمنين باستثناء رجال الدين»"
+          source: "المورد الحديث (في تعريف laity)"
+    - lemma: "رَعِيَّة"
+      confirm:
+        - text: "«عامة الناس الذين عليهم راع يدبر أمرهم ويرعى مصالحهم»"
+          source: "المعجم الوسيط"
+    - lemma: "شَعْبُ الكَنِيسَةِ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "العلمانيون"
+      decision: confirmed
+      decision_reason: "المصطلح الفني الدقيق في السياق المسيحي للتمييز بين الإكليروس وغيرهم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عَلْمَانِيُّونَ"
+    - lemma: "العوام"
+      decision: confirmed
+      decision_reason: "مقبول كلفظ عام يشير إلى غير المتخصصين، وإن كان استخدامه في السياق المسيحي أقل رسمية من 'عمانيون'."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عَوَامّ"
+    - lemma: "رَعِيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح جوهري في السياق الكنسي يعبر عن العلاقة الرعوية بين الشعب والكهنوت."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "رَعِيَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "شَعْبُ الكَنِيسَةِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي (MWE) مستقر وشائع الاستخدام في الترجمات العربية المعاصرة للمصطلح الإنجليزي 'Laity'."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "شَعْبُ الكَنِيسَةِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "في المسيحية، أعضاء مجتمع ديني ليس لديهم المسؤوليات الكهنوتية لرجال الدين المرسومين"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ترجمة حرفية؛ الأفضل صياغته بأسلوب المعجم العربي مع توضيح التمايز عن الإكليروس."
+    authored:
+      - type: terminological
+        text: "مجموع المؤمنين في المسيحية الذين لم ينخرطوا في سلك الكهنوت، ويتميزون عن الإكليروس بكونهم يعيشون في العالم ويقومون بمهامهم الدينية بصفة مدنية."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "عَلْمَانِيُّونَ"
+        examples:
+          - text: "دعا المجمع المسكوني العلمانيين إلى المشاركة بفاعلية أكبر في رسالة الكنيسة."
+            type: usage
+      - lemma: "عَوَامّ"
+        examples:
+          - text: "يُطلب من الوعاظ تبسيط المفاهيم اللاهوتية لتكون واضحة لعوام المؤمنين."
+            type: usage
+      - lemma: "رَعِيَّة"
+        examples:
+          - text: "زار الأسقف الرعية لتفقد أحوال المؤمنين والاطمئنان على احتياجاتهم الروحية."
+            type: usage
+      - lemma: "شَعْبُ الكَنِيسَةِ"
+        examples:
+          - text: "اجتمع شعب الكنيسة للصلاة من أجل السلام والوئام في العالم."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مجموع المؤمنين في المسيحية الذين لم ينخرطوا في سلك الكهنوت، ويتميزون عن الإكليروس بكونهم يعيشون في العالم ويقومون بمهامهم الدينية بصفة مدنية."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "عَلْمَانِيُّونَ"
+      entry_id: "{auto}"
+      root: "علم"
+      maqayis_quote: "«الْعَيْنُ وَاللَّامُ وَالْمِيمُ أَصْلٌ صَحِيحٌ وَاحِدٌ، يَدُلُّ عَلَى أَثَرٍ بِالشَّيْءِ يَتَمَيَّزُ بِهِ عَنْ غَيْرِهِ... وَالْعَالَمُونَ، وَذَلِكَ أَنَّ كُلَّ جِنْسٍ مِنَ الْخَلْقِ فَهُوَ فِي نَفْسِهِ مَعْلَمٌ وَعَلَمٌ.»"
+    - lemma: "عَوَامّ"
+      entry_id: "{auto}"
+      root: "عمم"
+      maqayis_quote: "«الْعَيْنُ وَالْمِيمُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى الطُّولِ وَالْكَثْرَةِ وَالْعُلُوِّ... وَالْعَامَّةُ ضِدَّ الْخَاصَّةِ.»"
+    - lemma: "رَعِيَّة"
+      entry_id: "{auto}"
+      root: "رعي"
+      maqayis_quote: "«الرَّاءُ وَالْعَيْنُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا الْمُرَاقَبَةُ وَالْحِفْظُ... وَالرَّاعِي: الْوَالِي.»"
+    - lemma: "شَعْبُ الكَنِيسَةِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "شعب"
+          root: "شعب"
+          maqayis_quote: "«الشين والعين والباء أصل واحد يدل على تفرق وقبائل تجمع...»"
+        - word: "كنيسة"
+          root: "كنس"
+          maqayis_quote: "«الكاف والنون والسين أصل صحيح يدل على استخفاء...»"
+  per_sense:
+    - lemma: "عَلْمَانِيُّونَ"
+      sense_id: "{auto}"
+      nuance: "المصطلح اللاهوتي الرسمي الذي يحدد الهوية القانونية والدينية للعضو غير المرسوم."
+      mwe: false
+    - lemma: "عَوَامّ"
+      sense_id: "{auto}"
+      nuance: "يشير إلى الجانب غير المتخصص أو الجمهور العام من المؤمنين."
+      mwe: false
+    - lemma: "رَعِيَّة"
+      sense_id: "{auto}"
+      nuance: "يعبر عن البعد الرعوي والارتباط الروحي بين الشعب وقائدهم الديني."
+      mwe: false
+    - lemma: "شَعْبُ الكَنِيسَةِ"
+      sense_id: "{auto}"
+      nuance: "تعبير جماعي يؤكد على الوحدة والشركة داخل المؤسسة الدينية."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"علم","maqayis":"«الْعَيْنُ وَاللَّامُ وَالْمِيمُ أَصْلٌ صَحِيحٌ وَاحِدٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عمم","maqayis":"«الْعَيْنُ وَالْمِيمُ أَصْلٌ صَحِيحٌ وَاحِدٌ... وَالْعَامَّةُ ضِدَّ الْخَاصَّةِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"رعي","maqayis":"«الرَّاءُ وَالْعَيْنُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا الْمُرَاقَبَةُ وَالْحِفْظُ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح اللاهوتي الرسمي...","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,242 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة (المال الذكي) هي ترجمة اقتراضية (Calque) للمصطلح الإنجليزي (smart money) وتستخدم في السياق المالي، ولكنها ليست مصطلحاً عربياً أصيلاً."
+      - "التعريف يجمع بين صفتين مختلفتين نوعاً ما: (الخبرة العالية) و(امتلاك معلومات داخلية)."
+    observations: "المفهوم يشير إلى الأشخاص الذين يمتلكون أفضلية في اتخاذ القرارات (غالباً الاستثمارية) بناءً على خبرتهم الواسعة أو اطلاعهم على معلومات غير متاحة للعامة. اللمات المقترحة تمزج بين المعنيين لتغطية دلالات المجموعة."
+  blind_candidates:
+    - lemma: "أَهْلُ الخِبْرَة"
+      generation_method: tarkib
+      justification: "مركب إضافي يشير إلى ذوي الاختصاص والتجربة الطويلة."
+    - lemma: "مُطَّلِعُونَ"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل جمع، يشير إلى من لهم اطلاع على بواطن الأمور والمعلومات الداخلية."
+    - lemma: "خَوَاصّ"
+      generation_method: majaz
+      justification: "جمع (خاصة)، ويطلق على الفئة القليلة المميزة التي تختص بمعلومات أو مكانة لا تتاح للعامة."
+    - lemma: "مُخَضْرَمُونَ"
+      generation_method: ishtiqaq
+      justification: "اسم مفعول جمع، يشير لمن عاصر فترات طويلة واكتسب خبرة وحنكة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "أصحاب الخبرة"
+      evidence_status: no_material_found
+    - lemma: "المال الذكي"
+      evidence_status: no_material_found
+    - lemma: "أهل الخبرة"
+      evidence_status: no_material_found
+    - lemma: "مطلعون"
+      confirm:
+        - text: "(1) الأقرب: عضوٌ من أهل البيت أو الزمرة إلخ\n(2) المطّلع: شخص متيسّرةٌ له أسبابُ الاطّلاع على بواطن الأمور."
+          source: "المورد الحديث (2008)"
+    - lemma: "خواص"
+      expands:
+        - text: "الخواص: اسم جمع الخاصية بمعنى الأثر"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+    - lemma: "مخضرمون"
+      expands:
+        - text: "رجل مخضرم إِذا كَانَ أسود وَأَبوهُ أَبيض... وَمن أدْرك عهدين مُطلقًا"
+          source: "المعجم الوسيط لمجموعة من المؤلفين"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "أَصْحَاب الخِبْرَة"
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي شائع يشير إلى ذوي التجربة والمعرفة المتعمقة، ويغطي الشق الأول من التعريف بامتياز."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "أَصْحَاب الخِبْرَة"
+
+    - lemma: "المَال الذَّكِيّ"
+      decision: confirmed
+      decision_reason: "مصطلح مالي واقتصادي معاصر، وهو ترجمة اقتراضية (Calque) شائعة الاستخدام للمصطلح الإنجليزي (smart money) للدلالة على كبار المستثمرين المطلعين."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "المَال الذَّكِيّ"
+
+    - lemma: "أَهْلُ الخِبْرَة"
+      source: stage1
+      decision: removed
+      decision_reason: "مرادف تام تقريباً لـ(أصحاب الخبرة) ولا يضيف فارقاً دلالياً يستدعي إدراجه كمدخل منفصل هنا."
+
+    - lemma: "مُطَّلِعُونَ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر بدقة عن الشق الثاني من التعريف (الذين لديهم معلومات داخلية - insiders)، ومثبت معجمياً بهذا المعنى."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مُطَّلِعُونَ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "خَوَاصّ"
+      source: stage1
+      decision: removed
+      decision_reason: "مصطلح عام يشير إلى الفئة المميزة اجتماعياً أو علمياً، ولا يرتبط حصراً بالمعلومات الداخلية أو الخبرة التخصصية المقصودة."
+
+    - lemma: "مُخَضْرَمُونَ"
+      source: stage1
+      decision: removed
+      decision_reason: "يشير في الأصل لمن أدرك عهدين، ومجازاً لكبير السن واسع التجربة، لكنه لا يغطي بُعد الاطلاع على المعلومات الداخلية."
+
+stage4_content:
+  definition:
+    current: "الأشخاص ذوو الخبرة العالية أو الذين لديهم معلومات داخلية"
+    assessment:
+      decision: revise
+      reason: "لجعل التعريف أكثر سبكاً معجمياً وتحديد السياق المهني أو المالي الذي ترد فيه هذه المصطلحات عادةً."
+    authored:
+      - type: terminological
+        text: "أشخاصٌ ذوو خبرة عالية في مجال معيَّن، أو تتوافر لديهم معلومات داخلية وبواطن أمور غير متاحة للعامَّة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "أشخاصٌ ذوو خبرة عالية في مجال معيَّن، أو تتوافر لديهم معلومات داخلية وبواطن أمور غير متاحة للعامَّة."
+
+  examples:
+    per_lemma:
+      - lemma: "أَصْحَاب الخِبْرَة"
+        examples:
+          - text: "يُفضَّل دائمًا استشارة أَصْحَابِ الخِبْرَةِ قبل البدء في أيّ مشروع استثماري جديد."
+            type: usage
+      - lemma: "المَال الذَّكِيّ"
+        examples:
+          - text: "عادةً ما يتتبع صغار المستثمرين مسار المَالِ الذَّكِيِّ في أسواق الأسهم لتحقيق الأرباح."
+            type: usage
+      - lemma: "مُطَّلِعُونَ"
+        examples:
+          - text: "كشف مُطَّلِعُونَ في الشركة عن خطط قريبة للاستحواذ على شركات منافسة."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "يُفضَّل دائمًا استشارة أَصْحَابِ الخِبْرَةِ قبل البدء في أيّ مشروع استثماري جديد."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "عادةً ما يتتبع صغار المستثمرين مسار المَالِ الذَّكِيِّ في أسواق الأسهم لتحقيق الأرباح."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "كشف مُطَّلِعُونَ في الشركة عن خطط قريبة للاستحواذ على شركات منافسة."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "أَصْحَاب الخِبْرَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "أصحاب"
+          root: "صحب"
+          maqayis_quote: "«الصَّادُ وَالْحَاءُ وَالْبَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُقَارَنَةِ شَيْءٍ وَمُقَارَبَتِهِ.»"
+        - word: "الخبرة"
+          root: "خبر"
+          maqayis_quote: "«الْخَاءُ وَالْبَاءُ وَالرَّاءُ أَصْلَانِ: فَالْأَوَّلُ الْعِلْمُ، وَالثَّانِي يَدُلُّ عَلَى لِينٍ وَرَخَاوَةٍ وَغُزْرٍ.»"
+    - lemma: "المَال الذَّكِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "المال"
+          root: "مول"
+          maqayis_quote: "«الْمِيمُ وَالْوَاوُ وَاللَّامُ كَلِمَةٌ وَاحِدَةٌ، هِيَ تَمَوَّلَ الرَّجُلُ: اتَّخَذَ مَالًا.»"
+        - word: "الذكي"
+          root: "ذكو"
+          maqayis_quote: ""
+    - lemma: "مُطَّلِعُونَ"
+      entry_id: "{auto}"
+      root: "طلع"
+      maqayis_quote: "«الطَّاءُ وَاللَّامُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ صَحِيحٌ، يَدُلُّ عَلَى ظُهُورٍ وَبُرُوزٍ.»"
+
+  per_sense:
+    - lemma: "أَصْحَاب الخِبْرَة"
+      sense_id: "{auto}"
+      nuance: "يُشير عمومًا إلى المتمرسين وذوي الباع الطويل في مجال معين، ويركز على تراكم المعرفة."
+      mwe: true
+    - lemma: "المَال الذَّكِيّ"
+      sense_id: "{auto}"
+      nuance: "مصطلح مالي واقتصادي (مترجم) يُشير تحديداً إلى كبار المستثمرين أو المؤسسات التي تتخذ قراراتها بناءً على معلومات دقيقة وداخلية."
+      mwe: true
+    - lemma: "مُطَّلِعُونَ"
+      sense_id: "{auto}"
+      nuance: "يُركز على امتلاك الأفراد لمعلومات داخلية وسرية غير متاحة للجمهور (insiders)."
+      mwe: false
+
+  synset:
+    cultural_fit: lexical_gap
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"أصحاب","root":"صحب","maqayis":"«الصَّادُ وَالْحَاءُ وَالْبَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُقَارَنَةِ شَيْءٍ وَمُقَارَبَتِهِ.»"},{"word":"الخبرة","root":"خبر","maqayis":"«الْخَاءُ وَالْبَاءُ وَالرَّاءُ أَصْلَانِ: فَالْأَوَّلُ الْعِلْمُ، وَالثَّانِي يَدُلُّ عَلَى لِينٍ وَرَخَاوَةٍ وَغُزْرٍ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"المال","root":"مول","maqayis":"«الْمِيمُ وَالْوَاوُ وَاللَّامُ كَلِمَةٌ وَاحِدَةٌ، هِيَ تَمَوَّلَ الرَّجُلُ: اتَّخَذَ مَالًا.»"},{"word":"الذكي","root":"ذكو"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"طلع","maqayis":"«الطَّاءُ وَاللَّامُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ صَحِيحٌ، يَدُلُّ عَلَى ظُهُورٍ وَبُرُوزٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُشير عمومًا إلى المتمرسين وذوي الباع الطويل في مجال معين، ويركز على تراكم المعرفة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح مالي واقتصادي (مترجم) يُشير تحديداً إلى كبار المستثمرين أو المؤسسات التي تتخذ قراراتها بناءً على معلومات دقيقة وداخلية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُركز على امتلاك الأفراد لمعلومات داخلية وسرية غير متاحة للجمهور (insiders).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"lexical_gap"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

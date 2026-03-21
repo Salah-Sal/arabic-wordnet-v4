@@ -1,0 +1,193 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "وجود لمة غريبة ومستبعدة تمامًا وهي (روب)، والتي تعني في المعاجم اللبن الرائب أو ثوبًا واسعًا، ولا علاقة لها بالبحرية."
+      - "التعريف العربي مترجم ترجمة حرفية من الإنجليزية، ويفتقر إلى الصياغة المعجمية العربية الرصينة."
+      - "لمة (قافلة) صحيحة لكنها عامة، والأفضل تخصيصها بإضافة (بحرية)."
+    observations: "المفهوم يشير إلى مجموعة من السفن (المدنية أو التجارية) التي تسير معًا في حراسة سفن حربية لتأمينها من الهجمات. في السياق العسكري والبحري، يُصطلح على هذا بـ(القافلة البحرية)."
+  blind_candidates:
+    - lemma: "قَافِلَةٌ بَحْرِيَّةٌ"
+      generation_method: tarkib
+      justification: "تركيب وصفي شائع ومستقر في المصطلحات العسكرية لوصف مجموعة السفن المرافقة لحمايتها."
+    - lemma: "رَكْبٌ بَحْرِيٌّ"
+      generation_method: majaz
+      justification: "استعارة من ركب الإبل ونحوها وتخصيصها بالبحر، للدلالة على السير الجماعي للسفن."
+    - lemma: "أُسْطُولُ حِرَاسَةٍ"
+      generation_method: tarkib
+      justification: "تركيب إضافي يعبر عن الوظيفة الأساسية للمجموعة وهي الحماية والحراسة."
+    - lemma: "مَوْكِبٌ بَحْرِيٌّ"
+      generation_method: ishtiqaq
+      justification: "مأخوذة من المواكبة والمرافقة، وتناسب السير المنتظم المحمي للسفن."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "روب"
+      contradicts:
+        - text: "(الروب) اللبن الرائب (وصف بالمصدر) ويقال ما عندي شوب ولا روب"
+          source: "المعجم الوسيط"
+          conflict: "اللمة تدل على اللبن الرائب، ولا علاقة لها بالسفن أو القوافل."
+        - text: "مبذل منزلي يلبس فوق الملابس الداخلية أو ملابس النوم. (dressing gown)"
+          source: "مسرد صناعة النسيج (ArabTerm)"
+          conflict: "دلالة حديثة على الملابس."
+    - lemma: "قافلة"
+      confirm:
+        - text: "(القافلة) الرفقة الكثيرة الراجعة من السفر أو المبتدئة به ويكون معها دوابها وأمتعتها وزادها"
+          source: "المعجم الوسيط"
+        - text: "convoy"
+          source: "مسرد الجغرافيا والتاريخ (ArabTerm)"
+      expands:
+        - text: "القافلة: مجموعة من السفن او القطر الحديدية الخ ترافقها قوة تحميها. | convoy"
+          source: "قاموس المورد الحديث"
+          addition: "يؤكد الاستخدام الحديث للقافلة بمعنى موكب السفن المحمي."
+    - lemma: "قَافِلَةٌ بَحْرِيَّةٌ"
+      evidence_status: "no_material_found"
+    - lemma: "رَكْبٌ بَحْرِيٌّ"
+      evidence_status: "no_material_found"
+    - lemma: "أُسْطُولُ حِرَاسَةٍ"
+      evidence_status: "no_material_found"
+    - lemma: "مَوْكِبٌ بَحْرِيٌّ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "قافلة"
+      decision: confirmed
+      decision_reason: "الكلمة صحيحة ومستخدمة كترجمة مباشرة لـ convoy سواء في السياق البري أو البحري."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "قَافِلَة"
+    - lemma: "روب"
+      decision: removed
+      decision_reason: "لمة خاطئة تماماً في هذا السياق، ولا يوجد لها أي دلالة بحرية أو عسكرية في المعاجم القديمة أو الحديثة."
+      evidence_assessment:
+        case: contradicts_only
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "قَافِلَةٌ بَحْرِيَّةٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مركب وصفي دقيق وشائع يخصّص معنى (القافلة) في سياق البحر والسفن، ويرفع اللبس عن القوافل البرية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "قَافِلَة بَحْرِيَّة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "مجموعة من السفن التجارية ترافقها سفن حربية للحماية"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقبول لكنه ترجمة حرفية؛ يمكن تحسين صياغته لتكون أمتن وأقرب لأسلوب المعاجم العربية."
+    authored:
+      - type: terminological
+        text: "مَجْمُوعَةٌ مِنَ السُّفُنِ التِّجَارِيَّةِ أَوِ الْمَدَنِيَّةِ تَسِيرُ مَعًا، وتُرَافِقُهَا سُفُنٌ حَرْبِيَّةٌ لِحِمَايَتِهَا وَتَأْمِينِهَا."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "مَجْمُوعَةٌ مِنَ السُّفُنِ التِّجَارِيَّةِ أَوِ الْمَدَنِيَّةِ تَسِيرُ مَعًا، وتُرَافِقُهَا سُفُنٌ حَرْبِيَّةٌ لِحِمَايَتِهَا وَتَأْمِينِهَا."
+  examples:
+    per_lemma:
+      - lemma: "قافلة"
+        examples:
+          - text: "عَبَرَتِ القَافِلَةُ المُحِيطَ بِسَلَامٍ تَحْتَ حِرَاسَةٍ مُشَدَّدَةٍ."
+            type: usage
+      - lemma: "قَافِلَة بَحْرِيَّة"
+        examples:
+          - text: "شَكَّلَتِ الدَّوْلَةُ قَافِلَةً بَحْرِيَّةً لِتَأْمِينِ وُصُولِ الإِمْدَادَاتِ الْغِذَائِيَّةِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "عَبَرَتِ القَافِلَةُ المُحِيطَ بِسَلَامٍ تَحْتَ حِرَاسَةٍ مُشَدَّدَةٍ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "شَكَّلَتِ الدَّوْلَةُ قَافِلَةً بَحْرِيَّةً لِتَأْمِينِ وُصُولِ الإِمْدَادَاتِ الْغِذَائِيَّةِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "قَافِلَة"
+      entry_id: "{auto}"
+      root: "قفل"
+      maqayis_quote: "«(قَفَلَ) الْقَافُ وَالْفَاءُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ أَحَدُهُمَا عَلَى أَوْبَةٍ مِنْ سَفَرٍ... فَالْأَوَّلُ الْقُفُولُ، وَهُوَ الرُّجُوعُ مِنَ السَّفَرِ، وَلَا يُقَالُ لِلذَّاهِبِينَ قَافِلَةٌ حَتَّى يَرْجِعُوا.»"
+    - lemma: "قَافِلَة بَحْرِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "قافلة"
+          root: "قفل"
+          maqayis_quote: "«(قَفَلَ) الْقَافُ وَالْفَاءُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ أَحَدُهُمَا عَلَى أَوْبَةٍ مِنْ سَفَرٍ...»"
+        - word: "بحرية"
+          root: "بحر"
+          maqayis_quote: "«(بَحَرَ) الْبَاءُ وَالْحَاءُ وَالرَّاءُ. قَالَ الْخَلِيلُ سُمِّيَ الْبَحْرُ بَحْرًا لِاسْتِبْحَارِهِ وَهُوَ انْبِسَاطُهُ وَسَعَتُهُ.»"
+  per_sense:
+    - lemma: "قَافِلَة"
+      sense_id: "{auto}"
+      nuance: "مصطلح عام يشمل قوافل البر والبحر، ويفهم تخصيصه بالبحر من السياق."
+      mwe: false
+    - lemma: "قَافِلَة بَحْرِيَّة"
+      sense_id: "{auto}"
+      nuance: "مصطلح مخصص ومقيد دلالياً بالاستخدام البحري، وهو الأدق لوصف هذا المفهوم."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قفل","maqayis":"«(قَفَلَ) الْقَافُ وَالْفَاءُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ أَحَدُهُمَا عَلَى أَوْبَةٍ مِنْ سَفَرٍ... فَالْأَوَّلُ الْقُفُولُ، وَهُوَ الرُّجُوعُ مِنَ السَّفَرِ، وَلَا يُقَالُ لِلذَّاهِبِينَ قَافِلَةٌ حَتَّى يَرْجِعُوا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"قافلة","root":"قفل","maqayis":"«(قَفَلَ) الْقَافُ وَالْفَاءُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ أَحَدُهُمَا عَلَى أَوْبَةٍ مِنْ سَفَرٍ...»"},{"word":"بحرية","root":"بحر","maqayis":"«(بَحَرَ) الْبَاءُ وَالْحَاءُ وَالرَّاءُ. قَالَ الْخَلِيلُ سُمِّيَ الْبَحْرُ بَحْرًا لِاسْتِبْحَارِهِ وَهُوَ انْبِسَاطُهُ وَسَعَتُهُ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح عام يشمل قوافل البر والبحر، ويفهم تخصيصه بالبحر من السياق.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح مخصص ومقيد دلالياً بالاستخدام البحري، وهو الأدق لوصف هذا المفهوم.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

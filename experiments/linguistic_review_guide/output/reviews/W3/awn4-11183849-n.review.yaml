@@ -1,0 +1,332 @@
+# ═══════════════════════════════════════════════════════════════
+# مراجعة AWN4 — Review Pipeline v2 (5 Stages)
+# synset: awn4-11183849-n  |  ili: i96158  |  pos: n
+# ═══════════════════════════════════════════════════════════════
+
+# ── المرحلة ١: المراجعة والتوليد ─────────────────────────────
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّتان الموجودتان «ليونيد ماسين» و«ماسين» مكتوبتان بدون تشكيل، وهذا يخالف متطلبات AWN4 للتشكيل الكامل."
+      - "الاسم «ماسين» وحده قد يكون مُبهماً دون السياق، إذ يشترك مع أسماء أخرى."
+      - "لا يوجد في المجموعة ما يقابل الصيغة الإنجليزية الكاملة «Leonide Fedorovitch Massine» بالتعريب العربي."
+      - "هذا اسم علَم لشخص بعينه — يجب أن يكون pos في المدخل المعجمي proper_noun لا n مجرّداً."
+    observations: >
+      المجموعة ترادفية لشخص تاريخي بعينه هو ليونيد ماسين (1895-1979)، مصمم رقصات وراقص باليه فرنسي من أصل روسي.
+      هذا النوع من المجموعات (اسم علَم) يختلف جوهرياً عن المجموعات المفهومية؛ فاللمّات هي تعريبات للاسم الأجنبي
+      وليست مصطلحات عربية مشتقة. المنهجية الواجبة هي التعريب (تَعْرِيب) بأفضل صورة اصطلاحية متداولة في المصادر
+      العربية. التعريف الحالي وظيفي لكنه يحتاج تحسيناً أسلوبياً؛ عبارة «روسي المولد» ركيكة مقارنةً بـ«من أصل روسي».
+
+  blind_candidates:
+    - lemma: "لِيونيد مَاسِين"
+      generation_method: taarib
+      justification: >
+        تعريب الصيغة الفرنسية «Leonide Massine» وهي الأكثر شيوعاً في المصادر العربية؛
+        «ليونيد» من الاسم الأول الفرنسي، و«ماسين» من اللقب العائلي.
+    - lemma: "لِيونيد فِيدوروفِيتش مَاسِين"
+      generation_method: taarib
+      justification: >
+        تعريب الاسم الكامل «Leonide Fedorovitch Massine» بما يشمل الاسم الأبوي الروسي «فيدوروفيتش»،
+        وهو الصيغة الرسمية المستعملة في المصادر الموسوعية والأكاديمية.
+    - lemma: "لِيونِيد فِيدوروفِيتش مياسِين"
+      generation_method: taarib
+      justification: >
+        تعريب الاسم الروسي الأصلي «Leonid Fyodorovich Myasin»؛ «مياسين» من «Myasin»
+        بالنطق الروسي الأصلي، تُستعمل في المصادر المتخصصة بالأوبرا والباليه الروسي.
+    - lemma: "مياسِين"
+      generation_method: taarib
+      justification: >
+        تعريب اللقب الروسي الأصلي «Myasin» كصيغة مختصرة، على غرار استخدام الكنية المفردة
+        في النصوص الأدبية والنقدية الروسية الأصل.
+
+
+# ── المرحلة ٢: جمع الأدلة ────────────────────────────────────
+stage2_evidence:
+  # ملاحظة منهجية: أُجريت ثلاثة استعلامات دفعية:
+  # (أ) مطابقة دقيقة لجميع اللمّات والمرشحات → لا نتائج (أسماء أعلام أجنبية غير مُدرجة)
+  # (ب) جسر إنجليزي: Massine / Leonide / Myasin / choreographer / ballet dancer → entry 677907 فقط
+  # (ج) بحث FTS: راقص باليه / مصمم رقصات / باليه / كوريوغراف → نتائج مصطلحية عامة
+
+  per_lemma:
+    - lemma: "ليونيد ماسين"
+      evidence_status: "no_material_found"
+
+    - lemma: "ماسين"
+      evidence_status: "no_material_found"
+
+    - lemma: "لِيونيد مَاسِين"
+      evidence_status: "no_material_found"
+
+    - lemma: "لِيونيد فِيدوروفِيتش مَاسِين"
+      evidence_status: "no_material_found"
+
+    - lemma: "لِيونِيد فِيدوروفِيتش مياسِين"
+      evidence_status: "no_material_found"
+
+    - lemma: "مياسِين"
+      evidence_status: "no_material_found"
+
+  # أدلة ذات صلة بالسياق العام (لا بالاسم العلَم مباشرة):
+  contextual_evidence:
+    - entry_id: 677907
+      headword: "مُصَمِّم الرَّقَصات"
+      translation_en: "choreographer"
+      source: "المورد الحديث (2008)"
+      relevance: >
+        يؤكد أن المصطلح المعتمد في المعجمية العربية الحديثة لـ«choreographer» هو «مُصَمِّم الرَّقَصَات»
+        وهو ما يتوافق مع التعريف الحالي للمجموعة الترادفية.
+
+
+# ── المرحلة ٣: التحليل اللغوي للّمات ────────────────────────
+stage3_analysis:
+  per_lemma:
+    # ── اللمّة الموجودة ١ ──
+    - lemma: "ليونيد ماسين"
+      decision: confirmed
+      decision_reason: >
+        الصيغة الأكثر تداولاً في المصادر العربية لتعريب الاسم الكامل «Leonide Massine».
+        الاسم مشهور في الكتابات العربية عن فنون الباليه الروسي. يحتاج إضافة تشكيل كامل.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      nuance_differentiation: >
+        الاسم الأول مقرون بالكنية — الصيغة الأكثر شمولاً وتحديداً، تُستخدم في السياقات
+        الرسمية والأكاديمية والموسوعية حيث يُراد الإحالة الدقيقة إلى الشخص.
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "لِيونيد مَاسِين"
+
+    # ── اللمّة الموجودة ٢ ──
+    - lemma: "ماسين"
+      decision: confirmed
+      decision_reason: >
+        الكنية المختصرة الشائعة في النصوص النقدية والأدبية، مقبولة كشكل اختزالي للاسم العلَم.
+        يحتاج تشكيلاً كاملاً.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: >
+        الكنية المفردة دون الاسم الأول — تُستخدم في السياقات غير الرسمية والنقدية والصحفية
+        حيث يكون الشخص معروفاً مسبقاً ويُكتفى بذكر لقبه.
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَاسِين"
+
+    # ── مرشح المرحلة ١ — مرفوض ──
+    - lemma: "لِيونيد مَاسِين"
+      source: stage1
+      decision: removed
+      decision_reason: >
+        مطابق تماماً للمّة الموجودة «ليونيد ماسين» بعد إضافة التشكيل — يُعالج بتحديث اللمّة
+        الموجودة لا بإنشاء مدخل جديد.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+
+    # ── مرشح المرحلة ١ — مقبول ──
+    - lemma: "لِيونيد فِيدوروفِيتش مَاسِين"
+      source: stage1
+      decision: confirmed
+      decision_reason: >
+        يقابل الصيغة الإنجليزية الكاملة «Leonide Fedorovitch Massine» المُدرجة في قائمة lemmas_en.
+        الصيغة الكاملة مع الاسم الأبوي ضرورية في السياقات الموسوعية الرسمية وقواعد البيانات
+        المرجعية. اختبار السكّ: تعبير مُثبَّت بالتقابل مع المصدر الإنجليزي الموثوق.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      nuance_differentiation: >
+        الاسم الثلاثي الكامل (الاسم الأول + الاسم الأبوي + الكنية) — أعلى مستويات التحديد
+        والرسمية، يُستخدم في الموسوعات والمراجع الأكاديمية والمصادر الأولية لتمييز الشخص عن
+        غيره من حاملي الاسم الأول أو الكنية ذاتها.
+      actions:
+        - command: create_entry
+          params:
+            lemma: "لِيونيد فِيدوروفِيتش مَاسِين"
+            pos: proper_noun
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-11183849-n"
+
+    # ── مرشح المرحلة ١ — مرفوض ──
+    - lemma: "لِيونِيد فِيدوروفِيتش مياسِين"
+      source: stage1
+      decision: removed
+      decision_reason: >
+        الصيغة الروسية «Myasin» غير شائعة في المصادر العربية المتداولة؛ العربية تعتمد تعريب
+        الاسم الفرنسي «Massine» لا الروسي. إدراجها يُضاعف الالتباس دون فائدة.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+
+    # ── مرشح المرحلة ١ — مرفوض ──
+    - lemma: "مياسِين"
+      source: stage1
+      decision: removed
+      decision_reason: >
+        الكنية الروسية «Myasin» غير متداولة في المصادر العربية؛ «ماسين» (من الفرنسية)
+        هي الصيغة الراسخة. إدراج «مياسين» يُدخل شكلاً مُربكاً غير موثوق الاستخدام.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+
+
+# ── المرحلة ٤: التعريف والأمثلة ─────────────────────────────
+stage4_content:
+  definition:
+    current: "مصمم رقصات وراقص باليه فرنسي (روسي المولد) (1895-1979)"
+    assessment:
+      decision: revise
+      reason: >
+        التعريف الحالي صحيح في مضمونه لكنه يحتاج تحسيناً أسلوبياً: عبارة «روسي المولد»
+        ركيكة؛ الأفضل «من أصل روسي». كذلك يُستحسن ذكر شهرته تصميماً بالمعجم الموسوعي.
+        التعريف المناسب لاسم علَم هو التعريف الموسوعي (encyclopedic).
+    authored:
+      - type: encyclopedic
+        text: "رَاقِصُ بَاليهٍ وَمُصَمِّمُ رَقَصَاتٍ فَرَنْسِيٌّ مِنْ أَصْلٍ رُوسِيٍّ (1895-1979)، يُعَدُّ مِنْ أَبْرَزِ رُوَّادِ فَنِّ تَصْمِيمِ الرَّقَصَاتِ في الْقَرْنِ الْعِشْرِين، اشْتُهِرَ بِعَمَلِهِ مَعَ فُرْقَةِ الْبَاليهِ الرُّوسِيَّةِ."
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-11183849-n"
+          definition_index: 0
+          text: "رَاقِصُ بَاليهٍ وَمُصَمِّمُ رَقَصَاتٍ فَرَنْسِيٌّ مِنْ أَصْلٍ رُوسِيٍّ (1895-1979)، يُعَدُّ مِنْ أَبْرَزِ رُوَّادِ فَنِّ تَصْمِيمِ الرَّقَصَاتِ في الْقَرْنِ الْعِشْرِين، اشْتُهِرَ بِعَمَلِهِ مَعَ فُرْقَةِ الْبَاليهِ الرُّوسِيَّةِ."
+
+  examples:
+    per_lemma:
+      - lemma: "لِيونيد مَاسِين"
+        examples:
+          - text: "يُشِيرُ الْمُؤَرِّخُونَ إِلَى أَنَّ لِيونيد مَاسِين خَلَّفَ إِرْثاً فَنِّياً ضَخْماً تَجَاوَزَتْ أَعْمَالُهُ الْمِئَةَ وَالسِّتِّينَ قِطْعَةً مِنَ الرَّقَصَاتِ الْمُصَمَّمَة."
+            type: usage
+      - lemma: "مَاسِين"
+        examples:
+          - text: "أَبْهَرَ مَاسِين جُمْهُورَ الْبَاليهِ الأُورُوبِّيِّ بِأَسْلُوبِهِ التَّعْبِيرِيِّ الْمُبْتَكَرِ الَّذِي مَزَجَ فِيهِ بَيْنَ الْمَدْرَسَةِ الرُّوسِيَّةِ الْكْلاسِيكِيَّةِ وَالتَّجْرِيبِيَّةِ الْحَدِيثَة."
+            type: usage
+      - lemma: "لِيونيد فِيدوروفِيتش مَاسِين"
+        examples:
+          - text: "وَرَدَ فِي الْمَوْسُوعَةِ الْمُوسِيقِيَّةِ الدَّوْلِيَّةِ أَنَّ لِيونيد فِيدوروفِيتش مَاسِين قَدِمَ إِلَى بَارِيسَ شَابّاً لِيَنْضَمَّ إِلَى فُرْقَةِ دْيَاغِيلِيف لِلْبَاليه."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يُشِيرُ الْمُؤَرِّخُونَ إِلَى أَنَّ لِيونيد مَاسِين خَلَّفَ إِرْثاً فَنِّياً ضَخْماً تَجَاوَزَتْ أَعْمَالُهُ الْمِئَةَ وَالسِّتِّينَ قِطْعَةً مِنَ الرَّقَصَاتِ الْمُصَمَّمَة."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "أَبْهَرَ مَاسِين جُمْهُورَ الْبَاليهِ الأُورُوبِّيِّ بِأَسْلُوبِهِ التَّعْبِيرِيِّ الْمُبْتَكَرِ الَّذِي مَزَجَ فِيهِ بَيْنَ الْمَدْرَسَةِ الرُّوسِيَّةِ الْكْلاسِيكِيَّةِ وَالتَّجْرِيبِيَّةِ الْحَدِيثَة."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "وَرَدَ فِي الْمَوْسُوعَةِ الْمُوسِيقِيَّةِ الدَّوْلِيَّةِ أَنَّ لِيونيد فِيدوروفِيتش مَاسِين قَدِمَ إِلَى بَارِيسَ شَابّاً لِيَنْضَمَّ إِلَى فُرْقَةِ دْيَاغِيلِيف لِلْبَاليه."
+
+
+# ── المرحلة ٥: الإثراء (البيانات الوصفية) ──────────────────
+stage5_enrichment:
+  per_entry:
+    # أسماء أعلام أجنبية — لا جذر عربي ولا اقتباس من مقاييس اللغة
+    - lemma: "لِيونيد مَاسِين"
+      entry_id: "{auto}"
+      note: "اسم علَم أجنبي معرَّب — لا جذر عربي"
+
+    - lemma: "مَاسِين"
+      entry_id: "{auto}"
+      note: "اسم علَم أجنبي معرَّب — لا جذر عربي"
+
+    - lemma: "لِيونيد فِيدوروفِيتش مَاسِين"
+      entry_id: "{auto}"
+      note: "اسم علَم أجنبي معرَّب — لا جذر عربي"
+
+  per_sense:
+    - lemma: "لِيونيد مَاسِين"
+      sense_id: "{auto}"
+      nuance: "الاسم الثنائي الكامل (اسم أول + كنية)؛ يُستخدم في السياقات الأكاديمية والرسمية وقواعد البيانات الموسوعية."
+      mwe: true
+
+    - lemma: "مَاسِين"
+      sense_id: "{auto}"
+      nuance: "الكنية المفردة المختصرة؛ شائعة في النصوص النقدية والصحفية حين يكون الشخص معروفاً سابقاً في السياق."
+
+    - lemma: "لِيونيد فِيدوروفِيتش مَاسِين"
+      sense_id: "{auto}"
+      nuance: "الاسم الثلاثي الكامل بالاسم الأبوي الروسي؛ أعلى درجات التحديد والرسمية، يُستخدم في المصادر الأولية والسير الذاتية والمعاجم الموسوعية."
+      mwe: true
+
+  synset:
+    cultural_fit: omission
+
+  actions:
+    # entry: لِيونيد مَاسِين
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"foreign_proper_noun":true,"source_lang":"fr","original_form":"Leonide Massine","no_arabic_root":true}'
+
+    # entry: مَاسِين
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"foreign_proper_noun":true,"source_lang":"fr","original_form":"Massine","no_arabic_root":true}'
+
+    # entry: لِيونيد فِيدوروفِيتش مَاسِين
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"foreign_proper_noun":true,"source_lang":"fr","original_form":"Leonide Fedorovitch Massine","no_arabic_root":true}'
+
+    # sense: لِيونيد مَاسِين
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الثنائي الكامل يُستخدم في السياقات الأكاديمية والرسمية","mwe":true}'
+
+    # sense: مَاسِين
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الكنية المفردة المختصرة في النصوص النقدية والصحفية","mwe":false}'
+
+    # sense: لِيونيد فِيدوروفِيتش مَاسِين
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الثلاثي الكامل بالاسم الأبوي — أعلى درجات الرسمية والتحديد","mwe":true}'
+
+    # synset
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-11183849-n"
+        key: note
+        value: '{"cultural_fit":"omission","reason":"شخصية تاريخية أجنبية غير متداولة في الثقافة العربية"}'
+
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-11183849-n"
+        score: 0.78

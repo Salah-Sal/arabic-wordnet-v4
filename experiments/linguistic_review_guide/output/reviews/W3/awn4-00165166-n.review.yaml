@@ -1,0 +1,225 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي يبدو ترجمة حرفية من الإنجليزية (فعل توزيع...)."
+    observations: "المفهوم يتعلق بإعطاء أو إسناد دور أو غرض لشيء أو شخص. اللمات الحالية (تخصيص، تعيين) صحيحة وتغطي جانبي المعنى: تخصيص الأشياء والموارد، وتعيين الأشخاص."
+  blind_candidates:
+    - lemma: "إِسْنَاد"
+      generation_method: ishtiqaq
+      justification: "مشتق من الجذر (سند)، ويعني توكيل أو ضم مهمة إلى شخص معين، وهو شائع كمرادف لـ assignment."
+    - lemma: "فَرْز"
+      generation_method: majaz
+      justification: "مجاز من الفصل والعزل، حيث يتم تمييز شيء لاستخدام معين."
+    - lemma: "رَصْد"
+      generation_method: ishtiqaq
+      justification: "مشتق من (رصد) أي أعده وخصصه، مثل رصد الميزانية."
+    - lemma: "قِسْمَة"
+      generation_method: ishtiqaq
+      justification: "مشتق من التقسيم وهو قريب من توزيع المهام أو الأدوار."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تَخْصِيص"
+      confirm:
+        - text: "«تخصيص جزء من مكونات الحاسوب من أجل غرض معين.»"
+          source: "المعجم الموحد لمصطلحات تقانة (تكنولوجيا) المعلومات (2011)"
+    - lemma: "تَعْيِين"
+      confirm:
+        - text: "«(تعيين) وظيفة؛ مهمّة؛ واجب محدَّد.»"
+          source: "المورد الحديث (2008)"
+    - lemma: "إِسْنَاد"
+      confirm:
+        - text: "«إعطاء قيمة لمتغير، أو تخصيص جزء من مكونات الحاسوب من أجل غرض معين.»"
+          source: "المعجم الموحد لمصطلحات تقانة (تكنولوجيا) المعلومات (2011)"
+    - lemma: "فَرْز"
+      contradicts:
+        - text: "«الشيءَ والنَّصيبَ: مَيَّزَهُ ونحاه.»"
+          source: "المعجم الوسيط"
+          conflict: "يعني العزل والتنحية وليس التعيين والإسناد لمهمة."
+    - lemma: "رَصْد"
+      expands:
+        - text: "«فلانًا بالخيْرِ وغيرِه: أَعَدَّه له, وخَصَّه به.»"
+          source: "المعجم الكبير"
+          addition: "يفيد الإعداد والتخصيص لشيء مادي كالمال، ولا يغطي المعنى العام للمجموعة."
+    - lemma: "قِسْمَة"
+      contradicts:
+        - text: "«اسم من اقتسام الشيء.»"
+          source: "المعجم الوسيط"
+          conflict: "يفيد التجزئة ولا يفيد معنى التخصيص والتعيين الوظيفي."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تَخْصِيص"
+      decision: confirmed
+      decision_reason: "مصطلح دقيق وفصيح يعبر عن إفراد شيء لغرض محدد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَخْصِيص"
+    - lemma: "تَعْيِين"
+      decision: confirmed
+      decision_reason: "مصطلح دقيق يعبر عن إسناد وظيفة أو مهمة أو مكان لشخص."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَعْيِين"
+    - lemma: "إِسْنَاد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح أساسي وشائع للتعبير عن توكيل مهمة أو تخصيص قيمة، ويقابل assignment في سياقات متعددة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "إِسْنَاد"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-00165166-n"
+    - lemma: "فَرْز"
+      source: stage1
+      decision: removed
+      decision_reason: "دلالته الأساسية هي الفصل والتمييز وليس التعيين."
+    - lemma: "رَصْد"
+      source: stage1
+      decision: removed
+      decision_reason: "يختص عادة بالأموال والموارد المادية ولا يعم كافة المعاني."
+    - lemma: "قِسْمَة"
+      source: stage1
+      decision: removed
+      decision_reason: "تفيد التجزئة والتقسيم فقط."
+
+stage4_content:
+  definition:
+    current: "فعل توزيع شيء ما على أماكن أو أشخاص معينين"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ركيك وصياغته تبدو متأثرة بالترجمة الحرفية. يحتاج إلى صياغة لغوية ومصطلحية أدق."
+    authored:
+      - type: terminological
+        text: "إفْرَادُ شَيْءٍ لِغَرَضٍ مُحَدَّدٍ، أَوْ إِسْنَادُ مُهِمَّةٍ أَوْ دَوْرٍ لِشَخْصٍ أَوْ جِهَةٍ بِعَيْنِهَا."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-00165166-n"
+          definition_index: 0
+          text: "إفْرَادُ شَيْءٍ لِغَرَضٍ مُحَدَّدٍ، أَوْ إِسْنَادُ مُهِمَّةٍ أَوْ دَوْرٍ لِشَخْصٍ أَوْ جِهَةٍ بِعَيْنِهَا."
+  examples:
+    per_lemma:
+      - lemma: "تَخْصِيص"
+        examples:
+          - text: "تَمَّ تَخْصِيصُ مِيزَانِيَّةٍ إِضَافِيَّةٍ لِلْمَشْرُوعِ."
+            type: usage
+      - lemma: "تَعْيِين"
+        examples:
+          - text: "صَدَرَ قَرَارٌ بِتَعْيِينِهِ فِي مَنْصِبِ الْمُدِيرِ الْعَامِّ."
+            type: usage
+      - lemma: "إِسْنَاد"
+        examples:
+          - text: "تَمَّ إِسْنَادُ مُهِمَّةِ التَّحْقِيقِ إِلَى لَجْنَةٍ خَاصَّةٍ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "awn4-00165166-n"
+          text: "تَمَّ تَخْصِيصُ مِيزَانِيَّةٍ إِضَافِيَّةٍ لِلْمَشْرُوعِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تَمَّ إِسْنَادُ مُهِمَّةِ التَّحْقِيقِ إِلَى لَجْنَةٍ خَاصَّةٍ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تَخْصِيص"
+      entry_id: "{auto}"
+      root: "خص"
+      maqayis_quote: "«الْخَاءُ وَالصَّادُ أَصْلٌ مُطَّرِدٌ مُنْقَاسٌ، وَهُوَ يَدُلُّ عَلَى الْفُرْجَةِ وَالثُّلْمَةِ... وَمِنَ الْبَابِ خَصَصْتُ فُلَانًا بِشَيْءٍ خَصُوصِيَّةً... إِذَا أُفْرِدَ وَاحِدٌ فَقَدْ أَوْقَعَ فُرْجَةً بَيْنَهُ وَبَيْنَ غَيْرِهِ»"
+    - lemma: "تَعْيِين"
+      entry_id: "{auto}"
+      root: "عين"
+      maqayis_quote: "«الْعَيْنُ وَالْيَاءُ وَالنُّونُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى عُضْوٍ بِهِ يُبْصَرُ وَيُنْظَرُ، ثُمَّ يُشْتَقُّ مِنْهُ»"
+    - lemma: "إِسْنَاد"
+      entry_id: "{auto}"
+      root: "سند"
+      maqayis_quote: "«السِّينُ وَالنُّونُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى انْضِمَامِ الشَّيْءِ إِلَى الشَّيْءِ.»"
+  per_sense:
+    - lemma: "تَخْصِيص"
+      sense_id: "{auto}"
+      nuance: "يُشير إلى إفراد شيء أو مورِد لغرض محدد أو شخص محدد دون غيره."
+      mwe: false
+    - lemma: "تَعْيِين"
+      sense_id: "{auto}"
+      nuance: "يُشير إلى تحديد شخص لمنصب أو مهمة محددة، ويغلب في السياق الوظيفي الإداري."
+      mwe: false
+    - lemma: "إِسْنَاد"
+      sense_id: "{auto}"
+      nuance: "يُشير إلى نسبة أمر إلى آخر، أو توكيل مهمة إلى شخص معين للقيام بها."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خص","maqayis":"«الْخَاءُ وَالصَّادُ أَصْلٌ مُطَّرِدٌ مُنْقَاسٌ، وَهُوَ يَدُلُّ عَلَى الْفُرْجَةِ وَالثُّلْمَةِ... وَمِنَ الْبَابِ خَصَصْتُ فُلَانًا بِشَيْءٍ خَصُوصِيَّةً... إِذَا أُفْرِدَ وَاحِدٌ فَقَدْ أَوْقَعَ فُرْجَةً بَيْنَهُ وَبَيْنَ غَيْرِهِ»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عين","maqayis":"«الْعَيْنُ وَالْيَاءُ وَالنُّونُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى عُضْوٍ بِهِ يُبْصَرُ وَيُنْظَرُ، ثُمَّ يُشْتَقُّ مِنْهُ»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سند","maqayis":"«السِّينُ وَالنُّونُ وَالدَّالُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى انْضِمَامِ الشَّيْءِ إِلَى الشَّيْءِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُشير إلى إفراد شيء أو مورِد لغرض محدد أو شخص محدد دون غيره.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُشير إلى تحديد شخص لمنصب أو مهمة محددة، ويغلب في السياق الوظيفي الإداري.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُشير إلى نسبة أمر إلى آخر، أو توكيل مهمة إلى شخص معين للقيام بها.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-00165166-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-00165166-n"
+        score: 0.95

@@ -1,0 +1,191 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "خلو اللمات الحالية من التشكيل الكامل وهو ضروري للمصطلحات السياسية والتاريخية."
+      - "الاكتفاء بلمتين بينما توجد مرادفات فصيحة أخرى في الأدبيات التاريخية."
+    observations: "المفهوم مرتبط بالنظرية العرقية والنازية (Herrenvolk). اللمات المقترحة تتبع أسلوب الترجمة الاصطلاحية الشائعة في المعاجم الحديثة مثل المورد."
+  blind_candidates:
+    - lemma: "العِرْقُ السَّيِّدُ"
+      generation_method: tarkib
+      justification: "ترجمة حرفية اصطلاحية للمصطلح الإنجليزي 'master race' والألماني 'Herrenvolk'."
+    - lemma: "العِرْقُ الأَسْمَى"
+      generation_method: tarkib
+      justification: "يستخدم لوصف العرق الذي يرى نفسه في قمة الهرم البشري (Supreme race)."
+    - lemma: "الجِنْسُ السَّيِّدُ"
+      generation_method: tarkib
+      justification: "استخدام كلمة 'جنس' كمرادف لـ 'عرق' شائع في الكتابات الاجتماعية القديمة."
+    - lemma: "النُّخْبَةُ العِرْقِيَّةُ"
+      generation_method: tarkib
+      justification: "وصف لمجموعة عرقية ترى لنفسها حق الحكم (Ethnic elite)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "العِرْقُ السَّيِّدُ"
+      confirm:
+        - text: "«العِرْق السيِّد: شعبٌ يُزْعَم أنّه متفوِّق، عِرْقيًّا، على غيره من الشعوب، وأنه بالتالي مؤهَّل لحكمها واستعبادها.»"
+          source: "المورد الحديث (2008)"
+    - lemma: "العِرْقُ المُتَفَوِّقُ"
+      confirm:
+        - text: "«شعب يزعم انه متفوق، عرقيا، علي غيره من الشعوب»"
+          source: "المورد الحديث (تعريف ضمني)"
+    - lemma: "العِرْقُ الأَسْمَى"
+      expands:
+        - text: "«الفاء والواو والقاف أصلان صحيحان، يدل أحدهما على علو... فلان فاق أصحابه يفوقهم، إذا علاهم»"
+          source: "مقاييس اللغة (دلالة العلو والتفوق)"
+    - lemma: "الجِنْسُ السَّيِّدُ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "العرق السيد"
+      decision: confirmed
+      decision_reason: "مصطلح معتمد في المعاجم الحديثة (المورد) وترجمة دقيقة لـ master race."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "العِرْقُ السَّيِّدُ"
+    - lemma: "العرق المتفوق"
+      decision: confirmed
+      decision_reason: "تعبير وصفي شائع وواضح الدلالة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "العِرْقُ المُتَفَوِّقُ"
+    - lemma: "العِرْقُ الأَسْمَى"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يلائم السياق الإيديولوجي الذي يرفع من شأن عرق معين فوق الآخرين."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "العِرْقُ الأَسْمَى", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "الجِنْسُ السَّيِّدُ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "بديل فصيح يستخدم 'الجنس' بمعنى السلالة أو العرق."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "الجِنْسُ السَّيِّدُ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "النُّخْبَةُ العِرْقِيَّةُ"
+      source: stage1
+      decision: removed
+      decision_reason: "كلمة 'نخبة' توحي بصفوة مختارة من العرق وليس العرق ككل، مما يبتعد عن المفهوم المطلوب."
+
+stage4_content:
+  definition:
+    current: "عرق يعتبر نفسه متفوقاً على جميع الآخرين ومؤهلاً لحكم الآخرين"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكن يحتاج صياغة أكثر دقة وموسوعية لتوضيح الجانب المزاعمي أو الإيديولوجي."
+    authored:
+      - type: terminological
+        text: "مفهومٌ عِرْقيٌّ يَزْعُمُ أَصْحَابُهُ تَفَوُّقَ سُلَالَتِهِمْ جِينِيًّا أَوْ حَضَارِيًّا عَلَى سَائِرِ البَشَرِ، مِمَّا يُعْطِيهِمُ الحَقَّ فِي السَّيَادَةِ وَالحُكْمِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مفهومٌ عِرْقيٌّ يَزْعُمُ أَصْحَابُهُ تَفَوُّقَ سُلَالَتِهِمْ جِينِيًّا أَوْ حَضَارِيًّا عَلَى سَائِرِ البَشَرِ، مِمَّا يُعْطِيهِمُ الحَقَّ فِي السَّيَادَةِ وَالحُكْمِ."}
+  examples:
+    per_lemma:
+      - lemma: "العِرْقُ السَّيِّدُ"
+        examples:
+          - text: "قَامَتِ النَّازِيَّةُ عَلَى أَسَاسِ عَقِيدَةِ العِرْقِ السَّيِّدِ الَّذِي يَسْتَحِقُّ حُكْمَ العَالَمِ."
+            type: usage
+      - lemma: "العِرْقُ المُتَفَوِّقُ"
+        examples:
+          - text: "رَفَضَتِ المَوَاثِيقُ الدَّوْلِيَّةُ أَيَّ تَمْيِيزٍ يَقُومُ عَلَى فِكْرَةِ العِرْقِ المُتَفَوِّقِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "تُعد فكرة العرق السيد من أخطر النظريات التي أدت إلى صراعات دموية في القرن العشرين."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "العِرْقُ السَّيِّدُ"
+      entry_id: "{auto}"
+      roots:
+        - word: "العرق"
+          root: "عرق"
+          maqayis_quote: "«الْعَيْنُ وَالرَّاءُ وَالْقَافُ أَرْبَعَةُ أُصُولٍ... الثَّانِي السِّنْخُ الْمُتَشَعِّبُ. مِنْ ذَلِكَ الْعِرْقُ عِرْقُ الشَّجَرَةِ... فُلَانٌ مُعْرِقٌ فِي الْكَرَمِ، أَيْ لَهُ فِيهِ أَصْلٌ وَسِنْخٌ.»"
+        - word: "السيد"
+          root: "سيد"
+          maqayis_quote: "«السِّينُ وَالْيَاءُ وَالدَّالُ كَلِمَةٌ وَاحِدَةٌ، وَهِيَ السِّيدُ... السِّيدُ الذِّئْبُ... وَقَدْ يُسَمَّى الْأَسَدُ سِيدًا.»"
+    - lemma: "العِرْقُ المُتَفَوِّقُ"
+      entry_id: "{auto}"
+      roots:
+        - word: "العرق"
+          root: "عرق"
+          maqayis_quote: "«الْعَيْنُ وَالرَّاءُ وَالْقَافُ أَرْبَعَةُ أُصُولٍ... الثَّانِي السِّنْخُ الْمُتَشَعِّبُ.»"
+        - word: "المتفوق"
+          root: "فوق"
+          maqayis_quote: "«الْفَاءُ وَالْوَاوُ وَالْقَافُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى عُلُوٍّ... فَالْأَوَّلُ الْفَوْقُ، وَهُوَ الْعُلُوُّ.»"
+  per_sense:
+    - lemma: "العِرْقُ السَّيِّدُ"
+      sense_id: "{auto}"
+      nuance: "ترجمة مباشرة لـ (Master Race)، وهي الأكثر ارتباطاً بالأيديولوجيات العنصرية الرسمية كالهتلرية."
+      mwe: true
+    - lemma: "العِرْقُ المُتَفَوِّقُ"
+      sense_id: "{auto}"
+      nuance: "وصف عام يمكن استخدامه في سياقات غير سياسية أو في الدراسات الاجتماعية العامة."
+      mwe: true
+    - lemma: "العِرْقُ الأَسْمَى"
+      sense_id: "{auto}"
+      nuance: "يركز على صفة السمو والارتفاع، ويستخدم غالباً في الخطاب الدعائي لهذه الحركات."
+      mwe: true
+    - lemma: "الجِنْسُ السَّيِّدُ"
+      sense_id: "{auto}"
+      nuance: "صيغة تراثية في الترجمة تستخدم كلمة 'جنس' لتعني الأصل البشري."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"العرق","root":"عرق","maqayis":"«الْعَيْنُ وَالرَّاءُ وَالْقَافُ أَرْبَعَةُ أُصُولٍ... الثَّانِي السِّنْخُ الْمُتَشَعِّبُ. مِنْ ذَلِكَ الْعِرْقُ عِرْقُ الشَّجَرَةِ... فُلَانٌ مُعْرِقٌ فِي الْكَرَمِ، أَيْ لَهُ فِيهِ أَصْلٌ وَسِنْخٌ.»"},{"word":"السيد","root":"سيد","maqayis":"«السِّينُ وَالْيَاءُ وَالدَّالُ كَلِمَةٌ وَاحِدَةٌ، وَهِيَ السِّيدُ... السِّيدُ الذِّئْبُ... وَقَدْ يُسَمَّى الْأَسَدُ سِيدًا.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"ترجمة مباشرة لـ (Master Race)، وهي الأكثر ارتباطاً بالأيديولوجيات العنصرية الرسمية كالهتلرية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,205 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "المصطلح 'مَوْقِع نَحْوِيّ' يميل لأن يكون عبارة وصفية أكثر منه مصطلحاً معجمياً مستقلاً، لكنه مستقر في الأدبيات اللسانية."
+      - "كلمة 'خَانَة' قد تُفهم في سياقها الحسابي (خانة الآحاد) أكثر من السياق اللساني إذا لم تُقيّد."
+    observations: "المفهوم يشير إلى 'الفتحة' أو 'المكان' الشاغر في بنية الجملة الذي يمكن ملؤه بوحدات تنتمي لنفس الفئة (مثل المبتدأ، الفعل، إلخ). المصطلحات الحالية تغطي الجانب الوصفي (موقع نحوي) والجانبي الهيكلي (خانة)."
+  blind_candidates:
+    - lemma: "خَانَةٌ"
+      generation_method: majaz
+      justification: "استعارة دلالية من الخانات الحسابية أو المكانية للتعبير عن الفتحة البنيوية (Slot) في اللسانيات البنيوية."
+    - lemma: "مَحَلٌّ نَحْوِيٌّ"
+      generation_method: tarkib
+      justification: "استخدام المصطلح التراثي 'محل' (كما في 'محل الإعراب') وتخصيصه بالوصف 'نحوي' ليدل على الموقع البنيوي."
+    - lemma: "مَوْقِعٌ لِسَانِيٌّ"
+      generation_method: tarkib
+      justification: "تركيب وصفي يحدد طبيعة الموقع بأنه ضمن النظام اللساني."
+    - lemma: "فَجْوَةٌ"
+      generation_method: majaz
+      justification: "تعبير عن المكان الخالي الذي ينتظر ملأه بوحدة لغوية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خَانَة"
+      confirm:
+        - text: "الْمَنْزِلَةُ وفى اصْطِلاحِ الكُتَّابِ: خانَةُ العَشَراتِ و: خانَةُ الْمِئَاتِ"
+          source: "المعجم الكبير"
+      expands:
+        - text: "تستخدم في اللسانيات الحديثة للتعبير عن الـ (Slot) في التحليل البنيوي."
+          source: "ممارسة لسانية حديثة"
+    - lemma: "مَوْقِع نَحْوِيّ"
+      confirm:
+        - text: "محل الإعراب (في النحو) : ما يستحقه اللفظ الواقع فيه من الإعراب لو كان معرباً"
+          source: "المعجم الوسيط"
+          addition: "يربط بين الموقع الفيزيائي في الجملة والاستحقاق الإعرابي."
+    - lemma: "مَحَلّ"
+      confirm:
+        - text: "المحلّ عند الكوفيين من النحاة اسم للمفعول فيه."
+          source: "كشاف اصطلاحات الفنون"
+        - text: "محل الإعراب (في النحو): ما يستحقه اللفظ الواقع فيه من الإعراب"
+          source: "المعجم الوسيط"
+    - lemma: "مَوْضِع"
+      contradicts:
+        - text: "يكون أحد مكونات الجملة موضعا حين يكون مبتدأ واقعا خارج الجملة... [المبتدأ/Topic]"
+          source: "المعجم الموحد لمصطلحات اللسانيات"
+          conflict: "المصطلح محجوز لمفهوم (Topic) في التداولية واللسانيات، مما قد يسبب لبساً."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "خَانَة"
+      decision: confirmed
+      decision_reason: "مصطلح دقيق وشائع في اللسانيات البنيوية (Slot-and-Filler) للتعبير عن المواقع الشاغرة في البنية."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَانَةٌ"
+    - lemma: "مَوْقِع نَحْوِيّ"
+      decision: confirmed
+      decision_reason: "تعبير واضح ومباشر عن المفهوم، وهو مستخدم بكثرة كمرادف لـ (Slot)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَوْقِعٌ نَحْوِيٌّ"
+    - lemma: "مَحَلّ نَحْوِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يربط المفهوم اللساني الحديث بالتراث النحوي العربي (محل الإعراب)، مما يسهل استيعابه."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "مَحَلٌّ نَحْوِيٌّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "فَجْوَةٌ نَحْوِيَّةٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تستخدم أحياناً في سياقات لسانية لوصف الثغرات التي يجب شغلها بوحدات بديلة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "فَجْوَةٌ نَحْوِيَّةٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "موقع في بناء لغوي نحوي يمكن فيه تبادل مجموعة متنوعة من الوحدات البديلة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي ومكرر (موقع... نحوي)، الأفضل صياغته بأسلوب معجمي يركز على الوظيفة البنيوية."
+    authored:
+      - type: terminological
+        text: "مَوْضِعٌ أو خَانَةٌ فِي بِناءٍ لُغَوِيٍّ تَقْبَلُ الشَّغْلَ بِوَاحِدَةٍ مِنْ عِدَّةِ وَحَدَاتٍ لِسَانِيَّةٍ مُتَبَادِلَةٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مَوْضِعٌ أو خَانَةٌ فِي بِناءٍ لُغَوِيٍّ تَقْبَلُ الشَّغْلَ بِوَاحِدَةٍ مِنْ عِدَّةِ وَحَدَاتٍ لِسَانِيَّةٍ مُتَبَادِلَةٍ."}
+  examples:
+    per_lemma:
+      - lemma: "خَانَةٌ"
+        examples:
+          - text: "يَتَطَلَّبُ هَذَا الفِعْلُ شَغْلَ خَانَةِ المَفْعُولِ بِهِ بِاسْمٍ ظَاهِرٍ أو ضَمِيرٍ."
+            type: usage
+      - lemma: "مَوْقِعٌ نَحْوِيٌّ"
+        examples:
+          - text: "يُحَدِّدُ المَوْقِعُ النَّحْوِيُّ لِلْكَلِمَةِ فِي الجُمْلَةِ وَظِيفَتَهَا الدَّلَالِيَّةَ."
+            type: usage
+      - lemma: "مَحَلٌّ نَحْوِيٌّ"
+        examples:
+          - text: "قَدْ تَشْغَلُ الجُمْلَةُ الفِعْلِيَّةُ مَحَلّاً نَحْوِيّاً يُؤَدِّي دَوْرَ الخَبَرِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "تَحْتَوِي كُلُّ جُمْلَةٍ عَلَى خَانَاتٍ بِنْيَوِيَّةٍ تُشْغَلُ بِوحداتٍ لُغَوِيَّةٍ مُخْتَلِفَةٍ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خَانَةٌ"
+      entry_id: "{auto}"
+      root: "خون"
+      maqayis_quote: "«الْخَاءُ وَالْوَاوُ وَالنُّونُ أَصْلٌ وَاحِدٌ، وَهُوَ التَّنَقُّصُ... وَأَمَّا الَّذِي يُؤْكَلُ عَلَيْهِ، فَقَالَ قَوْمٌ: هُوَ أَعْجَمِيٌّ.» (تنبيه: اللفظ مستخدم في اصطلاح الكتاب بمعنى المنزلة)."
+    - lemma: "مَوْقِعٌ نَحْوِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "موقع"
+          root: "وقع"
+          maqayis_quote: "«الْوَاوُ وَالْقَافُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ... يَدُلُّ عَلَى سُقُوطِ شَيْءٍ... وَمَوْقَعَةُ الطَّائِرِ: مَوْضِعُهُ الَّذِي يَقَعُ عَلَيْهِ.»"
+        - word: "نحوي"
+          root: "نحو"
+          maqayis_quote: "«النُّونُ وَالْحَاءُ وَالْوَاوُ أَصْلٌ وَاحِدٌ، وَهُوَ الْقَصْدُ... يُقَالُ نَحَوْتُ نَحْوَكَ، أَيْ قَصَدْتُ قَصْدَكَ.»"
+    - lemma: "مَحَلٌّ نَحْوِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "محل"
+          root: "حلل"
+          maqayis_quote: "«الْحَاءُ وَاللَّامُ... وَأَصْلُهَا كُلُّهَا عِنْدِي فَتْحُ الشَّيْءِ... وَالْمَحَلَّةُ: الْمَكَانُ يَنْزِلُ بِهِ الْقَوْمُ.»"
+        - word: "نحوي"
+          root: "نحو"
+          maqayis_quote: "«النُّونُ وَالْحَاءُ وَالْوَاوُ أَصْلٌ وَاحِدٌ، وَهُوَ الْقَصْدُ.»"
+  per_sense:
+    - lemma: "خَانَةٌ"
+      sense_id: "{auto}"
+      nuance: "تركز على الجانب الهيكلي/البنيوي للموقع كأنه 'فراغ' أو 'صندوق' (Slot)."
+      mwe: false
+    - lemma: "مَوْقِعٌ نَحْوِيٌّ"
+      sense_id: "{auto}"
+      nuance: "تعبير عام عن المركز أو المكان الوظيفي للكلمة داخل النظام النحوي."
+      mwe: true
+    - lemma: "مَحَلٌّ نَحْوِيٌّ"
+      sense_id: "{auto}"
+      nuance: "يستحضر مفهوم 'محل الإعراب' التراثي ويربطه بالموقع البنيوي الحديث."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خون","maqayis":"«الْخَاءُ وَالْوَاوُ وَالنُّونُ أَصْلٌ وَاحِدٌ، وَهُوَ التَّنَقُّصُ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"موقع","root":"وقع","maqayis":"«...»"},{"word":"نحوي","root":"نحو","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركز على الجانب الهيكلي للموقع.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

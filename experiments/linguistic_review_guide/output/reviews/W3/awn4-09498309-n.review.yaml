@@ -1,0 +1,233 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللّمّة الموجودة تفتقر إلى التشكيل الكامل."
+      - "التعريف العربي الحالي بسيط ويحتاج إلى صياغة معجمية أكثر دقة لبيان طبيعة 'المجرى'."
+    observations: "المفهوم يعبر عن الوحدة الهيدرولوجية الأساسية للجريان السطحي، ويشمل الأنماط الطبيعية والاصطناعية، وهو ما يتطلب تنويعاً في اللمّات بين المصطلحي المعاصر والتراثي الفصيح."
+  blind_candidates:
+    - lemma: "مَجْرًى مَائِيّ"
+      generation_method: tarkib
+      justification: "التعبير المعياري الحديث والمباشر للمفهوم (Watercourse)."
+    - lemma: "مَسِيل"
+      generation_method: ishtiqaq
+      justification: "لفظ فصيح من الجذر (سيل) يدل على مكان الجريان، وهو مستعمل بكثرة في المعاجم القديمة."
+    - lemma: "مَجْرَى"
+      generation_method: ishtiqaq
+      justification: "اسم مكان من (جرى)، وهو اللفظ النواة الذي تشتق منه التراكيب الوصفية."
+    - lemma: "مَنْفَذ مَائِيّ"
+      generation_method: tarkib
+      justification: "مرشح يعبر عن مسار خروج الماء أو مروره عبر القنوات."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مَجْرًى مَائِيّ"
+      confirm:
+        - text: "يقصد بالمجرى المائي... نظام المياه السطحية والمياه الجوفية التي تشكل بحكم علاقاتها الطبيعية ببعضها البعض كتلة واحدة، والتي تتدفق وتندفع نحو نقطة وصول واحدة."
+          source: "المعجم الموحد لمصطلحات المياه"
+        - text: "مجرى مائي (Watercourse): هي مجاري بمياه متدفقة مواقع مائية، وتشمل الطبيعية والاصطناعية."
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة"
+    - lemma: "مَجْرَى"
+      confirm:
+        - text: "(المجرى) من النهر مسيله."
+          source: "المعجم الوسيط"
+        - text: "كتلة مائية، تجري عموماً في قناة سطحية طبيعية."
+          source: "المعجم الموحد لمصطلحات المياه"
+    - lemma: "مَسِيل"
+      confirm:
+        - text: "المسيل: مَجْرَى الماء وغيره."
+          source: "المعجم الوسيط"
+        - text: "السائلة؛ مجرى الماء والسيل ونحوهما."
+          source: "المعجم الكبير"
+    - lemma: "مَنْفَذ مَائِيّ"
+      evidence_status: "no_material_found"
+    - lemma: "قَنَاة مَائِيَّة"
+      confirm:
+        - text: "قناة طبيعية أو اصطناعية يكون فيها للسائل الجاري سطح سائب معرض للضغط الجوي."
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية (تحت قناة مكشوفة)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مجرى مائي"
+      decision: confirmed
+      decision_reason: "المصطلح الأساسي والمعياري في السياق الحديث، ومدعوم بقوة في المعاجم التقنية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَجْرًى مَائِيّ"
+    - lemma: "مَجْرَى"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ بسيط وأساسي يشيع استخدامه للدلالة على مسار النهر أو الماء."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَجْرَى", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مَسِيل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ تراثي أصيل يعبر بدقة عن مكان سيلان الماء، وهو مرادف قوي في النصوص الفصيحة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَسِيل", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "قَنَاة مَائِيَّة"
+      decision: confirmed
+      decision_reason: "مرادف تقني ووصف شائع للمجاري المائية، خاصة تلك المهيأة أو الاصطناعية، لكنه يشمل الطبيعية أيضاً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "قَنَاة مَائِيَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مَنْفَذ مَائِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "المصطلح يشير غالباً إلى مخرج الماء أو نقطة معينة (outlet) بدلاً من المجرى الطولي الكامل."
+
+stage4_content:
+  definition:
+    current: "قناة طبيعية أو اصطناعية تتدفق عبرها المياه"
+    assessment:
+      decision: revise
+      reason: "لجعل التعريف أكثر دقة ببيان وظيفة المجرى وتمييزه عن مجرد القناة الجامدة."
+    authored:
+      - type: terminological
+        text: "مَجْرًى تَسِيلُ فِيهِ المِيَاهُ سَيْلًا مُسْتَمِرًّا أَوْ مُتَقَطِّعًا، وَيَشْمَلُ القَنَوَاتِ الطَّبِيعِيَّةَ كَالأَنْهَارِ وَالاِصْطِنَاعِيَّةَ كَالمَصَارِفِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مَجْرًى تَسِيلُ فِيهِ المِيَاهُ سَيْلًا مُسْتَمِرًّا أَوْ مُتَقَطِّعًا، وَيَشْمَلُ القَنَوَاتِ الطَّبِيعِيَّةَ كَالأَنْهَارِ وَالاِصْطِنَاعِيَّةَ كَالمَصَارِفِ."}
+  examples:
+    per_lemma:
+      - lemma: "مَجْرًى مَائِيّ"
+        examples:
+          - text: "تُعَدُّ الأَنْهَارُ وَالجَدَاوِلُ مِنْ أَهَمِّ المَجَارِي المَائِيَّةِ العَذْبَةِ التي تُغَذِّي البُحَيْرَاتِ."
+            type: usage
+      - lemma: "مَسِيل"
+        examples:
+          - text: "نَظَّفَ المُزَارِعُونَ مَسِيلَ المَاءِ لِضَمَانِ وُصُولِهِ إِلَى الحُقُولِ دُونَ عَوَائِقَ."
+            type: usage
+      - lemma: "مَجْرَى"
+        examples:
+          - text: "تَغَيَّرَ مَجْرَى النَّهْرِ بِفِعْلِ الزِّلْزَالِ العَنِيفِ."
+            type: usage
+      - lemma: "قَنَاة مَائِيَّة"
+        examples:
+          - text: "تَمَّ حَفْرُ قَنَاةٍ مَائِيَّةٍ لِرَبْطِ النَّهْرِ بِالمِنْطَقَةِ الصِّنَاعِيَّةِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يَتَأَثَّرُ التَّنَوُّعُ البِيئِيُّ بِجَوْدَةِ المِيَاهِ فِي المَجَارِي المَائِيَّةِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَجْرًى مَائِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مجرى"
+          root: "جري"
+          maqayis_quote: "«الْجِيمُ وَالرَّاءُ وَالْيَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ انْسِيَاحُ الشَّيْءِ.»"
+        - word: "مائي"
+          root: "موه"
+          maqayis_quote: "«الْمِيمُ وَالْوَاوُ وَالْهَاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ... وَهِيَ الْمَوَهُ: أَصْلُ بِنَاءِ الْمَاءِ.»"
+    - lemma: "مَجْرَى"
+      entry_id: "{auto}"
+      root: "جري"
+      maqayis_quote: "«الْجِيمُ وَالرَّاءُ وَالْيَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ انْسِيَاحُ الشَّيْءِ.»"
+    - lemma: "مَسِيل"
+      entry_id: "{auto}"
+      root: "سيل"
+      maqayis_quote: "«السِّينُ وَالْيَاءُ وَاللَّامُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى جَرَيَانٍ وَامْتِدَادٍ.»"
+    - lemma: "قَنَاة مَائِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "قناة"
+          root: "قني"
+          maqayis_quote: "«الْقَافُ وَالنُّونُ وَالْيَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى اقْتِنَاءٍ وَغَيْرِهِ.» (ومنه القناة للرمح والأنبوب)."
+        - word: "مائية"
+          root: "موه"
+          maqayis_quote: "«الْمِيمُ وَالْوَاوُ وَالْهَاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ... وَهِيَ الْمَوَهُ: أَصْلُ بِنَاءِ الْمَاءِ.»"
+  per_sense:
+    - lemma: "مَجْرًى مَائِيّ"
+      sense_id: "{auto}"
+      nuance: "المصطلح العلمي الأعم والأكثر دقة لوصف مسارات المياه الطبيعية والاصطناعية."
+      mwe: true
+    - lemma: "مَجْرَى"
+      sense_id: "{auto}"
+      nuance: "لفظ عام يركز على مسار الحركة والجريان، ويشيع استخدامه في السياقات الأدبية والجغرافية العامة."
+      mwe: false
+    - lemma: "مَسِيل"
+      sense_id: "{auto}"
+      nuance: "لفظ تراثي يركز على الموضع الذي يسيل فيه الماء، ويكثر استخدامه لوصف أودية السيول."
+      mwe: false
+    - lemma: "قَنَاة مَائِيَّة"
+      sense_id: "{auto}"
+      nuance: "يركز على الشكل الأنبوبي أو المحفور للمجرى، وغالباً ما يوحي بالتدخل البشري أو التهيئة."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مجرى","root":"جري","maqayis":"«...»"},{"word":"مائي","root":"موه","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جري","maqayis":"«...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سيل","maqayis":"«...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"قناة","root":"قني","maqayis":"«...»"},{"word":"مائية","root":"موه","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العلمي الأعم...","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

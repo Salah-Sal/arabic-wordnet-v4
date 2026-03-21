@@ -1,0 +1,175 @@
+# Stage 1: Review + Generate (no evidence)
+stage1_review:
+  assessment:
+    concerns:
+      - ندرة توثيق الأعلام الجغرافية الأجنبية المتخصصة في المعاجم اللغوية العربية العامة.
+      - الحاجة لضبط التشكيل بدقة لاسم العلم الأعجمي (بوهاي).
+    observations: "المجموعة الحالية تغطي المصطلح الشائع (بحر بوهاي) واختصاره. بما أن التعريف يشير إلى أنه (مدخل/inlet)، فإن استخدام مصطلح (خليج) مبرر لغوياً وجغرافياً."
+  blind_candidates:
+    - lemma: "بَحْر بُوهَاي"
+      generation_method: tarkib
+      justification: "الاسم الرسمي والأكثر شيوعاً للمسطح المائي."
+    - lemma: "خَلِيج بُوهَاي"
+      generation_method: tarkib
+      justification: "وصف جغرافي دقيق يتطابق مع المفهوم (inlet) والفرط المستعلي (Gulf)."
+    - lemma: "بُوهَاي"
+      generation_method: majaz
+      justification: "اسم العلم المجرد المستخدم للإشارة للبحر أو المنطقة الجغرافية المحيطة."
+    - lemma: "خَلِيج بِي جِيلِي"
+      generation_method: tarkib
+      justification: "الاسم التاريخي القديم الذي كان مستخدماً في الخرائط العربية والغربية (Pechihli)."
+
+# Stage 2: Evidence Gathering
+stage2_evidence:
+  per_lemma:
+    - lemma: "بَحْر بُوهَاي"
+      evidence_status: "no_material_found"
+    - lemma: "بُوهَاي"
+      evidence_status: "no_material_found"
+    - lemma: "خَلِيج بُوهَاي"
+      evidence_status: "no_material_found"
+    - lemma: "خَلِيج بِي جِيلِي"
+      evidence_status: "no_material_found"
+
+# Stage 3: Lemma Linguistic Analysis
+stage3_analysis:
+  per_lemma:
+    - lemma: "بَحْر بُوهَاي"
+      decision: confirmed
+      decision_reason: "المسمى العربي الرسمي المعتمد في الأطالس الجغرافية الحديثة لهذا المسطح المائي."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "بَحْر بُوهَاي"
+    - lemma: "بُوهَاي"
+      decision: confirmed
+      decision_reason: "اسم العلم الأعجمي (الصيني) المجرد، يشيع استخدامه للدلالة على البحر اختصاراً."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "بُوهَاي"
+    - lemma: "خَلِيج بُوهَاي"
+      source: stage1
+      decision: confirmed
+      decision_reason: "ترجمة دقيقة لـ (Bohai Gulf) وتتوافق مع تعريف (inlet) والفرط المستعلي للمجموعة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "خَلِيج بُوهَاي", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09249116-n"}
+
+# Stage 4: Definitions & Examples
+stage4_content:
+  definition:
+    current: "مدخل للبحر الأصفر، على ساحل شرق الصين"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مختصر جداً، ويحتاج لإضافة الطبيعة الجغرافية كبحر داخلي وتحديد الموقع بدقة أكبر."
+    authored:
+      - type: encyclopedic
+        text: "بحر داخلي يشكل الامتداد الشمالي للبحر الأصفر، يقع قبالة الساحل الشمالي لشرق الصين، ويحده من الغرب والجنوب مقاطعات خبي وتيانجين وشاندونغ."
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-09249116-n", definition_index: 0, text: "بحر داخلي يشكل الامتداد الشمالي للبحر الأصفر، يقع قبالة الساحل الشمالي لشرق الصين، ويحده من الغرب والجنوب مقاطعات خبي وتيانجين وشاندونغ."}
+  examples:
+    per_lemma:
+      - lemma: "بَحْر بُوهَاي"
+        examples:
+          - text: "تُعدّ منطقة بحر بوهاي من أكثر المناطق حيويةً من الناحية الاقتصادية في الصين."
+            type: usage
+      - lemma: "خَلِيج بُوهَاي"
+        examples:
+          - text: "يصب النهر الأصفر في خليج بوهاي، مما يؤثر على ملوحة المياه وترسباتها."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تُعدّ منطقة بحر بوهاي من أكثر المناطق حيويةً من الناحية الاقتصادية في الصين."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يصب النهر الأصفر في خليج بوهاي، مما يؤثر على ملوحة المياه وترسباتها."}
+
+# Stage 5: Enrichment (metadata)
+stage5_enrichment:
+  per_entry:
+    - lemma: "بَحْر بُوهَاي"
+      entry_id: "{auto}"
+      roots:
+        - word: "بحر"
+          root: "بحر"
+          maqayis_quote: "«الْبَاءُ وَالْحَاءُ وَالرَّاءُ. قَالَ الْخَلِيلُ سُمِّيَ الْبَحْرُ بَحْرًا لِاسْتِبْحَارِهِ وَهُوَ انْبِسَاطُهُ وَسَعَتُهُ.»"
+        - word: "بوهاي"
+          root: null
+          maqayis_quote: "اسم علم أعجمي لا جذر له في العربية."
+    - lemma: "بُوهَاي"
+      entry_id: "{auto}"
+      root: null
+      maqayis_quote: "اسم علم أعجمي صيني."
+    - lemma: "خَلِيج بُوهَاي"
+      entry_id: "{auto}"
+      roots:
+        - word: "خليج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"
+        - word: "بوهاي"
+          root: null
+          maqayis_quote: "اسم علم أعجمي."
+  per_sense:
+    - lemma: "بَحْر بُوهَاي"
+      sense_id: "{auto}"
+      nuance: "المسمى الرسمي الكامل للمسطح المائي."
+      mwe: true
+    - lemma: "بُوهَاي"
+      sense_id: "{auto}"
+      nuance: "استخدام اسم العلم منفرداً للدلالة على البحر اختصاراً أو المنطقة الجغرافية عموماً."
+      mwe: false
+    - lemma: "خَلِيج بُوهَاي"
+      sense_id: "{auto}"
+      nuance: "يؤكد على الصفة الطبوغرافية للمسطح كخليج أو مدخل للبحر الأصفر."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"بحر","root":"بحر","maqayis":"«الْبَاءُ وَالْحَاءُ وَالرَّاءُ...»"},{"word":"بوهاي","root":null,"maqayis":"اسم علم أعجمي"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":null,"maqayis":"اسم علم أعجمي صيني"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المسمى الرسمي الكامل للمسطح المائي.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-09249116-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-09249116-n"
+        score: 0.95

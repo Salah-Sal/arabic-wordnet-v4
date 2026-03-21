@@ -1,0 +1,228 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "نقص التشكيل في اللمّات الموجودة."
+      - "الحاجة إلى إضافة مرادفات اصطلاحية دقيقة مستخدمة في المعاجم العلمية المتخصصة."
+    observations: "المصطلح يشير إلى وحدة إيكولوجية كبرى محددة بعوامل مناخية ونباتية. اللمّات الحالية صحيحة لكنها تفتقر للضبط، وهناك خيارات اصطلاحية أخرى مثل 'وحدة إحيائية' موثقة في المعاجم التقنية."
+  blind_candidates:
+    - lemma: "بِيُوم"
+      generation_method: taarib
+      justification: "التعريب المباشر للمصطلح الإنجليزي (biome)، وهو الشائع في الكتابات العلمية المتخصصة."
+    - lemma: "مِنْطَقَةٌ أَحْيَائِيَّة"
+      generation_method: tarkib
+      justification: "تعبير وصفي مركب يشيع استخدامه في المناهج التعليمية والموسوعات العربية."
+    - lemma: "نِطَاقٌ حَيَوِيّ"
+      generation_method: tarkib
+      justification: "استخدام 'نطاق' للدلالة على المدى الجغرافي الواسع الذي يشغله البيوم."
+    - lemma: "إِقْلِيمٌ حَيَوِيّ"
+      generation_method: tarkib
+      justification: "استخدام 'إقليم' لبيان الصفة الجغرافية والمناخية المميزة لهذه الوحدة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "بِيُوم"
+      confirm:
+        - text: "«بَيوم: biome»"
+          source: "المعجم الطبي الموحد (2009)"
+    - lemma: "وِحْدَةٌ إِحْيَائِيَّة"
+      confirm:
+        - text: "«وحدة إحيائية: وحدة ايكولوجية كبيرة (من أهمها: التوندرا، الغابات المطرية، الصحراء الكبرى، ...)، تتألف من أنواع مماثلة من مجتمعات قمة مناخية على نطاق عالمي...»"
+          source: "مسرد المناخ والبيئة وإدارة النفايات الصلبة (ArabTerm)"
+    - lemma: "وِحْدَةٌ حَيَاتِيَّة"
+      confirm:
+        - text: "«وحدة حياتية: biome»"
+          source: "مسرد الجغرافيا والتاريخ (ArabTerm)"
+    - lemma: "مِنْطَقَةٌ أَحْيَائِيَّة"
+      expands:
+        - text: "يرد المصطلح في السياقات العلمية الحديثة كمرادف لـ Biome، ويتميز بكونه أكثر شيوعاً في الاستخدام العام."
+          source: "الاستخدام اللغوي الحديث"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "بيوم"
+      decision: confirmed
+      decision_reason: "مصطلح علمي معرّب مقبول ومستخدم في المعاجم الطبية والبيئية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "بِيُوم"
+    - lemma: "منطقة أحيائية"
+      decision: confirmed
+      decision_reason: "المصطلح الأكثر شيوعاً في الأدبيات العلمية العربية المعاصرة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مِنْطَقَةٌ أَحْيَائِيَّة"
+    - lemma: "وِحْدَةٌ إِحْيَائِيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح اصطلاحي دقيق موثق في معاجم المنظمة العربية للتربية والثقافة والعلوم (أليكسو)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "وِحْدَةٌ إِحْيَائِيَّة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "وِحْدَةٌ حَيَاتِيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف مستخدم في سياق الجغرافيا الطبيعية لتعريف الأقاليم الحيوية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "وِحْدَةٌ حَيَاتِيَّة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "مجتمع حيوي رئيسي يتميز بالأشكال السائدة للحياة النباتية والمناخ السائد"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مختصر جداً، ويحتاج لإضافة البعد الجغرافي والبيئي الشامل كما ورد في المعاجم المتخصصة."
+    authored:
+      - type: terminological
+        text: "وِحْدَةٌ بِيئِيَّةٌ أَوْ إِحْيَائِيَّةٌ كُبْرَى، تَتَمَيَّزُ بِأَنْواعٍ مُعَيَّنَةٍ مِنَ الْغِطَاءِ النَّبَاتِيِّ وَالْكَائِنَاتِ الْحَيَّةِ الَّتِي تَكَيَّفَتْ مَعَ ظُرُوفٍ مُنَاخِيَّةٍ وَجُغْرَافِيَّةٍ خَاصَّةٍ (مِثْلَ الصَّحَارِي وَالْغَابَاتِ الْمَطِيرَةِ)."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "وِحْدَةٌ بِيئِيَّةٌ أَوْ إِحْيَائِيَّةٌ كُبْرَى، تَتَمَيَّزُ بِأَنْواعٍ مُعَيَّنَةٍ مِنَ الْغِطَاءِ النَّبَاتِيِّ وَالْكَائِنَاتِ الْحَيَّةِ الَّتِي تَكَيَّفَتْ مَعَ ظُرُوفٍ مُنَاخِيَّةٍ وَجُغْرَافِيَّةٍ خَاصَّةٍ (مِثْلَ الصَّحَارِي وَالْغَابَاتِ الْمَطِيرَةِ)."
+  examples:
+    per_lemma:
+      - lemma: "بِيُوم"
+        examples:
+          - text: "يُعَدُّ التُّونْدْرَا بِيُومًا بَارِدًا يَتَمَيَّزُ بِقِصَرِ مَوْسِمِ النُّمُوِّ وَانْعِدَامِ الْأَشْجَارِ."
+            type: usage
+      - lemma: "مِنْطَقَةٌ أَحْيَائِيَّة"
+        examples:
+          - text: "تُصَنَّفُ الْغَابَاتُ الِاسْتِوَائِيَّةُ كَأَغْنَى مِنْطَقَةٍ أَحْيَائِيَّةٍ بِالتَّنَوُّعِ الْبَيُولُوجِيِّ فِي الْعَالَمِ."
+            type: usage
+      - lemma: "وِحْدَةٌ إِحْيَائِيَّة"
+        examples:
+          - text: "تَتَأَثَّرُ كُلُّ وِحْدَةٍ إِحْيَائِيَّةٍ بِتَفَاعُلِ الْعَوَامِلِ الْمُنَاخِيَّةِ وَالْفِيزْيَائِيَّةِ وَالْحَيَوِيَّةِ."
+            type: usage
+      - lemma: "وِحْدَةٌ حَيَاتِيَّة"
+        examples:
+          - text: "تُمَثِّلُ الصَّحَارِي وِحْدَةً حَيَاتِيَّةً قَاسِيَةً تَطَلَّبَتْ تَكَيُّفَاتٍ خَاصَّةً لِلْكَائِنَاتِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "يُعَدُّ التُّونْدْرَا بِيُومًا بَارِدًا يَتَمَيَّزُ بِقِصَرِ مَوْسِمِ النُّمُوِّ وَانْعِدَامِ الْأَشْجَارِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "بِيُوم"
+      entry_id: "{auto}"
+      root: "حي"
+      maqayis_quote: "«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ... فَأَمَّا الْأَوَّلُ فَالْحَيَاةُ وَالْحَيَوَانُ، وَهُوَ ضِدُّ الْمَوْتِ.»"
+    - lemma: "مِنْطَقَةٌ أَحْيَائِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "منطقة"
+          root: "نطق"
+          maqayis_quote: "«النُّونُ وَالطَّاءُ وَالْقَافُ أَصْلَانِ صَحِيحَانِ... وَالْمِنْطَقُ: كُلُّ مَا شَدَدْتَ بِهِ وَسَطَكَ. وَالْمِنْطَقَةُ: اسْمٌ لِشَيْءٍ بِعَيْنِهِ.»"
+        - word: "أحيائية"
+          root: "حي"
+          maqayis_quote: "«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ... الْأَوَّلُ فَالْحَيَاةُ وَالْحَيَوَانُ، وَهُوَ ضِدُّ الْمَوْتِ.»"
+    - lemma: "وِحْدَةٌ إِحْيَائِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "وحدة"
+          root: "وحد"
+          maqayis_quote: "«الْوَاوُ وَالْحَاءُ وَالدَّالُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الِانْفِرَادِ. مِنْ ذَلِكَ الْوَحْدَةِ.»"
+        - word: "إحيائية"
+          root: "حي"
+          maqayis_quote: "«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ... الْأَوَّلُ فَالْحَيَاةُ وَالْحَيَوَانُ، وَهُوَ ضِدُّ الْمَوْتِ.»"
+    - lemma: "وِحْدَةٌ حَيَاتِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "وحدة"
+          root: "وحد"
+          maqayis_quote: "«الْوَاوُ وَالْحَاءُ وَالدَّالُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الِانْفِرَادِ. مِنْ ذَلِكَ الْوَحْدَةِ.»"
+        - word: "حياتية"
+          root: "حي"
+          maqayis_quote: "«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ... الْأَوَّلُ فَالْحَيَاةُ وَالْحَيَوَانُ، وَهُوَ ضِدُّ الْمَوْتِ.»"
+  per_sense:
+    - lemma: "بِيُوم"
+      sense_id: "{auto}"
+      nuance: "تعريب مباشر للمصطلح العلمي العالمي (Biome)، يُستخدم غالباً في السياقات الأكاديمية والبحثية."
+      mwe: false
+    - lemma: "مِنْطَقَةٌ أَحْيَائِيَّة"
+      sense_id: "{auto}"
+      nuance: "التعبير العربي الأكثر تداولاً في الكتب المدرسية والتعليمية، يركز على الجانب المكاني."
+      mwe: true
+    - lemma: "وِحْدَةٌ إِحْيَائِيَّة"
+      sense_id: "{auto}"
+      nuance: "مصطلح تقني دقيق يؤكد على كون البيوم 'وحدة' إيكولوجية متكاملة."
+      mwe: true
+    - lemma: "وِحْدَةٌ حَيَاتِيَّة"
+      sense_id: "{auto}"
+      nuance: "يُستخدم بكثرة في سياق الجغرافيا الحيوية لوصف الأقاليم الكبرى."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حي","maqayis":"«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"منطقة","root":"نطق","maqayis":"«...»"},{"word":"أحيائية","root":"حي","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعريب مباشر للمصطلح العلمي العالمي...","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

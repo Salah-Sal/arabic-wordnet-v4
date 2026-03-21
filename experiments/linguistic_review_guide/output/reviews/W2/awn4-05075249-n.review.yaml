@@ -1,0 +1,235 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "لفظ 'اِنْحِنَاء' قد يشير في الأصل إلى التقوس (Curvature) أكثر من الميل الزاوي (Tilt)، لكنه يُستخدم أحياناً لوصف الميل عن الوضع القائم."
+    observations: "المجموعة تغطي مفاهيم الميل والانحراف عن العمودية. الألفاظ الموجودة (مَيْل، مَيَلَان) دقيقة جداً. 'اِنْحِنَاء' مقبول في سياق الميل الناتج عن ثني، و'اِنْحِرَاف' مرشح قوي للإضافة لشيوعه في هذا السياق."
+  blind_candidates:
+    - lemma: "مَيْل"
+      generation_method: ishtiqaq
+      justification: "اللفظ الأساسي والمباشر للتعبير عن الانحراف عن العمودية أو الاستقامة."
+    - lemma: "مَيَلَان"
+      generation_method: ishtiqaq
+      justification: "مصدر يدل على هيئة الميل، وهو مستعمل بكثرة في السياقات العلمية والهندسية."
+    - lemma: "اِنْحِرَاف"
+      generation_method: ishtiqaq
+      justification: "يعبر عن الخروج عن الخط السوي أو المحور الأصلي (العمودي)."
+    - lemma: "جَنَف"
+      generation_method: ishtiqaq
+      justification: "لفظ تراثي يعني الميل عن الاستقامة، وهو دقيق في وصف الحالة الملازمة للشيء."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مَيْل"
+      confirm:
+        - text: "«المَيْلُ: العدول عن الوسط إلى أحد الجانبين»"
+          source: "كتاب التعريفات للجرجاني"
+        - text: "«(ميل) الشَّيْء ميلًا كَانَ مائلا خلقَة... وَقد يكون فِي الْبناء»"
+          source: "المعجم الوسيط"
+    - lemma: "مَيَلَان"
+      confirm:
+        - text: "«(مَيَلَان) inclination»"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية"
+        - text: "«(مَيَلاَن) inclination»"
+          source: "المجم الطبي الموحد"
+    - lemma: "اِنْحِنَاء"
+      confirm:
+        - text: "«زَاوِيَة انحناء الحوض: inclination's angle of pelvis»"
+          source: "المعجم الموحد لمصطلحات علم التشريح العياني"
+      contradicts:
+        - text: "«الانحناء: كون الخط بحيث لا تنطبق أجزاؤه المفروضة على جميع الأوضاع كالأجزاء المفروضة للقوس»"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+          conflict: "الدليل يشير إلى أن الانحناء يقتضي التقوس (القوس)، بينما المجموعة تركز على الميل عن العمودية."
+    - lemma: "اِنْحِرَاف"
+      confirm:
+        - text: "«(في العلوم الطبيعيَّةِ) deviation : الشُّذوذُ عن الخط السَّوىّ»"
+          source: "المعجم الكبير"
+        - text: "«(انحراف) inclination»"
+          source: "المعجم الموحد لمصطلحات علوم البحار"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مَيْل"
+      decision: confirmed
+      decision_reason: "اللفظ الأكثر دقة ومباشرة للتعبير عن الميل الزاوي عن الوضع العمودي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَيْل"
+    - lemma: "مَيَلَان"
+      decision: confirmed
+      decision_reason: "مرادف قوي لـ 'ميل' ويدل على الهيئة والحالة المستقرة للميل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَيَلَان"
+    - lemma: "اِنْحِنَاء"
+      decision: confirmed
+      decision_reason: "على الرغم من دلالته الأصلية على التقوس، إلا أنه يُستخدم لوصف الميل عن القوام وهو موجود في المعاجم العلمية بهذا المعنى."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "اِنْحِنَاء"
+    - lemma: "اِنْحِرَاف"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ علمي دقيق يعبر عن الابتعاد عن الخط السوي أو المحور الرأسي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "اِنْحِرَاف", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "الخاصية التي يمتلكها خط أو سطح ينحرف عن الوضع العمودي"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دقيق لكن يمكن تحسين صياغته ليكون أكثر سلاسة لغوياً وتغطية للمرادفات المضافة."
+    authored:
+      - type: terminological
+        text: "مَيْلُ الخطِّ أو السَّطحِ أو انْحِرَافُهُ عنِ الوَضْعِ الرَّأْسِيِّ (العَمُودِيِّ)."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مَيْلُ الخطِّ أو السَّطحِ أو انْحِرَافُهُ عنِ الوَضْعِ الرَّأْسِيِّ (العَمُودِيِّ)."}
+  examples:
+    per_lemma:
+      - lemma: "مَيْل"
+        examples:
+          - text: "يُعَدُّ مَيْلُ برجِ بيزا المائلِ من أشهرِ الظواهرِ المعماريَّةِ في العالمِ."
+            type: usage
+      - lemma: "مَيَلَان"
+        examples:
+          - text: "تمَّ حسابُ مَيَلَانِ السطحِ بدقَّةٍ لضمانِ تصريفِ مياهِ الأمطارِ."
+            type: usage
+      - lemma: "اِنْحِنَاء"
+        examples:
+          - text: "يُلاحَظُ انْحِنَاءُ قامةِ الرجلِ العجوزِ نتيجةَ تقدُّمِ السنِّ."
+            type: usage
+      - lemma: "اِنْحِرَاف"
+        examples:
+          - text: "أدَّى الخللُ في التأسيسِ إلى انْحِرَافِ الجدارِ عن محورِهِ العموديِّ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يُقاسُ مَيْلُ السطحِ عنِ الوضعِ العَمودِيِّ باستخدامِ مِيزانِ الاستواءِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَيْل"
+      entry_id: "{auto}"
+      root: "ميل"
+      maqayis_quote: "«الْمِيمُ وَالْيَاءُ وَاللَّامُ كَلِمَةٌ صَحِيحَةٌ تَدُلُّ عَلَى انْحِرَافٍ فِي الشَّيْءِ إِلَى جَانِبٍ مِنْهُ.»"
+    - lemma: "مَيَلَان"
+      entry_id: "{auto}"
+      root: "ميل"
+      maqayis_quote: "«الْمِيمُ وَالْيَاءُ وَاللَّامُ كَلِمَةٌ صَحِيحَةٌ تَدُلُّ عَلَى انْحِرَافٍ فِي الشَّيْءِ إِلَى جَانِبٍ مِنْهُ.»"
+    - lemma: "اِنْحِنَاء"
+      entry_id: "{auto}"
+      root: "حنو"
+      maqayis_quote: "«الْحَاءُ وَالنُّونُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَعَطُّفٍ وَتَعَوُّجٍ.»"
+    - lemma: "اِنْحِرَاف"
+      entry_id: "{auto}"
+      root: "حرف"
+      maqayis_quote: "«الْحَاءُ الرَّاءُ وَالْفَاءُ ثَلَاثَةُ أُصُولٍ: حَدُّ الشَّيْءِ، وَالْعُدُولُ... الِانْحِرَافُ عَنِ الشَّيْءِ.»"
+  per_sense:
+    - lemma: "مَيْل"
+      sense_id: "{auto}"
+      nuance: "المعنى الأساسي والعام للميل الزاوي."
+      mwe: false
+    - lemma: "مَيَلَان"
+      sense_id: "{auto}"
+      nuance: "يدل على حالة الميل المستمرة أو الهيئة التي يكون عليها الشيء المائل."
+      mwe: false
+    - lemma: "اِنْحِنَاء"
+      sense_id: "{auto}"
+      nuance: "يشير غالباً إلى الميل الناتج عن ثني أو تقوس في الخط أو الجسم."
+      mwe: false
+    - lemma: "اِنْحِرَاف"
+      sense_id: "{auto}"
+      nuance: "يؤكد فكرة الابتعاد عن المحور أو الخط السوي (العمودي)."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ميل","maqayis":"«الْمِيمُ وَالْيَاءُ وَاللَّامُ كَلِمَةٌ صَحِيحَةٌ تَدُلُّ عَلَى انْحِرَافٍ فِي الشَّيْءِ إِلَى جَانِبٍ مِنْهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ميل","maqayis":"«الْمِيمُ وَالْيَاءُ وَاللَّامُ كَلِمَةٌ صَحِيحَةٌ تَدُلُّ عَلَى انْحِرَافٍ فِي الشَّيْءِ إِلَى جَانِبٍ مِنْهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حنو","maqayis":"«الْحَاءُ وَالنُّونُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَعَطُّفٍ وَتَعَوُّجٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حرف","maqayis":"«الْحَاءُ الرَّاءُ وَالْفَاءُ ثَلَاثَةُ أُصُولٍ: حَدُّ الشَّيْءِ، وَالْعُدُولُ... الِانْحِرَافُ عَنِ الشَّيْءِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المعنى الأساسي والعام للميل الزاوي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يدل على حالة الميل المستمرة أو الهيئة التي يكون عليها الشيء المائل.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يشير غالباً إلى الميل الناتج عن ثني أو تقوس في الخط أو الجسم.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يؤكد فكرة الابتعاد عن المحور أو الخط السوي (العمودي).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

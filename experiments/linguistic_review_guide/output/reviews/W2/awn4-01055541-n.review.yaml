@@ -1,0 +1,255 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'بقاء' واردة في التعريف العربي الحالي، مما يجعل التعريف دائرياً."
+      - "مجموعة اللمات الحالية محدودة جداً وتفتقر إلى المترادفات القوية مثل 'لبث' و'إقامة'."
+    observations: "المجموعة الترادفية تعبر عن مفهوم 'البقاء' أو 'المكث' سواء في مكان أو حالة. اللمات المقترحة تغطي الجوانب المكانية (مكوث، لبث، إقامة، ثواء) والجانب المعنوي/الحالي (بقاء)."
+  blind_candidates:
+    - lemma: "مُكُوث"
+      generation_method: ishtiqaq
+      justification: "مصدر للفعل 'مكث' الذي يعني التوقف والانتظار في مكان."
+    - lemma: "لُبْث"
+      generation_method: ishtiqaq
+      justification: "مصدر للفعل 'لبث' الوارد في القرآن الكريم بمعنى المكث والإقامة."
+    - lemma: "ثَوَاء"
+      generation_method: ishtiqaq
+      justification: "مصدر للفعل 'ثوى' الذي يعني الإقامة المستمرة، وهو دقيق جداً للمفهوم."
+    - lemma: "مُقَام"
+      generation_method: ishtiqaq
+      justification: "اسم مصدر من 'أقام' بمعنى المكث والإقامة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "بقاء"
+      confirm:
+        - text: "«البقاء: ثبات الشيء على الحالة الأولى ويضاده الفناء.»"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+        - text: "«بَقِيَ الشَّيْءُ يَبْقَى بَقَاءً، وَهُوَ ضِدُّ الْفَنَاءِ.»"
+          source: "مقاييس اللغة لابن فارس"
+    - lemma: "مكوث"
+      confirm:
+        - text: "«المكث: الانتظار والرزانة وعدم العجلة.»"
+          source: "كتاب العين للخليل بن أحمد"
+        - text: "«مَكَثَ مَكْثًا وَمُكْثًا... وَالتَّمَكُّثُ: الِانْتِظَارُ.»"
+          source: "مقاييس اللغة لابن فارس"
+    - lemma: "لبث"
+      confirm:
+        - text: "«لَبِثَ بِالْمَكَانِ: أَقَامَ.»"
+          source: "مقاييس اللغة لابن فارس"
+        - text: "«اللَّبْثُ: المُكْثُ، لَبِثَ يَلْبَثُ.»"
+          source: "المحيط في اللغة للصاحب بن عباد"
+    - lemma: "إقامة"
+      confirm:
+        - text: "«المُقَامُ: الإقامة وموضع الإقامة.»"
+          source: "المعجم الوسيط"
+        - text: "«مدة الإقامة (duration of stay).»"
+          source: "المعجم الموحد لعلوم البحار"
+    - lemma: "ثواء"
+      confirm:
+        - text: "«الثَّواء: الإقامة.»"
+          source: "مقاييس اللغة لابن فارس"
+        - text: "«الثواء: الإقامة مع الاستمرار.»"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "بقاء"
+      decision: confirmed
+      decision_reason: "كلمة أساسية تعبر عن الاستمرار في حالة أو وجود، وهي الأكثر شمولاً في المجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "بَقَاء"
+    - lemma: "مكوث"
+      decision: confirmed
+      decision_reason: "مصدر أصيل يعبر عن البقاء في مكان لفترة محددة، وهو مرادف قوي لـ 'stay'."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُكُوث"
+    - lemma: "لَبْث"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصدر قرآني بليغ يعبر عن المكث والإقامة في مكان، ويناسب السياقات الفصيحة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "لَبْث", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "إِقَامَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح الأكثر شيوعاً في العصر الحديث للتعبير عن المكث في مكان ما (Stay/Residency)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "إِقَامَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "ثَوَاء"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ تراثي دقيق يعبر عن الإقامة المستمرة، ويغني المجموعة دلالياً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "ثَوَاء", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "الاستمرار أو البقاء في مكان أو حالة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يستخدم اللمة 'بقاء' في متن التعريف (دوران)، كما أنه يحتاج لصياغة معجمية أكثر رصانة."
+    authored:
+      - type: terminological
+        text: "المُكْثُ في مكانٍ ما أو الاستمرارُ في حالةٍ مُعيَّنةٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "المُكْثُ في مكانٍ ما أو الاستمرارُ في حالةٍ مُعيَّنةٍ."}
+  examples:
+    per_lemma:
+      - lemma: "بَقَاء"
+        examples:
+          - text: "أظهر المريض رغبة في البقاء تحت الملاحظة الطبية لليلة أخرى."
+            type: usage
+      - lemma: "مُكُوث"
+        examples:
+          - text: "طال مكوثه في المدينة حتى ألف أهلها واعتاد نمط حياتهم."
+            type: usage
+      - lemma: "لَبْث"
+        examples:
+          - text: "«فَلَبِثَ فِي السِّجْنِ بِضْعَ سِنِينَ»"
+            type: quran
+            source: "سورة يوسف: 42"
+      - lemma: "إِقَامَة"
+        examples:
+          - text: "انتهت مدة إقامته في الفندق صباح اليوم واستعد للرحيل."
+            type: usage
+      - lemma: "ثَوَاء"
+        examples:
+          - text: "طال ثواء الغريب في ديارنا حتى صار واحداً منا."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "تقرر إلزامه بالبقاء في منزله حتى إشعار آخر."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "بَقَاء"
+      entry_id: "{auto}"
+      root: "بقي"
+      maqayis_quote: "«الْبَاءُ وَالْقَافُ وَالْيَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الدَّوَامُ.»"
+    - lemma: "مُكُوث"
+      entry_id: "{auto}"
+      root: "مكث"
+      maqayis_quote: "«الْمِيمُ وَالْكَافُ وَالثَّاءُ كَلِمَةٌ تَدُلُّ عَلَى تَوَقُّفٍ وَانْتِظَارٍ.»"
+    - lemma: "لَبْث"
+      entry_id: "{auto}"
+      root: "لبث"
+      maqayis_quote: "«اللَّامُ وَالْبَاءُ وَالثَّاءُ حَرْفٌ يَدُلُّ عَلَى تَمَكُّثٍ.»"
+    - lemma: "إِقَامَة"
+      entry_id: "{auto}"
+      root: "قوم"
+      maqayis_quote: "«الْقَافُ وَالْوَاوُ وَالْمِيمُ أَصْلٌ يَدُلُّ عَلَى انْتِصَابٍ أَوْ عَزْمٍ، ومنه قام قياماً.»"
+    - lemma: "ثَوَاء"
+      entry_id: "{auto}"
+      root: "ثوي"
+      maqayis_quote: "«الثَّاءُ وَالْوَاوُ وَالْيَاءُ كَلِمَةٌ وَاحِدَةٌ صَحِيحَةٌ تَدُلُّ عَلَى الْإِقَامَةِ.»"
+  per_sense:
+    - lemma: "بَقَاء"
+      sense_id: "{auto}"
+      nuance: "أعم اللمات، تشمل البقاء المادي (في مكان) والمعنوي (في حالة)."
+      mwe: false
+    - lemma: "مُكُوث"
+      sense_id: "{auto}"
+      nuance: "تختص بالبقاء المادي في مكان ما لفترة من الزمن."
+      mwe: false
+    - lemma: "لَبْث"
+      sense_id: "{auto}"
+      nuance: "تؤكد على عنصر الزمن والانتظار أو الإبطاء أثناء المكث."
+      mwe: false
+    - lemma: "إِقَامَة"
+      sense_id: "{auto}"
+      nuance: "تُستخدم غالباً في السياقات الرسمية أو القانونية للتعبير عن السكن أو النزول في مكان."
+      mwe: false
+    - lemma: "ثَوَاء"
+      sense_id: "{auto}"
+      nuance: "إقامة طويلة الأمد أو مستمرة، وغالباً ما تُستخدم في الأدب والشعر."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"بقي","maqayis":"«الْبَاءُ وَالْقَافُ وَالْيَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الدَّوَامُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"مكث","maqayis":"«الْمِيمُ وَالْكَافُ وَالثَّاءُ كَلِمَةٌ تَدُلُّ عَلَى تَوَقُّفٍ وَانْتِظَارٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"لبث","maqayis":"«اللَّامُ وَالْبَاءُ وَالثَّاءُ حَرْفٌ يَدُلُّ عَلَى تَمَكُّثٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قوم","maqayis":"«الْقَافُ وَالْوَاوُ وَالْمِيمُ أَصْلٌ يَدُلُّ عَلَى انْتِصَابٍ أَوْ عَزْمٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ثوي","maqayis":"«الثَّاءُ وَالْوَاوُ وَالْيَاءُ كَلِمَةٌ وَاحِدَةٌ صَحِيحَةٌ تَدُلُّ عَلَى الْإِقَامَةِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"أعم اللمات، تشمل البقاء المادي والمعنوي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

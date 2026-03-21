@@ -1,0 +1,253 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "المصطلح الأول (تعليق العمليات) هو مركب إضافي شائع في الاستعمال العسكري الحديث، والثاني (هدنة) مفردة تراثية مستقرة. لا توجد إشكاليات كبرى، ولكن يمكن إضافة مرادفات شائعة تعبر عن التوقف العسكري."
+    observations: "المجموعة الترادفية تعبر عن المفهوم العسكري (Standdown) والذي يعني التوقف المؤقت للعمليات الهجومية. الترجمة المباشرة والدقيقة هي (تعليق العمليات) أو (وقف العمليات)، بينما (هدنة) تعبر عن التوقف المتفق عليه سياسياً وقانونياً."
+  blind_candidates:
+    - lemma: "مُتَارَكَةٌ"
+      generation_method: ishtiqaq
+      justification: "مشتقة من الفعل تارك على وزن مفاعلة، وتعني ترك القتال بين الطرفين، وهي مستخدمة في الفقه واللغة."
+    - lemma: "وَقْفُ العَمَلِيَّاتِ"
+      generation_method: tarkib
+      justification: "مركب إضافي يعبر بشكل مباشر ودقيق عن التوقف المؤقت للأعمال العسكرية الهجومية."
+    - lemma: "تَهْدِئَةٌ"
+      generation_method: ishtiqaq
+      justification: "على وزن تفعيلة، وتستخدم سياسياً وعسكرياً للدلالة على خفض أو التوقف المؤقت للعمليات العدائية."
+    - lemma: "وَقْفُ إِطْلَاقِ النَّارِ"
+      generation_method: tarkib
+      justification: "مصطلح عسكري مسكوك وشائع يقابل التوقف المؤقت للقتال والاشتباك."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تعليق العمليات"
+      evidence_status: "no_material_found"
+    - lemma: "هدنة"
+      confirm:
+        - text: "«وقف الحرب أو الصراع بين دولتين أو أكثر في حالة حرب.»"
+          source: "المعجم الموحد لمصطلحات القانون (2017)"
+        - text: "«(الْهُدْنَة) الْمُصَالحَة بعد الْحَرْب أَو فَتْرَة تعقب الْحَرْب يتهيأ فِيهَا الْعدوان للصلح وَلها شُرُوط خَاصَّة»"
+          source: "المعجم الوسيط"
+        - text: "«(1) هُدنة (2) يعقِد هُدنةً (3) يُنهي بهُدنة.»"
+          source: "المورد الحديث (2008)"
+    - lemma: "مُتَارَكَةٌ"
+      expands:
+        - text: "«الهُدْنة.»"
+          source: "المعجم الكبير"
+    - lemma: "وَقْفُ العَمَلِيَّاتِ"
+      evidence_status: "no_material_found"
+    - lemma: "تَهْدِئَةٌ"
+      evidence_status: "no_material_found"
+    - lemma: "وَقْفُ إِطْلَاقِ النَّارِ"
+      confirm:
+        - text: "«(1) وَقْف إطلاق النار (2) هدنة.»"
+          source: "المورد الحديث (2008)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تعليق العمليات"
+      decision: confirmed
+      decision_reason: "مصطلح عسكري معاصر دقيق ومستقر يقابل (Standdown) ويعبر عن المعنى المذكور بدقة تامة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَعْلِيقُ العَمَلِيَّاتِ"
+    - lemma: "هدنة"
+      decision: confirmed
+      decision_reason: "مصطلح معجمي فصيح وشائع الاستعمال يعبر عن التوقف المؤقت للحرب أو العمليات الهجومية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "هُدْنَةٌ"
+    - lemma: "مُتَارَكَةٌ"
+      source: stage1
+      decision: removed
+      decision_reason: "مصطلح صحيح فقهياً ولغوياً لكنه أقل شيوعاً في الاستعمال العسكري المعاصر من الهدنة، وتغني عنه بقية المرادفات."
+      evidence_assessment:
+        case: confirm_only
+    - lemma: "وَقْفُ العَمَلِيَّاتِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح مرادف تماماً لمفهوم التوقف العسكري المؤقت وشائع جداً في التداول العسكري."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "وَقْفُ العَمَلِيَّاتِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَهْدِئَةٌ"
+      source: stage1
+      decision: removed
+      decision_reason: "التهدئة أعم وقد لا تعني التوقف التام للعمليات الهجومية، بل مجرد خفض مستوى التصعيد."
+      evidence_assessment:
+        case: no_material
+    - lemma: "وَقْفُ إِطْلَاقِ النَّارِ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح عسكري مسكوك وثابت يدل بشكل مباشر على وقف العمليات الهجومية والاشتباك."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "وَقْفُ إِطْلَاقِ النَّارِ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "(عسكرية) توقف مؤقت للعمل العسكري الهجومي"
+    assessment:
+      decision: retain
+      reason: "التعريف الحالي دقيق ومصاغ بأسلوب مصطلحي واضح ويؤدي المعنى العسكري المطلوب بلا حشو."
+  examples:
+    per_lemma:
+      - lemma: "تعليق العمليات"
+        examples:
+          - text: "أَعْلَنَتِ الْقِيَادَةُ العَسْكَرِيَّةُ تَعْلِيقَ العَمَلِيَّاتِ القِتَالِيَّةِ لِمُدَّةِ يَوْمَيْنِ."
+            type: usage
+      - lemma: "هدنة"
+        examples:
+          - text: "تَمَّ الِاتِّفَاقُ عَلَى هُدْنَةٍ إِنْسَانِيَّةٍ لِإِجْلَاءِ الجَرْحَى."
+            type: usage
+      - lemma: "وَقْفُ العَمَلِيَّاتِ"
+        examples:
+          - text: "أَصْدَرَ القَائِدُ أَمْراً بِوَقْفِ العَمَلِيَّاتِ الهُجُومِيَّةِ عَلَى الفَوْرِ."
+            type: usage
+      - lemma: "وَقْفُ إِطْلَاقِ النَّارِ"
+        examples:
+          - text: "رَحَّبَ المَجْلِسُ بِقَرَارِ وَقْفِ إِطْلَاقِ النَّارِ بَيْنَ الطَّرَفَيْنِ المُتَنَازِعَيْنِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "أَعْلَنَتِ الْقِيَادَةُ العَسْكَرِيَّةُ تَعْلِيقَ العَمَلِيَّاتِ القِتَالِيَّةِ لِمُدَّةِ يَوْمَيْنِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "هُدْنَةٌ"
+      entry_id: "{auto}"
+      root: "هدن"
+      maqayis_quote: "«(هَدَنَ) الْهَاءُ وَالدَّالُ وَالنُّونُ: أُصَيْلٌ يَدُلُّ عَلَى سُكُونٍ وَاسْتِقَامَةٍ... وَقَالَ غَيْرُهُ: وَمِنْهُ قِيَاسُ الْهُدْنَةِ.»"
+    - lemma: "تَعْلِيقُ العَمَلِيَّاتِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "تعليق"
+          root: "علق"
+          maqayis_quote: "«(عَلَقَ) الْعَيْنُ وَاللَّامُ وَالْقَافُ أَصْلٌ كَبِيرٌ صَحِيحٌ يَرْجِعُ إِلَى مَعْنًى وَاحِدٍ، وَهُوَ أَنْ يُنَاطَ الشَّيْءُ بِالشَّيْءِ الْعَالِي.»"
+        - word: "العمليات"
+          root: "عمل"
+          maqayis_quote: "«(عَمِلَ) الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامٌّ فِي كُلِّ فِعْلٍ يُفْعَلُ.»"
+    - lemma: "وَقْفُ العَمَلِيَّاتِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "وقف"
+          root: "وقف"
+          maqayis_quote: "«(وَقَفَ) الْوَاوُ وَالْقَافُ وَالْفَاءُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَمَكُّثٍ فِي شَيْءٍ ثُمَّ يُقَاسُ عَلَيْهِ.»"
+        - word: "العمليات"
+          root: "عمل"
+          maqayis_quote: "«(عَمِلَ) الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامٌّ فِي كُلِّ فِعْلٍ يُفْعَلُ.»"
+    - lemma: "وَقْفُ إِطْلَاقِ النَّارِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "وقف"
+          root: "وقف"
+          maqayis_quote: "«(وَقَفَ) الْوَاوُ وَالْقَافُ وَالْفَاءُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَمَكُّثٍ فِي شَيْءٍ ثُمَّ يُقَاسُ عَلَيْهِ.»"
+        - word: "إطلاق"
+          root: "طلق"
+        - word: "النار"
+          root: "نور"
+  per_sense:
+    - lemma: "تعليق العمليات"
+      sense_id: "{auto}"
+      nuance: "مصطلح عسكري يركز على إيقاف الهجوم من جانب واحد أو كلا الجانبين لفترة محددة غالباً لغرض تكتيكي."
+      mwe: true
+    - lemma: "هدنة"
+      sense_id: "{auto}"
+      nuance: "مصطلح عام يشمل التوقف المتفق عليه رسمياً بين الأطراف المتحاربة ويحمل طابعاً سياسياً وقانونياً."
+      mwe: false
+    - lemma: "وَقْفُ العَمَلِيَّاتِ"
+      sense_id: "{auto}"
+      nuance: "مرادف مباشر لتعليق العمليات، يركز على الإيقاف الفوري للأعمال الهجومية."
+      mwe: true
+    - lemma: "وَقْفُ إِطْلَاقِ النَّارِ"
+      sense_id: "{auto}"
+      nuance: "مصطلح مسكوك يركز على توقف القتال المباشر والاشتباك بالنيران، وهو خطوة أولى نحو الهدنة."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"هدن","maqayis":"«(هَدَنَ) الْهَاءُ وَالدَّالُ وَالنُّونُ: أُصَيْلٌ يَدُلُّ عَلَى سُكُونٍ وَاسْتِقَامَةٍ... وَقَالَ غَيْرُهُ: وَمِنْهُ قِيَاسُ الْهُدْنَةِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"تعليق","root":"علق","maqayis":"«(عَلَقَ) الْعَيْنُ وَاللَّامُ وَالْقَافُ أَصْلٌ كَبِيرٌ صَحِيحٌ يَرْجِعُ إِلَى مَعْنًى وَاحِدٍ، وَهُوَ أَنْ يُنَاطَ الشَّيْءُ بِالشَّيْءِ الْعَالِي.»"},{"word":"العمليات","root":"عمل","maqayis":"«(عَمِلَ) الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامٌّ فِي كُلِّ فِعْلٍ يُفْعَلُ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"وقف","root":"وقف","maqayis":"«(وَقَفَ) الْوَاوُ وَالْقَافُ وَالْفَاءُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَمَكُّثٍ فِي شَيْءٍ ثُمَّ يُقَاسُ عَلَيْهِ.»"},{"word":"العمليات","root":"عمل","maqayis":"«(عَمِلَ) الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامٌّ فِي كُلِّ فِعْلٍ يُفْعَلُ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"وقف","root":"وقف","maqayis":"«(وَقَفَ) الْوَاوُ وَالْقَافُ وَالْفَاءُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَمَكُّثٍ فِي شَيْءٍ ثُمَّ يُقَاسُ عَلَيْهِ.»"},{"word":"إطلاق","root":"طلق"},{"word":"النار","root":"نور"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح عسكري يركز على إيقاف الهجوم من جانب واحد أو كلا الجانبين لفترة محددة غالباً لغرض تكتيكي.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح عام يشمل التوقف المتفق عليه رسمياً بين الأطراف المتحاربة ويحمل طابعاً سياسياً وقانونياً.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مرادف مباشر لتعليق العمليات، يركز على الإيقاف الفوري للأعمال الهجومية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح مسكوك يركز على توقف القتال المباشر والاشتباك بالنيران، وهو خطوة أولى نحو الهدنة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

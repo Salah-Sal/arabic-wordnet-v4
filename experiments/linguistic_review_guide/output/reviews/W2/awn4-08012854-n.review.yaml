@@ -1,0 +1,222 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الحالية (اجتياح، غزو) تميل لوصف الحدث أو الحالة (infestation/invasion) أكثر من وصف 'السرب' نفسه ككيان جمعي، رغم صحتها دلالياً."
+      - "تفتقر المجموعة للمصطلحات التراثية الدقيقة التي تصف هذا النوع من الأسراب التدميرية مثل 'دَبى' أو 'جائحة' بالمعنى الزراعي."
+    observations: "المجموعة تدور حول المفهوم البيئي والزراعي للسرب التخريبي. المصطلحات العربية غنية في هذا الجانب نظراً للارتباط التاريخي بالجراد."
+  blind_candidates:
+    - lemma: "جَائِحَة"
+      generation_method: majaz
+      justification: "الجائحة في اللغة هي المصيبة التي تستأصل المال (أو الزرع)، وتُستخدم لوصف أسراب الجراد التدميرية."
+    - lemma: "آفَة"
+      generation_method: ishtiqaq
+      justification: "الآفة هي ما يصيب الشيء فيفسده، وتطلق على الحشرات التي تهاجم المحاصيل."
+    - lemma: "دَبًى"
+      generation_method: ishtiqaq
+      justification: "مصطلح عربي قديم يصف أسراب صغار الجراد التي تزحف وتأكل الأخضر واليابس."
+    - lemma: "اجْتِيَاح"
+      generation_method: ishtiqaq
+      justification: "مصدر اجتاح، يعبر عن عملية الاكتساح الشامل التي يقوم بها السرب."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "اجْتِيَاح"
+      confirm:
+        - text: "«اكتساح أجسام أو أماكن أو مناطق، من طرف كائنات دقيقة أو طفيليات أو حشرات... (اجتاح الجراد الحقول)»"
+          source: "ArabTerm"
+    - lemma: "غَزْو"
+      confirm:
+        - text: "«وجود الآفات كالحشرات والقوارض بأعداد كبيرة»"
+          source: "ArabTerm"
+        - text: "«غزو بيولوجي: عندما يزداد عدد أفراد نوع غازي... بحيث يصبح له آثار سلبية على النظام البيئي»"
+          source: "ArabTerm"
+    - lemma: "جَائِحَة"
+      confirm:
+        - text: "«المصيبة تحل بالرجل في ماله فتجتاحه كله... (في اصطلاح الفقهاء): ما أذهب الثمر أو بعضه من آفة سماوية»"
+          source: "المعجم الوسيط"
+        - text: "«plague: آفة؛ بلاء؛ جائحة»"
+          source: "المورد الحديث"
+    - lemma: "آفَة"
+      confirm:
+        - text: "«plague: آفة؛ بلاء؛ جائحة»"
+          source: "المورد الحديث"
+    - lemma: "دَبًى"
+      confirm:
+        - text: "«الجراد قبل أن يطير، أو أصغر ما يكون من الجراد والنحل، ويقال جاؤوا كالدبى كثيرين»"
+          source: "المعجم الوسيط"
+        - text: "«أرض مدبية: أكل الدبى نبتها»"
+          source: "القاموس المحيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "اجْتِيَاح"
+      decision: confirmed
+      decision_reason: "مصطلح حديث دقيق يعبر عن حالة التفشي والاكتساح التي تصفها المجموعة، ومؤيد بشواهد فنية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "اجْتِيَاح"
+    - lemma: "غَزْو"
+      decision: confirmed
+      decision_reason: "يستخدم في السياق البيئي والزراعي لوصف الهجوم الحشري الكثيف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "غَزْو"
+    - lemma: "جَائِحَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فقهي وزراعي أصيل يطابق تماماً معنى 'plague' في سياق تدمير المحاصيل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "جَائِحَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "آفَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح عام وشائع يصف الحشرات الضارة ومهاجمتها للنباتات، ويعد مرادفاً لـ plague و infestation."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "آفَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "دَبًى"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تراثي دقيق جداً لوصف أسراب الجراد (أشهر أنواع هذه المجموعة)، ويغني المحجم بالخصوصية اللغوية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "دَبًى", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "سرب من الحشرات يهاجم النباتات"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب جداً، ويفضل صياغته بأسلوب معجمي يوضح أثر الانتشار والدمار."
+    authored:
+      - type: terminological
+        text: "انتشار واسع ومفاجئ لأعداد هائلة من الحشرات الضارة (كالجراد) تهاجم المناطق الزراعية وتكتسح المحاصيل وتدمرها."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "انتشار واسع ومفاجئ لأعداد هائلة من الحشرات الضارة (كالجراد) تهاجم المناطق الزراعية وتكتسح المحاصيل وتدمرها."}
+  examples:
+    per_lemma:
+      - lemma: "اجْتِيَاح"
+        examples:
+          - text: "حذرت وزارات الزراعة من احتمالية اجتياح أسراب الجراد للحقول الموسمية."
+            type: usage
+      - lemma: "غَزْو"
+        examples:
+          - text: "يؤدي غزو الحشرات القشرية إلى ضعف إنتاجية أشجار النخيل."
+            type: usage
+      - lemma: "جَائِحَة"
+        examples:
+          - text: "استخدم الفقهاء لفظ الجائحة لوصف ما يهلك الثمار من الآفات السماوية كالجراد."
+            type: usage
+      - lemma: "دَبًى"
+        examples:
+          - text: "كانت الخيل تقبل كالدبى كثرةً وتتابعاً."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "اجتاح الجراد الحقول فحولها إلى قفر يباب."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "اجْتِيَاح"
+      entry_id: "{auto}"
+      root: "جوح"
+      maqayis_quote: "«الْجِيمُ وَالْوَاوُ وَالْحَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الِاسْتِئْصَالُ. يُقَالُ جَاحَ الشَّيْءَ يَجُوحُهُ اسْتَأْصَلَهُ.»"
+    - lemma: "غَزْو"
+      entry_id: "{auto}"
+      root: "غزو"
+      maqayis_quote: "«الْغَيْنُ وَالْزَّاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ صَحِيحَانِ، أَحَدُهُمَا طَلَبُ شَيْءٍ... فَالْأَوَّلُ الْغَزْوُ.»"
+    - lemma: "جَائِحَة"
+      entry_id: "{auto}"
+      root: "جوح"
+      maqayis_quote: "«وَمِنْهُ اشْتِقَاقُ الْجَائِحَةِ (من الجيم والواو والحاء التي تدل على الاستئصال).»"
+    - lemma: "آفَة"
+      entry_id: "{auto}"
+      root: "أوف"
+      maqayis_quote: "«(آفة: مما يصيب الشيء فيفسده، وأصلها من الهمزة والواو والفاء).»"
+    - lemma: "دَبًى"
+      entry_id: "{auto}"
+      root: "دبي"
+      maqayis_quote: "«الدَّالُ وَالْبَاءُ وَالْيَاءُ... كَلِمَةٌ وَاحِدَةٌ... فَالدُّبَا: الْجَرَادُ إِذَا تَحَرَّكَ.»"
+  per_sense:
+    - lemma: "اجْتِيَاح"
+      sense_id: "{auto}"
+      nuance: "يركز على فعل الاكتساح الفيزيائي للمكان."
+      mwe: false
+    - lemma: "غَزْو"
+      sense_id: "{auto}"
+      nuance: "يركز على الهجوم والسيطرة العددية للنوع الغريب."
+      mwe: false
+    - lemma: "جَائِحَة"
+      sense_id: "{auto}"
+      nuance: "يركز على النتيجة الكارثية والدمار الشامل للمحصول."
+      mwe: false
+    - lemma: "آفَة"
+      sense_id: "{auto}"
+      nuance: "يركز على الطبيعة الضارة للكائن نفسه."
+      mwe: false
+    - lemma: "دَبًى"
+      sense_id: "{auto}"
+      nuance: "تخصيص بنوع معين (الجراد الزاحف) وهو الأكثر شيوعاً في هذا السياق."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جوح","maqayis":"«الْجِيمُ وَالْوَاوُ وَالْحَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الِاسْتِئْصَالُ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على فعل الاكتساح الفيزيائي للمكان","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

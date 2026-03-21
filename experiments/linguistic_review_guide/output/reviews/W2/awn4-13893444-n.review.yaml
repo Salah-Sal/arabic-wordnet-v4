@@ -1,0 +1,203 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي 'شكل يربط بين شيئين' بسيط للغاية وقد لا يستوعب الجوانب التقنية أو الفيزيائية للمفهوم."
+      - "يفتقر التعريف إلى بيان الوظيفة أو الهيئة المحددة للربط (هل هو ربط ميكانيكي، هندسي، أم مجرد اتصال مكاني؟)."
+    observations: "المصطلحات العربية الموجودة (رابط، وصلة) تعبر بدقة عن المفهوم في السياقين التقني والعام. 'وصلة' تميل للجانب الميكانيكي والفيزيائي، بينما 'رابط' يميل للجانب التقني (برمجة/إنترنت) والمنطقي. هناك حاجة لتدقيق التشكيل وإضافة مرادفات تعبر عن أشكال الربط المختلفة مثل 'رِباط' و'حلقة'."
+  blind_candidates:
+    - lemma: "رِبَاط"
+      generation_method: ishtiqaq
+      justification: "على وزن 'فِعال' وهو ما يُربط به الشيء، ويصلح للتعبير عن الهيئة الفيزيائية للربط."
+    - lemma: "حَلَقَة"
+      generation_method: majaz
+      justification: "تمثيل لشكل الربط في السلسلة (link)، وهو من الأشكال الأساسية للربط المكاني والفيزيائي."
+    - lemma: "مَفْصِل"
+      generation_method: ishtiqaq
+      justification: "مكان اتصال جزأين يسمح بحركة أو يضمن تماسكاً، وهو نوع من أشكال الربط الهندسية."
+    - lemma: "وَصْلَة"
+      generation_method: ishtiqaq
+      justification: "اسم مرة من الوصل، شاع استخدامه للدلالة على القطعة التي تصل بين شيئين (connector/joint)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "رابط"
+      confirm:
+        - text: "«عنصر تصفح لصفحة الشابكة (الإنترنت) أو ملف من الملفات، يتيح للمستخدم تصفح الشبكة العالمية.»"
+          source: "مسرد التربية (ArabTerm)"
+        - text: "«تبشيم أو لحام يستخدم لوصل العناصر الإنشائية (fastener)»"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية"
+    - lemma: "وصلة"
+      confirm:
+        - text: "«أداة وصل بين أداتين.»"
+          source: "المعجم الموحد لمصطلحات علم الصيدلة"
+        - text: "«واسطة لوصل العناصر ببعضها يتم نقل العزوم والقوى من خلالها.»"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية"
+      expands:
+        - text: "«نبيطة توصل أجزاء الآلات الجراحية أو الأجهزة بعضها مع بعض (adapter).»"
+          source: "معجم المصطلحات الطبية"
+    - lemma: "رِبَاط"
+      confirm:
+        - text: "«نسيج يربط بين مصراعي الصدفة (ligament).»"
+          source: "المعجم الموحد لمصطلحات الجيولوجيا"
+    - lemma: "حَلَقَة"
+      confirm:
+        - text: "«جسم يحيط به بسيط واحد مستدير في داخله مكان يمكن أن يقع فيه كرة.»"
+          source: "التعريفات الفلسفية (الجرجاني/القاموس المحيط)"
+        - text: "«بنية تشريحية بشكل حلقة (annulus).»"
+          source: "المعجم الموحد لمصطلحات علم التشريح"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "رابط"
+      decision: confirmed
+      decision_reason: "مصطلح قياسي وشائع جداً للتعبير عن الربط المنطقي والتقني (Link)، وله أصل اشتقاقي قوي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "رَابِط"
+    - lemma: "وصلة"
+      decision: confirmed
+      decision_reason: "تُستخدم بشكل واسع للدلالة على القطعة المادية التي تربط بين مكونين (Connector/Joint)، وهي دقيقة دلالياً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "وَصْلَة"
+    - lemma: "رِبَاط"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر عن الهيئة أو الأداة التي تشد شيئين معاً، وهو مصطلح تراثي وفصيح يناسب التعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "رِبَاط", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-13893444-n"}
+    - lemma: "حَلَقَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبر عن 'الرابط' في السلسلة (link in a chain)، وهو شكل هندسي محدد للربط."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "حَلَقَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-13893444-n"}
+
+stage4_content:
+  definition:
+    current: "شكل يربط بين شيئين"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب جداً. يحتاج إلى تفصيل يوضح طبيعة الربط وهدفه ليكون جامعاً مانعاً."
+    authored:
+      - type: terminological
+        text: "جسم أو هيئة تصل بين طرفين أو جزأين متباعدين لتمكنهما من العمل معاً أو لتكوين وحدة متصلة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "رَابِط"
+        examples:
+          - text: "أدرج الكاتب رابطاً تشعبياً ينقل القارئ إلى المصدر الأصلي للمعلومات."
+            type: usage
+      - lemma: "وَصْلَة"
+        examples:
+          - text: "استخدم الفني وصلة نحاسية لربط أنبوبي المياه بإحكام."
+            type: usage
+      - lemma: "رِبَاط"
+        examples:
+          - text: "كان الرباط الذي يجمع بين أجزاء الصندوق قديماً ومتآكلاً."
+            type: usage
+      - lemma: "حَلَقَة"
+        examples:
+          - text: "انفصمت حلقة من حلقات السلسلة مما أدى إلى سقوط الحمل."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-13893444-n", definition_index: 0, text: "جسم أو هيئة تصل بين طرفين أو جزأين متباعدين لتمكنهما من العمل معاً أو لتكوين وحدة متصلة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "رَابِط"
+      entry_id: "{auto}"
+      root: "ربط"
+      maqayis_quote: "«الرَّاءُ وَالْبَاءُ وَالطَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى شَدٍّ وَثَبَاتٍ. مِنْ ذَلِكَ رَبَطْتُ الشَّيْءَ أَرْبِطُهُ رَبْطًا; وَالَّذِي يُشَدُّ بِهِ رِبَاطٌ.»"
+    - lemma: "وَصْلَة"
+      entry_id: "{auto}"
+      root: "وصل"
+      maqayis_quote: "«الْوَاوُ وَالصَّادُ وَاللَّامُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى ضَمِّ شَيْءٍ إِلَى شَيْءٍ حَتَّى يَعْلَقَهُ. وَوَصَلْتُهُ بِهِ وَصْلًا.»"
+    - lemma: "رِبَاط"
+      entry_id: "{auto}"
+      root: "ربط"
+      maqayis_quote: "«الرَّاءُ وَالْبَاءُ وَالطَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى شَدٍّ وَثَبَاتٍ... وَالَّذِي يُشَدُّ بِهِ رِبَاطٌ.»"
+    - lemma: "حَلَقَة"
+      entry_id: "{auto}"
+      root: "حلق"
+      maqayis_quote: "«الْحَاءُ وَاللَّامُ وَالْقَافُ... وَالْأَصْلُ الثَّانِي الْحَلْقَةُ حَلْقَةُ الْحَدِيدِ. فَأَمَّا السِّلَاحُ كُلُّهُ فَإِنَّمَا يُسَمَّى الْحَلَقَةَ.»"
+  per_sense:
+    - lemma: "رَابِط"
+      sense_id: "{auto}"
+      nuance: "يُستخدم غالباً في السياقات التقنية والمنطقية والافتراضية (مثل روابط الإنترنت)."
+      mwe: false
+    - lemma: "وَصْلَة"
+      sense_id: "{auto}"
+      nuance: "تُشير غالباً إلى قطعة مادية ملموسة تُستخدم للربط الميكانيكي أو الهندسي."
+      mwe: false
+    - lemma: "رِبَاط"
+      sense_id: "{auto}"
+      nuance: "تُركز على قوة الشد والثبات في الربط، وقد تكون مادية (حبل) أو تشريحية (أنسجة)."
+      mwe: false
+    - lemma: "حَلَقَة"
+      sense_id: "{auto}"
+      nuance: "شكل محدد للرابط يتميز بالاستدارة والترابط التسلسلي (link)."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ربط","maqayis":"«الرَّاءُ وَالْبَاءُ وَالطَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى شَدٍّ وَثَبَاتٍ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"وصل","maqayis":"«الْوَاوُ وَالصَّادُ وَاللَّامُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى ضَمِّ شَيْءٍ إِلَى شَيْءٍ حَتَّى يَعْلَقَهُ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُستخدم غالباً في السياقات التقنية والمنطقية والافتراضية (مثل روابط الإنترنت).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-13893444-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-13893444-n"
+        score: 0.9

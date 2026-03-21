@@ -1,0 +1,202 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّة 'صلاحية العرض للبيع' تبدو وصفية طويلة وليست مصطلحاً مسكوكاً."
+      - "غياب المصطلحات التراثية الدقيقة مثل 'نَفَاق' و'رَوَاج' رغم مطابقتها للمفهوم."
+    observations: "المفهوم يعبر عن جودة السلعة التي تجعلها صالحة للتداول التجاري. المصطلحات العربية القديمة (نفاق، رواج) تغطي هذا المفهوم بدقة عالية، بينما المصطلحات الحديثة (قابيلة التسويق) تعكس التأثر بالترجمة الإنجليزية."
+  blind_candidates:
+    - lemma: "رَوَاج"
+      generation_method: ishtiqaq
+      justification: "مصدر 'راج'، ويعني نفاق السلعة وكثرة طلبها، وهو المقابل العربي الأصيل لـ Marketability."
+    - lemma: "نَفَاق"
+      generation_method: ishtiqaq
+      justification: "مصدر 'نفق'، ويعني مضاء السعر ورواج السلعة في السوق، وهو أدق تعبير عن Merchantability."
+    - lemma: "تَسْوِيقِيَّة"
+      generation_method: ishtiqaq
+      justification: "مصدر صناعي يعبر عن خاصية القابلية للتسويق."
+    - lemma: "صَلَاحِيَّة التَّدَاوُل"
+      generation_method: tarkib
+      justification: "تعبير مركب يعبر عن الحالة القانونية والفنية لجاهزية الشيء للبيع والشراء."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "صلاحية العرض للبيع"
+      evidence_status: "no_material_found"
+    - lemma: "قابلية للتسويق"
+      confirm:
+        - text: "قابلية التسويق، قابلية التداول"
+          source: "المعجم الموحد لمصطلحات التجارة والمحاسبة (1995)"
+    - lemma: "نَفَاق"
+      confirm:
+        - text: "مضاء السعر ورواجه فلا يكسد"
+          source: "مقاييس اللغة لابن فارس"
+        - text: "البِضَاعَةُ نَفَاقاً: راجت ورُغِب فيها."
+          source: "المعجم الوسيط"
+    - lemma: "رَوَاج"
+      confirm:
+        - text: "رواج: صلاحية التسويق"
+          source: "المورد الحديث (2008)"
+        - text: "رَوَّجَ السِّلْعَةَ: جعلها تَرُوجُ"
+          source: "المعجم الوسيط"
+    - lemma: "صَلَاحِيَّة التَّسْوِيق"
+      confirm:
+        - text: "صلاحية التسويق (Marketability)"
+          source: "المورد الحديث (2008)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "صلاحية العرض للبيع"
+      decision: removed
+      decision_reason: "عبارة وصفية طويلة وليست مصطلحاً مستقراً؛ تم الاستعاضة عنها بمصطلحات أكثر دقة واختصاراً."
+    - lemma: "قابلية للتسويق"
+      decision: confirmed
+      decision_reason: "مصطلح حديث شائع في الأدبيات التجارية كترجمة لـ marketability."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "قَابِلِيَّة التَّسْوِيق"
+    - lemma: "نَفَاق"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تراثي دقيق يعبر عن رواج السلعة ومضاء سعرها في السوق."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "نَفَاق", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-14587746-n"}
+    - lemma: "رَوَاج"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح عربي فصيح وشائع الاستعمال اقتصادياً للتعبير عن حركة البيع والشراء."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "رَوَاج", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-14587746-n"}
+    - lemma: "صَلَاحِيَّة التَّسْوِيق"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تقني دقيق ورد في المعاجم الحديثة مقابلاً لـ marketability."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "صَلَاحِيَّة التَّسْوِيق", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-14587746-n"}
+
+stage4_content:
+  definition:
+    current: "حالة كونه مناسباً للسوق؛ جاهزاً للشراء أو البيع"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط؛ نحتاج لتعريف مصطلحي يبرز خاصية الجودة التجارية."
+    authored:
+      - type: terminological
+        text: "صلاحية السلعة أو البضاعة للتداول في السوق، وجاهزيتها للبيع والشراء من حيث جودتها ومطابقتها للمواصفات التجارية."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-14587746-n", definition_index: 0, text: "صلاحية السلعة أو البضاعة للتداول في السوق، وجاهزيتها للبيع والشراء من حيث جودتها ومطابقتها للمواصفات التجارية."}
+  examples:
+    per_lemma:
+      - lemma: "نَفَاق"
+        examples:
+          - text: "شَهِدَتِ الْبِضَاعَةُ نَفَاقاً كَبِيراً فِي مَوْسِمِ الْأَعْيَادِ."
+            type: usage
+      - lemma: "رَوَاج"
+        examples:
+          - text: "أَدَّى خَفْضُ الرُّسُومِ إِلَى رَوَاجِ الْحَرَكَةِ التِّجَارِيَّةِ."
+            type: usage
+      - lemma: "قَابِلِيَّة التَّسْوِيق"
+        examples:
+          - text: "تَعْتَمِدُ قَابِلِيَّةُ التَّسْوِيقِ لِلْمُنْتَجِ عَلَى جَوْدَةِ التَّغْلِيفِ وَالسِّعْرِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "شَهِدَتِ الْبِضَاعَةُ نَفَاقاً كَبِيراً فِي مَوْسِمِ الْأَعْيَادِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "نَفَاق"
+      entry_id: "{auto}"
+      root: "نفق"
+      maqayis_quote: "«النون والفاء والقاف أصلٌ صحيحٌ يدلُّ على انقطاعِ شيءٍ وذهابِهِ... ومضاء السِّعرِ ورواجُهُ فلا يكسدُ.»"
+    - lemma: "رَوَاج"
+      entry_id: "{auto}"
+      root: "روج"
+      maqayis_quote: "«الراء والواو والجيم ليس أصلاً، وقيل هو من كلام العجم... رَوَّجْتُ الشَّيءَ إِذا زَيَّنْتَهُ.»"
+    - lemma: "قَابِلِيَّة التَّسْوِيق"
+      entry_id: "{auto}"
+      roots:
+        - word: "قابلية"
+          root: "قبل"
+          maqayis_quote: "«القاف والباء واللام أصلٌ واحدٌ، وهو الإقبال على الشَّيء.»"
+        - word: "تسويق"
+          root: "سوق"
+          maqayis_quote: "«السين والواو والقاف أصلٌ واحدٌ، وهو حَدْوُ الشَّيء.»"
+  per_sense:
+    - lemma: "نَفَاق"
+      sense_id: "{auto}"
+      nuance: "يركز على سرعة تصريف السلعة ومضاء سعرها."
+      mwe: false
+    - lemma: "رَوَاج"
+      sense_id: "{auto}"
+      nuance: "يركز على كثرة الطلب وحيوية الحركة التجارية."
+      mwe: false
+    - lemma: "قَابِلِيَّة التَّسْوِيق"
+      sense_id: "{auto}"
+      nuance: "يركز على قدرة المنتج على المنافسة والجذب في السوق."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نفق","maqayis":"«النون والفاء والقاف أصلٌ صحيحٌ يدلُّ على انقطاعِ شيءٍ وذهابِهِ... ومضاء السِّعرِ ورواجُهُ فلا يكسدُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"قابلية","root":"قبل","maqayis":"«القاف والباء واللام أصلٌ واحدٌ...»"},{"word":"تسويق","root":"سوق","maqayis":"«السين والواو والقاف أصلٌ واحدٌ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على سرعة تصريف السلعة ومضاء سعرها.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-14587746-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-14587746-n"
+        score: 0.95

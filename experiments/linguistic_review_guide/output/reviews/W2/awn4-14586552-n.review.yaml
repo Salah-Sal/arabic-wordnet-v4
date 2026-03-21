@@ -1,0 +1,356 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي (حالة نهائية) موجز جداً ولا يعكس التنوع الدلالي للمجموعة الذي تشير إليه اللمّات الإنجليزية (death, destruction)."
+      - "نقص اللمّات التي تعبر عن 'المآل' و'العاقبة' وهي جوهر مفهوم الحالة النهائية."
+    observations: "المجموعة تعبر عن الطور الأخير أو الحالة التي يستقر عليها الأمر، سواء كان ذلك نهاية زمنية أو هلاكاً مادياً أو موتاً."
+  blind_candidates:
+    - lemma: "خَاتِمَة"
+      generation_method: ishtiqaq
+      justification: "من (خ ت م)، وتعني عاقبة الشيء وآخره، وهي تناسب مفهوم الحالة النهائية."
+    - lemma: "مَصِير"
+      generation_method: ishtiqaq
+      justification: "من (ص ي ر)، وتعني ما ينتهي إليه الأمر والمرجع، وهي أدق تعبير عن 'final state'."
+    - lemma: "عَاقِبَة"
+      generation_method: ishtiqaq
+      justification: "من (ع ق ب)، وتعني آخر كل شيء، وتستخدم غالباً للتعبير عن مآل الأمور."
+    - lemma: "مَآل"
+      generation_method: ishtiqaq
+      justification: "من (أ و ل)، وتعني المرجع والمنتهى وما يؤول إليه الشيء."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مَصْرَع"
+      confirm:
+        - text: "«مكانُ القَتْل، حقيقةً أو مجازًا»"
+          source: "المعجم الكبير"
+      expands:
+        - text: "«مَصَارِعُ النَّاسِ: مَسَاقِطُهُمْ.»"
+          source: "مقاييس اللغة"
+          addition: "تشير إلى حالة السقوط والموت."
+    - lemma: "نِهَايَة"
+      confirm:
+        - text: "«نهايةُ كلِّ شيءٍ: غايتُهُ.»"
+          source: "مقاييس اللغة"
+        - text: "«غاية الشيء وآخره»"
+          source: "المعجم الوسيط"
+    - lemma: "مَصِير"
+      confirm:
+        - text: "«ما ينتهى إليه الأمر (يقال: مصير المياه، ومصير الخلق)»"
+          source: "المعجم الوسيط"
+        - text: "«عاقِبَةُ الأمر ومنتهاه وما يؤول إليه»"
+          source: "المعجم الكبير"
+    - lemma: "خَاتِمَة"
+      confirm:
+        - text: "«من كل شيء: عاقبته وآخره»"
+          source: "المعجم الوسيط"
+    - lemma: "عَاقِبَة"
+      confirm:
+        - text: "«عاقبة كل شيء: آخره»"
+          source: "مقاييس اللغة"
+        - text: "«آخر كل شيء أو خاتمته»"
+          source: "المعجم الوسيط"
+    - lemma: "مَآل"
+      confirm:
+        - text: "«المرجع والمنتهى»"
+          source: "المعجم الوسيط (تحت صير)"
+    - lemma: "حَتْف"
+      confirm:
+        - text: "«الموت والهلاك»"
+          source: "المعجم الكبير"
+        - text: "«الحَتْفُ: المَوْتُ وقَضاؤه»"
+          source: "كتاب العين"
+    - lemma: "هَلَاك"
+      confirm:
+        - text: "«يَدُلُّ عَلَى كَسْرٍ وَسُقُوطٍ. مِنْهُ الْهَلَاكُ: السُّقُوطُ، وَلِذَلِكَ يُقَالُ لِلْمَيِّتِ هَلَكَ.»"
+          source: "مقاييس اللغة"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "نِهَايَة"
+      decision: confirmed
+      decision_reason: "اللفظ الأساسي والعام للتعبير عن انتهاء الشيء وبلوغ غايته."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نِهَايَة"
+    - lemma: "مَصْرَع"
+      decision: confirmed
+      decision_reason: "يعبر عن الحالة النهائية المرتبطة بالموت أو الهلاك، وهو ما يتوافق مع المرادفات الإنجليزية death وdestruction."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَصْرَع"
+    - lemma: "مَصِير"
+      source: stage1
+      decision: confirmed
+      decision_reason: "أدق المصطلحات العربية للتعبير عن 'final state' من حيث كونه المآل الذي تنتهي إليه الأمور."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَصِير", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-14586552-n"}
+    - lemma: "خَاتِمَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تشير إلى الجزء الأخير أو العاقبة النهائية للشيء."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "خَاتِمَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-14586552-n"}
+    - lemma: "عَاقِبَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبر عن النتيجة النهائية المترتبة على فعل أو مسار معين."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "عَاقِبَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-14586552-n"}
+    - lemma: "مَآل"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف قوي للمصير والحالة التي يؤول إليها الشيء في نهاية المطاف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَآل", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-14586552-n"}
+    - lemma: "هَلَاك"
+      decision: confirmed
+      decision_reason: "تغطي جانب الدمار والنفاد (destruction) الوارد في المرادفات الإنجليزية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "هَلَاك", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-14586552-n"}
+    - lemma: "حَتْف"
+      decision: confirmed
+      decision_reason: "لفظ فصيح يعبر عن الموت كحالة نهائية حتمية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "حَتْف", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-14586552-n"}
+
+stage4_content:
+  definition:
+    current: "حالة نهائية"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب جداً ولا يستوعب الجوانب المختلفة للمجموعة (النهاية الزمنية، الموت، الهلاك)."
+    authored:
+      - type: terminological
+        text: "الحالُ أو الهيئةُ التي ينتهي إليها الشيءُ أو يؤول إليها الأمرُ، وغالبًا ما تشير إلى الموت أو الهلاك."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-14586552-n", definition_index: 0, text: "الحالُ أو الهيئةُ التي ينتهي إليها الشيءُ أو يؤول إليها الأمرُ، وغالبًا ما تشير إلى الموت أو الهلاك."}
+  examples:
+    per_lemma:
+      - lemma: "نِهَايَة"
+        examples:
+          - text: "وصلت المفاوضات الشاقة إلى نهايتها المحتومة بالفشل."
+            type: usage
+      - lemma: "مَصْرَع"
+        examples:
+          - text: "لقي المتسلق المغامر مصرعه إثر سقوطه من منحدر صخري."
+            type: usage
+      - lemma: "مَصِير"
+        examples:
+          - text: "يبقى مصير المفقودين مجهولاً رغم جهود البحث المكثفة."
+            type: usage
+      - lemma: "خَاتِمَة"
+        examples:
+          - text: "كانت خاتمة الحفل رائعة بتقديم عروض الألعاب النارية."
+            type: usage
+      - lemma: "عَاقِبَة"
+        examples:
+          - text: "يجب على المرء أن يفكر في عاقبة أفعاله قبل الإقدام عليها."
+            type: usage
+      - lemma: "مَآل"
+        examples:
+          - text: "إن مآل هذه السياسات الخاطئة هو الانهيار الاقتصادي لا محالة."
+            type: usage
+      - lemma: "هَلَاك"
+        examples:
+          - text: "كان الطمع والجشع سبب هلاكه وضياع ملكه."
+            type: usage
+      - lemma: "حَتْف"
+        examples:
+          - text: "واجه القائد الباسل حتفه وهو يدافع عن أسوار المدينة."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "نِهَايَة"
+      entry_id: "{auto}"
+      root: "نهي"
+      maqayis_quote: "«النُّونُ وَالْهَاءُ وَالْيَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى غَايَةٍ وَبُلُوغٍ. وَمِنْهُ أَنْهَيْتُ إِلَيْهِ الْخَبَرَ: بَلَّغْتُهُ إِيَّاهُ. وَنِهَايَةُ كُلِّ شَيْءٍ: غَايَتُهُ.»"
+    - lemma: "مَصْرَع"
+      entry_id: "{auto}"
+      root: "صرع"
+      maqayis_quote: "«الصَّادُ وَالرَّاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى سُقُوطِ شَيْءٍ إِلَى الْأَرْضِ عَنْ مِرَاسِ اثْنَيْنِ... وَمَصَارِعُ النَّاسِ: مَسَاقِطُهُمْ.»"
+    - lemma: "مَصِير"
+      entry_id: "{auto}"
+      root: "صير"
+      maqayis_quote: "«الصَّادُ وَالْيَاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ، وَهُوَ الْمَآلُ وَالْمَرْجِعُ. مِنْ ذَلِكَ صَارَ يَصِيرُ صَيْرًا وَصَيْرُورَةً.»"
+    - lemma: "خَاتِمَة"
+      entry_id: "{auto}"
+      root: "ختم"
+      maqayis_quote: "«الْخَاءُ وَالتَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ، وَهُوَ بُلُوغُ آخِرِ الشَّيْءِ. يُقَالُ خَتَمْتُ الْعَمَلَ، وَخَتْمَ الْقَارِئُ السُّورَةَ.»"
+    - lemma: "عَاقِبَة"
+      entry_id: "{auto}"
+      root: "عقب"
+      maqayis_quote: "«الْعَيْنُ وَالْقَافُ وَالْبَاءُ أَصْلَانِ صَحِيحَانِ: أَحَدُهُمَا يَدُلُّ عَلَى تَأْخِيرِ شَيْءٍ وَإِتْيَانِهِ بَعْدَ غَيْرِهِ... عَاقِبَةُ كُلِّ شَيْءٍ: آخِرُهُ.»"
+    - lemma: "مَآل"
+      entry_id: "{auto}"
+      root: "أول"
+      maqayis_quote: "«الْأَلِفُ وَالْوَاوُ وَاللَّامُ أَصْلٌ وَاحِدٌ، وَهُوَ ابْتِدَاءُ الْأَمْرِ وَانْتِهَاؤُهُ إِلَى غَايَتِهِ... وَالْمَآلُ: الْمَرْجِعُ.»"
+    - lemma: "هَلَاك"
+      entry_id: "{auto}"
+      root: "هلك"
+      maqayis_quote: "«الْهَاءُ وَاللَّامُ وَالْكَافُ: يَدُلُّ عَلَى كَسْرٍ وَسُقُوطٍ. مِنْهُ الْهَلَاكُ: السُّقُوطُ، وَلِذَلِكَ يُقَالُ لِلْمَيِّتِ هَلَكَ.»"
+    - lemma: "حَتْف"
+      entry_id: "{auto}"
+      root: "حتف"
+      maqayis_quote: "«الْحَتْفُ، وَجَمْعُهُ حُتُوفٌ، وَهُوَ الْهَلَاكُ.»"
+  per_sense:
+    - lemma: "نِهَايَة"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام والشامل لنهاية كل شيء."
+      mwe: false
+    - lemma: "مَصْرَع"
+      sense_id: "{auto}"
+      nuance: "تخص نهاية الكائنات الحية بالموت، وغالباً ما توحي بالمفاجأة أو العنف."
+      mwe: false
+    - lemma: "مَصِير"
+      sense_id: "{auto}"
+      nuance: "تؤكد على الجانب الحتمي والقدري للحالة النهائية."
+      mwe: false
+    - lemma: "خَاتِمَة"
+      sense_id: "{auto}"
+      nuance: "تشير إلى الجزء الأخير الذي يتمم الشيء ويغلقه."
+      mwe: false
+    - lemma: "عَاقِبَة"
+      sense_id: "{auto}"
+      nuance: "تركز على النتيجة المترتبة على مقدمات أو أفعال سابقة."
+      mwe: false
+    - lemma: "مَآل"
+      sense_id: "{auto}"
+      nuance: "تشير إلى صيرورة الشيء ورجوعه إلى حالته النهائية."
+      mwe: false
+    - lemma: "هَلَاك"
+      sense_id: "{auto}"
+      nuance: "تشير إلى الفناء والدمار كحالة نهائية للمادة أو الكائن."
+      mwe: false
+    - lemma: "حَتْف"
+      sense_id: "{auto}"
+      nuance: "تعبير أدبي بليغ عن الموت الطبيعي أو الحتمي."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نهي","maqayis":"«النُّونُ وَالْهَاءُ وَالْيَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى غَايَةٍ وَبُلُوغٍ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صرع","maqayis":"«الصَّادُ وَالرَّاءُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى سُقُوطِ شَيْءٍ إِلَى الْأَرْضِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صير","maqayis":"«الصَّادُ وَالْيَاءُ وَالرَّاءُ أَصْلٌ صَحِيحٌ، وَهُوَ الْمَآلُ وَالْمَرْجِعُ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ختم","maqayis":"«الْخَاءُ وَالتَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ، وَهُوَ بُلُوغُ آخِرِ الشَّيْءِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عقب","maqayis":"«الْعَيْنُ وَالْقَافُ وَالْبَاءُ أَصْلَانِ صَحِيحَانِ... عَاقِبَةُ كُلِّ شَيْءٍ: آخِرُهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"أول","maqayis":"«الْأَلِفُ وَالْوَاوُ وَاللَّامُ أَصْلٌ وَاحِدٌ... وَالْمَآلُ: الْمَرْجِعُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"هلك","maqayis":"«الْهَاءُ وَاللَّامُ وَالْكَافُ: يَدُلُّ عَلَى كَسْرٍ وَسُقُوطٍ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حتف","maqayis":"«الْحَتْفُ، وَجَمْعُهُ حُتُوفٌ، وَهُوَ الْهَلَاكُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ العام والشامل لنهاية كل شيء.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-14586552-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-14586552-n"
+        score: 0.95

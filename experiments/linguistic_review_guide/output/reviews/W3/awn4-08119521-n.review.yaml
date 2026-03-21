@@ -1,0 +1,141 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الحالية خالية من التشكيل."
+      - "التعريف الحالي جيد الدلالة لكن صياغته قابلة للتحسين لتكون أكثر اصطلاحية."
+    observations: "المفهوم يعبر عن مرتبة تصنيفية في علم الأحياء (Phylum)، وقد استقر المجمع العلمي والمعاجم المتخصصة على ترجمته بمصطلح (شُعْبَة)."
+  blind_candidates:
+    - lemma: "شُعْبَة"
+      generation_method: majaz
+      justification: "استعارة من تفرع الشجرة، حيث تتفرع المملكة الحيوانية والنباتية إلى شعب."
+    - lemma: "قِسْم"
+      generation_method: majaz
+      justification: "من التقسيم والتجزئة للمجموعة الكبرى."
+    - lemma: "قَبِيلَة"
+      generation_method: majaz
+      justification: "استعارة من التجمعات البشرية لتصنيف الكائنات."
+    - lemma: "طَائِفَة كُبْرَى"
+      generation_method: tarkib
+      justification: "مركب وصفي يعبر عن كونها مجموعة تعلو الطائفة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "شعبة"
+      confirm:
+        - text: "«وحدة تصنيفية كبيرة في تقسيم الكائنات الحية تضم مجموعة متقاربة من الأصناف أو الطوائف»"
+          source: "المعجم الموحد لمصطلحات الجيولوجيا"
+        - text: "«شُعْبَة [ج:شُعَب] (قِسْمٌ رَئيسِيٌّ في المَمْلَكَةِ الحَيَوانِيَّةِ أَو النَباتِيَّة يضم عدة أصناف)»"
+          source: "المعجم الطبي الموحد"
+    - lemma: "قسم"
+      expands:
+        - text: "«جُزْء من شيء مقْسوم»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "قبيلة"
+      contradicts:
+        - text: "«قَبيلَة (مجموعة تصنيفية فوق الجنس وتحت الفصيلة) [ج:قبائل]»"
+          source: "المعجم الطبي الموحد"
+          conflict: "تُستخدم كمقابل للمرتبة التصنيفية الأدنى (Tribe) وليس (Phylum)."
+    - lemma: "طائفة كبرى"
+      evidence_status: no_material_found
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "شعبة"
+      decision: confirmed
+      decision_reason: "مصطلح علمي مستقر وموثق في المعاجم المتخصصة لتمثيل المرتبة التصنيفية (Phylum)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "شُعْبَة"
+    - lemma: "قِسْم"
+      source: stage1
+      decision: removed
+      decision_reason: "مصطلح عام، وإن استُخدم أحياناً لتمثيل (Division) في علم النبات، إلا أن (شُعْبَة) أشمل وأدق للدلالة على (Phylum)."
+      evidence_assessment:
+        case: mixed
+    - lemma: "قَبِيلَة"
+      source: stage1
+      decision: removed
+      decision_reason: "تُستخدم في التصنيف الأحيائي للدلالة على مرتبة أدنى (Tribe) تقع بين الفصيلة والجنس."
+      evidence_assessment:
+        case: contradicts_only
+    - lemma: "طَائِفَة كُبْرَى"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير وصفي غير مسكوك كمصطلح معتمد لهذه المرتبة."
+      evidence_assessment:
+        case: no_material
+
+stage4_content:
+  definition:
+    current: "(في الأحياء) المجموعة التصنيفية الرئيسية للحيوانات والنباتات؛ تحتوي على طوائف"
+    assessment:
+      decision: revise
+      reason: "إعادة الصياغة بأسلوب معجمي دقيق يحدد المرتبة التصنيفية بوضوح متسق مع التعريفات العلمية."
+    authored:
+      - type: terminological
+        text: "مرتبة تصنيفية رئيسة في علم الأحياء، تقع تحت المملكة وتضم مجموعة من الطوائف المتقاربة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-08119521-n"
+          definition_index: 0
+          text: "مرتبة تصنيفية رئيسة في علم الأحياء، تقع تحت المملكة وتضم مجموعة من الطوائف المتقاربة."
+  examples:
+    per_lemma:
+      - lemma: "شُعْبَة"
+        examples:
+          - text: "ينتمي الإنسان إلى شُعْبَة الحبليات في التصنيف الحيواني."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "awn4-08119521-n"
+          text: "ينتمي الإنسان إلى شُعْبَة الحبليات في التصنيف الحيواني."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "شُعْبَة"
+      entry_id: "{auto}"
+      root: "شعب"
+      maqayis_quote: "«الشِّينُ وَالْعَيْنُ وَالْبَاءُ أَصْلَانِ مُخْتَلِفَانِ، أَحَدُهُمَا يَدُلُّ عَلَى الِافْتِرَاقِ، وَالْآخَرُ عَلَى الِاجْتِمَاعِ.»"
+  per_sense:
+    - lemma: "شُعْبَة"
+      sense_id: "{auto}"
+      nuance: "المصطلح العلمي القياسي المعتمد للمرتبة التصنيفية (Phylum)."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"شعب","maqayis":"«الشِّينُ وَالْعَيْنُ وَالْبَاءُ أَصْلَانِ مُخْتَلِفَانِ، أَحَدُهُمَا يَدُلُّ عَلَى الِافْتِرَاقِ، وَالْآخَرُ عَلَى الِاجْتِمَاعِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العلمي القياسي المعتمد للمرتبة التصنيفية (Phylum).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-08119521-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-08119521-n"
+        score: 0.95

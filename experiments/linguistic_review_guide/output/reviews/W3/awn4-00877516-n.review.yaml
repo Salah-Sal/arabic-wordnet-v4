@@ -1,0 +1,241 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة (حكم قيمي) تفتقر للتشكيل، ويجب ضبطها بصيغة (حُكْمٌ قِيَمِيٌّ)."
+      - "التعريف الحالي يبدو ترجمة حرفية للمفهوم الإنجليزي ويحتاج إلى صياغة معجمية أكثر دقة وموضوعية."
+    observations: "المفهوم متعلق بالتقييم الذاتي المبني على منظومة القيم، والمصطلح (حكم قيمي) مستقر وشائع في العلوم الإنسانية والفلسفة."
+  blind_candidates:
+    - lemma: "حُكْمٌ قِيَمِيٌّ"
+      generation_method: tarkib
+      justification: "مصطلح شائع ومستقر في مجالات الفلسفة والعلوم الإنسانية، وهو مركب وصفي يطابق المعنى."
+    - lemma: "حُكْمُ قِيمَةٍ"
+      generation_method: tarkib
+      justification: "تركيب إضافي يُستعمل بكثرة في الكتابات الفلسفية والإعلامية مقابلاً للمصطلح الإنجليزي."
+    - lemma: "حُكْمٌ تَقْيِيمِيٌّ"
+      generation_method: tarkib
+      justification: "يشير إلى أن هذا الحكم يقوم على التقييم والتثمين بدلاً من كونه حكماً تقريرياً أو واقعياً."
+    - lemma: "تَقْيِيمٌ ذَاتِيٌّ"
+      generation_method: tarkib
+      justification: "يعكس جانب الذاتية في الحكم وارتباطه بقيم المُقيِّم وتفضيلاته أكثر من الموضوع."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "حُكْمٌ قِيَمِيٌّ"
+      confirm:
+        - text: "حكم قيمي"
+          source: "مسرد الفلسفة وعلم النفس، المنظمة العربية للتربية والثقافة والعلوم (موقع ArabTerm)"
+    - lemma: "حُكْمُ قِيمَةٍ"
+      confirm:
+        - text: "حكم قيمة"
+          source: "مسرد الإعلام والتواصل، المنظمة العربية للتربية والثقافة والعلوم (موقع ArabTerm)"
+      expands:
+        - text: "لفظ يطلق على بعض الأفعال التقييمية التي تعد بمثابة أحكام تقييمية مثل أفعال الاعتقاد."
+          source: "المعجم الموحد لمصطلحات اللسانيات (2002)"
+          addition: "يؤكد استخدام المصطلح في سياق الأفعال التي تتضمن تقييماً ذاتياً."
+    - lemma: "حُكْمٌ تَقْيِيمِيٌّ"
+      confirm:
+        - text: "الحُكْم التقييميّ [على الأشياء أو الأفعال]."
+          source: "المورد الحديث (2008)"
+    - lemma: "تَقْيِيمٌ ذَاتِيٌّ"
+      contradicts:
+        - text: "عملية يقيم فيها المتعلم نفسه ويحدد مستوى إتقانه لمهارات معينه."
+          source: "مسرد التربية، المنظمة العربية للتربية والثقافة والعلوم (موقع ArabTerm)"
+          conflict: "المصطلح محجوز في السياق التربوي والإداري لتقييم الشخص لأدائه (self-assessment) ولا يقابل الحكم القيمي."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "حكم قيمي"
+      decision: confirmed
+      decision_reason: "المصطلح الأصلي صحيح ومستقر في الاستعمال الفلسفي، لكنه يحتاج للضبط بالشكل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حُكْمٌ قِيَمِيٌّ"
+    - lemma: "حُكْمُ قِيمَةٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف شائع وموثق في المعاجم المتخصصة، يعبر بوضوح عن المفهوم من خلال التركيب الإضافي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "حُكْمُ قِيمَةٍ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "حُكْمٌ تَقْيِيمِيٌّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح موثق ومعتمد يؤدي نفس المعنى ويركز على طبيعة الحكم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "حُكْمٌ تَقْيِيمِيٌّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "تَقْيِيمٌ ذَاتِيٌّ"
+      source: stage1
+      decision: removed
+      decision_reason: "المصطلح له دلالة مختلفة تتعلق بتقييم المرء لنفسه (self-assessment) ولا يناسب هذا المفهوم."
+      evidence_assessment:
+        case: contradicts_only
+
+stage4_content:
+  definition:
+    current: "تقييم يكشف عن قيم الشخص الذي يقوم بالتقييم أكثر مما يكشف عن واقع ما يتم تقييمه"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ترجمة حرفية وركيكة، ويجب صياغته بأسلوب معجمي أكثر رصانة ووضوحاً."
+    authored:
+      - type: terminological
+        text: "حكم يصدره المرء بناءً على منظومة قيمه ومعتقداته الشخصية بدلاً من استناده إلى الحقائق الموضوعية، مما يكشف عن ذاتية المُقيِّم أكثر من واقع الشيء المُقيَّم."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "حكم يصدره المرء بناءً على منظومة قيمه ومعتقداته الشخصية بدلاً من استناده إلى الحقائق الموضوعية، مما يكشف عن ذاتية المُقيِّم أكثر من واقع الشيء المُقيَّم."
+  examples:
+    per_lemma:
+      - lemma: "حُكْمٌ قِيَمِيٌّ"
+        examples:
+          - text: "تجنب الباحث إطلاق أي حكم قيمي في دراسته، حرصاً على الموضوعية."
+            type: usage
+      - lemma: "حُكْمُ قِيمَةٍ"
+        examples:
+          - text: "لا يمكن اعتبار هذا التقرير علمياً لأنه مليء بأحكام القيمة."
+            type: usage
+      - lemma: "حُكْمٌ تَقْيِيمِيٌّ"
+        examples:
+          - text: "أصدر الناقد حكماً تقييمياً على العمل الفني يعكس ذوقه الخاص."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "تجنب الباحث إطلاق أي حكم قيمي في دراسته، حرصاً على الموضوعية."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "لا يمكن اعتبار هذا التقرير علمياً لأنه مليء بأحكام القيمة."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "أصدر الناقد حكماً تقييمياً على العمل الفني يعكس ذوقه الخاص."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "حُكْمٌ قِيَمِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "حكم"
+          root: "حكم"
+          maqayis_quote: "«الْحَاءُ وَالْكَافُ وَالْمِيمُ أَصْلٌ وَاحِدٌ، وَهُوَ الْمَنْعُ. وَأَوَّلُ ذَلِكَ الْحُكْمُ، وَهُوَ الْمَنْعُ مِنَ الظُّلْمِ.»"
+        - word: "قيمي"
+          root: "قوم"
+          maqayis_quote: "«الْقَافُ وَالْوَاوُ وَالْمِيمُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدَهُمَا عَلَى جَمَاعَةِ نَاسٍ... وَالْآخَرُ عَلَى انْتِصَابٍ أَوْ عَزْمٍ... وَأَصْلُ الْقِيمَةِ الْوَاوُ، وَأَصْلُهُ أَنَّكَ تُقِيمُ هَذَا مَكَانَ ذَاكَ.»"
+    - lemma: "حُكْمُ قِيمَةٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "حكم"
+          root: "حكم"
+          maqayis_quote: "«الْحَاءُ وَالْكَافُ وَالْمِيمُ أَصْلٌ وَاحِدٌ، وَهُوَ الْمَنْعُ. وَأَوَّلُ ذَلِكَ الْحُكْمُ، وَهُوَ الْمَنْعُ مِنَ الظُّلْمِ.»"
+        - word: "قيمة"
+          root: "قوم"
+          maqayis_quote: "«الْقَافُ وَالْوَاوُ وَالْمِيمُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدَهُمَا عَلَى جَمَاعَةِ نَاسٍ... وَالْآخَرُ عَلَى انْتِصَابٍ أَوْ عَزْمٍ... وَأَصْلُ الْقِيمَةِ الْوَاوُ، وَأَصْلُهُ أَنَّكَ تُقِيمُ هَذَا مَكَانَ ذَاكَ.»"
+    - lemma: "حُكْمٌ تَقْيِيمِيٌّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "حكم"
+          root: "حكم"
+          maqayis_quote: "«الْحَاءُ وَالْكَافُ وَالْمِيمُ أَصْلٌ وَاحِدٌ، وَهُوَ الْمَنْعُ. وَأَوَّلُ ذَلِكَ الْحُكْمُ، وَهُوَ الْمَنْعُ مِنَ الظُّلْمِ.»"
+        - word: "تقييمي"
+          root: "قوم"
+          maqayis_quote: "«الْقَافُ وَالْوَاوُ وَالْمِيمُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدَهُمَا عَلَى جَمَاعَةِ نَاسٍ... وَالْآخَرُ عَلَى انْتِصَابٍ أَوْ عَزْمٍ... وَأَصْلُ الْقِيمَةِ الْوَاوُ، وَأَصْلُهُ أَنَّكَ تُقِيمُ هَذَا مَكَانَ ذَاكَ.»"
+  per_sense:
+    - lemma: "حكم قيمي"
+      sense_id: "{auto}"
+      nuance: "المصطلح الأكثر شيوعاً في الدراسات الفلسفية والاجتماعية للإشارة إلى الحكم المستند إلى القيم."
+      mwe: true
+    - lemma: "حُكْمُ قِيمَةٍ"
+      sense_id: "{auto}"
+      nuance: "مرادف دقيق للحكم القيمي، ويُستعمل بكثرة كترجمة للمصطلح الأجنبي بتركيب إضافي."
+      mwe: true
+    - lemma: "حُكْمٌ تَقْيِيمِيٌّ"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب التقييمي التقديري في الحكم بصرف النظر عن الاستناد للقيم المجردة."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"حكم","root":"حكم","maqayis":"«الْحَاءُ وَالْكَافُ وَالْمِيمُ أَصْلٌ وَاحِدٌ، وَهُوَ الْمَنْعُ. وَأَوَّلُ ذَلِكَ الْحُكْمُ، وَهُوَ الْمَنْعُ مِنَ الظُّلْمِ.»"},{"word":"قيمي","root":"قوم","maqayis":"«الْقَافُ وَالْوَاوُ وَالْمِيمُ أَصْلَانِ صَحِيحَانِ... وَأَصْلُ الْقِيمَةِ الْوَاوُ، وَأَصْلُهُ أَنَّكَ تُقِيمُ هَذَا مَكَانَ ذَاكَ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"حكم","root":"حكم","maqayis":"«الْحَاءُ وَالْكَافُ وَالْمِيمُ أَصْلٌ وَاحِدٌ، وَهُوَ الْمَنْعُ. وَأَوَّلُ ذَلِكَ الْحُكْمُ، وَهُوَ الْمَنْعُ مِنَ الظُّلْمِ.»"},{"word":"قيمة","root":"قوم","maqayis":"«الْقَافُ وَالْوَاوُ وَالْمِيمُ أَصْلَانِ صَحِيحَانِ... وَأَصْلُ الْقِيمَةِ الْوَاوُ، وَأَصْلُهُ أَنَّكَ تُقِيمُ هَذَا مَكَانَ ذَاكَ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"حكم","root":"حكم","maqayis":"«الْحَاءُ وَالْكَافُ وَالْمِيمُ أَصْلٌ وَاحِدٌ، وَهُوَ الْمَنْعُ. وَأَوَّلُ ذَلِكَ الْحُكْمُ، وَهُوَ الْمَنْعُ مِنَ الظُّلْمِ.»"},{"word":"تقييمي","root":"قوم","maqayis":"«الْقَافُ وَالْوَاوُ وَالْمِيمُ أَصْلَانِ صَحِيحَانِ... وَأَصْلُ الْقِيمَةِ الْوَاوُ، وَأَصْلُهُ أَنَّكَ تُقِيمُ هَذَا مَكَانَ ذَاكَ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الأكثر شيوعاً في الدراسات الفلسفية والاجتماعية للإشارة إلى الحكم المستند إلى القيم.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مرادف دقيق للحكم القيمي، ويُستعمل بكثرة كترجمة للمصطلح الأجنبي بتركيب إضافي.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الجانب التقييمي التقديري في الحكم بصرف النظر عن الاستناد للقيم المجردة.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

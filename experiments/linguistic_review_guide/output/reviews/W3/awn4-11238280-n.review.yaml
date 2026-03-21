@@ -1,0 +1,396 @@
+# ══════════════════════════════════════════════════════════════
+# مراجعة المجموعة الترادفية — AWN4 Review Pipeline v2
+# Synset: awn4-11238280-n  |  ILI: i96475
+# الموضوع: إليشا غريفز أوتيس — مخترع المصعد الآمن
+# ══════════════════════════════════════════════════════════════
+
+# ── المرحلة ١: المراجعة والتوليد ──────────────────────────
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّتان الموجودتان (أوتيس، إليشا أوتيس) خاليتان من التشكيل الكامل"
+      - "الاسم الرسمي الكامل 'إليشا غريفز أوتيس' غائب عن اللمّات، وهو مُثبَّت في المصادر الإنجليزية (Elisha Graves Otis)"
+      - "الفعل 'صنع' في التعريف أقل دقة من 'ابتكر' أو 'طوّر'، وجهاز الأمان غير مُوصَف"
+      - "POS مُسجَّل كـ n؛ المدخلات في المعجم ينبغي أن تحمل pos: proper_noun وفق مخطط entries"
+    observations: >
+      هذه المجموعة الترادفية لاسم علم خاص بشخص تاريخي أمريكي (إليشا غريفز أوتيس، 1811-1861)،
+      مخترع أول مصعد مزوَّد بآلية تمنع سقوط الكابينة. اللمات المتوقعة لمثل هذه الأعلام
+      تعريبٌ صوتي للاسم الأجنبي، ولا ينطبق عليها الاشتقاق العربي. المشكلة الجوهرية
+      هي النقص في التشكيل وغياب الصيغة الرسمية الثالثة للاسم.
+
+  blind_candidates:
+    - lemma: "إِلِيشَا أُوتِيس"
+      generation_method: taarib
+      justification: >
+        تعريب صوتي للاسم الإنجليزي الكامل Elisha Otis — الصيغة الأكثر تداولاً في المراجع
+        العربية والموسوعات لهذا المخترع الأمريكي.
+    - lemma: "أُوتِيس"
+      generation_method: taarib
+      justification: >
+        تعريب اللقب العائلي Otis وحده — يُستخدم في الإحالة المختصرة في المصادر العلمية
+        والتقنية عند الاستغناء عن الاسم الأول.
+    - lemma: "إِلِيشَا غرِيفْز أُوتِيس"
+      generation_method: taarib
+      justification: >
+        تعريب الاسم الرسمي الكامل Elisha Graves Otis بإدراج الاسم الأوسط، وهو
+        الصيغة المعتمدة في وثائق براءات الاختراع والمصادر الأكاديمية الرسمية.
+    - lemma: "مُبْتَكِرُ الْمَصْعَدِ الآمِن"
+      generation_method: tarkib
+      justification: >
+        تركيب إضافي يصف الشخص بعمله الأبرز (مبتكر + المصعد الآمن) كلقب وصفي بديل.
+        مرشّح للاختبار اللاحق بالتحقق من كونه اصطلاحاً مسكوكاً أم مجرد وصف.
+
+
+# ── المرحلة ٢: جمع الأدلة ────────────────────────────────
+stage2_evidence:
+  query_log:
+    - query_number: 1
+      purpose: "مطابقة دقيقة دفعية — اللمّات الموجودة والمرشّحات"
+      terms_searched:
+        - "اوتيس"
+        - "الاوتيس"
+        - "اليشا اوتيس"
+        - "الاليشا اوتيس"
+        - "اليشا غريفز اوتيس"
+        - "مبتكر المصعد"
+        - "مخترع المصعد"
+      result: "لا نتائج — قاعدة البيانات لا تحتوي مدخلاً لاسم العلم هذا"
+    - query_number: 2
+      purpose: "الجسر الإنجليزي — Elisha Otis / Otis / elevator inventor"
+      terms_searched:
+        - "Elisha Otis"
+        - "Otis"
+        - "Elisha Graves Otis"
+        - "elevator inventor"
+        - "elevator safety"
+      result: "لا نتائج — ARABTERM لا يحتوي ترجمة عربية لهذا الاسم"
+    - query_number: 3
+      purpose: "بحث FTS بالكلمات المفتاحية: مصعد، مخترع"
+      result: "عادت نتائج لمصطلحات المصعد التقنية العامة فقط — لا علاقة مباشرة بأوتيس"
+
+  per_lemma:
+    - lemma: "أُوتِيس"
+      evidence_status: "no_material_found"
+
+    - lemma: "إِلِيشَا أُوتِيس"
+      evidence_status: "no_material_found"
+
+    - lemma: "إِلِيشَا غرِيفْز أُوتِيس"
+      evidence_status: "no_material_found"
+
+    - lemma: "مُبْتَكِرُ الْمَصْعَدِ الآمِن"
+      evidence_status: "no_material_found"
+
+  note: >
+    الغياب التام للأدلة متوقَّع ومبرَّر: أسماء الأعلام التاريخية الأجنبية لا ترد عادةً
+    في المعاجم اللغوية العربية الكلاسيكية والحديثة. قاعدة البيانات تغطي المفردات
+    اللغوية والمصطلحات التقنية، لا التراجم والسيَر. الحكم على اللمّات يستند
+    إلى المعايير الشكلية للتعريب والإجماع الموسوعي العربي.
+
+
+# ── المرحلة ٣: التحليل اللغوي للّمات ────────────────────
+stage3_analysis:
+  per_lemma:
+
+    # ── اللمّة الموجودة ١ ──
+    - lemma: "أوتيس"
+      decision: confirmed
+      decision_reason: >
+        اللقب العائلي (Otis) مُعرَّب بالكتابة الصوتية المعيارية، ومُستخدَم وحده
+        للإحالة المختصرة في السياقات التقنية والتاريخية. يجب تشكيله: أُوتِيس.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      loanword_check:
+        type: taarib
+        verdict: "مقبول — تعريب فونولوجي معيار لاسم علم أجنبي"
+      morphological_fit: "اسم علم مُعرَّب، لا ينطبق عليه الوزن الصرفي العربي"
+      nuance_differentiation: >
+        أُوتِيس: اللقب المختصر وحده، يُستخدَم في الإحالة السريعة وفي تسمية الشركة
+        (شركة أُوتِيس للمصاعد)؛ يُفيد الاختصار والشيوع في السياقات التجارية
+        والصناعية بعيداً عن التمييز بين أفراد الأسرة.
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "أُوتِيس"
+        - command: update_entry
+          params:
+            entry_id: "{auto}"
+            pos: proper_noun
+
+    # ── اللمّة الموجودة ٢ ──
+    - lemma: "إليشا أوتيس"
+      decision: confirmed
+      decision_reason: >
+        الاسم الكامل (Elisha Otis) هو الصيغة الأوفر تداولاً في الموسوعات والمراجع
+        العربية. يحتاج تشكيلاً كاملاً: إِلِيشَا أُوتِيس.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      loanword_check:
+        type: taarib
+        verdict: "مقبول — اسم + لقب، الصيغة المعيارية في الموسوعات العربية"
+      morphological_fit: "تركيب إضافي لاسم علم مُعرَّب، معيار في أسماء الأعلام الغربية"
+      nuance_differentiation: >
+        إِلِيشَا أُوتِيس: الاسم الكامل الأكثر شيوعاً في المراجع العامة والموسوعات،
+        يُميِّز الشخص عن أفراد آخرين في العائلة؛ وهو الصيغة التي تحمل الهوية الفردية
+        الكاملة دون الاسم الأوسط الرسمي.
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "إِلِيشَا أُوتِيس"
+        - command: update_entry
+          params:
+            entry_id: "{auto}"
+            pos: proper_noun
+
+    # ── مرشّح المرحلة ١: إليشا غريفز أوتيس ──
+    - lemma: "إِلِيشَا غرِيفْز أُوتِيس"
+      source: stage1
+      decision: confirmed
+      decision_reason: >
+        الاسم الرسمي الكامل (Elisha Graves Otis) مُدرَج في المصادر الإنجليزية
+        (OEWN: Elisha Graves Otis) وهو الصيغة الموثِّقة في سجلات براءات
+        الاختراع الأمريكية. يجب إضافته كلمّة ثالثة لاستيعاب هذا الاستخدام.
+        التعريب بالأسماء الثلاثة معيار راسخ في الموسوعات العربية للأعلام الغربيين.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      loanword_check:
+        type: taarib
+        verdict: "مقبول — الصيغة الرسمية الكاملة للاسم الأجنبي"
+      morphological_fit: "سلسلة تعريب لاسم علم ثلاثي، معيار في أدبيات التراجم العربية"
+      nuance_differentiation: >
+        إِلِيشَا غرِيفْز أُوتِيس: الاسم الرسمي الكامل بالاسم الأوسط، يُستخدَم
+        في الوثائق الرسمية والمصادر الأكاديمية ودوائر المعارف التخصصية؛
+        يُفيد الدقة التوثيقية القصوى ويُميِّز الشخص تمييزاً قاطعاً.
+      actions:
+        - command: create_entry
+          params:
+            lemma: "إِلِيشَا غرِيفْز أُوتِيس"
+            pos: proper_noun
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-11238280-n"
+
+    # ── مرشّح المرحلة ١: مبتكر المصعد الآمن ──
+    - lemma: "مُبْتَكِرُ الْمَصْعَدِ الآمِن"
+      source: stage1
+      decision: removed
+      decision_reason: >
+        يفشل اختبار السكّ: يمكن إبدال «مبتكر» بـ«صانع» أو «مخترع» وتظل العبارة وصفاً
+        صحيحاً للشخص — إذاً ليست وحدة معجمية ثابتة بل عبارة وصفية حرة.
+        أسماء الأعلام الشخصية لا تُمثَّل في الشبكة الدلالية بألقاب وصفية.
+
+
+# ── المرحلة ٤: التعريف والأمثلة ──────────────────────────
+stage4_content:
+  definition:
+    current: "مخترع أمريكي صنع أول مصعد مزود بجهاز أمان (1811-1861)"
+    assessment:
+      decision: revise
+      reason: >
+        الفعل «صنع» أقل دقة من «ابتكر» (الذي يُفيد الإبداع الأول)؛ وجهاز الأمان
+        غير مُوصَف فيُوهم القارئَ دون إيضاح. علاوةً على ذلك، وضع التواريخ في
+        النهاية يُثقِل نهاية الجملة أسلوبياً؛ والأفضل تقديمها مع الجنس.
+    authored:
+      - type: encyclopedic
+        text: >
+          مخترع أمريكي (1811-1861) ابتكر أوّل مصعد مزوَّد بجهاز أمان يمنع
+          تهاوي الكابينة عند انقطاع الحبل الرافع، وأسّس شركة أُوتِيس للمصاعد
+          التي غدَت مرجعاً عالمياً في صناعة التنقل الرأسي.
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+      - type: terminological
+        text: >
+          مخترع أمريكي (1811-1861)، يُعدّ صاحب السبق في تصميم المصعد المزوَّد
+          بآلية إيقاف آمنة، مما أتاح الانتشار الواسع للأبنية المرتفعة.
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-11238280-n"
+          definition_index: 0
+          text: >
+            مخترع أمريكي (1811-1861) ابتكر أوّل مصعد مزوَّد بجهاز أمان يمنع
+            تهاوي الكابينة عند انقطاع الحبل الرافع، وأسّس شركة أُوتِيس للمصاعد
+            التي غدَت مرجعاً عالمياً في صناعة التنقل الرأسي.
+      - command: add_definition
+        params:
+          synset_id: "awn4-11238280-n"
+          text: >
+            مخترع أمريكي (1811-1861)، يُعدّ صاحب السبق في تصميم المصعد المزوَّد
+            بآلية إيقاف آمنة، مما أتاح الانتشار الواسع للأبنية المرتفعة.
+
+  examples:
+    per_lemma:
+      - lemma: "إِلِيشَا أُوتِيس"
+        examples:
+          - text: >
+              يُعدّ إِلِيشَا أُوتِيس من أبرز المخترعين الأمريكيين في القرن
+              التاسع عشر، إذ أسهمت آلية الأمان التي طوَّرها في إطلاق عصر ناطحات
+              السحاب.
+            type: usage
+      - lemma: "أُوتِيس"
+        examples:
+          - text: >
+              باتت شركة أُوتِيس للمصاعد من أكبر الشركات العالمية في صناعة
+              التنقل الرأسي، امتداداً لإرث مؤسسها المخترع إِلِيشَا أُوتِيس.
+            type: usage
+      - lemma: "إِلِيشَا غرِيفْز أُوتِيس"
+        examples:
+          - text: >
+              وردَ اسم إِلِيشَا غرِيفْز أُوتِيس في سجلات براءات الاختراع
+              الأمريكية بوصفه أوّل من أنجز مصعداً آمناً قادراً على نقل الركاب
+              في المباني الشاهقة.
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: >
+            يُعدّ إِلِيشَا أُوتِيس من أبرز المخترعين الأمريكيين في القرن
+            التاسع عشر، إذ أسهمت آلية الأمان التي طوَّرها في إطلاق عصر
+            ناطحات السحاب.
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: >
+            باتت شركة أُوتِيس للمصاعد من أكبر الشركات العالمية في صناعة
+            التنقل الرأسي، امتداداً لإرث مؤسسها المخترع إِلِيشَا أُوتِيس.
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: >
+            وردَ اسم إِلِيشَا غرِيفْز أُوتِيس في سجلات براءات الاختراع
+            الأمريكية بوصفه أوّل من أنجز مصعداً آمناً قادراً على نقل الركاب
+            في المباني الشاهقة.
+      - command: add_synset_example
+        params:
+          synset_id: "awn4-11238280-n"
+          text: >
+            ألهمَ اختراعُ إِلِيشَا أُوتِيس المعمارَ الحديثَ وفتحَ الطريقَ
+            أمام المباني الشاهقة بعد أن أثبتَ أنّ المصعدَ يمكن أن يكون آمناً.
+
+
+# ── المرحلة ٥: الإثراء (البيانات الوصفية) ─────────────────
+stage5_enrichment:
+  per_entry:
+    # أسماء الأعلام المُعرَّبة لا جذور عربية لها — حقل root لا ينطبق
+    - lemma: "أُوتِيس"
+      entry_id: "{auto}"
+      note: "اسم علم أجنبي مُعرَّب — لا جذر عربي ولا شاهد في مقاييس اللغة"
+
+    - lemma: "إِلِيشَا أُوتِيس"
+      entry_id: "{auto}"
+      note: "اسم علم أجنبي مُعرَّب — لا جذر عربي ولا شاهد في مقاييس اللغة"
+
+    - lemma: "إِلِيشَا غرِيفْز أُوتِيس"
+      entry_id: "{auto}"
+      note: "اسم علم أجنبي مُعرَّب — لا جذر عربي ولا شاهد في مقاييس اللغة"
+
+  per_sense:
+    - lemma: "أُوتِيس"
+      sense_id: "{auto}"
+      nuance: >
+        اللقب وحده بلا اسم أول؛ يُستخدَم في الإحالة المختصرة وفي تسمية الشركة
+        المنبثقة عن عمله. يُركِّز على الهوية المؤسسية والتراثية أكثر من الهوية
+        الشخصية.
+      mwe: false
+
+    - lemma: "إِلِيشَا أُوتِيس"
+      sense_id: "{auto}"
+      nuance: >
+        الاسم الكامل الأكثر شيوعاً (اسم + لقب)، هو الصيغة المرجعية في الموسوعات
+        العامة؛ يُحدِّد الهوية الشخصية ويُميِّزه عن أفراد أسرته دون لجوء إلى
+        الاسم الأوسط الرسمي.
+      mwe: true
+
+    - lemma: "إِلِيشَا غرِيفْز أُوتِيس"
+      sense_id: "{auto}"
+      nuance: >
+        الاسم الرسمي الثلاثي الكامل؛ يُستخدَم في السياقات التوثيقية الدقيقة
+        (براءات الاختراع، المصادر الأكاديمية، دوائر المعارف التخصصية)، ويتفوق
+        في الدقة التعريفية على الصيغتين الأخريين.
+      mwe: true
+
+  synset:
+    cultural_fit: omission
+
+  note_on_cultural_fit: >
+    تصنيف 'omission': الشخصية تاريخية أمريكية خالصة، غير متجذرة في التراث الثقافي
+    العربي؛ إدخالها في الشبكة الدلالية العربية يتطلب تعريباً فونولوجياً للاسم
+    وتعريفاً موسوعياً يُرسِّخ السياق للقارئ العربي.
+
+  actions:
+    # --- أُوتِيس ---
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"transliteration_source":"Otis","source_lang":"en","person_nationality":"أمريكي","birth_year":1811,"death_year":1861}'
+
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللقب وحده — الإحالة المختصرة والتسمية التجارية","mwe":false}'
+
+    # --- إِلِيشَا أُوتِيس ---
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"transliteration_source":"Elisha Otis","source_lang":"en","person_nationality":"أمريكي","birth_year":1811,"death_year":1861}'
+
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الكامل الشائع — الصيغة الموسوعية العامة","mwe":true}'
+
+    # --- إِلِيشَا غرِيفْز أُوتِيس ---
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"transliteration_source":"Elisha Graves Otis","source_lang":"en","person_nationality":"أمريكي","birth_year":1811,"death_year":1861}'
+
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الرسمي الثلاثي — السياق التوثيقي والأكاديمي","mwe":true}'
+
+    # --- على مستوى المجموعة ---
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-11238280-n"
+        key: note
+        value: '{"cultural_fit":"omission","person_type":"historical_inventor","domain":"technology_history"}'
+
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-11238280-n"
+        score: 0.72

@@ -1,0 +1,343 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "خلو المجموعة من التشكيل في اللمات الموجودة."
+      - "نقص اللمات المعبرة عن الاختلاط العشوائي مثل (خليط) واقتصار اللمات الموجودة على معنى التجمع فقط (تكتل، تكدس)."
+    observations: "المفهوم الإنجليزي (a jumbled collection or mass) يحمل شقين: التجمع (mass) والاختلاط العشوائي (jumble). اللمات الموجودة تغطي التجمع بنسبة أكبر. يجب إضافة لمات تعبر عن العشوائية في الجمع."
+  blind_candidates:
+    - lemma: "رُكَام"
+      generation_method: ishtiqaq
+      justification: "مصطلح يدل على تراكم الأشياء وتجمعها بعضها فوق بعض عشوائياً."
+    - lemma: "خَلِيط"
+      generation_method: ishtiqaq
+      justification: "اسم يدل على ما اختلط من أشياء مختلفة دون ترتيب، وهو يقابل jumble."
+    - lemma: "لَفِيف"
+      generation_method: majaz
+      justification: "يستعمل للدلالة على الجمع المختلط من الناس أو الأشياء من أصول شتى."
+    - lemma: "كَوْمَة"
+      generation_method: ishtiqaq
+      justification: "تدل على تجمع الأشياء وتكدسها بشكل غير منتظم."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تكتل"
+      confirm:
+        - text: "تجمع مواد مختلفة في كتلة واحدة"
+          source: "المعجم الموحد لمصطلحات الكيمياء"
+        - text: "«أ» تكتيل؛ تكبيب. «ب» تكتُّل؛ تَكَبُّب"
+          source: "المورد الحديث"
+    - lemma: "تكدس"
+      confirm:
+        - text: "تجمع المواد بشكل كتلة"
+          source: "المعجم الموحد لمصطلحات علم الصيدلة"
+    - lemma: "خليط"
+      confirm:
+        - text: "خليط؛ مجموعة أشياء مختلطة بغير انتظام."
+          source: "المورد الحديث"
+        - text: "ما اختلَط من صنفين أو أصناف المخالِط."
+          source: "المعجم الوسيط"
+    - lemma: "ركام"
+      confirm:
+        - text: "ما اجتمع من الأشياء وتراكَمَ بعضُه فوق بعض (رُكامٌ من رمل, وركام من سَحَاب)"
+          source: "المعجم الوسيط"
+    - lemma: "لفيف"
+      confirm:
+        - text: "ما اجتمع من الناس من قبائل شتّى, أو من أخلاط شتّى ... طعام لفيف: مخلوطٌ من جنسين فصاعدًا"
+          source: "المعجم الوسيط"
+    - lemma: "كومة"
+      confirm:
+        - text: "مجموعة؛ كومة؛ كتلة."
+          source: "المورد الحديث"
+        - text: "الكَوْم"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تكتل"
+      decision: confirmed
+      decision_reason: "الكلمة صحيحة وتدل على تجمع الأشياء واندماجها في كتلة واحدة، وتحتاج للتشكيل فقط."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَكَتُّل"
+    - lemma: "تكدس"
+      decision: confirmed
+      decision_reason: "الكلمة صحيحة للتعبير عن تجمع المواد وتراكمها، وتحتاج لتصحيح التشكيل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَكَدُّس"
+    - lemma: "خَلِيط"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبر بدقة متناهية عن الشق الثاني من التعريف (أشياء مختلطة بغير انتظام) وتقابل الكلمة الإنجليزية jumble."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "خَلِيط"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "رُكَام"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فصيح يدل على الأشياء المتجمعة المتراكمة بعضها فوق بعض عشوائياً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "رُكَام"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "لَفِيف"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ فصيح يستخدم للمجموعات المختلطة سواء من الأشياء أو غيرها."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "لَفِيف"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "كَوْمَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبر عن الكتلة المتجمعة من الأشياء غير المنتظمة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "كَوْمَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "مجموعة أو كتلة مختلطة بشكل عشوائي"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق ويعبر عن المفهوم بوضوح وبلغة سليمة متوافقة مع المفهوم الإنجليزي (a jumbled collection or mass)."
+  examples:
+    per_lemma:
+      - lemma: "تَكَتُّل"
+        examples:
+          - text: "شكّلت هذه المواد تَكَتُّلاً غير منتظم في قاع الوعاء."
+            type: usage
+      - lemma: "تَكَدُّس"
+        examples:
+          - text: "أدى تَكَدُّس البضائع إلى فوضى في المخزن."
+            type: usage
+      - lemma: "خَلِيط"
+        examples:
+          - text: "وجدت في الصندوق خَلِيطاً من الأوراق والأشياء القديمة."
+            type: usage
+      - lemma: "رُكَام"
+        examples:
+          - text: "تحول المبنى القديم إلى رُكَامٍ من الحجارة والخشب."
+            type: usage
+      - lemma: "لَفِيف"
+        examples:
+          - text: "حضر الحفل لَفِيفٌ من الناس لا يجمعهم رابط واضح."
+            type: usage
+      - lemma: "كَوْمَة"
+        examples:
+          - text: "جمعت الأوراق المبعثرة في كَوْمَةٍ واحدة على المكتب."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "شكّلت هذه المواد تَكَتُّلاً غير منتظم في قاع الوعاء."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "أدى تَكَدُّس البضائع إلى فوضى في المخزن."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "وجدت في الصندوق خَلِيطاً من الأوراق والأشياء القديمة."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تحول المبنى القديم إلى رُكَامٍ من الحجارة والخشب."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "حضر الحفل لَفِيفٌ من الناس لا يجمعهم رابط واضح."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "جمعت الأوراق المبعثرة في كَوْمَةٍ واحدة على المكتب."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تَكَتُّل"
+      entry_id: "{auto}"
+      root: "كتل"
+      maqayis_quote: "«الْكَافُ وَالتَّاءُ وَاللَّامُ أُصَيْلٌ يَدُلُّ عَلَى تَجَمُّعٍ.»"
+    - lemma: "تَكَدُّس"
+      entry_id: "{auto}"
+      root: "كدس"
+      maqayis_quote: "«الْكَافُ وَالدَّالُ وَالسِّينُ ثَلَاثُ كَلِمَاتٍ لَا يُشْبِهُ بَعْضُهَا بَعْضًا... التَّكَدُّسُ، وَهُوَ مَشْيُ الْفَرَسِ كَأَنَّهُ مُثْقَلٌ.»"
+    - lemma: "خَلِيط"
+      entry_id: "{auto}"
+      root: "خلط"
+      maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالطَّاءُ أَصْلٌ وَاحِدٌ ... تَقُولُ: خَلَطْتُ الشَّيْءَ بِغَيْرِهِ فَاخْتَلَطَ.»"
+    - lemma: "رُكَام"
+      entry_id: "{auto}"
+      root: "ركم"
+      maqayis_quote: "«الرَّاءُ وَالْكَافُ وَالْمِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَجَمُّعِ الشَّيْءِ.»"
+    - lemma: "لَفِيف"
+      entry_id: "{auto}"
+      root: "لفف"
+      maqayis_quote: "«اللَّامُ وَالْفَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَلَوِّي شَيْءٍ عَلَى شَيْءٍ.»"
+    - lemma: "كَوْمَة"
+      entry_id: "{auto}"
+      root: "كوم"
+      maqayis_quote: "«الْكَافُ وَالْوَاوُ وَالْمِيمُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَجَمُّعٍ فِي شَيْءٍ مَعَ ارْتِفَاعٍ فِيهِ.»"
+  per_sense:
+    - lemma: "تَكَتُّل"
+      sense_id: "{auto}"
+      nuance: "يركز على تجمع الأشياء حتى تصير كالكتلة الواحدة."
+      mwe: false
+    - lemma: "تَكَدُّس"
+      sense_id: "{auto}"
+      nuance: "يركز على تراكم الأشياء بعضها فوق بعض بصورة مزدحمة وغير منتظمة."
+      mwe: false
+    - lemma: "خَلِيط"
+      sense_id: "{auto}"
+      nuance: "يركز على اختلاط الأشياء وتعدد أصنافها في المجموعة بغير انتظام."
+      mwe: false
+    - lemma: "رُكَام"
+      sense_id: "{auto}"
+      nuance: "يركز على تجمع وتراكم الأشياء بكثرة بعضها فوق بعض."
+      mwe: false
+    - lemma: "لَفِيف"
+      sense_id: "{auto}"
+      nuance: "يركز على تنوع عناصر المجموعة واختلاطها من أصول أو أصناف شتى."
+      mwe: false
+    - lemma: "كَوْمَة"
+      sense_id: "{auto}"
+      nuance: "يركز على تجمع الأشياء في موضع واحد لتشكل مرتفعاً أو صُبرة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"كتل","maqayis":"«الْكَافُ وَالتَّاءُ وَاللَّامُ أُصَيْلٌ يَدُلُّ عَلَى تَجَمُّعٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"كدس","maqayis":"«الْكَافُ وَالدَّالُ وَالسِّينُ ثَلَاثُ كَلِمَاتٍ لَا يُشْبِهُ بَعْضُهَا بَعْضًا... التَّكَدُّسُ، وَهُوَ مَشْيُ الْفَرَسِ كَأَنَّهُ مُثْقَلٌ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خلط","maqayis":"«الْخَاءُ وَاللَّامُ وَالطَّاءُ أَصْلٌ وَاحِدٌ ... تَقُولُ: خَلَطْتُ الشَّيْءَ بِغَيْرِهِ فَاخْتَلَطَ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ركم","maqayis":"«الرَّاءُ وَالْكَافُ وَالْمِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تَجَمُّعِ الشَّيْءِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"لفف","maqayis":"«اللَّامُ وَالْفَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَلَوِّي شَيْءٍ عَلَى شَيْءٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"كوم","maqayis":"«الْكَافُ وَالْوَاوُ وَالْمِيمُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَجَمُّعٍ فِي شَيْءٍ مَعَ ارْتِفَاعٍ فِيهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على تجمع الأشياء حتى تصير كالكتلة الواحدة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على تراكم الأشياء بعضها فوق بعض بصورة مزدحمة وغير منتظمة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على اختلاط الأشياء وتعدد أصنافها في المجموعة بغير انتظام.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على تجمع وتراكم الأشياء بكثرة بعضها فوق بعض.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على تنوع عناصر المجموعة واختلاطها من أصول أو أصناف شتى.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على تجمع الأشياء في موضع واحد لتشكل مرتفعاً أو صُبرة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

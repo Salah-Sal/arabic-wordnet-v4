@@ -1,0 +1,245 @@
+stage1_review:
+  assessment:
+    concerns:
+      - التعريف العربي الحالي طويل ومثقل بالعبارات الوصفية (مثل "صفة كون الشيء شبه مستعصٍ").
+      - اللمات الموجودة (صعوبة، مشقة) تغطي الجوانب الأساسية لكنها تفتقر إلى اللمات التي تعبر عن العمق اللغوي لـ "شبه المستعصي" مثل "عسر" و"استعصاء".
+    observations: "المجموعة تعبر عن صفة 'الصعوبة' في مستواها المتقدم الذي يقترب من الاستعصاء ويتطلب جهداً استثنائياً. اللمات المقترحة تهدف لتعزيز هذا الجانب الدلالي."
+  blind_candidates:
+    - lemma: "صُعُوبَة"
+      generation_method: ishtiqaq
+      justification: "المصدر الأصلي والأكثر شيوعاً للتعبير عن صفة الصعب، وهو المقابل المباشر لـ difficulty."
+    - lemma: "مَشَقَّة"
+      generation_method: ishtiqaq
+      justification: "تعبر عن الجهد الكبير والعناء المطلوب (great effort) كما ورد في التعريف."
+    - lemma: "عُسْر"
+      generation_method: ishtiqaq
+      justification: "نقيض اليسر، ويعبر عن الضيق والالتواء في الأمر مما يجعله صعباً."
+    - lemma: "اسْتِعْصَاء"
+      generation_method: ishtiqaq
+      justification: "تعبر عن بلوغ الصعوبة حد الامتناع والمقاومة للحل أو التعامل (beyond ability)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "صُعُوبَة"
+      confirm:
+        - text: "«صَعُبَ الأَمْرُ وغيرُه ـــــ صُعوبةً: اشتدَّ وعَسُرَ. فهو صَعْبٌ»"
+          source: "المعجم الكبير"
+        - text: "«الصعب: العسر والأبي»"
+          source: "المعجم الوسيط"
+    - lemma: "مَشَقَّة"
+      confirm:
+        - text: "«المَشَقَّةُ: الشِّدَّةُ والحَرَجُ والعناءُ.»"
+          source: "المعجم الكبير"
+        - text: "«المَشَقَّة: العَنَاء»"
+          source: "المعجم الوسيط"
+    - lemma: "عُسْر"
+      confirm:
+        - text: "«العُسْرُ: نقيض يُسْر... فقر وضيق وشِدَّة»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«العُسْر: الصعوبة والاشتداد في الأمور»"
+          source: "موسوعة السلطان قابوس"
+    - lemma: "اسْتِعْصَاء"
+      confirm:
+        - text: "«استعصاء المرض على العِلاج.»"
+          source: "المورد الحديث"
+        - text: "«مستعصٍ: لا سبيل إلى ضبطه أو السَّيطرة عليه.»"
+          source: "المورد الحديث"
+      expands:
+        - text: "«استعصاء المرأة على زوجها»"
+          source: "كتاب العين"
+          addition: "استخدام في سياق الامتناع والنشوز."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "صعوبة"
+      decision: confirmed
+      decision_reason: "اللفظ الأساسي والمباشر للمفهوم، مدعوم بقوة في المعاجم الحديثة والقديمة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "صُعُوبَة"
+    - lemma: "مشقة"
+      decision: confirmed
+      decision_reason: "تعبر بدقة عن جانب 'الجهد الكبير' والعناء المذكور في التعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَشَقَّة"
+    - lemma: "عُسْر"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح فصيح وقرآني يعبر عن ضيق الأمر وصعوبته، وهو النقيض المباشر لليسر."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "عُسْر", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "اسْتِعْصَاء"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعكس بدقة معنى 'شبه مستعصٍ' الوارد في التعريف، ويدل على الامتناع عن الانقياد أو الحل."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "اسْتِعْصَاء", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "صفة كون الشيء شبه مستعصٍ على التعامل معه ويتطلب جهداً كبيراً لتحقيق نتيجة إيجابية"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي ومطول؛ الأفضل استخدام صياغة معجمية رصينة وموجزة."
+    authored:
+      - type: linguistic
+        text: "خلاف السهولة؛ وهي صفة لما يصعب التعامل معه أو تنفيذه، وتتطلب مجهوداً شاقاً للوصول إلى الغاية."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "خلاف السهولة؛ وهي صفة لما يصعب التعامل معه أو تنفيذه، وتتطلب مجهوداً شاقاً للوصول إلى الغاية."}
+  examples:
+    per_lemma:
+      - lemma: "صُعُوبَة"
+        examples:
+          - text: "واجه الباحثون صُعُوبَةً بالغة في جمع البيانات الميدانية."
+            type: usage
+      - lemma: "مَشَقَّة"
+        examples:
+          - text: "تَحَمَّلَ المسافرون مَشَقَّةً كبيرة في اجتياز الصحراء."
+            type: usage
+      - lemma: "عُسْر"
+        examples:
+          - text: "النجاح الذي يأتي بعد عُسْرٍ يكون له طعم خاص."
+            type: usage
+      - lemma: "اسْتِعْصَاء"
+        examples:
+          - text: "تسبب اسْتِعْصَاءُ المسألة الرياضية في حيرة الطلاب."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "واجه الباحثون صُعُوبَةً بالغة في جمع البيانات الميدانية."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تَحَمَّلَ المسافرون مَشَقَّةً كبيرة في اجتياز الصحراء."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "النجاح الذي يأتي بعد عُسْرٍ يكون له طعم خاص."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تسبب اسْتِعْصَاءُ المسألة الرياضية في حيرة الطلاب."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "صُعُوبَة"
+      entry_id: "{auto}"
+      root: "صعب"
+      maqayis_quote: "«الصاد والعين والباء أصلٌ واحد يدل على خلاف السهولة.»"
+    - lemma: "مَشَقَّة"
+      entry_id: "{auto}"
+      root: "شقق"
+      maqayis_quote: "«يُقَالُ أَصَابَ فُلَانًا شِقٌّ وَمَشَقَّةٌ، وَذَلِكَ الْأَمْرُ الشَّدِيدُ كَأَنَّهُ مِنْ شِدَّتِهِ يَشُقُّ الْإِنْسَانَ شَقًّا.»"
+    - lemma: "عُسْر"
+      entry_id: "{auto}"
+      root: "عسر"
+      maqayis_quote: "«العين والسين والراء أصل صحيح واحد يدل على صعوبة وشدة.»"
+    - lemma: "اسْتِعْصَاء"
+      entry_id: "{auto}"
+      root: "عصي"
+      maqayis_quote: "«العين والصاد والحرف المعتل أصلان... أحدهما يدل على التجمع... والأصل الآخر: العِصيان والمعصية.»"
+  per_sense:
+    - lemma: "صُعُوبَة"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام والشامل لوصف ما هو شاق ومجهد."
+      mwe: false
+    - lemma: "مَشَقَّة"
+      sense_id: "{auto}"
+      nuance: "تركز على جانب العناء البدني أو الذهني والجهد المبذول."
+      mwe: false
+    - lemma: "عُسْر"
+      sense_id: "{auto}"
+      nuance: "تركز على ضيق الحال أو تعقد الظروف كعائق للوصول للهدف."
+      mwe: false
+    - lemma: "اسْتِعْصَاء"
+      sense_id: "{auto}"
+      nuance: "تعبر عن بلوغ الصعوبة حداً يجعل الشيء ممتنعاً أو مقاوماً للمعالجة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صعب","maqayis":"«الصاد والعين والباء أصلٌ واحد يدل على خلاف السهولة.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"شقق","maqayis":"«يُقَالُ أَصَابَ فُلَانًا شِقٌّ وَمَشَقَّةٌ، وَذَلِكَ الْأَمْرُ الشَّدِيدُ كَأَنَّهُ مِنْ شِدَّتِهِ يَشُقُّ الْإِنْسَانَ شَقًّا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عسر","maqayis":"«العين والسين والراء أصل صحيح واحد يدل على صعوبة وشدة.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عصي","maqayis":"«العين والصاد والحرف المعتل أصلان... أحدهما يدل على التجمع... والأصل الآخر: العِصيان والمعصية.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ العام والشامل لوصف ما هو شاق ومجهد.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركز على جانب العناء البدني أو الذهني والجهد المبذول.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركز على ضيق الحال أو تعقد الظروف كعائق للوصول للهدف.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبر عن بلوغ الصعوبة حداً يجعل الشيء ممتنعاً أو مقاوماً للمعالجة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

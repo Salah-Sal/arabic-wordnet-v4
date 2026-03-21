@@ -1,0 +1,177 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "قصر اللمة الحالية 'مثلث' على الشكل الهندسي الدقيق في أذهان المستخدمين، رغم اتساعها لغوياً."
+      - "الحاجة لتمييز الصفة (مثلثي) عن الاسم (مثلث/مثلثة) في هذا السياق الدلالي."
+    observations: "المفهوم يشير إلى 'المشابهة الشكلية' للمثلث وليس للمثلث ككيان هندسي رياضي. العربية تستخدم 'مُثَلَّث' و'مُثَلَّثَة' لوصف قطع الأرض أو الأقمشة أو الهيئات الجغرافية التي تقارب هذا الشكل."
+  blind_candidates:
+    - lemma: "مُثَلَّثِيّ"
+      generation_method: ishtiqaq
+      justification: "صفة منسوبة للمثلث لوصف الأشياء التي تشبهه في الشكل."
+    - lemma: "شِبْه مُثَلَّث"
+      generation_method: tarkib
+      justification: "تعبير وصفي مركب للدلالة على التقارب الشكلي دون التطابق."
+    - lemma: "تَثْلِيثِيّ"
+      generation_method: ishtiqaq
+      justification: "اشتقاق مبالغ فيه لوصف الهيئة الثلاثية."
+    - lemma: "دِلْتَا"
+      generation_method: taarib
+      justification: "اسم أعجمي معرب يُطلق على الأرض التي تأخذ شكل المثلث عند مصب النهر، ويمثل حالة خاصة للمفهوم."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُثَلَّث"
+      confirm:
+        - text: "«(المثلث) سطح يُحِيط بِهِ ثَلَاثَة خطوط مُسْتَقِيمَة»"
+          source: "المعجم الوسيط"
+        - text: "«المثلث: كوكبة نجوم على شكل مثلث.»"
+          source: "دوزي"
+        - text: "«وهى [أمريكا الجنوبية] على شكل مثلث كبير تقريباً، رأسه إلى الجنوب»"
+          source: "المعجم الوسيط (في وصف القارات)"
+    - lemma: "مُثَلَّثَة"
+      confirm:
+        - text: "«المُثَلَّثة: قطعة أرض أو قماش مُثلَّثيّة الشَّكل»"
+          source: "المورد الحديث"
+        - text: "«مُثَّلثَة: مرادف مُثَلَّث»"
+          source: "دوزي"
+    - lemma: "مُثَلَّثِيّ"
+      confirm:
+        - text: "«المُثَلَّثيّة: راية بحرية على شكل مثلّث»"
+          source: "المورد الحديث"
+        - text: "«المعجم الموحد لمصطلحات علم التشريح العياني: رِّباطُ (ال...) المُثَلَّثِيُّ للكَتِف»"
+          source: "المعجم الموحد"
+    - lemma: "دلتا"
+      expands:
+        - text: "«مساحة من الأرض تكونت من رواسب فيضية مروحية الشكل... مثلث الشكل يتكون عند مصب النهر»"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مثلث"
+      decision: confirmed
+      decision_reason: "المصطلح العربي الأساسي الذي يُطلق على الشكل الهندسي وما شابهه في الهيئة، وقد استُخدم في المعاجم لوصف هيئة القارات والنجوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُثَلَّث"
+    - lemma: "مُثَلَّثَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تُستخدم كاسم لتمييز القطع المادية (أرض، قماش) التي تأخذ هيئة المثلث، وهي موثقة في المعاجم الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُثَلَّثَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مُثَلَّثِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صفة تُستخدم اسماً في سياقات تقنية (مثل الراية المثلثية أو العضلة المثلثية) لوصف الأشياء التي تقارب شكل المثلث."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُثَلَّثِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "دِلْتَا"
+      decision: removed
+      decision_reason: "تخصيص جغرافي ضيق لا يغطي عموم 'الشيء الذي يقارب شكل المثلث' في سياقات أخرى."
+
+stage4_content:
+  definition:
+    current: "شيء يقارب شكل المثلث"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط، والأفضل صياغته بأسلوب معجمي يوضح أن المفهوم يشمل الهيئة والمشابهة."
+    authored:
+      - type: linguistic
+        text: "ما كانَ على هيئةِ المُثَلَّثِ أو شابَهَهُ في شَكْلِهِ من الأجسامِ أو المَساحاتِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "مُثَلَّث"
+        examples:
+          - text: "تَمْتَدُّ واحةُ البُرَيْمِي على شَكْلِ مُثَلَّثٍ يَبْلُغُ طُولُهُ تِسْعَةَ كيلومترات."
+            type: usage
+      - lemma: "مُثَلَّثَة"
+        examples:
+          - text: "اشْتَرى التَّاجِرُ مُثَلَّثَةً مِنَ القُماشِ لِصُنْعِ الأشرعةِ."
+            type: usage
+      - lemma: "مُثَلَّثِيّ"
+        examples:
+          - text: "رُفِعَتِ الرَّايةُ المُثَلَّثِيَّةُ فَوْقَ سارِيَةِ المَرْكَبِ."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "ما كانَ على هيئةِ المُثَلَّثِ أو شابَهَهُ في شَكْلِهِ من الأجسامِ أو المَساحاتِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تَمْتَدُّ واحةُ البُرَيْمِي على شَكْلِ مُثَلَّثٍ يَبْلُغُ طُولُهُ تِسْعَةَ كيلومترات."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُثَلَّث"
+      entry_id: "{auto}"
+      root: "ثلث"
+      maqayis_quote: "«الثَّاءُ وَاللَّامُ وَالثَّاءُ كَلِمَةٌ وَاحِدَةٌ، وَهِيَ فِي الْعَدَدِ... وَالْمَثْلُوثَةُ: الْمَزَادَةُ تَكُونُ مِنْ ثَلَاثَةِ جُلُودٍ. وَحَبْلٌ مَثْلُوثٌ، إِذَا كَانَ عَلَى ثَلَاثِ قُوًى.»"
+    - lemma: "مُثَلَّثَة"
+      entry_id: "{auto}"
+      root: "ثلث"
+      maqayis_quote: "«الثَّاءُ وَاللَّامُ وَالثَّاءُ كَلِمَةٌ وَاحِدَةٌ...»"
+    - lemma: "مُثَلَّثِيّ"
+      entry_id: "{auto}"
+      root: "ثلث"
+      maqayis_quote: "«الثَّاءُ وَاللَّامُ وَالثَّاءُ كَلِمَةٌ وَاحِدَةٌ...»"
+  per_sense:
+    - lemma: "مُثَلَّث"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام الذي يُطلق على الشكل الهندسي أو أي هيئة مادية تشبهه."
+      mwe: false
+    - lemma: "مُثَلَّثَة"
+      sense_id: "{auto}"
+      nuance: "تُستخدم غالباً للإشارة إلى قطعة مادية (أرض أو قماش) متميزة بحدودها المثلثة."
+      mwe: false
+    - lemma: "مُثَلَّثِيّ"
+      sense_id: "{auto}"
+      nuance: "تُستخدم كاسم لوصف الهيئات أو الأدوات التقنية المتصفة بالمثلثية."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ثلث","maqayis":"«الثَّاءُ وَاللَّامُ وَالثَّاءُ كَلِمَةٌ وَاحِدَةٌ، وَهِيَ فِي الْعَدَدِ... وَالْمَثْلُوثَةُ: الْمَزَادَةُ تَكُونُ مِنْ ثَلَاثَةِ جُلُودٍ. وَحَبْلٌ مَثْلُوثٌ، إِذَا كَانَ عَلَى ثَلَاثِ قُوًى.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العام الذي يُطلق على الشكل الهندسي أو أي هيئة مادية تشبهه.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

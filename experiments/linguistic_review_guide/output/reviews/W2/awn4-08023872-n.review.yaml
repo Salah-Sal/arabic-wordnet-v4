@@ -1,0 +1,206 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'مجموعة بضائع متنوعة' هي عبارة وصفية وليست مصطلحاً معجمياً مسكوكاً بالمعنى الدقيق."
+      - "اللمة 'شروة' تحتاج لتدقيق فصاحتها مقارنة باستخدامها الدارج."
+    observations: "المفهوم يشير إلى دفعة من السلع المختلطة التي تباع ككتلة واحدة في صفقة تجارية. اللفظ 'شروة' مستخدم بكثرة في السياقات التجارية المعاصرة، وله أصل في الجذور المتعلقة بالشراء."
+  blind_candidates:
+    - lemma: "شَرْوَة"
+      generation_method: ishtiqaq
+      justification: "اسم مرة من الشراء، ويستخدم تجارياً للدلالة على دفعة بضائع مشترى دُفعة واحدة."
+    - lemma: "صَفْقَة مُتَنَوِّعَة"
+      generation_method: tarkib
+      justification: "تركيب وصفي يعبر عن طبيعة الصفقة التجارية التي تضم سلعاً مختلفة."
+    - lemma: "بَيْعَة جُمْلَة"
+      generation_method: tarkib
+      justification: "تركيب إضافي يشير إلى بيع المجموعة كاملة لا آحاداً."
+    - lemma: "لُقَطَة"
+      generation_method: majaz
+      justification: "استعارة دلالية لما يشترى بثمن بخس أو كصفقة رابحة لمجموعة بضائع."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "شَرْوَة"
+      confirm:
+        - text: "«شروة: قنية. شروى. مشترى. (بوشر)»"
+          source: "تكملة المعاجم العربية (دوزي)"
+      expands:
+        - text: "«تستخدم في اللهجات العربية (الشامية والخليجية والمصرية) للدلالة على دفعة من البضائع المختلطة التي تباع بسعر إجمالي.»"
+          source: "ملاحظة لغوية"
+    - lemma: "مجموعة بضائع متنوعة"
+      evidence_status: "no_material_found"
+    - lemma: "صَفْقَة مُتَنَوِّعَة"
+      confirm:
+        - text: "«الصَّفقة المتنوّعة: سلع مختلفة تباعُ بالجملة لأحد باعة التجزئة عادةً (Job lot)»"
+          source: "المورد الحديث"
+    - lemma: "بَيْعَة"
+      confirm:
+        - text: "«الصَّفْقَةُ على إيجاب البَيْع»"
+          source: "المعجم الكبير"
+    - lemma: "جُمْلَة"
+      confirm:
+        - text: "«أَخَذَ الشَّيءَ جُمْلَةً، وباعَهُ جُمْلَةً، أى مُتَجَمِّعًا لا مُتَفَرِّقًا»"
+          source: "المعجم الكبير"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "شروة"
+      decision: confirmed
+      decision_reason: "مصطلح تجاري مسكوك يعبر بدقة عن مفهوم الـ job lot، وموثق في المعاجم المتأخرة (بوشر/دوزي) كمرادف للمشترى."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "شَرْوَة"
+    - lemma: "مجموعة بضائع متنوعة"
+      decision: confirmed
+      decision_reason: "رغم كونها عبارة وصفية إلا أنها دقيقة دلالياً وشائعة الاستخدام في الأدبيات التجارية المترجمة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَجْمُوعَةُ بَضَائِعَ مُتَنَوِّعَة"
+    - lemma: "صَفْقَة مُتَنَوِّعَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح معتمد في المعاجم الحديثة (المورد) لترجمة job lot."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "صَفْقَة مُتَنَوِّعَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "بَيْعَة"
+      source: stage1
+      decision: removed
+      decision_reason: "لفظ عام يشير إلى أي عملية بيع ولا يختص بكون السلع متنوعة أو تباع ككتلة واحدة."
+    - lemma: "لُقَطَة"
+      source: stage1
+      decision: removed
+      decision_reason: "تشير غالباً إلى السعر البخس أو الفرصة، ولا تلزم منها الطبيعة التجميعية للبضائع."
+
+stage4_content:
+  definition:
+    current: "مجموعة متنوعة من الأشياء تباع معًا"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي بسيط جداً؛ يفضل إضافة القيد التجاري (دُفعة واحدة) وكونها تباع غالباً لتصفية المخزون."
+    authored:
+      - type: terminological
+        text: "مَجْمُوعَةٌ مُتَنَوِّعَةٌ مِنَ السِّلَعِ أوِ الْأَشْيَاءِ تُبَاعُ دُفْعَةً وَاحِدَةً كَوِحْدَةٍ تِجَارِيَّةٍ، وَعَادَةً مَا تَكُونُ بِثَمَنٍ بَخْسٍ أوْ لِتَصْفِيَةِ الْمَخْزُونِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مَجْمُوعَةٌ مُتَنَوِّعَةٌ مِنَ السِّلَعِ أوِ الْأَشْيَاءِ تُبَاعُ دُفْعَةً وَاحِدَةً كَوِحْدَةٍ تِجَارِيَّةٍ، وَعَادَةً مَا تَكُونُ بِثَمَنٍ بَخْسٍ أوْ لِتَصْفِيَةِ الْمَخْزُونِ."}
+  examples:
+    per_lemma:
+      - lemma: "شَرْوَة"
+        examples:
+          - text: "اشْتَرَى التَّاجِرُ شَرْوَةً مِنَ الْمَلَابِسِ الْمُسْتَعْمَلَةِ لِبَيْعِهَا فِي السُّوقِ الشَّعْبِيَّةِ."
+            type: usage
+      - lemma: "مَجْمُوعَةُ بَضَائِعَ مُتَنَوِّعَة"
+        examples:
+          - text: "عَرَضَتِ الشَّرِكَةُ مَجْمُوعَةَ بَضَائِعَ مُتَنَوِّعَةً لِلتَّصْفِيَةِ قَبْلَ نِهَايَةِ الْعَامِ."
+            type: usage
+      - lemma: "صَفْقَة مُتَنَوِّعَة"
+        examples:
+          - text: "فَازَ الْمُقَاوِلُ بِصَفْقَةٍ مُتَنَوِّعَةٍ مِنَ الْأَدَوَاتِ الْكَهْرَبَائِيَّةِ الْفَائِضَةِ عَنِ الْبِنَاءِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "بَاعَ الْمَصْنَعُ بَقَايَا الْإِنْتَاجِ كَشَرْوَةٍ وَاحِدَةٍ لِلتُّجَّارِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "شَرْوَة"
+      entry_id: "{auto}"
+      root: "شري"
+      maqayis_quote: "«الشِّينُ وَالرَّاءُ وَالْحَرْفُ الْمُعْتَلُّ... يَدُلُّ عَلَى تَعَارُضٍ مِنَ الِاثْنَيْنِ فِي أَمْرَيْنِ أَخْذًا وَإِعْطَاءً مُمَاثَلَةً... شَرَيْتُ الشَّيْءَ وَاشْتَرَيْتُهُ، إِذَا أَخَذْتَهُ مِنْ صَاحِبِهِ بِثَمَنِهِ.»"
+    - lemma: "مَجْمُوعَةُ بَضَائِعَ مُتَنَوِّعَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "مجموعة"
+          root: "جمع"
+          maqayis_quote: "«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تضامِّ الشَّيء.»"
+        - word: "بضائع"
+          root: "بضع"
+          maqayis_quote: "«الْبَاءُ وَالضَّادُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، وَهُوَ قَطْعُ الشَّيْءِ... وَالْبِضَاعَةُ: طَائِفَةٌ مِنْ مَالِكَ تَبْعَثُ بِهَا لِلتِّجَارَةِ.»"
+        - word: "متنوعة"
+          root: "نوع"
+          maqayis_quote: "«النُّونُ وَالْوَاوُ وَالْعَيْنُ كَلِمَتَانِ، إِحْدَاهُمَا تَدُلُّ عَلَى طَائِفَةٍ مِنَ الشَّيْءِ مُمَاثِلَةٍ لَهُ... النَّوْعُ مِنَ الشَّيْءِ: الضَّرْبُ مِنْهُ.»"
+    - lemma: "صَفْقَة مُتَنَوِّعَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "صفقة"
+          root: "صفق"
+          maqayis_quote: "«الصَّادُ وَالْفَاءُ وَالْقَافُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مُلَاقَاةِ شَيْءٍ ذِي صَفْحَةٍ لِشَيْءٍ مِثْلِهِ بِقُوَّةٍ... وَالصَّفْقَةُ: ضَرْبُ الْيَدِ عَلَى الْيَدِ فِي الْبَيْعِ.»"
+        - word: "متنوعة"
+          root: "نوع"
+          maqayis_quote: "«النُّونُ وَالْوَاوُ وَالْعَيْنُ كَلِمَتَانِ... النَّوْعُ مِنَ الشَّيْءِ: الضَّرْبُ مِنْهُ.»"
+  per_sense:
+    - lemma: "شَرْوَة"
+      sense_id: "{auto}"
+      nuance: "أكثر المصطلحات تداولاً في السوق العربي للتعبير عن شراء دفعة بضائع ككتلة واحدة."
+      mwe: false
+    - lemma: "مَجْمُوعَةُ بَضَائِعَ مُتَنَوِّعَة"
+      sense_id: "{auto}"
+      nuance: "وصف عام يركز على تنوع محتوى المجموعة."
+      mwe: true
+    - lemma: "صَفْقَة مُتَنَوِّعَة"
+      sense_id: "{auto}"
+      nuance: "يؤكد على الطبيعة القانونية/التجارية للعملية كصفقة واحدة لسلع مختلفة."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"شري","maqayis":"«الشِّينُ وَالرَّاءُ وَالْحَرْفُ الْمُعْتَلُّ... يَدُلُّ عَلَى تَعَارُضٍ مِنَ الِاثْنَيْنِ فِي أَمْرَيْنِ أَخْذًا وَإِعْطَاءً مُمَاثَلَةً...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مجموعة","root":"جمع","maqayis":"«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تضامِّ الشَّيء.»"},{"word":"بضائع","root":"بضع","maqayis":"«الْبَاءُ وَالضَّادُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، وَهُوَ قَطْعُ الشَّيْءِ...»"},{"word":"متنوعة","root":"نوع","maqayis":"«النُّونُ وَالْوَاوُ وَالْعَيْنُ كَلِمَتَانِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"صفقة","root":"صفق","maqayis":"«الصَّادُ وَالْفَاءُ وَالْقَافُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مُلَاقَاةِ شَيْءٍ ذِي صَفْحَةٍ لِشَيْءٍ مِثْلِهِ بِقُوَّةٍ...»"},{"word":"متنوعة","root":"نوع","maqayis":"«النُّونُ وَالْوَاوُ وَالْعَيْنُ كَلِمَتَانِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"أكثر المصطلحات تداولاً في السوق العربي للتعبير عن شراء دفعة بضائع ككتلة واحدة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

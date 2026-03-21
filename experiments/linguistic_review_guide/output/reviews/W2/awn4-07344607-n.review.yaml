@@ -1,0 +1,231 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "عدم ضبط اللمات الحالية بالتشكيل الكامل (قدر، مصير، مكتوب)."
+      - "لفظ 'مكتوب' قد يحمل دلالات 'رسالة' (polysemy)، لكنه فصيح ومستعمل في المعنى المراد."
+    observations: "المفهوم مركزي في الثقافة العربية والإسلامية، ويرتبط بمفاهيم القضاء والقدر والمآل."
+  blind_candidates:
+    - lemma: "قَدَر"
+      generation_method: ishtiqaq
+      justification: "اللفظ الأصيل للمقدار والقضاء المحتوم."
+    - lemma: "مَصِير"
+      generation_method: ishtiqaq
+      justification: "يدل على المآل وما تنتهي إليه الأحداث."
+    - lemma: "قَضَاء"
+      generation_method: ishtiqaq
+      justification: "الحكم الإلهي الكلي المبرم، وهو رديف القدر."
+    - lemma: "مَقْدُور"
+      generation_method: ishtiqaq
+      justification: "اسم مفعول يعبر عن الأمر الذي قُدر ووقع حتماً."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "قَدَر"
+      confirm:
+        - text: "«القَدَرُ، محرَّكةً: القَضاءُ، والحُكْمُ، ومَبْلَغُ الشيءِ...»"
+          source: "القاموس المحيط"
+        - text: "«القَدَر: محركةً ما يقدره اللهُ من القضاء...»"
+          source: "التعريفات الفقهيّة للبركتي"
+    - lemma: "مَصِير"
+      confirm:
+        - text: "«مَصِير من (ص ي ر) بمعنى ما ينتهى إليه الأمر.»"
+          source: "موسوعة السلطان قابوس"
+        - text: "«مصير: fate»"
+          source: "مسرد الفلسفة (ArabTerm)"
+    - lemma: "مَكْتُوب"
+      confirm:
+        - text: "«مَكْتُوب من (ك ت ب) المخطوط، والمقضى والموجب والمفروض.»"
+          source: "موسوعة السلطان قابوس"
+    - lemma: "قَضَاء"
+      confirm:
+        - text: "«القضاء: لغةً الحكم، وفي الاصطلاح عبارة عن الحكم الكلي الإلهي في أعيان الموجودات...»"
+          source: "كتاب التعريفات للجرجاني"
+    - lemma: "مَقْدُور"
+      confirm:
+        - text: "«مَقْدُور من (ق د ر) الشيء المتمكن منه، والشيء المعلوم قيمته ومقداره.»"
+          source: "موسوعة السلطان قابوس"
+        - text: "«وَكانَ أَمْرُ اللَّهِ قَدَراً مَقْدُوراً»"
+          source: "المفردات في غريب القرآن (الراغب)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "قدر"
+      decision: confirmed
+      decision_reason: "اللفظ الأساسي والأدق للمجموعة الترادفية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "قَدَر"
+    - lemma: "مصير"
+      decision: confirmed
+      decision_reason: "يعبر عن مسار الأحداث ومآلها النهائي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَصِير"
+    - lemma: "مكتوب"
+      decision: confirmed
+      decision_reason: "مستعمل معجمياً وشائع دلالياً للتعبير عن الحتمية والتقدير."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَكْتُوب"
+    - lemma: "قَضَاء"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف قوي للقدر ويعبر عن الحكم المحتوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "قَضَاء", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-07344607-n"}
+    - lemma: "مَقْدُور"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صيغة اسم المفعول تدل على المفعولية والحتمية، وهي شائعة في السياق."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَقْدُور", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-07344607-n"}
+
+stage4_content:
+  definition:
+    current: "حدث (أو مسار أحداث) سيحدث حتماً في المستقبل"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ترجمة حرفية للإنجليزي، ويفضل تعريفه بأسلوب المعاجم العربية بربطه بالقضاء والحكم المبرم."
+    authored:
+      - type: terminological
+        text: "ما يُقَدِّرُه اللهُ على عِبَادِه من قَضَاءٍ وحُكْمٍ مَحْتُومٍ لا رادَّ له في مُقْبِلِ الزَّمان."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-07344607-n", definition_index: 0, text: "ما يُقَدِّرُه اللهُ على عِبَادِه من قَضَاءٍ وحُكْمٍ مَحْتُومٍ لا رادَّ له في مُقْبِلِ الزَّمان."}
+  examples:
+    per_lemma:
+      - lemma: "قَدَر"
+        examples:
+          - text: "سَلَّمَ المؤمِنُ بِقَدَرِهِ خَيْرِهِ وشَرِّهِ."
+            type: usage
+      - lemma: "مَصِير"
+        examples:
+          - text: "يُقَرِّرُ الإِنسانُ مَصِيرَهُ بِأَفْعَالِهِ، وإنْ كَانَ المآلُ مَحْتُومًا."
+            type: usage
+      - lemma: "مَكْتُوب"
+        examples:
+          - text: "المَكْتُوبُ على الجَبِينِ لابدَّ أنْ تَرَاهُ العَيْنُ."
+            type: proverb
+      - lemma: "قَضَاء"
+        examples:
+          - text: "رَضِيَ العَبْدُ بِقَضَاءِ اللهِ وقَدَرِهِ."
+            type: usage
+      - lemma: "مَقْدُور"
+        examples:
+          - text: "وَكَانَ أَمْرُ اللَّهِ قَدَراً مَقْدُوراً."
+            type: quran
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-07344607-n", text: "آمَنَ القومُ بِالأَقْدَارِ المَحْتُومَةِ التي لا مَفَرَّ مِنْها."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "قَدَر"
+      entry_id: "{auto}"
+      root: "قدر"
+      maqayis_quote: "«الْقَافُ وَالدَّالُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مَبْلَغِ الشَّيْءِ وَكُنْهِهِ وَنِهَايَتِهِ.»"
+    - lemma: "مَصِير"
+      entry_id: "{auto}"
+      root: "صير"
+      maqayis_quote: "«الصَّادُ وَالْيَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ مَرْجِعُ الشَّيْءِ.»"
+    - lemma: "مَكْتُوب"
+      entry_id: "{auto}"
+      root: "كتب"
+      maqayis_quote: "«الْكَافُ وَالتَّاءُ وَالْبَاءُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى جَمْعِ شَيْءٍ إِلَى شَيْءٍ.»"
+    - lemma: "قَضَاء"
+      entry_id: "{auto}"
+      root: "قضي"
+      maqayis_quote: "«الْقَافُ وَالضَّادُ وَالْيَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِحْكَامِ أَمْرٍ وَإِتْمَامِهِ.»"
+    - lemma: "مَقْدُور"
+      entry_id: "{auto}"
+      root: "قدر"
+      maqayis_quote: "«الْقَافُ وَالدَّالُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مَبْلَغِ الشَّيْءِ وَكُنْهِهِ وَنِهَايَتِهِ.»"
+  per_sense:
+    - lemma: "قَدَر"
+      sense_id: "{auto}"
+      nuance: "المقدار أو الحكم الإلهي الذي سُبِقَ به العلم الأزلي."
+      mwe: false
+    - lemma: "مَصِير"
+      sense_id: "{auto}"
+      nuance: "يركز على المآل والنتيجة النهائية لمسار الأحداث."
+      mwe: false
+    - lemma: "مَكْتُوب"
+      sense_id: "{auto}"
+      nuance: "يركز على صفة التدوين والسبق في الكتابة الإلهية، وغالباً ما يستعمل في سياق التسليم."
+      mwe: false
+    - lemma: "قَضَاء"
+      sense_id: "{auto}"
+      nuance: "الحكم المبرم والواقع الفعلي للقدر."
+      mwe: false
+    - lemma: "مَقْدُور"
+      sense_id: "{auto}"
+      nuance: "يعبر عن الشيء من حيث كونه واقعاً تحت القدر ومحققاً."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قدر","maqayis":"«الْقَافُ وَالدَّالُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى مَبْلَغِ الشَّيْءِ وَكُنْهِهِ وَنِهَايَتِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صير","maqayis":"«الصَّادُ وَالْيَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ مَرْجِعُ الشَّيْءِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المقدار أو الحكم الإلهي الذي سُبِقَ به العلم الأزلي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-07344607-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-07344607-n"
+        score: 0.95

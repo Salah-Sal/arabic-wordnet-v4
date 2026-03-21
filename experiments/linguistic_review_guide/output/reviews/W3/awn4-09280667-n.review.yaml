@@ -1,0 +1,261 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'جَوْن' تحمل دلالة تضاد قوية في المعاجم الكلاسيكية (الأبيض والأسود) مما قد يسبب لبساً دلالياً خارج السياق الجغرافي."
+      - "اللمة 'خَلِيج صَغِير' هي عبارة وصفية حرة (Wasfi) وليست مصطلحاً مسكوكاً مفرداً، رغم دقتها."
+    observations: "المجموعة تغطي مفهماً جغرافياً حيوياً للبيئة العربية الساحلية، وهناك وفرة في المصطلحات التراثية والجهوية التي تصف هذا النوع من المداخل المائية بدقة."
+  blind_candidates:
+    - lemma: "خَوْر"
+      generation_method: ishtiqaq
+      justification: "مصطلح شائع جداً في الجزيرة العربية والخليج لوصف المداخل المائية التي تنفذ في البر."
+    - lemma: "شَرْم"
+      generation_method: majaz
+      justification: "يستخدم لوصف الشق أو الصدع في الساحل الذي يشكل خليجاً صغيراً، وهو شائع في البحر الأحمر."
+    - lemma: "غُبّ"
+      generation_method: majaz
+      justification: "لفظ تراثي مستخدم في عمان واليمن لوصف المداخل المائية العميقة في اليابسة."
+    - lemma: "خَلِيجَة"
+      generation_method: ishtiqaq
+      justification: "صيغة التأنيث أو التصغير من خليج، وتستخدم للدلالة على الصغر."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "جون"
+      confirm:
+        - text: "«جون: خليج صغير»"
+          source: "المعجم الموحد لمصطلحات الجيولوجيا (ArabTerm)"
+        - text: "«غُب: خليج، جون في لهجة اليمن- ففي الادريسي... ومعنى الغب الجون»"
+          source: "تكملة المعاجم العربية لدووزي"
+    - lemma: "خليج صغير"
+      confirm:
+        - text: "«جون: خليج صغير»"
+          source: "المعجم الموحد لمصطلحات علوم الزلازل (ArabTerm)"
+    - lemma: "خور"
+      confirm:
+        - text: "«الخَوْرُ: ... الخليجُ من البَحْر (فى الجغرافيا)»"
+          source: "المعجم الكبير (مجمع اللغة العربية)"
+        - text: "«(الخور) مصب المَاء فِي الْبَحْر والمنخفض من الأَرْض بَين مرتفعين والخليج»"
+          source: "المعجم الوسيط"
+    - lemma: "شرم"
+      confirm:
+        - text: "«الشَّرْمُ: ... أو الخَليجُ منه»"
+          source: "القاموس المحيط"
+        - text: "«(الشرم) كل شقّ غير نَافِذ فِي جبل أَو حَائِط وَمن الْبَحْر خليج مِنْهُ»"
+          source: "المعجم الوسيط"
+        - text: "«A canal, or cut (خليج), from a sea... now applied to a creek of a sea»"
+          source: "Edward William Lane, Arabic-English Lexicon"
+    - lemma: "غب"
+      confirm:
+        - text: "«الغُبّ: الضاربُ من البَحْر حتى يُمعن فِي البَرِّ»"
+          source: "المحكم والمحيط الأعظم"
+        - text: "«غُب: خليج، جون في لهجة اليمن- ففي الادريسي... ومعنى الغب الجون»"
+          source: "تكملة المعاجم العربية لدووزي"
+    - lemma: "خليجة"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "جون"
+      decision: confirmed
+      decision_reason: "مصطلح تقني حديث في علوم الجيولوجيا والبحار، وله أصل تراثي جغرافي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "جَوْن"
+    - lemma: "خليج صغير"
+      decision: confirmed
+      decision_reason: "تعبير وصفي دقيق وشائع الاستخدام في التعريفات العلمية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَلِيج صَغِير"
+    - lemma: "خور"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح جغرافي أصيل ومعترف به في المعاجم الحديثة للدلالة على المصب والخليج الصغير."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "خَوْر", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09280667-n"}
+    - lemma: "شرم"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح جغرافي دقيق يصف الشق الساحلي الذي يشكل ميناءً طبيعياً أو مدخلاً مائياً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "شَرْم", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09280667-n"}
+    - lemma: "غب"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تراثي وجهوي (عمان واليمن) يصف بدقة المدخل المائي الممتد في اليابسة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "غُبّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09280667-n"}
+
+stage4_content:
+  definition:
+    current: "مدخل مائي صغير"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب جداً، يحتاج لإضافة تفاصيل حول طبيعة المدخل وموقعه الجغرافي."
+    authored:
+      - type: terminological
+        text: "مَدْخَل مَائِيّ صَغِير فِي اليَابِسَة، غَالِبًا مَا يَكُون مَحْمِيًّا بَيْنَ رُؤُوس صَخْرِيَّة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "جَوْن"
+        examples:
+          - text: "يَلْجَأُ الصَّيَّادُونَ بِمَرَاكِبِهِم إِلَى الجَوْنِ هَرَبًا مِنَ العَاصِفَة."
+            type: usage
+      - lemma: "خَلِيج صَغِير"
+        examples:
+          - text: "يَمْتَازُ هَذَا الخَلِيجُ الصَّغِيرُ بِمِيَاهِهِ الهَادِئَةِ وَشَاطِئِهِ الرَّمْلِيِّ."
+            type: usage
+      - lemma: "خَوْر"
+        examples:
+          - text: "تَكْثُرُ أَشْجَارُ المَنْغَرُوفِ عَلَى جَوَانِبِ الخَوْرِ."
+            type: usage
+      - lemma: "شَرْم"
+        examples:
+          - text: "يُعَدُّ الشَّرْمُ مَكَانًا مِثَالِيًّا لِرُسُوِّ السُّفُنِ الصَّغِيرَةِ."
+            type: usage
+      - lemma: "غُبّ"
+        examples:
+          - text: "أَبْحَرَتِ السَّفِينَةُ دَاخِلَ الغُبِّ لِتَفْرِيغِ شِحْنَتِهَا."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-09280667-n", definition_index: 0, text: "مَدْخَل مَائِيّ صَغِير فِي اليَابِسَة، غَالِبًا مَا يَكُون مَحْمِيًّا بَيْنَ رُؤُوس صَخْرِيَّة."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يَلْجَأُ الصَّيَّادُونَ بِمَرَاكِبِهِم إِلَى الجَوْنِ هَرَبًا مِنَ العَاصِفَة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "جَوْن"
+      entry_id: "{auto}"
+      root: "جون"
+      maqayis_quote: "«الْجِيمُ وَالْوَاوُ وَالنُّونُ أَصْلٌ وَاحِدٌ... وَالْجَوْنُ عِنْدَ أَهْلِ اللُّغَةِ قَاطِبَةً اسْمٌ يَقَعُ عَلَى الْأَسْوَدِ وَالْأَبْيَضِ، وَهُوَ بَابٌ مِنْ تَسْمِيَةِ الْمُتَضَادَّيْنِ بِالِاسْمِ الْوَاحِدِ»"
+    - lemma: "خَلِيج صَغِير"
+      entry_id: "{auto}"
+      roots:
+        - word: "خليج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"
+        - word: "صغير"
+          root: "صغر"
+          maqayis_quote: "«الصَّادُ وَالْغَيْنُ وَالرَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى قِلَّةٍ وَحَقَارَةٍ. مِنْ ذَلِكَ الصِّغَرُ: ضِدُّ الْكِبَرِ.»"
+    - lemma: "خَوْر"
+      entry_id: "{auto}"
+      root: "خور"
+      maqayis_quote: "«الْخَاءُ وَالْوَاوُ وَالرَّاءُ أَصْلَانِ: أَحَدُهُمَا يَدُلُّ عَلَى صَوْتٍ، وَالْآخَرُ عَلَى ضَعْفٍ.»"
+    - lemma: "شَرْم"
+      entry_id: "{auto}"
+      root: "شرم"
+      maqayis_quote: "«الشِّينُ وَالرَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ لَا يُخْلَفُ، وَهُوَ يَدُلُّ عَلَى خَرْقٍ فِي الشَّيْءِ وَمَزْقٍ... وَسَمِعْتُ مَنْ يَقُولُ إِنَّ الشَّرْمَ كَالْخَرْقِ فِي جَانِبِ الْبَحْرِ، كَالْمَدْخَلِ إِلَى الْبَحْرِ.»"
+    - lemma: "غُبّ"
+      entry_id: "{auto}"
+      root: "غبب"
+      maqayis_quote: "«الْغَيْنُ وَالْبَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى زَمَانٍ وَفَتْرَةٍ فِيهِ... وَالْغُبُّ: الضَّارِبُ مِنَ الْبَحْرِ حَتَّى يُمْعِنَ فِي الْبَرِّ.»"
+  per_sense:
+    - lemma: "جَوْن"
+      sense_id: "{auto}"
+      nuance: "مصطلح علمي حديث (Geology) وله جذور تراثية، يستخدم غالباً في السياقات الجغرافية الرسمية."
+      mwe: false
+    - lemma: "خَلِيج صَغِير"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي مباشر يركز على صغر حجم الخليج."
+      mwe: true
+    - lemma: "خَوْر"
+      sense_id: "{auto}"
+      nuance: "يشيع استخدامه في الخليج العربي للمداخل المائية الطويلة أو مصبات الأنهار."
+      mwe: false
+    - lemma: "شَرْم"
+      sense_id: "{auto}"
+      nuance: "يوحي بوجود شق أو صدع في الساحل الصخري، ويشيع استخدامه في البحر الأحمر."
+      mwe: false
+    - lemma: "غُبّ"
+      sense_id: "{auto}"
+      nuance: "لفظ تراثي يصف المداخل المائية العميقة في اليابسة، ويستخدم جهوياً في عمان واليمن."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جون","maqayis":"«الْجِيمُ وَالْوَاوُ وَالنُّونُ أَصْلٌ وَاحِدٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"خليج","root":"خلج","maqayis_quote":"«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ...»"},{"word":"صغير","root":"صغر","maqayis_quote":"«الصَّادُ وَالْغَيْنُ وَالرَّاءُ أَصْلٌ صَحِيحٌ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خور","maqayis":"«الْخَاءُ وَالْوَاوُ وَالرَّاءُ أَصْلَانِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"شرم","maqayis":"«الشِّينُ وَالرَّاءُ وَالْمِيمُ أَصْلٌ وَاحِدٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"غبب","maqayis":"«الْغَيْنُ وَالْبَاءُ أَصْلٌ صَحِيحٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح علمي حديث وله جذور تراثية، يستخدم غالباً في السياقات الجغرافية الرسمية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-09280667-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-09280667-n"
+        score: 0.95

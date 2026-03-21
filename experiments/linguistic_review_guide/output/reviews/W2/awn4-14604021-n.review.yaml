@@ -1,0 +1,230 @@
+# ── المرحلة ١: المراجعة والتوليد (بدون أدلة) ──────────────
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي مقتضب جداً ويقع في شبهة الدور (الدوران الدلالي) باستعمال مشتق من اللمة نفسها (مستخدماً)."
+      - "نقص التشكيل في اللمات الموجودة."
+    observations: "المفهوم يعبر عن 'الانتفاع' أو 'الاستعمال' العام، وللعربية في هذا الباب ألفاظ دقيقة تفرق بين استعمال الأداة والانتفاع بالنتيجة وتوظيف المورد."
+  blind_candidates:
+    - lemma: "اسْتِعْمَال"
+      generation_method: ishtiqaq
+      justification: "المصدر العام من الجذر (ع م ل) على وزن (استفعال) للدلالة على طلب الفعل، وهو المرادف الأعم لـ utilization."
+    - lemma: "اسْتِخْدَام"
+      generation_method: ishtiqaq
+      justification: "يدل على طلب الخدمة من الشيء أو الأداة، وهو الأكثر شيوعاً في العصر الحديث للمصطلحات التقنية."
+    - lemma: "انْتِفَاع"
+      generation_method: ishtiqaq
+      justification: "يركز على الجانب الثمري من الاستعمال، أي الحصول على النفع."
+    - lemma: "تَوْظِيف"
+      generation_method: ishtiqaq
+      justification: "يُستخدم للتعبير عن وضع الشيء في وظيفته المناسبة أو استغلال الطاقات والموارد."
+
+# ── المرحلة ٢: جمع الأدلة ────────────────────────────────
+stage2_evidence:
+  per_lemma:
+    - lemma: "اسْتِخْدَام"
+      confirm:
+        - text: "«استخدام: utilization»"
+          source: "المعجم الموحد لمصطلحات النقل"
+        - text: "«استخدام ؛ انتفاع: utilization»"
+          source: "معجم مصطلحات المعلوماتية"
+      expands:
+        - text: "«في اللغة طلب الخدمة عن شيء وعند أصحاب البديع هو أن يذكر لفظ له معنيان...»"
+          source: "دستور العلماء"
+          addition: "يوضح الفرق بين المعنى اللغوي (طلب الخدمة) والمعنى الاصطلاحي البلاغي."
+    - lemma: "انْتِفَاع"
+      confirm:
+        - text: "«انتفاع بمُسطحات المائية: waters utilization»"
+          source: "المعجم الموحد لمصطلحات المياه"
+        - text: "«نَفَعَهُ يَنْفَعُهُ نَفْعًا وَمَنْفَعَةً. وَانْتَفَعَ بِكَذَا.»"
+          source: "مقاييس اللغة"
+    - lemma: "اسْتِعْمَال"
+      confirm:
+        - text: "«استعمال: utilization»"
+          source: "مسرد الجغرافيا والتاريخ"
+        - text: "«زمن الاستعمال: utilization time»"
+          source: "المعجم الموحد لمصطلحات الفيزياء"
+      expands:
+        - text: "«الاستعمال: قيل هو مرادف للعادة، وقيل نقل اللفظ عن موضعه الأصلي...»"
+          source: "التعريفات الفقهية"
+    - lemma: "تَوْظِيف"
+      confirm:
+        - text: "«التوظيف: تعيين المال في مكانه، في وظيفته: investissement»"
+          source: "المعجم الموحد لمصطلحات الاقتصاد"
+        - text: "«جاء في أساس البلاغة: عليه كل يوم وظيفة من عمل، ووَظَّف عليه العمل، وفي التاج: التوظيف تعيين الوظيفة، ومن هذه المعاني جاء الاستعمال الحديث.»"
+          source: "تكملة المعاجم العربية (عن دوزي)"
+
+# ── المرحلة ٣: التحليل اللغوي للّمات ────────────────────
+stage3_analysis:
+  per_lemma:
+    - lemma: "استخدام"
+      decision: confirmed
+      decision_reason: "اللفظ المعاصر الأكثر شيوعاً للتعبير عن الانتفاع بالوسائل والأدوات والأنظمة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "اسْتِخْدَام"
+    - lemma: "انتفاع"
+      decision: confirmed
+      decision_reason: "يعبر عن الجانب الغائي من الاستعمال (الحصول على النفع)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "انْتِفَاع"
+    - lemma: "اسْتِعْمَال"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف عام وأصيل يشمل الاستعمال المادي والمعنوي، ومدعوم بقوة في المعاجم التقنية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "اسْتِعْمَال", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَوْظِيف"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يُستخدم في سياقات استغلال الموارد البشرية والمالية والطاقات، وهو وجه من وجوه الانتفاع."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَوْظِيف", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+# ── المرحلة ٤: التعريف والأمثلة ──────────────────────────
+stage4_content:
+  definition:
+    current: "حالة كونه مستخدماً"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دوري وغير وافٍ."
+    authored:
+      - type: terminological
+        text: "حالة الانتفاع بالشيء أو توجيهه لأداء غرض أو وظيفة معينة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "حالة الانتفاع بالشيء أو توجيهه لأداء غرض أو وظيفة معينة."}
+
+  examples:
+    per_lemma:
+      - lemma: "اسْتِخْدَام"
+        examples:
+          - text: "زادت كفاءة استخدام الموارد الطبيعية في الصناعات الحديثة."
+            type: usage
+      - lemma: "انْتِفَاع"
+        examples:
+          - text: "يسعى الفرد للانتفاع من خبراته السابقة في حل المشكلات."
+            type: usage
+      - lemma: "اسْتِعْمَال"
+        examples:
+          - text: "يجب الحذر عند استعمال الأجهزة الكهربائية القوية."
+            type: usage
+      - lemma: "تَوْظِيف"
+        examples:
+          - text: "يهدف البرنامج إلى توظيف طاقات الشباب في خدمة المجتمع."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يخضع استخدام المرافق العامة لقوانين منظمة لضمان انتفاع الجميع."}
+
+# ── المرحلة ٥: الإثراء (البيانات الوصفية) ─────────────────
+stage5_enrichment:
+  per_entry:
+    - lemma: "اسْتِخْدَام"
+      entry_id: "{auto}"
+      root: "خدم"
+      maqayis_quote: "«الْخَاءُ وَالدَّالُ وَالْمِيمُ أَصْلٌ وَاحِدٌ مُنْقَاسٌ، وَهُوَ إِطَافَةُ الشَّيْءِ بِالشَّيْءِ... وَمِنْ هَذَا الْبَابِ الْخِدْمَةُ. وَمِنْهُ اشْتِقَاقُ [الْخَادِمِ] ; لِأَنَّ الْخَادِمَ يُطِيفُ بِمَخْدُومِهِ.»"
+    - lemma: "انْتِفَاع"
+      entry_id: "{auto}"
+      root: "نفع"
+      maqayis_quote: "«النُّونُ وَالْفَاءُ وَالْعَيْنُ: كَلِمَةٌ تَدُلُّ عَلَى خِلَافِ الضَّرِّ. وَنَفَعَهُ يَنْفَعُهُ نَفْعًا وَمَنْفَعَةً. وَانْتَفَعَ بِكَذَا.»"
+    - lemma: "اسْتِعْمَال"
+      entry_id: "{auto}"
+      root: "عمل"
+      maqayis_quote: "«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامٌّ فِي كُلِّ فِعْلٍ يُفْعَلُ... وَالْبَنَّاءُ يُسْتَعْمَلُ اللَّبِنَ، إِذَا بَنَى بِهِ.»"
+    - lemma: "تَوْظِيف"
+      entry_id: "{auto}"
+      root: "وظف"
+      maqayis_quote: "«الْوَاوُ وَالظَّاءُ وَالْفَاءُ: كَلِمَةٌ تَدُلُّ عَلَى تَقْدِيرِ شَيْءٍ. يُقَالُ: وَظَّفْتَ لَهُ، إِذَا قَدَّرْتَ لَهُ كُلَّ حِينٍ شَيْئًا مِنْ رِزْقٍ أَوْ طَعَامٍ.»"
+  per_sense:
+    - lemma: "اسْتِخْدَام"
+      sense_id: "{auto}"
+      nuance: "يركز على تسخير الأداة أو الوسيلة للقيام بمهمة، وهو الأكثر تداولاً في السياق التقني."
+      mwe: false
+    - lemma: "انْتِفَاع"
+      sense_id: "{auto}"
+      nuance: "يركز على الثمرة المرجوة من الفعل وحصول الفائدة."
+      mwe: false
+    - lemma: "اسْتِعْمَال"
+      sense_id: "{auto}"
+      nuance: "اللفظ الأعم الذي يشمل الاستهلاك المادي أو التطبيق المعنوي."
+      mwe: false
+    - lemma: "تَوْظِيف"
+      sense_id: "{auto}"
+      nuance: "يدل على استغلال مورد أو طاقة بتخصيصها لعمل محدد بكفاءة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خدم","maqayis":"«الْخَاءُ وَالدَّالُ وَالْمِيمُ أَصْلٌ وَاحِدٌ مُنْقَاسٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نفع","maqayis":"«النُّونُ وَالْفَاءُ وَالْعَيْنُ: كَلِمَةٌ تَدُلُّ عَلَى خِلَافِ الضَّرِّ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عمل","maqayis":"«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"وظف","maqayis":"«الْوَاوُ وَالظَّاءُ وَالْفَاءُ: كَلِمَةٌ تَدُلُّ عَلَى تَقْدِيرِ شَيْءٍ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على تسخير الأداة أو الوسيلة للقيام بمهمة، وهو الأكثر تداولاً في السياق التقني.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

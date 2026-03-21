@@ -1,0 +1,171 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي ترجمة شبه حرفية للتعريف الإنجليزي، ولكنه واضح ومقبول دلالياً."
+      - "اللمة الموجودة (صف) تفتقر إلى التشكيل."
+    observations: "المفهوم يشير إلى الترتيب الخطي المتجاور للعناصر (مثل الأرقام والحروف)، وهو ما يُعبر عنه في العربية بالصف أو السطر، خاصة في سياق الجداول أو النصوص."
+  blind_candidates:
+    - lemma: "سَطْر"
+      generation_method: ishtiqaq
+      justification: "السطر هو الصف من الكتابة أو الرموز، وهو الأنسب لوصف الحروف والأرقام المصطفة."
+    - lemma: "نَسَق"
+      generation_method: ishtiqaq
+      justification: "النسق هو الترتيب المنظم للأشياء، ويمكن أن يعبر عن مصفوفة أو ترتيب خطي."
+    - lemma: "مَصْفُوفَة"
+      generation_method: ishtiqaq
+      justification: "تستخدم في الرياضيات والبرمجة للتعبير عن ترتيب منظم للبيانات في صفوف وأعمدة."
+    - lemma: "سِلْسِلَة"
+      generation_method: ishtiqaq
+      justification: "السلسلة تدل على تتابع الأشياء واتصالها في مسار خطي."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "صف"
+      confirm:
+        - text: "«(الصَّفّ) السطر الْمُسْتَقيم من كل شَيْء»"
+          source: "المعجم الوسيط"
+        - text: "«من كُلِّ شيءٍ: السَّطْرُ المستقيمُ.»"
+          source: "المعجم الكبير"
+      expands:
+        - text: "«في الجبر: ترتيبُ كميَّاتٍ في أسطرٍ وأعمدةٍ في معادلة»"
+          source: "المعجم الكبير"
+    - lemma: "سَطْر"
+      confirm:
+        - text: "«(السطر) الصَّفّ من كل شَيْء يُقَال سطر من الْكِتَابَة وسطر من الشّجر»"
+          source: "المعجم الوسيط"
+        - text: "«الصفُّ مِنْ كُلِّ شىءٍ. يقالُ: سَطْرٌ من الكِتَابة»"
+          source: "المعجم الكبير"
+    - lemma: "نَسَق"
+      evidence_status: "no_material_found"
+    - lemma: "مَصْفُوفَة"
+      evidence_status: "no_material_found"
+    - lemma: "سِلْسِلَة"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "صف"
+      decision: confirmed
+      decision_reason: "اللمة فصيحة وشائعة، وتدل بدقة على السطر المستقيم أو الترتيب الأفقي للأشياء، وهي المعادل الدقيق لكلمة row."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "صَفّ"
+    - lemma: "سَطْر"
+      source: stage1
+      decision: confirmed
+      decision_reason: "السطر هو الصف من الكتابة، ويتطابق تماماً مع دلالة اصطفاف الأرقام والحروف الواردة في التعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "سَطْر"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "نَسَق"
+      source: stage1
+      decision: removed
+      decision_reason: "دلالتها أعم من الصف، وتعني مطلق الترتيب المنظم وليس بالضرورة الترتيب الخطي الأفقي."
+    - lemma: "مَصْفُوفَة"
+      source: stage1
+      decision: removed
+      decision_reason: "المصفوفة تدل على الهيكل الكامل (الجدول المكون من صفوف وأعمدة) وليس الصف الواحد."
+    - lemma: "سِلْسِلَة"
+      source: stage1
+      decision: removed
+      decision_reason: "السلسلة تركز على الترابط والتتابع بين العناصر وليس مجرد الاصطفاف الجانبي."
+
+stage4_content:
+  definition:
+    current: "ترتيب خطي من الأرقام أو الحروف أو الرموز جنباً إلى جنب"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق وواضح ويعكس المفهوم بشكل جيد، ورغم أنه يعتمد على الترجمة إلا أن تركيبه العربي سليم."
+  examples:
+    per_lemma:
+      - lemma: "صَفّ"
+        examples:
+          - text: "رَتَّبَ المُبَرْمِجُ البَيَانَاتِ فِي صَفٍّ وَاحِدٍ."
+            type: usage
+      - lemma: "سَطْر"
+        examples:
+          - text: "تَتَكَوَّنُ الشَّفْرَةُ مِنْ سَطْرٍ مِنَ الأَرْقَامِ وَالرُّمُوزِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "رَتَّبَ المُبَرْمِجُ البَيَانَاتِ فِي صَفٍّ وَاحِدٍ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تَتَكَوَّنُ الشَّفْرَةُ مِنْ سَطْرٍ مِنَ الأَرْقَامِ وَالرُّمُوزِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "صَفّ"
+      entry_id: "{auto}"
+      root: "صفف"
+      maqayis_quote: "«الصَّادُ وَالْفَاءُ يَدُلُّ عَلَى أَصْلٍ وَاحِدٍ، وَهُوَ اسْتِوَاءٌ فِي الشَّيْءِ وَتَسَاوٍ بَيْنَ شَيْئَيْنِ فِي الْمَقَرِّ.»"
+    - lemma: "سَطْر"
+      entry_id: "{auto}"
+      root: "سطر"
+      maqayis_quote: "«السِّينُ وَالطَّاءُ وَالرَّاءُ أَصْلٌ مُطَّرِدٌ يَدُلُّ عَلَى اصْطِفَافِ الشَّيْءِ، كَالْكِتَابِ وَالشَّجَرِ، وَكُلِّ شَيْءٍ اصْطَفَّ.»"
+  per_sense:
+    - lemma: "صَفّ"
+      sense_id: "{auto}"
+      nuance: "مصطلح أعم يستخدم للترتيب الخطي لمختلف الأشياء بما فيها الأرقام في المصفوفات والجداول."
+      mwe: false
+    - lemma: "سَطْر"
+      sense_id: "{auto}"
+      nuance: "يختص غالباً بالترتيب الخطي للحروف والكلمات المكتوبة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صفف","maqayis":"«الصَّادُ وَالْفَاءُ يَدُلُّ عَلَى أَصْلٍ وَاحِدٍ، وَهُوَ اسْتِوَاءٌ فِي الشَّيْءِ وَتَسَاوٍ بَيْنَ شَيْئَيْنِ فِي الْمَقَرِّ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سطر","maqayis":"«السِّينُ وَالطَّاءُ وَالرَّاءُ أَصْلٌ مُطَّرِدٌ يَدُلُّ عَلَى اصْطِفَافِ الشَّيْءِ، كَالْكِتَابِ وَالشَّجَرِ، وَكُلِّ شَيْءٍ اصْطَفَّ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح أعم يستخدم للترتيب الخطي لمختلف الأشياء بما فيها الأرقام في المصفوفات والجداول.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يختص غالباً بالترتيب الخطي للحروف والكلمات المكتوبة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

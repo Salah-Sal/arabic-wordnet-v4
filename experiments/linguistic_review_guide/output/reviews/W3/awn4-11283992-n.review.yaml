@@ -1,0 +1,322 @@
+# ═══════════════════════════════════════════════════════════════
+# مراجعة المجموعة الترادفية — AWN4 Review Pipeline v2 (5-Stage)
+# synset_id : awn4-11283992-n
+# ili       : i96720
+# subject   : هِنْرِي مَارْتِن رُوبِرْت — خبير برلماني أمريكي (1837-1923)
+# reviewed  : 2026-03-21
+# ═══════════════════════════════════════════════════════════════
+
+
+# ── المرحلة ١: المراجعة والتوليد ──────────────────────────────
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّتان الموجودتان (روبرت، هنري روبرت) تفتقران إلى التشكيل الكامل."
+      - "لا توجد لمّة تقابل الصيغة الإنجليزية الكاملة Henry Martyn Robert، وهي مدرجة في OEWN."
+      - "تصنيف POS على مستوى المجموعة هو n (اسم نكرة)، وصواب التصنيف لاسم علم شخص proper_noun."
+      - "التعريف العربي الحالي يذكر اسم روبرت داخل تعريف مجموعة روبرت نفسه (دوران جزئي)."
+    observations: >
+      هذه المجموعة الترادفية تمثّل اسم علم لشخص بعينه، هو الضابط العسكري الأمريكي هنري
+      مارتن روبرت (1837-1923)، مؤلّف «قواعد روبرت للنظام» (1876م). اللمّات الواجبة هي
+      أشكال اسمه المختلفة في العربية، وهي كلّها تعريبات صوتية لا اشتقاق فيها ولا مجاز،
+      إذ يتعذّر توليد مصطلح عربي أصيل لاسم علم أجنبي. اللمّة الحاليتان صحيحتان من حيث
+      المضمون غير أنهما تحتاجان تشكيلاً وتوسيعاً. لا يوجد في المعاجم العربية أي تدوين
+      للشخص أو اسمه بوصفه لمّة مستقلة.
+
+  blind_candidates:
+    - lemma: "رُوبِرْت"
+      generation_method: taarib
+      justification: >
+        الاسم مذكور صراحةً في التعريف المُقنَّع «مؤلف قواعد روبرت للنظام»؛ فالتعريب
+        الصوتي للقب «Robert» إلى «رُوبِرْت» هو الصيغة المتداولة في المصادر العربية.
+    - lemma: "هِنْرِي رُوبِرْت"
+      generation_method: taarib
+      justification: >
+        إضافة الاسم الأوّل المتوقّع لشخص أمريكي يُكنى بـ«روبرت» يُنتج الصيغة المركّبة
+        (الاسم الأوّل + اللقب) المعتادة في الإشارة إلى الأشخاص في المصادر العربية.
+    - lemma: "هِنْرِي مَارْتِن رُوبِرْت"
+      generation_method: taarib
+      justification: >
+        الاسم الكامل الرسمي بالاسم الأوسط مارتن (Martyn)، وهو أكثر الصيغ دقةً
+        وتمييزاً لهذا الشخص بعينه دون سواه من حاملي لقب روبرت.
+    - lemma: "رُوبِرْت مُؤَلِّف قَوَاعِدِ النِّظَام"
+      generation_method: tarkib
+      justification: >
+        مركّب إضافي وصفي يُعرّف روبرت بإنجازه الأشهر، قابل للاستخدام في السياقات التي
+        يُراد فيها التمييز بين روبرت هذا وغيره؛ غير أنه ليس لمّة مُسكّة بل وصف حرّ.
+
+
+# ── المرحلة ٢: جمع الأدلة ────────────────────────────────────
+stage2_evidence:
+  queries_run:
+    - "1. مطابقة دقيقة: headword_norm IN ('روبرت','الروبرت','هنري روبرت','الهنري روبرت','روبرت للنظام')"
+    - "2. جسر إنجليزي: translation_en MATCH 'Robert OR Henry M. Robert OR Henry Martyn Robert OR parliamentary authority OR Robert Rules'"
+    - "3. FTS عربي: entries_fts MATCH 'برلماني OR قواعد النظام OR روبرت OR خبير برلماني'"
+    - "4. التحقق من المرشحين: headword_norm IN ('هنري','مارتن','هنري مارتن روبرت','هنري م روبرت')"
+
+  per_lemma:
+    - lemma: "روبرت"
+      evidence_status: "no_material_found"
+
+    - lemma: "هنري روبرت"
+      evidence_status: "no_material_found"
+
+    - lemma: "رُوبِرْت"
+      evidence_status: "no_material_found"
+
+    - lemma: "هِنْرِي رُوبِرْت"
+      evidence_status: "no_material_found"
+
+    - lemma: "هِنْرِي مَارْتِن رُوبِرْت"
+      evidence_status: "no_material_found"
+
+    - lemma: "رُوبِرْت مُؤَلِّف قَوَاعِدِ النِّظَام"
+      evidence_status: "no_material_found"
+
+  notes: >
+    لم تُسفر استعلامات قاعدة البيانات (107 معجماً / 760,660 مدخلاً) عن أي مادة
+    معجمية تتعلق باسم هنري روبرت بوصفه شخصاً. وُجد في ARABTERM مدخلان طبيّان
+    يحملان «روبرت» (رباط روبرت، حوض روبرت) يشيران إلى أطباء آخرين بنفس اللقب،
+    وليس إلى الخبير البرلماني. وُجد «هنري» في معاجم الفيزياء بمعنى وحدة الحث
+    الكهرومغناطيسي وليس اسماً للشخص. هذا متوقّع لأسماء الأعلام الأجنبية التي نادراً
+    ما تُدوَّن في المعاجم العربية بوصفها مداخل مستقلة.
+
+
+# ── المرحلة ٣: التحليل اللغوي للّمات ────────────────────────
+stage3_analysis:
+  per_lemma:
+
+    # ── اللمّة الموجودة ١ ──
+    - lemma: "روبرت"
+      decision: confirmed
+      decision_reason: >
+        اللقب المعرَّب «روبرت» هو المرجع الأشيع لهذا الشخص في المصادر العربية،
+        ولا سيّما في تعبير «قواعد روبرت للنظام» المتداول. يحتاج تشكيلاً كاملاً.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: false
+      morphology_check:
+        pos_fit: "اسم علم أجنبي معرَّب، تعريبه الصوتي مقبول ومستقرّ."
+        borrowing_check: "تعريب لفظي (taarib) — الصيغة ذات انتشار واسع في المصادر العربية."
+      nuance_differentiation: >
+        يُستخدم منفرداً عند الإشارة إلى الشخص أو مؤلَّفه («قواعد روبرت»)، وهو
+        أقصر صيغة وأكثرها تداولاً في الكتابة العربية المعاصرة.
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "رُوبِرْت"
+
+    # ── اللمّة الموجودة ٢ ──
+    - lemma: "هنري روبرت"
+      decision: confirmed
+      decision_reason: >
+        الصيغة المركّبة (الاسم الأوّل + اللقب) معتادة في الإحالة إلى الشخص في
+        المصادر العربية المتخصصة. تحتاج تشكيلاً كاملاً وتقابل الإنجليزية «Henry Robert».
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      morphology_check:
+        pos_fit: "اسم علم مركّب، مقبول قياساً على أسماء الأعلام الغربية في العربية."
+        borrowing_check: "تعريب لفظي مزدوج — كلا المكوّنَيْن معرَّب مستقرّ."
+      nuance_differentiation: >
+        يُستخدم حين يُراد التعريف بالشخص بصورة أوفى من مجرّد اللقب، دون إيراد
+        الاسم الأوسط الكامل.
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "هِنْرِي رُوبِرْت"
+
+    # ── مرشح المرحلة ١ (أ) — مقبول ──
+    - lemma: "هِنْرِي مَارْتِن رُوبِرْت"
+      source: stage1
+      decision: confirmed
+      decision_reason: >
+        الاسم الكامل بالاسم الأوسط يقابل الصيغة الإنجليزية الثالثة «Henry Martyn Robert»
+        المدرجة في OEWN ولا يوجد لها مقابل في لمّات AWN4 الحالية. إضافته تُكمّل التغطية
+        وتُمكّن من التعريف بالشخص تعريفاً لا لبس فيه.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      morphology_check:
+        pos_fit: "اسم علم رباعي المكوّنات، مألوف في استيعاب الأسماء الغربية ذات الثلاثة أجزاء."
+        borrowing_check: "تعريب لفظي ثلاثي المكوّنات، كل مكوّن مستقرّ في الكتابة العربية."
+      nuance_differentiation: >
+        الصيغة الأكثر رسمية ودقّة، تُستخدم في الكتابات الأكاديمية والمراجع البرلمانية
+        حيث يُراد تحديد هويّة الشخص بلا إبهام.
+      actions:
+        - command: create_entry
+          params:
+            lemma: "هِنْرِي مَارْتِن رُوبِرْت"
+            pos: proper_noun
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    # ── مرشح المرحلة ١ (ب) — مرفوض ──
+    - lemma: "رُوبِرْت مُؤَلِّف قَوَاعِدِ النِّظَام"
+      source: stage1
+      decision: removed
+      decision_reason: >
+        لا يجتاز اختبار السكّ: هو عبارة وصفية حرّة لا مصطلح مُثبَّت معجمياً.
+        يمكن إبدال «مؤلّف» بـ«صاحب» أو «واضع» ويظلّ الوصف صحيحاً، مما يدلّ
+        على انعدام التثبيت الاصطلاحي.
+
+  synset_actions:
+    - command: update_synset
+      params:
+        synset_id: "{synset_id}"
+        pos: proper_noun
+
+
+# ── المرحلة ٤: التعريف والأمثلة ──────────────────────────────
+stage4_content:
+  definition:
+    current: "خبير برلماني أمريكي ومؤلف قواعد روبرت للنظام (1837-1923)"
+    assessment:
+      decision: revise
+      reason: >
+        التعريف الحالي يذكر «روبرت» داخل تعريف مجموعة روبرت نفسه (دوران جزئي).
+        كما أنه يُغفل أبرز إنجازات الشخص (تأليف الكتاب عام 1876م) ورتبته العسكرية
+        (جنرال). يجب صياغة تعريف موسوعي يُعرَّف فيه الشخص من خلال حياته ومؤلَّفه
+        لا من خلال اسمه.
+    authored:
+      - type: encyclopedic
+        text: >
+          ضابط وخبير برلماني أمريكي (1837-1923)، ألّف كتاب «قواعد النظام» عام 1876م،
+          وهو الدليل الأمريكي الأشهر لإجراءات الاجتماعات البرلمانية والهيئات المنظَّمة.
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "ضابط وخبير برلماني أمريكي (1837-1923)، ألّف كتاب «قواعد النظام» عام 1876م، وهو الدليل الأمريكي الأشهر لإجراءات الاجتماعات البرلمانية والهيئات المنظَّمة."
+
+  examples:
+    per_lemma:
+      - lemma: "رُوبِرْت"
+        examples:
+          - text: "تستند كثير من البرلمانات والهيئات المدنية في العالم إلى قواعد رُوبِرْت للنظام بوصفها مرجعاً إجرائياً أساسياً."
+            type: usage
+      - lemma: "هِنْرِي رُوبِرْت"
+        examples:
+          - text: "وضع هِنْرِي رُوبِرْت كتابه في إجراءات الاجتماعات ليُيسّر العمل البرلماني على اختلاف مستوياته."
+            type: usage
+      - lemma: "هِنْرِي مَارْتِن رُوبِرْت"
+        examples:
+          - text: "يُعدّ هِنْرِي مَارْتِن رُوبِرْت المرجع الأساسي في قواعد الإجراءات البرلمانية بالولايات المتحدة الأمريكية."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تستند كثير من البرلمانات والهيئات المدنية في العالم إلى قواعد رُوبِرْت للنظام بوصفها مرجعاً إجرائياً أساسياً."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "وضع هِنْرِي رُوبِرْت كتابه في إجراءات الاجتماعات ليُيسّر العمل البرلماني على اختلاف مستوياته."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "يُعدّ هِنْرِي مَارْتِن رُوبِرْت المرجع الأساسي في قواعد الإجراءات البرلمانية بالولايات المتحدة الأمريكية."
+
+
+# ── المرحلة ٥: الإثراء (البيانات الوصفية) ─────────────────────
+stage5_enrichment:
+  per_entry:
+    - lemma: "رُوبِرْت"
+      entry_id: "{auto}"
+      note: >
+        اسم علم أجنبي معرَّب، لا جذر عربي له. لا ينطبق عليه تحليل ابن فارس.
+    - lemma: "هِنْرِي رُوبِرْت"
+      entry_id: "{auto}"
+      note: >
+        مركّب إضافي من اسمَيْن أجنبيَّيْن معرَّبَيْن، لا جذر عربي لأيٍّ منهما.
+    - lemma: "هِنْرِي مَارْتِن رُوبِرْت"
+      entry_id: "{auto}"
+      note: >
+        مركّب إضافي ثلاثي المكوّنات من أسماء أجنبية معرَّبة، لا جذر عربي لأيٍّ منها.
+
+  per_sense:
+    - lemma: "رُوبِرْت"
+      sense_id: "{auto}"
+      nuance: "اللقب وحده؛ الأكثر تداولاً وإيجازاً، يُستخدم للإحالة السريعة إلى الشخص أو مؤلَّفه."
+      mwe: false
+    - lemma: "هِنْرِي رُوبِرْت"
+      sense_id: "{auto}"
+      nuance: "الاسم الأوّل واللقب؛ صيغة أوسع من المجرد اللقب، وأقلّ رسمية من الاسم الكامل."
+      mwe: true
+    - lemma: "هِنْرِي مَارْتِن رُوبِرْت"
+      sense_id: "{auto}"
+      nuance: "الاسم الكامل بالاسم الأوسط؛ أكثر الصيغ دقةً ورسميةً للتعريف بالشخص في الكتابات الأكاديمية."
+      mwe: true
+
+  synset:
+    cultural_fit: omission
+
+  actions:
+    # ── ملاحظات المداخل ──
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"borrowing_type":"taarib","origin_lang":"en","pos_note":"proper_noun_person"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"borrowing_type":"taarib","origin_lang":"en","mwe":true,"mwe_type":"idafi","pos_note":"proper_noun_person"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"borrowing_type":"taarib","origin_lang":"en","mwe":true,"mwe_type":"idafi","pos_note":"proper_noun_person"}'
+
+    # ── ملاحظات المعاني ──
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللقب وحده؛ الأكثر تداولاً وإيجازاً","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الأوّل واللقب؛ صيغة وسطى بين الإيجاز والرسمية","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الكامل بالاسم الأوسط؛ الأكثر دقةً ورسميةً","mwe":true}'
+
+    # ── ملاحظة المجموعة ──
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"omission","domain":"parliamentary_procedure","era":"19th_century","nationality":"american"}'
+
+    # ── درجة الثقة ──
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.82

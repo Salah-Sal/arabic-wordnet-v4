@@ -1,0 +1,156 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة تفتقر إلى التشكيل الكامل."
+      - "التعريف الحالي دقيق ولكنه يحتاج إلى إعادة صياغة معجمية ليكون أكثر رصانة (باستخدام كلمة 'مرتبة' بدلًا من 'فئة')."
+    observations: "المفهوم هو 'superclass' في علم التصنيف الأحيائي. يعبر عنه في العربية بمركبات إضافية/وصفية مثل 'فوق طائفة'، وهو الأكثر شيوعًا في المناهج العلمية والأكاديمية."
+  blind_candidates:
+    - lemma: "فَوْقَ طَائِفَةٍ"
+      generation_method: tarkib
+      justification: "مركب إضافي شائع الاستخدام في علم التصنيف للدلالة على المرتبة التي تعلو الطائفة."
+    - lemma: "عِمَارَة"
+      generation_method: majaz
+      justification: "استخدام مجازي لمستويات الكائنات، وهو معتمد في بعض المعاجم كالمعجم الطبي الموحد للدلالة على superclass."
+    - lemma: "طَائِفَةٌ عُلْيَا"
+      generation_method: tarkib
+      justification: "مركب وصفي يعبر عن علو المرتبة مقارنة بالطائفة الأساسية."
+    - lemma: "صِنْفٌ أَعْلَى"
+      generation_method: tarkib
+      justification: "استخدام مرادف للطائفة 'صنف' مع وصفه بالأعلى."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "فوق طائفة"
+      confirm:
+        - text: "«وتعدُّ فوق طائفة فى بعض التصانيف» (ضمن مدخل الرَّهْلِيَّات)"
+          source: "المعجم الكبير"
+    - lemma: "عِمَارَة"
+      confirm:
+        - text: "«عِمَارَة (في تصنيف الأحياء)»"
+          source: "المعجم الطبي الموحد (2009)"
+    - lemma: "طَائِفَةٌ عُلْيَا"
+      evidence_status: "no_material_found"
+    - lemma: "صِنْفٌ أَعْلَى"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "فوق طائفة"
+      decision: confirmed
+      decision_reason: "مصطلح علمي مستقر وشائع في كتب علم الأحياء، وموثق معجميًا كمركب إضافي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "فَوْقَ طَائِفَة"
+    - lemma: "عِمَارَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح معتمد ومقنن في المعجم الطبي الموحد للدلالة التخصصية على superclass."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "عِمَارَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-08123764-n"}
+
+stage4_content:
+  definition:
+    current: "(في الأحياء) فئة تصنيفية تحت الشعبة وفوق الطائفة"
+    assessment:
+      decision: revise
+      reason: "إعادة الصياغة بأسلوب معجمي أدق يتوافق مع المعجم الوسيط واستبدال كلمة 'فئة' بـ'مرتبة'."
+    authored:
+      - type: terminological
+        text: "مَرْتَبَةٌ تَصْنِيفِيَّةٌ فِي عِلْمِ الأَحْيَاءِ، أَدْنَى مِنَ الشُّعْبَةِ وَأَعْلَى مِنَ الطَّائِفَةِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-08123764-n", definition_index: 0, text: "مَرْتَبَةٌ تَصْنِيفِيَّةٌ فِي عِلْمِ الأَحْيَاءِ، أَدْنَى مِنَ الشُّعْبَةِ وَأَعْلَى مِنَ الطَّائِفَةِ."}
+  examples:
+    per_lemma:
+      - lemma: "فوق طائفة"
+        examples:
+          - text: "تُعَدُّ رُبَاعِيَّاتُ الأَطْرَافِ فَوْقَ طَائِفَةٍ تَضُمُّ الزَّوَاحِفَ وَالطُّيُورَ وَالثَّدْيِيَّاتِ."
+            type: usage
+      - lemma: "عِمَارَة"
+        examples:
+          - text: "تُصَنَّفُ بَعْضُ المَجْمُوعَاتِ الحَيَوَانِيَّةِ فِي عِمَارَةٍ مُسْتَقِلَّةٍ قَبْلَ تَقْسِيمِهَا إِلَى طَوَائِفَ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-08123764-n", text: "تُعَدُّ رُبَاعِيَّاتُ الأَطْرَافِ فَوْقَ طَائِفَةٍ تَضُمُّ الزَّوَاحِفَ وَالطُّيُورَ وَالثَّدْيِيَّاتِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "فوق طائفة"
+      entry_id: "{auto}"
+      roots:
+        - word: "فوق"
+          root: "فوق"
+          maqayis_quote: "«الْفَاءُ وَالْوَاوُ وَالْقَافُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى عُلُوٍّ...»"
+        - word: "طائفة"
+          root: "طوف"
+          maqayis_quote: "«الطَّاءُ وَالْوَاوُ وَالْفَاءُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى دَوَرَانِ الشَّيْءِ عَلَى الشَّيْءِ...»"
+    - lemma: "عِمَارَة"
+      entry_id: "{auto}"
+      root: "عمر"
+      maqayis_quote: "«الْعَيْنُ وَالْمِيمُ وَالرَّاءُ أَصْلَانِ صَحِيحَانِ، أَحَدُهُمَا يَدُلُّ عَلَى بَقَاءٍ وَامْتِدَادِ زَمَانٍ، وَالْآخَرُ عَلَى شَيْءٍ يَعْلُو، مِنْ صَوْتٍ أَوْ غَيْرِهِ.»"
+  per_sense:
+    - lemma: "فوق طائفة"
+      sense_id: "{auto}"
+      nuance: "المصطلح الأكثر شيوعًا وانتشارًا في المناهج التعليمية والأدبيات العلمية."
+      mwe: true
+    - lemma: "عِمَارَة"
+      sense_id: "{auto}"
+      nuance: "مصطلح مفرد مقنن طبيًا، أقل شيوعًا في السياقات التعليمية العامة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"فوق","root":"فوق","maqayis":"«الْفَاءُ وَالْوَاوُ وَالْقَافُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى عُلُوٍّ...»"},{"word":"طائفة","root":"طوف","maqayis":"«الطَّاءُ وَالْوَاوُ وَالْفَاءُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى دَوَرَانِ الشَّيْءِ عَلَى الشَّيْءِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عمر","maqayis":"«الْعَيْنُ وَالْمِيمُ وَالرَّاءُ أَصْلَانِ صَحِيحَانِ، أَحَدُهُمَا يَدُلُّ عَلَى بَقَاءٍ وَامْتِدَادِ زَمَانٍ، وَالْآخَرُ عَلَى شَيْءٍ يَعْلُو، مِنْ صَوْتٍ أَوْ غَيْرِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الأكثر شيوعًا وانتشارًا في المناهج التعليمية والأدبيات العلمية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح مفرد مقنن طبيًا، أقل شيوعًا في السياقات التعليمية العامة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-08123764-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-08123764-n"
+        score: 0.95

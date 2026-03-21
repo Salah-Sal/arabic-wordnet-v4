@@ -1,0 +1,182 @@
+stage1_review:
+  assessment:
+    concerns:
+      - لا توجد مشكلات جوهرية، اللمات الموجودة دقيقة وتغطي المفهوم العلمي.
+      - يمكن إضافة "عضة" كمرادف شائع في السياق السريري.
+    observations: "المصطلح يعبر عن علاقة ميكانيكية حيوية بين الفكين، والجذر العربي 'طبق' يعبر بدقة عن وضع شيء فوق آخر بحيث يغطيه أو يوافق مفصله."
+  blind_candidates:
+    - lemma: "إِطْبَاق"
+      generation_method: ishtiqaq
+      justification: "المصدر القياسي للفعل أطبق، وهو المصطلح المعتمد في المجامع اللغوية والطبية لترجمة occlusion."
+    - lemma: "عَضَّة"
+      generation_method: majaz
+      justification: "تعبير شائع في طب الأسنان للإشارة إلى كيفية تلاقي الأسنان (the bite)."
+    - lemma: "تَطَابُق الأَسْنَان"
+      generation_method: tarkib
+      justification: "تعبير وصفي يؤكد على الملاءمة والتماثل بين القوسين السنيين."
+    - lemma: "إِطْبَاق فَكِّيّ"
+      generation_method: tarkib
+      justification: "تخصيص الإطباق بالفكين لتمييزه عن أنواع الإطباق الأخرى في الطب."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "إِطْبَاق"
+      confirm:
+        - text: "إِطْبَاقٌ جانِبِيّ: إطْباق الأسنانِ عندما يتحوّل الفكِّ السُفليّ إلى اليمين أو اليسار أو الموقعِ الوسط."
+          source: "المعجم الموحد لمصطلحات علم التشريح العياني"
+        - text: "إِطْبَاقٌ مَرْكَزِيّ (centric occlusion)"
+          source: "المعجم الطبي الموحد"
+    - lemma: "عَضَّة"
+      confirm:
+        - text: "عضة: طبعة بمادة قابلة للتشكيل لتسجيل علاقة الفكين في صنع الأطقم الصناعية."
+          source: "معجم المصطلحات الطبية (1985)"
+    - lemma: "إِطْبَاق الأَسْنَان"
+      confirm:
+        - text: "مُنْحَنَى الإِطْباق [أسنان] (curve of occlusion)"
+          source: "المعجم الطبي الموحد"
+    - lemma: "تَطَابُق الأَسْنَان"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "إِطْبَاق"
+      decision: confirmed
+      decision_reason: "المصطلح الأساسي والموحد في المعاجم الطبية العربية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "إِطْبَاق"
+    - lemma: "إِطْبَاق الأَسْنَان"
+      decision: confirmed
+      decision_reason: "تعبير مركب دقيق يحدد المجال الدلالي للمصطلح."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "إِطْبَاق الأَسْنَان"
+    - lemma: "عَضَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف وظيفي شائع الاستخدام في العيادات السنية ومعاجم المصطلحات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "عَضَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-05075097-n"}
+    - lemma: "تَطَابُق الأَسْنَان"
+      source: stage1
+      decision: removed
+      decision_reason: "رغم صحته لغوياً، إلا أنه أقل شيوعاً من 'إطباق' في الأدبيات الطبية المتخصصة."
+
+stage4_content:
+  definition:
+    current: "(طب الأسنان) العلاقة المكانية الطبيعية للأسنان عندما يكون الفكان مغلقين"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد ولكنه يحتاج إلى مزيد من الدقة المصطلحية بذكر التماس بين السطوح."
+    authored:
+      - type: terminological
+        text: "(في طب الأسنان) العلاقة المكانية والوظيفية بين السطوح الطاحنة للأسنان العلوية والسفلية عند تلامسها أو عند انغلاق الفكين."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-05075097-n", definition_index: 0, text: "(في طب الأسنان) العلاقة المكانية والوظيفية بين السطوح الطاحنة للأسنان العلوية والسفلية عند تلامسها أو عند انغلاق الفكين."}
+  examples:
+    per_lemma:
+      - lemma: "إِطْبَاق"
+        examples:
+          - text: "يؤدي فقدان الأسنان الخلفية إلى خلل في إطباق الفكين وتراجع الكفاءة المضغية."
+            type: usage
+      - lemma: "إِطْبَاق الأَسْنَان"
+        examples:
+          - text: "يهدف تقويم الأسنان إلى تصحيح إطباق الأسنان وضمان توزيع متساوٍ لضغط العض."
+            type: usage
+      - lemma: "عَضَّة"
+        examples:
+          - text: "أخذ الطبيب طبعة من عضة المريض لصنع طقم أسنان جزئي."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يؤدي فقدان الأسنان الخلفية إلى خلل في إطباق الفكين وتراجع الكفاءة المضغية."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "إِطْبَاق"
+      entry_id: "{auto}"
+      root: "طبق"
+      maqayis_quote: "«الطَّاءُ وَالْبَاءُ وَالْقَافُ أَصْلٌ صَحِيحٌ وَاحِدٌ، وَهُوَ يَدُلُّ عَلَى وَضْعِ شَيْءٍ مَبْسُوطٍ عَلَى مِثْلِهِ حَتَّى يُغَطِّيَهُ.»"
+    - lemma: "عَضَّة"
+      entry_id: "{auto}"
+      root: "عضض"
+      maqayis_quote: "«الْعَيْنُ وَالضَّادُ أَصْلٌ صَحِيحٌ وَاحِدٌ، وَهُوَ لُزُومُ الشَّيْءِ بِالشَّيْءِ لُزُومًا شَدِيدًا.»"
+    - lemma: "إِطْبَاق الأَسْنَان"
+      entry_id: "{auto}"
+      roots:
+        - word: "إطباق"
+          root: "طبق"
+          maqayis_quote: "«الطَّاءُ وَالْبَاءُ وَالْقَافُ أَصْلٌ صَحِيحٌ وَاحِدٌ، وَهُوَ يَدُلُّ عَلَى وَضْعِ شَيْءٍ مَبْسُوطٍ عَلَى مِثْلِهِ حَتَّى يُغَطِّيَهُ.»"
+        - word: "الأسنان"
+          root: "سنن"
+          maqayis_quote: "«السِّينُ وَالنُّونُ أَصْلٌ وَاحِدٌ، وَهُوَ جَرَيَانُ الشَّيْءِ فِي سُهُولَةٍ... وَالسِّنُّ لِلْإِنْسَانِ وَغَيْرِهِ.»"
+  per_sense:
+    - lemma: "إِطْبَاق"
+      sense_id: "{auto}"
+      nuance: "الاسم العلمي المجرد للعملية أو الحالة."
+      mwe: false
+    - lemma: "إِطْبَاق الأَسْنَان"
+      sense_id: "{auto}"
+      nuance: "تعبير مركب يزيل اللبس ويخصص الحالة بالمجال السني."
+      mwe: true
+    - lemma: "عَضَّة"
+      sense_id: "{auto}"
+      nuance: "تعبير سريري يركز على نتيجة الإطباق أو طبعته."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"طبق","maqayis":"«الطَّاءُ وَالْبَاءُ وَالْقَافُ أَصْلٌ صَحِيحٌ وَاحِدٌ، وَهُوَ يَدُلُّ عَلَى وَضْعِ شَيْءٍ مَبْسُوطٍ عَلَى مِثْلِهِ حَتَّى يُغَطِّيَهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"إطباق","root":"طبق","maqayis":"«...»"},{"word":"الأسنان","root":"سنن","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم العلمي المجرد للعملية أو الحالة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-05075097-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-05075097-n"
+        score: 0.95

@@ -1,0 +1,230 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "الاكتفاء بلمتين فقط (إجراء، تصرف) بينما المفهوم مركزي في اللغة."
+      - "اللمتان الموجودتان تميلان إلى معانٍ تخصصية (إجرائية أو سلوكية) بينما التعريف عام."
+      - "خلو المجموعة من الألفاظ التي تعبر عن 'الفعل' كأمر مفرد أو صنيع محدد."
+    observations: "المجموعة تهدف للتعبير عن الفعل المنجز في مقابل القول. اللمات الموجودة صحيحة ولكنها تحتاج إلى تعزيز بألفاظ تعبر عن 'الحدث' أو 'الصنيع' بشكل أكثر شمولية."
+  blind_candidates:
+    - lemma: "فِعْلٌ"
+      generation_method: ishtiqaq
+      justification: "اللفظ الأصيل للتعبير عن الحدث المنجز في مقابل القول."
+    - lemma: "عَمَلٌ"
+      generation_method: ishtiqaq
+      justification: "يستخدم بكثرة في السياقات الدينية والاجتماعية للتعبير عن الفعل في مقابل القول (الإيمان قول وعمل)."
+    - lemma: "صَنِيعٌ"
+      generation_method: ishtiqaq
+      justification: "لفظ تراثي يعبر عن الفعل الحسن أو العمل المنجز الذي له أثر."
+    - lemma: "فَعْلَةٌ"
+      generation_method: ishtiqaq
+      justification: "اسم المرة من الفعل، يستخدم للتعبير عن فعل مفرد أو واقعة محددة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "إِجْرَاء"
+      confirm:
+        - text: "«عملية تتعلق بطريقة التصرف في شأنٍ ما، وما قد يتضمنه من خطوات أو متطلبات»"
+          source: "معجم الصواب اللغوي"
+        - text: "«action / measure / means»"
+          source: "المعجم الموحد لمصطلحات المياه"
+    - lemma: "تَصَرُّف"
+      confirm:
+        - text: "«أثاره الحدث فدفعه إلى تصرُّفٍ ما»"
+          source: "معجم اللغة العربية المعاصرة"
+      expands:
+        - text: "«الزِّيَادَة فِي الْعَمَل وَالْمَشَقَّة فِيهِ وَالْقُدْرَة عَلَيْهِ»"
+          source: "دستور العلماء"
+          addition: "يشير إلى الجهد المبذول في الفعل."
+    - lemma: "صَنِيع"
+      confirm:
+        - text: "«كل مَا صنع من خير وَنَحْوه وَالْفِعْل الْحسن»"
+          source: "المعجم الوسيط"
+    - lemma: "فَعْلَة"
+      confirm:
+        - text: "«المرَّة الواحدة من العمل. ويشار بها إلى الفَعْلَة المستنكرة»"
+          source: "المعجم الوسيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "إِجْرَاء"
+      decision: confirmed
+      decision_reason: "مصطلح عصري شائع ومقبول لغوياً للتعبير عن الفعل المتخذ كخطوة أو تدبير في موقف معين."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "إِجْرَاء"
+    - lemma: "تَصَرُّف"
+      decision: confirmed
+      decision_reason: "يعبر عن الفعل من زاوية السلوك أو التصرف الفردي، وهو مرادف قوي لكلمة action في السياقات السلوكية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَصَرُّف"
+    - lemma: "صَنِيع"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ فصيح يعبر عن الفعل المنجز، خاصة ما كان منه مقصوداً وله أثر ظاهر."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "صَنِيع", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "فَعْلَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبر عن الفعل كواحدة مفردة، وهي ضرورية لتمثيل المعنى 'something done' كوحدة حدثية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "فَعْلَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "شيء يُنفَّذ فعليًّا، في مقابل ما يُقال"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق ويحدد الجوهر الدلالي للمجموعة في التمييز بين القول والفعل."
+  examples:
+    per_lemma:
+      - lemma: "إِجْرَاء"
+        examples:
+          - text: "اتخذت الإدارةُ إجراءً حاسماً لوقف التجاوزات."
+            type: usage
+      - lemma: "تَصَرُّف"
+        examples:
+          - text: "أثار تصرفُه الغريبُ دهشةَ الحاضرين."
+            type: usage
+      - lemma: "صَنِيع"
+        examples:
+          - text: "إنَّ حمايةَ الضعيفِ صَنِيعٌ يرفعُ قدرَ فاعلِه."
+            type: usage
+      - lemma: "فَعْلَة"
+        examples:
+          - text: "ندمَ الرجلُ على فَعْلَتِهِ تلك واعتذرَ للجميع."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "اتخذت الإدارةُ إجراءً حاسماً لوقف التجاوزات."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "أثار تصرفُه الغريبُ دهشةَ الحاضرين."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "إنَّ حمايةَ الضعيفِ صَنِيعٌ يرفعُ قدرَ فاعلِه."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "ندمَ الرجلُ على فَعْلَتِهِ تلك واعتذرَ للجميع."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "إِجْرَاء"
+      entry_id: "{auto}"
+      root: "جري"
+      maqayis_quote: "«الْجِيمُ وَالرَّاءُ وَالْيَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ انْسِيَاحُ الشَّيْءِ. يُقَالُ جَرَى الْمَاءُ يَجْرِي جَرْيَةً وَجَرْيًا وَجَرَيَانًا. وَيُقَالُ لِلْعَادَةِ الًإِجْرِيَّا، وَذَلِكَ أَنَّهُ الْوَجْهُ الَّذِي يَجْرِي فِيهِ الْإِنْسَانُ.»"
+    - lemma: "تَصَرُّف"
+      entry_id: "{auto}"
+      root: "صرف"
+      maqayis_quote: "«الصَّادُ وَالرَّاءُ وَالْفَاءُ مُعْظَمُ بَابِهِ يَدُلُّ عَلَى رَجْعِ الشَّيْءِ. وَسُمِّيَ بِذَلِكَ لِأَنَّهُ يَتَصَرَّفُ بِالنَّاسِ، أَيْ يُقَلِّبُهُمْ وَيُرَدِّدُهُمْ.»"
+    - lemma: "صَنِيع"
+      entry_id: "{auto}"
+      root: "صنع"
+      maqayis_quote: "«الصَّادُ وَالنُّونُ وَالْعَيْنُ أَصْلٌ صَحِيحٌ وَاحِدٌ، وَهُوَ عَمَلُ الشَّيْءِ صُنْعًا. وَالصَّنِيعَةُ: مَا اصْطَنَعْتَهُ مِنْ خَيْرٍ.»"
+    - lemma: "فَعْلَة"
+      entry_id: "{auto}"
+      root: "فعل"
+      maqayis_quote: "«الْفَاءُ الْعَيْنُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِحْدَاثِ شَيْءٍ مِنْ عَمَلٍ وَغَيْرِهِ.»"
+  per_sense:
+    - lemma: "إِجْرَاء"
+      sense_id: "{auto}"
+      nuance: "يركز على الفعل المنظم أو التدبير المتخذ في سياق عملي أو إداري."
+      mwe: false
+    - lemma: "تَصَرُّف"
+      sense_id: "{auto}"
+      nuance: "يركز على الفعل من حيث كونه سلوكاً أو طريقة في التعامل."
+      mwe: false
+    - lemma: "صَنِيع"
+      sense_id: "{auto}"
+      nuance: "يركز على الفعل كمنجز له قيمة أو أثر، وغالباً ما يرتبط بالفعل الحسن."
+      mwe: false
+    - lemma: "فَعْلَة"
+      sense_id: "{auto}"
+      nuance: "يركز على الفعل كواقعة مفردة ومحددة، وغالباً ما تستخدم للإشارة إلى فعل مستنكر أو مثير للاهتمام."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جري","maqayis":"«الْجِيمُ وَالرَّاءُ وَالْيَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ انْسِيَاحُ الشَّيْءِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صرف","maqayis":"«الصَّادُ وَالرَّاءُ وَالْفَاءُ مُعْظَمُ بَابِهِ يَدُلُّ عَلَى رَجْعِ الشَّيْءِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صنع","maqayis":"«الصَّادُ وَالنُّونُ وَالْعَيْنُ أَصْلٌ صَحِيحٌ وَاحِدٌ، وَهُوَ عَمَلُ الشَّيْءِ صُنْعًا...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"فعل","maqayis":"«الْفَاءُ الْعَيْنُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى إِحْدَاثِ شَيْءٍ مِنْ عَمَلٍ وَغَيْرِهِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الفعل المنظم أو التدبير المتخذ في سياق عملي أو إداري.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الفعل من حيث كونه سلوكاً أو طريقة في التعامل.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الفعل كمنجز له قيمة أو أثر، وغالباً ما يرتبط بالفعل الحسن.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الفعل كواقعة مفردة ومحددة، وغالباً ما تستخدم للإشارة إلى فعل مستنكر أو مثير للاهتمام.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

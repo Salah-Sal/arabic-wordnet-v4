@@ -1,0 +1,210 @@
+stage1_review:
+  assessment:
+    concerns:
+      - غياب المصطلح العلمي المفرد الدقيق "أصنوفة" (Taxon) والاكتفاء بالمركبات الوصفية.
+      - الحاجة لضبط التعريف ليكون أكثر اصطلاحية ودقة بدلاً من الوصف العام.
+    observations: "المجموعة الترادفية تغطي مفهوماً جوهرياً في علم التصنيف (Taxonomy). اللمات الموجودة صحيحة لغوياً لكنها تمثل ترجمات حرفية مركبة. يتطلب الإثراء إضافة المصطلح العربي المعتمد في المجامع اللغوية (أصنوفة) وتوثيق الفوارق الدلالية بين الفئة والوحدة والمجموعة."
+  blind_candidates:
+    - lemma: "فِئَة تَصْنِيفِيَّة"
+      generation_method: tarkib
+      justification: "ترجمة اصطلاحية لـ taxonomic category، حيث تُستخدم 'فئة' للدلالة على مستوى معين في نظام التصنيف."
+    - lemma: "مَرْتَبَة تَصْنِيفِيَّة"
+      generation_method: tarkib
+      justification: "ترجمة لـ taxonomic rank، تعبر عن الموقع الهرمي للكائن الحي في سلم التصنيف."
+    - lemma: "أُصْنُوفَة"
+      generation_method: majaz
+      justification: "على وزن أفعولة (من الجذر صنف)، وهو المصطلح المعتمد في المعاجم العلمية الحديثة (كالمعجم الطبي الموحد) لترجمة Taxon."
+    - lemma: "تَاكْسُون"
+      generation_method: taarib
+      justification: "تعريب مباشر للمصطلح العالمي Taxon، يُستخدم في بعض السياقات العلمية الأكاديمية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مَجْمُوعَة تَصْنِيفِيَّة"
+      confirm:
+        - text: "الأُصنوفة: مجموعةٌ أو وحدة تصنيفيّة."
+          source: "المورد الحديث (2008)"
+    - lemma: "وَحْدَة تَصْنِيفِيَّة"
+      confirm:
+        - text: "الأُصنوفة: مجموعةٌ أو وحدة تصنيفيّة."
+          source: "المورد الحديث (2008)"
+    - lemma: "أُصْنُوفَة"
+      confirm:
+        - text: "مصطلح عام لفئة منهجية (تصنيفية) في علم الأحياء (على سبيل المثال: سلالة، نوع، نظام، أسرة)."
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+        - text: "الأُصْنوفَة (taxon): مجموعة أو وحدة تصنيفية."
+          source: "المورد الحديث"
+      expands:
+        - text: "أَصانيف [ف:أُصْنوفَة]: taxa (sing. taxon)."
+          source: "المعجم الطبي الموحد (2009)"
+          addition: "توثيق صيغة الجمع (أصانيف)."
+    - lemma: "فِئَة تَصْنِيفِيَّة"
+      confirm:
+        - text: "(Class): مرتبة تصنيفية في عِلْم التصنيف أدنى من الشعبة وأعلى من الرتبة."
+          source: "المعجم الكبير"
+          addition: "يؤكد استخدام 'مرتبة تصنيفية' و'فئة تصنيفية' كواصفات للمستويات التصنيفية."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مَجْمُوعَة تَصْنِيفِيَّة"
+      decision: confirmed
+      decision_reason: "مصطلح وصفي شائع الاستخدام في الكتب المدرسية والعلمية العامة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَجْمُوعَة تَصْنِيفِيَّة"
+    - lemma: "وَحْدَة تَصْنِيفِيَّة"
+      decision: confirmed
+      decision_reason: "مصطلح تقني يركز على الكيان المصنف كعنصر في النظام."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "وَحْدَة تَصْنِيفِيَّة"
+    - lemma: "أُصْنُوفَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح العلمي العربي الموحد والأكثر دقة واختصاراً لمفهوم الـ Taxon."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "أُصْنُوفَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-08008892-n"}
+    - lemma: "فِئَة تَصْنِيفِيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "ترجمة دقيقة لـ taxonomic category الواردة في اللمات الإنجليزية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "فِئَة تَصْنِيفِيَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-08008892-n"}
+
+stage4_content:
+  definition:
+    current: "مجموعة حيوانيّة أو نباتيّة ذات علاقات طبيعيّة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط؛ يحتاج إلى صياغة اصطلاحية تربطه بنظام التصنيف الحيوي."
+    authored:
+      - type: terminological
+        text: "فِئَةٌ أَوْ وِحْدَةٌ فِي نِظَامٍ تَصْنِيفِيٍّ لِلْكَائِنَاتِ الْحَيَّةِ تَعْتَمِدُ عَلَى صِفَاتِهَا وَعَلَاقَاتِهَا الطَّبِيعِيَّةِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-08008892-n", definition_index: 0, text: "فِئَةٌ أَوْ وِحْدَةٌ فِي نِظَامٍ تَصْنِيفِيٍّ لِلْكَائِنَاتِ الْحَيَّةِ تَعْتَمِدُ عَلَى صِفَاتِهَا وَعَلَاقَاتِهَا الطَّبِيعِيَّةِ."}
+  examples:
+    per_lemma:
+      - lemma: "أُصْنُوفَة"
+        examples:
+          - text: "تُعَدُّ (الْعَائِلَةُ) أُصْنُوفَةً بَيْنَ الرُّتْبَةِ وَالْجِنْسِ فِي هَرَمِ التَّصْنِيفِ الْحَيَوِيِّ."
+            type: usage
+      - lemma: "مَجْمُوعَة تَصْنِيفِيَّة"
+        examples:
+          - text: "يَضَعُ عُلَمَاءُ الْأَحْيَاءِ الْكَائِنَاتِ ذَاتَ الصِّفَاتِ الْمُشْتَرَكَةِ فِي مَجْمُوعَةٍ تَصْنِيفِيَّةٍ وَاحِدَةٍ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تُعَدُّ (الْعَائِلَةُ) أُصْنُوفَةً بَيْنَ الرُّتْبَةِ وَالْجِنْسِ فِي هَرَمِ التَّصْنِيفِ الْحَيَوِيِّ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يَضَعُ عُلَمَاءُ الْأَحْيَاءِ الْكَائِنَاتِ ذَاتَ الصِّفَاتِ الْمُشْتَرَكَةِ فِي مَجْمُوعَةٍ تَصْنِيفِيَّةٍ وَاحِدَةٍ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "أُصْنُوفَة"
+      entry_id: "{auto}"
+      root: "صنف"
+      maqayis_quote: "«الصَّادُ وَالنُّونُ وَالْفَاءُ أَصْلٌ صَحِيحٌ مُطَّرِدٌ فِي مَعْنَيَيْنِ، أَحَدُهُمَا الطَّائِفَةُ مِنَ الشَّيْءِ، وَالْآخَرُ تَمْيِيزُ الْأَشْيَاءِ بَعْضِهَا عَنْ بَعْضٍ.»"
+    - lemma: "مَجْمُوعَة تَصْنِيفِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "مجموعة"
+          root: "جمع"
+          maqayis_quote: "«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ.»"
+        - word: "تصنيفية"
+          root: "صنف"
+          maqayis_quote: "«الصَّادُ وَالنُّونُ وَالْفَاءُ أَصْلٌ صَحِيحٌ مُطَّرِدٌ... تَمْيِيزُ الْأَشْيَاءِ بَعْضِهَا عَنْ بَعْضٍ.»"
+    - lemma: "وَحْدَة تَصْنِيفِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "وحدة"
+          root: "وحد"
+          maqayis_quote: "«الْوَاوُ وَالْحَاءُ وَالدَّالُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الِانْفِرَادِ.»"
+        - word: "تصنيفية"
+          root: "صنف"
+          maqayis_quote: "«الصَّادُ وَالنُّونُ وَالْفَاءُ أَصْلٌ صَحِيحٌ مُطَّرِدٌ... تَمْيِيزُ الْأَشْيَاءِ بَعْضِهَا عَنْ بَعْضٍ.»"
+    - lemma: "فِئَة تَصْنِيفِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "فئة"
+          root: "فأو"
+          maqayis_quote: "«الْفَاءُ وَالْأَلِفُ وَالْحَرْفُ الْمُعْتَلُّ... يَدُلُّ عَلَى الْجَمَاعَةِ مِنَ النَّاسِ.»"
+        - word: "تصنيفية"
+          root: "صنف"
+          maqayis_quote: "«الصَّادُ وَالنُّونُ وَالْفَاءُ أَصْلٌ صَحِيحٌ مُطَّرِدٌ... تَمْيِيزُ الْأَشْيَاءِ بَعْضِهَا عَنْ بَعْضٍ.»"
+  per_sense:
+    - lemma: "أُصْنُوفَة"
+      sense_id: "{auto}"
+      nuance: "المصطلح العلمي الفني الدقيق والمفرد لتمثيل الكيان التصنيفي."
+      mwe: false
+    - lemma: "مَجْمُوعَة تَصْنِيفِيَّة"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي واسع يستخدم في السياقات التعليمية العامة."
+      mwe: true
+    - lemma: "وَحْدَة تَصْنِيفِيَّة"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب التنظيمي للكيان كجزء من بنية أكبر."
+      mwe: true
+    - lemma: "فِئَة تَصْنِيفِيَّة"
+      sense_id: "{auto}"
+      nuance: "يطابق مفهوم 'Taxonomic Category' ويستخدم للإشارة إلى مرتبة محددة."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صنف","maqayis":"«الصَّادُ وَالنُّونُ وَالْفَاءُ أَصْلٌ صَحِيحٌ مُطَّرِدٌ فِي مَعْنَيَيْنِ، أَحَدُهُمَا الطَّائِفَةُ مِنَ الشَّيْءِ، وَالْآخَرُ تَمْيِيزُ الْأَشْيَاءِ بَعْضِهَا عَنْ بَعْضٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العلمي الفني الدقيق والمفرد لتمثيل الكيان التصنيفي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-08008892-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-08008892-n"
+        score: 0.95

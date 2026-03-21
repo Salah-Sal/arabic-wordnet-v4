@@ -1,0 +1,191 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "غياب لمة «وحدة نباتية» من المعاجم المرجعية والحديثة (باستثناء استخدامها في سياقات وصفية حرة أو ترجمة لـ plant unit)."
+      - "المصطلح الأقرب في سياق علم البيئة والغابات لمفهوم (stand) هو «مجموعة حراجية» أو «تجمع نباتي»، لكن «وحدة نباتية» مفهوم واسع."
+    observations: "التعريف يعبر عن مفهوم (stand) في علم البيئة، وهو مساحة نمو نباتي مميزة عما حولها. اللمة الحالية عبارة عن مركب وصفي قد يفتقر للسك المعجمي الدقيق لتخصيص هذا المفهوم دون غيره."
+  blind_candidates:
+    - lemma: "مُغْتَرَس"
+      generation_method: ishtiqaq
+      justification: "مشتق من الاغتراس، وهو مكان الغرس أو التجمع النباتي المتميز."
+    - lemma: "رُقْعَة نَبَاتِيَّة"
+      generation_method: tarkib
+      justification: "مركب وصفي يطابق المعنى المتمثل في مساحة أو رقعة محددة من النباتات."
+    - lemma: "مَجْمَع نَبَاتِيّ"
+      generation_method: tarkib
+      justification: "مركب وصفي يعبر عن مكان تجمع النباتات ونموها معاً."
+    - lemma: "أَجَمَة"
+      generation_method: majaz
+      justification: "إزاحة دلالية من معناها الأصلي (الشجر الملتف) لتشير إلى أي تجمع نباتي كثيف ومميز يشكل وحدة منفصلة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "وحدة نباتية"
+      evidence_status: "no_material_found"
+    - lemma: "مُغْتَرَس"
+      evidence_status: "no_material_found"
+    - lemma: "رُقْعَة نَبَاتِيَّة"
+      evidence_status: "no_material_found"
+    - lemma: "مَجْمَع نَبَاتِيّ"
+      evidence_status: "no_material_found"
+    - lemma: "أَجَمَة"
+      confirm:
+        - text: "الشجر الكثير الملتف"
+          source: "المعجم الوسيط"
+        - text: "(الأجمة) الشّجر الْكثير الملتف (ج) أجم وإجام وآجام"
+          source: "المعجم الوسيط لمجموعة من المؤلفين"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "وحدة نباتية"
+      decision: confirmed
+      decision_reason: "مركب وصفي مقبول يُستخدم في السياقات البيئية للإشارة إلى وحدة تصنيف الغطاء النباتي، ورغم غيابه من المعاجم العامة فإنه يتسق مع المفهوم العلمي."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "وَحْدَة نَبَاتِيَّة"
+    
+    - lemma: "مُغْتَرَس"
+      source: stage1
+      decision: removed
+      decision_reason: "لم يثبت استخدامه بهذا المعنى الاصطلاحي في المعاجم أو المراجع البيئية."
+    
+    - lemma: "رُقْعَة نَبَاتِيَّة"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير وصفي حر غير مسكوك معجمياً، يغني عنه المركب الحالي."
+    
+    - lemma: "مَجْمَع نَبَاتِيّ"
+      source: stage1
+      decision: removed
+      decision_reason: "تعبير وصفي حر لم يرد كاصطلاح مسكوك يحدد المفهوم بدقة."
+    
+    - lemma: "أَجَمَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ عربي فصيح يدل على تجمع الشجر والنبات في رقعة معينة، وهو مرادف تراثي دقيق لمفهوم التجمع النباتي (stand)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "أَجَمَة"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "رقعة مميزة أو مجموعة من النباتات يمكن تمييزها عن الوحدات الأخرى"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يفتقر للصياغة المعجمية الرصينة؛ يحتاج إلى إبراز الجنس القريب (تجمع نباتي) والفصل النوعي (التجانس والتمايز عما يجاوره)."
+    authored:
+      - type: terminological
+        text: "تجمُّع نباتي أو مساحة من الأرض تكسوها نباتات متجانسة في نوعها أو خصائصها بحيث يمكن تمييزها عما يجاورها."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "تجمُّع نباتي أو مساحة من الأرض تكسوها نباتات متجانسة في نوعها أو خصائصها بحيث يمكن تمييزها عما يجاورها."
+
+  examples:
+    per_lemma:
+      - lemma: "وَحْدَة نَبَاتِيَّة"
+        examples:
+          - text: "قام الباحثون بجمع عينات من كل وحدة نباتية في الغابة لدراسة التنوع الحيوي."
+            type: usage
+      - lemma: "أَجَمَة"
+        examples:
+          - text: "شكلت أشجار البلوط أجمة كثيفة على سفح الجبل."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "قام الباحثون بجمع عينات من كل وحدة نباتية في الغابة لدراسة التنوع الحيوي."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "شكلت أشجار البلوط أجمة كثيفة على سفح الجبل."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "وَحْدَة نَبَاتِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "وحدة"
+          root: "وحد"
+          maqayis_quote: "«الْوَاوُ وَالْحَاءُ وَالدَّالُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الِانْفِرَادِ.»"
+        - word: "نباتية"
+          root: "نبت"
+          maqayis_quote: "«النُّونُ وَالْبَاءُ وَالتَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى نَمَاءٍ فِي مَزْرُوعٍ...»"
+    - lemma: "أَجَمَة"
+      entry_id: "{auto}"
+      root: "اجم"
+      maqayis_quote: "«الْهَمْزَةُ وَالْجِيمُ وَالْمِيمُ لَا يَخْلُو مِنَ التَّجَمُّعِ وَالشِّدَّةِ. فَأَمَّا التَّجَمُّعُ فَالْأَجَمَةُ، وَهِيَ مَنْبِتُ الشَّجَرِ الْمُتَجَمِّعِ...»"
+  
+  per_sense:
+    - lemma: "وَحْدَة نَبَاتِيَّة"
+      sense_id: "{auto}"
+      nuance: "مصطلح علمي حديث يُستخدم في التصنيف البيئي للإشارة إلى مساحة متجانسة من النباتات."
+      mwe: true
+    - lemma: "أَجَمَة"
+      sense_id: "{auto}"
+      nuance: "لفظ تراثي يطلق على الشجر الملتف المتجمع في مساحة من الأرض."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"وحدة","root":"وحد","maqayis_quote":"«الْوَاوُ وَالْحَاءُ وَالدَّالُ: أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الِانْفِرَادِ.»"},{"word":"نباتية","root":"نبت","maqayis_quote":"«النُّونُ وَالْبَاءُ وَالتَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى نَمَاءٍ فِي مَزْرُوعٍ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"اجم","maqayis_quote":"«الْهَمْزَةُ وَالْجِيمُ وَالْمِيمُ لَا يَخْلُو مِنَ التَّجَمُّعِ وَالشِّدَّةِ. فَأَمَّا التَّجَمُّعُ فَالْأَجَمَةُ، وَهِيَ مَنْبِتُ الشَّجَرِ الْمُتَجَمِّعِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح علمي حديث يُستخدم في التصنيف البيئي للإشارة إلى مساحة متجانسة من النباتات.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"لفظ تراثي يطلق على الشجر الملتف المتجمع في مساحة من الأرض.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

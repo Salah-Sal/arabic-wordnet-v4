@@ -1,0 +1,173 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "الكلمة الأصلية (Hypernym) تشير إلى `ترتيب / نظام` كترتيب منطقي، في حين أن المعنى التصنيفي الصحيح يجب أن يشير إلى `رتبة (تصنيف)` كمجموعة تصنيفية في علم الأحياء."
+    observations: "المفهوم يشير إلى المرتبة التصنيفية (Order) الخاصة بالبكتيريا. المصطلح `رتبة بكتيرية` دقيق من حيث كونه مركباً وصفياً يعبر بوضوح عن المفهوم."
+  blind_candidates:
+    - lemma: "رُتْبَة بَكْتِيرِيَّة"
+      generation_method: tarkib
+      justification: "تركيب وصفي يجمع بين `رتبة` (Order) والصفة المنسوبة `بكتيرية`."
+    - lemma: "رُتْبَة جُرْثُومِيَّة"
+      generation_method: tarkib
+      justification: "تركيب وصفي يستخدم المرادف العربي `جرثومية` بدلاً من اللفظ المعرب."
+    - lemma: "رُتْبَةُ البَكْتِيرِيَا"
+      generation_method: tarkib
+      justification: "تركيب إضافي يعبر عن تخصيص الرتبة."
+    - lemma: "رُتْبَةُ الجَرَاثِيمِ"
+      generation_method: tarkib
+      justification: "تركيب إضافي باستخدام الجمع الجراثيم."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "رتبة بكتيرية"
+      evidence_status: "no_material_found"
+    - lemma: "رُتْبَة بَكْتِيرِيَّة"
+      evidence_status: "no_material_found"
+    - lemma: "رُتْبَة جُرْثُومِيَّة"
+      evidence_status: "no_material_found"
+    - lemma: "رُتْبَةُ البَكْتِيرِيَا"
+      evidence_status: "no_material_found"
+    - lemma: "رُتْبَةُ الجَرَاثِيمِ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "رتبة بكتيرية"
+      decision: confirmed
+      decision_reason: "تعبير وصفي دقيق ومباشر يتوافق مع المصطلحات التصنيفية في علم الأحياء."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      nuance_differentiation: "اللفظ الشائع والأكثر تداولاً علمياً مع استخدام كلمة بكتيريا."
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "رُتْبَة بَكْتِيرِيَّة"
+
+    - lemma: "رُتْبَة جُرْثُومِيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "بديل وصفي فصيح يستخدم الترجمة العربية `جرثومة` للدلالة على البكتيريا."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      nuance_differentiation: "يفضل في السياقات التي تميل إلى استخدام التعريب التأثيلي على التعريب اللفظي (جرثومة بدل بكتيريا)."
+      actions:
+        - command: create_entry
+          params: {lemma: "رُتْبَة جُرْثُومِيَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-01354600-n"}
+
+    - lemma: "رُتْبَةُ البَكْتِيرِيَا"
+      source: stage1
+      decision: removed
+      decision_reason: "التركيب الوصفي `رتبة بكتيرية` أخف وأكثر شيوعاً."
+
+    - lemma: "رُتْبَةُ الجَرَاثِيمِ"
+      source: stage1
+      decision: removed
+      decision_reason: "التركيب الوصفي يفي بالغرض ويسهل استخدامه."
+
+stage4_content:
+  definition:
+    current: "رتبة من البكتيريا"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي حرفي وسطحي. يجب تقديم تعريف يوضح الموقع التصنيفي."
+    authored:
+      - type: terminological
+        text: "مرتبة تصنيفية في علم الأحياء الدقيقة، تضم مجموعة من الفصائل البكتيرية المتقاربة، وتقع تحت طائفة البكتيريا."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-01354600-n", definition_index: 0, text: "مرتبة تصنيفية في علم الأحياء الدقيقة، تضم مجموعة من الفصائل البكتيرية المتقاربة، وتقع تحت طائفة البكتيريا."}
+
+  examples:
+    per_lemma:
+      - lemma: "رُتْبَة بَكْتِيرِيَّة"
+        examples:
+          - text: "تنتمي هذه العائلة إلى رتبة بكتيرية تعيش في البيئات القاسية."
+            type: usage
+      - lemma: "رُتْبَة جُرْثُومِيَّة"
+        examples:
+          - text: "اكتشف العلماء رتبة جرثومية جديدة لا تتأثر بالمضادات الحيوية المعروفة."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تنتمي هذه العائلة إلى رتبة بكتيرية تعيش في البيئات القاسية."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "اكتشف العلماء رتبة جرثومية جديدة لا تتأثر بالمضادات الحيوية المعروفة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "رُتْبَة بَكْتِيرِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "رتبة"
+          root: "رتب"
+          maqayis_quote: "«وَمِنْ هَذَا الْبَابِ قَوْلُهُمْ: أَمْرٌ تُرْتَبٌ... مِنْ رَتَبَ إِذَا دَامَ»"
+        - word: "بكتيرية"
+          root: "بكت"
+    - lemma: "رُتْبَة جُرْثُومِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "رتبة"
+          root: "رتب"
+          maqayis_quote: "«وَمِنْ هَذَا الْبَابِ قَوْلُهُمْ: أَمْرٌ تُرْتَبٌ... مِنْ رَتَبَ إِذَا دَامَ»"
+        - word: "جرثومية"
+          root: "جرثم"
+  per_sense:
+    - lemma: "رُتْبَة بَكْتِيرِيَّة"
+      sense_id: "{auto}"
+      nuance: "اللفظ الشائع والأكثر تداولاً علمياً مع استخدام كلمة بكتيريا."
+      mwe: true
+    - lemma: "رُتْبَة جُرْثُومِيَّة"
+      sense_id: "{auto}"
+      nuance: "يفضل في السياقات التي تميل إلى استخدام التعريب التأثيلي على التعريب اللفظي (جرثومة بدل بكتيريا)."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"رتبة","root":"رتب","maqayis":"«وَمِنْ هَذَا الْبَابِ قَوْلُهُمْ: أَمْرٌ تُرْتَبٌ... مِنْ رَتَبَ إِذَا دَامَ»"},{"word":"بكتيرية","root":"بكت"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"رتبة","root":"رتب","maqayis":"«وَمِنْ هَذَا الْبَابِ قَوْلُهُمْ: أَمْرٌ تُرْتَبٌ... مِنْ رَتَبَ إِذَا دَامَ»"},{"word":"جرثومية","root":"جرثم"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ الشائع والأكثر تداولاً علمياً مع استخدام كلمة بكتيريا.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يفضل في السياقات التي تميل إلى استخدام التعريب التأثيلي على التعريب اللفظي (جرثومة بدل بكتيريا).","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-01354600-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-01354600-n"
+        score: 0.95

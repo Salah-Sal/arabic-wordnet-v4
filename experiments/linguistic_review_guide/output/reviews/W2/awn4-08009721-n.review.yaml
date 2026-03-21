@@ -1,0 +1,278 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'حيوانات' عامة جداً (plural of animal) وقد لا تعبر بدقة عن المفهوم العلمي لـ (fauna) كمجموعة حيوية متكاملة."
+      - "اللمة 'الحياة الحيوانية' جيدة ولكنها تحتاج إلى ضبط بالشكل وإضافة بدائل مصطلحية أكثر دقة مثل 'وحيش'."
+    observations: "المجموعة تعبر عن المفهوم البيئي للمجموعة الحيوانية المرتبطة بمكان أو زمان محدد. المصطلحات العربية تتراوح بين الوصفية (حياة حيوانية) والتعريب (فونة) وإحياء اللفظ التراثي (وحيش)."
+  blind_candidates:
+    - lemma: "حَيَاةٌ حَيَوَانِيَّةٌ"
+      generation_method: tarkib
+      justification: "تعبير وصفي مباشر وشائع في النصوص العلمية والبيئية."
+    - lemma: "وَحِيش"
+      generation_method: majaz
+      justification: "لفظ تراثي كان يطلق على دواب البر غير المستأنسة، ويستخدم حديثاً في المعاجم المتخصصة للدلالة على (fauna)."
+    - lemma: "فَوْنَة"
+      generation_method: taarib
+      justification: "تعريب مباشر للمصطلح العالمي (Fauna) شائع الاستخدام في كتب الأحياء والجيولوجيا."
+    - lemma: "جُمْهُورَةٌ حَيَوَانِيَّةٌ"
+      generation_method: tarkib
+      justification: "استخدام 'جمهورة' للدلالة على المجموعة (population) أو (assemblage) الحيوانية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "الحياة الحيوانية"
+      confirm:
+        - text: "«animal life حَياةٌ حَيَوانِيَّة»"
+          source: "المعجم الطبي الموحد (2009)"
+    - lemma: "حيوانات"
+      confirm:
+        - text: "«fauna حيوانات: الحيوانات أو الحياة الحيوانية لمنطقة محددة أو حقبة معينة.»"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+    - lemma: "وَحِيش"
+      confirm:
+        - text: "«fauna وَحِيش: مجموعة الكائنات الحية الحيوانية التي تعيش في موضع ما.»"
+          source: "المعجم الموحد لمصطلحات علم الصيدلة (2009)"
+        - text: "«(الوحيش) مَا لَا يسْتَأْنس من دَوَاب الْبر»"
+          source: "المعجم الوسيط"
+    - lemma: "فَوْنَة"
+      confirm:
+        - text: "«fauna فونة: مجموعة حيوانية تعيش في زمان ومكان ما»"
+          source: "المعجم الموحد لمصطلحات الجيولوجيا (2000)"
+    - lemma: "مَجْمُوعَةٌ حَيَوَانِيَّةٌ"
+      confirm:
+        - text: "«fauna مجموعة حيوانية، فونة: اسم يطلق على مجموعة الحيوانات التي تستوطن قطرا أو اقليما ما»"
+          source: "المعجم الموحد لمصطلحات علم الأحياء (1993)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "الحياة الحيوانية"
+      decision: confirmed
+      decision_reason: "مصطلح وصفي دقيق ومستخدم في المعاجم الطبية والبيئية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حَيَاةٌ حَيَوَانِيَّةٌ"
+    - lemma: "حيوانات"
+      decision: confirmed
+      decision_reason: "رغم عموميته، إلا أنه يستخدم في سياق مسارد البيئة كمرادف لـ fauna."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حَيَوَانَات"
+    - lemma: "وَحِيش"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح أصيل ووجيه دلالياً ومستخدم في المعاجم العلمية الحديثة (الصيدلة والطب البيطري) لترجمة fauna."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "وَحِيش", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-08009721-n"}
+    - lemma: "فَوْنَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعريب شائع جداً في العلوم الطبيعية (جيولوجيا، زلازل، أحياء) ولا غنى عنه في السياق الأكاديمي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "فَوْنَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-08009721-n"}
+    - lemma: "مَجْمُوعَةٌ حَيَوَانِيَّةٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير علمي دقيق ورد في معجم مصطلحات علم الأحياء."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "مَجْمُوعَةٌ حَيَوَانِيَّةٌ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-08009721-n"}
+
+stage4_content:
+  definition:
+    current: "جميع الكائنات الحيوانية في منطقة أو فترة معينة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد ولكنه يفتقر للغة المعجمية المتخصصة."
+    authored:
+      - type: terminological
+        text: "مجموعُ أنواعِ الحيواناتِ التي تستوطنُ منطقةً جغرافيةً محددةً أو تنتمي إلى حقبةٍ زمنيةٍ معينة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-08009721-n", definition_index: 0, text: "مجموعُ أنواعِ الحيواناتِ التي تستوطنُ منطقةً جغرافيةً محددةً أو تنتمي إلى حقبةٍ زمنيةٍ معينة."}
+  examples:
+    per_lemma:
+      - lemma: "حَيَاةٌ حَيَوَانِيَّةٌ"
+        examples:
+          - text: "تتميزُ جزيرةُ مدغشقر بحياةٍ حيوانيةٍ فريدةٍ لا توجدُ في أيِّ مكانٍ آخرَ من العالمِ."
+            type: usage
+      - lemma: "وَحِيش"
+        examples:
+          - text: "تأثرَ الوحيشُ المحليُّ تأثراً بالغاً بسببِ اتساعِ رقعةِ التصحرِ."
+            type: usage
+      - lemma: "فَوْنَة"
+        examples:
+          - text: "تغيرتِ الفونةُ في هذهِ المنطقةِ تغيراً جذرياً بينَ العصرينِ الجليديِّ والدفيءِ."
+            type: usage
+      - lemma: "مَجْمُوعَةٌ حَيَوَانِيَّةٌ"
+        examples:
+          - text: "قامَ الباحثونَ بدراسةِ المجموعةِ الحيوانيةِ التي تعيشُ في أعماقِ البحارِ."
+            type: usage
+      - lemma: "حَيَوَانَات"
+        examples:
+          - text: "حمتِ المحميةُ حيواناتِ المنطقةِ من خطرِ الانقراضِ."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "حَيَاةٌ حَيَوَانِيَّةٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "حياة"
+          root: "حي"
+          maqayis_quote: "«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ... فَالْحَيَاةُ وَالْحَيَوَانُ، وَهُوَ ضِدُّ الْمَوْتِ»"
+        - word: "حيوانية"
+          root: "حي"
+          maqayis_quote: "«(حَيَّ) الْحَاءُ وَالْيَاءُ... فَالْحَيَاةُ وَالْحَيَوَانُ»"
+    - lemma: "وَحِيش"
+      entry_id: "{auto}"
+      root: "وحش"
+      maqayis_quote: "«الْوَاوُ وَالْحَاءُ وَالشِّينُ: كَلِمَةٌ تَدُلُّ عَلَى خِلَافِ الْإِنْسِ. تَوَحَّشَ: فَارَقَ الْأَنِيسَ. وَالْوَحْشُ: خِلَافُ الْإِنْسِ.»"
+    - lemma: "فَوْنَة"
+      entry_id: "{auto}"
+      root: "فون"
+    - lemma: "مَجْمُوعَةٌ حَيَوَانِيَّةٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مجموعة"
+          root: "جمع"
+          maqayis_quote: "«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تضَامِّ الشَّيْءِ.»"
+        - word: "حيوانية"
+          root: "حي"
+          maqayis_quote: "«(حَيَّ) الْحَاءُ وَالْيَاءُ... فَالْحَيَاةُ وَالْحَيَوَانُ»"
+    - lemma: "حَيَوَانَات"
+      entry_id: "{auto}"
+      root: "حي"
+      maqayis_quote: "«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ... فَالْحَيَاةُ وَالْحَيَوَانُ»"
+  per_sense:
+    - lemma: "حَيَاةٌ حَيَوَانِيَّةٌ"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي عام يركز على الكينونة الحية."
+      mwe: true
+    - lemma: "وَحِيش"
+      sense_id: "{auto}"
+      nuance: "مصطلح تقني أصيل يفضل في السياق العلمي الرصين."
+      mwe: false
+    - lemma: "فَوْنَة"
+      sense_id: "{auto}"
+      nuance: "مصطلح دولي معرب يستخدم في الأبحاث الأكاديمية التخصصية."
+      mwe: false
+    - lemma: "مَجْمُوعَةٌ حَيَوَانِيَّةٌ"
+      sense_id: "{auto}"
+      nuance: "تعبير يصنف الكائنات ككتلة واحدة في سياق الدراسة البيئية."
+      mwe: true
+    - lemma: "حَيَوَانَات"
+      sense_id: "{auto}"
+      nuance: "اللفظ الأبسط والأكثر شيوعاً في الاستعمال العام."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"حياة","root":"حي","maqayis":"«الْحَاءُ وَالْيَاءُ... فَالْحَيَاةُ وَالْحَيَوَانُ»"},{"word":"حيوانية","root":"حي","maqayis":"«الْحَاءُ وَالْيَاءُ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"وحش","maqayis":"«الْوَاوُ وَالْحَاءُ وَالشِّينُ: كَلِمَةٌ تَدُلُّ عَلَى خِلَافِ الْإِنْسِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"فون"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مجموعة","root":"جمع","maqayis":"«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى تضَامِّ الشَّيْءِ.»"},{"word":"حيوانية","root":"حي","maqayis":"«(حَيَّ) الْحَاءُ وَالْيَاءُ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حي","maqayis":"«الْحَاءُ وَالْيَاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلَانِ: أَحَدُهُمَا خِلَافُ الْمَوْتِ... فَالْحَيَاةُ وَالْحَيَوَانُ»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير وصفي عام يركز على الكينونة الحية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح تقني أصيل يفضل في السياق العلمي الرصين.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مصطلح دولي معرب يستخدم في الأبحاث الأكاديمية التخصصية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تعبير يصنف الكائنات ككتلة واحدة في سياق الدراسة البيئية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ الأبسط والأكثر شيوعاً في الاستعمال العام.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-08009721-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-08009721-n"
+        score: 0.95

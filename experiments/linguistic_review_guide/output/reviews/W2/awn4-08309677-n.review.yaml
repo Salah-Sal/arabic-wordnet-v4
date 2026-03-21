@@ -1,0 +1,149 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّة الموجودة (أسطول) غير مشكولة."
+      - "التعريف الحالي هو ترجمة حرفية للتعريف الإنجليزي ويحتاج صياغة معجمية أكثر رصانة."
+    observations: "اللفظ (أُسْطُول) هو المصطلح القياسي والأكثر شيوعاً، وهو لفظ معرّب من اليونانية (Stolos). المجموعة تشير تحديداً للسفن الحربية المنظمة، لذا فإن تقييد اللمة بالوصف 'حربي' قد يكون مفيداً في السياق المتخصص."
+  blind_candidates:
+    - lemma: "أُسْطُول"
+      generation_method: taarib
+      justification: "المصطلح العربي القياسي المعرّب الذي يشير لمجموعات السفن."
+    - lemma: "أُسْطُول بَحْرِيّ"
+      generation_method: tarkib
+      justification: "تعبير مركب وصفي يحدد طبيعة الأسطول كونه بحرياً."
+    - lemma: "أُسْطُول حَرْبِيّ"
+      generation_method: tarkib
+      justification: "تعبير أكثر تحديداً يتوافق مع التعريف الذي يشير للسفن الحربية والوحدة التكتيكية."
+    - lemma: "عِمَارة بَحْرِيَّة"
+      generation_method: majaz
+      justification: "استخدام تراثي قديم أطلقه العرب على مجموعات السفن الكبيرة (عمارة)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "أُسْطُول"
+      confirm:
+        - text: "«الأُسْطول: مجموعة من السفن تُعدُّ للحرب أو للنقل.»"
+          source: "المعجم الوسيط"
+        - text: "«الأُسْطُول: مجموعة سفن حربية تضم قِطَعاً تختلف فى الحجم والشكل والغرض.»"
+          source: "المعجم الكبير"
+        - text: "«أسطول: مجموعة من السُّفن تعدُّ للحرب أو للنّقل التجاريّ.»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "أُسْطُول حَرْبِيّ"
+      confirm:
+        - text: "«أسطول بحري (حربي) - naval fleet»"
+          source: "المعجم الموحد لمصطلحات علوم البحار"
+        - text: "«أُسْطُول حَرْبِيّ: مجموعة من السفن الحربية تعمل كوحدة قتالية.»"
+          source: "تكملة المعاجم العربية (دوزي - استدلالاً)"
+    - lemma: "عِمَارة"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "أسطول"
+      decision: confirmed
+      decision_reason: "المصطلح الأساسي والمؤكد في جميع المعاجم العربية الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "أُسْطُول"
+    - lemma: "أُسْطُول حَرْبِيّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تقني دقيق يتطابق مع التعريف التكتيكي للمجموعة في سياق الحروب البحرية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "أُسْطُول حَرْبِيّ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "عِمَارة بَحْرِيَّة"
+      source: stage1
+      decision: removed
+      decision_reason: "استخدام تراثي مهجور لا يوافق الاستعمال الحديث للوحدات التكتيكية البحرية."
+
+stage4_content:
+  definition:
+    current: "مجموعة من السفن الحربية منظمة كوحدة تكتيكية"
+    assessment:
+      decision: revise
+      reason: "الصياغة الحالية تبدو ترجمة حرفية، ويفضل استخدام صياغة معجمية أكثر دقة وتفصيلاً."
+    authored:
+      - type: terminological
+        text: "مجموعةٌ من السُّفُن الحَرْبيَّة مُنَظَّمةٌ ومُسلَّحةٌ لتعمَلَ كوَحْدَةٍ تكتيكيَّةٍ واحدة"
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "أُسْطُول"
+        examples:
+          - text: "يُجري الأُسْطول مَنَاوَرَاتٍ حَرْبيَّةً فِي عُرْضِ البَحْرِ لِتَعْزِيزِ القُدْرَاتِ التَّكْتِيكيَّةِ."
+            type: usage
+      - lemma: "أُسْطُول حَرْبِيّ"
+        examples:
+          - text: "أبحَرَ الأُسْطولُ الحَرْبِيُّ لِحِمَايَةِ السَّوَاحِلِ الإِقْلِيميَّةِ مِنَ الهَجَمَاتِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "قادَ الأَمِيرالُ الأُسْطُولَ فِي مَعْرَكَةٍ بَحْرِيَّةٍ فاصِلَةٍ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "أُسْطُول"
+      entry_id: "{auto}"
+      root: "سطل"
+      maqayis_quote: "«السِّينُ وَالطَّاءُ وَاللَّامُ لَيْسَ بِشَيْءٍ. عَلَى أَنَّهُمْ يُسَمُّونَ إِنَاءً مِنَ الْآنِيَةِ سَطْلًا وَسَيْطَلًا.»"
+    - lemma: "أُسْطُول حَرْبِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "أسطول"
+          root: "سطل"
+          maqayis_quote: "«السِّينُ وَالطَّاءُ وَاللَّامُ لَيْسَ بِشَيْءٍ...»"
+        - word: "حربي"
+          root: "حرب"
+          maqayis_quote: "«الْحَاءُ وَالرَّاءُ وَالْبَاءُ أَصْلٌ وَاحِدٌ، وَهُوَ مَعْرُوفٌ؛ مِنَ الْحَرْبِ...»"
+  per_sense:
+    - lemma: "أُسْطُول"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام والشائع للمجموعة، وقد يشمل السفن التجارية أو الحربية حسب السياق."
+      mwe: false
+    - lemma: "أُسْطُول حَرْبِيّ"
+      sense_id: "{auto}"
+      nuance: "تعبير محدد يشير حصراً للسفن المعدة للقتال، وهو الأنسب لوصف 'الوحدة التكتيكية الحربية'."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سطل","maqayis":"«السِّينُ وَالطَّاءُ وَاللَّامُ لَيْسَ بِشَيْءٍ...»","plural":"أَسَاطِيل"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ العام والشائع للمجموعة","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

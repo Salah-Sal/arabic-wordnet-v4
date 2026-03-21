@@ -1,0 +1,210 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة 'شكل مشوه' ليست مصطلحاً معجمياً مسكوكاً، بل هي تعبير وصفي حر (free phrase)."
+      - "اللمة 'تشوه' هي مصدر للعملية، ولكنها تُستخدم في العلم الحديث للدلالة على الحالة الناتجة (Resulting state)."
+    observations: "المجموعة الترادفية تمثل المفهوم الفيزيائي والبيولوجي لـ (Distortion). المعاجم العربية الحديثة (الطبية والتقنية) تستخدم 'تشوه' كلفظ أساسي، بينما توفر المعاجم الكلاسيكية ألفاظاً مثل 'مِسْخ' و'مَسْخَة' للتعبير عن الشيء أو الهيئة الناتجة عن تبديل الخلق."
+  blind_candidates:
+    - lemma: "مِسْخ"
+      generation_method: majaz
+      justification: "لفظ عربي فصيح يُطلق على الشيء الذي تغيرت صورته إلى القبح أو خرجت عن طبيعتها."
+    - lemma: "تَشْوِيهَة"
+      generation_method: ishtiqaq
+      justification: "اسم مرة/أثر من الجذر (شوه) للدلالة على الفعل أو نتيجته العينية."
+    - lemma: "مَسْخَة"
+      generation_method: ishtiqaq
+      justification: "اسم يدل على هيئة التشوه أو سوء الخلقة الناتج عن المسخ."
+    - lemma: "تَشْوِيه"
+      generation_method: majaz
+      justification: "مصدر شاع استخدامه للدلالة على الأثر الناتج (مثلاً تشويه الموجات أو الصور)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تَشَوُّه"
+      confirm:
+        - text: "«تغيُّرٌ غيرُ سوىٍّ فى التَّكوين الجسمىِّ للكائن الحىِّ»"
+          source: "المعجم الكبير"
+        - text: "«تغيُّرٌ فى الشَّكل الأصلىِّ لصورةٍ تُحْدِثُها موجاتٌ ضوئيَّةٌ»"
+          source: "المعجم الكبير"
+        - text: "«تغير معيب في شكل الجسم جزئياً أو كلياً»"
+          source: "معجم المصطلحات الطبية"
+    - lemma: "مِسْخ"
+      confirm:
+        - text: "«المسخ: تحويل صورة إلى ما هو أقبح منها... فلان مسخ من المسوخ»"
+          source: "تاج العروس"
+        - text: "«مشوّه الخلقة... (طب) وليد طُمِسَت معالم وجهه خلقة»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "مَسْخَة"
+      confirm:
+        - text: "«تشوه التكوين، سوء الخلقة: فعرفها بمسخة صورتها»"
+          source: "تكملة المعاجم العربية (دوزي)"
+    - lemma: "تَشْوِيه"
+      confirm:
+        - text: "«(1) تشويه (2) تشوه (3) شكل معدل (في ترجمة Distortion)»"
+          source: "المورد الحديث"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تشوه"
+      decision: confirmed
+      decision_reason: "مصطلح مركزي في العلوم الحديثة (فيزياء، أحياء، هندسة) للدلالة على الحالة الناتجة عن عملية التشوه."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَشَوُّه"
+    - lemma: "شكل مشوه"
+      decision: removed
+      decision_reason: "تعبير وصفي حر غير مسكوك معجمياً."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "مِسْخ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ أصيل يعبر عن الكائن أو الشيء الذي خضع للتشوه وفقد صورته السوية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مِسْخ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مَسْخَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تدل على الهيئة العينية للتشوه أو النقص في الخلقة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَسْخَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَشْوِيه"
+      source: stage1
+      decision: confirmed
+      decision_reason: "استخدام واسع للدلالة على الانحراف عن النموذج الأصلي في الصورة أو الصوت."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَشْوِيه", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "شكل ناتج عن التشوه"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب جداً ويفتقر للفصل النوعي (differentia). المصطلح يشمل التغير المادي والخلل الصوري."
+    authored:
+      - type: terminological
+        text: "تَغَيُّرٌ في الشَّكْلِ الأصْلِيِّ لِلشَّيءِ يَجْعَلُهُ غَيْرَ سَوِيٍّ، نَاتِجٌ عَنْ خَلَلٍ تَكْوينِيٍّ أو تَأثيرٍ خَارِجيٍّ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "تَغَيُّرٌ في الشَّكْلِ الأصْلِيِّ لِلشَّيءِ يَجْعَلُهُ غَيْرَ سَوِيٍّ، نَاتِجٌ عَنْ خَلَلٍ تَكْوينِيٍّ أو تَأثيرٍ خَارِجيٍّ."
+  examples:
+    per_lemma:
+      - lemma: "تَشَوُّه"
+        examples:
+          - text: "يُعَانِي بَعْضُ المَوالِيدِ مِنْ تَشَوُّهٍ فِي عِظَامِ القَفَصِ الصَّدْرِيِّ."
+            type: usage
+      - lemma: "مِسْخ"
+        examples:
+          - text: "بَدَا المَنْحُوتُ كَأَنَّهُ مِسْخٌ لَا مَعَالِمَ لَهُ."
+            type: usage
+      - lemma: "تَشْوِيه"
+        examples:
+          - text: "أَدَّتْ رَدَاءَةُ الاسْتِقْبَالِ إلَى تَشْوِيهٍ فِي صُورَةِ البَثِّ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يُعَانِي بَعْضُ المَوالِيدِ مِنْ تَشَوُّهٍ فِي عِظَامِ القَفَصِ الصَّدْرِيِّ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تَشَوُّه"
+      entry_id: "{auto}"
+      root: "شوه"
+      maqayis_quote: "«الشِّينُ وَالْوَاوُ وَالْهَاءُ أَصْلَانِ: أَحَدُهُمَا يَدُلُّ عَلَى قُبْحِ الْخِلْقَةِ... فَالْأَوَّلُ الشَّوَهُ: قُبْحُ الْخِلْقَةِ.»"
+    - lemma: "مِسْخ"
+      entry_id: "{auto}"
+      root: "مسخ"
+      maqayis_quote: "«الْمِيمُ وَالسِّينُ وَالْخَاءُ... يَدُلُّ عَلَى تَشْوِيهٍ وَقِلَّةِ طَعْمِ الشَّيْءِ، وَمَسَخَهُ اللَّهُ: شَوَّهَ خَلْقَهُ مِنْ صُورَةٍ حَسَنَةٍ إِلَى قَبِيحَةٍ.»"
+    - lemma: "مَسْخَة"
+      entry_id: "{auto}"
+      root: "مسخ"
+      maqayis_quote: "«الْمِيمُ وَالسِّينُ وَالْخَاءُ... يَدُلُّ عَلَى تَشْوِيهٍ... مَسَخَهُ اللَّهُ: شَوَّهَ خَلْقَهُ.»"
+    - lemma: "تَشْوِيه"
+      entry_id: "{auto}"
+      root: "شوه"
+      maqayis_quote: "«الشِّينُ وَالْوَاوُ وَالْهَاءُ... الشَّوَهُ: قُبْحُ الْخِلْقَةِ.»"
+  per_sense:
+    - lemma: "تَشَوُّه"
+      sense_id: "{auto}"
+      nuance: "المصطلح العلمي العام للدلالة على الحالة أو الخلل الشكلي."
+      mwe: false
+    - lemma: "مِسْخ"
+      sense_id: "{auto}"
+      nuance: "تُستخدم للدلالة على الكيان (الشخص أو الشيء) الذي فقد صورته السوية وأصبح قبيحاً."
+      mwe: false
+    - lemma: "مَسْخَة"
+      sense_id: "{auto}"
+      nuance: "تركز على الهيئة أو الهيكل العيني الناتج عن تبديل الخلق."
+      mwe: false
+    - lemma: "تَشْوِيه"
+      sense_id: "{auto}"
+      nuance: "تُستخدم غالباً في سياق فساد الدقة أو الجمال في الصور والإشارات والوجوه."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"شوه","maqayis":"«الشِّينُ وَالْوَاوُ وَالْهَاءُ أَصْلَانِ: أَحَدُهُمَا يَدُلُّ عَلَى قُبْحِ الْخِلْقَةِ... فَالْأَوَّلُ الشَّوَهُ: قُبْحُ الْخِلْقَةِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"مسخ","maqayis":"«الْمِيمُ وَالسِّينُ وَالْخَاءُ... يَدُلُّ عَلَى تَشْوِيهٍ وَقِلَّةِ طَعْمِ الشَّيْءِ، وَمَسَخَهُ اللَّهُ: شَوَّهَ خَلْقَهُ مِنْ صُورَةٍ حَسَنَةٍ إِلَى قَبِيحَةٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العلمي العام للدلالة على الحالة أو الخلل الشكلي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

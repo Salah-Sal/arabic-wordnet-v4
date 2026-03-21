@@ -50,14 +50,76 @@ RATE_LIMIT_PATTERNS = [
     "quota exceeded", "RESOURCE_EXHAUSTED", "quotaExceeded",
 ]
 
+AUTH_ERROR_PATTERNS = [
+    "authentication_error", "authentication_failed",
+    "401", "oauth token", "token expired", "token has expired",
+    "invalid api key", "invalid_api_key", "unauthorized",
+    "api key not valid", "credentials",
+]
+
 # Max cooldown cap to avoid blocking on stale/incorrect timestamps
 MAX_COOLDOWN_SECONDS = 3600  # 1 hour
 
-# Gemini model fallback chain: flash → pro → stop
-MODEL_FALLBACK_CHAIN = [
-    "gemini-3-flash-preview",
-    "gemini-3.1-pro-preview",
-]
+
+class ErrorClassifier:
+    """Classifies subprocess failures into actionable categories."""
+
+    @staticmethod
+    def classify(combined_text: str, is_rate_limited: bool, exit_code: int) -> str:
+        low = combined_text.lower()
+        if any(p in low for p in AUTH_ERROR_PATTERNS):
+            return "auth"
+        if is_rate_limited:
+            return "rate_limit"
+        if exit_code == -9:
+            return "timeout"
+        return "unknown"
+
+
+class CircuitBreaker:
+    """Stops a batch on repeated same-class failures.
+
+    Auth errors trip immediately. Other error classes trip after
+    `threshold` consecutive failures of the same type.
+    """
+
+    def __init__(self, threshold: int, shutdown_event: asyncio.Event):
+        self._threshold = threshold
+        self._shutdown_event = shutdown_event
+        self._consecutive: dict[str, int] = {}
+        self._trip_reason: str | None = None
+        self._lock = asyncio.Lock()
+
+    @property
+    def tripped(self) -> bool:
+        return self._trip_reason is not None
+
+    @property
+    def trip_reason(self) -> str | None:
+        return self._trip_reason
+
+    async def record_success(self):
+        async with self._lock:
+            self._consecutive.clear()
+
+    async def record_failure(self, error_class: str) -> bool:
+        async with self._lock:
+            if error_class == "auth":
+                self._trip_reason = f"AUTH_ERROR:{error_class}"
+                self._shutdown_event.set()
+                return True
+            for cls in list(self._consecutive):
+                if cls != error_class:
+                    self._consecutive[cls] = 0
+            self._consecutive[error_class] = self._consecutive.get(error_class, 0) + 1
+            if self._consecutive[error_class] >= self._threshold:
+                self._trip_reason = f"CONSECUTIVE:{error_class}:{self._consecutive[error_class]}"
+                self._shutdown_event.set()
+                return True
+            return False
+
+# No fallback chain — if the requested model is rate-limited, stop the batch.
+MODEL_FALLBACK_CHAIN = []
 
 # Aliases for CLI convenience
 MODEL_ALIASES = {
@@ -160,20 +222,13 @@ class ModelFallbackChain:
                 short_fb = fallback.replace("gemini-", "").replace("-preview", "")
                 logger.warning(f"[fallback] Switching to {short_fb}")
             elif self.all_rate_limited:
-                # Find the earliest cooldown expiry across all models
                 earliest = min(self._cooldowns.get(m, 0) for m in self._chain)
                 wait_s = earliest - time.time()
-                if wait_s > 300:  # > 5 minutes: stop the batch
-                    logger.error(
-                        f"[fallback] All models rate-limited, earliest reset in "
-                        f"{wait_s:.0f}s — stopping batch"
-                    )
-                    self._shutdown_event.set()
-                else:
-                    logger.warning(
-                        f"[fallback] All models rate-limited, waiting {wait_s:.0f}s "
-                        f"for earliest reset"
-                    )
+                logger.error(
+                    f"[fallback] Model rate-limited (resets in {wait_s:.0f}s) "
+                    f"— stopping batch"
+                )
+                self._shutdown_event.set()
 
     async def wait_if_limited(self):
         """Block until the active model is available. No-op if one is ready."""
@@ -328,6 +383,7 @@ class BatchRunner:
         resume_items: list[tuple[str, int]] | None = None,
         adaptive: bool = False,
         tree_size: int | None = None,
+        circuit_breaker_threshold: int = 5,
     ):
         """Initialize the batch runner.
 
@@ -375,6 +431,9 @@ class BatchRunner:
             self.semaphore = asyncio.Semaphore(self.workers)
             self.controller = None
         self.shutdown_event = asyncio.Event()
+        self.circuit_breaker = CircuitBreaker(
+            threshold=circuit_breaker_threshold, shutdown_event=self.shutdown_event
+        )
         self.fallback = ModelFallbackChain(
             primary_model=self.model,
             chain=MODEL_FALLBACK_CHAIN,
@@ -428,7 +487,12 @@ class BatchRunner:
             pass
 
         # Finalize
-        status = "interrupted" if self.shutdown_event.is_set() else "completed"
+        if self.circuit_breaker.tripped:
+            status = "circuit_breaker"
+        elif self.shutdown_event.is_set():
+            status = "interrupted"
+        else:
+            status = "completed"
         self.db.finish_run(self.run_id, status)
         self._print_summary()
         self._export_summary_json()
@@ -440,8 +504,8 @@ class BatchRunner:
             "success": stats["success"],
             "failed": stats["failed"],
             "failure_rate": round(stats["failed"] / total, 4) if total > 0 else 0.0,
-            "circuit_breaker_tripped": False,
-            "circuit_breaker_reason": None,
+            "circuit_breaker_tripped": self.circuit_breaker.tripped,
+            "circuit_breaker_reason": self.circuit_breaker.trip_reason,
         }
         print(f"BATCH_EXIT_SUMMARY:{json.dumps(summary)}")
 
@@ -532,6 +596,7 @@ class BatchRunner:
                 await proc.wait()
                 dur = time.monotonic() - t0
                 self.db.mark_failed(synset_id, self.run_id, -9, f"Timeout after {self.timeout_s}s", dur)
+                await self.circuit_breaker.record_failure("timeout")
                 return False
             finally:
                 self.active_procs.pop(synset_id, None)
@@ -539,26 +604,31 @@ class BatchRunner:
             dur = time.monotonic() - t0
             rc = proc.returncode
 
-            review_path = self.output_dir / f"{synset_id}.review.yaml"
             model_short = active_model.replace("gemini-", "").replace("-preview", "")
-            if rc == 0 and review_path.exists():
-                traj_info = self._parse_trajectory(synset_id)
-                self.db.mark_success(synset_id, self.run_id, traj_info.cost, dur)
-                logger.info(f"[{synset_id}] OK {dur:.0f}s ~${traj_info.cost:.4f} ({model_short})")
+            if review_path.exists():
+                try:
+                    traj_info = self._parse_trajectory(synset_id)
+                    cost = traj_info.cost
+                except Exception:
+                    cost = 0.0
+                self.db.mark_success(synset_id, self.run_id, cost, dur)
+                if rc != 0:
+                    logger.info(f"[{synset_id}] OK {dur:.0f}s (exit={rc}, review written) ({model_short})")
+                else:
+                    logger.info(f"[{synset_id}] OK {dur:.0f}s ~${cost:.4f} ({model_short})")
+                await self.circuit_breaker.record_success()
                 if self.controller:
                     self.controller.on_success()
                 return True
 
-            # Capture error from both stdout and stderr (run_review.sh prints
-            # errors to stdout via echo, not stderr)
+            # Failure path — only reached when review file does NOT exist
             out_text = stdout.decode("utf-8", errors="replace")[-1000:] if stdout else ""
             err_text = stderr.decode("utf-8", errors="replace")[-500:] if stderr else ""
             combined = out_text + err_text
 
-            if rc == 0 and not review_path.exists():
-                err_msg = "Gemini completed but no review file written"
+            if rc == 0:
+                err_msg = "Model completed but no review file written"
             else:
-                # Prefer stdout (where run_review.sh echo errors go), fall back to stderr
                 err_msg = out_text.strip() or err_text.strip() or f"exit code {rc}"
             self.db.mark_failed(synset_id, self.run_id, rc or 2, err_msg, dur)
             logger.warning(f"[{synset_id}] FAIL exit={rc} {dur:.0f}s ({model_short}) | {err_msg[:200]}")
@@ -566,6 +636,13 @@ class BatchRunner:
             # Rate limit detection: prefer trajectory, fall back to text matching
             traj_info = self._parse_trajectory(synset_id)
             is_rl = traj_info.rate_limited or ConcurrencyController.is_rate_limited(combined)
+
+            # Circuit breaker: classify and record
+            error_class = ErrorClassifier.classify(combined, is_rl, rc)
+            tripped = await self.circuit_breaker.record_failure(error_class)
+            if tripped:
+                logger.error(f"[{synset_id}] Circuit breaker tripped: {self.circuit_breaker.trip_reason}")
+                return False
 
             if is_rl:
                 if traj_info.rate_limited:
@@ -588,6 +665,7 @@ class BatchRunner:
             dur = time.monotonic() - t0
             self.db.mark_failed(synset_id, self.run_id, -1, str(e), dur)
             logger.error(f"[{synset_id}] Exception: {e}")
+            await self.circuit_breaker.record_failure("unknown")
             if self.controller:
                 self.controller.on_failure()
             return False
@@ -606,7 +684,7 @@ class BatchRunner:
         if not traj.exists():
             return info
         try:
-            with open(traj) as f:
+            with open(traj, encoding="utf-8", errors="replace") as f:
                 for line in f:
                     try:
                         if '"type":"result"' not in line and '"type": "result"' not in line:
@@ -734,6 +812,8 @@ class BatchRunner:
             "skipped": stats["skipped"],
             "pending": stats["pending"],
             "total_cost": stats["total_cost"],
+            "circuit_breaker_tripped": self.circuit_breaker.tripped,
+            "circuit_breaker_reason": self.circuit_breaker.trip_reason,
             "finished_at": datetime.now(timezone.utc).isoformat(),
         }
         summary_name = os.environ.get("BATCH_SUMMARY_NAME", ".batch_summary.json")

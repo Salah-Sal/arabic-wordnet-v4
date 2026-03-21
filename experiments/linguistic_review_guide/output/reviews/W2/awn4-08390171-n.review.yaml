@@ -1,0 +1,181 @@
+stage1_review:
+  assessment:
+    concerns:
+      - قد يلتبس مصطلح "تَعَرُّق" دلاليًا مع عملية إفراز العرق من الجلد (Perspiration)، لذا يجب التمييز السياقي.
+      - مصطلح "نظام العروق" تعبير وصفي دقيق لكنه قد يُعتبر عبارة حرة أكثر منه وحدة معجمية مسكوكة في بعض السياقات.
+    observations: |
+      المصطلح الأساسي في علم النبات هو "التعرق"، وهو يعبر عن النمط الذي تتخذه العروق (الأوعية الناقلة) في نصل الورقة. 
+      هناك توافق كبير بين المعاجم العلمية الحديثة (مثل المعجم الموحد للمصطلحات الجيولوجية والأحيائية) على هذا اللفظ.
+  blind_candidates:
+    - lemma: "تَعَرُّق"
+      generation_method: ishtiqaq
+      justification: "اللفظ القياسي من الجذر (عرق) ليدل على الهيئة أو النظام المتبع للعروق."
+    - lemma: "تَعْرِيق"
+      generation_method: ishtiqaq
+      justification: "يُستخدم للدلالة على العملية أو النمط الناتج عن ترتيب العروق، وشائع في وصف الخشب والرخام وأجنحة الحشرات."
+    - lemma: "نِظَامُ العُرُوقِ"
+      generation_method: tarkib
+      justification: "مركب إضافي وصفي يطابق التعريف الإنجليزي (arrangement of veins) والتعريف العربي المقترح."
+    - lemma: "تَوْزِيعُ العُرُوقِ"
+      generation_method: tarkib
+      justification: "مركب إضافي يعبر عن كيفية توزع العروق في المساحة المخصصة (نصل الورقة)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تَعَرُّق"
+      confirm:
+        - text: "توزّع العروق"
+          source: "المعجم الموحد لمصطلحات الجيولوجيا (2000)"
+        - text: "نظام انتشار العروق في ورقة نباتية"
+          source: "مسرد الجغرافيا والتاريخ، ArabTerm"
+        - text: "نظام انتشار العروق في ورقة نبات أو جناح حشرة."
+          source: "المورد الحديث (2008)"
+    - lemma: "نِظَامُ العُرُوقِ"
+      confirm:
+        - text: "نظام انتشار العروق في ورقة نباتية"
+          source: "مسرد الجغرافيا والتاريخ، ArabTerm (تعريف لمصطلح التعرق)"
+          addition: "يؤكد أن العبارة هي التعريف الدقيق للمفهوم."
+    - lemma: "تَعْرِيق"
+      confirm:
+        - text: "ترتيب الأعصاب أو تعريق أجنحة الحشرة"
+          source: "المعجم الموحد لمصطلحات علم الأحياء (1993)"
+          addition: "يستخدم للمفهوم المشابه في علم الحشرات (Neuration)."
+    - lemma: "تَوْزِيعُ العُرُوقِ"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تعرق"
+      decision: confirmed
+      decision_reason: "المصطلح العربي القياسي والمستقر في علم النبات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَعَرُّق"
+    - lemma: "نظام العروق"
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي مركب شائع الاستخدام في التعريفات المعجمية والكتب المتخصصة لوصف ترتيب العروق."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نِظَامُ العُرُوقِ"
+    - lemma: "تَعْرِيق"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يُستخدم كمرادف للتعرق في وصف الأنماط، خاصة في علم الحشرات والخشب، ويمتد استخدامه للنبات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَعْرِيق", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "(علم النبات) ترتيب العروق في الورقة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دقيق ولكنه يحتاج صياغة أكثر شمولاً ومطابقة للأسلوب المعجمي العربي."
+    authored:
+      - type: terminological
+        text: "(في علم النبات) نَسَقُ ترتيب العروق في نصل الورقة، أو نظام انتشار الأوعية الناقلة فيها."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "(في علم النبات) نَسَقُ ترتيب العروق في نصل الورقة، أو نظام انتشار الأوعية الناقلة فيها."}
+  examples:
+    per_lemma:
+      - lemma: "تَعَرُّق"
+        examples:
+          - text: "تعتمد تصنيفات النباتات الزهرية أحياناً على نوع تَعَرُّق الأوراق، فمنها ما هو شبكي ومنها ما هو متوازٍ."
+            type: usage
+      - lemma: "نِظَامُ العُرُوقِ"
+        examples:
+          - text: "يوفر نِظَامُ العُرُوقِ في الورقة الدعم الهيكلي اللازم للنصل بالإضافة إلى نقل الغذاء والماء."
+            type: usage
+      - lemma: "تَعْرِيق"
+        examples:
+          - text: "يُلاحظ تَعْرِيق دقيق ومتقاطع في أجنحة هذه الفصيلة من الحشرات."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تَعَرُّق"
+      entry_id: "{auto}"
+      root: "عرق"
+      maqayis_quote: "«الْعَيْنُ وَالرَّاءُ وَالْقَافُ أَرْبَعَةُ أُصُولٍ صَحِيحَةٌ... الثَّانِي السِّنْخُ الْمُتَشَعِّبُ. مِنْ ذَلِكَ الْعِرْقُ عِرْقُ الشَّجَرَةِ. وَعُرُوقُ كُلِّ شَيْءٍ: أَطْنَابٌ تَنْشَعِبُ مِنْ أُصُولِهِ.»"
+    - lemma: "تَعْرِيق"
+      entry_id: "{auto}"
+      root: "عرق"
+      maqayis_quote: "«الْعَيْنُ وَالرَّاءُ وَالْقَافُ أَرْبَعَةُ أُصُولٍ صَحِيحَةٌ... الثَّانِي السِّنْخُ الْمُتَشَعِّبُ. مِنْ ذَلِكَ الْعِرْقُ عِرْقُ الشَّجَرَةِ. وَعُرُوقُ كُلِّ شَيْءٍ: أَطْنَابٌ تَنْشَعِبُ مِنْ أُصُولِهِ.»"
+    - lemma: "نِظَامُ العُرُوقِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "نظام"
+          root: "نظم"
+          maqayis_quote: "«النُّونُ وَالظَّاءُ وَالْمِيمُ كَلِمَةٌ وَاحِدَةٌ، وَهِيَ تَلِيفُ الشَّيْءِ بِالشَّيْءِ... وَالنِّظَامُ: مَا نُظِمَ فِيهِ الشَّيْءُ مِنْ خَيْطٍ وَغَيْرِهِ.»"
+        - word: "عروق"
+          root: "عرق"
+          maqayis_quote: "«الْعَيْنُ وَالرَّاءُ وَالْقَافُ أَرْبَعَةُ أُصُولٍ صَحِيحَةٌ... الثَّانِي السِّنْخُ الْمُتَشَعِّبُ.»"
+  per_sense:
+    - lemma: "تَعَرُّق"
+      sense_id: "{auto}"
+      nuance: "المصطلح التقني الأوسع والأكثر شيوعاً في علم النبات لوصف نمط العروق."
+      mwe: false
+    - lemma: "تَعْرِيق"
+      sense_id: "{auto}"
+      nuance: "يركز على الهيئة الزخرفية أو النمط الملحوظ، ويُستخدم كثيراً في علم الحشرات والأخشاب."
+      mwe: false
+    - lemma: "نِظَامُ العُرُوقِ"
+      sense_id: "{auto}"
+      nuance: "تعبير وصفي يبرز الجانب التنسيقي والوظيفي لترتيب العروق."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عرق","maqayis":"«الْعَيْنُ وَالرَّاءُ وَالْقَافُ أَرْبَعَةُ أُصُولٍ صَحِيحَةٌ... الثَّانِي السِّنْخُ الْمُتَشَعِّبُ. مِنْ ذَلِكَ الْعِرْقُ عِرْقُ الشَّجَرَةِ. وَعُرُوقُ كُلِّ شَيْءٍ: أَطْنَابٌ تَنْشَعِبُ مِنْ أُصُولِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"نظام","root":"نظم","maqayis":"«النُّونُ وَالظَّاءُ وَالْمِيمُ كَلِمَةٌ وَاحِدَةٌ...»"},{"word":"عروق","root":"عرق","maqayis":"«الْعَيْنُ وَالرَّاءُ وَالْقَافُ أَرْبَعَةُ أُصُولٍ صَحِيحَةٌ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح التقني الأوسع والأكثر شيوعاً في علم النبات لوصف نمط العروق.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,175 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة تفتقر إلى التشكيل الكامل."
+      - "المصطلح الجغرافي 'قناة المانش' غائب وهو شائع جداً."
+    observations: "المجموعة تعبر عن كيان جغرافي معروف بأسماء متعددة في العربية، منها ما هو ترجمة حرفية (القناة الإنجليزية) ومنها ما هو معرب عن الفرنسية (بحر المانش). الأسماء الحالية صحيحة ومستخدمة في المعاجم الحديثة وفي سياقات الجغرافيا والسياسة."
+  blind_candidates:
+    - lemma: "قَنَاةُ المَانْش"
+      generation_method: tarkib
+      justification: "الاسم الأكثر شيوعاً للممر المائي في السياقات العلمية والسياسية العربية، وهو تركيب إضافي."
+    - lemma: "بَحْرُ المَانْش"
+      generation_method: tarkib
+      justification: "اسم تقليدي شائع مستخدم في الجغرافيا العربية المعاصرة."
+    - lemma: "القَنَاةُ الإِنْجِلِيزِيَّة"
+      generation_method: tarkib
+      justification: "ترجمة مباشرة للمصطلح الإنجليزي (English Channel)، مستخدمة بكثرة في المصادر الإخبارية والعلمية."
+    - lemma: "المَضِيقُ الإِنْجِلِيزِيُّ"
+      generation_method: tarkib
+      justification: "وصف جغرافي بديل يُستخدم أحياناً للإشارة إلى طبيعة الممر كقناة وصل."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "بَحْرُ المَانْش"
+      confirm:
+        - text: "«بِرِيطَانْيَا: شبه جزيرة في الشمال الغربي من فرنسا بين بحر المانش وخليج بسكاى.»"
+          source: "المعجم الكبير"
+    - lemma: "القَنَاةُ الإِنْجِلِيزِيَّة"
+      expands:
+        - text: "«English Channel: ممر مائي يفصل بين إنجلترا وفرنسا.»"
+          source: "المورد الحديث (ضمني)"
+    - lemma: "قَنَاةُ المَانْش"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "القناة الإنجليزية"
+      decision: confirmed
+      decision_reason: "مصطلح جغرافي قياسي ومستقر في اللغة العربية المعاصرة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "القَنَاةُ الإِنْجِلِيزِيَّة"
+    - lemma: "بحر المانش"
+      decision: confirmed
+      decision_reason: "مصطلح شائع وموثق في المعاجم العربية الحديثة (المعجم الكبير)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "بَحْرُ المَانْش"
+    - lemma: "قَنَاةُ المَانْش"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح جغرافي دقيق وشائع الاستخدام في الأطالس والتقارير الرسمية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "قَنَاةُ المَانْش", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09296353-n"}
+
+stage4_content:
+  definition:
+    current: "ذراع من المحيط الأطلسي يشكل قناة بين فرنسا وبريطانيا"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي صحيح لكنه يفتقر إلى التشكيل والدقة الجغرافية الكاملة فيما يخص الربط ببحر الشمال."
+    authored:
+      - type: encyclopedic
+        text: "مَمَرٌّ مَائِيٌّ مِنَ المُحِيطِ الأَطْلَسِيِّ يَفْصِلُ بَيْنَ السَّوَاحِلِ الجَنُوبِيَّةِ لِبِرِيطَانِيَا وَالسَّوَاحِلِ الشَّمَالِيَّةِ لِفَرَنْسَا، وَيَرْبِطُ المُحِيطَ بِبَحْرِ الشَّمَالِ عَبْرَ مَضِيقِ دُوفَر."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-09296353-n", definition_index: 0, text: "مَمَرٌّ مَائِيٌّ مِنَ المُحِيطِ الأَطْلَسِيِّ يَفْصِلُ بَيْنَ السَّوَاحِلِ الجَنُوبِيَّةِ لِبِرِيطَانِيَا وَالسَّوَاحِلِ الشَّمَالِيَّةِ لِفَرَنْسَا، وَيَرْبِطُ المُحِيطَ بِبَحْرِ الشَّمَالِ عَبْرَ مَضِيقِ دُوفَر."}
+  examples:
+    per_lemma:
+      - lemma: "القَنَاةُ الإِنْجِلِيزِيَّة"
+        examples:
+          - text: "تعد القناة الإنجليزية من أكثر الممرات الملاحية ازدحاماً في العالم."
+            type: usage
+      - lemma: "بَحْرُ المَانْش"
+        examples:
+          - text: "يعبر آلاف المسافرين بحر المانش يومياً عبر النفق الأوروبي."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-09296353-n", text: "تَمَّ افْتِتَاحُ النَّفَقِ الأُورُوبِيِّ تَحْتَ قَنَاةِ المَانْشِ لِرَبْطِ لَنْدَنَ بِبَارِيسَ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "القَنَاةُ الإِنْجِلِيزِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "قناة"
+          root: "قنو"
+          maqayis_quote: "«يُمْكِنُ أَنْ تَكُونَ الْقَنَاةُ مِنْ هَذَا، لِأَنَّهَا تُنْصَبُ وَتُرْفَعُ... وَقَنَاةُ الْمَاء عِنْدَنَا مُشَبَّهَةٌ بِهَذِهِ الْقَنَاةِ... لِأَنَّهَا كُعُوبٌ وَأَنَابِيبُ.»"
+        - word: "إنجليزية"
+          root: "انكلز"
+    - lemma: "بَحْرُ المَانْش"
+      entry_id: "{auto}"
+      roots:
+        - word: "بحر"
+          root: "بحر"
+          maqayis_quote: "«سُمِّيَ الْبَحْرُ بَحْرًا لِاسْتِبْحَارِهِ وَهُوَ انْبِسَاطُهُ وَسَعَتُهُ.»"
+        - word: "المانش"
+          root: "مانش"
+  per_sense:
+    - lemma: "القَنَاةُ الإِنْجِلِيزِيَّة"
+      sense_id: "{auto}"
+      nuance: "ترجمة مباشرة للاسم الإنجليزي، شائعة في المصادر الدولية."
+      mwe: true
+    - lemma: "بَحْرُ المَانْش"
+      sense_id: "{auto}"
+      nuance: "الاسم المعرب عن الفرنسية، شائع في الجغرافيا التقليدية."
+      mwe: true
+    - lemma: "قَنَاةُ المَانْش"
+      sense_id: "{auto}"
+      nuance: "تسمية تجمع بين المسمى الجغرافي (قناة) والاسم المعرب (المانش)."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"قناة","root":"قنو","maqayis":"«يُمْكِنُ أَنْ تَكُونَ الْقَنَاةُ مِنْ هَذَا، لِأَنَّهَا تُنْصَبُ وَتُرْفَعُ... وَقَنَاةُ الْمَاء عِنْدَنَا مُشَبَّهَةٌ بِهَذِهِ الْقَنَاةِ... لِأَنَّهَا كُعُوبٌ وَأَنَابِيبُ.»"},{"word":"إنجليزية","root":"انكلز"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"بحر","root":"بحر","maqayis":"«سُمِّيَ الْبَحْرُ بَحْرًا لِاسْتِبْحَارِهِ وَهُوَ انْبِسَاطُهُ وَسَعَتُهُ.»"},{"word":"المانش","root":"مانش"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"ترجمة مباشرة للاسم الإنجليزي، شائعة في المصادر الدولية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم المعرب عن الفرنسية، شائع في الجغرافيا التقليدية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-09296353-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-09296353-n"
+        score: 1.0

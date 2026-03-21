@@ -1,0 +1,228 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "نقص التشكيل في اللمات الحالية (إشغال، استئجار، حيازة)."
+      - "كلمة «حيازة» دلالتها أوسع من مجرد شغل العقار أو استئجاره، إذ تشمل التملك ووضع اليد بصورة عامة، لكنها مستخدمة قانونياً في هذا السياق."
+    observations: "المجموعة الترادفية تغطي المفهوم القانوني والعملي لشغل العقار (occupancy, tenancy). اللمات الحالية جيدة وتتوزع بين الدلالة المالية (استئجار)، والعملية (إشغال)، والقانونية (حيازة)."
+  blind_candidates:
+    - lemma: "اِسْتِئْجَار"
+      generation_method: ishtiqaq
+      justification: "مصدر استأجر، وهو يدل على شغل المكان بعقد أو أجر مالي."
+    - lemma: "إِشْغَال"
+      generation_method: ishtiqaq
+      justification: "مصدر أشغل، ويُستخدم إدارياً وقانونياً للدلالة على شغل حيز أو عقار."
+    - lemma: "سُكْنَى"
+      generation_method: ishtiqaq
+      justification: "مصدر يدل على الاستقرار في مسكن، وتطلق على حق الإقامة في مكان."
+    - lemma: "حِيَازَة"
+      generation_method: ishtiqaq
+      justification: "وضع اليد على الشيء كالعقار، وهي تدل على شغل المكان والتصرف فيه."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "استئجار"
+      confirm:
+        - text: "leasing; renting; tenancy"
+          source: "ArabTerm; Al-Mawrid"
+    - lemma: "إشغال"
+      confirm:
+        - text: "Bed occupancy; occupancy rate"
+          source: "ArabTerm"
+        - text: "شَغْلٌ؛ إشغال: occupancy"
+          source: "المورد الحديث (2008)"
+    - lemma: "حيازة"
+      confirm:
+        - text: "حيازة الرجل: ما في حوزته من مال أو عقار الأرض الزراعية"
+          source: "المعجم الوسيط"
+        - text: "tenure; possession; holding; tenancy"
+          source: "ArabTerm; AGROVOC"
+    - lemma: "سكنى"
+      expands:
+        - text: "(السُّكْنَى) الإسكان وأن تسكن إنسانا منزلا بلا أجرة والمسكن"
+          source: "المعجم الوسيط"
+          addition: "تشير تحديداً إلى الإسكان بغير أجرة، أو إلى حق الإقامة نفسه."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "إشغال"
+      decision: confirmed
+      decision_reason: "مصدر شائع ومثبت في المعاجم للدلالة على نسبة شغل المكان والتواجد فيه."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "إِشْغَال"
+            
+    - lemma: "استئجار"
+      decision: confirmed
+      decision_reason: "مصدر دقيق للتعبير عن حالة المستأجر بعقد مالي (tenancy)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "اِسْتِئْجَار"
+
+    - lemma: "حيازة"
+      decision: confirmed
+      decision_reason: "مصدر قانوني معتمد يدل على وضع اليد والتصرف في العقار أو شغله."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حِيَازَة"
+
+    - lemma: "سُكْنَى"
+      source: stage1
+      decision: removed
+      decision_reason: "تدل تخصيصاً في الفقه على الإسكان بغير أجرة، واللمات الموجودة أدق وأشمل في التعبير عن المعنى المطلوب."
+
+stage4_content:
+  definition:
+    current: "فعل كون المرء مستأجراً أو شاغلاً لعقار"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ترجمة حرفية (فعل كون). يُفضل صياغة تعريف مصطلحي ولغوي أدق."
+    authored:
+      - type: terminological
+        text: "حالة وضع اليد على عقار أو حيز مكاني بالاستقرار فيه أو استئجاره."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+      - type: linguistic
+        text: "شغل العقار بالاستئجار أو الإقامة فيه."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "حالة وضع اليد على عقار أو حيز مكاني بالاستقرار فيه أو استئجاره."
+      - command: add_definition
+        params:
+          synset_id: "{synset_id}"
+          text: "شغل العقار بالاستئجار أو الإقامة فيه."
+
+  examples:
+    per_lemma:
+      - lemma: "إِشْغَال"
+        examples:
+          - text: "سجّلت الفنادق نسبة إِشْغَالٍ عالية خلال موسم العطلات."
+            type: usage
+      - lemma: "اِسْتِئْجَار"
+        examples:
+          - text: "قام الشاب بِاسْتِئْجَارِ شقة قريبة من مقر عمله."
+            type: usage
+      - lemma: "حِيَازَة"
+        examples:
+          - text: "انتقلت حِيَازَةُ الأرض الزراعية إلى المالك الجديد بموجب العقد."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "قام الشاب بِاسْتِئْجَارِ شقة قريبة من مقر عمله."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "سجّلت الفنادق نسبة إِشْغَالٍ عالية خلال موسم العطلات."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "انتقلت حِيَازَةُ الأرض الزراعية إلى المالك الجديد بموجب العقد."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "إِشْغَال"
+      entry_id: "{auto}"
+      root: "شغل"
+      maqayis_quote: "«(شغل) الشين والغين واللام أصل واحد يدل على خلاف الفراغ...»"
+    - lemma: "اِسْتِئْجَار"
+      entry_id: "{auto}"
+      root: "أجر"
+      maqayis_quote: "«(أجر) الهمزة والجيم والراء أصلان يمكن الجمع بينهما بالمعنى، فالأول الكراء على العمل، والثاني جبر العظم الكسير...»"
+    - lemma: "حِيَازَة"
+      entry_id: "{auto}"
+      root: "حوز"
+      maqayis_quote: "«(حوز) الحاء والواو والزاء أصل واحد، وهو الجمع والتجمع...»"
+
+  per_sense:
+    - lemma: "إِشْغَال"
+      sense_id: "{auto}"
+      nuance: "يشير إلى الجانب المادي والعملي لملء المكان أو شغله بالبقاء فيه."
+      mwe: false
+    - lemma: "اِسْتِئْجَار"
+      sense_id: "{auto}"
+      nuance: "يشير تحديداً إلى شغل المكان بمقابل مادي وبموجب عقد (tenancy)."
+      mwe: false
+    - lemma: "حِيَازَة"
+      sense_id: "{auto}"
+      nuance: "تحمل دلالة قانونية تعني وضع اليد والسيطرة على العقار، سواء بالملك أو الانتفاع."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"شغل","maqayis":"«(شغل) الشين والغين واللام أصل واحد يدل على خلاف الفراغ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"أجر","maqayis":"«(أجر) الهمزة والجيم والراء أصلان يمكن الجمع بينهما بالمعنى، فالأول الكراء على العمل...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حوز","maqayis":"«(حوز) الحاء والواو والزاء أصل واحد، وهو الجمع والتجمع...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يشير إلى الجانب المادي والعملي لملء المكان أو شغله بالبقاء فيه.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يشير تحديداً إلى شغل المكان بمقابل مادي وبموجب عقد (tenancy).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تحمل دلالة قانونية تعني وضع اليد والسيطرة على العقار، سواء بالملك أو الانتفاع.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

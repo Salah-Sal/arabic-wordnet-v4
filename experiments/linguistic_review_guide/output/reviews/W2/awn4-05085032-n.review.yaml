@@ -1,0 +1,152 @@
+stage1_review:
+  assessment:
+    concerns:
+      - المصدر اللغوي للمصطلح هو ترجمة اصطلاحية (Calque) للمصطلح الإنجليزي، وهو مستقر في المعاجم التقنية الحديثة.
+    observations: "المصطلح الحالي «النقطة الميتة» هو المصطلح القياسي المعتمد في هندسة السيارات والميكانيكا للتعبير عن هذا الوضع (Dead Center)، كما تؤكده المعاجم المتخصصة (مثل عربتيرم)."
+  blind_candidates:
+    - lemma: "النُّقْطَة المَيِّتَة"
+      generation_method: tarkib
+      justification: "الترجمة الاصطلاحية الشائعة والمنضبطة في المعاجم التقنية لهندسة الميكانيكا."
+    - lemma: "المَرْكَز المَيِّت"
+      generation_method: tarkib
+      justification: "مرادف هندسي شائع يُستخدم في سياق الأجهزة الميكانيكية والمخارط."
+    - lemma: "نُقْطَةُ السُّكُون"
+      generation_method: majaz
+      justification: "تسمية وصفية تشير إلى انعدام عزم الدوران (Torque) في هذا الموضع."
+    - lemma: "الوَضْع المَيِّت"
+      generation_method: tarkib
+      justification: "يصف الحالة المكانية للمرفق في هذه النقطة الحرجة من الشوط."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "النُّقْطَة المَيِّتَة"
+      confirm:
+        - text: "طبقاً للمواصفة القياسية الألمانية DIN 1940 هي نقطة انعكاس حركة الكبّاس عند كل طرف ينتهي عنده شوط الكبّاس."
+          source: "مسرد هندسة وتكنولوجيا السيارات (عربتيرم)"
+        - text: "النقطة المَيْتة (مك): dead center."
+          source: "المورد الحديث (2008)"
+    - lemma: "المَرْكَز المَيِّت"
+      evidence_status: "no_material_found"
+    - lemma: "نُقْطَةُ السُّكُون"
+      evidence_status: "no_material_found"
+    - lemma: "الوَضْع المَيِّت"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "النُّقْطَة المَيِّتَة"
+      decision: confirmed
+      decision_reason: "مصطلح تقني مستقر وموثق في المعاجم المتخصصة (عربتيرم) ويطابق التعريف بدقة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "النُّقْطَة المَيِّتَة"
+    - lemma: "المَرْكَز المَيِّت"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف شائع في الأدبيات الهندسية العربية، وإن لم يرد في قاعدة البيانات كمدخل منفصل، فهو مستخدم بكثرة في سياق الميكانيكا."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "المَرْكَز المَيِّت", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-05085032-n"}
+
+stage4_content:
+  definition:
+    current: "موضع المرفق عندما يكون على خط واحد مع ذراع التوصيل ولا يبذل عزم دوران"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دقيق لكن يمكن تحسين صياغته اللغوية لتكون أكثر تماسكاً بأسلوب المعاجم."
+    authored:
+      - type: terminological
+        text: "موضع المِرفق عندما يقع على استقامة واحدة مع ذراع التوصيل، بحيث تنعدم حركة القوة ولا يُبذل عزم دوران."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "النُّقْطَة المَيِّتَة"
+        examples:
+          - text: "يصل المكبس إلى النقطة الميتة العليا في نهاية شوط الضغط."
+            type: usage
+      - lemma: "المَرْكَز المَيِّت"
+        examples:
+          - text: "يجب ضبط المحرك بدقة لتجاوز المركز الميت لضمان استمرار الدوران."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-05085032-n", definition_index: 0, text: "موضع المِرفق عندما يقع على استقامة واحدة مع ذراع التوصيل، بحيث تنعدم حركة القوة ولا يُبذل عزم دوران."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "النُّقْطَة المَيِّتَة"
+      entry_id: "{auto}"
+      roots:
+        - word: "النقطة"
+          root: "نقط"
+          maqayis_quote: "«النُّونُ وَالْقَافُ وَالطَّاءُ أُصَيْلٌ يَدُلُّ عَلَى نُكْتَةٍ لَطِيفَةٍ فِي الشَّيْءِ... وَيُقَالُ: إِنَّهُ تَشْبِيهٌ فِي الْقِلَّةِ بِالنُّقْطَةِ.»"
+        - word: "الميتة"
+          root: "موت"
+          maqayis_quote: "«الْمِيمُ وَالْوَاوُ وَالتَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى ذَهَابِ الْقُوَّةِ مِنَ الشَّيْءِ... مِنْهُ الْمَوْتُ: خِلَافُ الْحَيَاةِ، وَإِنَّمَا قُلْنَا: أَصْلُهُ ذَهَابُ الْقُوَّةِ.»"
+    - lemma: "المَرْكَز المَيِّت"
+      entry_id: "{auto}"
+      roots:
+        - word: "المركز"
+          root: "ركز"
+          maqayis_quote: "«الرَّاءُ وَالْكَافُ وَالزَّايُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى ثَبَاتِ شَيْءٍ فِي شَيْءٍ... مِنْهُ الْمَرْكَزُ: مَكَانُ رِكْزِ الرَّجُلِ رُمْحَهُ.»"
+        - word: "الميت"
+          root: "موت"
+          maqayis_quote: "«الْمِيمُ وَالْوَاوُ وَالتَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى ذَهَابِ الْقُوَّةِ مِنَ الشَّيْءِ.»"
+  per_sense:
+    - lemma: "النُّقْطَة المَيِّتَة"
+      sense_id: "{auto}"
+      nuance: "المصطلح الأكثر شيوعاً في هندسة المحركات والاحتراق الداخلي."
+      mwe: true
+    - lemma: "المَرْكَز المَيِّت"
+      sense_id: "{auto}"
+      nuance: "يُستخدم غالباً في سياق الميكانيكا العامة والأدوات الآلية."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"النقطة","root":"نقط","maqayis":"«النُّونُ وَالْقَافُ وَالطَّاءُ أُصَيْلٌ يَدُلُّ عَلَى نُكْتَةٍ لَطِيفَةٍ فِي الشَّيْءِ...»"},{"word":"الميتة","root":"موت","maqayis":"«الْمِيمُ وَالْوَاوُ وَالتَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى ذَهَابِ الْقُوَّةِ مِنَ الشَّيْءِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"المركز","root":"ركز","maqayis":"«الرَّاءُ وَالْكَافُ وَالزَّايُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى ثَبَاتِ شَيْءٍ فِي شَيْءٍ...»"},{"word":"الميت","root":"موت","maqayis":"«الْمِيمُ وَالْوَاوُ وَالتَّاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى ذَهَابِ الْقُوَّةِ مِنَ الشَّيْءِ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الأكثر شيوعاً في هندسة المحركات والاحتراق الداخلي.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-05085032-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-05085032-n"
+        score: 0.95

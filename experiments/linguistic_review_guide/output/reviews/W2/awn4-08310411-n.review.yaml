@@ -1,0 +1,203 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي يبدو ترجمة حرفية للتعريف الإنجليزي."
+      - "الاكتفاء بلمّة مركبة واحدة قد يضيّق من إمكانيات البحث عن المفهوم."
+    observations: "المصطلح العربي 'أسطول' انتقل دلالياً من السفن ليشمل المركبات والطائرات في العصر الحديث، وهو المصطلح المعياري في النقل والخدمات اللوجستية."
+  blind_candidates:
+    - lemma: "أُسْطُول"
+      generation_method: majaz
+      justification: "توسيع دلالي للفظ الأسطول (السفن) ليشمل أي مجموعة من وسائل النقل (مركبات، طائرات) تعمل تحت إدارة واحدة."
+    - lemma: "قَافِلَة"
+      generation_method: majaz
+      justification: "لفظ عربي قديم للجماعة المسافرة، يُستخدم حديثاً لوصف رتل من السيارات أو المركبات المتتابعة."
+    - lemma: "رَكْب"
+      generation_method: majaz
+      justification: "لفظ عربي للجماعة الراكبة، يمكن إحياؤه لوصف تجمعات المركبات."
+    - lemma: "أُسْطُول مَرْكَبَات"
+      generation_method: tarkib
+      justification: "تعبير مركب وصفي يحدد نوع الأسطول بدقة، وهو الأكثر شيوعاً في التقارير الرسمية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "أُسْطُول مَرْكَبَات"
+      confirm:
+        - text: "«المركبات المتواجدة في نظام النَّقل. يشير الأسطول عادة إلى مركبات الطرق السريعة، وعربات السكك الحديدية إضافة السفن.»"
+          source: "المعجم الموحد لمصطلحات النقل (2010)"
+    - lemma: "أُسْطُول"
+      confirm:
+        - text: "«الأسطول: مجموعة من السفن تُعدُّ للحرب أو للنقل. (مع) لمجموعة الطائرات: أُسْطول جَوِيٌّ»"
+          source: "المعجم الوسيط"
+        - text: "«ويقال لمجموعة الطائرات أسطول جوي»"
+          source: "المعجم الوسيط (حورماني)"
+      expands:
+        - text: "«fleet: (1) أسطول [بحريّ أو جويّ] (2) قافلة سيارات.»"
+          source: "المورد الحديث (2008)"
+    - lemma: "قَافِلَة"
+      confirm:
+        - text: "«الرفقة الكثيرة الراجعة من السفر أو المبتدئة به يكون معها دوابها وأمتعتها وزادها.»"
+          source: "المعجم الوسيط"
+      expands:
+        - text: "«(2) قافلة سيارات» كترجمة لـ fleet."
+          source: "المورد الحديث (2008)"
+    - lemma: "رَكْب"
+      confirm:
+        - text: "«الراكبون العشرة فما فوق»"
+          source: "المعجم الوسيط"
+      contradicts:
+        - text: "«يُطلق على أصحاب الإبل في السفر»"
+          source: "التعريفات الفقهية للبركتي"
+          conflict: "المصطلح كلاسيكي جداً ومرتبط بالدواب والإبل تحديداً."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "أُسْطُول مَرْكَبَات"
+      decision: confirmed
+      decision_reason: "تعبير دقيق ومستعمل بكثرة في السياقات المهنية واللوجستية، ويوضح طبيعة الأسطول دون لبس."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      nuance: "أكثر تخصيصاً وتحديداً لنوع الوسائل (المركبات البرية)."
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "أُسْطُول مَرْكَبَات"
+    - lemma: "أُسْطُول"
+      source: stage1
+      decision: confirmed
+      decision_reason: "هو المصطلح الأساسي والأكثر شيوعاً، ويُفهم من السياق عند الحديث عن شركات النقل أو توزيع البضائع."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      nuance: "لفظ عام يطلق على مجموعات السفن والطائرات والمركبات، ويحتاج لسياق لتمييزه."
+      actions:
+        - command: create_entry
+          params: {lemma: "أُسْطُول", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-08310411-n"}
+    - lemma: "قَافِلَة سَيَّارَات"
+      source: stage1
+      decision: confirmed
+      decision_reason: "وارد في المعاجم الحديثة (المورد) كمرادف لـ fleet في سياق السيارات، ويناسب وصف المركبات في حالة الحركة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      nuance: "يوحي بالحركة الجماعية (الرتل) أكثر من مجرد الملكية الساكنة."
+      actions:
+        - command: create_entry
+          params: {lemma: "قَافِلَة سَيَّارَات", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-08310411-n"}
+    - lemma: "رَكْب"
+      source: stage1
+      decision: removed
+      decision_reason: "لفظ كلاسيكي شديد الارتباط بالإبل والدواب، ولا ينسجم مع السياق التقني للمركبات الآلية."
+
+stage4_content:
+  definition:
+    current: "مجموعة من المركبات الآلية تعمل معًا تحت نفس الملكية"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي حرفي وجاف. يُفضل تعريف يبرز الغرض الوظيفي والملكية الإدارية بأسلوب معجمي عربي."
+    authored:
+      - type: terminological
+        text: "جماعة من المركبات البريّة (كالسّيارات أو الحافلات) التي تملكها أو تُديرها جهةٌ واحدة لأغراض النقل أو الخدمة."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-08310411-n"
+          definition_index: 0
+          text: "جماعة من المركبات البريّة (كالسّيارات أو الحافلات) التي تملكها أو تُديرها جهةٌ واحدة لأغراض النقل أو الخدمة."
+  examples:
+    per_lemma:
+      - lemma: "أُسْطُول مَرْكَبَات"
+        examples:
+          - text: "تمتلك شركة الخدمات اللوجستية أسطول مركبات حديثاً يغطي كافة مناطق المملكة."
+            type: usage
+      - lemma: "أُسْطُول"
+        examples:
+          - text: "تعتزم البلدية تحديث أسطولها من سيارات النظافة لرفع كفاءة العمل."
+            type: usage
+      - lemma: "قَافِلَة سَيَّارَات"
+        examples:
+          - text: "مرت قافلة سيارات تابعة لمنظمة الإغاثة عبر الحدود."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "awn4-08310411-n"
+          text: "تمتلك شركة الخدمات اللوجستية أسطول مركبات حديثاً يغطي كافة مناطق المملكة."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "أُسْطُول مَرْكَبَات"
+      entry_id: "{auto}"
+      roots:
+        - word: "أسطول"
+          root: "أسطل"
+          maqayis_quote: "«لفظ معرّب وليس له أصل في مقاييس اللغة لابن فارس.»"
+        - word: "مركبات"
+          root: "ركب"
+          maqayis_quote: "«الرَّاءُ وَالْكَافُ وَالْبَاءُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ مُنْقَاسٌ، وَهُوَ عُلُوُّ شَيْءٍ شَيْئًا. يُقَالُ رَكِبَ رُكُوبًا يَرْكَبُ. وَالرِّكَابُ: الْمَطِيُّ، وَاحِدَتُهَا رَاحِلَةٌ.»"
+    - lemma: "أُسْطُول"
+      entry_id: "{auto}"
+      root: "أسطل"
+      maqayis_quote: "«لفظ معرّب (من اليونانية stolos) لا يدخل في الأصول العربية الأصيلة لمقاييس اللغة.»"
+    - lemma: "قَافِلَة سَيَّارَات"
+      entry_id: "{auto}"
+      roots:
+        - word: "قافلة"
+          root: "قفل"
+          maqayis_quote: "«الْقَافُ وَالْفَاءُ وَاللَّامُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى رُجُوعٍ وَعَلَى يُبْسٍ فِي الشَّيْءِ. مِنْ ذَلِكَ الْقُفُولُ: الرُّجُوعُ مِنَ السَّفَرِ.»"
+        - word: "سيارات"
+          root: "سير"
+          maqayis_quote: "«السِّينُ وَالْيَاءُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ على مُضِيٍّ وجَرَيان.»"
+  per_sense:
+    - lemma: "أُسْطُول مَرْكَبَات"
+      sense_id: "{auto}"
+      nuance: "التسمية الكاملة والأكثر دقة تقنياً."
+      mwe: true
+    - lemma: "أُسْطُول"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام الشائع، يُستخدم اختصاراً."
+      mwe: false
+    - lemma: "قَافِلَة سَيَّارَات"
+      sense_id: "{auto}"
+      nuance: "يركز على انتظام المركبات في رتل واحد وحركتها معاً."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"أسطول","root":"أسطل","maqayis":"لفظ معرّب"},{"word":"مركبات","root":"ركب","maqayis":"«الرَّاءُ وَالْكَافُ وَالْبَاءُ أَصْلٌ وَاحِدٌ مُطَّرِدٌ مُنْقَاسٌ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"التسمية الكاملة والأكثر دقة تقنياً.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-08310411-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-08310411-n"
+        score: 0.95

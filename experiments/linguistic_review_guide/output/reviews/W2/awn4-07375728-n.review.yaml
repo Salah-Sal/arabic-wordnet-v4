@@ -1,0 +1,233 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "كلمة 'سُقوط' عامة جداً وقد لا تقتصر على الحدث الطبيعي في الاستعمال الدارج."
+      - "استخدام 'تَهَدُّم' في التعريف قد يوحي بانهيار المباني أكثر من الظواهر الطبيعية."
+    observations: "المفهوم يشمل الانهيارات الصخرية والثلجية (avalanche) وكذلك خسوف الأرض (subsidence)."
+  blind_candidates:
+    - lemma: "انْهِيَار"
+      generation_method: ishtiqaq
+      justification: "المصطلح العربي القياسي للانهيار المفاجئ للكتل الطبيعية."
+    - lemma: "تَهَدُّّم"
+      generation_method: ishtiqaq
+      justification: "يشير إلى تفتت الكتلة وسقوطها قطعاً، وهو أحد أوجه الانهيار."
+    - lemma: "انْخِسَاف"
+      generation_method: ishtiqaq
+      justification: "يعبر بدقة عن حالة 'caving in' أو غور الأرض الذي ذكره التعريف."
+    - lemma: "تَدَاعٍ"
+      generation_method: ishtiqaq
+      justification: "يصف تسلسل الانهيار وسقوط الأجزاء بعضها تلو بعض."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "انهيار"
+      confirm:
+        - text: "عملية سقوط كتل كبيرة من الصخر والتربة بفعل قوى الجاذبية من المنحدرات الشديدة إلى سفح جبلي."
+          source: "مسرد المناخ والبيئة - ArabTerm"
+        - text: "avalanche"
+          source: "المعجم الموحد لمصطلحات الأرصاد الجوية"
+    - lemma: "سقوط"
+      confirm:
+        - text: "falling"
+          source: "المعجم الموحد لمصطلحات الفيزياء"
+        - text: "سُقُوط الثلوج من قمم الجبال (سقيط)."
+          source: "مقاييس اللغة (بالتصرف في السياق)"
+    - lemma: "انخساف"
+      confirm:
+        - text: "انهيار مفاجئ أو نزول تدريجي لسطح الأرض مع تحرك أفقي ضعيف أو منعدم."
+          source: "مسرد المناخ والبيئة - ArabTerm"
+    - lemma: "تداع"
+      confirm:
+        - text: "تَدَاعَتِ الْحِيطَانُ، وَذَلِكَ إِذَا سَقَطَ وَاحِدٌ، وَآخَرُ بَعْدَهُ، فَكَأَنَّ الْأَوَّلَ دَعَا الثَّانِيَ."
+          source: "مقاييس اللغة"
+        - text: "breakdown; collapse; failure"
+          source: "المعجم الموحد لمصطلحات المياه"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "انهيار"
+      decision: confirmed
+      decision_reason: "المصطلح الأساسي والأكثر دقة للظاهرة الطبيعية المقصودة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "انْهِيَار"
+    - lemma: "سقوط"
+      decision: confirmed
+      decision_reason: "مقبول لغوياً ويغطي جانب السقوط من علٍ الوارد في التعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "سُقُوط"
+    - lemma: "انخساف"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يغطي بدقة مفهوم 'caving in' أو غور الأرض (subsidence) المذكور في التعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "انْخِسَاف", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تداع"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يصف الانهيار المتتابع للكتل الطبيعية كالجروف الصخرية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَدَاعٍ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "حدث طبيعي ناتج عن سقوط شيء فجأة أو تهدمه"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي فضفاض؛ يجب تخصيصه بالكتل الطبيعية ليشمل الانهيارات الثلجية والصخرية وخسوف الأرض."
+    authored:
+      - type: terminological
+        text: "سقوط مفاجئ لكتل طبيعية ضخمة (كصخر أو ثلج) أو انخساف في سطح الأرض نتيجة عوامل طبيعية."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "سقوط مفاجئ لكتل طبيعية ضخمة (كصخر أو ثلج) أو انخساف في سطح الأرض نتيجة عوامل طبيعية."}
+  examples:
+    per_lemma:
+      - lemma: "انْهِيَار"
+        examples:
+          - text: "تسبب الانهيار الصخري في قطع الطريق الجبلي الوحيد المؤدي إلى القرية."
+            type: usage
+      - lemma: "سُقُوط"
+        examples:
+          - text: "حذر خبراء الأرصاد من سقوط كتل ثلجية ضخمة من أعالي الجبال."
+            type: usage
+      - lemma: "انْخِسَاف"
+        examples:
+          - text: "أدى انخساف التربة المفاجئ إلى ابتلاع جزء من الطريق الساحلي."
+            type: usage
+      - lemma: "تَدَاعٍ"
+        examples:
+          - text: "شهد الجرف البحري تداعيًا مستمرًا نتيجة عوامل التعرية المائية."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "وقع الانهيار الأرضي بعد أيام من الأمطار الغزيرة المتواصلة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "انْهِيَار"
+      entry_id: "{auto}"
+      root: "هور"
+      maqayis_quote: "«الْهَاءُ وَالْوَاوُ وَالرَّاءُ: أَصْلٌ يَدُلُّ عَلَى تَسَاقُطِ شَيْءٍ. مِنْهُ تَهَوَّرَ الْبِنَاءُ: انْهَدَمَ.»"
+    - lemma: "سُقُوط"
+      entry_id: "{auto}"
+      root: "سقط"
+      maqayis_quote: "«السِّينُ وَالْقَافُ وَالطَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الْوُقُوعِ، وَهُوَ مُطَّرِدٌ. مِنْ ذَلِكَ سَقَطَ الشَّيْءُ يَسْقُطُ سُقُوطًا.»"
+    - lemma: "انْخِسَاف"
+      entry_id: "{auto}"
+      root: "خسف"
+      maqayis_quote: "«الْخَاءُ وَالسِّينُ وَالْفَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى غُمُوضٍ وَغُؤُورٍ... غُمُوضُ ظَاهِرِ الْأَرْضِ.»"
+    - lemma: "تَدَاعٍ"
+      entry_id: "{auto}"
+      root: "دعو"
+      maqayis_quote: "«تَدَاعَتِ الْحِيطَانُ، وَذَلِكَ إِذَا سَقَطَ وَاحِدٌ، وَآخَرُ بَعْدَهُ، فَكَأَنَّ الْأَوَّلَ دَعَا الثَّانِيَ.»"
+  per_sense:
+    - lemma: "انْهِيَار"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام والشامل للسقوط المفاجئ للكتل الطبيعية الكبيرة."
+      mwe: false
+    - lemma: "سُقُوط"
+      sense_id: "{auto}"
+      nuance: "يركز على الحركة الهابطة للأسفل بفعل الجاذبية."
+      mwe: false
+    - lemma: "انْخِسَاف"
+      sense_id: "{auto}"
+      nuance: "يخص غؤور سطح الأرض أو هبوطها المفاجئ للداخل (caving in)."
+      mwe: false
+    - lemma: "تَدَاعٍ"
+      sense_id: "{auto}"
+      nuance: "يركز على تتابع سقوط الأجزاء وانهيارها الواحد تلو الآخر."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"هور","maqayis":"«الْهَاءُ وَالْوَاوُ وَالرَّاءُ: أَصْلٌ يَدُلُّ عَلَى تَسَاقُطِ شَيْءٍ. مِنْهُ تَهَوَّرَ الْبِنَاءُ: انْهَدَمَ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سقط","maqayis":"«السِّينُ وَالْقَافُ وَالطَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الْوُقُوعِ، وَهُوَ مُطَّرِدٌ. مِنْ ذَلِكَ سَقَطَ الشَّيْءُ يَسْقُطُ سُقُوطًا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خسف","maqayis":"«الْخَاءُ وَالسِّينُ وَالْفَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى غُمُوضٍ وَغُؤُورٍ... غُمُوضُ ظَاهِرِ الْأَرْضِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"دعو","maqayis":"«تَدَاعَتِ الْحِيطَانُ، وَذَلِكَ إِذَا سَقَطَ وَاحِدٌ، وَآخَرُ بَعْدَهُ، فَكَأَنَّ الْأَوَّلَ دَعَا الثَّانِيَ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العام والشامل للسقوط المفاجئ للكتل الطبيعية الكبيرة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على الحركة الهابطة للأسفل بفعل الجاذبية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يخص غؤور سطح الأرض أو هبوطها المفاجئ للداخل (caving in).","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على تتابع سقوط الأجزاء وانهيارها الواحد تلو الآخر.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

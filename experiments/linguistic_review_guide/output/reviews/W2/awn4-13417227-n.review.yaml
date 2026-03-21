@@ -1,0 +1,235 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "خطأ إملائي في اللمة الأولى: 'اللتزامات مالية' والصواب 'التزامات مالية' بزيادة ألف الوصل."
+      - "المجموعة تركز على الجانب المحاسبي والمالي، والتعريف الحالي عام جداً."
+    observations: "المصطلحات المدرجة (خصوم، مطلوبات) هي مصطلحات تقنية دقيقة في علم المحاسبة والمالية، تقابل مصطلح (Liabilities) الإنجليزي. اللمة 'اللتزامات مالية' تحتاج لتصحيح إملائي وتشكيل."
+  blind_candidates:
+    - lemma: "مَطْلُوبَات"
+      generation_method: ishtiqaq
+      justification: "الاسم الشائع في المحاسبة لما يترتب على المنشأة من حقوق للغير."
+    - lemma: "خُصُوم"
+      generation_method: majaz
+      justification: "مصطلح محاسبي أصيل يقابل الأصول (الموجودات)."
+    - lemma: "دُيُون"
+      generation_method: ishtiqaq
+      justification: "جمع دَيْن، وهو أعمّ وأشمل لكل ما استحق في الذمة."
+    - lemma: "الْتِزَامَات مَالِيَّة"
+      generation_method: tarkib
+      justification: "تعبير اصطلاحي قانوني ومالي يصف الديون والتعهدات المالية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خُصُوم"
+      confirm:
+        - text: "«خصوم: liabilities»"
+          source: "المكنز الزراعي متعدد اللغات (AGROVOC)"
+        - text: "«خصوم مستحقة الدفع: accrued liabilities»"
+          source: "المعجم الموحد لمصطلحات التجارة والمحاسبة (1995)"
+        - text: "«تخصيص الأصول والخصوم: allocation of assets and liabilities»"
+          source: "المعجم الموحد لمصطلحات التجارة والمحاسبة (1995)"
+    - lemma: "مَطْلُوبَات"
+      expands:
+        - text: "«مطاليب تدفع عند الاطلاع: sight liabilities»"
+          source: "المعجم الموحد لمصطلحات التجارة والمحاسبة (1995)"
+          addition: "استخدام صيغة 'مطاليب' كمرادف لمحاسبي لـ 'liabilities'."
+    - lemma: "الْتِزَامَات"
+      confirm:
+        - text: "«التزامات: obligations»"
+          source: "المعجم الموحد لمصطلحات الاقتصاد (2000)"
+        - text: "«التزامات نقدية: currency liabilities»"
+          source: "المعجم الموحد لمصطلحات التجارة والمحاسبة (1995)"
+    - lemma: "مَطَالِيب"
+      confirm:
+        - text: "«خصوم، مطاليب: liabilities»"
+          source: "المعجم الموحد لمصطلحات التجارة والمحاسبة (1995)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "اللتزامات مالية"
+      decision: removed
+      decision_reason: "خطأ إملائي فادح في بداية الكلمة (سقوط الألف)."
+      actions:
+        - command: remove_sense
+          params:
+            sense_id: "{auto}"
+    - lemma: "خُصُوم"
+      decision: confirmed
+      decision_reason: "مصطلح محاسبي قياسي مستقر في المعاجم المتخصصة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خُصُوم"
+    - lemma: "مَطْلُوبَات"
+      decision: confirmed
+      decision_reason: "مصطلح محاسبي شائع جداً في الاستخدام الحديث، وهو جمع مؤنث سالم لاسم المفعول 'مطلوب'."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَطْلُوبَات"
+    - lemma: "الْتِزَامَات مَالِيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "الصيغة الصحيحة والمشكلة للمصطلح المالي والقانوني."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params: {lemma: "الْتِزَامَات مَالِيَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مَطَالِيب"
+      source: stage1
+      decision: confirmed
+      decision_reason: "وردت في المعاجم الموحدة كمرادف مباشر لـ (liabilities) بجانب الخصوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَطَالِيب", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "الْتِزَامَات"
+      source: stage1
+      decision: confirmed
+      decision_reason: "اللفظ العام الذي يشمل الديون وغيرها من الواجبات المالية والقانونية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "الْتِزَامَات", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "كل ما هو مستحق لشخص آخر"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي واسع جداً، ويحتاج إلى لمسة اصطلاحية توضح السياق المالي والمحاسبي."
+    authored:
+      - type: terminological
+        text: "مَا يَجِبُ وَفَاؤُهُ لِلْآخَرِينَ مِنْ دُيُونٍ أَوْ تَعَهُّدَاتٍ مَالِيَّةٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "خُصُوم"
+        examples:
+          - text: "تَشْمَلُ خُصُومُ الشَّرِكَةِ الدُّيُونَ قَصِيرَةَ الأَجَلِ وَتَعَهُّدَاتِ الْمُوَرِّدِينَ."
+            type: usage
+      - lemma: "مَطْلُوبَات"
+        examples:
+          - text: "يَتِمُّ تَرْتِيبُ الْمَطْلُوبَاتِ فِي الْمِيزَانِيَّةِ الْعُمُومِيَّةِ حَسَبَ تَارِيخِ اسْتِحْقَاقِهَا."
+            type: usage
+      - lemma: "الْتِزَامَات مَالِيَّة"
+        examples:
+          - text: "عَلَى الْمُقْتَرِضِ الْوَفَاءُ بِالْتِزَامَاتِهِ الْمَالِيَّةِ تِجَاهَ الْمَصْرِفِ فِي الْمَوَاعِيدِ الْمُحَدَّدَةِ."
+            type: usage
+  actions:
+    - command: update_definition
+      params: {synset_id: "{synset_id}", definition_index: 0, text: "مَا يَجِبُ وَفَاؤُهُ لِلْآخَرِينَ مِنْ دُيُونٍ أَوْ تَعَهُّدَاتٍ مَالِيَّةٍ."}
+    - command: add_synset_example
+      params: {synset_id: "{synset_id}", text: "تَسْعى الشَّرِكَةُ لِتَقْلِيلِ خُصُومِهَا عَنْ طَرِيقِ سَدَادِ الدُّيُونِ الْمُتَرَاكِمَةِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خُصُوم"
+      entry_id: "{auto}"
+      root: "خصم"
+      maqayis_quote: "«الخاء والصاد والميم أصلٌ واحد، وهو النِّزاع والغلَبة.»"
+    - lemma: "مَطْلُوبَات"
+      entry_id: "{auto}"
+      root: "طلب"
+      maqayis_quote: "«الطاء واللام والباء أصلٌ واحد، وهو ابتغاء الشيء.»"
+    - lemma: "مَطَالِيب"
+      entry_id: "{auto}"
+      root: "طلب"
+      maqayis_quote: "«الطاء واللام والباء أصلٌ واحد، وهو ابتغاء الشيء.»"
+    - lemma: "الْتِزَامَات"
+      entry_id: "{auto}"
+      root: "لزم"
+      maqayis_quote: "«اللام والزاء والميم أصلٌ واحد، وهو دَوَام الشيء بالشَّيءِ في ضِيق.»"
+    - lemma: "الْتِزَامَات مَالِيَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "التزامات"
+          root: "لزم"
+          maqayis_quote: "«اللام والزاء والميم أصلٌ واحد...»"
+        - word: "مالية"
+          root: "مول"
+          maqayis_quote: "«الميم والواو واللام كلمةٌ واحدة، وهي المَال.»"
+  per_sense:
+    - lemma: "خُصُوم"
+      sense_id: "{auto}"
+      nuance: "المصطلح المحاسبي التقليدي المقابل للأصول."
+      mwe: false
+    - lemma: "مَطْلُوبَات"
+      sense_id: "{auto}"
+      nuance: "تستخدم بكثرة في المحاسبة الحديثة كبديل أو مرادف للخصوم."
+      mwe: false
+    - lemma: "مَطَالِيب"
+      sense_id: "{auto}"
+      nuance: "صيغة منتهى الجموع لـ 'مطلوب'، تستخدم في بعض المعاجم الموحدة."
+      mwe: false
+    - lemma: "الْتِزَامَات مَالِيَّة"
+      sense_id: "{auto}"
+      nuance: "تعبير قانوني ومالي يركز على جانب التعهد والواجب."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"خصم","maqayis":"«الخاء والصاد والميم أصلٌ واحد، وهو النِّزاع والغلَبة.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"طلب","maqayis":"«الطاء واللام والباء أصلٌ واحد، وهو ابتغاء الشيء.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"التزامات","root":"لزم","maqayis":"«اللام والزاء والميم أصلٌ واحد...»"},{"word":"مالية","root":"مول","maqayis":"«الميم والواو واللام كلمةٌ واحدة، وهي المَال.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح المحاسبي التقليدي المقابل للأصول.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

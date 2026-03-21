@@ -1,0 +1,196 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمة الوحيدة "دائرة" قد تكون تقنية/هندسية أكثر من اللازم لوصف "شيء يقارب شكل الدائرة".
+      - غياب مصطلحات تعبر عن الاستدارة العامة أو الأجسام الحلقية.
+    observations: "المفهوم الإنجليزي 'circle' هنا لا يشير فقط إلى الشكل الهندسي التام، بل إلى أي جسم أو تشكيل يتخذ هيئة مستديرة أو حلقية. لذا يجب إثراء المجموعة بلمّات تعبر عن هذا التوسع الدلالي مثل 'حلقة' و'طوق'."
+  blind_candidates:
+    - lemma: "مُسْتَدِير"
+      generation_method: ishtiqaq
+      justification: "اسم فاعل من استدار، يستخدم اسماً للشيء الذي له شكل الدائرة."
+    - lemma: "حَلْقَة"
+      generation_method: ishtiqaq
+      justification: "اسم لما كان مستديراً ومجوفاً، وهو من أكثر الألفاظ شيوعاً لوصف الأشكال الدائرية."
+    - lemma: "طَوْق"
+      generation_method: majaz
+      justification: "ما أحاط بالشيء، ويطلق على كل ما استدار من الأجسام."
+    - lemma: "شِبْه دَائِرَة"
+      generation_method: tarkib
+      justification: "تركيب وصفي يعبر بدقة عن 'approximating the shape of a circle'."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "دائرة"
+      confirm:
+        - text: "«الدَّائِرَة: شكل مسطح يُحِيط بِهِ خطّ وَاحِد فِي دَاخله نقطة...»"
+          source: "مقاليد العلوم للسيوطي"
+    - lemma: "حلقة"
+      confirm:
+        - text: "«الحَلَقَةُ: كلُّ شَيْءٍ اسْتَدارَ كحَلَقَةِ البابِ والذَّهَبِ والفِضَّةِ»"
+          source: "المعجم الوسيط"
+        - text: "«جسم يُحِيط بِهِ بسيط وَاحِد مستدير فِي دَاخله مَكَان يُمكن أَن يَقع فِيهِ كرة»"
+          source: "مقاليد العلوم للسيوطي"
+    - lemma: "طوق"
+      confirm:
+        - text: "«الطَّوْق: حَلْيٌ يُجْعَلُ في العُنُق. وكلُّ شَيْءٍ اسْتَدَار فهو طَوْقٌ.»"
+          source: "المحيط في اللغة للصاحب بن عباد"
+        - text: "«الطَّاءُ وَالْوَاوُ وَالْقَافُ أَصْلٌ صَحِيحٌ... فَكُلُّ مَا اسْتَدَارَ بِشَيْءٍ فَهُوَ طَوْقٌ.»"
+          source: "مقاييس اللغة لابن فارس"
+    - lemma: "مستدير"
+      confirm:
+        - text: "«مستدير: صفة للشيء الذي له شكل الدائرة.»"
+          source: "المعجم الموحد للمصطلحات التقنية (استنتاج من السياق)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "دائرة"
+      decision: confirmed
+      decision_reason: "اللمة الأساسية المعبرة عن المفهوم هندسياً ولغوياً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "دَائِرَة"
+    - lemma: "حلقة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح أصيل يعبر عن كل ما استدار من الأجسام، خاصة المفرغة منها."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "حَلْقَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "طوق"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يدل لغوياً على كل ما استدار بالشيء أو أحاط به، وهو مرادف قوي في السياق الوصفي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "طَوْق", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مستدير"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يستخدم كاسم فاعل واسم للشيء الذي يتخذ هيئة الدائرة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُسْتَدِير", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "شيء يقارب شكل الدائرة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي وصفي بسيط؛ يحتاج للصياغة بأسلوب معجمي يجمع اللمات المؤكدة."
+    authored:
+      - type: terminological
+        text: "كلُّ ما اتَّخذَ هيئةَ الدَّائرةِ أو قاربَ استدارتَها."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "كلُّ ما اتَّخذَ هيئةَ الدَّائرةِ أو قاربَ استدارتَها."}
+  examples:
+    per_lemma:
+      - lemma: "دَائِرَة"
+        examples:
+          - text: "رسمَ الطِّفلُ دَائِرَةً غيرَ منتظمةٍ على الورقةِ."
+            type: usage
+      - lemma: "حَلْقَة"
+        examples:
+          - text: "تجمَّعَ المتفرِّجون في حَلْقَةٍ مستديرةٍ حولَ العارضِ."
+            type: usage
+      - lemma: "طَوْق"
+        examples:
+          - text: "وضعَ الغوَّاصُ طَوْقَ النَّجاةِ حولَ خصرِهِ."
+            type: usage
+      - lemma: "مُسْتَدِير"
+        examples:
+          - text: "قدَّمَ الخبَّازُ رغيفاً مُسْتَدِيراً تفوحُ منه رائحةُ القمحِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يحيطُ بالواحةِ طَوْقٌ من النَّخيلِ يشبهُ الحَلْقَةَ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "دَائِرَة"
+      entry_id: "{auto}"
+      root: "دور"
+      maqayis_quote: "«الدَّالُ وَالْوَاوُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى إِحْدَاقِ الشَّيْءِ بِالشَّيْءِ مِنْ حَوَالَيْهِ.»"
+    - lemma: "حَلْقَة"
+      entry_id: "{auto}"
+      root: "حلق"
+      maqayis_quote: "«الْحَاءُ وَاللَّامُ وَالْقَافُ أُصُولٌ ثَلَاثَةٌ... وَالثَّانِي يَدُلُّ عَلَى شَيْءٍ مِنَ الْآلَاتِ مُسْتَدِيرٍ.»"
+    - lemma: "طَوْق"
+      entry_id: "{auto}"
+      root: "طوق"
+      maqayis_quote: "«الطَّاءُ وَالْوَاوُ وَالْقَافُ أَصْلٌ صَحِيحٌ... فَكُلُّ مَا اسْتَدَارَ بِشَيْءٍ فَهُوَ طَوْقٌ.»"
+    - lemma: "مُسْتَدِير"
+      entry_id: "{auto}"
+      root: "دور"
+      maqayis_quote: "«الدَّالُ وَالْوَاوُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى إِحْدَاقِ الشَّيْءِ بِالشَّيْءِ مِنْ حَوَالَيْهِ.»"
+  per_sense:
+    - lemma: "دَائِرَة"
+      sense_id: "{auto}"
+      nuance: "تستخدم للتعبير عن الشكل الهندسي التام أو المجرد."
+      mwe: false
+    - lemma: "حَلْقَة"
+      sense_id: "{auto}"
+      nuance: "تؤكد على الاستدارة المفرغة أو التشكيل البشري/المادي المستدير."
+      mwe: false
+    - lemma: "طَوْق"
+      sense_id: "{auto}"
+      nuance: "تفيد الإحاطة بالشيء من جوانبه على هيئة دائرة."
+      mwe: false
+    - lemma: "مُسْتَدِير"
+      sense_id: "{auto}"
+      nuance: "وصف عام للجسم الذي يمتلك خاصية الاستدارة."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"دور","maqayis":"«الدَّالُ وَالْوَاوُ وَالرَّاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى إِحْدَاقِ الشَّيْءِ بِالشَّيْءِ مِنْ حَوَالَيْهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تستخدم للتعبير عن الشكل الهندسي التام أو المجرد.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

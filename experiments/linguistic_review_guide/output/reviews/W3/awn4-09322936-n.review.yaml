@@ -1,0 +1,211 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللّمات في المجموعة الترادفية تفتقر إلى التشكيل الكامل."
+      - "الاكتفاء باسمين فقط بينما توجد تنويعات اشتقاقية (مثل النسبة) وصفيّة."
+    observations: "المجموعة تغطي مفهماً جغرافياً محدداً وهو خليج تايلاند، واللّمات الحالية دقيقة وتمثل الاسم الحديث والاسم التاريخي."
+  blind_candidates:
+    - lemma: "خَلِيجُ تَايْلَانْد"
+      generation_method: tarkib
+      justification: "الاسم الحديث والمعاصر والأكثر شيوعاً للخليج المذكور في التعريف."
+    - lemma: "خَلِيجُ سِيَام"
+      generation_method: tarkib
+      justification: "الاسم التاريخي للخليج (سيام هو الاسم القديم لتايلاند) وما زال مستخدماً في السياقات التاريخية والجغرافية القديمة."
+    - lemma: "الْخَلِيجُ التَّايْلَانْدِيُّ"
+      generation_method: tarkib
+      justification: "صيغة وصفية (بالنسبة) تعبر عن انتساب الخليج لدولة تايلاند، وهي مستساغة لغوياً."
+    - lemma: "خَلِيجُ بَانْكُوك"
+      generation_method: tarkib
+      justification: "تسمية جزئية أو إقليمية تطلق أحياناً على الجزء الشمالي من الخليج (بحر بـانـكـوك)، واستُخدمت أحياناً للدلالة على الخليج كله في خرائط قديمة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خليج تايلاند"
+      confirm:
+        - text: "خليج تايلاند (Gulf of Thailand)"
+          source: "المَكنَز الزراعي متعدد اللغات (ArabTerm)"
+    - lemma: "خليج سيام"
+      confirm:
+        - text: "سِيَام: الاسم القديم لمملكة تايلاند"
+          source: "المعجم الكبير (مجمع اللغة العربية بالقاهرة)"
+      expands:
+        - text: "ارتبط اسم سيام جغرافياً بالخليج لقرون قبل تغيير اسم الدولة إلى تايلاند في عام 1939."
+          source: "تحليل جغرافي تاريخي"
+    - lemma: "الخليج التايلاندي"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "خليج تايلاند"
+      decision: confirmed
+      decision_reason: "الاسم الرسمي والحديث والموثق في المعاجم الاصطلاحية المعاصرة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَلِيجُ تَايْلَانْد"
+    - lemma: "خليج سيام"
+      decision: confirmed
+      decision_reason: "الاسم التاريخي الشائع والذي لا يزال يرد في الكتب والمراجع الجغرافية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَلِيجُ سِيَام"
+    - lemma: "الْخَلِيجُ التَّايْلَانْدِيُّ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صيغة وصفية صحيحة لغوياً وشائعة في الاستخدام الصحفي والجغرافي كبديل للصيغة الإضافية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: create_entry
+          params:
+            lemma: "الْخَلِيجُ التَّايْلَانْدِيُّ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+stage4_content:
+  definition:
+    current: "ذراع من بحر الصين الجنوبي بين الهند الصينية وشبه جزيرة الملايو"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دقيق جغرافياً لكن يحتاج إلى صياغة معجمية أكثر سلاسة وإضافة تفاصيل تميزه ككيان جغرافي."
+    authored:
+      - type: encyclopedic
+        text: "خَلِيجٌ ضَحْلٌ يَقَعُ فِي الْقِسْمِ الْغَرْبِيِّ مِنَ الْمُحِيطِ الْهَادِئِ، وَيُمَثِّلُ ذِرَاعاً لِبَحْرِ الصِّينِ الْجَنُوبِيِّ، يَحُدُّهُ مِنْ جِهَةِ الشَّمَالِ وَالْغَرْبِ تَايْلَانْد، وَمِنْ جِهَةِ الشَّرْقِ كَمْبُودْيَا وَفِييتْنَام، وَمِنْ جِهَةِ الْجَنُوبِ الْغَرْبِيِّ شِبْهُ جَزِيرَةِ الْمَلَايُو."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "خَلِيجٌ ضَحْلٌ يَقَعُ فِي الْقِسْمِ الْغَرْبِيِّ مِنَ الْمُحِيطِ الْهَادِئِ، وَيُمَثِّلُ ذِرَاعاً لِبَحْرِ الصِّينِ الْجَنُوبِيِّ، يَحُدُّهُ مِنْ جِهَةِ الشَّمَالِ وَالْغَرْبِ تَايْلَانْد، وَمِنْ جِهَةِ الشَّرْقِ كَمْبُودْيَا وَفِييتْنَام، وَمِنْ جِهَةِ الْجَنُوبِ الْغَرْبِيِّ شِبْهُ جَزِيرَةِ الْمَلَايُو."
+  examples:
+    per_lemma:
+      - lemma: "خَلِيجُ تَايْلَانْد"
+        examples:
+          - text: "تُعَدُّ مِيَاهُ خَلِيجِ تَايْلَانْد مَوْطِناً لِلْعَدِيدِ مِنَ الشِّعَابِ الْمَرْجَانِيَّةِ وَالْكَائِنَاتِ الْبَحْرِيَّةِ النَّادِرَةِ."
+            type: usage
+      - lemma: "خَلِيجُ سِيَام"
+        examples:
+          - text: "عُرِفَ خَلِيجُ سِيَام قَدِيماً بِأَهَمِّيَّتِهِ الِاسْتِرَاتِيِجِيَّةِ فِي طُرُقِ التِّجَارَةِ الْبَحْرِيَّةِ بَيْنَ الْهِنْدِ وَالصِّينِ."
+            type: usage
+      - lemma: "الْخَلِيجُ التَّايْلَانْدِيُّ"
+        examples:
+          - text: "تَشْتَهِرُ الشَّوَاطِئُ الْمُطِلَّةُ عَلَى الْخَلِيجِ التَّايْلَانْدِيِّ بِمُنْتَجَعَاتِهَا السِّيَاحِيَّةِ الْجَذَّابَةِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "{synset_id}"
+          text: "يُمَثِّلُ خَلِيجُ تَايْلَانْد مَصْدَراً رَئِيسِيّاً لِلثَّرْوَةِ السَّمَكِيَّةِ لِلدُّوَلِ الْمُطِلَّةِ عَلَيْهِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خَلِيجُ تَايْلَانْد"
+      entry_id: "{auto}"
+      roots:
+        - word: "خليج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"
+        - word: "تايلاند"
+          root: null
+    - lemma: "خَلِيجُ سِيَام"
+      entry_id: "{auto}"
+      roots:
+        - word: "خليج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"
+        - word: "سيام"
+          root: null
+    - lemma: "الْخَلِيجُ التَّايْلَانْدِيُّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "الخليج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ...»"
+        - word: "التايلاندي"
+          root: null
+  per_sense:
+    - lemma: "خَلِيجُ تَايْلَانْد"
+      sense_id: "{auto}"
+      nuance: "الاسم الرسمي والحديث المعتمد دولياً للدلالة على هذا المسطح المائي."
+      mwe: true
+    - lemma: "خَلِيجُ سِيَام"
+      sense_id: "{auto}"
+      nuance: "الاسم التاريخي القديم، ويستخدم غالباً في السياقات التاريخية أو للإشارة إلى الحقبة التي كان يُطلق فيها على تايلاند اسم سيام."
+      mwe: true
+    - lemma: "الْخَلِيجُ التَّايْلَانْدِيُّ"
+      sense_id: "{auto}"
+      nuance: "صيغة وصفية تستخدم للتنويع اللغوي أو في السياقات الصحفية، وهي أقل رسمية من الصيغة الإضافية."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"خليج","root":"خلج","maqayis_quote":"«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"},{"word":"تايلاند","root":null}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"خليج","root":"خلج","maqayis_quote":"«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"},{"word":"سيام","root":null}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"الخليج","root":"خلج","maqayis_quote":"«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ...»"},{"word":"التايلاندي","root":null}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الرسمي والحديث المعتمد دولياً للدلالة على هذا المسطح المائي.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم التاريخي القديم، ويستخدم غالباً في السياقات التاريخية أو للإشارة إلى الحقبة التي كان يُطلق فيها على تايلاند اسم سيام.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"صيغة وصفية تستخدم للتنويع اللغوي أو في السياقات الصحفية، وهي أقل رسمية من الصيغة الإضافية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,237 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "خلو المجموعة من اللمات التقنية أو الحديثة التي تعبر عن مفهوم 'bank' أو 'array' في السياق التكنولوجي المعاصر."
+    observations: "المفهوم يشير إلى ترتيب خطي أو طبقي لأشياء متشابهة، مثل مجموعة أزرار أو مصابيح، واللمات الحالية جيدة لكنها تفتقر للشمول."
+  blind_candidates:
+    - lemma: "مَصْفُوفَةٌ"
+      generation_method: ishtiqaq
+      justification: "مشتقة من 'صفف'، وتعبر عن ترتيب العناصر بشكل منتظم في صفوف وأعمدة، وتستخدم بكثرة في السياقات التقنية."
+    - lemma: "نَضِيدٌ"
+      generation_method: ishtiqaq
+      justification: "مشتقة من 'نضد'، وتعني الشيء الذي ضم بعضه إلى بعض ورتب بانتظام."
+    - lemma: "مَدْرَجٌ"
+      generation_method: ishtiqaq
+      justification: "مشتقة من 'درج'، وتعبر عن الترتيب في طبقات أو درجات."
+    - lemma: "تَرْتِيبٌ"
+      generation_method: ishtiqaq
+      justification: "المصدر من 'رتب'، وهو المفهوم العام للانتظام، ويصلح كمرادف عام."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "صَفّ"
+      confirm:
+        - text: "«الصَّفُّ: أن تجعل الشيء على خط مستو، كالناس والأشجار ونحو ذلك»"
+          source: "المفردات في غريب القرآن للراغب الأصفهاني"
+        - text: "«القومُ ـُ صَفًّا: انتظموا متجاورين»"
+          source: "المعجم الكبير"
+    - lemma: "نَسَق"
+      confirm:
+        - text: "«النَسَقُ من كلِّ شَيْءٍ: ما كانَ على نِظامٍ واحِدٍ»"
+          source: "المحيط في اللغة للصاحب بن عباد"
+        - text: "«ما كان على نظام واحد من كلِّ شيء \"جاءوا نَسَقًا\"»"
+          source: "معجم اللغة العربية المعاصرة لأحمد مختار عمر"
+    - lemma: "مَصْفُوفَة"
+      confirm:
+        - text: "«مجموعة من العناصر من النوع نفسه في ترتيب معين يمكن التعامل معها كوحدة»"
+          source: "المعجم الموحد لمصطلحات تقانة (تكنولوجيا) المعلومات (2011)"
+    - lemma: "نَضِيد"
+      expands:
+        - text: "«المنسق المنظم المضموم بعضه إلى بعض.»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+          addition: "يدل على الترتيب المنتظم للأشياء."
+    - lemma: "مَدْرَج"
+      contradicts:
+        - text: "«المكان الذي صُفَّت فيه المقاعد في شكل درجات»"
+          source: "معجم الصواب اللغوي لأحمد مختار عمر"
+          conflict: "الكلمة تدل على المكان (اسم مكان) وليس على الترتيب نفسه."
+    - lemma: "تَرْتِيب"
+      contradicts:
+        - text: "«التَّرتيبُ: جعل الْأَشْيَاء المتعددة بِحَيْثُ يُطلق عَلَيْهَا اسْم الْوَاحِد»"
+          source: "معجم مقاليد العلوم للسيوطي"
+          conflict: "المصطلح يشير إلى المعنى العام للترتيب وهو المفهوم الأعم للمجموعة الترادفية (Hypernym)."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "صَفّ"
+      decision: confirmed
+      decision_reason: "الكلمة فصيحة وأصيلة وتعبر بدقة عن ترتيب الأشياء في خط مستوٍ."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "صَفٌّ"
+    - lemma: "نَسَق"
+      decision: confirmed
+      decision_reason: "الكلمة تعبر عن الترتيب والانتظام، وتصلح للدلالة على الأشياء المصطفة والمترابطة كنسق واحد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نَسَقٌ"
+    - lemma: "مَصْفُوفَةٌ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح حديث شائع في السياقات التقنية والعلمية للدلالة على مجموعة مترتبة من العناصر المتشابهة (array)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "مَصْفُوفَةٌ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+    - lemma: "نَضِيدٌ"
+      source: stage1
+      decision: removed
+      decision_reason: "على الرغم من دلالتها على الانتظام، إلا أنها غير شائعة الاستخدام في هذا السياق مقارنة بغيرها من المرادفات."
+    - lemma: "مَدْرَجٌ"
+      source: stage1
+      decision: removed
+      decision_reason: "تستخدم عادة كاسم مكان للدلالة على المدرجات ولا تدل مباشرة على المجموعات المتراصة من الأشياء."
+    - lemma: "تَرْتِيبٌ"
+      source: stage1
+      decision: removed
+      decision_reason: "معناها عام جداً ويمثل المفهوم الأعم (Hypernym) للمجموعة وليس المفهوم الخاص بها."
+
+stage4_content:
+  definition:
+    current: "ترتيب لأشياء متشابهة في صف أو في طبقات"
+    assessment:
+      decision: revise
+      reason: "صياغة التعريف بأسلوب معجمي أدق مع ضبط الشكل."
+    authored:
+      - type: terminological
+        text: "تَرْتِيبٌ لِأَشْيَاءَ مُتَشَابِهَةٍ فِي صَفٍّ أَوْ فِي طَبَقَاتٍ مُنْتَظِمَةٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "تَرْتِيبٌ لِأَشْيَاءَ مُتَشَابِهَةٍ فِي صَفٍّ أَوْ فِي طَبَقَاتٍ مُنْتَظِمَةٍ."
+
+  examples:
+    per_lemma:
+      - lemma: "صَفٌّ"
+        examples:
+          - text: "رُتِّبَتِ الْمَصَابِيحُ فِي صَفٍّ وَاحِدٍ لِإِنَارَةِ الْمَمَرِّ."
+            type: usage
+      - lemma: "نَسَقٌ"
+        examples:
+          - text: "جَاءَتِ الْأَجْهِزَةُ مُرَتَّبَةً عَلَى نَسَقٍ مُمَيَّزٍ لِتَسْهِيلِ الِاسْتِخْدَامِ."
+            type: usage
+      - lemma: "مَصْفُوفَةٌ"
+        examples:
+          - text: "تَتَكَوَّنُ اللَّوْحَةُ الْإِلِكْتُرُونِيَّةُ مِنْ مَصْفُوفَةٍ مِنَ الْمُقَاوِمَاتِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "رُتِّبَتِ الْمَصَابِيحُ فِي صَفٍّ وَاحِدٍ لِإِنَارَةِ الْمَمَرِّ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "جَاءَتِ الْأَجْهِزَةُ مُرَتَّبَةً عَلَى نَسَقٍ مُمَيَّزٍ لِتَسْهِيلِ الِاسْتِخْدَامِ."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "تَتَكَوَّنُ اللَّوْحَةُ الْإِلِكْتُرُونِيَّةُ مِنْ مَصْفُوفَةٍ مِنَ الْمُقَاوِمَاتِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "صَفٌّ"
+      entry_id: "{auto}"
+      root: "صفف"
+      maqayis_quote: "«الصَّادُ وَالْفَاءُ يَدُلُّ عَلَى أَصْلٍ وَاحِدٍ، وَهُوَ اسْتِوَاءٌ فِي الشَّيْءِ وَتَسَاوٍ بَيْنَ شَيْئَيْنِ فِي الْمَقَرِّ... وَالْأَصْلُ فِي ذَلِكَ الصَّفْصَفُ، وَهُوَ الْمُسْتَوِي مِنَ الْأَرْضِ»"
+    - lemma: "نَسَقٌ"
+      entry_id: "{auto}"
+      root: "نسق"
+      maqayis_quote: "«النُّونُ وَالسِّينُ وَالْقَافُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَتَابُعٍ فِي الشَّيْءِ. وَكَلَامٌ نَسَقٌ: جَاءَ عَلَى نِظَامٍ وَاحِدٍ قَدْ عُطِفَ بَعْضُهُ عَلَى بَعْضٍ»"
+    - lemma: "مَصْفُوفَةٌ"
+      entry_id: "{auto}"
+      root: "صفف"
+      maqayis_quote: "«الصَّادُ وَالْفَاءُ يَدُلُّ عَلَى أَصْلٍ وَاحِدٍ، وَهُوَ اسْتِوَاءٌ فِي الشَّيْءِ وَتَسَاوٍ بَيْنَ شَيْئَيْنِ فِي الْمَقَرِّ»"
+
+  per_sense:
+    - lemma: "صَفٌّ"
+      sense_id: "{auto}"
+      nuance: "يُشِيرُ بِشَكْلٍ مُبَاشِرٍ إِلَى الِاصْطِفَافِ الْأُفُقِيِّ أَوِ الْمُتَجَاوِرِ لِلْأَشْيَاءِ."
+      mwe: false
+    - lemma: "نَسَقٌ"
+      sense_id: "{auto}"
+      nuance: "يُعَبِّرُ عَنِ الِانْتِظَامِ وَالتَّتَابُعِ الْمُنَظَّمِ، سَوَاءً كَانَ هَنْدَسِيًّا أَوْ تَنْظِيمِيًّا."
+      mwe: false
+    - lemma: "مَصْفُوفَةٌ"
+      sense_id: "{auto}"
+      nuance: "مُصْطَلَحٌ يُفَضَّلُ فِي السِّيَاقَاتِ التِّقْنِيَّةِ وَالْعِلْمِيَّةِ لِوَصْفِ تَرْتِيبِ الْعَنَاصِرِ فِي شَبَكَةٍ أَوْ خُطُوطٍ مُتَعَامِدَةٍ."
+      mwe: false
+
+  synset:
+    cultural_fit: native
+
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صفف","maqayis":"«الصَّادُ وَالْفَاءُ يَدُلُّ عَلَى أَصْلٍ وَاحِدٍ، وَهُوَ اسْتِوَاءٌ فِي الشَّيْءِ وَتَسَاوٍ بَيْنَ شَيْئَيْنِ فِي الْمَقَرِّ... وَالْأَصْلُ فِي ذَلِكَ الصَّفْصَفُ، وَهُوَ الْمُسْتَوِي مِنَ الْأَرْضِ»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نسق","maqayis":"«النُّونُ وَالسِّينُ وَالْقَافُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَتَابُعٍ فِي الشَّيْءِ. وَكَلَامٌ نَسَقٌ: جَاءَ عَلَى نِظَامٍ وَاحِدٍ قَدْ عُطِفَ بَعْضُهُ عَلَى بَعْضٍ»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"صفف","maqayis":"«الصَّادُ وَالْفَاءُ يَدُلُّ عَلَى أَصْلٍ وَاحِدٍ، وَهُوَ اسْتِوَاءٌ فِي الشَّيْءِ وَتَسَاوٍ بَيْنَ شَيْئَيْنِ فِي الْمَقَرِّ»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُشِيرُ بِشَكْلٍ مُبَاشِرٍ إِلَى الِاصْطِفَافِ الْأُفُقِيِّ أَوِ الْمُتَجَاوِرِ لِلْأَشْيَاءِ.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُعَبِّرُ عَنِ الِانْتِظَامِ وَالتَّتَابُعِ الْمُنَظَّمِ، سَوَاءً كَانَ هَنْدَسِيًّا أَوْ تَنْظِيمِيًّا.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"مُصْطَلَحٌ يُفَضَّلُ فِي السِّيَاقَاتِ التِّقْنِيَّةِ وَالْعِلْمِيَّةِ لِوَصْفِ تَرْتِيبِ الْعَنَاصِرِ فِي شَبَكَةٍ أَوْ خُطُوطٍ مُتَعَامِدَةٍ.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

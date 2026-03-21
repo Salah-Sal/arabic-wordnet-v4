@@ -1,0 +1,267 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة تفتقر إلى الألفاظ المفردة القوية التي تعبّر عن المفهوم (مثل: قبول، ملاحة)."
+      - "اللمّة 'جاذبية شخصية' هي عبارة وصفية (MWE) بينما توجد بدائل معجمية أصيلة."
+    observations: "المفهوم يدور حول السحر الشخصي والقبول الاجتماعي، وهو مفهوم متجذر في الثقافة العربية تحت مسمى 'القبول' أو 'الملاحة' أو 'حسن السمت'."
+  blind_candidates:
+    - lemma: "جَاذِبِيَّة"
+      generation_method: ishtiqaq
+      justification: "المصدر الصناعي من 'جذب'، وهي الحالة التي يستمال بها الآخرون."
+    - lemma: "كَارِيزْمَا"
+      generation_method: taarib
+      justification: "المصطلح المعاصر الأكثر شيوعاً للتعبير عن الجاذبية الشخصية الطاغية."
+    - lemma: "حُسْنُ المَعْشَر"
+      generation_method: tarkib
+      justification: "تعبير تراثي يدل على طيب التعامل الذي يجعل الشخص جذاباً اجتماعياً."
+    - lemma: "قَبُول"
+      generation_method: majaz
+      justification: "لفظ عربي أصيل يطلق على محبة الناس للشخص ورضاهم عنه."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "جاذبية شخصية"
+      evidence_status: "no_material_found"
+    - lemma: "حسن السمت"
+      confirm:
+        - text: "«يُقَالُ إِنَّ فُلَانًا لَحَسَنُ السَّمْتِ، إِذَا كَانَ مُسْتَقِيمَ الطَّرِيقَةِ مُتَحَرِّيًا لِفِعْلِ الْخَيْرِ.»"
+          source: "مقاييس اللغة"
+        - text: "«حسن السمت: محبة ما يكمل النفس.»"
+          source: "التوقيف على مهمات التعاريف"
+    - lemma: "جَاذِبِيَّة"
+      confirm:
+        - text: "«(الجاذبية) الْحَالة الَّتِي يجذب بهَا صَاحبهَا غَيره يُقَال فلَان لَهُ جاذبية يستميل غَيره إِلَيْهِ.»"
+          source: "المعجم الوسيط"
+    - lemma: "قَبُول"
+      confirm:
+        - text: "«(الْقبُول) الرِّضَا بالشَّيْء وميل النَّفس إِلَيْهِ وَالْحسن والشارة.»"
+          source: "المعجم الوسيط"
+        - text: "«يتمتع بالقبول بين الناس.»"
+          source: "معجم الصواب اللغوي"
+    - lemma: "مَلَاحَة"
+      confirm:
+        - text: "«مَلَاحَة: الجمال وحسن المظهر.»"
+          source: "موسوعة السلطان قابوس"
+        - text: "«مَلُحَ الشَّيْءُ مَلَاحَةً وَمِلْحًا... مَلِيح.»"
+          source: "مقاييس اللغة"
+    - lemma: "لَبَاقَة"
+      confirm:
+        - text: "«اللَّبِقُ: الْحَاذِقُ بِالشَّيْءِ يَعْمَلُهُ... وَالْمَصْدَرُ اللَّبَاقَةُ.»"
+          source: "مقاييس اللغة"
+    - lemma: "كَارِيزْمَا"
+      confirm:
+        - text: "«(3) جاذبية؛ فتنة the charisma of popular actors.»"
+          source: "المورد الحديث"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "جاذبية شخصية"
+      decision: confirmed
+      decision_reason: "مصطلح تركيبي شائع جداً في المعاجم الحديثة والترجمات."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "جَاذِبِيَّة شَخْصِيَّة"
+    - lemma: "حسن السمت"
+      decision: confirmed
+      decision_reason: "مصطلح تراثي أصيل يعبر عن الوقار وحسن الهيئة والقبول."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حُسْنُ السَّمْتِ"
+    - lemma: "جَاذِبِيَّة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "أقوى لفظ مفرد يعبر عن المفهوم ومدعوم بنص المعجم الوسيط."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "جَاذِبِيَّة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-04626278-n"}
+    - lemma: "قَبُول"
+      source: stage1
+      decision: confirmed
+      decision_reason: "لفظ أصيل يعبر عن المحبة والرضا الاجتماعي الذي يحظى به الفرد."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "قَبُول", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-04626278-n"}
+    - lemma: "مَلَاحَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبر عن الجمال والحسن الذي يستميل القلوب."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَلَاحَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-04626278-n"}
+    - lemma: "لَبَاقَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبر عن الحذق الاجتماعي والبراعة في التعامل مما يزيد الجاذبية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "لَبَاقَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-04626278-n"}
+    - lemma: "كَارِيزْمَا"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح معاصر ضروري لوصف الجاذبية القيادية والتأثير الاجتماعي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "كَارِيزْمَا", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-04626278-n"}
+
+stage4_content:
+  definition:
+    current: "مجموعة الصفات التي تجعل الشخص جذاباً اجتماعياً"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي بسيط ويحتاج إلى صياغة معجمية أكثر دقة وشمولاً."
+    authored:
+      - type: terminological
+        text: "مجموعة السّمات النفسيّة والشكليّة التي تمنح الفرد حضوراً محبّباً وتجعله مقبولاً ومؤثّراً في الآخرين."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-04626278-n", definition_index: 0, text: "مجموعة السّمات النفسيّة والشكليّة التي تمنح الفرد حضوراً محبّباً وتجعله مقبولاً ومؤثّراً في الآخرين."}
+  examples:
+    per_lemma:
+      - lemma: "جَاذِبِيَّة"
+        examples:
+          - text: "يتمتع هذا المحاضر بجاذبية طبيعية تأسر الحاضرين."
+            type: usage
+      - lemma: "قَبُول"
+        examples:
+          - text: "ألقى الله عليه القبول فصار محبوباً عند كل من يراه."
+            type: usage
+      - lemma: "حُسْنُ السَّمْتِ"
+        examples:
+          - text: "عُرف العالم بحسن السمت والوقار في مجلسه."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-04626278-n", text: "تمتلك تلك الشخصية كاريزما تجعل الناس يلتفون حولها في كل محفل."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "جَاذِبِيَّة"
+      entry_id: "{auto}"
+      root: "جذب"
+      maqayis_quote: "«الْجِيمُ وَالذَّالُ وَالْبَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى بَتْرِ الشَّيْءِ... فَكَأَنَّهَا جَذَبَتْهُ إِلَى نَفْسِهَا.»"
+    - lemma: "قَبُول"
+      entry_id: "{auto}"
+      root: "قبل"
+      maqayis_quote: "«الْقَافُ وَالْبَاءُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ تَدُلُّ كَلِمُهُ كُلُّهَا عَلَى مُوَاجَهَةِ الشَّيْءِ لِلشَّيْءِ... وَقَبِلْتُ الشَّيْءَ قَبُولًا.»"
+    - lemma: "مَلَاحَة"
+      entry_id: "{auto}"
+      root: "ملح"
+      maqayis_quote: "«الْمِيمُ وَاللَّامُ وَالْحَاءُ أَصْلٌ صَحِيحٌ لَهُ فُرُوعٌ تَتَقَارَبُ فِي الْمَعْنَى... وَمَلُحَ الشَّيْءُ مَلَاحَةً وَمِلْحًا.»"
+    - lemma: "لَبَاقَة"
+      entry_id: "{auto}"
+      root: "لبق"
+      maqayis_quote: "«اللَّامُ وَالْبَاءُ وَالْقَافُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى خَلْطِ شَيْءٍ لِتَطْيِيبِهِ... اللَّبِقُ: الْحَاذِقُ بِالشَّيْءِ يَعْمَلُهُ.»"
+    - lemma: "حُسْنُ السَّمْتِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "حسن"
+          root: "حسن"
+          maqayis_quote: "«الحاء والسين والنون أصلٌ واحد، وهو ضدُّ القُبح.»"
+        - word: "السمت"
+          root: "سمت"
+          maqayis_quote: "«السِّينُ وَالْمِيمُ وَالتَّاءُ أَصْلٌ يَدُلُّ عَلَى نَهْجٍ وَقَصْدٍ وَطَرِيقَةٍ.»"
+  per_sense:
+    - lemma: "جَاذِبِيَّة"
+      sense_id: "{auto}"
+      nuance: "المصطلح المباشر للقدرة على استمالة الآخرين."
+      mwe: false
+    - lemma: "قَبُول"
+      sense_id: "{auto}"
+      nuance: "جاذبية فطرية ومحبة يضعها الله في الشخص تجعله محبوباً من الجميع."
+      mwe: false
+    - lemma: "مَلَاحَة"
+      sense_id: "{auto}"
+      nuance: "تجمع بين الحسن الشكلي ولطافة الروح."
+      mwe: false
+    - lemma: "حُسْنُ السَّمْتِ"
+      sense_id: "{auto}"
+      nuance: "جاذبية تنبع من الهيبة والوقار وحسن الخلق."
+      mwe: false
+    - lemma: "لَبَاقَة"
+      sense_id: "{auto}"
+      nuance: "جاذبية ناتجة عن البراعة في الحديث والتصرف الاجتماعي."
+      mwe: false
+    - lemma: "كَارِيزْمَا"
+      sense_id: "{auto}"
+      nuance: "جاذبية قيادية طاغية وقدرة على التأثير العميق."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جذب","maqayis":"«الْجِيمُ وَالذَّالُ وَالْبَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى بَتْرِ الشَّيْءِ... فَكَأَنَّهَا جَذَبَتْهُ إِلَى نَفْسِهَا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"قبل","maqayis":"«الْقَافُ وَالْبَاءُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ تَدُلُّ كَلِمُهُ كُلُّهَا عَلَى مُوَاجَهَةِ الشَّيْءِ لِلشَّيْءِ... وَقَبِلْتُ الشَّيْءَ قَبُولًا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"جاذبية فطرية ومحبة يضعها الله في الشخص تجعله محبوباً من الجميع.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-04626278-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-04626278-n"
+        score: 0.95

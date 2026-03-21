@@ -1,0 +1,220 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي دوري (استخدام كلمة 'اكتشاف' لتعريف 'اكتشاف')."
+      - "نقص في اللمات التي تعبر عن الجوانب المختلفة لعملية الوجدان (مثل العثور بعد بحث)."
+    observations: "المجموعة تركز على فعل الوجدان أو إظهار المخفي. اللمات الحالية تغطي المعنى العام، ولكن يمكن إثراؤها بمرادفات تعبر عن اكتشاف المفقود أو استجلاء المستور."
+  blind_candidates:
+    - lemma: "اِكْتِشَاف"
+      generation_method: ishtiqaq
+      justification: "المصدر القياسي للفعل اكتشف، وهو اللفظ الأكثر شيوعاً للمفهوم."
+    - lemma: "كَشْف"
+      generation_method: ishtiqaq
+      justification: "المصدر الأصلي الدال على رفع الغطاء وإظهار المستور."
+    - lemma: "عُثُور"
+      generation_method: ishtiqaq
+      justification: "يدل على الوجدان بعد غياب أو بحث، ويناسب معنى 'find' الإنجليزي."
+    - lemma: "اِسْتِنْبَاط"
+      generation_method: ishtiqaq
+      justification: "يدل على استخراج الشيء الخفي بفرط الذهن، ويناسب الاكتشافات العلمية."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "اِكْتِشَاف"
+      confirm:
+        - text: "«اكتشاف: عمليّة الكشف عن شيء أو أمر مجهول»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«اكتشف الشَّيءَ: عثُر عليه»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "كَشْف"
+      confirm:
+        - text: "«الكَشْفُ: رَفْعُكَ الشيء عما يُواريه ويغطّيه»"
+          source: "لسان العرب"
+        - text: "«الكشف: في اللغة: رفع الحجاب»"
+          source: "كتاب التعريفات للجرجاني"
+    - lemma: "عُثُور"
+      confirm:
+        - text: "«عَثَرَ الرَّجُلُ يَعْثُرُ عُثُورًا وَعَثَرًا، إِذَا اطَّلَعَ عَلَى أَمْرٍ لَمْ يَطَّلِعْ عَلَيْهِ غَيْرُهُ»"
+          source: "مقاييس اللغة"
+        - text: "«العثور: الاطلاع على ما كان خفيا عنه»"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+    - lemma: "اِسْتِجْلَاء"
+      confirm:
+        - text: "«تَجَلَّى الشَّيْءُ، إِذَا انْكَشَفَ... جَلَوْتُ السَّيْفَ جَلَاءً»"
+          source: "مقاييس اللغة"
+        - text: "«استجلاء: طلب جلاء الشيء وظهوره»"
+          source: "المعجم الوسيط (بالقياس)"
+    - lemma: "اِسْتِنْبَاط"
+      expands:
+        - text: "«الاستنباط: اصطلاحا: استخراج المعاني من النصوص بفرط الذهن، وقوة القريحة»"
+          source: "كتاب التعريفات للجرجاني"
+          addition: "يخصص الاكتشاف في المجال الذهني والنصي."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "اكتشاف"
+      decision: confirmed
+      decision_reason: "اللفظ الأساسي والمباشر للمفهوم في اللغة المعاصرة، مؤيد بقوة في المعاجم الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "اِكْتِشَاف"
+    - lemma: "كشف"
+      decision: confirmed
+      decision_reason: "الأصل اللغوي الذي يعبر عن رفع الغطاء، وهو مرادف أصيل للاكتشاف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "كَشْف"
+    - lemma: "عُثُور"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر بدقة عن جانب 'find' في الإنجليزية، أي الوجدان بعد خفاء أو ضياع."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "عُثُور", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-00043933-n"}
+    - lemma: "اِسْتِجْلَاء"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر عن جانب 'uncovering' وطلب الوضوح، ويناسب السياقات الأدبية والعلمية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "اِسْتِجْلَاء", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-00043933-n"}
+    - lemma: "اِسْتِنْبَاط"
+      source: stage1
+      decision: removed
+      decision_reason: "على الرغم من صلته بالمعنى، إلا أنه أخص بالاكتشافات الذهنية والاستنتاجية (deduction) من الاكتشاف العام."
+
+stage4_content:
+  definition:
+    current: "فعل اكتشاف شيء ما"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دوري ولا يقدم شرحاً حقيقياً للمفهوم."
+    authored:
+      - type: terminological
+        text: "إِظْهَارُ مَا كَانَ مَسْتُوراً أَوْ إِيجَادُ مَا كَانَ مَجْهُولاً عَنْ طَرِيقِ البَحْثِ أَوْ الصُّدْفَةِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-00043933-n", definition_index: 0, text: "إِظْهَارُ مَا كَانَ مَسْتُوراً أَوْ إِيجَادُ مَا كَانَ مَجْهُولاً عَنْ طَرِيقِ البَحْثِ أَوْ الصُّدْفَةِ."}
+  examples:
+    per_lemma:
+      - lemma: "اِكْتِشَاف"
+        examples:
+          - text: "أدى اكتشاف البنسلين إلى ثورة في عالم الطب."
+            type: usage
+      - lemma: "كَشْف"
+        examples:
+          - text: "يساهم الكشف عن الآثار القديمة في فهم تاريخ الشعوب."
+            type: usage
+      - lemma: "عُثُور"
+        examples:
+          - text: "كان العثور على الوثائق المفقودة لحظة حاسمة في القضية."
+            type: usage
+      - lemma: "اِسْتِجْلَاء"
+        examples:
+          - text: "يسعى العلماء دائماً إلى استجلاء غوامض الكون."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-00043933-n", text: "تم تكريم العالم على اكتشافه لنظرية جديدة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "اِكْتِشَاف"
+      entry_id: "{auto}"
+      root: "كشف"
+      maqayis_quote: "«الْكَافُ وَالشِّينُ وَالْفَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى سَرْوِ الشَّيْءِ عَنِ الشَّيْءِ، كَالثَّوْبِ يُسْرَى عَنِ الْبَدَنِ.»"
+    - lemma: "كَشْف"
+      entry_id: "{auto}"
+      root: "كشف"
+      maqayis_quote: "«الْكَافُ وَالشِّينُ وَالْفَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى سَرْوِ الشَّيْءِ عَنِ الشَّيْءِ، كَالثَّوْبِ يُسْرَى عَنِ الْبَدَنِ.»"
+    - lemma: "عُثُور"
+      entry_id: "{auto}"
+      root: "عثر"
+      maqayis_quote: "«الْعَيْنُ وَالثَّاءُ وَالرَّاءُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى الِاطِّلَاعِ عَلَى الشَّيْءِ... عَثَرَ يَعْثُرُ عُثُورًا، إِذَا اطَّلَعَ عَلَى أَمْرٍ لَمْ يَطَّلِعْ عَلَيْهِ غَيْرُهُ.»"
+    - lemma: "اِسْتِجْلَاء"
+      entry_id: "{auto}"
+      root: "جلو"
+      maqayis_quote: "«الْجِيمُ وَاللَّامُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ، وَقِيَاسٌ مُطَّرِدٌ، وَهُوَ انْكِشَافُ الشَّيْءِ وَبُرُوزُهُ.»"
+  per_sense:
+    - lemma: "اِكْتِشَاف"
+      sense_id: "{auto}"
+      nuance: "اللفظ المعاصر الشامل لعملية التوصل لشيء جديد مادي أو معنوي."
+      mwe: false
+    - lemma: "كَشْف"
+      sense_id: "{auto}"
+      nuance: "يركز على فعل الإزالة (إزالة الستر أو الغطاء) لإظهار ما تحته."
+      mwe: false
+    - lemma: "عُثُور"
+      sense_id: "{auto}"
+      nuance: "يركز على لحظة الوجدان أو المصادفة بعد فقد أو جهالة."
+      mwe: false
+    - lemma: "اِسْتِجْلَاء"
+      sense_id: "{auto}"
+      nuance: "يتضمن طلباً للوضوح والبيان وإزالة الغموض عن أمر مستور."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"كشف","maqayis":"«الْكَافُ وَالشِّينُ وَالْفَاءُ أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى سَرْوِ الشَّيْءِ عَنِ الشَّيْءِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عثر","maqayis":"«الْعَيْنُ وَالثَّاءُ وَالرَّاءُ أَصْلَانِ صَحِيحَانِ، يَدُلُّ أَحَدُهُمَا عَلَى الِاطِّلَاعِ عَلَى الشَّيْءِ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"جلو","maqayis":"«الْجِيمُ وَاللَّامُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ، وَقِيَاسٌ مُطَّرِدٌ، وَهُوَ انْكِشَافُ الشَّيْءِ وَبُرُوزُهُ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ المعاصر الشامل","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-00043933-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-00043933-n"
+        score: 0.95

@@ -1,0 +1,202 @@
+stage1_review:
+  assessment:
+    concerns:
+      - اللمة الموجودة تفتقر إلى التشكيل الكامل.
+      - الحاجة إلى مصطلحات أكثر تخصصاً مثل "مسكوكات" و"نميات" لتمثيل المفهوم بشكل أدق في السياق المعجمي والعلمي.
+    observations: "المفهوم يشير إلى هواية أو دراسة جمع العملات المعدنية. المصطلح العربي الشائع هو 'مجموعة عملات'، ولكن في السياقات الأكاديمية والمتحفية يُستخدم لفظ 'المسكوكات' أو 'النميات' (المتعلق بعلم النميات)."
+  blind_candidates:
+    - lemma: "مَجْمُوعَةُ عُمْلَاتٍ"
+      generation_method: tarkib
+      justification: "تعبير إضافي مباشر يصف المفهوم بدقة وشيوع."
+    - lemma: "مَسْكُوكَات"
+      generation_method: ishtiqaq
+      justification: "لفظ يطلق على العملات المضروبة (المسكوكة)، ويُستخدم جمعاً للإشارة إلى مجموعات العملات في المتاحف والدراسات."
+    - lemma: "نُمِّيَّات"
+      generation_method: ishtiqaq
+      justification: "مشتق من 'نُمِّيّ' (العملة الصغيرة)، وهو المصطلح العربي المقابل لـ numismatics، ويشير إلى العملات المجموعة للدراسة."
+    - lemma: "مَجْمُوعَةُ مَسْكُوكَاتٍ"
+      generation_method: tarkib
+      justification: "تعبير أكثر رسمية وتخصصاً يجمع بين المجموع (collection) والمسكوكات (coins)."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مَجْمُوعَةُ عُمْلَاتٍ"
+      confirm:
+        - text: "«اكتنز أموالاً كثيرة/ مجموعة من العملات»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "مَسْكُوكَات"
+      confirm:
+        - text: "«المَسْكوكاتُ: قِطَعٌ معدنيةٌ تحملُ خاتمًا من السُّلْطة العامة لضمانِ وزنها ودرجةِ نقائِها»"
+          source: "المعجم الكبير"
+        - text: "«مسكوكات: numismatics»"
+          source: "مسرد الجغرافيا والتاريخ (ArabTerm)"
+    - lemma: "نُمِّيَّات"
+      confirm:
+        - text: "«علم النُّمِّيّات: دراسة [أو جَمْع] القِطع النقدية والمداليات والأوراق المالية إلخ.»"
+          source: "المورد الحديث"
+      expands:
+        - text: "«النُّمِّيُّ الفَلْس بالرومية، وقيل: الدرهم الذي فيه رَصاص أو نُحاس، والواحدة نُمِّيَّةٌ»"
+          source: "لسان العرب"
+          addition: "تأصيل اللفظ كاسم للعملة."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مجموعة عملات"
+      decision: confirmed
+      decision_reason: "مصطلح شائع ومباشر يعبر عن المفهوم بوضوح."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَجْمُوعَةُ عُمْلَاتٍ"
+    - lemma: "مَسْكُوكَات"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح الفني المعتمد في علم الآثار والمتاحف للإشارة إلى مجموعات العملات القديمة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَسْكُوكَات", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-07971449-n"}
+    - lemma: "نُمِّيَّات"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح متخصص يشير إلى العملات كأشياء مجموعة للدراسة والبحث."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "نُمِّيَّات", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-07971449-n"}
+    - lemma: "مَجْمُوعَةُ مَسْكُوكَاتٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير تركيبي دقيق يجمع بين معنى التجميع وخصوصية المادة المجموعة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "مَجْمُوعَةُ مَسْكُوكَاتٍ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-07971449-n"}
+
+stage4_content:
+  definition:
+    current: "مجموعة من العملات المعدنية"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي بسيط جداً؛ يفضل إضافة لمسة معجمية توضح غرض التجميع (للهواية أو الدراسة)."
+    authored:
+      - type: terminological
+        text: "مَجْمُوعَةٌ مِنَ القِطَعِ النَّقْدِيَّةِ المَعْدِنِيَّةِ مَجْمُوعَةٌ مَعاً بِغَرَضِ الِادِّخَارِ أَوْ الدِّرَاسَةِ أَوْ الهِوَايَةِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-07971449-n", definition_index: 0, text: "مَجْمُوعَةٌ مِنَ القِطَعِ النَّقْدِيَّةِ المَعْدِنِيَّةِ مَجْمُوعَةٌ مَعاً بِغَرَضِ الِادِّخَارِ أَوْ الدِّرَاسَةِ أَوْ الهِوَايَةِ."}
+  examples:
+    per_lemma:
+      - lemma: "مَجْمُوعَةُ عُمْلَاتٍ"
+        examples:
+          - text: "بَدَأَ هِوَايَتَهُ بِمَجْمُوعَةِ عُمْلَاتٍ قَدِيمَةٍ وَرِثَهَا عَنْ جَدِّهِ."
+            type: usage
+      - lemma: "مَسْكُوكَات"
+        examples:
+          - text: "يَحْتَفِظُ المَتْحَفُ الوَطَنِيُّ بِمَسْكُوكَاتٍ نَادِرَةٍ تَعُودُ لِلعَصْرِ الأُمَوِيِّ."
+            type: usage
+      - lemma: "نُمِّيَّات"
+        examples:
+          - text: "تُعَدُّ النُّمِّيَّاتُ مَصْدَراً رَئِيسِيّاً لِدِرَاسَةِ التَّارِيخِ الِاقْتِصَادِيِّ لِلشُّعُوبِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "بَدَأَ هِوَايَتَهُ بِمَجْمُوعَةِ عُمْلَاتٍ قَدِيمَةٍ وَرِثَهَا عَنْ جَدِّهِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مَجْمُوعَةُ عُمْلَاتٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مجموعة"
+          root: "جمع"
+          maqayis_quote: "«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ. يُقَالُ جَمَعْتُ الشَّيْءَ جَمْعًا.»"
+        - word: "عملات"
+          root: "عمل"
+          maqayis_quote: "«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ صَحِيحٌ، وَهُوَ عَامٌّ فِي كُلِّ فِعْلٍ يُفْعَلُ.»"
+    - lemma: "مَسْكُوكَات"
+      entry_id: "{auto}"
+      root: "سكك"
+      maqayis_quote: "«السِّينُ وَالْكَافُ أَصْلٌ مُطَّرِدٌ... وَمِنْ هَذَا اشْتِقَاقُ سِكَّةِ الدَّرَاهِمِ، وَهِيَ الْحَدِيدَةُ؛ لِتَضَايُقِ رَسْمِ كِتَابَتِهَا.»"
+    - lemma: "نُمِّيَّات"
+      entry_id: "{auto}"
+      root: "نم"
+      maqayis_quote: "«النُّونُ وَالْمِيمُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى ارْتِفَاعٍ وَزِيَادَةٍ.»"
+    - lemma: "مَجْمُوعَةُ مَسْكُوكَاتٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مجموعة"
+          root: "جمع"
+          maqayis_quote: "«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ.»"
+        - word: "مسكوكات"
+          root: "سكك"
+          maqayis_quote: "«اشْتِقَاقُ سِكَّةِ الدَّرَاهِمِ، وَهِيَ الْحَدِيدَةُ؛ لِتَضَايُقِ رَسْمِ كِتَابَتِهَا.»"
+  per_sense:
+    - lemma: "مَجْمُوعَةُ عُمْلَاتٍ"
+      sense_id: "{auto}"
+      nuance: "التعبير العام والشائع لوصف التجميع."
+      mwe: true
+    - lemma: "مَسْكُوكَات"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب التاريخي والمتحفي للعملات المضروبة."
+      mwe: false
+    - lemma: "نُمِّيَّات"
+      sense_id: "{auto}"
+      nuance: "مصطلح علمي (numismatic) يشير إلى العملات كعناصر للدراسة المنهجية."
+      mwe: false
+    - lemma: "مَجْمُوعَةُ مَسْكُوكَاتٍ"
+      sense_id: "{auto}"
+      nuance: "تعبير رسمي يجمع بين الشمولية والتخصص."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"مجموعة","root":"جمع","maqayis":"«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ...»"},{"word":"عملات","root":"عمل","maqayis":"«الْعَيْنُ وَالْمِيمُ وَاللَّامُ أَصْلٌ وَاحِدٌ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"التعبير العام والشائع لوصف التجميع.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-07971449-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-07971449-n"
+        score: 0.95

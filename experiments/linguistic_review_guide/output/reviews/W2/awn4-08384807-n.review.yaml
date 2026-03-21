@@ -1,0 +1,199 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "هناك تداخل دلالي في المجموعة بين المفهوم الهيكلي (النظام) وبين الهيئة البشرية (الأعضاء)."
+      - "التعريف الحالي يركز حصراً على الأشخاص (الأعضاء)، بينما اللمّات الموجودة (نظام سياسي، شكل الحكومة) تميل للمفهوم المجرد."
+    observations: "تتطلب المجموعة إضافة لمّات صريحة تدل على الهيئة الحاكمة مثل 'حكومة' و'سلطة' لتتطابق مع التعريف البشري الوارد في WordNet."
+  blind_candidates:
+    - lemma: "حُكُومَة"
+      generation_method: ishtiqaq
+      justification: "اللفظ المعاصر الأكثر شيوعاً للهيئة الحاكمة والأفراد الذين يديرون شؤون الدولة."
+    - lemma: "سُلْطَة"
+      generation_method: majaz
+      justification: "تُطلق دلالة على الجهة الآمرة والآخذة بزمام الحكم (ذوو السيطرة)."
+    - lemma: "نِظَام"
+      generation_method: majaz
+      justification: "يُستخدم في السياق السياسي للدلالة على هيئة الحكم (نظام الحكم)."
+    - lemma: "هَيْئَة حَاكِمَة"
+      generation_method: tarkib
+      justification: "مركب وصفي يعبر بدقة عن 'الأعضاء الذين هم في السلطة'."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "شكل الحكومة"
+      confirm:
+        - text: "«طريقة الحكم أو الإدارة... شكل الحكومة.»"
+          source: "المورد الحديث (2008)"
+    - lemma: "نظام سياسي"
+      confirm:
+        - text: "«نظام سياسي متميز بإقصاء النفوذ الكهنوتي...»"
+          source: "المورد الحديث (2008)"
+      expands:
+        - text: "«نظام سياسيّ»"
+          source: "المعجم الموحد لمصطلحات القانون (2017)"
+    - lemma: "حكومة"
+      confirm:
+        - text: "«الهيئة المؤلفة من الأفراد الذين يقومون بتدبير شئون الدولة كرئيس الدولة ورئيس الوزراء والوزراء وكبار رجال الدولة.»"
+          source: "معجم الصواب اللغوي لأحمد مختار عمر"
+      expands:
+        - text: "«مجموع الطرق التي يدير بها الأفراد والمؤسّسات شؤونهم، ويتخذون قراراتهم وينفذونها.»"
+          source: "المعجم الموحد لمصطلحات المياه (2000)"
+    - lemma: "سلطة"
+      confirm:
+        - text: "«ذوو السيطرة والتحكم. (فى علم الاجتماع): القدرة القانونية أو المجتمعية على ممارسة نفوذ على فرد أو جماعة.»"
+          source: "المعجم الكبير"
+      expands:
+        - text: "«قوة سياسية أو اجتماعية أو اقتصادية تجعل الفرد المتمتع بها في وضع أعلى ممن هم دونه.»"
+          source: "مسرد الإعلام والتواصل (ArabTerm)"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "شكل الحكومة"
+      decision: confirmed
+      decision_reason: "مصطلح تقني مقبول يعبر عن نوع نظام الحكم وهيكله."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "شَكْل الحُكُومَة"
+    - lemma: "نظام سياسي"
+      decision: confirmed
+      decision_reason: "مصطلح مركزي في العلوم السياسية والقانونية يعبر عن الكيان الحاكم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نِظَام سِيَاسِيّ"
+    - lemma: "حُكُومَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "أدق لمّة تعبر عن 'الأعضاء الذين هم في السلطة' حسب المعاجم الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "حُكُومَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-08384807-n"}
+    - lemma: "سُلْطَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تُستخدم دلالة على ذوي السلطة والتحكم في السياق الاجتماعي والسياسي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "سُلْطَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-08384807-n"}
+
+stage4_content:
+  definition:
+    current: "أعضاء منظمة اجتماعية الذين هم في السلطة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ترجمة حرفية قاصرة، ويحتاج لصياغة معجمية عربية تشمل المفهومين: الهيئة والنظام."
+    authored:
+      - type: terminological
+        text: "الهَيْئَةُ الحَاكِمَةُ أَوْ الأَفْرَادُ الَّذِينَ يَتَوَلَّوْنَ إِدَارَةَ شُؤُونِ مُنَظَّمَةٍ اجْتِمَاعِيَّةٍ أَوْ دَوْلَةٍ، وَيَمْتَلِكُونَ القُدْرَةَ عَلَى اتِّخَاذِ القَرَارَاتِ السِّيَادِيَّةِ وَتَنْفِيذِهَا."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-08384807-n", definition_index: 0, text: "الهَيْئَةُ الحَاكِمَةُ أَوْ الأَفْرَادُ الَّذِينَ يَتَوَلَّوْنَ إِدَارَةَ شُؤُونِ مُنَظَّمَةٍ اجْتِمَاعِيَّةٍ أَوْ دَوْلَةٍ، وَيَمْتَلِكُونَ القُدْرَةَ عَلَى اتِّخَاذِ القَرَارَاتِ السِّيَادِيَّةِ وَتَنْفِيذِهَا."}
+  examples:
+    per_lemma:
+      - lemma: "حُكُومَة"
+        examples:
+          - text: "أَدَّتِ الحُكُومَةُ الجَدِيدَةُ اليَمِينَ الدُّسْتُورِيَّةَ أَمَامَ رَئِيسِ الدَّوْلَةِ."
+            type: usage
+      - lemma: "سُلْطَة"
+        examples:
+          - text: "تَقَعُ مَسْؤُولِيَّةُ حِفْظِ الأَمْنِ عَلَى عَاتِقِ السُّلْطَةِ الحَاكِمَةِ."
+            type: usage
+      - lemma: "نِظَام سِيَاسِيّ"
+        examples:
+          - text: "يَسْعَى النِّظَامُ السِّيَاسِيُّ لِتَحْقِيقِ الِاسْتِقْرَارِ الِاجْتِمَاعِيِّ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-08384807-n", text: "أَصْدَرَتِ الحُكُومَةُ بَيَاناً رَسْمِيّاً بِشَأْنِ التَّطَوُّرَاتِ الأَخِيرَةِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "حُكُومَة"
+      entry_id: "{auto}"
+      root: "حكم"
+      maqayis_quote: "«الْحَاءُ وَالْكَافُ وَالْمِيمُ أَصْلٌ وَاحِدٌ، وَهُوَ الْمَنْعُ. وَأَوَّلُ ذَلِكَ الْحُكْمُ، وَهُوَ الْمَنْعُ مِنَ الظُّلْمِ.»"
+    - lemma: "سُلْطَة"
+      entry_id: "{auto}"
+      root: "سلط"
+      maqayis_quote: "«السِّينُ وَاللَّامُ وَالطَّاءُ أَصْلٌ وَاحِدٌ، وَهُوَ الْقُوَّةُ وَالْقَهْرُ. مِنْ ذَلِكَ السَّلَاطَةِ، مِنَ التَّسَلُّطِ وَهُوَ الْقَهْرُ.»"
+    - lemma: "نِظَام سِيَاسِيّ"
+      entry_id: "{auto}"
+      roots:
+        - word: "نظام"
+          root: "نظم"
+          maqayis_quote: "«النُّونُ وَالظَّاءُ وَالْمِيمُ: أَصْلٌ يَدُلُّ عَلَى تَأْلِيفِ شَيْءٍ وَتَأْلِيفِهِ.»"
+        - word: "سياسي"
+          root: "سوس"
+          maqayis_quote: "«السِّينُ وَالْوَاوُ وَالسِّينُ أَصْلٌ يَدُلُّ عَلَى رِيَاسَةٍ وَقِيَامٍ بِالأَمْرِ.»"
+  per_sense:
+    - lemma: "حُكُومَة"
+      sense_id: "{auto}"
+      nuance: "تُركز على الهيئة التنفيذية والأفراد الذين يديرون شؤون الدولة بشكل مباشر."
+      mwe: false
+    - lemma: "سُلْطَة"
+      sense_id: "{auto}"
+      nuance: "تُشير إلى جهة القوة والتحكم، وغالباً ما تُستخدم في سياق النفوذ والسيادة."
+      mwe: false
+    - lemma: "نِظَام سِيَاسِيّ"
+      sense_id: "{auto}"
+      nuance: "تُشير إلى الهيكل التنظيمي والقواعد التي تحكم العمل السياسي في المجتمع."
+      mwe: true
+    - lemma: "شَكْل الحُكُومَة"
+      sense_id: "{auto}"
+      nuance: "تُركز على النوع الدستوري للنظام (مثل برلماني أو رئاسي)."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حكم","maqayis":"«الْحَاءُ وَالْكَافُ وَالْمِيمُ أَصْلٌ وَاحِدٌ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تُركز على الهيئة التنفيذية والأفراد الذين يديرون شؤون الدولة بشكل مباشر.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-08384807-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-08384807-n"
+        score: 0.95

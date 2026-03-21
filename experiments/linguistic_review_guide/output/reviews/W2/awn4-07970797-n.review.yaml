@@ -1,0 +1,209 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة (كتاب القواعد، كتيب القواعد) هي ترجمات حرفية للمصطلح الإنجليزي (rule book)، ولا تعكس المصطلحات العربية الأصيلة أو الشائعة لهذا المفهوم دلالياً."
+      - "المفهوم في الإنجليزية (rule book) يشير إلى 'مجموعة قواعد' بغض النظر عن كونها في كتاب مادي، وهو ما يقابله في العربية مصطلحات مثل (دستور) أو (لائحة) أو (مدونة)."
+    observations: "المجموعة تشير إلى وعاء معرفي أو تنظيمي يضم القواعد والمعايير. المصطلح العربي الأكثر دقة تاريخياً هو (الدستور) بمعناه الأصلي (الدفتر الذي تجمع فيه القواعد)، وحديثاً (اللائحة) للمنظمات و(المدونة) للمجالات التخصصية."
+  blind_candidates:
+    - lemma: "مَدَوَّنَةُ قَوَاعِد"
+      generation_method: tarkib
+      justification: "تعبير حديث يشير إلى 'Code of rules' أو 'Rule book'، حيث المدونة هي الوعاء الذي تُجمع فيه القواعد."
+    - lemma: "دُسْتُور"
+      generation_method: majaz
+      justification: "كلمة معربة تعني في الأصل (الدفتر الذي تُجمع فيه قواعد الملك وقوانينه)، وتستخدم لكل قاعدة يُعمل بمقتضاها."
+    - lemma: "لَائِحَة"
+      generation_method: ishtiqaq
+      justification: "تستخدم في السياق الإداري والتنظيمي للإشارة إلى مجموعة المواد أو القواعد التي تنظم العمل."
+    - lemma: "نِظَام"
+      generation_method: ishtiqaq
+      justification: "يستخدم في بعض الأقطار العربية (مثل السعودية) للإشارة إلى 'اللائحة' أو مجموعة القواعد الملزمة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "دُسْتُور"
+      confirm:
+        - text: "«الدُّسْتُورُ: القاعدة يُعملُ بمقتضاها... وقيل: الذي تُجمع فيه قواعد المَلِك وقوانينه.»"
+          source: "التعريفات الفقهية للبركتي"
+        - text: "«(الدستور): القاعدة يعمل بمقتضاها والدفتر تكتب فيه أسماء الجند ومرتباتهم.»"
+          source: "المعجم الوسيط"
+        - text: "«يضمُّ مَجْموعة القواعِدِ التى تُمثِّل مكان الصَّدارة بين سائر القَواعِد القانونيَّة فيها.»"
+          source: "المعجم الكبير"
+    - lemma: "لَائِحَة"
+      confirm:
+        - text: "«(اللائحة): مجموعة من المواد توضع لتنظيم العمل في هيئة أو في مصلحة أو مؤسسة.»"
+          source: "المعجم الوسيط"
+    - lemma: "نِظَام"
+      confirm:
+        - text: "«نظام الأمر قوامه وعماده والطريقة.»"
+          source: "المعجم الوسيط"
+        - text: "«مجموعة من العناصر التي تتفاعل مع بعضها لتحقيق أهداف محددة.»"
+          source: "معجم البيانات والذكاء الاصطناعي"
+    - lemma: "مَدَوَّنَة"
+      expands:
+        - text: "«مدونة بحرية (maritime code)»"
+          source: "المعجم الموحد لمصطلحات النقل"
+          addition: "يؤكد استخدام 'مدونة' للإشارة إلى مجموعة قوانين أو قواعد (Code)."
+    - lemma: "كِتَابُ القَوَاعِد"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "كتاب القواعد"
+      decision: confirmed
+      decision_reason: "ترجمة مباشرة مقبولة للمصطلح الإنجليزي، وإن كانت أقل شيوعاً كمصطلح اصطلاحي منفرد في المعاجم القديمة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "كِتَابُ القَوَاعِد"
+    - lemma: "كتيب القواعد"
+      decision: confirmed
+      decision_reason: "تصغير (كتاب القواعد) للإشارة إلى الكتيبات الصغيرة التي تضم تعليمات أو قواعد محددة."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "كُتَيِّبُ القَوَاعِد"
+    - lemma: "دُسْتُور"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح أصيل (معرب قديم) يشير دلالياً إلى الوعاء الذي يضم القواعد، ويتطابق تماماً مع التعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "دُسْتُور", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "لَائِحَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح الإداري الحديث الأكثر دقة لمجموعة القواعد المنظمة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "لَائِحَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مَدَوَّنَةُ قَوَاعِد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير اصطلاحي حديث (Calque of 'Code of rules') شائع الاستخدام في السياقات التخصصية."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "مَدَوَّنَةُ قَوَاعِد", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "مجموعة من القواعد أو المعايير المحددة التي يتم اتخاذ القرارات بناءً عليها"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكن يمكن صياغته بأسلوب معجمي أكثر دقة يشمل طبيعة الوعاء (سجل/مدونة)."
+    authored:
+      - type: terminological
+        text: "سِجِلٌّ أو مَدَوَّنَةٌ تضُمُّ مَجْموعةً من القَواعِدِ والمَعاييرِ المُحدَّدةِ التي تُتَّخذُ بناءً عليها القَراراتُ أو يُنظَّمُ بها العَمَلُ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "سِجِلٌّ أو مَدَوَّنَةٌ تضُمُّ مَجْموعةً من القَواعِدِ والمَعاييرِ المُحدَّدةِ التي تُتَّخذُ بناءً عليها القَراراتُ أو يُنظَّمُ بها العَمَلُ."}
+  examples:
+    per_lemma:
+      - lemma: "كِتَابُ القَوَاعِد"
+        examples:
+          - text: "رَجَعَ الحَكَمُ إِلَى كِتَابِ القَوَاعِدِ قَبْلَ إِعْلَانِ قَرَارِهِ الفَصْلِ."
+            type: usage
+      - lemma: "دُسْتُور"
+        examples:
+          - text: "يُعَدُّ هَذَا الكِتَابُ دُسْتُورَ القَوَاعِدِ المُنَظِّمَةِ لِلْمُسَابَقَةِ العَالَمِيَّةِ."
+            type: usage
+      - lemma: "لَائِحَة"
+        examples:
+          - text: "نَصَّتْ اللَّائِحَةُ الدَّاخِلِيَّةُ لِلشَّرِكَةِ عَلَى ضَرُورَةِ الِالتِزَامِ بِمَعَايِيرِ الجَوْدَةِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "رَجَعَ الحَكَمُ إِلَى كِتَابِ القَوَاعِدِ قَبْلَ إِعْلَانِ قَرَارِهِ الفَصْلِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "كِتَابُ القَوَاعِد"
+      entry_id: "{auto}"
+      roots:
+        - word: "كتاب"
+          root: "كتب"
+          maqayis_quote: "«الْكَافُ وَالتَّاءُ وَالْبَاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى جَمْعِ شَيْءٍ إِلَى شَيْءٍ. مِنْ ذَلِكَ الْكِتَابُ وَالْكِتَابَةُ.»"
+        - word: "قواعد"
+          root: "قعد"
+          maqayis_quote: "«الْقَافُ وَالْعَيْنُ وَالدَّالُ أَصْلٌ مُطَّرِدٌ مُنْقَاسٌ... وَقَوَاعِدُ الْبَيْتِ: أَسَاسُهُ.»"
+    - lemma: "دُسْتُور"
+      entry_id: "{auto}"
+      root: "دستر"
+      maqayis_quote: "«لم تذكرها مقاييس اللغة لكونها معربة، ولكنها في المعاجم المتأخرة تعود لجذر (دستر) المشتق من الفارسية.»"
+    - lemma: "لَائِحَة"
+      entry_id: "{auto}"
+      root: "لوح"
+      maqayis_quote: "«اللَّامُ وَالْوَاوُ وَالْحَاءُ أَصْلٌ صَحِيحٌ، مُعْظَمُهُ مُقَارَبَةُ بَابِ اللَّمَعَانِ... سُمِّيَ لَوْحًا لِأَنَّهُ يَلُوحُ.»"
+  per_sense:
+    - lemma: "دُسْتُور"
+      sense_id: "{auto}"
+      nuance: "يشير إلى القواعد الأساسية أو العليا التي لا يجوز تجاوزها، وغالباً ما يكون لها صبغة رسمية أو سياسية."
+      mwe: false
+    - lemma: "لَائِحَة"
+      sense_id: "{auto}"
+      nuance: "تستخدم غالباً في السياقات الإدارية والتنظيمية للمؤسسات والهيئات."
+      mwe: false
+    - lemma: "مَدَوَّنَةُ قَوَاعِد"
+      sense_id: "{auto}"
+      nuance: "تعبير حديث يشير إلى التجميع الممنهج للقواعد في مجال مهني أو تخصصي معين."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"كتاب","root":"كتب","maqayis":"«...»"},{"word":"قواعد","root":"قعد","maqayis":"«...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يشير إلى القواعد الأساسية أو العليا...","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9

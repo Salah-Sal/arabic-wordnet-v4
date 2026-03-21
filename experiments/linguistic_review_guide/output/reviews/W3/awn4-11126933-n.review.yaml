@@ -1,0 +1,306 @@
+# ═══════════════════════════════════════════════════════════════
+# مراجعة AWN4 — Review Pipeline v2 (5-Stage)
+# synset_id: awn4-11126933-n
+# ═══════════════════════════════════════════════════════════════
+
+
+# ── المرحلة ١: المراجعة والتوليد (عمياء) ──────────────────────
+stage1_review:
+  assessment:
+    concerns:
+      - "صنف الوحدة المعجمية في قاعدة AWN4 مُعلَّم بـ pos=n (اسم عام)، والصواب proper_noun (اسم علم شخصي) على مستوى المدخلات."
+      - "اللمّتان الموجودتان (كالفن كلاين، كلاين) تفتقران إلى التشكيل الكامل الإلزامي."
+      - "لمّة الاسم الكامل الرسمي بالإنجليزية Calvin Richard Klein لا مقابل لها في AWN4."
+      - "لمّة (كلاين) بمفردها مُلتبسة: ثمة أكلاين آخرون في المعجمية العلمية (فيليكس كلاين - رياضيات، أوسكار كلاين - فيزياء) مما يستوجب الإبقاء عليها مقيّدةً بسياق المجموعة فقط."
+    observations: >
+      هذه المجموعة الترادفية تمثّل اسمَ علمٍ شخصياً لمصمم أزياء أمريكي، وهو كالفن ريتشارد كلاين (وُلد 1942). الأسماء الأعلام الأجنبية لا تخضع للاشتقاق أو المجاز، بل تُعالَج حصراً بالتعريب (النقل الصوتي). المدخلان القائمان مناسبان في جوهرهما، غير أن ثمة حاجة إلى: (أ) تصحيح POS ليكون proper_noun، (ب) إضافة التشكيل، (ج) إضافة الاسم الرسمي الكامل باللغة العربية.
+  blind_candidates:
+    - lemma: "كَالْفِن كْلاَيْن"
+      generation_method: taarib
+      justification: "النقل الصوتي المعتاد للاسم الكامل Calvin Klein في المصادر العربية، يكتبه بالفاء بدلاً من ڤ وفق التقليد العربي الشائع."
+    - lemma: "كْلاَيْن"
+      generation_method: taarib
+      justification: "الاسم الأخير وحده Klein، يُستعمل اختصاراً في السياقات غير الرسمية وبعد التعريف الكامل بالاسم."
+    - lemma: "كَالْفِن رِيتْشَرْد كْلاَيْن"
+      generation_method: taarib
+      justification: "النقل الصوتي للاسم الرسمي الكامل Calvin Richard Klein، يطابق الاسم الإنجليزي في OEWN (Calvin Richard Klein)."
+    - lemma: "كَالْڤِن كْلاَيْن"
+      generation_method: taarib
+      justification: "صيغة بديلة باستخدام حرف ڤ للتمييز بين صوتَي /f/ و/v/، تجري في بعض المؤسسات الأكاديمية والمعاجم الحديثة."
+
+
+# ── المرحلة ٢: جمع الأدلة ─────────────────────────────────────
+# استعلامات مُنفَّذة:
+# [Q1] مطابقة دقيقة دفعية: كالفن كلاين، كلاين + صيغ بال- → لا نتائج مطابقة
+# [Q2] جسر إنجليزي: Klein, Calvin Klein, Calvin Richard Klein, fashion designer → نتائج لأكلاين آخرين (طبي/رياضي)
+# [Q3] بحث FTS عربي: مصمم، أزياء، موضة، خياطة → مصطلحات موضوعية عامة فقط
+stage2_evidence:
+  per_lemma:
+    - lemma: "كَالْفِن كْلاَيْن"
+      evidence_status: "no_material_found"
+
+    - lemma: "كْلاَيْن"
+      contradicts:
+        - text: "«تَفاعُلُ كلاين (في السرطان)» — Klein reaction"
+          source: "المعجم الطبي الموحد (2009)"
+          conflict: "كلاين هنا تشير إلى Felix Klein أو Melanie Klein وليس Calvin Klein؛ يُثبت الالتباس المحتمل عند استخدام الاسم الأخير منفرداً."
+        - text: "«اخْتِبارُ كلاين (لكشف الزهري)» — Klein test"
+          source: "المعجم الطبي الموحد (2009)"
+          conflict: "مصطلح طبي لا علاقة له بمصمم الأزياء؛ يدل على تعدد حاملي هذا الاسم."
+        - text: "«قارورة كلاين (ر).» — Klein bottle"
+          source: "المورد الحديث (2008)"
+          conflict: "مصطلح رياضي يعود إلى Felix Klein؛ يُثبت غموض الاسم الأخير منفرداً."
+
+    - lemma: "كَالْفِن رِيتْشَرْد كْلاَيْن"
+      evidence_status: "no_material_found"
+
+    - lemma: "كَالْڤِن كْلاَيْن"
+      evidence_status: "no_material_found"
+
+
+# ── المرحلة ٣: التحليل اللغوي للّمات ────────────────────────────
+stage3_analysis:
+  per_lemma:
+
+    # ── اللمّات القائمة ──
+
+    - lemma: "كالفن كلاين"
+      decision: confirmed
+      decision_reason: >
+        الصيغة الأكثر شيوعاً في الإعلام العربي والمراجع الموسوعية لتمثيل الاسم الكامل Calvin Klein.
+        لا تُفضّل البدائل الأخرى (كالڤن) على مستوى الاستعمال الموثّق. يحتاج تشكيلاً كاملاً.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: mazji
+      nuance_differentiation: "الاسم الكامل (الاسم الأول + الاسم الأخير)؛ يُستعمل في التعريف الأول وفي السياقات الرسمية والموسوعية."
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "كَالْفِن كْلاَيْن"
+        - command: update_entry
+          params:
+            entry_id: "{auto}"
+            pos: proper_noun
+
+    - lemma: "كلاين"
+      decision: confirmed
+      decision_reason: >
+        الاسم الأخير وحده مستعمل في الإعلام العربي والسياقات غير الرسمية بعد التعريف الكامل.
+        رغم وجود التباس في المعاجم الطبية والرياضية، فإن سياق المجموعة الترادفية يرفع هذا الإبهام.
+        يحتاج تشكيلاً وتصحيح POS.
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      nuance_differentiation: "الاسم الأخير منفرداً؛ يُستعمل اختصاراً في الذكر المتكرر وفي المقارنات الموضوعية ('أسلوب كلاين في التصميم')."
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "كْلاَيْن"
+        - command: update_entry
+          params:
+            entry_id: "{auto}"
+            pos: proper_noun
+
+    # ── مرشحات المرحلة ١ ──
+
+    - lemma: "كَالْفِن رِيتْشَرْد كْلاَيْن"
+      source: stage1
+      decision: confirmed
+      decision_reason: >
+        يطابق الاسم الرسمي الكامل في OEWN (Calvin Richard Klein)؛ غائب عن AWN4 حالياً.
+        إضافته تُكمل التغطية المعجمية وتُيسّر التوافق مع المصادر الإنجليزية.
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: mazji
+      nuance_differentiation: "الاسم الرسمي الكامل الثلاثي (الاسم الأول + الاسم الأوسط + الاسم الأخير)؛ يُستعمل في السياقات القانونية والتوثيقية."
+      actions:
+        - command: create_entry
+          params:
+            lemma: "كَالْفِن رِيتْشَرْد كْلاَيْن"
+            pos: proper_noun
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "{synset_id}"
+
+    - lemma: "كَالْڤِن كْلاَيْن"
+      source: stage1
+      decision: removed
+      decision_reason: >
+        صيغة بديلة باستعمال ڤ للتمثيل الصوتي لـ /v/؛ غير شائعة في الاستعمال العربي السائد.
+        الصيغة بالفاء (كالفن) هي المعتمدة في معظم المصادر العربية. إضافتها قد تُحدث تشتيتاً دون قيمة دلالية مضافة.
+
+
+# ── المرحلة ٤: التعريف والأمثلة ──────────────────────────────
+stage4_content:
+  definition:
+    current: "مصمم أزياء أمريكي اشتهر بالأزياء البسيطة والأنيقة (ولد عام 1942)"
+    assessment:
+      decision: revise
+      reason: >
+        التعريف الحالي يضع معلومة الميلاد بين قوسين بأسلوب غير معجمي؛ كما يفتقر إلى الجنس القريب الدقيق
+        (لم يذكر جنسيته الأمريكية صريحاً ضمن الجملة) وينقصه ذكر أبرز انجازاته (تأسيس الدار عام 1968).
+        يجدر إعادة صياغته بأسلوب موسوعي.
+    authored:
+      - type: encyclopedic
+        text: "مُصَمِّم أزياء أمريكي من مواليد مدينة نيويورك عام 1942، أسَّس عام 1968 داراً للأزياء تحمل اسمه، واشتُهر بتصاميمه الأنيقة البسيطة في الملابس الجاهزة وملابس الجينز والعطور."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+      - type: terminological
+        text: "مُصَمِّم أزياء أمريكي (مواليد 1942)، اشتُهر بالأسلوب البسيط الرفيع في تصميم الملابس والإكسسوارات؛ مؤسِّس دار كالفن كلاين للأزياء."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "{synset_id}"
+          definition_index: 0
+          text: "مُصَمِّم أزياء أمريكي من مواليد مدينة نيويورك عام 1942، أسَّس عام 1968 داراً للأزياء تحمل اسمه، واشتُهر بتصاميمه الأنيقة البسيطة في الملابس الجاهزة وملابس الجينز والعطور."
+
+  examples:
+    per_lemma:
+      - lemma: "كَالْفِن كْلاَيْن"
+        examples:
+          - text: "غيَّر كالفن كلاين مفهوم الأناقة الأمريكية بتصاميمه الجريئة والبسيطة التي جمعت بين العملية والجمال."
+            type: usage
+      - lemma: "كْلاَيْن"
+        examples:
+          - text: "أصبح اسم كلاين علامةً تجارية عالمية تُمثّل الموضة الأمريكية الراقية."
+            type: usage
+      - lemma: "كَالْفِن رِيتْشَرْد كْلاَيْن"
+        examples:
+          - text: "سُجِّل كالفن ريتشارد كلاين في وثائق الملكية الفكرية بوصفه مؤسِّس العلامة التجارية الشهيرة."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "غيَّر كالفن كلاين مفهوم الأناقة الأمريكية بتصاميمه الجريئة والبسيطة التي جمعت بين العملية والجمال."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "أصبح اسم كلاين علامةً تجارية عالمية تُمثّل الموضة الأمريكية الراقية."
+      - command: add_sense_example
+        params:
+          sense_id: "{auto}"
+          text: "سُجِّل كالفن ريتشارد كلاين في وثائق الملكية الفكرية بوصفه مؤسِّس العلامة التجارية الشهيرة."
+
+
+# ── المرحلة ٥: الإثراء (البيانات الوصفية) ──────────────────────
+stage5_enrichment:
+  per_entry:
+    - lemma: "كَالْفِن كْلاَيْن"
+      entry_id: "{auto}"
+      roots:
+        - word: "كالفن"
+          root: "N/A"
+          maqayis_quote: "اسم علم أجنبي مُعرَّب، لا جذر عربي له — Calvin من الإنجليزية (أصل لاتيني: Calvinus)."
+        - word: "كلاين"
+          root: "N/A"
+          maqayis_quote: "اسم علم أجنبي مُعرَّب، لا جذر عربي له — Klein من الألمانية بمعنى 'صغير'."
+
+    - lemma: "كْلاَيْن"
+      entry_id: "{auto}"
+      roots:
+        - word: "كلاين"
+          root: "N/A"
+          maqayis_quote: "اسم علم أجنبي مُعرَّب، لا جذر عربي له — Klein من الألمانية بمعنى 'صغير'."
+
+    - lemma: "كَالْفِن رِيتْشَرْد كْلاَيْن"
+      entry_id: "{auto}"
+      roots:
+        - word: "كالفن"
+          root: "N/A"
+          maqayis_quote: "اسم علم أجنبي مُعرَّب — Calvin (لاتيني)."
+        - word: "ريتشارد"
+          root: "N/A"
+          maqayis_quote: "اسم علم أجنبي مُعرَّب — Richard (جرماني)."
+        - word: "كلاين"
+          root: "N/A"
+          maqayis_quote: "اسم علم أجنبي مُعرَّب — Klein (ألماني)."
+
+  per_sense:
+    - lemma: "كَالْفِن كْلاَيْن"
+      sense_id: "{auto}"
+      nuance: "الاسم الكامل المركّب (الاسم الأول والأخير)؛ يُستعمل في التعريف الأول وفي السياقات الرسمية والموسوعية والإعلامية."
+      mwe: true
+
+    - lemma: "كْلاَيْن"
+      sense_id: "{auto}"
+      nuance: "الاسم الأخير منفرداً؛ يُستعمل اختصاراً في الإشارة المتكررة وفي السياقات غير الرسمية والنقدية ('أسلوب كلاين')."
+      mwe: false
+
+    - lemma: "كَالْفِن رِيتْشَرْد كْلاَيْن"
+      sense_id: "{auto}"
+      nuance: "الاسم الرسمي الكامل الثلاثي؛ يُستعمل في السياقات القانونية والتوثيقية والبيبليوغرافية فقط."
+      mwe: true
+
+  synset:
+    cultural_fit: omission
+
+  actions:
+    # ── مدخل كالفن كلاين ──
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"كالفن","root":"N/A","maqayis":"اسم علم أجنبي معرب — Calvin (لاتيني: Calvinus)"},{"word":"كلاين","root":"N/A","maqayis":"اسم علم أجنبي معرب — Klein (ألماني: صغير)"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الكامل المركّب؛ يُستعمل في التعريف الأول والسياقات الرسمية والموسوعية","mwe":true}'
+
+    # ── مدخل كلاين ──
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"كلاين","root":"N/A","maqayis":"اسم علم أجنبي معرب — Klein (ألماني: صغير)"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الأخير منفرداً؛ يُستعمل اختصاراً في الإشارة المتكررة والسياقات غير الرسمية","mwe":false}'
+
+    # ── مدخل كالفن ريتشارد كلاين (جديد) ──
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"كالفن","root":"N/A","maqayis":"Calvin (لاتيني)"},{"word":"ريتشارد","root":"N/A","maqayis":"Richard (جرماني)"},{"word":"كلاين","root":"N/A","maqayis":"Klein (ألماني: صغير)"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم الرسمي الكامل الثلاثي؛ يُستعمل في السياقات القانونية والتوثيقية فقط","mwe":true}'
+
+    # ── المجموعة الترادفية ──
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"omission"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.82

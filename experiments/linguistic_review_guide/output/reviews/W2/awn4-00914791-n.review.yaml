@@ -1,0 +1,169 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي دوري (circular) حيث يستخدم الكلمة المعرفة 'إنتاج' في صلب التعريف."
+    observations: "اللمة 'إنتاج' دقيقة جداً ومستقرة في الاستخدام الحديث لترجمة production، ولكن المجموعة تفتقر إلى مرادفات تخصصية تغطي جوانب المفهوم المختلفة (الصناعي، الطاقوي، الفكري)."
+  blind_candidates:
+    - lemma: "إِنْتَاج"
+      generation_method: ishtiqaq
+      justification: "المصدر الصريح للفعل 'أنتج'، وهو المصطلح القياسي لعملية الإيجاد والتصنيع."
+    - lemma: "تَوْلِيد"
+      generation_method: ishtiqaq
+      justification: "يُستخدم في سياق إنتاج الطاقة أو الأفكار أو الجمل، مما يغطي جانباً من معنى production (generation)."
+    - lemma: "تَصْنِيع"
+      generation_method: ishtiqaq
+      justification: "يختص بالإنتاج المادي في السياق الصناعي (industrialization/manufacture)."
+    - lemma: "إِيجَاد"
+      generation_method: ishtiqaq
+      justification: "المصدر من 'أوجد'، ويعبر عن فعل الإخراج من العدم أو البدء بإنتاج شيء ما."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "إِنْتَاج"
+      confirm:
+        - text: "«كل العمليات الداخلة في تحضير المنتج النهائي من استقبال المواد... إلى التعبئة...»"
+          source: "المعجم الموحد لمصطلحات علم الصيدلة"
+        - text: "«عملية خلق وابتكار قياساً على قواعد النحو في لغة معينة.»"
+          source: "مسرد الإعلام والتواصل"
+        - text: "«ما ينتج من عملية صناعية أو زراعية أو نحوهما»"
+          source: "المعجم الموحد لمصطلحات الكيمياء"
+    - lemma: "تَوْلِيد"
+      confirm:
+        - text: "«تعبير يستعمل عادة لإنتاج الطاقة أو مولدات الطاقة.»"
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة"
+        - text: "«حصول الفعل عن فاعله بتوسط فعل آخر.»"
+          source: "التوقيف على مهمات التعاريف"
+    - lemma: "تَصْنِيع"
+      confirm:
+        - text: "«جعل الأمة صناعية بالوسائل الاقتصادية ونشر الصناعة فيها.»"
+          source: "المعجم الوسيط"
+        - text: "«المسلسل الذي تخضع له مادة أو مواد أولية إلى أن تصبح سلعة صالحة للاستعمال.»"
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+    - lemma: "إِيجَاد"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "إِنْتَاج"
+      decision: confirmed
+      decision_reason: "اللمة الأساسية والمطابقة تماماً للمفهوم في الاستخدام الحديث، ومدعومة بأدلة معجمية قوية في مختلف المجالات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "إِنْتَاج"
+    - lemma: "تَوْلِيد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف قوي يغطي جانب إنتاج الطاقة والأفكار (generation)، وله تأصيل في الفكر العربي القديم (حصول الفعل بتوسط)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَوْلِيد", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَصْنِيع"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يخصص المفهوم في جانبه الصناعي والتحويلي، وهو مصطلح مجمعي مستقر."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَصْنِيع", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "فعل أو عملية إنتاج شيء ما"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دوري ولا يقدم شرحاً للمفهوم."
+    authored:
+      - type: terminological
+        text: "جملةُ العمليات والوسائل المادية أو الذهنية التي تُؤدي إلى إيجاد أو إخراج شيء جديد، كالسلع والخدمات والطاقة والأفكار."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "إِنْتَاج"
+        examples:
+          - text: "حققت المزارع هذا العام طفرة غير مسبوقة في إِنْتَاجِ القمح."
+            type: usage
+      - lemma: "تَوْلِيد"
+        examples:
+          - text: "تُستخدم توربينات الرياح لِتَوْلِيدِ الطاقة النظيفة."
+            type: usage
+      - lemma: "تَصْنِيع"
+        examples:
+          - text: "تهدف الخطة الاستراتيجية إلى تَصْنِيعِ المواد الخام بدلاً من تصديرها."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "جملةُ العمليات والوسائل المادية أو الذهنية التي تُؤدي إلى إيجاد أو إخراج شيء جديد، كالسلع والخدمات والطاقة والأفكار."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "إِنْتَاج"
+      entry_id: "{auto}"
+      root: "نتج"
+      maqayis_quote: "«النُّونُ وَالتَّاءُ وَالْجِيمُ كَلِمَةٌ وَاحِدَةٌ، هِيَ النِّتَاجُ. وَنُتِجَتِ النَّاقَةُ ; وَنَتَجَهَا أَهْلُهَا.»"
+    - lemma: "تَوْلِيد"
+      entry_id: "{auto}"
+      root: "ولد"
+      maqayis_quote: "«الْوَاوُ وَاللَّامُ وَالدَّالُ: أَصْلٌ صَحِيحٌ، وَهُوَ دَلِيلُ النَّجْلِ وَالنَّسْلِ... وَتَوَلَّدَ الشَّيْءُ عَنِ الشَّيْءِ: حَصَلَ عَنْهُ.»"
+    - lemma: "تَصْنِيع"
+      entry_id: "{auto}"
+      root: "صنع"
+      maqayis_quote: "«الصَّادُ وَالنُّونُ وَالْعَيْنُ أَصْلٌ صَحِيحٌ وَاحِدٌ، وَهُوَ عَمَلُ الشَّيْءِ صُنْعًا.»"
+  per_sense:
+    - lemma: "إِنْتَاج"
+      sense_id: "{auto}"
+      nuance: "المصطلح العام الشامل لعملية الإخراج في كافة المجالات (زراعي، صناعي، فكري)."
+      mwe: false
+    - lemma: "تَوْلِيد"
+      sense_id: "{auto}"
+      nuance: "يُركز على استخراج الشيء من أصله أو حصوله بتوسط فعل آخر، ويغلب استخدامه في الطاقة واللسانيات."
+      mwe: false
+    - lemma: "تَصْنِيع"
+      sense_id: "{auto}"
+      nuance: "يختص بالجانب المادي والتحويلي في المصانع وبناء الهياكل الاقتصادية الصناعية."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نتج","maqayis":"«النُّونُ وَالتَّاءُ وَالْجِيمُ كَلِمَةٌ وَاحِدَةٌ، هِيَ النِّتَاجُ. وَنُتِجَتِ النَّاقَةُ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح العام الشامل لعملية الإخراج في كافة المجالات.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

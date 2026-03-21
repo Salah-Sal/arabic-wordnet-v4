@@ -1,0 +1,180 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمة الموجودة 'كلور' تفتقر إلى التشكيل الكامل."
+      - "نقص في اللمات العلمية البديلة أو التعبيرات الاصطلاحية المستخدمة في السياقات التقنية."
+    observations: "الكلور عنصر كيميائي أساسي، والمصطلح المعرب 'كلور' هو الأكثر شيوعاً. التحدي يكمن في توثيق التشكيل الصحيح والبدائل التقنية مثل 'كلورين' والمركبات الوصفية الثابتة."
+  blind_candidates:
+    - lemma: "كُلُور"
+      generation_method: taarib
+      justification: "التعريب القياسي والشائع للعنصر الكيميائي Chlorine."
+    - lemma: "كُلُورِين"
+      generation_method: taarib
+      justification: "نقل حرفي للمصطلح الإنجليزي، يستخدم أحياناً في المراجع العلمية المتخصصة."
+    - lemma: "غَازُ الكُلُور"
+      generation_method: tarkib
+      justification: "تعبير مركب وصفي يشير إلى الحالة الطبيعية الأكثر شهرة للعنصر كما ورد في التعريف."
+    - lemma: "خَضُور"
+      generation_method: majaz
+      justification: "محاولة لتعريب المصطلح بناءً على أصله اليوناني (chloros) الذي يعني الأخضر الشاحب، على وزن 'فَعُول' للدلالة على الصفة الثابتة، كبديل تراثي مقترح."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "كلور"
+      confirm:
+        - text: "كلوركُلُور [مفرد]: (كم) عنصر لا فلزّيّ، غَازي أخضر مُصْفَرّ سامّ، له رائحة خانقة، يوجد في الطبيعة مُتّحدًا بغيره من العناصر المختلفة أخصّها ملح الطعام."
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "عنصر كيميائي عدده الذري 17، غاز سام ولاذع."
+          source: "المعجم الموحد لمصطلحات الطاقة المتجددة"
+    - lemma: "كلورين"
+      confirm:
+        - text: "أكسدة التي يشيع استخدامها كمطهر في معالجة المياه ومياه الصرف الصحي. الصيغة الكيميائية هي CL2."
+          source: "المعجم الموحد لمصطلحات المياه"
+    - lemma: "غَازُ الكُلُور"
+      confirm:
+        - text: "غَاز الكلور: (كم) محلول يُستعمل لإزالة بقع الحبر من الكتب."
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "خَضُور"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "كلور"
+      decision: confirmed
+      decision_reason: "المصطلح العربي المعياري والأساسي للعنصر الكيميائي، مدعوم بأدلة قوية من المعاجم الحديثة والموحدة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "كُلُور"
+    - lemma: "كُلُورِين"
+      source: stage1
+      decision: confirmed
+      decision_reason: "متداول في الأوساط العلمية والهندسية كتعريب بديل، وورد في معاجم متخصصة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "كُلُورِين", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "غَازُ الكُلُور"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير مركب ثابت يستخدم للإشارة إلى العنصر في حالته الغازية الشائعة، وهو مدعوم معجمياً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "غَازُ الكُلُور", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "خَضُور"
+      source: stage1
+      decision: removed
+      decision_reason: "رغم جمالية الاشتقاق المعتمد على الإيتيمولوجيا، إلا أنه يفتقر للشيوع والاستخدام الفعلي في المراجع العلمية."
+
+stage4_content:
+  definition:
+    current: "عنصر لافلزي شائع ينتمي إلى الهالوجينات؛ يشتهر كغاز سام أصفر ثقيل مهيج"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي يغفل الرمز الكيميائي والعدد الذري، كما أن وصف اللون 'أصفر' غير دقيق تماماً (هو أخضر مُصْفَرّ)."
+    authored:
+      - type: terminological
+        text: "[كِيمْيَاءُ] عُنْصُرٌ لَافِلِزِّيٌّ كِيمْيَائِيٌّ شَائِعٌ، يَنْتَمِي إِلَى مَجْمُوعَةِ الْهَالُوجِينَاتِ، رَمْزُهُ (Cl)، عَدَدُهُ الذَّرِّيُّ (17)، يَكُونُ فِي حَالَتِهِ الطَّبِيعِيَّةِ غَازًا سَامًّا ثَقِيلًا ذَا لَوْنٍ أَخْضَرَ مُصْفَرٍّ وَرَائِحَةٍ خَانِقَةٍ، يُسْتَخْدَمُ فِي تَعْقِيمِ الْمِيَاهِ وَتَبْيِيضِ الْمَنْسُوجَاتِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "[كِيمْيَاءُ] عُنْصُرٌ لَافِلِزِّيٌّ كِيمْيَائِيٌّ شَائِعٌ، يَنْتَمِي إِلَى مَجْمُوعَةِ الْهَالُوجِينَاتِ، رَمْزُهُ (Cl)، عَدَدُهُ الذَّرِّيُّ (17)، يَكُونُ فِي حَالَتِهِ الطَّبِيعِيَّةِ غَازًا سَامًّا ثَقِيلًا ذَا لَوْنٍ أَخْضَرَ مُصْفَرٍّ وَرَائِحَةٍ خَانِقَةٍ، يُسْتَخْدَمُ فِي تَعْقِيمِ الْمِيَاهِ وَتَبْيِيضِ الْمَنْسُوجَاتِ."}
+  examples:
+    per_lemma:
+      - lemma: "كُلُور"
+        examples:
+          - text: "يُضَافُ الكُلُورُ إِلَى مِيَاهِ الشُّرْبِ لِلْقَضَاءِ عَلَى الجَرَاثِيمِ وَالمِيكرُوبَاتِ."
+            type: usage
+      - lemma: "كُلُورِين"
+        examples:
+          - text: "يُعَدُّ الكُلُورِينُ عُنْصُراً فَعَّالاً جِدّاً فِي الصِّنَاعَاتِ الكِيمْيَائِيَّةِ."
+            type: usage
+      - lemma: "غَازُ الكُلُور"
+        examples:
+          - text: "اسْتُعْمِلَ غَازُ الكُلُورِ كَسِلَاحٍ كِيمْيَائِيٍّ فِي الحَرْبِ العَالَمِيَّةِ الأُولَى بِسَبَبِ سُمِّيَّتِهِ العَالِيَةِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يُستخدم الكلور في الصناعة كعامل تبييض ومطهر قوي."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "كُلُور"
+      entry_id: "{auto}"
+      root: "كلر"
+    - lemma: "كُلُورِين"
+      entry_id: "{auto}"
+      root: "كلر"
+    - lemma: "غَازُ الكُلُور"
+      entry_id: "{auto}"
+      roots:
+        - word: "غاز"
+          root: "غوز"
+          maqayis_quote: "«الْغَيْنُ وَالْوَاوُ وَالزَّاءُ كَلِمَةٌ وَاحِدَةٌ، وَهِيَ الْغَزْوُ: طَلَبُ الشَّيْءِ...»"
+        - word: "كلور"
+          root: "كلر"
+  per_sense:
+    - lemma: "كُلُور"
+      sense_id: "{auto}"
+      nuance: "الاسم المعرب الشائع والأكثر تداولاً في اللغة العربية للعنصر."
+      mwe: false
+    - lemma: "كُلُورِين"
+      sense_id: "{auto}"
+      nuance: "تسمية تقنية تتبع اللفظ الإنجليزي (Chlorine) وتستخدم في المراجع المتخصصة."
+      mwe: false
+    - lemma: "غَازُ الكُلُور"
+      sense_id: "{auto}"
+      nuance: "يشير تحديداً إلى الحالة الفيزيائية الغازية للعنصر في الظروف المعيارية."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"كلر"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"غاز","root":"غوز","maqayis":"«...»"},{"word":"كلور","root":"كلر"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم المعرب الشائع والأكثر تداولاً في اللغة العربية للعنصر.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

@@ -1,0 +1,270 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "كلمة 'حزن' عامة جداً للمجموعة التي تهدف إلى 'الحزن المفرط' أو 'التجهم' (Gloominess)."
+      - "نقص المصطلحات التي تعبر عن 'الحزن المكتوم' أو 'الكآبة العميقة' (Lugubriousness)."
+    observations: "المجموعة تغطي حالة من الحزن تتجاوز الشعور العادي إلى حالة دائمة من الكآبة أو التجهم الظاهر على الوجه (Gloominess)."
+  blind_candidates:
+    - lemma: "كَمَد"
+      generation_method: ishtiqaq
+      justification: "يعبر عن أشد الحزن أو الحزن المكتوم الذي يغير لون الوجه، وهو أدق مرادف لـ Lugubriousness."
+    - lemma: "انْقِباض"
+      generation_method: ishtiqaq
+      justification: "يعبر عن حالة نفسية من ضيق الصدر والنفور من التبسط، وهو مرادف لـ Gloominess."
+    - lemma: "شَجَن"
+      generation_method: ishtiqaq
+      justification: "يعبر عن الحزن العميق والهم المتصل، وجمعه 'أشجان' شائع في هذا السياق."
+    - lemma: "اكْفِهرار"
+      generation_method: ishtiqaq
+      justification: "يعبر عن تجهم الوجه وإظلامه، وهو مرادف قوي لـ Gloominess."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "اكتئاب"
+      confirm:
+        - text: "«الْكَافُ وَالْهَمْزَةُ وَالْبَاءُ كَلِمَةٌ تَدُلُّ عَلَى انْكِسَارٍ وَسُوءِ حَالٍ. مِنْ ذَلِكَ الْكَآبَةُ.»"
+          source: "مقاييس اللغة"
+    - lemma: "تجهم"
+      confirm:
+        - text: "«تَجَهَّمْتُ له، أي: استقبلتَه بوجهٍ كريهٍ.»"
+          source: "كتاب العين"
+        - text: "«رجل جهم الوجِه، أي: غليظه، وفيه جُهُومة، أي: غلظ.»"
+          source: "كتاب العين"
+    - lemma: "حزن"
+      confirm:
+        - text: "«الحُزْنُ: بالضم، الغم الحاصل لوقوع مكروه أو فوات محبوب في الماضي ويضاده الفرح.»"
+          source: "التوقيف على مهمات التعاريف"
+    - lemma: "كَمَد"
+      confirm:
+        - text: "«الكَمَدُ: الحزن المكتوم. وفي المحكم: هو أشدُّ الحُزْنِ.»"
+          source: "تاج العروس"
+        - text: "«الكَمَدُ: هَم وحُزْنٌ لا يُسْتَطاعُ إمْضاؤه.»"
+          source: "المحيط في اللغة"
+    - lemma: "انْقِباض"
+      confirm:
+        - text: "«الانقباض: جمع الأطراف ويستعمل في ترك التبسط.»"
+          source: "التوقيف على مهمات التعاريف"
+      expands:
+        - text: "«انْقَبَضَ عَنِ الْأَمْرِ وَتَقَبَّضَ، إِذَا اشْمَأَزَّ.»"
+          source: "مقاييس اللغة"
+    - lemma: "شَجَن"
+      confirm:
+        - text: "«الشَّجَنُ: الهَمُّ، والحَزَنُ، وجمعه: شُجونٌ وأشْجانٌ.»"
+          source: "القاموس المحيط"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "اكتئاب"
+      decision: confirmed
+      decision_reason: "مصطلح مركزي يعبر عن سوء الحال والانكسار النفسي، ويتوافق مع Lugubriousness."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "اكْتِئاب"
+    - lemma: "تجهم"
+      decision: confirmed
+      decision_reason: "يعبر بدقة عن 'Gloominess' في الوجه والمظهر."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَجَهُّم"
+    - lemma: "حزن"
+      decision: confirmed
+      decision_reason: "اللفظ العام للحالة، ورغم عموميته يظل ركيزة دلالية للمجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حُزْن"
+    - lemma: "كَمَد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر عن الحزن الشديد المكتوم، وهو مرادف بليغ لـ Lugubriousness."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "كَمَد", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "انْقِباض"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر عن حالة Gloominess من حيث ضيق الصدر والاشمئزاز والبعد عن التبسط."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "انْقِباض", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "شَجَن"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يعبر عن الحزن المتصل والهم الشاغل، ويناسب سياق Mournfulness."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "شَجَن", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "صفة الحزن المفرط والكآبة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي مقتضب ولا يشمل جوانب 'التجهم' (Gloominess) التي تظهر في اللمات."
+    authored:
+      - type: linguistic
+        text: "حالةٌ من الحُزْنِ العميقِ أو الكآبةِ الغالبةِ، وما يرافِقُها من انقباضِ النفسِ وعبوسِ الوجهِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "حالةٌ من الحُزْنِ العميقِ أو الكآبةِ الغالبةِ، وما يرافِقُها من انقباضِ النفسِ وعبوسِ الوجهِ."}
+  examples:
+    per_lemma:
+      - lemma: "اكْتِئاب"
+        examples:
+          - text: "غَلَبَ عليه الاكْتِئابُ بَعْدَ فَشَلِ مَشْروعِهِ."
+            type: usage
+      - lemma: "تَجَهُّم"
+        examples:
+          - text: "بَدَا التَّجَهُّمُ على وَجْهِهِ حينَ سَمِعَ الخَبَرَ."
+            type: usage
+      - lemma: "حُزْن"
+        examples:
+          - text: "امْتَلأَ القَلْبُ بِالحُزْنِ لِفِراقِ الأَحِبَّةِ."
+            type: usage
+      - lemma: "كَمَد"
+        examples:
+          - text: "مَاتَ الرَّجُلُ كَمَداً لِما حَلَّ بِدِيارِهِ."
+            type: usage
+      - lemma: "انْقِباض"
+        examples:
+          - text: "يَشْعُرُ بِانْقِباضٍ في نَفْسِهِ كُلَّما ذَكَرَ الماضِي."
+            type: usage
+      - lemma: "شَجَن"
+        examples:
+          - text: "هَيَّجَتْ هَذِهِ الأَبْياتُ شُجوناً نائِمةً."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "غَلَبَ عليه الاكْتِئابُ بَعْدَ فَشَلِ مَشْروعِهِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "بَدَا التَّجَهُّمُ على وَجْهِهِ حينَ سَمِعَ الخَبَرَ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "امْتَلأَ القَلْبُ بِالحُزْنِ لِفِراقِ الأَحِبَّةِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "مَاتَ الرَّجُلُ كَمَداً لِما حَلَّ بِدِيارِهِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يَشْعُرُ بِانْقِباضٍ في نَفْسِهِ كُلَّما ذَكَرَ الماضِي."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "هَيَّجَتْ هَذِهِ الأَبْياتُ شُجوناً نائِمةً."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "اكْتِئاب"
+      entry_id: "{auto}"
+      root: "كأب"
+      maqayis_quote: "«الْكَافُ وَالْهَمْزَةُ وَالْبَاءُ كَلِمَةٌ تَدُلُّ عَلَى انْكِسَارٍ وَسُوءِ حَالٍ. مِنْ ذَلِكَ الْكَآبَةُ.»"
+    - lemma: "تَجَهُّم"
+      entry_id: "{auto}"
+      root: "جهم"
+      maqayis_quote: "«الْجِيمُ وَالْهَاءُ وَالْمِيمُ يَدُلُّ عَلَى خِلَافِ الْبَشَاشَةِ وَالطَّلَاقَةِ. يُقَالُ رَجُلٌ جَهْمُ الْوَجْهِ أَيْ كَرِيهُهُ.»"
+    - lemma: "حُزْن"
+      entry_id: "{auto}"
+      root: "حزن"
+      maqayis_quote: "«الْحَاءُ وَالزَّاءُ وَالنُّونُ أَصْلٌ وَاحِدٌ، وَهُوَ خُشُونَةُ الشَّيْءِ وَشِدَّةٌ فِيهِ.»"
+    - lemma: "كَمَد"
+      entry_id: "{auto}"
+      root: "كمد"
+      maqayis_quote: "«(أصل الكلمة في العين) الكَمَدُ: هَمٌّ وحُزْنٌ لا يَستطيعُ إمضاءَه وتغَيُّرُ لَوْنٍ يبقى أثَرُه.»"
+    - lemma: "انْقِباض"
+      entry_id: "{auto}"
+      root: "قبض"
+      maqayis_quote: "«الْقَافُ وَالْبَاءُ وَالضَّادُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى شَيْءٍ مَأْخُوذٍ، وَتَجَمُّعٍ فِي شَيْءٍ.»"
+    - lemma: "شَجَن"
+      entry_id: "{auto}"
+      root: "شجن"
+      maqayis_quote: "«الشِّينُ وَالْجِيمُ وَالنُّونُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى اتِّصَالِ الشَّيْءِ وَالْتِفَافِهِ.»"
+  per_sense:
+    - lemma: "اكْتِئاب"
+      sense_id: "{auto}"
+      nuance: "يركز على انكسار النفس وسوء الحال النفسي الداخلي."
+      mwe: false
+    - lemma: "تَجَهُّم"
+      sense_id: "{auto}"
+      nuance: "يركز على أثر الحزن والكآبة في غلظ الوجه وعبوسه."
+      mwe: false
+    - lemma: "حُزْن"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام والشامل لكل أنواع الغم والكآبة."
+      mwe: false
+    - lemma: "كَمَد"
+      sense_id: "{auto}"
+      nuance: "حزن مكتوم شديد يغير لون صاحبه ولا يجد له مخرجاً."
+      mwe: false
+    - lemma: "انْقِباض"
+      sense_id: "{auto}"
+      nuance: "حالة نفسية من الضيق والاشمئزاز والبعد عن التبسط مع الآخرين."
+      mwe: false
+    - lemma: "شَجَن"
+      sense_id: "{auto}"
+      nuance: "حزن متصل به همّ وحاجة شاغلة للقلب."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params: {entity_type: entry, entity_id: "{auto}", key: note, value: '{"root":"كأب","maqayis":"«الْكَافُ وَالْهَمْزَةُ وَالْبَاءُ كَلِمَةٌ تَدُلُّ عَلَى انْكِسَارٍ وَسُوءِ حَالٍ.»"}'}
+    - command: set_metadata
+      params: {entity_type: entry, entity_id: "{auto}", key: note, value: '{"root":"جهم","maqayis":"«الْجِيمُ وَالْهَاءُ وَالْمِيمُ يَدُلُّ عَلَى خِلَافِ الْبَشَاشَةِ وَالطَّلَاقَةِ.»"}'}
+    - command: set_metadata
+      params: {entity_type: entry, entity_id: "{auto}", key: note, value: '{"root":"حزن","maqayis":"«الْحَاءُ وَالزَّاءُ وَالنُّونُ أَصْلٌ وَاحِدٌ، وَهُوَ خُشُونَةُ الشَّيْءِ وَشِدَّةٌ فِيهِ.»"}'}
+    - command: set_metadata
+      params: {entity_type: entry, entity_id: "{auto}", key: note, value: '{"root":"كمد","maqayis":"«الكَمَدُ: هَمٌّ وحُزْنٌ لا يَستطيعُ إمضاءَه وتغَيُّرُ لَوْنٍ يبقى أثَرُه.»"}'}
+    - command: set_metadata
+      params: {entity_type: entry, entity_id: "{auto}", key: note, value: '{"root":"قبض","maqayis":"«الْقَافُ وَالْبَاءُ وَالضَّادُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى شَيْءٍ مَأْخُوذٍ، وَتَجَمُّعٍ فِي شَيْءٍ.»"}'}
+    - command: set_metadata
+      params: {entity_type: entry, entity_id: "{auto}", key: note, value: '{"root":"شجن","maqayis":"«الشِّينُ وَالْجِيمُ وَالنُّونُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى اتِّصَالِ الشَّيْءِ وَالْتِفَافِهِ.»"}'}
+    - command: set_metadata
+      params: {entity_type: sense, entity_id: "{auto}", key: note, value: '{"nuance":"يركز على انكسار النفس وسوء الحال النفسي الداخلي.","mwe":false}'}
+    - command: set_metadata
+      params: {entity_type: sense, entity_id: "{auto}", key: note, value: '{"nuance":"يركز على أثر الحزن والكآبة في غلظ الوجه وعبوسه.","mwe":false}'}
+    - command: set_metadata
+      params: {entity_type: sense, entity_id: "{auto}", key: note, value: '{"nuance":"اللفظ العام والشامل لكل أنواع الغم والكآبة.","mwe":false}'}
+    - command: set_metadata
+      params: {entity_type: sense, entity_id: "{auto}", key: note, value: '{"nuance":"حزن مكتوم شديد يغير لون صاحبه ولا يجد له مخرجاً.","mwe":false}'}
+    - command: set_metadata
+      params: {entity_type: sense, entity_id: "{auto}", key: note, value: '{"nuance":"حالة نفسية من الضيق والاشمئزاز والبعد عن التبسط مع الآخرين.","mwe":false}'}
+    - command: set_metadata
+      params: {entity_type: sense, entity_id: "{auto}", key: note, value: '{"nuance":"حزن متصل به همّ وحاجة شاغلة للقلب.","mwe":false}'}
+    - command: set_metadata
+      params: {entity_type: synset, entity_id: "{synset_id}", key: note, value: '{"cultural_fit":"native"}'}
+    - command: set_confidence
+      params: {entity_type: synset, entity_id: "{synset_id}", score: 0.9}

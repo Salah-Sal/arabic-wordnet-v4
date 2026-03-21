@@ -1,0 +1,204 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الحالية تفتقر إلى التشكيل الكامل."
+    observations: "اللمّات الموجودة (مسابقة، منافسة) صحيحة ودقيقة دلالياً وتطابق التعريف تماماً، إلا أنها تحتاج إلى إثراء بلمّات أخرى شائعة مثل (مباراة)."
+  blind_candidates:
+    - lemma: "مُسَابَقَة"
+      generation_method: ishtiqaq
+      justification: "الاسم القياسي للمناسبة التي يجري فيها السباق بين المتنافسين، من الجذر (سبق)."
+    - lemma: "مُنَافَسَة"
+      generation_method: ishtiqaq
+      justification: "تُستخدم للدلالة على الحدث الذي يتنافس فيه الأطراف، من الجذر (نفس)."
+    - lemma: "مُبَارَاة"
+      generation_method: ishtiqaq
+      justification: "شائعة جداً في السياق الرياضي والبدني للدلالة على مواجهة بين طرفين لاختيار فائز."
+    - lemma: "تَنَافُس"
+      generation_method: ishtiqaq
+      justification: "مصدر يدل على عملية التسابق، وإن كان يميل لوصف الحالة أكثر من المناسبة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "مُسَابَقَة"
+      confirm:
+        - text: "«اختبارُ يَجْرِى لأشخاص من أَجل الحصول على عَمَل أو جائزة, ثُمَّ يُنْتَقى أَفْضَلُهم»"
+          source: "المعجم الكبير"
+        - text: "«المُسَابَقَة: مغالبة فِي نوع جنس تمرينا فِيمَا هُوَ الْفضل مِنْهُ شرعا.»"
+          source: "معجم مقاليد العلوم"
+    - lemma: "مُنَافَسَة"
+      confirm:
+        - text: "«المُنَافَسَةُ: السَّعْي فِي أَن يبلغ إِلَى مثل خير يصل إِلَى غَيره.»"
+          source: "معجم مقاليد العلوم"
+        - text: "«(المنافسة) التنافس»"
+          source: "المعجم الوسيط"
+    - lemma: "مُبَارَاة"
+      confirm:
+        - text: "«(المباراة) مُنَافَسَة رياضية بَين فريقين أَو فردين»"
+          source: "المعجم الوسيط"
+        - text: "«المجاراة والمسابقة»"
+          source: "المعجم الكبير"
+    - lemma: "تَنَافُس"
+      expands:
+        - text: "«نزعة فطرية تدعو إلى بذل الجهد في سبيل التشبُّه بالعظماء واللُّحوق بهم»"
+          source: "المعجم الوسيط"
+          addition: "يوضح أن التنافس قد يشير إلى النزعة أو الحالة النفسية وليس فقط المناسبة المنظمة."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "مسابقة"
+      decision: confirmed
+      decision_reason: "الكلمة الأساسية والأكثر مطابقة لتعريف المجموعة دلالياً وصرفياً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُسَابَقَة"
+    - lemma: "منافسة"
+      decision: confirmed
+      decision_reason: "مصطلح قياسي يستخدم للدلالة على الحدث التنافسي، خاصة في السياقات العلمية والاقتصادية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُنَافَسَة"
+    - lemma: "مُبَارَاة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "وحدة معجمية ثابتة وشائعة جداً في العربية المعاصرة للدلالة على المنافسات المنظمة، خاصة الرياضية منها."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مُبَارَاة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَنَافُس"
+      source: stage1
+      decision: removed
+      decision_reason: "يميل دلالياً لوصف 'الحالة' أو 'النشاط' المستمر أكثر من كونه 'مناسبة' محددة لاختيار فائز."
+
+stage4_content:
+  definition:
+    current: "مناسبة يتم فيها اختيار فائز من بين اثنين أو أكثر من المتسابقين"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي دقيق ولكنه يفتقر إلى الإشارة إلى الطابع التنظيمي والقواعد التي تحكم هذه المناسبة."
+    authored:
+      - type: terminological
+        text: "مناسبة أو فعالية مُنظَّمة، يتنافس فيها أفراد أو جماعات وفق قواعد محددة؛ لاختيار فائز أو ترتيب المتفوقين."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مناسبة أو فعالية مُنظَّمة، يتنافس فيها أفراد أو جماعات وفق قواعد محددة؛ لاختيار فائز أو ترتيب المتفوقين."}
+  examples:
+    per_lemma:
+      - lemma: "مُسَابَقَة"
+        examples:
+          - text: "أعلنتِ الوزارةُ عن مسابقةٍ أدبيّةٍ كبرى للشباب الموهوبين."
+            type: usage
+      - lemma: "مُنَافَسَة"
+        examples:
+          - text: "تشتدُّ المنافسةُ بين الشركاتِ العالميّةِ لتقديمِ أفضلِ الخدماتِ التقنيّة."
+            type: usage
+      - lemma: "مُبَارَاة"
+        examples:
+          - text: "تُجرى غداً مباراةٌ حاسمةٌ لتحديدِ بطلِ الدوري."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "أعلنتِ الوزارةُ عن مسابقةٍ أدبيّةٍ كبرى للشباب الموهوبين."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تشتدُّ المنافسةُ بين الشركاتِ العالميّةِ لتقديمِ أفضلِ الخدماتِ التقنيّة."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "تُجرى غداً مباراةٌ حاسمةٌ لتحديدِ بطلِ الدوري."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "مُسَابَقَة"
+      entry_id: "{auto}"
+      root: "سبق"
+      maqayis_quote: "«السِّينُ وَالْبَاءُ وَالْقَافُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى التَّقْدِيمِ. يُقَالُ سَبَقَ يَسْبِقُ سَبْقًا.»"
+    - lemma: "مُنَافَسَة"
+      entry_id: "{auto}"
+      root: "نفس"
+      maqayis_quote: "«النُّونُ وَالْفَاءُ وَالسِّينُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خُرُوجِ النَّسِيمِ... وَالتَّنَافُسُ: أَنْ يُبْرِزَ كُلُّ وَاحِدٍ مِنَ الْمُتَبَارِزَيْنِ قُوَّةَ نَفْسِهِ.»"
+    - lemma: "مُبَارَاة"
+      entry_id: "{auto}"
+      root: "بري"
+      maqayis_quote: "«بَارَأْتُ الرَّجُلَ، أَيْ: بَرِئْتُ إِلَيْهِ وَبَرِئَ إِلَيَّ... وَبَارَأَتِ الْمَرْأَةُ صَاحِبَهَا عَلَى الْمُفَارَقَةِ.» (من مادة برأ)"
+  per_sense:
+    - lemma: "مُسَابَقَة"
+      sense_id: "{auto}"
+      nuance: "تركز على فكرة السباق والوصول إلى الغاية أو الجائزة أولاً."
+      mwe: false
+    - lemma: "مُنَافَسَة"
+      sense_id: "{auto}"
+      nuance: "تؤكد على الجهد المتبادل والنزاع الشريف للوصول إلى مرتبة أفضل."
+      mwe: false
+    - lemma: "مُبَارَاة"
+      sense_id: "{auto}"
+      nuance: "تُستخدم غالباً في السياق الرياضي أو المواجهات المباشرة بين فريقين أو فردين."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"سبق","maqayis":"«السِّينُ وَالْبَاءُ وَالْقَافُ أَصْلٌ وَاحِدٌ صَحِيحٌ يَدُلُّ عَلَى التَّقْدِيمِ. يُقَالُ سَبَقَ يَسْبِقُ سَبْقًا.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نفس","maqayis":"«النُّونُ وَالْفَاءُ وَالسِّينُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خُرُوجِ النَّسِيمِ... وَالتَّنَافُسُ: أَنْ يُبْرِزَ كُلُّ وَاحِدٍ مِنَ الْمُتَبَارِزَيْنِ قُوَّةَ نَفْسِهِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"بري","maqayis":"«بَارَأْتُ الرَّجُلَ، أَيْ: بَرِئْتُ إِلَيْهِ وَبَرِئَ إِلَيَّ... وَبَارَأَتِ الْمَرْأَةُ صَاحِبَهَا عَلَى الْمُفَارَقَةِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تركز على فكرة السباق والوصول إلى الغاية أو الجائزة أولاً.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تؤكد على الجهد المتبادل والنزاع الشريف للوصول إلى مرتبة أفضل.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"تُستخدم غالباً في السياق الرياضي أو المواجهات المباشرة بين فريقين أو فردين.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

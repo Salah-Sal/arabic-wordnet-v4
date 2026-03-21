@@ -1,0 +1,185 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي يبدو مترجماً حرفياً عن الإنجليزية (حدث طبيعي ينطوي على...) بينما يفضل صياغته بأسلوب المعاجم العربية الأصيلة."
+      - "اللمّات الحالية صحيحة لكنها تفتقر للتشكيل التام."
+    observations: "المجموعة تغطي المفهوم الفيزيائي للحركة (Motion/Movement). المصطلحات 'حركة' و'تحرك' هي الأكثر شيوعاً، ويمكن إضافة 'انتقال' للدلالة على التغير في الموضع المكاني."
+  blind_candidates:
+    - lemma: "حَرَكَة"
+      generation_method: ishtiqaq
+      justification: "المصدر الأصلي للفعل حرك، وهو اللفظ الأشمل للدلالة على ضد السكون وتغير الحال والمكان."
+    - lemma: "تَحَرُّك"
+      generation_method: ishtiqaq
+      justification: "مصدر الفعل المطاوع (تحرَّك)، ويدل على الحدث من حيث هو عملية أو بدء للنشاط."
+    - lemma: "انْتِقَال"
+      generation_method: ishtiqaq
+      justification: "يدل على التحول من مكان إلى آخر أو من وضع إلى آخر، وهو مطابق لتعريف 'change in position'."
+    - lemma: "مَسِير"
+      generation_method: ishtiqaq
+      justification: "يستخدم للدلالة على حركة الأجسام في مسار محدد، وإن كان أخص من الحركة العامة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "حَرَكَة"
+      confirm:
+        - text: "«(الحركة) (في العرف العام) انتقال الجسم من مكان إلى مكان آخر أو انتقال أجزائه كما في حركة الرحى»"
+          source: "المعجم الوسيط"
+        - text: "«(الحركة) (في الطبيعة): عملية انتقال جسم من موضع إلى آخر»"
+          source: "المعجم الكبير"
+        - text: "«الحركة: الخروج من القوة إلى الفعل تدريجاً، وقيل هي شغل حيز بعد أن كان في حيز آخر»"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+    - lemma: "تَحَرُّك"
+      confirm:
+        - text: "«تحرَّك: حَرُك في قوة»"
+          source: "المعجم الوسيط"
+        - text: "«تَحَرَّكَ: حَرُك في قُوَّةٍ»"
+          source: "المعجم الكبير"
+    - lemma: "انْتِقَال"
+      confirm:
+        - text: "«الانتقال الأيني: هي حركة الجسم من مكان إلى مكان آخر وتسمى نقلة»"
+          source: "كتاب التعريفات للجرجاني"
+        - text: "«الانتقال: عند الحكماء حصول الشيء في حيز بعد أن كان في حيز آخر»"
+          source: "دستور العلماء للأحمدنكري"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "حركة"
+      decision: confirmed
+      decision_reason: "المصطلح الأساسي والأكثر دقة لوصف المفهوم الفيزيائي واللغوي للحركة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "حَرَكَة"
+    - lemma: "تحرك"
+      decision: confirmed
+      decision_reason: "يدل على الجانب الحدثي والعملي للحركة، وهو مستعمل بكثرة في السياقات العلمية والعامة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَحَرُّك"
+    - lemma: "انْتِقَال"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف قوي يركز على جانب التغير في الموضع (displacement/transfer) كما ورد في التعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "انْتِقَال"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-07324399-n"
+
+stage4_content:
+  definition:
+    current: "حدث طبيعي ينطوي على تغيير في موضع أو مكان شيء ما"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ركيك الأسلوب ويبدو مترجماً حرفياً. يفضل استخدام صياغة معجمية رصينة."
+    authored:
+      - type: terminological
+        text: "تَغَيُّرٌ مُتَّصِلٌ فِي مَوْضِعِ الجِسْمِ أَوِ الشَّيْءِ بِالنِّسْبَةِ إِلَى مَرْجِعٍ أَوْ نُقْطَةٍ ثَابِتَةٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params:
+          synset_id: "awn4-07324399-n"
+          definition_index: 0
+          text: "تَغَيُّرٌ مُتَّصِلٌ فِي مَوْضِعِ الجِسْمِ أَوِ الشَّيْءِ بِالنِّسْبَةِ إِلَى مَرْجِعٍ أَوْ نُقْطَةٍ ثَابِتَةٍ."
+  examples:
+    per_lemma:
+      - lemma: "حَرَكَة"
+        examples:
+          - text: "رَصَدَ عُلَمَاءُ الفَلَكِ حَرَكَةَ الكَوَاكِبِ حَوْلَ الشَّمْسِ."
+            type: usage
+      - lemma: "تَحَرُّك"
+        examples:
+          - text: "بَدَأَ التَّحَرُّكُ المِيكَانِيكِيُّ لِلآلَةِ عِنْدَ تَشْغِيلِ المُحَرِّكِ."
+            type: usage
+      - lemma: "انْتِقَال"
+        examples:
+          - text: "تَعْتَمِدُ سُرْعَةُ انْتِقَالِ الجِسْمِ عَلَى القُوَّةِ المُؤَثِّرَةِ فِيهِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params:
+          synset_id: "awn4-07324399-n"
+          text: "قَوَانِينُ الفِيزْيَاءِ تُفَسِّرُ حَرَكَةَ الأَجْسَامِ فِي الفَضَاءِ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "حَرَكَة"
+      entry_id: "{auto}"
+      root: "حرك"
+      maqayis_quote: "«الْحَاءُ وَالرَّاءُ وَالْكَافُ أَصْلٌ وَاحِدٌ، فَالْحَرَكَةُ ضِدُّ السُّكُونِ.»"
+    - lemma: "تَحَرُّك"
+      entry_id: "{auto}"
+      root: "حرك"
+      maqayis_quote: "«الْحَاءُ وَالرَّاءُ وَالْكَافُ أَصْلٌ وَاحِدٌ، فَالْحَرَكَةُ ضِدُّ السُّكُونِ.»"
+    - lemma: "انْتِقَال"
+      entry_id: "{auto}"
+      root: "نقل"
+      maqayis_quote: "«النُّونُ وَالْقَافُ وَاللَّامُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَحْوِيلِ شَيْءٍ مِنْ مَكَانٍ إِلَى مَكَانٍ.»"
+  per_sense:
+    - lemma: "حَرَكَة"
+      sense_id: "{auto}"
+      nuance: "اللفظ العام والشامل للدلالة على المفهوم الفيزيائي والرياضي."
+      mwe: false
+    - lemma: "تَحَرُّك"
+      sense_id: "{auto}"
+      nuance: "يركز على الجانب الإجرائي والحدثي والبدء في الحركة."
+      mwe: false
+    - lemma: "انْتِقَال"
+      sense_id: "{auto}"
+      nuance: "يركز على النتيجة المكانية للحركة (تغير الموضع من أ إلى ب)."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حرك","maqayis":"«الْحَاءُ وَالرَّاءُ وَالْكَافُ أَصْلٌ وَاحِدٌ، فَالْحَرَكَةُ ضِدُّ السُّكُونِ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نقل","maqayis":"«النُّونُ وَالْقَافُ وَاللَّامُ: أَصْلٌ صَحِيحٌ يَدُلُّ عَلَى تَحْوِيلِ شَيْءٍ مِنْ مَكَانٍ إِلَى مَكَانٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ العام والشامل للدلالة على المفهوم الفيزيائي والرياضي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-07324399-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-07324399-n"
+        score: 0.95

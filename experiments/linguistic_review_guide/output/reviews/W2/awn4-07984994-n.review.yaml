@@ -1,0 +1,206 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الحالية تفتقر إلى التشكيل الكامل."
+      - "غياب مصطلح 'لوبي' و'جماعة ضغط' وهما الأكثر دقة في السياق السياسي والمعاصر لهذا المفهوم."
+    observations: "المفهوم يشير إلى كيان اجتماعي منظم يهدف للتأثير في القرارات لتحقيق مصالح أعضائه. اللمّات الموجودة هي ترجمات حرفية مقبولة ولكنها تحتاج لتعزيز بمصطلحات اصطلاحية أرسخ في العلوم السياسية."
+  blind_candidates:
+    - lemma: "جَمَاعَةُ مَصَالِحَ"
+      generation_method: tarkib
+      justification: "تركيب إضافي فصيح يطابق المفهوم دلالياً ويشيع استخدامه في العلوم السياسية."
+    - lemma: "أَصْحَابُ مَصَالِحَ"
+      generation_method: tarkib
+      justification: "يشير إلى الأفراد ذوي المصلحة المشتركة، وهو تعبير شائع في الإدارة والسياسة."
+    - lemma: "لُوبِي"
+      generation_method: taarib
+      justification: "تعريب للمصطلح العالمي (Lobby) وهو مستقر في المعاجم الحديثة (مثل معجم مختار عمر) لوصف جماعات الضغط."
+    - lemma: "فِئَةٌ ذَاتُ مَصْلَحَةٍ"
+      generation_method: tarkib
+      justification: "تعبير وصفي فصيح يشير إلى مجموعة تشترك في مصلحة معينة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "أصحاب المصالح"
+      expands:
+        - text: "يشتمل على تحليل الأثر الموزع لسياسات الإصلاحات على رفاه مجموعات أصحاب المصالح المختلفة..."
+          source: "مسرد المناخ والبيئة (ArabTerm)"
+          addition: "يؤكد استخدام المصطلح في سياق المجموعات المتأثرة بالسياسات."
+    - lemma: "مجموعة مصالح"
+      evidence_status: "no_material_found"
+    - lemma: "لُوبِي"
+      confirm:
+        - text: "لُوبِي [مفرد]: جماعة ضغط، وهي جماعة تحاول التأثيرَ على أعضاء هيئة تشريعيّة."
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "جَمَاعَةُ ضَغْطٍ"
+      confirm:
+        - text: "جماعة ضغط: ترجمة لـ pressure group; lobby."
+          source: "المعجم الموحد لمصطلحات القانون"
+    - lemma: "جَمَاعَةُ مَصَالِحَ"
+      confirm:
+        - text: "جماعة ذات اهتمام خاص: ترجمة لـ special interest group."
+          source: "معجم مصطلحات المعلوماتية"
+          addition: "يؤكد استخدام 'جماعة' مضافة إلى 'اهتمام/مصلحة' للتعبير عن المفهوم."
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "أصحاب المصالح"
+      decision: confirmed
+      decision_reason: "مصطلح مستخدم وشائع وإن كان يشير للأفراد المكونين للجماعة، وتوافره في المعاجم التقنية الحديثة يدعم بقاءه."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "أَصْحَابُ المَصَالِحِ"
+    - lemma: "مجموعة مصالح"
+      decision: confirmed
+      decision_reason: "ترجمة دقيقة ومباشرة للمصطلح الإنجليزي، مقبولة تركيبياً."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَجْمُوعَةُ مَصَالِحَ"
+    - lemma: "لُوبِي"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعريب مستقر في اللغة المعاصرة ومسجل في المعاجم الحديثة للدلالة على هذا المفهوم تحديداً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "لُوبِي", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "جَمَاعَةُ ضَغْطٍ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "المصطلح العربي الفني المقابل لـ lobby و pressure group، وهو واسع الانتشار."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "جَمَاعَةُ ضَغْطٍ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "جَمَاعَةُ مَصَالِحَ"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تعبير فصيح يجمع بين رصانة اللفظ ودقة الدلالة على المفهوم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "جَمَاعَةُ مَصَالِحَ", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "(عادة بصيغة الجمع) مجموعة اجتماعية يسيطر أعضاؤها على مجال نشاط معين ولهم أهداف مشتركة"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ترجمة حرفية، ويفضل صياغته بأسلوب معجمي يبرز الوظيفة التأثيرية لهذه المجموعات."
+    authored:
+      - type: terminological
+        text: "فِئَةٌ مِنَ النَّاسِ تَجْمَعُهُمْ أَهْدَافٌ أَوْ مَصَالِحُ مُشْتَرَكَةٌ، تَسْعَى لِتَحْقِيقِ أَهْدَافِهَا عَنْ طَرِيقِ التَّأْثِيرِ فِي صُنَّاعِ القَرَارِ أَوْ فِي مَجَالَاتِ النَّشَاطِ العَامَّةِ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "أَصْحَابُ المَصَالِحِ"
+        examples:
+          - text: "يَسْعَى أَصْحَابُ المَصَالِحِ فِي قِطَاعِ الصِّنَاعَةِ إِلَى اسْتِصْدَارِ قَوَانِينَ تُخَفِّفُ الضَّرَائِبَ."
+            type: usage
+      - lemma: "جَمَاعَةُ ضَغْطٍ"
+        examples:
+          - text: "تُعَدُّ جَمَاعَاتُ الضَّغْطِ البيئيَّةِ قُوَّةً مُؤَثِّرَةً فِي السِّيَاسَةِ الدُّوَلِيَّةِ."
+            type: usage
+      - lemma: "لُوبِي"
+        examples:
+          - text: "نَجَحَ اللُّوبِي الزِّرَاعِيُّ فِي إِقْنَاعِ الحُكُومَةِ بِزِيَادَةِ الدَّعْمِ لِلْمَحَاصِيلِ."
+            type: usage
+  actions:
+    - command: update_definition
+      params: {synset_id: "{synset_id}", definition_index: 0, text: "فِئَةٌ مِنَ النَّاسِ تَجْمَعُهُمْ أَهْدَافٌ أَوْ مَصَالِحُ مُشْتَرَكَةٌ، تَسْعَى لِتَحْقِيقِ أَهْدَافِهَا عَنْ طَرِيقِ التَّأْثِيرِ فِي صُنَّاعِ القَرَارِ أَوْ فِي مَجَالَاتِ النَّشَاطِ العَامَّةِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "أَصْحَابُ المَصَالِحِ"
+      entry_id: "{auto}"
+      roots:
+        - word: "أصحاب"
+          root: "صحب"
+          maqayis_quote: "«الصَّادُ وَالْحَاءُ وَالْبَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُقَارَنَةِ شَيْءٍ وَمُقَارَبَتِهِ.»"
+        - word: "المصالح"
+          root: "صلح"
+          maqayis_quote: "«الصَّادُ وَاللَّامُ وَالْحَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خِلَافِ الْفَسَادِ.»"
+    - lemma: "مَجْمُوعَةُ مَصَالِحَ"
+      entry_id: "{auto}"
+      roots:
+        - word: "مجموعة"
+          root: "جمع"
+          maqayis_quote: "«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ.»"
+        - word: "مصالح"
+          root: "صلح"
+          maqayis_quote: "«الصَّادُ وَاللَّامُ وَالْحَاءُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى خِلَافِ الْفَسَادِ.»"
+    - lemma: "جَمَاعَةُ ضَغْطٍ"
+      entry_id: "{auto}"
+      roots:
+        - word: "جماعة"
+          root: "جمع"
+          maqayis_quote: "«الْجِيمُ وَالْمِيمُ وَالْعَيْنُ أَصْلٌ وَاحِدٌ، يَدُلُّ عَلَى تَضَامِّ الشَّيْءِ.»"
+        - word: "ضغط"
+          root: "ضغط"
+          maqayis_quote: "«الضَّادُ وَالْغَيْنُ وَالطَّاءُ أَصْلٌ صَحِيحٌ وَاحِدٌ يَدُلُّ عَلَى مُزَاحَمَةٍ بِشِدَّةٍ.»"
+    - lemma: "لُوبِي"
+      entry_id: "{auto}"
+  per_sense:
+    - lemma: "أَصْحَابُ المَصَالِحِ"
+      sense_id: "{auto}"
+      nuance: "تركز على الأفراد ذوي العلاقة أو المتأثرين بمجال معين."
+      mwe: true
+    - lemma: "مَجْمُوعَةُ مَصَالِحَ"
+      sense_id: "{auto}"
+      nuance: "تعبير محايد يصف الكيان الجماعي القائم على مصلحة معينة."
+      mwe: true
+    - lemma: "جَمَاعَةُ ضَغْطٍ"
+      sense_id: "{auto}"
+      nuance: "تركز على الوظيفة السياسية وهي ممارسة الضغط (Pressure) على السلطة."
+      mwe: true
+    - lemma: "لُوبِي"
+      sense_id: "{auto}"
+      nuance: "المصطلح المعاصر الأكثر دقة في السياق البرلماني والسياسي الدولي."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

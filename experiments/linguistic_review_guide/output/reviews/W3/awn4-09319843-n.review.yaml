@@ -1,0 +1,116 @@
+stage1_review:
+  assessment:
+    concerns:
+      - يوجد لمة واحدة فقط في المجموعة الترادفية الحالية.
+    observations: "المجموعة تمثل اسماً جغرافياً علماً (خليج ألاسكا)، وهو تركيب إضافي مستقر ومستعمل في المعاجم الحديثة والمصادر الجغرافية."
+  blind_candidates:
+    - lemma: "خَلِيجُ أَلَاسْكَا"
+      generation_method: tarkib
+      justification: "الاسم الجغرافي الرسمي والمباشر للخليج."
+    - lemma: "جَوْنُ أَلَاسْكَا"
+      generation_method: tarkib
+      justification: "استخدام 'جون' كمرادف لـ 'خليج' في السياقات الكلاسيكية، وإن كان أقل شيوعاً في الجغرافيا الحديثة."
+    - lemma: "خَلِيجُ أَلَسْكَا"
+      generation_method: tarkib
+      justification: "تنويع إملائي لاسم ألاسكا."
+    - lemma: "بَحْرُ أَلَاسْكَا"
+      generation_method: majaz
+      justification: "أحياناً تُسمى الخلجان الكبيرة بحاراً في اللغة العربية الفصيحة."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خليج ألاسكا"
+      confirm:
+        - text: "خليج ألاسكا (Gulf of Alaska)"
+          source: "المكنز الزراعي متعدد اللغات (AGROVOC)"
+    - lemma: "ألاسكا"
+      confirm:
+        - text: "ألاسكا: يستوطن على الخصوص ألاسكا وكندا وسيبيريا"
+          source: "مسرد صناعة النسيج (ArabTerm)"
+    - lemma: "أرخبيل"
+      confirm:
+        - text: "أرخبيل: مجموعة جُزُر, أو كل قطعة من البحر فيها تلك الجُزُر"
+          source: "المعجم الكبير"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "خليج ألاسكا"
+      decision: confirmed
+      decision_reason: "هو المصطلح الجغرافي القياسي والوحيد المعترف به لهذا المعلم."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَلِيجُ أَلَاسْكَا"
+    - lemma: "جَوْنُ أَلَاسْكَا"
+      source: stage1
+      decision: removed
+      decision_reason: "غير مستعمل في المصادر الجغرافية الحديثة، وكلمة 'جون' غلب استعمالها على الخلجان الصغيرة أو الأجزاء المحصورة من البحر."
+    - lemma: "خَلِيجُ أَلَسْكَا"
+      source: stage1
+      decision: removed
+      decision_reason: "تنويع إملائي غير مفضل؛ الإملاء المعتمد في المصادر العربية الرسمية هو 'ألاسكا'."
+    - lemma: "بَحْرُ أَلَاسْكَا"
+      source: stage1
+      decision: removed
+      decision_reason: "غير دقيق علمياً وجغرافياً."
+
+stage4_content:
+  definition:
+    current: "خليج من المحيط الهادئ بين شبه جزيرة ألاسكا وأرخبيل ألكسندر"
+    assessment:
+      decision: retain
+      reason: "التعريف دقيق جغرافياً ويحدد موقع الخليج بدقة باستخدام المعالم المحيطة به (شبه جزيرة ألاسكا وأرخبيل ألكسندر)."
+  examples:
+    per_lemma:
+      - lemma: "خَلِيجُ أَلَاسْكَا"
+        examples:
+          - text: "يُعَدُّ خَلِيجُ أَلَاسْكَا أَحَدَ أَكْبَرِ الخُلْجَانِ فِي المِحِيطِ الهَادِئِ، وَيَشْتَهِرُ بِتَنَوُّعِ بِيئَتِهِ البَحْرِيَّةِ."
+            type: usage
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خَلِيجُ أَلَاسْكَا"
+      entry_id: "{auto}"
+      roots:
+        - word: "خليج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"
+        - word: "ألاسكا"
+          root: null
+  per_sense:
+    - lemma: "خَلِيجُ أَلَاسْكَا"
+      sense_id: "{auto}"
+      nuance: "الاسم العلم الجغرافي المحدد لهذا المسطح المائي."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"خليج","root":"خلج","maqayis":"«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ. فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"},{"word":"ألاسكا","root":null}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"الاسم العلم الجغرافي المحدد لهذا المسطح المائي.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 1.0

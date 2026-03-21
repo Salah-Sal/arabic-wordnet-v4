@@ -1,0 +1,167 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "تحتاج اللمّة الموجودة إلى ضبط بالشكل."
+      - "يفتقر السجل إلى بدائل شائعة مثل الترجمة الحرفية للاسم (القديس لورانس)."
+    observations: "المجموعة تتعلق بعلم من أعلام الجغرافيا، وهو خليج مائي في كندا. التسمية العربية الشائعة تعتمد على التعريب الصوتي للاسم الإنجليزي 'Saint Lawrence'."
+  blind_candidates:
+    - lemma: "خَلِيجُ سَانْت لُورَانْس"
+      generation_method: tarkib
+      justification: "الاسم الشائع والأكثر تداولاً في كتب الجغرافيا والإعلام العربي."
+    - lemma: "خَلِيجُ القِدِّيسِ لُورَانْس"
+      generation_method: tarkib
+      justification: "ترجمة دلالية للاسم 'Saint Lawrence' تُستخدم أحياناً في السياقات التاريخية أو الدينية."
+    - lemma: "خَلِيجُ سَان لُورَان"
+      generation_method: tarkib
+      justification: "تعريب صوتي للاسم الفرنسي 'Saint-Laurent' نظراً لوقوع الخليج في مقاطعة كيبيك الكندية."
+    - lemma: "خَلِيجُ لُورَانْس"
+      generation_method: tarkib
+      justification: "صيغة مخففة بحذف كلمة 'سانت'."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "خليج سانت لورانس"
+      evidence_status: "no_material_found"
+    - lemma: "خَلِيجُ سَانْت لُورَانْس"
+      evidence_status: "no_material_found"
+    - lemma: "نهر سانت لورنس"
+      confirm:
+        - text: "«نهر سانت لورنس»"
+          source: "المكنز الزراعي متعدد اللغات"
+    - lemma: "لورنس"
+      confirm:
+        - text: "«لورنس: صورة كتابية صوتية من الاسم اللاتيني لورانتسيوس»"
+          source: "موسوعة السلطان قابوس لأسماء العرب"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "خليج سانت لورانس"
+      decision: confirmed
+      decision_reason: "الاسم الرسمي والمعتمد جغرافياً، ويحتاج فقط إلى ضبط بالشكل."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "خَلِيجُ سَانْت لُورَانْس"
+    - lemma: "خَلِيجُ سَانْت لُورَنْس"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تنويع إملائي شائع لاسم العلم (لورنس بدل لورانس)، ومدعوم بوجود 'نهر سانت لورنس' في قاعدة البيانات."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "خَلِيجُ سَانْت لُورَنْس", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09322303-n"}
+    - lemma: "خَلِيجُ القِدِّيسِ لُورَانْس"
+      source: stage1
+      decision: confirmed
+      decision_reason: "ترجمة عربية فصيحة للاسم، مقبولة في السياقات المعرفية."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: create_entry
+          params: {lemma: "خَلِيجُ القِدِّيسِ لُورَانْس", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "awn4-09322303-n"}
+
+stage4_content:
+  definition:
+    current: "ذراع من شمال غرب المحيط الأطلسي قبالة الساحل الجنوبي الشرقي لكندا"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي ترجمة حرفية؛ يفضل صياغته بأسلوب معجمي يبرز كونه مصباً نهرياً كبيراً."
+    authored:
+      - type: encyclopedic
+        text: "جُزْءٌ مِنَ الْمُحِيطِ الأَطْلَسِيِّ يَقَعُ فِي الشَّمَالِ الْغَرْبِيِّ، عِنْدَ السَّاحِلِ الشَّرْقِيِّ لِكَنَدَا، وَتَصُبُّ فِيهِ مِيَاهُ نَهْرِ سَانْت لُورَانْس، وَيُعَدُّ مَصَبًّا مَائِيًّا كَبِيرًا."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "awn4-09322303-n", definition_index: 0, text: "جُزْءٌ مِنَ الْمُحِيطِ الأَطْلَسِيِّ يَقَعُ فِي الشَّمَالِ الْغَرْبِيِّ، عِنْدَ السَّاحِلِ الشَّرْقِيِّ لِكَنَدَا، وَتَصُبُّ فِيهِ مِيَاهُ نَهْرِ سَانْت لُورَانْس."}
+  examples:
+    per_lemma:
+      - lemma: "خَلِيجُ سَانْت لُورَانْس"
+        examples:
+          - text: "يُعَدُّ خَلِيجُ سَانْت لُورَانْس أَحَدَ أَكْبَرِ مَصَابِّ الأَنْهَارِ فِي الْعَالَمِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "awn4-09322303-n", text: "يُعَدُّ خَلِيجُ سَانْت لُورَانْس أَحَدَ أَكْبَرِ مَصَابِّ الأَنْهَارِ فِي الْعَالَمِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "خَلِيجُ سَانْت لُورَانْس"
+      entry_id: "{auto}"
+      roots:
+        - word: "خَلِيج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ... فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"
+    - lemma: "خَلِيجُ سَانْت لُورَنْس"
+      entry_id: "{auto}"
+      roots:
+        - word: "خَلِيج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ...»"
+    - lemma: "خَلِيجُ القِدِّيسِ لُورَانْس"
+      entry_id: "{auto}"
+      roots:
+        - word: "خَلِيج"
+          root: "خلج"
+          maqayis_quote: "«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ...»"
+        - word: "القديس"
+          root: "قدس"
+          maqayis_quote: "«الْقَافُ وَالدَّالُ وَالسِّينُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى الطَّهَارَةِ.»"
+  per_sense:
+    - lemma: "خَلِيجُ سَانْت لُورَانْس"
+      sense_id: "{auto}"
+      nuance: "التسمية الأكثر شيوعاً وعالمية."
+      mwe: true
+    - lemma: "خَلِيجُ سَانْت لُورَنْس"
+      sense_id: "{auto}"
+      nuance: "بديل إملائي لاسم العلم."
+      mwe: true
+    - lemma: "خَلِيجُ القِدِّيسِ لُورَانْس"
+      sense_id: "{auto}"
+      nuance: "ترجمة دلالية للاسم الأجنبي."
+      mwe: true
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"خَلِيج","root":"خلج","maqayis":"«الْخَاءُ وَاللَّامُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى لَيٍّ وَفَتْلٍ وَقِلَّةِ اسْتِقَامَةٍ... فَمِنْ ذَلِكَ الْخَلِيجُ، وَهُوَ مَاءٌ يَمِيلُ مَيْلَةً عَنْ مُعْظَمِ الْمَاءِ فَيَسْتَقِرُّ.»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"التسمية الأكثر شيوعاً وعالمية.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-09322303-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-09322303-n"
+        score: 0.95

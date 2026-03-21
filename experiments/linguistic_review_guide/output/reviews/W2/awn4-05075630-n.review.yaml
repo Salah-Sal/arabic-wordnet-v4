@@ -1,0 +1,260 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "الخلط الدلالي في بعض اللمّات (مثل منحدر) بين 'الخاصية' (Gradient) و'المكان' (Slope/Incline)."
+      - "نقص المصطلحات التقنية الحديثة التي تعبر عن التغير الراتب في القيم (مثل تدرج الضغط أو الحرارة)."
+    observations: "المجموعة تعبر عن خاصية مكانية (Spatial Property) تتعلق بالزاوية مع الأفق. اللمّات الحالية تركز على المعنى الفيزيائي، بينما يفتقر السياق للمصطلح الرياضي 'تدرج'."
+  blind_candidates:
+    - lemma: "مَيَلَان"
+      generation_method: ishtiqaq
+      justification: "مصدر يدل على حالة الميل أو الهيئة التي يكون عليها الشيء المنحرف عن الاستواء."
+    - lemma: "تَدَرُّج"
+      generation_method: ishtiqaq
+      justification: "يستخدم في السياقات العلمية للتعبير عن معدل التغير المكاني (Gradient)، وهو أدق من 'ميل' في الفيزياء والرياضيات."
+    - lemma: "تَحَدُّر"
+      generation_method: ishtiqaq
+      justification: "يدل على الميل باتجاه الأسفل، ويستخدم لوصف انحدار الطرق والتضاريس."
+    - lemma: "صَبَب"
+      generation_method: majaz
+      justification: "لفظ تراثي فصيح يطلق على ما انحدر من الأرض، ويمثل الانتقال من الفعل (صبَّ) إلى صفة المكان."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "اِنْحِدَار"
+      confirm:
+        - text: "«سطح مائل في تل أو جبل»"
+          source: "المعجم الموحد لمصطلحات الجيولوجيا"
+        - text: "«انحدار السطح: surface slope / surface gradient»"
+          source: "المعجم الموحد لمصطلحات المياه"
+    - lemma: "مَيْل"
+      confirm:
+        - text: "«المَيْلُ: العدول عن الوسَط إلى أَحَد الجانبين»"
+          source: "المفردات في غريب القرآن للراغب"
+        - text: "«مقياس المَيْل: أي من أدوات المسح المستخدمة لقياس زوايا الميل أو الارتفاع»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "مُنْحَدَر"
+      confirm:
+        - text: "«المُنْحَدَر: الأحدور»"
+          source: "المعجم الوسيط"
+        - text: "«مُنْحَدَر: slope»"
+          source: "المورد الحديث"
+      expands:
+        - text: "«الموضع المُنْحَدِر»"
+          source: "المعجم الكبير"
+          addition: "يشير غالباً إلى المكان المادي للانحدار."
+    - lemma: "تَدَرُّج"
+      confirm:
+        - text: "«تدرج: gradient»"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية"
+        - text: "«تدرج (انحدار) الضغط الجوي: barometric gradient»"
+          source: "المعجم الموحد لمصطلحات الأرصاد الجوية"
+    - lemma: "مَيَلَان"
+      confirm:
+        - text: "«مَيَلان: inclination»"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية"
+    - lemma: "تَحَدُّر"
+      confirm:
+        - text: "«تحدُّر: slope»"
+          source: "المورد الحديث"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "اِنْحِدَار"
+      decision: confirmed
+      decision_reason: "مصطلح أساسي يعبر عن الانخفاض من مستوى عالٍ إلى منخفض، وهو واسع الاستخدام علمياً وجغرافياً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "اِنْحِدَار"
+    - lemma: "مَيْل"
+      decision: confirmed
+      decision_reason: "اللفظ الأعم للتعبير عن الانحراف عن الخطوط المرجعية (الأفقية أو الرأسية)."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مَيْل"
+    - lemma: "مُنْحَدَر"
+      decision: confirmed
+      decision_reason: "رغم دلالته الأصلية على المكان، إلا أنه يستخدم مجازاً وبالتوسع لوصف 'زاوية الانحدار' أو 'شدة الميل'."
+      evidence_assessment:
+        case: mixed
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "مُنْحَدَر"
+    - lemma: "تَدَرُّج"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصطلح تقني ضروري للتعبير عن مفهوم الـ Gradient في الرياضيات والفيزياء، ويضيف بعداً علمياً دقيقاً للمجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَدَرُّج", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "مَيَلَان"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مصدر قياسي يدل على استمرارية الحالة، ويستخدم في الهندسة والطب لوصف الانحراف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "مَيَلَان", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "تَحَدُّر"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف لـ 'انحدار' يركز على جهة الهبوط، وهو فصيح وشائع في المعاجم الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "تَحَدُّر", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "الخاصية التي يمتلكها خط أو سطح ينحرف عن الوضع الأفقي"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكن يمكن صياغته بأسلوب معجمي أكثر إيجازاً ودقة باستخدام مصطلحات هندسية."
+    authored:
+      - type: terminological
+        text: "مِقْدَارُ انْحِرَافِ السَّطْحِ أَوْ الْخَطِّ عَنِ الْمُسْتَوَى الْأُفُقِيِّ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+      - type: linguistic
+        text: "الاعوِجاجُ أَوِ المَيْلُ عَنِ الاسْتِواءِ."
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "مِقْدَارُ انْحِرَافِ السَّطْحِ أَوْ الْخَطِّ عَنِ الْمُسْتَوَى الْأُفُقِيِّ."}
+  examples:
+    per_lemma:
+      - lemma: "اِنْحِدَار"
+        examples:
+          - text: "يَزْدَادُ انْحِدَارُ الطَّرِيقِ كُلَّمَا اقْتَرَبْنَا مِنْ قِمَّةِ الْجَبَلِ."
+            type: usage
+      - lemma: "مَيْل"
+        examples:
+          - text: "قَامَ الْمُهَنْدِسُ بِحِسَابِ زَاوِيَةِ مَيْلِ السَّقْفِ لِتَصْرِيفِ مِيَاهِ الْأَمْطَارِ."
+            type: usage
+      - lemma: "تَدَرُّج"
+        examples:
+          - text: "يُؤَثِّرُ تَدَرُّجُ الضَّغْطِ الْجَوِيِّ عَلَى سُرْعَةِ الرِّيَاحِ وَاتِّجَاهِهَا."
+            type: usage
+      - lemma: "مُنْحَدَر"
+        examples:
+          - text: "يَتَمَيَّزُ هَذَا الْمُنْحَدَرُ بِوُعُورَتِهِ وَصُعُوبَةِ تَسَلُّقِهِ."
+            type: usage
+    actions:
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "يُقَاسُ مَيْلُ السَّطْحِ بِالدَّرَجَاتِ أَوْ بِالنِّسْبَةِ الْمِئَوِيَّةِ."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "اِنْحِدَار"
+      entry_id: "{auto}"
+      root: "حدر"
+      maqayis_quote: "«الْحَاءُ وَالدَّالُ وَالرَّاءُ أَصْلَانِ: الْهُبُوطُ، وَالِامْتِلَاءُ. فَالْأَوَّلُ حَدَرْتُ الشَّيْءَ إِذَا أَنْزَلْتَهُ. وَالْحُدُورُ فِعْلُ الْحَادِرِ.»"
+    - lemma: "مَيْل"
+      entry_id: "{auto}"
+      root: "ميل"
+      maqayis_quote: "«الْمِيمُ وَالْيَاءُ وَاللَّامُ كَلِمَةٌ صَحِيحَةٌ تَدُلُّ عَلَى انْحِرَافٍ فِي الشَّيْءِ إِلَى جَانِبٍ مِنْهُ. مَالَ يَمِيلُ مَيْلًا.»"
+    - lemma: "تَدَرُّج"
+      entry_id: "{auto}"
+      root: "درج"
+      maqayis_quote: "«الدَّالُ وَالرَّاءُ وَالْجِيمُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُضِيِّ الشَّيْءِ وَالْمُضِيِّ فِي الشَّيْءِ.»"
+    - lemma: "مُنْحَدَر"
+      entry_id: "{auto}"
+      root: "حدر"
+      maqayis_quote: "«وَالْحَدُورُ، بِفَتْحِ الْحَاءِ: [الْمَكَانُ] تَنْحَدِرُ مِنْهُ.»"
+    - lemma: "مَيَلَان"
+      entry_id: "{auto}"
+      root: "ميل"
+      maqayis_quote: "«مَالَ يَمِيلُ مَيْلًا. فَإِنْ كَانَ خِلْقَةً فِي الشَّيْءِ فَمَيَلٌ.»"
+    - lemma: "تَحَدُّر"
+      entry_id: "{auto}"
+      root: "حدر"
+      maqayis_quote: "«حَدَرْتُ الشَّيْءَ إِذَا أَنْزَلْتَهُ.»"
+  per_sense:
+    - lemma: "اِنْحِدَار"
+      sense_id: "{auto}"
+      nuance: "يركز على زاوية الهبوط وعملية النزول من أعلى إلى أسفل."
+      mwe: false
+    - lemma: "مَيْل"
+      sense_id: "{auto}"
+      nuance: "أكثر تجريداً، يعبر عن مجرد الخروج عن الاستقامة (الرأسية أو الأفقية)."
+      mwe: false
+    - lemma: "تَدَرُّج"
+      sense_id: "{auto}"
+      nuance: "مصطلح تقني يصف التغير المستمر والراتب في القيمة عبر المسافة (Gradient)."
+      mwe: false
+    - lemma: "مُنْحَدَر"
+      sense_id: "{auto}"
+      nuance: "يشير غالباً إلى السطح المائل نفسه كمكان، ولكن يستخدم للتعبير عن درجة الصعوبة أو الشدة."
+      mwe: false
+    - lemma: "مَيَلَان"
+      sense_id: "{auto}"
+      nuance: "يدل على الهيئة والحالة المستمرة للشيء المائل."
+      mwe: false
+    - lemma: "تَحَدُّر"
+      sense_id: "{auto}"
+      nuance: "مرادف للانحدار مع تأكيد على انسيابية الحركة للأسفل."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"حدر","maqayis":"«الْحَاءُ وَالدَّالُ وَالرَّاءُ أَصْلَانِ: الْهُبُوطُ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"ميل","maqayis":"«الْمِيمُ وَالْيَاءُ وَاللَّامُ كَلِمَةٌ صَحِيحَةٌ تَدُلُّ عَلَى انْحِرَافٍ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على زاوية الهبوط وعملية النزول من أعلى إلى أسفل.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

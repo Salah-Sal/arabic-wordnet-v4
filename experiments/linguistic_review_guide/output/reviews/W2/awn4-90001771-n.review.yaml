@@ -1,0 +1,245 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "المصطلح 'تلميح' عام جداً وقد لا يشير بالضرورة إلى سياق الشبكات الاجتماعية دون قرينة."
+      - "تحتاج اللمات الموجودة إلى تشكيل كامل."
+    observations: "المفهوم المعبر عنه بـ (Subtweeting) يجد مكافئاً بلاغياً دقيقاً في التراث العربي وهو 'التعريض'، كما أن 'الغمز' يستخدم في المعاجم الحديثة للدلالة على الانتقاد الخفي. التعبير 'تغريد مبطن' هو ترجمة وصفية دقيقة ومركبة شائعة في الاستعمال المعاصر."
+  blind_candidates:
+    - lemma: "تَغْرِيدَةٌ خَفِيَّةٌ"
+      generation_method: tarkib
+      justification: "وصف للتغريدة التي تخفي هويتها أو مقصودها عن المستهدف."
+    - lemma: "تَعْرِيضٌ"
+      generation_method: majaz
+      justification: "المصطلح العربي الكلاسيكي للإشارة إلى شخص أو أمر دون تسميته صراحة."
+    - lemma: "غَمْزٌ إِلكترُونِيٌّ"
+      generation_method: tarkib
+      justification: "استخدام الاستعارة التقليدية (الغمز) في سياق تقني."
+    - lemma: "إِيمَاءَةٌ"
+      generation_method: majaz
+      justification: "الإشارة الخفية أو التلويح بالمعنى."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "تَعْرِيض"
+      confirm:
+        - text: "«التعريضُ: الْكَلَام الْمشَار بِهِ إِلَى جَانب، وإيهام أَن الْغَرَض جَانب آخر.»"
+          source: "معجم مقاليد العلوم للسيوطي"
+        - text: "«التعريض: في الكلام ما يفهم السامع مراده بغير تصريح.»"
+          source: "التوقيف على مهمات التعاريف للمناوي"
+        - text: "«معاريض الكلام، وذلك أنه يخرج في معرض غير لفظه الظاهر.»"
+          source: "مقاييس اللغة لابن فارس"
+    - lemma: "غَمْز"
+      confirm:
+        - text: "«غَمْزة: انتقاد من طرف خفي.»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«غَمَزَ، إِذَا عَابَ وَذَكَرَ بِغَيْرِ الْجَمِيلِ.»"
+          source: "مقاييس اللغة لابن فارس"
+    - lemma: "تَلْمِيح"
+      confirm:
+        - text: "«ويسمى التلويح لأنه يلوح منه ما يريد.»"
+          source: "تاج العروس"
+    - lemma: "تغريد مبطن"
+      evidence_status: "no_material_found"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "تغريد مبطن"
+      decision: confirmed
+      decision_reason: "مصطلح معاصر شائع ودقيق في وصف الفعل تقنياً ودلالياً."
+      evidence_assessment:
+        case: no_material
+      mwe_check:
+        is_mwe: true
+        mwe_type: wasfi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَغْرِيدٌ مُبَطَّنٌ"
+    - lemma: "تلميح"
+      decision: confirmed
+      decision_reason: "مقبول كمعنى عام للإشارة غير المباشرة، ويستمد خصوصيته من سياق المجموعة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "تَلْمِيحٌ"
+    - lemma: "تَعْرِيض"
+      source: stage1
+      decision: confirmed
+      decision_reason: "أدق مصطلح تراثي يطابق مفهوم 'Subtweeting' من حيث كونه ذكراً لشيء يراد به غيره تلميحاً."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "تَعْرِيضٌ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-90001771-n"
+    - lemma: "غَمْز"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مكافئ مجازي قوي يشير إلى الانتقاد من طرف خفي كما ورد في المعاجم الحديثة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params:
+            lemma: "غَمْزٌ"
+            pos: n
+        - command: add_sense
+          params:
+            entry_id: "{auto}"
+            synset_id: "awn4-90001771-n"
+
+stage4_content:
+  definition:
+    current: "فعل التغريد دون الإشارة المباشرة إلى المستخدم حتى لا يرى المنشور، غالباً بنية الانتقاد"
+    assessment:
+      decision: revise
+      reason: "لجعل التعريف أكثر صياغة معجمية ودقة تقنية."
+    authored:
+      - type: terminological
+        text: "فِعْلُ التَّغْرِيدِ عَنْ شَخْصٍ أَوْ مَوْضُوعٍ دُونَ التَّصْرِيحِ بِاسْمِهِ أَوْ مَعَرِّفِهِ، قَصْدَ إِيصَالِ رِسَالَةٍ نَقْدِيَّةٍ مَسْتُورَةٍ."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "تَغْرِيدٌ مُبَطَّنٌ"
+        examples:
+          - text: "يَلْجَأُ بَعْضُ المَشَاهِيرِ إِلَى التَّغْرِيدِ المُبَطَّنِ لِتَصْفِيَةِ حِسَابَاتِهِمْ بَعِيداً عَنْ أَعْيُنِ الرَّقَابَةِ."
+            type: usage
+      - lemma: "تَلْمِيحٌ"
+        examples:
+          - text: "كَانَ فِي آخِرِ مَنْشُورَاتِهِ تَلْمِيحٌ ذَكِيٌّ إِلَى التَّحَوُّلاتِ السِّيَاسِيَّةِ المُرْتَقَبَةِ."
+            type: usage
+      - lemma: "تَعْرِيضٌ"
+        examples:
+          - text: "مَعَارِيضُ الكَلَامِ فِيهَا مَنْدُوحَةٌ عَنِ الكَذِبِ، وَالتَّعْرِيضُ بِالمُسِيءِ أَنْفَعُ مِنَ التَّصْرِيحِ."
+            type: usage
+      - lemma: "غَمْزٌ"
+        examples:
+          - text: "لَمْ يَمْضِ يَوْمٌ دُونَ أَنْ يَنْشُرَ غَمْزاً فِي حَقِّ مُنَافِسِيهِ عَلَى المِنَصَّةِ."
+            type: usage
+  actions:
+    - command: update_definition
+      params:
+        synset_id: "awn4-90001771-n"
+        definition_index: 0
+        text: "فِعْلُ التَّغْرِيدِ عَنْ شَخْصٍ أَوْ مَوْضُوعٍ دُونَ التَّصْرِيحِ بِاسْمِهِ أَوْ مَعَرِّفِهِ، قَصْدَ إِيصَالِ رِسَالَةٍ نَقْدِيَّةٍ مَسْتُورَةٍ."
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "تَغْرِيدٌ مُبَطَّنٌ"
+      entry_id: "{auto}"
+      roots:
+        - word: "تغريد"
+          root: "غرد"
+          maqayis_quote: "«الغين والراء والدال كلمتان: إحداهما صوت... غرد الطائر في صوته يغرد تغريدا»"
+        - word: "مبطن"
+          root: "بطن"
+          maqayis_quote: "«الباء والطاء والنون أصل واحد... وهو إنسي الشيء والمقبل منه... وباطن الأمر دخلته، خلاف ظاهره»"
+    - lemma: "تَلْمِيحٌ"
+      entry_id: "{auto}"
+      root: "لمح"
+      maqayis_quote: "«اللام والميم والحاء أصل يدل على لمع شيء»"
+    - lemma: "تَعْرِيضٌ"
+      entry_id: "{auto}"
+      root: "عرض"
+      maqayis_quote: "«العين والراء والضاد... يرجع إلى أصل واحد وهو العرض الذي يخالف الطول... ومن الباب معاريض الكلام... يخرج في معرض غير لفظه الظاهر»"
+    - lemma: "غَمْزٌ"
+      entry_id: "{auto}"
+      root: "غمز"
+      maqayis_quote: "«الغين والميم والزاي أصل صحيح، وهو كالنخس في الشيء بشيء... غمز، إذا عاب وذكر بغير الجميل»"
+  per_sense:
+    - lemma: "تَغْرِيدٌ مُبَطَّنٌ"
+      sense_id: "{auto}"
+      nuance: "يُركز على الجانب التقني للفعل (التغريد) مدمجاً بصفة التخفي."
+      mwe: true
+    - lemma: "تَلْمِيحٌ"
+      sense_id: "{auto}"
+      nuance: "المصطلح الأعم والأكثر شمولاً للإشارة غير المباشرة."
+      mwe: false
+    - lemma: "تَعْرِيضٌ"
+      sense_id: "{auto}"
+      nuance: "المصطلح البلاغي الأدق لوصف الحديث عن شخص دون تسميته صراحة."
+      mwe: false
+    - lemma: "غَمْزٌ"
+      sense_id: "{auto}"
+      nuance: "يحمل دلالة نقدية أو تهكمية خفية."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"تغريد","root":"غرد","maqayis":"«الغين والراء والدال كلمتان: إحداهما صوت... غرد الطائر في صوته يغرد تغريدا»"},{"word":"مبطن","root":"بطن","maqayis":"«الباء والطاء والنون أصل واحد... وهو إنسي الشيء والمقبل منه... وباطن الأمر دخلته، خلاف ظاهره»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"لمح","maqayis":"«اللام والميم والحاء أصل يدل على لمع شيء»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"عرض","maqayis":"«العين والراء والضاد... يرجع إلى أصل واحد وهو العرض الذي يخالف الطول... ومن الباب معاريض الكلام... يخرج في معرض غير لفظه الظاهر»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"غمز","maqayis":"«الغين والميم والزاي أصل صحيح، وهو كالنخس في الشيء بشيء... غمز، إذا عاب وذكر بغير الجميل»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يُركز على الجانب التقني للفعل (التغريد) مدمجاً بصفة التخفي.","mwe":true}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح الأعم والأكثر شمولاً للإشارة غير المباشرة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"المصطلح البلاغي الأدق لوصف الحديث عن شخص دون تسميته صراحة.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يحمل دلالة نقدية أو تهكمية خفية.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "awn4-90001771-n"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "awn4-90001771-n"
+        score: 0.95

@@ -1,0 +1,220 @@
+stage1_review:
+  assessment:
+    concerns:
+      - "اللمّات الموجودة تفتقر للتشكيل الكامل."
+      - "المصطلح 'استخراج الجثة' تعبير وصفي أكثر منه معجماً مسكوكاً، لكنه مستقر اصطلاحاً."
+    observations: "المفهوم واضح ويعبر عن فعل النبش (exhumation). اللغة العربية غنية بالمفردات التي تصف الحفر والاستخراج، مثل 'نبش' و'نبث'. المصطلح الإنجليزي 'exhumation' رسمي جداً، ويقابله في العربية 'نبش القبور' في السياق القانوني."
+  blind_candidates:
+    - lemma: "نَبْش"
+      generation_method: ishtiqaq
+      justification: "المصدر الأصلي للفعل نَبَشَ، وهو الأدق في التعبير عن استخراج المدفون."
+    - lemma: "اسْتِخْرَاجُ الجُثَّة"
+      generation_method: tarkib
+      justification: "تركيب إضافي يحدد الغرض من النبش بدقة، وهو شائع في السياقات الرسمية."
+    - lemma: "نَبْث"
+      generation_method: majaz
+      justification: "إحياء للفظ فصيح ورد في المعاجم بمعنى النبش والحفر باليد لاستخراج التراب أو الأسرار."
+    - lemma: "انْتِبَاش"
+      generation_method: ishtiqaq
+      justification: "مصدر للفعل انتبش، ويدل على التكلف أو المبالغة في الاستخراج والنبش."
+
+stage2_evidence:
+  per_lemma:
+    - lemma: "نَبْش"
+      confirm:
+        - text: "«النَّبْشُ: استخراجُ الشيء المدفون ومنه النَّبّاشُ الذي ينبُش القبور.»"
+          source: "التعريفات الفقهية"
+        - text: "«نَبَشَ الشيء يَنْبُشُه نَبْشاً: استخرجه بعد الدَّفْن، ونَبْشُ الموتى: استخراجُهم.»"
+          source: "لسان العرب"
+        - text: "«نبَش القبرَ: حفره لاستخراج ما فيه.»"
+          source: "معجم اللغة العربية المعاصرة"
+    - lemma: "نَبْث"
+      confirm:
+        - text: "«النَّبْثُ: النَّبْشُ، كالاِنْتِباثِ... والنَّبيثَةُ: تُرابُ البِئْرِ والنَّهْرِ.»"
+          source: "القاموس المحيط"
+        - text: "«نَبَثَ يَنْبُثُ مثل نَبَشَ يَنْبُشُ: وهو الحفر باليد.»"
+          source: "الصحاح"
+        - text: "«نبث التراب من الحفرة: استخرجه.»"
+          source: "أساس البلاغة"
+    - lemma: "انْتِبَاش"
+      confirm:
+        - text: "«انتبش العروق من الأرض: استخرجها.»"
+          source: "أساس البلاغة"
+        - text: "«النَّبْش؛ الانتباش؛ الإحياء.»"
+          source: "المورد الحديث"
+    - lemma: "اسْتِخْرَاجُ الجُثَّة"
+      confirm:
+        - text: "«نبش القبور: إخراج جثة بعد دفنها.» (تعريف مرادف)"
+          source: "معجم المصطلحات الطبية"
+        - text: "«exhumation: نَبْشُ المَيِّت»"
+          source: "المعجم الطبي الموحد"
+
+stage3_analysis:
+  per_lemma:
+    - lemma: "نبش"
+      decision: confirmed
+      decision_reason: "هو المصطلح الأساسي والأكثر دقة ومطابقة للتعريف."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "نَبْش"
+    - lemma: "استخراج الجثة"
+      decision: confirmed
+      decision_reason: "مصطلح مركّب مستقر في الاستعمال القانوني والطبي المتخصص."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: true
+        mwe_type: idafi
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "اسْتِخْرَاجُ الجُثَّة"
+    - lemma: "نَبْث"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف فصيح يعزز الثروة اللفظية للمجموعة، ورد في أمهات المعاجم بنفس معنى النبش."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "نَبْث", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "انْتِبَاش"
+      source: stage1
+      decision: confirmed
+      decision_reason: "صيغة مطاوعة أو مبالغة من النبش، مستخدمة في المعاجم لوصف استخراج العروق والدفائن."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "انْتِبَاش", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+stage4_content:
+  definition:
+    current: "فعل حفر الأرض لاستخراج شيء ما (خاصة جثة) من مدفنها"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي جيد لكن يمكن صياغته بأسلوب معجمي أكثر رصانة وشمولاً."
+    authored:
+      - type: terminological
+        text: "فعل حفر الأرض لكشف ما استتر فيها من دفين أو لإخراج جثة من قبرها."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+  examples:
+    per_lemma:
+      - lemma: "نَبْش"
+        examples:
+          - text: "أصدرت المحكمة قراراً بنبش القبر لإعادة فحص رفات الضحية."
+            type: usage
+      - lemma: "اسْتِخْرَاجُ الجُثَّة"
+        examples:
+          - text: "يتطلب استخراج الجثة من المدفن إذناً قانونياً وحضور الطبيب الشرعي."
+            type: usage
+      - lemma: "نَبْث"
+        examples:
+          - text: "كان نَبْثُ التراب من البئر القديمة الخطوة الأولى في عملية الترميم."
+            type: usage
+      - lemma: "انْتِبَاش"
+        examples:
+          - text: "أدى انْتِبَاشُ العروق من باطن الأرض إلى كشف طبقات أثرية هامة."
+            type: usage
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "فعل حفر الأرض لكشف ما استتر فيها من دفين أو لإخراج جثة من قبرها."}
+      - command: add_synset_example
+        params: {synset_id: "{synset_id}", text: "باشرت السلطات عملية نبش القبر بحثاً عن أدلة جنائية جديدة."}
+
+stage5_enrichment:
+  per_entry:
+    - lemma: "نَبْش"
+      entry_id: "{auto}"
+      root: "نبش"
+      maqayis_quote: "«النُّونُ وَالْبَاءُ وَالشِّينُ أَصْلٌ وَكَلِمَةٌ وَاحِدَةٌ تَدُلُّ عَلَى إِبْرَازِ شَيْءٍ مَسْتُورٍ.»"
+    - lemma: "نَبْث"
+      entry_id: "{auto}"
+      root: "نبث"
+      maqayis_quote: "«النُّونُ وَالْبَاءُ وَالثَّاءُ أَصْلٌ يَدُلُّ عَلَى إِبْرَازِ شَيْءٍ.»"
+    - lemma: "انْتِبَاش"
+      entry_id: "{auto}"
+      root: "نبش"
+      maqayis_quote: "«النُّونُ وَالْبَاءُ وَالشِّينُ أَصْلٌ وَكَلِمَةٌ وَاحِدَةٌ تَدُلُّ عَلَى إِبْرَازِ شَيْءٍ مَسْتُورٍ.»"
+    - lemma: "اسْتِخْرَاجُ الجُثَّة"
+      entry_id: "{auto}"
+      roots:
+        - word: "استخراج"
+          root: "خرج"
+          maqayis_quote: "«الْخَاءُ وَالرَّاءُ وَالْجِيمُ أَصْلَانِ... فَالْأَوَّلُ: النَّفَاذُ عَنِ الشَّيْءِ.»"
+        - word: "الجثة"
+          root: "جثث"
+          maqayis_quote: "«الْجِيمُ وَالثَّاءُ يَدُلُّ عَلَى تَجَمُّعِ الشَّيْءِ. فَالْجُثَّةُ جُثَّةُ الْإِنْسَانِ...»"
+  per_sense:
+    - lemma: "نَبْش"
+      sense_id: "{auto}"
+      nuance: "اللفظ الأساسي والعام لفعل الاستخراج من الأرض، ويغلب استخدامه في سياق القبور والبحث عن المستور."
+      mwe: false
+    - lemma: "اسْتِخْرَاجُ الجُثَّة"
+      sense_id: "{auto}"
+      nuance: "تعبير فني وقانوني محدد يصف حصراً عملية إخراج رفات الموتى من مدافنهم."
+      mwe: true
+    - lemma: "نَبْث"
+      sense_id: "{auto}"
+      nuance: "لفظ فصيح يركز على عملية الحفر اليدوي وإخراج التراب، ويستخدم مجازاً للأسرار."
+      mwe: false
+    - lemma: "انْتِبَاش"
+      sense_id: "{auto}"
+      nuance: "يدل على الجهد أو المطاوعة في عملية الاستخراج، وغالباً ما يرتبط باستخراج الأصول كالعروق والجذور."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نبش","maqayis":"«النُّونُ وَالْبَاءُ وَالشِّينُ أَصْلٌ وَكَلِمَةٌ وَاحِدَةٌ تَدُلُّ عَلَى إِبْرَازِ شَيْءٍ مَسْتُورٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"نبث","maqayis":"«النُّونُ وَالْبَاءُ وَالثَّاءُ أَصْلٌ يَدُلُّ عَلَى إِبْرَازِ شَيْءٍ.»"}'
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"roots":[{"word":"استخراج","root":"خرج","maqayis":"«الْخَاءُ وَالرَّاءُ وَالْجِيمُ أَصْلَانِ...»"},{"word":"الجثة","root":"جثث","maqayis":"«الْجِيمُ وَالثَّاءُ يَدُلُّ عَلَى تَجَمُّعِ الشَّيْءِ...»"}]}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"اللفظ الأساسي والعام لفعل الاستخراج من الأرض، ويغلب استخدامه في سياق القبور والبحث عن المستور.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.95

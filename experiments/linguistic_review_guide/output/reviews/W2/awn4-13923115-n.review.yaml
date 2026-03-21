@@ -1,0 +1,265 @@
+# ── المرحلة ١: المراجعة والتوليد (بدون أدلة) ──────────────
+stage1_review:
+  assessment:
+    concerns:
+      - "التعريف الحالي وصفي بسيط (أي شيء يقارب شكل...)، ويمكن تحسينه ليكون أكثر دقة معجمية."
+      - "الاقتصار على 'برج' و'عمود' قد يغفل تعابير هندسية ووصفية أخرى تشترك في نفس الهيئة."
+    observations: "المجموعة تدور حول الهيئة الشكلية (الشكل العمودي أو البرجي) أكثر من كونها العناصر المعمارية بذاتها، لذا يجب التركيز على الكلمات التي تصف هذا القوام الطولي القائم."
+  blind_candidates:
+    - lemma: "شَاخِص"
+      generation_method: majaz
+      justification: "يطلق على كل ما ارتفع وشخص من الأجسام، ويشابه في هيئته العمود أو البرج من حيث البروز والارتفاع."
+    - lemma: "أُسْطُوَانَة"
+      generation_method: majaz
+      justification: "تعبر عن الشكل الأسطواني الذي هو جوهر شكل العمود، وتستخدم لوصف الأجسام ذات هذا الشكل."
+    - lemma: "عِمَاد"
+      generation_method: ishtiqaq
+      justification: "أصل المادة يدل على الاستقامة والانتصاب، وهو مرادف للعمود في هيئته."
+    - lemma: "مَنَارَة"
+      generation_method: majaz
+      justification: "تدل على الارتفاع والبروز الطولي المشابه لشكل البرج."
+
+# ── المرحلة ٢: جمع الأدلة ────────────────────────────────
+stage2_evidence:
+  per_lemma:
+    - lemma: "برج"
+      confirm:
+        - text: "«بناء مُرتَفع على شكل مُستدير أو مُربَّع»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«كلّ ظَاهِرٍ مُرْتَفِعٍ فقد بَرَجَ»"
+          source: "تاج العروس"
+    - lemma: "عمود"
+      confirm:
+        - text: "«عنصر إنشائي يتحمل قوى ضاغطة بشكل أساسي»"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية"
+        - text: "«جزء تشريحي عمودي الشكل»"
+          source: "معجم المصطلحات الطبية"
+    - lemma: "أُسْطُوَانَة"
+      confirm:
+        - text: "«عمود، دعامة يقوم عليها البناء»"
+          source: "معجم اللغة العربية المعاصرة"
+        - text: "«شكل يحيط به دائرتان متوازيتان...»"
+          source: "التوقيف على مهمات التعاريف"
+    - lemma: "عِمَاد"
+      confirm:
+        - text: "«كل ما رفع شيئا وحمله وخشبة تقوم عليها الخيمة»"
+          source: "موسوعة السلطان قابوس"
+        - text: "«الْعِمَادُ: الطُّولُ. قَالَ اللَّهُ - تَعَالَى -: {إِرَمَ ذَاتِ الْعِمَادِ}»"
+          source: "مقاييس اللغة"
+    - lemma: "شَاخِص"
+      confirm:
+        - text: "«الشِّينُ وَالْخَاءُ وَالصَّادُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى ارْتِفَاعٍ فِي شَيْءٍ»"
+          source: "مقاييس اللغة"
+        - text: "«شاخص: rod / rod»"
+          source: "المعجم الموحد لمصطلحات الهندسة المدنية"
+    - lemma: "سَارِيَة"
+      confirm:
+        - text: "«الأُسْطُوانَةُ: السارِيَةُ»"
+          source: "القاموس المحيط"
+
+# ── المرحلة ٣: التحليل اللغوي للّمات ────────────────────
+stage3_analysis:
+  per_lemma:
+    - lemma: "برج"
+      decision: confirmed
+      decision_reason: "كلمة أساسية تدل على الهيئة المرتفعة البارزة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "بُرْج"
+    - lemma: "عمود"
+      decision: confirmed
+      decision_reason: "الكلمة النموذجية لهذا المفهوم في اللغة العربية."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: update_lemma
+          params:
+            entry_id: "{auto}"
+            new_lemma: "عَمُود"
+    - lemma: "أُسْطُوَانَة"
+      source: stage1
+      decision: confirmed
+      decision_reason: "تصف بدقة الشكل الهندسي للعمود، وتستخدم لوصف الأجسام التي تأخذ هذه الهيئة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "أُسْطُوَانَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "عِمَاد"
+      source: stage1
+      decision: confirmed
+      decision_reason: "مرادف فصيح للعمود يدل على الانتصاب والقوام."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "عِمَاد", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "شَاخِص"
+      source: stage1
+      decision: confirmed
+      decision_reason: "يدل على كل جسم مرتفع ومنتصب بشكل عمودي."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "شَاخِص", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+    - lemma: "سَارِيَة"
+      decision: confirmed
+      decision_reason: "تستخدم لوصف الأجسام الطويلة القائمة كأعمدة السفن، وهي مناسبة لوصف الهيئة."
+      evidence_assessment:
+        case: confirm_only
+      mwe_check:
+        is_mwe: false
+      actions:
+        - command: create_entry
+          params: {lemma: "سَارِيَة", pos: n}
+        - command: add_sense
+          params: {entry_id: "{auto}", synset_id: "{synset_id}"}
+
+# ── المرحلة ٤: التعريف والأمثلة ──────────────────────────
+stage4_content:
+  definition:
+    current: "أي شيء يقارب شكل العمود أو البرج"
+    assessment:
+      decision: revise
+      reason: "التعريف الحالي غير صياغي كفاية؛ يفضل استخدام صياغة معجمية تجمع المكونات الدلالية للشكل."
+    authored:
+      - type: terminological
+        text: "كل ما اتخذ هيئة طولية قائمة تشبه في قوامها العمود أو البرج."
+        quality_check:
+          genus_present: true
+          differentia_present: true
+          circular: false
+    actions:
+      - command: update_definition
+        params: {synset_id: "{synset_id}", definition_index: 0, text: "كل ما اتخذ هيئة طولية قائمة تشبه في قوامها العمود أو البرج."}
+  examples:
+    per_lemma:
+      - lemma: "بُرْج"
+        examples:
+          - text: "رأيتُ بُرجًا مِن الدخانِ يتصاعدُ مِن بعيد."
+            type: usage
+      - lemma: "عَمُود"
+        examples:
+          - text: "يبرزُ عَمُودٌ مِن النارِ في سماءِ المَدينةِ."
+            type: usage
+      - lemma: "أُسْطُوَانَة"
+        examples:
+          - text: "اتخذَ البناءُ شكلَ أُسْطُوانَةٍ ضخمةٍ."
+            type: usage
+      - lemma: "عِمَاد"
+        examples:
+          - text: "يستندُ السقفُ إلى عِمَادٍ قَويٍّ في المُنتصف."
+            type: usage
+      - lemma: "شَاخِص"
+        examples:
+          - text: "كانَ هناكَ شَاخصٌ حجريٌّ يدلُّ على مفرقِ الطّريق."
+            type: usage
+      - lemma: "سَارِيَة"
+        examples:
+          - text: "ارتفعتْ سَارِيَةُ العلمِ في وَسَطِ السَّاحةِ."
+            type: usage
+    actions:
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "يبرزُ عَمُودٌ مِن النارِ في سماءِ المَدينةِ."}
+      - command: add_sense_example
+        params: {sense_id: "{auto}", text: "ارتفعتْ سَارِيَةُ العلمِ في وَسَطِ السَّاحةِ."}
+
+# ── المرحلة ٥: الإثراء (البيانات الوصفية) ─────────────────
+stage5_enrichment:
+  per_entry:
+    - lemma: "بُرْج"
+      entry_id: "{auto}"
+      root: "برج"
+      maqayis_quote: "«الْبَاءُ وَالرَّاءُ وَالْجِيمُ أَصْلَانِ: أَحَدُهُمَا الْبُرُوزُ وَالظُّهُورُ، وَالْآخَرُ الْوَزَرُ وَالْمَلْجَأُ.»"
+    - lemma: "عَمُود"
+      entry_id: "{auto}"
+      root: "عمد"
+      maqayis_quote: "«الْعَيْنُ وَالْمِيمُ وَالدَّالُ أَصْلٌ كَبِيرٌ... وَهُوَ الِاسْتِقَامَةُ فِي الشَّيْءِ، مُنْتَصِبًا أَوْ مُمْتَدًّا.»"
+    - lemma: "أُسْطُوَانَة"
+      entry_id: "{auto}"
+      root: "سطن"
+      maqayis_quote: "«السِّينُ وَالطَّاءُ وَالنُّونُ... قَالَ الْخَلِيلُ: أُسْطُوَانَةٌ أُفْعُوَالَةٌ... وَيُقَالُ جَمَلٌ أُسْطُوَانٌ، إِذَا كَانَ مُرْتَفِعًا.»"
+    - lemma: "عِمَاد"
+      entry_id: "{auto}"
+      root: "عمد"
+      maqayis_quote: "«عَمَدْتُ الشَّيْءَ: أَقَمْتُهُ، فَهُوَ مَعْمُودٌ... وَالْعِمَادُ: الطُّولُ.»"
+    - lemma: "شَاخِص"
+      entry_id: "{auto}"
+      root: "شخص"
+      maqayis_quote: "«الشِّينُ وَالْخَاءُ وَالصَّادُ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى ارْتِفَاعٍ فِي شَيْءٍ.»"
+    - lemma: "سَارِيَة"
+      entry_id: "{auto}"
+      root: "سري"
+      maqayis_quote: "«السِّينُ وَالرَّاءُ وَالْحَرْفُ الْمُعْتَلُّ أَصْلٌ وَاحِدٌ يَدُلُّ عَلَى مُضِيٍّ فِي خَفَاءٍ (والمعنى المعماري من السير لاستقامة الظل).»"
+  per_sense:
+    - lemma: "بُرْج"
+      sense_id: "{auto}"
+      nuance: "يركز على الارتفاع والبروز والضخامة."
+      mwe: false
+    - lemma: "عَمُود"
+      sense_id: "{auto}"
+      nuance: "يركز على القوام القائم والانتصاب الهيكلي."
+      mwe: false
+    - lemma: "أُسْطُوَانَة"
+      sense_id: "{auto}"
+      nuance: "يركز على الشكل الدائري المتماثل للعمود."
+      mwe: false
+    - lemma: "عِمَاد"
+      sense_id: "{auto}"
+      nuance: "يركز على جانب الدعم والارتكاز في القوام."
+      mwe: false
+    - lemma: "شَاخِص"
+      sense_id: "{auto}"
+      nuance: "يركز على كون الشيء بادياً للعيان ومنتصبًا للعلامة."
+      mwe: false
+    - lemma: "سَارِيَة"
+      sense_id: "{auto}"
+      nuance: "يركز على القوام الطولي النحيل والمستقيم."
+      mwe: false
+  synset:
+    cultural_fit: native
+  actions:
+    - command: set_metadata
+      params:
+        entity_type: entry
+        entity_id: "{auto}"
+        key: note
+        value: '{"root":"برج","maqayis":"«الْبَاءُ وَالرَّاءُ وَالْجِيمُ أَصْلَانِ: أَحَدُهُمَا الْبُرُوزُ وَالظُّهُورُ...»"}'
+    - command: set_metadata
+      params:
+        entity_type: sense
+        entity_id: "{auto}"
+        key: note
+        value: '{"nuance":"يركز على القوام القائم والانتصاب الهيكلي.","mwe":false}'
+    - command: set_metadata
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        key: note
+        value: '{"cultural_fit":"native"}'
+    - command: set_confidence
+      params:
+        entity_type: synset
+        entity_id: "{synset_id}"
+        score: 0.9
