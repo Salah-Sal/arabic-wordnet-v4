@@ -446,11 +446,18 @@ class BatchRunner:
             dur = time.monotonic() - t0
             rc = proc.returncode
 
-            review_path = self.output_dir / f"{synset_id}.review.yaml"
-            if rc == 0 and review_path.exists():
-                traj_info = self._parse_trajectory(synset_id)
-                self.db.mark_success(synset_id, self.run_id, traj_info.cost, dur)
-                logger.info(f"[{synset_id}] OK {dur:.0f}s ${traj_info.cost:.2f}")
+            if review_path.exists():
+                try:
+                    traj_info = self._parse_trajectory(synset_id)
+                    cost = traj_info.cost
+                except Exception:
+                    cost = 0.0
+                    traj_info = TrajectoryInfo()
+                self.db.mark_success(synset_id, self.run_id, cost, dur)
+                if rc != 0:
+                    logger.info(f"[{synset_id}] OK {dur:.0f}s (exit={rc}, review written)")
+                else:
+                    logger.info(f"[{synset_id}] OK {dur:.0f}s ${cost:.2f}")
                 # Warn if approaching rate limit (proactive early warning)
                 if traj_info.utilization and traj_info.utilization > 0.95:
                     logger.warning(
@@ -461,16 +468,14 @@ class BatchRunner:
                     self.controller.on_success()
                 return True
 
-            # Capture error from both stdout and stderr (run_review.sh prints
-            # errors to stdout via echo, not stderr)
+            # Failure path — only reached when review file does NOT exist
             out_text = stdout.decode("utf-8", errors="replace")[-1000:] if stdout else ""
             err_text = stderr.decode("utf-8", errors="replace")[-500:] if stderr else ""
             combined = out_text + err_text
 
-            if rc == 0 and not review_path.exists():
-                err_msg = "Claude completed but no review file written"
+            if rc == 0:
+                err_msg = "Model completed but no review file written"
             else:
-                # Prefer stdout (where run_review.sh echo errors go), fall back to stderr
                 err_msg = out_text.strip() or err_text.strip() or f"exit code {rc}"
             self.db.mark_failed(synset_id, self.run_id, rc or 2, err_msg, dur)
             logger.warning(f"[{synset_id}] FAIL exit={rc} {dur:.0f}s | {err_msg[:200]}")
@@ -516,7 +521,7 @@ class BatchRunner:
         if not traj.exists():
             return info
         try:
-            with open(traj) as f:
+            with open(traj, encoding="utf-8", errors="replace") as f:
                 for line in f:
                     try:
                         if '"rate_limit_event"' in line:

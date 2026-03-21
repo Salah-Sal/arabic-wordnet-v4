@@ -75,11 +75,25 @@ class BatchStatusDB:
         self.conn = sqlite3.connect(str(db_path), timeout=30)
         self.conn.execute("PRAGMA journal_mode=WAL")
         self.conn.execute("PRAGMA busy_timeout=5000")
+        self.conn.execute("PRAGMA locking_mode=EXCLUSIVE")
+        self.conn.execute("PRAGMA synchronous=NORMAL")
         self.conn.executescript(SCHEMA)
         self.conn.commit()
+        import atexit
+        atexit.register(self.close)
 
     def close(self):
-        self.conn.close()
+        if self.conn is None:
+            return
+        try:
+            self.conn.execute("PRAGMA wal_checkpoint(TRUNCATE)")
+        except Exception:
+            pass
+        try:
+            self.conn.close()
+        except Exception:
+            pass
+        self.conn = None
 
     # ── Batch runs ──
 
@@ -158,20 +172,19 @@ class BatchStatusDB:
         ).fetchone()
         attempt = row[0] if row else 0
         started = row[1] if row else now
-        # Persist per-attempt forensics (survives retry overwrites)
-        self.conn.execute(
-            "INSERT OR REPLACE INTO attempt_log "
-            "(synset_id, run_id, attempt, status, started_at, finished_at, exit_code, error_message, duration_s) "
-            "VALUES (?, ?, ?, 'failed', ?, ?, ?, ?, ?)",
-            (synset_id, run_id, attempt, started, now, exit_code, error[:2000], duration_s),
-        )
-        # Update main status row
-        self.conn.execute(
-            "UPDATE synset_status SET status = 'failed', exit_code = ?, error_message = ?, "
-            "duration_s = ?, finished_at = ? WHERE synset_id = ? AND run_id = ?",
-            (exit_code, error[:1000], duration_s, now, synset_id, run_id),
-        )
-        self.conn.commit()
+        # Wrap both writes in a single transaction to prevent partial writes
+        with self.conn:
+            self.conn.execute(
+                "INSERT OR REPLACE INTO attempt_log "
+                "(synset_id, run_id, attempt, status, started_at, finished_at, exit_code, error_message, duration_s) "
+                "VALUES (?, ?, ?, 'failed', ?, ?, ?, ?, ?)",
+                (synset_id, run_id, attempt, started, now, exit_code, error[:2000], duration_s),
+            )
+            self.conn.execute(
+                "UPDATE synset_status SET status = 'failed', exit_code = ?, error_message = ?, "
+                "duration_s = ?, finished_at = ? WHERE synset_id = ? AND run_id = ?",
+                (exit_code, error[:1000], duration_s, now, synset_id, run_id),
+            )
 
     # ── Queries ──
 
