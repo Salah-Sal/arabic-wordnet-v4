@@ -1,6 +1,6 @@
 # Arabic WordNet 4.0
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18759165.svg)](https://doi.org/10.5281/zenodo.18759165)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18335225.svg)](https://doi.org/10.5281/zenodo.18335225)
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
 A comprehensive Arabic WordNet with **full coverage** of the Open English WordNet (OEWN) 2024.
@@ -31,7 +31,7 @@ A comprehensive Arabic WordNet with **full coverage** of the Open English WordNe
 
 - **Primary file**: [`output/awn4.xml.gz`](output/awn4.xml.gz) (~11 MB)
 - **Format**: WN-LMF 1.4 (Global WordNet Association standard)
-- **Also available on**: [Zenodo](https://doi.org/10.5281/zenodo.18759165)
+- **Also available on**: [Zenodo](https://doi.org/10.5281/zenodo.18335225)
 
 ## Installation
 
@@ -203,7 +203,7 @@ BibTeX:
   author       = {Abdo, Salah},
   title        = {{Arabic WordNet 4.0}},
   year         = {2026},
-  month        = jan,
+  month        = mar,
   publisher    = {Zenodo},
   version      = {4.1.0},
   doi          = {10.5281/zenodo.18872077},
