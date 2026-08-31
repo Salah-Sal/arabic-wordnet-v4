@@ -121,11 +121,16 @@ For MAJOR or MINOR version bumps, upload a new version to Zenodo:
 1. Go to [zenodo.org](https://zenodo.org) → your deposit → "New Version"
 2. Upload the new `awn4.xml.gz`
 3. Update the metadata (synset count, description)
-4. Publish → note the new DOI
-5. Update the DOI badge in `README.md`
+4. Publish → note the new version DOI
+5. Update the version DOI in `CITATION.bib` and in the README citation block
+   (version, month, doi, url and the synset count in the note)
 
 Zenodo creates a new DOI for each version while the concept DOI
-(`10.5281/zenodo.18759165`) always resolves to the latest.
+(`10.5281/zenodo.18335225`) always resolves to the latest. The README DOI
+badge, the README download link and `NOTICE` deliberately use the concept
+DOI, so they never need updating; only the version-pinned citations change
+per release. Do not put a version DOI in the badge: that is how CITATION.bib
+and NOTICE drifted to v4.0.0 metadata while the README said v4.1.0.
 
 ---
 
