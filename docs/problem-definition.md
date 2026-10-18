@@ -72,22 +72,28 @@ sharing `تماماً`.
 
 ### 3.3 Divergence from terminological standards
 
-The dictionaries database holds 107 dictionaries, 51 of them ARABTERM terminology glossaries.
-For 34,055 synsets, an English lemma that has only one OEWN sense appears in a glossary, so
+The dictionaries database holds 107 dictionaries. 51 of them are typed ARABTERM, and 50 of
+those are terminology standards: the unified dictionaries, ALECSO's ArabTerm glossaries, the
+Unified Medical Dictionary, the IEC Electropedia, AGROVOC and others. The remaining one,
+al-Mawrid al-Hadith, is a general bilingual dictionary filed under the same type, so it is
+excluded here.
+
+For 21,588 synsets, an English lemma that has only one OEWN sense appears in a standard, so
 the English bridge cannot drift to another meaning.
 
 | Comparison | Result |
 |---|---|
-| AWN 4.1 shares at least one term with the glossaries | 45% |
-| They share at least one content word | 69% |
+| AWN 4.1 shares at least one term with the standards | 49% |
+| They share at least one content word | 75% |
+| *For comparison:* AWN 4.1 shares a term with al-Mawrid alone (21,979 synsets) | 36% |
 
 Examples of divergence:
 
-| Concept | AWN 4.1 | Glossary |
+| Concept | AWN 4.1 | Reference term (source) |
 |---|---|---|
-| anorexia nervosa | فقدان الشهية العصبي | قَهَم عُصابي |
-| Gordon setter | جوردون سيتر | الساطر الغوردوني |
-| shareware | برمجيات تجريبية، شيروير | برمجيات تشاركية |
+| anorexia nervosa | فقدان الشهية العصبي | قَهَم عُصابي (Unified Medical Dictionary) |
+| shareware | برمجيات تجريبية، شيروير | بَرْمَجِيَّة مُشْتَرَكَة (unified IT dictionary); برمجيات تشاركية (informatics dictionary) |
+| Gordon setter | جوردون سيتر | السّاطِر الغوردونيّ (al-Mawrid: bilingual, not a standard) |
 
 A non-match is not automatically an error. Glossaries are incomplete and noisy, and the
 first example sets the sanctioned term against the term in actual use (see policy 6.2).
@@ -179,7 +185,7 @@ differs from AWN V3, which removes such lemmas.
 | Evidence | Covers | Limits |
 |---|---|---|
 | Dictionaries database: classical, modern (al-Wasīṭ, al-Kabīr), bilingual (al-Mawrid) | sense attestation, register | classical-heavy; weak on modern general vocabulary |
-| ARABTERM glossaries (51) in the same database | standard terms | mostly technical domains |
+| Terminology standards: 50 ARABTERM-typed sources in the same database (al-Mawrid excluded) | standard terms | mostly technical domains |
 | AWN V3 | candidate lemmas, human-rejected lemmas, gaps | policy-laden, quality issues; a source and a seed for hard cases, not gold |
 | Rules and a morphological analyser | form | — |
 | OEWN definitions, examples and hypernyms | sense, definition, granularity | judgement is required |
@@ -234,7 +240,8 @@ Those are candidate tools, to be chosen after the measurement.
 - **Form patterns (3.1):** regular expressions over every lemma–synset pair, counted per POS.
 - **Glossary agreement (3.3):**
   - Only English lemmas with exactly one OEWN sense, matched case-insensitively against
-    glossary English sides.
+    the English sides of the 50 standard sources (al-Mawrid al-Hadith excluded; an earlier
+    draft included it and reported 45%).
   - Arabic terms were split on `، ; ؛ ,`. Brackets were stripped, and the text was
     normalised (hamza and alef forms, ta marbuta, diacritics), with and without the article.
 - **Attestation (3.4):** the normalised lemma, with and without the article, looked up as an
