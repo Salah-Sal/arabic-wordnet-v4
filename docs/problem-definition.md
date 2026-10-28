@@ -12,8 +12,9 @@ Open English WordNet 2024 synset by ID (`awn4-00001740-n` ↔ `oewn-00001740-n`)
 synset relations are copied from OEWN. There are no Arabic-native synsets.
 
 The Arabic content was produced by LLM translation, synset by synset, with the English
-definition in context: Google Gemini 3 Pro Preview for about 110K synsets and Anthropic
-Claude for the 10.7K satellite adjectives and upper-ontology synsets added in 4.1.
+definition in context: Google Gemini 3 Pro Preview for the 109,823 synsets of 4.0, and
+Anthropic Claude for the 10,720 satellite adjectives and 9 hub verbs added in 4.1. The model
+used for the 78 upper-ontology nouns, also added in 4.1, was not recorded.
 
 ## 2. Problem statement
 
