@@ -1,5 +1,19 @@
 # Arabic WordNet 4.0
 
+> **This is the research branch `explore/linguistic-resources`, not the release.**
+> The current release and its documentation are on
+> [`main`](https://github.com/Salah-Sal/arabic-wordnet-v4/tree/main); the text
+> below is the 4.0 README as of the point where this branch diverged.
+>
+> **History rewritten on 2026-10-28.** Files that reproduced text from
+> third-party dictionaries and other external sources (model transcripts, logs,
+> prompts, evidence bundles, review outputs, training data built from them, and
+> copies of external datasets and documentation) were removed from every commit
+> on this branch. Code, methodology documents and the project's own generated
+> data were kept. Every commit ID on this branch changed; `main` and the release
+> tags did not. If you cloned this branch before that date, delete the clone and
+> clone again rather than merging.
+
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18759165.svg)](https://doi.org/10.5281/zenodo.18759165)
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
