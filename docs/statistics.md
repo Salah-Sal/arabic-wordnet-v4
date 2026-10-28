@@ -44,9 +44,11 @@ This version includes **SynsetRelations** (semantic, language-independent):
 | Synsets with ILI | 117,414 (97.3%) |
 | Synsets without ILI | 3,216 (2.7%) |
 
-The 3,216 ILI-free synsets break down as:
-- ~2,933 AWN4-custom Arabic synsets (no OEWN equivalent)
-- ~283 OEWN-mapped synsets where OEWN itself lacks an ILI assignment
+All 3,216 ILI-free synsets are OEWN 2024 synsets that OEWN itself has not
+linked to the ILI; AWN4 has no synsets without an OEWN counterpart. They break
+down as:
+- 2,961 with 8x/9x IDs: every OEWN 2024 synset in that ID range, none of which has an ILI
+- 255 with older IDs that OEWN also leaves without an ILI
 
 This exactly matches OEWN 2024's own ILI-free count (3,216), confirming the gaps are inherent.
 
@@ -81,3 +83,4 @@ This exactly matches OEWN 2024's own ILI-free count (3,216), confirming the gaps
 - Based on Princeton WordNet 3.0 structure
 - Initial translation (109,823 synsets) generated with AI assistance (Google Gemini 3 Pro Preview)
 - Satellite adjectives (10,720 synsets) and hub verbs (9 synsets) added via Claude translation pipeline
+- Upper-ontology nouns (78 synsets) generated with Claude or Gemini; which model was not recorded

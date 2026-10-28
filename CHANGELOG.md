@@ -17,7 +17,12 @@ All notable changes to Arabic WordNet will be documented in this file.
 
 ### Source
 - Satellite adjective translations generated with Anthropic Claude via Docker pipeline
+- Hub verb translations also generated with Anthropic Claude; the model used for the
+  78 upper-ontology nouns was not recorded (Claude or Gemini)
 - Verified against OEWN 2024: all 8 validation checks pass
+
+### Known limitations
+- Satellite adjectives carry no Arabic examples (OEWN has English examples for 6,964)
 
 ---
 

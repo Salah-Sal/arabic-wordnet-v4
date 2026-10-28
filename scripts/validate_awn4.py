@@ -22,6 +22,8 @@ from pathlib import Path
 
 import wn
 
+from wn_lexicon import install_lexicon
+
 # ============================================================================
 # Configuration
 # ============================================================================
@@ -68,8 +70,8 @@ def load_wordnets(awn4_xml_path: Path):
     """Load AWN4 and OEWN, return shared data structures."""
     print("Loading wordnets...")
 
-    wn.add(str(awn4_xml_path))  # idempotent
-    awn4 = wn.Wordnet('awn4:4.0', expand='')   # CRITICAL: expand='' avoids *INFERRED* relations
+    awn4_spec = install_lexicon(awn4_xml_path)  # validate the file, not a stale install
+    awn4 = wn.Wordnet(awn4_spec, expand='')   # CRITICAL: expand='' avoids *INFERRED* relations
     oewn = wn.Wordnet('oewn:2024')
 
     print("  Collecting synset lists...")
@@ -83,10 +85,11 @@ def load_wordnets(awn4_xml_path: Path):
     oewn_ili_set = {ss.ili for ss in oewn_synsets if ss.ili is not None}
 
     print(f"  OEWN 2024: {len(oewn_synsets):,} synsets")
-    print(f"  AWN4:      {len(awn4_synsets):,} synsets")
+    print(f"  AWN4:      {len(awn4_synsets):,} synsets ({awn4_spec})")
     print()
 
     return {
+        'awn4_spec': awn4_spec,
         'awn4': awn4,
         'oewn': oewn,
         'oewn_synsets': oewn_synsets,
@@ -499,7 +502,7 @@ def check_8_noun_hierarchy(data: dict) -> dict:
 # Report Formatting
 # ============================================================================
 
-def format_report(results: dict) -> str:
+def format_report(results: dict, awn4_spec: str) -> str:
     lines = []
 
     def section(title):
@@ -512,6 +515,7 @@ def format_report(results: dict) -> str:
     rule()
     lines.append('=== AWN4 vs OEWN 2024 Validation Report ===')
     lines.append(f'Generated: {date.today()}')
+    lines.append(f'Lexicon:   {awn4_spec}')
     rule()
 
     # Check 1
@@ -726,7 +730,7 @@ def main():
     results['check_8'] = check_8_noun_hierarchy(data)
 
     print()
-    report = format_report(results)
+    report = format_report(results, data['awn4_spec'])
     print(report)
 
     if output_path:

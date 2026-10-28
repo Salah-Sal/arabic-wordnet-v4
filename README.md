@@ -62,7 +62,7 @@ import wn
 wn.add('output/awn4.xml.gz')
 
 # Verify
-print(wn.lexicons())  # [<Lexicon awn4:4.0 [arb]>]
+print(wn.lexicons())  # [<Lexicon awn4:4.1 [arb]>]
 
 # Query Arabic synsets
 synsets = wn.synsets(lang='arb')
@@ -214,13 +214,24 @@ BibTeX:
 ## Methodology
 
 Arabic WordNet 4.0 was created by translating the Open English WordNet 2024
-into Arabic using AI-assisted translation. The translation pipeline used
-Google Gemini 3 Pro Preview for the initial 109,901 synsets (nouns, verbs,
-adjectives, adverbs), and Anthropic Claude for the remaining 10,729 synsets
-(satellite adjectives and upper-ontology entries).
+into Arabic using AI-assisted translation, synset by synset:
 
-All 120,630 synsets include Arabic definitions with full tashkeel
-(diacritical marks) on lemmas.
+| Synsets | Model | Release |
+|---------|-------|---------|
+| 109,823 (nouns, verbs, adjectives, adverbs) | Google Gemini 3 Pro Preview | 4.0.0 |
+| 10,720 satellite adjectives + 9 hub verbs | Anthropic Claude | 4.1.0 |
+| 78 upper-ontology nouns | Claude or Gemini (not recorded) | 4.1.0 |
+
+Synset relations and ILI links are copied from OEWN 2024, so every synset has
+an OEWN counterpart; there are no Arabic-native synsets.
+
+All 120,630 synsets have an Arabic definition. Known limitations:
+
+- Lemma diacritisation (tashkeel) is uneven. Every satellite adjective lemma
+  is fully diacritised, but most other lemmas are not: about 7% of noun, 16%
+  of adjective, 41% of adverb and 61% of verb entries carry any diacritics.
+- Satellite adjectives have no Arabic examples, although OEWN provides English
+  examples for 6,964 of them.
 
 ## Attribution
 

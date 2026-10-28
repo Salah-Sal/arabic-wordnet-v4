@@ -16,11 +16,32 @@ AWN4 uses **semantic versioning** adapted for a lexical resource:
 | **MINOR** (x.1.x) | Synset count changes — additions or removals | Adding satellite adjectives, fixing missing synsets |
 | **PATCH** (x.x.1) | Corrections to existing synsets only | Fixing a wrong lemma, correcting a definition |
 
-The version string lives in two places that must stay in sync:
-- `output/awn4.xml` — the `<Lexicon id="awn4" version="4.0" ...>` attribute
-- `WN-LMF-1.4.dtd` — not versioned, but referenced
+The version lives in these places, which must stay in sync:
+- `output/awn4.xml` — the `<Lexicon id="awn4" label="Arabic WordNet 4.x" version="4.x" ...>` attributes
+- `scripts/convert_to_lmf.py` — `VERSION` and `LEXICON_LABEL`, which a rebuild writes into the XML
+- The release metadata updated in steps 7–9 (git tag, README citation block, `CITATION.bib`)
+
+The scripts read the version from the XML file itself, so none of them hardcodes it.
 
 Current version: **4.1**
+
+---
+
+## Rebuilding `awn4.xml` from source
+
+The XML can be regenerated from its own content, then edited as batch JSON:
+
+```bash
+python scripts/extract_translations.py   # writes data/extracted_batches/ (all synsets)
+# ... edit or add translations in data/extracted_batches/ ...
+python scripts/convert_to_lmf.py         # writes output/awn4.xml; OEWN supplies ILI + relations
+```
+
+`data/` is gitignored. A rebuild without edits reproduces the released XML
+except for the sense order of 9 multi-sense entries: the 9 hub verbs and 78
+upper-ontology nouns were appended after the ID-sorted batches in 4.1, and a
+rebuild sorts them in by ID. Bump `VERSION` and `LEXICON_LABEL` in
+`convert_to_lmf.py` before rebuilding for a new release.
 
 ---
 
@@ -28,37 +49,46 @@ Current version: **4.1**
 
 Run these steps in order every time the data changes.
 
-### 1. Run the validation suite
-
-```bash
-python scripts/validate_awn4.py --save
-# Writes: output/validation_report.txt
-```
-
-All 8 checks must pass before proceeding. Fix any failures first.
-
-### 2. Re-compress to `awn4.xml.gz`
+### 1. Re-compress to `awn4.xml.gz`
 
 ```bash
 gzip -k -f output/awn4.xml
 # Produces: output/awn4.xml.gz (overwrites existing)
 ```
 
-Both `awn4.xml` and `awn4.xml.gz` must be committed together.
+Both `awn4.xml` and `awn4.xml.gz` must be committed together. Compress before
+validating: the validator reads `awn4.xml.gz` by default, the file users download.
 
-### 3. Update the README metrics
+### 2. Run the validation suite
+
+```bash
+python scripts/validate_awn4.py --save
+# Writes: output/validation_report.txt
+```
+
+All 8 checks must pass before proceeding. Fix any failures first. The
+validator replaces any installed copy of the same `awn4:<version>` with the
+file, so an unbumped version cannot hide your changes behind stale data, and
+the report records which lexicon version it checked.
+
+### 3. Update the README metrics and provenance
 
 Edit `README.md` — update the Overview table:
 
 | Field | Where to get the current value |
 |-------|-------------------------------|
-| Total Synsets | `len(wn.Wordnet('awn4:4.0').synsets())` |
+| Total Synsets | `len(wn.Wordnet('awn4').synsets())` |
 | Lexical Entries | count `<LexicalEntry>` elements in XML |
 | Senses | count `<Sense>` elements in XML |
 | Semantic Relations | count `<SynsetRelation>` elements |
 
 Also update the repo description on GitHub
 (Settings → About → Description) — it still shows the initial synset count.
+
+If the change adds LLM-generated content, record the product, model ID and
+date with each batch of output, then update the AI disclosure in `NOTICE`, the
+README Methodology table, and the `dc:description` in `convert_to_lmf.py`.
+Unrecorded provenance cannot be reconstructed later.
 
 ### 4. Update `docs/awn4_validation_report.md`
 
@@ -70,8 +100,9 @@ Add an update note at the top with the date and new counts.
 Increment according to the versioning scheme above:
 
 ```bash
-# In output/awn4.xml, update the Lexicon version attribute:
-# version="4.0"  →  version="4.1"  (for MINOR change)
+# In output/awn4.xml, update the Lexicon version and label attributes:
+# version="4.1"  →  version="4.2"  (for MINOR change)
+# Make the same change to VERSION and LEXICON_LABEL in scripts/convert_to_lmf.py.
 # Then re-run steps 1-4.
 ```
 
@@ -79,7 +110,7 @@ Increment according to the versioning scheme above:
 
 ```bash
 git add output/awn4.xml output/awn4.xml.gz output/validation_report.txt
-git add README.md docs/awn4_validation_report.md
+git add README.md docs/awn4_validation_report.md scripts/convert_to_lmf.py
 git commit -m "Release AWN4 v4.x.x: <short description of what changed>"
 ```
 
@@ -174,13 +205,19 @@ directly to `main`.
 
 No unreleased data changes.
 
+Known issues in the released 4.1 XML, to fix at the next data release:
+- Its `dc:description` credits Claude only for the satellite adjectives. The
+  9 hub verbs were also Claude's, and the model for the 78 upper-ontology nouns
+  was not recorded; `convert_to_lmf.py` already writes the corrected text.
+- Satellite adjectives have no Arabic examples (OEWN has English examples for 6,964).
+
 ---
 
 ## Quick Reference: Key Statistics Commands
 
 ```python
 import wn
-arb = wn.Wordnet('awn4:4.0', expand='')
+arb = wn.Wordnet('awn4', expand='')  # any installed version
 
 print(f"Total synsets:   {len(arb.synsets()):,}")
 print(f"Nouns:           {len(arb.synsets(pos='n')):,}")
