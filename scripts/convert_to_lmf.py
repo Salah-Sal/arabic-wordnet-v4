@@ -38,9 +38,10 @@ logger = logging.getLogger(__name__)
 # ============================================================================
 
 LEXICON_ID = "awn4"
-LEXICON_LABEL = "Arabic WordNet 4.0"
+# Must match the released awn4.xml; bump both per docs/MAINTENANCE.md
+LEXICON_LABEL = "Arabic WordNet 4.1"
 LANGUAGE = "arb"  # BCP-47 for Modern Standard Arabic
-VERSION = "4.0"
+VERSION = "4.1"
 LICENSE_URL = "https://creativecommons.org/licenses/by/4.0/"
 EMAIL = "Salah.Abdo.Tech@gmail.com"
 PROJECT_URL = "https://github.com/Salah-Sal/arabic-wordnet-v4"
@@ -50,12 +51,17 @@ CONTRIBUTOR = "Salah Abdo"
 DATE = "2026-03-04"
 
 # Path to Arabic translations (relative to this script)
+# extract_translations.py writes all synsets of the released XML here, so
+# extract -> edit -> convert rebuilds the release on its own.
 SCRIPT_DIR = Path(__file__).parent
 PROJECT_ROOT = SCRIPT_DIR.parent
 AR_BATCHES_DIR = PROJECT_ROOT / "data" / "extracted_batches"
 OUTPUT_DIR = PROJECT_ROOT / "output"
 
-# Supplementary translations for upper-ontology synsets missing from batch files
+# Optional original campaign inputs (now on branch explore/linguistic-resources
+# under experiments/satellite_translation_campaign/data/). Not needed for a
+# rebuild: their content is already in the released XML, so in extracted_batches.
+# 78 upper-ontology nouns + 9 hub verbs
 UPPER_ONTOLOGY_FILE = PROJECT_ROOT / "data" / "upper_ontology_translations.json"
 
 # Satellite adjective translations (10,720 entries in 54 batch files)
@@ -317,7 +323,7 @@ def generate_lmf_xml(ar_translations: dict, oewn_data: dict) -> Element:
     lexicon.set('version', VERSION)
     lexicon.set('url', PROJECT_URL)
     lexicon.set('citation', CITATION)
-    lexicon.set('dc:description', f'Arabic translation of Open English WordNet containing {len(ar_translations)} synsets. Translations generated with AI assistance (Google Gemini 3 Pro Preview for core synsets, Anthropic Claude for satellite adjectives).')
+    lexicon.set('dc:description', f'Arabic translation of Open English WordNet containing {len(ar_translations)} synsets. Translations generated with AI assistance: Google Gemini 3 Pro Preview for the v4.0 synsets, Anthropic Claude for the satellite adjectives and hub verbs; the model used for the 78 upper-ontology nouns was not recorded.')
     lexicon.set('dc:source', 'Derived from Open English WordNet 2024 (https://en-word.net/), which is based on Princeton WordNet 3.0')
     lexicon.set('dc:rights', 'CC BY 4.0. Attribution required to Open English WordNet and Princeton WordNet.')
     lexicon.set('dc:publisher', PUBLISHER)

@@ -17,6 +17,8 @@ from pathlib import Path
 
 import wn
 
+from wn_lexicon import install_lexicon
+
 SCRIPT_DIR = Path(__file__).parent
 PROJECT_ROOT = SCRIPT_DIR.parent
 DEFAULT_INPUT = PROJECT_ROOT / "output" / "awn4.xml.gz"
@@ -34,8 +36,7 @@ def main():
     args.output_dir.mkdir(parents=True, exist_ok=True)
 
     print(f"Loading AWN4 from {args.input}...")
-    wn.add(str(args.input))
-    awn4 = wn.Wordnet('awn4:4.0', expand='')
+    awn4 = wn.Wordnet(install_lexicon(args.input), expand='')
 
     synsets = list(awn4.synsets())
     print(f"Found {len(synsets):,} synsets")
