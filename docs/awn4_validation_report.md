@@ -8,9 +8,10 @@
 
 > **⚠️ Note:** This report was written when AWN4 had 109,901 synsets. It has since been updated
 > to 120,630 synsets (commit `efeccc8`), achieving full OEWN 2024 parity. The numbers in this
-> document reflect the pre-update state. For current verification results see:
-> `experiments/dict_evidence_retrieval/AWN4_OEWN_DISCREPANCIES.md` and
-> `experiments/dict_evidence_retrieval/verify_discrepancies.py`.
+> document reflect the pre-update state. For current verification results see
+> [`AWN4_OEWN_DISCREPANCIES.md`](https://github.com/Salah-Sal/arabic-wordnet-v4/blob/explore/linguistic-resources/experiments/dict_evidence_retrieval/AWN4_OEWN_DISCREPANCIES.md) and
+> [`verify_discrepancies.py`](https://github.com/Salah-Sal/arabic-wordnet-v4/blob/explore/linguistic-resources/experiments/dict_evidence_retrieval/verify_discrepancies.py)
+> on the `explore/linguistic-resources` branch, and `output/validation_report.txt`.
 >
 > **Summary of changes:** All 10,720 satellite adjectives (`'s'` POS) and all 9 missing hub verbs
 > have been added. AWN4 now has 120,630 synsets and 297,150 relation triples — exact parity with OEWN.
@@ -68,7 +69,7 @@ A "ghost" synset would be an AWN4 synset whose OEWN source ID does not exist —
 ```python
 import wn
 oewn = wn.Wordnet('oewn:2024')
-awn4 = wn.Wordnet('awn4:4.0', expand='')
+awn4 = wn.Wordnet('awn4', expand='')
 awn4_as_oewn = {'oewn-' + ss.id[5:] for ss in awn4.synsets()}
 missing_verbs = [ss for ss in oewn.synsets() if ss.pos == 'v' and ss.id not in awn4_as_oewn]
 ```
@@ -254,7 +255,7 @@ This result validates that the hypernym/hyponym chain was faithfully reproduced 
 
 The validation was performed by `scripts/validate_awn4.py`, which:
 
-1. Loads AWN4 via `wn.add()` + `wn.Wordnet('awn4:4.0', expand='')` — the `expand=''` flag is critical to suppress synthetic `*INFERRED*` cross-lingual relations that would otherwise corrupt Check 3.
+1. Installs the given AWN4 file fresh (`scripts/wn_lexicon.py` reads its `id:version`, removes any installed copy, then `wn.add()`s it) and opens it with `wn.Wordnet(<that specifier>, expand='')` — the `expand=''` flag is critical to suppress synthetic `*INFERRED*` cross-lingual relations that would otherwise corrupt Check 3. (When this report was written the validator hardcoded `awn4:4.0` and relied on `wn.add()`, which silently skips an already-installed version.)
 2. Loads OEWN via `wn.Wordnet('oewn:2024')` from the local SQLite cache.
 3. Runs all 8 checks in sequence, sharing a single data-loading pass.
 4. Check 3 pre-builds a `set` of 271,752 `(src_id, rel_type, tgt_id)` triples from AWN4, then scans all OEWN translated synsets in one pass — total ~7 seconds.
@@ -274,7 +275,7 @@ python scripts/validate_awn4.py --save
 > **Note:** This addendum documents issues found in the original 109,901-synset AWN4.
 > All issues described here have been resolved in the updated AWN4 (120,630 synsets).
 > The `similar` relation loss (92.5%) no longer applies — AWN4 now has 23,188 similar triples (100% parity).
-> The 9 missing hub verbs have all been translated. See `experiments/dict_evidence_retrieval/AWN4_OEWN_DISCREPANCIES.md` for the full resolution record.
+> The 9 missing hub verbs have all been translated. See [`AWN4_OEWN_DISCREPANCIES.md`](https://github.com/Salah-Sal/arabic-wordnet-v4/blob/explore/linguistic-resources/experiments/dict_evidence_retrieval/AWN4_OEWN_DISCREPANCIES.md) (branch `explore/linguistic-resources`) for the full resolution record.
 
 Additional analysis performed using `wn` 1.0.0 with `expand=''` against the live SQLite cache.
 
@@ -322,17 +323,26 @@ AWN4 retained 98–100% of each hub's children, but since the hub synsets themse
 
 ---
 
-### ILI-Free Synset Breakdown: Custom vs Inherited
+### ILI-Free Synset Breakdown
 
-Check 2 reported 3,123 synsets without ILI. These break down into two distinct categories:
+> **Correction (2026-10-28):** an earlier version of this section labelled the 8x/9x
+> synsets "AWN4-custom additions … with no OEWN counterpart". That was wrong. Every
+> one of them is an OEWN 2024 synset: OEWN has 2,961 synsets in the 8x/9x ID range
+> and none of them has an ILI. Check 1 (0 ghost synsets) and Check 2 (every ILI-free
+> AWN4 synset is ILI-free in OEWN too) say the same. AWN4 contains no Arabic-specific
+> synsets.
+
+Check 2 reported 3,123 synsets without ILI, all inherited from OEWN:
 
 | Category | Count | Description |
 |----------|-------|-------------|
-| AWN4-custom additions (8x/9x ID prefix) | **2,933** | Arabic-specific concepts with no OEWN counterpart |
-| OEWN-inherited ILI-free (0x–7x ID prefix) | **190** | Synsets OEWN itself has not assigned an ILI |
+| 8x/9x ID prefix | **2,933** | OEWN synsets in the ID range OEWN has not linked to the ILI |
+| 0x–7x ID prefix | **190** | Older OEWN synsets that OEWN has not assigned an ILI |
 | **Total** | **3,123** | |
 
-The 2,933 custom synsets represent Arabic-specific conceptual enrichment — concepts present in Arabic lexicography that do not map to any existing ILI node. These cannot be cross-referenced in inter-lingual queries and represent structural isolation from the broader multilingual WordNet ecosystem.
+After the 4.1 update the figures are 2,961 + 255 = 3,216, again exactly OEWN 2024's
+own ILI-free count. These synsets cannot be reached through inter-lingual (ILI)
+queries until OEWN links them.
 
 ---
 
